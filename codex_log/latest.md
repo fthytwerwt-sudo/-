@@ -9,19 +9,16 @@
 
 ## 最近一次完成了什么
 
-- 新建了 `codex_log/README.md`、`codex_log/latest.md` 和首条基线日志。
-- 在 `AGENTS.md` 与 `codex_source/01_execution_rules.md` 中补入了“执行后必须写入 `codex_log/`”规则。
+- 已固定新 Codex 会话默认最小接手集合：`AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md`；若任务偏执行规则，再补读 `codex_source/01_execution_rules.md`。
+- 已固定仓库型任务在形成可判断小闭环后，默认先更新 `codex_log/latest.md`、命中条件时补完整日志，再 commit 并 push 当前分支 / 当前 PR，供 ChatGPT 直接去 GitHub 复审。
 
 ## 当前最关键的下一步
 
-- 从下一轮开始，凡是仓库型改动，默认在新分支上执行，并在完成后新增一条 `codex_log/YYYYMMDD_task_name.md` 日志，同时刷新 `codex_log/latest.md`。
+- 后续仓库型任务继续在功能分支推进；每轮一旦形成可判断小闭环，就先更新 `codex_log/latest.md`，再按规则 commit、push 并交给 ChatGPT 复审。
 
 ## 新会话接手建议先读
 
 - `AGENTS.md`
-- `project_source/06_project_index.md`
 - `codex_source/00_codex_readme.md`
-- `codex_source/01_execution_rules.md`
 - `codex_log/latest.md`
-- `codex_log/20260328_github_baseline_history.md`
-- `codex_source/05_runtime_and_artifact_rules.md`
+- 若任务偏执行规则，再补读 `codex_source/01_execution_rules.md`
