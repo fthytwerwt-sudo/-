@@ -95,30 +95,23 @@
 - 执行前必须读取 `project_source/`
 - 但 `project_source/` 不能被当成执行单正文
 
-## 4. 新任务进入时的默认阅读顺序
+## 4. 新会话最小接手入口
 
-当前仓库中，Codex 接到任务后的默认阅读顺序是：
+新 Codex 会话进入当前仓库后，默认先读这 3 个文件：
 
-1. 根目录 `AGENTS.md`
-2. 当前仓库是否存在本地 `skills/`
-3. 若本地没有相关 skill，则检查全局 `~/.codex/skills`
-4. `project_source/06_project_index.md`
-5. 与当前任务直接相关的 `project_source/*`
-6. `codex_source/02_codex_index.md`
-7. 与当前任务直接相关的 `codex_source/*`
-8. 若任务涉及真实链路，再读相关代码、测试与现有产物
+1. `AGENTS.md`
+2. `codex_source/00_codex_readme.md`
+3. `codex_log/latest.md`
 
-当前仓库已知事实：
+这 3 个文件构成当前仓库的最小接手入口。
 
-- 已检查到仓库内无本地 `skills/` 目录
-- 因此实际执行时默认需要检查全局相关 skill
+补充规则：
 
-默认不得跳过：
-
-- `AGENTS.md`
-- skill 检查
-- `project_source/*`
-- 与当前任务直接相关的 `codex_source/*`
+- 若任务明显偏执行规则，再补读 `codex_source/01_execution_rules.md`
+- 若任务明显偏项目判断或内容边界，再补读相关 `project_source/*`
+- 若任务涉及真实代码、测试或产物，再继续读对应代码、测试与现有产物
+- 若任务依赖 skill，则进入实际执行前检查当前仓库本地 `skills/`；若本地没有相关 skill，再检查全局 `~/.codex/skills`
+- 若仓库型任务已形成可判断小闭环，默认先更新 `codex_log/latest.md`，再 commit 并 push 当前分支，供 ChatGPT 复审
 
 ## 5. 任务冲突时的默认裁决顺序
 
@@ -243,4 +236,4 @@
 
 如果 Codex 这轮只记一句话：
 
-**先读 `AGENTS.md`，再检查相关 skill，再读 `project_source/` 与相关 `codex_source/`；若命中仓库型任务，默认走 GitHub / PR 线路，无法安全推进就先停下汇报。**
+**新会话默认先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md`；若任务偏执行规则，再补读 `codex_source/01_execution_rules.md`；命中仓库型任务默认走 GitHub / PR 线路，无法安全推进就先停下汇报。**

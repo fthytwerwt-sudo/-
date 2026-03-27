@@ -56,39 +56,22 @@
 - 这组约束只代表当前最小 demo 锚点
 - 不得把它们写成整个项目未来永久只能如此
 
-## 4. 默认读取顺序
+## 4. 默认最小接手集合
 
-Codex 进入当前仓库后，默认按两层顺序读取。
-
-### 第一层：顶层定向
-
-所有任务默认先读：
+新 Codex 会话进入当前仓库后，默认最小接手集合固定为：
 
 1. `AGENTS.md`
-2. `project_source/06_project_index.md`
-3. `codex_source/00_codex_readme.md`
+2. `codex_source/00_codex_readme.md`
+3. `codex_log/latest.md`
 
-这一步的目标是先判层，不要还没分清项目脑、执行层、代码层就直接动手。
+这 3 个文件用于完成最小启动，不再默认依赖用户手动复制长背景，也不把聊天记忆当主接手源。
 
-### 第二层：按任务类型继续读取
+补充规则：
 
-若任务偏项目判断、内容结构、边界判断，继续优先读：
-
-- `project_source/00_project_brief.md`
-- 以及与当前任务直接相关的 `project_source/*`
-
-若任务偏执行规则、运行链路、验证口径、交付方式，继续优先读：
-
-- `codex_source/01_execution_rules.md`
-- `codex_source/05_runtime_and_artifact_rules.md`
-- 以及与当前任务直接相关的 `codex_source/*`
-
-若任务命中真实代码、测试或产物，再继续读对应代码、测试和现有产物。
-
-若任务依赖 skill，则进入实际执行前仍要按执行层规则检查：
-
-- 当前仓库本地 `skills/`
-- 若本地没有相关 skill，再检查全局 `~/.codex/skills`
+- 若任务明显偏执行规则，再补读 `codex_source/01_execution_rules.md`
+- 若任务明显偏项目判断、内容边界或场景结构，再补读 `project_source/06_project_index.md` 与相关 `project_source/*`
+- 若任务命中真实代码、测试或产物，再继续读对应代码、测试和现有产物
+- 若任务依赖 skill，则进入实际执行前仍要检查当前仓库本地 `skills/`；若本地没有相关 skill，再检查全局 `~/.codex/skills`
 
 ## 5. 仓库型任务默认线路
 
@@ -113,6 +96,45 @@ Codex 进入当前仓库后，默认按两层顺序读取。
 
 - 如果当前仓库还没有完成第一次 GitHub baseline 同步，允许把首次 baseline 同步作为例外先推到 `main`
 - 一旦 baseline 建立，后续仓库改动默认不得直接 push `main`
+
+## 5A. 仓库型任务执行后默认写执行日志
+
+命中仓库型任务且本轮出现真实执行结果时，结束前必须把结果落入 `codex_log/`，不能只停在聊天汇报。
+
+至少遵守以下规则：
+
+- `codex_log/` 是执行日志目录，不放进 `project_source/`
+- `codex_log/latest.md` 永远保留最近一次执行的简版交接摘要
+- 每次完成真实执行后，新增一条 `codex_log/YYYYMMDD_任务名.md`
+- 若本轮改了仓库文件、跑了命令、生成了产物、完成了 commit / push / PR，或形成了新的阻塞点 / 交接点，就必须写日志
+- 若只有纯读取、无修改、无执行、无新结论，可以不写日志
+- 新聊天框 / 新 Codex 会话接手仓库型任务时，默认先读 `AGENTS.md`、相关 `codex_source/*` 关键文件和 `codex_log/latest.md`
+
+## 5B. 可判断小闭环后默认同步当前分支，供 ChatGPT 复审
+
+命中仓库型任务时，只要本轮已经形成“可判断的小闭环”，默认把这轮结果同步到 GitHub，供 ChatGPT 直接去看当前分支 / 当前 PR 的最新状态。
+
+默认同步动作至少包括：
+
+1. 先更新 `codex_log/latest.md`
+2. 命中写日志条件时，同时补完整日志
+3. commit 当前分支改动
+4. push 到当前工作分支 / 当前 PR
+
+必须明确：
+
+- 这不是每轮都 merge
+- 这不是每轮都 push `main`
+- 默认 push 的对象是当前工作分支 / 当前 PR，不是 `main`
+- 如果要让 ChatGPT 看这一轮最新结果，必须先把这一轮结果 push 到 GitHub
+
+可以暂不 push 的情况：
+
+- 当前仍是半成品
+- 改动边界还在摇摆
+- 还没形成可判断的小闭环
+- 日志还没更新
+- 本轮只有纯读取、无改动、无新结论
 
 ## 6. 真实性与失败处理
 
@@ -146,4 +168,4 @@ Codex 进入当前仓库后，默认按两层顺序读取。
 
 如果 Codex 这轮只记一句话：
 
-**先读 `AGENTS.md`、`project_source/06_project_index.md`、`codex_source/00_codex_readme.md` 完成顶层定向；再按任务类型进入项目脑或执行层；命中仓库型任务默认走 GitHub / PR 线路；无法安全推进时先停下并如实汇报。**
+**新会话先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md` 完成最小启动；若任务偏执行规则，再补读 `codex_source/01_execution_rules.md`；命中仓库型任务默认走 GitHub / PR 线路，无法安全推进时先停下并如实汇报。**
