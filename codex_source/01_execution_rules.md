@@ -28,10 +28,12 @@ Codex 每次接到任务，默认按以下顺序读取：
 2. 当前仓库内是否存在本地 `skills/`
 3. 若本地无相关 skill，则检查全局 `~/.codex/skills`
 4. `project_source/06_project_index.md`
-5. 与当前任务直接相关的 `project_source/*`
-6. `codex_source/02_codex_index.md`
-7. 与当前任务直接相关的 `codex_source/*`
-8. 若任务涉及真实运行链路，再读相关代码、测试与现有产物
+5. `codex_source/00_codex_readme.md`
+6. 与当前任务直接相关的 `project_source/*`
+7. `codex_source/01_execution_rules.md`
+8. 与当前任务直接相关的 `codex_source/*`
+9. 若需要执行层内部补充导航，再读 `codex_source/02_codex_index.md`
+10. 若任务涉及真实运行链路，再读相关代码、测试与现有产物
 
 当前仓库已确认事实：
 
@@ -39,7 +41,12 @@ Codex 每次接到任务，默认按以下顺序读取：
 
 因此当前项目的实际默认流程是：
 
-`AGENTS.md` → 本地 skill 检查 → 全局 skill 检查 → `project_source/*` → `codex_source/*` → 代码 / 产物
+`AGENTS.md` → 本地 skill 检查 → 全局 skill 检查 → `project_source/06_project_index.md` → `codex_source/00_codex_readme.md` → 相关 `project_source/*` → 相关 `codex_source/*` → 代码 / 产物
+
+补充说明：
+
+- `codex_source/02_codex_index.md` 仍可作为执行层内部补充索引使用
+- 但它不属于顶层默认入口的一部分
 
 ## 3. EXEC-002 层级判断
 

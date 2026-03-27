@@ -3,7 +3,8 @@
 ## 当前项目执行状态
 
 - 当前仓库已完成 GitHub baseline，同步到 `origin/main`。
-- 当前分支是 `main`，并已跟踪 `origin/main`。
+- GitHub baseline 分支为 `main`，且 `main` 已跟踪 `origin/main`。
+- 后续仓库型任务默认在新分支推进，而不是长期直接在 `main` 上执行。
 - 顶层入口规则、GitHub 协作基线和执行日志机制都已在仓库内落位。
 
 ## 最近一次完成了什么
