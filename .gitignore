@@ -1,0 +1,10 @@
+node_modules/
+.DS_Store
+
+# Keep reviewable text samples in dist/, but ignore generated binaries/intermediates.
+dist/demo/*.mp3
+dist/demo/*.mp4
+dist/demo/*.wav
+dist/demo/*.aiff
+dist/demo/manifest.json
+dist/demo/segment_*
