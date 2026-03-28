@@ -2,23 +2,29 @@
 
 ## 当前项目执行状态
 
-- 当前仓库已完成 GitHub baseline，同步到 `origin/main`。
-- GitHub baseline 分支为 `main`，且 `main` 已跟踪 `origin/main`。
-- 后续仓库型任务默认在新分支推进，而不是长期直接在 `main` 上执行。
-- 顶层入口规则、GitHub 协作基线和执行日志机制都已在仓库内落位。
+- 当前仓库已完成 GitHub baseline，后续仓库型任务继续默认在功能分支推进，而不是直接改 `main`。
+- 当前仓库新增了“用户可讨论定位层”，用于帮助非技术用户判断问题落在哪一层，并更准确地向 ChatGPT 描述修改点。
+- 原有三层分工保持不变：
+  - `project_source/` 负责项目脑
+  - `codex_source/` 负责执行层
+  - `codex_log/` 负责执行日志
 
 ## 最近一次完成了什么
 
-- 已固定新 Codex 会话默认最小接手集合：`AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md`；若任务偏执行规则，再补读 `codex_source/01_execution_rules.md`。
-- 已固定仓库型任务在形成可判断小闭环后，默认先更新 `codex_log/latest.md`、命中条件时补完整日志，再 commit 并 push 当前分支 / 当前 PR，供 ChatGPT 直接去 GitHub 复审。
+- 已新增 `project_source/07_user_readable_repo_map.md`，用中文人话说明仓库关键文件、常见表面现象、问题更像落在哪一层，以及用户该怎么向 ChatGPT 描述问题。
+- 已新增 `codex_source/01_execution_rules.user_guide.md`，把原执行规则翻成用户可读说明，帮助理解读取顺序、分支 / PR 线路、日志规则、push 节奏与验证口径。
+- 已补写完整执行日志：`codex_log/20260329_user_readable_repo_map.md`。
 
 ## 当前最关键的下一步
 
-- 后续仓库型任务继续在功能分支推进；每轮一旦形成可判断小闭环，就先更新 `codex_log/latest.md`，再按规则 commit、push 并交给 ChatGPT 复审。
+- 后续与 ChatGPT 讨论修改点时，先用 `project_source/07_user_readable_repo_map.md` 判断问题更像边界、结构、文案、节奏、画面、执行还是产物。
+- 如果用户感觉“流程不对 / push 节奏不对 / 不知道该不该走 PR”，优先看 `codex_source/01_execution_rules.user_guide.md`，再决定是否进入原规则文件核对。
 
 ## 新会话接手建议先读
 
 - `AGENTS.md`
 - `codex_source/00_codex_readme.md`
 - `codex_log/latest.md`
-- 若任务偏执行规则，再补读 `codex_source/01_execution_rules.md`
+- 若任务偏用户定位与协作表达，补读 `project_source/07_user_readable_repo_map.md`
+- 若任务偏执行流程判断，补读 `codex_source/01_execution_rules.user_guide.md`
+- 若需要核对原执行硬规则，再补读 `codex_source/01_execution_rules.md`
