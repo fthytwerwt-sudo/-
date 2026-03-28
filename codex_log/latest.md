@@ -18,16 +18,12 @@
 
 ## 最近一次完成了什么
 
-- 已把项目口径正式收束为“个人内部使用的、Prompt 驱动的、Codex 可执行的视频内核”，并明确当前不按前端页面 / 工作台优先推进。
-- 已同步修改：
-  - `project_source/00_project_brief.md`
-  - `project_source/01_project_system_prompt.md`
-  - `project_source/03_perplexity_prompt_library.md`
-  - `project_source/06_project_index.md`
-  - `codex_source/00_codex_readme.md`
-  - `codex_source/01_execution_rules.md`
-- 已补写完整执行日志：`codex_log/20260329_prompt_driven_internal_positioning.md`。
-- 本轮结果已 commit 并 push 到当前工作分支，供 ChatGPT 复审。
+- 已在当前分支已有定位统一基础上，再做一轮最小口径补丁。
+- 已把 `project_source/00_project_brief.md` 的“持续优化主线”进一步补明为：
+  - `Prompt 驱动 -> ChatGPT 收束 -> Codex 执行 -> 出片 -> 回审`
+- 已把 `project_source/01_project_system_prompt.md` 的停止线进一步补明为：
+  - 不把项目误写成面向外部客户的产品
+- 已补写完整执行日志：`codex_log/20260329_minimal_positioning_patch.md`。
 
 ## 当前最关键的下一步
 
