@@ -4,6 +4,7 @@
 
 - 当前仓库已完成 GitHub baseline，后续仓库型任务继续默认在功能分支推进，而不是直接改 `main`。
 - 当前仓库新增了“用户可讨论定位层”，用于帮助非技术用户判断问题落在哪一层，并更准确地向 ChatGPT 描述修改点。
+- 当前本地分支是 `codex/user-readable-map`，本轮文档改动已经本地 commit，但远端分支尚未确认建立。
 - 原有三层分工保持不变：
   - `project_source/` 负责项目脑
   - `codex_source/` 负责执行层
@@ -19,6 +20,7 @@
 
 - 后续与 ChatGPT 讨论修改点时，先用 `project_source/07_user_readable_repo_map.md` 判断问题更像边界、结构、文案、节奏、画面、执行还是产物。
 - 如果用户感觉“流程不对 / push 节奏不对 / 不知道该不该走 PR”，优先看 `codex_source/01_execution_rules.user_guide.md`，再决定是否进入原规则文件核对。
+- 若要让 ChatGPT 直接从 GitHub 复审本轮结果，下一步先解决 `codex/user-readable-map` 的 push 验证，再确认远端分支是否已经出现。
 
 ## 新会话接手建议先读
 

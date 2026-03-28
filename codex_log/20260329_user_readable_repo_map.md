@@ -59,6 +59,9 @@
 - 补读项目脑索引、项目 brief、回审模板与运行 / 产物规则，避免把“用户说明层”写成空泛摘要。
 - 检查本地 / 全局 skill，并确认本轮以仓库事实和说明层落地为主，不改原规则含义。
 - 在新分支 `codex/user-readable-map` 上落两份用户说明文件，并同步更新 `codex_log/latest.md`。
+- 已完成本地 commit：
+  - `3345c3b docs: add user-readable repo guides`
+- 随后尝试以非交互方式 push 当前分支，并额外用 `git ls-remote` 验证远端状态。
 
 ## 6. 当前结果
 
@@ -67,9 +70,12 @@
 - 当前仓库已新增一份执行规则用户说明：
   - 帮用户理解为什么仓库型任务会先读文件、走分支、写日志、在小闭环后 push 当前分支。
 - 原 `codex_source/01_execution_rules.md` 的规则含义未被改写。
+- 当前本地分支 `codex/user-readable-map` 已完成 commit，但截至本轮记录时，远端 `origin/codex/user-readable-map` 尚未确认建立。
+- 已确认 `origin` 可读、`origin/main` 可访问，但 push 阶段未拿到“远端分支已建立”的验证证据，因此本轮不能写成“已 push 成功”。
 
 ## 7. 下一步建议
 
 - 后续与 ChatGPT 协作时，优先先用 `project_source/07_user_readable_repo_map.md` 定位问题层级，再决定进入哪一层细聊。
 - 若用户觉得问题在仓库推进方式，而不是内容本身，优先看 `codex_source/01_execution_rules.user_guide.md`。
 - 若后续要继续整理执行层导航，可单独评估是否同步更新仍带早期状态表述的 `codex_source/02_codex_index.md`，本轮未改它。
+- 若需要把本轮结果同步到 GitHub 供 ChatGPT 复审，下一步应优先在可交互认证终端重试 `git push -u origin codex/user-readable-map`，并再次用 `git ls-remote --heads origin refs/heads/codex/user-readable-map` 验证远端分支是否出现。
