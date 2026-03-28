@@ -10,6 +10,7 @@
   - 视频内核优先
   - 前端页面不是当前阶段重点
 - 当前仓库仍保留“用户可讨论定位层”，用于帮助非技术用户判断问题落在哪一层，并更准确地向 ChatGPT 描述修改点。
+- 当前工作分支 `codex/user-readable-map` 已同步到 `origin/codex/user-readable-map`。
 - 原有三层分工保持不变：
   - `project_source/` 负责项目脑
   - `codex_source/` 负责执行层
@@ -26,6 +27,7 @@
   - `codex_source/00_codex_readme.md`
   - `codex_source/01_execution_rules.md`
 - 已补写完整执行日志：`codex_log/20260329_prompt_driven_internal_positioning.md`。
+- 本轮结果已 commit 并 push 到当前工作分支，供 ChatGPT 复审。
 
 ## 当前最关键的下一步
 
