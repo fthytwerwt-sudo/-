@@ -25,6 +25,7 @@
   - `AGENTS.md`
   - `codex_source/00_codex_readme.md`
   - `codex_source/01_execution_rules.md`
+- 已完成 commit 并 push 当前分支 `codex/user-readable-map`，供后续直接复审。
 - 已补写完整执行日志：`codex_log/20260330_execution_gate_and_parallel_rules.md`。
 
 ## 当前最关键的下一步

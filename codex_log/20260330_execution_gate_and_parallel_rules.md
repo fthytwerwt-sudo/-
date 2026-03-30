@@ -83,10 +83,12 @@
 - `AGENTS.md` 已补最小入口说明。
 - `codex_log/latest.md` 已刷新。
 - 本轮完整日志已补入 `codex_log/20260330_execution_gate_and_parallel_rules.md`。
+- 已完成 commit：`3c5a254 docs: add execution gate and parallel rules`。
+- 已 push 到 `origin/codex/user-readable-map`。
 - 本轮未改 `project_source/*`、代码文件、测试文件，也未改 `codex_source/05_runtime_and_artifact_rules.md`。
 
 ## 7. 下一步建议
 
 - 后续若再出现“什么时候才允许下发 Codex”“什么能自动补全”“是否适合多工位并行”的判断，先统一回到 `codex_source/06_execution_gate_and_parallel_rules.md`。
 - 若未来确实需要把协作适配层单独成文，可再新增 `project_source/07_collaboration_adaptation_rules.md`，并与现有 `project_source/07_user_readable_repo_map.md` 分工清楚。
-- 本轮已形成可判断小闭环，后续若要给 ChatGPT 复审当前分支，应继续按仓库规则完成 commit 与 push。
+- 本轮结果已同步到当前工作分支，后续可直接基于远端分支继续回审或拆下一轮小闭环。
