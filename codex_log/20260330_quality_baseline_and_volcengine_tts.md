@@ -81,6 +81,8 @@
 - Codex 侧现在已经正式把“demo 不是质量参考件”写入执行层。
 - Codex 侧现在已经正式把“90 分标准是内部简称，不是平台官方规则”写入执行层。
 - Codex 侧现在已经正式把“当前第一优先质量增强路线是火山引擎 TTS API，且当前只先接 TTS”写入执行层。
+- 已完成 commit：`0fd9244 docs: define quality baseline`
+- 已 push 到 `origin/codex/user-readable-map`
 
 ## 10. 下一步建议
 
