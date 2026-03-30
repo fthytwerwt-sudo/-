@@ -70,6 +70,9 @@
 
 - 若任务明显偏执行规则，再补读 `codex_source/01_execution_rules.md`
 - 若任务明显偏项目判断、内容边界或场景结构，再补读 `project_source/06_project_index.md` 与相关 `project_source/*`
+- 若任务命中协作方式、自动补全边界、下发闸门或并行执行判断，则除最小接手集合外，再补读：
+  - `project_source/07_collaboration_adaptation_rules.md`（若存在）
+  - `codex_source/06_execution_gate_and_parallel_rules.md`
 - 若任务命中真实代码、测试或产物，再继续读对应代码、测试和现有产物
 - 若任务依赖 skill，则进入实际执行前仍要检查当前仓库本地 `skills/`；若本地没有相关 skill，再检查全局 `~/.codex/skills`
 

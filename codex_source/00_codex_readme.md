@@ -109,6 +109,9 @@
 
 - 若任务明显偏执行规则，再补读 `codex_source/01_execution_rules.md`
 - 若任务明显偏项目判断或内容边界，再补读相关 `project_source/*`
+- 若任务命中协作方式调整、自动补全边界、是否进入执行或是否适合并行，则除默认入口外，再补读：
+  - `project_source/07_collaboration_adaptation_rules.md`（若存在）
+  - `codex_source/06_execution_gate_and_parallel_rules.md`
 - 若任务涉及真实代码、测试或产物，再继续读对应代码、测试与现有产物
 - 若任务依赖 skill，则进入实际执行前检查当前仓库本地 `skills/`；若本地没有相关 skill，再检查全局 `~/.codex/skills`
 - 若仓库型任务已形成可判断小闭环，默认先更新 `codex_log/latest.md`，再 commit 并 push 当前分支，供 ChatGPT 复审
@@ -196,6 +199,8 @@
   - 读取顺序、执行边界、skill 硬规则、汇报规则
 - `codex_source/05_runtime_and_artifact_rules.md`
   - 当前最小闭环的真实输入、依赖、运行链路、产物与成功判定
+- `codex_source/06_execution_gate_and_parallel_rules.md`
+  - 顶层收口闸门、自动补全边界与多 Codex 并行规则
 
 ## 9. 当前最优先要遵守的执行原则
 
