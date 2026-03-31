@@ -21,7 +21,7 @@ from formal_api_demo_core import (  # noqa: E402
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="正式版 API 视频 demo 生成骨架。当前仅支持契约、Gate 和 dry-run。"
+        description="正式版 API 视频 demo 生成入口。当前阶段只接 TTS probe，不接视觉和云端组装。"
     )
     parser.add_argument("--input", type=pathlib.Path, default=FORMAL_CASE_PATH)
     parser.add_argument(

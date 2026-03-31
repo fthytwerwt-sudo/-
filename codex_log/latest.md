@@ -6,6 +6,7 @@
 - 当前项目已进入“正式版目标态搭建阶段”：
   - 正式版目标态文件已落入执行层
   - 正式版最小骨架、输入输出契约与 Gate 校验框架已开始落仓库
+  - 当前已进入 TTS 真实接通阶段，但本轮只验证 TTS，不代表整条正式视频链路已跑通
   - 但正式版云端链路仍不能视为已跑通
 - 当前仓库已明确项目正式口径：
   - 个人内部使用
@@ -28,6 +29,16 @@
 
 ## 最近一次完成了什么
 
+- 已把正式版 generation 收窄到“TTS probe”：
+  - local 私有配置已支持方舟 API Key、TTS model / endpoint、voice、response_format
+  - generation_gate 已改成以 TTS 为主判断 `success / blocked / failed`
+  - generation pipeline 已支持在前提齐时发起真实 TTS probe，在前提不足时明确 blocked
+- 已在本地创建 `config/formal_api_demo.local.toml` 模板：
+  - 该文件只存在本地、不会进入 git
+  - 当前默认仍为空值占位，因此本轮真实 probe 结果是 blocked，而不是 success
+- 已新增和更新测试：
+  - 验证缺 API Key、缺 model / endpoint、failed / success 分支
+  - 现有 dry-run 路径保持不被破坏
 - 已落正式版最小骨架：
   - `cases/formal_api_demo.md`
   - `config/formal_api_demo.example.toml`
@@ -55,7 +66,7 @@
 
 ## 当前最关键的下一步
 
-- 若后续继续执行正式版主线，应在当前骨架基础上补齐本地私有配置与火山真实前提，再开始接入真实 provider 调用。
+- 若后续继续执行正式版主线，应先在 `config/formal_api_demo.local.toml` 中补齐方舟 API Key、可调用的 TTS model / endpoint 标识和 voice，再重跑一次真实 TTS probe。
 - 在火山凭证、空间名、资源存储配置、关键接口可用性未补齐前，不得把正式版云端链路写成已跑通。
 - 若后续继续做仓库型小闭环，仍按“先更新日志，再 commit / push 当前分支，供 ChatGPT 复审”推进。
 
@@ -68,6 +79,7 @@
 - 若任务偏正式版 API demo / 目标态 / 云端组装 / 修正循环 / 质量达标反推，再补读：
   - `cases/formal_api_demo.md`
   - `config/formal_api_demo.example.toml`
+  - `config/formal_api_demo.local.toml`（若本地存在，仅本地读取，不进 git）
   - `formal_api_demo_core.py`
   - `scripts/generate_formal_api_demo.py`
   - `scripts/assemble_formal_api_demo.py`

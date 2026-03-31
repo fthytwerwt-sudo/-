@@ -3,6 +3,7 @@ name = "volcengine"
 region = "cn-beijing"
 
 [auth]
+api_key = "SET_IN_LOCAL_FILE"
 access_key_id = "SET_IN_LOCAL_FILE"
 secret_access_key = "SET_IN_LOCAL_FILE"
 session_token = ""
@@ -10,8 +11,10 @@ app_id = "SET_IF_REQUIRED"
 
 [tts]
 model = "volc_tts_model_placeholder"
+endpoint_id = "SET_IF_ENDPOINT_REQUIRED"
 voice = "zh_female_placeholder"
 style = "knowledge"
+response_format = "mp3"
 
 [image_generation]
 enabled = true

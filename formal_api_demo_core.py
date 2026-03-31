@@ -5,6 +5,13 @@ import json
 import pathlib
 from typing import Any
 
+try:
+    import openai
+    from openai import OpenAI
+except ImportError:  # pragma: no cover - exercised only when dependency is absent.
+    openai = None
+    OpenAI = None
+
 
 ROOT = pathlib.Path(__file__).resolve().parent
 FORMAL_CASE_PATH = ROOT / "cases" / "formal_api_demo.md"
@@ -147,6 +154,7 @@ def run_generation_pipeline(
     )
 
     output_dir.mkdir(parents=True, exist_ok=True)
+    tts_probe = build_default_tts_probe(video_spec)
     manifest = build_manifest(
         input_path=input_path,
         video_spec=video_spec,
@@ -154,9 +162,35 @@ def run_generation_pipeline(
         generation_gate=generation_gate,
         output_dir=output_dir,
         dry_run=dry_run,
+        tts_probe=tts_probe,
     )
     manifest_path = output_dir / "manifest.json"
     generation_gate_path = output_dir / "generation_gate.json"
+
+    if dry_run:
+        tts_probe["current_missing_prerequisites"] = generation_gate["missing_prerequisites"]
+        manifest = apply_tts_probe_to_manifest(manifest, tts_probe, generation_gate)
+    elif generation_gate["status"] == STATUS_SUCCESS:
+        tts_probe = execute_tts_probe(
+            video_spec=video_spec,
+            config=config_bundle["config"],
+            output_dir=output_dir,
+        )
+        manifest = apply_tts_probe_to_manifest(manifest, tts_probe, generation_gate)
+    else:
+        blocked_probe = build_default_tts_probe(video_spec)
+        blocked_probe.update(
+            {
+                "status": generation_gate["status"],
+                "blocked_reason": generation_gate.get("blocked_reason", ""),
+                "failure_reason": generation_gate.get("failure_reason", ""),
+                "error_code": "",
+                "error_message": generation_gate.get("blocked_reason", ""),
+                "current_missing_prerequisites": generation_gate["missing_prerequisites"],
+            }
+        )
+        manifest = apply_tts_probe_to_manifest(manifest, blocked_probe, generation_gate)
+
     write_json(manifest_path, manifest)
     write_json(generation_gate_path, generation_gate)
 
@@ -222,7 +256,8 @@ def evaluate_generation_gate(
     dry_run: bool,
 ) -> dict[str, Any]:
     missing = _generation_missing_prerequisites(video_spec, config, has_local_config)
-    implementation_missing = ["provider_generation_implementation"]
+    implementation_missing: list[str] = []
+    failure_reason = ""
     checks = [
         {
             "name": "input_segments_present",
@@ -231,8 +266,29 @@ def evaluate_generation_gate(
         },
         {
             "name": "provider_selected",
-            "status": "pass" if _nested_get(config, "provider", "name") else "fail",
+            "status": "pass"
+            if _nested_get(config, "provider", "name") == "volcengine"
+            else "fail",
             "detail": f"provider={_nested_get(config, 'provider', 'name') or 'missing'}",
+        },
+        {
+            "name": "tts_api_key_present",
+            "status": "pass"
+            if not _is_missing_secret(_nested_get(config, "auth", "api_key"))
+            else "fail",
+            "detail": "方舟 TTS probe 只读取 local 配置中的 API Key。",
+        },
+        {
+            "name": "tts_model_or_endpoint_present",
+            "status": "pass" if _get_tts_model_identifier(config) else "fail",
+            "detail": "优先使用 endpoint_id；若未提供则退回 model。",
+        },
+        {
+            "name": "tts_voice_present",
+            "status": "pass"
+            if not _is_missing_secret(_nested_get(config, "tts", "voice"))
+            else "fail",
+            "detail": "当前 TTS probe 默认要求显式 voice，避免调用时隐式失败。",
         },
         {
             "name": "local_fallback_forbidden",
@@ -248,22 +304,39 @@ def evaluate_generation_gate(
         blocked_reason = ""
     elif missing:
         status = STATUS_BLOCKED
-        blocked_reason = "缺少正式生成前提：" + "、".join(missing)
-    else:
+        blocked_reason = "缺少 TTS probe 前提：" + "、".join(missing)
+    elif OpenAI is None:
+        status = STATUS_FAILED
+        blocked_reason = "本地缺少 openai Python SDK，无法发起方舟兼容调用。"
+        failure_reason = "missing_openai_sdk"
+        implementation_missing.append("openai_python_sdk")
+    elif _nested_get(config, "provider", "name") != "volcengine":
         status = STATUS_BLOCKED
-        blocked_reason = "正式 API 生成实现尚未接入，本轮只提供骨架与 Gate。"
+        blocked_reason = "当前 TTS probe 仅支持 volcengine 方舟兼容入口。"
+    else:
+        status = STATUS_SUCCESS
+        blocked_reason = ""
 
     return {
         "gate_name": "generation_gate",
         "status": status,
-        "allow_execution": not dry_run and not missing and False,
+        "scope": "tts_probe_only",
+        "allow_execution": not dry_run and status == STATUS_SUCCESS,
         "blocked_reason": blocked_reason,
+        "failure_reason": failure_reason,
         "missing_prerequisites": missing,
         "missing_implementations": implementation_missing,
+        "tts_target": {
+            "model_identifier": _get_tts_model_identifier(config),
+            "endpoint_id": _nested_get(config, "tts", "endpoint_id"),
+            "model": _nested_get(config, "tts", "model"),
+            "voice": _nested_get(config, "tts", "voice"),
+            "region": _nested_get(config, "provider", "region"),
+        },
         "checks": checks,
         "notes": [
+            "本轮 generation 只接 TTS，不接图像、视频和云端组装。",
             "dry-run 只验证输入、契约和 Gate，不调用远端。",
-            "即使后续补齐凭证，没有 provider 实现前也不得假装 success。",
         ],
     }
 
@@ -330,6 +403,7 @@ def build_manifest(
     generation_gate: dict[str, Any],
     output_dir: pathlib.Path,
     dry_run: bool,
+    tts_probe: dict[str, Any],
 ) -> dict[str, Any]:
     segments: list[dict[str, Any]] = []
     cursor = 0.0
@@ -353,6 +427,7 @@ def build_manifest(
                 },
                 "provider_plan": {
                     "tts_model": _nested_get(config, "tts", "model"),
+                    "tts_endpoint_id": _nested_get(config, "tts", "endpoint_id"),
                     "image_model": _nested_get(config, "image_generation", "model"),
                     "video_model": _nested_get(config, "video_generation", "model"),
                 },
@@ -411,6 +486,7 @@ def build_manifest(
             "region": _nested_get(config, "provider", "region"),
             "models": {
                 "tts": _nested_get(config, "tts", "model"),
+                "tts_endpoint_id": _nested_get(config, "tts", "endpoint_id"),
                 "image_generation": _nested_get(config, "image_generation", "model"),
                 "video_generation": _nested_get(config, "video_generation", "model"),
             },
@@ -430,6 +506,7 @@ def build_manifest(
             "task_id": None,
             "resource_id": None,
             "output_id": None,
+            "tts_probe": tts_probe,
         },
         "assembly": {
             "status": STATUS_NOT_STARTED,
@@ -460,27 +537,34 @@ def build_generation_result_summary(
     output_dir: pathlib.Path,
     dry_run: bool,
 ) -> dict[str, Any]:
-    status = STATUS_PLANNED if dry_run else generation_gate["status"]
+    tts_probe = manifest.get("generation", {}).get("tts_probe", {})
+    status = STATUS_PLANNED if dry_run else tts_probe.get("status", generation_gate["status"])
     return {
         "schema_version": RESULT_SUMMARY_SCHEMA_VERSION,
         "stage": "generation",
         "overall_status": status,
         "generation_status": status,
         "assembly_status": STATUS_NOT_STARTED,
+        "tts_probe_status": tts_probe.get("status", STATUS_NOT_STARTED),
+        "failure_reason": tts_probe.get("failure_reason", ""),
+        "error_message": tts_probe.get("error_message", ""),
         "machine_gate_result": {
             "generation_gate": generation_gate["status"],
             "assembly_gate": STATUS_NOT_STARTED,
         },
         "blocked_reason": ""
         if dry_run
-        else generation_gate.get("blocked_reason", ""),
+        else tts_probe.get("blocked_reason") or generation_gate.get("blocked_reason", ""),
         "artifact_paths": {
             "manifest": str(output_dir / "manifest.json"),
             "generation_gate": str(output_dir / "generation_gate.json"),
             "result_summary": str(output_dir / "result_summary.json"),
+            "tts_audio": tts_probe.get("audio_path"),
         },
         "next_action_hint": _generation_next_action_hint(generation_gate, dry_run),
-        "current_missing_prerequisites": generation_gate["missing_prerequisites"],
+        "current_missing_prerequisites": tts_probe.get(
+            "current_missing_prerequisites", generation_gate["missing_prerequisites"]
+        ),
         "known_issues": manifest["known_issues"],
     }
 
@@ -545,6 +629,105 @@ def build_assembly_result_summary(
         "current_missing_prerequisites": assembly_gate["missing_prerequisites"],
         "known_issues": manifest.get("known_issues", []),
     }
+
+
+def build_default_tts_probe(video_spec: dict[str, Any]) -> dict[str, Any]:
+    probe_text, probe_text_source = _select_tts_probe_text(video_spec)
+    return {
+        "status": STATUS_PLANNED,
+        "blocked_reason": "",
+        "failure_reason": "",
+        "error_code": "",
+        "error_message": "",
+        "audio_path": None,
+        "request_id": None,
+        "model_identifier": None,
+        "probe_text": probe_text,
+        "probe_text_source": probe_text_source,
+        "voice": None,
+        "used_endpoint_id": None,
+        "used_model_id": None,
+        "response_format": None,
+        "current_missing_prerequisites": [],
+    }
+
+
+def apply_tts_probe_to_manifest(
+    manifest: dict[str, Any],
+    tts_probe: dict[str, Any],
+    generation_gate: dict[str, Any],
+) -> dict[str, Any]:
+    manifest["generation"]["tts_probe"] = tts_probe
+    manifest["generation"]["status"] = tts_probe.get("status", manifest["generation"]["status"])
+    manifest["current_status"] = tts_probe.get("status", manifest["current_status"])
+    manifest["known_issues"] = _merge_known_issues(
+        _gate_known_issues(generation_gate),
+        _tts_probe_known_issues(tts_probe),
+    )
+    if manifest.get("segments"):
+        manifest["segments"][0]["output_slots"]["voice_uri"] = tts_probe.get("audio_path")
+        manifest["segments"][0]["task_slots"]["voice_task_id"] = tts_probe.get("request_id")
+        manifest["segments"][0]["current_status"] = tts_probe.get("status", manifest["segments"][0]["current_status"])
+    return manifest
+
+
+def execute_tts_probe(
+    video_spec: dict[str, Any],
+    config: dict[str, Any],
+    output_dir: pathlib.Path,
+) -> dict[str, Any]:
+    probe = build_default_tts_probe(video_spec)
+    model_identifier = _get_tts_model_identifier(config)
+    response_format = (_nested_get(config, "tts", "response_format") or "mp3").strip() or "mp3"
+    audio_path = output_dir / "tts" / f"voice_probe.{response_format}"
+    probe.update(
+        {
+            "model_identifier": model_identifier,
+            "voice": _nested_get(config, "tts", "voice"),
+            "used_endpoint_id": _nested_get(config, "tts", "endpoint_id"),
+            "used_model_id": _nested_get(config, "tts", "model"),
+            "response_format": response_format,
+        }
+    )
+
+    try:
+        client = OpenAI(
+            api_key=_nested_get(config, "auth", "api_key"),
+            base_url=_build_ark_base_url(config),
+        )
+        request_kwargs: dict[str, Any] = {
+            "model": model_identifier,
+            "voice": _nested_get(config, "tts", "voice"),
+            "input": probe["probe_text"],
+            "response_format": response_format,
+        }
+        style = _nested_get(config, "tts", "style")
+        if style:
+            request_kwargs["extra_body"] = {"style": style}
+
+        with client.audio.speech.with_streaming_response.create(**request_kwargs) as response:
+            audio_path.parent.mkdir(parents=True, exist_ok=True)
+            response.stream_to_file(str(audio_path))
+            probe.update(
+                {
+                    "status": STATUS_SUCCESS,
+                    "audio_path": str(audio_path),
+                    "request_id": _extract_request_id(response),
+                }
+            )
+    except Exception as exc:  # pragma: no cover - exercised in integration path.
+        status, failure_reason, error_code, error_message = _classify_tts_exception(exc, config)
+        probe.update(
+            {
+                "status": status,
+                "blocked_reason": error_message if status == STATUS_BLOCKED else "",
+                "failure_reason": failure_reason,
+                "error_code": error_code,
+                "error_message": error_message,
+            }
+        )
+
+    return probe
 
 
 def write_json(path: pathlib.Path, payload: dict[str, Any]) -> None:
@@ -673,24 +856,14 @@ def _generation_missing_prerequisites(
     missing: list[str] = []
     if not has_local_config:
         missing.append("local_config_file")
-    if _is_missing_secret(_nested_get(config, "auth", "access_key_id")):
-        missing.append("access_key_id")
-    if _is_missing_secret(_nested_get(config, "auth", "secret_access_key")):
-        missing.append("secret_access_key")
-    if _is_missing_secret(_nested_get(config, "storage", "space_name")):
-        missing.append("space_name")
+    if _is_missing_secret(_nested_get(config, "auth", "api_key")):
+        missing.append("api_key")
     if _is_missing_secret(_nested_get(config, "provider", "region")):
         missing.append("provider_region")
-    if not _nested_get(config, "tts", "model"):
-        missing.append("tts_model")
-    if any(segment["needs_image"] for segment in video_spec["segments"]) and not _nested_get(
-        config, "image_generation", "model"
-    ):
-        missing.append("image_generation_model")
-    if any(segment["needs_video"] for segment in video_spec["segments"]) and not _nested_get(
-        config, "video_generation", "model"
-    ):
-        missing.append("video_generation_model")
+    if not _get_tts_model_identifier(config):
+        missing.append("tts_model_or_endpoint")
+    if _is_missing_secret(_nested_get(config, "tts", "voice")):
+        missing.append("tts_voice")
     return missing
 
 
@@ -748,12 +921,25 @@ def _gate_known_issues(gate: dict[str, Any]) -> list[str]:
     return issues
 
 
+def _tts_probe_known_issues(tts_probe: dict[str, Any]) -> list[str]:
+    issues: list[str] = []
+    if tts_probe.get("status") == STATUS_BLOCKED and tts_probe.get("blocked_reason"):
+        issues.append("TTS probe blocked：" + tts_probe["blocked_reason"])
+    if tts_probe.get("status") == STATUS_FAILED and tts_probe.get("error_message"):
+        issues.append("TTS probe failed：" + tts_probe["error_message"])
+    if tts_probe.get("status") == STATUS_SUCCESS:
+        issues.append("当前仅验证 TTS 调用已接通，未覆盖视觉生成与云端组装。")
+    return issues
+
+
 def _generation_next_action_hint(gate: dict[str, Any], dry_run: bool) -> str:
     if dry_run:
-        return "当前为 dry-run；下一步应补齐 local 配置和 provider 实现后再尝试非 dry-run。"
+        return "当前为 dry-run；下一步应补齐 local 配置中的方舟 API Key、可调用 model/endpoint 和 voice 后再尝试真实 TTS probe。"
     if gate["missing_prerequisites"]:
-        return "先补齐 local 配置、凭证和存储参数，再进入真实 API 接入。"
-    return "补齐正式 provider 实现后，再进入真实生成联调。"
+        return "先补齐 local 配置中的 API Key、TTS model/endpoint 和 voice，再进入真实 TTS probe。"
+    if gate["status"] == STATUS_FAILED:
+        return "先修复本地 TTS 调用环境，再重新执行真实 probe。"
+    return "当前已具备 TTS probe 前提；下一步可执行真实 TTS 调用并检查输出音频质量。"
 
 
 def _assembly_next_action_hint(gate: dict[str, Any], dry_run: bool) -> str:
@@ -762,3 +948,70 @@ def _assembly_next_action_hint(gate: dict[str, Any], dry_run: bool) -> str:
     if gate["missing_prerequisites"]:
         return "先补齐云端组装模板、空间配置和 local 配置，再进入真实组装联调。"
     return "补齐正式云端组装实现后，再进入首轮样片联调。"
+
+
+def _select_tts_probe_text(video_spec: dict[str, Any]) -> tuple[str, str]:
+    if video_spec.get("segments"):
+        return video_spec["segments"][0]["voiceover_text"], "segment_1_voiceover"
+    return video_spec["hook"], "hook"
+
+
+def _get_tts_model_identifier(config: dict[str, Any]) -> str | None:
+    endpoint_id = _nested_get(config, "tts", "endpoint_id")
+    if not _is_missing_secret(endpoint_id):
+        return str(endpoint_id).strip()
+    model = _nested_get(config, "tts", "model")
+    if not _is_missing_secret(model):
+        return str(model).strip()
+    return None
+
+
+def _build_ark_base_url(config: dict[str, Any]) -> str:
+    region = _nested_get(config, "provider", "region") or "cn-beijing"
+    return f"https://ark.{region}.volces.com/api/v3"
+
+
+def _classify_tts_exception(
+    exc: Exception,
+    config: dict[str, Any],
+) -> tuple[str, str, str, str]:
+    raw_message = _sanitize_message(str(exc), config)
+    error_code = exc.__class__.__name__
+
+    if openai is not None and isinstance(
+        exc,
+        (
+            openai.AuthenticationError,
+            openai.PermissionDeniedError,
+            openai.NotFoundError,
+            openai.BadRequestError,
+        ),
+    ):
+        return STATUS_BLOCKED, "ark_tts_request_blocked", error_code, raw_message
+    return STATUS_FAILED, "ark_tts_request_failed", error_code, raw_message
+
+
+def _sanitize_message(message: str, config: dict[str, Any]) -> str:
+    sanitized = message.strip()
+    api_key = _nested_get(config, "auth", "api_key")
+    if api_key:
+        sanitized = sanitized.replace(str(api_key), "***")
+    return sanitized[:500]
+
+
+def _extract_request_id(response: Any) -> str | None:
+    headers = getattr(response, "headers", None)
+    if headers is None and hasattr(response, "response"):
+        headers = getattr(response.response, "headers", None)
+    if headers is None:
+        return None
+    return headers.get("x-request-id") or headers.get("x-tt-logid")
+
+
+def _merge_known_issues(*issue_groups: list[str]) -> list[str]:
+    merged: list[str] = []
+    for issues in issue_groups:
+        for issue in issues:
+            if issue and issue not in merged:
+                merged.append(issue)
+    return merged
