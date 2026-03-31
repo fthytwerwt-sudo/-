@@ -29,6 +29,9 @@
 - 技术闭环已跑通
 - 当前重点是内容质量、结构稳定、场景清楚、可复用、可由 Codex 重复执行
 - 当前仍只围绕视频项目推进，不主动扩到直播、增长、售卖、商业化、大而全产品化
+- 当前执行层已进入“正式版目标态搭建阶段”：
+  - 要把正式版 API demo 的目标标准、云端主链、修正循环与接手入口正式写入仓库
+  - 这表示目标态规划已进入执行层，不表示正式版云端链路已经跑通
 
 当前 demo 是项目锚点，不是整个项目的永久定义。
 
@@ -70,6 +73,9 @@
 
 - 若任务明显偏执行规则，再补读 `codex_source/01_execution_rules.md`
 - 若任务明显偏项目判断、内容边界或场景结构，再补读 `project_source/06_project_index.md` 与相关 `project_source/*`
+- 若任务命中“正式版 API demo / 正式版目标态 / 云端组装 / 修正循环 / 质量达标反推”，则在最小接手集合之外补读：
+  - `codex_source/07_formal_api_demo_target_plan.md`
+  - 且必须明确：该文件是正式版目标态计划，不是当前仓库已跑通事实
 - 若任务命中协作方式、自动补全边界、下发闸门或并行执行判断，则除最小接手集合外，再补读：
   - `project_source/07_collaboration_adaptation_rules.md`（若存在）
   - `codex_source/06_execution_gate_and_parallel_rules.md`
@@ -171,4 +177,4 @@
 
 如果 Codex 这轮只记一句话：
 
-**新会话先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md` 完成最小启动；若任务偏执行规则，再补读 `codex_source/01_execution_rules.md`；命中仓库型任务默认走 GitHub / PR 线路，无法安全推进时先停下并如实汇报。**
+**新会话先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md` 完成最小启动；若任务偏执行规则，再补读 `codex_source/01_execution_rules.md`；若任务偏正式版 API demo 目标态，再补读 `codex_source/07_formal_api_demo_target_plan.md`；命中仓库型任务默认走 GitHub / PR 线路，无法安全推进时先停下并如实汇报。**

@@ -109,6 +109,9 @@
 
 - 若任务明显偏执行规则，再补读 `codex_source/01_execution_rules.md`
 - 若任务明显偏项目判断或内容边界，再补读相关 `project_source/*`
+- 若任务命中“正式版 API demo / 正式版目标态 / 云端组装 / 修正循环 / 质量达标反推”，则在默认入口之外补读：
+  - `codex_source/07_formal_api_demo_target_plan.md`
+  - 且必须明确：该文件定义的是正式版目标态，不是当前仓库已跑通事实
 - 若任务命中协作方式调整、自动补全边界、是否进入执行或是否适合并行，则除默认入口外，再补读：
   - `project_source/07_collaboration_adaptation_rules.md`（若存在）
   - `codex_source/06_execution_gate_and_parallel_rules.md`
@@ -201,6 +204,10 @@
   - 当前最小闭环的真实输入、依赖、运行链路、产物与成功判定
 - `codex_source/06_execution_gate_and_parallel_rules.md`
   - 顶层收口闸门、自动补全边界与多 Codex 并行规则
+- `codex_source/07_formal_api_demo_target_plan.md`
+  - 正式版 API demo 的目标态执行计划
+  - 用于定义目标标准、执行 Gate、修正循环与交接规则
+  - 不是当前仓库已跑通事实，当前真实运行事实仍以 `codex_source/05_runtime_and_artifact_rules.md` 为准
 
 ## 9. 当前最优先要遵守的执行原则
 
@@ -221,6 +228,12 @@
 ### 原则 4：仓库事实高于想象
 
 没读到、没确认、没验证的内容，不能写成已确认事实。
+
+补充到正式版 API demo 目标态：
+
+- `codex_source/07_formal_api_demo_target_plan.md` 只能定义目标态
+- 当前已确认仓库事实仍是本地 demo 运行链路
+- 两者不得混写，更不得把目标态计划写成已跑通结论
 
 ### 原则 5：有停线就停，不硬冲
 
@@ -244,3 +257,5 @@
 如果 Codex 这轮只记一句话：
 
 **新会话默认先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md`；若任务偏执行规则，再补读 `codex_source/01_execution_rules.md`；命中仓库型任务默认走 GitHub / PR 线路，无法安全推进就先停下汇报。**
+
+若任务偏正式版 API demo 目标态，则再补读 `codex_source/07_formal_api_demo_target_plan.md`，并同时回到 `codex_source/05_runtime_and_artifact_rules.md` 核对当前仓库已确认事实。
