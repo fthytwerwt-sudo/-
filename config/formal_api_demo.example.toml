@@ -3,6 +3,8 @@ name = "volcengine"
 region = "cn-beijing"
 
 [auth]
+# Ark / Edge Gateway 使用 api_key。
+# Doubao OpenSpeech v3 使用 app_id + api_key(access key)。
 api_key = "SET_IN_LOCAL_FILE"
 access_key_id = "SET_IN_LOCAL_FILE"
 secret_access_key = "SET_IN_LOCAL_FILE"
@@ -10,8 +12,14 @@ session_token = ""
 app_id = "SET_IF_REQUIRED"
 
 [tts]
+# route family:
+# - ark_openai_compatible: 走 ark.<region>.volces.com/api/v3 + endpoint_id/model + voice
+# - edge_gateway_openai_compatible: 走 ai-gateway.vei.volces.com/v1 + model + voice
+# - doubao_openspeech_v3: 走 openspeech.bytedance.com/api/v3/tts/... + app_id/api_key/resource_id/voice
+api_route_family = "ark_openai_compatible"
 model = "volc_tts_model_placeholder"
 endpoint_id = "SET_IF_ENDPOINT_REQUIRED"
+resource_id = "SET_IF_OPENSPEECH_REQUIRED"
 voice = "zh_female_placeholder"
 style = "knowledge"
 response_format = "mp3"

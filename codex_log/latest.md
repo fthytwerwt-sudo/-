@@ -7,6 +7,7 @@
   - 正式版目标态文件已落入执行层
   - 正式版最小骨架、输入输出契约与 Gate 校验框架已开始落仓库
   - 当前已进入 TTS 真实接通阶段，本轮已把 TTS 404 的状态分类从 `blocked` 修正为 `failed`
+  - 当前已把 TTS probe 拆成显式 route family：Ark / Edge Gateway / Doubao OpenSpeech
   - 本轮只验证 TTS，不代表整条正式视频链路已跑通
   - 但正式版云端链路仍不能视为已跑通
 - 当前仓库已明确项目正式口径：
@@ -30,15 +31,34 @@
 
 ## 最近一次完成了什么
 
-- 已修正 formal TTS probe 的请求层分类与调试信息：
-  - 当前真实请求结构已可脱敏落库：`POST https://ark.cn-beijing.volces.com/api/v3/audio/speech`
-  - 当前使用 `endpoint_id` 作为 `model` 参数发起请求，`voice` 放在 payload 内
-  - 当前 generation gate 通过，说明前提已齐；远端 404 现在会被正确归类为 `failed`，不再误记为 `blocked`
-  - 修正后再次执行真实 non-dry-run TTS probe，结果为 `failed`
-  - `dist/formal_api_demo/manifest.json`、`generation_gate.json`、`result_summary.json` 已更新到这次真实状态
+- 已完成 TTS route family split：
+  - `formal_api_demo_core.py` 已不再把所有 TTS 默认走 Ark
+  - 当前显式支持 3 个 family：
+    - `ark_openai_compatible`
+    - `edge_gateway_openai_compatible`
+    - `doubao_openspeech_v3`
+  - Ark 路由保留原有 probe 与失败分类，404 继续明确压到 Ark 路由 / endpoint-model 匹配层
+  - Edge Gateway 已新增最小 OpenAI 兼容 probe 路径：
+    - `base_url = https://ai-gateway.vei.volces.com/v1`
+    - `model` 只取 `tts.model`
+    - `voice` 继续放在 payload 内
+  - Doubao OpenSpeech 已拆成独立 family 与独立 Gate，但当前仍是 gate-only，provider implementation 尚未接入
+- 已更新 `config/formal_api_demo.example.toml`：
+  - 新增 `tts.api_route_family`
+  - 新增 `tts.resource_id`
+  - 注释区分不同 family 下哪些字段会生效
+- 已新增和更新测试：
+  - 远端 404 仍记 `failed`
+  - Edge Gateway 在最小字段齐时可走到 success mock
+  - Doubao OpenSpeech 缺 `app_id/resource_id` 时会 blocked
+  - 不同 family 的 missing prerequisites 会正确切换
+- 已执行验证：
+  - `python3 -m unittest tests.test_formal_api_demo_pipeline`
+  - `python3 scripts/generate_formal_api_demo.py --dry-run --out /tmp/formal_api_route_family_split`
+  - 当前测试通过，dry-run 正常
 - 已确认：
-  - 当前 formal 骨架的 TTS probe 入口可执行
-  - 但这次 route fix rerun 仍没有落出真实音频文件
+  - 当前 formal 骨架的 TTS probe 已具备 Ark 与 Edge Gateway 两条真实 probe 入口
+  - 但这轮没有执行新的真实远端成功验证，也没有落出真实音频文件
   - 因此当前仍不能写“正式版骨架的 TTS 已接通成功”
 - 已把正式版 generation 收窄到“TTS probe”：
   - local 私有配置已支持方舟 API Key、TTS model / endpoint、voice、response_format
@@ -77,7 +97,11 @@
 
 ## 当前最关键的下一步
 
-- 若后续继续执行正式版主线，应优先确认当前 provider 是否真的支持 `POST /audio/speech` 这条 TTS 路由，以及当前 `endpoint_id/model` 应如何映射到可调用标识。
+- 若后续继续执行正式版主线，默认优先试 `edge_gateway_openai_compatible` 这条路：
+  - 当前它已具备最小 probe 路径
+  - 且公开文档明确对齐 OpenAI `/v1/audio/speech`
+- Ark 路由保留用于继续压测当前 404，但不再作为所有 TTS family 的默认兜底。
+- Doubao OpenSpeech 当前仅完成 family / gate 拆分；若继续推进，需要先补请求体和返回解析实现。
 - 在火山凭证、空间名、资源存储配置、关键接口可用性未补齐前，不得把正式版云端链路写成已跑通。
 - 若后续继续做仓库型小闭环，仍按“先更新日志，再 commit / push 当前分支，供 ChatGPT 复审”推进。
 

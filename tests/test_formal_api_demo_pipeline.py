@@ -1,3 +1,4 @@
+import json
 import pathlib
 import tempfile
 import unittest
@@ -23,7 +24,19 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 
 class FormalApiDemoPipelineTests(unittest.TestCase):
-    def _write_local_config(self, path: pathlib.Path, *, api_key: str = "", model: str = "", endpoint_id: str = "", voice: str = "zh_female_test", style: str = "knowledge") -> None:
+    def _write_local_config(
+        self,
+        path: pathlib.Path,
+        *,
+        route_family: str = "ark_openai_compatible",
+        api_key: str = "",
+        app_id: str = "",
+        model: str = "",
+        endpoint_id: str = "",
+        resource_id: str = "",
+        voice: str = "zh_female_test",
+        style: str = "knowledge",
+    ) -> None:
         path.write_text(
             "\n".join(
                 [
@@ -33,10 +46,13 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                     "",
                     "[auth]",
                     f'api_key = "{api_key}"',
+                    f'app_id = "{app_id}"',
                     "",
                     "[tts]",
+                    f'api_route_family = "{route_family}"',
                     f'model = "{model}"',
                     f'endpoint_id = "{endpoint_id}"',
+                    f'resource_id = "{resource_id}"',
                     f'voice = "{voice}"',
                     f'style = "{style}"',
                     'response_format = "mp3"',
@@ -201,6 +217,54 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             self.assertEqual(result["overall_status"], STATUS_BLOCKED)
             self.assertIn("tts_model_or_endpoint", result["current_missing_prerequisites"])
 
+    def test_generate_non_dry_run_edge_gateway_requires_model_not_endpoint(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_edge_missing_model_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                route_family="edge_gateway_openai_compatible",
+                api_key="gateway_test_key",
+                model="",
+                endpoint_id="ep_should_be_ignored",
+            )
+
+            result = run_generation_pipeline(
+                input_path=FORMAL_CASE_PATH,
+                example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                local_config_path=local_config_path,
+                output_dir=output_dir,
+                dry_run=False,
+            )
+
+            self.assertEqual(result["overall_status"], STATUS_BLOCKED)
+            self.assertIn("tts_model", result["current_missing_prerequisites"])
+            self.assertNotIn("tts_model_or_endpoint", result["current_missing_prerequisites"])
+
+    def test_generate_non_dry_run_openspeech_missing_app_id_and_resource_id_blocks(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_openspeech_missing_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                route_family="doubao_openspeech_v3",
+                api_key="openspeech_access_key",
+                app_id="",
+                resource_id="",
+            )
+
+            result = run_generation_pipeline(
+                input_path=FORMAL_CASE_PATH,
+                example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                local_config_path=local_config_path,
+                output_dir=output_dir,
+                dry_run=False,
+            )
+
+            self.assertEqual(result["overall_status"], STATUS_BLOCKED)
+            self.assertIn("app_id", result["current_missing_prerequisites"])
+            self.assertIn("tts_resource_id", result["current_missing_prerequisites"])
+
     def test_generate_non_dry_run_marks_failed_when_tts_probe_fails(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_tts_failed_") as temp_dir:
             output_dir = pathlib.Path(temp_dir) / "dist"
@@ -237,6 +301,63 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
 
             self.assertEqual(result["overall_status"], STATUS_FAILED)
             self.assertEqual(result["generation_status"], STATUS_FAILED)
+
+    def test_generate_non_dry_run_edge_gateway_marks_success_with_real_probe_path(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_edge_success_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                route_family="edge_gateway_openai_compatible",
+                api_key="gateway_test_key",
+                model="gateway_tts_model",
+            )
+
+            class _SuccessResponse:
+                headers = {"x-request-id": "req_edge_demo"}
+
+                @staticmethod
+                def stream_to_file(path: str) -> None:
+                    pathlib.Path(path).write_bytes(b"edge-mp3")
+
+            class _SuccessSpeechContext:
+                def __enter__(self):
+                    return _SuccessResponse()
+
+                def __exit__(self, exc_type, exc, tb):
+                    return False
+
+            class _WithStreamingResponse:
+                @staticmethod
+                def create(**_kwargs):
+                    return _SuccessSpeechContext()
+
+            class _SpeechResource:
+                with_streaming_response = _WithStreamingResponse()
+
+            class _AudioResource:
+                speech = _SpeechResource()
+
+            class _FakeOpenAIClient:
+                def __init__(self, **_kwargs):
+                    self.audio = _AudioResource()
+
+            with mock.patch("formal_api_demo_core.OpenAI", _FakeOpenAIClient):
+                result = run_generation_pipeline(
+                    input_path=FORMAL_CASE_PATH,
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                    dry_run=False,
+                )
+
+            manifest = json.loads((output_dir / "manifest.json").read_text(encoding="utf-8"))
+            request_debug = manifest["generation"]["tts_probe"]["request_debug"]
+            self.assertEqual(result["overall_status"], STATUS_SUCCESS)
+            self.assertEqual(request_debug["api_route_family"], "edge_gateway_openai_compatible")
+            self.assertEqual(request_debug["base_url"], "https://ai-gateway.vei.volces.com/v1")
+            self.assertEqual(request_debug["model_identifier_source"], "model")
+            self.assertTrue((output_dir / "tts" / "voice_probe.mp3").exists())
 
     def test_generate_non_dry_run_marks_failed_when_remote_returns_404(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_tts_404_") as temp_dir:
@@ -290,6 +411,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
 
             self.assertEqual(result["overall_status"], STATUS_FAILED)
             self.assertEqual(result["generation_status"], STATUS_FAILED)
+            self.assertEqual(result["failure_reason"], "ark_tts_route_or_identifier_not_found")
 
     def test_generate_non_dry_run_marks_success_when_tts_probe_succeeds(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_tts_success_") as temp_dir:

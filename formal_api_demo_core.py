@@ -29,6 +29,14 @@ STATUS_SUCCESS = "success"
 STATUS_FAILED = "failed"
 
 PLACEHOLDER_PREFIX = "SET_"
+TTS_ROUTE_FAMILY_ARK = "ark_openai_compatible"
+TTS_ROUTE_FAMILY_EDGE_GATEWAY = "edge_gateway_openai_compatible"
+TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH = "doubao_openspeech_v3"
+SUPPORTED_TTS_ROUTE_FAMILIES = {
+    TTS_ROUTE_FAMILY_ARK,
+    TTS_ROUTE_FAMILY_EDGE_GATEWAY,
+    TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH,
+}
 
 REQUIRED_TOP_LEVEL_SECTIONS = [
     "主题",
@@ -255,7 +263,13 @@ def evaluate_generation_gate(
     has_local_config: bool,
     dry_run: bool,
 ) -> dict[str, Any]:
-    missing = _generation_missing_prerequisites(video_spec, config, has_local_config)
+    route_family = _get_tts_api_route_family(config)
+    missing = _generation_missing_prerequisites(
+        video_spec,
+        config,
+        has_local_config,
+        route_family=route_family,
+    )
     implementation_missing: list[str] = []
     failure_reason = ""
     checks = [
@@ -272,16 +286,23 @@ def evaluate_generation_gate(
             "detail": f"provider={_nested_get(config, 'provider', 'name') or 'missing'}",
         },
         {
+            "name": "tts_route_family_selected",
+            "status": "pass" if route_family in SUPPORTED_TTS_ROUTE_FAMILIES else "fail",
+            "detail": f"api_route_family={route_family}",
+        },
+        {
+            "name": "tts_route_family_ready",
+            "status": "pass"
+            if route_family != TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH
+            else "fail",
+            "detail": "当前仅 Ark 和 Edge Gateway 已接入真实 probe；Doubao OpenSpeech 仍是 gate-only。",
+        },
+        {
             "name": "tts_api_key_present",
             "status": "pass"
             if not _is_missing_secret(_nested_get(config, "auth", "api_key"))
             else "fail",
-            "detail": "方舟 TTS probe 只读取 local 配置中的 API Key。",
-        },
-        {
-            "name": "tts_model_or_endpoint_present",
-            "status": "pass" if _get_tts_model_identifier(config) else "fail",
-            "detail": "优先使用 endpoint_id；若未提供则退回 model。",
+            "detail": "TTS probe 从 local 配置读取访问密钥，不回显真实值。",
         },
         {
             "name": "tts_voice_present",
@@ -298,21 +319,41 @@ def evaluate_generation_gate(
             "detail": "正式版骨架禁止回退到本地 say / ffmpeg / Swift 链路。",
         },
     ]
+    checks.extend(
+        _build_tts_route_family_checks(
+            config=config,
+            route_family=route_family,
+        )
+    )
+
+    if route_family == TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH:
+        implementation_missing.append("doubao_openspeech_v3_provider")
 
     if dry_run:
         status = STATUS_PLANNED
         blocked_reason = ""
+    elif route_family not in SUPPORTED_TTS_ROUTE_FAMILIES:
+        status = STATUS_BLOCKED
+        blocked_reason = f"当前不支持的 TTS route family：{route_family}"
     elif missing:
         status = STATUS_BLOCKED
         blocked_reason = "缺少 TTS probe 前提：" + "、".join(missing)
-    elif OpenAI is None:
-        status = STATUS_FAILED
-        blocked_reason = "本地缺少 openai Python SDK，无法发起方舟兼容调用。"
+    elif OpenAI is None and route_family in {
+        TTS_ROUTE_FAMILY_ARK,
+        TTS_ROUTE_FAMILY_EDGE_GATEWAY,
+    }:
+        status = STATUS_BLOCKED
+        blocked_reason = "本地缺少 openai Python SDK，无法发起当前 route family 的 TTS probe。"
         failure_reason = "missing_openai_sdk"
         implementation_missing.append("openai_python_sdk")
     elif _nested_get(config, "provider", "name") != "volcengine":
         status = STATUS_BLOCKED
-        blocked_reason = "当前 TTS probe 仅支持 volcengine 方舟兼容入口。"
+        blocked_reason = "当前 TTS probe 仅支持 volcengine provider。"
+    elif route_family == TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH:
+        status = STATUS_BLOCKED
+        blocked_reason = (
+            "doubao openspeech v3 route family 已拆出，但 provider implementation 尚未接入。"
+        )
     else:
         status = STATUS_SUCCESS
         blocked_reason = ""
@@ -327,9 +368,11 @@ def evaluate_generation_gate(
         "missing_prerequisites": missing,
         "missing_implementations": implementation_missing,
         "tts_target": {
-            "model_identifier": _get_tts_model_identifier(config),
+            "api_route_family": route_family,
+            "model_identifier": _get_tts_model_identifier(config, route_family=route_family),
             "endpoint_id": _nested_get(config, "tts", "endpoint_id"),
             "model": _nested_get(config, "tts", "model"),
+            "resource_id": _nested_get(config, "tts", "resource_id"),
             "voice": _nested_get(config, "tts", "voice"),
             "region": _nested_get(config, "provider", "region"),
         },
@@ -337,8 +380,51 @@ def evaluate_generation_gate(
         "notes": [
             "本轮 generation 只接 TTS，不接图像、视频和云端组装。",
             "dry-run 只验证输入、契约和 Gate，不调用远端。",
+            "route family 已显式拆分为 Ark / Edge Gateway / Doubao OpenSpeech，不再默认混走 Ark。",
         ],
     }
+
+
+def _build_tts_route_family_checks(
+    config: dict[str, Any],
+    route_family: str,
+) -> list[dict[str, str]]:
+    if route_family == TTS_ROUTE_FAMILY_EDGE_GATEWAY:
+        return [
+            {
+                "name": "edge_gateway_model_present",
+                "status": "pass"
+                if not _is_missing_secret(_nested_get(config, "tts", "model"))
+                else "fail",
+                "detail": "Edge Gateway OpenAI 兼容 TTS 使用 tts.model，不读取 endpoint_id。",
+            },
+        ]
+    if route_family == TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH:
+        return [
+            {
+                "name": "openspeech_app_id_present",
+                "status": "pass"
+                if not _is_missing_secret(_nested_get(config, "auth", "app_id"))
+                else "fail",
+                "detail": "Doubao OpenSpeech v3 需要 app_id。",
+            },
+            {
+                "name": "openspeech_resource_id_present",
+                "status": "pass"
+                if not _is_missing_secret(_nested_get(config, "tts", "resource_id"))
+                else "fail",
+                "detail": "Doubao OpenSpeech v3 需要 resource_id。",
+            },
+        ]
+    return [
+        {
+            "name": "tts_model_or_endpoint_present",
+            "status": "pass"
+            if _get_tts_model_identifier(config, route_family=route_family)
+            else "fail",
+            "detail": "优先使用 endpoint_id；若未提供则退回 model。",
+        },
+    ]
 
 
 def evaluate_assembly_gate(
@@ -426,8 +512,10 @@ def build_manifest(
                     ],
                 },
                 "provider_plan": {
+                    "tts_api_route_family": _get_tts_api_route_family(config),
                     "tts_model": _nested_get(config, "tts", "model"),
                     "tts_endpoint_id": _nested_get(config, "tts", "endpoint_id"),
+                    "tts_resource_id": _nested_get(config, "tts", "resource_id"),
                     "image_model": _nested_get(config, "image_generation", "model"),
                     "video_model": _nested_get(config, "video_generation", "model"),
                 },
@@ -485,8 +573,10 @@ def build_manifest(
             "provider": _nested_get(config, "provider", "name"),
             "region": _nested_get(config, "provider", "region"),
             "models": {
+                "tts_api_route_family": _get_tts_api_route_family(config),
                 "tts": _nested_get(config, "tts", "model"),
                 "tts_endpoint_id": _nested_get(config, "tts", "endpoint_id"),
+                "tts_resource_id": _nested_get(config, "tts", "resource_id"),
                 "image_generation": _nested_get(config, "image_generation", "model"),
                 "video_generation": _nested_get(config, "video_generation", "model"),
             },
@@ -642,12 +732,14 @@ def build_default_tts_probe(video_spec: dict[str, Any]) -> dict[str, Any]:
         "error_message": "",
         "audio_path": None,
         "request_id": None,
+        "api_route_family": None,
         "model_identifier": None,
         "probe_text": probe_text,
         "probe_text_source": probe_text_source,
         "voice": None,
         "used_endpoint_id": None,
         "used_model_id": None,
+        "used_resource_id": None,
         "response_format": None,
         "request_debug": {},
         "current_missing_prerequisites": [],
@@ -679,19 +771,23 @@ def execute_tts_probe(
     output_dir: pathlib.Path,
 ) -> dict[str, Any]:
     probe = build_default_tts_probe(video_spec)
-    model_identifier = _get_tts_model_identifier(config)
-    base_url = _build_ark_base_url(config)
+    route_family = _get_tts_api_route_family(config)
+    model_identifier = _get_tts_model_identifier(config, route_family=route_family)
+    base_url = _build_tts_base_url(config, route_family)
     response_format = (_nested_get(config, "tts", "response_format") or "mp3").strip() or "mp3"
     audio_path = output_dir / "tts" / f"voice_probe.{response_format}"
     probe.update(
         {
+            "api_route_family": route_family,
             "model_identifier": model_identifier,
             "voice": _nested_get(config, "tts", "voice"),
             "used_endpoint_id": _nested_get(config, "tts", "endpoint_id"),
             "used_model_id": _nested_get(config, "tts", "model"),
+            "used_resource_id": _nested_get(config, "tts", "resource_id"),
             "response_format": response_format,
             "request_debug": _build_tts_request_debug(
                 config=config,
+                route_family=route_family,
                 base_url=base_url,
                 model_identifier=model_identifier,
                 response_format=response_format,
@@ -700,6 +796,11 @@ def execute_tts_probe(
     )
 
     try:
+        if route_family == TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH:
+            raise RuntimeError(
+                "doubao_openspeech_v3 provider implementation 尚未接入，当前不应直接发起真实 probe。"
+            )
+
         client = OpenAI(
             api_key=_nested_get(config, "auth", "api_key"),
             base_url=base_url,
@@ -864,18 +965,31 @@ def _generation_missing_prerequisites(
     video_spec: dict[str, Any],
     config: dict[str, Any],
     has_local_config: bool,
+    route_family: str,
 ) -> list[str]:
     missing: list[str] = []
     if not has_local_config:
         missing.append("local_config_file")
+    if route_family not in SUPPORTED_TTS_ROUTE_FAMILIES:
+        missing.append("tts_api_route_family")
+        return missing
     if _is_missing_secret(_nested_get(config, "auth", "api_key")):
         missing.append("api_key")
-    if _is_missing_secret(_nested_get(config, "provider", "region")):
-        missing.append("provider_region")
-    if not _get_tts_model_identifier(config):
-        missing.append("tts_model_or_endpoint")
     if _is_missing_secret(_nested_get(config, "tts", "voice")):
         missing.append("tts_voice")
+    if route_family == TTS_ROUTE_FAMILY_ARK:
+        if _is_missing_secret(_nested_get(config, "provider", "region")):
+            missing.append("provider_region")
+        if not _get_tts_model_identifier(config, route_family=route_family):
+            missing.append("tts_model_or_endpoint")
+    elif route_family == TTS_ROUTE_FAMILY_EDGE_GATEWAY:
+        if _is_missing_secret(_nested_get(config, "tts", "model")):
+            missing.append("tts_model")
+    elif route_family == TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH:
+        if _is_missing_secret(_nested_get(config, "auth", "app_id")):
+            missing.append("app_id")
+        if _is_missing_secret(_nested_get(config, "tts", "resource_id")):
+            missing.append("tts_resource_id")
     return missing
 
 
@@ -949,12 +1063,33 @@ def _generation_next_action_hint(
     tts_probe: dict[str, Any],
     dry_run: bool,
 ) -> str:
+    route_family = (
+        tts_probe.get("api_route_family")
+        or _nested_get(gate, "tts_target", "api_route_family")
+        or TTS_ROUTE_FAMILY_ARK
+    )
     if dry_run:
-        return "当前为 dry-run；下一步应补齐 local 配置中的方舟 API Key、可调用 model/endpoint 和 voice 后再尝试真实 TTS probe。"
+        return "当前为 dry-run；下一步应按选定的 TTS route family 补齐最小前提，再尝试真实 TTS probe。"
     if gate["missing_prerequisites"]:
-        return "先补齐 local 配置中的 API Key、TTS model/endpoint 和 voice，再进入真实 TTS probe。"
-    if tts_probe.get("status") == STATUS_FAILED and tts_probe.get("http_status_code") == 404:
-        return "当前 404 已压缩到请求路由 / 接入标识匹配层；优先核对 provider 路由与 endpoint/model 用法。"
+        if route_family == TTS_ROUTE_FAMILY_EDGE_GATEWAY:
+            return "先补齐 Edge Gateway 的访问密钥、tts.model 和 voice，再进入真实 TTS probe。"
+        if route_family == TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH:
+            return "先补齐 OpenSpeech 的 app_id、Access-Key、resource_id 和 voice；不要继续按 Ark 问题处理。"
+        return "先补齐 Ark route family 所需的 API Key、region、TTS model/endpoint 和 voice，再进入真实 TTS probe。"
+    if route_family == TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH and gate["missing_implementations"]:
+        return "当前已拆出 doubao openspeech v3 family，但 provider implementation 尚未接入；下一步应补请求体与返回解析。"
+    if (
+        tts_probe.get("status") == STATUS_FAILED
+        and tts_probe.get("http_status_code") == 404
+        and route_family == TTS_ROUTE_FAMILY_EDGE_GATEWAY
+    ):
+        return "当前 Edge Gateway 404 已压缩到网关路由 / 目标模型匹配层；优先核对 base_url、tts.model 与网关访问密钥。"
+    if (
+        tts_probe.get("status") == STATUS_FAILED
+        and tts_probe.get("http_status_code") == 404
+        and route_family == TTS_ROUTE_FAMILY_ARK
+    ):
+        return "当前 Ark 404 已压缩到请求路由 / endpoint-model 匹配层；优先核对 Ark 路由与 endpoint/model 用法。"
     if tts_probe.get("status") == STATUS_FAILED:
         return "当前已进入真实请求层失败；优先核对远端返回码、请求结构和 provider 接口兼容性。"
     if tts_probe.get("status") == STATUS_SUCCESS:
@@ -976,7 +1111,23 @@ def _select_tts_probe_text(video_spec: dict[str, Any]) -> tuple[str, str]:
     return video_spec["hook"], "hook"
 
 
-def _get_tts_model_identifier(config: dict[str, Any]) -> str | None:
+def _get_tts_api_route_family(config: dict[str, Any]) -> str:
+    route_family = _nested_get(config, "tts", "api_route_family")
+    if _is_missing_secret(route_family):
+        return TTS_ROUTE_FAMILY_ARK
+    return str(route_family).strip()
+
+
+def _get_tts_model_identifier(
+    config: dict[str, Any],
+    route_family: str | None = None,
+) -> str | None:
+    route_family = route_family or _get_tts_api_route_family(config)
+    if route_family == TTS_ROUTE_FAMILY_EDGE_GATEWAY:
+        model = _nested_get(config, "tts", "model")
+        if not _is_missing_secret(model):
+            return str(model).strip()
+        return None
     endpoint_id = _nested_get(config, "tts", "endpoint_id")
     if not _is_missing_secret(endpoint_id):
         return str(endpoint_id).strip()
@@ -991,15 +1142,32 @@ def _build_ark_base_url(config: dict[str, Any]) -> str:
     return f"https://ark.{region}.volces.com/api/v3"
 
 
+def _build_tts_base_url(config: dict[str, Any], route_family: str) -> str:
+    if route_family == TTS_ROUTE_FAMILY_EDGE_GATEWAY:
+        return "https://ai-gateway.vei.volces.com/v1"
+    if route_family == TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH:
+        return "https://openspeech.bytedance.com/api/v3"
+    return _build_ark_base_url(config)
+
+
 def _classify_tts_exception(
     exc: Exception,
     config: dict[str, Any],
 ) -> tuple[str, str, int | None, str, str]:
+    route_family = _get_tts_api_route_family(config)
     raw_message = _sanitize_message(str(exc), config)
     error_code = exc.__class__.__name__
     http_status_code = _extract_http_status_code(exc)
 
     if http_status_code == 404:
+        if route_family == TTS_ROUTE_FAMILY_EDGE_GATEWAY:
+            return (
+                STATUS_FAILED,
+                "edge_gateway_tts_route_or_model_not_found",
+                http_status_code,
+                error_code,
+                raw_message,
+            )
         return (
             STATUS_FAILED,
             "ark_tts_route_or_identifier_not_found",
@@ -1008,10 +1176,36 @@ def _classify_tts_exception(
             raw_message,
         )
     if http_status_code is not None and 400 <= http_status_code < 600:
-        return STATUS_FAILED, "ark_tts_request_failed", http_status_code, error_code, raw_message
+        return (
+            STATUS_FAILED,
+            _tts_failure_reason_by_route_family(route_family),
+            http_status_code,
+            error_code,
+            raw_message,
+        )
     if openai is not None and isinstance(exc, openai.APIError):
-        return STATUS_FAILED, "ark_tts_request_failed", http_status_code, error_code, raw_message
-    return STATUS_FAILED, "ark_tts_request_failed", http_status_code, error_code, raw_message
+        return (
+            STATUS_FAILED,
+            _tts_failure_reason_by_route_family(route_family),
+            http_status_code,
+            error_code,
+            raw_message,
+        )
+    return (
+        STATUS_FAILED,
+        _tts_failure_reason_by_route_family(route_family),
+        http_status_code,
+        error_code,
+        raw_message,
+    )
+
+
+def _tts_failure_reason_by_route_family(route_family: str) -> str:
+    if route_family == TTS_ROUTE_FAMILY_EDGE_GATEWAY:
+        return "edge_gateway_tts_request_failed"
+    if route_family == TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH:
+        return "doubao_openspeech_tts_request_failed"
+    return "ark_tts_request_failed"
 
 
 def _extract_http_status_code(exc: Exception) -> int | None:
@@ -1029,25 +1223,42 @@ def _extract_http_status_code(exc: Exception) -> int | None:
 
 def _build_tts_request_debug(
     config: dict[str, Any],
+    route_family: str,
     base_url: str,
     model_identifier: str | None,
     response_format: str,
 ) -> dict[str, Any]:
     endpoint_id = _nested_get(config, "tts", "endpoint_id")
     model = _nested_get(config, "tts", "model")
+    resource_id = _nested_get(config, "tts", "resource_id")
+    app_id = _nested_get(config, "auth", "app_id")
     voice = _nested_get(config, "tts", "voice")
+    relative_path = "/audio/speech"
+    sdk_call = "client.audio.speech.with_streaming_response.create"
+    model_identifier_source = (
+        "endpoint_id"
+        if not _is_missing_secret(endpoint_id)
+        else "model"
+    )
+    if route_family == TTS_ROUTE_FAMILY_EDGE_GATEWAY:
+        model_identifier_source = "model"
+    if route_family == TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH:
+        relative_path = "/tts/..."
+        sdk_call = "provider_implementation_pending"
+        model_identifier_source = "resource_id"
     return {
-        "provider_route_family": "ark_openai_compatible",
+        "api_route_family": route_family,
+        "provider_route_family": route_family,
         "request_method": "POST",
         "base_url": base_url,
-        "relative_path": "/audio/speech",
-        "sdk_call": "client.audio.speech.with_streaming_response.create",
-        "model_identifier_source": "endpoint_id"
-        if not _is_missing_secret(endpoint_id)
-        else "model",
+        "relative_path": relative_path,
+        "sdk_call": sdk_call,
+        "model_identifier_source": model_identifier_source,
         "model_identifier_shape": _shape_debug_value(model_identifier),
         "endpoint_id_shape": _shape_debug_value(endpoint_id),
         "model_shape": _shape_debug_value(model),
+        "resource_id_shape": _shape_debug_value(resource_id),
+        "app_id_shape": _shape_debug_value(app_id),
         "voice_location": "payload.voice",
         "voice_shape": _shape_debug_value(voice),
         "response_format": response_format,
