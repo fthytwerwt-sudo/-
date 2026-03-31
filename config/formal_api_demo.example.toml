@@ -1,0 +1,46 @@
+[provider]
+name = "volcengine"
+region = "cn-beijing"
+
+[auth]
+access_key_id = "SET_IN_LOCAL_FILE"
+secret_access_key = "SET_IN_LOCAL_FILE"
+session_token = ""
+app_id = "SET_IF_REQUIRED"
+
+[tts]
+model = "volc_tts_model_placeholder"
+voice = "zh_female_placeholder"
+style = "knowledge"
+
+[image_generation]
+enabled = true
+model = "volc_image_model_placeholder"
+
+[video_generation]
+enabled = true
+model = "volc_video_model_placeholder"
+
+[assembly]
+mode = "cloud"
+template_id = "SET_IN_LOCAL_FILE"
+subtitle_mode = "burn_in"
+resolution = "1080x1920"
+fps = 25
+
+[storage]
+space_name = "SET_IN_LOCAL_FILE"
+upload_prefix = "formal_api_demo/"
+
+[output]
+dist_dir = "dist/formal_api_demo"
+
+[polling]
+interval_seconds = 5
+timeout_seconds = 600
+
+[quality_gate]
+allow_local_fallback = false
+require_hook = true
+min_segments = 3
+require_manifest_schema = true

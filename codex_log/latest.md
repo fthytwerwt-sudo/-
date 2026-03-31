@@ -5,6 +5,7 @@
 - 当前仓库已完成 GitHub baseline，后续仓库型任务继续默认在功能分支推进，而不是直接改 `main`。
 - 当前项目已进入“正式版目标态搭建阶段”：
   - 正式版目标态文件已落入执行层
+  - 正式版最小骨架、输入输出契约与 Gate 校验框架已开始落仓库
   - 但正式版云端链路仍不能视为已跑通
 - 当前仓库已明确项目正式口径：
   - 个人内部使用
@@ -27,6 +28,17 @@
 
 ## 最近一次完成了什么
 
+- 已落正式版最小骨架：
+  - `cases/formal_api_demo.md`
+  - `config/formal_api_demo.example.toml`
+  - `formal_api_demo_core.py`
+  - `scripts/generate_formal_api_demo.py`
+  - `scripts/assemble_formal_api_demo.py`
+  - `tests/test_formal_api_demo_pipeline.py`
+- 已把正式版输入解析、manifest / result_summary schema、generation_gate / assembly_gate、dry-run / blocked 路径落成可执行骨架：
+  - dry-run 会真实产出结构化 manifest、gate report、assembly plan、result_summary
+  - 在无凭证、无 local 配置、无 provider 实现时，只会写 `planned` 或 `blocked`，不会假装 success
+  - 明确禁止回退到本地 `say / afconvert / ffmpeg-static / video_builder.swift` 作为正式版 fallback
 - 已为 `codex_source/07_formal_api_demo_target_plan.md` 补入“验收节奏 / 验收时机 / 阶段完成标志”：
   - 明确骨架验收、接 API 前验收、首轮样片验收、修正循环验收四个时间点
   - 明确每阶段做到哪算过、什么时候不能继续往下走
@@ -43,7 +55,7 @@
 
 ## 当前最关键的下一步
 
-- 若后续继续执行正式版主线，应先按 `codex_source/07_formal_api_demo_target_plan.md` 落正式版最小文件骨架、执行 Gate 与校验框架，并按新补入的验收节奏推进阶段验收。
+- 若后续继续执行正式版主线，应在当前骨架基础上补齐本地私有配置与火山真实前提，再开始接入真实 provider 调用。
 - 在火山凭证、空间名、资源存储配置、关键接口可用性未补齐前，不得把正式版云端链路写成已跑通。
 - 若后续继续做仓库型小闭环，仍按“先更新日志，再 commit / push 当前分支，供 ChatGPT 复审”推进。
 
@@ -54,6 +66,11 @@
 - `codex_source/07_formal_api_demo_target_plan.md`
 - `codex_log/latest.md`
 - 若任务偏正式版 API demo / 目标态 / 云端组装 / 修正循环 / 质量达标反推，再补读：
+  - `cases/formal_api_demo.md`
+  - `config/formal_api_demo.example.toml`
+  - `formal_api_demo_core.py`
+  - `scripts/generate_formal_api_demo.py`
+  - `scripts/assemble_formal_api_demo.py`
   - `codex_source/05_runtime_and_artifact_rules.md`
   - `codex_source/01_execution_rules.md`
   - 并优先看 `codex_source/07_formal_api_demo_target_plan.md` 里“验收节奏 / 验收时机 / 阶段完成标志”这一节
