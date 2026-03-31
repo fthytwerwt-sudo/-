@@ -561,7 +561,7 @@ def build_generation_result_summary(
             "result_summary": str(output_dir / "result_summary.json"),
             "tts_audio": tts_probe.get("audio_path"),
         },
-        "next_action_hint": _generation_next_action_hint(generation_gate, dry_run),
+        "next_action_hint": _generation_next_action_hint(generation_gate, tts_probe, dry_run),
         "current_missing_prerequisites": tts_probe.get(
             "current_missing_prerequisites", generation_gate["missing_prerequisites"]
         ),
@@ -637,6 +637,7 @@ def build_default_tts_probe(video_spec: dict[str, Any]) -> dict[str, Any]:
         "status": STATUS_PLANNED,
         "blocked_reason": "",
         "failure_reason": "",
+        "http_status_code": None,
         "error_code": "",
         "error_message": "",
         "audio_path": None,
@@ -648,6 +649,7 @@ def build_default_tts_probe(video_spec: dict[str, Any]) -> dict[str, Any]:
         "used_endpoint_id": None,
         "used_model_id": None,
         "response_format": None,
+        "request_debug": {},
         "current_missing_prerequisites": [],
     }
 
@@ -678,6 +680,7 @@ def execute_tts_probe(
 ) -> dict[str, Any]:
     probe = build_default_tts_probe(video_spec)
     model_identifier = _get_tts_model_identifier(config)
+    base_url = _build_ark_base_url(config)
     response_format = (_nested_get(config, "tts", "response_format") or "mp3").strip() or "mp3"
     audio_path = output_dir / "tts" / f"voice_probe.{response_format}"
     probe.update(
@@ -687,13 +690,19 @@ def execute_tts_probe(
             "used_endpoint_id": _nested_get(config, "tts", "endpoint_id"),
             "used_model_id": _nested_get(config, "tts", "model"),
             "response_format": response_format,
+            "request_debug": _build_tts_request_debug(
+                config=config,
+                base_url=base_url,
+                model_identifier=model_identifier,
+                response_format=response_format,
+            ),
         }
     )
 
     try:
         client = OpenAI(
             api_key=_nested_get(config, "auth", "api_key"),
-            base_url=_build_ark_base_url(config),
+            base_url=base_url,
         )
         request_kwargs: dict[str, Any] = {
             "model": model_identifier,
@@ -716,12 +725,15 @@ def execute_tts_probe(
                 }
             )
     except Exception as exc:  # pragma: no cover - exercised in integration path.
-        status, failure_reason, error_code, error_message = _classify_tts_exception(exc, config)
+        status, failure_reason, http_status_code, error_code, error_message = _classify_tts_exception(
+            exc, config
+        )
         probe.update(
             {
                 "status": status,
                 "blocked_reason": error_message if status == STATUS_BLOCKED else "",
                 "failure_reason": failure_reason,
+                "http_status_code": http_status_code,
                 "error_code": error_code,
                 "error_message": error_message,
             }
@@ -932,13 +944,21 @@ def _tts_probe_known_issues(tts_probe: dict[str, Any]) -> list[str]:
     return issues
 
 
-def _generation_next_action_hint(gate: dict[str, Any], dry_run: bool) -> str:
+def _generation_next_action_hint(
+    gate: dict[str, Any],
+    tts_probe: dict[str, Any],
+    dry_run: bool,
+) -> str:
     if dry_run:
         return "当前为 dry-run；下一步应补齐 local 配置中的方舟 API Key、可调用 model/endpoint 和 voice 后再尝试真实 TTS probe。"
     if gate["missing_prerequisites"]:
         return "先补齐 local 配置中的 API Key、TTS model/endpoint 和 voice，再进入真实 TTS probe。"
-    if gate["status"] == STATUS_FAILED:
-        return "先修复本地 TTS 调用环境，再重新执行真实 probe。"
+    if tts_probe.get("status") == STATUS_FAILED and tts_probe.get("http_status_code") == 404:
+        return "当前 404 已压缩到请求路由 / 接入标识匹配层；优先核对 provider 路由与 endpoint/model 用法。"
+    if tts_probe.get("status") == STATUS_FAILED:
+        return "当前已进入真实请求层失败；优先核对远端返回码、请求结构和 provider 接口兼容性。"
+    if tts_probe.get("status") == STATUS_SUCCESS:
+        return "当前仅证明 TTS 调用已接通；下一步应试听音频质量，但不要误写成整条正式链路已跑通。"
     return "当前已具备 TTS probe 前提；下一步可执行真实 TTS 调用并检查输出音频质量。"
 
 
@@ -974,21 +994,79 @@ def _build_ark_base_url(config: dict[str, Any]) -> str:
 def _classify_tts_exception(
     exc: Exception,
     config: dict[str, Any],
-) -> tuple[str, str, str, str]:
+) -> tuple[str, str, int | None, str, str]:
     raw_message = _sanitize_message(str(exc), config)
     error_code = exc.__class__.__name__
+    http_status_code = _extract_http_status_code(exc)
 
-    if openai is not None and isinstance(
-        exc,
-        (
-            openai.AuthenticationError,
-            openai.PermissionDeniedError,
-            openai.NotFoundError,
-            openai.BadRequestError,
-        ),
-    ):
-        return STATUS_BLOCKED, "ark_tts_request_blocked", error_code, raw_message
-    return STATUS_FAILED, "ark_tts_request_failed", error_code, raw_message
+    if http_status_code == 404:
+        return (
+            STATUS_FAILED,
+            "ark_tts_route_or_identifier_not_found",
+            http_status_code,
+            error_code,
+            raw_message,
+        )
+    if http_status_code is not None and 400 <= http_status_code < 600:
+        return STATUS_FAILED, "ark_tts_request_failed", http_status_code, error_code, raw_message
+    if openai is not None and isinstance(exc, openai.APIError):
+        return STATUS_FAILED, "ark_tts_request_failed", http_status_code, error_code, raw_message
+    return STATUS_FAILED, "ark_tts_request_failed", http_status_code, error_code, raw_message
+
+
+def _extract_http_status_code(exc: Exception) -> int | None:
+    status_code = getattr(exc, "status_code", None)
+    if isinstance(status_code, int):
+        return status_code
+    response = getattr(exc, "response", None)
+    if response is None:
+        return None
+    response_status = getattr(response, "status_code", None)
+    if isinstance(response_status, int):
+        return response_status
+    return None
+
+
+def _build_tts_request_debug(
+    config: dict[str, Any],
+    base_url: str,
+    model_identifier: str | None,
+    response_format: str,
+) -> dict[str, Any]:
+    endpoint_id = _nested_get(config, "tts", "endpoint_id")
+    model = _nested_get(config, "tts", "model")
+    voice = _nested_get(config, "tts", "voice")
+    return {
+        "provider_route_family": "ark_openai_compatible",
+        "request_method": "POST",
+        "base_url": base_url,
+        "relative_path": "/audio/speech",
+        "sdk_call": "client.audio.speech.with_streaming_response.create",
+        "model_identifier_source": "endpoint_id"
+        if not _is_missing_secret(endpoint_id)
+        else "model",
+        "model_identifier_shape": _shape_debug_value(model_identifier),
+        "endpoint_id_shape": _shape_debug_value(endpoint_id),
+        "model_shape": _shape_debug_value(model),
+        "voice_location": "payload.voice",
+        "voice_shape": _shape_debug_value(voice),
+        "response_format": response_format,
+    }
+
+
+def _shape_debug_value(value: Any) -> dict[str, Any]:
+    if value is None:
+        raw = ""
+    else:
+        raw = str(value).strip()
+    return {
+        "present": bool(raw),
+        "length": len(raw),
+        "has_digit": any(char.isdigit() for char in raw),
+        "has_dash": "-" in raw,
+        "prefix": raw[:2],
+        "suffix": raw[-2:] if raw else "",
+    }
 
 
 def _sanitize_message(message: str, config: dict[str, Any]) -> str:

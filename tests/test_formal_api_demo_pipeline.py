@@ -3,6 +3,9 @@ import tempfile
 import unittest
 from unittest import mock
 
+import httpx
+import openai
+
 from formal_api_demo_core import (
     FORMAL_CASE_PATH,
     FORMAL_EXAMPLE_CONFIG_PATH,
@@ -224,6 +227,59 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                     "used_endpoint_id": "ep_tts_demo",
                 },
             ):
+                result = run_generation_pipeline(
+                    input_path=FORMAL_CASE_PATH,
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                    dry_run=False,
+                )
+
+            self.assertEqual(result["overall_status"], STATUS_FAILED)
+            self.assertEqual(result["generation_status"], STATUS_FAILED)
+
+    def test_generate_non_dry_run_marks_failed_when_remote_returns_404(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_tts_404_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                api_key="ark_test_key",
+                endpoint_id="ep_tts_demo",
+            )
+
+            class _FailingSpeechContext:
+                def __enter__(self):
+                    request = httpx.Request(
+                        "POST",
+                        "https://ark.cn-beijing.volces.com/api/v3/audio/speech",
+                    )
+                    response = httpx.Response(404, request=request, text="")
+                    raise openai.NotFoundError(
+                        "Error code: 404",
+                        response=response,
+                        body=None,
+                    )
+
+                def __exit__(self, exc_type, exc, tb):
+                    return False
+
+            class _WithStreamingResponse:
+                @staticmethod
+                def create(**_kwargs):
+                    return _FailingSpeechContext()
+
+            class _SpeechResource:
+                with_streaming_response = _WithStreamingResponse()
+
+            class _AudioResource:
+                speech = _SpeechResource()
+
+            class _FakeOpenAIClient:
+                def __init__(self, **_kwargs):
+                    self.audio = _AudioResource()
+
+            with mock.patch("formal_api_demo_core.OpenAI", _FakeOpenAIClient):
                 result = run_generation_pipeline(
                     input_path=FORMAL_CASE_PATH,
                     example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
