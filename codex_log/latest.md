@@ -27,6 +27,10 @@
 
 ## 最近一次完成了什么
 
+- 已为 `codex_source/07_formal_api_demo_target_plan.md` 补入“验收节奏 / 验收时机 / 阶段完成标志”：
+  - 明确骨架验收、接 API 前验收、首轮样片验收、修正循环验收四个时间点
+  - 明确每阶段做到哪算过、什么时候不能继续往下走
+  - 明确用户最该在哪些节点介入验收
 - 已新增 `codex_source/07_formal_api_demo_target_plan.md`：
   - 把正式版 API demo 目标态、执行 Gate、修正循环、最小回归样本集、机器硬校验与人工复审正式写入仓库
   - 明确区分“当前仓库事实”与“正式版目标态”
@@ -39,7 +43,7 @@
 
 ## 当前最关键的下一步
 
-- 若后续继续执行正式版主线，应先按 `codex_source/07_formal_api_demo_target_plan.md` 落正式版最小文件骨架、执行 Gate 与校验框架。
+- 若后续继续执行正式版主线，应先按 `codex_source/07_formal_api_demo_target_plan.md` 落正式版最小文件骨架、执行 Gate 与校验框架，并按新补入的验收节奏推进阶段验收。
 - 在火山凭证、空间名、资源存储配置、关键接口可用性未补齐前，不得把正式版云端链路写成已跑通。
 - 若后续继续做仓库型小闭环，仍按“先更新日志，再 commit / push 当前分支，供 ChatGPT 复审”推进。
 
@@ -52,6 +56,7 @@
 - 若任务偏正式版 API demo / 目标态 / 云端组装 / 修正循环 / 质量达标反推，再补读：
   - `codex_source/05_runtime_and_artifact_rules.md`
   - `codex_source/01_execution_rules.md`
+  - 并优先看 `codex_source/07_formal_api_demo_target_plan.md` 里“验收节奏 / 验收时机 / 阶段完成标志”这一节
 - 若任务偏项目定位，再补读 `project_source/00_project_brief.md` 和 `project_source/01_project_system_prompt.md`
 - 必须明确：
   - `codex_source/05_runtime_and_artifact_rules.md` 记录当前仓库已确认事实
