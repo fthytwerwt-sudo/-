@@ -6,7 +6,7 @@
 - 当前项目已进入“正式版目标态搭建阶段”：
   - 正式版目标态文件已落入执行层
   - 正式版最小骨架、输入输出契约与 Gate 校验框架已开始落仓库
-  - 当前已进入 TTS 真实接通阶段，但本轮 success check 的真实 rerun 结果仍是 blocked
+  - 当前已进入 TTS 真实接通阶段，但本轮 final check 的真实 rerun 结果仍是 blocked
   - 本轮只验证 TTS，不代表整条正式视频链路已跑通
   - 但正式版云端链路仍不能视为已跑通
 - 当前仓库已明确项目正式口径：
@@ -30,14 +30,14 @@
 
 ## 最近一次完成了什么
 
-- 已再次使用本地 `config/formal_api_demo.local.toml` 执行真实 non-dry-run TTS probe success check：
-  - 本轮复核后确认：`auth.api_key` 已非空，`tts.endpoint_id` 已非空，但 `tts.voice` 仍为空
+- 已再次使用本地 `config/formal_api_demo.local.toml` 执行真实 non-dry-run TTS probe final check：
+  - 本轮复核后确认：`auth.api_key` 已非空，`tts.endpoint_id` 或 `tts.model` 已非空，但 `tts.voice` 仍为空
   - 当前真实结果仍是 `blocked`，不是 `failed`，也不是 `success`
   - 当前最少缺失项已收敛为：`tts_voice`
   - `dist/formal_api_demo/manifest.json`、`generation_gate.json`、`result_summary.json` 已更新到这次真实状态
 - 已确认：
   - 当前 formal 骨架的 TTS probe 入口可执行
-  - 但这次 success check 仍没有落出真实音频文件
+  - 但这次 final check 仍没有落出真实音频文件
   - 因此当前仍不能写“正式版骨架的 TTS 已接通成功”
 - 已把正式版 generation 收窄到“TTS probe”：
   - local 私有配置已支持方舟 API Key、TTS model / endpoint、voice、response_format
@@ -76,7 +76,7 @@
 
 ## 当前最关键的下一步
 
-- 若后续继续执行正式版主线，应先把本地 `config/formal_api_demo.local.toml` 里的 `tts.voice` 填成真实有效值，再重跑一次真实 TTS probe。
+- 若后续继续执行正式版主线，应先把本地 `config/formal_api_demo.local.toml` 里的 `tts.voice` 填成真实有效值，再重跑一次真实 TTS probe；当前实际文件内容仍显示该字段为空。
 - 在火山凭证、空间名、资源存储配置、关键接口可用性未补齐前，不得把正式版云端链路写成已跑通。
 - 若后续继续做仓库型小闭环，仍按“先更新日志，再 commit / push 当前分支，供 ChatGPT 复审”推进。
 
