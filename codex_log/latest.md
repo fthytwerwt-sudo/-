@@ -6,7 +6,7 @@
 - 当前项目已进入“正式版目标态搭建阶段”：
   - 正式版目标态文件已落入执行层
   - 正式版最小骨架、输入输出契约与 Gate 校验框架已开始落仓库
-  - 当前已进入 TTS 真实接通阶段，本轮已实际按 `edge_gateway_openai_compatible` 跑过一次 non-dry-run probe
+  - 当前已进入 TTS 真实接通阶段，本轮已把 Edge Gateway TTS 推到真实远端 401 硬阻塞
   - 当前已把 TTS probe 拆成显式 route family：Ark / Edge Gateway / Doubao OpenSpeech
   - 本轮只验证 TTS，不代表整条正式视频链路已跑通
   - 但正式版云端链路仍不能视为已跑通
@@ -31,21 +31,23 @@
 
 ## 最近一次完成了什么
 
-- 已真实按 `edge_gateway_openai_compatible` 跑过一次 non-dry-run TTS probe：
-  - 当前 `generation_gate.status = blocked`
-  - 当前 `manifest.current_status = blocked`
-  - 当前 `manifest.generation.tts_probe.status = blocked`
-  - 当前 `result_summary.overall_status = blocked`
+- 已继续把 Edge Gateway TTS 子线往前推进到真实远端失败层：
+  - 本地已把 `tts.api_route_family` 切到 `edge_gateway_openai_compatible`
+  - 本地已补齐最小可执行的 `tts.model`
+  - 已执行真实 non-dry-run：
+    - `python3 scripts/generate_formal_api_demo.py --out dist/formal_api_demo`
+- 本轮真实结果已不再是 `blocked`，而是 `failed`
+  - `generation_gate.status = success`
+  - `manifest.current_status = failed`
+  - `manifest.generation.tts_probe.status = failed`
+  - `result_summary.overall_status = failed`
   - 三份结果文件状态一致
-- 本轮没有进入远端请求失败层，而是停在 Edge Gateway family 的最小前提层：
-  - 当前唯一缺失项是 `tts_model`
-  - `auth.api_key` 和 `tts.voice` 已存在
-  - `tts.api_route_family` 已切到 `edge_gateway_openai_compatible`
+- 当前失败点已压缩到最小硬阻塞层：
+  - `edge_gateway_openai_compatible`
+  - HTTP `401`
+  - 远端明确返回“AI Gateway API Key invalid”
 - 当前没有落出真实音频文件
-- 这说明：
-  - 当前 formal 骨架的 Edge Gateway probe 路径可执行
-  - 但本地私有配置还没达到真实发请求的最小执行集合
-  - 因此当前仍不能写“正式版骨架的 TTS 已接通成功”
+- 因此这轮不能继续推进到 assembly，也不能写“正式版骨架的 TTS 已接通成功”
 - 已把正式版 generation 收窄到“TTS probe”：
   - local 私有配置已支持方舟 API Key、TTS model / endpoint、voice、response_format
   - generation_gate 已改成以 TTS 为主判断 `success / blocked / failed`
@@ -83,9 +85,7 @@
 
 ## 当前最关键的下一步
 
-- 若后续继续执行正式版主线，仍默认优先试 `edge_gateway_openai_compatible`：
-  - 当前它已具备最小 probe 路径
-  - 当前 blocked 已压缩到唯一缺失项：`tts.model`
+- 若后续继续执行正式版主线，TTS 下一步不该再改代码，而应先换成真实有效的 AI Gateway 访问密钥。
 - Ark 路由保留用于继续压测当前 404，但不再作为所有 TTS family 的默认兜底。
 - Doubao OpenSpeech 当前仅完成 family / gate 拆分；若继续推进，需要先补请求体和返回解析实现。
 - 在火山凭证、空间名、资源存储配置、关键接口可用性未补齐前，不得把正式版云端链路写成已跑通。
