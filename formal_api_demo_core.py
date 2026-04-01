@@ -31,6 +31,7 @@ STATUS_PLANNED = "planned"
 STATUS_BLOCKED = "blocked"
 STATUS_SUCCESS = "success"
 STATUS_FAILED = "failed"
+STATUS_SKIPPED = "skipped"
 
 PLACEHOLDER_PREFIX = "SET_"
 PROVIDER_VOLCENGINE = "volcengine"
@@ -361,6 +362,12 @@ def run_generation_pipeline(
         dry_run=dry_run,
     )
     manifest["current_status"] = manifest["generation"]["status"]
+    manifest["status_summary"] = {
+        "generation": manifest["generation"]["status"],
+        "local_assembly": manifest.get("status_summary", {}).get("local_assembly", STATUS_NOT_STARTED),
+        "cloud_assembly": manifest.get("status_summary", {}).get("cloud_assembly", STATUS_NOT_STARTED),
+        "overall_status": manifest["generation"]["status"],
+    }
     manifest["known_issues"] = _merge_known_issues(
         manifest["known_issues"],
         _voiceover_known_issues(manifest["generation"]["voiceover"]),
@@ -626,20 +633,40 @@ def run_assembly_pipeline(
             manifest=manifest,
             output_dir=output_dir,
         )
+    local_assembly_status = STATUS_PLANNED if dry_run else preview_result["status"]
+    cloud_assembly_status = STATUS_PLANNED if dry_run else assembly_gate["status"]
+    overall_status = _combine_stage_statuses(
+        [
+            manifest.get("generation", {}).get("status", STATUS_NOT_STARTED),
+            local_assembly_status,
+        ],
+        dry_run=dry_run,
+    )
     manifest["assembly"] = {
-        "status": STATUS_PLANNED if dry_run else assembly_gate["status"],
+        "status": local_assembly_status,
         "task_id": None,
         "resource_id": None,
         "output_id": None,
+        "delivery_mode": "local_mp4",
+        "delivery_video_path": preview_result.get("video_path")
+        if local_assembly_status == STATUS_SUCCESS
+        else None,
+        "local": preview_result,
         "cloud": {
-            "status": STATUS_PLANNED if dry_run else assembly_gate["status"],
+            "status": cloud_assembly_status,
             "blocked_reason": "" if dry_run else assembly_gate.get("blocked_reason", ""),
             "missing_prerequisites": assembly_gate["missing_prerequisites"],
             "missing_implementations": assembly_gate["missing_implementations"],
         },
         "preview": preview_result,
     }
-    manifest["current_status"] = manifest["assembly"]["status"]
+    manifest["status_summary"] = {
+        "generation": manifest.get("generation", {}).get("status", STATUS_NOT_STARTED),
+        "local_assembly": local_assembly_status,
+        "cloud_assembly": cloud_assembly_status,
+        "overall_status": overall_status,
+    }
+    manifest["current_status"] = overall_status
     manifest["known_issues"] = _merge_known_issues(
         manifest.get("known_issues", []),
         _assembly_preview_known_issues(preview_result),
@@ -814,34 +841,16 @@ def evaluate_generation_gate(
         has_local_config=has_local_config,
         dry_run=dry_run,
     )
-    overall_status = _combine_stage_statuses(
-        [
-            tts_gate["status"],
-            visual_gate["status"],
-        ],
-        dry_run=dry_run,
-    )
-    missing = _merge_unique_values(
-        tts_gate["missing_prerequisites"],
-        visual_gate["missing_prerequisites"],
-    )
-    missing_implementations = _merge_unique_values(
-        tts_gate["missing_implementations"],
-        visual_gate["missing_implementations"],
-    )
-    failure_reason = tts_gate.get("failure_reason") or visual_gate.get("failure_reason", "")
-    blocked_reason = tts_gate.get("blocked_reason") or ""
-    if visual_gate.get("blocked_reason"):
-        blocked_reason = (
-            f"{blocked_reason}；{visual_gate['blocked_reason']}"
-            if blocked_reason
-            else visual_gate["blocked_reason"]
-        )
+    overall_status = tts_gate["status"] if not dry_run else STATUS_PLANNED
+    missing = list(tts_gate["missing_prerequisites"])
+    missing_implementations = list(tts_gate["missing_implementations"])
+    failure_reason = tts_gate.get("failure_reason", "")
+    blocked_reason = tts_gate.get("blocked_reason", "")
 
     return {
         "gate_name": "generation_gate",
         "status": overall_status,
-        "scope": "tts_voiceover_and_visual_generation",
+        "scope": "tts_voiceover_and_local_visual_plan",
         "allow_execution": not dry_run,
         "blocked_reason": blocked_reason,
         "failure_reason": failure_reason,
@@ -861,8 +870,8 @@ def evaluate_generation_gate(
         "checks": tts_gate["checks"] + visual_gate["checks"],
         "notes": [
             "当前 generation 会继续执行 TTS probe、整段配音、字幕与视觉计划，不再只停在 TTS probe。",
-            "即使正式视觉 provider / 云端组装前提未齐，也会尽量落出本地可追溯产物，供下一步收口。",
-            "generation 顶层状态按正式链路口径统计，不会把“局部音频成功”写成整层已跑通。",
+            "本地 0-1 阶段默认以视觉计划可落出为成功口径；cloud visual generation 降级为可选增强项。",
+            "generation 顶层状态按本地可交付链路统计，不再被 cloud visual generation 的未配置状态直接压成 blocked。",
         ],
     }
 
@@ -918,11 +927,11 @@ def _evaluate_visual_generation_gate(
         status = STATUS_PLANNED
         blocked_reason = ""
     elif missing:
-        status = STATUS_BLOCKED
-        blocked_reason = "缺少视觉生成前提：" + "、".join(missing)
+        status = STATUS_SKIPPED
+        blocked_reason = "cloud visual generation 未配置；当前阶段继续沿用视觉计划 + 本地 assembly。"
     else:
         status = STATUS_BLOCKED
-        blocked_reason = "正式视觉 provider implementation 尚未接入；当前先落视觉计划与本地预览素材。"
+        blocked_reason = "cloud visual generation provider implementation 尚未接入；当前先落视觉计划与本地预览素材。"
 
     return {
         "gate_name": "visual_generation_gate",
@@ -934,8 +943,8 @@ def _evaluate_visual_generation_gate(
         "missing_implementations": implementation_missing,
         "checks": checks,
         "notes": [
-            "visual_generation Gate 按正式远端素材生成口径判断。",
-            "即使 Gate blocked，仍允许落 visual plan，避免正式链路继续停在纯骨架。",
+            "visual_generation Gate 仅代表 cloud visual generation 状态。",
+            "当前阶段即使 cloud visual generation skipped / blocked，仍允许落 visual plan，避免本地链路继续停在纯骨架。",
         ],
     }
 
@@ -1018,15 +1027,26 @@ def evaluate_assembly_gate(
         },
     ]
 
+    cloud_optional_missing = {
+        "space_name",
+        "assembly_template_id",
+    }
+    blocking_missing = [
+        item for item in missing if item not in cloud_optional_missing
+    ]
+
     if dry_run:
         status = STATUS_PLANNED
         blocked_reason = ""
-    elif missing:
+    elif blocking_missing:
         status = STATUS_BLOCKED
-        blocked_reason = "缺少正式组装前提：" + "、".join(missing)
+        blocked_reason = "缺少本地组装前提：" + "、".join(blocking_missing)
+    elif missing:
+        status = STATUS_SKIPPED
+        blocked_reason = "cloud assembly 未配置；当前阶段默认交付本地 mp4。"
     else:
         status = STATUS_BLOCKED
-        blocked_reason = "正式云端组装实现尚未接入，本轮只提供骨架与 Gate。"
+        blocked_reason = "正式云端组装实现尚未接入；当前阶段默认交付本地 mp4。"
 
     return {
         "gate_name": "assembly_gate",
@@ -1037,9 +1057,9 @@ def evaluate_assembly_gate(
         "missing_implementations": implementation_missing,
         "checks": checks,
         "notes": [
-            "assembly 顶层 Gate 仍按正式云端组装口径判断。",
+            "assembly Gate 仅代表 cloud assembly 状态，不再代表当前阶段整体交付状态。",
             "manifest 是修正循环和复审的事实锚点，assembly 不得绕开 manifest 自由猜测。",
-            "即使云端组装 blocked，也会尽量尝试落本地 preview 样片，帮助验证音频、字幕和时间线是否已接上。",
+            "当前阶段默认交付本地 mp4；cloud assembly 降级为可选增强项。",
         ],
     }
 
@@ -1158,6 +1178,12 @@ def build_manifest(
             "planned_total_duration_seconds": video_spec["total_duration_seconds"],
             "planned_segment_count": len(segments),
         },
+        "status_summary": {
+            "generation": generation_gate["status"] if not dry_run else STATUS_PLANNED,
+            "local_assembly": STATUS_NOT_STARTED,
+            "cloud_assembly": STATUS_NOT_STARTED,
+            "overall_status": generation_gate["status"] if not dry_run else STATUS_PLANNED,
+        },
         "generation": {
             "status": generation_gate["status"] if not dry_run else STATUS_PLANNED,
             "task_id": None,
@@ -1174,6 +1200,9 @@ def build_manifest(
             "task_id": None,
             "resource_id": None,
             "output_id": None,
+            "delivery_mode": "local_mp4",
+            "delivery_video_path": None,
+            "local": build_default_assembly_preview(output_dir),
             "cloud": {
                 "status": STATUS_NOT_STARTED,
                 "blocked_reason": "",
@@ -1210,16 +1239,20 @@ def build_generation_result_summary(
     captions = manifest.get("generation", {}).get("captions", {})
     visual_generation = manifest.get("generation", {}).get("visual_generation", {})
     status = STATUS_PLANNED if dry_run else manifest.get("generation", {}).get("status", generation_gate["status"])
+    cloud_visual = visual_generation.get("cloud", {})
     return {
         "schema_version": RESULT_SUMMARY_SCHEMA_VERSION,
         "stage": "generation",
         "overall_status": status,
         "generation_status": status,
         "assembly_status": STATUS_NOT_STARTED,
+        "local_assembly_status": STATUS_NOT_STARTED,
+        "cloud_assembly_status": STATUS_NOT_STARTED,
         "tts_probe_status": tts_probe.get("status", STATUS_NOT_STARTED),
         "voiceover_status": voiceover.get("status", STATUS_NOT_STARTED),
         "captions_status": captions.get("status", STATUS_NOT_STARTED),
         "visual_generation_status": visual_generation.get("status", STATUS_NOT_STARTED),
+        "cloud_visual_generation_status": cloud_visual.get("status", STATUS_NOT_STARTED),
         "failure_reason": (
             voiceover.get("failure_reason")
             or visual_generation.get("failure_reason")
@@ -1236,7 +1269,11 @@ def build_generation_result_summary(
         },
         "blocked_reason": ""
         if dry_run
-        else tts_probe.get("blocked_reason") or generation_gate.get("blocked_reason", ""),
+        else (
+            tts_probe.get("blocked_reason")
+            or voiceover.get("blocked_reason")
+            or generation_gate.get("blocked_reason", "")
+        ),
         "artifact_paths": {
             "manifest": str(output_dir / "manifest.json"),
             "generation_gate": str(output_dir / "generation_gate.json"),
@@ -1249,6 +1286,7 @@ def build_generation_result_summary(
         },
         "next_action_hint": _generation_next_action_hint(generation_gate, tts_probe, dry_run),
         "current_missing_prerequisites": generation_gate["missing_prerequisites"],
+        "cloud_missing_prerequisites": cloud_visual.get("missing_prerequisites", []),
         "known_issues": manifest["known_issues"],
     }
 
@@ -1293,13 +1331,23 @@ def build_assembly_result_summary(
 ) -> dict[str, Any]:
     generation_status = manifest.get("generation", {}).get("status", STATUS_NOT_STARTED)
     preview = manifest.get("assembly", {}).get("preview", {})
-    status = STATUS_PLANNED if dry_run else assembly_gate["status"]
+    local_status = STATUS_PLANNED if dry_run else preview.get("status", STATUS_NOT_STARTED)
+    cloud_status = STATUS_PLANNED if dry_run else assembly_gate["status"]
+    overall_status = _combine_stage_statuses(
+        [
+            generation_status,
+            local_status,
+        ],
+        dry_run=dry_run,
+    )
     return {
         "schema_version": RESULT_SUMMARY_SCHEMA_VERSION,
         "stage": "assembly",
-        "overall_status": status,
+        "overall_status": overall_status,
         "generation_status": generation_status,
-        "assembly_status": status,
+        "assembly_status": local_status,
+        "local_assembly_status": local_status,
+        "cloud_assembly_status": cloud_status,
         "assembly_preview_status": preview.get("status", STATUS_NOT_STARTED),
         "machine_gate_result": {
             "generation_gate": manifest.get("machine_gate", {})
@@ -1307,18 +1355,27 @@ def build_assembly_result_summary(
             .get("status", STATUS_NOT_STARTED),
             "assembly_gate": assembly_gate["status"],
         },
-        "blocked_reason": "" if dry_run else assembly_gate.get("blocked_reason", ""),
+        "blocked_reason": ""
+        if dry_run
+        else (
+            preview.get("blocked_reason")
+            or preview.get("error_message")
+            or (assembly_gate.get("blocked_reason", "") if overall_status == STATUS_BLOCKED else "")
+        ),
         "artifact_paths": {
             "manifest": str(output_dir / "manifest.json"),
             "assembly_gate": str(output_dir / "assembly_gate.json"),
             "assembly_plan": str(output_dir / "assembly_plan.json"),
             "result_summary": str(output_dir / "result_summary.json"),
-            "final_video": None,
+            "final_video": preview.get("video_path") if local_status == STATUS_SUCCESS else None,
             "preview_video": preview.get("video_path"),
             "preview_manifest": preview.get("preview_manifest_path"),
         },
         "next_action_hint": _assembly_next_action_hint(assembly_gate, dry_run),
-        "current_missing_prerequisites": assembly_gate["missing_prerequisites"],
+        "current_missing_prerequisites": []
+        if overall_status == STATUS_SUCCESS
+        else assembly_gate["missing_prerequisites"],
+        "cloud_missing_prerequisites": assembly_gate["missing_prerequisites"],
         "known_issues": manifest.get("known_issues", []),
     }
 
@@ -1366,10 +1423,12 @@ def build_default_visual_generation(
 ) -> dict[str, Any]:
     return {
         "status": STATUS_PLANNED,
+        "delivery_mode": "local_visual_plan",
         "provider": _nested_get(config, "provider", "name"),
         "image_model": _nested_get(config, "image_generation", "model"),
         "video_model": _nested_get(config, "video_generation", "model"),
         "plan_path": None,
+        "preview_storyboard_path": None,
         "segment_assets": [
             {
                 "segment_id": segment["segment_id"],
@@ -1385,6 +1444,12 @@ def build_default_visual_generation(
         "failure_reason": "",
         "current_missing_prerequisites": [],
         "missing_implementations": [],
+        "cloud": {
+            "status": STATUS_NOT_STARTED,
+            "blocked_reason": "",
+            "missing_prerequisites": [],
+            "missing_implementations": [],
+        },
     }
 
 
@@ -1745,15 +1810,24 @@ def build_visual_generation_plan(
             }
         )
 
+    cloud_status = visual_gate["status"]
+    cloud_blocked_reason = visual_gate.get("blocked_reason", "")
     visual_generation.update(
         {
-            "status": visual_gate["status"],
+            "status": STATUS_SUCCESS,
             "plan_path": str(plan_path),
+            "preview_storyboard_path": str(preview_storyboard_path),
             "segment_assets": segment_assets,
-            "blocked_reason": visual_gate.get("blocked_reason", ""),
-            "failure_reason": visual_gate.get("failure_reason", ""),
-            "current_missing_prerequisites": visual_gate.get("missing_prerequisites", []),
-            "missing_implementations": visual_gate.get("missing_implementations", []),
+            "blocked_reason": "",
+            "failure_reason": "",
+            "current_missing_prerequisites": [],
+            "missing_implementations": [],
+            "cloud": {
+                "status": cloud_status,
+                "blocked_reason": cloud_blocked_reason,
+                "missing_prerequisites": visual_gate.get("missing_prerequisites", []),
+                "missing_implementations": visual_gate.get("missing_implementations", []),
+            },
         }
     )
     write_json(
@@ -1766,6 +1840,7 @@ def build_visual_generation_plan(
             "video_model": visual_generation["video_model"],
             "current_missing_prerequisites": visual_generation["current_missing_prerequisites"],
             "missing_implementations": visual_generation["missing_implementations"],
+            "cloud": visual_generation["cloud"],
             "segment_assets": segment_assets,
         },
     )
@@ -2087,7 +2162,7 @@ def _tts_probe_known_issues(tts_probe: dict[str, Any]) -> list[str]:
     if tts_probe.get("status") == STATUS_FAILED and tts_probe.get("error_message"):
         issues.append("TTS probe failed：" + tts_probe["error_message"])
     if tts_probe.get("status") == STATUS_SUCCESS:
-        issues.append("当前仅验证 TTS 调用已接通，未覆盖视觉生成与云端组装。")
+        issues.append("当前 TTS 调用已接通；cloud visual generation / cloud assembly 仍作为后续增强项单独记录。")
     return issues
 
 
@@ -2102,9 +2177,7 @@ def _generation_next_action_hint(
         or TTS_ROUTE_FAMILY_ARK
     )
     if dry_run:
-        return "当前为 dry-run；下一步应先确认 TTS、image_generation.model 和 video_generation.model 的正式前提，再执行真实 generation。"
-    if "image_generation_model" in gate["missing_prerequisites"] or "video_generation_model" in gate["missing_prerequisites"]:
-        return "TTS 已不是唯一问题；下一步应先补齐 image_generation.model / video_generation.model，再继续正式视觉素材联调。"
+        return "当前为 dry-run；下一步应先确认 TTS 前提，再执行真实 generation。本阶段 cloud visual generation 不再阻断本地出片。"
     if gate["missing_prerequisites"]:
         if route_family == TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE:
             return "先补齐阿里百炼的 API Key、tts.model 和 voice，再进入真实 TTS probe。"
@@ -2136,16 +2209,18 @@ def _generation_next_action_hint(
     if tts_probe.get("status") == STATUS_FAILED:
         return "当前已进入真实请求层失败；优先核对远端返回码、请求结构和 provider 接口兼容性。"
     if tts_probe.get("status") == STATUS_SUCCESS:
-        return "当前已证明 TTS 子线可用；下一步应继续补齐视觉生成与 assembly 的正式前提，而不是继续扩声音实验。"
+        return "当前 generation 已可落出脚本、配音、字幕和视觉计划；下一步应继续执行本地 assembly，稳定产出本地 mp4。"
     return "当前已具备部分 generation 前提；下一步可执行真实 generation，并把失败压到字段或 provider 层。"
 
 
 def _assembly_next_action_hint(gate: dict[str, Any], dry_run: bool) -> str:
     if dry_run:
-        return "当前为 assembly dry-run；下一步应补齐云端组装配置，并实际运行非 dry-run 产出 preview / 阻塞事实。"
+        return "当前为 assembly dry-run；下一步应实际运行非 dry-run，验证本地 mp4 是否可稳定落出。"
+    if gate["status"] == STATUS_SKIPPED:
+        return "cloud assembly 当前未配置；当前阶段继续沿用本地 mp4 作为默认交付件。"
     if gate["missing_prerequisites"]:
-        return "先补齐云端组装模板、空间配置，以及缺失的 generation 素材，再进入真实云端组装联调。"
-    return "补齐正式云端组装实现后，再进入首轮样片联调。"
+        return "先补齐本地 assembly 缺失素材，再继续本地出片；cloud assembly 仍是后续增强项。"
+    return "若要继续推进云端组装，下一步是补正式云端组装实现；当前本地 mp4 已是默认交付路径。"
 
 
 def _select_tts_probe_text(video_spec: dict[str, Any]) -> tuple[str, str]:
@@ -2720,6 +2795,11 @@ def _combine_stage_statuses(statuses: list[str], *, dry_run: bool = False) -> st
     filtered = [status for status in statuses if status]
     if not filtered:
         return STATUS_NOT_STARTED
+    if all(status == STATUS_SKIPPED for status in filtered):
+        return STATUS_SKIPPED
+    filtered = [status for status in filtered if status != STATUS_SKIPPED]
+    if not filtered:
+        return STATUS_SUCCESS
     if any(status == STATUS_FAILED for status in filtered):
         return STATUS_FAILED
     if any(status == STATUS_BLOCKED for status in filtered):
@@ -2835,10 +2915,13 @@ def _visual_generation_known_issues(visual_generation: dict[str, Any]) -> list[s
     issues: list[str] = []
     if visual_generation.get("status") == STATUS_BLOCKED and visual_generation.get("blocked_reason"):
         issues.append("视觉生成 blocked：" + visual_generation["blocked_reason"])
-    if visual_generation.get("missing_implementations"):
+    cloud = visual_generation.get("cloud", {})
+    if cloud.get("status") == STATUS_BLOCKED and cloud.get("blocked_reason"):
+        issues.append("cloud visual generation blocked：" + cloud["blocked_reason"])
+    if cloud.get("missing_implementations"):
         issues.append(
-            "视觉生成 provider 尚未接入："
-            + "、".join(visual_generation["missing_implementations"])
+            "cloud visual generation provider 尚未接入："
+            + "、".join(cloud["missing_implementations"])
         )
     return issues
 

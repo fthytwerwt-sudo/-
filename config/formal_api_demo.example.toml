@@ -110,22 +110,30 @@ recommended = false
 
 [image_generation]
 enabled = true
-# 正式视觉生成还没接 provider implementation。
-# 先在 local config 里填真实 model，便于把阻塞继续压到接口层。
+# 当前阶段本地优先：
+# - 未配置 image_generation.model 不阻断本地出片
+# - 若配置了真实 model，则只影响后续 cloud visual generation 增强项
 model = "SET_IN_LOCAL_FILE"
 
 [video_generation]
 enabled = true
+# 当前阶段本地优先：
+# - 未配置 video_generation.model 不阻断本地出片
+# - 若配置了真实 model，则只影响后续 cloud visual generation 增强项
 model = "SET_IN_LOCAL_FILE"
 
 [assembly]
 mode = "cloud"
+# 当前阶段默认交付件是本地 mp4。
+# template_id 仅用于后续 cloud assembly 增强项；未配置不阻断本地出片。
 template_id = "SET_IN_LOCAL_FILE"
 subtitle_mode = "burn_in"
 resolution = "1080x1920"
 fps = 25
 
 [storage]
+# 当前阶段默认走本地 assembly。
+# space_name 仅用于后续 cloud assembly / 存储增强项；未配置不阻断本地出片。
 space_name = "SET_IN_LOCAL_FILE"
 upload_prefix = "formal_api_demo/"
 
