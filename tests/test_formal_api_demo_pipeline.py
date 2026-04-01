@@ -17,6 +17,7 @@ from formal_api_demo_core import (
     STATUS_PLANNED,
     STATUS_SUCCESS,
     parse_formal_case_markdown,
+    run_aliyun_tts_style_probe_variants,
     run_assembly_pipeline,
     run_generation_pipeline,
 )
@@ -39,6 +40,10 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
         resource_id: str = "",
         voice: str = "zh_female_test",
         style: str = "knowledge",
+        instruction: str = "",
+        speech_rate: float = 1.0,
+        pitch_rate: float = 1.0,
+        volume: int = 50,
     ) -> None:
         path.write_text(
             "\n".join(
@@ -58,6 +63,10 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                     f'resource_id = "{resource_id}"',
                     f'voice = "{voice}"',
                     f'style = "{style}"',
+                    f'instruction = "{instruction}"',
+                    f"speech_rate = {speech_rate}",
+                    f"pitch_rate = {pitch_rate}",
+                    f"volume = {volume}",
                     'response_format = "mp3"',
                 ]
             )
@@ -395,6 +404,99 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             self.assertEqual(
                 result["failure_reason"],
                 "aliyun_bailian_tts_request_failed",
+            )
+
+    def test_run_aliyun_tts_style_probe_variants_writes_three_named_audio_files(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_aliyun_variants_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                provider_name="aliyun_bailian",
+                route_family="aliyun_bailian_cosyvoice",
+                api_key="dashscope_test_key",
+                model="cosyvoice-v3-flash",
+                voice="longanyang",
+            )
+
+            requests: list[dict[str, object]] = []
+
+            class _JsonResponse:
+                def __init__(self, payload: dict[str, object]) -> None:
+                    self._payload = payload
+
+                def __enter__(self):
+                    return self
+
+                def __exit__(self, exc_type, exc, tb):
+                    return False
+
+                def read(self) -> bytes:
+                    return json.dumps(self._payload).encode("utf-8")
+
+            class _BinaryResponse:
+                def __init__(self, content: bytes) -> None:
+                    self._content = content
+
+                def __enter__(self):
+                    return self
+
+                def __exit__(self, exc_type, exc, tb):
+                    return False
+
+                def read(self) -> bytes:
+                    return self._content
+
+            def fake_urlopen(request, timeout=60):
+                del timeout
+                url = request.full_url
+                if url.endswith("/services/audio/tts/SpeechSynthesizer"):
+                    body = json.loads(request.data.decode("utf-8"))
+                    requests.append(body)
+                    variant_id = len(requests)
+                    return _JsonResponse(
+                        {
+                            "request_id": f"aliyun_req_{variant_id}",
+                            "output": {
+                                "finish_reason": "stop",
+                                "audio": {
+                                    "url": f"https://dashscope-result.example.com/audio_{variant_id}.mp3",
+                                },
+                            },
+                        }
+                    )
+                if "audio_" in url:
+                    variant_id = url.rsplit("_", 1)[-1].split(".", 1)[0]
+                    return _BinaryResponse(f"aliyun-mp3-{variant_id}".encode("utf-8"))
+                raise AssertionError(f"unexpected url: {url}")
+
+            with mock.patch("formal_api_demo_core.urllib.request.urlopen", side_effect=fake_urlopen):
+                result = run_aliyun_tts_style_probe_variants(
+                    input_path=FORMAL_CASE_PATH,
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                )
+
+            self.assertEqual(result["overall_status"], STATUS_SUCCESS)
+            self.assertTrue(result["style_draft_in_request"])
+            self.assertEqual(result["recommended_variant_id"], "A")
+            self.assertEqual(len(result["variants"]), 3)
+            self.assertEqual([item["variant_id"] for item in result["variants"]], ["A", "B", "C"])
+            self.assertEqual(
+                [pathlib.Path(item["audio_path"]).name for item in result["variants"]],
+                ["voice_probe_A.mp3", "voice_probe_B.mp3", "voice_probe_C.mp3"],
+            )
+            self.assertTrue(result["variants"][0]["request_debug"]["style_draft_in_request"])
+            self.assertEqual(requests[0]["input"]["instruction"], "你说话的情感是neutral。")
+            self.assertEqual(requests[1]["input"]["instruction"], "你说话的情感是disgusted。")
+            self.assertEqual(requests[2]["input"]["instruction"], "你说话的情感是neutral。")
+            self.assertIn("rate", requests[0]["input"])
+            self.assertIn("pitch", requests[0]["input"])
+            self.assertIn("volume", requests[0]["input"])
+            self.assertEqual(
+                requests[0]["input"]["text"],
+                requests[1]["input"]["text"],
             )
 
     def test_generate_non_dry_run_edge_gateway_requires_model_not_endpoint(self) -> None:

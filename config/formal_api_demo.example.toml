@@ -27,7 +27,42 @@ endpoint_id = "SET_IF_ENDPOINT_REQUIRED"
 resource_id = "SET_IF_OPENSPEECH_REQUIRED"
 voice = "SET_IN_LOCAL_FILE"
 style = "knowledge"
+instruction = ""
+speech_rate = 1.0
+pitch_rate = 1.0
+volume = 50
 response_format = "mp3"
+
+[tts_style_probe]
+# 固定测试文案：只用于声音目标稿 v1 的 A/B/C 对照，不推进 assembly。
+text = "这套方案表面上堆满了参数，真正决定上限的其实只有供电、火控和协同链路。前两项还能补，第三项一旦掉队，再新的壳子也只是好看。说得更直白一点，它不是没亮点，是关键战力根本没站住。"
+
+[tts_style_probe_variant_A]
+label = "稳定版"
+intent = "冷静利落，优先保住稳定判断感。"
+instruction = "你说话的情感是neutral。"
+speech_rate = 1.18
+pitch_rate = 0.92
+volume = 46
+recommended = true
+
+[tts_style_probe_variant_B]
+label = "判断感更强版"
+intent = "保留克制底色，同时把锋利感再往前推一点。"
+instruction = "你说话的情感是disgusted。"
+speech_rate = 1.24
+pitch_rate = 0.9
+volume = 48
+recommended = false
+
+[tts_style_probe_variant_C]
+label = "更克制版"
+intent = "进一步压低情绪起伏，保住冷静和收束。"
+instruction = "你说话的情感是neutral。"
+speech_rate = 1.08
+pitch_rate = 0.9
+volume = 44
+recommended = false
 
 [image_generation]
 enabled = true

@@ -43,6 +43,43 @@ SUPPORTED_TTS_ROUTE_FAMILIES = {
     TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH,
     TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE,
 }
+DEFAULT_ALIYUN_TTS_STYLE_PROBE_TEXT = (
+    "这套方案表面上堆满了参数，真正决定上限的其实只有供电、火控和协同链路。"
+    "前两项还能补，第三项一旦掉队，再新的壳子也只是好看。"
+    "说得更直白一点，它不是没亮点，是关键战力根本没站住。"
+)
+DEFAULT_ALIYUN_TTS_STYLE_VARIANTS = (
+    {
+        "variant_id": "A",
+        "label": "稳定版",
+        "intent": "冷静利落，优先保住稳定判断感。",
+        "instruction": "你说话的情感是neutral。",
+        "speech_rate": 1.18,
+        "pitch_rate": 0.92,
+        "volume": 46,
+        "recommended": True,
+    },
+    {
+        "variant_id": "B",
+        "label": "判断感更强版",
+        "intent": "保留克制底色，同时把锋利感再往前推一点。",
+        "instruction": "你说话的情感是disgusted。",
+        "speech_rate": 1.24,
+        "pitch_rate": 0.9,
+        "volume": 48,
+        "recommended": False,
+    },
+    {
+        "variant_id": "C",
+        "label": "更克制版",
+        "intent": "进一步压低情绪起伏，保住冷静和收束。",
+        "instruction": "你说话的情感是neutral。",
+        "speech_rate": 1.08,
+        "pitch_rate": 0.9,
+        "volume": 44,
+        "recommended": False,
+    },
+)
 
 
 class TtsRequestError(RuntimeError):
@@ -229,6 +266,114 @@ def run_generation_pipeline(
     )
     write_json(output_dir / "result_summary.json", result_summary)
     return result_summary
+
+
+def run_aliyun_tts_style_probe_variants(
+    input_path: pathlib.Path,
+    example_config_path: pathlib.Path,
+    local_config_path: pathlib.Path | None,
+    output_dir: pathlib.Path,
+) -> dict[str, Any]:
+    video_spec = parse_formal_case_markdown(input_path)
+    config_bundle = load_formal_config(example_config_path, local_config_path)
+    config = config_bundle["config"]
+    gate = evaluate_generation_gate(
+        video_spec=video_spec,
+        config=config,
+        has_local_config=config_bundle["has_local_config"],
+        dry_run=False,
+    )
+    route_family = _get_tts_api_route_family(config)
+    probe_text, probe_text_source = _get_aliyun_tts_style_probe_text(config)
+    recommended_variant_id = _get_recommended_tts_style_variant_id(config)
+    variants_path = output_dir / "tts_style_probe_variants.json"
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    result: dict[str, Any] = {
+        "overall_status": STATUS_BLOCKED,
+        "failure_reason": "",
+        "blocked_reason": "",
+        "api_route_family": route_family,
+        "provider": _get_tts_provider_name(config, route_family=route_family),
+        "model_identifier": _get_tts_model_identifier(config, route_family=route_family),
+        "voice": _nested_get(config, "tts", "voice"),
+        "style_probe_text": probe_text,
+        "style_probe_text_source": probe_text_source,
+        "style_draft_in_request": False,
+        "recommended_variant_id": recommended_variant_id,
+        "variants": [],
+    }
+
+    if gate["status"] != STATUS_SUCCESS:
+        result["overall_status"] = gate["status"]
+        result["failure_reason"] = gate.get("failure_reason", "")
+        result["blocked_reason"] = gate.get("blocked_reason", "")
+        write_json(variants_path, result)
+        return result
+
+    if route_family != TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE:
+        result["blocked_reason"] = (
+            "当前 style probe variants 仅支持 aliyun_bailian_cosyvoice route family。"
+        )
+        write_json(variants_path, result)
+        return result
+
+    variants = _load_aliyun_tts_style_probe_variants(config)
+    variant_results: list[dict[str, Any]] = []
+
+    for variant in variants:
+        probe = execute_tts_probe(
+            video_spec=video_spec,
+            config=config,
+            output_dir=output_dir,
+            probe_text=probe_text,
+            probe_text_source=probe_text_source,
+            output_stem=f"voice_probe_{variant['variant_id']}",
+            tts_override={
+                "instruction": variant["instruction"],
+                "speech_rate": variant["speech_rate"],
+                "pitch_rate": variant["pitch_rate"],
+                "volume": variant["volume"],
+            },
+        )
+        variant_results.append(
+            {
+                "variant_id": variant["variant_id"],
+                "label": variant["label"],
+                "intent": variant["intent"],
+                "status": probe["status"],
+                "audio_path": probe.get("audio_path"),
+                "failure_reason": probe.get("failure_reason", ""),
+                "error_message": probe.get("error_message", ""),
+                "request_debug": probe.get("request_debug", {}),
+                "probe_text": probe.get("probe_text"),
+                "probe_text_source": probe.get("probe_text_source"),
+            }
+        )
+
+    result["variants"] = variant_results
+    result["style_draft_in_request"] = all(
+        item.get("request_debug", {}).get("style_draft_in_request") is True
+        for item in variant_results
+    )
+    result["overall_status"] = _summarize_tts_style_variant_status(variant_results)
+    if result["overall_status"] == STATUS_FAILED:
+        first_failed = next(
+            (item for item in variant_results if item.get("status") == STATUS_FAILED),
+            None,
+        )
+        if first_failed is not None:
+            result["failure_reason"] = first_failed.get("failure_reason", "")
+    if result["overall_status"] == STATUS_BLOCKED:
+        first_blocked = next(
+            (item for item in variant_results if item.get("status") == STATUS_BLOCKED),
+            None,
+        )
+        if first_blocked is not None:
+            result["blocked_reason"] = first_blocked.get("error_message", "")
+
+    write_json(variants_path, result)
+    return result
 
 
 def run_assembly_pipeline(
@@ -806,19 +951,28 @@ def execute_tts_probe(
     video_spec: dict[str, Any],
     config: dict[str, Any],
     output_dir: pathlib.Path,
+    *,
+    probe_text: str | None = None,
+    probe_text_source: str | None = None,
+    output_stem: str = "voice_probe",
+    tts_override: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     probe = build_default_tts_probe(video_spec)
+    if probe_text is not None:
+        probe["probe_text"] = probe_text.strip()
+        probe["probe_text_source"] = probe_text_source or "runtime_override"
     route_family = _get_tts_api_route_family(config)
     model_identifier = _get_tts_model_identifier(config, route_family=route_family)
     base_url = _build_tts_base_url(config, route_family)
     response_format = (_nested_get(config, "tts", "response_format") or "mp3").strip() or "mp3"
-    audio_path = output_dir / "tts" / f"voice_probe.{response_format}"
+    tts_options = _resolve_tts_runtime_options(config, tts_override=tts_override)
+    audio_path = output_dir / "tts" / f"{output_stem}.{response_format}"
     probe.update(
         {
             "provider": _get_tts_provider_name(config, route_family=route_family),
             "api_route_family": route_family,
             "model_identifier": model_identifier,
-            "voice": _nested_get(config, "tts", "voice"),
+            "voice": tts_options["voice"],
             "used_endpoint_id": _nested_get(config, "tts", "endpoint_id"),
             "used_model_id": _nested_get(config, "tts", "model"),
             "used_resource_id": _nested_get(config, "tts", "resource_id"),
@@ -829,6 +983,12 @@ def execute_tts_probe(
                 base_url=base_url,
                 model_identifier=model_identifier,
                 response_format=response_format,
+                effective_voice=tts_options["voice"],
+                style=tts_options["style"],
+                instruction=tts_options["instruction"],
+                speech_rate=tts_options["speech_rate"],
+                pitch_rate=tts_options["pitch_rate"],
+                volume=tts_options["volume"],
             ),
         }
     )
@@ -846,6 +1006,7 @@ def execute_tts_probe(
                 base_url=base_url,
                 model_identifier=model_identifier,
                 response_format=response_format,
+                tts_options=tts_options,
             )
             probe.update(
                 {
@@ -862,11 +1023,11 @@ def execute_tts_probe(
         )
         request_kwargs: dict[str, Any] = {
             "model": model_identifier,
-            "voice": _nested_get(config, "tts", "voice"),
+            "voice": tts_options["voice"],
             "input": probe["probe_text"],
             "response_format": response_format,
         }
-        style = _nested_get(config, "tts", "style")
+        style = tts_options["style"]
         if style:
             request_kwargs["extra_body"] = {"style": style}
 
@@ -1243,15 +1404,20 @@ def _execute_aliyun_bailian_tts_probe(
     base_url: str,
     model_identifier: str | None,
     response_format: str,
+    tts_options: dict[str, Any],
 ) -> str | None:
     relative_path = "/services/audio/tts/SpeechSynthesizer"
     payload = {
         "model": model_identifier,
-        "input": {
-            "text": probe["probe_text"],
-            "voice": _nested_get(config, "tts", "voice"),
-            "format": response_format,
-        },
+        "input": _build_aliyun_bailian_tts_input_payload(
+            probe_text=probe["probe_text"],
+            voice=tts_options["voice"],
+            response_format=response_format,
+            instruction=tts_options["instruction"],
+            speech_rate=tts_options["speech_rate"],
+            pitch_rate=tts_options["pitch_rate"],
+            volume=tts_options["volume"],
+        ),
     }
     request = urllib.request.Request(
         f"{base_url}{relative_path}",
@@ -1323,6 +1489,33 @@ def _download_binary_file(url: str, destination: pathlib.Path) -> None:
             error_code="AliyunBailianEmptyAudio",
         )
     destination.write_bytes(data)
+
+
+def _build_aliyun_bailian_tts_input_payload(
+    *,
+    probe_text: str,
+    voice: Any,
+    response_format: str,
+    instruction: Any,
+    speech_rate: float | None,
+    pitch_rate: float | None,
+    volume: int | None,
+) -> dict[str, Any]:
+    payload: dict[str, Any] = {
+        "text": probe_text,
+        "voice": voice,
+        "format": response_format,
+    }
+    normalized_instruction = _normalize_optional_text(instruction)
+    if normalized_instruction:
+        payload["instruction"] = normalized_instruction
+    if speech_rate is not None:
+        payload["rate"] = speech_rate
+    if pitch_rate is not None:
+        payload["pitch"] = pitch_rate
+    if volume is not None:
+        payload["volume"] = volume
+    return payload
 
 
 def _read_urllib_error_message(exc: urllib.error.HTTPError) -> str:
@@ -1425,16 +1618,26 @@ def _build_tts_request_debug(
     base_url: str,
     model_identifier: str | None,
     response_format: str,
+    *,
+    effective_voice: Any = None,
+    style: Any = None,
+    instruction: Any = None,
+    speech_rate: float | None = None,
+    pitch_rate: float | None = None,
+    volume: int | None = None,
 ) -> dict[str, Any]:
     provider = _get_tts_provider_name(config, route_family=route_family)
     endpoint_id = _nested_get(config, "tts", "endpoint_id")
     model = _nested_get(config, "tts", "model")
     resource_id = _nested_get(config, "tts", "resource_id")
     app_id = _nested_get(config, "auth", "app_id")
-    voice = _nested_get(config, "tts", "voice")
+    voice = effective_voice if effective_voice is not None else _nested_get(config, "tts", "voice")
+    style = style if style is not None else _nested_get(config, "tts", "style")
+    instruction = instruction if instruction is not None else _nested_get(config, "tts", "instruction")
     relative_path = "/audio/speech"
     sdk_call = "client.audio.speech.with_streaming_response.create"
     voice_location = "payload.voice"
+    instruction_location = None
     model_identifier_source = (
         "endpoint_id"
         if not _is_missing_secret(endpoint_id)
@@ -1450,8 +1653,9 @@ def _build_tts_request_debug(
         relative_path = "/services/audio/tts/SpeechSynthesizer"
         sdk_call = "urllib.request.urlopen"
         voice_location = "payload.input.voice"
+        instruction_location = "payload.input.instruction"
         model_identifier_source = "model"
-    return {
+    debug = {
         "provider": provider,
         "api_route_family": route_family,
         "provider_route_family": route_family,
@@ -1467,8 +1671,140 @@ def _build_tts_request_debug(
         "app_id_shape": _shape_debug_value(app_id),
         "voice_location": voice_location,
         "voice_shape": _shape_debug_value(voice),
+        "style_shape": _shape_debug_value(style),
         "response_format": response_format,
     }
+    if route_family == TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE:
+        input_keys = ["text", "voice", "format"]
+        if _normalize_optional_text(instruction):
+            input_keys.append("instruction")
+        if speech_rate is not None:
+            input_keys.append("rate")
+        if pitch_rate is not None:
+            input_keys.append("pitch")
+        if volume is not None:
+            input_keys.append("volume")
+        debug.update(
+            {
+                "instruction_location": instruction_location,
+                "instruction_shape": _shape_debug_value(instruction),
+                "speech_rate": speech_rate,
+                "pitch_rate": pitch_rate,
+                "volume": volume,
+                "request_input_keys": input_keys,
+                "style_draft_in_request": bool(_normalize_optional_text(instruction)),
+            }
+        )
+    else:
+        debug["style_draft_in_request"] = bool(_normalize_optional_text(style))
+    return debug
+
+
+def _resolve_tts_runtime_options(
+    config: dict[str, Any],
+    *,
+    tts_override: dict[str, Any] | None,
+) -> dict[str, Any]:
+    overrides = tts_override or {}
+    return {
+        "voice": overrides["voice"] if "voice" in overrides else _nested_get(config, "tts", "voice"),
+        "style": overrides["style"] if "style" in overrides else _nested_get(config, "tts", "style"),
+        "instruction": (
+            overrides["instruction"]
+            if "instruction" in overrides
+            else _nested_get(config, "tts", "instruction")
+        ),
+        "speech_rate": _coerce_float_or_none(
+            overrides["speech_rate"]
+            if "speech_rate" in overrides
+            else _nested_get(config, "tts", "speech_rate")
+        ),
+        "pitch_rate": _coerce_float_or_none(
+            overrides["pitch_rate"]
+            if "pitch_rate" in overrides
+            else _nested_get(config, "tts", "pitch_rate")
+        ),
+        "volume": _coerce_int_or_none(
+            overrides["volume"] if "volume" in overrides else _nested_get(config, "tts", "volume")
+        ),
+    }
+
+
+def _get_aliyun_tts_style_probe_text(config: dict[str, Any]) -> tuple[str, str]:
+    configured_text = _normalize_optional_text(_nested_get(config, "tts_style_probe", "text"))
+    if configured_text:
+        return configured_text, "tts_style_probe.text"
+    return DEFAULT_ALIYUN_TTS_STYLE_PROBE_TEXT, "code_default"
+
+
+def _load_aliyun_tts_style_probe_variants(config: dict[str, Any]) -> list[dict[str, Any]]:
+    variants: list[dict[str, Any]] = []
+    for default_variant in DEFAULT_ALIYUN_TTS_STYLE_VARIANTS:
+        section_name = f"tts_style_probe_variant_{default_variant['variant_id']}"
+        section = _nested_get(config, section_name) or {}
+        variant = dict(default_variant)
+        if isinstance(section, dict):
+            variant["label"] = _normalize_optional_text(section.get("label")) or variant["label"]
+            variant["intent"] = _normalize_optional_text(section.get("intent")) or variant["intent"]
+            variant["instruction"] = (
+                _normalize_optional_text(section.get("instruction")) or variant["instruction"]
+            )
+            speech_rate = _coerce_float_or_none(section.get("speech_rate"))
+            if speech_rate is not None:
+                variant["speech_rate"] = speech_rate
+            pitch_rate = _coerce_float_or_none(section.get("pitch_rate"))
+            if pitch_rate is not None:
+                variant["pitch_rate"] = pitch_rate
+            volume = _coerce_int_or_none(section.get("volume"))
+            if volume is not None:
+                variant["volume"] = volume
+            if "recommended" in section:
+                variant["recommended"] = bool(section.get("recommended"))
+        variants.append(variant)
+    return variants
+
+
+def _get_recommended_tts_style_variant_id(config: dict[str, Any]) -> str:
+    for variant in _load_aliyun_tts_style_probe_variants(config):
+        if variant.get("recommended"):
+            return str(variant["variant_id"])
+    return "A"
+
+
+def _summarize_tts_style_variant_status(variants: list[dict[str, Any]]) -> str:
+    if not variants:
+        return STATUS_BLOCKED
+    if all(item.get("status") == STATUS_SUCCESS for item in variants):
+        return STATUS_SUCCESS
+    if any(item.get("status") == STATUS_FAILED for item in variants):
+        return STATUS_FAILED
+    return STATUS_BLOCKED
+
+
+def _normalize_optional_text(value: Any) -> str:
+    if value is None:
+        return ""
+    return str(value).strip()
+
+
+def _coerce_float_or_none(value: Any) -> float | None:
+    normalized = _normalize_optional_text(value)
+    if not normalized:
+        return None
+    try:
+        return float(normalized)
+    except ValueError:
+        return None
+
+
+def _coerce_int_or_none(value: Any) -> int | None:
+    normalized = _normalize_optional_text(value)
+    if not normalized:
+        return None
+    try:
+        return int(float(normalized))
+    except ValueError:
+        return None
 
 
 def _shape_debug_value(value: Any) -> dict[str, Any]:
