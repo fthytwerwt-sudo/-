@@ -12,13 +12,15 @@
 
 ## 最近一次完成了什么
 
-- 本轮没有继续硬跑正式云端层。
-- 只读复核了本地 `config/formal_api_demo.local.toml`，目标是确认上一轮压出来的最小硬阻塞字段是否已补齐。
-- 复核结果：
+- 再次只读复核了本地 `config/formal_api_demo.local.toml`，确认当前正式视觉生成 / 云端 assembly 的首层本地字段是否已补齐。
+- 复核结果这次没有变化：
   - 已存在且有效：
     - `provider.name`
     - `provider.region`
     - `auth.api_key`
+    - `output.dist_dir`
+    - `polling.interval_seconds`
+    - `polling.timeout_seconds`
   - 仍缺失 / 仍是 placeholder：
     - `image_generation.model`
     - `video_generation.model`
@@ -45,10 +47,10 @@
   - `video_generation.model`
   - `storage.space_name`
   - `assembly.template_id`
-- `visual_assets_not_ready` 当前只是下游阻塞：
+- `visual_assets_not_ready` 当前仍只是下游阻塞：
   - 它由 `image_generation.model` / `video_generation.model` 未补齐导致
   - 不是独立首层问题
-- provider implementation 仍存在，但当前不是用户本轮第一手应先处理的配置阻塞：
+- provider implementation 仍存在，但当前不是用户第一手应先处理的配置阻塞：
   - `image_generation_provider_implementation`
   - `video_generation_provider_implementation`
   - `provider_assembly_implementation`
