@@ -12,20 +12,16 @@
 
 ## 最近一次完成了什么
 
-- 再次只读复核了本地 `config/formal_api_demo.local.toml`，确认当前正式视觉生成 / 云端 assembly 的首层本地字段是否已补齐。
-- 复核结果这次没有变化：
-  - 已存在且有效：
-    - `provider.name`
-    - `provider.region`
-    - `auth.api_key`
-    - `output.dist_dir`
-    - `polling.interval_seconds`
-    - `polling.timeout_seconds`
-  - 仍缺失 / 仍是 placeholder：
-    - `image_generation.model`
-    - `video_generation.model`
-    - `storage.space_name`
-    - `assembly.template_id`
+- 按“字段有效就立刻执行、无效就立即停下”的口径，再次只读检查了本地 `config/formal_api_demo.local.toml`。
+- 这次结论比上一轮更收紧：
+  - `image_generation.model`：无效
+  - `video_generation.model`：无效
+  - `storage.space_name`：无效
+  - `assembly.template_id`：无效
+- 进一步确认到：
+  - 这 4 个键在 local config 里都“存在”
+  - 但当前解析后的值仍落在“空值 / placeholder”判定里
+  - 因此本轮没有继续硬跑正式 generation / 云端 assembly
 
 ## 当前已确认事实
 
@@ -42,28 +38,18 @@
 
 ## 当前最小硬阻塞
 
-- 首层阻塞仍是用户本地真实值未补齐：
+- 当前首层阻塞已经压到这 4 个字段本身：
   - `image_generation.model`
   - `video_generation.model`
   - `storage.space_name`
   - `assembly.template_id`
-- `visual_assets_not_ready` 当前仍只是下游阻塞：
-  - 它由 `image_generation.model` / `video_generation.model` 未补齐导致
-  - 不是独立首层问题
-- provider implementation 仍存在，但当前不是用户第一手应先处理的配置阻塞：
-  - `image_generation_provider_implementation`
-  - `video_generation_provider_implementation`
-  - `provider_assembly_implementation`
+- 这轮不再展开写更后层 provider implementation / `visual_assets_not_ready`，因为还没到那一层
 
 ## 当前最关键的下一步
 
 - 下一轮不要回头再做大范围声音实验。
-- 最省事的推进顺序仍是：
-  - 先在本地 `config/formal_api_demo.local.toml` 填真实有效的 `image_generation.model`
-  - 再填 `video_generation.model`
-  - 再填 `storage.space_name`
-  - 再填 `assembly.template_id`
-- 上述 4 项补齐后，再继续打正式视觉生成 / 云端 assembly。
+- 最先该做的是重新检查本地 `config/formal_api_demo.local.toml` 里这 4 个字段的实际值格式，确保它们不再被当前解析逻辑判成空值或 placeholder。
+- 只有这 4 项都变成有效值后，再继续打正式视觉生成 / 云端 assembly。
 
 ## 新会话接手建议先读
 
