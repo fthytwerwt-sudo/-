@@ -34,7 +34,7 @@ volume = 50
 response_format = "mp3"
 
 [tts_style_probe]
-# 固定测试文案：只用于声音目标稿 v1 的 A/B/C 对照，不推进 assembly。
+# 固定测试文案：当前声音目标稿 v1 的所有 probe 轮次共用同一段文案，不推进 assembly。
 text = "这套方案表面上堆满了参数，真正决定上限的其实只有供电、火控和协同链路。前两项还能补，第三项一旦掉队，再新的壳子也只是好看。说得更直白一点，它不是没亮点，是关键战力根本没站住。"
 
 [tts_style_probe_variant_A]
@@ -61,6 +61,48 @@ intent = "进一步压低情绪起伏，保住冷静和收束。"
 instruction = "你说话的情感是neutral。"
 speech_rate = 1.08
 pitch_rate = 0.9
+volume = 44
+recommended = false
+
+[tts_style_probe_round2]
+goal = "围绕旧 A 做第二轮更窄的微调，不重新切模型族，也不推进 assembly。"
+recommended_variant_id = "A2"
+recommendation_reason = "基于用户反馈“旧 A 更对，但还不完全对”，A2 保留旧 A 的冷静底座，同时把句尾压得更短、更干、更利落，偏移最小，最适合作为 round2 首推候选。"
+
+[tts_style_probe_round2_variant_A1]
+label = "更稳、更冷静"
+intent = "在旧 A 的方向上进一步压住情绪起伏，让句尾更稳、更冷。"
+instruction = "你说话的角色是军事装备分析员，你说话的情感是neutral。"
+speech_rate = 1.14
+pitch_rate = 0.9
+volume = 45
+recommended = false
+
+[tts_style_probe_round2_variant_A2]
+label = "更干、更利落"
+intent = "保住旧 A 的冷静基础，把声线再压干一点，句尾更短更利落。"
+instruction = "你说话的角色是军事装备拆解解说员，你说话的情感是neutral。"
+speech_rate = 1.22
+pitch_rate = 0.9
+volume = 45
+recommended = true
+why_recommended = "基于用户反馈“旧 A 更对，但还不完全对”，A2 保留旧 A 的冷静底座，同时把句尾压得更短、更干、更利落，偏移最小，最适合作为 round2 首推候选。"
+
+[tts_style_probe_round2_variant_A3]
+label = "判断感更强一点"
+intent = "在克制前提下把判断感略往前推一点，但不演讲、不煽动。"
+instruction = "你说话的角色是军事鉴定解说员，你说话的情感是disgusted。"
+speech_rate = 1.19
+pitch_rate = 0.91
+volume = 46
+recommended = false
+
+[tts_style_probe_round2_variant_A4]
+label = "进一步去掉客服感/播音感"
+intent = "进一步清掉客服播报感和新闻播音感，保持专业判断型口气。"
+instruction = "你说话的场景是内部评估解说，你说话的情感是neutral。"
+speech_rate = 1.16
+pitch_rate = 0.89
 volume = 44
 recommended = false
 

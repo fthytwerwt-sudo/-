@@ -80,6 +80,117 @@ DEFAULT_ALIYUN_TTS_STYLE_VARIANTS = (
         "recommended": False,
     },
 )
+DEFAULT_ALIYUN_TTS_STYLE_ROUND2_VARIANTS = (
+    {
+        "variant_id": "A1",
+        "label": "更稳、更冷静",
+        "intent": "在旧 A 的方向上进一步压住情绪起伏，让句尾更稳、更冷。",
+        "instruction": "你说话的角色是军事装备分析员，你说话的情感是neutral。",
+        "speech_rate": 1.14,
+        "pitch_rate": 0.9,
+        "volume": 45,
+        "recommended": False,
+        "why_recommended": "",
+    },
+    {
+        "variant_id": "A2",
+        "label": "更干、更利落",
+        "intent": "保住旧 A 的冷静基础，把声线再压干一点，句尾更短更利落。",
+        "instruction": "你说话的角色是军事装备拆解解说员，你说话的情感是neutral。",
+        "speech_rate": 1.22,
+        "pitch_rate": 0.9,
+        "volume": 45,
+        "recommended": True,
+        "why_recommended": (
+            "基于用户反馈“旧 A 更对，但还不完全对”，A2 保留旧 A 的冷静底座，"
+            "同时把句尾压得更短、更干、更利落，偏移最小，最适合作为 round2 首推候选。"
+        ),
+    },
+    {
+        "variant_id": "A3",
+        "label": "判断感更强一点",
+        "intent": "在克制前提下把判断感略往前推一点，但不演讲、不煽动。",
+        "instruction": "你说话的角色是军事鉴定解说员，你说话的情感是disgusted。",
+        "speech_rate": 1.19,
+        "pitch_rate": 0.91,
+        "volume": 46,
+        "recommended": False,
+        "why_recommended": "",
+    },
+    {
+        "variant_id": "A4",
+        "label": "进一步去掉客服感/播音感",
+        "intent": "进一步清掉客服播报感和新闻播音感，保持专业判断型口气。",
+        "instruction": "你说话的场景是内部评估解说，你说话的情感是neutral。",
+        "speech_rate": 1.16,
+        "pitch_rate": 0.89,
+        "volume": 44,
+        "recommended": False,
+        "why_recommended": "",
+    },
+)
+DEFAULT_ALIYUN_TTS_STYLE_ROUND1_RECOMMENDATION = {
+    "variant_id": "A",
+    "reason": "第一轮只用于确认风格桥接与基础方向，A 保留为最稳基线，供后续继续收窄。",
+}
+DEFAULT_ALIYUN_TTS_STYLE_ROUND2_VARIANTS = (
+    {
+        "variant_id": "A1",
+        "label": "更稳、更冷静",
+        "intent": "在旧 A 的方向上进一步压住情绪起伏，让句尾更稳、更冷。",
+        "instruction": (
+            "请用年轻中文男声，中低音，冷静克制，不要上扬，不要拖音。"
+            "短句推进，重点判断词前轻微停顿，句尾干净收住，像军事鉴定解说，不要客服感。"
+        ),
+        "speech_rate": 1.14,
+        "pitch_rate": 0.9,
+        "volume": 45,
+        "recommended": False,
+    },
+    {
+        "variant_id": "A2",
+        "label": "更干、更利落",
+        "intent": "保住旧 A 的冷静基础，把声线再压干一点，句尾更短更利落。",
+        "instruction": (
+            "请用年轻中文男声，中低音，声线更干更利落。"
+            "短句推进，字头更硬一点，废话感降到最低，句尾立刻收住，不要播音腔，不要温和服务感。"
+        ),
+        "speech_rate": 1.22,
+        "pitch_rate": 0.9,
+        "volume": 45,
+        "recommended": True,
+    },
+    {
+        "variant_id": "A3",
+        "label": "判断感更强一点",
+        "intent": "在克制前提下把判断感略往前推一点，但不演讲、不煽动。",
+        "instruction": (
+            "请用年轻中文男声，中低音，冷静里带一点判断感。"
+            "重点结论前轻微停顿，带一点克制的锋利感，但不要夸张，不要像演讲。"
+        ),
+        "speech_rate": 1.19,
+        "pitch_rate": 0.91,
+        "volume": 46,
+        "recommended": False,
+    },
+    {
+        "variant_id": "A4",
+        "label": "去客服感/播音感",
+        "intent": "进一步清掉客服播报感和新闻播音感，保持专业判断型口气。",
+        "instruction": (
+            "请用年轻中文男声，中低音，去掉客服播报感和新闻播音感。"
+            "不要字正腔圆式朗诵，不要热情推介，像内部判断型解说，收尾要短。"
+        ),
+        "speech_rate": 1.16,
+        "pitch_rate": 0.89,
+        "volume": 44,
+        "recommended": False,
+    },
+)
+DEFAULT_ALIYUN_TTS_STYLE_ROUND2_RECOMMENDATION = {
+    "variant_id": "A2",
+    "reason": "基于用户反馈“旧 A 更对，但还不完全对”，A2 保留旧 A 的冷静基线，同时把句尾压得更短、更干、更利落，偏移最小，最适合作为 round2 首推候选。",
+}
 
 
 class TtsRequestError(RuntimeError):
@@ -274,6 +385,56 @@ def run_aliyun_tts_style_probe_variants(
     local_config_path: pathlib.Path | None,
     output_dir: pathlib.Path,
 ) -> dict[str, Any]:
+    return _run_aliyun_tts_style_probe_round(
+        input_path=input_path,
+        example_config_path=example_config_path,
+        local_config_path=local_config_path,
+        output_dir=output_dir,
+        round_id="round1",
+        round_goal="基于声音目标稿 v1 做第一轮 A/B/C 对照，先确认风格桥接与基础方向。",
+        summary_filename="tts_style_probe_variants.json",
+        variant_defaults=DEFAULT_ALIYUN_TTS_STYLE_VARIANTS,
+        variant_section_prefix="tts_style_probe_variant_",
+        recommendation_basis="第一轮结果只用于建立基线，不代替人工试听定稿。",
+        round_section_name=None,
+    )
+
+
+def run_aliyun_tts_style_probe_round2(
+    input_path: pathlib.Path,
+    example_config_path: pathlib.Path,
+    local_config_path: pathlib.Path | None,
+    output_dir: pathlib.Path,
+) -> dict[str, Any]:
+    return _run_aliyun_tts_style_probe_round(
+        input_path=input_path,
+        example_config_path=example_config_path,
+        local_config_path=local_config_path,
+        output_dir=output_dir,
+        round_id="round2",
+        round_goal="围绕旧 A 做第二轮更窄的微调，不重新切模型族，也不推进 assembly。",
+        summary_filename="tts_style_probe_round2.json",
+        variant_defaults=DEFAULT_ALIYUN_TTS_STYLE_ROUND2_VARIANTS,
+        variant_section_prefix="tts_style_probe_round2_variant_",
+        recommendation_basis="当前推荐基于用户反馈“旧 A 更对”与参数设计判断，仍需人工试听确认，不代表最终定稿。",
+        round_section_name="tts_style_probe_round2",
+    )
+
+
+def _run_aliyun_tts_style_probe_round(
+    *,
+    input_path: pathlib.Path,
+    example_config_path: pathlib.Path,
+    local_config_path: pathlib.Path | None,
+    output_dir: pathlib.Path,
+    round_id: str,
+    round_goal: str,
+    summary_filename: str,
+    variant_defaults: tuple[dict[str, Any], ...],
+    variant_section_prefix: str,
+    recommendation_basis: str,
+    round_section_name: str | None,
+) -> dict[str, Any]:
     video_spec = parse_formal_case_markdown(input_path)
     config_bundle = load_formal_config(example_config_path, local_config_path)
     config = config_bundle["config"]
@@ -285,11 +446,27 @@ def run_aliyun_tts_style_probe_variants(
     )
     route_family = _get_tts_api_route_family(config)
     probe_text, probe_text_source = _get_aliyun_tts_style_probe_text(config)
-    recommended_variant_id = _get_recommended_tts_style_variant_id(config)
-    variants_path = output_dir / "tts_style_probe_variants.json"
+    variants = _load_tts_style_probe_variants(
+        config=config,
+        default_variants=variant_defaults,
+        section_prefix=variant_section_prefix,
+    )
+    recommended_variant = _resolve_recommended_tts_style_variant(
+        config=config,
+        variants=variants,
+        round_section_name=round_section_name,
+    )
+    recommendation_reason = _resolve_tts_style_recommendation_reason(
+        config=config,
+        round_section_name=round_section_name,
+        recommended_variant=recommended_variant,
+    )
+    variants_path = output_dir / summary_filename
     output_dir.mkdir(parents=True, exist_ok=True)
 
     result: dict[str, Any] = {
+        "round_id": round_id,
+        "round_goal": round_goal,
         "overall_status": STATUS_BLOCKED,
         "failure_reason": "",
         "blocked_reason": "",
@@ -300,7 +477,10 @@ def run_aliyun_tts_style_probe_variants(
         "style_probe_text": probe_text,
         "style_probe_text_source": probe_text_source,
         "style_draft_in_request": False,
-        "recommended_variant_id": recommended_variant_id,
+        "recommended_variant_id": recommended_variant["variant_id"] if recommended_variant else "",
+        "recommended_variant_label": recommended_variant["label"] if recommended_variant else "",
+        "recommendation_reason": recommendation_reason,
+        "recommendation_basis": recommendation_basis,
         "variants": [],
     }
 
@@ -318,7 +498,6 @@ def run_aliyun_tts_style_probe_variants(
         write_json(variants_path, result)
         return result
 
-    variants = _load_aliyun_tts_style_probe_variants(config)
     variant_results: list[dict[str, Any]] = []
 
     for variant in variants:
@@ -341,6 +520,10 @@ def run_aliyun_tts_style_probe_variants(
                 "variant_id": variant["variant_id"],
                 "label": variant["label"],
                 "intent": variant["intent"],
+                "instruction": variant["instruction"],
+                "speech_rate": variant["speech_rate"],
+                "pitch_rate": variant["pitch_rate"],
+                "volume": variant["volume"],
                 "status": probe["status"],
                 "audio_path": probe.get("audio_path"),
                 "failure_reason": probe.get("failure_reason", ""),
@@ -1737,10 +1920,15 @@ def _get_aliyun_tts_style_probe_text(config: dict[str, Any]) -> tuple[str, str]:
     return DEFAULT_ALIYUN_TTS_STYLE_PROBE_TEXT, "code_default"
 
 
-def _load_aliyun_tts_style_probe_variants(config: dict[str, Any]) -> list[dict[str, Any]]:
+def _load_tts_style_probe_variants(
+    *,
+    config: dict[str, Any],
+    default_variants: tuple[dict[str, Any], ...],
+    section_prefix: str,
+) -> list[dict[str, Any]]:
     variants: list[dict[str, Any]] = []
-    for default_variant in DEFAULT_ALIYUN_TTS_STYLE_VARIANTS:
-        section_name = f"tts_style_probe_variant_{default_variant['variant_id']}"
+    for default_variant in default_variants:
+        section_name = f"{section_prefix}{default_variant['variant_id']}"
         section = _nested_get(config, section_name) or {}
         variant = dict(default_variant)
         if isinstance(section, dict):
@@ -1748,6 +1936,10 @@ def _load_aliyun_tts_style_probe_variants(config: dict[str, Any]) -> list[dict[s
             variant["intent"] = _normalize_optional_text(section.get("intent")) or variant["intent"]
             variant["instruction"] = (
                 _normalize_optional_text(section.get("instruction")) or variant["instruction"]
+            )
+            variant["why_recommended"] = (
+                _normalize_optional_text(section.get("why_recommended"))
+                or _normalize_optional_text(variant.get("why_recommended"))
             )
             speech_rate = _coerce_float_or_none(section.get("speech_rate"))
             if speech_rate is not None:
@@ -1764,11 +1956,48 @@ def _load_aliyun_tts_style_probe_variants(config: dict[str, Any]) -> list[dict[s
     return variants
 
 
-def _get_recommended_tts_style_variant_id(config: dict[str, Any]) -> str:
-    for variant in _load_aliyun_tts_style_probe_variants(config):
+def _get_recommended_tts_style_variant(variants: list[dict[str, Any]]) -> dict[str, Any] | None:
+    for variant in variants:
         if variant.get("recommended"):
-            return str(variant["variant_id"])
-    return "A"
+            return variant
+    if variants:
+        return variants[0]
+    return None
+
+
+def _resolve_recommended_tts_style_variant(
+    *,
+    config: dict[str, Any],
+    variants: list[dict[str, Any]],
+    round_section_name: str | None,
+) -> dict[str, Any] | None:
+    configured_variant_id = ""
+    if round_section_name:
+        configured_variant_id = _normalize_optional_text(
+            _nested_get(config, round_section_name, "recommended_variant_id")
+        )
+    if configured_variant_id:
+        for variant in variants:
+            if str(variant.get("variant_id")) == configured_variant_id:
+                return variant
+    return _get_recommended_tts_style_variant(variants)
+
+
+def _resolve_tts_style_recommendation_reason(
+    *,
+    config: dict[str, Any],
+    round_section_name: str | None,
+    recommended_variant: dict[str, Any] | None,
+) -> str:
+    if round_section_name:
+        configured_reason = _normalize_optional_text(
+            _nested_get(config, round_section_name, "recommendation_reason")
+        )
+        if configured_reason:
+            return configured_reason
+    if recommended_variant is None:
+        return ""
+    return _normalize_optional_text(recommended_variant.get("why_recommended"))
 
 
 def _summarize_tts_style_variant_status(variants: list[dict[str, Any]]) -> str:

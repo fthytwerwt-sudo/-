@@ -17,6 +17,7 @@ from formal_api_demo_core import (
     STATUS_PLANNED,
     STATUS_SUCCESS,
     parse_formal_case_markdown,
+    run_aliyun_tts_style_probe_round2,
     run_aliyun_tts_style_probe_variants,
     run_assembly_pipeline,
     run_generation_pipeline,
@@ -498,6 +499,119 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 requests[0]["input"]["text"],
                 requests[1]["input"]["text"],
             )
+
+    def test_run_aliyun_tts_style_probe_round2_writes_four_named_audio_files_and_summary(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_aliyun_round2_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                provider_name="aliyun_bailian",
+                route_family="aliyun_bailian_cosyvoice",
+                api_key="dashscope_test_key",
+                model="cosyvoice-v3-flash",
+                voice="longanyang",
+            )
+
+            requests: list[dict[str, object]] = []
+
+            class _JsonResponse:
+                def __init__(self, payload: dict[str, object]) -> None:
+                    self._payload = payload
+
+                def __enter__(self):
+                    return self
+
+                def __exit__(self, exc_type, exc, tb):
+                    return False
+
+                def read(self) -> bytes:
+                    return json.dumps(self._payload).encode("utf-8")
+
+            class _BinaryResponse:
+                def __init__(self, content: bytes) -> None:
+                    self._content = content
+
+                def __enter__(self):
+                    return self
+
+                def __exit__(self, exc_type, exc, tb):
+                    return False
+
+                def read(self) -> bytes:
+                    return self._content
+
+            def fake_urlopen(request, timeout=60):
+                del timeout
+                url = request.full_url
+                if url.endswith("/services/audio/tts/SpeechSynthesizer"):
+                    body = json.loads(request.data.decode("utf-8"))
+                    requests.append(body)
+                    variant_id = len(requests)
+                    return _JsonResponse(
+                        {
+                            "request_id": f"aliyun_round2_req_{variant_id}",
+                            "output": {
+                                "finish_reason": "stop",
+                                "audio": {
+                                    "url": f"https://dashscope-result.example.com/round2_audio_{variant_id}.mp3",
+                                },
+                            },
+                        }
+                    )
+                if "round2_audio_" in url:
+                    variant_id = url.rsplit("_", 1)[-1].split(".", 1)[0]
+                    return _BinaryResponse(f"aliyun-round2-mp3-{variant_id}".encode("utf-8"))
+                raise AssertionError(f"unexpected url: {url}")
+
+            with mock.patch("formal_api_demo_core.urllib.request.urlopen", side_effect=fake_urlopen):
+                result = run_aliyun_tts_style_probe_round2(
+                    input_path=FORMAL_CASE_PATH,
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                )
+
+            self.assertEqual(result["overall_status"], STATUS_SUCCESS)
+            self.assertTrue(result["style_draft_in_request"])
+            self.assertEqual(result["recommended_variant_id"], "A2")
+            self.assertIn("旧 A", result["recommendation_reason"])
+            self.assertEqual(len(result["variants"]), 4)
+            self.assertEqual([item["variant_id"] for item in result["variants"]], ["A1", "A2", "A3", "A4"])
+            self.assertEqual(
+                [pathlib.Path(item["audio_path"]).name for item in result["variants"]],
+                ["voice_probe_A1.mp3", "voice_probe_A2.mp3", "voice_probe_A3.mp3", "voice_probe_A4.mp3"],
+            )
+            self.assertEqual(
+                requests[0]["input"]["instruction"],
+                "你说话的角色是军事装备分析员，你说话的情感是neutral。",
+            )
+            self.assertEqual(
+                requests[1]["input"]["instruction"],
+                "你说话的角色是军事装备拆解解说员，你说话的情感是neutral。",
+            )
+            self.assertEqual(
+                requests[2]["input"]["instruction"],
+                "你说话的角色是军事鉴定解说员，你说话的情感是disgusted。",
+            )
+            self.assertEqual(
+                requests[3]["input"]["instruction"],
+                "你说话的场景是内部评估解说，你说话的情感是neutral。",
+            )
+            self.assertEqual(requests[1]["input"]["rate"], 1.22)
+            self.assertEqual(requests[1]["input"]["pitch"], 0.9)
+            self.assertEqual(requests[1]["input"]["volume"], 45)
+            self.assertEqual(requests[0]["input"]["text"], requests[3]["input"]["text"])
+
+            summary_path = output_dir / "tts_style_probe_round2.json"
+            self.assertTrue(summary_path.exists())
+            summary = json.loads(summary_path.read_text(encoding="utf-8"))
+            self.assertEqual(summary["recommended_variant_id"], "A2")
+            self.assertEqual(summary["recommended_variant_label"], "更干、更利落")
+            self.assertIn("instruction", summary["variants"][0])
+            self.assertIn("speech_rate", summary["variants"][0])
+            self.assertIn("pitch_rate", summary["variants"][0])
+            self.assertIn("volume", summary["variants"][0])
 
     def test_generate_non_dry_run_edge_gateway_requires_model_not_endpoint(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_edge_missing_model_") as temp_dir:
