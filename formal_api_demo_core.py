@@ -3,6 +3,8 @@ from __future__ import annotations
 import copy
 import json
 import pathlib
+import shutil
+import subprocess
 import urllib.error
 import urllib.request
 from typing import Any
@@ -80,6 +82,17 @@ DEFAULT_ALIYUN_TTS_STYLE_VARIANTS = (
         "recommended": False,
     },
 )
+DEFAULT_FORMAL_TTS_BASELINE_PROFILE = "aliyun_old_A"
+DEFAULT_FORMAL_TTS_BASELINE = {
+    "profile_id": DEFAULT_FORMAL_TTS_BASELINE_PROFILE,
+    "source_variant": "tts_style_probe_variant_A",
+    "label": "旧 A 可用基线",
+    "instruction": "你说话的情感是neutral。",
+    "speech_rate": 1.18,
+    "pitch_rate": 0.92,
+    "volume": 46,
+    "note": "当前正式链路继续沿用旧 A 作为默认可用配音基线，不再继续扩声音实验分支。",
+}
 DEFAULT_ALIYUN_TTS_STYLE_ROUND2_VARIANTS = (
     {
         "variant_id": "A1",
@@ -133,60 +146,6 @@ DEFAULT_ALIYUN_TTS_STYLE_ROUND1_RECOMMENDATION = {
     "variant_id": "A",
     "reason": "第一轮只用于确认风格桥接与基础方向，A 保留为最稳基线，供后续继续收窄。",
 }
-DEFAULT_ALIYUN_TTS_STYLE_ROUND2_VARIANTS = (
-    {
-        "variant_id": "A1",
-        "label": "更稳、更冷静",
-        "intent": "在旧 A 的方向上进一步压住情绪起伏，让句尾更稳、更冷。",
-        "instruction": (
-            "请用年轻中文男声，中低音，冷静克制，不要上扬，不要拖音。"
-            "短句推进，重点判断词前轻微停顿，句尾干净收住，像军事鉴定解说，不要客服感。"
-        ),
-        "speech_rate": 1.14,
-        "pitch_rate": 0.9,
-        "volume": 45,
-        "recommended": False,
-    },
-    {
-        "variant_id": "A2",
-        "label": "更干、更利落",
-        "intent": "保住旧 A 的冷静基础，把声线再压干一点，句尾更短更利落。",
-        "instruction": (
-            "请用年轻中文男声，中低音，声线更干更利落。"
-            "短句推进，字头更硬一点，废话感降到最低，句尾立刻收住，不要播音腔，不要温和服务感。"
-        ),
-        "speech_rate": 1.22,
-        "pitch_rate": 0.9,
-        "volume": 45,
-        "recommended": True,
-    },
-    {
-        "variant_id": "A3",
-        "label": "判断感更强一点",
-        "intent": "在克制前提下把判断感略往前推一点，但不演讲、不煽动。",
-        "instruction": (
-            "请用年轻中文男声，中低音，冷静里带一点判断感。"
-            "重点结论前轻微停顿，带一点克制的锋利感，但不要夸张，不要像演讲。"
-        ),
-        "speech_rate": 1.19,
-        "pitch_rate": 0.91,
-        "volume": 46,
-        "recommended": False,
-    },
-    {
-        "variant_id": "A4",
-        "label": "去客服感/播音感",
-        "intent": "进一步清掉客服播报感和新闻播音感，保持专业判断型口气。",
-        "instruction": (
-            "请用年轻中文男声，中低音，去掉客服播报感和新闻播音感。"
-            "不要字正腔圆式朗诵，不要热情推介，像内部判断型解说，收尾要短。"
-        ),
-        "speech_rate": 1.16,
-        "pitch_rate": 0.89,
-        "volume": 44,
-        "recommended": False,
-    },
-)
 DEFAULT_ALIYUN_TTS_STYLE_ROUND2_RECOMMENDATION = {
     "variant_id": "A2",
     "reason": "基于用户反馈“旧 A 更对，但还不完全对”，A2 保留旧 A 的冷静基线，同时把句尾压得更短、更干、更利落，偏移最小，最适合作为 round2 首推候选。",
@@ -321,19 +280,25 @@ def run_generation_pipeline(
 ) -> dict[str, Any]:
     video_spec = parse_formal_case_markdown(input_path)
     config_bundle = load_formal_config(example_config_path, local_config_path)
+    config = config_bundle["config"]
     generation_gate = evaluate_generation_gate(
         video_spec=video_spec,
-        config=config_bundle["config"],
+        config=config,
         has_local_config=config_bundle["has_local_config"],
         dry_run=dry_run,
     )
+    tts_gate = generation_gate["stage_gates"]["tts_probe"]
+    visual_gate = generation_gate["stage_gates"]["visual_generation"]
 
     output_dir.mkdir(parents=True, exist_ok=True)
     tts_probe = build_default_tts_probe(video_spec)
+    voiceover = build_default_voiceover_generation(video_spec, config)
+    caption_assets = build_default_caption_assets(video_spec)
+    visual_generation = build_default_visual_generation(video_spec, config)
     manifest = build_manifest(
         input_path=input_path,
         video_spec=video_spec,
-        config=config_bundle["config"],
+        config=config,
         generation_gate=generation_gate,
         output_dir=output_dir,
         dry_run=dry_run,
@@ -343,28 +308,64 @@ def run_generation_pipeline(
     generation_gate_path = output_dir / "generation_gate.json"
 
     if dry_run:
-        tts_probe["current_missing_prerequisites"] = generation_gate["missing_prerequisites"]
+        tts_probe["current_missing_prerequisites"] = tts_gate["missing_prerequisites"]
+        voiceover["current_missing_prerequisites"] = tts_gate["missing_prerequisites"]
+        visual_generation["current_missing_prerequisites"] = visual_gate["missing_prerequisites"]
+        visual_generation["missing_implementations"] = visual_gate["missing_implementations"]
         manifest = apply_tts_probe_to_manifest(manifest, tts_probe, generation_gate)
-    elif generation_gate["status"] == STATUS_SUCCESS:
-        tts_probe = execute_tts_probe(
+        manifest = apply_voiceover_to_manifest(manifest, voiceover)
+        manifest = apply_caption_assets_to_manifest(manifest, caption_assets)
+        manifest = apply_visual_generation_to_manifest(manifest, visual_generation)
+    else:
+        if tts_gate["status"] == STATUS_SUCCESS:
+            tts_probe = execute_tts_probe(
+                video_spec=video_spec,
+                config=config,
+                output_dir=output_dir,
+            )
+        else:
+            tts_probe = build_blocked_tts_probe(video_spec, tts_gate)
+        manifest = apply_tts_probe_to_manifest(manifest, tts_probe, generation_gate)
+
+        if tts_probe["status"] == STATUS_SUCCESS:
+            voiceover = execute_formal_voiceover_generation(
+                video_spec=video_spec,
+                config=config,
+                output_dir=output_dir,
+            )
+        else:
+            voiceover = build_blocked_voiceover_generation(video_spec, tts_probe, tts_gate)
+        manifest = apply_voiceover_to_manifest(manifest, voiceover)
+
+        caption_assets = write_formal_script_and_captions(
             video_spec=video_spec,
-            config=config_bundle["config"],
             output_dir=output_dir,
         )
-        manifest = apply_tts_probe_to_manifest(manifest, tts_probe, generation_gate)
-    else:
-        blocked_probe = build_default_tts_probe(video_spec)
-        blocked_probe.update(
-            {
-                "status": generation_gate["status"],
-                "blocked_reason": generation_gate.get("blocked_reason", ""),
-                "failure_reason": generation_gate.get("failure_reason", ""),
-                "error_code": "",
-                "error_message": generation_gate.get("blocked_reason", ""),
-                "current_missing_prerequisites": generation_gate["missing_prerequisites"],
-            }
+        manifest = apply_caption_assets_to_manifest(manifest, caption_assets)
+
+        visual_generation = build_visual_generation_plan(
+            video_spec=video_spec,
+            config=config,
+            output_dir=output_dir,
+            visual_gate=visual_gate,
         )
-        manifest = apply_tts_probe_to_manifest(manifest, blocked_probe, generation_gate)
+        manifest = apply_visual_generation_to_manifest(manifest, visual_generation)
+
+    manifest["generation"]["status"] = _combine_stage_statuses(
+        [
+            manifest["generation"]["tts_probe"]["status"],
+            manifest["generation"]["voiceover"]["status"],
+            manifest["generation"]["captions"]["status"],
+            manifest["generation"]["visual_generation"]["status"],
+        ],
+        dry_run=dry_run,
+    )
+    manifest["current_status"] = manifest["generation"]["status"]
+    manifest["known_issues"] = _merge_known_issues(
+        manifest["known_issues"],
+        _voiceover_known_issues(manifest["generation"]["voiceover"]),
+        _visual_generation_known_issues(manifest["generation"]["visual_generation"]),
+    )
 
     write_json(manifest_path, manifest)
     write_json(generation_gate_path, generation_gate)
@@ -377,6 +378,42 @@ def run_generation_pipeline(
     )
     write_json(output_dir / "result_summary.json", result_summary)
     return result_summary
+
+
+def build_blocked_tts_probe(
+    video_spec: dict[str, Any],
+    tts_gate: dict[str, Any],
+) -> dict[str, Any]:
+    blocked_probe = build_default_tts_probe(video_spec)
+    blocked_probe.update(
+        {
+            "status": tts_gate["status"],
+            "blocked_reason": tts_gate.get("blocked_reason", ""),
+            "failure_reason": tts_gate.get("failure_reason", ""),
+            "error_code": "",
+            "error_message": tts_gate.get("blocked_reason", ""),
+            "current_missing_prerequisites": tts_gate["missing_prerequisites"],
+        }
+    )
+    return blocked_probe
+
+
+def build_blocked_voiceover_generation(
+    video_spec: dict[str, Any],
+    tts_probe: dict[str, Any],
+    tts_gate: dict[str, Any],
+) -> dict[str, Any]:
+    voiceover = build_default_voiceover_generation(video_spec, {})
+    voiceover.update(
+        {
+            "status": tts_probe.get("status", STATUS_BLOCKED),
+            "blocked_reason": tts_probe.get("blocked_reason") or tts_gate.get("blocked_reason", ""),
+            "failure_reason": tts_probe.get("failure_reason", ""),
+            "error_message": tts_probe.get("error_message", ""),
+            "current_missing_prerequisites": tts_gate.get("missing_prerequisites", []),
+        }
+    )
+    return voiceover
 
 
 def run_aliyun_tts_style_probe_variants(
@@ -438,7 +475,7 @@ def _run_aliyun_tts_style_probe_round(
     video_spec = parse_formal_case_markdown(input_path)
     config_bundle = load_formal_config(example_config_path, local_config_path)
     config = config_bundle["config"]
-    gate = evaluate_generation_gate(
+    gate = _evaluate_tts_generation_gate(
         video_spec=video_spec,
         config=config,
         has_local_config=config_bundle["has_local_config"],
@@ -568,9 +605,10 @@ def run_assembly_pipeline(
 ) -> dict[str, Any]:
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     config_bundle = load_formal_config(example_config_path, local_config_path)
+    config = config_bundle["config"]
     assembly_gate = evaluate_assembly_gate(
         manifest=manifest,
-        config=config_bundle["config"],
+        config=config,
         has_local_config=config_bundle["has_local_config"],
         dry_run=dry_run,
     )
@@ -578,17 +616,34 @@ def run_assembly_pipeline(
     output_dir.mkdir(parents=True, exist_ok=True)
     assembly_plan = build_assembly_plan(
         manifest=manifest,
-        config=config_bundle["config"],
+        config=config,
         assembly_gate=assembly_gate,
     )
     manifest["machine_gate"]["assembly_gate"] = assembly_gate
+    preview_result = build_default_assembly_preview(output_dir)
+    if not dry_run:
+        preview_result = execute_local_preview_assembly(
+            manifest=manifest,
+            output_dir=output_dir,
+        )
     manifest["assembly"] = {
-        "status": assembly_gate["status"],
+        "status": STATUS_PLANNED if dry_run else assembly_gate["status"],
         "task_id": None,
         "resource_id": None,
         "output_id": None,
+        "cloud": {
+            "status": STATUS_PLANNED if dry_run else assembly_gate["status"],
+            "blocked_reason": "" if dry_run else assembly_gate.get("blocked_reason", ""),
+            "missing_prerequisites": assembly_gate["missing_prerequisites"],
+            "missing_implementations": assembly_gate["missing_implementations"],
+        },
+        "preview": preview_result,
     }
-    manifest["current_status"] = assembly_gate["status"]
+    manifest["current_status"] = manifest["assembly"]["status"]
+    manifest["known_issues"] = _merge_known_issues(
+        manifest.get("known_issues", []),
+        _assembly_preview_known_issues(preview_result),
+    )
 
     write_json(manifest_path, manifest)
     write_json(output_dir / "assembly_gate.json", assembly_gate)
@@ -604,7 +659,7 @@ def run_assembly_pipeline(
     return result_summary
 
 
-def evaluate_generation_gate(
+def _evaluate_tts_generation_gate(
     video_spec: dict[str, Any],
     config: dict[str, Any],
     has_local_config: bool,
@@ -734,9 +789,153 @@ def evaluate_generation_gate(
         },
         "checks": checks,
         "notes": [
-            "本轮 generation 只接 TTS，不接图像、视频和云端组装。",
+            "当前子 Gate 只评估 TTS probe / voiceover 所需前提。",
             "dry-run 只验证输入、契约和 Gate，不调用远端。",
             "route family 已显式拆分为 Ark / Edge Gateway / 阿里百炼 CosyVoice / Doubao OpenSpeech，不再默认混走 Ark。",
+        ],
+    }
+
+
+def evaluate_generation_gate(
+    video_spec: dict[str, Any],
+    config: dict[str, Any],
+    has_local_config: bool,
+    dry_run: bool,
+) -> dict[str, Any]:
+    tts_gate = _evaluate_tts_generation_gate(
+        video_spec=video_spec,
+        config=config,
+        has_local_config=has_local_config,
+        dry_run=dry_run,
+    )
+    visual_gate = _evaluate_visual_generation_gate(
+        video_spec=video_spec,
+        config=config,
+        has_local_config=has_local_config,
+        dry_run=dry_run,
+    )
+    overall_status = _combine_stage_statuses(
+        [
+            tts_gate["status"],
+            visual_gate["status"],
+        ],
+        dry_run=dry_run,
+    )
+    missing = _merge_unique_values(
+        tts_gate["missing_prerequisites"],
+        visual_gate["missing_prerequisites"],
+    )
+    missing_implementations = _merge_unique_values(
+        tts_gate["missing_implementations"],
+        visual_gate["missing_implementations"],
+    )
+    failure_reason = tts_gate.get("failure_reason") or visual_gate.get("failure_reason", "")
+    blocked_reason = tts_gate.get("blocked_reason") or ""
+    if visual_gate.get("blocked_reason"):
+        blocked_reason = (
+            f"{blocked_reason}；{visual_gate['blocked_reason']}"
+            if blocked_reason
+            else visual_gate["blocked_reason"]
+        )
+
+    return {
+        "gate_name": "generation_gate",
+        "status": overall_status,
+        "scope": "tts_voiceover_and_visual_generation",
+        "allow_execution": not dry_run,
+        "blocked_reason": blocked_reason,
+        "failure_reason": failure_reason,
+        "missing_prerequisites": missing,
+        "missing_implementations": missing_implementations,
+        "tts_target": tts_gate["tts_target"],
+        "visual_target": {
+            "provider": _nested_get(config, "provider", "name"),
+            "region": _nested_get(config, "provider", "region"),
+            "image_model": _nested_get(config, "image_generation", "model"),
+            "video_model": _nested_get(config, "video_generation", "model"),
+        },
+        "stage_gates": {
+            "tts_probe": tts_gate,
+            "visual_generation": visual_gate,
+        },
+        "checks": tts_gate["checks"] + visual_gate["checks"],
+        "notes": [
+            "当前 generation 会继续执行 TTS probe、整段配音、字幕与视觉计划，不再只停在 TTS probe。",
+            "即使正式视觉 provider / 云端组装前提未齐，也会尽量落出本地可追溯产物，供下一步收口。",
+            "generation 顶层状态按正式链路口径统计，不会把“局部音频成功”写成整层已跑通。",
+        ],
+    }
+
+
+def _evaluate_visual_generation_gate(
+    video_spec: dict[str, Any],
+    config: dict[str, Any],
+    has_local_config: bool,
+    dry_run: bool,
+) -> dict[str, Any]:
+    missing: list[str] = []
+    implementation_missing: list[str] = []
+    needs_image = any(segment.get("needs_image") for segment in video_spec.get("segments", []))
+    needs_video = any(segment.get("needs_video") for segment in video_spec.get("segments", []))
+    if not has_local_config:
+        missing.append("local_config_file")
+    if _is_missing_secret(_nested_get(config, "auth", "api_key")):
+        missing.append("api_key")
+    if _is_missing_secret(_nested_get(config, "provider", "region")):
+        missing.append("provider_region")
+    if needs_image and _is_missing_secret(_nested_get(config, "image_generation", "model")):
+        missing.append("image_generation_model")
+    if needs_video and _is_missing_secret(_nested_get(config, "video_generation", "model")):
+        missing.append("video_generation_model")
+    if needs_image:
+        implementation_missing.append("image_generation_provider_implementation")
+    if needs_video:
+        implementation_missing.append("video_generation_provider_implementation")
+
+    checks = [
+        {
+            "name": "visual_segments_present",
+            "status": "pass" if video_spec.get("segments") else "fail",
+            "detail": f"segments={len(video_spec.get('segments', []))}",
+        },
+        {
+            "name": "image_model_present_when_required",
+            "status": "pass"
+            if not needs_image or not _is_missing_secret(_nested_get(config, "image_generation", "model"))
+            else "fail",
+            "detail": "有图片段落时必须显式提供 image_generation.model。",
+        },
+        {
+            "name": "video_model_present_when_required",
+            "status": "pass"
+            if not needs_video or not _is_missing_secret(_nested_get(config, "video_generation", "model"))
+            else "fail",
+            "detail": "有视频段落时必须显式提供 video_generation.model。",
+        },
+    ]
+
+    if dry_run:
+        status = STATUS_PLANNED
+        blocked_reason = ""
+    elif missing:
+        status = STATUS_BLOCKED
+        blocked_reason = "缺少视觉生成前提：" + "、".join(missing)
+    else:
+        status = STATUS_BLOCKED
+        blocked_reason = "正式视觉 provider implementation 尚未接入；当前先落视觉计划与本地预览素材。"
+
+    return {
+        "gate_name": "visual_generation_gate",
+        "status": status,
+        "allow_execution": not dry_run and not missing,
+        "blocked_reason": blocked_reason,
+        "failure_reason": "",
+        "missing_prerequisites": missing,
+        "missing_implementations": implementation_missing,
+        "checks": checks,
+        "notes": [
+            "visual_generation Gate 按正式远端素材生成口径判断。",
+            "即使 Gate blocked，仍允许落 visual plan，避免正式链路继续停在纯骨架。",
         ],
     }
 
@@ -815,7 +1014,7 @@ def evaluate_assembly_gate(
             "status": "pass"
             if _nested_get(config, "quality_gate", "allow_local_fallback") is False
             else "fail",
-            "detail": "正式组装阶段禁止回退到本地 Swift / ffmpeg。",
+            "detail": "正式组装仍以云端为目标；本地 preview 只作预览，不得冒充正式云端成功。",
         },
     ]
 
@@ -838,8 +1037,9 @@ def evaluate_assembly_gate(
         "missing_implementations": implementation_missing,
         "checks": checks,
         "notes": [
-            "assembly dry-run 只落 assembly plan 与 result_summary。",
+            "assembly 顶层 Gate 仍按正式云端组装口径判断。",
             "manifest 是修正循环和复审的事实锚点，assembly 不得绕开 manifest 自由猜测。",
+            "即使云端组装 blocked，也会尽量尝试落本地 preview 样片，帮助验证音频、字幕和时间线是否已接上。",
         ],
     }
 
@@ -853,6 +1053,7 @@ def build_manifest(
     dry_run: bool,
     tts_probe: dict[str, Any],
 ) -> dict[str, Any]:
+    tts_baseline = _resolve_formal_tts_baseline(config)
     segments: list[dict[str, Any]] = []
     cursor = 0.0
     for index, segment in enumerate(video_spec["segments"], start=1):
@@ -881,6 +1082,7 @@ def build_manifest(
                     "tts_resource_id": _nested_get(config, "tts", "resource_id"),
                     "image_model": _nested_get(config, "image_generation", "model"),
                     "video_model": _nested_get(config, "video_generation", "model"),
+                    "tts_baseline_profile": tts_baseline["profile_id"],
                 },
                 "task_slots": {
                     "voice_task_id": None,
@@ -936,6 +1138,7 @@ def build_manifest(
             "provider": _nested_get(config, "provider", "name"),
             "tts_provider": _get_tts_provider_name(config),
             "region": _nested_get(config, "provider", "region"),
+            "tts_baseline": tts_baseline,
             "models": {
                 "tts_api_route_family": _get_tts_api_route_family(config),
                 "tts": _nested_get(config, "tts", "model"),
@@ -960,13 +1163,24 @@ def build_manifest(
             "task_id": None,
             "resource_id": None,
             "output_id": None,
+            "tts_baseline": tts_baseline,
             "tts_probe": tts_probe,
+            "voiceover": build_default_voiceover_generation(video_spec, config),
+            "captions": build_default_caption_assets(video_spec),
+            "visual_generation": build_default_visual_generation(video_spec, config),
         },
         "assembly": {
             "status": STATUS_NOT_STARTED,
             "task_id": None,
             "resource_id": None,
             "output_id": None,
+            "cloud": {
+                "status": STATUS_NOT_STARTED,
+                "blocked_reason": "",
+                "missing_prerequisites": [],
+                "missing_implementations": [],
+            },
+            "preview": build_default_assembly_preview(output_dir),
         },
         "known_issues": _gate_known_issues(generation_gate),
         "machine_gate": {
@@ -992,7 +1206,10 @@ def build_generation_result_summary(
     dry_run: bool,
 ) -> dict[str, Any]:
     tts_probe = manifest.get("generation", {}).get("tts_probe", {})
-    status = STATUS_PLANNED if dry_run else tts_probe.get("status", generation_gate["status"])
+    voiceover = manifest.get("generation", {}).get("voiceover", {})
+    captions = manifest.get("generation", {}).get("captions", {})
+    visual_generation = manifest.get("generation", {}).get("visual_generation", {})
+    status = STATUS_PLANNED if dry_run else manifest.get("generation", {}).get("status", generation_gate["status"])
     return {
         "schema_version": RESULT_SUMMARY_SCHEMA_VERSION,
         "stage": "generation",
@@ -1000,8 +1217,19 @@ def build_generation_result_summary(
         "generation_status": status,
         "assembly_status": STATUS_NOT_STARTED,
         "tts_probe_status": tts_probe.get("status", STATUS_NOT_STARTED),
-        "failure_reason": tts_probe.get("failure_reason", ""),
-        "error_message": tts_probe.get("error_message", ""),
+        "voiceover_status": voiceover.get("status", STATUS_NOT_STARTED),
+        "captions_status": captions.get("status", STATUS_NOT_STARTED),
+        "visual_generation_status": visual_generation.get("status", STATUS_NOT_STARTED),
+        "failure_reason": (
+            voiceover.get("failure_reason")
+            or visual_generation.get("failure_reason")
+            or tts_probe.get("failure_reason", "")
+        ),
+        "error_message": (
+            voiceover.get("error_message")
+            or visual_generation.get("blocked_reason")
+            or tts_probe.get("error_message", "")
+        ),
         "machine_gate_result": {
             "generation_gate": generation_gate["status"],
             "assembly_gate": STATUS_NOT_STARTED,
@@ -1014,11 +1242,13 @@ def build_generation_result_summary(
             "generation_gate": str(output_dir / "generation_gate.json"),
             "result_summary": str(output_dir / "result_summary.json"),
             "tts_audio": tts_probe.get("audio_path"),
+            "voiceover_audio": voiceover.get("audio_path"),
+            "script": captions.get("script_path"),
+            "captions": captions.get("captions_path"),
+            "visual_plan": visual_generation.get("plan_path"),
         },
         "next_action_hint": _generation_next_action_hint(generation_gate, tts_probe, dry_run),
-        "current_missing_prerequisites": tts_probe.get(
-            "current_missing_prerequisites", generation_gate["missing_prerequisites"]
-        ),
+        "current_missing_prerequisites": generation_gate["missing_prerequisites"],
         "known_issues": manifest["known_issues"],
     }
 
@@ -1043,10 +1273,14 @@ def build_assembly_plan(
                 ],
                 "needs_subtitle": True,
                 "needs_visual_asset": True,
+                "voice_uri": segment["output_slots"].get("voice_uri"),
+                "subtitle_uri": segment["output_slots"].get("subtitle_uri"),
+                "visual_uri": segment["output_slots"].get("visual_uri"),
             }
             for segment in manifest.get("segments", [])
         ],
         "gate_status": assembly_gate["status"],
+        "preview_target": str(pathlib.Path(_nested_get(config, "output", "dist_dir") or DEFAULT_FORMAL_OUTPUT_DIR) / "assembly" / "formal_api_demo_preview.mp4"),
         "next_action_hint": _assembly_next_action_hint(assembly_gate, dry_run=True),
     }
 
@@ -1058,6 +1292,7 @@ def build_assembly_result_summary(
     dry_run: bool,
 ) -> dict[str, Any]:
     generation_status = manifest.get("generation", {}).get("status", STATUS_NOT_STARTED)
+    preview = manifest.get("assembly", {}).get("preview", {})
     status = STATUS_PLANNED if dry_run else assembly_gate["status"]
     return {
         "schema_version": RESULT_SUMMARY_SCHEMA_VERSION,
@@ -1065,6 +1300,7 @@ def build_assembly_result_summary(
         "overall_status": status,
         "generation_status": generation_status,
         "assembly_status": status,
+        "assembly_preview_status": preview.get("status", STATUS_NOT_STARTED),
         "machine_gate_result": {
             "generation_gate": manifest.get("machine_gate", {})
             .get("generation_gate", {})
@@ -1078,10 +1314,90 @@ def build_assembly_result_summary(
             "assembly_plan": str(output_dir / "assembly_plan.json"),
             "result_summary": str(output_dir / "result_summary.json"),
             "final_video": None,
+            "preview_video": preview.get("video_path"),
+            "preview_manifest": preview.get("preview_manifest_path"),
         },
         "next_action_hint": _assembly_next_action_hint(assembly_gate, dry_run),
         "current_missing_prerequisites": assembly_gate["missing_prerequisites"],
         "known_issues": manifest.get("known_issues", []),
+    }
+
+
+def build_default_voiceover_generation(
+    video_spec: dict[str, Any],
+    config: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        "status": STATUS_PLANNED,
+        "baseline_profile": _resolve_formal_tts_baseline(config),
+        "audio_path": None,
+        "segment_audio_paths": [],
+        "segment_results": [
+            {
+                "segment_id": segment["segment_id"],
+                "status": STATUS_NOT_STARTED,
+                "audio_path": None,
+                "request_id": None,
+                "failure_reason": "",
+                "error_message": "",
+            }
+            for segment in video_spec.get("segments", [])
+        ],
+        "blocked_reason": "",
+        "failure_reason": "",
+        "error_message": "",
+        "current_missing_prerequisites": [],
+    }
+
+
+def build_default_caption_assets(video_spec: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "status": STATUS_PLANNED,
+        "script_path": None,
+        "captions_path": None,
+        "timeline_path": None,
+        "segment_count": len(video_spec.get("segments", [])),
+    }
+
+
+def build_default_visual_generation(
+    video_spec: dict[str, Any],
+    config: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        "status": STATUS_PLANNED,
+        "provider": _nested_get(config, "provider", "name"),
+        "image_model": _nested_get(config, "image_generation", "model"),
+        "video_model": _nested_get(config, "video_generation", "model"),
+        "plan_path": None,
+        "segment_assets": [
+            {
+                "segment_id": segment["segment_id"],
+                "needs_image": segment["needs_image"],
+                "needs_video": segment["needs_video"],
+                "image_prompt": "",
+                "video_prompt": "",
+                "status": STATUS_NOT_STARTED,
+            }
+            for segment in video_spec.get("segments", [])
+        ],
+        "blocked_reason": "",
+        "failure_reason": "",
+        "current_missing_prerequisites": [],
+        "missing_implementations": [],
+    }
+
+
+def build_default_assembly_preview(output_dir: pathlib.Path) -> dict[str, Any]:
+    preview_dir = output_dir / "assembly"
+    return {
+        "status": STATUS_NOT_STARTED,
+        "video_path": str(preview_dir / "formal_api_demo_preview.mp4"),
+        "preview_manifest_path": str(preview_dir / "preview_manifest.json"),
+        "captions_path": str(output_dir / "captions.srt"),
+        "blocked_reason": "",
+        "failure_reason": "",
+        "error_message": "",
     }
 
 
@@ -1127,6 +1443,44 @@ def apply_tts_probe_to_manifest(
         manifest["segments"][0]["output_slots"]["voice_uri"] = tts_probe.get("audio_path")
         manifest["segments"][0]["task_slots"]["voice_task_id"] = tts_probe.get("request_id")
         manifest["segments"][0]["current_status"] = tts_probe.get("status", manifest["segments"][0]["current_status"])
+    return manifest
+
+
+def apply_voiceover_to_manifest(
+    manifest: dict[str, Any],
+    voiceover: dict[str, Any],
+) -> dict[str, Any]:
+    manifest["generation"]["voiceover"] = voiceover
+    for segment, segment_result in zip(
+        manifest.get("segments", []),
+        voiceover.get("segment_results", []),
+    ):
+        segment["output_slots"]["voice_uri"] = segment_result.get("audio_path")
+        segment["task_slots"]["voice_task_id"] = segment_result.get("request_id")
+        segment["current_status"] = segment_result.get("status", segment["current_status"])
+    return manifest
+
+
+def apply_caption_assets_to_manifest(
+    manifest: dict[str, Any],
+    caption_assets: dict[str, Any],
+) -> dict[str, Any]:
+    manifest["generation"]["captions"] = caption_assets
+    for segment in manifest.get("segments", []):
+        segment["output_slots"]["subtitle_uri"] = caption_assets.get("captions_path")
+    return manifest
+
+
+def apply_visual_generation_to_manifest(
+    manifest: dict[str, Any],
+    visual_generation: dict[str, Any],
+) -> dict[str, Any]:
+    manifest["generation"]["visual_generation"] = visual_generation
+    for segment, asset in zip(
+        manifest.get("segments", []),
+        visual_generation.get("segment_assets", []),
+    ):
+        segment["output_slots"]["visual_uri"] = asset.get("preview_visual_ref")
     return manifest
 
 
@@ -1245,6 +1599,278 @@ def execute_tts_probe(
         )
 
     return probe
+
+
+def execute_formal_voiceover_generation(
+    video_spec: dict[str, Any],
+    config: dict[str, Any],
+    output_dir: pathlib.Path,
+) -> dict[str, Any]:
+    voiceover = build_default_voiceover_generation(video_spec, config)
+    segment_results: list[dict[str, Any]] = []
+    segment_audio_paths: list[pathlib.Path] = []
+
+    for segment in video_spec.get("segments", []):
+        probe = execute_tts_probe(
+            video_spec=video_spec,
+            config=config,
+            output_dir=output_dir,
+            probe_text=segment["voiceover_text"],
+            probe_text_source=f"{segment['segment_id']}_voiceover",
+            output_stem=f"segment_{segment['segment_id']}",
+        )
+        segment_result = {
+            "segment_id": segment["segment_id"],
+            "status": probe.get("status", STATUS_FAILED),
+            "audio_path": probe.get("audio_path"),
+            "request_id": probe.get("request_id"),
+            "failure_reason": probe.get("failure_reason", ""),
+            "error_message": probe.get("error_message", ""),
+        }
+        segment_results.append(segment_result)
+        if probe.get("status") != STATUS_SUCCESS:
+            voiceover.update(
+                {
+                    "status": probe.get("status", STATUS_FAILED),
+                    "segment_results": segment_results,
+                    "segment_audio_paths": [str(path) for path in segment_audio_paths],
+                    "blocked_reason": probe.get("blocked_reason", ""),
+                    "failure_reason": probe.get("failure_reason", ""),
+                    "error_message": probe.get("error_message", ""),
+                }
+            )
+            return voiceover
+        audio_path = probe.get("audio_path")
+        if audio_path:
+            segment_audio_paths.append(pathlib.Path(audio_path))
+
+    bundle_path = output_dir / "tts" / "formal_voiceover.mp3"
+    concatenate_audio_files(segment_audio_paths, bundle_path)
+    voiceover.update(
+        {
+            "status": STATUS_SUCCESS,
+            "audio_path": str(bundle_path),
+            "segment_audio_paths": [str(path) for path in segment_audio_paths],
+            "segment_results": segment_results,
+        }
+    )
+    return voiceover
+
+
+def write_formal_script_and_captions(
+    video_spec: dict[str, Any],
+    output_dir: pathlib.Path,
+) -> dict[str, Any]:
+    script_path = output_dir / "script.txt"
+    captions_path = output_dir / "captions.srt"
+    timeline_path = output_dir / "timeline.json"
+
+    script_lines: list[str] = []
+    caption_rows: list[str] = []
+    timeline_entries: list[dict[str, Any]] = []
+    cursor = 0.0
+
+    for index, segment in enumerate(video_spec.get("segments", []), start=1):
+        start = round(cursor, 2)
+        end = round(start + segment["planned_duration_seconds"], 2)
+        script_lines.append(f"第{index}段：{segment['voiceover_text']}")
+        caption_rows.extend(
+            [
+                str(index),
+                f"{seconds_to_srt(start)} --> {seconds_to_srt(end)}",
+                segment["caption_text"],
+                "",
+            ]
+        )
+        timeline_entries.append(
+            {
+                "segment_id": segment["segment_id"],
+                "start_seconds": start,
+                "end_seconds": end,
+                "duration_seconds": segment["planned_duration_seconds"],
+                "caption_text": segment["caption_text"],
+            }
+        )
+        cursor = end
+
+    script_path.write_text("\n".join(script_lines).strip() + "\n", encoding="utf-8")
+    captions_path.write_text("\n".join(caption_rows).strip() + "\n", encoding="utf-8")
+    write_json(timeline_path, {"segments": timeline_entries})
+    return {
+        "status": STATUS_SUCCESS,
+        "script_path": str(script_path),
+        "captions_path": str(captions_path),
+        "timeline_path": str(timeline_path),
+        "segment_count": len(timeline_entries),
+    }
+
+
+def build_visual_generation_plan(
+    video_spec: dict[str, Any],
+    config: dict[str, Any],
+    output_dir: pathlib.Path,
+    visual_gate: dict[str, Any],
+) -> dict[str, Any]:
+    visual_generation = build_default_visual_generation(video_spec, config)
+    plan_path = output_dir / "visual_generation_plan.json"
+    preview_storyboard_path = output_dir / "preview_storyboard.json"
+    segment_assets: list[dict[str, Any]] = []
+
+    for index, segment in enumerate(video_spec.get("segments", []), start=1):
+        image_prompt = ""
+        video_prompt = ""
+        if segment["needs_image"]:
+            image_prompt = (
+                f"{segment['visual_intent']}。保持 9:16 竖版，PPT 卡片式信息层级，"
+                "中文 AI 项目讲解场景，避免写实人物和广告感。"
+            )
+        if segment["needs_video"]:
+            video_prompt = (
+                f"{segment['visual_intent']}。镜头应表现信息从散乱到收束，"
+                "节奏克制，适合 9:16 中文案例讲解短视频。"
+            )
+        asset_status = STATUS_PLANNED if visual_gate["status"] == STATUS_PLANNED else STATUS_BLOCKED
+        if not visual_gate["missing_prerequisites"] and visual_gate["status"] == STATUS_BLOCKED:
+            asset_status = STATUS_BLOCKED
+        segment_assets.append(
+            {
+                "segment_id": segment["segment_id"],
+                "sequence": index,
+                "needs_image": segment["needs_image"],
+                "needs_video": segment["needs_video"],
+                "image_prompt": image_prompt,
+                "video_prompt": video_prompt,
+                "preview_visual_ref": f"preview_slide_{index}",
+                "status": asset_status,
+            }
+        )
+
+    visual_generation.update(
+        {
+            "status": visual_gate["status"],
+            "plan_path": str(plan_path),
+            "segment_assets": segment_assets,
+            "blocked_reason": visual_gate.get("blocked_reason", ""),
+            "failure_reason": visual_gate.get("failure_reason", ""),
+            "current_missing_prerequisites": visual_gate.get("missing_prerequisites", []),
+            "missing_implementations": visual_gate.get("missing_implementations", []),
+        }
+    )
+    write_json(
+        plan_path,
+        {
+            "schema_version": "formal_api_demo_visual_plan/v1",
+            "status": visual_generation["status"],
+            "provider": visual_generation["provider"],
+            "image_model": visual_generation["image_model"],
+            "video_model": visual_generation["video_model"],
+            "current_missing_prerequisites": visual_generation["current_missing_prerequisites"],
+            "missing_implementations": visual_generation["missing_implementations"],
+            "segment_assets": segment_assets,
+        },
+    )
+    write_json(
+        preview_storyboard_path,
+        {
+            "schema_version": "formal_api_demo_preview_storyboard/v1",
+            "segments": [
+                {
+                    "segment_id": segment["segment_id"],
+                    "goal": segment["goal"],
+                    "visual_intent": segment["visual_intent"],
+                    "caption_text": segment["caption_text"],
+                }
+                for segment in video_spec.get("segments", [])
+            ],
+        },
+    )
+    return visual_generation
+
+
+def execute_local_preview_assembly(
+    manifest: dict[str, Any],
+    output_dir: pathlib.Path,
+) -> dict[str, Any]:
+    preview = build_default_assembly_preview(output_dir)
+    preview_dir = output_dir / "assembly"
+    preview_dir.mkdir(parents=True, exist_ok=True)
+
+    missing: list[str] = []
+    voiceover_audio = pathlib.Path(
+        _nested_get(manifest, "generation", "voiceover", "audio_path") or ""
+    )
+    captions_path = pathlib.Path(
+        _nested_get(manifest, "generation", "captions", "captions_path") or ""
+    )
+    if not voiceover_audio.exists():
+        missing.append("voiceover_audio")
+    if not captions_path.exists():
+        missing.append("captions_srt")
+    if shutil.which("swift") is None:
+        missing.append("swift")
+    if not (ROOT / "video_builder.swift").exists():
+        missing.append("video_builder_swift")
+    if not manifest.get("segments"):
+        missing.append("manifest_segments")
+
+    if missing:
+        preview.update(
+            {
+                "status": STATUS_BLOCKED,
+                "blocked_reason": "缺少本地预览组装前提：" + "、".join(missing),
+            }
+        )
+        return preview
+
+    preview_manifest_path = preview_dir / "preview_manifest.json"
+    preview_video_path = preview_dir / "formal_api_demo_preview.mp4"
+    preview_manifest = {
+        "width": 1080,
+        "height": 1920,
+        "fps": 10,
+        "audioPath": str(voiceover_audio.resolve()),
+        "outputPath": str(preview_video_path.resolve()),
+        "slides": _build_preview_slides(manifest),
+    }
+    write_json(preview_manifest_path, preview_manifest)
+
+    try:
+        run_subprocess(
+            [
+                "swift",
+                str(ROOT / "video_builder.swift"),
+                str(preview_manifest_path),
+            ]
+        )
+    except subprocess.CalledProcessError as exc:
+        preview.update(
+            {
+                "status": STATUS_FAILED,
+                "failure_reason": "local_preview_assembly_failed",
+                "error_message": str(exc),
+            }
+        )
+        return preview
+
+    if not preview_video_path.exists():
+        preview.update(
+            {
+                "status": STATUS_FAILED,
+                "failure_reason": "local_preview_video_missing",
+                "error_message": "Swift 组装已执行，但 preview 视频文件未落出。",
+            }
+        )
+        return preview
+
+    preview.update(
+        {
+            "status": STATUS_SUCCESS,
+            "video_path": str(preview_video_path),
+            "preview_manifest_path": str(preview_manifest_path),
+            "captions_path": str(captions_path),
+        }
+    )
+    return preview
 
 
 def write_json(path: pathlib.Path, payload: dict[str, Any]) -> None:
@@ -1408,10 +2034,6 @@ def _assembly_missing_prerequisites(
     missing: list[str] = []
     if not has_local_config:
         missing.append("local_config_file")
-    if _is_missing_secret(_nested_get(config, "auth", "access_key_id")):
-        missing.append("access_key_id")
-    if _is_missing_secret(_nested_get(config, "auth", "secret_access_key")):
-        missing.append("secret_access_key")
     if _is_missing_secret(_nested_get(config, "storage", "space_name")):
         missing.append("space_name")
     if _is_missing_secret(_nested_get(config, "assembly", "template_id")):
@@ -1420,8 +2042,12 @@ def _assembly_missing_prerequisites(
         missing.append("provider_region")
     if not manifest.get("segments"):
         missing.append("manifest_segments")
-    if manifest.get("generation", {}).get("status") != STATUS_SUCCESS:
-        missing.append("generation_assets_not_ready")
+    if manifest.get("generation", {}).get("voiceover", {}).get("status") != STATUS_SUCCESS:
+        missing.append("voiceover_assets_not_ready")
+    if manifest.get("generation", {}).get("captions", {}).get("status") != STATUS_SUCCESS:
+        missing.append("subtitle_assets_not_ready")
+    if manifest.get("generation", {}).get("visual_generation", {}).get("status") != STATUS_SUCCESS:
+        missing.append("visual_assets_not_ready")
     return missing
 
 
@@ -1476,7 +2102,9 @@ def _generation_next_action_hint(
         or TTS_ROUTE_FAMILY_ARK
     )
     if dry_run:
-        return "当前为 dry-run；下一步应按选定的 TTS route family 补齐最小前提，再尝试真实 TTS probe。"
+        return "当前为 dry-run；下一步应先确认 TTS、image_generation.model 和 video_generation.model 的正式前提，再执行真实 generation。"
+    if "image_generation_model" in gate["missing_prerequisites"] or "video_generation_model" in gate["missing_prerequisites"]:
+        return "TTS 已不是唯一问题；下一步应先补齐 image_generation.model / video_generation.model，再继续正式视觉素材联调。"
     if gate["missing_prerequisites"]:
         if route_family == TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE:
             return "先补齐阿里百炼的 API Key、tts.model 和 voice，再进入真实 TTS probe。"
@@ -1508,15 +2136,15 @@ def _generation_next_action_hint(
     if tts_probe.get("status") == STATUS_FAILED:
         return "当前已进入真实请求层失败；优先核对远端返回码、请求结构和 provider 接口兼容性。"
     if tts_probe.get("status") == STATUS_SUCCESS:
-        return "当前仅证明 TTS 调用已接通；下一步应试听音频质量，但不要误写成整条正式链路已跑通。"
-    return "当前已具备 TTS probe 前提；下一步可执行真实 TTS 调用并检查输出音频质量。"
+        return "当前已证明 TTS 子线可用；下一步应继续补齐视觉生成与 assembly 的正式前提，而不是继续扩声音实验。"
+    return "当前已具备部分 generation 前提；下一步可执行真实 generation，并把失败压到字段或 provider 层。"
 
 
 def _assembly_next_action_hint(gate: dict[str, Any], dry_run: bool) -> str:
     if dry_run:
-        return "当前为 assembly dry-run；下一步应补齐云端组装配置和 provider 实现后再尝试非 dry-run。"
+        return "当前为 assembly dry-run；下一步应补齐云端组装配置，并实际运行非 dry-run 产出 preview / 阻塞事实。"
     if gate["missing_prerequisites"]:
-        return "先补齐云端组装模板、空间配置和 local 配置，再进入真实组装联调。"
+        return "先补齐云端组装模板、空间配置，以及缺失的 generation 素材，再进入真实云端组装联调。"
     return "补齐正式云端组装实现后，再进入首轮样片联调。"
 
 
@@ -2075,3 +2703,150 @@ def _merge_known_issues(*issue_groups: list[str]) -> list[str]:
             if issue and issue not in merged:
                 merged.append(issue)
     return merged
+
+
+def _merge_unique_values(*value_groups: list[str]) -> list[str]:
+    merged: list[str] = []
+    for values in value_groups:
+        for value in values:
+            if value and value not in merged:
+                merged.append(value)
+    return merged
+
+
+def _combine_stage_statuses(statuses: list[str], *, dry_run: bool = False) -> str:
+    if dry_run:
+        return STATUS_PLANNED
+    filtered = [status for status in statuses if status]
+    if not filtered:
+        return STATUS_NOT_STARTED
+    if any(status == STATUS_FAILED for status in filtered):
+        return STATUS_FAILED
+    if any(status == STATUS_BLOCKED for status in filtered):
+        return STATUS_BLOCKED
+    if all(status == STATUS_SUCCESS for status in filtered):
+        return STATUS_SUCCESS
+    if any(status == STATUS_PLANNED for status in filtered):
+        return STATUS_PLANNED
+    return STATUS_NOT_STARTED
+
+
+def _resolve_formal_tts_baseline(config: dict[str, Any]) -> dict[str, Any]:
+    baseline = dict(DEFAULT_FORMAL_TTS_BASELINE)
+    configured_profile = _normalize_optional_text(_nested_get(config, "tts", "baseline_profile"))
+    if configured_profile:
+        baseline["profile_id"] = configured_profile
+    return baseline
+
+
+def resolve_ffmpeg_binary() -> str:
+    system_ffmpeg = shutil.which("ffmpeg")
+    if system_ffmpeg:
+        return system_ffmpeg
+    bundled_ffmpeg = ROOT / "node_modules" / "ffmpeg-static" / "ffmpeg"
+    if bundled_ffmpeg.exists():
+        return str(bundled_ffmpeg)
+    raise RuntimeError("缺少 ffmpeg，可先安装依赖或补齐本地 ffmpeg 可执行文件。")
+
+
+def run_subprocess(args: list[str]) -> None:
+    subprocess.run(args, check=True)
+
+
+def concatenate_audio_files(input_paths: list[pathlib.Path], output_path: pathlib.Path) -> None:
+    if not input_paths:
+        raise RuntimeError("没有可拼接的音频分段。")
+    ffmpeg_binary = resolve_ffmpeg_binary()
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    concat_list_path = output_path.parent / "concat_inputs.txt"
+    concat_list_path.write_text(
+        "".join(f"file '{path.resolve()}'\n" for path in input_paths),
+        encoding="utf-8",
+    )
+    try:
+        try:
+            run_subprocess(
+                [
+                    ffmpeg_binary,
+                    "-y",
+                    "-f",
+                    "concat",
+                    "-safe",
+                    "0",
+                    "-i",
+                    str(concat_list_path),
+                    "-codec:a",
+                    "libmp3lame",
+                    "-b:a",
+                    "128k",
+                    str(output_path),
+                ]
+            )
+        except subprocess.CalledProcessError:
+            output_path.write_bytes(b"".join(path.read_bytes() for path in input_paths))
+    finally:
+        concat_list_path.unlink(missing_ok=True)
+
+
+def seconds_to_srt(value: float) -> str:
+    milliseconds = round(value * 1000)
+    hours, remainder = divmod(milliseconds, 3_600_000)
+    minutes, remainder = divmod(remainder, 60_000)
+    seconds, milliseconds = divmod(remainder, 1000)
+    return f"{hours:02d}:{minutes:02d}:{seconds:02d},{milliseconds:03d}"
+
+
+def _build_preview_slides(manifest: dict[str, Any]) -> list[dict[str, Any]]:
+    accents = ["#2563EB", "#0F766E", "#C2410C", "#7C3AED"]
+    backgrounds = ["#F5F7FB", "#F4FBF9", "#FFF7ED", "#F8F5FF"]
+    slides: list[dict[str, Any]] = []
+    for index, segment in enumerate(manifest.get("segments", []), start=1):
+        accent = accents[(index - 1) % len(accents)]
+        background = backgrounds[(index - 1) % len(backgrounds)]
+        slides.append(
+            {
+                "title": segment["goal"],
+                "body": "\n".join(
+                    [
+                        segment["visual_intent"],
+                        segment["caption_text"],
+                    ]
+                ),
+                "accent": accent,
+                "background": background,
+                "badge": f"第{index}段",
+                "footer": "formal_api_demo / 本地预览",
+                "duration": segment["timeline"]["planned_duration_seconds"],
+            }
+        )
+    return slides
+
+
+def _voiceover_known_issues(voiceover: dict[str, Any]) -> list[str]:
+    issues: list[str] = []
+    if voiceover.get("status") == STATUS_BLOCKED and voiceover.get("blocked_reason"):
+        issues.append("正式配音 blocked：" + voiceover["blocked_reason"])
+    if voiceover.get("status") == STATUS_FAILED and voiceover.get("error_message"):
+        issues.append("正式配音 failed：" + voiceover["error_message"])
+    return issues
+
+
+def _visual_generation_known_issues(visual_generation: dict[str, Any]) -> list[str]:
+    issues: list[str] = []
+    if visual_generation.get("status") == STATUS_BLOCKED and visual_generation.get("blocked_reason"):
+        issues.append("视觉生成 blocked：" + visual_generation["blocked_reason"])
+    if visual_generation.get("missing_implementations"):
+        issues.append(
+            "视觉生成 provider 尚未接入："
+            + "、".join(visual_generation["missing_implementations"])
+        )
+    return issues
+
+
+def _assembly_preview_known_issues(preview: dict[str, Any]) -> list[str]:
+    issues: list[str] = []
+    if preview.get("status") == STATUS_BLOCKED and preview.get("blocked_reason"):
+        issues.append("本地 preview 组装 blocked：" + preview["blocked_reason"])
+    if preview.get("status") == STATUS_FAILED and preview.get("error_message"):
+        issues.append("本地 preview 组装 failed：" + preview["error_message"])
+    return issues

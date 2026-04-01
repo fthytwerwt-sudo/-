@@ -45,6 +45,10 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
         speech_rate: float = 1.0,
         pitch_rate: float = 1.0,
         volume: int = 50,
+        image_model: str = "",
+        video_model: str = "",
+        template_id: str = "",
+        space_name: str = "",
     ) -> None:
         path.write_text(
             "\n".join(
@@ -69,6 +73,23 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                     f"pitch_rate = {pitch_rate}",
                     f"volume = {volume}",
                     'response_format = "mp3"',
+                    'baseline_profile = "aliyun_old_A"',
+                    "",
+                    "[image_generation]",
+                    f'model = "{image_model}"',
+                    "",
+                    "[video_generation]",
+                    f'model = "{video_model}"',
+                    "",
+                    "[assembly]",
+                    'mode = "cloud"',
+                    f'template_id = "{template_id}"',
+                    'subtitle_mode = "burn_in"',
+                    'resolution = "1080x1920"',
+                    "fps = 25",
+                    "",
+                    "[storage]",
+                    f'space_name = "{space_name}"',
                 ]
             )
             + "\n",
@@ -171,6 +192,72 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             self.assertTrue((output_dir / "assembly_gate.json").exists())
             self.assertTrue((output_dir / "assembly_plan.json").exists())
             self.assertTrue((output_dir / "result_summary.json").exists())
+
+    def test_assemble_non_dry_run_writes_preview_video_and_keeps_cloud_status_blocked(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_assemble_preview_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                provider_name="aliyun_bailian",
+                route_family="aliyun_bailian_cosyvoice",
+                api_key="dashscope_test_key",
+                model="cosyvoice-v3-flash",
+                voice="longanyang",
+            )
+
+            def fake_probe(*_args, **kwargs):
+                stem = kwargs.get("output_stem", "voice_probe")
+                audio_path = output_dir / "tts" / f"{stem}.mp3"
+                audio_path.parent.mkdir(parents=True, exist_ok=True)
+                audio_path.write_bytes(b"fake-mp3")
+                return {
+                    "status": STATUS_SUCCESS,
+                    "blocked_reason": "",
+                    "failure_reason": "",
+                    "error_code": "",
+                    "error_message": "",
+                    "audio_path": str(audio_path),
+                    "request_id": f"req_{stem}",
+                    "model_identifier": "cosyvoice-v3-flash",
+                    "probe_text": "测试配音",
+                    "voice": "longanyang",
+                    "used_model_id": "cosyvoice-v3-flash",
+                }
+
+            with mock.patch("formal_api_demo_core.execute_tts_probe", side_effect=fake_probe):
+                run_generation_pipeline(
+                    input_path=FORMAL_CASE_PATH,
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                    dry_run=False,
+                )
+
+            def fake_run_subprocess(args):
+                if args and args[0] == "swift":
+                    manifest_path = pathlib.Path(args[-1])
+                    payload = json.loads(manifest_path.read_text(encoding="utf-8"))
+                    pathlib.Path(payload["outputPath"]).write_bytes(b"fake-preview-mp4")
+                    return
+                raise AssertionError(f"unexpected subprocess args: {args}")
+
+            with mock.patch("formal_api_demo_core.run_subprocess", side_effect=fake_run_subprocess):
+                result = run_assembly_pipeline(
+                    manifest_path=output_dir / "manifest.json",
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                    dry_run=False,
+                )
+
+            self.assertEqual(result["overall_status"], STATUS_BLOCKED)
+            self.assertEqual(result["assembly_status"], STATUS_BLOCKED)
+            self.assertEqual(result["assembly_preview_status"], STATUS_SUCCESS)
+            self.assertIn("space_name", result["current_missing_prerequisites"])
+            self.assertIn("assembly_template_id", result["current_missing_prerequisites"])
+            self.assertIn("visual_assets_not_ready", result["current_missing_prerequisites"])
+            self.assertTrue((output_dir / "assembly" / "formal_api_demo_preview.mp4").exists())
 
     def test_generate_non_dry_run_without_local_config_blocks(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_blocked_") as temp_dir:
@@ -278,7 +365,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             self.assertEqual(result["overall_status"], STATUS_BLOCKED)
             self.assertIn("tts_model", result["current_missing_prerequisites"])
 
-    def test_generate_non_dry_run_aliyun_bailian_marks_success_and_writes_audio_file(self) -> None:
+    def test_generate_non_dry_run_aliyun_bailian_keeps_tts_success_but_blocks_overall_generation_on_visuals(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_aliyun_success_") as temp_dir:
             output_dir = pathlib.Path(temp_dir) / "dist"
             local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
@@ -350,8 +437,12 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             request_debug = tts_probe["request_debug"]
             audio_path = output_dir / "tts" / "voice_probe.mp3"
 
-            self.assertEqual(result["overall_status"], STATUS_SUCCESS)
-            self.assertEqual(manifest["current_status"], STATUS_SUCCESS)
+            self.assertEqual(result["overall_status"], STATUS_BLOCKED)
+            self.assertEqual(result["tts_probe_status"], STATUS_SUCCESS)
+            self.assertEqual(result["voiceover_status"], STATUS_SUCCESS)
+            self.assertEqual(result["captions_status"], STATUS_SUCCESS)
+            self.assertEqual(result["visual_generation_status"], STATUS_BLOCKED)
+            self.assertEqual(manifest["current_status"], STATUS_BLOCKED)
             self.assertEqual(tts_probe["status"], STATUS_SUCCESS)
             self.assertEqual(request_debug["api_route_family"], "aliyun_bailian_cosyvoice")
             self.assertEqual(request_debug["provider"], "aliyun_bailian")
@@ -363,6 +454,10 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             self.assertEqual(request_debug["model_identifier_source"], "model")
             self.assertTrue(audio_path.exists())
             self.assertEqual(audio_path.read_bytes(), b"aliyun-mp3")
+            self.assertTrue((output_dir / "tts" / "formal_voiceover.mp3").exists())
+            self.assertTrue((output_dir / "script.txt").exists())
+            self.assertTrue((output_dir / "captions.srt").exists())
+            self.assertTrue((output_dir / "visual_generation_plan.json").exists())
 
     def test_generate_non_dry_run_aliyun_bailian_marks_failed_when_remote_returns_403(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_aliyun_failed_") as temp_dir:
@@ -698,7 +793,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             self.assertEqual(result["overall_status"], STATUS_FAILED)
             self.assertEqual(result["generation_status"], STATUS_FAILED)
 
-    def test_generate_non_dry_run_edge_gateway_marks_success_with_real_probe_path(self) -> None:
+    def test_generate_non_dry_run_edge_gateway_keeps_tts_success_but_blocks_overall_generation_on_visuals(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_edge_success_") as temp_dir:
             output_dir = pathlib.Path(temp_dir) / "dist"
             local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
@@ -749,11 +844,14 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
 
             manifest = json.loads((output_dir / "manifest.json").read_text(encoding="utf-8"))
             request_debug = manifest["generation"]["tts_probe"]["request_debug"]
-            self.assertEqual(result["overall_status"], STATUS_SUCCESS)
+            self.assertEqual(result["overall_status"], STATUS_BLOCKED)
+            self.assertEqual(result["tts_probe_status"], STATUS_SUCCESS)
+            self.assertEqual(result["voiceover_status"], STATUS_SUCCESS)
             self.assertEqual(request_debug["api_route_family"], "edge_gateway_openai_compatible")
             self.assertEqual(request_debug["base_url"], "https://ai-gateway.vei.volces.com/v1")
             self.assertEqual(request_debug["model_identifier_source"], "model")
             self.assertTrue((output_dir / "tts" / "voice_probe.mp3").exists())
+            self.assertTrue((output_dir / "tts" / "formal_voiceover.mp3").exists())
 
     def test_generate_non_dry_run_marks_failed_when_remote_returns_404(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_tts_404_") as temp_dir:
@@ -809,7 +907,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             self.assertEqual(result["generation_status"], STATUS_FAILED)
             self.assertEqual(result["failure_reason"], "ark_tts_route_or_identifier_not_found")
 
-    def test_generate_non_dry_run_marks_success_when_tts_probe_succeeds(self) -> None:
+    def test_generate_non_dry_run_marks_tts_success_but_generation_blocked_when_visuals_missing(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_tts_success_") as temp_dir:
             output_dir = pathlib.Path(temp_dir) / "dist"
             local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
@@ -846,9 +944,12 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                     dry_run=False,
                 )
 
-            self.assertEqual(result["overall_status"], STATUS_SUCCESS)
-            self.assertEqual(result["generation_status"], STATUS_SUCCESS)
+            self.assertEqual(result["overall_status"], STATUS_BLOCKED)
+            self.assertEqual(result["generation_status"], STATUS_BLOCKED)
+            self.assertEqual(result["tts_probe_status"], STATUS_SUCCESS)
+            self.assertEqual(result["voiceover_status"], STATUS_SUCCESS)
             self.assertTrue((output_dir / "tts" / "voice_probe.mp3").exists())
+            self.assertTrue((output_dir / "tts" / "formal_voiceover.mp3").exists())
 
 
 if __name__ == "__main__":

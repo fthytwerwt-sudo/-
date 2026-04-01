@@ -1,9 +1,9 @@
 [provider]
-# 当前 generation 只做 TTS probe。
+# 当前正式链路默认继续沿用阿里 TTS 基线。
 # 实际 TTS provider 由 tts.api_route_family 决定：
 # - ark_openai_compatible / edge_gateway_openai_compatible / doubao_openspeech_v3 => volcengine
 # - aliyun_bailian_cosyvoice => aliyun_bailian
-name = "volcengine"
+name = "aliyun_bailian"
 region = "cn-beijing"
 
 [auth]
@@ -26,11 +26,13 @@ model = "cosyvoice-v3-flash"
 endpoint_id = "SET_IF_ENDPOINT_REQUIRED"
 resource_id = "SET_IF_OPENSPEECH_REQUIRED"
 voice = "SET_IN_LOCAL_FILE"
+baseline_profile = "aliyun_old_A"
 style = "knowledge"
-instruction = ""
-speech_rate = 1.0
-pitch_rate = 1.0
-volume = 50
+# 当前正式链路冻结旧 A 为默认可用基线，不再继续扩声音实验分支。
+instruction = "你说话的情感是neutral。"
+speech_rate = 1.18
+pitch_rate = 0.92
+volume = 46
 response_format = "mp3"
 
 [tts_style_probe]
@@ -108,11 +110,13 @@ recommended = false
 
 [image_generation]
 enabled = true
-model = "volc_image_model_placeholder"
+# 正式视觉生成还没接 provider implementation。
+# 先在 local config 里填真实 model，便于把阻塞继续压到接口层。
+model = "SET_IN_LOCAL_FILE"
 
 [video_generation]
 enabled = true
-model = "volc_video_model_placeholder"
+model = "SET_IN_LOCAL_FILE"
 
 [assembly]
 mode = "cloud"

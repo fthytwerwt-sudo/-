@@ -20,7 +20,7 @@ from formal_api_demo_core import (  # noqa: E402
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="正式版 API 视频 demo 组装骨架。当前仅支持 manifest、Gate 和 dry-run。"
+        description="正式版 API 视频 demo 组装入口。当前按正式云端组装 Gate 评估，并尽量落出本地 preview 样片。"
     )
     parser.add_argument(
         "--manifest",
