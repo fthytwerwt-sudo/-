@@ -3,6 +3,8 @@ from __future__ import annotations
 import copy
 import json
 import pathlib
+import urllib.error
+import urllib.request
 from typing import Any
 
 try:
@@ -29,14 +31,31 @@ STATUS_SUCCESS = "success"
 STATUS_FAILED = "failed"
 
 PLACEHOLDER_PREFIX = "SET_"
+PROVIDER_VOLCENGINE = "volcengine"
+PROVIDER_ALIYUN_BAILIAN = "aliyun_bailian"
 TTS_ROUTE_FAMILY_ARK = "ark_openai_compatible"
 TTS_ROUTE_FAMILY_EDGE_GATEWAY = "edge_gateway_openai_compatible"
 TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH = "doubao_openspeech_v3"
+TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE = "aliyun_bailian_cosyvoice"
 SUPPORTED_TTS_ROUTE_FAMILIES = {
     TTS_ROUTE_FAMILY_ARK,
     TTS_ROUTE_FAMILY_EDGE_GATEWAY,
     TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH,
+    TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE,
 }
+
+
+class TtsRequestError(RuntimeError):
+    def __init__(
+        self,
+        message: str,
+        *,
+        status_code: int | None = None,
+        error_code: str | None = None,
+    ) -> None:
+        super().__init__(message)
+        self.status_code = status_code
+        self.error_code = error_code
 
 REQUIRED_TOP_LEVEL_SECTIONS = [
     "主题",
@@ -264,6 +283,8 @@ def evaluate_generation_gate(
     dry_run: bool,
 ) -> dict[str, Any]:
     route_family = _get_tts_api_route_family(config)
+    tts_provider = _get_tts_provider_name(config, route_family=route_family)
+    configured_provider = _nested_get(config, "provider", "name")
     missing = _generation_missing_prerequisites(
         video_spec,
         config,
@@ -281,9 +302,12 @@ def evaluate_generation_gate(
         {
             "name": "provider_selected",
             "status": "pass"
-            if _nested_get(config, "provider", "name") == "volcengine"
+            if tts_provider in {PROVIDER_VOLCENGINE, PROVIDER_ALIYUN_BAILIAN}
             else "fail",
-            "detail": f"provider={_nested_get(config, 'provider', 'name') or 'missing'}",
+            "detail": (
+                f"configured_provider={configured_provider or 'missing'}, "
+                f"resolved_tts_provider={tts_provider or 'missing'}"
+            ),
         },
         {
             "name": "tts_route_family_selected",
@@ -295,7 +319,10 @@ def evaluate_generation_gate(
             "status": "pass"
             if route_family != TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH
             else "fail",
-            "detail": "当前仅 Ark 和 Edge Gateway 已接入真实 probe；Doubao OpenSpeech 仍是 gate-only。",
+            "detail": (
+                "当前 Ark、Edge Gateway 和阿里百炼 CosyVoice 已接入真实 probe；"
+                "Doubao OpenSpeech 仍是 gate-only。"
+            ),
         },
         {
             "name": "tts_api_key_present",
@@ -346,14 +373,14 @@ def evaluate_generation_gate(
         blocked_reason = "本地缺少 openai Python SDK，无法发起当前 route family 的 TTS probe。"
         failure_reason = "missing_openai_sdk"
         implementation_missing.append("openai_python_sdk")
-    elif _nested_get(config, "provider", "name") != "volcengine":
-        status = STATUS_BLOCKED
-        blocked_reason = "当前 TTS probe 仅支持 volcengine provider。"
     elif route_family == TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH:
         status = STATUS_BLOCKED
         blocked_reason = (
             "doubao openspeech v3 route family 已拆出，但 provider implementation 尚未接入。"
         )
+    elif tts_provider not in {PROVIDER_VOLCENGINE, PROVIDER_ALIYUN_BAILIAN}:
+        status = STATUS_BLOCKED
+        blocked_reason = f"当前 TTS probe 还不支持 provider：{tts_provider or 'missing'}"
     else:
         status = STATUS_SUCCESS
         blocked_reason = ""
@@ -375,12 +402,13 @@ def evaluate_generation_gate(
             "resource_id": _nested_get(config, "tts", "resource_id"),
             "voice": _nested_get(config, "tts", "voice"),
             "region": _nested_get(config, "provider", "region"),
+            "provider": tts_provider,
         },
         "checks": checks,
         "notes": [
             "本轮 generation 只接 TTS，不接图像、视频和云端组装。",
             "dry-run 只验证输入、契约和 Gate，不调用远端。",
-            "route family 已显式拆分为 Ark / Edge Gateway / Doubao OpenSpeech，不再默认混走 Ark。",
+            "route family 已显式拆分为 Ark / Edge Gateway / 阿里百炼 CosyVoice / Doubao OpenSpeech，不再默认混走 Ark。",
         ],
     }
 
@@ -389,14 +417,20 @@ def _build_tts_route_family_checks(
     config: dict[str, Any],
     route_family: str,
 ) -> list[dict[str, str]]:
-    if route_family == TTS_ROUTE_FAMILY_EDGE_GATEWAY:
+    if route_family in {
+        TTS_ROUTE_FAMILY_EDGE_GATEWAY,
+        TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE,
+    }:
+        detail = "Edge Gateway OpenAI 兼容 TTS 使用 tts.model，不读取 endpoint_id。"
+        if route_family == TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE:
+            detail = "阿里百炼 CosyVoice 使用 tts.model + voice，不读取 endpoint_id。"
         return [
             {
-                "name": "edge_gateway_model_present",
+                "name": "tts_model_present",
                 "status": "pass"
                 if not _is_missing_secret(_nested_get(config, "tts", "model"))
                 else "fail",
-                "detail": "Edge Gateway OpenAI 兼容 TTS 使用 tts.model，不读取 endpoint_id。",
+                "detail": detail,
             },
         ]
     if route_family == TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH:
@@ -512,6 +546,7 @@ def build_manifest(
                     ],
                 },
                 "provider_plan": {
+                    "tts_provider": _get_tts_provider_name(config),
                     "tts_api_route_family": _get_tts_api_route_family(config),
                     "tts_model": _nested_get(config, "tts", "model"),
                     "tts_endpoint_id": _nested_get(config, "tts", "endpoint_id"),
@@ -571,6 +606,7 @@ def build_manifest(
         "segments": segments,
         "provider_summary": {
             "provider": _nested_get(config, "provider", "name"),
+            "tts_provider": _get_tts_provider_name(config),
             "region": _nested_get(config, "provider", "region"),
             "models": {
                 "tts_api_route_family": _get_tts_api_route_family(config),
@@ -732,6 +768,7 @@ def build_default_tts_probe(video_spec: dict[str, Any]) -> dict[str, Any]:
         "error_message": "",
         "audio_path": None,
         "request_id": None,
+        "provider": None,
         "api_route_family": None,
         "model_identifier": None,
         "probe_text": probe_text,
@@ -778,6 +815,7 @@ def execute_tts_probe(
     audio_path = output_dir / "tts" / f"voice_probe.{response_format}"
     probe.update(
         {
+            "provider": _get_tts_provider_name(config, route_family=route_family),
             "api_route_family": route_family,
             "model_identifier": model_identifier,
             "voice": _nested_get(config, "tts", "voice"),
@@ -800,6 +838,23 @@ def execute_tts_probe(
             raise RuntimeError(
                 "doubao_openspeech_v3 provider implementation 尚未接入，当前不应直接发起真实 probe。"
             )
+        if route_family == TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE:
+            request_id = _execute_aliyun_bailian_tts_probe(
+                config=config,
+                probe=probe,
+                audio_path=audio_path,
+                base_url=base_url,
+                model_identifier=model_identifier,
+                response_format=response_format,
+            )
+            probe.update(
+                {
+                    "status": STATUS_SUCCESS,
+                    "audio_path": str(audio_path),
+                    "request_id": request_id,
+                }
+            )
+            return probe
 
         client = OpenAI(
             api_key=_nested_get(config, "auth", "api_key"),
@@ -818,6 +873,11 @@ def execute_tts_probe(
         with client.audio.speech.with_streaming_response.create(**request_kwargs) as response:
             audio_path.parent.mkdir(parents=True, exist_ok=True)
             response.stream_to_file(str(audio_path))
+            if not audio_path.exists() or audio_path.stat().st_size == 0:
+                raise TtsRequestError(
+                    "tts probe audio file missing or empty after provider response",
+                    error_code="TtsAudioFileMissing",
+                )
             probe.update(
                 {
                     "status": STATUS_SUCCESS,
@@ -985,6 +1045,9 @@ def _generation_missing_prerequisites(
     elif route_family == TTS_ROUTE_FAMILY_EDGE_GATEWAY:
         if _is_missing_secret(_nested_get(config, "tts", "model")):
             missing.append("tts_model")
+    elif route_family == TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE:
+        if _is_missing_secret(_nested_get(config, "tts", "model")):
+            missing.append("tts_model")
     elif route_family == TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH:
         if _is_missing_secret(_nested_get(config, "auth", "app_id")):
             missing.append("app_id")
@@ -1071,6 +1134,8 @@ def _generation_next_action_hint(
     if dry_run:
         return "当前为 dry-run；下一步应按选定的 TTS route family 补齐最小前提，再尝试真实 TTS probe。"
     if gate["missing_prerequisites"]:
+        if route_family == TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE:
+            return "先补齐阿里百炼的 API Key、tts.model 和 voice，再进入真实 TTS probe。"
         if route_family == TTS_ROUTE_FAMILY_EDGE_GATEWAY:
             return "先补齐 Edge Gateway 的访问密钥、tts.model 和 voice，再进入真实 TTS probe。"
         if route_family == TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH:
@@ -1078,6 +1143,12 @@ def _generation_next_action_hint(
         return "先补齐 Ark route family 所需的 API Key、region、TTS model/endpoint 和 voice，再进入真实 TTS probe。"
     if route_family == TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH and gate["missing_implementations"]:
         return "当前已拆出 doubao openspeech v3 family，但 provider implementation 尚未接入；下一步应补请求体与返回解析。"
+    if (
+        tts_probe.get("status") == STATUS_FAILED
+        and tts_probe.get("http_status_code") == 404
+        and route_family == TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE
+    ):
+        return "当前阿里百炼 404 已压缩到接口路由 / 模型标识层；优先核对 base_url、relative_path 与 tts.model。"
     if (
         tts_probe.get("status") == STATUS_FAILED
         and tts_probe.get("http_status_code") == 404
@@ -1123,7 +1194,10 @@ def _get_tts_model_identifier(
     route_family: str | None = None,
 ) -> str | None:
     route_family = route_family or _get_tts_api_route_family(config)
-    if route_family == TTS_ROUTE_FAMILY_EDGE_GATEWAY:
+    if route_family in {
+        TTS_ROUTE_FAMILY_EDGE_GATEWAY,
+        TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE,
+    }:
         model = _nested_get(config, "tts", "model")
         if not _is_missing_secret(model):
             return str(model).strip()
@@ -1142,12 +1216,123 @@ def _build_ark_base_url(config: dict[str, Any]) -> str:
     return f"https://ark.{region}.volces.com/api/v3"
 
 
+def _get_tts_provider_name(
+    config: dict[str, Any],
+    route_family: str | None = None,
+) -> str:
+    route_family = route_family or _get_tts_api_route_family(config)
+    if route_family == TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE:
+        return PROVIDER_ALIYUN_BAILIAN
+    return PROVIDER_VOLCENGINE
+
+
 def _build_tts_base_url(config: dict[str, Any], route_family: str) -> str:
+    if route_family == TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE:
+        return "https://dashscope.aliyuncs.com/api/v1"
     if route_family == TTS_ROUTE_FAMILY_EDGE_GATEWAY:
         return "https://ai-gateway.vei.volces.com/v1"
     if route_family == TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH:
         return "https://openspeech.bytedance.com/api/v3"
     return _build_ark_base_url(config)
+
+
+def _execute_aliyun_bailian_tts_probe(
+    config: dict[str, Any],
+    probe: dict[str, Any],
+    audio_path: pathlib.Path,
+    base_url: str,
+    model_identifier: str | None,
+    response_format: str,
+) -> str | None:
+    relative_path = "/services/audio/tts/SpeechSynthesizer"
+    payload = {
+        "model": model_identifier,
+        "input": {
+            "text": probe["probe_text"],
+            "voice": _nested_get(config, "tts", "voice"),
+            "format": response_format,
+        },
+    }
+    request = urllib.request.Request(
+        f"{base_url}{relative_path}",
+        data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+        headers={
+            "Authorization": f"Bearer {_nested_get(config, 'auth', 'api_key')}",
+            "Content-Type": "application/json",
+        },
+        method="POST",
+    )
+    response_payload = _urlopen_json_request(request)
+    audio_url = _nested_get(response_payload, "output", "audio", "url")
+    if not audio_url:
+        raise TtsRequestError(
+            "aliyun_bailian response missing output.audio.url",
+            error_code="AliyunBailianMissingAudioUrl",
+        )
+
+    audio_path.parent.mkdir(parents=True, exist_ok=True)
+    _download_binary_file(str(audio_url), audio_path)
+    return response_payload.get("request_id")
+
+
+def _urlopen_json_request(request: urllib.request.Request) -> dict[str, Any]:
+    try:
+        with urllib.request.urlopen(request, timeout=60) as response:
+            payload = response.read()
+    except urllib.error.HTTPError as exc:
+        raise TtsRequestError(
+            _read_urllib_error_message(exc),
+            status_code=exc.code,
+            error_code=f"HTTP{exc.code}",
+        ) from exc
+    except urllib.error.URLError as exc:
+        raise TtsRequestError(
+            str(exc.reason or exc),
+            error_code="UrlOpenError",
+        ) from exc
+
+    try:
+        return json.loads(payload.decode("utf-8"))
+    except json.JSONDecodeError as exc:
+        raise TtsRequestError(
+            "aliyun_bailian returned invalid JSON payload",
+            error_code="AliyunBailianInvalidJson",
+        ) from exc
+
+
+def _download_binary_file(url: str, destination: pathlib.Path) -> None:
+    request = urllib.request.Request(url, method="GET")
+    try:
+        with urllib.request.urlopen(request, timeout=60) as response:
+            data = response.read()
+    except urllib.error.HTTPError as exc:
+        raise TtsRequestError(
+            _read_urllib_error_message(exc),
+            status_code=exc.code,
+            error_code=f"HTTP{exc.code}",
+        ) from exc
+    except urllib.error.URLError as exc:
+        raise TtsRequestError(
+            str(exc.reason or exc),
+            error_code="UrlDownloadError",
+        ) from exc
+
+    if not data:
+        raise TtsRequestError(
+            "aliyun_bailian audio download is empty",
+            error_code="AliyunBailianEmptyAudio",
+        )
+    destination.write_bytes(data)
+
+
+def _read_urllib_error_message(exc: urllib.error.HTTPError) -> str:
+    body = ""
+    if exc.fp is not None:
+        try:
+            body = exc.read().decode("utf-8", errors="replace").strip()
+        except Exception:  # pragma: no cover - best effort only.
+            body = ""
+    return body or str(exc)
 
 
 def _classify_tts_exception(
@@ -1156,10 +1341,18 @@ def _classify_tts_exception(
 ) -> tuple[str, str, int | None, str, str]:
     route_family = _get_tts_api_route_family(config)
     raw_message = _sanitize_message(str(exc), config)
-    error_code = exc.__class__.__name__
+    error_code = getattr(exc, "error_code", None) or exc.__class__.__name__
     http_status_code = _extract_http_status_code(exc)
 
     if http_status_code == 404:
+        if route_family == TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE:
+            return (
+                STATUS_FAILED,
+                "aliyun_bailian_tts_route_or_model_not_found",
+                http_status_code,
+                error_code,
+                raw_message,
+            )
         if route_family == TTS_ROUTE_FAMILY_EDGE_GATEWAY:
             return (
                 STATUS_FAILED,
@@ -1201,6 +1394,8 @@ def _classify_tts_exception(
 
 
 def _tts_failure_reason_by_route_family(route_family: str) -> str:
+    if route_family == TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE:
+        return "aliyun_bailian_tts_request_failed"
     if route_family == TTS_ROUTE_FAMILY_EDGE_GATEWAY:
         return "edge_gateway_tts_request_failed"
     if route_family == TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH:
@@ -1212,6 +1407,9 @@ def _extract_http_status_code(exc: Exception) -> int | None:
     status_code = getattr(exc, "status_code", None)
     if isinstance(status_code, int):
         return status_code
+    code = getattr(exc, "code", None)
+    if isinstance(code, int):
+        return code
     response = getattr(exc, "response", None)
     if response is None:
         return None
@@ -1228,6 +1426,7 @@ def _build_tts_request_debug(
     model_identifier: str | None,
     response_format: str,
 ) -> dict[str, Any]:
+    provider = _get_tts_provider_name(config, route_family=route_family)
     endpoint_id = _nested_get(config, "tts", "endpoint_id")
     model = _nested_get(config, "tts", "model")
     resource_id = _nested_get(config, "tts", "resource_id")
@@ -1235,6 +1434,7 @@ def _build_tts_request_debug(
     voice = _nested_get(config, "tts", "voice")
     relative_path = "/audio/speech"
     sdk_call = "client.audio.speech.with_streaming_response.create"
+    voice_location = "payload.voice"
     model_identifier_source = (
         "endpoint_id"
         if not _is_missing_secret(endpoint_id)
@@ -1246,7 +1446,13 @@ def _build_tts_request_debug(
         relative_path = "/tts/..."
         sdk_call = "provider_implementation_pending"
         model_identifier_source = "resource_id"
+    if route_family == TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE:
+        relative_path = "/services/audio/tts/SpeechSynthesizer"
+        sdk_call = "urllib.request.urlopen"
+        voice_location = "payload.input.voice"
+        model_identifier_source = "model"
     return {
+        "provider": provider,
         "api_route_family": route_family,
         "provider_route_family": route_family,
         "request_method": "POST",
@@ -1259,7 +1465,7 @@ def _build_tts_request_debug(
         "model_shape": _shape_debug_value(model),
         "resource_id_shape": _shape_debug_value(resource_id),
         "app_id_shape": _shape_debug_value(app_id),
-        "voice_location": "payload.voice",
+        "voice_location": voice_location,
         "voice_shape": _shape_debug_value(voice),
         "response_format": response_format,
     }

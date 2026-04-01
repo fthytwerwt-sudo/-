@@ -1,9 +1,13 @@
 [provider]
+# 当前 generation 只做 TTS probe。
+# 实际 TTS provider 由 tts.api_route_family 决定：
+# - ark_openai_compatible / edge_gateway_openai_compatible / doubao_openspeech_v3 => volcengine
+# - aliyun_bailian_cosyvoice => aliyun_bailian
 name = "volcengine"
 region = "cn-beijing"
 
 [auth]
-# Ark / Edge Gateway 使用 api_key。
+# Ark / Edge Gateway / 阿里百炼 CosyVoice 使用 api_key。
 # Doubao OpenSpeech v3 使用 app_id + api_key(access key)。
 api_key = "SET_IN_LOCAL_FILE"
 access_key_id = "SET_IN_LOCAL_FILE"
@@ -15,12 +19,13 @@ app_id = "SET_IF_REQUIRED"
 # route family:
 # - ark_openai_compatible: 走 ark.<region>.volces.com/api/v3 + endpoint_id/model + voice
 # - edge_gateway_openai_compatible: 走 ai-gateway.vei.volces.com/v1 + model + voice
+# - aliyun_bailian_cosyvoice: 走 dashscope.aliyuncs.com/api/v1/services/audio/tts/SpeechSynthesizer + model + voice
 # - doubao_openspeech_v3: 走 openspeech.bytedance.com/api/v3/tts/... + app_id/api_key/resource_id/voice
-api_route_family = "ark_openai_compatible"
-model = "volc_tts_model_placeholder"
+api_route_family = "aliyun_bailian_cosyvoice"
+model = "cosyvoice-v3-flash"
 endpoint_id = "SET_IF_ENDPOINT_REQUIRED"
 resource_id = "SET_IF_OPENSPEECH_REQUIRED"
-voice = "zh_female_placeholder"
+voice = "SET_IN_LOCAL_FILE"
 style = "knowledge"
 response_format = "mp3"
 

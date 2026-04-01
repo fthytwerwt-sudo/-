@@ -1,7 +1,9 @@
 import json
+import io
 import pathlib
 import tempfile
 import unittest
+import urllib.error
 from unittest import mock
 
 import httpx
@@ -28,6 +30,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
         self,
         path: pathlib.Path,
         *,
+        provider_name: str = "volcengine",
         route_family: str = "ark_openai_compatible",
         api_key: str = "",
         app_id: str = "",
@@ -41,7 +44,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             "\n".join(
                 [
                     "[provider]",
-                    'name = "volcengine"',
+                    f'name = "{provider_name}"',
                     'region = "cn-beijing"',
                     "",
                     "[auth]",
@@ -216,6 +219,183 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
 
             self.assertEqual(result["overall_status"], STATUS_BLOCKED)
             self.assertIn("tts_model_or_endpoint", result["current_missing_prerequisites"])
+
+    def test_generate_non_dry_run_aliyun_bailian_missing_api_key_blocks(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_aliyun_missing_key_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                provider_name="aliyun_bailian",
+                route_family="aliyun_bailian_cosyvoice",
+                api_key="",
+                model="cosyvoice-v3-flash",
+                voice="longxiaochun",
+            )
+
+            result = run_generation_pipeline(
+                input_path=FORMAL_CASE_PATH,
+                example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                local_config_path=local_config_path,
+                output_dir=output_dir,
+                dry_run=False,
+            )
+
+            self.assertEqual(result["overall_status"], STATUS_BLOCKED)
+            self.assertIn("api_key", result["current_missing_prerequisites"])
+
+    def test_generate_non_dry_run_aliyun_bailian_missing_model_blocks(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_aliyun_missing_model_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                provider_name="aliyun_bailian",
+                route_family="aliyun_bailian_cosyvoice",
+                api_key="dashscope_test_key",
+                model="",
+                voice="longxiaochun",
+            )
+
+            result = run_generation_pipeline(
+                input_path=FORMAL_CASE_PATH,
+                example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                local_config_path=local_config_path,
+                output_dir=output_dir,
+                dry_run=False,
+            )
+
+            self.assertEqual(result["overall_status"], STATUS_BLOCKED)
+            self.assertIn("tts_model", result["current_missing_prerequisites"])
+
+    def test_generate_non_dry_run_aliyun_bailian_marks_success_and_writes_audio_file(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_aliyun_success_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                provider_name="aliyun_bailian",
+                route_family="aliyun_bailian_cosyvoice",
+                api_key="dashscope_test_key",
+                model="cosyvoice-v3-flash",
+                voice="longxiaochun",
+            )
+
+            class _JsonResponse:
+                def __init__(self, payload: dict[str, object]) -> None:
+                    self._payload = payload
+
+                def __enter__(self):
+                    return self
+
+                def __exit__(self, exc_type, exc, tb):
+                    return False
+
+                def read(self) -> bytes:
+                    return json.dumps(self._payload).encode("utf-8")
+
+            class _BinaryResponse:
+                def __enter__(self):
+                    return self
+
+                def __exit__(self, exc_type, exc, tb):
+                    return False
+
+                @staticmethod
+                def read() -> bytes:
+                    return b"aliyun-mp3"
+
+            def fake_urlopen(request, timeout=60):
+                del timeout
+                url = request.full_url
+                if url.endswith("/services/audio/tts/SpeechSynthesizer"):
+                    return _JsonResponse(
+                        {
+                            "request_id": "aliyun_req_demo",
+                            "output": {
+                                "finish_reason": "stop",
+                                "audio": {
+                                    "url": "https://dashscope-result.example.com/audio.mp3",
+                                    "id": "audio_demo",
+                                    "expires_at": 1772697707,
+                                },
+                            },
+                        }
+                    )
+                if url == "https://dashscope-result.example.com/audio.mp3":
+                    return _BinaryResponse()
+                raise AssertionError(f"unexpected url: {url}")
+
+            with mock.patch("formal_api_demo_core.urllib.request.urlopen", side_effect=fake_urlopen):
+                result = run_generation_pipeline(
+                    input_path=FORMAL_CASE_PATH,
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                    dry_run=False,
+                )
+
+            manifest = json.loads((output_dir / "manifest.json").read_text(encoding="utf-8"))
+            tts_probe = manifest["generation"]["tts_probe"]
+            request_debug = tts_probe["request_debug"]
+            audio_path = output_dir / "tts" / "voice_probe.mp3"
+
+            self.assertEqual(result["overall_status"], STATUS_SUCCESS)
+            self.assertEqual(manifest["current_status"], STATUS_SUCCESS)
+            self.assertEqual(tts_probe["status"], STATUS_SUCCESS)
+            self.assertEqual(request_debug["api_route_family"], "aliyun_bailian_cosyvoice")
+            self.assertEqual(request_debug["provider"], "aliyun_bailian")
+            self.assertEqual(request_debug["base_url"], "https://dashscope.aliyuncs.com/api/v1")
+            self.assertEqual(
+                request_debug["relative_path"],
+                "/services/audio/tts/SpeechSynthesizer",
+            )
+            self.assertEqual(request_debug["model_identifier_source"], "model")
+            self.assertTrue(audio_path.exists())
+            self.assertEqual(audio_path.read_bytes(), b"aliyun-mp3")
+
+    def test_generate_non_dry_run_aliyun_bailian_marks_failed_when_remote_returns_403(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_aliyun_failed_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                provider_name="aliyun_bailian",
+                route_family="aliyun_bailian_cosyvoice",
+                api_key="dashscope_test_key",
+                model="cosyvoice-v3-flash",
+                voice="longxiaochun",
+            )
+
+            def fake_urlopen(request, timeout=60):
+                del timeout
+                raise urllib.error.HTTPError(
+                    request.full_url,
+                    403,
+                    "Forbidden",
+                    hdrs=None,
+                    fp=io.BytesIO(
+                        b'{"code":"InvalidApiKey","message":"test aliyun auth denied"}'
+                    ),
+                )
+
+            with mock.patch("formal_api_demo_core.urllib.request.urlopen", side_effect=fake_urlopen):
+                result = run_generation_pipeline(
+                    input_path=FORMAL_CASE_PATH,
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                    dry_run=False,
+                )
+
+            manifest = json.loads((output_dir / "manifest.json").read_text(encoding="utf-8"))
+            self.assertEqual(result["overall_status"], STATUS_FAILED)
+            self.assertEqual(result["generation_status"], STATUS_FAILED)
+            self.assertEqual(manifest["current_status"], STATUS_FAILED)
+            self.assertEqual(
+                result["failure_reason"],
+                "aliyun_bailian_tts_request_failed",
+            )
 
     def test_generate_non_dry_run_edge_gateway_requires_model_not_endpoint(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_edge_missing_model_") as temp_dir:

@@ -2,119 +2,82 @@
 
 ## 当前项目执行状态
 
-- 当前仓库已完成 GitHub baseline，后续仓库型任务继续默认在功能分支推进，而不是直接改 `main`。
-- 当前项目已进入“正式版目标态搭建阶段”：
-  - 正式版目标态文件已落入执行层
-  - 正式版最小骨架、输入输出契约与 Gate 校验框架已开始落仓库
-  - 当前已进入 TTS 真实接通阶段，本轮已确认当前 401 阻塞仍停在 Edge Gateway 访问密钥来源层
-  - 当前已把 TTS probe 拆成显式 route family：Ark / Edge Gateway / Doubao OpenSpeech
-  - 本轮只验证 TTS，不代表整条正式视频链路已跑通
-  - 但正式版云端链路仍不能视为已跑通
-- 当前仓库已明确项目正式口径：
-  - 个人内部使用
-  - Prompt 驱动
-  - Codex 可执行
-  - 视频内核优先
-  - 前端页面不是当前阶段重点
-- 当前仓库仍保留“用户可讨论定位层”，用于帮助非技术用户判断问题落在哪一层，并更准确地向 ChatGPT 描述修改点。
-- 原有三层分工保持不变：
-  - `project_source/` 负责项目脑
-  - `codex_source/` 负责执行层
-  - `codex_log/` 负责执行日志
-- 当前已确认运行事实仍是本地 demo 链路：
-  - `cases/demo.md` → `generate_demo.py` → `say / afconvert / ffmpeg-static` → `video_builder.swift` → `dist/demo/` 四件套
-- 当前旧 demo 仍是运行锚点，不是质量样片，不是正式版事实参考
-- 当前新落仓库的正式版文件定义的是目标态：
-  - 先锁质量标准
-  - 再按 bug / 缺口 / 参数 / 编排问题进入修正循环
-  - 不得写成“当前云端正式链路已成立”
+- 当前仓库已完成 GitHub baseline，仓库型任务继续默认走功能分支，不直接改 `main`。
+- 当前项目仍处于“正式版目标态搭建阶段”：
+  - `formal_api_demo` 的 generation 仍只收敛到 TTS probe
+  - 本轮没有推进视频生成，也没有推进 assembly
+  - 当前不能把正式版整条云端视频链路写成已跑通
+- formal_api_demo 的 TTS 当前已新增阿里百炼 route family：
+  - `aliyun_bailian_cosyvoice`
+  - 火山现有 family 仍保留：
+    - `ark_openai_compatible`
+    - `edge_gateway_openai_compatible`
+    - `doubao_openspeech_v3`
+- 当前 request_debug 已可明确看到：
+  - `api_route_family`
+  - `provider`
+  - `base_url`
+  - `relative_path`
+  - `model_identifier_source`
 
 ## 最近一次完成了什么
 
-- 已再次核对当前 Edge Gateway TTS 的最小执行面：
-  - 本地 `auth.api_key / tts.api_route_family / tts.model / tts.voice` 都是非空
-  - 真实 non-dry-run 重跑结果仍是 `failed`
+- 已修改：
+  - `formal_api_demo_core.py`
+  - `config/formal_api_demo.example.toml`
+  - `tests/test_formal_api_demo_pipeline.py`
+- 已接入阿里百炼 CosyVoice 的最小 HTTP TTS probe：
+  - `POST https://dashscope.aliyuncs.com/api/v1/services/audio/tts/SpeechSynthesizer`
+  - 使用普通百炼 API Key
+  - 复用现有 `tts.model / tts.voice / tts.response_format`
+  - 成功时先拿 `output.audio.url`，再真实下载音频文件落盘
+- 已把状态继续收紧为：
+  - 前提不足 = `blocked`
+  - 远端 4xx / 5xx = `failed`
+  - 真实音频文件落出 = `success`
+- 已补阿里路径单测并通过：
+  - 缺 API Key = `blocked`
+  - 缺 model = `blocked`
+  - mock success = `success` 且真实写出音频文件
+  - 远端 403 = `failed`
+  - dry-run 路径未破坏
+- 已执行：
+  - `python3 -m py_compile formal_api_demo_core.py scripts/generate_formal_api_demo.py tests/test_formal_api_demo_pipeline.py`
+  - `python3 -m unittest tests.test_formal_api_demo_pipeline`
+  - 真实 non-dry-run：通过临时 overlay config 把 route family 切到阿里后执行 `scripts/generate_formal_api_demo.py`
+- 当前真实 non-dry-run 的最新已确认结果：
   - `generation_gate.status = success`
   - `manifest.current_status = failed`
   - `manifest.generation.tts_probe.status = failed`
   - `result_summary.overall_status = failed`
-- 当前失败点仍稳定压缩在同一 provider 响应层：
-  - route family：`edge_gateway_openai_compatible`
-  - `base_url = https://ai-gateway.vei.volces.com/v1`
-  - `relative_path = /audio/speech`
-  - `model_identifier_source = model`
+  - 未落出真实音频文件
+- 当前失败点已压缩到最小层：
+  - 已真正打到阿里百炼接口
   - HTTP `401`
-  - 远端返回：AI Gateway API Key invalid
-- 本轮进一步确认了一个新的最小事实：
-  - 当前本地 `config/formal_api_demo.local.toml` 中没有第二个可替换的网关访问密钥候选
-  - 注释区没有真实候选值
-  - 当前 shell 环境中也没有可直接回填的相关网关密钥变量
-- 这说明当前阻塞已经不再是代码层、route family 层或字段缺失层，而是：
-  - 本地没有真实有效的 Edge Gateway 访问密钥来源可替换
-- 当前没有落出真实音频文件
-- 因为没有可用音频资产，本轮 assembly 仍未执行；继续强行推进只会命中 `generation_assets_not_ready`
-- 已把正式版 generation 收窄到“TTS probe”：
-  - local 私有配置已支持方舟 API Key、TTS model / endpoint、voice、response_format
-  - generation_gate 已改成以 TTS 为主判断 `success / blocked / failed`
-  - generation pipeline 已支持在前提齐时发起真实 TTS probe，在前提不足时明确 blocked
-- 已在本地创建 `config/formal_api_demo.local.toml` 模板：
-  - 该文件只存在本地、不会进入 git
-  - 当前默认仍为空值占位，因此本轮真实 probe 结果是 blocked，而不是 success
-- 已新增和更新测试：
-  - 验证缺 API Key、缺 model / endpoint、failed / success 分支
-  - 现有 dry-run 路径保持不被破坏
-- 已落正式版最小骨架：
-  - `cases/formal_api_demo.md`
-  - `config/formal_api_demo.example.toml`
-  - `formal_api_demo_core.py`
-  - `scripts/generate_formal_api_demo.py`
-  - `scripts/assemble_formal_api_demo.py`
-  - `tests/test_formal_api_demo_pipeline.py`
-- 已把正式版输入解析、manifest / result_summary schema、generation_gate / assembly_gate、dry-run / blocked 路径落成可执行骨架：
-  - dry-run 会真实产出结构化 manifest、gate report、assembly plan、result_summary
-  - 在无凭证、无 local 配置、无 provider 实现时，只会写 `planned` 或 `blocked`，不会假装 success
-  - 明确禁止回退到本地 `say / afconvert / ffmpeg-static / video_builder.swift` 作为正式版 fallback
-- 已为 `codex_source/07_formal_api_demo_target_plan.md` 补入“验收节奏 / 验收时机 / 阶段完成标志”：
-  - 明确骨架验收、接 API 前验收、首轮样片验收、修正循环验收四个时间点
-  - 明确每阶段做到哪算过、什么时候不能继续往下走
-  - 明确用户最该在哪些节点介入验收
-- 已新增 `codex_source/07_formal_api_demo_target_plan.md`：
-  - 把正式版 API demo 目标态、执行 Gate、修正循环、最小回归样本集、机器硬校验与人工复审正式写入仓库
-  - 明确区分“当前仓库事实”与“正式版目标态”
-- 已同步增补入口文件：
-  - `AGENTS.md`
-  - `codex_source/00_codex_readme.md`
-- 已刷新 `codex_log/latest.md`，让新会话能直接接手正式版目标态主线
-- 已新增完整执行日志：
-  - `codex_log/20260401_formal_api_demo_target_plan_upgrade.md`
+  - 远端返回 `InvalidApiKey`
+  - 说明当前不是本地前提不足、不是 assembly、也还没进入模型 / voice 层
 
 ## 当前最关键的下一步
 
-- 若后续继续执行正式版主线，TTS 下一步仍不该先改代码，而应先拿到新的真实有效 AI Gateway 访问密钥，再回填本地 `auth.api_key`。
-- 同时应从控制台“查看代码”中拿到该密钥支持的真实 `model` 标识，再核对本地 `tts.model`。
-- Ark 路由保留用于继续压测当前 404，但不再作为所有 TTS family 的默认兜底。
-- Doubao OpenSpeech 当前仅完成 family / gate 拆分；若继续推进，需要先补请求体和返回解析实现。
-- 在火山凭证、空间名、资源存储配置、关键接口可用性未补齐前，不得把正式版云端链路写成已跑通。
-- 若后续继续做仓库型小闭环，仍按“先更新日志，再 commit / push 当前分支，供 ChatGPT 复审”推进。
+- 先把本地用于阿里百炼的真实 API Key 换成有效值，再重跑同一条 non-dry-run。
+- 在 API Key 修正前，不需要继续推进 assembly，也不要把问题误判成模型或视频链路问题。
+- 若 API Key 修正后再次失败，再继续把失败压到：
+  - `model`
+  - `voice`
+  - 接口权限 / 地域
+  - 或其他远端响应层
 
 ## 新会话接手建议先读
 
 - `AGENTS.md`
 - `codex_source/00_codex_readme.md`
+- `codex_source/01_execution_rules.md`
 - `codex_source/07_formal_api_demo_target_plan.md`
 - `codex_log/latest.md`
-- 若任务偏正式版 API demo / 目标态 / 云端组装 / 修正循环 / 质量达标反推，再补读：
-  - `cases/formal_api_demo.md`
-  - `config/formal_api_demo.example.toml`
-  - `config/formal_api_demo.local.toml`（若本地存在，仅本地读取，不进 git）
+- 若继续接 formal_api_demo 的阿里 TTS：
   - `formal_api_demo_core.py`
-  - `scripts/generate_formal_api_demo.py`
-  - `scripts/assemble_formal_api_demo.py`
-  - `codex_source/05_runtime_and_artifact_rules.md`
-  - `codex_source/01_execution_rules.md`
-  - 并优先看 `codex_source/07_formal_api_demo_target_plan.md` 里“验收节奏 / 验收时机 / 阶段完成标志”这一节
-- 若任务偏项目定位，再补读 `project_source/00_project_brief.md` 和 `project_source/01_project_system_prompt.md`
-- 必须明确：
-  - `codex_source/05_runtime_and_artifact_rules.md` 记录当前仓库已确认事实
-  - `codex_source/07_formal_api_demo_target_plan.md` 定义正式版目标态
-  - 旧 demo 仍是运行锚点，正式版链路仍不是当前已验证跑通事实
+  - `config/formal_api_demo.example.toml`
+  - `tests/test_formal_api_demo_pipeline.py`
+  - `dist/formal_api_demo/manifest.json`
+  - `dist/formal_api_demo/generation_gate.json`
+  - `dist/formal_api_demo/result_summary.json`
