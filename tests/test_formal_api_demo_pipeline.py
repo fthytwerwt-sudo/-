@@ -111,6 +111,27 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
         self.assertEqual(spec["segments"][0]["segment_id"], "seg01")
         self.assertTrue(spec["segments"][1]["needs_video"])
 
+    def test_formal_case_voiceover_copy_stays_within_current_timeline_budget(self) -> None:
+        spec = parse_formal_case_markdown(FORMAL_CASE_PATH)
+        budget_by_segment = {
+            "seg01": 24,
+            "seg02": 32,
+            "seg03": 23,
+        }
+
+        for segment in spec["segments"]:
+            segment_id = segment["segment_id"]
+            self.assertLessEqual(
+                len(segment["voiceover_text"]),
+                budget_by_segment[segment_id],
+                f"{segment_id} 配音文案超出当前 15 秒时间线预算",
+            )
+            self.assertLessEqual(
+                len(segment["caption_text"]),
+                budget_by_segment[segment_id],
+                f"{segment_id} 字幕文案超出当前 15 秒时间线预算",
+            )
+
     def test_parse_formal_case_markdown_raises_for_missing_hook(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_case_") as temp_dir:
             temp_path = pathlib.Path(temp_dir) / "invalid.md"
