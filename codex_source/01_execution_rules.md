@@ -39,6 +39,7 @@ Codex 每次接到任务，默认按以下顺序读取：
 13. 若任务涉及真实运行链路，再读 `codex_source/05_runtime_and_artifact_rules.md`、相关代码、测试与现有产物
 14. 若任务命中协作方式、自动补全边界或并行执行判断，再读 `codex_source/06_execution_gate_and_parallel_rules.md`
 15. 若任务命中正式版 API demo 目标态，再读 `codex_source/07_formal_api_demo_target_plan.md`
+16. 若任务涉及 GPT 项目源更新、ChatGPT 侧动态资料变化、动态资料是否影响执行，则必读 `codex_source/09_dynamic_source_sync_rules.md`
 
 当前仓库已确认事实：
 
@@ -47,7 +48,7 @@ Codex 每次接到任务，默认按以下顺序读取：
 
 因此当前项目的实际默认流程是：
 
-`AGENTS.md` → 本地 skill 检查 → 全局 skill 检查 → `codex_source/00_codex_readme.md` → `codex_log/latest.md` → `codex_source/01_execution_rules.md` → `codex_source/02_current_execution_context.md` → 相关 `project_source/*` → 命中时补读 `03 / 04 / 05 / 06 / 07` → 代码 / 产物
+`AGENTS.md` → 本地 skill 检查 → 全局 skill 检查 → `codex_source/00_codex_readme.md` → `codex_log/latest.md` → `codex_source/01_execution_rules.md` → `codex_source/02_current_execution_context.md` → 相关 `project_source/*` → 命中时补读 `03 / 04 / 05 / 06 / 07 / 09` → 代码 / 产物
 
 补充说明：
 
@@ -55,6 +56,7 @@ Codex 每次接到任务，默认按以下顺序读取：
 - `codex_source/02_codex_index.md` 仍可作为执行层内部补充索引使用
 - 但它不属于顶层默认入口的一部分
 - 进入执行层后，`codex_source/02_current_execution_context.md` 是默认先读的执行前上下文文件
+- 若任务命中动态资料源是否需要同步进执行层，`codex_source/09_dynamic_source_sync_rules.md` 是必读文件
 
 ## 3. EXEC-002 层级判断
 
@@ -364,6 +366,25 @@ skill 检查在当前仓库中是硬规则。
 - 把“部分成立”写成“已成立”
 - 只在当前回复里口头说明，不更新执行层文件
 
+## 8E. EXEC-006F 动态资料源同步规则
+
+若任务涉及以下任一情况，必须判断是否命中动态资料源同步：
+
+- GPT 项目源更新
+- ChatGPT 侧新拍板或新收束
+- 外部动态资料更新后是否影响执行
+- 只存在于 ChatGPT / GPT / Drive / Docs 侧的新内容是否应进入 Codex
+
+硬规则如下：
+
+1. 只存在于 GPT 项目源里的内容，不得默认视为 Codex 已知
+2. 只存在于 ChatGPT 侧的新内容，不得默认视为 Codex 已知
+3. 会影响本轮执行的，必须写进 `codex_source/03_research_findings_bridge.md` 或本轮执行单
+4. 会影响长期前提的，必须同步更新 `codex_source/02_current_execution_context.md`
+5. 若动态资料变化已经影响执行现实，还必须同时遵守 `codex_source/05_execution_deviation_and_reality_sync.md`
+
+展开规则以 `codex_source/09_dynamic_source_sync_rules.md` 为准。
+
 ## 9. EXEC-007 未找到 AGENTS / skill / 关键文件时如何处理
 
 ### 未找到 `AGENTS.md`
@@ -406,6 +427,18 @@ skill 检查在当前仓库中是硬规则。
 - 当前项目定位：视频内核优先，不按前端页面 / 工作台方向默认推进
 - 当前阶段：从可行性验证进入内容质量、结构稳定、工作流复用阶段
 - 当前聚焦：只做视频，不扩到直播、商业化、增长
+- 当前正式主路径：
+  - 文本需求
+  - 脚本
+  - 配音 API
+  - 图片 / 视频生成 API
+  - 本地 assembly
+  - 本地 mp4
+  - 人工上传
+- 当前主路径补充口径：
+  - generation 层继续接 API
+  - assembly 层当前默认走本地
+  - cloud assembly 属于后续增强项，不是当前硬前置
 - 当前 demo 输入锚点：`cases/demo.md`
 - 当前 demo 约束：
   - 中文
@@ -422,7 +455,6 @@ skill 检查在当前仓库中是硬规则。
 
 - 当前 demo 只证明链路跑通，不代表质量过线
 - 当前 demo 不作为质量参考件
-- 当前若涉及质量增强路线，默认第一优先看用户现成可用的火山引擎 TTS API
 - 不得把“抖音 90 分标准”当作官方平台规则
 - 若任务涉及“90 分标准”，默认按项目内部质量简称处理
 - “抖音 90 分标准”当前应理解为：接近抖音知识类 / AI 类 / 无人出镜短视频可推荐门槛的内部经验口径，而不是平台正式数字评分
