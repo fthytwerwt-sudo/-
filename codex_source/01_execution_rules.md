@@ -27,26 +27,34 @@ Codex 每次接到任务，默认按以下顺序读取：
 1. `AGENTS.md`
 2. 当前仓库内是否存在本地 `skills/`
 3. 若本地无相关 skill，则检查全局 `~/.codex/skills`
-4. `project_source/06_project_index.md`
-5. `codex_source/00_codex_readme.md`
-6. 与当前任务直接相关的 `project_source/*`
-7. `codex_source/01_execution_rules.md`
-8. 与当前任务直接相关的 `codex_source/*`
-9. 若需要执行层内部补充导航，再读 `codex_source/02_codex_index.md`
-10. 若任务涉及真实运行链路，再读相关代码、测试与现有产物
+4. `codex_source/00_codex_readme.md`
+5. `codex_log/latest.md`
+6. `codex_source/01_execution_rules.md`
+7. `codex_source/02_current_execution_context.md`
+8. 与当前任务直接相关的 `project_source/*`
+9. 若任务涉及外部结论、用户新拍板、Perplexity / ChatGPT 收束结果是否已进入执行层，必读 `codex_source/03_research_findings_bridge.md`
+10. 若任务涉及完成回报、完成状态、失败说明或验收口径，必读 `codex_source/04_completion_and_review_contract.md`
+11. 若任务涉及执行现实与原方案不一致、资源 / 权限 / 环境 / 接口 / 成本 / 素材等偏差，必读 `codex_source/05_execution_deviation_and_reality_sync.md`
+12. 若需要执行层内部补充导航，再读 `codex_source/02_codex_index.md`
+13. 若任务涉及真实运行链路，再读 `codex_source/05_runtime_and_artifact_rules.md`、相关代码、测试与现有产物
+14. 若任务命中协作方式、自动补全边界或并行执行判断，再读 `codex_source/06_execution_gate_and_parallel_rules.md`
+15. 若任务命中正式版 API demo 目标态，再读 `codex_source/07_formal_api_demo_target_plan.md`
 
 当前仓库已确认事实：
 
 - 仓库内无本地 `skills/` 目录
+- `project_source/07_chatgpt_project_instructions_backup.md` 当前不存在
 
 因此当前项目的实际默认流程是：
 
-`AGENTS.md` → 本地 skill 检查 → 全局 skill 检查 → `project_source/06_project_index.md` → `codex_source/00_codex_readme.md` → 相关 `project_source/*` → 相关 `codex_source/*` → 代码 / 产物
+`AGENTS.md` → 本地 skill 检查 → 全局 skill 检查 → `codex_source/00_codex_readme.md` → `codex_log/latest.md` → `codex_source/01_execution_rules.md` → `codex_source/02_current_execution_context.md` → 相关 `project_source/*` → 命中时补读 `03 / 04 / 05 / 06 / 07` → 代码 / 产物
 
 补充说明：
 
+- `project_source/06_project_index.md` 仍是项目脑导航文件，但不再替代执行层的执行前上下文
 - `codex_source/02_codex_index.md` 仍可作为执行层内部补充索引使用
 - 但它不属于顶层默认入口的一部分
+- 进入执行层后，`codex_source/02_current_execution_context.md` 是默认先读的执行前上下文文件
 
 ## 3. EXEC-002 层级判断
 
@@ -297,6 +305,65 @@ skill 检查在当前仓库中是硬规则。
 - 不得跳过日志更新直接 push
 - 不得在未形成可判断小闭环时强行 push 噪音改动
 
+## 8C. EXEC-006D 研究结论桥接规则
+
+凡是来自以下来源且会影响执行的结论，都必须先桥接进执行层：
+
+- Perplexity
+- ChatGPT 判断
+- 用户新拍板
+- 因执行偏差而升级出的长期结论
+
+硬规则如下：
+
+1. Perplexity 结果不会自动同步到 Codex
+2. ChatGPT 判断不会自动同步到 Codex
+3. 用户聊天中的新拍板不会自动变成长期执行事实
+4. 只有以下两种情况，Codex 才能把它当成已知并据此执行：
+   - 已写入 `codex_source/03_research_findings_bridge.md`
+   - 已在本轮执行单中被明确写出，且本轮范围足以支撑该采用
+5. 如果外部结论尚未桥接，Codex 不得假设已知，不得静默沿其执行
+
+执行含义必须写清：
+
+- Perplexity 默认提供资料与备选，不等于自动采用
+- ChatGPT 负责收束与编排，但其判断若未进入桥接文件，Codex 不得默认长期知道
+- 用户一旦明确拍板且会影响后续执行，应尽快写入 `codex_source/03_research_findings_bridge.md`
+
+## 8D. EXEC-006E 执行偏差回写规则
+
+只要真实执行发现“原方案”和“现实可执行方案”之间出现有效差异，就必须触发偏差回写机制。
+
+偏差至少包括：
+
+- 资源不足
+- 权限不足
+- 环境异常
+- 依赖 / 接口不可用
+- 成本不合适
+- 素材 / 数据质量不足
+- 外部服务与原预期不一致
+- 方案只部分成立或未成立
+
+默认动作顺序必须是：
+
+1. 先给原方案改标状态
+2. 再写清偏差是什么
+3. 再判断影响范围
+4. 再决定继续执行、改写本轮方案、停下待确认或升级进桥接文件
+
+回写要求必须明确：
+
+- 只影响本轮：写入本轮最终回报与本轮日志
+- 会影响后续执行：同步写入 `codex_source/03_research_findings_bridge.md`
+- 会影响长期执行前提：再同步更新 `codex_source/02_current_execution_context.md`
+
+明确禁止：
+
+- 发现现实偏差后还假装原方案仍成立
+- 把“部分成立”写成“已成立”
+- 只在当前回复里口头说明，不更新执行层文件
+
 ## 9. EXEC-007 未找到 AGENTS / skill / 关键文件时如何处理
 
 ### 未找到 `AGENTS.md`
@@ -389,20 +456,27 @@ Codex 在当前仓库中不得擅自：
 
 ## 12. EXEC-010 最终汇报必须包含的栏目
 
-每次任务完成后，最终汇报至少要包含：
+每次任务完成后，最终汇报默认以 `codex_source/04_completion_and_review_contract.md` 为准，至少要包含：
 
 1. 读取结果
-2. 规范 / skill 使用情况
-3. 改动结果
-4. 验证结果
-5. 失败点或待确认项
-6. 明确未做内容
+2. 实际改动
+3. 未改动项
+4. 完成标准对照
+5. 当前状态
+6. 阻断 / 风险 / 待确认
+7. 下一步建议
 
 如果本轮是只读任务，也必须明确写出：
 
 - 读取了什么
 - 没改什么
 - 哪些事实未确认
+
+补充要求：
+
+- skill 检查与使用情况应写进“读取结果”或“阻断 / 风险 / 待确认”
+- 验证结果应写进“完成标准对照”或“当前状态”的证据说明里
+- 不得把建议、计划、分析写成“已完成”
 
 如果本轮属于仓库型任务，还必须明确写出：
 

@@ -108,6 +108,15 @@
 补充规则：
 
 - 若任务明显偏执行规则，再补读 `codex_source/01_execution_rules.md`
+- 若任务已经进入执行层落地，再默认补读：
+  - `codex_source/02_current_execution_context.md`
+  - 它用于写清当前阶段长期有效、但 Codex 不能默认知道的执行前上下文
+- 若任务涉及外部结论、用户新拍板、Perplexity / ChatGPT 收束结果是否已进入执行层，再补读：
+  - `codex_source/03_research_findings_bridge.md`
+- 若任务涉及最终汇报、完成状态、失败说明或验收口径，再补读：
+  - `codex_source/04_completion_and_review_contract.md`
+- 若任务涉及执行现实与原方案不一致、资源 / 权限 / 环境 / 接口 / 成本 / 素材等偏差，再补读：
+  - `codex_source/05_execution_deviation_and_reality_sync.md`
 - 若任务明显偏项目判断或内容边界，再补读相关 `project_source/*`
 - 若任务命中“正式版 API demo / 正式版目标态 / 云端组装 / 修正循环 / 质量达标反推”，则在默认入口之外补读：
   - `codex_source/07_formal_api_demo_target_plan.md`
@@ -200,8 +209,25 @@
   - Codex 执行层总入口
 - `codex_source/01_execution_rules.md`
   - 读取顺序、执行边界、skill 硬规则、汇报规则
+- `codex_source/02_current_execution_context.md`
+  - 当前阶段长期有效的执行前上下文
+  - 用于防止 Codex 只靠聊天记忆开工
+- `codex_source/03_research_findings_bridge.md`
+  - Perplexity / ChatGPT / 用户新拍板与执行偏差升级的桥接文件
+  - 不进本文件或本轮执行单的结论，Codex 不得假设已知
+- `codex_source/04_completion_and_review_contract.md`
+  - 执行后固定汇报格式与状态口径
+  - 用于防止把建议、计划、分析写成完成
+- `codex_source/05_execution_deviation_and_reality_sync.md`
+  - 执行偏差分级、原方案改标与现实回写规则
+  - 用于防止旧假设继续污染后续执行
 - `codex_source/05_runtime_and_artifact_rules.md`
   - 当前最小闭环的真实输入、依赖、运行链路、产物与成功判定
+- 说明：
+  - 当前目录下同时存在两个 `05_*` 文件
+  - `05_runtime_and_artifact_rules.md` 负责“运行事实”
+  - `05_execution_deviation_and_reality_sync.md` 负责“现实偏差回写”
+  - 两者不可互相替代
 - `codex_source/06_execution_gate_and_parallel_rules.md`
   - 顶层收口闸门、自动补全边界与多 Codex 并行规则
 - `codex_source/07_formal_api_demo_target_plan.md`
@@ -228,6 +254,12 @@
 ### 原则 4：仓库事实高于想象
 
 没读到、没确认、没验证的内容，不能写成已确认事实。
+
+补充到外部结论与现实偏差：
+
+- Perplexity / ChatGPT / 用户聊天里的结论不会自动同步进 Codex
+- 必须通过 `codex_source/03_research_findings_bridge.md` 或本轮执行单显式带入
+- 真实执行若已证明原方案不完整成立，必须按 `codex_source/05_execution_deviation_and_reality_sync.md` 回写并改标
 
 补充到正式版 API demo 目标态：
 
