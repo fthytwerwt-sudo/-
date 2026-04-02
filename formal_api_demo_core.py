@@ -841,16 +841,37 @@ def evaluate_generation_gate(
         has_local_config=has_local_config,
         dry_run=dry_run,
     )
-    overall_status = tts_gate["status"] if not dry_run else STATUS_PLANNED
-    missing = list(tts_gate["missing_prerequisites"])
-    missing_implementations = list(tts_gate["missing_implementations"])
+    visual_required_status = STATUS_PLANNED if dry_run else STATUS_SUCCESS
+    if visual_gate["missing_prerequisites"]:
+        visual_required_status = STATUS_BLOCKED
+    overall_status = _combine_stage_statuses(
+        [
+            tts_gate["status"],
+            visual_required_status,
+        ],
+        dry_run=dry_run,
+    )
+    missing = _merge_unique_values(
+        tts_gate["missing_prerequisites"],
+        visual_gate["missing_prerequisites"],
+    )
+    missing_implementations = _merge_unique_values(
+        tts_gate["missing_implementations"],
+        visual_gate["missing_implementations"],
+    )
     failure_reason = tts_gate.get("failure_reason", "")
     blocked_reason = tts_gate.get("blocked_reason", "")
+    if visual_gate["missing_prerequisites"] and visual_gate.get("blocked_reason"):
+        blocked_reason = (
+            f"{blocked_reason}；{visual_gate['blocked_reason']}"
+            if blocked_reason
+            else visual_gate["blocked_reason"]
+        )
 
     return {
         "gate_name": "generation_gate",
         "status": overall_status,
-        "scope": "tts_voiceover_and_local_visual_plan",
+        "scope": "tts_voiceover_and_visual_generation",
         "allow_execution": not dry_run,
         "blocked_reason": blocked_reason,
         "failure_reason": failure_reason,
@@ -870,8 +891,8 @@ def evaluate_generation_gate(
         "checks": tts_gate["checks"] + visual_gate["checks"],
         "notes": [
             "当前 generation 会继续执行 TTS probe、整段配音、字幕与视觉计划，不再只停在 TTS probe。",
-            "本地 0-1 阶段默认以视觉计划可落出为成功口径；cloud visual generation 降级为可选增强项。",
-            "generation 顶层状态按本地可交付链路统计，不再被 cloud visual generation 的未配置状态直接压成 blocked。",
+            "图片 / 视频生成 API 仍属于当前正式 generation 主链，不应被写成“当前完全不接”。",
+            "cloud assembly 已降级为可选增强项，但 generation 仍需继续盯 image_generation.model / video_generation.model。",
         ],
     }
 
@@ -927,11 +948,14 @@ def _evaluate_visual_generation_gate(
         status = STATUS_PLANNED
         blocked_reason = ""
     elif missing:
-        status = STATUS_SKIPPED
-        blocked_reason = "cloud visual generation 未配置；当前阶段继续沿用视觉计划 + 本地 assembly。"
-    else:
         status = STATUS_BLOCKED
-        blocked_reason = "cloud visual generation provider implementation 尚未接入；当前先落视觉计划与本地预览素材。"
+        blocked_reason = "缺少视觉生成前提：" + "、".join(missing)
+    else:
+        status = STATUS_SKIPPED
+        blocked_reason = (
+            "图片 / 视频生成 provider implementation 尚未接入；当前继续保留模型配置与视觉计划，"
+            "默认先走本地 assembly。"
+        )
 
     return {
         "gate_name": "visual_generation_gate",
@@ -943,8 +967,9 @@ def _evaluate_visual_generation_gate(
         "missing_implementations": implementation_missing,
         "checks": checks,
         "notes": [
-            "visual_generation Gate 仅代表 cloud visual generation 状态。",
-            "当前阶段即使 cloud visual generation skipped / blocked，仍允许落 visual plan，避免本地链路继续停在纯骨架。",
+            "visual_generation Gate 继续代表图片 / 视频生成 API 的正式 generation 前提。",
+            "缺少 image_generation.model / video_generation.model 时，generation 不能写成 success。",
+            "provider implementation 尚未接入时，当前先记 cloud visual generation skipped，但不把模型字段降成摆设。",
         ],
     }
 
@@ -1272,6 +1297,7 @@ def build_generation_result_summary(
         else (
             tts_probe.get("blocked_reason")
             or voiceover.get("blocked_reason")
+            or visual_generation.get("blocked_reason")
             or generation_gate.get("blocked_reason", "")
         ),
         "artifact_paths": {
@@ -1794,9 +1820,9 @@ def build_visual_generation_plan(
                 f"{segment['visual_intent']}。镜头应表现信息从散乱到收束，"
                 "节奏克制，适合 9:16 中文案例讲解短视频。"
             )
-        asset_status = STATUS_PLANNED if visual_gate["status"] == STATUS_PLANNED else STATUS_BLOCKED
-        if not visual_gate["missing_prerequisites"] and visual_gate["status"] == STATUS_BLOCKED:
-            asset_status = STATUS_BLOCKED
+        asset_status = (
+            STATUS_BLOCKED if visual_gate.get("missing_prerequisites") else STATUS_PLANNED
+        )
         segment_assets.append(
             {
                 "segment_id": segment["segment_id"],
@@ -1812,15 +1838,21 @@ def build_visual_generation_plan(
 
     cloud_status = visual_gate["status"]
     cloud_blocked_reason = visual_gate.get("blocked_reason", "")
+    visual_status = STATUS_BLOCKED if visual_gate.get("missing_prerequisites") else STATUS_SUCCESS
+    visual_blocked_reason = (
+        visual_gate.get("blocked_reason", "") if visual_status == STATUS_BLOCKED else ""
+    )
     visual_generation.update(
         {
-            "status": STATUS_SUCCESS,
+            "status": visual_status,
             "plan_path": str(plan_path),
             "preview_storyboard_path": str(preview_storyboard_path),
             "segment_assets": segment_assets,
-            "blocked_reason": "",
+            "blocked_reason": visual_blocked_reason,
             "failure_reason": "",
-            "current_missing_prerequisites": [],
+            "current_missing_prerequisites": list(
+                visual_gate.get("missing_prerequisites", [])
+            ),
             "missing_implementations": [],
             "cloud": {
                 "status": cloud_status,

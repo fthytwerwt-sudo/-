@@ -110,30 +110,35 @@ recommended = false
 
 [image_generation]
 enabled = true
-# 当前阶段本地优先：
-# - 未配置 image_generation.model 不阻断本地出片
-# - 若配置了真实 model，则只影响后续 cloud visual generation 增强项
+# 当前正式 generation 主链仍包含图片生成 API：
+# - 建议继续接入，不要把 image_generation.model 当成可删除摆设
+# - 缺失该字段时，generation 不应写成 success
+# - 当前仓库默认先落视觉计划，再进入本地 assembly；这不等于图片 API 已被取消
 model = "SET_IN_LOCAL_FILE"
 
 [video_generation]
 enabled = true
-# 当前阶段本地优先：
-# - 未配置 video_generation.model 不阻断本地出片
-# - 若配置了真实 model，则只影响后续 cloud visual generation 增强项
+# 当前正式 generation 主链仍包含视频生成 API：
+# - 建议继续接入，不要把 video_generation.model 当成可删除摆设
+# - 缺失该字段时，generation 不应写成 success
+# - 当前默认交付改为本地 assembly，不代表视频 API 暂时不接
 model = "SET_IN_LOCAL_FILE"
 
 [assembly]
 mode = "cloud"
-# 当前阶段默认交付件是本地 mp4。
-# template_id 仅用于后续 cloud assembly 增强项；未配置不阻断本地出片。
+# 当前阶段默认交付件是本地 mp4：
+# - local assembly / 本地 mp4 / 人工上传 是当前默认交付路径
+# - template_id 属于后续 cloud assembly 增强项
+# - 未配置 template_id 不阻断当前阶段本地出片
 template_id = "SET_IN_LOCAL_FILE"
 subtitle_mode = "burn_in"
 resolution = "1080x1920"
 fps = 25
 
 [storage]
-# 当前阶段默认走本地 assembly。
-# space_name 仅用于后续 cloud assembly / 存储增强项；未配置不阻断本地出片。
+# 当前阶段默认走本地 assembly：
+# - space_name 属于后续 cloud assembly / 存储增强项
+# - 未配置 space_name 不阻断当前阶段本地出片
 space_name = "SET_IN_LOCAL_FILE"
 upload_prefix = "formal_api_demo/"
 

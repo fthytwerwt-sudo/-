@@ -28,6 +28,11 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 
 class FormalApiDemoPipelineTests(unittest.TestCase):
+    @staticmethod
+    def _fake_concatenate_audio_files(_input_paths, output_path) -> None:
+        pathlib.Path(output_path).parent.mkdir(parents=True, exist_ok=True)
+        pathlib.Path(output_path).write_bytes(b"fake-merged-mp3")
+
     def _write_local_config(
         self,
         path: pathlib.Path,
@@ -204,6 +209,8 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 api_key="dashscope_test_key",
                 model="cosyvoice-v3-flash",
                 voice="longanyang",
+                image_model="wanx2.1-image",
+                video_model="wanx2.1-video",
             )
 
             def fake_probe(*_args, **kwargs):
@@ -225,7 +232,10 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                     "used_model_id": "cosyvoice-v3-flash",
                 }
 
-            with mock.patch("formal_api_demo_core.execute_tts_probe", side_effect=fake_probe):
+            with mock.patch("formal_api_demo_core.execute_tts_probe", side_effect=fake_probe), mock.patch(
+                "formal_api_demo_core.concatenate_audio_files",
+                side_effect=self._fake_concatenate_audio_files,
+            ):
                 run_generation_pipeline(
                     input_path=FORMAL_CASE_PATH,
                     example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
@@ -377,6 +387,8 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 api_key="dashscope_test_key",
                 model="cosyvoice-v3-flash",
                 voice="longxiaochun",
+                image_model="wanx2.1-image",
+                video_model="wanx2.1-video",
             )
 
             class _JsonResponse:
@@ -424,7 +436,10 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                     return _BinaryResponse()
                 raise AssertionError(f"unexpected url: {url}")
 
-            with mock.patch("formal_api_demo_core.urllib.request.urlopen", side_effect=fake_urlopen):
+            with mock.patch("formal_api_demo_core.urllib.request.urlopen", side_effect=fake_urlopen), mock.patch(
+                "formal_api_demo_core.concatenate_audio_files",
+                side_effect=self._fake_concatenate_audio_files,
+            ):
                 result = run_generation_pipeline(
                     input_path=FORMAL_CASE_PATH,
                     example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
@@ -805,6 +820,8 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 route_family="edge_gateway_openai_compatible",
                 api_key="gateway_test_key",
                 model="gateway_tts_model",
+                image_model="wanx2.1-image",
+                video_model="wanx2.1-video",
             )
 
             class _SuccessResponse:
@@ -836,7 +853,10 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 def __init__(self, **_kwargs):
                     self.audio = _AudioResource()
 
-            with mock.patch("formal_api_demo_core.OpenAI", _FakeOpenAIClient):
+            with mock.patch("formal_api_demo_core.OpenAI", _FakeOpenAIClient), mock.patch(
+                "formal_api_demo_core.concatenate_audio_files",
+                side_effect=self._fake_concatenate_audio_files,
+            ):
                 result = run_generation_pipeline(
                     input_path=FORMAL_CASE_PATH,
                     example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
@@ -913,8 +933,8 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             self.assertEqual(result["generation_status"], STATUS_FAILED)
             self.assertEqual(result["failure_reason"], "ark_tts_route_or_identifier_not_found")
 
-    def test_generate_non_dry_run_keeps_local_generation_success_when_cloud_visuals_missing(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="formal_tts_success_") as temp_dir:
+    def test_generate_non_dry_run_blocks_when_visual_generation_models_missing(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_tts_visual_blocked_") as temp_dir:
             output_dir = pathlib.Path(temp_dir) / "dist"
             local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
             self._write_local_config(
@@ -941,7 +961,10 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                     "used_endpoint_id": "ep_tts_demo",
                 }
 
-            with mock.patch("formal_api_demo_core.execute_tts_probe", side_effect=fake_probe):
+            with mock.patch("formal_api_demo_core.execute_tts_probe", side_effect=fake_probe), mock.patch(
+                "formal_api_demo_core.concatenate_audio_files",
+                side_effect=self._fake_concatenate_audio_files,
+            ):
                 result = run_generation_pipeline(
                     input_path=FORMAL_CASE_PATH,
                     example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
@@ -950,12 +973,14 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                     dry_run=False,
                 )
 
-            self.assertEqual(result["overall_status"], STATUS_SUCCESS)
-            self.assertEqual(result["generation_status"], STATUS_SUCCESS)
+            self.assertEqual(result["overall_status"], STATUS_BLOCKED)
+            self.assertEqual(result["generation_status"], STATUS_BLOCKED)
             self.assertEqual(result["tts_probe_status"], STATUS_SUCCESS)
             self.assertEqual(result["voiceover_status"], STATUS_SUCCESS)
-            self.assertEqual(result["visual_generation_status"], STATUS_SUCCESS)
-            self.assertEqual(result["cloud_visual_generation_status"], "skipped")
+            self.assertEqual(result["visual_generation_status"], STATUS_BLOCKED)
+            self.assertEqual(result["cloud_visual_generation_status"], STATUS_BLOCKED)
+            self.assertIn("image_generation_model", result["current_missing_prerequisites"])
+            self.assertIn("video_generation_model", result["current_missing_prerequisites"])
             self.assertTrue((output_dir / "tts" / "voice_probe.mp3").exists())
             self.assertTrue((output_dir / "tts" / "formal_voiceover.mp3").exists())
 
