@@ -2911,23 +2911,45 @@ def seconds_to_srt(value: float) -> str:
 def _build_preview_slides(manifest: dict[str, Any]) -> list[dict[str, Any]]:
     accents = ["#2563EB", "#0F766E", "#C2410C", "#7C3AED"]
     backgrounds = ["#F5F7FB", "#F4FBF9", "#FFF7ED", "#F8F5FF"]
+    preview_roles = [
+        {
+            "role": "hook",
+            "eyebrow": "问题卡点",
+            "support": "先把卡点看清，再决定怎么推进。",
+            "chips": ["想法很多", "流程没拉齐"],
+        },
+        {
+            "role": "process",
+            "eyebrow": "流程收束",
+            "support": "先把散乱动作收成同一条 SOP。",
+            "chips": ["目标", "输入", "输出"],
+        },
+        {
+            "role": "outcome",
+            "eyebrow": "结果落点",
+            "support": "先出可审样片，再逐轮压质量。",
+            "chips": ["先稳住样片", "再逐轮提质"],
+        },
+    ]
     slides: list[dict[str, Any]] = []
-    for index, segment in enumerate(manifest.get("segments", []), start=1):
+    segments = manifest.get("segments", [])
+    total = len(segments)
+    for index, segment in enumerate(segments, start=1):
         accent = accents[(index - 1) % len(accents)]
         background = backgrounds[(index - 1) % len(backgrounds)]
+        role_meta = preview_roles[min(index - 1, len(preview_roles) - 1)]
         slides.append(
             {
-                "title": segment["goal"],
-                "body": "\n".join(
-                    [
-                        segment["visual_intent"],
-                        segment["caption_text"],
-                    ]
-                ),
+                "sequence": index,
+                "total": total,
+                "role": role_meta["role"],
+                "eyebrow": role_meta["eyebrow"],
+                "headline": segment["caption_text"],
+                "support": role_meta["support"],
+                "detail": segment["visual_intent"],
+                "chips": role_meta["chips"],
                 "accent": accent,
                 "background": background,
-                "badge": f"第{index}段",
-                "footer": "formal_api_demo / 本地预览",
                 "duration": segment["timeline"]["planned_duration_seconds"],
             }
         )

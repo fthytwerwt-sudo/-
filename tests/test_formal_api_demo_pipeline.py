@@ -282,6 +282,13 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                     dry_run=False,
                 )
 
+            preview_manifest = json.loads(
+                (output_dir / "assembly" / "preview_manifest.json").read_text(encoding="utf-8")
+            )
+            first_slide = preview_manifest["slides"][0]
+            second_slide = preview_manifest["slides"][1]
+            third_slide = preview_manifest["slides"][2]
+
             self.assertEqual(result["overall_status"], STATUS_SUCCESS)
             self.assertEqual(result["generation_status"], STATUS_SUCCESS)
             self.assertEqual(result["assembly_status"], STATUS_SUCCESS)
@@ -290,6 +297,16 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             self.assertEqual(result["assembly_preview_status"], STATUS_SUCCESS)
             self.assertEqual(result["current_missing_prerequisites"], [])
             self.assertTrue((output_dir / "assembly" / "formal_api_demo_preview.mp4").exists())
+            self.assertEqual(first_slide["role"], "hook")
+            self.assertEqual(first_slide["headline"], "AI 项目卡住，不是没思路，是流程还没拉齐。")
+            self.assertIn("流程没拉齐", first_slide["chips"])
+            self.assertEqual(second_slide["role"], "process")
+            self.assertEqual(second_slide["chips"], ["目标", "输入", "输出"])
+            self.assertEqual(third_slide["role"], "outcome")
+            self.assertIn("先稳住样片", third_slide["chips"])
+            self.assertNotIn("badge", first_slide)
+            self.assertNotIn("footer", first_slide)
+
 
     def test_generate_non_dry_run_without_local_config_blocks(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_blocked_") as temp_dir:
