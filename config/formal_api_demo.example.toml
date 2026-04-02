@@ -114,7 +114,9 @@ enabled = true
 # - 建议继续接入，不要把 image_generation.model 当成可删除摆设
 # - 缺失该字段时，generation 不应写成 success
 # - 当前仓库默认先落视觉计划，再进入本地 assembly；这不等于图片 API 已被取消
-model = "SET_IN_LOCAL_FILE"
+# 免费优先主线默认模型：
+# - wan2.6-image 用于首帧 / 背景 / 人像底图补位
+model = "wan2.6-image"
 
 [video_generation]
 enabled = true
@@ -122,7 +124,24 @@ enabled = true
 # - 建议继续接入，不要把 video_generation.model 当成可删除摆设
 # - 缺失该字段时，generation 不应写成 success
 # - 当前默认交付改为本地 assembly，不代表视频 API 暂时不接
-model = "SET_IN_LOCAL_FILE"
+# 免费优先主线默认模型：
+# - wan2.6-t2v 负责普通视频主线
+model = "wan2.6-t2v"
+
+[portrait_detect]
+enabled = false
+# 真人开口分支前置检测：
+# - liveportrait-detect 先做人像 / 面部检测
+# - 仅表示路线已定，不代表 provider implementation 已完成
+model = "liveportrait-detect"
+
+[portrait_video_generation]
+enabled = false
+# 真人开口分支生成模型：
+# - liveportrait 用于固定背景 / 人物开口视频
+# - 必须先过 liveportrait-detect
+# - 仅表示路线已定，不代表 provider implementation 已完成
+model = "liveportrait"
 
 [assembly]
 mode = "cloud"

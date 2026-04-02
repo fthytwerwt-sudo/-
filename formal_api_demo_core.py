@@ -46,6 +46,10 @@ SUPPORTED_TTS_ROUTE_FAMILIES = {
     TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH,
     TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE,
 }
+DEFAULT_GENERAL_IMAGE_MODEL = "wan2.6-image"
+DEFAULT_GENERAL_VIDEO_MODEL = "wan2.6-t2v"
+DEFAULT_PORTRAIT_DETECT_MODEL = "liveportrait-detect"
+DEFAULT_PORTRAIT_VIDEO_MODEL = "liveportrait"
 DEFAULT_ALIYUN_TTS_STYLE_PROBE_TEXT = (
     "这套方案表面上堆满了参数，真正决定上限的其实只有供电、火控和协同链路。"
     "前两项还能补，第三项一旦掉队，再新的壳子也只是好看。"
@@ -912,6 +916,10 @@ def evaluate_generation_gate(
             "region": _nested_get(config, "provider", "region"),
             "image_model": _nested_get(config, "image_generation", "model"),
             "video_model": _nested_get(config, "video_generation", "model"),
+            "general_video_model": _nested_get(config, "video_generation", "model"),
+            "portrait_detect_model": _nested_get(config, "portrait_detect", "model"),
+            "portrait_video_model": _nested_get(config, "portrait_video_generation", "model"),
+            "model_routes": _build_visual_model_routes(config),
         },
         "stage_gates": {
             "tts_probe": tts_gate,
@@ -934,8 +942,11 @@ def _evaluate_visual_generation_gate(
 ) -> dict[str, Any]:
     missing: list[str] = []
     implementation_missing: list[str] = []
+    visual_routes = _build_visual_model_routes(config)
     needs_image = any(segment.get("needs_image") for segment in video_spec.get("segments", []))
     needs_video = any(segment.get("needs_video") for segment in video_spec.get("segments", []))
+    portrait_detect_enabled = visual_routes["portrait_detect"]["enabled"]
+    portrait_video_enabled = visual_routes["portrait_video_generation"]["enabled"]
     if not has_local_config:
         missing.append("local_config_file")
     if _is_missing_secret(_nested_get(config, "auth", "api_key")):
@@ -946,10 +957,22 @@ def _evaluate_visual_generation_gate(
         missing.append("image_generation_model")
     if needs_video and _is_missing_secret(_nested_get(config, "video_generation", "model")):
         missing.append("video_generation_model")
+    if portrait_video_enabled and not portrait_detect_enabled:
+        missing.append("portrait_detect_enabled")
+    if portrait_detect_enabled and _is_missing_secret(_nested_get(config, "portrait_detect", "model")):
+        missing.append("portrait_detect_model")
+    if portrait_video_enabled and _is_missing_secret(
+        _nested_get(config, "portrait_video_generation", "model")
+    ):
+        missing.append("portrait_video_generation_model")
     if needs_image:
         implementation_missing.append("image_generation_provider_implementation")
     if needs_video:
         implementation_missing.append("video_generation_provider_implementation")
+    if portrait_detect_enabled:
+        implementation_missing.append("portrait_detect_provider_implementation")
+    if portrait_video_enabled:
+        implementation_missing.append("portrait_video_generation_provider_implementation")
 
     checks = [
         {
@@ -971,6 +994,27 @@ def _evaluate_visual_generation_gate(
             else "fail",
             "detail": "有视频段落时必须显式提供 video_generation.model。",
         },
+        {
+            "name": "portrait_detect_enabled_before_liveportrait",
+            "status": "pass" if not portrait_video_enabled or portrait_detect_enabled else "fail",
+            "detail": "启用 liveportrait 前必须先启用 portrait_detect。",
+        },
+        {
+            "name": "portrait_detect_model_present_when_enabled",
+            "status": "pass"
+            if not portrait_detect_enabled
+            or not _is_missing_secret(_nested_get(config, "portrait_detect", "model"))
+            else "fail",
+            "detail": "启用 portrait_detect 时必须显式提供 portrait_detect.model。",
+        },
+        {
+            "name": "portrait_video_model_present_when_enabled",
+            "status": "pass"
+            if not portrait_video_enabled
+            or not _is_missing_secret(_nested_get(config, "portrait_video_generation", "model"))
+            else "fail",
+            "detail": "启用 liveportrait 时必须显式提供 portrait_video_generation.model。",
+        },
     ]
 
     if dry_run:
@@ -982,7 +1026,14 @@ def _evaluate_visual_generation_gate(
     elif implementation_missing:
         status = STATUS_BLOCKED
         blocked_reason = (
-            "图片 / 视频生成 provider implementation 尚未接入；当前只能落视觉 plan / storyboard，"
+            "当前免费优先模型路线已定："
+            f"{visual_routes['image_generation']['model'] or DEFAULT_GENERAL_IMAGE_MODEL} 负责首帧 / 背景 / 人像底图补位，"
+            f"{visual_routes['general_video_generation']['model'] or DEFAULT_GENERAL_VIDEO_MODEL} 负责通用视频主线；"
+            "若启用真人开口分支，必须先过 "
+            f"{visual_routes['portrait_detect']['model'] or DEFAULT_PORTRAIT_DETECT_MODEL}"
+            " 再进入 "
+            f"{visual_routes['portrait_video_generation']['model'] or DEFAULT_PORTRAIT_VIDEO_MODEL}"
+            "。相关 provider implementation 尚未接入；当前只能落 visual plan / storyboard，"
             "不能把 generation 写成 success。"
         )
     else:
@@ -1000,6 +1051,8 @@ def _evaluate_visual_generation_gate(
         "checks": checks,
         "notes": [
             "visual_generation Gate 继续代表图片 / 视频生成 API 的正式 generation 前提。",
+            "主线免费模型路线固定为 wan2.6-image + wan2.6-t2v；两者都只代表模型已选，不代表 provider 已接通。",
+            "真人开口分支固定为 liveportrait-detect + liveportrait；liveportrait 必须先经过 liveportrait-detect。",
             "缺少 image_generation.model / video_generation.model 时，generation 不能写成 success。",
             "provider implementation 尚未接入时，当前必须诚实 blocked，不能再把 visual plan / preview 写成 success。",
         ],
@@ -1159,6 +1212,14 @@ def build_manifest(
                     "tts_resource_id": _nested_get(config, "tts", "resource_id"),
                     "image_model": _nested_get(config, "image_generation", "model"),
                     "video_model": _nested_get(config, "video_generation", "model"),
+                    "general_video_model": _nested_get(config, "video_generation", "model"),
+                    "portrait_detect_model": _nested_get(config, "portrait_detect", "model"),
+                    "portrait_video_model": _nested_get(
+                        config,
+                        "portrait_video_generation",
+                        "model",
+                    ),
+                    "visual_model_routes": _build_visual_model_routes(config),
                     "tts_baseline_profile": tts_baseline["profile_id"],
                 },
                 "task_slots": {
@@ -1223,6 +1284,14 @@ def build_manifest(
                 "tts_resource_id": _nested_get(config, "tts", "resource_id"),
                 "image_generation": _nested_get(config, "image_generation", "model"),
                 "video_generation": _nested_get(config, "video_generation", "model"),
+                "general_video_generation": _nested_get(config, "video_generation", "model"),
+                "portrait_detect": _nested_get(config, "portrait_detect", "model"),
+                "portrait_video_generation": _nested_get(
+                    config,
+                    "portrait_video_generation",
+                    "model",
+                ),
+                "visual_model_routes": _build_visual_model_routes(config),
             },
         },
         "config_summary": {
@@ -1492,12 +1561,28 @@ def build_default_visual_generation(
     video_spec: dict[str, Any],
     config: dict[str, Any],
 ) -> dict[str, Any]:
+    visual_routes = _build_visual_model_routes(config)
     return {
         "status": STATUS_PLANNED,
         "delivery_mode": "api_generated_visual_assets_required",
         "provider": _nested_get(config, "provider", "name"),
-        "image_model": _nested_get(config, "image_generation", "model"),
-        "video_model": _nested_get(config, "video_generation", "model"),
+        "image_model": visual_routes["image_generation"]["model"],
+        "video_model": visual_routes["general_video_generation"]["model"],
+        "general_video_generation": {
+            "status": STATUS_NOT_STARTED,
+            **copy.deepcopy(visual_routes["general_video_generation"]),
+            "blocked_reason": "",
+        },
+        "portrait_detect": {
+            "status": STATUS_NOT_STARTED,
+            **copy.deepcopy(visual_routes["portrait_detect"]),
+            "blocked_reason": "",
+        },
+        "portrait_video_generation": {
+            "status": STATUS_NOT_STARTED,
+            **copy.deepcopy(visual_routes["portrait_video_generation"]),
+            "blocked_reason": "",
+        },
         "plan_path": None,
         "preview_storyboard_path": None,
         "segment_assets": [
@@ -1928,6 +2013,41 @@ def build_visual_generation_plan(
             },
         }
     )
+    visual_generation["general_video_generation"].update(
+        {
+            "status": visual_status if visual_generation["general_video_generation"]["enabled"] else STATUS_SKIPPED,
+            "blocked_reason": (
+                visual_blocked_reason
+                if visual_generation["general_video_generation"]["enabled"]
+                else ""
+            ),
+        }
+    )
+    visual_generation["portrait_detect"].update(
+        {
+            "status": STATUS_BLOCKED
+            if visual_generation["portrait_detect"]["enabled"]
+            else STATUS_SKIPPED,
+            "blocked_reason": (
+                "liveportrait-detect 是真人开口分支前置检测；当前 provider implementation 尚未接入。"
+                if visual_generation["portrait_detect"]["enabled"]
+                else ""
+            ),
+        }
+    )
+    visual_generation["portrait_video_generation"].update(
+        {
+            "status": STATUS_BLOCKED
+            if visual_generation["portrait_video_generation"]["enabled"]
+            else STATUS_SKIPPED,
+            "blocked_reason": (
+                "liveportrait 属于固定背景 / 人物开口分支，执行前必须先过 liveportrait-detect；"
+                "当前 provider implementation 尚未接入。"
+                if visual_generation["portrait_video_generation"]["enabled"]
+                else ""
+            ),
+        }
+    )
     write_json(
         plan_path,
         {
@@ -1937,6 +2057,9 @@ def build_visual_generation_plan(
             "provider": visual_generation["provider"],
             "image_model": visual_generation["image_model"],
             "video_model": visual_generation["video_model"],
+            "general_video_generation": visual_generation["general_video_generation"],
+            "portrait_detect": visual_generation["portrait_detect"],
+            "portrait_video_generation": visual_generation["portrait_video_generation"],
             "current_missing_prerequisites": visual_generation["current_missing_prerequisites"],
             "missing_implementations": visual_generation["missing_implementations"],
             "auxiliary_only": True,
@@ -2243,6 +2366,64 @@ def _nested_get(payload: dict[str, Any], *keys: str) -> Any:
     return current
 
 
+def _config_flag(payload: dict[str, Any], *keys: str, default: bool = False) -> bool:
+    value = _nested_get(payload, *keys)
+    if value is None:
+        return default
+    if isinstance(value, bool):
+        return value
+    normalized = str(value).strip().lower()
+    if normalized in {"true", "1", "yes", "on"}:
+        return True
+    if normalized in {"false", "0", "no", "off", ""}:
+        return False
+    return default
+
+
+def _build_visual_model_routes(config: dict[str, Any]) -> dict[str, Any]:
+    image_model = _nested_get(config, "image_generation", "model")
+    general_video_model = _nested_get(config, "video_generation", "model")
+    portrait_detect_enabled = _config_flag(
+        config,
+        "portrait_detect",
+        "enabled",
+        default=False,
+    )
+    portrait_video_enabled = _config_flag(
+        config,
+        "portrait_video_generation",
+        "enabled",
+        default=False,
+    )
+    return {
+        "image_generation": {
+            "enabled": _config_flag(config, "image_generation", "enabled", default=True),
+            "model": image_model,
+            "role": "首帧 / 背景 / 人像底图补位",
+            "recommended_free_model": DEFAULT_GENERAL_IMAGE_MODEL,
+        },
+        "general_video_generation": {
+            "enabled": _config_flag(config, "video_generation", "enabled", default=True),
+            "model": general_video_model,
+            "role": "普通视频主线",
+            "recommended_free_model": DEFAULT_GENERAL_VIDEO_MODEL,
+        },
+        "portrait_detect": {
+            "enabled": portrait_detect_enabled,
+            "model": _nested_get(config, "portrait_detect", "model"),
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": DEFAULT_PORTRAIT_DETECT_MODEL,
+        },
+        "portrait_video_generation": {
+            "enabled": portrait_video_enabled,
+            "model": _nested_get(config, "portrait_video_generation", "model"),
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": DEFAULT_PORTRAIT_VIDEO_MODEL,
+            "requires": ["portrait_detect"],
+        },
+    }
+
+
 def _gate_known_issues(gate: dict[str, Any]) -> list[str]:
     issues: list[str] = []
     if gate["missing_prerequisites"]:
@@ -2284,6 +2465,15 @@ def _generation_next_action_hint(
         for item in ("image_generation_model", "video_generation_model")
     ):
         return "先补齐 image_generation.model / video_generation.model；图片 / 视频 API 仍在 generation 主链，不能只靠 visual plan 继续推进。"
+    if any(
+        item in gate.get("missing_prerequisites", [])
+        for item in (
+            "portrait_detect_enabled",
+            "portrait_detect_model",
+            "portrait_video_generation_model",
+        )
+    ):
+        return "若要走真人开口分支，先补齐 portrait_detect.enabled / portrait_detect.model / portrait_video_generation.model；liveportrait 必须先过 liveportrait-detect。"
     if gate["missing_prerequisites"]:
         if route_family == TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE:
             return "先补齐阿里百炼的 API Key、tts.model 和 voice，再进入真实 TTS probe。"
@@ -2297,9 +2487,11 @@ def _generation_next_action_hint(
         for item in (
             "image_generation_provider_implementation",
             "video_generation_provider_implementation",
+            "portrait_detect_provider_implementation",
+            "portrait_video_generation_provider_implementation",
         )
     ):
-        return "当前 TTS 已可真实成功，但图片 / 视频 provider implementation 尚未接入；下一步应先补真实 visual provider，而不是继续把 preview 当 generation success。"
+        return "当前免费优先模型路线已定：主线先接 wan2.6-image + wan2.6-t2v；若走真人开口，再补 liveportrait-detect + liveportrait。provider implementation 未接通前，不要继续把 preview 当 generation success。"
     if route_family == TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH and gate["missing_implementations"]:
         return "当前已拆出 doubao openspeech v3 family，但 provider implementation 尚未接入；下一步应补请求体与返回解析。"
     if (
@@ -3080,6 +3272,12 @@ def _visual_generation_known_issues(visual_generation: dict[str, Any]) -> list[s
             "cloud visual generation provider 尚未接入："
             + "、".join(cloud["missing_implementations"])
         )
+    portrait_detect = visual_generation.get("portrait_detect", {})
+    if portrait_detect.get("status") == STATUS_BLOCKED and portrait_detect.get("blocked_reason"):
+        issues.append("真人开口检测 blocked：" + portrait_detect["blocked_reason"])
+    portrait_video = visual_generation.get("portrait_video_generation", {})
+    if portrait_video.get("status") == STATUS_BLOCKED and portrait_video.get("blocked_reason"):
+        issues.append("真人开口视频 blocked：" + portrait_video["blocked_reason"])
     return issues
 
 

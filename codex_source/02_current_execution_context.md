@@ -89,6 +89,17 @@
 - visual plan / preview 只能算辅助产物，不得写成 generation success
 - local assembly 只负责拼接真实生成素材，不得替代图片 / 视频生成本身
 
+当前免费优先模型路线也已经明确：
+
+- 通用图像主线：`wan2.6-image`
+- 通用视频主线：`wan2.6-t2v`
+- 真人开口分支前置检测：`liveportrait-detect`
+- 真人开口生成分支：`liveportrait`
+- `wan2.6-image` 负责首帧 / 背景 / 人像底图补位
+- `wan2.6-t2v` 负责普通视频主线
+- `liveportrait` 只用于固定背景 / 人物开口分支，且必须先过 `liveportrait-detect`
+- 这组口径只代表免费优先模型路线已定，不代表 provider implementation 已完成
+
 ## 6. 当前 demo 身份
 
 当前 demo 的身份必须固定理解为：
