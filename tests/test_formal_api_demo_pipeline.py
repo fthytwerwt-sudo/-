@@ -114,8 +114,8 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
     def test_formal_case_voiceover_copy_stays_within_current_timeline_budget(self) -> None:
         spec = parse_formal_case_markdown(FORMAL_CASE_PATH)
         budget_by_segment = {
-            "seg01": 24,
-            "seg02": 32,
+            "seg01": 22,
+            "seg02": 29,
             "seg03": 23,
         }
 
