@@ -86,6 +86,8 @@
 - cloud assembly 属于后续增强项，不是当前硬前置
 - 当前允许本地生成 + 人工上传
 - 当前不把“只差平台 API”当项目成立前提
+- visual plan / preview 只能算辅助产物，不得写成 generation success
+- local assembly 只负责拼接真实生成素材，不得替代图片 / 视频生成本身
 
 ## 6. 当前 demo 身份
 

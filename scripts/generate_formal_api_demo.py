@@ -21,7 +21,7 @@ from formal_api_demo_core import (  # noqa: E402
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="正式版 API 视频 demo 生成入口。当前默认走本地优先链路：TTS probe、整段配音、字幕和视觉计划；cloud visual generation 仅作为可选增强项记录。"
+        description="正式版 API 视频 demo 生成入口。当前正式主线要求 generation 同时包含配音 API 与图片/视频 API；若 visual provider 尚未真实接通，则 generation 必须诚实 blocked。visual plan / preview storyboard 仅是辅助产物，不代表 generation success。"
     )
     parser.add_argument("--input", type=pathlib.Path, default=FORMAL_CASE_PATH)
     parser.add_argument(
