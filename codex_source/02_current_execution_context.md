@@ -101,9 +101,11 @@
 - 当前普通图片 / 视频主线 provider implementation 已接入：
   - `wan2.6-image` 会真实创建阿里异步任务、轮询并下载图片到本地 `dist`
   - `wan2.6-t2v` 会真实创建阿里异步任务、轮询并下载视频到本地 `dist`
-- 真人开口分支仍只保留路线与语义：
-  - `liveportrait-detect -> liveportrait` 仍未接入真实 provider implementation
-  - 当前必须继续诚实 `blocked`
+- 真人开口分支已推进到 provider implementation round1：
+  - 已补 `liveportrait-detect -> liveportrait` 的官方契约核对、create / poll / download / 写回代码路径
+  - 已补 success / fail / timeout / 本地结果缺失测试
+  - 但当前 worktree 缺少 `config/formal_api_demo.local.toml`，尚未完成带真实 API Key 的线上实调
+  - 因此当前正式口径仍不得直接写成真人开口分支 `success`
 
 ## 5A. 当前主读取分支与事实回流口径
 

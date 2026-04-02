@@ -4,6 +4,7 @@ import pathlib
 import tempfile
 import unittest
 import urllib.error
+import urllib.parse
 import subprocess
 from typing import Optional, Set
 from unittest import mock
@@ -17,7 +18,9 @@ from formal_api_demo_core import (
     STATUS_BLOCKED,
     STATUS_FAILED,
     STATUS_PLANNED,
+    STATUS_SKIPPED,
     STATUS_SUCCESS,
+    concatenate_audio_files,
     parse_formal_case_markdown,
     run_aliyun_tts_style_probe_round2,
     run_aliyun_tts_style_probe_variants,
@@ -27,6 +30,34 @@ from formal_api_demo_core import (
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+
+
+class _JsonResponse:
+    def __init__(self, payload: dict[str, object]) -> None:
+        self._payload = payload
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc, tb):
+        return False
+
+    def read(self) -> bytes:
+        return json.dumps(self._payload).encode("utf-8")
+
+
+class _BinaryResponse:
+    def __init__(self, payload: bytes = b"fake-binary-asset") -> None:
+        self._payload = payload
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc, tb):
+        return False
+
+    def read(self) -> bytes:
+        return self._payload
 
 
 class FormalApiDemoPipelineTests(unittest.TestCase):
@@ -197,6 +228,24 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             + "\n",
             encoding="utf-8",
         )
+
+    def test_concatenate_audio_files_falls_back_to_raw_merge_when_ffmpeg_is_unavailable(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_concat_no_ffmpeg_") as temp_dir:
+            temp_path = pathlib.Path(temp_dir)
+            first = temp_path / "seg01.mp3"
+            second = temp_path / "seg02.mp3"
+            output = temp_path / "merged.mp3"
+            first.write_bytes(b"segment-one")
+            second.write_bytes(b"segment-two")
+
+            with mock.patch(
+                "formal_api_demo_core.resolve_ffmpeg_binary",
+                side_effect=RuntimeError("missing ffmpeg"),
+            ):
+                concatenate_audio_files([first, second], output)
+
+            self.assertTrue(output.exists())
+            self.assertEqual(output.read_bytes(), b"segment-onesegment-two")
 
     def test_parse_formal_case_markdown_reads_core_fields(self) -> None:
         spec = parse_formal_case_markdown(FORMAL_CASE_PATH)
@@ -1280,8 +1329,22 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             self.assertEqual(manifest["current_status"], STATUS_FAILED)
             self.assertIn("video_download_failed", result["failure_reason"])
 
-    def test_generate_non_dry_run_keeps_liveportrait_branch_honestly_blocked(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="formal_liveportrait_blocked_") as temp_dir:
+    @staticmethod
+    def _liveportrait_upload_policy_payload() -> dict[str, object]:
+        return {
+            "data": {
+                "upload_host": "https://dashscope-file-example.oss-cn-beijing.aliyuncs.com",
+                "upload_dir": "dashscope-instant/test-dir",
+                "policy": "test-policy",
+                "signature": "test-signature",
+                "oss_access_key_id": "LTA-test",
+                "x_oss_object_acl": "private",
+                "x_oss_forbid_overwrite": "true",
+            }
+        }
+
+    def test_generate_non_dry_run_liveportrait_branch_downloads_local_video_when_detect_passes(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_liveportrait_success_") as temp_dir:
             output_dir = pathlib.Path(temp_dir) / "dist"
             local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
             self._write_local_config(
@@ -1297,30 +1360,219 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 portrait_video_generation_enabled=True,
             )
 
-            def fake_probe(*_args, **kwargs):
-                output_stem = kwargs.get("output_stem", "voice_probe")
-                audio_path = output_dir / "tts" / f"{output_stem}.mp3"
-                audio_path.parent.mkdir(parents=True, exist_ok=True)
-                audio_path.write_bytes(f"fake-{output_stem}".encode("utf-8"))
-                return {
-                    "status": STATUS_SUCCESS,
-                    "blocked_reason": "",
-                    "failure_reason": "",
-                    "error_code": "",
-                    "error_message": "",
-                    "audio_path": str(audio_path),
-                    "request_id": f"req_{output_stem}",
-                    "model_identifier": "cosyvoice-v3-flash",
-                    "probe_text": "测试配音",
-                    "voice": "longxiaochun",
-                    "used_model_id": "cosyvoice-v3-flash",
-                    "request_debug": {
-                        "provider": "aliyun_bailian",
-                        "api_route_family": "aliyun_bailian_cosyvoice",
-                    },
-                }
+            image_task_counter = 0
+            upload_models: list[str] = []
+            called_urls: list[str] = []
 
-            with mock.patch("formal_api_demo_core.execute_tts_probe", side_effect=fake_probe), mock.patch(
+            def fake_urlopen(request, timeout=60):
+                del timeout
+                url = request.full_url
+                called_urls.append(url)
+                if url.endswith("/services/aigc/image-generation/generation"):
+                    nonlocal image_task_counter
+                    image_task_counter += 1
+                    return _JsonResponse(
+                        {
+                            "request_id": f"image_req_{image_task_counter}",
+                            "output": {
+                                "task_id": f"img_task_{image_task_counter}",
+                                "task_status": "PENDING",
+                            },
+                        }
+                    )
+                if "/api/v1/tasks/img_task_" in url:
+                    task_id = url.rsplit("/", 1)[-1]
+                    return _JsonResponse(
+                        {
+                            "request_id": f"{task_id}_poll_req",
+                            "output": {
+                                "task_id": task_id,
+                                "task_status": "SUCCEEDED",
+                                "choices": [
+                                    {
+                                        "message": {
+                                            "content": [
+                                                {
+                                                    "type": "image",
+                                                    "image": f"https://dashscope-result.example.com/{task_id}.png",
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ],
+                            },
+                        }
+                    )
+                if url.startswith("https://dashscope.aliyuncs.com/api/v1/uploads"):
+                    query = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)
+                    upload_models.append(query["model"][0])
+                    return _JsonResponse(self._liveportrait_upload_policy_payload())
+                if url.startswith("https://dashscope-file-example.oss-cn-beijing.aliyuncs.com"):
+                    return _BinaryResponse(b"")
+                if url.endswith("/services/aigc/image2video/face-detect"):
+                    self.assertEqual(
+                        request.headers.get("X-DashScope-OssResourceResolve"),
+                        "enable",
+                    )
+                    return _JsonResponse(
+                        {
+                            "output": {"pass": True, "message": ""},
+                            "request_id": "portrait_detect_req",
+                        }
+                    )
+                if url.endswith("/services/aigc/image2video/video-synthesis/"):
+                    payload = json.loads(request.data.decode("utf-8"))
+                    self.assertTrue(payload["input"]["image_url"].startswith("oss://"))
+                    self.assertTrue(payload["input"]["audio_url"].startswith("oss://"))
+                    self.assertEqual(
+                        request.headers.get("X-DashScope-OssResourceResolve"),
+                        "enable",
+                    )
+                    return _JsonResponse(
+                        {
+                            "output": {
+                                "task_id": "portrait_task_1",
+                                "task_status": "PENDING",
+                            },
+                            "request_id": "portrait_video_req",
+                        }
+                    )
+                if url.endswith("/api/v1/tasks/portrait_task_1"):
+                    return _JsonResponse(
+                        {
+                            "request_id": "portrait_poll_req",
+                            "output": {
+                                "task_id": "portrait_task_1",
+                                "task_status": "SUCCEEDED",
+                                "results": {
+                                    "video_url": "https://dashscope-result.example.com/portrait_seg02.mp4"
+                                },
+                            },
+                        }
+                    )
+                if url.endswith(".png"):
+                    return _BinaryResponse(b"fake-image")
+                if url.endswith("portrait_seg02.mp4"):
+                    return _BinaryResponse(b"fake-portrait-video")
+                raise AssertionError(f"unexpected url: {url}")
+
+            with mock.patch("formal_api_demo_core.urllib.request.urlopen", side_effect=fake_urlopen), mock.patch(
+                "formal_api_demo_core.execute_tts_probe",
+                side_effect=self._build_fake_probe(output_dir, voice="longxiaochun"),
+            ), mock.patch(
+                "formal_api_demo_core.concatenate_audio_files",
+                side_effect=self._fake_concatenate_audio_files,
+            ):
+                result = run_generation_pipeline(
+                    input_path=FORMAL_CASE_PATH,
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                    dry_run=False,
+                )
+
+            manifest = json.loads((output_dir / "manifest.json").read_text(encoding="utf-8"))
+            visual_generation = manifest["generation"]["visual_generation"]
+            seg02 = visual_generation["segment_assets"][1]
+            self.assertEqual(result["generation_status"], STATUS_SUCCESS)
+            self.assertEqual(visual_generation["portrait_detect"]["status"], STATUS_SUCCESS)
+            self.assertEqual(
+                visual_generation["portrait_video_generation"]["status"],
+                STATUS_SUCCESS,
+            )
+            self.assertEqual(
+                visual_generation["general_video_generation"]["status"],
+                STATUS_SKIPPED,
+            )
+            self.assertEqual(manifest["segments"][1]["task_slots"]["video_task_id"], "portrait_task_1")
+            self.assertTrue(pathlib.Path(seg02["video_asset_path"]).exists())
+            self.assertEqual(pathlib.Path(seg02["video_asset_path"]).read_bytes(), b"fake-portrait-video")
+            self.assertNotIn(
+                "https://dashscope.aliyuncs.com/api/v1/services/aigc/video-generation/video-synthesis",
+                called_urls,
+            )
+            self.assertIn("liveportrait-detect", upload_models)
+            self.assertEqual(upload_models.count("liveportrait"), 2)
+
+    def test_generate_non_dry_run_liveportrait_blocks_when_detect_rejects_image(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_liveportrait_detect_fail_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                provider_name="aliyun_bailian",
+                route_family="aliyun_bailian_cosyvoice",
+                api_key="dashscope_test_key",
+                model="cosyvoice-v3-flash",
+                voice="longxiaochun",
+                image_model="wan2.6-image",
+                video_model="wan2.6-t2v",
+                portrait_detect_enabled=True,
+                portrait_video_generation_enabled=True,
+            )
+
+            image_task_counter = 0
+
+            def fake_urlopen(request, timeout=60):
+                del timeout
+                url = request.full_url
+                if url.endswith("/services/aigc/image-generation/generation"):
+                    nonlocal image_task_counter
+                    image_task_counter += 1
+                    return _JsonResponse(
+                        {
+                            "request_id": f"image_req_{image_task_counter}",
+                            "output": {
+                                "task_id": f"img_task_{image_task_counter}",
+                                "task_status": "PENDING",
+                            },
+                        }
+                    )
+                if "/api/v1/tasks/img_task_" in url:
+                    task_id = url.rsplit("/", 1)[-1]
+                    return _JsonResponse(
+                        {
+                            "request_id": f"{task_id}_poll_req",
+                            "output": {
+                                "task_id": task_id,
+                                "task_status": "SUCCEEDED",
+                                "choices": [
+                                    {
+                                        "message": {
+                                            "content": [
+                                                {
+                                                    "type": "image",
+                                                    "image": f"https://dashscope-result.example.com/{task_id}.png",
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ],
+                            },
+                        }
+                    )
+                if url.startswith("https://dashscope.aliyuncs.com/api/v1/uploads"):
+                    return _JsonResponse(self._liveportrait_upload_policy_payload())
+                if url.startswith("https://dashscope-file-example.oss-cn-beijing.aliyuncs.com"):
+                    return _BinaryResponse(b"")
+                if url.endswith("/services/aigc/image2video/face-detect"):
+                    return _JsonResponse(
+                        {
+                            "output": {
+                                "pass": False,
+                                "message": "No human face detected.",
+                            },
+                            "request_id": "portrait_detect_req",
+                        }
+                    )
+                if url.endswith(".png"):
+                    return _BinaryResponse(b"fake-image")
+                raise AssertionError(f"unexpected url: {url}")
+
+            with mock.patch("formal_api_demo_core.urllib.request.urlopen", side_effect=fake_urlopen), mock.patch(
+                "formal_api_demo_core.execute_tts_probe",
+                side_effect=self._build_fake_probe(output_dir, voice="longxiaochun"),
+            ), mock.patch(
                 "formal_api_demo_core.concatenate_audio_files",
                 side_effect=self._fake_concatenate_audio_files,
             ):
@@ -1334,17 +1586,471 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
 
             manifest = json.loads((output_dir / "manifest.json").read_text(encoding="utf-8"))
             self.assertEqual(result["generation_status"], STATUS_BLOCKED)
-            self.assertIn(
-                "portrait_detect_provider_implementation",
-                result["current_missing_implementations"],
-            )
+            self.assertIn("No human face detected", result["blocked_reason"])
             self.assertEqual(
                 manifest["generation"]["visual_generation"]["portrait_detect"]["status"],
                 STATUS_BLOCKED,
             )
+            self.assertNotEqual(
+                manifest["generation"]["visual_generation"]["portrait_video_generation"]["status"],
+                STATUS_SUCCESS,
+            )
+
+    def test_generate_non_dry_run_liveportrait_blocks_when_detect_times_out(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_liveportrait_detect_timeout_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                provider_name="aliyun_bailian",
+                route_family="aliyun_bailian_cosyvoice",
+                api_key="dashscope_test_key",
+                model="cosyvoice-v3-flash",
+                voice="longxiaochun",
+                image_model="wan2.6-image",
+                video_model="wan2.6-t2v",
+                portrait_detect_enabled=True,
+                portrait_video_generation_enabled=True,
+            )
+
+            image_task_counter = 0
+
+            def fake_urlopen(request, timeout=60):
+                del timeout
+                url = request.full_url
+                if url.endswith("/services/aigc/image-generation/generation"):
+                    nonlocal image_task_counter
+                    image_task_counter += 1
+                    return _JsonResponse(
+                        {
+                            "request_id": f"image_req_{image_task_counter}",
+                            "output": {
+                                "task_id": f"img_task_{image_task_counter}",
+                                "task_status": "PENDING",
+                            },
+                        }
+                    )
+                if "/api/v1/tasks/img_task_" in url:
+                    task_id = url.rsplit("/", 1)[-1]
+                    return _JsonResponse(
+                        {
+                            "request_id": f"{task_id}_poll_req",
+                            "output": {
+                                "task_id": task_id,
+                                "task_status": "SUCCEEDED",
+                                "choices": [
+                                    {
+                                        "message": {
+                                            "content": [
+                                                {
+                                                    "type": "image",
+                                                    "image": f"https://dashscope-result.example.com/{task_id}.png",
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ],
+                            },
+                        }
+                    )
+                if url.startswith("https://dashscope.aliyuncs.com/api/v1/uploads"):
+                    return _JsonResponse(self._liveportrait_upload_policy_payload())
+                if url.startswith("https://dashscope-file-example.oss-cn-beijing.aliyuncs.com"):
+                    return _BinaryResponse(b"")
+                if url.endswith("/services/aigc/image2video/face-detect"):
+                    raise urllib.error.URLError("timed out")
+                if url.endswith(".png"):
+                    return _BinaryResponse(b"fake-image")
+                raise AssertionError(f"unexpected url: {url}")
+
+            with mock.patch("formal_api_demo_core.urllib.request.urlopen", side_effect=fake_urlopen), mock.patch(
+                "formal_api_demo_core.execute_tts_probe",
+                side_effect=self._build_fake_probe(output_dir, voice="longxiaochun"),
+            ), mock.patch(
+                "formal_api_demo_core.concatenate_audio_files",
+                side_effect=self._fake_concatenate_audio_files,
+            ):
+                result = run_generation_pipeline(
+                    input_path=FORMAL_CASE_PATH,
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                    dry_run=False,
+                )
+
+            manifest = json.loads((output_dir / "manifest.json").read_text(encoding="utf-8"))
+            self.assertEqual(result["generation_status"], STATUS_BLOCKED)
+            self.assertIn("timeout", result["blocked_reason"])
+            self.assertEqual(
+                manifest["generation"]["visual_generation"]["portrait_detect"]["status"],
+                STATUS_BLOCKED,
+            )
+            self.assertNotEqual(
+                manifest["generation"]["visual_generation"]["portrait_video_generation"]["status"],
+                STATUS_SUCCESS,
+            )
+
+    def test_generate_non_dry_run_liveportrait_marks_failed_when_remote_task_fails(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_liveportrait_task_failed_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                provider_name="aliyun_bailian",
+                route_family="aliyun_bailian_cosyvoice",
+                api_key="dashscope_test_key",
+                model="cosyvoice-v3-flash",
+                voice="longxiaochun",
+                image_model="wan2.6-image",
+                video_model="wan2.6-t2v",
+                portrait_detect_enabled=True,
+                portrait_video_generation_enabled=True,
+            )
+
+            image_task_counter = 0
+
+            def fake_urlopen(request, timeout=60):
+                del timeout
+                url = request.full_url
+                if url.endswith("/services/aigc/image-generation/generation"):
+                    nonlocal image_task_counter
+                    image_task_counter += 1
+                    return _JsonResponse(
+                        {
+                            "request_id": f"image_req_{image_task_counter}",
+                            "output": {
+                                "task_id": f"img_task_{image_task_counter}",
+                                "task_status": "PENDING",
+                            },
+                        }
+                    )
+                if "/api/v1/tasks/img_task_" in url:
+                    task_id = url.rsplit("/", 1)[-1]
+                    return _JsonResponse(
+                        {
+                            "request_id": f"{task_id}_poll_req",
+                            "output": {
+                                "task_id": task_id,
+                                "task_status": "SUCCEEDED",
+                                "choices": [
+                                    {
+                                        "message": {
+                                            "content": [
+                                                {
+                                                    "type": "image",
+                                                    "image": f"https://dashscope-result.example.com/{task_id}.png",
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ],
+                            },
+                        }
+                    )
+                if url.startswith("https://dashscope.aliyuncs.com/api/v1/uploads"):
+                    return _JsonResponse(self._liveportrait_upload_policy_payload())
+                if url.startswith("https://dashscope-file-example.oss-cn-beijing.aliyuncs.com"):
+                    return _BinaryResponse(b"")
+                if url.endswith("/services/aigc/image2video/face-detect"):
+                    return _JsonResponse(
+                        {
+                            "output": {"pass": True, "message": ""},
+                            "request_id": "portrait_detect_req",
+                        }
+                    )
+                if url.endswith("/services/aigc/image2video/video-synthesis/"):
+                    return _JsonResponse(
+                        {
+                            "output": {
+                                "task_id": "portrait_task_fail",
+                                "task_status": "PENDING",
+                            },
+                            "request_id": "portrait_video_req",
+                        }
+                    )
+                if url.endswith("/api/v1/tasks/portrait_task_fail"):
+                    return _JsonResponse(
+                        {
+                            "request_id": "portrait_poll_req",
+                            "output": {
+                                "task_id": "portrait_task_fail",
+                                "task_status": "FAILED",
+                                "message": "portrait generation failed",
+                            },
+                        }
+                    )
+                if url.endswith(".png"):
+                    return _BinaryResponse(b"fake-image")
+                raise AssertionError(f"unexpected url: {url}")
+
+            with mock.patch("formal_api_demo_core.urllib.request.urlopen", side_effect=fake_urlopen), mock.patch(
+                "formal_api_demo_core.execute_tts_probe",
+                side_effect=self._build_fake_probe(output_dir, voice="longxiaochun"),
+            ), mock.patch(
+                "formal_api_demo_core.concatenate_audio_files",
+                side_effect=self._fake_concatenate_audio_files,
+            ):
+                result = run_generation_pipeline(
+                    input_path=FORMAL_CASE_PATH,
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                    dry_run=False,
+                )
+
+            manifest = json.loads((output_dir / "manifest.json").read_text(encoding="utf-8"))
+            self.assertEqual(result["generation_status"], STATUS_FAILED)
+            self.assertIn("portrait", result["failure_reason"])
+            self.assertEqual(
+                manifest["generation"]["visual_generation"]["portrait_video_generation"]["status"],
+                STATUS_FAILED,
+            )
+
+    def test_generate_non_dry_run_liveportrait_blocks_when_task_poll_times_out(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_liveportrait_task_timeout_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                provider_name="aliyun_bailian",
+                route_family="aliyun_bailian_cosyvoice",
+                api_key="dashscope_test_key",
+                model="cosyvoice-v3-flash",
+                voice="longxiaochun",
+                image_model="wan2.6-image",
+                video_model="wan2.6-t2v",
+                portrait_detect_enabled=True,
+                portrait_video_generation_enabled=True,
+                polling_interval_seconds=0,
+                polling_timeout_seconds=0,
+            )
+
+            image_task_counter = 0
+
+            def fake_urlopen(request, timeout=60):
+                del timeout
+                url = request.full_url
+                if url.endswith("/services/aigc/image-generation/generation"):
+                    nonlocal image_task_counter
+                    image_task_counter += 1
+                    return _JsonResponse(
+                        {
+                            "request_id": f"image_req_{image_task_counter}",
+                            "output": {
+                                "task_id": f"img_task_{image_task_counter}",
+                                "task_status": "PENDING",
+                            },
+                        }
+                    )
+                if "/api/v1/tasks/img_task_" in url:
+                    task_id = url.rsplit("/", 1)[-1]
+                    return _JsonResponse(
+                        {
+                            "request_id": f"{task_id}_poll_req",
+                            "output": {
+                                "task_id": task_id,
+                                "task_status": "SUCCEEDED",
+                                "choices": [
+                                    {
+                                        "message": {
+                                            "content": [
+                                                {
+                                                    "type": "image",
+                                                    "image": f"https://dashscope-result.example.com/{task_id}.png",
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ],
+                            },
+                        }
+                    )
+                if url.startswith("https://dashscope.aliyuncs.com/api/v1/uploads"):
+                    return _JsonResponse(self._liveportrait_upload_policy_payload())
+                if url.startswith("https://dashscope-file-example.oss-cn-beijing.aliyuncs.com"):
+                    return _BinaryResponse(b"")
+                if url.endswith("/services/aigc/image2video/face-detect"):
+                    return _JsonResponse(
+                        {
+                            "output": {"pass": True, "message": ""},
+                            "request_id": "portrait_detect_req",
+                        }
+                    )
+                if url.endswith("/services/aigc/image2video/video-synthesis/"):
+                    return _JsonResponse(
+                        {
+                            "output": {
+                                "task_id": "portrait_task_timeout",
+                                "task_status": "PENDING",
+                            },
+                            "request_id": "portrait_video_req",
+                        }
+                    )
+                if url.endswith("/api/v1/tasks/portrait_task_timeout"):
+                    return _JsonResponse(
+                        {
+                            "request_id": "portrait_poll_req",
+                            "output": {
+                                "task_id": "portrait_task_timeout",
+                                "task_status": "RUNNING",
+                            },
+                        }
+                    )
+                if url.endswith(".png"):
+                    return _BinaryResponse(b"fake-image")
+                raise AssertionError(f"unexpected url: {url}")
+
+            with mock.patch("formal_api_demo_core.urllib.request.urlopen", side_effect=fake_urlopen), mock.patch(
+                "formal_api_demo_core.execute_tts_probe",
+                side_effect=self._build_fake_probe(output_dir, voice="longxiaochun"),
+            ), mock.patch(
+                "formal_api_demo_core.concatenate_audio_files",
+                side_effect=self._fake_concatenate_audio_files,
+            ), mock.patch("time.sleep", return_value=None):
+                result = run_generation_pipeline(
+                    input_path=FORMAL_CASE_PATH,
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                    dry_run=False,
+                )
+
+            manifest = json.loads((output_dir / "manifest.json").read_text(encoding="utf-8"))
+            self.assertEqual(result["generation_status"], STATUS_BLOCKED)
+            self.assertIn("timeout", result["blocked_reason"])
             self.assertEqual(
                 manifest["generation"]["visual_generation"]["portrait_video_generation"]["status"],
                 STATUS_BLOCKED,
+            )
+
+    def test_generate_non_dry_run_liveportrait_marks_failed_when_local_video_file_is_missing(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_liveportrait_local_missing_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                provider_name="aliyun_bailian",
+                route_family="aliyun_bailian_cosyvoice",
+                api_key="dashscope_test_key",
+                model="cosyvoice-v3-flash",
+                voice="longxiaochun",
+                image_model="wan2.6-image",
+                video_model="wan2.6-t2v",
+                portrait_detect_enabled=True,
+                portrait_video_generation_enabled=True,
+            )
+
+            image_task_counter = 0
+
+            def fake_urlopen(request, timeout=60):
+                del timeout
+                url = request.full_url
+                if url.endswith("/services/aigc/image-generation/generation"):
+                    nonlocal image_task_counter
+                    image_task_counter += 1
+                    return _JsonResponse(
+                        {
+                            "request_id": f"image_req_{image_task_counter}",
+                            "output": {
+                                "task_id": f"img_task_{image_task_counter}",
+                                "task_status": "PENDING",
+                            },
+                        }
+                    )
+                if "/api/v1/tasks/img_task_" in url:
+                    task_id = url.rsplit("/", 1)[-1]
+                    return _JsonResponse(
+                        {
+                            "request_id": f"{task_id}_poll_req",
+                            "output": {
+                                "task_id": task_id,
+                                "task_status": "SUCCEEDED",
+                                "choices": [
+                                    {
+                                        "message": {
+                                            "content": [
+                                                {
+                                                    "type": "image",
+                                                    "image": f"https://dashscope-result.example.com/{task_id}.png",
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ],
+                            },
+                        }
+                    )
+                if url.startswith("https://dashscope.aliyuncs.com/api/v1/uploads"):
+                    return _JsonResponse(self._liveportrait_upload_policy_payload())
+                if url.startswith("https://dashscope-file-example.oss-cn-beijing.aliyuncs.com"):
+                    return _BinaryResponse(b"")
+                if url.endswith("/services/aigc/image2video/face-detect"):
+                    return _JsonResponse(
+                        {
+                            "output": {"pass": True, "message": ""},
+                            "request_id": "portrait_detect_req",
+                        }
+                    )
+                if url.endswith("/services/aigc/image2video/video-synthesis/"):
+                    return _JsonResponse(
+                        {
+                            "output": {
+                                "task_id": "portrait_task_missing_file",
+                                "task_status": "PENDING",
+                            },
+                            "request_id": "portrait_video_req",
+                        }
+                    )
+                if url.endswith("/api/v1/tasks/portrait_task_missing_file"):
+                    return _JsonResponse(
+                        {
+                            "request_id": "portrait_poll_req",
+                            "output": {
+                                "task_id": "portrait_task_missing_file",
+                                "task_status": "SUCCEEDED",
+                                "results": {
+                                    "video_url": "https://dashscope-result.example.com/portrait_missing.mp4"
+                                },
+                            },
+                        }
+                    )
+                if url.endswith(".png"):
+                    return _BinaryResponse(b"fake-image")
+                raise AssertionError(f"unexpected url: {url}")
+
+            def fake_download(url, destination, **_kwargs):
+                if url.endswith(".png"):
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    destination.write_bytes(b"fake-image")
+                    return
+                if url.endswith("portrait_missing.mp4"):
+                    return
+                raise AssertionError(f"unexpected download url: {url}")
+
+            with mock.patch("formal_api_demo_core.urllib.request.urlopen", side_effect=fake_urlopen), mock.patch(
+                "formal_api_demo_core._download_binary_file",
+                side_effect=fake_download,
+            ), mock.patch(
+                "formal_api_demo_core.execute_tts_probe",
+                side_effect=self._build_fake_probe(output_dir, voice="longxiaochun"),
+            ), mock.patch(
+                "formal_api_demo_core.concatenate_audio_files",
+                side_effect=self._fake_concatenate_audio_files,
+            ):
+                result = run_generation_pipeline(
+                    input_path=FORMAL_CASE_PATH,
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                    dry_run=False,
+                )
+
+            manifest = json.loads((output_dir / "manifest.json").read_text(encoding="utf-8"))
+            self.assertEqual(result["generation_status"], STATUS_FAILED)
+            self.assertIn("local_file_missing", result["failure_reason"])
+            self.assertEqual(
+                manifest["generation"]["visual_generation"]["portrait_video_generation"]["status"],
+                STATUS_FAILED,
             )
 
     def test_generate_non_dry_run_aliyun_bailian_marks_failed_when_remote_returns_403(self) -> None:
