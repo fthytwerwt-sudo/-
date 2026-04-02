@@ -4,6 +4,8 @@ import pathlib
 import tempfile
 import unittest
 import urllib.error
+import subprocess
+from typing import Optional, Set
 from unittest import mock
 
 import httpx
@@ -32,6 +34,83 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
     def _fake_concatenate_audio_files(_input_paths, output_path) -> None:
         pathlib.Path(output_path).parent.mkdir(parents=True, exist_ok=True)
         pathlib.Path(output_path).write_bytes(b"fake-merged-mp3")
+
+    @staticmethod
+    def _build_fake_probe(output_dir: pathlib.Path, voice: str = "longanyang"):
+        def fake_probe(*_args, **kwargs):
+            stem = kwargs.get("output_stem", "voice_probe")
+            audio_path = output_dir / "tts" / f"{stem}.mp3"
+            audio_path.parent.mkdir(parents=True, exist_ok=True)
+            audio_path.write_bytes(b"fake-mp3")
+            return {
+                "status": STATUS_SUCCESS,
+                "blocked_reason": "",
+                "failure_reason": "",
+                "error_code": "",
+                "error_message": "",
+                "audio_path": str(audio_path),
+                "request_id": f"req_{stem}",
+                "model_identifier": "cosyvoice-v3-flash",
+                "probe_text": "测试配音",
+                "voice": voice,
+                "used_model_id": "cosyvoice-v3-flash",
+            }
+
+        return fake_probe
+
+    @staticmethod
+    def _mark_manifest_visual_assets_ready(
+        manifest_path: pathlib.Path,
+        output_dir: pathlib.Path,
+        *,
+        missing_segment_ids: Optional[Set[str]] = None,
+    ) -> dict:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        manifest["generation"]["status"] = STATUS_SUCCESS
+        manifest["current_status"] = STATUS_SUCCESS
+        manifest["status_summary"]["generation"] = STATUS_SUCCESS
+        manifest["status_summary"]["overall_status"] = STATUS_SUCCESS
+        manifest["generation"]["visual_generation"]["status"] = STATUS_SUCCESS
+        manifest["generation"]["visual_generation"]["blocked_reason"] = ""
+        manifest["generation"]["visual_generation"]["current_missing_prerequisites"] = []
+        manifest["generation"]["visual_generation"]["missing_implementations"] = []
+        manifest["generation"]["visual_generation"]["cloud"]["status"] = STATUS_SUCCESS
+        manifest["generation"]["visual_generation"]["cloud"]["blocked_reason"] = ""
+        manifest["generation"]["visual_generation"]["cloud"]["missing_prerequisites"] = []
+        manifest["generation"]["visual_generation"]["cloud"]["missing_implementations"] = []
+
+        missing_segment_ids = missing_segment_ids or set()
+        for index, segment in enumerate(manifest["segments"], start=1):
+            segment_id = segment["segment_id"]
+            if segment_id in missing_segment_ids:
+                segment["output_slots"]["visual_uri"] = None
+                manifest["generation"]["visual_generation"]["segment_assets"][index - 1]["image_asset_path"] = None
+                manifest["generation"]["visual_generation"]["segment_assets"][index - 1]["video_asset_path"] = None
+                manifest["generation"]["visual_generation"]["segment_assets"][index - 1]["status"] = STATUS_SUCCESS
+                continue
+
+            suffix = ".mp4" if segment["material_requirements"]["needs_video"] else ".png"
+            visual_path = output_dir / "visual_assets" / f"{segment_id}{suffix}"
+            visual_path.parent.mkdir(parents=True, exist_ok=True)
+            visual_path.write_bytes(b"fake-visual")
+            segment["output_slots"]["visual_uri"] = str(visual_path)
+            if suffix == ".mp4":
+                manifest["generation"]["visual_generation"]["segment_assets"][index - 1]["video_asset_path"] = str(
+                    visual_path
+                )
+                manifest["generation"]["visual_generation"]["segment_assets"][index - 1]["image_asset_path"] = None
+            else:
+                manifest["generation"]["visual_generation"]["segment_assets"][index - 1]["image_asset_path"] = str(
+                    visual_path
+                )
+                manifest["generation"]["visual_generation"]["segment_assets"][index - 1]["video_asset_path"] = None
+            manifest["generation"]["visual_generation"]["segment_assets"][index - 1]["status"] = STATUS_SUCCESS
+
+        manifest_path.write_text(
+            json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        return manifest
 
     def _write_local_config(
         self,
@@ -252,26 +331,10 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 video_model="wan2.6-t2v",
             )
 
-            def fake_probe(*_args, **kwargs):
-                stem = kwargs.get("output_stem", "voice_probe")
-                audio_path = output_dir / "tts" / f"{stem}.mp3"
-                audio_path.parent.mkdir(parents=True, exist_ok=True)
-                audio_path.write_bytes(b"fake-mp3")
-                return {
-                    "status": STATUS_SUCCESS,
-                    "blocked_reason": "",
-                    "failure_reason": "",
-                    "error_code": "",
-                    "error_message": "",
-                    "audio_path": str(audio_path),
-                    "request_id": f"req_{stem}",
-                    "model_identifier": "cosyvoice-v3-flash",
-                    "probe_text": "测试配音",
-                    "voice": "longanyang",
-                    "used_model_id": "cosyvoice-v3-flash",
-                }
-
-            with mock.patch("formal_api_demo_core.execute_tts_probe", side_effect=fake_probe), mock.patch(
+            with mock.patch(
+                "formal_api_demo_core.execute_tts_probe",
+                side_effect=self._build_fake_probe(output_dir),
+            ), mock.patch(
                 "formal_api_demo_core.concatenate_audio_files",
                 side_effect=self._fake_concatenate_audio_files,
             ):
@@ -326,8 +389,8 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             self.assertNotIn("badge", first_slide)
             self.assertNotIn("footer", first_slide)
 
-    def test_assemble_non_dry_run_surfaces_local_assembly_implementation_gap_even_when_visual_assets_ready(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="formal_local_impl_gap_") as temp_dir:
+    def test_assemble_non_dry_run_outputs_formal_local_mp4_when_visual_assets_ready(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_local_success_") as temp_dir:
             output_dir = pathlib.Path(temp_dir) / "dist"
             local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
             self._write_local_config(
@@ -341,26 +404,10 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 video_model="wanx2.1-video",
             )
 
-            def fake_probe(*_args, **kwargs):
-                stem = kwargs.get("output_stem", "voice_probe")
-                audio_path = output_dir / "tts" / f"{stem}.mp3"
-                audio_path.parent.mkdir(parents=True, exist_ok=True)
-                audio_path.write_bytes(b"fake-mp3")
-                return {
-                    "status": STATUS_SUCCESS,
-                    "blocked_reason": "",
-                    "failure_reason": "",
-                    "error_code": "",
-                    "error_message": "",
-                    "audio_path": str(audio_path),
-                    "request_id": f"req_{stem}",
-                    "model_identifier": "cosyvoice-v3-flash",
-                    "probe_text": "测试配音",
-                    "voice": "longanyang",
-                    "used_model_id": "cosyvoice-v3-flash",
-                }
-
-            with mock.patch("formal_api_demo_core.execute_tts_probe", side_effect=fake_probe), mock.patch(
+            with mock.patch(
+                "formal_api_demo_core.execute_tts_probe",
+                side_effect=self._build_fake_probe(output_dir),
+            ), mock.patch(
                 "formal_api_demo_core.concatenate_audio_files",
                 side_effect=self._fake_concatenate_audio_files,
             ):
@@ -373,43 +420,105 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 )
 
             manifest_path = output_dir / "manifest.json"
-            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-            manifest["generation"]["status"] = STATUS_SUCCESS
-            manifest["current_status"] = STATUS_SUCCESS
-            manifest["status_summary"]["generation"] = STATUS_SUCCESS
-            manifest["status_summary"]["overall_status"] = STATUS_SUCCESS
-            manifest["generation"]["visual_generation"]["status"] = STATUS_SUCCESS
-            manifest["generation"]["visual_generation"]["blocked_reason"] = ""
-            manifest["generation"]["visual_generation"]["current_missing_prerequisites"] = []
-            manifest["generation"]["visual_generation"]["missing_implementations"] = []
-            manifest["generation"]["visual_generation"]["cloud"]["status"] = STATUS_SUCCESS
-            manifest["generation"]["visual_generation"]["cloud"]["blocked_reason"] = ""
-            manifest["generation"]["visual_generation"]["cloud"]["missing_prerequisites"] = []
-            manifest["generation"]["visual_generation"]["cloud"]["missing_implementations"] = []
-
-            for index, segment in enumerate(manifest["segments"], start=1):
-                visual_path = output_dir / "visual_assets" / f"segment_{index}.png"
-                visual_path.parent.mkdir(parents=True, exist_ok=True)
-                visual_path.write_bytes(b"fake-visual")
-                segment["output_slots"]["visual_uri"] = str(visual_path)
-                manifest["generation"]["visual_generation"]["segment_assets"][index - 1]["image_asset_path"] = str(
-                    visual_path
-                )
-                manifest["generation"]["visual_generation"]["segment_assets"][index - 1]["status"] = STATUS_SUCCESS
-
-            manifest_path.write_text(
-                json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
-                encoding="utf-8",
-            )
+            manifest = self._mark_manifest_visual_assets_ready(manifest_path, output_dir)
+            commands: list[list[str]] = []
 
             def fake_run_subprocess(args):
+                commands.append(list(args))
                 if args and args[0] == "swift":
                     payload = json.loads(pathlib.Path(args[-1]).read_text(encoding="utf-8"))
                     pathlib.Path(payload["outputPath"]).write_bytes(b"fake-preview-mp4")
                     return
-                raise AssertionError(f"unexpected subprocess args: {args}")
+                pathlib.Path(args[-1]).parent.mkdir(parents=True, exist_ok=True)
+                pathlib.Path(args[-1]).write_bytes(b"fake-ffmpeg-output")
 
-            with mock.patch("formal_api_demo_core.run_subprocess", side_effect=fake_run_subprocess):
+            with mock.patch("formal_api_demo_core.resolve_ffmpeg_binary", return_value="/usr/bin/ffmpeg"), mock.patch(
+                "formal_api_demo_core.run_subprocess",
+                side_effect=fake_run_subprocess,
+            ):
+                result = run_assembly_pipeline(
+                    manifest_path=manifest_path,
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                    dry_run=False,
+                )
+
+            final_video_path = output_dir / "final.mp4"
+
+            self.assertEqual(result["overall_status"], STATUS_SUCCESS)
+            self.assertEqual(result["generation_status"], STATUS_SUCCESS)
+            self.assertEqual(result["assembly_status"], STATUS_SUCCESS)
+            self.assertEqual(result["local_assembly_status"], STATUS_SUCCESS)
+            self.assertEqual(result["assembly_preview_status"], STATUS_SUCCESS)
+            self.assertEqual(result["artifact_paths"]["final_video"], str(final_video_path))
+            self.assertTrue(final_video_path.exists())
+            self.assertEqual(result["current_missing_implementations"], [])
+            self.assertTrue(
+                any(
+                    str(output_dir / "visual_assets" / "seg01.png") in command
+                    for command in commands
+                    if command and command[0] == "/usr/bin/ffmpeg"
+                )
+            )
+            self.assertTrue(
+                any(
+                    str(output_dir / "visual_assets" / "seg02.mp4") in command
+                    for command in commands
+                    if command and command[0] == "/usr/bin/ffmpeg"
+                )
+            )
+
+    def test_assemble_non_dry_run_blocks_when_manifest_visual_path_missing_even_if_preview_succeeds(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_local_missing_visual_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                provider_name="aliyun_bailian",
+                route_family="aliyun_bailian_cosyvoice",
+                api_key="dashscope_test_key",
+                model="cosyvoice-v3-flash",
+                voice="longanyang",
+                image_model="wanx2.1-image",
+                video_model="wanx2.1-video",
+            )
+
+            with mock.patch(
+                "formal_api_demo_core.execute_tts_probe",
+                side_effect=self._build_fake_probe(output_dir),
+            ), mock.patch(
+                "formal_api_demo_core.concatenate_audio_files",
+                side_effect=self._fake_concatenate_audio_files,
+            ):
+                run_generation_pipeline(
+                    input_path=FORMAL_CASE_PATH,
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                    dry_run=False,
+                )
+
+            manifest_path = output_dir / "manifest.json"
+            self._mark_manifest_visual_assets_ready(
+                manifest_path,
+                output_dir,
+                missing_segment_ids={"seg02"},
+            )
+            commands: list[list[str]] = []
+
+            def fake_run_subprocess(args):
+                commands.append(list(args))
+                if args and args[0] == "swift":
+                    payload = json.loads(pathlib.Path(args[-1]).read_text(encoding="utf-8"))
+                    pathlib.Path(payload["outputPath"]).write_bytes(b"fake-preview-mp4")
+                    return
+                raise AssertionError(f"formal local assembly should not run ffmpeg when visual path is missing: {args}")
+
+            with mock.patch("formal_api_demo_core.resolve_ffmpeg_binary", return_value="/usr/bin/ffmpeg"), mock.patch(
+                "formal_api_demo_core.run_subprocess",
+                side_effect=fake_run_subprocess,
+            ):
                 result = run_assembly_pipeline(
                     manifest_path=manifest_path,
                     example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
@@ -423,10 +532,71 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             self.assertEqual(result["assembly_status"], STATUS_BLOCKED)
             self.assertEqual(result["local_assembly_status"], STATUS_BLOCKED)
             self.assertEqual(result["assembly_preview_status"], STATUS_SUCCESS)
-            self.assertIn("local_assembly_implementation", result["current_missing_implementations"])
-            self.assertIn("本地 assembly", result["next_action_hint"])
-            self.assertIn("preview", result["next_action_hint"])
-            self.assertNotIn("cloud assembly 当前未配置", result["next_action_hint"])
+            self.assertIn("visual_asset_path_missing:seg02", result["current_missing_prerequisites"])
+            self.assertIsNone(result["artifact_paths"]["final_video"])
+            self.assertEqual([command[0] for command in commands], ["swift"])
+
+    def test_assemble_non_dry_run_marks_failed_when_local_ffmpeg_assembly_fails(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_local_ffmpeg_fail_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                provider_name="aliyun_bailian",
+                route_family="aliyun_bailian_cosyvoice",
+                api_key="dashscope_test_key",
+                model="cosyvoice-v3-flash",
+                voice="longanyang",
+                image_model="wanx2.1-image",
+                video_model="wanx2.1-video",
+            )
+
+            with mock.patch(
+                "formal_api_demo_core.execute_tts_probe",
+                side_effect=self._build_fake_probe(output_dir),
+            ), mock.patch(
+                "formal_api_demo_core.concatenate_audio_files",
+                side_effect=self._fake_concatenate_audio_files,
+            ):
+                run_generation_pipeline(
+                    input_path=FORMAL_CASE_PATH,
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                    dry_run=False,
+                )
+
+            manifest_path = output_dir / "manifest.json"
+            self._mark_manifest_visual_assets_ready(manifest_path, output_dir)
+
+            def fake_run_subprocess(args):
+                if args and args[0] == "swift":
+                    payload = json.loads(pathlib.Path(args[-1]).read_text(encoding="utf-8"))
+                    pathlib.Path(payload["outputPath"]).write_bytes(b"fake-preview-mp4")
+                    return
+                if args and args[0] == "/usr/bin/ffmpeg" and args[-1].endswith("final.mp4"):
+                    raise subprocess.CalledProcessError(returncode=1, cmd=args)
+                pathlib.Path(args[-1]).parent.mkdir(parents=True, exist_ok=True)
+                pathlib.Path(args[-1]).write_bytes(b"fake-ffmpeg-output")
+
+            with mock.patch("formal_api_demo_core.resolve_ffmpeg_binary", return_value="/usr/bin/ffmpeg"), mock.patch(
+                "formal_api_demo_core.run_subprocess",
+                side_effect=fake_run_subprocess,
+            ):
+                result = run_assembly_pipeline(
+                    manifest_path=manifest_path,
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                    dry_run=False,
+                )
+
+            self.assertEqual(result["overall_status"], STATUS_FAILED)
+            self.assertEqual(result["generation_status"], STATUS_SUCCESS)
+            self.assertEqual(result["assembly_status"], STATUS_FAILED)
+            self.assertEqual(result["local_assembly_status"], STATUS_FAILED)
+            self.assertEqual(result["assembly_preview_status"], STATUS_SUCCESS)
+            self.assertIn("素材路径", result["next_action_hint"])
             self.assertIsNone(result["artifact_paths"]["final_video"])
 
 

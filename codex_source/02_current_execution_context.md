@@ -105,6 +105,19 @@
   - `liveportrait-detect -> liveportrait` 仍未接入真实 provider implementation
   - 当前必须继续诚实 `blocked`
 
+## 5A. 当前主读取分支与事实回流口径
+
+当前仓库默认主读取分支固定为：
+
+- `codex/user-readable-map`
+
+必须同时明确：
+
+- 任务分支可以存在，也可以先完成实现与验证
+- 但只有当结果已同步回 `codex/user-readable-map`，并且主读取分支上的 `codex_log/latest.md` 已更新后，才算“当前仓库正式状态”
+- 若某项实现只存在于任务分支、尚未回流主读取分支，新会话不得把它当成默认已知事实
+- `codex_log/latest.md` 的接手口径必须以主读取分支版本为准，不得以某个未回流任务分支版本代替
+
 ## 6. 当前 demo 身份
 
 当前 demo 的身份必须固定理解为：
@@ -154,7 +167,8 @@
 6. 若涉及外部结论 / 新拍板 / 研究桥接，再读 `codex_source/03_research_findings_bridge.md`
 7. 若涉及完成回报 / 状态判断 / 验收口径，再读 `codex_source/04_completion_and_review_contract.md`
 8. 若涉及执行现实偏差 / 原方案失效 / 资源权限环境问题，再读 `codex_source/05_execution_deviation_and_reality_sync.md`
-9. 再补读与当前任务直接相关的 `project_source/*`、代码、测试与产物
+9. 若涉及主读取分支、分支同步、任务分支回流、`latest` 是否可信，再读 `codex_source/08_branch_sync_and_reading_branch_rules.md`
+10. 再补读与当前任务直接相关的 `project_source/*`、代码、测试与产物
 
 ## 9. 可自动补全项
 
@@ -181,3 +195,8 @@ Codex 不得擅自拍板：
 ## 11. 当前一句话执行前上下文
 
 当前项目已经从“能不能生成”转到“质量能不能过线、结构能不能稳定、协作能不能复用”；执行层默认按“generation 接 API、assembly 走本地、cloud assembly 暂不当前置”的主路径推进，任何影响执行的新结论和现实偏差都不能只停在聊天里。
+
+补充：
+
+- 当前仓库的正式接手口径默认以 `codex/user-readable-map` 为主读取分支
+- 任务分支结果若未回流到主读取分支，就不能写成仓库当前正式状态

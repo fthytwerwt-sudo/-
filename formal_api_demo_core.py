@@ -653,34 +653,11 @@ def run_assembly_pipeline(
     local_assembly_result = build_default_local_assembly(output_dir)
     preview_result = build_default_assembly_preview(output_dir)
     if not dry_run:
-        local_missing = [
-            item
-            for item in _assembly_missing_prerequisites(
-                manifest=manifest,
-                config=config,
-                has_local_config=config_bundle["has_local_config"],
-            )
-            if item not in {"space_name", "assembly_template_id"}
-        ]
-        if local_missing:
-            local_assembly_result.update(
-                {
-                    "status": STATUS_BLOCKED,
-                    "blocked_reason": "缺少正式本地 assembly 前提：" + "、".join(local_missing),
-                    "current_missing_prerequisites": local_missing,
-                }
-            )
-        else:
-            local_assembly_result.update(
-                {
-                    "status": STATUS_BLOCKED,
-                    "blocked_reason": (
-                        "正式本地 assembly 真实素材拼接实现尚未接入；当前 preview 只作辅助产物，"
-                        "不得计入 assembly success。"
-                    ),
-                    "missing_implementations": ["local_assembly_implementation"],
-                }
-            )
+        local_assembly_result = execute_local_formal_assembly(
+            manifest=manifest,
+            config=config,
+            output_dir=output_dir,
+        )
         preview_result = execute_local_preview_assembly(
             manifest=manifest,
             output_dir=output_dir,
@@ -1473,6 +1450,11 @@ def build_assembly_plan(
     config: dict[str, Any],
     assembly_gate: dict[str, Any],
 ) -> dict[str, Any]:
+    visual_generation = manifest.get("generation", {}).get("visual_generation", {})
+    segment_asset_index = {
+        asset.get("segment_id"): asset
+        for asset in visual_generation.get("segment_assets", [])
+    }
     return {
         "schema_version": "formal_api_demo_assembly_plan/v1",
         "manifest_schema_version": manifest.get("schema_version"),
@@ -1491,11 +1473,16 @@ def build_assembly_plan(
                 "voice_uri": segment["output_slots"].get("voice_uri"),
                 "subtitle_uri": segment["output_slots"].get("subtitle_uri"),
                 "visual_uri": segment["output_slots"].get("visual_uri"),
+                "visual_source_kind": _infer_local_assembly_asset_kind(
+                    segment["output_slots"].get("visual_uri"),
+                    segment_asset_index.get(segment["segment_id"], {}),
+                ),
             }
             for segment in manifest.get("segments", [])
         ],
         "gate_status": assembly_gate["status"],
         "preview_target": str(pathlib.Path(_nested_get(config, "output", "dist_dir") or DEFAULT_FORMAL_OUTPUT_DIR) / "assembly" / "formal_api_demo_preview.mp4"),
+        "formal_output_target": str(pathlib.Path(_nested_get(config, "output", "dist_dir") or DEFAULT_FORMAL_OUTPUT_DIR) / "final.mp4"),
         "next_action_hint": _assembly_next_action_hint(assembly_gate, dry_run=True),
     }
 
@@ -1534,7 +1521,7 @@ def build_assembly_result_summary(
             "assembly_gate": assembly_gate["status"],
         },
         "blocked_reason": ""
-        if dry_run
+        if dry_run or overall_status == STATUS_SUCCESS
         else (
             local.get("blocked_reason")
             or local.get("error_message")
@@ -1667,10 +1654,12 @@ def build_default_visual_generation(
 
 
 def build_default_local_assembly(output_dir: pathlib.Path) -> dict[str, Any]:
-    _ = output_dir
+    assembly_dir = output_dir / "assembly"
     return {
         "status": STATUS_NOT_STARTED,
         "video_path": None,
+        "visual_track_path": str(assembly_dir / "formal_api_demo_visual_track.mp4"),
+        "segment_video_paths": [],
         "blocked_reason": "",
         "failure_reason": "",
         "error_message": "",
@@ -1690,6 +1679,108 @@ def build_default_assembly_preview(output_dir: pathlib.Path) -> dict[str, Any]:
         "failure_reason": "",
         "error_message": "",
     }
+
+
+def execute_local_formal_assembly(
+    manifest: dict[str, Any],
+    config: dict[str, Any],
+    output_dir: pathlib.Path,
+) -> dict[str, Any]:
+    local = build_default_local_assembly(output_dir)
+    missing, segment_specs = _collect_local_assembly_inputs(manifest)
+    if missing:
+        local.update(
+            {
+                "status": STATUS_BLOCKED,
+                "blocked_reason": "缺少正式本地 assembly 前提：" + "、".join(missing),
+                "current_missing_prerequisites": missing,
+            }
+        )
+        return local
+
+    try:
+        ffmpeg_binary = resolve_ffmpeg_binary()
+    except RuntimeError:
+        local.update(
+            {
+                "status": STATUS_BLOCKED,
+                "blocked_reason": "缺少正式本地 assembly 前提：ffmpeg",
+                "current_missing_prerequisites": ["ffmpeg"],
+            }
+        )
+        return local
+
+    assembly_dir = output_dir / "assembly"
+    segment_dir = assembly_dir / "local_segments"
+    visual_track_path = assembly_dir / "formal_api_demo_visual_track.mp4"
+    final_video_path = output_dir / "final.mp4"
+    voiceover_audio_path = pathlib.Path(
+        _nested_get(manifest, "generation", "voiceover", "audio_path") or ""
+    )
+    captions_path = pathlib.Path(
+        _nested_get(manifest, "generation", "captions", "captions_path") or ""
+    )
+    width, height = _parse_resolution(_nested_get(config, "assembly", "resolution"))
+    fps = int(_nested_get(config, "assembly", "fps") or 25)
+
+    rendered_segment_paths: list[pathlib.Path] = []
+    try:
+        for index, spec in enumerate(segment_specs, start=1):
+            rendered_path = segment_dir / f"{index:02d}_{spec['segment_id']}.mp4"
+            _render_local_assembly_segment(
+                ffmpeg_binary=ffmpeg_binary,
+                segment_spec=spec,
+                output_path=rendered_path,
+                width=width,
+                height=height,
+                fps=fps,
+            )
+            rendered_segment_paths.append(rendered_path)
+        _concat_local_assembly_segments(
+            ffmpeg_binary=ffmpeg_binary,
+            segment_paths=rendered_segment_paths,
+            output_path=visual_track_path,
+        )
+        _mux_local_assembly_audio_and_captions(
+            ffmpeg_binary=ffmpeg_binary,
+            visual_track_path=visual_track_path,
+            audio_path=voiceover_audio_path,
+            captions_path=captions_path,
+            output_path=final_video_path,
+        )
+    except subprocess.CalledProcessError as exc:
+        local.update(
+            {
+                "status": STATUS_FAILED,
+                "failure_reason": "local_assembly_ffmpeg_failed",
+                "error_message": str(exc),
+                "segment_video_paths": [str(path) for path in rendered_segment_paths],
+            }
+        )
+        return local
+
+    if not final_video_path.exists():
+        local.update(
+            {
+                "status": STATUS_FAILED,
+                "failure_reason": "local_assembly_output_missing",
+                "error_message": "ffmpeg 已执行，但正式本地 final.mp4 未落出。",
+                "segment_video_paths": [str(path) for path in rendered_segment_paths],
+            }
+        )
+        return local
+
+    local.update(
+        {
+            "status": STATUS_SUCCESS,
+            "video_path": str(final_video_path),
+            "visual_track_path": str(visual_track_path),
+            "segment_video_paths": [str(path) for path in rendered_segment_paths],
+            "current_missing_prerequisites": [],
+            "missing_implementations": [],
+        }
+    )
+    return local
 
 
 def build_default_tts_probe(video_spec: dict[str, Any]) -> dict[str, Any]:
@@ -2596,6 +2687,234 @@ def _build_visual_asset_output_path(
     return output_dir / "visual" / f"{segment_id}_{asset_kind}{extension}"
 
 
+def _collect_local_assembly_inputs(
+    manifest: dict[str, Any],
+) -> tuple[list[str], list[dict[str, Any]]]:
+    missing: list[str] = []
+    segment_specs: list[dict[str, Any]] = []
+    voiceover_audio = pathlib.Path(
+        _nested_get(manifest, "generation", "voiceover", "audio_path") or ""
+    )
+    captions_path = pathlib.Path(
+        _nested_get(manifest, "generation", "captions", "captions_path") or ""
+    )
+    visual_generation = manifest.get("generation", {}).get("visual_generation", {})
+    segment_asset_index = {
+        asset.get("segment_id"): asset
+        for asset in visual_generation.get("segment_assets", [])
+    }
+
+    if not manifest.get("segments"):
+        missing.append("manifest_segments")
+    if (
+        manifest.get("generation", {}).get("voiceover", {}).get("status") != STATUS_SUCCESS
+        or not voiceover_audio.exists()
+    ):
+        missing.append("voiceover_audio")
+    if (
+        manifest.get("generation", {}).get("captions", {}).get("status") != STATUS_SUCCESS
+        or not captions_path.exists()
+    ):
+        missing.append("captions_srt")
+    if visual_generation.get("status") != STATUS_SUCCESS:
+        missing.append("visual_assets_not_ready")
+
+    for segment in manifest.get("segments", []):
+        segment_id = segment.get("segment_id", "unknown_segment")
+        asset = segment_asset_index.get(segment_id, {})
+        raw_path = (
+            asset.get("video_asset_path")
+            or asset.get("image_asset_path")
+            or _nested_get(segment, "output_slots", "visual_uri")
+        )
+        if not raw_path:
+            missing.append(f"visual_asset_path_missing:{segment_id}")
+            continue
+        asset_path = pathlib.Path(str(raw_path))
+        if not asset_path.exists():
+            missing.append(f"visual_asset_file_missing:{segment_id}")
+            continue
+        segment_specs.append(
+            {
+                "segment_id": segment_id,
+                "duration_seconds": _nested_get(
+                    segment,
+                    "timeline",
+                    "planned_duration_seconds",
+                )
+                or 0,
+                "asset_path": asset_path,
+                "asset_kind": _infer_local_assembly_asset_kind(raw_path, asset),
+            }
+        )
+
+    return missing, segment_specs
+
+
+def _infer_local_assembly_asset_kind(
+    raw_path: Any,
+    segment_asset: dict[str, Any],
+) -> str:
+    if segment_asset.get("video_asset_path"):
+        return "video"
+    if segment_asset.get("image_asset_path"):
+        return "image"
+    suffix = pathlib.Path(str(raw_path or "")).suffix.lower()
+    if suffix in {".mp4", ".mov", ".m4v", ".webm"}:
+        return "video"
+    return "image"
+
+
+def _parse_resolution(raw_resolution: Any) -> tuple[int, int]:
+    normalized = str(raw_resolution or "").strip().lower()
+    if "x" in normalized:
+        width_raw, height_raw = normalized.split("x", 1)
+        try:
+            return int(width_raw), int(height_raw)
+        except ValueError:
+            pass
+    return 1080, 1920
+
+
+def _build_local_assembly_scale_filter(
+    *,
+    width: int,
+    height: int,
+    fps: int,
+) -> str:
+    return (
+        f"scale={width}:{height}:force_original_aspect_ratio=decrease,"
+        f"pad={width}:{height}:(ow-iw)/2:(oh-ih)/2,"
+        f"fps={fps},format=yuv420p"
+    )
+
+
+def _render_local_assembly_segment(
+    *,
+    ffmpeg_binary: str,
+    segment_spec: dict[str, Any],
+    output_path: pathlib.Path,
+    width: int,
+    height: int,
+    fps: int,
+) -> None:
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    filter_chain = _build_local_assembly_scale_filter(
+        width=width,
+        height=height,
+        fps=fps,
+    )
+    common_args = [
+        ffmpeg_binary,
+        "-y",
+    ]
+    if segment_spec["asset_kind"] == "image":
+        args = common_args + [
+            "-loop",
+            "1",
+            "-i",
+            str(segment_spec["asset_path"]),
+            "-t",
+            str(segment_spec["duration_seconds"]),
+            "-vf",
+            filter_chain,
+            "-c:v",
+            "libx264",
+            "-pix_fmt",
+            "yuv420p",
+            "-an",
+            str(output_path),
+        ]
+    else:
+        args = common_args + [
+            "-i",
+            str(segment_spec["asset_path"]),
+            "-t",
+            str(segment_spec["duration_seconds"]),
+            "-vf",
+            filter_chain,
+            "-c:v",
+            "libx264",
+            "-pix_fmt",
+            "yuv420p",
+            "-an",
+            str(output_path),
+        ]
+    run_subprocess(args)
+
+
+def _concat_local_assembly_segments(
+    *,
+    ffmpeg_binary: str,
+    segment_paths: list[pathlib.Path],
+    output_path: pathlib.Path,
+) -> None:
+    concat_list_path = output_path.parent / "local_assembly_concat.txt"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    concat_list_path.write_text(
+        "".join(f"file '{path.resolve()}'\n" for path in segment_paths),
+        encoding="utf-8",
+    )
+    try:
+        run_subprocess(
+            [
+                ffmpeg_binary,
+                "-y",
+                "-f",
+                "concat",
+                "-safe",
+                "0",
+                "-i",
+                str(concat_list_path),
+                "-c:v",
+                "libx264",
+                "-pix_fmt",
+                "yuv420p",
+                "-an",
+                str(output_path),
+            ]
+        )
+    finally:
+        concat_list_path.unlink(missing_ok=True)
+
+
+def _ffmpeg_subtitles_value(path: pathlib.Path) -> str:
+    raw = str(path)
+    return raw.replace("\\", "\\\\").replace(":", "\\:").replace("'", "\\'")
+
+
+def _mux_local_assembly_audio_and_captions(
+    *,
+    ffmpeg_binary: str,
+    visual_track_path: pathlib.Path,
+    audio_path: pathlib.Path,
+    captions_path: pathlib.Path,
+    output_path: pathlib.Path,
+) -> None:
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    subtitles_filter = "subtitles=" + _ffmpeg_subtitles_value(captions_path.resolve())
+    run_subprocess(
+        [
+            ffmpeg_binary,
+            "-y",
+            "-i",
+            str(visual_track_path),
+            "-i",
+            str(audio_path),
+            "-vf",
+            subtitles_filter,
+            "-c:v",
+            "libx264",
+            "-pix_fmt",
+            "yuv420p",
+            "-c:a",
+            "aac",
+            "-shortest",
+            str(output_path),
+        ]
+    )
+
+
 def execute_local_preview_assembly(
     manifest: dict[str, Any],
     output_dir: pathlib.Path,
@@ -3037,6 +3356,8 @@ def _assembly_next_action_hint(
     if dry_run:
         return "当前为 assembly dry-run；下一步应先确认真实 visual assets 是否已生成，再验证本地 assembly。"
     if local_assembly:
+        if local_assembly.get("status") == STATUS_SUCCESS:
+            return "当前正式本地 assembly 已可输出真实 final.mp4；下一步应围绕真人开口分支和真实样片复审继续推进。"
         if any(
             item in local_assembly.get("missing_implementations", [])
             for item in ("local_assembly_implementation",)
