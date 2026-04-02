@@ -216,8 +216,8 @@ model = "wan2.7-i2v"
 enabled = false
 # 真人开口分支前置检测：
 # - liveportrait-detect 先做人像 / 面部检测
-# - 仅表示路线已定，不代表 provider implementation 已完成
-# - 当前不再作为默认主承载路线；只有明确切到待验证支线时才允许启用
+# - 当前在 provider=aliyun_bailian 且 enabled=true 时，已支持真实 detect 请求
+# - 当前不再作为默认主承载路线；只有明确切到 API 真人主线时才允许默认启用
 model = "liveportrait-detect"
 
 [portrait_video_generation]
@@ -225,8 +225,8 @@ enabled = false
 # 真人开口分支生成模型：
 # - liveportrait 用于固定背景 / 人物开口视频
 # - 必须先过 liveportrait-detect
-# - 仅表示路线已定，不代表 provider implementation 已完成
-# - 当前不再作为默认主承载路线；只有明确切到待验证支线时才允许启用
+# - 当前在 provider=aliyun_bailian 且 enabled=true 时，已支持真实 create / poll / download
+# - 当前不再作为默认主承载路线；只有明确切到 API 真人主线时才允许默认启用
 model = "liveportrait"
 
 [assembly]

@@ -1330,9 +1330,9 @@ def _evaluate_visual_generation_gate(
         implementation_missing.append("image_generation_provider_implementation")
     if needs_video and not video_provider_supported:
         implementation_missing.append("video_generation_provider_implementation")
-    if portrait_detect_enabled:
+    if portrait_detect_enabled and not aliyun_visual_supported:
         implementation_missing.append("portrait_detect_provider_implementation")
-    if portrait_video_enabled:
+    if portrait_video_enabled and not aliyun_visual_supported:
         implementation_missing.append("portrait_video_generation_provider_implementation")
 
     checks = [
@@ -2974,9 +2974,14 @@ def build_visual_generation_plan(
             },
         }
     )
+    portrait_route_in_use = (
+        visual_generation["portrait_video_generation"]["enabled"] and has_video_segments
+    )
     visual_generation["general_video_generation"].update(
         {
-            "status": STATUS_SKIPPED if not has_video_segments else STATUS_NOT_STARTED,
+            "status": STATUS_SKIPPED
+            if not has_video_segments or portrait_route_in_use
+            else STATUS_NOT_STARTED,
             "blocked_reason": "",
             "failure_reason": "",
             "error_message": "",
@@ -2984,14 +2989,25 @@ def build_visual_generation_plan(
     )
     visual_generation["portrait_detect"].update(
         {
-            "status": STATUS_SKIPPED,
+            "status": STATUS_NOT_STARTED if portrait_route_in_use else STATUS_SKIPPED,
             "blocked_reason": "",
+            "failure_reason": "",
+            "error_message": "",
+            "request_id": None,
+            "source_image_url": None,
         }
     )
     visual_generation["portrait_video_generation"].update(
         {
-            "status": STATUS_SKIPPED,
+            "status": STATUS_NOT_STARTED if portrait_route_in_use else STATUS_SKIPPED,
             "blocked_reason": "",
+            "failure_reason": "",
+            "error_message": "",
+            "task_id": None,
+            "request_id": None,
+            "asset_path": None,
+            "source_image_url": None,
+            "source_audio_url": None,
         }
     )
     runtime_state = rotation_state or _build_default_rotation_state()
@@ -3036,43 +3052,75 @@ def build_visual_generation_plan(
             asset["image_fallback_events"] = image_result.get("fallback_events", [])
 
         if asset["needs_video"]:
-            seed_image_url = None
-            if asset.get("seed_image_required"):
-                seed_image_url = image_result.get("source_url")
-                if not seed_image_url and image_result.get("asset_path"):
-                    seed_image_url = pathlib.Path(image_result["asset_path"]).resolve().as_uri()
-            if asset.get("seed_image_required") and not seed_image_url:
-                video_result = {
-                    "status": STATUS_BLOCKED,
-                    "task_id": None,
-                    "asset_path": None,
-                    "source_url": None,
-                    "blocked_reason": "wan2.7-i2v 缺少首帧图片输入，无法继续视频生成。",
-                    "failure_reason": "i2v_seed_image_missing",
-                    "error_message": "wan2.7-i2v 缺少首帧图片输入，无法继续视频生成。",
-                }
-            else:
-                video_result = _execute_aliyun_wan_video_generation(
+            use_portrait_route = (
+                portrait_route_in_use
+                and asset.get("carrier") == CARRIER_HUMAN
+                and asset.get("asset_origin") != USER_MEDIA_SOURCE
+            )
+            if use_portrait_route:
+                portrait_result = _execute_aliyun_liveportrait_video_generation(
                     config=config,
                     output_dir=output_dir,
                     segment_id=segment["segment_id"],
-                    prompt=asset["video_prompt"],
-                    duration_seconds=segment["planned_duration_seconds"],
-                    seed_image_url=seed_image_url,
-                    rotation_state=runtime_state,
+                    image_path=pathlib.Path(image_result["asset_path"] or ""),
+                    audio_path=output_dir / "tts" / f"segment_{segment['segment_id']}.mp3",
                 )
-            asset["video_task_id"] = video_result["task_id"]
-            asset["video_asset_path"] = video_result["asset_path"]
-            asset["video_candidate_id"] = video_result.get("selected_candidate_id", "")
-            asset["video_fallback_events"] = video_result.get("fallback_events", [])
-            visual_generation["general_video_generation"].update(
-                {
-                    "status": video_result["status"],
-                    "blocked_reason": video_result["blocked_reason"],
-                    "failure_reason": video_result["failure_reason"],
-                    "error_message": video_result["error_message"],
+                video_result = {
+                    "status": portrait_result["status"],
+                    "task_id": portrait_result["generation"].get("task_id"),
+                    "asset_path": portrait_result["generation"].get("asset_path"),
+                    "blocked_reason": portrait_result["generation"].get("blocked_reason", ""),
+                    "failure_reason": portrait_result["generation"].get("failure_reason", ""),
+                    "error_message": portrait_result["generation"].get("error_message", ""),
+                    "fallback_events": [],
+                    "selected_candidate_id": "",
                 }
-            )
+                asset["video_task_id"] = portrait_result["generation"].get("task_id")
+                asset["video_asset_path"] = portrait_result["generation"].get("asset_path")
+                visual_generation["portrait_detect"].update(portrait_result["detect"])
+                visual_generation["portrait_video_generation"].update(
+                    portrait_result["generation"]
+                )
+            else:
+                seed_image_url = None
+                if asset.get("seed_image_required"):
+                    seed_image_url = image_result.get("source_url")
+                    if not seed_image_url and image_result.get("asset_path"):
+                        seed_image_url = pathlib.Path(image_result["asset_path"]).resolve().as_uri()
+                if asset.get("seed_image_required") and not seed_image_url:
+                    video_result = {
+                        "status": STATUS_BLOCKED,
+                        "task_id": None,
+                        "asset_path": None,
+                        "source_url": None,
+                        "blocked_reason": "wan2.7-i2v 缺少首帧图片输入，无法继续视频生成。",
+                        "failure_reason": "i2v_seed_image_missing",
+                        "error_message": "wan2.7-i2v 缺少首帧图片输入，无法继续视频生成。",
+                        "fallback_events": [],
+                        "selected_candidate_id": "",
+                    }
+                else:
+                    video_result = _execute_aliyun_wan_video_generation(
+                        config=config,
+                        output_dir=output_dir,
+                        segment_id=segment["segment_id"],
+                        prompt=asset["video_prompt"],
+                        duration_seconds=segment["planned_duration_seconds"],
+                        seed_image_url=seed_image_url,
+                        rotation_state=runtime_state,
+                    )
+                asset["video_task_id"] = video_result["task_id"]
+                asset["video_asset_path"] = video_result["asset_path"]
+                asset["video_candidate_id"] = video_result.get("selected_candidate_id", "")
+                asset["video_fallback_events"] = video_result.get("fallback_events", [])
+                visual_generation["general_video_generation"].update(
+                    {
+                        "status": video_result["status"],
+                        "blocked_reason": video_result["blocked_reason"],
+                        "failure_reason": video_result["failure_reason"],
+                        "error_message": video_result["error_message"],
+                    }
+                )
 
         asset["status"] = _combine_stage_statuses(
             [image_result["status"], video_result["status"]],
@@ -3614,7 +3662,410 @@ def _extract_aliyun_video_result_url(task_payload: dict[str, Any]) -> str | None
             return str(item["video_url"])
         if isinstance(item, dict) and item.get("url"):
             return str(item["url"])
+    if isinstance(output.get("results"), dict) and output["results"].get("video_url"):
+        return str(output["results"]["video_url"])
     return None
+
+
+def _execute_aliyun_liveportrait_video_generation(
+    *,
+    config: dict[str, Any],
+    output_dir: pathlib.Path,
+    segment_id: str,
+    image_path: pathlib.Path,
+    audio_path: pathlib.Path,
+) -> dict[str, Any]:
+    detect_result = {
+        "status": STATUS_NOT_STARTED,
+        "blocked_reason": "",
+        "failure_reason": "",
+        "error_message": "",
+        "request_id": None,
+        "source_image_url": None,
+    }
+    generation_result = {
+        "status": STATUS_NOT_STARTED,
+        "blocked_reason": "",
+        "failure_reason": "",
+        "error_message": "",
+        "task_id": None,
+        "request_id": None,
+        "asset_path": None,
+        "source_image_url": None,
+        "source_audio_url": None,
+    }
+    try:
+        detect_result = _execute_aliyun_liveportrait_detect(
+            config=config,
+            image_path=image_path,
+        )
+        if detect_result["status"] != STATUS_SUCCESS:
+            detect_message = (
+                detect_result["blocked_reason"]
+                or detect_result["error_message"]
+            )
+            generation_result.update(
+                {
+                    "status": detect_result["status"],
+                    "blocked_reason": detect_result["blocked_reason"],
+                    "failure_reason": detect_result["failure_reason"],
+                    "error_message": detect_message,
+                    "source_image_url": detect_result.get("source_image_url"),
+                }
+            )
+            return {
+                "status": detect_result["status"],
+                "blocked_reason": detect_result["blocked_reason"],
+                "failure_reason": detect_result["failure_reason"],
+                "error_message": detect_message,
+                "detect": detect_result,
+                "generation": generation_result,
+            }
+
+        image_upload = _upload_file_to_aliyun_temp_storage(
+            config=config,
+            model=DEFAULT_PORTRAIT_VIDEO_MODEL,
+            source_path=image_path,
+        )
+        audio_upload = _upload_file_to_aliyun_temp_storage(
+            config=config,
+            model=DEFAULT_PORTRAIT_VIDEO_MODEL,
+            source_path=audio_path,
+        )
+        generation_result["source_image_url"] = image_upload["oss_url"]
+        generation_result["source_audio_url"] = audio_upload["oss_url"]
+
+        payload = {
+            "model": _nested_get(config, "portrait_video_generation", "model")
+            or DEFAULT_PORTRAIT_VIDEO_MODEL,
+            "input": {
+                "image_url": image_upload["oss_url"],
+                "audio_url": audio_upload["oss_url"],
+            },
+            "parameters": {
+                "template_id": "normal",
+                "video_fps": 30,
+                "paste_back": True,
+            },
+        }
+        create_request = urllib.request.Request(
+            "https://dashscope.aliyuncs.com/api/v1/services/aigc/image2video/video-synthesis/",
+            data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+            headers={
+                "Authorization": f"Bearer {_nested_get(config, 'auth', 'api_key')}",
+                "Content-Type": "application/json",
+            },
+            method="POST",
+        )
+        create_request.headers["X-DashScope-Async"] = "enable"
+        create_request.headers["X-DashScope-OssResourceResolve"] = "enable"
+        create_payload = _urlopen_json_request(
+            create_request,
+            error_cls=VisualGenerationError,
+            invalid_json_message="aliyun liveportrait create returned invalid JSON payload",
+        )
+        task_id = _nested_get(create_payload, "output", "task_id")
+        request_id = create_payload.get("request_id")
+        if not task_id:
+            raise VisualGenerationError(
+                "aliyun liveportrait create response missing task_id",
+                failure_reason="portrait_video_task_id_missing",
+            )
+        generation_result["task_id"] = task_id
+        generation_result["request_id"] = request_id
+
+        task_payload = _poll_aliyun_visual_task(
+            config=config,
+            task_id=task_id,
+            asset_kind="portrait_video",
+        )
+        generation_result["request_id"] = request_id or task_payload.get("request_id")
+        result_url = _extract_aliyun_video_result_url(task_payload)
+        if not result_url:
+            raise VisualGenerationError(
+                "aliyun liveportrait task succeeded but missing result url",
+                failure_reason="portrait_video_result_url_missing",
+            )
+        output_path = _build_visual_asset_output_path(
+            output_dir=output_dir,
+            segment_id=segment_id,
+            asset_kind="video",
+            source_url=result_url,
+            default_extension=".mp4",
+        )
+        _download_binary_file(
+            result_url,
+            output_path,
+            error_cls=VisualGenerationError,
+            empty_error_message="aliyun liveportrait video download is empty",
+            empty_error_code="AliyunLivePortraitEmptyVideo",
+        )
+        if not output_path.exists():
+            raise VisualGenerationError(
+                "liveportrait succeeded but local video file missing",
+                failure_reason="portrait_video_local_file_missing",
+            )
+        generation_result.update(
+            {
+                "status": STATUS_SUCCESS,
+                "blocked_reason": "",
+                "failure_reason": "",
+                "error_message": "",
+                "asset_path": str(output_path),
+            }
+        )
+        return {
+            "status": STATUS_SUCCESS,
+            "blocked_reason": "",
+            "failure_reason": "",
+            "error_message": "",
+            "detect": detect_result,
+            "generation": generation_result,
+        }
+    except VisualGenerationError as exc:
+        message = _sanitize_message(str(exc), config)
+        is_timeout = _looks_like_timeout_message(message)
+        status = STATUS_BLOCKED if is_timeout else exc.status
+        blocked_reason = _normalize_timeout_blocked_reason(message) if is_timeout else ""
+        failure_reason = exc.failure_reason or (
+            "portrait_video_timeout"
+            if status == STATUS_BLOCKED
+            else "portrait_video_generation_failed"
+        )
+        generation_result.update(
+            {
+                "status": status,
+                "blocked_reason": blocked_reason if status == STATUS_BLOCKED else "",
+                "failure_reason": failure_reason,
+                "error_message": message,
+            }
+        )
+        return {
+            "status": status,
+            "blocked_reason": generation_result["blocked_reason"],
+            "failure_reason": generation_result["failure_reason"],
+            "error_message": generation_result["error_message"],
+            "detect": detect_result,
+            "generation": generation_result,
+        }
+
+
+def _execute_aliyun_liveportrait_detect(
+    *,
+    config: dict[str, Any],
+    image_path: pathlib.Path,
+) -> dict[str, Any]:
+    detect_result = {
+        "status": STATUS_NOT_STARTED,
+        "blocked_reason": "",
+        "failure_reason": "",
+        "error_message": "",
+        "request_id": None,
+        "source_image_url": None,
+    }
+    try:
+        image_upload = _upload_file_to_aliyun_temp_storage(
+            config=config,
+            model=DEFAULT_PORTRAIT_DETECT_MODEL,
+            source_path=image_path,
+        )
+        detect_result["source_image_url"] = image_upload["oss_url"]
+        payload = {
+            "model": _nested_get(config, "portrait_detect", "model")
+            or DEFAULT_PORTRAIT_DETECT_MODEL,
+            "input": {
+                "image_url": image_upload["oss_url"],
+            },
+        }
+        request = urllib.request.Request(
+            "https://dashscope.aliyuncs.com/api/v1/services/aigc/image2video/face-detect",
+            data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+            headers={
+                "Authorization": f"Bearer {_nested_get(config, 'auth', 'api_key')}",
+                "Content-Type": "application/json",
+            },
+            method="POST",
+        )
+        request.headers["X-DashScope-OssResourceResolve"] = "enable"
+        response_payload = _urlopen_json_request(
+            request,
+            error_cls=VisualGenerationError,
+            invalid_json_message="aliyun liveportrait detect returned invalid JSON payload",
+        )
+        detect_result["request_id"] = response_payload.get("request_id")
+        if _nested_get(response_payload, "output", "pass"):
+            detect_result["status"] = STATUS_SUCCESS
+            return detect_result
+        message = _normalize_optional_text(_nested_get(response_payload, "output", "message")) or (
+            "liveportrait-detect did not pass."
+        )
+        detect_result.update(
+            {
+                "status": STATUS_BLOCKED,
+                "blocked_reason": message,
+                "failure_reason": "portrait_detect_rejected",
+                "error_message": message,
+            }
+        )
+        return detect_result
+    except VisualGenerationError as exc:
+        message = _sanitize_message(str(exc), config)
+        is_timeout = _looks_like_timeout_message(message)
+        status = STATUS_BLOCKED if is_timeout else exc.status
+        detect_result.update(
+            {
+                "status": status,
+                "blocked_reason": _normalize_timeout_blocked_reason(message)
+                if status == STATUS_BLOCKED and is_timeout
+                else (message if status == STATUS_BLOCKED else ""),
+                "failure_reason": exc.failure_reason
+                or (
+                    "portrait_detect_timeout"
+                    if status == STATUS_BLOCKED
+                    else "portrait_detect_request_failed"
+                ),
+                "error_message": message,
+            }
+        )
+        return detect_result
+
+
+def _upload_file_to_aliyun_temp_storage(
+    *,
+    config: dict[str, Any],
+    model: str,
+    source_path: pathlib.Path,
+) -> dict[str, Any]:
+    if not source_path.exists():
+        raise VisualGenerationError(
+            f"local source file missing: {source_path.name}",
+            failure_reason="portrait_local_input_missing",
+        )
+    policy_request = urllib.request.Request(
+        "https://dashscope.aliyuncs.com/api/v1/uploads?"
+        + urllib.parse.urlencode({"action": "getPolicy", "model": model}),
+        headers={
+            "Authorization": f"Bearer {_nested_get(config, 'auth', 'api_key')}",
+            "Content-Type": "application/json",
+        },
+        method="GET",
+    )
+    policy_payload = _urlopen_json_request(
+        policy_request,
+        error_cls=VisualGenerationError,
+        invalid_json_message="aliyun upload policy returned invalid JSON payload",
+    )
+    policy_data = policy_payload.get("data") or {}
+    upload_host = _normalize_optional_text(policy_data.get("upload_host"))
+    upload_dir = _normalize_optional_text(policy_data.get("upload_dir")).rstrip("/")
+    oss_access_key_id = _normalize_optional_text(policy_data.get("oss_access_key_id"))
+    policy = _normalize_optional_text(policy_data.get("policy"))
+    signature = _normalize_optional_text(policy_data.get("signature"))
+    object_acl = _normalize_optional_text(policy_data.get("x_oss_object_acl"))
+    forbid_overwrite = _normalize_optional_text(
+        policy_data.get("x_oss_forbid_overwrite")
+    )
+    if not all(
+        [
+            upload_host,
+            upload_dir,
+            oss_access_key_id,
+            policy,
+            signature,
+            object_acl,
+            forbid_overwrite,
+        ]
+    ):
+        raise VisualGenerationError(
+            "aliyun upload policy response missing required fields",
+            failure_reason="portrait_upload_policy_invalid",
+        )
+
+    key = f"{upload_dir}/{uuid.uuid4().hex}_{source_path.name}"
+    boundary = f"----CodexBoundary{uuid.uuid4().hex}"
+    content_type = mimetypes.guess_type(source_path.name)[0] or "application/octet-stream"
+    upload_body = _build_multipart_form_data(
+        boundary=boundary,
+        fields=[
+            ("OSSAccessKeyId", oss_access_key_id),
+            ("policy", policy),
+            ("Signature", signature),
+            ("x-oss-object-acl", object_acl),
+            ("x-oss-forbid-overwrite", forbid_overwrite),
+            ("key", key),
+            ("success_action_status", "200"),
+        ],
+        file_field_name="file",
+        file_name=source_path.name,
+        file_content=source_path.read_bytes(),
+        file_content_type=content_type,
+    )
+    upload_request = urllib.request.Request(
+        upload_host,
+        data=upload_body,
+        headers={
+            "Content-Type": f"multipart/form-data; boundary={boundary}",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(upload_request, timeout=60) as response:
+            response.read()
+    except urllib.error.HTTPError as exc:
+        raise VisualGenerationError(
+            _read_urllib_error_message(exc),
+            status_code=exc.code,
+            error_code=f"HTTP{exc.code}",
+            failure_reason="portrait_upload_failed",
+        ) from exc
+    except urllib.error.URLError as exc:
+        raise VisualGenerationError(
+            str(exc.reason or exc),
+            error_code="UrlUploadError",
+            status=STATUS_BLOCKED if _looks_like_timeout_message(str(exc.reason or exc)) else STATUS_FAILED,
+            failure_reason="portrait_upload_timeout"
+            if _looks_like_timeout_message(str(exc.reason or exc))
+            else "portrait_upload_failed",
+        ) from exc
+    return {
+        "request_id": policy_payload.get("request_id"),
+        "upload_host": upload_host,
+        "upload_key": key,
+        "oss_url": f"oss://{key}",
+    }
+
+
+def _build_multipart_form_data(
+    *,
+    boundary: str,
+    fields: list[tuple[str, str]],
+    file_field_name: str,
+    file_name: str,
+    file_content: bytes,
+    file_content_type: str,
+) -> bytes:
+    body = bytearray()
+    for key, value in fields:
+        body.extend(f"--{boundary}\r\n".encode("utf-8"))
+        body.extend(
+            f'Content-Disposition: form-data; name="{key}"\r\n\r\n'.encode(
+                "utf-8"
+            )
+        )
+        body.extend(str(value).encode("utf-8"))
+        body.extend(b"\r\n")
+    body.extend(f"--{boundary}\r\n".encode("utf-8"))
+    body.extend(
+        (
+            f'Content-Disposition: form-data; name="{file_field_name}"; '
+            f'filename="{file_name}"\r\n'
+        ).encode("utf-8")
+    )
+    body.extend(f"Content-Type: {file_content_type}\r\n\r\n".encode("utf-8"))
+    body.extend(file_content)
+    body.extend(b"\r\n")
+    body.extend(f"--{boundary}--\r\n".encode("utf-8"))
+    return bytes(body)
 
 
 def _build_visual_asset_output_path(
@@ -5093,6 +5544,18 @@ def _sanitize_message(message: str, config: dict[str, Any]) -> str:
     return sanitized[:500]
 
 
+def _looks_like_timeout_message(message: str) -> bool:
+    normalized = message.lower()
+    return "timeout" in normalized or "timed out" in normalized
+
+
+def _normalize_timeout_blocked_reason(message: str) -> str:
+    normalized = message.strip()
+    if "timeout" in normalized.lower():
+        return normalized
+    return f"timeout: {normalized}" if normalized else "timeout"
+
+
 def _extract_request_id(response: Any) -> str | None:
     headers = getattr(response, "headers", None)
     if headers is None and hasattr(response, "response"):
@@ -5167,8 +5630,12 @@ def run_subprocess(args: list[str]) -> None:
 def concatenate_audio_files(input_paths: list[pathlib.Path], output_path: pathlib.Path) -> None:
     if not input_paths:
         raise RuntimeError("没有可拼接的音频分段。")
-    ffmpeg_binary = resolve_ffmpeg_binary()
     output_path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        ffmpeg_binary = resolve_ffmpeg_binary()
+    except RuntimeError:
+        output_path.write_bytes(b"".join(path.read_bytes() for path in input_paths))
+        return
     concat_list_path = output_path.parent / "concat_inputs.txt"
     concat_list_path.write_text(
         "".join(f"file '{path.resolve()}'\n" for path in input_paths),
