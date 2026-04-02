@@ -52,8 +52,14 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
         volume: int = 50,
         image_model: str = "",
         video_model: str = "",
+        portrait_detect_enabled: bool = False,
+        portrait_detect_model: str = "liveportrait-detect",
+        portrait_video_generation_enabled: bool = False,
+        portrait_video_model: str = "liveportrait",
         template_id: str = "",
         space_name: str = "",
+        polling_interval_seconds: int = 5,
+        polling_timeout_seconds: int = 600,
     ) -> None:
         path.write_text(
             "\n".join(
@@ -86,6 +92,14 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                     "[video_generation]",
                     f'model = "{video_model}"',
                     "",
+                    "[portrait_detect]",
+                    f"enabled = {'true' if portrait_detect_enabled else 'false'}",
+                    f'model = "{portrait_detect_model}"',
+                    "",
+                    "[portrait_video_generation]",
+                    f"enabled = {'true' if portrait_video_generation_enabled else 'false'}",
+                    f'model = "{portrait_video_model}"',
+                    "",
                     "[assembly]",
                     'mode = "cloud"',
                     f'template_id = "{template_id}"',
@@ -95,6 +109,10 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                     "",
                     "[storage]",
                     f'space_name = "{space_name}"',
+                    "",
+                    "[polling]",
+                    f"interval_seconds = {polling_interval_seconds}",
+                    f"timeout_seconds = {polling_timeout_seconds}",
                 ]
             )
             + "\n",
@@ -225,13 +243,13 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
             self._write_local_config(
                 local_config_path,
-                provider_name="aliyun_bailian",
+                provider_name="volcengine",
                 route_family="aliyun_bailian_cosyvoice",
                 api_key="dashscope_test_key",
                 model="cosyvoice-v3-flash",
                 voice="longanyang",
-                image_model="wanx2.1-image",
-                video_model="wanx2.1-video",
+                image_model="wan2.6-image",
+                video_model="wan2.6-t2v",
             )
 
             def fake_probe(*_args, **kwargs):
@@ -518,7 +536,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             self.assertEqual(result["overall_status"], STATUS_BLOCKED)
             self.assertIn("tts_model", result["current_missing_prerequisites"])
 
-    def test_generate_non_dry_run_aliyun_bailian_blocks_when_visual_provider_not_implemented(self) -> None:
+    def test_generate_non_dry_run_aliyun_bailian_downloads_local_visual_assets(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_aliyun_success_") as temp_dir:
             output_dir = pathlib.Path(temp_dir) / "dist"
             local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
@@ -529,9 +547,244 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 api_key="dashscope_test_key",
                 model="cosyvoice-v3-flash",
                 voice="longxiaochun",
-                image_model="wanx2.1-image",
-                video_model="wanx2.1-video",
+                image_model="wan2.6-image",
+                video_model="wan2.6-t2v",
             )
+
+            class _JsonResponse:
+                def __init__(self, payload: dict[str, object]) -> None:
+                    self._payload = payload
+
+                def __enter__(self):
+                    return self
+
+                def __exit__(self, exc_type, exc, tb):
+                    return False
+
+                def read(self) -> bytes:
+                    return json.dumps(self._payload).encode("utf-8")
+
+            class _BinaryResponse:
+                def __enter__(self):
+                    return self
+
+                def __exit__(self, exc_type, exc, tb):
+                    return False
+
+                @staticmethod
+                def read() -> bytes:
+                    return b"fake-binary-asset"
+
+            tts_counter = 0
+            image_task_counter = 0
+            video_task_counter = 0
+            image_urls = {
+                "img_task_1": "https://dashscope-result.example.com/image_seg01.png",
+                "img_task_2": "https://dashscope-result.example.com/image_seg02.png",
+                "img_task_3": "https://dashscope-result.example.com/image_seg03.png",
+            }
+            video_urls = {
+                "vid_task_1": "https://dashscope-result.example.com/video_seg02.mp4",
+            }
+            download_payloads = {
+                "https://dashscope-result.example.com/audio_1.mp3": b"aliyun-mp3-probe",
+                "https://dashscope-result.example.com/audio_2.mp3": b"aliyun-mp3-seg01",
+                "https://dashscope-result.example.com/audio_3.mp3": b"aliyun-mp3-seg02",
+                "https://dashscope-result.example.com/audio_4.mp3": b"aliyun-mp3-seg03",
+                image_urls["img_task_1"]: b"fake-image-seg01",
+                image_urls["img_task_2"]: b"fake-image-seg02",
+                image_urls["img_task_3"]: b"fake-image-seg03",
+                video_urls["vid_task_1"]: b"fake-video-seg02",
+            }
+
+            def fake_urlopen(request, timeout=60):
+                del timeout
+                url = request.full_url
+                if url.endswith("/services/audio/tts/SpeechSynthesizer"):
+                    nonlocal tts_counter
+                    tts_counter += 1
+                    return _JsonResponse(
+                        {
+                            "request_id": f"aliyun_req_{tts_counter}",
+                            "output": {
+                                "finish_reason": "stop",
+                                "audio": {
+                                    "url": f"https://dashscope-result.example.com/audio_{tts_counter}.mp3",
+                                    "id": f"audio_demo_{tts_counter}",
+                                    "expires_at": 1772697707,
+                                },
+                            },
+                        }
+                    )
+                if url.endswith("/services/aigc/image-generation/generation"):
+                    nonlocal image_task_counter
+                    image_task_counter += 1
+                    return _JsonResponse(
+                        {
+                            "request_id": f"image_req_{image_task_counter}",
+                            "output": {
+                                "task_id": f"img_task_{image_task_counter}",
+                                "task_status": "PENDING",
+                            },
+                        }
+                    )
+                if url.endswith("/services/aigc/video-generation/video-synthesis"):
+                    nonlocal video_task_counter
+                    video_task_counter += 1
+                    return _JsonResponse(
+                        {
+                            "request_id": f"video_req_{video_task_counter}",
+                            "output": {
+                                "task_id": f"vid_task_{video_task_counter}",
+                                "task_status": "PENDING",
+                            },
+                        }
+                    )
+                if "/api/v1/tasks/" in url:
+                    task_id = url.rsplit("/", 1)[-1]
+                    if task_id in image_urls:
+                        return _JsonResponse(
+                            {
+                                "request_id": f"{task_id}_poll_req",
+                                "output": {
+                                    "task_id": task_id,
+                                    "task_status": "SUCCEEDED",
+                                    "finished": True,
+                                    "choices": [
+                                        {
+                                            "finish_reason": "stop",
+                                            "message": {
+                                                "role": "assistant",
+                                                "content": [
+                                                    {
+                                                        "type": "image",
+                                                        "image": image_urls[task_id],
+                                                    }
+                                                ],
+                                            },
+                                        }
+                                    ],
+                                },
+                            }
+                        )
+                    if task_id in video_urls:
+                        return _JsonResponse(
+                            {
+                                "request_id": f"{task_id}_poll_req",
+                                "output": {
+                                    "task_id": task_id,
+                                    "task_status": "SUCCEEDED",
+                                    "video_url": video_urls[task_id],
+                                },
+                            }
+                        )
+                    raise AssertionError(f"unexpected task id: {task_id}")
+                if url in download_payloads:
+                    return _BinaryResponse()
+                raise AssertionError(f"unexpected url: {url}")
+
+            with mock.patch("formal_api_demo_core.urllib.request.urlopen", side_effect=fake_urlopen), mock.patch(
+                "formal_api_demo_core.concatenate_audio_files",
+                side_effect=self._fake_concatenate_audio_files,
+            ):
+                result = run_generation_pipeline(
+                    input_path=FORMAL_CASE_PATH,
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                    dry_run=False,
+                )
+
+            manifest = json.loads((output_dir / "manifest.json").read_text(encoding="utf-8"))
+            tts_probe = manifest["generation"]["tts_probe"]
+            request_debug = tts_probe["request_debug"]
+            audio_path = output_dir / "tts" / "voice_probe.mp3"
+
+            self.assertEqual(result["tts_probe_status"], STATUS_SUCCESS)
+            self.assertEqual(result["voiceover_status"], STATUS_SUCCESS)
+            self.assertEqual(result["captions_status"], STATUS_SUCCESS)
+            self.assertEqual(tts_probe["status"], STATUS_SUCCESS)
+            self.assertEqual(request_debug["api_route_family"], "aliyun_bailian_cosyvoice")
+            self.assertEqual(request_debug["provider"], "aliyun_bailian")
+            self.assertEqual(request_debug["base_url"], "https://dashscope.aliyuncs.com/api/v1")
+            self.assertEqual(
+                request_debug["relative_path"],
+                "/services/audio/tts/SpeechSynthesizer",
+            )
+            self.assertEqual(request_debug["model_identifier_source"], "model")
+            self.assertTrue(audio_path.exists())
+            self.assertEqual(audio_path.read_bytes(), b"fake-binary-asset")
+            self.assertTrue((output_dir / "tts" / "formal_voiceover.mp3").exists())
+            self.assertTrue((output_dir / "script.txt").exists())
+            self.assertTrue((output_dir / "captions.srt").exists())
+            self.assertTrue((output_dir / "visual_generation_plan.json").exists())
+            self.assertTrue((output_dir / "preview_storyboard.json").exists())
+            self.assertEqual(result["overall_status"], STATUS_SUCCESS)
+            self.assertEqual(result["generation_status"], STATUS_SUCCESS)
+            self.assertEqual(result["visual_generation_status"], STATUS_SUCCESS)
+            self.assertEqual(result["cloud_visual_generation_status"], STATUS_SUCCESS)
+            self.assertEqual(manifest["current_status"], STATUS_SUCCESS)
+            self.assertEqual(
+                manifest["generation"]["visual_generation"]["delivery_mode"],
+                "api_generated_local_assets",
+            )
+            visual_assets = manifest["generation"]["visual_generation"]["segment_assets"]
+            self.assertEqual(
+                [asset["status"] for asset in visual_assets],
+                [STATUS_SUCCESS, STATUS_SUCCESS, STATUS_SUCCESS],
+            )
+            self.assertTrue(pathlib.Path(visual_assets[0]["image_asset_path"]).exists())
+            self.assertTrue(pathlib.Path(visual_assets[1]["image_asset_path"]).exists())
+            self.assertTrue(pathlib.Path(visual_assets[1]["video_asset_path"]).exists())
+            self.assertTrue(pathlib.Path(visual_assets[2]["image_asset_path"]).exists())
+            self.assertEqual(
+                pathlib.Path(manifest["segments"][0]["output_slots"]["visual_uri"]).read_bytes(),
+                b"fake-binary-asset",
+            )
+            self.assertEqual(
+                pathlib.Path(manifest["segments"][1]["output_slots"]["visual_uri"]).read_bytes(),
+                b"fake-binary-asset",
+            )
+            self.assertEqual(
+                pathlib.Path(manifest["segments"][2]["output_slots"]["visual_uri"]).read_bytes(),
+                b"fake-binary-asset",
+            )
+            self.assertTrue(result["artifact_paths"]["visual_assets"])
+            self.assertEqual(
+                manifest["segments"][0]["task_slots"]["image_task_id"],
+                "img_task_1",
+            )
+            self.assertEqual(
+                manifest["segments"][1]["task_slots"]["video_task_id"],
+                "vid_task_1",
+            )
+            self.assertEqual(
+                manifest["segments"][1]["task_slots"]["image_task_id"],
+                "img_task_2",
+            )
+            self.assertEqual(
+                manifest["segments"][2]["task_slots"]["image_task_id"],
+                "img_task_3",
+            )
+
+    def test_generate_non_dry_run_marks_blocked_when_aliyun_visual_task_poll_times_out(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_visual_timeout_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                provider_name="aliyun_bailian",
+                route_family="aliyun_bailian_cosyvoice",
+                api_key="dashscope_test_key",
+                model="cosyvoice-v3-flash",
+                voice="longxiaochun",
+                image_model="wan2.6-image",
+                video_model="wan2.6-t2v",
+                polling_interval_seconds=0,
+                polling_timeout_seconds=0,
+            )
+
+            tts_counter = 0
 
             class _JsonResponse:
                 def __init__(self, payload: dict[str, object]) -> None:
@@ -561,21 +814,136 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 del timeout
                 url = request.full_url
                 if url.endswith("/services/audio/tts/SpeechSynthesizer"):
+                    nonlocal tts_counter
+                    tts_counter += 1
                     return _JsonResponse(
                         {
-                            "request_id": "aliyun_req_demo",
+                            "request_id": f"aliyun_req_{tts_counter}",
                             "output": {
-                                "finish_reason": "stop",
                                 "audio": {
-                                    "url": "https://dashscope-result.example.com/audio.mp3",
-                                    "id": "audio_demo",
-                                    "expires_at": 1772697707,
+                                    "url": f"https://dashscope-result.example.com/audio_{tts_counter}.mp3",
                                 },
                             },
                         }
                     )
-                if url == "https://dashscope-result.example.com/audio.mp3":
+                if url.startswith("https://dashscope-result.example.com/audio_"):
                     return _BinaryResponse()
+                if url.endswith("/services/aigc/image-generation/generation"):
+                    return _JsonResponse(
+                        {
+                            "request_id": "image_req_1",
+                            "output": {"task_id": "img_task_timeout", "task_status": "PENDING"},
+                        }
+                    )
+                if url.endswith("/api/v1/tasks/img_task_timeout"):
+                    return _JsonResponse(
+                        {
+                            "request_id": "image_poll_req",
+                            "output": {"task_id": "img_task_timeout", "task_status": "RUNNING"},
+                        }
+                    )
+                raise AssertionError(f"unexpected url: {url}")
+
+            with mock.patch("formal_api_demo_core.urllib.request.urlopen", side_effect=fake_urlopen), mock.patch(
+                "formal_api_demo_core.concatenate_audio_files",
+                side_effect=self._fake_concatenate_audio_files,
+            ), mock.patch("time.sleep", return_value=None):
+                result = run_generation_pipeline(
+                    input_path=FORMAL_CASE_PATH,
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                    dry_run=False,
+                )
+
+            manifest = json.loads((output_dir / "manifest.json").read_text(encoding="utf-8"))
+            self.assertEqual(result["generation_status"], STATUS_BLOCKED)
+            self.assertEqual(result["visual_generation_status"], STATUS_BLOCKED)
+            self.assertIn("timeout", result["blocked_reason"])
+            self.assertEqual(manifest["current_status"], STATUS_BLOCKED)
+            self.assertEqual(
+                manifest["generation"]["visual_generation"]["segment_assets"][0]["status"],
+                STATUS_BLOCKED,
+            )
+
+    def test_generate_non_dry_run_marks_failed_when_aliyun_image_task_missing_result_url(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_visual_missing_url_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                provider_name="aliyun_bailian",
+                route_family="aliyun_bailian_cosyvoice",
+                api_key="dashscope_test_key",
+                model="cosyvoice-v3-flash",
+                voice="longxiaochun",
+                image_model="wan2.6-image",
+                video_model="wan2.6-t2v",
+            )
+
+            tts_counter = 0
+
+            class _JsonResponse:
+                def __init__(self, payload: dict[str, object]) -> None:
+                    self._payload = payload
+
+                def __enter__(self):
+                    return self
+
+                def __exit__(self, exc_type, exc, tb):
+                    return False
+
+                def read(self) -> bytes:
+                    return json.dumps(self._payload).encode("utf-8")
+
+            class _BinaryResponse:
+                def __enter__(self):
+                    return self
+
+                def __exit__(self, exc_type, exc, tb):
+                    return False
+
+                @staticmethod
+                def read() -> bytes:
+                    return b"aliyun-mp3"
+
+            def fake_urlopen(request, timeout=60):
+                del timeout
+                url = request.full_url
+                if url.endswith("/services/audio/tts/SpeechSynthesizer"):
+                    nonlocal tts_counter
+                    tts_counter += 1
+                    return _JsonResponse(
+                        {
+                            "request_id": f"aliyun_req_{tts_counter}",
+                            "output": {
+                                "audio": {
+                                    "url": f"https://dashscope-result.example.com/audio_{tts_counter}.mp3",
+                                },
+                            },
+                        }
+                    )
+                if url.startswith("https://dashscope-result.example.com/audio_"):
+                    return _BinaryResponse()
+                if url.endswith("/services/aigc/image-generation/generation"):
+                    return _JsonResponse(
+                        {
+                            "request_id": "image_req_1",
+                            "output": {"task_id": "img_task_missing_url", "task_status": "PENDING"},
+                        }
+                    )
+                if url.endswith("/api/v1/tasks/img_task_missing_url"):
+                    return _JsonResponse(
+                        {
+                            "request_id": "image_poll_req",
+                            "output": {
+                                "task_id": "img_task_missing_url",
+                                "task_status": "SUCCEEDED",
+                                "finished": True,
+                                "choices": [],
+                            },
+                        }
+                    )
                 raise AssertionError(f"unexpected url: {url}")
 
             with mock.patch("formal_api_demo_core.urllib.request.urlopen", side_effect=fake_urlopen), mock.patch(
@@ -591,39 +959,223 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 )
 
             manifest = json.loads((output_dir / "manifest.json").read_text(encoding="utf-8"))
-            tts_probe = manifest["generation"]["tts_probe"]
-            request_debug = tts_probe["request_debug"]
-            audio_path = output_dir / "tts" / "voice_probe.mp3"
+            self.assertEqual(result["generation_status"], STATUS_FAILED)
+            self.assertEqual(result["visual_generation_status"], STATUS_FAILED)
+            self.assertEqual(manifest["current_status"], STATUS_FAILED)
+            self.assertIn("image_result_url_missing", result["failure_reason"])
 
-            self.assertEqual(result["overall_status"], STATUS_BLOCKED)
+    def test_generate_non_dry_run_marks_failed_when_aliyun_video_download_fails(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_visual_video_download_fail_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                provider_name="aliyun_bailian",
+                route_family="aliyun_bailian_cosyvoice",
+                api_key="dashscope_test_key",
+                model="cosyvoice-v3-flash",
+                voice="longxiaochun",
+                image_model="wan2.6-image",
+                video_model="wan2.6-t2v",
+            )
+
+            tts_counter = 0
+            image_task_counter = 0
+
+            class _JsonResponse:
+                def __init__(self, payload: dict[str, object]) -> None:
+                    self._payload = payload
+
+                def __enter__(self):
+                    return self
+
+                def __exit__(self, exc_type, exc, tb):
+                    return False
+
+                def read(self) -> bytes:
+                    return json.dumps(self._payload).encode("utf-8")
+
+            class _BinaryResponse:
+                def __enter__(self):
+                    return self
+
+                def __exit__(self, exc_type, exc, tb):
+                    return False
+
+                def read(self) -> bytes:
+                    return b"aliyun-mp3" if self.full_url.endswith(".mp3") else b"fake-image"
+
+            def fake_urlopen(request, timeout=60):
+                del timeout
+                url = request.full_url
+                if url.endswith("/services/audio/tts/SpeechSynthesizer"):
+                    nonlocal tts_counter
+                    tts_counter += 1
+                    return _JsonResponse(
+                        {
+                            "request_id": f"aliyun_req_{tts_counter}",
+                            "output": {
+                                "audio": {
+                                    "url": f"https://dashscope-result.example.com/audio_{tts_counter}.mp3",
+                                },
+                            },
+                        }
+                    )
+                if url.startswith("https://dashscope-result.example.com/audio_"):
+                    response = _BinaryResponse()
+                    response.full_url = url
+                    return response
+                if url.endswith("/services/aigc/image-generation/generation"):
+                    nonlocal image_task_counter
+                    image_task_counter += 1
+                    return _JsonResponse(
+                        {
+                            "request_id": f"image_req_{image_task_counter}",
+                            "output": {"task_id": f"img_task_{image_task_counter}", "task_status": "PENDING"},
+                        }
+                    )
+                if url.endswith("/services/aigc/video-generation/video-synthesis"):
+                    return _JsonResponse(
+                        {
+                            "request_id": "video_req_1",
+                            "output": {"task_id": "vid_task_download_fail", "task_status": "PENDING"},
+                        }
+                    )
+                if url.endswith("/api/v1/tasks/img_task_1") or url.endswith("/api/v1/tasks/img_task_2"):
+                    task_id = url.rsplit("/", 1)[-1]
+                    return _JsonResponse(
+                        {
+                            "request_id": f"{task_id}_poll_req",
+                            "output": {
+                                "task_id": task_id,
+                                "task_status": "SUCCEEDED",
+                                "finished": True,
+                                "choices": [
+                                    {
+                                        "finish_reason": "stop",
+                                        "message": {
+                                            "role": "assistant",
+                                            "content": [
+                                                {
+                                                    "type": "image",
+                                                    "image": f"https://dashscope-result.example.com/{task_id}.png",
+                                                }
+                                            ],
+                                        },
+                                    }
+                                ],
+                            },
+                        }
+                    )
+                if url.endswith("/api/v1/tasks/vid_task_download_fail"):
+                    return _JsonResponse(
+                        {
+                            "request_id": "vid_task_poll_req",
+                            "output": {
+                                "task_id": "vid_task_download_fail",
+                                "task_status": "SUCCEEDED",
+                                "video_url": "https://dashscope-result.example.com/vid_task_download_fail.mp4",
+                            },
+                        }
+                    )
+                if url.endswith(".png"):
+                    response = _BinaryResponse()
+                    response.full_url = url
+                    return response
+                if url.endswith(".mp4"):
+                    raise urllib.error.HTTPError(
+                        url,
+                        403,
+                        "Forbidden",
+                        hdrs=None,
+                        fp=io.BytesIO(b'{"code":"NoPermission","message":"download denied"}'),
+                    )
+                raise AssertionError(f"unexpected url: {url}")
+
+            with mock.patch("formal_api_demo_core.urllib.request.urlopen", side_effect=fake_urlopen), mock.patch(
+                "formal_api_demo_core.concatenate_audio_files",
+                side_effect=self._fake_concatenate_audio_files,
+            ):
+                result = run_generation_pipeline(
+                    input_path=FORMAL_CASE_PATH,
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                    dry_run=False,
+                )
+
+            manifest = json.loads((output_dir / "manifest.json").read_text(encoding="utf-8"))
+            self.assertEqual(result["generation_status"], STATUS_FAILED)
+            self.assertEqual(result["visual_generation_status"], STATUS_FAILED)
+            self.assertEqual(manifest["current_status"], STATUS_FAILED)
+            self.assertIn("video_download_failed", result["failure_reason"])
+
+    def test_generate_non_dry_run_keeps_liveportrait_branch_honestly_blocked(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_liveportrait_blocked_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                provider_name="aliyun_bailian",
+                route_family="aliyun_bailian_cosyvoice",
+                api_key="dashscope_test_key",
+                model="cosyvoice-v3-flash",
+                voice="longxiaochun",
+                image_model="wan2.6-image",
+                video_model="wan2.6-t2v",
+                portrait_detect_enabled=True,
+                portrait_video_generation_enabled=True,
+            )
+
+            def fake_probe(*_args, **kwargs):
+                output_stem = kwargs.get("output_stem", "voice_probe")
+                audio_path = output_dir / "tts" / f"{output_stem}.mp3"
+                audio_path.parent.mkdir(parents=True, exist_ok=True)
+                audio_path.write_bytes(f"fake-{output_stem}".encode("utf-8"))
+                return {
+                    "status": STATUS_SUCCESS,
+                    "blocked_reason": "",
+                    "failure_reason": "",
+                    "error_code": "",
+                    "error_message": "",
+                    "audio_path": str(audio_path),
+                    "request_id": f"req_{output_stem}",
+                    "model_identifier": "cosyvoice-v3-flash",
+                    "probe_text": "测试配音",
+                    "voice": "longxiaochun",
+                    "used_model_id": "cosyvoice-v3-flash",
+                    "request_debug": {
+                        "provider": "aliyun_bailian",
+                        "api_route_family": "aliyun_bailian_cosyvoice",
+                    },
+                }
+
+            with mock.patch("formal_api_demo_core.execute_tts_probe", side_effect=fake_probe), mock.patch(
+                "formal_api_demo_core.concatenate_audio_files",
+                side_effect=self._fake_concatenate_audio_files,
+            ):
+                result = run_generation_pipeline(
+                    input_path=FORMAL_CASE_PATH,
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                    dry_run=False,
+                )
+
+            manifest = json.loads((output_dir / "manifest.json").read_text(encoding="utf-8"))
             self.assertEqual(result["generation_status"], STATUS_BLOCKED)
-            self.assertEqual(result["tts_probe_status"], STATUS_SUCCESS)
-            self.assertEqual(result["voiceover_status"], STATUS_SUCCESS)
-            self.assertEqual(result["captions_status"], STATUS_SUCCESS)
-            self.assertEqual(result["visual_generation_status"], STATUS_BLOCKED)
-            self.assertEqual(result["cloud_visual_generation_status"], STATUS_BLOCKED)
-            self.assertEqual(manifest["current_status"], STATUS_BLOCKED)
-            self.assertEqual(tts_probe["status"], STATUS_SUCCESS)
-            self.assertEqual(request_debug["api_route_family"], "aliyun_bailian_cosyvoice")
-            self.assertEqual(request_debug["provider"], "aliyun_bailian")
-            self.assertEqual(request_debug["base_url"], "https://dashscope.aliyuncs.com/api/v1")
-            self.assertEqual(
-                request_debug["relative_path"],
-                "/services/audio/tts/SpeechSynthesizer",
-            )
-            self.assertEqual(request_debug["model_identifier_source"], "model")
-            self.assertTrue(audio_path.exists())
-            self.assertEqual(audio_path.read_bytes(), b"aliyun-mp3")
-            self.assertTrue((output_dir / "tts" / "formal_voiceover.mp3").exists())
-            self.assertTrue((output_dir / "script.txt").exists())
-            self.assertTrue((output_dir / "captions.srt").exists())
-            self.assertTrue((output_dir / "visual_generation_plan.json").exists())
-            self.assertTrue((output_dir / "preview_storyboard.json").exists())
             self.assertIn(
-                "image_generation_provider_implementation",
-                manifest["generation"]["visual_generation"]["cloud"]["missing_implementations"],
+                "portrait_detect_provider_implementation",
+                result["current_missing_implementations"],
             )
-            self.assertIsNone(manifest["segments"][0]["output_slots"]["visual_uri"])
+            self.assertEqual(
+                manifest["generation"]["visual_generation"]["portrait_detect"]["status"],
+                STATUS_BLOCKED,
+            )
+            self.assertEqual(
+                manifest["generation"]["visual_generation"]["portrait_video_generation"]["status"],
+                STATUS_BLOCKED,
+            )
 
     def test_generate_non_dry_run_aliyun_bailian_marks_failed_when_remote_returns_403(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_aliyun_failed_") as temp_dir:

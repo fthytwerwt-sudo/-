@@ -5,7 +5,9 @@ import json
 import pathlib
 import shutil
 import subprocess
+import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from typing import Any
 
@@ -168,6 +170,23 @@ class TtsRequestError(RuntimeError):
         super().__init__(message)
         self.status_code = status_code
         self.error_code = error_code
+
+
+class VisualGenerationError(RuntimeError):
+    def __init__(
+        self,
+        message: str,
+        *,
+        status_code: int | None = None,
+        error_code: str | None = None,
+        status: str = STATUS_FAILED,
+        failure_reason: str = "",
+    ) -> None:
+        super().__init__(message)
+        self.status_code = status_code
+        self.error_code = error_code
+        self.status = status
+        self.failure_reason = failure_reason
 
 REQUIRED_TOP_LEVEL_SECTIONS = [
     "主题",
@@ -943,6 +962,8 @@ def _evaluate_visual_generation_gate(
     missing: list[str] = []
     implementation_missing: list[str] = []
     visual_routes = _build_visual_model_routes(config)
+    visual_provider = _nested_get(config, "provider", "name")
+    aliyun_visual_supported = visual_provider == PROVIDER_ALIYUN_BAILIAN
     needs_image = any(segment.get("needs_image") for segment in video_spec.get("segments", []))
     needs_video = any(segment.get("needs_video") for segment in video_spec.get("segments", []))
     portrait_detect_enabled = visual_routes["portrait_detect"]["enabled"]
@@ -965,9 +986,9 @@ def _evaluate_visual_generation_gate(
         _nested_get(config, "portrait_video_generation", "model")
     ):
         missing.append("portrait_video_generation_model")
-    if needs_image:
+    if needs_image and not aliyun_visual_supported:
         implementation_missing.append("image_generation_provider_implementation")
-    if needs_video:
+    if needs_video and not aliyun_visual_supported:
         implementation_missing.append("video_generation_provider_implementation")
     if portrait_detect_enabled:
         implementation_missing.append("portrait_detect_provider_implementation")
@@ -1024,17 +1045,37 @@ def _evaluate_visual_generation_gate(
         status = STATUS_BLOCKED
         blocked_reason = "缺少视觉生成前提：" + "、".join(missing)
     elif implementation_missing:
+        blocked_parts: list[str] = []
+        if any(
+            item in implementation_missing
+            for item in (
+                "image_generation_provider_implementation",
+                "video_generation_provider_implementation",
+            )
+        ):
+            blocked_parts.append(
+                "当前普通图片 / 视频主线 provider 仅真实接入 aliyun_bailian / DashScope；"
+                f"当前 provider={visual_provider or 'missing'} 仍无法执行 "
+                f"{visual_routes['image_generation']['model'] or DEFAULT_GENERAL_IMAGE_MODEL}"
+                " / "
+                f"{visual_routes['general_video_generation']['model'] or DEFAULT_GENERAL_VIDEO_MODEL}"
+                "。"
+            )
+        if any(
+            item in implementation_missing
+            for item in (
+                "portrait_detect_provider_implementation",
+                "portrait_video_generation_provider_implementation",
+            )
+        ):
+            blocked_parts.append(
+                "真人开口分支仍固定为 liveportrait-detect -> liveportrait；"
+                "当前 provider implementation 尚未接入。"
+            )
         status = STATUS_BLOCKED
-        blocked_reason = (
-            "当前免费优先模型路线已定："
-            f"{visual_routes['image_generation']['model'] or DEFAULT_GENERAL_IMAGE_MODEL} 负责首帧 / 背景 / 人像底图补位，"
-            f"{visual_routes['general_video_generation']['model'] or DEFAULT_GENERAL_VIDEO_MODEL} 负责通用视频主线；"
-            "若启用真人开口分支，必须先过 "
-            f"{visual_routes['portrait_detect']['model'] or DEFAULT_PORTRAIT_DETECT_MODEL}"
-            " 再进入 "
-            f"{visual_routes['portrait_video_generation']['model'] or DEFAULT_PORTRAIT_VIDEO_MODEL}"
-            "。相关 provider implementation 尚未接入；当前只能落 visual plan / storyboard，"
-            "不能把 generation 写成 success。"
+        blocked_reason = "；".join(blocked_parts) or (
+            "当前免费优先模型路线已定，但相关 provider implementation 尚未接入；"
+            "当前只能落 visual plan / storyboard，不能把 generation 写成 success。"
         )
     else:
         status = STATUS_SUCCESS
@@ -1364,6 +1405,11 @@ def build_generation_result_summary(
     voiceover = manifest.get("generation", {}).get("voiceover", {})
     captions = manifest.get("generation", {}).get("captions", {})
     visual_generation = manifest.get("generation", {}).get("visual_generation", {})
+    visual_assets = [
+        asset.get("video_asset_path") or asset.get("image_asset_path")
+        for asset in visual_generation.get("segment_assets", [])
+        if asset.get("video_asset_path") or asset.get("image_asset_path")
+    ]
     status = STATUS_PLANNED if dry_run else manifest.get("generation", {}).get("status", generation_gate["status"])
     cloud_visual = visual_generation.get("cloud", {})
     return {
@@ -1386,6 +1432,7 @@ def build_generation_result_summary(
         ),
         "error_message": (
             voiceover.get("error_message")
+            or visual_generation.get("error_message")
             or visual_generation.get("blocked_reason")
             or tts_probe.get("error_message", "")
         ),
@@ -1411,6 +1458,7 @@ def build_generation_result_summary(
             "captions": captions.get("captions_path"),
             "visual_plan": visual_generation.get("plan_path"),
             "preview_storyboard": visual_generation.get("preview_storyboard_path"),
+            "visual_assets": visual_assets,
         },
         "next_action_hint": _generation_next_action_hint(generation_gate, tts_probe, dry_run),
         "current_missing_prerequisites": generation_gate["missing_prerequisites"],
@@ -1592,19 +1640,26 @@ def build_default_visual_generation(
                 "needs_video": segment["needs_video"],
                 "image_prompt": "",
                 "video_prompt": "",
+                "image_task_id": None,
+                "video_task_id": None,
                 "image_asset_path": None,
                 "video_asset_path": None,
+                "failure_reason": "",
+                "error_message": "",
                 "status": STATUS_NOT_STARTED,
             }
             for segment in video_spec.get("segments", [])
         ],
         "blocked_reason": "",
         "failure_reason": "",
+        "error_message": "",
         "current_missing_prerequisites": [],
         "missing_implementations": [],
         "cloud": {
             "status": STATUS_NOT_STARTED,
             "blocked_reason": "",
+            "failure_reason": "",
+            "error_message": "",
             "missing_prerequisites": [],
             "missing_implementations": [],
         },
@@ -1716,9 +1771,12 @@ def apply_visual_generation_to_manifest(
         manifest.get("segments", []),
         visual_generation.get("segment_assets", []),
     ):
+        segment["task_slots"]["image_task_id"] = asset.get("image_task_id")
+        segment["task_slots"]["video_task_id"] = asset.get("video_task_id")
         segment["output_slots"]["visual_uri"] = (
             asset.get("video_asset_path") or asset.get("image_asset_path")
         )
+        segment["current_status"] = asset.get("status", segment["current_status"])
     return manifest
 
 
@@ -1953,6 +2011,7 @@ def build_visual_generation_plan(
     plan_path = output_dir / "visual_generation_plan.json"
     preview_storyboard_path = output_dir / "preview_storyboard.json"
     segment_assets: list[dict[str, Any]] = []
+    has_video_segments = False
 
     for index, segment in enumerate(video_spec.get("segments", []), start=1):
         image_prompt = ""
@@ -1963,11 +2022,11 @@ def build_visual_generation_plan(
                 "中文 AI 项目讲解场景，避免写实人物和广告感。"
             )
         if segment["needs_video"]:
+            has_video_segments = True
             video_prompt = (
                 f"{segment['visual_intent']}。镜头应表现信息从散乱到收束，"
                 "节奏克制，适合 9:16 中文案例讲解短视频。"
             )
-        asset_status = STATUS_BLOCKED
         segment_assets.append(
             {
                 "segment_id": segment["segment_id"],
@@ -1976,78 +2035,264 @@ def build_visual_generation_plan(
                 "needs_video": segment["needs_video"],
                 "image_prompt": image_prompt,
                 "video_prompt": video_prompt,
+                "image_task_id": None,
+                "video_task_id": None,
                 "image_asset_path": None,
                 "video_asset_path": None,
                 "preview_visual_ref": f"preview_slide_{index}",
-                "status": asset_status,
+                "failure_reason": "",
+                "error_message": "",
+                "status": STATUS_NOT_STARTED,
             }
         )
 
-    cloud_status = visual_gate["status"]
-    cloud_blocked_reason = visual_gate.get("blocked_reason", "")
-    visual_status = STATUS_BLOCKED
-    visual_blocked_reason = visual_gate.get("blocked_reason", "") or (
-        "当前只生成 visual plan / preview storyboard；真实图片 / 视频 API 产物尚未落出，"
-        "generation 不得写成 success。"
-    )
     visual_generation.update(
         {
-            "status": visual_status,
-            "delivery_mode": "auxiliary_plan_and_storyboard_only",
             "plan_path": str(plan_path),
             "preview_storyboard_path": str(preview_storyboard_path),
             "segment_assets": segment_assets,
-            "blocked_reason": visual_blocked_reason,
+        }
+    )
+
+    if visual_gate["status"] != STATUS_SUCCESS:
+        visual_status = visual_gate["status"]
+        visual_blocked_reason = visual_gate.get("blocked_reason", "") or (
+            "当前只生成 visual plan / preview storyboard；真实图片 / 视频 API 产物尚未落出，"
+            "generation 不得写成 success。"
+        )
+        for asset in segment_assets:
+            asset["status"] = visual_status
+            asset["error_message"] = visual_blocked_reason
+        visual_generation.update(
+            {
+                "status": visual_status,
+                "delivery_mode": "auxiliary_plan_and_storyboard_only",
+                "blocked_reason": visual_blocked_reason if visual_status == STATUS_BLOCKED else "",
+                "failure_reason": visual_gate.get("failure_reason", "")
+                if visual_status == STATUS_FAILED
+                else "",
+                "error_message": visual_blocked_reason,
+                "current_missing_prerequisites": list(
+                    visual_gate.get("missing_prerequisites", [])
+                ),
+                "missing_implementations": list(
+                    visual_gate.get("missing_implementations", [])
+                ),
+                "cloud": {
+                    "status": visual_status,
+                    "blocked_reason": visual_blocked_reason if visual_status == STATUS_BLOCKED else "",
+                    "failure_reason": visual_gate.get("failure_reason", "")
+                    if visual_status == STATUS_FAILED
+                    else "",
+                    "error_message": visual_blocked_reason,
+                    "missing_prerequisites": visual_gate.get("missing_prerequisites", []),
+                    "missing_implementations": visual_gate.get("missing_implementations", []),
+                },
+            }
+        )
+        visual_generation["general_video_generation"].update(
+            {
+                "status": visual_status
+                if visual_generation["general_video_generation"]["enabled"] and has_video_segments
+                else STATUS_SKIPPED,
+                "blocked_reason": visual_blocked_reason
+                if visual_status == STATUS_BLOCKED
+                and visual_generation["general_video_generation"]["enabled"]
+                and has_video_segments
+                else "",
+                "failure_reason": visual_generation["failure_reason"]
+                if visual_status == STATUS_FAILED
+                and visual_generation["general_video_generation"]["enabled"]
+                and has_video_segments
+                else "",
+                "error_message": visual_blocked_reason
+                if visual_generation["general_video_generation"]["enabled"] and has_video_segments
+                else "",
+            }
+        )
+        visual_generation["portrait_detect"].update(
+            {
+                "status": STATUS_BLOCKED
+                if visual_generation["portrait_detect"]["enabled"]
+                else STATUS_SKIPPED,
+                "blocked_reason": (
+                    "liveportrait-detect 是真人开口分支前置检测；当前 provider implementation 尚未接入。"
+                    if visual_generation["portrait_detect"]["enabled"]
+                    else ""
+                ),
+            }
+        )
+        visual_generation["portrait_video_generation"].update(
+            {
+                "status": STATUS_BLOCKED
+                if visual_generation["portrait_video_generation"]["enabled"]
+                else STATUS_SKIPPED,
+                "blocked_reason": (
+                    "liveportrait 属于固定背景 / 人物开口分支，执行前必须先过 liveportrait-detect；"
+                    "当前 provider implementation 尚未接入。"
+                    if visual_generation["portrait_video_generation"]["enabled"]
+                    else ""
+                ),
+            }
+        )
+        _write_visual_generation_files(
+            visual_generation=visual_generation,
+            video_spec=video_spec,
+            plan_path=plan_path,
+            preview_storyboard_path=preview_storyboard_path,
+        )
+        return visual_generation
+
+    visual_generation.update(
+        {
+            "status": STATUS_SUCCESS,
+            "delivery_mode": "api_generated_local_assets",
+            "blocked_reason": "",
             "failure_reason": "",
-            "current_missing_prerequisites": list(
-                visual_gate.get("missing_prerequisites", [])
-            ),
-            "missing_implementations": list(
-                visual_gate.get("missing_implementations", [])
-            ),
+            "error_message": "",
+            "current_missing_prerequisites": [],
+            "missing_implementations": [],
             "cloud": {
-                "status": cloud_status,
-                "blocked_reason": cloud_blocked_reason,
-                "missing_prerequisites": visual_gate.get("missing_prerequisites", []),
-                "missing_implementations": visual_gate.get("missing_implementations", []),
+                "status": STATUS_SUCCESS,
+                "blocked_reason": "",
+                "failure_reason": "",
+                "error_message": "",
+                "missing_prerequisites": [],
+                "missing_implementations": [],
             },
         }
     )
     visual_generation["general_video_generation"].update(
         {
-            "status": visual_status if visual_generation["general_video_generation"]["enabled"] else STATUS_SKIPPED,
-            "blocked_reason": (
-                visual_blocked_reason
-                if visual_generation["general_video_generation"]["enabled"]
-                else ""
-            ),
+            "status": STATUS_SKIPPED if not has_video_segments else STATUS_NOT_STARTED,
+            "blocked_reason": "",
+            "failure_reason": "",
+            "error_message": "",
         }
     )
     visual_generation["portrait_detect"].update(
         {
-            "status": STATUS_BLOCKED
-            if visual_generation["portrait_detect"]["enabled"]
-            else STATUS_SKIPPED,
-            "blocked_reason": (
-                "liveportrait-detect 是真人开口分支前置检测；当前 provider implementation 尚未接入。"
-                if visual_generation["portrait_detect"]["enabled"]
-                else ""
-            ),
+            "status": STATUS_SKIPPED,
+            "blocked_reason": "",
         }
     )
     visual_generation["portrait_video_generation"].update(
         {
-            "status": STATUS_BLOCKED
-            if visual_generation["portrait_video_generation"]["enabled"]
-            else STATUS_SKIPPED,
-            "blocked_reason": (
-                "liveportrait 属于固定背景 / 人物开口分支，执行前必须先过 liveportrait-detect；"
-                "当前 provider implementation 尚未接入。"
-                if visual_generation["portrait_video_generation"]["enabled"]
-                else ""
-            ),
+            "status": STATUS_SKIPPED,
+            "blocked_reason": "",
         }
     )
+
+    for segment, asset in zip(video_spec.get("segments", []), segment_assets):
+        image_result = {
+            "status": STATUS_SKIPPED,
+            "task_id": None,
+            "asset_path": None,
+            "blocked_reason": "",
+            "failure_reason": "",
+            "error_message": "",
+        }
+        video_result = {
+            "status": STATUS_SKIPPED,
+            "task_id": None,
+            "asset_path": None,
+            "blocked_reason": "",
+            "failure_reason": "",
+            "error_message": "",
+        }
+
+        if asset["needs_image"]:
+            image_result = _execute_aliyun_wan_image_generation(
+                config=config,
+                output_dir=output_dir,
+                segment_id=segment["segment_id"],
+                prompt=asset["image_prompt"],
+            )
+            asset["image_task_id"] = image_result["task_id"]
+            asset["image_asset_path"] = image_result["asset_path"]
+
+        if asset["needs_video"]:
+            video_result = _execute_aliyun_wan_video_generation(
+                config=config,
+                output_dir=output_dir,
+                segment_id=segment["segment_id"],
+                prompt=asset["video_prompt"],
+                duration_seconds=segment["planned_duration_seconds"],
+            )
+            asset["video_task_id"] = video_result["task_id"]
+            asset["video_asset_path"] = video_result["asset_path"]
+            visual_generation["general_video_generation"].update(
+                {
+                    "status": video_result["status"],
+                    "blocked_reason": video_result["blocked_reason"],
+                    "failure_reason": video_result["failure_reason"],
+                    "error_message": video_result["error_message"],
+                }
+            )
+
+        asset["status"] = _combine_stage_statuses(
+            [image_result["status"], video_result["status"]],
+            dry_run=False,
+        )
+        asset["failure_reason"] = (
+            image_result["failure_reason"] or video_result["failure_reason"] or ""
+        )
+        asset["error_message"] = (
+            image_result["error_message"]
+            or image_result["blocked_reason"]
+            or video_result["error_message"]
+            or video_result["blocked_reason"]
+            or ""
+        )
+        if asset["status"] != STATUS_SUCCESS:
+            visual_generation.update(
+                {
+                    "status": asset["status"],
+                    "blocked_reason": asset["error_message"]
+                    if asset["status"] == STATUS_BLOCKED
+                    else "",
+                    "failure_reason": asset["failure_reason"]
+                    if asset["status"] == STATUS_FAILED
+                    else "",
+                    "error_message": asset["error_message"],
+                    "cloud": {
+                        "status": asset["status"],
+                        "blocked_reason": asset["error_message"]
+                        if asset["status"] == STATUS_BLOCKED
+                        else "",
+                        "failure_reason": asset["failure_reason"]
+                        if asset["status"] == STATUS_FAILED
+                        else "",
+                        "error_message": asset["error_message"],
+                        "missing_prerequisites": [],
+                        "missing_implementations": [],
+                    },
+                }
+            )
+            _write_visual_generation_files(
+                visual_generation=visual_generation,
+                video_spec=video_spec,
+                plan_path=plan_path,
+                preview_storyboard_path=preview_storyboard_path,
+            )
+            return visual_generation
+
+    _write_visual_generation_files(
+        visual_generation=visual_generation,
+        video_spec=video_spec,
+        plan_path=plan_path,
+        preview_storyboard_path=preview_storyboard_path,
+    )
+    return visual_generation
+
+
+def _write_visual_generation_files(
+    *,
+    visual_generation: dict[str, Any],
+    video_spec: dict[str, Any],
+    plan_path: pathlib.Path,
+    preview_storyboard_path: pathlib.Path,
+) -> None:
     write_json(
         plan_path,
         {
@@ -2060,18 +2305,21 @@ def build_visual_generation_plan(
             "general_video_generation": visual_generation["general_video_generation"],
             "portrait_detect": visual_generation["portrait_detect"],
             "portrait_video_generation": visual_generation["portrait_video_generation"],
+            "blocked_reason": visual_generation.get("blocked_reason", ""),
+            "failure_reason": visual_generation.get("failure_reason", ""),
+            "error_message": visual_generation.get("error_message", ""),
             "current_missing_prerequisites": visual_generation["current_missing_prerequisites"],
             "missing_implementations": visual_generation["missing_implementations"],
-            "auxiliary_only": True,
+            "auxiliary_only": visual_generation["delivery_mode"] != "api_generated_local_assets",
             "cloud": visual_generation["cloud"],
-            "segment_assets": segment_assets,
+            "segment_assets": visual_generation["segment_assets"],
         },
     )
     write_json(
         preview_storyboard_path,
         {
             "schema_version": "formal_api_demo_preview_storyboard/v1",
-            "auxiliary_only": True,
+            "auxiliary_only": visual_generation["delivery_mode"] != "api_generated_local_assets",
             "segments": [
                 {
                     "segment_id": segment["segment_id"],
@@ -2083,7 +2331,269 @@ def build_visual_generation_plan(
             ],
         },
     )
-    return visual_generation
+
+
+def _execute_aliyun_wan_image_generation(
+    *,
+    config: dict[str, Any],
+    output_dir: pathlib.Path,
+    segment_id: str,
+    prompt: str,
+) -> dict[str, Any]:
+    payload = {
+        "model": _nested_get(config, "image_generation", "model") or DEFAULT_GENERAL_IMAGE_MODEL,
+        "input": {
+            "messages": [
+                {
+                    "role": "user",
+                    "content": [{"text": prompt}],
+                }
+            ]
+        },
+        "parameters": {
+            "size": "720*1280",
+            "max_images": 1,
+            "enable_interleave": True,
+        },
+    }
+    return _execute_aliyun_visual_generation_task(
+        config=config,
+        output_dir=output_dir,
+        segment_id=segment_id,
+        asset_kind="image",
+        create_relative_path="/services/aigc/image-generation/generation",
+        payload=payload,
+        result_url_extractor=_extract_aliyun_image_result_url,
+        default_extension=".png",
+    )
+
+
+def _execute_aliyun_wan_video_generation(
+    *,
+    config: dict[str, Any],
+    output_dir: pathlib.Path,
+    segment_id: str,
+    prompt: str,
+    duration_seconds: float,
+) -> dict[str, Any]:
+    payload = {
+        "model": _nested_get(config, "video_generation", "model") or DEFAULT_GENERAL_VIDEO_MODEL,
+        "input": {
+            "prompt": prompt,
+        },
+        "parameters": {
+            "size": "720*1280",
+            "duration": max(2, int(round(duration_seconds))),
+            "prompt_extend": True,
+        },
+    }
+    return _execute_aliyun_visual_generation_task(
+        config=config,
+        output_dir=output_dir,
+        segment_id=segment_id,
+        asset_kind="video",
+        create_relative_path="/services/aigc/video-generation/video-synthesis",
+        payload=payload,
+        result_url_extractor=_extract_aliyun_video_result_url,
+        default_extension=".mp4",
+    )
+
+
+def _execute_aliyun_visual_generation_task(
+    *,
+    config: dict[str, Any],
+    output_dir: pathlib.Path,
+    segment_id: str,
+    asset_kind: str,
+    create_relative_path: str,
+    payload: dict[str, Any],
+    result_url_extractor: Any,
+    default_extension: str,
+) -> dict[str, Any]:
+    task_id: str | None = None
+    request_id: str | None = None
+    try:
+        create_request = urllib.request.Request(
+            "https://dashscope.aliyuncs.com/api/v1" + create_relative_path,
+            data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+            headers={
+                "Authorization": f"Bearer {_nested_get(config, 'auth', 'api_key')}",
+                "Content-Type": "application/json",
+                "X-DashScope-Async": "enable",
+            },
+            method="POST",
+        )
+        try:
+            create_payload = _urlopen_json_request(
+                create_request,
+                error_cls=VisualGenerationError,
+                invalid_json_message=f"aliyun {asset_kind} create returned invalid JSON payload",
+            )
+        except VisualGenerationError as exc:
+            if not exc.failure_reason:
+                exc.failure_reason = f"aliyun_{asset_kind}_task_create_failed"
+            raise
+        task_id = _nested_get(create_payload, "output", "task_id")
+        request_id = create_payload.get("request_id")
+        if not task_id:
+            raise VisualGenerationError(
+                f"aliyun {asset_kind} create response missing task_id",
+                failure_reason=f"aliyun_{asset_kind}_task_id_missing",
+            )
+
+        task_payload = _poll_aliyun_visual_task(
+            config=config,
+            task_id=task_id,
+            asset_kind=asset_kind,
+        )
+        request_id = request_id or task_payload.get("request_id")
+        result_url = result_url_extractor(task_payload)
+        if not result_url:
+            raise VisualGenerationError(
+                f"aliyun {asset_kind} task succeeded but missing result url",
+                failure_reason=f"aliyun_{asset_kind}_result_url_missing",
+            )
+        output_path = _build_visual_asset_output_path(
+            output_dir=output_dir,
+            segment_id=segment_id,
+            asset_kind=asset_kind,
+            source_url=result_url,
+            default_extension=default_extension,
+        )
+        try:
+            _download_binary_file(
+                result_url,
+                output_path,
+                error_cls=VisualGenerationError,
+                empty_error_message=f"aliyun {asset_kind} download is empty",
+                empty_error_code=f"Aliyun{asset_kind.title()}Empty",
+            )
+        except VisualGenerationError as exc:
+            if not exc.failure_reason:
+                exc.failure_reason = f"aliyun_{asset_kind}_download_failed"
+            raise
+        return {
+            "status": STATUS_SUCCESS,
+            "task_id": task_id,
+            "request_id": request_id,
+            "asset_path": str(output_path),
+            "blocked_reason": "",
+            "failure_reason": "",
+            "error_message": "",
+        }
+    except VisualGenerationError as exc:
+        message = _sanitize_message(str(exc), config)
+        return {
+            "status": exc.status,
+            "task_id": task_id,
+            "request_id": request_id,
+            "asset_path": None,
+            "blocked_reason": message if exc.status == STATUS_BLOCKED else "",
+            "failure_reason": exc.failure_reason or "",
+            "error_message": message,
+        }
+
+
+def _poll_aliyun_visual_task(
+    *,
+    config: dict[str, Any],
+    task_id: str,
+    asset_kind: str,
+) -> dict[str, Any]:
+    interval_seconds = max(
+        0.0,
+        float(_nested_get(config, "polling", "interval_seconds") or 0),
+    )
+    timeout_seconds = max(
+        0.0,
+        float(_nested_get(config, "polling", "timeout_seconds") or 0),
+    )
+    deadline = time.monotonic() + timeout_seconds
+
+    while True:
+        task_request = urllib.request.Request(
+            f"https://dashscope.aliyuncs.com/api/v1/tasks/{task_id}",
+            headers={
+                "Authorization": f"Bearer {_nested_get(config, 'auth', 'api_key')}",
+            },
+            method="GET",
+        )
+        try:
+            task_payload = _urlopen_json_request(
+                task_request,
+                error_cls=VisualGenerationError,
+                invalid_json_message=f"aliyun {asset_kind} task poll returned invalid JSON payload",
+            )
+        except VisualGenerationError as exc:
+            if not exc.failure_reason:
+                exc.failure_reason = f"aliyun_{asset_kind}_task_poll_failed"
+            raise
+        task_status = str(_nested_get(task_payload, "output", "task_status") or "").upper()
+        if task_status == "SUCCEEDED":
+            return task_payload
+        if task_status in {"FAILED", "UNKNOWN", "CANCELED", "CANCELLED"}:
+            raise VisualGenerationError(
+                _extract_aliyun_task_error_message(task_payload)
+                or f"aliyun {asset_kind} task ended with status {task_status}",
+                failure_reason=f"aliyun_{asset_kind}_task_failed",
+            )
+        if time.monotonic() >= deadline:
+            raise VisualGenerationError(
+                f"aliyun {asset_kind} task poll timeout: task_id={task_id}",
+                status=STATUS_BLOCKED,
+                failure_reason=f"aliyun_{asset_kind}_task_poll_timeout",
+            )
+        if interval_seconds > 0:
+            time.sleep(interval_seconds)
+
+
+def _extract_aliyun_task_error_message(task_payload: dict[str, Any]) -> str:
+    return (
+        _normalize_optional_text(_nested_get(task_payload, "output", "message"))
+        or _normalize_optional_text(task_payload.get("message"))
+        or _normalize_optional_text(_nested_get(task_payload, "output", "task_status_msg"))
+        or ""
+    )
+
+
+def _extract_aliyun_image_result_url(task_payload: dict[str, Any]) -> str | None:
+    output = task_payload.get("output", {})
+    for choice in output.get("choices", []):
+        content_items = _nested_get(choice, "message", "content") or []
+        for item in content_items:
+            if isinstance(item, dict) and item.get("image"):
+                return str(item["image"])
+    for item in output.get("results", []):
+        if isinstance(item, dict) and item.get("url"):
+            return str(item["url"])
+        if isinstance(item, dict) and item.get("image"):
+            return str(item["image"])
+    return None
+
+
+def _extract_aliyun_video_result_url(task_payload: dict[str, Any]) -> str | None:
+    output = task_payload.get("output", {})
+    if output.get("video_url"):
+        return str(output["video_url"])
+    for item in output.get("results", []):
+        if isinstance(item, dict) and item.get("video_url"):
+            return str(item["video_url"])
+        if isinstance(item, dict) and item.get("url"):
+            return str(item["url"])
+    return None
+
+
+def _build_visual_asset_output_path(
+    *,
+    output_dir: pathlib.Path,
+    segment_id: str,
+    asset_kind: str,
+    source_url: str,
+    default_extension: str,
+) -> pathlib.Path:
+    parsed_path = urllib.parse.urlparse(source_url).path
+    extension = pathlib.Path(parsed_path).suffix or default_extension
+    return output_dir / "visual" / f"{segment_id}_{asset_kind}{extension}"
 
 
 def execute_local_preview_assembly(
@@ -2649,18 +3159,23 @@ def _execute_aliyun_bailian_tts_probe(
     return response_payload.get("request_id")
 
 
-def _urlopen_json_request(request: urllib.request.Request) -> dict[str, Any]:
+def _urlopen_json_request(
+    request: urllib.request.Request,
+    *,
+    error_cls: type[RuntimeError] = TtsRequestError,
+    invalid_json_message: str = "aliyun_bailian returned invalid JSON payload",
+) -> dict[str, Any]:
     try:
         with urllib.request.urlopen(request, timeout=60) as response:
             payload = response.read()
     except urllib.error.HTTPError as exc:
-        raise TtsRequestError(
+        raise error_cls(
             _read_urllib_error_message(exc),
             status_code=exc.code,
             error_code=f"HTTP{exc.code}",
         ) from exc
     except urllib.error.URLError as exc:
-        raise TtsRequestError(
+        raise error_cls(
             str(exc.reason or exc),
             error_code="UrlOpenError",
         ) from exc
@@ -2668,34 +3183,42 @@ def _urlopen_json_request(request: urllib.request.Request) -> dict[str, Any]:
     try:
         return json.loads(payload.decode("utf-8"))
     except json.JSONDecodeError as exc:
-        raise TtsRequestError(
-            "aliyun_bailian returned invalid JSON payload",
-            error_code="AliyunBailianInvalidJson",
+        raise error_cls(
+            invalid_json_message,
+            error_code="InvalidJson",
         ) from exc
 
 
-def _download_binary_file(url: str, destination: pathlib.Path) -> None:
+def _download_binary_file(
+    url: str,
+    destination: pathlib.Path,
+    *,
+    error_cls: type[RuntimeError] = TtsRequestError,
+    empty_error_message: str = "aliyun_bailian audio download is empty",
+    empty_error_code: str = "AliyunBailianEmptyAudio",
+) -> None:
     request = urllib.request.Request(url, method="GET")
     try:
         with urllib.request.urlopen(request, timeout=60) as response:
             data = response.read()
     except urllib.error.HTTPError as exc:
-        raise TtsRequestError(
+        raise error_cls(
             _read_urllib_error_message(exc),
             status_code=exc.code,
             error_code=f"HTTP{exc.code}",
         ) from exc
     except urllib.error.URLError as exc:
-        raise TtsRequestError(
+        raise error_cls(
             str(exc.reason or exc),
             error_code="UrlDownloadError",
         ) from exc
 
     if not data:
-        raise TtsRequestError(
-            "aliyun_bailian audio download is empty",
-            error_code="AliyunBailianEmptyAudio",
+        raise error_cls(
+            empty_error_message,
+            error_code=empty_error_code,
         )
+    destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_bytes(data)
 
 
@@ -3259,6 +3782,8 @@ def _visual_generation_known_issues(visual_generation: dict[str, Any]) -> list[s
     issues: list[str] = []
     if visual_generation.get("status") == STATUS_BLOCKED and visual_generation.get("blocked_reason"):
         issues.append("视觉生成 blocked：" + visual_generation["blocked_reason"])
+    if visual_generation.get("status") == STATUS_FAILED and visual_generation.get("error_message"):
+        issues.append("视觉生成 failed：" + visual_generation["error_message"])
     if visual_generation.get("missing_implementations"):
         issues.append(
             "视觉生成 provider 尚未接入："
