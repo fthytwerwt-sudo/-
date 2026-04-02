@@ -2,6 +2,10 @@
 
 ## 当前 formal_api_demo 执行状态
 
+- 2026-04-03 复核补记：
+  - 当前分支 `codex/formal-api-demo-wan-provider-impl` 的 HEAD `07ff6a1` 已包含 `wan2.6-image` / `wan2.6-t2v` provider implementation
+  - 本轮仅完成代码审计与测试验证，没有新增代码改动
+  - 你给出的“图片 / 通用视频 provider 仍未接入”背景，与当前仓库 HEAD 不一致；后续接手请以当前代码与本日志为准
 - 2026-04-03 本轮已把 `formal_api_demo` 的普通图片 / 视频主线 provider implementation 真实接通：
   - `wan2.6-image`
   - `wan2.6-t2v`
@@ -75,5 +79,6 @@
 - `codex_log/20260403_formal_api_demo_mainline_realign.md`
 - `codex_log/20260403_formal_api_demo_free_model_route.md`
 - `codex_log/20260403_formal_api_demo_wan_provider_impl_round1.md`
+- `codex_log/20260403_formal_api_demo_wan_provider_impl_verification.md`
 - `formal_api_demo_core.py`
 - `tests/test_formal_api_demo_pipeline.py`
