@@ -98,7 +98,12 @@
 - `wan2.6-image` 负责首帧 / 背景 / 人像底图补位
 - `wan2.6-t2v` 负责普通视频主线
 - `liveportrait` 只用于固定背景 / 人物开口分支，且必须先过 `liveportrait-detect`
-- 这组口径只代表免费优先模型路线已定，不代表 provider implementation 已完成
+- 当前普通图片 / 视频主线 provider implementation 已接入：
+  - `wan2.6-image` 会真实创建阿里异步任务、轮询并下载图片到本地 `dist`
+  - `wan2.6-t2v` 会真实创建阿里异步任务、轮询并下载视频到本地 `dist`
+- 真人开口分支仍只保留路线与语义：
+  - `liveportrait-detect -> liveportrait` 仍未接入真实 provider implementation
+  - 当前必须继续诚实 `blocked`
 
 ## 6. 当前 demo 身份
 
