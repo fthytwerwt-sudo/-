@@ -1,75 +1,69 @@
 # Latest
 
-## 当前 formal_api_demo 执行状态
+## 当前仓库规则状态
 
-- 2026-04-04 已正式切回《视频工厂》A 线普通主线质量修正，并只围绕 `seg02` 完成一轮真实改动、真实 generation、真实 assembly 与回审。
-- 当前质量结论：
-  - `quality_passed`
+- 2026-04-04 本轮修的是“90 分 / `quality_passed` / 可发布测试线通过后，必须给用户可见样片”的硬规则。
 - 当前默认主读取分支仍是：
   - `codex/user-readable-map`
 
-## 本轮主路线
+## 本轮新增 / 改写的正式样片交付规则
 
-- 继续走普通图片 / 视频主线，不切真人开口。
-- 选择原因：
-  - 当前 `seg02_video.mp4` 已具备正确方向的主动作雏形。
-  - 真正的问题不在技术链，而在 `seg02` 被拆成“说明卡 + 说明层”后削弱了证明力。
-  - 本轮最短路径是让 `seg02` 变成一个单一视频主镜头，由画面自己完成“散乱 -> 可交接 SOP 接手链路”的证明。
+- 当本轮达到以下任一条件时，必须向用户交付可见样片：
+  - 项目内部 90 分水位通过
+  - `quality_passed`
+  - 通过可发布测试线
+- 这里的“可见样片”不能只写一句“已过线”，必须至少给出：
+  - 样片文件路径
+  - 或可直接打开的样片文件
+  - 或固定回审帧集合
+  - 或明确的验收样片目录
+- 当前默认样片交付物优先写死为：
+  - `dist/formal_api_demo/final.mp4`
+  - 如需辅助验收，再补：
+    - `dist/formal_api_demo/review_frames/`
+- 若样片属于 `.gitignore` / `local_only`，必须同时说明：
+  - 不会上传到 GitHub
+  - 但本地已生成
+  - 用户当前应优先看哪一个本地路径
+  - 它是否足以完成当前验收
 
-## 本轮实际改动
+## 当前禁止偷换
 
-- 修改：
-  - [cases/formal_api_demo.md](/Users/fan/Documents/视频工厂/cases/formal_api_demo.md)
-  - [formal_api_demo_core.py](/Users/fan/Documents/视频工厂/formal_api_demo_core.py)
-  - [tests/test_formal_api_demo_pipeline.py](/Users/fan/Documents/视频工厂/tests/test_formal_api_demo_pipeline.py)
-  - [video_builder.swift](/Users/fan/Documents/视频工厂/video_builder.swift)
-- 新增 / 更新日志：
-  - [codex_log/latest.md](/Users/fan/Documents/视频工厂/codex_log/latest.md)
-  - [codex_log/20260404_formal_api_demo_seg02_quality_pass.md](/Users/fan/Documents/视频工厂/codex_log/20260404_formal_api_demo_seg02_quality_pass.md)
+- “质量已过线”但不给样片路径
+- “已经 90 分了”但用户看不到任何样片
+- “本地有成片”但不告诉用户在哪
+- “GitHub 上看不到是正常的”却不补交付方式
 
-## 当前真实产物
+## 本轮实际修改文件
 
-- 正式本地成片：
-  - [dist/formal_api_demo/final.mp4](/Users/fan/Documents/视频工厂/dist/formal_api_demo/final.mp4)
-- 当前 `seg02` 主承载素材：
-  - [dist/formal_api_demo/visual/seg02_video.mp4](/Users/fan/Documents/视频工厂/dist/formal_api_demo/visual/seg02_video.mp4)
-- 回审帧：
-  - [dist/formal_api_demo/review_frames/final_02_seg02_mid.png](/Users/fan/Documents/视频工厂/dist/formal_api_demo/review_frames/final_02_seg02_mid.png)
-  - [dist/formal_api_demo/review_frames/final_03_seg02_late.png](/Users/fan/Documents/视频工厂/dist/formal_api_demo/review_frames/final_03_seg02_late.png)
+- [project_source/08_quality_baseline_and_90_score_rules.md](/Users/fan/Documents/视频工厂/project_source/08_quality_baseline_and_90_score_rules.md)
+- [project_source/13_stage_and_acceptance_gates.md](/Users/fan/Documents/视频工厂/project_source/13_stage_and_acceptance_gates.md)
+- [project_source/14_content_review_and_loop_governance_rules.md](/Users/fan/Documents/视频工厂/project_source/14_content_review_and_loop_governance_rules.md)
+- [AGENTS.md](/Users/fan/Documents/视频工厂/AGENTS.md)
+- [codex_source/01_execution_rules.md](/Users/fan/Documents/视频工厂/codex_source/01_execution_rules.md)
+- [codex_log/latest.md](/Users/fan/Documents/视频工厂/codex_log/latest.md)
 
-## 质量线判定
+## 当前默认样片交付物
 
-- 1. `seg02` 变化真正被看见：
-  - `passed`
-- 2. 中段文案不再像说明书：
-  - `passed`
-- 3. demo / PPT 感明显下降：
-  - `passed`
-- 4. Hook 仍成立：
-  - `passed`
-- 5. 结尾落点仍成立：
-  - `passed`
-
-## `.gitignore` 边界
-
-- `dist/formal_api_demo/` 当前仍被 `.gitignore` 忽略。
-- 这意味着：
-  - 本地生成的 `final.mp4`、`seg02_video.mp4`、回审帧不会上传到 GitHub
-  - 这些二进制产物属于 `local_only`
-  - 它不阻断本轮代码 / 规则 / 日志同步回主读取分支
-  - 但只看 GitHub 的新会话无法直接复审这些本地二进制文件
+- 主样片：
+  - `dist/formal_api_demo/final.mp4`
+- 辅助验收：
+  - `dist/formal_api_demo/review_frames/`
 
 ## 当前最关键下一步
 
-- 下一轮若继续提质，优先从：
-  - Hook 与结尾的卡片覆盖层继续轻量化
-  入手，而不是再回头修技术链。
+- 后续凡是写 `quality_passed` / 90 分 / 可发布测试线通过，都必须在收尾里同时回报：
+  - 样片路径
+  - `local_only` 与否
+  - 用户应优先看的样片文件
+  - 若 GitHub 不可见，则本地路径
 
 ## 新会话建议先读
 
 - `AGENTS.md`
+- `project_source/08_quality_baseline_and_90_score_rules.md`
+- `project_source/13_stage_and_acceptance_gates.md`
+- `project_source/14_content_review_and_loop_governance_rules.md`
 - `codex_source/01_execution_rules.md`
-- `codex_source/02_current_execution_context.md`
 - `codex_source/08_branch_sync_and_reading_branch_rules.md`
 - [codex_log/latest.md](/Users/fan/Documents/视频工厂/codex_log/latest.md)
-- [codex_log/20260404_formal_api_demo_seg02_quality_pass.md](/Users/fan/Documents/视频工厂/codex_log/20260404_formal_api_demo_seg02_quality_pass.md)
