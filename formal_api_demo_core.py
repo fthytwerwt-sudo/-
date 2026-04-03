@@ -664,6 +664,7 @@ def run_assembly_pipeline(
         ]
         preview_result = execute_local_preview_assembly(
             manifest=manifest,
+            config=config,
             output_dir=output_dir,
         )
         if preview_result.get("status") == STATUS_SUCCESS:
@@ -2638,6 +2639,7 @@ def _build_visual_asset_output_path(
 
 def execute_local_preview_assembly(
     manifest: dict[str, Any],
+    config: dict[str, Any],
     output_dir: pathlib.Path,
 ) -> dict[str, Any]:
     preview = build_default_assembly_preview(output_dir)
@@ -2674,10 +2676,11 @@ def execute_local_preview_assembly(
     preview_manifest_path = preview_dir / "preview_manifest.json"
     preview_video_path = preview_dir / "formal_api_demo_preview.mp4"
     final_video_path = output_dir / "final.mp4"
+    preview_fps = int(_nested_get(config, "assembly", "fps") or 10)
     preview_manifest = {
         "width": 1080,
         "height": 1920,
-        "fps": 10,
+        "fps": preview_fps,
         "audioPath": str(voiceover_audio.resolve()),
         "outputPath": str(preview_video_path.resolve()),
         "slides": _build_preview_slides(manifest),
