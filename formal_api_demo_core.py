@@ -2105,15 +2105,22 @@ def build_visual_generation_plan(
     preview_storyboard_path = output_dir / "preview_storyboard.json"
     segment_assets: list[dict[str, Any]] = []
     has_video_segments = False
+    portrait_route_requested = visual_generation["portrait_video_generation"]["enabled"]
 
     for index, segment in enumerate(video_spec.get("segments", []), start=1):
         image_prompt = ""
         video_prompt = ""
         if segment["needs_image"]:
-            image_prompt = (
-                f"{segment['visual_intent']}。保持 9:16 竖版，PPT 卡片式信息层级，"
-                "中文 AI 项目讲解场景，避免写实人物和广告感。"
-            )
+            if portrait_route_requested and segment["needs_video"]:
+                image_prompt = (
+                    "单人真人正脸半身肖像，正对镜头，五官清晰完整，无遮挡，"
+                    "面部占画面主要区域，光线自然，背景简洁干净，真实摄影风格，9:16 竖版。"
+                )
+            else:
+                image_prompt = (
+                    f"{segment['visual_intent']}。保持 9:16 竖版，PPT 卡片式信息层级，"
+                    "中文 AI 项目讲解场景，避免写实人物和广告感。"
+                )
         if segment["needs_video"]:
             has_video_segments = True
             video_prompt = (
