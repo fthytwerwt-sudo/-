@@ -15,6 +15,13 @@
   - 本轮日志回写后：
     - 任务分支与主读取分支都已 push
     - 当前 round2 blocked 日志已同步回 `codex/user-readable-map`
+- 2026-04-03 round3 前置闸门复核新增事实：
+  - 当前执行位置仍是目标任务 worktree
+  - 当前分支 `codex/formal-api-demo-quality-liveportrait-round1`
+  - 本轮开始时 HEAD 是 `4cd0f43`
+  - 工作区干净
+  - `config/formal_api_demo.local.toml` 仍不存在
+  - 因此前置闸门直接失败，本轮没有进入任何真人开口线上调用
 
 ## 当前 formal_api_demo 真实状态
 
@@ -29,8 +36,8 @@
 - 真人开口分支：
   - `blocked`
   - `liveportrait-detect -> liveportrait` 的代码 / 契约 / 测试层 round1 已补到位
-  - 但当前 round2 worktree 真实缺少 `config/formal_api_demo.local.toml`
-  - 因此本轮没有执行任何真实 `liveportrait-detect -> liveportrait` 线上实调
+  - 当前 round2 / round3 连续两轮前置闸门都卡在 `config/formal_api_demo.local.toml` 缺失
+  - 因此前两轮都没有执行任何真实 `liveportrait-detect -> liveportrait` 线上实调
   - 当前最具体 blocker 已收口为“整个本地正式配置文件缺失”，不是“provider implementation 未实现”
 - local assembly：
   - `success`
@@ -45,6 +52,11 @@
   - `/Users/fan/.config/superpowers/worktrees/视频工厂/codex-formal-api-demo-quality-liveportrait-round1`
 - 确认 `config/formal_api_demo.local.toml`：
   - 当前不存在
+- 按“质量保证优先、同时尽量加快进度”的新闸门规则执行：
+  - 在 local config 缺失处立刻止损
+  - 不再继续字段审计
+  - 不进入真人开口线上实调
+  - 不改无关代码
 - 确认正式入口：
   - `scripts/generate_formal_api_demo.py`
   - 当前只是核对入口与参数，没有执行真人开口线上实调
