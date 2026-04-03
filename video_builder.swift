@@ -395,71 +395,53 @@ func drawProcessLayout(_ slide: Slide, in cardRect: NSRect, accentColor: NSColor
 }
 
 func drawTransitionLayout(_ slide: Slide, width: Int, height: Int, accentColor: NSColor) {
-    (slide.headline as NSString).draw(
-        in: NSRect(x: 72, y: CGFloat(height) - 410, width: CGFloat(width) - 144, height: 160),
-        withAttributes: textAttributes(size: 62, weight: .black, color: .white)
-    )
-    (slide.support as NSString).draw(
-        in: NSRect(x: 72, y: CGFloat(height) - 494, width: CGFloat(width) - 144, height: 48),
-        withAttributes: textAttributes(size: 28, weight: .medium, color: NSColor.white.withAlphaComponent(0.88))
-    )
-
-    let sopRect = NSRect(x: 72, y: 108, width: CGFloat(width) - 144, height: 308)
-    drawRoundedRect(sopRect, radius: 38, fill: NSColor.white.withAlphaComponent(0.88))
-    drawRoundedStroke(sopRect, radius: 38, stroke: accentColor.withAlphaComponent(0.22))
-
     drawPill(
         "可交接 SOP",
-        rect: NSRect(x: sopRect.minX + 26, y: sopRect.maxY - 62, width: 158, height: 40),
-        fill: accentColor.withAlphaComponent(0.12),
+        rect: NSRect(x: 72, y: CGFloat(height) - 224, width: 156, height: 44),
+        fill: NSColor.white.withAlphaComponent(0.88),
         textColor: accentColor,
         size: 18
     )
 
-    let rowDescriptions = [
-        "先说清要做成什么",
-        "素材和口径一次收齐",
-        "样片和下一步都固定",
-    ]
+    let gradientRect = NSRect(x: 0, y: 0, width: width, height: 520)
+    if let gradient = NSGradient(
+        starting: NSColor.black.withAlphaComponent(0.86),
+        ending: NSColor.black.withAlphaComponent(0.0)
+    ) {
+        gradient.draw(in: gradientRect, angle: 90)
+    }
 
+    (slide.headline as NSString).draw(
+        in: NSRect(x: 72, y: 226, width: CGFloat(width) - 144, height: 118),
+        withAttributes: textAttributes(size: 56, weight: .black, color: .white)
+    )
+    (slide.support as NSString).draw(
+        in: NSRect(x: 72, y: 172, width: CGFloat(width) - 144, height: 40),
+        withAttributes: textAttributes(size: 26, weight: .medium, color: NSColor.white.withAlphaComponent(0.84))
+    )
+
+    let chipWidths: [CGFloat] = [118, 118, 118]
     for (index, chip) in slide.chips.enumerated() {
-        let rowRect = NSRect(
-            x: sopRect.minX + 24,
-            y: sopRect.maxY - 118 - CGFloat(index) * 72,
-            width: sopRect.width - 48,
-            height: 58
+        let pillRect = NSRect(
+            x: 72 + CGFloat(index) * 138,
+            y: 118,
+            width: chipWidths[index],
+            height: 38
         )
-        drawRoundedRect(
-            rowRect,
-            radius: 22,
-            fill: index == 1
-                ? accentColor.withAlphaComponent(0.12)
-                : NSColor.white.withAlphaComponent(0.96)
-        )
-        drawRoundedStroke(rowRect, radius: 22, stroke: accentColor.withAlphaComponent(0.14))
-
-        let numberRect = NSRect(x: rowRect.minX + 16, y: rowRect.minY + 12, width: 34, height: 34)
-        drawRoundedRect(numberRect, radius: 12, fill: accentColor)
-        (String(format: "%02d", index + 1) as NSString).draw(
-            in: numberRect.insetBy(dx: 4, dy: 7),
-            withAttributes: textAttributes(size: 14, weight: .bold, color: .white, alignment: .center)
-        )
-
-        (chip as NSString).draw(
-            in: NSRect(x: rowRect.minX + 64, y: rowRect.minY + 18, width: 120, height: 28),
-            withAttributes: textAttributes(size: 30, weight: .bold, color: NSColor.black.withAlphaComponent(0.84))
-        )
-        (rowDescriptions[index] as NSString).draw(
-            in: NSRect(x: rowRect.minX + 190, y: rowRect.minY + 21, width: rowRect.width - 214, height: 24),
-            withAttributes: textAttributes(size: 22, weight: .medium, color: NSColor.black.withAlphaComponent(0.62))
+        drawPill(
+            chip,
+            rect: pillRect,
+            fill: NSColor.white.withAlphaComponent(index == 0 ? 0.94 : 0.74),
+            textColor: accentColor,
+            size: 18
         )
     }
 
-    let detailRect = NSRect(x: sopRect.minX + 24, y: sopRect.minY + 22, width: sopRect.width - 48, height: 42)
-    drawRoundedRect(detailRect, radius: 18, fill: NSColor.black.withAlphaComponent(0.86))
+    let detailRect = NSRect(x: 72, y: 52, width: CGFloat(width) - 144, height: 48)
+    drawRoundedRect(detailRect, radius: 20, fill: NSColor.black.withAlphaComponent(0.78))
     (slide.detail as NSString).draw(
-        in: detailRect.insetBy(dx: 18, dy: 8),
-        withAttributes: textAttributes(size: 22, weight: .medium, color: .white)
+        in: detailRect.insetBy(dx: 18, dy: 10),
+        withAttributes: textAttributes(size: 20, weight: .medium, color: .white)
     )
 }
 

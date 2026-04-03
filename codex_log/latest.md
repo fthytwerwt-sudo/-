@@ -1,63 +1,75 @@
 # Latest
 
-## 当前仓库执行机制状态
+## 当前 formal_api_demo 执行状态
 
-- 2026-04-04 本轮修的是“上传 / 同步执行机制”，不是业务功能。
-- 当前仓库默认主读取分支已明确固定为：
+- 2026-04-04 已正式切回《视频工厂》A 线普通主线质量修正，并只围绕 `seg02` 完成一轮真实改动、真实 generation、真实 assembly 与回审。
+- 当前质量结论：
+  - `quality_passed`
+- 当前默认主读取分支仍是：
   - `codex/user-readable-map`
-- 当前执行层已新增专门规则文件：
-  - [codex_source/08_branch_sync_and_reading_branch_rules.md](/Users/fan/Documents/视频工厂/codex_source/08_branch_sync_and_reading_branch_rules.md)
 
-## 本轮新增 / 改写的正式硬规则
+## 本轮主路线
 
-- 凡本轮存在 Git 跟踪的仓库文件改动，且结果不是 `local_only` / `no_repo_change`，必须：
-  - 更新 `codex_log/latest.md`
-  - commit
-  - push
-- 凡本轮形成新的仓库正式事实，且应成为新聊天默认接手口径，还必须：
-  - 同步回 `codex/user-readable-map`
-- 每轮仓库型任务收尾，必须回报 4 个同步锚点：
-  - 当前工作分支
-  - 最新提交 SHA
-  - 是否已 push
-  - 是否已同步回 `codex/user-readable-map`
-- 每轮仓库型任务收尾，必须显式分类为以下之一：
-  - `formal_synced`
-  - `task_branch_only`
-  - `pr_open_not_merged_to_reading_branch`
-  - `local_only`
-  - `no_repo_change`
-- `.gitignore` 忽略文件必须显式标记为 `local_only`，并说明：
-  - 不会上传到 GitHub
-  - 是否影响新聊天按仓库接手
+- 继续走普通图片 / 视频主线，不切真人开口。
+- 选择原因：
+  - 当前 `seg02_video.mp4` 已具备正确方向的主动作雏形。
+  - 真正的问题不在技术链，而在 `seg02` 被拆成“说明卡 + 说明层”后削弱了证明力。
+  - 本轮最短路径是让 `seg02` 变成一个单一视频主镜头，由画面自己完成“散乱 -> 可交接 SOP 接手链路”的证明。
 
-## 当前禁止偷换
+## 本轮实际改动
 
-- “任务分支已 push”不等于“主读取分支已更新”
-- “已开 PR”不等于“正式状态已同步”
-- “聊天汇报完成”不等于“仓库正式事实已更新”
-- `codex_log/latest.md` 未更新，不得写“已完成上传”或“已同步”
+- 修改：
+  - [cases/formal_api_demo.md](/Users/fan/Documents/视频工厂/cases/formal_api_demo.md)
+  - [formal_api_demo_core.py](/Users/fan/Documents/视频工厂/formal_api_demo_core.py)
+  - [tests/test_formal_api_demo_pipeline.py](/Users/fan/Documents/视频工厂/tests/test_formal_api_demo_pipeline.py)
+  - [video_builder.swift](/Users/fan/Documents/视频工厂/video_builder.swift)
+- 新增 / 更新日志：
+  - [codex_log/latest.md](/Users/fan/Documents/视频工厂/codex_log/latest.md)
+  - [codex_log/20260404_formal_api_demo_seg02_quality_pass.md](/Users/fan/Documents/视频工厂/codex_log/20260404_formal_api_demo_seg02_quality_pass.md)
 
-## 本轮实际修改文件
+## 当前真实产物
 
-- [AGENTS.md](/Users/fan/Documents/视频工厂/AGENTS.md)
-- [codex_source/01_execution_rules.md](/Users/fan/Documents/视频工厂/codex_source/01_execution_rules.md)
-- [codex_source/02_current_execution_context.md](/Users/fan/Documents/视频工厂/codex_source/02_current_execution_context.md)
-- [codex_source/08_branch_sync_and_reading_branch_rules.md](/Users/fan/Documents/视频工厂/codex_source/08_branch_sync_and_reading_branch_rules.md)
-- [codex_log/latest.md](/Users/fan/Documents/视频工厂/codex_log/latest.md)
+- 正式本地成片：
+  - [dist/formal_api_demo/final.mp4](/Users/fan/Documents/视频工厂/dist/formal_api_demo/final.mp4)
+- 当前 `seg02` 主承载素材：
+  - [dist/formal_api_demo/visual/seg02_video.mp4](/Users/fan/Documents/视频工厂/dist/formal_api_demo/visual/seg02_video.mp4)
+- 回审帧：
+  - [dist/formal_api_demo/review_frames/final_02_seg02_mid.png](/Users/fan/Documents/视频工厂/dist/formal_api_demo/review_frames/final_02_seg02_mid.png)
+  - [dist/formal_api_demo/review_frames/final_03_seg02_late.png](/Users/fan/Documents/视频工厂/dist/formal_api_demo/review_frames/final_03_seg02_late.png)
+
+## 质量线判定
+
+- 1. `seg02` 变化真正被看见：
+  - `passed`
+- 2. 中段文案不再像说明书：
+  - `passed`
+- 3. demo / PPT 感明显下降：
+  - `passed`
+- 4. Hook 仍成立：
+  - `passed`
+- 5. 结尾落点仍成立：
+  - `passed`
+
+## `.gitignore` 边界
+
+- `dist/formal_api_demo/` 当前仍被 `.gitignore` 忽略。
+- 这意味着：
+  - 本地生成的 `final.mp4`、`seg02_video.mp4`、回审帧不会上传到 GitHub
+  - 这些二进制产物属于 `local_only`
+  - 它不阻断本轮代码 / 规则 / 日志同步回主读取分支
+  - 但只看 GitHub 的新会话无法直接复审这些本地二进制文件
 
 ## 当前最关键下一步
 
-- 后续所有仓库型任务收尾时，先按 5 类状态分类，再判断：
-  - 只需 `commit + push`
-  - 还是还要同步回 `codex/user-readable-map`
-- 未同步回主读取分支前，不得把结果写成仓库正式状态。
+- 下一轮若继续提质，优先从：
+  - Hook 与结尾的卡片覆盖层继续轻量化
+  入手，而不是再回头修技术链。
 
 ## 新会话建议先读
 
 - `AGENTS.md`
-- `codex_source/00_codex_readme.md`
+- `codex_source/01_execution_rules.md`
+- `codex_source/02_current_execution_context.md`
+- `codex_source/08_branch_sync_and_reading_branch_rules.md`
 - [codex_log/latest.md](/Users/fan/Documents/视频工厂/codex_log/latest.md)
-- [codex_source/01_execution_rules.md](/Users/fan/Documents/视频工厂/codex_source/01_execution_rules.md)
-- [codex_source/02_current_execution_context.md](/Users/fan/Documents/视频工厂/codex_source/02_current_execution_context.md)
-- [codex_source/08_branch_sync_and_reading_branch_rules.md](/Users/fan/Documents/视频工厂/codex_source/08_branch_sync_and_reading_branch_rules.md)
+- [codex_log/20260404_formal_api_demo_seg02_quality_pass.md](/Users/fan/Documents/视频工厂/codex_log/20260404_formal_api_demo_seg02_quality_pass.md)

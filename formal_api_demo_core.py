@@ -2048,9 +2048,9 @@ def build_visual_generation_plan(
                 )
             elif segment["segment_id"] == "seg02":
                 image_prompt = (
-                    f"{segment['visual_intent']}。9:16 竖版，前态画面，"
+                    f"{segment['visual_intent']}。9:16 竖版，单一主镜头的起始状态，"
                     "桌面上散着目标、输入、口径、素材便签和断开的箭头，"
-                    "看起来很忙但接不下去；不要 PPT，不要广告感，不要人物正脸。"
+                    "看起来很忙但没人能接；不要 PPT，不要广告感，不要人物正脸。"
                 )
             else:
                 image_prompt = (
@@ -2061,11 +2061,11 @@ def build_visual_generation_plan(
         if segment["needs_video"]:
             has_video_segments = True
             video_prompt = (
-                f"{segment['visual_intent']}。9:16 竖版，镜头必须让观众肉眼看见"
-                "目标、输入、口径、素材这些散乱便签从各处滑动、吸附、重排，"
-                "最后收成一张可交接的 SOP 表单，明确显示 01 目标 / 02 输入 / 03 输出；"
-                "节奏克制，像真实案例推进，不要 PPT，"
-                "不要广告感，不要人物正脸，不要只是静态卡片切页。"
+                f"{segment['visual_intent']}。9:16 竖版，单一固定镜头里，"
+                "目标、输入、口径、素材这些散乱便签从画面四周被吸附、整理、归位，"
+                "依次进入同一张 SOP 表单的字段槽位，最后形成清晰的可交接链路，"
+                "画面末尾要出现明确的“可交接”状态条；不要分屏，不要 PPT，"
+                "不要广告感，不要人物正脸，不要大段说明字幕。"
             )
         segment_assets.append(
             {
@@ -3800,39 +3800,21 @@ def _build_preview_slides(manifest: dict[str, Any]) -> list[dict[str, Any]]:
             continue
 
         if segment_id == "seg02":
-            before_duration = round(planned_duration * 0.4, 1)
-            after_duration = round(planned_duration - before_duration, 1)
-            raw_slides.extend(
-                [
-                    {
-                        "segment_id": segment_id,
-                        "role": "hook",
-                        "eyebrow": "散乱现场",
-                        "headline": "目标、输入、口径、素材还散着。",
-                        "support": "继续往下做，只会让中段越讲越虚。",
-                        "detail": "先让观众看见散乱现场，再切到收束后的 SOP。",
-                        "chips": ["便签堆满", "没人能接"],
-                        "accent": "#DC2626",
-                        "background": "#FFF7F6",
-                        "duration": before_duration,
-                        "background_image_path": image_path,
-                        "background_video_path": None,
-                    },
-                    {
-                        "segment_id": segment_id,
-                        "role": "process",
-                        "eyebrow": "收束动作",
-                        "headline": segment["caption_text"],
-                        "support": "字段一齐，后面这条链就能顺着走。",
-                        "detail": "目标明确、输入收齐、输出固定，SOP 现在能直接交接。",
-                        "chips": ["目标", "输入", "输出"],
-                        "accent": "#0F766E",
-                        "background": "#F1FAF8",
-                        "duration": after_duration,
-                        "background_image_path": image_path if not video_path else None,
-                        "background_video_path": video_path,
-                    },
-                ]
+            raw_slides.append(
+                {
+                    "segment_id": segment_id,
+                    "role": "process",
+                    "eyebrow": "收束动作",
+                    "headline": segment["caption_text"],
+                    "support": "散乱字段一进表，后面这条链就能接手。",
+                    "detail": "目标、输入、输出归到同一张 SOP 表后，这一步已经能直接交接。",
+                    "chips": ["目标", "输入", "输出"],
+                    "accent": "#0F766E",
+                    "background": "#F1FAF8",
+                    "duration": planned_duration,
+                    "background_image_path": image_path if not video_path else None,
+                    "background_video_path": video_path,
+                }
             )
             continue
 

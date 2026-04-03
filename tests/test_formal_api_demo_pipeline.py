@@ -135,11 +135,11 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
 
         self.assertEqual(
             spec["segments"][1]["voiceover_text"],
-            "目标、输入、输出一拉齐，这条链就接上了。",
+            "一进 SOP 表，后面这条链就能接手了。",
         )
         self.assertEqual(
             spec["segments"][1]["caption_text"],
-            "目标、输入、输出一拉齐，这条链就接上了。",
+            "一进 SOP 表，后面这条链就能接手了。",
         )
 
     def test_preview_slides_expand_seg02_into_before_and_after_states(self) -> None:
@@ -181,18 +181,16 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
 
         slides = _build_preview_slides(manifest)
 
-        self.assertEqual(len(slides), 4)
+        self.assertEqual(len(slides), 3)
         self.assertEqual(
             [slide["role"] for slide in slides],
-            ["hook", "hook", "process", "outcome"],
+            ["hook", "process", "outcome"],
         )
-        self.assertEqual(slides[1]["headline"], "目标、输入、口径、素材还散着。")
-        self.assertEqual(slides[1]["chips"], ["便签堆满", "没人能接"])
-        self.assertEqual(slides[1]["background_image_path"], "/tmp/seg02_before.png")
-        self.assertEqual(slides[2]["headline"], "目标、输入、输出一拉齐，这条链就接上了。")
-        self.assertEqual(slides[2]["chips"], ["目标", "输入", "输出"])
-        self.assertEqual(slides[2]["background_video_path"], "/tmp/seg02_after.mp4")
-        self.assertAlmostEqual(slides[1]["duration"] + slides[2]["duration"], 6.0)
+        self.assertEqual(slides[1]["headline"], "一进 SOP 表，后面这条链就能接手了。")
+        self.assertEqual(slides[1]["chips"], ["目标", "输入", "输出"])
+        self.assertEqual(slides[1]["background_video_path"], "/tmp/seg02_after.mp4")
+        self.assertEqual(slides[1]["background_image_path"], None)
+        self.assertAlmostEqual(slides[1]["duration"], 6.0)
 
     def test_formal_case_voiceover_copy_stays_within_current_timeline_budget(self) -> None:
         spec = parse_formal_case_markdown(FORMAL_CASE_PATH)
@@ -370,7 +368,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             )
             first_slide = preview_manifest["slides"][0]
             second_slide = preview_manifest["slides"][1]
-            final_slide = preview_manifest["slides"][3]
+            final_slide = preview_manifest["slides"][2]
 
             self.assertEqual(result["overall_status"], STATUS_BLOCKED)
             self.assertEqual(result["generation_status"], STATUS_BLOCKED)
@@ -384,10 +382,11 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             self.assertTrue((output_dir / "assembly" / "formal_api_demo_preview.mp4").exists())
             self.assertEqual(first_slide["role"], "hook")
             self.assertEqual(first_slide["headline"], "AI 项目卡住，不是没思路，是流程还没拉齐。")
-            self.assertEqual(second_slide["role"], "hook")
-            self.assertEqual(second_slide["headline"], "目标、输入、口径、素材还散着。")
-            self.assertEqual(preview_manifest["slides"][2]["role"], "process")
-            self.assertEqual(preview_manifest["slides"][2]["chips"], ["目标", "输入", "输出"])
+            self.assertEqual(second_slide["role"], "process")
+            self.assertEqual(second_slide["headline"], "一进 SOP 表，后面这条链就能接手了。")
+            self.assertEqual(second_slide["chips"], ["目标", "输入", "输出"])
+            self.assertIsNone(second_slide["background_image_path"])
+            self.assertIsNone(second_slide["background_video_path"])
             self.assertEqual(final_slide["role"], "outcome")
             self.assertIn("先稳住样片", final_slide["chips"])
             self.assertNotIn("badge", first_slide)
