@@ -380,6 +380,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             self.assertTrue((output_dir / "final.mp4").exists())
             self.assertEqual(result["artifact_paths"]["final_video"], str(output_dir / "final.mp4"))
             self.assertTrue((output_dir / "assembly" / "formal_api_demo_preview.mp4").exists())
+            self.assertEqual(preview_manifest["fps"], 25)
             self.assertEqual(first_slide["role"], "hook")
             self.assertEqual(first_slide["headline"], "AI 项目卡住，不是没思路，是流程还没拉齐。")
             self.assertEqual(second_slide["role"], "process")

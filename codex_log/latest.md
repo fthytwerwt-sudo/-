@@ -1,66 +1,57 @@
 # Latest
 
-## 当前 formal_api_demo 执行状态
+## 当前 motion 排查状态
 
-- 2026-04-04 本轮只做 A 线已过线版本的轻量提质。
-- 当前不再回头修技术链，也没有重开 `seg02` 主结构。
-- 本轮结论：
-  - `polish_passed`
+- 2026-04-04 本轮只排查当前样片“有点卡卡的”来源，并只做最小 assembly 修正。
+- 当前结论：
+  - `motion_fix_passed`
 
-## 本轮主路线
+## 当前主判断
 
-- 保留当前结构与节奏。
-- 只压：
-  - Hook 页卡片覆盖层
-  - 结尾页卡片覆盖层
-- 只重跑 assembly，不重跑 generation。
+- 当前卡顿感主因：
+  - `assembly_side`
+- 不是 `seg02_video.mp4` 本身只有低帧率。
+- 最直接证据：
+  - `dist/formal_api_demo/visual/seg02_video.mp4` 是 `30 fps`、约 `6.004s`、`180` 个视频时间点。
+  - 修正前 `dist/formal_api_demo/final.mp4` 的 `seg02` 对应窗（`4.0s-10.0s`）只有 `10 fps`、`60` 个时间点。
+  - `config/formal_api_demo.local.toml` 与 `config/formal_api_demo.example.toml` 都已配置 `assembly.fps = 25`，但 [formal_api_demo_core.py](/Users/fan/Documents/视频工厂/formal_api_demo_core.py) 之前把 preview/final manifest 硬编码成了 `10 fps`。
 
 ## 本轮实际改动
 
 - 修改：
-  - [video_builder.swift](/Users/fan/Documents/视频工厂/video_builder.swift)
+  - [formal_api_demo_core.py](/Users/fan/Documents/视频工厂/formal_api_demo_core.py)
+  - [tests/test_formal_api_demo_pipeline.py](/Users/fan/Documents/视频工厂/tests/test_formal_api_demo_pipeline.py)
 - 新增 / 更新日志：
   - [codex_log/latest.md](/Users/fan/Documents/视频工厂/codex_log/latest.md)
-  - [codex_log/20260404_hook_outcome_overlay_polish.md](/Users/fan/Documents/视频工厂/codex_log/20260404_hook_outcome_overlay_polish.md)
+  - [codex_log/20260404_motion_issue_assembly_fps_fix.md](/Users/fan/Documents/视频工厂/codex_log/20260404_motion_issue_assembly_fps_fix.md)
 
 ## 当前真实产物
 
 - 当前本地成片：
   - [dist/formal_api_demo/final.mp4](/Users/fan/Documents/视频工厂/dist/formal_api_demo/final.mp4)
-- 当前 Hook / 结尾回审帧：
-  - [dist/formal_api_demo/review_frames/final_01_hook_polish.png](/Users/fan/Documents/视频工厂/dist/formal_api_demo/review_frames/final_01_hook_polish.png)
-  - [dist/formal_api_demo/review_frames/final_04_outcome_polish.png](/Users/fan/Documents/视频工厂/dist/formal_api_demo/review_frames/final_04_outcome_polish.png)
+- 当前局部连续帧证据：
+  - 修正前 final `seg02` 连续帧：`dist/formal_api_demo/review_frames/motion_probe/final_seg02_native_*.png`
+  - 修正后 final `seg02` 连续帧：`dist/formal_api_demo/review_frames/motion_probe/final_seg02_native_postfix_*.png`
+  - 源 `seg02` 连续帧：`dist/formal_api_demo/review_frames/motion_probe/seg02_source_native_*.png`
 
-## 当前轻量提质结论
+## 当前修正后结果
 
-- Hook 卡片覆盖层：
-  - 明显下降
-- 结尾卡片覆盖层：
-  - 明显下降
-- 当前没有引入新的信息缺失。
-- Hook 仍成立。
-- 结尾落点仍成立。
-- 当前整片比上版更接近“真人会发”的视频感。
+- preview/final manifest 现已走 `assembly.fps = 25`。
+- 修正后 `dist/formal_api_demo/final.mp4` 为 `25 fps`。
+- 修正后 final 中 `seg02` 对应窗为 `150` 个时间点 / `25 fps`，明显高于修正前的 `60` 个时间点 / `10 fps`。
+- 本轮没有改文案、结构或画面内容，只修 assembly 帧率入口。
 
 ## `.gitignore` 边界
 
 - `dist/formal_api_demo/` 仍属于 `.gitignore` / `local_only`。
 - 因此：
-  - 本地成片与回审帧不会上传到 GitHub
+  - 新旧成片与连续帧证据都不会上传到 GitHub
   - 但本地已生成，可完成当前验收
   - 当前应优先查看：
     - `dist/formal_api_demo/final.mp4`
 
 ## 当前最关键下一步
 
-- 若继续提质，优先微调首屏标题字重与结尾橙条厚度。
-- 当前这不是必须项；本轮轻量提质已经可以收口。
-
-## 新会话建议先读
-
-- `AGENTS.md`
-- `codex_source/01_execution_rules.md`
-- `codex_source/02_current_execution_context.md`
-- `codex_source/08_branch_sync_and_reading_branch_rules.md`
-- [codex_log/latest.md](/Users/fan/Documents/视频工厂/codex_log/latest.md)
-- [codex_log/20260404_hook_outcome_overlay_polish.md](/Users/fan/Documents/视频工厂/codex_log/20260404_hook_outcome_overlay_polish.md)
+- 直接复审新的 [dist/formal_api_demo/final.mp4](/Users/fan/Documents/视频工厂/dist/formal_api_demo/final.mp4)。
+- 若还觉得 `seg02` 仍有轻微发涩，下一轮唯一优先动作是：
+  - 继续做 assembly 侧“源素材直通 / 更接近源帧率采样”，不要回到内容层大修。
