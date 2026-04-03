@@ -1,66 +1,64 @@
 # Latest
 
-## 当前 formal_api_demo 执行状态
+## 当前展示路由系统状态
 
-- 2026-04-04 本轮只做 A 线已过线版本的轻量提质。
-- 当前不再回头修技术链，也没有重开 `seg02` 主结构。
-- 本轮结论：
-  - `polish_passed`
+- 2026-04-04 本轮不是再做样片，而是把《视频工厂》的“展示路由规则”正式写成仓库内的分层判断系统。
+- 当前结论：
+  - `presentation_routing_rules_formalized`
 
-## 本轮主路线
+## 当前主判断
 
-- 保留当前结构与节奏。
-- 只压：
-  - Hook 页卡片覆盖层
-  - 结尾页卡片覆盖层
-- 只重跑 assembly，不重跑 generation。
+- 展示路由单位正式写死为：
+  - `block`
+  - 即段落块 / 镜头块
+- 展示路由正式写成 4 层：
+  - `L1`: 整条视频层
+  - `L2`: block 层
+  - `L3`: 回退层
+  - `L4`: 回审层
+- 正式判断顺序已写死为：
+  - 先判场景
+  - 再判整条视频主价值
+  - 再判观众最需要先接住什么
+  - 再判 block 职责
+  - 最后才判 block 用什么展示形式
+- 当前已明确：
+  - 15 秒样片只是当前示例，不是长期统一时长
+  - 混合承载不是固定顺序
+  - 当前阶段优先做“路由正确”，不是“真人优先主义”
 
 ## 本轮实际改动
 
-- 修改：
-  - [video_builder.swift](/Users/fan/Documents/视频工厂/video_builder.swift)
+- 新增主规则：
+  - [project_source/16_presentation_routing_rules.md](/Users/fan/Documents/视频工厂/project_source/16_presentation_routing_rules.md)
+- 新增回审记录模板：
+  - [project_source/10_video_review_record_template.md](/Users/fan/Documents/视频工厂/project_source/10_video_review_record_template.md)
+- 同步更新入口文件：
+  - [project_source/01_project_system_prompt.md](/Users/fan/Documents/视频工厂/project_source/01_project_system_prompt.md)
+  - [project_source/02_scene_mode_templates.md](/Users/fan/Documents/视频工厂/project_source/02_scene_mode_templates.md)
+  - [project_source/04_review_templates.md](/Users/fan/Documents/视频工厂/project_source/04_review_templates.md)
+  - [project_source/06_project_index.md](/Users/fan/Documents/视频工厂/project_source/06_project_index.md)
+  - [project_source/13_stage_and_acceptance_gates.md](/Users/fan/Documents/视频工厂/project_source/13_stage_and_acceptance_gates.md)
+  - [project_source/14_content_review_and_loop_governance_rules.md](/Users/fan/Documents/视频工厂/project_source/14_content_review_and_loop_governance_rules.md)
+  - [AGENTS.md](/Users/fan/Documents/视频工厂/AGENTS.md)
 - 新增 / 更新日志：
   - [codex_log/latest.md](/Users/fan/Documents/视频工厂/codex_log/latest.md)
-  - [codex_log/20260404_hook_outcome_overlay_polish.md](/Users/fan/Documents/视频工厂/codex_log/20260404_hook_outcome_overlay_polish.md)
+  - [codex_log/20260404_presentation_routing_rules_system.md](/Users/fan/Documents/视频工厂/codex_log/20260404_presentation_routing_rules_system.md)
 
-## 当前真实产物
+## 当前缺失但已如实确认的目标文件
 
-- 当前本地成片：
-  - [dist/formal_api_demo/final.mp4](/Users/fan/Documents/视频工厂/dist/formal_api_demo/final.mp4)
-- 当前 Hook / 结尾回审帧：
-  - [dist/formal_api_demo/review_frames/final_01_hook_polish.png](/Users/fan/Documents/视频工厂/dist/formal_api_demo/review_frames/final_01_hook_polish.png)
-  - [dist/formal_api_demo/review_frames/final_04_outcome_polish.png](/Users/fan/Documents/视频工厂/dist/formal_api_demo/review_frames/final_04_outcome_polish.png)
-
-## 当前轻量提质结论
-
-- Hook 卡片覆盖层：
-  - 明显下降
-- 结尾卡片覆盖层：
-  - 明显下降
-- 当前没有引入新的信息缺失。
-- Hook 仍成立。
-- 结尾落点仍成立。
-- 当前整片比上版更接近“真人会发”的视频感。
-
-## `.gitignore` 边界
-
-- `dist/formal_api_demo/` 仍属于 `.gitignore` / `local_only`。
-- 因此：
-  - 本地成片与回审帧不会上传到 GitHub
-  - 但本地已生成，可完成当前验收
-  - 当前应优先查看：
-    - `dist/formal_api_demo/final.mp4`
+- 这轮按你点名清单核对后，当前仓库不存在以下目标文件名：
+  - `project_source/09_review_loop_system_v1.md`
+  - `project_source/11_result_diagnosis_map.md`
+  - `project_source/12_review_role_split_and_workflow.md`
+  - `project_source/15_distribution_and_commercialization_rules.md`
+- `project_source/10_video_review_record_template.md` 在本轮开始时也不存在，现已补建为正式模板。
 
 ## 当前最关键下一步
 
-- 若继续提质，优先微调首屏标题字重与结尾橙条厚度。
-- 当前这不是必须项；本轮轻量提质已经可以收口。
-
-## 新会话建议先读
-
-- `AGENTS.md`
-- `codex_source/01_execution_rules.md`
-- `codex_source/02_current_execution_context.md`
-- `codex_source/08_branch_sync_and_reading_branch_rules.md`
-- [codex_log/latest.md](/Users/fan/Documents/视频工厂/codex_log/latest.md)
-- [codex_log/20260404_hook_outcome_overlay_polish.md](/Users/fan/Documents/视频工厂/codex_log/20260404_hook_outcome_overlay_polish.md)
+- 下一条最值得验证的样片，不是“再出一条随便的视频”，而是：
+  - 展示路由判断样片
+- 优先验证 prompt 是否能先判断：
+  - 这条是结构主导
+  - 还是信任主导
+  - 还是需要混合承载
