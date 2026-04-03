@@ -1,79 +1,63 @@
 # Latest
 
-## 当前 formal_api_demo 执行状态
+## 当前仓库执行机制状态
 
-- 2026-04-04 已切回《视频工厂》A 线普通主线质量修正，并完成 2 轮真实 generation + assembly + 回审。
-- 当前工作分支是 `codex/round1`，不是用户给出的默认读取分支 `codex/user-readable-map`。
-- 当前工作区仍有用户侧未提交改动：
-  - `project_source/00_project_brief.md`
-  - `project_source/01_project_system_prompt.md`
-  - `project_source/03_perplexity_prompt_library.md`
-  - `project_source/04_review_templates.md`
-  - `project_source/06_project_index.md`
-  - `project_source/08_quality_baseline_and_90_score_rules.md`
-  - `.omx/`
-- 本轮没有触碰以上用户侧改动。
+- 2026-04-04 本轮修的是“上传 / 同步执行机制”，不是业务功能。
+- 当前仓库默认主读取分支已明确固定为：
+  - `codex/user-readable-map`
+- 当前执行层已新增专门规则文件：
+  - [codex_source/08_branch_sync_and_reading_branch_rules.md](/Users/fan/Documents/视频工厂/codex_source/08_branch_sync_and_reading_branch_rules.md)
 
-## 本轮主路线
+## 本轮新增 / 改写的正式硬规则
 
-- 继续走普通图片 / 视频主线，不切真人开口。
-- 选择原因：
-  - 当前工作区已经具备 `wan2.6-image` / `wan2.6-t2v` 的真实 generation 能力。
-  - 当前工作区没有可直接复用的 liveportrait 成品目录或成片。
-  - 本轮质量缺口集中在 `seg02` 的“散乱 -> 结构化 SOP”视觉证明，不需要扩真人开口支线。
+- 凡本轮存在 Git 跟踪的仓库文件改动，且结果不是 `local_only` / `no_repo_change`，必须：
+  - 更新 `codex_log/latest.md`
+  - commit
+  - push
+- 凡本轮形成新的仓库正式事实，且应成为新聊天默认接手口径，还必须：
+  - 同步回 `codex/user-readable-map`
+- 每轮仓库型任务收尾，必须回报 4 个同步锚点：
+  - 当前工作分支
+  - 最新提交 SHA
+  - 是否已 push
+  - 是否已同步回 `codex/user-readable-map`
+- 每轮仓库型任务收尾，必须显式分类为以下之一：
+  - `formal_synced`
+  - `task_branch_only`
+  - `pr_open_not_merged_to_reading_branch`
+  - `local_only`
+  - `no_repo_change`
+- `.gitignore` 忽略文件必须显式标记为 `local_only`，并说明：
+  - 不会上传到 GitHub
+  - 是否影响新聊天按仓库接手
 
-## 本轮实际改动
+## 当前禁止偷换
 
-- 修改：
-  - [cases/formal_api_demo.md](/Users/fan/Documents/视频工厂/cases/formal_api_demo.md)
-  - [formal_api_demo_core.py](/Users/fan/Documents/视频工厂/formal_api_demo_core.py)
-  - [tests/test_formal_api_demo_pipeline.py](/Users/fan/Documents/视频工厂/tests/test_formal_api_demo_pipeline.py)
-  - [video_builder.swift](/Users/fan/Documents/视频工厂/video_builder.swift)
-- 新增 / 更新日志：
-  - [codex_log/latest.md](/Users/fan/Documents/视频工厂/codex_log/latest.md)
-  - [codex_log/20260404_formal_api_demo_mainline_quality_round2.md](/Users/fan/Documents/视频工厂/codex_log/20260404_formal_api_demo_mainline_quality_round2.md)
+- “任务分支已 push”不等于“主读取分支已更新”
+- “已开 PR”不等于“正式状态已同步”
+- “聊天汇报完成”不等于“仓库正式事实已更新”
+- `codex_log/latest.md` 未更新，不得写“已完成上传”或“已同步”
 
-## 当前真实产物
+## 本轮实际修改文件
 
-- 正式本地成片：
-  - [dist/formal_api_demo/final.mp4](/Users/fan/Documents/视频工厂/dist/formal_api_demo/final.mp4)
-- 预览组装：
-  - [dist/formal_api_demo/assembly/formal_api_demo_preview.mp4](/Users/fan/Documents/视频工厂/dist/formal_api_demo/assembly/formal_api_demo_preview.mp4)
-  - [dist/formal_api_demo/assembly/preview_manifest.json](/Users/fan/Documents/视频工厂/dist/formal_api_demo/assembly/preview_manifest.json)
-- 本轮关键视觉素材：
-  - [dist/formal_api_demo/visual/seg02_video.mp4](/Users/fan/Documents/视频工厂/dist/formal_api_demo/visual/seg02_video.mp4)
-  - [dist/formal_api_demo/review_frames/final_02_seg02_before.png](/Users/fan/Documents/视频工厂/dist/formal_api_demo/review_frames/final_02_seg02_before.png)
-  - [dist/formal_api_demo/review_frames/final_03_seg02_after.png](/Users/fan/Documents/视频工厂/dist/formal_api_demo/review_frames/final_03_seg02_after.png)
+- [AGENTS.md](/Users/fan/Documents/视频工厂/AGENTS.md)
+- [codex_source/01_execution_rules.md](/Users/fan/Documents/视频工厂/codex_source/01_execution_rules.md)
+- [codex_source/02_current_execution_context.md](/Users/fan/Documents/视频工厂/codex_source/02_current_execution_context.md)
+- [codex_source/08_branch_sync_and_reading_branch_rules.md](/Users/fan/Documents/视频工厂/codex_source/08_branch_sync_and_reading_branch_rules.md)
+- [codex_log/latest.md](/Users/fan/Documents/视频工厂/codex_log/latest.md)
 
-## 当前结论
+## 当前最关键下一步
 
-- 当前最终状态：`still_blocked`
-- 最具体 blocker：
-  - `seg02` 仍没有把“散乱现场 -> 可交接 SOP 接手链路”做成一眼看懂的结构化证据。
-  - 当前观众更容易看到“便签重排 + 覆盖说明层”，而不是“字段齐了、顺序定了、这条链现在能接手”。
-
-## 质量线判定
-
-- 1. `seg02` 变化是否真正被看见：`failed`
-- 2. 中段文案是否还像说明书：`failed`
-- 3. demo / PPT 感是否明显下降：`partial_but_not_enough`
-- 4. Hook 是否仍成立：`passed`
-- 5. 结尾落点是否仍成立：`passed`
-
-## 额外说明
-
-- 用户要求先读的 `codex_log/20260403_formal_api_demo_quality_review_and_liveportrait_round1.md` 在当前分支不存在。
-- 当前本地 assembly 已恢复为当前阶段真实交付：
-  - `assembly_status = success`
-  - `local_assembly_status = success`
-  - `artifact_paths.final_video = dist/formal_api_demo/final.mp4`
+- 后续所有仓库型任务收尾时，先按 5 类状态分类，再判断：
+  - 只需 `commit + push`
+  - 还是还要同步回 `codex/user-readable-map`
+- 未同步回主读取分支前，不得把结果写成仓库正式状态。
 
 ## 新会话建议先读
 
 - `AGENTS.md`
 - `codex_source/00_codex_readme.md`
 - [codex_log/latest.md](/Users/fan/Documents/视频工厂/codex_log/latest.md)
-- [codex_log/20260404_formal_api_demo_mainline_quality_round2.md](/Users/fan/Documents/视频工厂/codex_log/20260404_formal_api_demo_mainline_quality_round2.md)
-- [cases/formal_api_demo.md](/Users/fan/Documents/视频工厂/cases/formal_api_demo.md)
-- [formal_api_demo_core.py](/Users/fan/Documents/视频工厂/formal_api_demo_core.py)
-- [video_builder.swift](/Users/fan/Documents/视频工厂/video_builder.swift)
+- [codex_source/01_execution_rules.md](/Users/fan/Documents/视频工厂/codex_source/01_execution_rules.md)
+- [codex_source/02_current_execution_context.md](/Users/fan/Documents/视频工厂/codex_source/02_current_execution_context.md)
+- [codex_source/08_branch_sync_and_reading_branch_rules.md](/Users/fan/Documents/视频工厂/codex_source/08_branch_sync_and_reading_branch_rules.md)
