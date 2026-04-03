@@ -160,9 +160,14 @@
   - `ca7cc07f12f446187ebad94d15e20aa78f5f59d9`
 - 本轮开始前内容层同步关系：
   - 两边 tree SHA 已一致
-- 本轮日志回写完成后：
-  - 仍需 commit / push 任务分支
-  - 再同步到 `codex/user-readable-map`
+- 本轮日志回写后的任务分支提交：
+  - `a8f07e105e6242d68d0812aece02466e3836c186`
+- 本轮日志回写后的主读取分支提交：
+  - `bfba58ff31b531155c3c4693e309b71ac59f1da6`
+- 是否已 push：
+  - 是
+- 是否已同步回 `codex/user-readable-map`：
+  - 是
 
 ## 下一轮唯一最关键一步
 

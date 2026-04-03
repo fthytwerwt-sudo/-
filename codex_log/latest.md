@@ -8,9 +8,14 @@
   - `codex/formal-api-demo-quality-liveportrait-round1`
 - 2026-04-03 round2 核查新增事实：
   - 当前 round1 内容并不只停在任务分支
-  - `codex/formal-api-demo-quality-liveportrait-round1` 的 HEAD 是 `1b11c7a`
-  - `codex/user-readable-map` 的 HEAD 是 `ca7cc07`
-  - 两个分支当前 tree SHA 相同，说明 round1 内容已按内容层面回流到主读取分支，只是提交 SHA 尚未统一
+  - 本轮开始前：
+    - `codex/formal-api-demo-quality-liveportrait-round1` 的 HEAD 是 `1b11c7a`
+    - `codex/user-readable-map` 的 HEAD 是 `ca7cc07`
+    - 两个分支 tree SHA 相同，说明 round1 内容已按内容层面回流到主读取分支
+  - 本轮日志回写后：
+    - 任务分支最新提交是 `a8f07e1`
+    - 主读取分支最新提交是 `bfba58f`
+    - 当前 round2 blocked 日志已同步回 `codex/user-readable-map`
 
 ## 当前 formal_api_demo 真实状态
 
