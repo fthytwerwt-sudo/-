@@ -1,69 +1,66 @@
 # Latest
 
-## 当前仓库规则状态
+## 当前 formal_api_demo 执行状态
 
-- 2026-04-04 本轮修的是“90 分 / `quality_passed` / 可发布测试线通过后，必须给用户可见样片”的硬规则。
-- 当前默认主读取分支仍是：
-  - `codex/user-readable-map`
+- 2026-04-04 本轮只做 A 线已过线版本的轻量提质。
+- 当前不再回头修技术链，也没有重开 `seg02` 主结构。
+- 本轮结论：
+  - `polish_passed`
 
-## 本轮新增 / 改写的正式样片交付规则
+## 本轮主路线
 
-- 当本轮达到以下任一条件时，必须向用户交付可见样片：
-  - 项目内部 90 分水位通过
-  - `quality_passed`
-  - 通过可发布测试线
-- 这里的“可见样片”不能只写一句“已过线”，必须至少给出：
-  - 样片文件路径
-  - 或可直接打开的样片文件
-  - 或固定回审帧集合
-  - 或明确的验收样片目录
-- 当前默认样片交付物优先写死为：
-  - `dist/formal_api_demo/final.mp4`
-  - 如需辅助验收，再补：
-    - `dist/formal_api_demo/review_frames/`
-- 若样片属于 `.gitignore` / `local_only`，必须同时说明：
-  - 不会上传到 GitHub
-  - 但本地已生成
-  - 用户当前应优先看哪一个本地路径
-  - 它是否足以完成当前验收
+- 保留当前结构与节奏。
+- 只压：
+  - Hook 页卡片覆盖层
+  - 结尾页卡片覆盖层
+- 只重跑 assembly，不重跑 generation。
 
-## 当前禁止偷换
+## 本轮实际改动
 
-- “质量已过线”但不给样片路径
-- “已经 90 分了”但用户看不到任何样片
-- “本地有成片”但不告诉用户在哪
-- “GitHub 上看不到是正常的”却不补交付方式
+- 修改：
+  - [video_builder.swift](/Users/fan/Documents/视频工厂/video_builder.swift)
+- 新增 / 更新日志：
+  - [codex_log/latest.md](/Users/fan/Documents/视频工厂/codex_log/latest.md)
+  - [codex_log/20260404_hook_outcome_overlay_polish.md](/Users/fan/Documents/视频工厂/codex_log/20260404_hook_outcome_overlay_polish.md)
 
-## 本轮实际修改文件
+## 当前真实产物
 
-- [project_source/08_quality_baseline_and_90_score_rules.md](/Users/fan/Documents/视频工厂/project_source/08_quality_baseline_and_90_score_rules.md)
-- [project_source/13_stage_and_acceptance_gates.md](/Users/fan/Documents/视频工厂/project_source/13_stage_and_acceptance_gates.md)
-- [project_source/14_content_review_and_loop_governance_rules.md](/Users/fan/Documents/视频工厂/project_source/14_content_review_and_loop_governance_rules.md)
-- [AGENTS.md](/Users/fan/Documents/视频工厂/AGENTS.md)
-- [codex_source/01_execution_rules.md](/Users/fan/Documents/视频工厂/codex_source/01_execution_rules.md)
-- [codex_log/latest.md](/Users/fan/Documents/视频工厂/codex_log/latest.md)
+- 当前本地成片：
+  - [dist/formal_api_demo/final.mp4](/Users/fan/Documents/视频工厂/dist/formal_api_demo/final.mp4)
+- 当前 Hook / 结尾回审帧：
+  - [dist/formal_api_demo/review_frames/final_01_hook_polish.png](/Users/fan/Documents/视频工厂/dist/formal_api_demo/review_frames/final_01_hook_polish.png)
+  - [dist/formal_api_demo/review_frames/final_04_outcome_polish.png](/Users/fan/Documents/视频工厂/dist/formal_api_demo/review_frames/final_04_outcome_polish.png)
 
-## 当前默认样片交付物
+## 当前轻量提质结论
 
-- 主样片：
-  - `dist/formal_api_demo/final.mp4`
-- 辅助验收：
-  - `dist/formal_api_demo/review_frames/`
+- Hook 卡片覆盖层：
+  - 明显下降
+- 结尾卡片覆盖层：
+  - 明显下降
+- 当前没有引入新的信息缺失。
+- Hook 仍成立。
+- 结尾落点仍成立。
+- 当前整片比上版更接近“真人会发”的视频感。
+
+## `.gitignore` 边界
+
+- `dist/formal_api_demo/` 仍属于 `.gitignore` / `local_only`。
+- 因此：
+  - 本地成片与回审帧不会上传到 GitHub
+  - 但本地已生成，可完成当前验收
+  - 当前应优先查看：
+    - `dist/formal_api_demo/final.mp4`
 
 ## 当前最关键下一步
 
-- 后续凡是写 `quality_passed` / 90 分 / 可发布测试线通过，都必须在收尾里同时回报：
-  - 样片路径
-  - `local_only` 与否
-  - 用户应优先看的样片文件
-  - 若 GitHub 不可见，则本地路径
+- 若继续提质，优先微调首屏标题字重与结尾橙条厚度。
+- 当前这不是必须项；本轮轻量提质已经可以收口。
 
 ## 新会话建议先读
 
 - `AGENTS.md`
-- `project_source/08_quality_baseline_and_90_score_rules.md`
-- `project_source/13_stage_and_acceptance_gates.md`
-- `project_source/14_content_review_and_loop_governance_rules.md`
 - `codex_source/01_execution_rules.md`
+- `codex_source/02_current_execution_context.md`
 - `codex_source/08_branch_sync_and_reading_branch_rules.md`
 - [codex_log/latest.md](/Users/fan/Documents/视频工厂/codex_log/latest.md)
+- [codex_log/20260404_hook_outcome_overlay_polish.md](/Users/fan/Documents/视频工厂/codex_log/20260404_hook_outcome_overlay_polish.md)
