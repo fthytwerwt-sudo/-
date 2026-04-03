@@ -166,11 +166,88 @@
 3. `codex_log/latest.md`
 4. `codex_source/01_execution_rules.md`
 5. 本文件 `codex_source/02_current_execution_context.md`
-6. 若涉及外部结论 / 新拍板 / 研究桥接，再读 `codex_source/03_research_findings_bridge.md`
-7. 若涉及完成回报 / 状态判断 / 验收口径，再读 `codex_source/04_completion_and_review_contract.md`
-8. 若涉及执行现实偏差 / 原方案失效 / 资源权限环境问题，再读 `codex_source/05_execution_deviation_and_reality_sync.md`
-9. 若涉及主读取分支、分支同步、任务分支回流、`latest` 是否可信，再读 `codex_source/08_branch_sync_and_reading_branch_rules.md`
+6. 若涉及 commit / push / PR / 主读取分支 / `latest.md` / `.gitignore` 边界，再读 `codex_source/08_branch_sync_and_reading_branch_rules.md`
+7. 若涉及外部结论 / 新拍板 / 研究桥接，再读 `codex_source/03_research_findings_bridge.md`
+8. 若涉及完成回报 / 状态判断 / 验收口径，再读 `codex_source/04_completion_and_review_contract.md`
+9. 若涉及执行现实偏差 / 原方案失效 / 资源权限环境问题，再读 `codex_source/05_execution_deviation_and_reality_sync.md`
 10. 再补读与当前任务直接相关的 `project_source/*`、代码、测试与产物
+
+## 8A. 当前主读取分支与正式状态
+
+当前仓库默认主读取分支固定为：
+
+- `codex/user-readable-map`
+
+执行层必须按以下口径理解“正式状态”：
+
+- 任务分支上的本地改动，不等于仓库正式状态
+- 任务分支已 push，不等于主读取分支已更新
+- 已开 PR，不等于正式状态已同步
+- 聊天里说完成，不等于仓库正式事实已更新
+- 只有结果同步回 `codex/user-readable-map`，才默认成为新聊天的仓库接手口径
+
+## 8B. 当前仓库型任务的同步硬规则
+
+凡本轮存在 Git 跟踪的仓库文件改动，且本轮结果不是 `local_only`、不是 `no_repo_change`，必须：
+
+1. 更新 `codex_log/latest.md`
+2. commit
+3. push
+
+凡本轮形成了新的仓库正式事实，除上面 3 步外，还必须：
+
+4. 同步回 `codex/user-readable-map`
+
+若未满足以上条件，不得写：
+
+- “已完成上传”
+- “已同步”
+- “仓库正式状态已更新”
+
+## 8C. 当前仓库型任务的状态分类
+
+每轮仓库型任务收尾时，必须显式分类为以下之一：
+
+- `formal_synced`
+- `task_branch_only`
+- `pr_open_not_merged_to_reading_branch`
+- `local_only`
+- `no_repo_change`
+
+分类含义必须固定：
+
+- `formal_synced`
+  - 已更新 `codex_log/latest.md`
+  - 已 commit
+  - 已 push
+  - 已同步回 `codex/user-readable-map`
+- `task_branch_only`
+  - 已 commit / push 到任务分支
+  - 但主读取分支还没更新
+- `pr_open_not_merged_to_reading_branch`
+  - 已有 PR
+  - 但 PR 还没回流主读取分支
+- `local_only`
+  - 结果只存在本地，或文件被 `.gitignore` 忽略，不会上 GitHub
+- `no_repo_change`
+  - 本轮没有 Git 跟踪的仓库文件改动
+
+## 8D. `.gitignore` / `local_only` 边界
+
+若文件被 `.gitignore` 忽略：
+
+- 必须显式标记为 `local_only`
+- 必须明确说明它不会上传到 GitHub
+- 必须明确说明它是否影响新聊天按仓库接手
+
+同时必须保留的边界：
+
+- 本地配置
+- secrets
+- 私有凭证
+- 其他不应进 Git 的本地文件
+
+不得因为“每轮都必须上传”而被错误提交。
 
 ## 9. 可自动补全项
 

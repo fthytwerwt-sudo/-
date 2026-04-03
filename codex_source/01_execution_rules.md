@@ -307,7 +307,97 @@ skill 检查在当前仓库中是硬规则。
 - 不得跳过日志更新直接 push
 - 不得在未形成可判断小闭环时强行 push 噪音改动
 
-## 8C. EXEC-006D 研究结论桥接规则
+## 8C. EXEC-006D 主读取分支与同步状态硬规则
+
+当前仓库默认主读取分支固定为：
+
+- `codex/user-readable-map`
+
+只要本轮存在 Git 跟踪的仓库文件改动，且本轮结果不是 `local_only`、不是 `no_repo_change`，必须执行以下动作：
+
+1. 更新 `codex_log/latest.md`
+2. 命中写日志条件时补完整日志
+3. commit 当前分支改动
+4. push 当前工作分支 / 当前 PR
+
+若本轮结果应成为新聊天默认接手口径，还必须继续执行：
+
+5. 同步回 `codex/user-readable-map`
+
+明确禁止：
+
+- 不得把“任务分支已 push”写成“主读取分支已更新”
+- 不得把“已开 PR”写成“正式状态已同步”
+- 不得把“聊天汇报完成”写成“仓库正式事实已更新”
+- 不得在 `codex_log/latest.md` 未更新时写“已完成上传”
+
+只有同步回 `codex/user-readable-map` 后，才默认算：
+
+- 仓库正式状态已更新
+- 新聊天按仓库接手时可直接采用
+
+## 8D. EXEC-006E 收尾必须回报 4 个同步锚点
+
+每轮仓库型任务收尾时，必须明确回报：
+
+1. 当前工作分支
+2. 最新提交 SHA
+3. 是否已 push
+4. 是否已同步回 `codex/user-readable-map`
+
+## 8E. EXEC-006F 状态分类必须显式标记
+
+每轮仓库型任务收尾时，必须显式分类为以下之一：
+
+- `formal_synced`
+- `task_branch_only`
+- `pr_open_not_merged_to_reading_branch`
+- `local_only`
+- `no_repo_change`
+
+分类口径固定如下：
+
+- `formal_synced`
+  - 已更新 `codex_log/latest.md`
+  - 已 commit
+  - 已 push
+  - 已同步回 `codex/user-readable-map`
+- `task_branch_only`
+  - 已 commit / push 到任务分支
+  - 但主读取分支还没更新
+- `pr_open_not_merged_to_reading_branch`
+  - 已有 PR
+  - 但 PR 尚未回流主读取分支
+- `local_only`
+  - 结果只存在本地，或文件被 `.gitignore` 忽略，不会上 GitHub
+- `no_repo_change`
+  - 本轮没有 Git 跟踪的仓库文件改动
+
+## 8F. EXEC-006G `.gitignore` / `local_only` 边界
+
+若文件被 `.gitignore` 忽略，必须同时说明：
+
+1. 它属于 `local_only`
+2. 它不会上传到 GitHub
+3. 它是否影响新聊天按仓库接手
+
+必须保留以下保护边界：
+
+- 本地配置
+- secrets
+- 私有凭证
+- 其他不应进入 Git 的本地文件
+
+不得因为“每轮都必须上传”而错误提交这些文件。
+
+## 8G. EXEC-006H “每轮执行完了必须上传”的精确口径
+
+- 凡本轮存在 Git 跟踪的仓库改动，且不是 `local_only` / `no_repo_change`，必须完成 `commit + push`
+- 凡本轮形成新的正式接手事实，除 `commit + push` 外，还必须更新 `codex_log/latest.md`
+- 凡本轮结果应成为仓库正式状态，还必须同步回 `codex/user-readable-map`
+- 若未满足以上条件，不得写“已完成上传”或“已同步”
+
+## 8H. EXEC-006I 研究结论桥接规则
 
 凡是来自以下来源且会影响执行的结论，都必须先桥接进执行层：
 
@@ -332,7 +422,7 @@ skill 检查在当前仓库中是硬规则。
 - ChatGPT 负责收束与编排，但其判断若未进入桥接文件，Codex 不得默认长期知道
 - 用户一旦明确拍板且会影响后续执行，应尽快写入 `codex_source/03_research_findings_bridge.md`
 
-## 8D. EXEC-006E 执行偏差回写规则
+## 8I. EXEC-006J 执行偏差回写规则
 
 只要真实执行发现“原方案”和“现实可执行方案”之间出现有效差异，就必须触发偏差回写机制。
 

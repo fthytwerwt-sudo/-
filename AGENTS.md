@@ -72,6 +72,8 @@
 补充规则：
 
 - 若任务明显偏执行规则，再补读 `codex_source/01_execution_rules.md`
+- 若任务涉及 commit / push / PR / 主读取分支回流 / `latest.md` 更新 / `.gitignore` 边界，则必读：
+  - `codex_source/08_branch_sync_and_reading_branch_rules.md`
 - 若任务明显偏项目判断、内容边界或场景结构，再补读 `project_source/06_project_index.md` 与相关 `project_source/*`
 - 若任务命中“正式版 API demo / 正式版目标态 / 云端组装 / 修正循环 / 质量达标反推”，则在最小接手集合之外补读：
   - `codex_source/07_formal_api_demo_target_plan.md`
@@ -145,6 +147,75 @@
 - 日志还没更新
 - 本轮只有纯读取、无改动、无新结论
 
+## 5C. 主读取分支与正式状态硬规则
+
+当前仓库默认主读取分支固定为：
+
+- `codex/user-readable-map`
+
+对新聊天 / 新 Codex 会话生效的仓库正式状态，默认以该分支为准，而不是当前任务分支、当前 PR 或聊天汇报。
+
+必须写死以下规则：
+
+### 5C-1. 上传 / 同步硬规则
+
+- 凡本轮存在 Git 跟踪的仓库文件改动，且本轮结果不是 `local_only`、不是 `no_repo_change`，必须：
+  - commit
+  - push
+- 凡本轮形成了新的仓库正式事实，必须先更新：
+  - `codex_log/latest.md`
+- 凡本轮结果应成为新聊天默认接手口径，必须同步回：
+  - `codex/user-readable-map`
+
+### 5C-2. 不得偷换完成状态
+
+以下情况都不得写成“已完成”“已同步”或“仓库正式状态已更新”：
+
+- 只在本地完成
+- 只在任务分支完成
+- 只开 PR 未回流主读取分支
+- 只在聊天里说完成
+- `codex_log/latest.md` 未更新
+
+必须明确：
+
+- “任务分支已 push”不等于“主读取分支已更新”
+- “已开 PR”不等于“正式状态已同步”
+- “聊天汇报完成”不等于“仓库正式事实已更新”
+
+### 5C-3. 每轮必须回报 4 个同步锚点
+
+每轮仓库型任务收尾时，必须明确回报：
+
+1. 当前工作分支
+2. 最新提交 SHA
+3. 是否已 push
+4. 是否已同步回 `codex/user-readable-map`
+
+### 5C-4. 状态分类必须显式标记
+
+若本轮还未形成主读取分支正式状态，必须显式分类为以下之一：
+
+- `formal_synced`
+- `task_branch_only`
+- `pr_open_not_merged_to_reading_branch`
+- `local_only`
+- `no_repo_change`
+
+### 5C-5. `.gitignore` / `local_only` 边界
+
+- 若文件被 `.gitignore` 忽略，必须显式标记为 `local_only`
+- 必须明确说明该文件不会上传到 GitHub
+- 必须明确说明它是否影响新聊天按仓库接手
+- 本地配置、secrets、私有凭证文件，不得因为“每轮都要上传”而被错误提交
+
+### 5C-6. “每轮执行完了必须上传”的精确口径
+
+- 凡本轮存在 Git 跟踪的仓库改动，且不是 `local_only` / `no_repo_change`，必须完成 `commit + push`
+- 凡本轮形成新的正式接手事实，除 `commit + push` 外，还必须更新 `codex_log/latest.md`
+- 凡本轮结果应成为仓库正式状态，还必须同步回 `codex/user-readable-map`
+- 若未满足以上条件，不得写“已完成上传”或“已同步”
+
 ## 6. 真实性与失败处理
 
 以下规则是硬约束：
@@ -177,4 +248,4 @@
 
 如果 Codex 这轮只记一句话：
 
-**新会话先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md` 完成最小启动；若任务偏执行规则，再补读 `codex_source/01_execution_rules.md`；若任务偏正式版 API demo 目标态，再补读 `codex_source/07_formal_api_demo_target_plan.md`；命中仓库型任务默认走 GitHub / PR 线路，无法安全推进时先停下并如实汇报。**
+**新会话先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md` 完成最小启动；若任务偏执行规则，再补读 `codex_source/01_execution_rules.md`；若任务涉及 commit / push / PR / 主读取分支回流 / `latest.md` 更新，则再补读 `codex_source/08_branch_sync_and_reading_branch_rules.md`；命中仓库型任务时，只有同步回 `codex/user-readable-map` 才算仓库正式状态。**
