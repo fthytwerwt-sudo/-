@@ -15,6 +15,7 @@ struct Manifest: Decodable {
 struct Slide: Decodable {
     let sequence: Int
     let total: Int
+    let segmentId: String?
     let role: String
     let eyebrow: String
     let headline: String
@@ -24,6 +25,25 @@ struct Slide: Decodable {
     let accent: String
     let background: String
     let duration: Double
+    let backgroundImagePath: String?
+    let backgroundVideoPath: String?
+
+    enum CodingKeys: String, CodingKey {
+        case sequence
+        case total
+        case segmentId = "segment_id"
+        case role
+        case eyebrow
+        case headline
+        case support
+        case detail
+        case chips
+        case accent
+        case background
+        case duration
+        case backgroundImagePath = "background_image_path"
+        case backgroundVideoPath = "background_video_path"
+    }
 }
 
 enum VideoBuilderError: Error {
@@ -33,6 +53,23 @@ enum VideoBuilderError: Error {
     case exportFailed(String)
     case missingTrack(String)
 }
+
+final class VideoFrameSource {
+    let durationSeconds: Double
+    let generator: AVAssetImageGenerator
+
+    init(path: String) {
+        let asset = AVURLAsset(url: URL(fileURLWithPath: path))
+        durationSeconds = CMTimeGetSeconds(asset.duration)
+        generator = AVAssetImageGenerator(asset: asset)
+        generator.appliesPreferredTrackTransform = true
+        generator.requestedTimeToleranceBefore = .zero
+        generator.requestedTimeToleranceAfter = .zero
+    }
+}
+
+var cachedImages: [String: NSImage] = [:]
+var cachedVideoSources: [String: VideoFrameSource] = [:]
 
 func loadManifest() throws -> Manifest {
     guard CommandLine.arguments.count >= 2 else {
@@ -70,6 +107,106 @@ func drawCircle(_ rect: NSRect, fill: NSColor) {
     fill.setFill()
     let path = NSBezierPath(ovalIn: rect)
     path.fill()
+}
+
+func imageCoverRect(imageSize: CGSize, container: NSRect, zoom: CGFloat, panX: CGFloat, panY: CGFloat) -> NSRect {
+    let imageAspect = imageSize.width / max(imageSize.height, 1)
+    let containerAspect = container.width / max(container.height, 1)
+    let scale: CGFloat
+
+    if imageAspect > containerAspect {
+        scale = container.height / max(imageSize.height, 1)
+    } else {
+        scale = container.width / max(imageSize.width, 1)
+    }
+
+    let drawWidth = imageSize.width * scale * zoom
+    let drawHeight = imageSize.height * scale * zoom
+    return NSRect(
+        x: container.midX - drawWidth / 2 + panX,
+        y: container.midY - drawHeight / 2 + panY,
+        width: drawWidth,
+        height: drawHeight
+    )
+}
+
+func drawCGImageCover(_ image: CGImage, in rect: NSRect, zoom: CGFloat = 1.0, panX: CGFloat = 0, panY: CGFloat = 0) {
+    guard let context = NSGraphicsContext.current?.cgContext else { return }
+    let drawRect = imageCoverRect(
+        imageSize: CGSize(width: image.width, height: image.height),
+        container: rect,
+        zoom: zoom,
+        panX: panX,
+        panY: panY
+    )
+    context.draw(image, in: drawRect)
+}
+
+func cachedImage(at path: String) -> NSImage? {
+    if let existing = cachedImages[path] {
+        return existing
+    }
+    guard let image = NSImage(contentsOfFile: path) else {
+        return nil
+    }
+    cachedImages[path] = image
+    return image
+}
+
+func cachedVideoFrameSource(at path: String) -> VideoFrameSource? {
+    if let existing = cachedVideoSources[path] {
+        return existing
+    }
+    guard FileManager.default.fileExists(atPath: path) else {
+        return nil
+    }
+    let source = VideoFrameSource(path: path)
+    cachedVideoSources[path] = source
+    return source
+}
+
+func drawBackgroundMedia(_ slide: Slide, in rect: NSRect, progress: CGFloat) -> Bool {
+    if let path = slide.backgroundVideoPath,
+       !path.isEmpty,
+       let source = cachedVideoFrameSource(at: path),
+       source.durationSeconds > 0.0
+    {
+        let clampedProgress = max(0.0, min(0.98, Double(progress)))
+        let second = min(
+            max(0.0, clampedProgress * source.durationSeconds),
+            max(0.0, source.durationSeconds - 0.04)
+        )
+        if let frame = try? source.generator.copyCGImage(
+            at: CMTime(seconds: second, preferredTimescale: 600),
+            actualTime: nil
+        ) {
+            drawCGImageCover(
+                frame,
+                in: rect,
+                zoom: 1.08,
+                panX: (progress - 0.5) * 24,
+                panY: progress * 10
+            )
+            return true
+        }
+    }
+
+    if let path = slide.backgroundImagePath,
+       !path.isEmpty,
+       let image = cachedImage(at: path),
+       let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil)
+    {
+        drawCGImageCover(
+            cgImage,
+            in: rect,
+            zoom: 1.05 + progress * 0.04,
+            panX: (0.5 - progress) * 18,
+            panY: progress * 12
+        )
+        return true
+    }
+
+    return false
 }
 
 func textAttributes(
@@ -257,6 +394,57 @@ func drawProcessLayout(_ slide: Slide, in cardRect: NSRect, accentColor: NSColor
     )
 }
 
+func drawTransitionLayout(_ slide: Slide, width: Int, height: Int, accentColor: NSColor) {
+    drawPill(
+        "可交接 SOP",
+        rect: NSRect(x: 72, y: CGFloat(height) - 224, width: 156, height: 44),
+        fill: NSColor.white.withAlphaComponent(0.88),
+        textColor: accentColor,
+        size: 18
+    )
+
+    let gradientRect = NSRect(x: 0, y: 0, width: width, height: 520)
+    if let gradient = NSGradient(
+        starting: NSColor.black.withAlphaComponent(0.86),
+        ending: NSColor.black.withAlphaComponent(0.0)
+    ) {
+        gradient.draw(in: gradientRect, angle: 90)
+    }
+
+    (slide.headline as NSString).draw(
+        in: NSRect(x: 72, y: 226, width: CGFloat(width) - 144, height: 118),
+        withAttributes: textAttributes(size: 56, weight: .black, color: .white)
+    )
+    (slide.support as NSString).draw(
+        in: NSRect(x: 72, y: 172, width: CGFloat(width) - 144, height: 40),
+        withAttributes: textAttributes(size: 26, weight: .medium, color: NSColor.white.withAlphaComponent(0.84))
+    )
+
+    let chipWidths: [CGFloat] = [118, 118, 118]
+    for (index, chip) in slide.chips.enumerated() {
+        let pillRect = NSRect(
+            x: 72 + CGFloat(index) * 138,
+            y: 118,
+            width: chipWidths[index],
+            height: 38
+        )
+        drawPill(
+            chip,
+            rect: pillRect,
+            fill: NSColor.white.withAlphaComponent(index == 0 ? 0.94 : 0.74),
+            textColor: accentColor,
+            size: 18
+        )
+    }
+
+    let detailRect = NSRect(x: 72, y: 52, width: CGFloat(width) - 144, height: 48)
+    drawRoundedRect(detailRect, radius: 20, fill: NSColor.black.withAlphaComponent(0.78))
+    (slide.detail as NSString).draw(
+        in: detailRect.insetBy(dx: 18, dy: 10),
+        withAttributes: textAttributes(size: 20, weight: .medium, color: .white)
+    )
+}
+
 func drawOutcomeLayout(_ slide: Slide, in cardRect: NSRect, accentColor: NSColor) {
     let bannerRect = NSRect(x: cardRect.minX + 44, y: cardRect.maxY - 224, width: cardRect.width - 88, height: 168)
     drawRoundedRect(bannerRect, radius: 36, fill: accentColor)
@@ -319,33 +507,52 @@ func renderSlide(_ slide: Slide, width: Int, height: Int, progress: CGFloat) -> 
     let backgroundRect = NSRect(x: 0, y: 0, width: width, height: height)
     let accentColor = color(hex: slide.accent)
     let backgroundColor = color(hex: slide.background)
-    backgroundColor.setFill()
-    backgroundRect.fill()
-    if let gradient = NSGradient(
-        starting: accentColor.withAlphaComponent(0.14),
-        ending: backgroundColor
-    ) {
-        gradient.draw(in: backgroundRect, angle: 90)
-    }
+    let hasMediaBackground = drawBackgroundMedia(slide, in: backgroundRect, progress: progress)
+    if hasMediaBackground {
+        if let gradient = NSGradient(
+            starting: NSColor.black.withAlphaComponent(slide.role == "process" ? 0.18 : 0.10),
+            ending: backgroundColor.withAlphaComponent(0.24)
+        ) {
+            gradient.draw(in: backgroundRect, angle: 90)
+        }
+        drawCircle(
+            NSRect(
+                x: CGFloat(width) - 300 + progress * 16,
+                y: CGFloat(height) - 380 + progress * 10,
+                width: 300,
+                height: 300
+            ),
+            fill: accentColor.withAlphaComponent(0.08)
+        )
+    } else {
+        backgroundColor.setFill()
+        backgroundRect.fill()
+        if let gradient = NSGradient(
+            starting: accentColor.withAlphaComponent(0.14),
+            ending: backgroundColor
+        ) {
+            gradient.draw(in: backgroundRect, angle: 90)
+        }
 
-    drawCircle(
-        NSRect(
-            x: CGFloat(width) - 340 + progress * 18,
-            y: CGFloat(height) - 420 + progress * 12,
-            width: 360,
-            height: 360
-        ),
-        fill: accentColor.withAlphaComponent(0.12)
-    )
-    drawCircle(
-        NSRect(
-            x: -100 - progress * 14,
-            y: 220 - progress * 10,
-            width: 260,
-            height: 260
-        ),
-        fill: accentColor.withAlphaComponent(0.08)
-    )
+        drawCircle(
+            NSRect(
+                x: CGFloat(width) - 340 + progress * 18,
+                y: CGFloat(height) - 420 + progress * 12,
+                width: 360,
+                height: 360
+            ),
+            fill: accentColor.withAlphaComponent(0.12)
+        )
+        drawCircle(
+            NSRect(
+                x: -100 - progress * 14,
+                y: 220 - progress * 10,
+                width: 260,
+                height: 260
+            ),
+            fill: accentColor.withAlphaComponent(0.08)
+        )
+    }
 
     drawPill(
         slide.eyebrow,
@@ -362,32 +569,55 @@ func renderSlide(_ slide: Slide, width: Int, height: Int, progress: CGFloat) -> 
         size: 22
     )
 
-    (slide.headline as NSString).draw(
-        in: NSRect(x: 72, y: CGFloat(height) - 484, width: CGFloat(width) - 144, height: 210),
-        withAttributes: textAttributes(size: 72, weight: .black, color: NSColor.black.withAlphaComponent(0.86))
-    )
-    (slide.support as NSString).draw(
-        in: NSRect(x: 72, y: CGFloat(height) - 570, width: CGFloat(width) - 144, height: 60),
-        withAttributes: textAttributes(size: 32, weight: .medium, color: NSColor.black.withAlphaComponent(0.56))
-    )
+    if hasMediaBackground && slide.role == "process" {
+        drawTransitionLayout(slide, width: width, height: height, accentColor: accentColor)
+    } else {
+        let headingColor =
+            hasMediaBackground
+            ? NSColor.white.withAlphaComponent(0.95)
+            : NSColor.black.withAlphaComponent(0.86)
+        let supportColor =
+            hasMediaBackground
+            ? NSColor.white.withAlphaComponent(0.82)
+            : NSColor.black.withAlphaComponent(0.56)
 
-    let cardRect = NSRect(x: 72, y: 286, width: CGFloat(width) - 144, height: 840)
-    drawRoundedRect(cardRect, radius: 48, fill: NSColor.white.withAlphaComponent(0.94))
-    drawRoundedStroke(cardRect, radius: 48, stroke: accentColor.withAlphaComponent(0.18))
-    let accentBarWidth = max(140, (cardRect.width - 120) * (0.24 + 0.16 * progress))
-    drawRoundedRect(
-        NSRect(x: cardRect.minX + 44, y: cardRect.maxY - 30, width: accentBarWidth, height: 12),
-        radius: 6,
-        fill: accentColor
-    )
+        (slide.headline as NSString).draw(
+            in: NSRect(x: 72, y: CGFloat(height) - 484, width: CGFloat(width) - 144, height: 210),
+            withAttributes: textAttributes(size: 72, weight: .black, color: headingColor)
+        )
+        (slide.support as NSString).draw(
+            in: NSRect(x: 72, y: CGFloat(height) - 570, width: CGFloat(width) - 144, height: 60),
+            withAttributes: textAttributes(size: 32, weight: .medium, color: supportColor)
+        )
 
-    switch slide.role {
-    case "hook":
-        drawHookLayout(slide, in: cardRect, accentColor: accentColor)
-    case "process":
-        drawProcessLayout(slide, in: cardRect, accentColor: accentColor)
-    default:
-        drawOutcomeLayout(slide, in: cardRect, accentColor: accentColor)
+        let cardRect = NSRect(x: 72, y: 286, width: CGFloat(width) - 144, height: 840)
+        drawRoundedRect(
+            cardRect,
+            radius: 48,
+            fill: hasMediaBackground
+                ? NSColor.white.withAlphaComponent(0.88)
+                : NSColor.white.withAlphaComponent(0.94)
+        )
+        drawRoundedStroke(
+            cardRect,
+            radius: 48,
+            stroke: accentColor.withAlphaComponent(hasMediaBackground ? 0.26 : 0.18)
+        )
+        let accentBarWidth = max(140, (cardRect.width - 120) * (0.24 + 0.16 * progress))
+        drawRoundedRect(
+            NSRect(x: cardRect.minX + 44, y: cardRect.maxY - 30, width: accentBarWidth, height: 12),
+            radius: 6,
+            fill: accentColor
+        )
+
+        switch slide.role {
+        case "hook":
+            drawHookLayout(slide, in: cardRect, accentColor: accentColor)
+        case "process":
+            drawProcessLayout(slide, in: cardRect, accentColor: accentColor)
+        default:
+            drawOutcomeLayout(slide, in: cardRect, accentColor: accentColor)
+        }
     }
 
     drawProgress(slide, accentColor: accentColor, width: width, progress: progress)

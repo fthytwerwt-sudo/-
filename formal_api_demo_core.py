@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import copy
 import json
-import mimetypes
 import pathlib
 import shutil
 import subprocess
@@ -10,7 +9,6 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
-import uuid
 from typing import Any
 
 try:
@@ -655,15 +653,56 @@ def run_assembly_pipeline(
     local_assembly_result = build_default_local_assembly(output_dir)
     preview_result = build_default_assembly_preview(output_dir)
     if not dry_run:
-        local_assembly_result = execute_local_formal_assembly(
-            manifest=manifest,
-            config=config,
-            output_dir=output_dir,
-        )
+        local_missing = [
+            item
+            for item in _assembly_missing_prerequisites(
+                manifest=manifest,
+                config=config,
+                has_local_config=config_bundle["has_local_config"],
+            )
+            if item not in {"space_name", "assembly_template_id", "visual_assets_not_ready"}
+        ]
         preview_result = execute_local_preview_assembly(
             manifest=manifest,
             output_dir=output_dir,
         )
+        if preview_result.get("status") == STATUS_SUCCESS:
+            local_assembly_result.update(
+                {
+                    "status": STATUS_SUCCESS,
+                    "video_path": preview_result.get("final_video_path")
+                    or preview_result.get("video_path"),
+                    "blocked_reason": "",
+                    "failure_reason": "",
+                    "error_message": "",
+                    "current_missing_prerequisites": [],
+                    "missing_implementations": [],
+                }
+            )
+        elif local_missing:
+            local_assembly_result.update(
+                {
+                    "status": STATUS_BLOCKED,
+                    "blocked_reason": "缺少正式本地 assembly 前提：" + "、".join(local_missing),
+                    "current_missing_prerequisites": local_missing,
+                }
+            )
+        elif preview_result.get("status") == STATUS_FAILED:
+            local_assembly_result.update(
+                {
+                    "status": STATUS_FAILED,
+                    "failure_reason": preview_result.get("failure_reason", ""),
+                    "error_message": preview_result.get("error_message", ""),
+                }
+            )
+        else:
+            local_assembly_result.update(
+                {
+                    "status": STATUS_BLOCKED,
+                    "blocked_reason": preview_result.get("blocked_reason", "")
+                    or "缺少正式本地 assembly 前提",
+                }
+            )
     else:
         local_assembly_result["status"] = STATUS_PLANNED
     local_assembly_status = STATUS_PLANNED if dry_run else local_assembly_result["status"]
@@ -969,9 +1008,9 @@ def _evaluate_visual_generation_gate(
         implementation_missing.append("image_generation_provider_implementation")
     if needs_video and not aliyun_visual_supported:
         implementation_missing.append("video_generation_provider_implementation")
-    if portrait_detect_enabled and not aliyun_visual_supported:
+    if portrait_detect_enabled:
         implementation_missing.append("portrait_detect_provider_implementation")
-    if portrait_video_enabled and not aliyun_visual_supported:
+    if portrait_video_enabled:
         implementation_missing.append("portrait_video_generation_provider_implementation")
 
     checks = [
@@ -1452,11 +1491,6 @@ def build_assembly_plan(
     config: dict[str, Any],
     assembly_gate: dict[str, Any],
 ) -> dict[str, Any]:
-    visual_generation = manifest.get("generation", {}).get("visual_generation", {})
-    segment_asset_index = {
-        asset.get("segment_id"): asset
-        for asset in visual_generation.get("segment_assets", [])
-    }
     return {
         "schema_version": "formal_api_demo_assembly_plan/v1",
         "manifest_schema_version": manifest.get("schema_version"),
@@ -1475,16 +1509,11 @@ def build_assembly_plan(
                 "voice_uri": segment["output_slots"].get("voice_uri"),
                 "subtitle_uri": segment["output_slots"].get("subtitle_uri"),
                 "visual_uri": segment["output_slots"].get("visual_uri"),
-                "visual_source_kind": _infer_local_assembly_asset_kind(
-                    segment["output_slots"].get("visual_uri"),
-                    segment_asset_index.get(segment["segment_id"], {}),
-                ),
             }
             for segment in manifest.get("segments", [])
         ],
         "gate_status": assembly_gate["status"],
         "preview_target": str(pathlib.Path(_nested_get(config, "output", "dist_dir") or DEFAULT_FORMAL_OUTPUT_DIR) / "assembly" / "formal_api_demo_preview.mp4"),
-        "formal_output_target": str(pathlib.Path(_nested_get(config, "output", "dist_dir") or DEFAULT_FORMAL_OUTPUT_DIR) / "final.mp4"),
         "next_action_hint": _assembly_next_action_hint(assembly_gate, dry_run=True),
     }
 
@@ -1523,7 +1552,7 @@ def build_assembly_result_summary(
             "assembly_gate": assembly_gate["status"],
         },
         "blocked_reason": ""
-        if dry_run or overall_status == STATUS_SUCCESS
+        if dry_run
         else (
             local.get("blocked_reason")
             or local.get("error_message")
@@ -1547,10 +1576,15 @@ def build_assembly_result_summary(
         ),
         "current_missing_prerequisites": []
         if overall_status == STATUS_SUCCESS
-        else local.get("current_missing_prerequisites", assembly_gate["missing_prerequisites"]),
-        "current_missing_implementations": local.get(
-            "missing_implementations",
-            assembly_gate["missing_implementations"],
+        else (
+            local.get("current_missing_prerequisites")
+            or assembly_gate["missing_prerequisites"]
+        ),
+        "current_missing_implementations": []
+        if overall_status == STATUS_SUCCESS
+        else (
+            local.get("missing_implementations")
+            or assembly_gate["missing_implementations"]
         ),
         "cloud_missing_prerequisites": assembly_gate["missing_prerequisites"],
         "known_issues": manifest.get("known_issues", []),
@@ -1656,12 +1690,10 @@ def build_default_visual_generation(
 
 
 def build_default_local_assembly(output_dir: pathlib.Path) -> dict[str, Any]:
-    assembly_dir = output_dir / "assembly"
+    _ = output_dir
     return {
         "status": STATUS_NOT_STARTED,
         "video_path": None,
-        "visual_track_path": str(assembly_dir / "formal_api_demo_visual_track.mp4"),
-        "segment_video_paths": [],
         "blocked_reason": "",
         "failure_reason": "",
         "error_message": "",
@@ -1681,108 +1713,6 @@ def build_default_assembly_preview(output_dir: pathlib.Path) -> dict[str, Any]:
         "failure_reason": "",
         "error_message": "",
     }
-
-
-def execute_local_formal_assembly(
-    manifest: dict[str, Any],
-    config: dict[str, Any],
-    output_dir: pathlib.Path,
-) -> dict[str, Any]:
-    local = build_default_local_assembly(output_dir)
-    missing, segment_specs = _collect_local_assembly_inputs(manifest)
-    if missing:
-        local.update(
-            {
-                "status": STATUS_BLOCKED,
-                "blocked_reason": "缺少正式本地 assembly 前提：" + "、".join(missing),
-                "current_missing_prerequisites": missing,
-            }
-        )
-        return local
-
-    try:
-        ffmpeg_binary = resolve_ffmpeg_binary()
-    except RuntimeError:
-        local.update(
-            {
-                "status": STATUS_BLOCKED,
-                "blocked_reason": "缺少正式本地 assembly 前提：ffmpeg",
-                "current_missing_prerequisites": ["ffmpeg"],
-            }
-        )
-        return local
-
-    assembly_dir = output_dir / "assembly"
-    segment_dir = assembly_dir / "local_segments"
-    visual_track_path = assembly_dir / "formal_api_demo_visual_track.mp4"
-    final_video_path = output_dir / "final.mp4"
-    voiceover_audio_path = pathlib.Path(
-        _nested_get(manifest, "generation", "voiceover", "audio_path") or ""
-    )
-    captions_path = pathlib.Path(
-        _nested_get(manifest, "generation", "captions", "captions_path") or ""
-    )
-    width, height = _parse_resolution(_nested_get(config, "assembly", "resolution"))
-    fps = int(_nested_get(config, "assembly", "fps") or 25)
-
-    rendered_segment_paths: list[pathlib.Path] = []
-    try:
-        for index, spec in enumerate(segment_specs, start=1):
-            rendered_path = segment_dir / f"{index:02d}_{spec['segment_id']}.mp4"
-            _render_local_assembly_segment(
-                ffmpeg_binary=ffmpeg_binary,
-                segment_spec=spec,
-                output_path=rendered_path,
-                width=width,
-                height=height,
-                fps=fps,
-            )
-            rendered_segment_paths.append(rendered_path)
-        _concat_local_assembly_segments(
-            ffmpeg_binary=ffmpeg_binary,
-            segment_paths=rendered_segment_paths,
-            output_path=visual_track_path,
-        )
-        _mux_local_assembly_audio_and_captions(
-            ffmpeg_binary=ffmpeg_binary,
-            visual_track_path=visual_track_path,
-            audio_path=voiceover_audio_path,
-            captions_path=captions_path,
-            output_path=final_video_path,
-        )
-    except subprocess.CalledProcessError as exc:
-        local.update(
-            {
-                "status": STATUS_FAILED,
-                "failure_reason": "local_assembly_ffmpeg_failed",
-                "error_message": str(exc),
-                "segment_video_paths": [str(path) for path in rendered_segment_paths],
-            }
-        )
-        return local
-
-    if not final_video_path.exists():
-        local.update(
-            {
-                "status": STATUS_FAILED,
-                "failure_reason": "local_assembly_output_missing",
-                "error_message": "ffmpeg 已执行，但正式本地 final.mp4 未落出。",
-                "segment_video_paths": [str(path) for path in rendered_segment_paths],
-            }
-        )
-        return local
-
-    local.update(
-        {
-            "status": STATUS_SUCCESS,
-            "video_path": str(final_video_path),
-            "visual_track_path": str(visual_track_path),
-            "segment_video_paths": [str(path) for path in rendered_segment_paths],
-            "current_missing_prerequisites": [],
-            "missing_implementations": [],
-        }
-    )
-    return local
 
 
 def build_default_tts_probe(video_spec: dict[str, Any]) -> dict[str, Any]:
@@ -2105,27 +2035,37 @@ def build_visual_generation_plan(
     preview_storyboard_path = output_dir / "preview_storyboard.json"
     segment_assets: list[dict[str, Any]] = []
     has_video_segments = False
-    portrait_route_requested = visual_generation["portrait_video_generation"]["enabled"]
 
     for index, segment in enumerate(video_spec.get("segments", []), start=1):
         image_prompt = ""
         video_prompt = ""
         if segment["needs_image"]:
-            if portrait_route_requested and segment["needs_video"]:
+            if segment["segment_id"] == "seg01":
                 image_prompt = (
-                    "单人真人正脸半身肖像，正对镜头，五官清晰完整，无遮挡，"
-                    "面部占画面主要区域，光线自然，背景简洁干净，真实摄影风格，9:16 竖版。"
+                    f"{segment['visual_intent']}。9:16 竖版，真实工作台 / 白板视角，"
+                    "让人一眼看出信息很多但流程没有拉齐；纪录片式案例讲解画面，"
+                    "不要 PPT 模板，不要广告感，不要人物正脸，不要大段字幕。"
+                )
+            elif segment["segment_id"] == "seg02":
+                image_prompt = (
+                    f"{segment['visual_intent']}。9:16 竖版，单一主镜头的起始状态，"
+                    "桌面上散着目标、输入、口径、素材便签和断开的箭头，"
+                    "看起来很忙但没人能接；不要 PPT，不要广告感，不要人物正脸。"
                 )
             else:
                 image_prompt = (
-                    f"{segment['visual_intent']}。保持 9:16 竖版，PPT 卡片式信息层级，"
-                    "中文 AI 项目讲解场景，避免写实人物和广告感。"
+                    f"{segment['visual_intent']}。9:16 竖版，结构已经收束，"
+                    "SOP 看板旁边带样片缩略图和修正清单，像真实项目收口画面；"
+                    "不要 PPT 模板，不要广告感，不要人物正脸。"
                 )
         if segment["needs_video"]:
             has_video_segments = True
             video_prompt = (
-                f"{segment['visual_intent']}。镜头应表现信息从散乱到收束，"
-                "节奏克制，适合 9:16 中文案例讲解短视频。"
+                f"{segment['visual_intent']}。9:16 竖版，单一固定镜头里，"
+                "目标、输入、口径、素材这些散乱便签从画面四周被吸附、整理、归位，"
+                "依次进入同一张 SOP 表单的字段槽位，最后形成清晰的可交接链路，"
+                "画面末尾要出现明确的“可交接”状态条；不要分屏，不要 PPT，"
+                "不要广告感，不要人物正脸，不要大段说明字幕。"
             )
         segment_assets.append(
             {
@@ -2262,14 +2202,9 @@ def build_visual_generation_plan(
             },
         }
     )
-    portrait_route_in_use = (
-        visual_generation["portrait_video_generation"]["enabled"] and has_video_segments
-    )
     visual_generation["general_video_generation"].update(
         {
-            "status": STATUS_SKIPPED
-            if not has_video_segments or portrait_route_in_use
-            else STATUS_NOT_STARTED,
+            "status": STATUS_SKIPPED if not has_video_segments else STATUS_NOT_STARTED,
             "blocked_reason": "",
             "failure_reason": "",
             "error_message": "",
@@ -2277,25 +2212,14 @@ def build_visual_generation_plan(
     )
     visual_generation["portrait_detect"].update(
         {
-            "status": STATUS_NOT_STARTED if portrait_route_in_use else STATUS_SKIPPED,
+            "status": STATUS_SKIPPED,
             "blocked_reason": "",
-            "failure_reason": "",
-            "error_message": "",
-            "request_id": None,
-            "source_image_url": None,
         }
     )
     visual_generation["portrait_video_generation"].update(
         {
-            "status": STATUS_NOT_STARTED if portrait_route_in_use else STATUS_SKIPPED,
+            "status": STATUS_SKIPPED,
             "blocked_reason": "",
-            "failure_reason": "",
-            "error_message": "",
-            "task_id": None,
-            "request_id": None,
-            "asset_path": None,
-            "source_image_url": None,
-            "source_audio_url": None,
         }
     )
 
@@ -2328,46 +2252,23 @@ def build_visual_generation_plan(
             asset["image_asset_path"] = image_result["asset_path"]
 
         if asset["needs_video"]:
-            if portrait_route_in_use:
-                portrait_result = _execute_aliyun_liveportrait_video_generation(
-                    config=config,
-                    output_dir=output_dir,
-                    segment_id=segment["segment_id"],
-                    image_path=pathlib.Path(image_result["asset_path"] or ""),
-                    audio_path=output_dir / "tts" / f"segment_{segment['segment_id']}.mp3",
-                )
-                video_result = {
-                    "status": portrait_result["status"],
-                    "task_id": portrait_result["generation"].get("task_id"),
-                    "asset_path": portrait_result["generation"].get("asset_path"),
-                    "blocked_reason": portrait_result["generation"].get("blocked_reason", ""),
-                    "failure_reason": portrait_result["generation"].get("failure_reason", ""),
-                    "error_message": portrait_result["generation"].get("error_message", ""),
+            video_result = _execute_aliyun_wan_video_generation(
+                config=config,
+                output_dir=output_dir,
+                segment_id=segment["segment_id"],
+                prompt=asset["video_prompt"],
+                duration_seconds=segment["planned_duration_seconds"],
+            )
+            asset["video_task_id"] = video_result["task_id"]
+            asset["video_asset_path"] = video_result["asset_path"]
+            visual_generation["general_video_generation"].update(
+                {
+                    "status": video_result["status"],
+                    "blocked_reason": video_result["blocked_reason"],
+                    "failure_reason": video_result["failure_reason"],
+                    "error_message": video_result["error_message"],
                 }
-                asset["video_task_id"] = portrait_result["generation"].get("task_id")
-                asset["video_asset_path"] = portrait_result["generation"].get("asset_path")
-                visual_generation["portrait_detect"].update(portrait_result["detect"])
-                visual_generation["portrait_video_generation"].update(
-                    portrait_result["generation"]
-                )
-            else:
-                video_result = _execute_aliyun_wan_video_generation(
-                    config=config,
-                    output_dir=output_dir,
-                    segment_id=segment["segment_id"],
-                    prompt=asset["video_prompt"],
-                    duration_seconds=segment["planned_duration_seconds"],
-                )
-                asset["video_task_id"] = video_result["task_id"]
-                asset["video_asset_path"] = video_result["asset_path"]
-                visual_generation["general_video_generation"].update(
-                    {
-                        "status": video_result["status"],
-                        "blocked_reason": video_result["blocked_reason"],
-                        "failure_reason": video_result["failure_reason"],
-                        "error_message": video_result["error_message"],
-                    }
-                )
+            )
 
         asset["status"] = _combine_stage_statuses(
             [image_result["status"], video_result["status"]],
@@ -2719,410 +2620,7 @@ def _extract_aliyun_video_result_url(task_payload: dict[str, Any]) -> str | None
             return str(item["video_url"])
         if isinstance(item, dict) and item.get("url"):
             return str(item["url"])
-    if isinstance(output.get("results"), dict) and output["results"].get("video_url"):
-        return str(output["results"]["video_url"])
     return None
-
-
-def _execute_aliyun_liveportrait_video_generation(
-    *,
-    config: dict[str, Any],
-    output_dir: pathlib.Path,
-    segment_id: str,
-    image_path: pathlib.Path,
-    audio_path: pathlib.Path,
-) -> dict[str, Any]:
-    detect_result = {
-        "status": STATUS_NOT_STARTED,
-        "blocked_reason": "",
-        "failure_reason": "",
-        "error_message": "",
-        "request_id": None,
-        "source_image_url": None,
-    }
-    generation_result = {
-        "status": STATUS_NOT_STARTED,
-        "blocked_reason": "",
-        "failure_reason": "",
-        "error_message": "",
-        "task_id": None,
-        "request_id": None,
-        "asset_path": None,
-        "source_image_url": None,
-        "source_audio_url": None,
-    }
-    try:
-        detect_result = _execute_aliyun_liveportrait_detect(
-            config=config,
-            image_path=image_path,
-        )
-        if detect_result["status"] != STATUS_SUCCESS:
-            detect_message = (
-                detect_result["blocked_reason"]
-                or detect_result["error_message"]
-            )
-            generation_result.update(
-                {
-                    "status": detect_result["status"],
-                    "blocked_reason": detect_result["blocked_reason"],
-                    "failure_reason": detect_result["failure_reason"],
-                    "error_message": detect_message,
-                    "source_image_url": detect_result.get("source_image_url"),
-                }
-            )
-            return {
-                "status": detect_result["status"],
-                "blocked_reason": detect_result["blocked_reason"],
-                "failure_reason": detect_result["failure_reason"],
-                "error_message": detect_message,
-                "detect": detect_result,
-                "generation": generation_result,
-            }
-
-        image_upload = _upload_file_to_aliyun_temp_storage(
-            config=config,
-            model=DEFAULT_PORTRAIT_VIDEO_MODEL,
-            source_path=image_path,
-        )
-        audio_upload = _upload_file_to_aliyun_temp_storage(
-            config=config,
-            model=DEFAULT_PORTRAIT_VIDEO_MODEL,
-            source_path=audio_path,
-        )
-        generation_result["source_image_url"] = image_upload["oss_url"]
-        generation_result["source_audio_url"] = audio_upload["oss_url"]
-
-        payload = {
-            "model": _nested_get(config, "portrait_video_generation", "model")
-            or DEFAULT_PORTRAIT_VIDEO_MODEL,
-            "input": {
-                "image_url": image_upload["oss_url"],
-                "audio_url": audio_upload["oss_url"],
-            },
-            "parameters": {
-                "template_id": "normal",
-                "video_fps": 30,
-                "paste_back": True,
-            },
-        }
-        create_request = urllib.request.Request(
-            "https://dashscope.aliyuncs.com/api/v1/services/aigc/image2video/video-synthesis/",
-            data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
-            headers={
-                "Authorization": f"Bearer {_nested_get(config, 'auth', 'api_key')}",
-                "Content-Type": "application/json",
-            },
-            method="POST",
-        )
-        create_request.headers["X-DashScope-Async"] = "enable"
-        create_request.headers["X-DashScope-OssResourceResolve"] = "enable"
-        create_payload = _urlopen_json_request(
-            create_request,
-            error_cls=VisualGenerationError,
-            invalid_json_message="aliyun liveportrait create returned invalid JSON payload",
-        )
-        task_id = _nested_get(create_payload, "output", "task_id")
-        request_id = create_payload.get("request_id")
-        if not task_id:
-            raise VisualGenerationError(
-                "aliyun liveportrait create response missing task_id",
-                failure_reason="portrait_video_task_id_missing",
-            )
-        generation_result["task_id"] = task_id
-        generation_result["request_id"] = request_id
-
-        task_payload = _poll_aliyun_visual_task(
-            config=config,
-            task_id=task_id,
-            asset_kind="portrait_video",
-        )
-        generation_result["request_id"] = request_id or task_payload.get("request_id")
-        result_url = _extract_aliyun_video_result_url(task_payload)
-        if not result_url:
-            raise VisualGenerationError(
-                "aliyun liveportrait task succeeded but missing result url",
-                failure_reason="portrait_video_result_url_missing",
-            )
-        output_path = _build_visual_asset_output_path(
-            output_dir=output_dir,
-            segment_id=segment_id,
-            asset_kind="video",
-            source_url=result_url,
-            default_extension=".mp4",
-        )
-        _download_binary_file(
-            result_url,
-            output_path,
-            error_cls=VisualGenerationError,
-            empty_error_message="aliyun liveportrait video download is empty",
-            empty_error_code="AliyunLivePortraitEmptyVideo",
-        )
-        if not output_path.exists():
-            raise VisualGenerationError(
-                "liveportrait succeeded but local video file missing",
-                failure_reason="portrait_video_local_file_missing",
-            )
-        generation_result.update(
-            {
-                "status": STATUS_SUCCESS,
-                "blocked_reason": "",
-                "failure_reason": "",
-                "error_message": "",
-                "asset_path": str(output_path),
-            }
-        )
-        return {
-            "status": STATUS_SUCCESS,
-            "blocked_reason": "",
-            "failure_reason": "",
-            "error_message": "",
-            "detect": detect_result,
-            "generation": generation_result,
-        }
-    except VisualGenerationError as exc:
-        message = _sanitize_message(str(exc), config)
-        is_timeout = _looks_like_timeout_message(message)
-        status = STATUS_BLOCKED if is_timeout else exc.status
-        blocked_reason = _normalize_timeout_blocked_reason(message) if is_timeout else ""
-        failure_reason = exc.failure_reason or (
-            "portrait_video_timeout"
-            if status == STATUS_BLOCKED
-            else "portrait_video_generation_failed"
-        )
-        generation_result.update(
-            {
-                "status": status,
-                "blocked_reason": blocked_reason if status == STATUS_BLOCKED else "",
-                "failure_reason": failure_reason,
-                "error_message": message,
-            }
-        )
-        return {
-            "status": status,
-            "blocked_reason": generation_result["blocked_reason"],
-            "failure_reason": generation_result["failure_reason"],
-            "error_message": generation_result["error_message"],
-            "detect": detect_result,
-            "generation": generation_result,
-        }
-
-
-def _execute_aliyun_liveportrait_detect(
-    *,
-    config: dict[str, Any],
-    image_path: pathlib.Path,
-) -> dict[str, Any]:
-    detect_result = {
-        "status": STATUS_NOT_STARTED,
-        "blocked_reason": "",
-        "failure_reason": "",
-        "error_message": "",
-        "request_id": None,
-        "source_image_url": None,
-    }
-    try:
-        image_upload = _upload_file_to_aliyun_temp_storage(
-            config=config,
-            model=DEFAULT_PORTRAIT_DETECT_MODEL,
-            source_path=image_path,
-        )
-        detect_result["source_image_url"] = image_upload["oss_url"]
-        payload = {
-            "model": _nested_get(config, "portrait_detect", "model")
-            or DEFAULT_PORTRAIT_DETECT_MODEL,
-            "input": {
-                "image_url": image_upload["oss_url"],
-            },
-        }
-        request = urllib.request.Request(
-            "https://dashscope.aliyuncs.com/api/v1/services/aigc/image2video/face-detect",
-            data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
-            headers={
-                "Authorization": f"Bearer {_nested_get(config, 'auth', 'api_key')}",
-                "Content-Type": "application/json",
-            },
-            method="POST",
-        )
-        request.headers["X-DashScope-OssResourceResolve"] = "enable"
-        response_payload = _urlopen_json_request(
-            request,
-            error_cls=VisualGenerationError,
-            invalid_json_message="aliyun liveportrait detect returned invalid JSON payload",
-        )
-        detect_result["request_id"] = response_payload.get("request_id")
-        if _nested_get(response_payload, "output", "pass"):
-            detect_result["status"] = STATUS_SUCCESS
-            return detect_result
-        message = _normalize_optional_text(_nested_get(response_payload, "output", "message")) or (
-            "liveportrait-detect did not pass."
-        )
-        detect_result.update(
-            {
-                "status": STATUS_BLOCKED,
-                "blocked_reason": message,
-                "failure_reason": "portrait_detect_rejected",
-                "error_message": message,
-            }
-        )
-        return detect_result
-    except VisualGenerationError as exc:
-        message = _sanitize_message(str(exc), config)
-        is_timeout = _looks_like_timeout_message(message)
-        status = STATUS_BLOCKED if is_timeout else exc.status
-        detect_result.update(
-            {
-                "status": status,
-                "blocked_reason": _normalize_timeout_blocked_reason(message)
-                if status == STATUS_BLOCKED and is_timeout
-                else (message if status == STATUS_BLOCKED else ""),
-                "failure_reason": exc.failure_reason
-                or (
-                    "portrait_detect_timeout"
-                    if status == STATUS_BLOCKED
-                    else "portrait_detect_request_failed"
-                ),
-                "error_message": message,
-            }
-        )
-        return detect_result
-
-
-def _upload_file_to_aliyun_temp_storage(
-    *,
-    config: dict[str, Any],
-    model: str,
-    source_path: pathlib.Path,
-) -> dict[str, Any]:
-    if not source_path.exists():
-        raise VisualGenerationError(
-            f"local source file missing: {source_path.name}",
-            failure_reason="portrait_local_input_missing",
-        )
-    policy_request = urllib.request.Request(
-        "https://dashscope.aliyuncs.com/api/v1/uploads?"
-        + urllib.parse.urlencode({"action": "getPolicy", "model": model}),
-        headers={
-            "Authorization": f"Bearer {_nested_get(config, 'auth', 'api_key')}",
-            "Content-Type": "application/json",
-        },
-        method="GET",
-    )
-    policy_payload = _urlopen_json_request(
-        policy_request,
-        error_cls=VisualGenerationError,
-        invalid_json_message="aliyun upload policy returned invalid JSON payload",
-    )
-    policy_data = policy_payload.get("data") or {}
-    upload_host = _normalize_optional_text(policy_data.get("upload_host"))
-    upload_dir = _normalize_optional_text(policy_data.get("upload_dir")).rstrip("/")
-    oss_access_key_id = _normalize_optional_text(policy_data.get("oss_access_key_id"))
-    policy = _normalize_optional_text(policy_data.get("policy"))
-    signature = _normalize_optional_text(policy_data.get("signature"))
-    object_acl = _normalize_optional_text(policy_data.get("x_oss_object_acl"))
-    forbid_overwrite = _normalize_optional_text(
-        policy_data.get("x_oss_forbid_overwrite")
-    )
-    if not all(
-        [
-            upload_host,
-            upload_dir,
-            oss_access_key_id,
-            policy,
-            signature,
-            object_acl,
-            forbid_overwrite,
-        ]
-    ):
-        raise VisualGenerationError(
-            "aliyun upload policy response missing required fields",
-            failure_reason="portrait_upload_policy_invalid",
-        )
-
-    key = f"{upload_dir}/{uuid.uuid4().hex}_{source_path.name}"
-    boundary = f"----CodexBoundary{uuid.uuid4().hex}"
-    content_type = mimetypes.guess_type(source_path.name)[0] or "application/octet-stream"
-    upload_body = _build_multipart_form_data(
-        boundary=boundary,
-        fields=[
-            ("OSSAccessKeyId", oss_access_key_id),
-            ("policy", policy),
-            ("Signature", signature),
-            ("x-oss-object-acl", object_acl),
-            ("x-oss-forbid-overwrite", forbid_overwrite),
-            ("key", key),
-            ("success_action_status", "200"),
-        ],
-        file_field_name="file",
-        file_name=source_path.name,
-        file_content=source_path.read_bytes(),
-        file_content_type=content_type,
-    )
-    upload_request = urllib.request.Request(
-        upload_host,
-        data=upload_body,
-        headers={
-            "Content-Type": f"multipart/form-data; boundary={boundary}",
-        },
-        method="POST",
-    )
-    try:
-        with urllib.request.urlopen(upload_request, timeout=60) as response:
-            response.read()
-    except urllib.error.HTTPError as exc:
-        raise VisualGenerationError(
-            _read_urllib_error_message(exc),
-            status_code=exc.code,
-            error_code=f"HTTP{exc.code}",
-            failure_reason="portrait_upload_failed",
-        ) from exc
-    except urllib.error.URLError as exc:
-        raise VisualGenerationError(
-            str(exc.reason or exc),
-            error_code="UrlUploadError",
-            status=STATUS_BLOCKED if _looks_like_timeout_message(str(exc.reason or exc)) else STATUS_FAILED,
-            failure_reason="portrait_upload_timeout"
-            if _looks_like_timeout_message(str(exc.reason or exc))
-            else "portrait_upload_failed",
-        ) from exc
-    return {
-        "request_id": policy_payload.get("request_id"),
-        "upload_host": upload_host,
-        "upload_key": key,
-        "oss_url": f"oss://{key}",
-    }
-
-
-def _build_multipart_form_data(
-    *,
-    boundary: str,
-    fields: list[tuple[str, str]],
-    file_field_name: str,
-    file_name: str,
-    file_content: bytes,
-    file_content_type: str,
-) -> bytes:
-    body = bytearray()
-    for key, value in fields:
-        body.extend(f"--{boundary}\r\n".encode("utf-8"))
-        body.extend(
-            f'Content-Disposition: form-data; name="{key}"\r\n\r\n'.encode(
-                "utf-8"
-            )
-        )
-        body.extend(str(value).encode("utf-8"))
-        body.extend(b"\r\n")
-    body.extend(f"--{boundary}\r\n".encode("utf-8"))
-    body.extend(
-        (
-            f'Content-Disposition: form-data; name="{file_field_name}"; '
-            f'filename="{file_name}"\r\n'
-        ).encode("utf-8")
-    )
-    body.extend(f"Content-Type: {file_content_type}\r\n\r\n".encode("utf-8"))
-    body.extend(file_content)
-    body.extend(b"\r\n")
-    body.extend(f"--{boundary}--\r\n".encode("utf-8"))
-    return bytes(body)
 
 
 def _build_visual_asset_output_path(
@@ -3136,234 +2634,6 @@ def _build_visual_asset_output_path(
     parsed_path = urllib.parse.urlparse(source_url).path
     extension = pathlib.Path(parsed_path).suffix or default_extension
     return output_dir / "visual" / f"{segment_id}_{asset_kind}{extension}"
-
-
-def _collect_local_assembly_inputs(
-    manifest: dict[str, Any],
-) -> tuple[list[str], list[dict[str, Any]]]:
-    missing: list[str] = []
-    segment_specs: list[dict[str, Any]] = []
-    voiceover_audio = pathlib.Path(
-        _nested_get(manifest, "generation", "voiceover", "audio_path") or ""
-    )
-    captions_path = pathlib.Path(
-        _nested_get(manifest, "generation", "captions", "captions_path") or ""
-    )
-    visual_generation = manifest.get("generation", {}).get("visual_generation", {})
-    segment_asset_index = {
-        asset.get("segment_id"): asset
-        for asset in visual_generation.get("segment_assets", [])
-    }
-
-    if not manifest.get("segments"):
-        missing.append("manifest_segments")
-    if (
-        manifest.get("generation", {}).get("voiceover", {}).get("status") != STATUS_SUCCESS
-        or not voiceover_audio.exists()
-    ):
-        missing.append("voiceover_audio")
-    if (
-        manifest.get("generation", {}).get("captions", {}).get("status") != STATUS_SUCCESS
-        or not captions_path.exists()
-    ):
-        missing.append("captions_srt")
-    if visual_generation.get("status") != STATUS_SUCCESS:
-        missing.append("visual_assets_not_ready")
-
-    for segment in manifest.get("segments", []):
-        segment_id = segment.get("segment_id", "unknown_segment")
-        asset = segment_asset_index.get(segment_id, {})
-        raw_path = (
-            asset.get("video_asset_path")
-            or asset.get("image_asset_path")
-            or _nested_get(segment, "output_slots", "visual_uri")
-        )
-        if not raw_path:
-            missing.append(f"visual_asset_path_missing:{segment_id}")
-            continue
-        asset_path = pathlib.Path(str(raw_path))
-        if not asset_path.exists():
-            missing.append(f"visual_asset_file_missing:{segment_id}")
-            continue
-        segment_specs.append(
-            {
-                "segment_id": segment_id,
-                "duration_seconds": _nested_get(
-                    segment,
-                    "timeline",
-                    "planned_duration_seconds",
-                )
-                or 0,
-                "asset_path": asset_path,
-                "asset_kind": _infer_local_assembly_asset_kind(raw_path, asset),
-            }
-        )
-
-    return missing, segment_specs
-
-
-def _infer_local_assembly_asset_kind(
-    raw_path: Any,
-    segment_asset: dict[str, Any],
-) -> str:
-    if segment_asset.get("video_asset_path"):
-        return "video"
-    if segment_asset.get("image_asset_path"):
-        return "image"
-    suffix = pathlib.Path(str(raw_path or "")).suffix.lower()
-    if suffix in {".mp4", ".mov", ".m4v", ".webm"}:
-        return "video"
-    return "image"
-
-
-def _parse_resolution(raw_resolution: Any) -> tuple[int, int]:
-    normalized = str(raw_resolution or "").strip().lower()
-    if "x" in normalized:
-        width_raw, height_raw = normalized.split("x", 1)
-        try:
-            return int(width_raw), int(height_raw)
-        except ValueError:
-            pass
-    return 1080, 1920
-
-
-def _build_local_assembly_scale_filter(
-    *,
-    width: int,
-    height: int,
-    fps: int,
-) -> str:
-    return (
-        f"scale={width}:{height}:force_original_aspect_ratio=decrease,"
-        f"pad={width}:{height}:(ow-iw)/2:(oh-ih)/2,"
-        f"fps={fps},format=yuv420p"
-    )
-
-
-def _render_local_assembly_segment(
-    *,
-    ffmpeg_binary: str,
-    segment_spec: dict[str, Any],
-    output_path: pathlib.Path,
-    width: int,
-    height: int,
-    fps: int,
-) -> None:
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    filter_chain = _build_local_assembly_scale_filter(
-        width=width,
-        height=height,
-        fps=fps,
-    )
-    common_args = [
-        ffmpeg_binary,
-        "-y",
-    ]
-    if segment_spec["asset_kind"] == "image":
-        args = common_args + [
-            "-loop",
-            "1",
-            "-i",
-            str(segment_spec["asset_path"]),
-            "-t",
-            str(segment_spec["duration_seconds"]),
-            "-vf",
-            filter_chain,
-            "-c:v",
-            "libx264",
-            "-pix_fmt",
-            "yuv420p",
-            "-an",
-            str(output_path),
-        ]
-    else:
-        args = common_args + [
-            "-i",
-            str(segment_spec["asset_path"]),
-            "-t",
-            str(segment_spec["duration_seconds"]),
-            "-vf",
-            filter_chain,
-            "-c:v",
-            "libx264",
-            "-pix_fmt",
-            "yuv420p",
-            "-an",
-            str(output_path),
-        ]
-    run_subprocess(args)
-
-
-def _concat_local_assembly_segments(
-    *,
-    ffmpeg_binary: str,
-    segment_paths: list[pathlib.Path],
-    output_path: pathlib.Path,
-) -> None:
-    concat_list_path = output_path.parent / "local_assembly_concat.txt"
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    concat_list_path.write_text(
-        "".join(f"file '{path.resolve()}'\n" for path in segment_paths),
-        encoding="utf-8",
-    )
-    try:
-        run_subprocess(
-            [
-                ffmpeg_binary,
-                "-y",
-                "-f",
-                "concat",
-                "-safe",
-                "0",
-                "-i",
-                str(concat_list_path),
-                "-c:v",
-                "libx264",
-                "-pix_fmt",
-                "yuv420p",
-                "-an",
-                str(output_path),
-            ]
-        )
-    finally:
-        concat_list_path.unlink(missing_ok=True)
-
-
-def _ffmpeg_subtitles_value(path: pathlib.Path) -> str:
-    raw = str(path)
-    return raw.replace("\\", "\\\\").replace(":", "\\:").replace("'", "\\'")
-
-
-def _mux_local_assembly_audio_and_captions(
-    *,
-    ffmpeg_binary: str,
-    visual_track_path: pathlib.Path,
-    audio_path: pathlib.Path,
-    captions_path: pathlib.Path,
-    output_path: pathlib.Path,
-) -> None:
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    subtitles_filter = "subtitles=" + _ffmpeg_subtitles_value(captions_path.resolve())
-    run_subprocess(
-        [
-            ffmpeg_binary,
-            "-y",
-            "-i",
-            str(visual_track_path),
-            "-i",
-            str(audio_path),
-            "-vf",
-            subtitles_filter,
-            "-c:v",
-            "libx264",
-            "-pix_fmt",
-            "yuv420p",
-            "-c:a",
-            "aac",
-            "-shortest",
-            str(output_path),
-        ]
-    )
 
 
 def execute_local_preview_assembly(
@@ -3403,6 +2673,7 @@ def execute_local_preview_assembly(
 
     preview_manifest_path = preview_dir / "preview_manifest.json"
     preview_video_path = preview_dir / "formal_api_demo_preview.mp4"
+    final_video_path = output_dir / "final.mp4"
     preview_manifest = {
         "width": 1080,
         "height": 1920,
@@ -3441,10 +2712,13 @@ def execute_local_preview_assembly(
         )
         return preview
 
+    shutil.copyfile(preview_video_path, final_video_path)
+
     preview.update(
         {
             "status": STATUS_SUCCESS,
             "video_path": str(preview_video_path),
+            "final_video_path": str(final_video_path),
             "preview_manifest_path": str(preview_manifest_path),
             "captions_path": str(captions_path),
         }
@@ -3808,22 +3082,19 @@ def _assembly_next_action_hint(
         return "当前为 assembly dry-run；下一步应先确认真实 visual assets 是否已生成，再验证本地 assembly。"
     if local_assembly:
         if local_assembly.get("status") == STATUS_SUCCESS:
-            return "当前正式本地 assembly 已可输出真实 final.mp4；下一步应围绕真人开口分支和真实样片复审继续推进。"
-        if any(
-            item in local_assembly.get("missing_implementations", [])
-            for item in ("local_assembly_implementation",)
-        ):
-            return "当前真实 visual assets 已到位，但正式本地 assembly implementation 尚未接入；下一步应先补真实拼接实现，preview 只作辅助产物。"
+            if "visual_assets_not_ready" in gate.get("missing_prerequisites", []):
+                return "当前本地样片已落出，但 generation 还缺真实 visual assets；下一步先补齐图片 / 视频 API 成功态，再继续提质。"
+            return "当前本地 mp4 已落出；下一步直接复审画面、节奏和字幕贴合度，cloud assembly 仍属后续增强项。"
         if local_assembly.get("current_missing_prerequisites"):
-            return "先补齐正式本地 assembly 缺失素材，再继续本地 mp4 交付；preview 不能替代真实素材拼接。"
+            return "先补齐正式本地 assembly 缺失素材，再继续本地 mp4 交付。"
         if local_assembly.get("status") == STATUS_FAILED:
             return "正式本地 assembly 已进入真实执行失败；下一步应先核对素材路径、拼接实现和导出错误。"
     if "visual_assets_not_ready" in gate.get("missing_prerequisites", []):
-        return "当前缺少真实 visual assets；应先补图片 / 视频 API provider，再推进正式本地 assembly。preview 只作辅助产物。"
+        return "当前缺少真实 visual assets；应先补图片 / 视频 API provider，再推进本地 mp4 提质。"
     if gate["status"] == STATUS_SKIPPED:
         return "cloud assembly 当前未配置；当前阶段继续沿用本地 mp4 作为默认交付件。"
     if gate["missing_prerequisites"]:
-        return "先补齐正式本地 assembly 缺失素材，再继续本地 mp4 交付；preview 不能替代真实素材拼接。"
+        return "先补齐正式本地 assembly 缺失素材，再继续本地 mp4 交付。"
     return "若要继续推进云端组装，下一步是补正式云端组装实现；当前本地 mp4 已是默认交付路径。"
 
 
@@ -4379,18 +3650,6 @@ def _sanitize_message(message: str, config: dict[str, Any]) -> str:
     return sanitized[:500]
 
 
-def _looks_like_timeout_message(message: str) -> bool:
-    normalized = message.lower()
-    return "timeout" in normalized or "timed out" in normalized
-
-
-def _normalize_timeout_blocked_reason(message: str) -> str:
-    normalized = message.strip()
-    if "timeout" in normalized.lower():
-        return normalized
-    return f"timeout: {normalized}" if normalized else "timeout"
-
-
 def _extract_request_id(response: Any) -> str | None:
     headers = getattr(response, "headers", None)
     if headers is None and hasattr(response, "response"):
@@ -4465,12 +3724,8 @@ def run_subprocess(args: list[str]) -> None:
 def concatenate_audio_files(input_paths: list[pathlib.Path], output_path: pathlib.Path) -> None:
     if not input_paths:
         raise RuntimeError("没有可拼接的音频分段。")
+    ffmpeg_binary = resolve_ffmpeg_binary()
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    try:
-        ffmpeg_binary = resolve_ffmpeg_binary()
-    except RuntimeError:
-        output_path.write_bytes(b"".join(path.read_bytes() for path in input_paths))
-        return
     concat_list_path = output_path.parent / "concat_inputs.txt"
     concat_list_path.write_text(
         "".join(f"file '{path.resolve()}'\n" for path in input_paths),
@@ -4510,48 +3765,84 @@ def seconds_to_srt(value: float) -> str:
 
 
 def _build_preview_slides(manifest: dict[str, Any]) -> list[dict[str, Any]]:
-    accents = ["#2563EB", "#0F766E", "#C2410C", "#7C3AED"]
-    backgrounds = ["#F5F7FB", "#F4FBF9", "#FFF7ED", "#F8F5FF"]
-    preview_roles = [
-        {
-            "role": "hook",
-            "eyebrow": "问题卡点",
-            "support": "先把卡点看清，再决定怎么推进。",
-            "chips": ["想法很多", "流程没拉齐"],
-        },
-        {
-            "role": "process",
-            "eyebrow": "流程收束",
-            "support": "先把散乱动作收成同一条 SOP。",
-            "chips": ["目标", "输入", "输出"],
-        },
-        {
-            "role": "outcome",
-            "eyebrow": "结果落点",
-            "support": "先出可审样片，再逐轮压质量。",
-            "chips": ["先稳住样片", "再逐轮提质"],
-        },
-    ]
+    segment_assets = {
+        asset.get("segment_id"): asset
+        for asset in _nested_get(manifest, "generation", "visual_generation", "segment_assets")
+        or []
+        if asset.get("segment_id")
+    }
+    raw_slides: list[dict[str, Any]] = []
+
+    for segment in manifest.get("segments", []):
+        segment_id = segment["segment_id"]
+        asset = segment_assets.get(segment_id, {})
+        image_path = asset.get("image_asset_path")
+        video_path = asset.get("video_asset_path")
+        planned_duration = segment["timeline"]["planned_duration_seconds"]
+
+        if segment_id == "seg01":
+            raw_slides.append(
+                {
+                    "segment_id": segment_id,
+                    "role": "hook",
+                    "eyebrow": "问题卡点",
+                    "headline": segment["caption_text"],
+                    "support": "先把卡点看清，再决定怎么推进。",
+                    "detail": segment["visual_intent"],
+                    "chips": ["想法很多", "流程没拉齐"],
+                    "accent": "#2563EB",
+                    "background": "#F5F7FB",
+                    "duration": planned_duration,
+                    "background_image_path": image_path,
+                    "background_video_path": None,
+                }
+            )
+            continue
+
+        if segment_id == "seg02":
+            raw_slides.append(
+                {
+                    "segment_id": segment_id,
+                    "role": "process",
+                    "eyebrow": "收束动作",
+                    "headline": segment["caption_text"],
+                    "support": "散乱字段一进表，后面这条链就能接手。",
+                    "detail": "目标、输入、输出归到同一张 SOP 表后，这一步已经能直接交接。",
+                    "chips": ["目标", "输入", "输出"],
+                    "accent": "#0F766E",
+                    "background": "#F1FAF8",
+                    "duration": planned_duration,
+                    "background_image_path": image_path if not video_path else None,
+                    "background_video_path": video_path,
+                }
+            )
+            continue
+
+        raw_slides.append(
+            {
+                "segment_id": segment_id,
+                "role": "outcome",
+                "eyebrow": "结果落点",
+                "headline": segment["caption_text"],
+                "support": "先出可审样片，再逐轮压质量。",
+                "detail": segment["visual_intent"],
+                "chips": ["先稳住样片", "再逐轮提质"],
+                "accent": "#C2410C",
+                "background": "#FFF7ED",
+                "duration": planned_duration,
+                "background_image_path": image_path,
+                "background_video_path": video_path,
+            }
+        )
+
+    total = len(raw_slides)
     slides: list[dict[str, Any]] = []
-    segments = manifest.get("segments", [])
-    total = len(segments)
-    for index, segment in enumerate(segments, start=1):
-        accent = accents[(index - 1) % len(accents)]
-        background = backgrounds[(index - 1) % len(backgrounds)]
-        role_meta = preview_roles[min(index - 1, len(preview_roles) - 1)]
+    for index, slide in enumerate(raw_slides, start=1):
         slides.append(
             {
                 "sequence": index,
                 "total": total,
-                "role": role_meta["role"],
-                "eyebrow": role_meta["eyebrow"],
-                "headline": segment["caption_text"],
-                "support": role_meta["support"],
-                "detail": segment["visual_intent"],
-                "chips": role_meta["chips"],
-                "accent": accent,
-                "background": background,
-                "duration": segment["timeline"]["planned_duration_seconds"],
+                **slide,
             }
         )
     return slides
