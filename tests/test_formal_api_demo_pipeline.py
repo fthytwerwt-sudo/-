@@ -16,6 +16,7 @@ from formal_api_demo_core import (
     STATUS_FAILED,
     STATUS_PLANNED,
     STATUS_SUCCESS,
+    _build_preview_slides,
     parse_formal_case_markdown,
     run_aliyun_tts_style_probe_round2,
     run_aliyun_tts_style_probe_variants,
@@ -129,6 +130,70 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
         self.assertEqual(spec["segments"][0]["segment_id"], "seg01")
         self.assertTrue(spec["segments"][1]["needs_video"])
 
+    def test_formal_case_seg02_copy_is_result_driven(self) -> None:
+        spec = parse_formal_case_markdown(FORMAL_CASE_PATH)
+
+        self.assertEqual(
+            spec["segments"][1]["voiceover_text"],
+            "目标、输入、输出一拉齐，这条链就接上了。",
+        )
+        self.assertEqual(
+            spec["segments"][1]["caption_text"],
+            "目标、输入、输出一拉齐，这条链就接上了。",
+        )
+
+    def test_preview_slides_expand_seg02_into_before_and_after_states(self) -> None:
+        spec = parse_formal_case_markdown(FORMAL_CASE_PATH)
+        manifest = {
+            "segments": [
+                {
+                    "segment_id": segment["segment_id"],
+                    "caption_text": segment["caption_text"],
+                    "visual_intent": segment["visual_intent"],
+                    "timeline": {
+                        "planned_duration_seconds": segment["planned_duration_seconds"],
+                    },
+                }
+                for segment in spec["segments"]
+            ],
+            "generation": {
+                "visual_generation": {
+                    "segment_assets": [
+                        {
+                            "segment_id": "seg01",
+                            "image_asset_path": "/tmp/seg01.png",
+                            "video_asset_path": None,
+                        },
+                        {
+                            "segment_id": "seg02",
+                            "image_asset_path": "/tmp/seg02_before.png",
+                            "video_asset_path": "/tmp/seg02_after.mp4",
+                        },
+                        {
+                            "segment_id": "seg03",
+                            "image_asset_path": "/tmp/seg03.png",
+                            "video_asset_path": None,
+                        },
+                    ]
+                }
+            },
+        }
+
+        slides = _build_preview_slides(manifest)
+
+        self.assertEqual(len(slides), 4)
+        self.assertEqual(
+            [slide["role"] for slide in slides],
+            ["hook", "hook", "process", "outcome"],
+        )
+        self.assertEqual(slides[1]["headline"], "目标、输入、口径、素材还散着。")
+        self.assertEqual(slides[1]["chips"], ["便签堆满", "没人能接"])
+        self.assertEqual(slides[1]["background_image_path"], "/tmp/seg02_before.png")
+        self.assertEqual(slides[2]["headline"], "目标、输入、输出一拉齐，这条链就接上了。")
+        self.assertEqual(slides[2]["chips"], ["目标", "输入", "输出"])
+        self.assertEqual(slides[2]["background_video_path"], "/tmp/seg02_after.mp4")
+        self.assertAlmostEqual(slides[1]["duration"] + slides[2]["duration"], 6.0)
+
     def test_formal_case_voiceover_copy_stays_within_current_timeline_budget(self) -> None:
         spec = parse_formal_case_markdown(FORMAL_CASE_PATH)
         budget_by_segment = {
@@ -237,7 +302,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             self.assertTrue((output_dir / "assembly_plan.json").exists())
             self.assertTrue((output_dir / "result_summary.json").exists())
 
-    def test_assemble_non_dry_run_keeps_preview_auxiliary_when_formal_local_assembly_not_ready(self) -> None:
+    def test_assemble_non_dry_run_keeps_local_delivery_when_generation_is_still_blocked(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_assemble_preview_") as temp_dir:
             output_dir = pathlib.Path(temp_dir) / "dist"
             local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
@@ -305,28 +370,30 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             )
             first_slide = preview_manifest["slides"][0]
             second_slide = preview_manifest["slides"][1]
-            third_slide = preview_manifest["slides"][2]
+            final_slide = preview_manifest["slides"][3]
 
             self.assertEqual(result["overall_status"], STATUS_BLOCKED)
             self.assertEqual(result["generation_status"], STATUS_BLOCKED)
-            self.assertEqual(result["assembly_status"], STATUS_BLOCKED)
-            self.assertEqual(result["local_assembly_status"], STATUS_BLOCKED)
+            self.assertEqual(result["assembly_status"], STATUS_SUCCESS)
+            self.assertEqual(result["local_assembly_status"], STATUS_SUCCESS)
             self.assertEqual(result["cloud_assembly_status"], STATUS_BLOCKED)
             self.assertEqual(result["assembly_preview_status"], STATUS_SUCCESS)
             self.assertIn("visual_assets_not_ready", result["current_missing_prerequisites"])
-            self.assertIsNone(result["artifact_paths"]["final_video"])
+            self.assertTrue((output_dir / "final.mp4").exists())
+            self.assertEqual(result["artifact_paths"]["final_video"], str(output_dir / "final.mp4"))
             self.assertTrue((output_dir / "assembly" / "formal_api_demo_preview.mp4").exists())
             self.assertEqual(first_slide["role"], "hook")
             self.assertEqual(first_slide["headline"], "AI 项目卡住，不是没思路，是流程还没拉齐。")
-            self.assertIn("流程没拉齐", first_slide["chips"])
-            self.assertEqual(second_slide["role"], "process")
-            self.assertEqual(second_slide["chips"], ["目标", "输入", "输出"])
-            self.assertEqual(third_slide["role"], "outcome")
-            self.assertIn("先稳住样片", third_slide["chips"])
+            self.assertEqual(second_slide["role"], "hook")
+            self.assertEqual(second_slide["headline"], "目标、输入、口径、素材还散着。")
+            self.assertEqual(preview_manifest["slides"][2]["role"], "process")
+            self.assertEqual(preview_manifest["slides"][2]["chips"], ["目标", "输入", "输出"])
+            self.assertEqual(final_slide["role"], "outcome")
+            self.assertIn("先稳住样片", final_slide["chips"])
             self.assertNotIn("badge", first_slide)
             self.assertNotIn("footer", first_slide)
 
-    def test_assemble_non_dry_run_surfaces_local_assembly_implementation_gap_even_when_visual_assets_ready(self) -> None:
+    def test_assemble_non_dry_run_delivers_local_mp4_when_visual_assets_ready(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_local_impl_gap_") as temp_dir:
             output_dir = pathlib.Path(temp_dir) / "dist"
             local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
@@ -418,16 +485,14 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                     dry_run=False,
                 )
 
-            self.assertEqual(result["overall_status"], STATUS_BLOCKED)
+            self.assertEqual(result["overall_status"], STATUS_SUCCESS)
             self.assertEqual(result["generation_status"], STATUS_SUCCESS)
-            self.assertEqual(result["assembly_status"], STATUS_BLOCKED)
-            self.assertEqual(result["local_assembly_status"], STATUS_BLOCKED)
+            self.assertEqual(result["assembly_status"], STATUS_SUCCESS)
+            self.assertEqual(result["local_assembly_status"], STATUS_SUCCESS)
             self.assertEqual(result["assembly_preview_status"], STATUS_SUCCESS)
-            self.assertIn("local_assembly_implementation", result["current_missing_implementations"])
-            self.assertIn("本地 assembly", result["next_action_hint"])
-            self.assertIn("preview", result["next_action_hint"])
-            self.assertNotIn("cloud assembly 当前未配置", result["next_action_hint"])
-            self.assertIsNone(result["artifact_paths"]["final_video"])
+            self.assertEqual(result["current_missing_implementations"], [])
+            self.assertTrue((output_dir / "final.mp4").exists())
+            self.assertEqual(result["artifact_paths"]["final_video"], str(output_dir / "final.mp4"))
 
 
     def test_generate_non_dry_run_without_local_config_blocks(self) -> None:

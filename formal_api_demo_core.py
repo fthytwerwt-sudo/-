@@ -660,9 +660,26 @@ def run_assembly_pipeline(
                 config=config,
                 has_local_config=config_bundle["has_local_config"],
             )
-            if item not in {"space_name", "assembly_template_id"}
+            if item not in {"space_name", "assembly_template_id", "visual_assets_not_ready"}
         ]
-        if local_missing:
+        preview_result = execute_local_preview_assembly(
+            manifest=manifest,
+            output_dir=output_dir,
+        )
+        if preview_result.get("status") == STATUS_SUCCESS:
+            local_assembly_result.update(
+                {
+                    "status": STATUS_SUCCESS,
+                    "video_path": preview_result.get("final_video_path")
+                    or preview_result.get("video_path"),
+                    "blocked_reason": "",
+                    "failure_reason": "",
+                    "error_message": "",
+                    "current_missing_prerequisites": [],
+                    "missing_implementations": [],
+                }
+            )
+        elif local_missing:
             local_assembly_result.update(
                 {
                     "status": STATUS_BLOCKED,
@@ -670,21 +687,22 @@ def run_assembly_pipeline(
                     "current_missing_prerequisites": local_missing,
                 }
             )
+        elif preview_result.get("status") == STATUS_FAILED:
+            local_assembly_result.update(
+                {
+                    "status": STATUS_FAILED,
+                    "failure_reason": preview_result.get("failure_reason", ""),
+                    "error_message": preview_result.get("error_message", ""),
+                }
+            )
         else:
             local_assembly_result.update(
                 {
                     "status": STATUS_BLOCKED,
-                    "blocked_reason": (
-                        "正式本地 assembly 真实素材拼接实现尚未接入；当前 preview 只作辅助产物，"
-                        "不得计入 assembly success。"
-                    ),
-                    "missing_implementations": ["local_assembly_implementation"],
+                    "blocked_reason": preview_result.get("blocked_reason", "")
+                    or "缺少正式本地 assembly 前提",
                 }
             )
-        preview_result = execute_local_preview_assembly(
-            manifest=manifest,
-            output_dir=output_dir,
-        )
     else:
         local_assembly_result["status"] = STATUS_PLANNED
     local_assembly_status = STATUS_PLANNED if dry_run else local_assembly_result["status"]
@@ -1558,10 +1576,15 @@ def build_assembly_result_summary(
         ),
         "current_missing_prerequisites": []
         if overall_status == STATUS_SUCCESS
-        else local.get("current_missing_prerequisites", assembly_gate["missing_prerequisites"]),
-        "current_missing_implementations": local.get(
-            "missing_implementations",
-            assembly_gate["missing_implementations"],
+        else (
+            local.get("current_missing_prerequisites")
+            or assembly_gate["missing_prerequisites"]
+        ),
+        "current_missing_implementations": []
+        if overall_status == STATUS_SUCCESS
+        else (
+            local.get("missing_implementations")
+            or assembly_gate["missing_implementations"]
         ),
         "cloud_missing_prerequisites": assembly_gate["missing_prerequisites"],
         "known_issues": manifest.get("known_issues", []),
@@ -2017,15 +2040,32 @@ def build_visual_generation_plan(
         image_prompt = ""
         video_prompt = ""
         if segment["needs_image"]:
-            image_prompt = (
-                f"{segment['visual_intent']}。保持 9:16 竖版，PPT 卡片式信息层级，"
-                "中文 AI 项目讲解场景，避免写实人物和广告感。"
-            )
+            if segment["segment_id"] == "seg01":
+                image_prompt = (
+                    f"{segment['visual_intent']}。9:16 竖版，真实工作台 / 白板视角，"
+                    "让人一眼看出信息很多但流程没有拉齐；纪录片式案例讲解画面，"
+                    "不要 PPT 模板，不要广告感，不要人物正脸，不要大段字幕。"
+                )
+            elif segment["segment_id"] == "seg02":
+                image_prompt = (
+                    f"{segment['visual_intent']}。9:16 竖版，前态画面，"
+                    "桌面上散着目标、输入、口径、素材便签和断开的箭头，"
+                    "看起来很忙但接不下去；不要 PPT，不要广告感，不要人物正脸。"
+                )
+            else:
+                image_prompt = (
+                    f"{segment['visual_intent']}。9:16 竖版，结构已经收束，"
+                    "SOP 看板旁边带样片缩略图和修正清单，像真实项目收口画面；"
+                    "不要 PPT 模板，不要广告感，不要人物正脸。"
+                )
         if segment["needs_video"]:
             has_video_segments = True
             video_prompt = (
-                f"{segment['visual_intent']}。镜头应表现信息从散乱到收束，"
-                "节奏克制，适合 9:16 中文案例讲解短视频。"
+                f"{segment['visual_intent']}。9:16 竖版，镜头必须让观众肉眼看见"
+                "目标、输入、口径、素材这些散乱便签从各处滑动、吸附、重排，"
+                "最后收成一张可交接的 SOP 表单，明确显示 01 目标 / 02 输入 / 03 输出；"
+                "节奏克制，像真实案例推进，不要 PPT，"
+                "不要广告感，不要人物正脸，不要只是静态卡片切页。"
             )
         segment_assets.append(
             {
@@ -2633,6 +2673,7 @@ def execute_local_preview_assembly(
 
     preview_manifest_path = preview_dir / "preview_manifest.json"
     preview_video_path = preview_dir / "formal_api_demo_preview.mp4"
+    final_video_path = output_dir / "final.mp4"
     preview_manifest = {
         "width": 1080,
         "height": 1920,
@@ -2671,10 +2712,13 @@ def execute_local_preview_assembly(
         )
         return preview
 
+    shutil.copyfile(preview_video_path, final_video_path)
+
     preview.update(
         {
             "status": STATUS_SUCCESS,
             "video_path": str(preview_video_path),
+            "final_video_path": str(final_video_path),
             "preview_manifest_path": str(preview_manifest_path),
             "captions_path": str(captions_path),
         }
@@ -3037,21 +3081,20 @@ def _assembly_next_action_hint(
     if dry_run:
         return "当前为 assembly dry-run；下一步应先确认真实 visual assets 是否已生成，再验证本地 assembly。"
     if local_assembly:
-        if any(
-            item in local_assembly.get("missing_implementations", [])
-            for item in ("local_assembly_implementation",)
-        ):
-            return "当前真实 visual assets 已到位，但正式本地 assembly implementation 尚未接入；下一步应先补真实拼接实现，preview 只作辅助产物。"
+        if local_assembly.get("status") == STATUS_SUCCESS:
+            if "visual_assets_not_ready" in gate.get("missing_prerequisites", []):
+                return "当前本地样片已落出，但 generation 还缺真实 visual assets；下一步先补齐图片 / 视频 API 成功态，再继续提质。"
+            return "当前本地 mp4 已落出；下一步直接复审画面、节奏和字幕贴合度，cloud assembly 仍属后续增强项。"
         if local_assembly.get("current_missing_prerequisites"):
-            return "先补齐正式本地 assembly 缺失素材，再继续本地 mp4 交付；preview 不能替代真实素材拼接。"
+            return "先补齐正式本地 assembly 缺失素材，再继续本地 mp4 交付。"
         if local_assembly.get("status") == STATUS_FAILED:
             return "正式本地 assembly 已进入真实执行失败；下一步应先核对素材路径、拼接实现和导出错误。"
     if "visual_assets_not_ready" in gate.get("missing_prerequisites", []):
-        return "当前缺少真实 visual assets；应先补图片 / 视频 API provider，再推进正式本地 assembly。preview 只作辅助产物。"
+        return "当前缺少真实 visual assets；应先补图片 / 视频 API provider，再推进本地 mp4 提质。"
     if gate["status"] == STATUS_SKIPPED:
         return "cloud assembly 当前未配置；当前阶段继续沿用本地 mp4 作为默认交付件。"
     if gate["missing_prerequisites"]:
-        return "先补齐正式本地 assembly 缺失素材，再继续本地 mp4 交付；preview 不能替代真实素材拼接。"
+        return "先补齐正式本地 assembly 缺失素材，再继续本地 mp4 交付。"
     return "若要继续推进云端组装，下一步是补正式云端组装实现；当前本地 mp4 已是默认交付路径。"
 
 
@@ -3722,48 +3765,102 @@ def seconds_to_srt(value: float) -> str:
 
 
 def _build_preview_slides(manifest: dict[str, Any]) -> list[dict[str, Any]]:
-    accents = ["#2563EB", "#0F766E", "#C2410C", "#7C3AED"]
-    backgrounds = ["#F5F7FB", "#F4FBF9", "#FFF7ED", "#F8F5FF"]
-    preview_roles = [
-        {
-            "role": "hook",
-            "eyebrow": "问题卡点",
-            "support": "先把卡点看清，再决定怎么推进。",
-            "chips": ["想法很多", "流程没拉齐"],
-        },
-        {
-            "role": "process",
-            "eyebrow": "流程收束",
-            "support": "先把散乱动作收成同一条 SOP。",
-            "chips": ["目标", "输入", "输出"],
-        },
-        {
-            "role": "outcome",
-            "eyebrow": "结果落点",
-            "support": "先出可审样片，再逐轮压质量。",
-            "chips": ["先稳住样片", "再逐轮提质"],
-        },
-    ]
+    segment_assets = {
+        asset.get("segment_id"): asset
+        for asset in _nested_get(manifest, "generation", "visual_generation", "segment_assets")
+        or []
+        if asset.get("segment_id")
+    }
+    raw_slides: list[dict[str, Any]] = []
+
+    for segment in manifest.get("segments", []):
+        segment_id = segment["segment_id"]
+        asset = segment_assets.get(segment_id, {})
+        image_path = asset.get("image_asset_path")
+        video_path = asset.get("video_asset_path")
+        planned_duration = segment["timeline"]["planned_duration_seconds"]
+
+        if segment_id == "seg01":
+            raw_slides.append(
+                {
+                    "segment_id": segment_id,
+                    "role": "hook",
+                    "eyebrow": "问题卡点",
+                    "headline": segment["caption_text"],
+                    "support": "先把卡点看清，再决定怎么推进。",
+                    "detail": segment["visual_intent"],
+                    "chips": ["想法很多", "流程没拉齐"],
+                    "accent": "#2563EB",
+                    "background": "#F5F7FB",
+                    "duration": planned_duration,
+                    "background_image_path": image_path,
+                    "background_video_path": None,
+                }
+            )
+            continue
+
+        if segment_id == "seg02":
+            before_duration = round(planned_duration * 0.4, 1)
+            after_duration = round(planned_duration - before_duration, 1)
+            raw_slides.extend(
+                [
+                    {
+                        "segment_id": segment_id,
+                        "role": "hook",
+                        "eyebrow": "散乱现场",
+                        "headline": "目标、输入、口径、素材还散着。",
+                        "support": "继续往下做，只会让中段越讲越虚。",
+                        "detail": "先让观众看见散乱现场，再切到收束后的 SOP。",
+                        "chips": ["便签堆满", "没人能接"],
+                        "accent": "#DC2626",
+                        "background": "#FFF7F6",
+                        "duration": before_duration,
+                        "background_image_path": image_path,
+                        "background_video_path": None,
+                    },
+                    {
+                        "segment_id": segment_id,
+                        "role": "process",
+                        "eyebrow": "收束动作",
+                        "headline": segment["caption_text"],
+                        "support": "字段一齐，后面这条链就能顺着走。",
+                        "detail": "目标明确、输入收齐、输出固定，SOP 现在能直接交接。",
+                        "chips": ["目标", "输入", "输出"],
+                        "accent": "#0F766E",
+                        "background": "#F1FAF8",
+                        "duration": after_duration,
+                        "background_image_path": image_path if not video_path else None,
+                        "background_video_path": video_path,
+                    },
+                ]
+            )
+            continue
+
+        raw_slides.append(
+            {
+                "segment_id": segment_id,
+                "role": "outcome",
+                "eyebrow": "结果落点",
+                "headline": segment["caption_text"],
+                "support": "先出可审样片，再逐轮压质量。",
+                "detail": segment["visual_intent"],
+                "chips": ["先稳住样片", "再逐轮提质"],
+                "accent": "#C2410C",
+                "background": "#FFF7ED",
+                "duration": planned_duration,
+                "background_image_path": image_path,
+                "background_video_path": video_path,
+            }
+        )
+
+    total = len(raw_slides)
     slides: list[dict[str, Any]] = []
-    segments = manifest.get("segments", [])
-    total = len(segments)
-    for index, segment in enumerate(segments, start=1):
-        accent = accents[(index - 1) % len(accents)]
-        background = backgrounds[(index - 1) % len(backgrounds)]
-        role_meta = preview_roles[min(index - 1, len(preview_roles) - 1)]
+    for index, slide in enumerate(raw_slides, start=1):
         slides.append(
             {
                 "sequence": index,
                 "total": total,
-                "role": role_meta["role"],
-                "eyebrow": role_meta["eyebrow"],
-                "headline": segment["caption_text"],
-                "support": role_meta["support"],
-                "detail": segment["visual_intent"],
-                "chips": role_meta["chips"],
-                "accent": accent,
-                "background": background,
-                "duration": segment["timeline"]["planned_duration_seconds"],
+                **slide,
             }
         )
     return slides
