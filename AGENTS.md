@@ -19,6 +19,7 @@
 分工必须保持清楚：
 
 - `project_source/` 是项目脑，负责项目身份、阶段、边界、场景、结构、Perplexity、回审、心理机制
+- `project_source/` 也负责展示路由判断
 - `codex_source/` 是执行层，负责读取顺序、执行边界、运行规则、验证口径、汇报方式
 - `AGENTS.md` 只做顶层入口，不替代 `project_source/` 和 `codex_source/`
 
@@ -28,6 +29,8 @@
 
 - 技术闭环已跑通
 - 当前重点是内容质量、结构稳定、场景清楚、可复用、可由 Codex 重复执行
+- 当前主阶段是内容阶段，正往试发阶段过渡
+- 当前优先把“内容过线 / 路由正确 / 模板稳定”压实，不做人优先主义
 - 当前仍只围绕视频项目推进，不主动扩到直播、增长、售卖、商业化、大而全产品化
 - 当前执行层已进入“正式版目标态搭建阶段”：
   - 要把正式版 API demo 的目标标准、云端主链、修正循环与接手入口正式写入仓库
@@ -75,6 +78,9 @@
 - 若任务涉及 commit / push / PR / 主读取分支回流 / `latest.md` 更新 / `.gitignore` 边界，则必读：
   - `codex_source/08_branch_sync_and_reading_branch_rules.md`
 - 若任务明显偏项目判断、内容边界或场景结构，再补读 `project_source/06_project_index.md` 与相关 `project_source/*`
+- 若任务命中展示路由 / 真人与 PPT 选择 / 录屏与案例图取舍 / 混合承载判断，则在最小接手集合之外补读：
+  - `project_source/16_presentation_routing_rules.md`
+  - 若任务同时涉及回审记录，再补读 `project_source/10_video_review_record_template.md`
 - 若任务命中“正式版 API demo / 正式版目标态 / 云端组装 / 修正循环 / 质量达标反推”，则在最小接手集合之外补读：
   - `codex_source/07_formal_api_demo_target_plan.md`
   - 且必须明确：该文件是正式版目标态计划，不是当前仓库已跑通事实
@@ -283,4 +289,4 @@
 
 如果 Codex 这轮只记一句话：
 
-**新会话先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md` 完成最小启动；若任务偏执行规则，再补读 `codex_source/01_execution_rules.md`；若任务涉及 commit / push / PR / 主读取分支回流 / `latest.md` 更新，则再补读 `codex_source/08_branch_sync_and_reading_branch_rules.md`；命中仓库型任务时，只有同步回 `codex/user-readable-map` 才算仓库正式状态。**
+**新会话先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md` 完成最小启动；若任务偏执行规则，再补读 `codex_source/01_execution_rules.md`；若任务命中展示路由 / 真人与 PPT / 混合承载判断，则再补读 `project_source/16_presentation_routing_rules.md`；若任务涉及 commit / push / PR / 主读取分支回流 / `latest.md` 更新，则再补读 `codex_source/08_branch_sync_and_reading_branch_rules.md`；命中仓库型任务时，只有同步回 `codex/user-readable-map` 才算仓库正式状态。**

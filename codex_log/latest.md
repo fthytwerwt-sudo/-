@@ -1,57 +1,64 @@
 # Latest
 
-## 当前 motion 排查状态
+## 当前展示路由系统状态
 
-- 2026-04-04 本轮只排查当前样片“有点卡卡的”来源，并只做最小 assembly 修正。
+- 2026-04-04 本轮不是再做样片，而是把《视频工厂》的“展示路由规则”正式写成仓库内的分层判断系统。
 - 当前结论：
-  - `motion_fix_passed`
+  - `presentation_routing_rules_formalized`
 
 ## 当前主判断
 
-- 当前卡顿感主因：
-  - `assembly_side`
-- 不是 `seg02_video.mp4` 本身只有低帧率。
-- 最直接证据：
-  - `dist/formal_api_demo/visual/seg02_video.mp4` 是 `30 fps`、约 `6.004s`、`180` 个视频时间点。
-  - 修正前 `dist/formal_api_demo/final.mp4` 的 `seg02` 对应窗（`4.0s-10.0s`）只有 `10 fps`、`60` 个时间点。
-  - `config/formal_api_demo.local.toml` 与 `config/formal_api_demo.example.toml` 都已配置 `assembly.fps = 25`，但 [formal_api_demo_core.py](/Users/fan/Documents/视频工厂/formal_api_demo_core.py) 之前把 preview/final manifest 硬编码成了 `10 fps`。
+- 展示路由单位正式写死为：
+  - `block`
+  - 即段落块 / 镜头块
+- 展示路由正式写成 4 层：
+  - `L1`: 整条视频层
+  - `L2`: block 层
+  - `L3`: 回退层
+  - `L4`: 回审层
+- 正式判断顺序已写死为：
+  - 先判场景
+  - 再判整条视频主价值
+  - 再判观众最需要先接住什么
+  - 再判 block 职责
+  - 最后才判 block 用什么展示形式
+- 当前已明确：
+  - 15 秒样片只是当前示例，不是长期统一时长
+  - 混合承载不是固定顺序
+  - 当前阶段优先做“路由正确”，不是“真人优先主义”
 
 ## 本轮实际改动
 
-- 修改：
-  - [formal_api_demo_core.py](/Users/fan/Documents/视频工厂/formal_api_demo_core.py)
-  - [tests/test_formal_api_demo_pipeline.py](/Users/fan/Documents/视频工厂/tests/test_formal_api_demo_pipeline.py)
+- 新增主规则：
+  - [project_source/16_presentation_routing_rules.md](/Users/fan/Documents/视频工厂/project_source/16_presentation_routing_rules.md)
+- 新增回审记录模板：
+  - [project_source/10_video_review_record_template.md](/Users/fan/Documents/视频工厂/project_source/10_video_review_record_template.md)
+- 同步更新入口文件：
+  - [project_source/01_project_system_prompt.md](/Users/fan/Documents/视频工厂/project_source/01_project_system_prompt.md)
+  - [project_source/02_scene_mode_templates.md](/Users/fan/Documents/视频工厂/project_source/02_scene_mode_templates.md)
+  - [project_source/04_review_templates.md](/Users/fan/Documents/视频工厂/project_source/04_review_templates.md)
+  - [project_source/06_project_index.md](/Users/fan/Documents/视频工厂/project_source/06_project_index.md)
+  - [project_source/13_stage_and_acceptance_gates.md](/Users/fan/Documents/视频工厂/project_source/13_stage_and_acceptance_gates.md)
+  - [project_source/14_content_review_and_loop_governance_rules.md](/Users/fan/Documents/视频工厂/project_source/14_content_review_and_loop_governance_rules.md)
+  - [AGENTS.md](/Users/fan/Documents/视频工厂/AGENTS.md)
 - 新增 / 更新日志：
   - [codex_log/latest.md](/Users/fan/Documents/视频工厂/codex_log/latest.md)
-  - [codex_log/20260404_motion_issue_assembly_fps_fix.md](/Users/fan/Documents/视频工厂/codex_log/20260404_motion_issue_assembly_fps_fix.md)
+  - [codex_log/20260404_presentation_routing_rules_system.md](/Users/fan/Documents/视频工厂/codex_log/20260404_presentation_routing_rules_system.md)
 
-## 当前真实产物
+## 当前缺失但已如实确认的目标文件
 
-- 当前本地成片：
-  - [dist/formal_api_demo/final.mp4](/Users/fan/Documents/视频工厂/dist/formal_api_demo/final.mp4)
-- 当前局部连续帧证据：
-  - 修正前 final `seg02` 连续帧：`dist/formal_api_demo/review_frames/motion_probe/final_seg02_native_*.png`
-  - 修正后 final `seg02` 连续帧：`dist/formal_api_demo/review_frames/motion_probe/final_seg02_native_postfix_*.png`
-  - 源 `seg02` 连续帧：`dist/formal_api_demo/review_frames/motion_probe/seg02_source_native_*.png`
-
-## 当前修正后结果
-
-- preview/final manifest 现已走 `assembly.fps = 25`。
-- 修正后 `dist/formal_api_demo/final.mp4` 为 `25 fps`。
-- 修正后 final 中 `seg02` 对应窗为 `150` 个时间点 / `25 fps`，明显高于修正前的 `60` 个时间点 / `10 fps`。
-- 本轮没有改文案、结构或画面内容，只修 assembly 帧率入口。
-
-## `.gitignore` 边界
-
-- `dist/formal_api_demo/` 仍属于 `.gitignore` / `local_only`。
-- 因此：
-  - 新旧成片与连续帧证据都不会上传到 GitHub
-  - 但本地已生成，可完成当前验收
-  - 当前应优先查看：
-    - `dist/formal_api_demo/final.mp4`
+- 这轮按你点名清单核对后，当前仓库不存在以下目标文件名：
+  - `project_source/09_review_loop_system_v1.md`
+  - `project_source/11_result_diagnosis_map.md`
+  - `project_source/12_review_role_split_and_workflow.md`
+  - `project_source/15_distribution_and_commercialization_rules.md`
+- `project_source/10_video_review_record_template.md` 在本轮开始时也不存在，现已补建为正式模板。
 
 ## 当前最关键下一步
 
-- 直接复审新的 [dist/formal_api_demo/final.mp4](/Users/fan/Documents/视频工厂/dist/formal_api_demo/final.mp4)。
-- 若还觉得 `seg02` 仍有轻微发涩，下一轮唯一优先动作是：
-  - 继续做 assembly 侧“源素材直通 / 更接近源帧率采样”，不要回到内容层大修。
+- 下一条最值得验证的样片，不是“再出一条随便的视频”，而是：
+  - 展示路由判断样片
+- 优先验证 prompt 是否能先判断：
+  - 这条是结构主导
+  - 还是信任主导
+  - 还是需要混合承载
