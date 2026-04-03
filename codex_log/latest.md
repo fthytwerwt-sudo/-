@@ -22,6 +22,7 @@
   - 工作区干净
   - `config/formal_api_demo.local.toml` 仍不存在
   - 因此前置闸门直接失败，本轮没有进入任何真人开口线上调用
+  - 当前 round3 blocked 日志已同步回 `codex/user-readable-map`
 
 ## 当前 formal_api_demo 真实状态
 
