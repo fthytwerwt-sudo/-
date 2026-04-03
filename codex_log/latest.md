@@ -23,6 +23,21 @@
   - `config/formal_api_demo.local.toml` 仍不存在
   - 因此前置闸门直接失败，本轮没有进入任何真人开口线上调用
   - 当前 round3 blocked 日志已同步回 `codex/user-readable-map`
+- 2026-04-03 round4 真人开口最小真实闭环新增事实：
+  - 当前 worktree 已使用本地正式配置做真实运行
+  - 第 1 次最小实调里：
+    - `liveportrait-detect` 真实执行
+    - `liveportrait` 未开始创建任务
+    - 当前 worktree 的 TTS 配置先返回 `AccessDenied: model Access denied.`
+    - 同时 `liveportrait-detect` 对当前 `seg02` 输入图返回 `No human face detected.`
+  - 修正当前 worktree 的 TTS 取值后再跑第 2 次最小实调：
+    - `tts_probe = success`
+    - `voiceover = success`
+    - `liveportrait-detect` 仍真实返回 `No human face detected.`
+    - `liveportrait` 仍未开始创建任务
+  - 当前最具体真人开口 blocker 已推进为：
+    - 不是“缺 local config”
+    - 而是当前 `seg02` 输入图没有可检测真人脸，导致 detect reject
 
 ## 当前 formal_api_demo 真实状态
 
@@ -36,58 +51,39 @@
   - `wan2.6-t2v` 已有真实 provider implementation
 - 真人开口分支：
   - `blocked`
-  - `liveportrait-detect -> liveportrait` 的代码 / 契约 / 测试层 round1 已补到位
-  - 当前 round2 / round3 连续两轮前置闸门都卡在 `config/formal_api_demo.local.toml` 缺失
-  - 因此前两轮都没有执行任何真实 `liveportrait-detect -> liveportrait` 线上实调
-  - 当前最具体 blocker 已收口为“整个本地正式配置文件缺失”，不是“provider implementation 未实现”
+  - 当前已完成最小真实运行
+  - `liveportrait-detect` 已真实执行，但对当前 `seg02` 图返回 `No human face detected.`
+  - `liveportrait` 未开始创建任务，`task_id` 仍为空
+  - 当前最具体 blocker 是输入图缺少可检测真人脸，不再是 local config 缺失
 - local assembly：
   - `success`
 - overall：
   - `blocked`
-  - 技术主链当前唯一最高优先级 blocker 仍是真人开口分支缺真实线上验证
+  - 技术主链当前唯一最高优先级 blocker 仍是真人开口输入图不满足 `liveportrait-detect`
   - A 线普通主线质量问题继续后置，不在本轮处理
 
 ## 本轮实际完成了什么
 
 - 进入真实任务分支对应 worktree：
   - `/Users/fan/.config/superpowers/worktrees/视频工厂/codex-formal-api-demo-quality-liveportrait-round1`
-- 确认 `config/formal_api_demo.local.toml`：
-  - 当前不存在
-- 按“质量保证优先、同时尽量加快进度”的新闸门规则执行：
-  - 在 local config 缺失处立刻止损
-  - 不再继续字段审计
-  - 不进入真人开口线上实调
-  - 不改无关代码
 - 确认正式入口：
   - `scripts/generate_formal_api_demo.py`
-  - 当前只是核对入口与参数，没有执行真人开口线上实调
-- 确认当前不能在“不伪造 local config”的前提下改写 B 线专属 `manifest / result_summary`：
-  - `config/formal_api_demo.example.toml` 中 `portrait_detect.enabled = false`
-  - `portrait_video_generation.enabled = false`
-  - 若缺 local config 直接强跑正式入口，只会得到主线默认语义，不能代表真人开口 round2 真实验证
-- 因此本轮按 honest blocked 路径收口：
-  - 不伪造配置
-  - 不伪造 `success`
-  - 只更新日志与同步事实
+  - 已真实运行两次最小真人开口闭环
+- 当前最有价值的一次真实结果是：
+  - `dist/formal_api_demo_liveportrait_minrun_retry_tts/`
+  - `tts_probe = success`
+  - `voiceover = success`
+  - `liveportrait-detect = blocked`
+  - `liveportrait = not started`
+- 本轮没有改动任何业务代码，只推进本地配置与真实运行验证
 
 ## 当前剩余最高优先级 blocker
 
-- 缺 `config/formal_api_demo.local.toml`
-- 因而无法在当前 worktree 做带真实 API Key 的 `liveportrait-detect -> liveportrait` 实调
+- 当前 `seg02` 输入图没有可检测真人脸
+- 因而 `liveportrait-detect` 真实返回 `No human face detected.`
+- 在 detect 通过前，`liveportrait` 不会开始创建任务
 
 ## 下一轮唯一最关键一步
 
-- 先补可用的 `config/formal_api_demo.local.toml`
-- 并确保其中显式提供：
-  - `provider.name`
-  - `auth.api_key`
-  - `tts.api_route_family`
-  - `tts.model`
-  - `tts.voice`
-  - `image_generation.model`
-  - `video_generation.model`
-  - `portrait_detect.enabled`
-  - `portrait_detect.model`
-  - `portrait_video_generation.enabled`
-  - `portrait_video_generation.model`
-- 然后用正式入口跑一轮真实 `liveportrait-detect -> liveportrait`
+- 把 `seg02` 的输入素材改成有清晰真人正脸的人像底图
+- 然后在当前已可用的 TTS 配置上重跑最小 `liveportrait-detect -> liveportrait`
