@@ -13,8 +13,7 @@
     - `codex/user-readable-map` 的 HEAD 是 `ca7cc07`
     - 两个分支 tree SHA 相同，说明 round1 内容已按内容层面回流到主读取分支
   - 本轮日志回写后：
-    - 任务分支最新提交是 `a8f07e1`
-    - 主读取分支最新提交是 `bfba58f`
+    - 任务分支与主读取分支都已 push
     - 当前 round2 blocked 日志已同步回 `codex/user-readable-map`
 
 ## 当前 formal_api_demo 真实状态
