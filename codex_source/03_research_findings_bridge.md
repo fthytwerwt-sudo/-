@@ -160,14 +160,30 @@
 ### BRIDGE-20260402-03
 
 - 来源类型：`用户新拍板`
-- 状态：`已采用`
-- 结论摘要：当前正式主路径是“文本需求 → 脚本 → 配音 API → 图片 / 视频生成 API → 本地 assembly → 本地 mp4 → 人工上传”；generation 层继续接 API，assembly 层默认走本地，cloud assembly 是后续增强项，不是当前硬前置。
-- 对项目的影响：执行层默认不再把 cloud assembly、平台发布 API 或平台化路线写成当前主线前提。
+- 状态：`已被 BRIDGE-20260405-01 覆盖`
+- 结论摘要：该条记录反映的是 2026-04-02 时的旧口径：主路径默认仍走本地 assembly，cloud assembly 只是后续增强项。
+- 对项目的影响：仅保留为历史桥接记录，不再作为当前正式执行事实。
 - 原计划需要改哪里：执行前上下文必须显式写清当前主路径和当前不做事项。
 - 本轮执行必须遵守项：任何新任务如果与该主路径冲突，必须先回到项目脑和执行层规则重新确认。
-- 暂未确认项：后续何时把 cloud assembly 从增强项升级为当前阶段目标，需另行拍板。
+- 暂未确认项：无；后续正式口径已由 BRIDGE-20260405-01 接管。
 - 建议落点文件：
   - `codex_source/02_current_execution_context.md`
+  - `codex_log/latest.md`
+
+### BRIDGE-20260405-01
+
+- 来源类型：`用户新拍板`
+- 状态：`已采用`
+- 结论摘要：OSS 与阿里云剪已具备；纯 PPT / 信息卡主线默认 assembly 路径升级为“OSS + 云剪”，`local assembly` 只保留为 fallback / 兜底。
+- 对项目的影响：执行层、项目脑、配置示例、组装脚本和状态语义不再允许把 `local assembly` 写成默认主路径，也不再允许把 `space_name` / `template_id` 写成 optional。
+- 原计划需要改哪里：当前执行前上下文、项目脑总述、formal_api_demo 当前路线补丁、config example、assembly 脚本说明、assembly gate 与 result summary 语义都必须同步改口。
+- 本轮执行必须遵守项：这次升级仅适用于纯 PPT / 信息卡主线；动态 PPT 仍暂不考虑；数字人继续并行修但不阻塞主线；云剪第一轮仍只服务转场统一、字幕安全区与模板化 assembly。
+- 暂未确认项：正式云端组装 provider implementation 的具体接入细节，若代码层仍缺实现，必须诚实保留 fallback 与未实现提示。
+- 建议落点文件：
+  - `codex_source/02_current_execution_context.md`
+  - `project_source/10_formal_api_demo_current_route_patch_20260402.md`
+  - `formal_api_demo_core.py`
+  - `config/formal_api_demo.example.toml`
   - `codex_log/latest.md`
 
 ## 8. 一句话规则

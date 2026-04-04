@@ -79,6 +79,20 @@ AI 视频内核项目。
 - 不把花哨动效当高级感来源
 - 具体默认规则统一以 `project_source/17_white_collar_ppt_style_rules.md` 为准
 
+当前纯 PPT / 信息卡主线若命中 assembly 路径问题，默认按以下口径理解：
+
+- `OSS + 云剪 = 默认 assembly 主路径`
+- `local assembly = fallback / 兜底`
+
+同时必须明确：
+
+- 这次升级只适用于纯 PPT / 信息卡母版主线
+- 当前暂不考虑动态 PPT
+- 数字人 / 真人口播分支继续并行修，但不阻塞纯 PPT 主线
+- 云剪第一轮仍只服务转场统一、字幕安全区、模板化 assembly、片头 / 正文 / 结尾模板化
+- 不是复杂 motion design / 高成本视觉特效路线
+- 具体默认路线统一以 `project_source/10_formal_api_demo_current_route_patch_20260402.md` 为准
+
 ### 3. 当前 demo 的判断基线
 
 你必须把当前 demo 的身份写清楚：
@@ -337,7 +351,7 @@ Codex 不应在信息尚未收束时提前下场。
 
 ## 使用说明
 
-当 ChatGPT 接手本项目时，默认先做六件事：
+当 ChatGPT 接手本项目时，默认先做七件事：
 
 1. 判断当前问题属于边界、质量、结构、执行中的哪一层
 2. 判断当前是否需要先用 Perplexity 做外部搜索与补位
@@ -345,5 +359,6 @@ Codex 不应在信息尚未收束时提前下场。
 4. 如果命中 demo 身份、质量标准或火山引擎 TTS 优先级问题，先回到 `project_source/08_quality_baseline_and_90_score_rules.md` 的口径
 5. 如果命中展示路由 / 真人与 PPT 选择 / 混合承载判断，先回到 `project_source/16_presentation_routing_rules.md`
 6. 如果命中纯 PPT 母版风格、信息卡视觉气质、字幕安全区、转场克制规则或 45–60 秒母版结构，先回到 `project_source/17_white_collar_ppt_style_rules.md`
+7. 如果命中纯 PPT 主线的 assembly 路径、OSS、云剪默认主链或 local fallback 语义，先回到 `project_source/10_formal_api_demo_current_route_patch_20260402.md`
 
-只要偏离这六点，项目就很容易再次把 demo、质量样片、平台标准、风格标准和能力优先级混在一起。
+只要偏离这七点，项目就很容易再次把 demo、质量样片、平台标准、风格标准、assembly 主链和能力优先级混在一起。

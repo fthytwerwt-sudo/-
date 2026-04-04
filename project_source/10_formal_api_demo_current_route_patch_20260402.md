@@ -1,4 +1,4 @@
-# formal_api_demo 当前执行路线补丁（2026-04-02）
+# formal_api_demo 当前执行路线补丁（2026-04-05 更新）
 
 ## 1. 文件定位
 
@@ -8,7 +8,8 @@
 
 - 视频 API 暂时不接
 - 先纯本地出片
-- 只有把云端模板工厂 / 云端 assembly 跑通，当前阶段才算成立
+- `local assembly = 默认主路径`
+- `cloud assembly = optional / skipped / 后续增强项`
 
 则在 `formal_api_demo` 当前阶段，**以本文件为准**。
 
@@ -20,8 +21,9 @@
 
 - **继续接 TTS API**
 - **继续接图片 / 视频生成 API**
-- **但最终默认交付路径是本地 assembly**
-- **云端模板工厂 / 云端 assembly 降级为后续增强项，不是当前 0-1 硬前置**
+- **纯 PPT / 信息卡主线默认 assembly 路径升级为 `OSS + 云剪`**
+- **`local assembly` 只保留为 fallback / 兜底路径**
+- **当前暂不考虑动态 PPT，也不扩成复杂 motion design 路线**
 
 ## 3. 当前正式主路径
 
@@ -31,15 +33,16 @@
 → 脚本
 → 配音 API
 → 图片 / 视频生成 API
-→ 本地 assembly
-→ 本地 mp4
+→ 纯 PPT / 信息卡母版
+→ OSS + 云剪 assembly
+→ 成片导出
 → 人工上传
 
 必须明确：
 
 - 这里不是“视频 API 暂时不接”
-- 这里也不是“当前必须先把云端模板工厂 / 云端 assembly 跑通”
-- 当前是“**生成层继续走 API，组装层当前默认走本地**”
+- 这里也不是“当前必须先把动态 PPT 或复杂动效做起来”
+- 当前是“**生成层继续走 API，纯 PPT 主线的组装层默认走 OSS + 云剪，本地 assembly 仅作 fallback**”
 
 ## 4. generation 层与 assembly 层的最新分工
 
@@ -62,36 +65,36 @@
 
 当前默认交付路径改成：
 
-- `local_assembly` = 当前主路径
-- `cloud_assembly` = optional / skipped / 后续增强项
+- `cloud_assembly` = 当前主路径
+- `local_assembly` = fallback / 兜底路径
 
 当前要求：
 
-- 本地 assembly 成功后，当前阶段应允许整体成功
-- `storage.space_name` / `assembly.template_id` 未配置时，不应反向卡死当前本地主链
+- `storage.space_name` / `assembly.template_id` 现在属于默认主路径前提
+- 不得再把 `storage.space_name` / `assembly.template_id` 写成 optional
+- 只有在云剪失败、模板异常、上传异常或任务超时时，才允许回退本地 assembly
+- 当前升级只适用于纯 PPT / 信息卡主线，不自动外溢到动态 PPT 或数字人主线
 
 ## 5. 当前不再当硬前置的东西
 
-以下内容当前仍有价值，但不再是当前阶段的硬前置：
+以下内容当前仍不采用：
 
-- `storage.space_name`
-- `assembly.template_id`
-- ICE 模板工厂
-- 云端 assembly
-- 云端剪辑模板路线
+- 动态 PPT
+- 复杂 motion design
+- 高成本视觉特效路线
 
 这不代表它们被永久删除，只代表：
 
-**它们当前属于后续增强项，不得先于“API 生成 + 本地 assembly 出片”成为主阻塞。**
+**它们当前不属于纯 PPT 主线第一轮默认组装目标。**
 
 ## 6. 当前最实在的执行判断
 
 当前阶段最重要的是：
 
 1. generation 继续推进 API 化
-2. assembly 保证本地 mp4 稳定交付
-3. 先把整条 0-1 跑顺
-4. 后续如果值得，再继续接云端 assembly
+2. 纯 PPT 主线的 assembly 默认走 `OSS + 云剪`
+3. 本地 assembly 只保留 fallback / 兜底
+4. 云剪第一轮只服务转场统一、字幕安全区、模板化 assembly、片头 / 正文 / 结尾模板化
 
 ## 7. 与旧口径冲突时怎么裁决
 
@@ -113,4 +116,4 @@
 
 当前 `formal_api_demo` 的最新正式路线是：
 
-**视频 API 继续接，但默认本地 assembly 交付；云端模板工厂 / 云端 assembly 不再是当前阶段硬前置。**
+**视频 API 继续接；纯 PPT / 信息卡主线默认走 `OSS + 云剪` 组装，本地 assembly 只作 fallback；动态 PPT 仍暂不考虑。**

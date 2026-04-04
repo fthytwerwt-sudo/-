@@ -88,6 +88,28 @@
 
 当前路线的核心不是“把火山能力全接一遍”，而是“先用最直接的能力把最致命的 demo 感打掉”。
 
+## 5A. 当前纯 PPT 主线的 assembly 口径
+
+当前纯 PPT / 信息卡主线的 assembly 口径已升级为：
+
+- OSS 已具备
+- 阿里云剪已具备
+- `OSS + 云剪 = 默认 assembly 主路径`
+- `local assembly = fallback / 兜底`
+
+当前 fallback 只允许用于以下情况：
+
+- 云剪失败
+- 模板异常
+- 上传异常
+- 任务超时
+
+必须同时明确：
+
+- 这次升级只适用于纯 PPT / 信息卡主线
+- 当前暂不考虑动态 PPT
+- 当前不扩成复杂 motion design / 高成本视觉特效路线
+
 ## 6. 90 分 / `quality_passed` 后的样片交付硬规则
 
 当内容达到以下任一条件时，必须向用户交付“可见样片”：
@@ -125,4 +147,4 @@
 
 ## 7. 当前一句话规则
 
-当前不是拿旧 demo 定质量标准；一旦达到 90 分 / `quality_passed` / 可发布测试线，就必须把当前可见样片明确交付给用户，默认先交 `dist/formal_api_demo/final.mp4`。
+当前不是拿旧 demo 定质量标准；纯 PPT / 信息卡主线默认先走 `OSS + 云剪` 组装，本地 assembly 只作 fallback；一旦达到 90 分 / `quality_passed` / 可发布测试线，就必须把当前可见样片明确交付给用户，默认先交 `dist/formal_api_demo/final.mp4`。
