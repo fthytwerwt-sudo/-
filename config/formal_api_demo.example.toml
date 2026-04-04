@@ -115,7 +115,8 @@ enabled = true
 # - 缺失该字段时，generation 不应写成 success
 # - 当前仓库默认先落视觉计划，再进入本地 assembly；这不等于图片 API 已被取消
 # 免费优先主线默认模型：
-# - wan2.6-image 用于首帧 / 背景 / 人像底图补位
+# - wan2.6-image 用于首帧 / 背景 / 人像底图生成
+# - 若只是修图 / 改图，不要回到 facechain-generation，改走 qwen-image-edit-plus
 model = "wan2.6-image"
 
 [video_generation]
@@ -125,8 +126,9 @@ enabled = true
 # - 缺失该字段时，generation 不应写成 success
 # - 当前默认交付改为本地 assembly，不代表视频 API 暂时不接
 # 免费优先主线默认模型：
-# - wan2.6-t2v 负责普通视频主线
-model = "wan2.6-t2v"
+# - 普通视频主线改为 wan2.6-image -> wan2.7-i2v
+# - wan2.7-videoedit 只用于后期修补 / 编辑增强，不是主生成模型
+model = "wan2.7-i2v"
 
 [portrait_detect]
 enabled = false

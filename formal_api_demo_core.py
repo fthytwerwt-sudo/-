@@ -49,7 +49,9 @@ SUPPORTED_TTS_ROUTE_FAMILIES = {
     TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE,
 }
 DEFAULT_GENERAL_IMAGE_MODEL = "wan2.6-image"
-DEFAULT_GENERAL_VIDEO_MODEL = "wan2.6-t2v"
+DEFAULT_GENERAL_VIDEO_MODEL = "wan2.7-i2v"
+DEFAULT_IMAGE_EDIT_MODEL = "qwen-image-edit-plus"
+DEFAULT_VIDEO_EDIT_MODEL = "wan2.7-videoedit"
 DEFAULT_PORTRAIT_DETECT_MODEL = "liveportrait-detect"
 DEFAULT_PORTRAIT_VIDEO_MODEL = "liveportrait"
 DEFAULT_ALIYUN_TTS_STYLE_PROBE_TEXT = (
@@ -1076,7 +1078,7 @@ def _evaluate_visual_generation_gate(
                 "当前普通图片 / 视频主线 provider 仅真实接入 aliyun_bailian / DashScope；"
                 f"当前 provider={visual_provider or 'missing'} 仍无法执行 "
                 f"{visual_routes['image_generation']['model'] or DEFAULT_GENERAL_IMAGE_MODEL}"
-                " / "
+                " -> "
                 f"{visual_routes['general_video_generation']['model'] or DEFAULT_GENERAL_VIDEO_MODEL}"
                 "。"
             )
@@ -1111,8 +1113,10 @@ def _evaluate_visual_generation_gate(
         "checks": checks,
         "notes": [
             "visual_generation Gate 继续代表图片 / 视频生成 API 的正式 generation 前提。",
-            "主线免费模型路线固定为 wan2.6-image + wan2.6-t2v；两者都只代表模型已选，不代表 provider 已接通。",
+            "普通视频默认主线固定为 wan2.6-image -> wan2.7-i2v；先出首帧 / 底图，再转视频。",
+            f"人物图 / 人像底图默认走 {DEFAULT_GENERAL_IMAGE_MODEL}；需要修图时走 {DEFAULT_IMAGE_EDIT_MODEL}，不再默认依赖 facechain-generation。",
             "真人开口分支固定为 liveportrait-detect + liveportrait；liveportrait 必须先经过 liveportrait-detect。",
+            f"{DEFAULT_VIDEO_EDIT_MODEL} 只用于后期修补 / 编辑增强，不是主生成模型。",
             "缺少 image_generation.model / video_generation.model 时，generation 不能写成 success。",
             "provider implementation 尚未接入时，当前必须诚实 blocked，不能再把 visual plan / preview 写成 success。",
         ],
@@ -2036,11 +2040,16 @@ def build_visual_generation_plan(
     preview_storyboard_path = output_dir / "preview_storyboard.json"
     segment_assets: list[dict[str, Any]] = []
     has_video_segments = False
+    video_model = _nested_get(config, "video_generation", "model") or DEFAULT_GENERAL_VIDEO_MODEL
+    video_requires_seed_image = _video_model_requires_seed_image(video_model)
 
     for index, segment in enumerate(video_spec.get("segments", []), start=1):
+        segment_needs_image = segment["needs_image"] or (
+            segment["needs_video"] and video_requires_seed_image
+        )
         image_prompt = ""
         video_prompt = ""
-        if segment["needs_image"]:
+        if segment_needs_image:
             if segment["segment_id"] == "seg01":
                 image_prompt = (
                     f"{segment['visual_intent']}。9:16 竖版，真实工作台 / 白板视角，"
@@ -2072,8 +2081,9 @@ def build_visual_generation_plan(
             {
                 "segment_id": segment["segment_id"],
                 "sequence": index,
-                "needs_image": segment["needs_image"],
+                "needs_image": segment_needs_image,
                 "needs_video": segment["needs_video"],
+                "seed_image_required": segment["needs_video"] and video_requires_seed_image,
                 "image_prompt": image_prompt,
                 "video_prompt": video_prompt,
                 "image_task_id": None,
@@ -2229,6 +2239,7 @@ def build_visual_generation_plan(
             "status": STATUS_SKIPPED,
             "task_id": None,
             "asset_path": None,
+            "source_url": None,
             "blocked_reason": "",
             "failure_reason": "",
             "error_message": "",
@@ -2237,6 +2248,7 @@ def build_visual_generation_plan(
             "status": STATUS_SKIPPED,
             "task_id": None,
             "asset_path": None,
+            "source_url": None,
             "blocked_reason": "",
             "failure_reason": "",
             "error_message": "",
@@ -2253,13 +2265,30 @@ def build_visual_generation_plan(
             asset["image_asset_path"] = image_result["asset_path"]
 
         if asset["needs_video"]:
-            video_result = _execute_aliyun_wan_video_generation(
-                config=config,
-                output_dir=output_dir,
-                segment_id=segment["segment_id"],
-                prompt=asset["video_prompt"],
-                duration_seconds=segment["planned_duration_seconds"],
-            )
+            seed_image_url = None
+            if asset.get("seed_image_required"):
+                seed_image_url = image_result.get("source_url")
+                if not seed_image_url and image_result.get("asset_path"):
+                    seed_image_url = pathlib.Path(image_result["asset_path"]).resolve().as_uri()
+            if asset.get("seed_image_required") and not seed_image_url:
+                video_result = {
+                    "status": STATUS_BLOCKED,
+                    "task_id": None,
+                    "asset_path": None,
+                    "source_url": None,
+                    "blocked_reason": "wan2.7-i2v 缺少首帧图片输入，无法继续视频生成。",
+                    "failure_reason": "i2v_seed_image_missing",
+                    "error_message": "wan2.7-i2v 缺少首帧图片输入，无法继续视频生成。",
+                }
+            else:
+                video_result = _execute_aliyun_wan_video_generation(
+                    config=config,
+                    output_dir=output_dir,
+                    segment_id=segment["segment_id"],
+                    prompt=asset["video_prompt"],
+                    duration_seconds=segment["planned_duration_seconds"],
+                    seed_image_url=seed_image_url,
+                )
             asset["video_task_id"] = video_result["task_id"]
             asset["video_asset_path"] = video_result["asset_path"]
             visual_generation["general_video_generation"].update(
@@ -2409,16 +2438,21 @@ def _execute_aliyun_wan_image_generation(
     )
 
 
-def _execute_aliyun_wan_video_generation(
+def _video_model_requires_seed_image(model: str | None) -> bool:
+    normalized = str(model or "").strip().lower()
+    return normalized.endswith("-i2v") or normalized.endswith("_i2v")
+
+
+def _build_aliyun_video_generation_payload(
     *,
     config: dict[str, Any],
-    output_dir: pathlib.Path,
-    segment_id: str,
     prompt: str,
     duration_seconds: float,
+    seed_image_url: str | None = None,
 ) -> dict[str, Any]:
-    payload = {
-        "model": _nested_get(config, "video_generation", "model") or DEFAULT_GENERAL_VIDEO_MODEL,
+    model = _nested_get(config, "video_generation", "model") or DEFAULT_GENERAL_VIDEO_MODEL
+    payload: dict[str, Any] = {
+        "model": model,
         "input": {
             "prompt": prompt,
         },
@@ -2428,6 +2462,26 @@ def _execute_aliyun_wan_video_generation(
             "prompt_extend": True,
         },
     }
+    if seed_image_url and _video_model_requires_seed_image(model):
+        payload["input"]["img_url"] = seed_image_url
+    return payload
+
+
+def _execute_aliyun_wan_video_generation(
+    *,
+    config: dict[str, Any],
+    output_dir: pathlib.Path,
+    segment_id: str,
+    prompt: str,
+    duration_seconds: float,
+    seed_image_url: str | None = None,
+) -> dict[str, Any]:
+    payload = _build_aliyun_video_generation_payload(
+        config=config,
+        prompt=prompt,
+        duration_seconds=duration_seconds,
+        seed_image_url=seed_image_url,
+    )
     return _execute_aliyun_visual_generation_task(
         config=config,
         output_dir=output_dir,
@@ -2518,6 +2572,7 @@ def _execute_aliyun_visual_generation_task(
             "task_id": task_id,
             "request_id": request_id,
             "asset_path": str(output_path),
+            "source_url": result_url,
             "blocked_reason": "",
             "failure_reason": "",
             "error_message": "",
@@ -2529,6 +2584,7 @@ def _execute_aliyun_visual_generation_task(
             "task_id": task_id,
             "request_id": request_id,
             "asset_path": None,
+            "source_url": None,
             "blocked_reason": message if exc.status == STATUS_BLOCKED else "",
             "failure_reason": exc.failure_reason or "",
             "error_message": message,
@@ -2956,13 +3012,13 @@ def _build_visual_model_routes(config: dict[str, Any]) -> dict[str, Any]:
         "image_generation": {
             "enabled": _config_flag(config, "image_generation", "enabled", default=True),
             "model": image_model,
-            "role": "首帧 / 背景 / 人像底图补位",
+            "role": "首帧 / 背景 / 人像底图生成",
             "recommended_free_model": DEFAULT_GENERAL_IMAGE_MODEL,
         },
         "general_video_generation": {
             "enabled": _config_flag(config, "video_generation", "enabled", default=True),
             "model": general_video_model,
-            "role": "普通视频主线",
+            "role": "普通视频主线（先图后视频）",
             "recommended_free_model": DEFAULT_GENERAL_VIDEO_MODEL,
         },
         "portrait_detect": {
@@ -3048,7 +3104,12 @@ def _generation_next_action_hint(
             "portrait_video_generation_provider_implementation",
         )
     ):
-        return "当前免费优先模型路线已定：主线先接 wan2.6-image + wan2.6-t2v；若走真人开口，再补 liveportrait-detect + liveportrait。provider implementation 未接通前，不要继续把 preview 当 generation success。"
+        return (
+            "当前默认路线已定：普通视频走 wan2.6-image -> wan2.7-i2v；"
+            "人物图 / 底图默认走 wan2.6-image，必要修图走 qwen-image-edit-plus；"
+            "真人开口继续走 liveportrait-detect -> liveportrait。"
+            "wan2.7-videoedit 只做后期编辑增强，provider implementation 未接通前不要把 preview 当 generation success。"
+        )
     if route_family == TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH and gate["missing_implementations"]:
         return "当前已拆出 doubao openspeech v3 family，但 provider implementation 尚未接入；下一步应补请求体与返回解析。"
     if (

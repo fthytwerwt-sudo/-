@@ -2,49 +2,56 @@
 
 ## 当前主结论
 
-- 2026-04-05 已按“质量基线交付”完成 30 秒 `hybrid` 正式母版成片（本地可复审）。
-- 成片已落到本地路径：
-  - `dist/formal_api_demo_30s_hybrid/final.mp4`
-- 已同步输出回审帧：
-  - `dist/formal_api_demo_30s_hybrid/review_frames/`
-- 本轮成片保持真人承载 + 结构证据混合路线，非样片口径、非纯 PPT。
-
-## 本轮核心判断
-
-- `video_scene`: AI 项目讲解
-- `video_route_strategy`: `hybrid`
-- `primary_value`: 结构
-- `audience_need_first`: 两者都要（先相信 + 先看懂）
-
-## 本轮实际产物（本地）
-
-- `dist/formal_api_demo_30s_hybrid/final.mp4`
-- `dist/formal_api_demo_30s_hybrid/review_frames/`
-- `dist/formal_api_demo_30s_hybrid/review_record.md`
-- `dist/formal_api_demo_30s_hybrid/result_summary.json`
-
-> 以上产物属于 `local_only`，已在 `.gitignore` 中屏蔽，不会上传 GitHub。
+- 2026-04-05 已把《视频工厂》默认普通视频主线从 `wan2.6-t2v` 切到 `wan2.6-image -> wan2.7-i2v`。
+- `facechain-generation` 已不再作为当前仓库的默认人物图 / 人像底图依赖。
+- 真人分支仍保留为：
+  - `liveportrait-detect -> liveportrait`
+- `wan2.7-videoedit` 已明确收口为：
+  - 后期修补 / 编辑增强
+  - 不是主生成模型
 
 ## 本轮关键执行事实
 
-- 真人段与结构证据段均真实生成视频资产，已组成 28.57 秒成片。
-- 阿里百炼 TTS 与视频生成出现 `Arrearage` 拦截，导致本轮后段无法继续新调接口；
-  - 已复用本轮已落地音频与真人小样，避免链路回退成纯 PPT。
-- Swift 本地装配在 `process` 页遇到数组越界，已改用 ffmpeg 拼接 + 字幕烧录，成片稳定落地。
+- 当前代码里命中的旧默认主线主要在：
+  - `formal_api_demo_core.py`
+  - `formal_hybrid_master.py`
+  - `config/formal_api_demo.example.toml`
+  - `codex_source/02_current_execution_context.md`
+  - 相关测试
+- 当前代码里未发现 `facechain-generation` 的直接默认调用路径；
+  - 这次已在正式执行口径中明确写成“不再默认依赖”
+  - 普通人物图 / 底图默认转为 `wan2.6-image`
+  - 需要修图时明确转为 `qwen-image-edit-plus`
+- `wan2.7-i2v` 所需的“先图后视频”链路已补入：
+  - 正式主线 `formal_api_demo_core.py`
+  - hybrid 视觉资产生成 `formal_hybrid_master.py`
 
 ## 本轮实际改动（仓库内）
 
-- 新增 30 秒 hybrid 母版输入：
-  - `cases/formal_api_demo_30s_hybrid.md`
-- 新增/更新正式母版执行脚本与逻辑：
+- 更新默认模型与执行说明：
+  - `formal_api_demo_core.py`
   - `formal_hybrid_master.py`
-  - `scripts/render_formal_api_demo_30s_hybrid.py`
-- 新增测试覆盖：
+  - `config/formal_api_demo.example.toml`
+  - `codex_source/02_current_execution_context.md`
+- 更新测试：
+  - `tests/test_formal_api_demo_pipeline.py`
   - `tests/test_formal_hybrid_master.py`
-- 更新 `.gitignore`：
-  - `dist/formal_api_demo_30s_hybrid/` 标记为 `local_only`
 
-## 下一步建议
+## 本轮实际验证
 
-- 若要把本轮结果作为“仓库正式事实”，需在 `codex/user-readable-map` 回流分支同步。
-- 若要继续提升一致性，建议修复 Swift 装配对 `process` 页芯片数量的约束。
+- 已运行：
+  - `python3 -m unittest tests.test_formal_hybrid_master tests.test_formal_api_demo_pipeline`
+- 结果：
+  - `Ran 35 tests in 2.653s`
+  - `OK`
+
+## 当前同步状态
+
+- 当前工作分支：
+  - `codex/round1`
+- `codex_log/latest.md`：
+  - 已更新
+- 是否已 push：
+  - 待本轮提交后确认
+- 是否已同步回 `codex/user-readable-map`：
+  - 待本轮提交与分支同步后确认

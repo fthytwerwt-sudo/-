@@ -23,7 +23,7 @@ class FormalHybridMasterTests(unittest.TestCase):
         normalized = normalize_generation_models(config)
 
         self.assertEqual(normalized["image_generation"]["model"], "wan2.6-image")
-        self.assertEqual(normalized["video_generation"]["model"], "wan2.6-t2v")
+        self.assertEqual(normalized["video_generation"]["model"], "wan2.7-i2v")
 
     def test_build_hybrid_routing_plan_matches_formal_master_goal(self) -> None:
         plan = build_hybrid_routing_plan()
@@ -91,12 +91,69 @@ class FormalHybridMasterTests(unittest.TestCase):
             with mock.patch("formal_hybrid_master._execute_aliyun_wan_video_generation") as mocked:
                 asset_map = generate_visual_assets(
                     video_spec=video_spec,
-                    config={"video_generation": {"model": "wan2.6-t2v"}},
+                    config={"video_generation": {"model": "wan2.7-i2v"}},
                     output_dir=output_dir,
                 )
 
             mocked.assert_not_called()
             self.assertEqual(asset_map["seg01"]["video"], str(existing_video))
+
+    def test_generate_visual_assets_uses_seed_image_before_i2v(self) -> None:
+        video_spec = {
+            "segments": [
+                {
+                    "segment_id": "seg01",
+                    "timeline": {"planned_duration_seconds": 9.0},
+                }
+            ]
+        }
+
+        with tempfile.TemporaryDirectory(prefix="hybrid_visual_i2v_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir)
+
+            with mock.patch(
+                "formal_hybrid_master._execute_aliyun_wan_image_generation",
+                create=True,
+                return_value={
+                    "status": "success",
+                    "task_id": "img_task_1",
+                    "request_id": "img_req_1",
+                    "asset_path": str(output_dir / "visual" / "seg01_image.png"),
+                    "source_url": "https://dashscope-result.example.com/seg01_image.png",
+                    "blocked_reason": "",
+                    "failure_reason": "",
+                    "error_message": "",
+                },
+            ) as mocked_image, mock.patch(
+                "formal_hybrid_master._execute_aliyun_wan_video_generation",
+                return_value={
+                    "status": "success",
+                    "task_id": "vid_task_1",
+                    "request_id": "vid_req_1",
+                    "asset_path": str(output_dir / "visual" / "seg01_video.mp4"),
+                    "blocked_reason": "",
+                    "failure_reason": "",
+                    "error_message": "",
+                },
+            ) as mocked_video:
+                asset_map = generate_visual_assets(
+                    video_spec=video_spec,
+                    config={
+                        "image_generation": {"model": "wan2.6-image"},
+                        "video_generation": {"model": "wan2.7-i2v"},
+                    },
+                    output_dir=output_dir,
+                )
+
+            mocked_image.assert_called_once()
+            self.assertEqual(
+                mocked_video.call_args.kwargs["seed_image_url"],
+                "https://dashscope-result.example.com/seg01_image.png",
+            )
+            self.assertEqual(
+                asset_map["seg01"]["image"],
+                str(output_dir / "visual" / "seg01_image.png"),
+            )
 
     def test_load_or_generate_voiceover_reuses_existing_audio_bundle(self) -> None:
         video_spec = {

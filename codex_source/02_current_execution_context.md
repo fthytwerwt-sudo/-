@@ -92,15 +92,18 @@
 当前免费优先模型路线也已经明确：
 
 - 通用图像主线：`wan2.6-image`
-- 通用视频主线：`wan2.6-t2v`
+- 通用视频主线：`wan2.6-image -> wan2.7-i2v`
 - 真人开口分支前置检测：`liveportrait-detect`
 - 真人开口生成分支：`liveportrait`
-- `wan2.6-image` 负责首帧 / 背景 / 人像底图补位
-- `wan2.6-t2v` 负责普通视频主线
+- `wan2.6-image` 负责首帧 / 背景 / 人像底图生成
+- 普通人物图 / 人像底图不再默认依赖 `facechain-generation`
+- 需要修图时走：`qwen-image-edit-plus`
+- `wan2.7-i2v` 负责普通视频主线中的图生视频段，默认先吃 `wan2.6-image` 产出的首帧 / 底图
+- `wan2.7-videoedit` 只用于后期修补 / 编辑增强，不是主生成模型
 - `liveportrait` 只用于固定背景 / 人物开口分支，且必须先过 `liveportrait-detect`
 - 当前普通图片 / 视频主线 provider implementation 已接入：
   - `wan2.6-image` 会真实创建阿里异步任务、轮询并下载图片到本地 `dist`
-  - `wan2.6-t2v` 会真实创建阿里异步任务、轮询并下载视频到本地 `dist`
+  - `wan2.7-i2v` 当前默认作为普通视频段的图生视频模型，执行口径改为先图后视频
 - 真人开口分支仍只保留路线与语义：
   - `liveportrait-detect -> liveportrait` 仍未接入真实 provider implementation
   - 当前必须继续诚实 `blocked`
