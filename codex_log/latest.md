@@ -1,57 +1,50 @@
 # Latest
 
-## 当前 motion 排查状态
+## 当前主结论
 
-- 2026-04-04 本轮只排查当前样片“有点卡卡的”来源，并只做最小 assembly 修正。
-- 当前结论：
-  - `motion_fix_passed`
+- 2026-04-05 已按“质量基线交付”完成 30 秒 `hybrid` 正式母版成片（本地可复审）。
+- 成片已落到本地路径：
+  - `dist/formal_api_demo_30s_hybrid/final.mp4`
+- 已同步输出回审帧：
+  - `dist/formal_api_demo_30s_hybrid/review_frames/`
+- 本轮成片保持真人承载 + 结构证据混合路线，非样片口径、非纯 PPT。
 
-## 当前主判断
+## 本轮核心判断
 
-- 当前卡顿感主因：
-  - `assembly_side`
-- 不是 `seg02_video.mp4` 本身只有低帧率。
-- 最直接证据：
-  - `dist/formal_api_demo/visual/seg02_video.mp4` 是 `30 fps`、约 `6.004s`、`180` 个视频时间点。
-  - 修正前 `dist/formal_api_demo/final.mp4` 的 `seg02` 对应窗（`4.0s-10.0s`）只有 `10 fps`、`60` 个时间点。
-  - `config/formal_api_demo.local.toml` 与 `config/formal_api_demo.example.toml` 都已配置 `assembly.fps = 25`，但 [formal_api_demo_core.py](/Users/fan/Documents/视频工厂/formal_api_demo_core.py) 之前把 preview/final manifest 硬编码成了 `10 fps`。
+- `video_scene`: AI 项目讲解
+- `video_route_strategy`: `hybrid`
+- `primary_value`: 结构
+- `audience_need_first`: 两者都要（先相信 + 先看懂）
 
-## 本轮实际改动
+## 本轮实际产物（本地）
 
-- 修改：
-  - [formal_api_demo_core.py](/Users/fan/Documents/视频工厂/formal_api_demo_core.py)
-  - [tests/test_formal_api_demo_pipeline.py](/Users/fan/Documents/视频工厂/tests/test_formal_api_demo_pipeline.py)
-- 新增 / 更新日志：
-  - [codex_log/latest.md](/Users/fan/Documents/视频工厂/codex_log/latest.md)
-  - [codex_log/20260404_motion_issue_assembly_fps_fix.md](/Users/fan/Documents/视频工厂/codex_log/20260404_motion_issue_assembly_fps_fix.md)
+- `dist/formal_api_demo_30s_hybrid/final.mp4`
+- `dist/formal_api_demo_30s_hybrid/review_frames/`
+- `dist/formal_api_demo_30s_hybrid/review_record.md`
+- `dist/formal_api_demo_30s_hybrid/result_summary.json`
 
-## 当前真实产物
+> 以上产物属于 `local_only`，已在 `.gitignore` 中屏蔽，不会上传 GitHub。
 
-- 当前本地成片：
-  - [dist/formal_api_demo/final.mp4](/Users/fan/Documents/视频工厂/dist/formal_api_demo/final.mp4)
-- 当前局部连续帧证据：
-  - 修正前 final `seg02` 连续帧：`dist/formal_api_demo/review_frames/motion_probe/final_seg02_native_*.png`
-  - 修正后 final `seg02` 连续帧：`dist/formal_api_demo/review_frames/motion_probe/final_seg02_native_postfix_*.png`
-  - 源 `seg02` 连续帧：`dist/formal_api_demo/review_frames/motion_probe/seg02_source_native_*.png`
+## 本轮关键执行事实
 
-## 当前修正后结果
+- 真人段与结构证据段均真实生成视频资产，已组成 28.57 秒成片。
+- 阿里百炼 TTS 与视频生成出现 `Arrearage` 拦截，导致本轮后段无法继续新调接口；
+  - 已复用本轮已落地音频与真人小样，避免链路回退成纯 PPT。
+- Swift 本地装配在 `process` 页遇到数组越界，已改用 ffmpeg 拼接 + 字幕烧录，成片稳定落地。
 
-- preview/final manifest 现已走 `assembly.fps = 25`。
-- 修正后 `dist/formal_api_demo/final.mp4` 为 `25 fps`。
-- 修正后 final 中 `seg02` 对应窗为 `150` 个时间点 / `25 fps`，明显高于修正前的 `60` 个时间点 / `10 fps`。
-- 本轮没有改文案、结构或画面内容，只修 assembly 帧率入口。
+## 本轮实际改动（仓库内）
 
-## `.gitignore` 边界
+- 新增 30 秒 hybrid 母版输入：
+  - `cases/formal_api_demo_30s_hybrid.md`
+- 新增/更新正式母版执行脚本与逻辑：
+  - `formal_hybrid_master.py`
+  - `scripts/render_formal_api_demo_30s_hybrid.py`
+- 新增测试覆盖：
+  - `tests/test_formal_hybrid_master.py`
+- 更新 `.gitignore`：
+  - `dist/formal_api_demo_30s_hybrid/` 标记为 `local_only`
 
-- `dist/formal_api_demo/` 仍属于 `.gitignore` / `local_only`。
-- 因此：
-  - 新旧成片与连续帧证据都不会上传到 GitHub
-  - 但本地已生成，可完成当前验收
-  - 当前应优先查看：
-    - `dist/formal_api_demo/final.mp4`
+## 下一步建议
 
-## 当前最关键下一步
-
-- 直接复审新的 [dist/formal_api_demo/final.mp4](/Users/fan/Documents/视频工厂/dist/formal_api_demo/final.mp4)。
-- 若还觉得 `seg02` 仍有轻微发涩，下一轮唯一优先动作是：
-  - 继续做 assembly 侧“源素材直通 / 更接近源帧率采样”，不要回到内容层大修。
+- 若要把本轮结果作为“仓库正式事实”，需在 `codex/user-readable-map` 回流分支同步。
+- 若要继续提升一致性，建议修复 Swift 装配对 `process` 页芯片数量的约束。

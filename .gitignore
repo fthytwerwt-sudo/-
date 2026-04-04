@@ -12,3 +12,4 @@ dist/demo/segment_*
 # Formal API demo local config and generated outputs.
 config/formal_api_demo.local.toml
 dist/formal_api_demo/
+dist/formal_api_demo_30s_hybrid/
