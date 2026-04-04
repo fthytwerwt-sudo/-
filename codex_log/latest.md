@@ -2,56 +2,49 @@
 
 ## 当前主结论
 
-- 2026-04-05 已把《视频工厂》默认普通视频主线从 `wan2.6-t2v` 切到 `wan2.6-image -> wan2.7-i2v`。
-- `facechain-generation` 已不再作为当前仓库的默认人物图 / 人像底图依赖。
-- 真人分支仍保留为：
-  - `liveportrait-detect -> liveportrait`
-- `wan2.7-videoedit` 已明确收口为：
-  - 后期修补 / 编辑增强
-  - 不是主生成模型
+- 2026-04-05 已把“纯 PPT / 信息卡母版优先”正式写入当前执行层口径，当前先用这条线压质量、结构和模板稳定。
+- 数字人 / 真人口播分支继续并行修，但不再作为当前主线 blocker。
+- 当前暂不考虑动态 PPT，不得把“需要动态 PPT”写成当前前置条件。
+- 若后续接阿里云剪，第一轮只服务：
+  - 纯 PPT / 信息卡母版的转场统一
+  - 字幕安全区
+  - 模板化 assembly
+  - 片头 / 正文 / 结尾模板化
+- 第一轮云剪接入明确不是：
+  - 动态 PPT
+  - 复杂 motion design
+  - 高成本视觉特效路线
 
 ## 本轮关键执行事实
 
-- 当前代码里命中的旧默认主线主要在：
-  - `formal_api_demo_core.py`
-  - `formal_hybrid_master.py`
-  - `config/formal_api_demo.example.toml`
+- 本轮只更新执行层口径与执行日志，不做新功能、不接阿里云剪 provider、不改当前成片。
+- 新拍板已正式回写到：
   - `codex_source/02_current_execution_context.md`
-  - 相关测试
-- 当前代码里未发现 `facechain-generation` 的直接默认调用路径；
-  - 这次已在正式执行口径中明确写成“不再默认依赖”
-  - 普通人物图 / 底图默认转为 `wan2.6-image`
-  - 需要修图时明确转为 `qwen-image-edit-plus`
-- `wan2.7-i2v` 所需的“先图后视频”链路已补入：
-  - 正式主线 `formal_api_demo_core.py`
-  - hybrid 视觉资产生成 `formal_hybrid_master.py`
+  - `codex_log/latest.md`
+- 本轮新增完整执行日志：
+  - `codex_log/20260405_cloud_editing_direction_and_ppt_boundary.md`
+- 当前一句话执行边界已收口为：
+  - 当前先用纯 PPT / 信息卡母版压质量，数字人并行修但不阻塞主线，动态 PPT 暂缓，云剪若接入先服务转场统一、字幕安全区与模板化 assembly，而不是复杂动效。
 
 ## 本轮实际改动（仓库内）
 
-- 更新默认模型与执行说明：
-  - `formal_api_demo_core.py`
-  - `formal_hybrid_master.py`
-  - `config/formal_api_demo.example.toml`
+- 更新执行层当前上下文：
   - `codex_source/02_current_execution_context.md`
-- 更新测试：
-  - `tests/test_formal_api_demo_pipeline.py`
-  - `tests/test_formal_hybrid_master.py`
+- 更新最新交接摘要：
+  - `codex_log/latest.md`
+- 新增执行日志：
+  - `codex_log/20260405_cloud_editing_direction_and_ppt_boundary.md`
 
 ## 本轮实际验证
 
-- 已运行：
-  - `python3 -m unittest tests.test_formal_hybrid_master tests.test_formal_api_demo_pipeline`
-- 结果：
-  - `Ran 35 tests in 2.653s`
-  - `OK`
-
-## 当前同步状态
-
-- 当前工作分支：
-  - `codex/round1`
-- `codex_log/latest.md`：
-  - 已更新
-- 是否已 push：
-  - 待本轮提交后确认
-- 是否已同步回 `codex/user-readable-map`：
-  - 待本轮提交与分支同步后确认
+- 已复读命中的规则与边界文件：
+  - `AGENTS.md`
+  - `codex_source/00_codex_readme.md`
+  - `codex_log/latest.md`
+  - `codex_source/01_execution_rules.md`
+  - `codex_source/02_current_execution_context.md`
+  - `codex_source/07_formal_api_demo_target_plan.md`
+  - `codex_source/08_branch_sync_and_reading_branch_rules.md`
+  - `project_source/16_presentation_routing_rules.md`
+- 本轮为文档口径更新；
+  - 以目标文件差异审阅与 `git diff --check` 作为本轮验证
