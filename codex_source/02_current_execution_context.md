@@ -92,33 +92,21 @@
 当前免费优先模型路线也已经明确：
 
 - 通用图像主线：`wan2.6-image`
-- 通用视频主线：`wan2.6-t2v`
+- 通用视频主线：`wan2.6-image -> wan2.7-i2v`
 - 真人开口分支前置检测：`liveportrait-detect`
 - 真人开口生成分支：`liveportrait`
-- `wan2.6-image` 负责首帧 / 背景 / 人像底图补位
-- `wan2.6-t2v` 负责普通视频主线
+- `wan2.6-image` 负责首帧 / 背景 / 人像底图生成
+- 普通人物图 / 人像底图不再默认依赖 `facechain-generation`
+- 需要修图时走：`qwen-image-edit-plus`
+- `wan2.7-i2v` 负责普通视频主线中的图生视频段，默认先吃 `wan2.6-image` 产出的首帧 / 底图
+- `wan2.7-videoedit` 只用于后期修补 / 编辑增强，不是主生成模型
 - `liveportrait` 只用于固定背景 / 人物开口分支，且必须先过 `liveportrait-detect`
 - 当前普通图片 / 视频主线 provider implementation 已接入：
   - `wan2.6-image` 会真实创建阿里异步任务、轮询并下载图片到本地 `dist`
-  - `wan2.6-t2v` 会真实创建阿里异步任务、轮询并下载视频到本地 `dist`
-- 真人开口分支已推进到 provider implementation round1：
-  - 已补 `liveportrait-detect -> liveportrait` 的官方契约核对、create / poll / download / 写回代码路径
-  - 已补 success / fail / timeout / 本地结果缺失测试
-  - 但当前 worktree 缺少 `config/formal_api_demo.local.toml`，尚未完成带真实 API Key 的线上实调
-  - 因此当前正式口径仍不得直接写成真人开口分支 `success`
-
-## 5A. 当前主读取分支与事实回流口径
-
-当前仓库默认主读取分支固定为：
-
-- `codex/user-readable-map`
-
-必须同时明确：
-
-- 任务分支可以存在，也可以先完成实现与验证
-- 但只有当结果已同步回 `codex/user-readable-map`，并且主读取分支上的 `codex_log/latest.md` 已更新后，才算“当前仓库正式状态”
-- 若某项实现只存在于任务分支、尚未回流主读取分支，新会话不得把它当成默认已知事实
-- `codex_log/latest.md` 的接手口径必须以主读取分支版本为准，不得以某个未回流任务分支版本代替
+  - `wan2.7-i2v` 当前默认作为普通视频段的图生视频模型，执行口径改为先图后视频
+- 真人开口分支仍只保留路线与语义：
+  - `liveportrait-detect -> liveportrait` 仍未接入真实 provider implementation
+  - 当前必须继续诚实 `blocked`
 
 ## 6. 当前 demo 身份
 
@@ -274,8 +262,3 @@ Codex 不得擅自拍板：
 ## 11. 当前一句话执行前上下文
 
 当前项目已经从“能不能生成”转到“质量能不能过线、结构能不能稳定、协作能不能复用”；执行层默认按“generation 接 API、assembly 走本地、cloud assembly 暂不当前置”的主路径推进，任何影响执行的新结论和现实偏差都不能只停在聊天里。
-
-补充：
-
-- 当前仓库的正式接手口径默认以 `codex/user-readable-map` 为主读取分支
-- 任务分支结果若未回流到主读取分支，就不能写成仓库当前正式状态

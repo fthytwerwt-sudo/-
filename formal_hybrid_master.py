@@ -16,7 +16,9 @@ from formal_api_demo_core import (
     FORMAL_EXAMPLE_CONFIG_PATH,
     ROOT,
     STATUS_SUCCESS,
+    _execute_aliyun_wan_image_generation,
     _execute_aliyun_wan_video_generation,
+    _video_model_requires_seed_image,
     execute_formal_voiceover_generation,
     load_formal_config,
     parse_formal_case_markdown,
@@ -313,14 +315,19 @@ def generate_visual_assets(
         "schema_version": "formal_hybrid_visual_plan/v1",
         "segments": [],
     }
+    video_model = (
+        config.get("video_generation", {}).get("model") or DEFAULT_GENERAL_VIDEO_MODEL
+    )
+    video_requires_seed_image = _video_model_requires_seed_image(video_model)
 
     for segment in video_spec["segments"]:
         segment_id = segment["segment_id"]
+        existing_image = output_dir / "visual" / f"{segment_id}_image.png"
         existing_video = output_dir / "visual" / f"{segment_id}_video.mp4"
         if existing_video.exists():
             asset_map[segment_id] = {
                 "video": str(existing_video),
-                "image": None,
+                "image": str(existing_image) if existing_image.exists() else None,
             }
             visual_plan["segments"].append(
                 {
@@ -334,6 +341,26 @@ def generate_visual_assets(
             )
             continue
 
+        seed_image_url: str | None = None
+        image_asset_path: str | None = None
+        if video_requires_seed_image:
+            if existing_image.exists():
+                image_asset_path = str(existing_image)
+                seed_image_url = existing_image.resolve().as_uri()
+            else:
+                image_result = _execute_aliyun_wan_image_generation(
+                    config=config,
+                    output_dir=output_dir,
+                    segment_id=segment_id,
+                    prompt=prompts[segment_id],
+                )
+                if image_result.get("status") != STATUS_SUCCESS:
+                    raise RuntimeError(f"{segment_id} 首帧图片生成失败：{image_result}")
+                image_asset_path = image_result["asset_path"]
+                seed_image_url = image_result.get("source_url")
+                if not seed_image_url and image_asset_path:
+                    seed_image_url = pathlib.Path(image_asset_path).resolve().as_uri()
+
         last_error: Exception | None = None
         result: dict[str, Any] | None = None
         for _attempt in range(3):
@@ -344,6 +371,7 @@ def generate_visual_assets(
                     segment_id=segment_id,
                     prompt=prompts[segment_id],
                     duration_seconds=segment["timeline"]["planned_duration_seconds"],
+                    seed_image_url=seed_image_url,
                 )
                 if result.get("status") == STATUS_SUCCESS:
                     break
@@ -361,7 +389,7 @@ def generate_visual_assets(
             raise RuntimeError(f"{segment_id} 视频生成失败：{result}")
         asset_map[segment_id] = {
             "video": result["asset_path"],
-            "image": None,
+            "image": image_asset_path,
         }
         visual_plan["segments"].append(
             {
@@ -370,6 +398,8 @@ def generate_visual_assets(
                 "task_id": result["task_id"],
                 "request_id": result["request_id"],
                 "asset_path": result["asset_path"],
+                "seed_image_path": image_asset_path,
+                "seed_image_url": seed_image_url,
             }
         )
 

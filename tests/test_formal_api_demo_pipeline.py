@@ -16,6 +16,7 @@ from formal_api_demo_core import (
     STATUS_FAILED,
     STATUS_PLANNED,
     STATUS_SUCCESS,
+    _execute_aliyun_wan_video_generation,
     _build_preview_slides,
     parse_formal_case_markdown,
     run_aliyun_tts_style_probe_round2,
@@ -274,6 +275,43 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             self.assertTrue((output_dir / "generation_gate.json").exists())
             self.assertTrue((output_dir / "result_summary.json").exists())
             self.assertIn("api_key", result["current_missing_prerequisites"])
+            manifest = json.loads((output_dir / "manifest.json").read_text(encoding="utf-8"))
+            visual_generation = manifest["generation"]["visual_generation"]
+            self.assertEqual(visual_generation["image_model"], "wan2.6-image")
+            self.assertEqual(visual_generation["video_model"], "wan2.7-i2v")
+
+    def test_execute_aliyun_wan_video_generation_uses_seed_image_for_i2v(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_i2v_payload_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+
+            with mock.patch(
+                "formal_api_demo_core._execute_aliyun_visual_generation_task",
+                return_value={
+                    "status": STATUS_SUCCESS,
+                    "task_id": "vid_task_1",
+                    "request_id": "vid_req_1",
+                    "asset_path": str(output_dir / "visual" / "seg02_video.mp4"),
+                    "blocked_reason": "",
+                    "failure_reason": "",
+                    "error_message": "",
+                },
+            ) as mocked:
+                _execute_aliyun_wan_video_generation(
+                    config={"video_generation": {"model": "wan2.7-i2v"}},
+                    output_dir=output_dir,
+                    segment_id="seg02",
+                    prompt="测试视频提示词",
+                    duration_seconds=6.0,
+                    seed_image_url="https://dashscope-result.example.com/seg02_image.png",
+                )
+
+            payload = mocked.call_args.kwargs["payload"]
+            self.assertEqual(payload["model"], "wan2.7-i2v")
+            self.assertEqual(
+                payload["input"]["img_url"],
+                "https://dashscope-result.example.com/seg02_image.png",
+            )
+            self.assertEqual(payload["input"]["prompt"], "测试视频提示词")
 
     def test_assemble_dry_run_reads_manifest_and_outputs_result_summary(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_assemble_") as temp_dir:
@@ -312,7 +350,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 model="cosyvoice-v3-flash",
                 voice="longanyang",
                 image_model="wan2.6-image",
-                video_model="wan2.6-t2v",
+                video_model="wan2.7-i2v",
             )
 
             def fake_probe(*_args, **kwargs):
@@ -613,7 +651,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 model="cosyvoice-v3-flash",
                 voice="longxiaochun",
                 image_model="wan2.6-image",
-                video_model="wan2.6-t2v",
+                video_model="wan2.7-i2v",
             )
 
             class _JsonResponse:
@@ -844,7 +882,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 model="cosyvoice-v3-flash",
                 voice="longxiaochun",
                 image_model="wan2.6-image",
-                video_model="wan2.6-t2v",
+                video_model="wan2.7-i2v",
                 polling_interval_seconds=0,
                 polling_timeout_seconds=0,
             )
@@ -943,7 +981,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 model="cosyvoice-v3-flash",
                 voice="longxiaochun",
                 image_model="wan2.6-image",
-                video_model="wan2.6-t2v",
+                video_model="wan2.7-i2v",
             )
 
             tts_counter = 0
@@ -1041,7 +1079,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 model="cosyvoice-v3-flash",
                 voice="longxiaochun",
                 image_model="wan2.6-image",
-                video_model="wan2.6-t2v",
+                video_model="wan2.7-i2v",
             )
 
             tts_counter = 0
@@ -1187,7 +1225,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 model="cosyvoice-v3-flash",
                 voice="longxiaochun",
                 image_model="wan2.6-image",
-                video_model="wan2.6-t2v",
+                video_model="wan2.7-i2v",
                 portrait_detect_enabled=True,
                 portrait_video_generation_enabled=True,
             )
