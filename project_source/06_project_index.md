@@ -128,6 +128,14 @@
   - PPT / 真人 / 录屏 / 案例图 / 混合该怎么按 block 判断
   - 回退、回审和阶段边界怎么写死
 
+### `project_source/17_white_collar_ppt_style_rules.md`
+
+- 解决什么问题：
+  - 当前纯 PPT / 信息卡母版默认该呈现什么气质
+  - 默认视觉、文案、字幕、转场和页面结构该怎么落
+  - 哪些低质信号当前必须明确禁止
+  - “白领风是否成立”回审时该怎么看
+
 ## 3. 建议阅读顺序
 
 建议的标准阅读顺序：
@@ -139,10 +147,11 @@
 5. `project_source/02_scene_mode_templates.md`
 6. `project_source/05_psychology_execution_rules.md`
 7. `project_source/16_presentation_routing_rules.md`
-8. `project_source/04_review_templates.md`
-9. `project_source/10_video_review_record_template.md`
-10. `project_source/03_perplexity_prompt_library.md`
-11. `project_source/07_user_readable_repo_map.md`
+8. `project_source/17_white_collar_ppt_style_rules.md`
+9. `project_source/04_review_templates.md`
+10. `project_source/10_video_review_record_template.md`
+11. `project_source/03_perplexity_prompt_library.md`
+12. `project_source/07_user_readable_repo_map.md`
 
 原因：
 
@@ -150,7 +159,7 @@
 - 再看质量基线总口径
 - 再看项目定义与阶段
 - 再看系统理解框架
-- 再看场景、心理机制与展示路由
+- 再看场景、心理机制、展示路由与纯 PPT 默认风格
 - 再看回审模板与回审记录
 - 最后看用户视角地图
 
@@ -170,10 +179,11 @@
 5. `project_source/02_scene_mode_templates.md`
 6. `project_source/05_psychology_execution_rules.md`
 7. `project_source/16_presentation_routing_rules.md`
-8. `project_source/04_review_templates.md`
-9. `project_source/10_video_review_record_template.md`
-10. `project_source/03_perplexity_prompt_library.md`
-11. `project_source/07_user_readable_repo_map.md`
+8. `project_source/17_white_collar_ppt_style_rules.md`
+9. `project_source/04_review_templates.md`
+10. `project_source/10_video_review_record_template.md`
+11. `project_source/03_perplexity_prompt_library.md`
+12. `project_source/07_user_readable_repo_map.md`
 
 ### 如果当前任务命中“质量标准 / demo 身份 / 火山引擎 TTS 优先级”
 
@@ -202,6 +212,16 @@
 2. `project_source/05_psychology_execution_rules.md`
 3. `project_source/16_presentation_routing_rules.md`
 4. `project_source/04_review_templates.md`
+
+### 如果当前任务是“纯 PPT 母版风格 / 信息卡视觉气质 / 字幕与转场克制规则”
+
+优先读：
+
+1. `project_source/17_white_collar_ppt_style_rules.md`
+2. `project_source/16_presentation_routing_rules.md`
+3. `project_source/05_psychology_execution_rules.md`
+4. `project_source/04_review_templates.md`
+5. `project_source/08_quality_baseline_and_90_score_rules.md`
 
 ### 如果当前任务是“先做外部调研”
 
@@ -247,6 +267,12 @@
 看：
 
 - `project_source/16_presentation_routing_rules.md`
+
+### 想确认当前纯 PPT 母版该做成什么气质、避开什么低质信号
+
+看：
+
+- `project_source/17_white_collar_ppt_style_rules.md`
 
 ### 想去 Perplexity 查资料、拿首稿、找表达参考
 
@@ -299,6 +325,7 @@
 - 回审记录模板
 - 阶段与回审循环治理
 - 心理机制规则
+- 白领向纯 PPT 母版风格规则
 - 四方协作分工
 
 ### 后续会在执行层另建的内容
@@ -316,4 +343,4 @@
 
 如果你只记一句话：
 
-`project_source/` 负责“这个项目是什么、质量怎么判断、展示路由怎么选、优先级怎么定”，而 `codex_source/` 负责“具体怎么执行、怎么落地、怎么交付”；当前命中展示路由任务时，必须补读 `project_source/16_presentation_routing_rules.md`。
+`project_source/` 负责“这个项目是什么、质量怎么判断、展示路由怎么选、优先级怎么定”，而 `codex_source/` 负责“具体怎么执行、怎么落地、怎么交付”；当前命中展示路由任务时补读 `project_source/16_presentation_routing_rules.md`，命中纯 PPT 母版风格任务时补读 `project_source/17_white_collar_ppt_style_rules.md`。
