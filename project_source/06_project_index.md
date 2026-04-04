@@ -103,6 +103,13 @@
   - 统一 demo 身份、质量基线、“抖音 90 分标准”和当前第一优先增强路线
   - 为 GPT 侧所有质量判断提供统一母版
 
+### `project_source/10_formal_api_demo_current_route_patch_20260402.md`
+
+- 解决什么问题：
+  - 当前 `formal_api_demo` / 纯 PPT 主线默认 assembly 路径是什么
+  - `OSS + 云剪` 与 `local assembly fallback` 的分工是什么
+  - 哪些旧的“local default / cloud optional”口径已经失效
+
 ### `project_source/10_video_review_record_template.md`
 
 - 解决什么问题：
@@ -223,6 +230,15 @@
 4. `project_source/04_review_templates.md`
 5. `project_source/08_quality_baseline_and_90_score_rules.md`
 
+### 如果当前任务是“纯 PPT 主线 assembly 默认走哪条 / OSS 与云剪现在算什么”
+
+优先读：
+
+1. `project_source/10_formal_api_demo_current_route_patch_20260402.md`
+2. `project_source/01_project_system_prompt.md`
+3. `project_source/08_quality_baseline_and_90_score_rules.md`
+4. `project_source/17_white_collar_ppt_style_rules.md`
+
 ### 如果当前任务是“先做外部调研”
 
 优先读：
@@ -300,6 +316,12 @@
 
 - `project_source/08_quality_baseline_and_90_score_rules.md`
 
+### 想确认纯 PPT 主线现在默认走云剪还是本地兜底
+
+看：
+
+- `project_source/10_formal_api_demo_current_route_patch_20260402.md`
+
 ### 想知道整套项目脑文件怎么配合
 
 看：
@@ -316,6 +338,7 @@
 - 质量基线
 - “抖音 90 分标准”的解释口径
 - 火山引擎 TTS 的当前优先级
+- 纯 PPT 主线的 assembly 默认路线
 - 内容边界
 - 场景模式
 - 结构原则
@@ -343,4 +366,4 @@
 
 如果你只记一句话：
 
-`project_source/` 负责“这个项目是什么、质量怎么判断、展示路由怎么选、优先级怎么定”，而 `codex_source/` 负责“具体怎么执行、怎么落地、怎么交付”；当前命中展示路由任务时补读 `project_source/16_presentation_routing_rules.md`，命中纯 PPT 母版风格任务时补读 `project_source/17_white_collar_ppt_style_rules.md`。
+`project_source/` 负责“这个项目是什么、质量怎么判断、展示路由怎么选、优先级怎么定”，而 `codex_source/` 负责“具体怎么执行、怎么落地、怎么交付”；当前命中展示路由任务时补读 `project_source/16_presentation_routing_rules.md`，命中纯 PPT 母版风格任务时补读 `project_source/17_white_collar_ppt_style_rules.md`，命中纯 PPT 主线 assembly 路径任务时补读 `project_source/10_formal_api_demo_current_route_patch_20260402.md`。

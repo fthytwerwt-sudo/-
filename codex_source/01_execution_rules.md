@@ -550,13 +550,15 @@ skill 检查在当前仓库中是硬规则。
   - 脚本
   - 配音 API
   - 图片 / 视频生成 API
-  - 本地 assembly
-  - 本地 mp4
+  - 纯 PPT / 信息卡母版
+  - OSS + 云剪 assembly
+  - 成片导出
   - 人工上传
 - 当前主路径补充口径：
   - generation 层继续接 API
-  - assembly 层当前默认走本地
-  - cloud assembly 属于后续增强项，不是当前硬前置
+  - 纯 PPT / 信息卡主线默认走 OSS + 云剪
+  - local assembly 只保留 fallback / 兜底
+  - 动态 PPT 仍暂不考虑
 - 当前 demo 输入锚点：`cases/demo.md`
 - 当前 demo 约束：
   - 中文

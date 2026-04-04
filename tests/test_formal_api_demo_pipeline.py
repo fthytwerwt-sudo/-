@@ -58,8 +58,8 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
         portrait_detect_model: str = "liveportrait-detect",
         portrait_video_generation_enabled: bool = False,
         portrait_video_model: str = "liveportrait",
-        template_id: str = "",
-        space_name: str = "",
+        template_id: str = "template_test_primary",
+        space_name: str = "space_test_primary",
         polling_interval_seconds: int = 5,
         polling_timeout_seconds: int = 600,
     ) -> None:
@@ -111,6 +111,9 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                     "",
                     "[storage]",
                     f'space_name = "{space_name}"',
+                    "",
+                    "[quality_gate]",
+                    "allow_local_fallback = true",
                     "",
                     "[polling]",
                     f"interval_seconds = {polling_interval_seconds}",
@@ -414,6 +417,8 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             self.assertEqual(result["local_assembly_status"], STATUS_SUCCESS)
             self.assertEqual(result["cloud_assembly_status"], STATUS_BLOCKED)
             self.assertEqual(result["assembly_preview_status"], STATUS_SUCCESS)
+            self.assertEqual(result["delivery_mode"], "local_mp4_fallback")
+            self.assertTrue(result["local_fallback_used"])
             self.assertIn("visual_assets_not_ready", result["current_missing_prerequisites"])
             self.assertTrue((output_dir / "final.mp4").exists())
             self.assertEqual(result["artifact_paths"]["final_video"], str(output_dir / "final.mp4"))
@@ -527,7 +532,10 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             self.assertEqual(result["generation_status"], STATUS_SUCCESS)
             self.assertEqual(result["assembly_status"], STATUS_SUCCESS)
             self.assertEqual(result["local_assembly_status"], STATUS_SUCCESS)
+            self.assertEqual(result["cloud_assembly_status"], STATUS_BLOCKED)
             self.assertEqual(result["assembly_preview_status"], STATUS_SUCCESS)
+            self.assertEqual(result["delivery_mode"], "local_mp4_fallback")
+            self.assertTrue(result["local_fallback_used"])
             self.assertEqual(result["current_missing_implementations"], [])
             self.assertTrue((output_dir / "final.mp4").exists())
             self.assertEqual(result["artifact_paths"]["final_video"], str(output_dir / "final.mp4"))

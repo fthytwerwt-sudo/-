@@ -65,6 +65,10 @@
 - 数字人 / 真人口播分支继续并行修
 - 但数字人分支当前不再作为纯 PPT / 信息卡母版推进的 blocker
 - 不得把数字人问题继续写成纯 PPT / 信息卡母版的前置阻塞
+- OSS 已具备
+- 阿里云剪已具备
+- 当前纯 PPT / 信息卡主线默认 assembly 路径升级为 `OSS + 云剪`
+- `local assembly` 只保留为 fallback / 兜底路径
 
 ## 3B. 当前纯 PPT 母版默认风格口径
 
@@ -88,10 +92,9 @@
 - 大而全平台化
 - 以前端工作台为优先的路线
 - 把平台发布 API 写成当前前置依赖
-- 把 cloud assembly 写成当前主线硬阻塞
 - 当前暂不考虑动态 PPT
 - 不得把“需要动态 PPT”写成当前前置条件
-- 若后续接阿里云剪，第一轮不得以动态 PPT 为目标
+- 若当前纯 PPT 主线走云剪，第一轮不得以动态 PPT 为目标
 - 不以复杂 motion design / 高成本视觉特效为当前路线
 
 这些方向不是永久不做，而是当前不允许抢走视频主线。
@@ -100,20 +103,20 @@
 
 当前执行层默认采用的正式主路径是：
 
-`文本需求 → 脚本 → 配音 API → 图片 / 视频生成 API → 纯 PPT / 信息卡母版 → 本地 assembly → 本地 mp4 → 人工上传`
+`文本需求 → 脚本 → 配音 API → 图片 / 视频生成 API → 纯 PPT / 信息卡母版 → OSS + 云剪 assembly → 成片导出 → 人工上传`
 
 执行含义必须写清：
 
 - 当前内容主承载优先走纯 PPT / 信息卡母版
 - generation 层继续接 API
-- assembly 层当前默认走本地
-- cloud assembly / 云剪属于后续增强项，不是当前硬前置
-- 当前允许本地生成 + 人工上传
+- 纯 PPT / 信息卡主线默认 assembly 路径改为 `OSS + 云剪`
+- `local assembly` 仅用于 fallback / 兜底，不再是默认主路径
+- 当前允许云端组装后人工上传；必要时本地 fallback 后人工上传
 - 数字人 / 真人口播分支继续并行修，但默认不阻塞纯 PPT / 信息卡母版推进
 - 当前不把“只差平台 API”当项目成立前提
 - 当前不把动态 PPT 写成现阶段正式主路径
 - visual plan / preview 只能算辅助产物，不得写成 generation success
-- local assembly 只负责拼接真实生成素材，不得替代图片 / 视频生成本身
+- local assembly fallback 只负责在云剪失败、模板异常、上传异常或任务超时时兜底，不得再写成默认主交付路径
 
 当前免费优先模型路线也已经明确：
 
@@ -134,9 +137,9 @@
   - `liveportrait-detect -> liveportrait` 仍未接入真实 provider implementation
   - 当前必须继续诚实 `blocked`
 
-## 5A. 若后续接阿里云剪的第一轮目标
+## 5A. 当前纯 PPT 主线下的云剪第一轮目标
 
-以下内容是第一轮接入目标，不是当前仓库已跑通事实：
+以下内容是当前第一轮云剪目标，不等于已经扩到动态 PPT：
 
 - 纯 PPT / 信息卡母版的转场统一
 - 字幕安全区
@@ -199,6 +202,7 @@
 9. 若涉及执行现实偏差 / 原方案失效 / 资源权限环境问题，再读 `codex_source/05_execution_deviation_and_reality_sync.md`
 10. 再补读与当前任务直接相关的 `project_source/*`、代码、测试与产物
 11. 若涉及纯 PPT 母版风格、信息卡视觉、转场、字幕安全区或默认母版结构，再读 `project_source/17_white_collar_ppt_style_rules.md`
+12. 若涉及纯 PPT 主线默认 assembly 路径、OSS、云剪或 local fallback，再读 `project_source/10_formal_api_demo_current_route_patch_20260402.md`
 
 ## 8A. 当前主读取分支与正式状态
 
@@ -293,7 +297,7 @@ Codex 不得擅自拍板：
 
 - 是否改项目主线
 - 是否扩到直播 / 商业化 / 获客 / 平台化
-- 是否把 cloud assembly 升回当前主线
+- 是否把 `local assembly` 再写回默认主路径
 - 是否把数字人问题继续写成纯 PPT / 信息卡母版的前置阻塞
 - 是否把动态 PPT 提前升格为当前目标
 - 是否把云剪第一轮误写成动态 PPT / 复杂动效项目
@@ -304,4 +308,4 @@ Codex 不得擅自拍板：
 
 ## 11. 当前一句话执行前上下文
 
-当前先用纯 PPT / 信息卡母版按“白领咨询报告感 / 体面专业感 / 信息高效感”压质量，数字人并行修但不阻塞主线，动态 PPT 暂缓，云剪若接入先服务转场统一、字幕安全区与模板化 assembly，而不是复杂动效。
+当前先用纯 PPT / 信息卡母版按“白领咨询报告感 / 体面专业感 / 信息高效感”压质量，默认走 `OSS + 云剪` 组装、本地 assembly 只作 fallback，数字人并行修但不阻塞主线，动态 PPT 暂缓，云剪第一轮只服务转场统一、字幕安全区与模板化 assembly。

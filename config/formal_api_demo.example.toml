@@ -124,7 +124,7 @@ enabled = true
 # 当前正式 generation 主链仍包含视频生成 API：
 # - 建议继续接入，不要把 video_generation.model 当成可删除摆设
 # - 缺失该字段时，generation 不应写成 success
-# - 当前默认交付改为本地 assembly，不代表视频 API 暂时不接
+# - 当前纯 PPT / 信息卡主线默认走 OSS + 云剪组装，不代表视频 API 暂时不接
 # 免费优先主线默认模型：
 # - 普通视频主线改为 wan2.6-image -> wan2.7-i2v
 # - wan2.7-videoedit 只用于后期修补 / 编辑增强，不是主生成模型
@@ -147,19 +147,20 @@ model = "liveportrait"
 
 [assembly]
 mode = "cloud"
-# 当前阶段默认交付件是本地 mp4：
-# - local assembly / 本地 mp4 / 人工上传 是当前默认交付路径
-# - template_id 属于后续 cloud assembly 增强项
-# - 未配置 template_id 不阻断当前阶段本地出片
+# 当前纯 PPT / 信息卡主线默认组装路径已经升级为 OSS + 云剪：
+# - template_id 是当前默认主路径前提，不再是 optional 增强项
+# - local assembly 仅用于云剪失败、模板异常、上传异常或任务超时后的 fallback / 兜底
+# - 当前升级只适用于纯 PPT / 信息卡主线，不扩到动态 PPT 或复杂动效
 template_id = "SET_IN_LOCAL_FILE"
 subtitle_mode = "burn_in"
 resolution = "1080x1920"
 fps = 25
 
 [storage]
-# 当前阶段默认走本地 assembly：
-# - space_name 属于后续 cloud assembly / 存储增强项
-# - 未配置 space_name 不阻断当前阶段本地出片
+# OSS 已进入当前默认主路径：
+# - space_name 是当前默认组装主路径前提，不再写成后续增强项
+# - upload_prefix 用于纯 PPT / 信息卡母版的默认云端组装资源前缀
+# - 本地 assembly 不删除，但只保留 fallback 语义
 space_name = "SET_IN_LOCAL_FILE"
 upload_prefix = "formal_api_demo/"
 
@@ -171,7 +172,10 @@ interval_seconds = 5
 timeout_seconds = 600
 
 [quality_gate]
-allow_local_fallback = false
+# 当前纯 PPT / 信息卡主线默认走 OSS + 云剪：
+# - 仅在云剪失败、模板异常、上传异常或任务超时时，允许回退本地 assembly
+# - 不得再把 local assembly 写成默认主路径
+allow_local_fallback = true
 require_hook = true
 min_segments = 3
 require_manifest_schema = true
