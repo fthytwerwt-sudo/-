@@ -20,7 +20,7 @@ from formal_api_demo_core import (  # noqa: E402
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="正式版 API 视频 demo 组装入口。当前纯 PPT / 信息卡主线默认走 OSS + 云剪；local assembly 仅作为 fallback / 兜底路径，不再是默认主交付。"
+        description="正式版 API 视频 demo 组装入口。当前纯 PPT / 信息卡主线已改为北京区 OSS + 云剪 cloud-only；缺密钥、缺云端参数或缺 provider implementation 时必须如实 blocked。"
     )
     parser.add_argument(
         "--manifest",

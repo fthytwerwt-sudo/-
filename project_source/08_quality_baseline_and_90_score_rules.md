@@ -94,15 +94,9 @@
 
 - OSS 已具备
 - 阿里云剪已具备
-- `OSS + 云剪 = 默认 assembly 主路径`
-- `local assembly = fallback / 兜底`
-
-当前 fallback 只允许用于以下情况：
-
-- 云剪失败
-- 模板异常
-- 上传异常
-- 任务超时
+- `北京区 OSS + 云剪工程 = 唯一 assembly 主路径`
+- `local assembly` 已退出 pure PPT / 信息卡主线，不再作为 fallback / 兜底 / 应急主交付
+- 若缺密钥、缺云端参数或缺 provider implementation，必须如实标记为 `待注入` / `待验证`
 
 必须同时明确：
 
@@ -147,4 +141,4 @@
 
 ## 7. 当前一句话规则
 
-当前不是拿旧 demo 定质量标准；纯 PPT / 信息卡主线默认先走 `OSS + 云剪` 组装，本地 assembly 只作 fallback；一旦达到 90 分 / `quality_passed` / 可发布测试线，就必须把当前可见样片明确交付给用户，默认先交 `dist/formal_api_demo/final.mp4`。
+当前不是拿旧 demo 定质量标准；纯 PPT / 信息卡主线统一走北京区 `OSS + 云剪工程` 组装，本地 assembly 不再作为 fallback；一旦达到 90 分 / `quality_passed` / 可发布测试线，就必须把当前可见样片明确交付给用户，默认先交 `dist/formal_api_demo/final.mp4`。

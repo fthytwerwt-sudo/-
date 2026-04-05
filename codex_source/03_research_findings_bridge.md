@@ -173,17 +173,45 @@
 ### BRIDGE-20260405-01
 
 - 来源类型：`用户新拍板`
+- 状态：`已被 BRIDGE-20260405-02 覆盖`
+- 结论摘要：该条记录反映的是 2026-04-05 上半轮的旧升级口径：主线已切到 OSS + 云剪优先，但仍保留 local fallback。
+- 对项目的影响：仅保留为过渡历史记录，不再作为当前正式执行事实。
+- 原计划需要改哪里：当前执行前上下文、项目脑与代码主线必须继续收口到 cloud-only。
+- 本轮执行必须遵守项：不得再把该条记录误读为“local fallback 仍然合法”。
+- 暂未确认项：无；当前正式口径已由 BRIDGE-20260405-02 接管。
+- 建议落点文件：
+  - `codex_source/02_current_execution_context.md`
+  - `codex_log/latest.md`
+
+### BRIDGE-20260405-02
+
+- 来源类型：`用户新拍板`
 - 状态：`已采用`
-- 结论摘要：OSS 与阿里云剪已具备；纯 PPT / 信息卡主线默认 assembly 路径升级为“OSS + 云剪”，`local assembly` 只保留为 fallback / 兜底。
-- 对项目的影响：执行层、项目脑、配置示例、组装脚本和状态语义不再允许把 `local assembly` 写成默认主路径，也不再允许把 `space_name` / `template_id` 写成 optional。
-- 原计划需要改哪里：当前执行前上下文、项目脑总述、formal_api_demo 当前路线补丁、config example、assembly 脚本说明、assembly gate 与 result summary 语义都必须同步改口。
-- 本轮执行必须遵守项：这次升级仅适用于纯 PPT / 信息卡主线；动态 PPT 仍暂不考虑；数字人继续并行修但不阻塞主线；云剪第一轮仍只服务转场统一、字幕安全区与模板化 assembly。
-- 暂未确认项：正式云端组装 provider implementation 的具体接入细节，若代码层仍缺实现，必须诚实保留 fallback 与未实现提示。
+- 结论摘要：pure PPT / 信息卡主线从 cloud-first 正式升级为 cloud-only；北京区 OSS + 云剪工程成为唯一 assembly 主路径，`local assembly` 不再保留为 fallback / 兜底 / 应急正常交付。
+- 对项目的影响：执行层、项目脑、配置示例、组装脚本、assembly gate、result summary 和测试都必须同步移除 `local fallback` 合法性；缺密钥、缺云端参数或缺 provider implementation 时，必须如实标记 `待注入` / `待验证`，不得再用本地 mp4 补位。
+- 原计划需要改哪里：当前执行前上下文、formal_api_demo 路线补丁、config example、assembly 主线代码、测试断言、latest log 与执行日志都必须同步改口，并把北京区 OSS / IMS / 云剪工程状态包桥接回仓库。
+- 本轮执行必须遵守项：这次升级只适用于纯 PPT / 信息卡主线；动态 PPT 仍暂不考虑；数字人继续并行修但不阻塞主线；云剪第一轮仍只服务转场统一、字幕安全区与模板化 assembly。
+- 暂未确认项：AccessKey / Secret 仅保存在用户本地，尚未进入 repo；正式云端导出仍待本地注入密钥后验证；provider assembly implementation 当前仍未真实跑通。
 - 建议落点文件：
   - `codex_source/02_current_execution_context.md`
   - `project_source/10_formal_api_demo_current_route_patch_20260402.md`
   - `formal_api_demo_core.py`
   - `config/formal_api_demo.example.toml`
+  - `tests/test_formal_api_demo_pipeline.py`
+  - `codex_log/latest.md`
+
+### BRIDGE-20260405-03
+
+- 来源类型：`执行偏差升级`
+- 状态：`已采用`
+- 结论摘要：北京区 OSS / IMS / 云剪工程的外部状态包已确认：bucket=`zvip1-video-beijing`、region=`cn-beijing`、endpoint=`oss-cn-beijing.aliyuncs.com`、bucket_domain=`zvip1-video-beijing.oss-cn-beijing.aliyuncs.com`、ACL=`private`、RAM 用户=`video-factory-oss-1`、IMS storage=`zvip1-video-beijing.oss-cn-beijing.aliyuncs.com`、云剪工程=`video-factory-ppt-master-v1`、状态=`草稿`、编辑器可打开。
+- 对项目的影响：repo 可以直接写入非密钥的北京区 OSS / IMS / 云剪工程参数；用户本地只需要补 AccessKey / Secret 即可继续推进真实云端导出验证。
+- 原计划需要改哪里：config example、current execution context、latest log 与 formal_api_demo 路线补丁必须写清这些字段已确认，且不能再继续使用 `space_name` / `template_id` 旧占位。
+- 本轮执行必须遵守项：AccessKey / Secret 不得写入 repo；当前真实边界必须保留为“待本地注入密钥后验证真实云端导出”。
+- 暂未确认项：真实云端导出成片成功回执、任务 ID、资源 ID、output ID 仍待本地注入密钥后验证。
+- 建议落点文件：
+  - `config/formal_api_demo.example.toml`
+  - `codex_source/02_current_execution_context.md`
   - `codex_log/latest.md`
 
 ## 8. 一句话规则

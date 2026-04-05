@@ -556,8 +556,8 @@ skill 检查在当前仓库中是硬规则。
   - 人工上传
 - 当前主路径补充口径：
   - generation 层继续接 API
-  - 纯 PPT / 信息卡主线默认走 OSS + 云剪
-  - local assembly 只保留 fallback / 兜底
+  - 纯 PPT / 信息卡主线统一走北京区 OSS + 云剪工程
+  - local assembly 已移出 pure PPT / 信息卡主线，不再作为 fallback / 兜底 / 应急正常交付
   - 动态 PPT 仍暂不考虑
 - 当前 demo 输入锚点：`cases/demo.md`
 - 当前 demo 约束：

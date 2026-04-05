@@ -14,6 +14,7 @@ from formal_api_demo_core import (
     FORMAL_EXAMPLE_CONFIG_PATH,
     STATUS_BLOCKED,
     STATUS_FAILED,
+    STATUS_NOT_STARTED,
     STATUS_PLANNED,
     STATUS_SUCCESS,
     _execute_aliyun_wan_video_generation,
@@ -58,8 +59,18 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
         portrait_detect_model: str = "liveportrait-detect",
         portrait_video_generation_enabled: bool = False,
         portrait_video_model: str = "liveportrait",
-        template_id: str = "template_test_primary",
-        space_name: str = "space_test_primary",
+        oss_bucket: str = "zvip1-video-beijing",
+        oss_region: str = "cn-beijing",
+        oss_endpoint: str = "oss-cn-beijing.aliyuncs.com",
+        oss_bucket_domain: str = "zvip1-video-beijing.oss-cn-beijing.aliyuncs.com",
+        oss_access_key_id: str = "ak_test_primary",
+        oss_access_key_secret: str = "sk_test_primary",
+        oss_prefix_raw: str = "video-factory/raw/",
+        oss_prefix_final: str = "video-factory/final/",
+        oss_prefix_temp: str = "video-factory/temp/",
+        ims_region: str = "cn-beijing",
+        ims_storage_address: str = "zvip1-video-beijing.oss-cn-beijing.aliyuncs.com",
+        ims_cloud_project_name: str = "video-factory-ppt-master-v1",
         polling_interval_seconds: int = 5,
         polling_timeout_seconds: int = 600,
     ) -> None:
@@ -103,17 +114,26 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                     f'model = "{portrait_video_model}"',
                     "",
                     "[assembly]",
-                    'mode = "cloud"',
-                    f'template_id = "{template_id}"',
+                    'mode = "cloud_only"',
                     'subtitle_mode = "burn_in"',
                     'resolution = "1080x1920"',
                     "fps = 25",
                     "",
-                    "[storage]",
-                    f'space_name = "{space_name}"',
+                    "[aliyun_oss]",
+                    f'bucket = "{oss_bucket}"',
+                    f'region = "{oss_region}"',
+                    f'endpoint = "{oss_endpoint}"',
+                    f'bucket_domain = "{oss_bucket_domain}"',
+                    f'access_key_id = "{oss_access_key_id}"',
+                    f'access_key_secret = "{oss_access_key_secret}"',
+                    f'prefix_raw = "{oss_prefix_raw}"',
+                    f'prefix_final = "{oss_prefix_final}"',
+                    f'prefix_temp = "{oss_prefix_temp}"',
                     "",
-                    "[quality_gate]",
-                    "allow_local_fallback = true",
+                    "[aliyun_ims]",
+                    f'region = "{ims_region}"',
+                    f'storage_address = "{ims_storage_address}"',
+                    f'cloud_project_name = "{ims_cloud_project_name}"',
                     "",
                     "[polling]",
                     f"interval_seconds = {polling_interval_seconds}",
@@ -316,7 +336,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             )
             self.assertEqual(payload["input"]["prompt"], "测试视频提示词")
 
-    def test_assemble_dry_run_reads_manifest_and_outputs_result_summary(self) -> None:
+    def test_assemble_dry_run_surfaces_cloud_only_prerequisites(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_assemble_") as temp_dir:
             output_dir = pathlib.Path(temp_dir) / "dist"
             run_generation_pipeline(
@@ -340,8 +360,11 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             self.assertTrue((output_dir / "assembly_gate.json").exists())
             self.assertTrue((output_dir / "assembly_plan.json").exists())
             self.assertTrue((output_dir / "result_summary.json").exists())
+            assembly_gate = json.loads((output_dir / "assembly_gate.json").read_text(encoding="utf-8"))
+            self.assertIn("aliyun_oss_access_key_id", assembly_gate["missing_prerequisites"])
+            self.assertIn("aliyun_oss_access_key_secret", assembly_gate["missing_prerequisites"])
 
-    def test_assemble_non_dry_run_keeps_local_delivery_when_generation_is_still_blocked(self) -> None:
+    def test_assemble_non_dry_run_blocks_when_generation_is_still_blocked(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_assemble_preview_") as temp_dir:
             output_dir = pathlib.Path(temp_dir) / "dist"
             local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
@@ -387,15 +410,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                     dry_run=False,
                 )
 
-            def fake_run_subprocess(args):
-                if args and args[0] == "swift":
-                    manifest_path = pathlib.Path(args[-1])
-                    payload = json.loads(manifest_path.read_text(encoding="utf-8"))
-                    pathlib.Path(payload["outputPath"]).write_bytes(b"fake-preview-mp4")
-                    return
-                raise AssertionError(f"unexpected subprocess args: {args}")
-
-            with mock.patch("formal_api_demo_core.run_subprocess", side_effect=fake_run_subprocess):
+            with mock.patch("formal_api_demo_core.run_subprocess") as mocked_run_subprocess:
                 result = run_assembly_pipeline(
                     manifest_path=output_dir / "manifest.json",
                     example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
@@ -404,39 +419,21 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                     dry_run=False,
                 )
 
-            preview_manifest = json.loads(
-                (output_dir / "assembly" / "preview_manifest.json").read_text(encoding="utf-8")
-            )
-            first_slide = preview_manifest["slides"][0]
-            second_slide = preview_manifest["slides"][1]
-            final_slide = preview_manifest["slides"][2]
-
             self.assertEqual(result["overall_status"], STATUS_BLOCKED)
             self.assertEqual(result["generation_status"], STATUS_BLOCKED)
-            self.assertEqual(result["assembly_status"], STATUS_SUCCESS)
-            self.assertEqual(result["local_assembly_status"], STATUS_SUCCESS)
+            self.assertEqual(result["assembly_status"], STATUS_BLOCKED)
+            self.assertEqual(result["local_assembly_status"], STATUS_NOT_STARTED)
             self.assertEqual(result["cloud_assembly_status"], STATUS_BLOCKED)
-            self.assertEqual(result["assembly_preview_status"], STATUS_SUCCESS)
-            self.assertEqual(result["delivery_mode"], "local_mp4_fallback")
-            self.assertTrue(result["local_fallback_used"])
+            self.assertEqual(result["assembly_preview_status"], STATUS_NOT_STARTED)
+            self.assertEqual(result["delivery_mode"], "oss_cloud_assembly")
+            self.assertNotIn("local_fallback_used", result)
             self.assertIn("visual_assets_not_ready", result["current_missing_prerequisites"])
-            self.assertTrue((output_dir / "final.mp4").exists())
-            self.assertEqual(result["artifact_paths"]["final_video"], str(output_dir / "final.mp4"))
-            self.assertTrue((output_dir / "assembly" / "formal_api_demo_preview.mp4").exists())
-            self.assertEqual(preview_manifest["fps"], 25)
-            self.assertEqual(first_slide["role"], "hook")
-            self.assertEqual(first_slide["headline"], "AI 项目卡住，不是没思路，是流程还没拉齐。")
-            self.assertEqual(second_slide["role"], "process")
-            self.assertEqual(second_slide["headline"], "一进 SOP 表，后面这条链就能接手了。")
-            self.assertEqual(second_slide["chips"], ["目标", "输入", "输出"])
-            self.assertIsNone(second_slide["background_image_path"])
-            self.assertIsNone(second_slide["background_video_path"])
-            self.assertEqual(final_slide["role"], "outcome")
-            self.assertIn("先稳住样片", final_slide["chips"])
-            self.assertNotIn("badge", first_slide)
-            self.assertNotIn("footer", first_slide)
+            self.assertFalse((output_dir / "final.mp4").exists())
+            self.assertIsNone(result["artifact_paths"]["final_video"])
+            self.assertFalse((output_dir / "assembly" / "formal_api_demo_preview.mp4").exists())
+            mocked_run_subprocess.assert_not_called()
 
-    def test_assemble_non_dry_run_delivers_local_mp4_when_visual_assets_ready(self) -> None:
+    def test_assemble_non_dry_run_blocks_even_when_visual_assets_ready(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_local_impl_gap_") as temp_dir:
             output_dir = pathlib.Path(temp_dir) / "dist"
             local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
@@ -512,14 +509,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 encoding="utf-8",
             )
 
-            def fake_run_subprocess(args):
-                if args and args[0] == "swift":
-                    payload = json.loads(pathlib.Path(args[-1]).read_text(encoding="utf-8"))
-                    pathlib.Path(payload["outputPath"]).write_bytes(b"fake-preview-mp4")
-                    return
-                raise AssertionError(f"unexpected subprocess args: {args}")
-
-            with mock.patch("formal_api_demo_core.run_subprocess", side_effect=fake_run_subprocess):
+            with mock.patch("formal_api_demo_core.run_subprocess") as mocked_run_subprocess:
                 result = run_assembly_pipeline(
                     manifest_path=manifest_path,
                     example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
@@ -528,17 +518,82 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                     dry_run=False,
                 )
 
-            self.assertEqual(result["overall_status"], STATUS_SUCCESS)
+            self.assertEqual(result["overall_status"], STATUS_BLOCKED)
             self.assertEqual(result["generation_status"], STATUS_SUCCESS)
-            self.assertEqual(result["assembly_status"], STATUS_SUCCESS)
-            self.assertEqual(result["local_assembly_status"], STATUS_SUCCESS)
+            self.assertEqual(result["assembly_status"], STATUS_BLOCKED)
+            self.assertEqual(result["local_assembly_status"], STATUS_NOT_STARTED)
             self.assertEqual(result["cloud_assembly_status"], STATUS_BLOCKED)
-            self.assertEqual(result["assembly_preview_status"], STATUS_SUCCESS)
-            self.assertEqual(result["delivery_mode"], "local_mp4_fallback")
-            self.assertTrue(result["local_fallback_used"])
-            self.assertEqual(result["current_missing_implementations"], [])
-            self.assertTrue((output_dir / "final.mp4").exists())
-            self.assertEqual(result["artifact_paths"]["final_video"], str(output_dir / "final.mp4"))
+            self.assertEqual(result["assembly_preview_status"], STATUS_NOT_STARTED)
+            self.assertEqual(result["delivery_mode"], "oss_cloud_assembly")
+            self.assertNotIn("local_fallback_used", result)
+            self.assertIn("provider_assembly_implementation", result["current_missing_implementations"])
+            self.assertFalse((output_dir / "final.mp4").exists())
+            self.assertIsNone(result["artifact_paths"]["final_video"])
+            mocked_run_subprocess.assert_not_called()
+
+    def test_assemble_non_dry_run_requires_cloud_credentials_and_project_config(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_cloud_prereq_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                provider_name="aliyun_bailian",
+                route_family="aliyun_bailian_cosyvoice",
+                api_key="dashscope_test_key",
+                model="cosyvoice-v3-flash",
+                voice="longanyang",
+                image_model="wan2.6-image",
+                video_model="wan2.7-i2v",
+                oss_access_key_id="",
+                oss_access_key_secret="",
+                ims_cloud_project_name="",
+            )
+
+            def fake_probe(*_args, **kwargs):
+                stem = kwargs.get("output_stem", "voice_probe")
+                audio_path = output_dir / "tts" / f"{stem}.mp3"
+                audio_path.parent.mkdir(parents=True, exist_ok=True)
+                audio_path.write_bytes(b"fake-mp3")
+                return {
+                    "status": STATUS_SUCCESS,
+                    "blocked_reason": "",
+                    "failure_reason": "",
+                    "error_code": "",
+                    "error_message": "",
+                    "audio_path": str(audio_path),
+                    "request_id": f"req_{stem}",
+                    "model_identifier": "cosyvoice-v3-flash",
+                    "probe_text": "测试配音",
+                    "voice": "longanyang",
+                    "used_model_id": "cosyvoice-v3-flash",
+                }
+
+            with mock.patch("formal_api_demo_core.execute_tts_probe", side_effect=fake_probe), mock.patch(
+                "formal_api_demo_core.concatenate_audio_files",
+                side_effect=self._fake_concatenate_audio_files,
+            ):
+                run_generation_pipeline(
+                    input_path=FORMAL_CASE_PATH,
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                    dry_run=False,
+                )
+
+            result = run_assembly_pipeline(
+                manifest_path=output_dir / "manifest.json",
+                example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                local_config_path=local_config_path,
+                output_dir=output_dir,
+                dry_run=False,
+            )
+
+            self.assertEqual(result["assembly_status"], STATUS_BLOCKED)
+            self.assertIn("aliyun_oss_access_key_id", result["current_missing_prerequisites"])
+            self.assertIn("aliyun_oss_access_key_secret", result["current_missing_prerequisites"])
+            self.assertIn("aliyun_ims_cloud_project_name", result["current_missing_prerequisites"])
+            self.assertNotIn("local_fallback_used", result)
+            self.assertEqual(result["delivery_mode"], "oss_cloud_assembly")
 
 
     def test_generate_non_dry_run_without_local_config_blocks(self) -> None:
