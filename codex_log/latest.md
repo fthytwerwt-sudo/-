@@ -23,6 +23,7 @@
   - 第二次真实 cloud-only assembly 重跑已成功，不是聊天推断
   - 当前成功事实只成立于任务分支 `codex/round1`
   - 当前还不能把“正式主读取分支已同步”写成 success
+  - 本轮已对真实导出成片做初检式验收，但这仍不是最终拍板
 
 ## 当前最新真实重跑结论
 
@@ -46,6 +47,23 @@
   - 无；本轮已真实越过权限层并完成导出
 - 当前状态标签：
   - `repo_status_updated`
+  - `task_branch_only`
+
+## 当前最新成片初检结论
+
+- 本轮已对真实导出产物做初检式验收，不是只看导出记录。
+- 当前初检结论：
+  - `task_branch_success_but_need_acceptance_fix`
+- 当前最高优先级问题层：
+  - `画面表现层`
+- 当前为什么这样判断：
+  - 开头 3 秒有效，问题点能被快速看懂
+  - 中段有推进，前后变化可见
+  - 结尾有落点
+  - 但整体画面仍带较明显的 demo / 样机感，与当前 pure PPT / 信息卡母版要求的“白领咨询报告感 / 体面专业感 / 信息高效感”仍有差距
+- 当前是否建议进入正式回流讨论：
+  - `暂不建议`
+- 当前状态标签：
   - `task_branch_only`
 
 ## 本轮关键执行事实
@@ -99,6 +117,16 @@
     - `ListEditingProjects`
 - 本轮新增真实重跑：
   - `python3 scripts/assemble_formal_api_demo.py --manifest dist/formal_api_demo/manifest.json --local-config config/formal_api_demo.local.toml`
+- 本轮新增成片初检：
+  - 以真实导出文件为准生成本地验收证据包
+  - 本地验收目录：
+    - `dist/formal_api_demo/review_frames/`
+  - 关键证据：
+    - `cloud_export_final.mp4`
+    - `frame_start.jpg`
+    - `frame_middle.jpg`
+    - `frame_end.jpg`
+    - `contact_sheet.jpg`
 - 当前验证结果：
   - `30` 个测试通过
   - `py_compile` 通过
@@ -109,12 +137,21 @@
   - 已拿到真实 OSS final 路径与可访问 `media_url`
   - `uploaded_assets_count = 6`
   - `cloud_timeline.json` 已生成
+  - 真实导出成片已拉到本地并可读取
+  - 初检元数据：
+    - 时长 `15.0s`
+    - 分辨率 `1080x1920`
+    - 文件大小 `3602005 bytes`
+    - 视频流 / 音频流均存在
+  - 初检判断：
+    - 技术导出成立
+    - 内容初检暂不建议直接回流正式主读取分支
 
 ## 当前交接提醒
 
 - 仓库口径仍然是 cloud-only，而且代码已经接到真实云端 assembly 主链。
 - 当前任务分支已经拿到真实云端导出成功结果，但这不等于主读取分支已同步。
-- 若后续继续推进，下一步应围绕成片验收、样片回看和主读取分支回流策略来处理，而不是再回到权限 blocker。
+- 若后续继续推进，下一步应优先针对“画面 demo 感仍偏重”这一最高优先级问题做定向验收修正讨论，再决定是否进入正式回流讨论。
 - `config/formal_api_demo.local.toml` 是 `.gitignore` / `local_only`：
   - 不会上传到 GitHub
   - 但它已经准备好，用户无需自己设计字段结构
