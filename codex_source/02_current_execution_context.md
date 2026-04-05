@@ -173,17 +173,15 @@
 
 - AccessKey / Secret 已生成，但只保存在用户本地，不得写入 repo
 - 当前代码与配置已经改为 cloud-only 主线
-- 首次真实 cloud-only assembly 已执行，不是聊天推断
-- 当前精确 blocker 已确认是：
-  - RAM 用户 `video-factory-oss-1` 缺少最小 ICE / 云剪权限
-  - 第一跳 `ListEditingProjects` 即返回 `403 Forbidden`
-- 当前最小待补权限为：
-  - `ice:ListEditingProjects`
-  - `ice:UpdateEditingProject`
-  - `ice:SubmitMediaProducingJob`
-  - `ice:GetMediaProducingJob`
-- 当前未继续重跑的原因不是代码，而是：
-  - 本轮无法直接给该 RAM 用户补权
+- 真实 cloud-only assembly 已在任务分支 `codex/round1` 成功跑通一次
+- 当前真实成功证据已出现：
+  - `project_id = a139456cf3334509b20192f3203d75bc`
+  - `job_id = f45c6af448f44f0794f71ae9f26a1d1e`
+  - `media_id = 47b0a400311c71f1a8c3e7f7d45b6302`
+  - `output_url = oss://zvip1-video-beijing/video-factory/final/20260405T182130Z/formal_api_demo.mp4`
+- 必须同时继续保持诚实：
+  - 以上成功结果当前只成立于任务分支
+  - 不等于 `codex/user-readable-map` 已同步
 
 ## 6. 当前 demo 身份
 

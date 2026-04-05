@@ -20,42 +20,33 @@
   - OSS / IMS / 云剪工程的非密钥参数已写回 repo
   - 本地配置文件已整理好，用户只需手填真实密钥
   - `config/formal_api_demo.local.toml` 属于 `.gitignore` / `local_only`
-  - 首次真实 cloud-only assembly 已执行，不是聊天推断
-  - 当前还不能把“已真实导出成功”写成 success
+  - 第二次真实 cloud-only assembly 重跑已成功，不是聊天推断
+  - 当前成功事实只成立于任务分支 `codex/round1`
+  - 当前还不能把“正式主读取分支已同步”写成 success
 
-## 当前最新真实运行结论
+## 当前最新真实重跑结论
 
-- 本轮在分支 `codex/round1`、起始 HEAD `75178a35bd4e0d87e3d423f0a9aaaaa7f826f24b` 上，已真实执行：
+- 本轮在分支 `codex/round1`、起始 HEAD `4a5b7f7a29f24445d6f6cef28dcab4b2a85e1d8b` 上，已真实执行：
   - `python3 scripts/assemble_formal_api_demo.py --manifest dist/formal_api_demo/manifest.json --local-config config/formal_api_demo.local.toml`
-- 真实结果：失败
-- 精确失败层：`ListEditingProjects`
+- 真实结果：成功
+- 结果分类：`B`
 - 当前调用主体：RAM 用户 `video-factory-oss-1`
-- 当前主因：缺少最小 ICE / 云剪权限
-- 建议最小权限：
-  - `ice:ListEditingProjects`
-  - `ice:UpdateEditingProject`
-  - `ice:SubmitMediaProducingJob`
-  - `ice:GetMediaProducingJob`
-- 当前未重跑原因：
-  - 本轮已确认当前主体没有 RAM 管理权限
-  - 无法直接在本机给 `video-factory-oss-1` 挂策略
+- 当前已拿到：
+  - `project_id = a139456cf3334509b20192f3203d75bc`
+  - `job_id = f45c6af448f44f0794f71ae9f26a1d1e`
+  - `media_id = 47b0a400311c71f1a8c3e7f7d45b6302`
+  - `output_url = oss://zvip1-video-beijing/video-factory/final/20260405T182130Z/formal_api_demo.mp4`
+  - `media_url = https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/final/20260405T182130Z/formal_api_demo.mp4`
+- 当前关键 RequestId：
+  - `ListEditingProjects = 6BB9B394-4045-5EE6-A65F-E3BB37FEB8AB`
+  - `UpdateEditingProject = D2FB8219-F052-5373-8D3C-3F090684EC79`
+  - `SubmitMediaProducingJob = 41971ECA-4C97-543D-BA8C-971092D2AA59`
+  - `GetMediaProducingJob = 51770EE3-C359-505B-9987-92E14079BE12`
+- 当前精确卡点：
+  - 无；本轮已真实越过权限层并完成导出
 - 当前状态标签：
   - `repo_status_updated`
-
-## 当前最新权限复核结论
-
-- 本轮在分支 `codex/round1`、起始 HEAD `d9d634b292ce6e6155446d08af10098cd979079e` 上，已重新做最小权限前置检查，不是聊天推断：
-  - `STS GetCallerIdentity`
-  - `ICE ListEditingProjects`
-- 当前调用主体仍是：RAM 用户 `video-factory-oss-1`
-- 当前 `ice:ListEditingProjects` 仍未通过：
-  - 返回：`403 Forbidden`
-  - RequestId：`435BE7F3-4126-528E-8B87-5E55DC9B0C29`
-- 本轮路径判断：
-  - 走 `路径 B`
-  - 因权限状态未变化，本轮未重跑 assembly
-- 当前状态标签：
-  - `permission_pending_recheck`
+  - `task_branch_only`
 
 ## 本轮关键执行事实
 
@@ -106,29 +97,24 @@
     - `ListPoliciesForUser`
   - 基于本地 AccessKey 的最小 ICE 复现：
     - `ListEditingProjects`
+- 本轮新增真实重跑：
+  - `python3 scripts/assemble_formal_api_demo.py --manifest dist/formal_api_demo/manifest.json --local-config config/formal_api_demo.local.toml`
 - 当前验证结果：
   - `30` 个测试通过
   - `py_compile` 通过
   - `git diff --check` 通过
-  - 真实 assembly 已执行
+  - 当前主体仍是 RAM 用户 `video-factory-oss-1`
+  - 本轮真实重跑已完成
+  - 已拿到真实 `project_id` / `job_id` / `media_id`
+  - 已拿到真实 OSS final 路径与可访问 `media_url`
   - `uploaded_assets_count = 6`
   - `cloud_timeline.json` 已生成
-  - ICE `ListEditingProjects` 返回 `403 Forbidden`
-  - STS 已确认当前主体为 RAM 用户 `video-factory-oss-1`
-  - 只读 RAM API 也返回 `403 NoPermission`
-  - 本轮新增权限复核：
-    - 当前主体仍是 RAM 用户 `video-factory-oss-1`
-    - `ice:ListEditingProjects` 仍返回 `403 Forbidden`
-    - 因权限未生效，本轮未重跑 assembly
 
 ## 当前交接提醒
 
 - 仓库口径仍然是 cloud-only，而且代码已经接到真实云端 assembly 主链。
-- 当前不再是“等填密钥”，而是：
-  - 等具备 RAM 管理权限的主体给 `video-factory-oss-1` 挂最小 ICE / 云剪策略
-- 当前权限复核仍未通过，因此本轮不做无效重跑。
-- 策略挂好后再优先重跑：
-  - `python3 scripts/assemble_formal_api_demo.py --manifest dist/formal_api_demo/manifest.json --local-config config/formal_api_demo.local.toml`
+- 当前任务分支已经拿到真实云端导出成功结果，但这不等于主读取分支已同步。
+- 若后续继续推进，下一步应围绕成片验收、样片回看和主读取分支回流策略来处理，而不是再回到权限 blocker。
 - `config/formal_api_demo.local.toml` 是 `.gitignore` / `local_only`：
   - 不会上传到 GitHub
   - 但它已经准备好，用户无需自己设计字段结构
