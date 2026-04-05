@@ -173,7 +173,17 @@
 
 - AccessKey / Secret 已生成，但只保存在用户本地，不得写入 repo
 - 当前代码与配置已经改为 cloud-only 主线
-- 真实云端导出仍待本地注入密钥后验证
+- 首次真实 cloud-only assembly 已执行，不是聊天推断
+- 当前精确 blocker 已确认是：
+  - RAM 用户 `video-factory-oss-1` 缺少最小 ICE / 云剪权限
+  - 第一跳 `ListEditingProjects` 即返回 `403 Forbidden`
+- 当前最小待补权限为：
+  - `ice:ListEditingProjects`
+  - `ice:UpdateEditingProject`
+  - `ice:SubmitMediaProducingJob`
+  - `ice:GetMediaProducingJob`
+- 当前未继续重跑的原因不是代码，而是：
+  - 本轮无法直接给该 RAM 用户补权
 
 ## 6. 当前 demo 身份
 

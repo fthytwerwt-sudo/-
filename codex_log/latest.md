@@ -20,8 +20,27 @@
   - OSS / IMS / 云剪工程的非密钥参数已写回 repo
   - 本地配置文件已整理好，用户只需手填真实密钥
   - `config/formal_api_demo.local.toml` 属于 `.gitignore` / `local_only`
-  - 真实云端导出仍待本地注入真实 AccessKey / Secret 后验证
+  - 首次真实 cloud-only assembly 已执行，不是聊天推断
   - 当前还不能把“已真实导出成功”写成 success
+
+## 当前最新真实运行结论
+
+- 本轮在分支 `codex/round1`、起始 HEAD `75178a35bd4e0d87e3d423f0a9aaaaa7f826f24b` 上，已真实执行：
+  - `python3 scripts/assemble_formal_api_demo.py --manifest dist/formal_api_demo/manifest.json --local-config config/formal_api_demo.local.toml`
+- 真实结果：失败
+- 精确失败层：`ListEditingProjects`
+- 当前调用主体：RAM 用户 `video-factory-oss-1`
+- 当前主因：缺少最小 ICE / 云剪权限
+- 建议最小权限：
+  - `ice:ListEditingProjects`
+  - `ice:UpdateEditingProject`
+  - `ice:SubmitMediaProducingJob`
+  - `ice:GetMediaProducingJob`
+- 当前未重跑原因：
+  - 本轮已确认当前主体没有 RAM 管理权限
+  - 无法直接在本机给 `video-factory-oss-1` 挂策略
+- 当前状态标签：
+  - `repo_status_updated`
 
 ## 本轮关键执行事实
 
@@ -53,6 +72,7 @@
 - 云剪工程：`video-factory-ppt-master-v1`
 - 云剪工程状态：草稿
 - 编辑器可打开：是
+- 当前 RAM 用户：`video-factory-oss-1`
 
 ## 本轮实际验证
 
@@ -62,18 +82,32 @@
   - `python3 -m unittest tests.test_formal_api_demo_pipeline`
   - `python3 -m py_compile formal_api_demo_core.py formal_api_demo_cloud_assembly.py scripts/assemble_formal_api_demo.py`
   - `git diff --check`
+- 此后新增真实权限审计 / 真实 assembly 验证：
+  - `python3 scripts/assemble_formal_api_demo.py --manifest dist/formal_api_demo/manifest.json --local-config config/formal_api_demo.local.toml`
+  - 基于本地 AccessKey 的 `STS GetCallerIdentity`
+  - 基于本地 AccessKey 的只读 RAM 审计：
+    - `GetUser`
+    - `ListUsers`
+    - `ListPoliciesForUser`
+  - 基于本地 AccessKey 的最小 ICE 复现：
+    - `ListEditingProjects`
 - 当前验证结果：
   - `30` 个测试通过
   - `py_compile` 通过
   - `git diff --check` 通过
+  - 真实 assembly 已执行
+  - `uploaded_assets_count = 6`
+  - `cloud_timeline.json` 已生成
+  - ICE `ListEditingProjects` 返回 `403 Forbidden`
+  - STS 已确认当前主体为 RAM 用户 `video-factory-oss-1`
+  - 只读 RAM API 也返回 `403 NoPermission`
 
 ## 当前交接提醒
 
 - 仓库口径仍然是 cloud-only，而且代码已经接到真实云端 assembly 主链。
-- 当前还差用户在本地文件里手填：
-  - `aliyun_oss.access_key_id`
-  - `aliyun_oss.access_key_secret`
-- 填完后优先执行：
+- 当前不再是“等填密钥”，而是：
+  - 等具备 RAM 管理权限的主体给 `video-factory-oss-1` 挂最小 ICE / 云剪策略
+- 策略挂好后优先重跑：
   - `python3 scripts/assemble_formal_api_demo.py --manifest dist/formal_api_demo/manifest.json --local-config config/formal_api_demo.local.toml`
 - `config/formal_api_demo.local.toml` 是 `.gitignore` / `local_only`：
   - 不会上传到 GitHub
