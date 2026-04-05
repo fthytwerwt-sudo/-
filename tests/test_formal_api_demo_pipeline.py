@@ -433,7 +433,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             self.assertFalse((output_dir / "assembly" / "formal_api_demo_preview.mp4").exists())
             mocked_run_subprocess.assert_not_called()
 
-    def test_assemble_non_dry_run_blocks_even_when_visual_assets_ready(self) -> None:
+    def test_assemble_non_dry_run_executes_cloud_assembly_when_visual_assets_ready(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_local_impl_gap_") as temp_dir:
             output_dir = pathlib.Path(temp_dir) / "dist"
             local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
@@ -509,7 +509,31 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 encoding="utf-8",
             )
 
-            with mock.patch("formal_api_demo_core.run_subprocess") as mocked_run_subprocess:
+            cloud_result = {
+                "status": STATUS_SUCCESS,
+                "blocked_reason": "",
+                "failure_reason": "",
+                "error_message": "",
+                "project_id": "project_beijing_001",
+                "project_title": "video-factory-ppt-master-v1",
+                "job_id": "job_render_001",
+                "media_id": "media_render_001",
+                "output_url": "oss://zvip1-video-beijing/video-factory/final/formal_api_demo.mp4",
+                "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/final/formal_api_demo.mp4",
+                "timeline_path": str(output_dir / "assembly" / "cloud_timeline.json"),
+                "request_ids": {
+                    "list_projects": "req_list_001",
+                    "update_project": "req_update_001",
+                    "submit_job": "req_submit_001",
+                    "get_job": "req_get_001",
+                },
+            }
+
+            with mock.patch(
+                "formal_api_demo_core._execute_cloud_only_assembly",
+                return_value=cloud_result,
+                create=True,
+            ) as mocked_cloud_assembly, mock.patch("formal_api_demo_core.run_subprocess") as mocked_run_subprocess:
                 result = run_assembly_pipeline(
                     manifest_path=manifest_path,
                     example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
@@ -518,17 +542,21 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                     dry_run=False,
                 )
 
-            self.assertEqual(result["overall_status"], STATUS_BLOCKED)
+            self.assertEqual(result["overall_status"], STATUS_SUCCESS)
             self.assertEqual(result["generation_status"], STATUS_SUCCESS)
-            self.assertEqual(result["assembly_status"], STATUS_BLOCKED)
+            self.assertEqual(result["assembly_status"], STATUS_SUCCESS)
             self.assertEqual(result["local_assembly_status"], STATUS_NOT_STARTED)
-            self.assertEqual(result["cloud_assembly_status"], STATUS_BLOCKED)
+            self.assertEqual(result["cloud_assembly_status"], STATUS_SUCCESS)
             self.assertEqual(result["assembly_preview_status"], STATUS_NOT_STARTED)
             self.assertEqual(result["delivery_mode"], "oss_cloud_assembly")
             self.assertNotIn("local_fallback_used", result)
-            self.assertIn("provider_assembly_implementation", result["current_missing_implementations"])
-            self.assertFalse((output_dir / "final.mp4").exists())
-            self.assertIsNone(result["artifact_paths"]["final_video"])
+            self.assertEqual(result["current_missing_implementations"], [])
+            self.assertEqual(
+                result["artifact_paths"]["final_video"],
+                "oss://zvip1-video-beijing/video-factory/final/formal_api_demo.mp4",
+            )
+            self.assertEqual(result["blocked_reason"], "")
+            mocked_cloud_assembly.assert_called_once()
             mocked_run_subprocess.assert_not_called()
 
     def test_assemble_non_dry_run_requires_cloud_credentials_and_project_config(self) -> None:

@@ -1,7 +1,11 @@
 from __future__ import annotations
 
+import base64
 import copy
+import hashlib
+import hmac
 import json
+import mimetypes
 import pathlib
 import shutil
 import subprocess
@@ -9,6 +13,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+import uuid
 from typing import Any
 
 try:
@@ -17,6 +22,10 @@ try:
 except ImportError:  # pragma: no cover - exercised only when dependency is absent.
     openai = None
     OpenAI = None
+
+from formal_api_demo_cloud_assembly import (
+    execute_cloud_only_assembly as _execute_cloud_only_assembly,
+)
 
 
 ROOT = pathlib.Path(__file__).resolve().parent
@@ -27,6 +36,11 @@ DEFAULT_FORMAL_OUTPUT_DIR = ROOT / "dist" / "formal_api_demo"
 
 MANIFEST_SCHEMA_VERSION = "formal_api_demo_manifest/v1"
 RESULT_SUMMARY_SCHEMA_VERSION = "formal_api_demo_result_summary/v1"
+ALIYUN_ICE_API_VERSION = "2020-11-09"
+ALIYUN_ICE_ENDPOINT_TEMPLATE = "https://ice.{region}.aliyuncs.com/"
+ALIYUN_OSS_SIGNATURE_ALGORITHM = "OSS4-HMAC-SHA256"
+ALIYUN_OSS_V4_REQUEST = "aliyun_v4_request"
+DEFAULT_CLOUD_ASSEMBLY_PRESIGN_EXPIRES_SECONDS = 3600
 
 STATUS_NOT_STARTED = "not_started"
 STATUS_PLANNED = "planned"
@@ -175,6 +189,23 @@ class TtsRequestError(RuntimeError):
 
 
 class VisualGenerationError(RuntimeError):
+    def __init__(
+        self,
+        message: str,
+        *,
+        status_code: int | None = None,
+        error_code: str | None = None,
+        status: str = STATUS_FAILED,
+        failure_reason: str = "",
+    ) -> None:
+        super().__init__(message)
+        self.status_code = status_code
+        self.error_code = error_code
+        self.status = status
+        self.failure_reason = failure_reason
+
+
+class CloudAssemblyError(RuntimeError):
     def __init__(
         self,
         message: str,
@@ -654,16 +685,35 @@ def run_assembly_pipeline(
     manifest["machine_gate"]["assembly_gate"] = assembly_gate
     local_assembly_result = build_default_local_assembly(output_dir)
     preview_result = build_default_assembly_preview(output_dir)
+    cloud_result: dict[str, Any] = {
+        "status": STATUS_PLANNED if dry_run else assembly_gate["status"],
+        "blocked_reason": "" if dry_run else assembly_gate.get("blocked_reason", ""),
+        "failure_reason": "",
+        "error_message": "" if dry_run else assembly_gate.get("blocked_reason", ""),
+        "missing_prerequisites": list(assembly_gate["missing_prerequisites"]),
+        "missing_implementations": list(assembly_gate["missing_implementations"]),
+        "project_id": None,
+        "project_title": _nested_get(config, "aliyun_ims", "cloud_project_name"),
+        "job_id": None,
+        "media_id": None,
+        "output_url": None,
+        "media_url": None,
+        "timeline_path": str(output_dir / "assembly" / "cloud_timeline.json"),
+        "request_ids": {},
+        "uploaded_assets": [],
+    }
     if dry_run:
         local_assembly_result["status"] = STATUS_PLANNED
         preview_result["status"] = STATUS_PLANNED
+    elif assembly_gate["allow_execution"]:
+        cloud_result = _execute_cloud_only_assembly(
+            manifest=manifest,
+            config=config,
+            output_dir=output_dir,
+        )
     local_assembly_status = STATUS_PLANNED if dry_run else STATUS_NOT_STARTED
-    cloud_assembly_status = STATUS_PLANNED if dry_run else assembly_gate["status"]
-    delivery_status = (
-        STATUS_PLANNED
-        if dry_run
-        else cloud_assembly_status
-    )
+    cloud_assembly_status = STATUS_PLANNED if dry_run else cloud_result["status"]
+    delivery_status = STATUS_PLANNED if dry_run else cloud_assembly_status
     delivery_mode = "oss_cloud_assembly"
     overall_status = _combine_stage_statuses(
         [
@@ -674,18 +724,29 @@ def run_assembly_pipeline(
     )
     manifest["assembly"] = {
         "status": delivery_status,
-        "task_id": None,
-        "resource_id": None,
-        "output_id": None,
+        "task_id": cloud_result.get("job_id"),
+        "resource_id": cloud_result.get("project_id"),
+        "output_id": cloud_result.get("media_id"),
         "delivery_mode": delivery_mode,
-        "delivery_video_path": None,
+        "delivery_video_path": cloud_result.get("output_url") or cloud_result.get("media_url"),
         "local": local_assembly_result,
         "cloud": {
             "status": cloud_assembly_status,
-            "blocked_reason": "" if dry_run else assembly_gate.get("blocked_reason", ""),
-            "missing_prerequisites": assembly_gate["missing_prerequisites"],
-            "missing_implementations": assembly_gate["missing_implementations"],
+            "blocked_reason": cloud_result.get("blocked_reason", ""),
+            "failure_reason": cloud_result.get("failure_reason", ""),
+            "error_message": cloud_result.get("error_message", ""),
+            "missing_prerequisites": cloud_result.get("missing_prerequisites", []),
+            "missing_implementations": cloud_result.get("missing_implementations", []),
             "is_primary_path": True,
+            "project_id": cloud_result.get("project_id"),
+            "project_title": cloud_result.get("project_title"),
+            "job_id": cloud_result.get("job_id"),
+            "media_id": cloud_result.get("media_id"),
+            "output_url": cloud_result.get("output_url"),
+            "media_url": cloud_result.get("media_url"),
+            "timeline_path": cloud_result.get("timeline_path"),
+            "request_ids": cloud_result.get("request_ids", {}),
+            "uploaded_assets": cloud_result.get("uploaded_assets", []),
             "target": build_cloud_assembly_target(config),
         },
         "preview": preview_result,
@@ -702,6 +763,7 @@ def run_assembly_pipeline(
         manifest.get("known_issues", []),
         _local_assembly_known_issues(local_assembly_result),
         _assembly_preview_known_issues(preview_result),
+        _cloud_assembly_known_issues(manifest["assembly"]["cloud"]),
     )
 
     write_json(manifest_path, manifest)
@@ -1132,7 +1194,7 @@ def evaluate_assembly_gate(
     dry_run: bool,
 ) -> dict[str, Any]:
     missing = _assembly_missing_prerequisites(manifest, config, has_local_config)
-    implementation_missing = ["provider_assembly_implementation"]
+    implementation_missing: list[str] = []
     checks = [
         {
             "name": "manifest_schema_present",
@@ -1161,17 +1223,13 @@ def evaluate_assembly_gate(
         status = STATUS_BLOCKED
         blocked_reason = "缺少北京区 OSS + 云剪主路径前提：" + "、".join(missing)
     else:
-        status = STATUS_BLOCKED
-        blocked_reason = (
-            "北京区 OSS + 云剪已锁定为唯一 assembly 主路径；"
-            "当前正式云端组装 provider implementation 尚未接入，"
-            "真实导出仍待本地注入 AccessKey 后验证。"
-        )
+        status = STATUS_SUCCESS
+        blocked_reason = ""
 
     return {
         "gate_name": "assembly_gate",
         "status": status,
-        "allow_execution": not dry_run and not missing and False,
+        "allow_execution": not dry_run and not missing,
         "blocked_reason": blocked_reason,
         "missing_prerequisites": missing,
         "missing_implementations": implementation_missing,
@@ -1485,7 +1543,7 @@ def build_assembly_result_summary(
     preview = assembly.get("preview", {})
     assembly_status = STATUS_PLANNED if dry_run else assembly.get("status", STATUS_NOT_STARTED)
     local_status = STATUS_PLANNED if dry_run else local.get("status", STATUS_NOT_STARTED)
-    cloud_status = STATUS_PLANNED if dry_run else assembly_gate["status"]
+    cloud_status = STATUS_PLANNED if dry_run else cloud.get("status", assembly_gate["status"])
     overall_status = _combine_stage_statuses(
         [
             generation_status,
@@ -1528,11 +1586,11 @@ def build_assembly_result_summary(
         "next_action_hint": _assembly_next_action_hint(assembly_gate, dry_run),
         "current_missing_prerequisites": []
         if overall_status == STATUS_SUCCESS
-        else assembly_gate["missing_prerequisites"],
+        else cloud.get("missing_prerequisites", assembly_gate["missing_prerequisites"]),
         "current_missing_implementations": []
         if overall_status == STATUS_SUCCESS
-        else assembly_gate["missing_implementations"],
-        "cloud_missing_prerequisites": assembly_gate["missing_prerequisites"],
+        else cloud.get("missing_implementations", assembly_gate["missing_implementations"]),
+        "cloud_missing_prerequisites": cloud.get("missing_prerequisites", assembly_gate["missing_prerequisites"]),
         "known_issues": manifest.get("known_issues", []),
     }
 
@@ -3138,7 +3196,7 @@ def _assembly_next_action_hint(
         return "当前缺少真实 visual assets；应先补图片 / 视频 API provider，再推进北京区 OSS + 云剪 cloud-only 主路径。"
     if gate["missing_prerequisites"]:
         return "先补齐北京区 OSS + 云剪主路径缺失前提；缺密钥时只允许标记待注入 / 待验证，不得再回退本地 assembly。"
-    return "北京区 OSS + 云剪已锁定为唯一 assembly 主路径；下一步是补齐正式云端组装实现并在本地注入密钥后执行真实导出验证。"
+    return "北京区 OSS + 云剪 assembly 已接入代码主链；下一步是在本地配置文件填入真实 AccessKey / Secret，然后执行真实云端导出验证。"
 
 
 def _select_tts_probe_text(video_spec: dict[str, Any]) -> tuple[str, str]:
@@ -3925,6 +3983,15 @@ def _visual_generation_known_issues(visual_generation: dict[str, Any]) -> list[s
     portrait_video = visual_generation.get("portrait_video_generation", {})
     if portrait_video.get("status") == STATUS_BLOCKED and portrait_video.get("blocked_reason"):
         issues.append("真人开口视频 blocked：" + portrait_video["blocked_reason"])
+    return issues
+
+
+def _cloud_assembly_known_issues(cloud_assembly: dict[str, Any]) -> list[str]:
+    issues: list[str] = []
+    if cloud_assembly.get("status") == STATUS_BLOCKED and cloud_assembly.get("blocked_reason"):
+        issues.append("cloud assembly blocked：" + cloud_assembly["blocked_reason"])
+    if cloud_assembly.get("status") == STATUS_FAILED and cloud_assembly.get("error_message"):
+        issues.append("cloud assembly failed：" + cloud_assembly["error_message"])
     return issues
 
 

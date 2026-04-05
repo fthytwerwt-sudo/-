@@ -2,39 +2,42 @@
 
 ## 当前主结论
 
-- 2026-04-05 已把 pure PPT / 信息卡主线从“`OSS + 云剪 = 默认主路径`、`local assembly = fallback`”正式升级为：
+- 2026-04-06 pure PPT / 信息卡主线仍保持 cloud-only：
   - `北京区 OSS + 云剪工程 = 唯一 assembly 主路径`
   - `local assembly / local mp4` 已退出 pure PPT / 信息卡主线，不再作为 fallback / 兜底 / 应急正常交付
-- 这次升级当前只适用于 pure PPT / 信息卡主线，不自动扩到动态 PPT、数字人 / 真人口播并行分支或复杂 motion design 路线。
-- 当前真实边界已经收口为：
+- 当前代码层已从“只有 gate / plan / blocked 占位”推进到：
+  - `provider_assembly_implementation` 已接入
+  - `run_assembly_pipeline()` 在前提齐全时会真实进入 cloud assembly 执行器
+  - cloud assembly 执行器当前已补上：
+    - OSS 上传
+    - 云剪工程解析
+    - 时间线生成
+    - `UpdateEditingProject`
+    - `SubmitMediaProducingJob`
+    - `GetMediaProducingJob` 轮询
+    - 导出结果解析
+- 当前真实边界仍然保持诚实：
   - OSS / IMS / 云剪工程的非密钥参数已写回 repo
-  - AccessKey / Secret 仍只保存在用户本地
-  - 正式云端导出仍待本地注入密钥后验证
-  - `provider_assembly_implementation` 当前仍未真实跑通
+  - 本地配置文件已整理好，用户只需手填真实密钥
+  - `config/formal_api_demo.local.toml` 属于 `.gitignore` / `local_only`
+  - 真实云端导出仍待本地注入真实 AccessKey / Secret 后验证
+  - 当前还不能把“已真实导出成功”写成 success
 
 ## 本轮关键执行事实
 
-- 这轮已经把执行层、项目脑、配置模板、代码与测试统一收口到 cloud-only：
+- 本轮实际改动：
   - `formal_api_demo_core.py`
-  - `scripts/assemble_formal_api_demo.py`
-  - `config/formal_api_demo.example.toml`
+    - 接入 `_execute_cloud_only_assembly`
+    - assembly gate 不再把 `provider_assembly_implementation` 视为固定缺失
+    - assembly result summary 改按真实 cloud assembly 结果出值
+  - `formal_api_demo_cloud_assembly.py`
+    - 新增云端 assembly 实现模块
+    - 包含 OSS 上传、云剪工程解析、Timeline 构造、OpenAPI 请求签名、导出轮询与结果解析
   - `tests/test_formal_api_demo_pipeline.py`
-  - `codex_source/01_execution_rules.md`
-  - `codex_source/02_current_execution_context.md`
-  - `codex_source/03_research_findings_bridge.md`
-  - `project_source/00_project_brief.md`
-  - `project_source/01_project_system_prompt.md`
-  - `project_source/06_project_index.md`
-  - `project_source/08_quality_baseline_and_90_score_rules.md`
-  - `project_source/10_formal_api_demo_current_route_patch_20260402.md`
-  - `codex_log/latest.md`
-- 这轮新增完整执行日志：
-  - `codex_log/20260405_ppt_cloud_only_assembly_route.md`
-- 当前代码层已经改为：
-  - assembly gate 改查 OSS / IMS / 云剪工程显式字段
-  - pure PPT 主线不再从 `run_assembly_pipeline()` 进入本地 preview / 本地 mp4 补位
-  - 缺密钥、缺云端参数或缺 provider implementation 时直接 `blocked`
-  - `space_name` / `template_id` 旧前提已退出当前主线配置
+    - 把“visual assets ready 仍 blocked”旧断言升级为“进入 cloud assembly 并返回 success”
+  - `config/formal_api_demo.local.toml`
+    - 已重写为 cloud-only 本地占位模板
+    - 只保留用户手填字段，不再保留旧 `space_name` / `template_id` / `cloud` 旧口径
 
 ## 当前外部已确认状态包
 
@@ -53,15 +56,25 @@
 
 ## 本轮实际验证
 
-- 已复读命中的规则、项目脑、执行上下文、代码、配置与测试文件。
+- 已按读取范围复读命中的规则、项目脑、执行上下文、代码、配置与测试文件。
 - 已执行：
+  - `python3 -m unittest tests.test_formal_api_demo_pipeline.FormalApiDemoPipelineTests.test_assemble_non_dry_run_executes_cloud_assembly_when_visual_assets_ready`
   - `python3 -m unittest tests.test_formal_api_demo_pipeline`
+  - `python3 -m py_compile formal_api_demo_core.py formal_api_demo_cloud_assembly.py scripts/assemble_formal_api_demo.py`
   - `git diff --check`
 - 当前验证结果：
   - `30` 个测试通过
+  - `py_compile` 通过
   - `git diff --check` 通过
 
 ## 当前交接提醒
 
-- 仓库口径已经改成 cloud-only，但这不等于真实云端导出已经成功。
-- 下一步若继续推进，只需要在本地注入真实 AccessKey / Secret，然后针对北京区 OSS + 云剪工程执行最小真实导出验证。
+- 仓库口径仍然是 cloud-only，而且代码已经接到真实云端 assembly 主链。
+- 当前还差用户在本地文件里手填：
+  - `aliyun_oss.access_key_id`
+  - `aliyun_oss.access_key_secret`
+- 填完后优先执行：
+  - `python3 scripts/assemble_formal_api_demo.py --manifest dist/formal_api_demo/manifest.json --local-config config/formal_api_demo.local.toml`
+- `config/formal_api_demo.local.toml` 是 `.gitignore` / `local_only`：
+  - 不会上传到 GitHub
+  - 但它已经准备好，用户无需自己设计字段结构
