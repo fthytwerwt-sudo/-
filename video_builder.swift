@@ -337,59 +337,61 @@ func drawHookLayout(_ slide: Slide, in cardRect: NSRect, accentColor: NSColor) {
 }
 
 func drawHookOverlay(_ slide: Slide, width: Int, height: Int, accentColor: NSColor) {
-    let leftRect = NSRect(x: 72, y: 258, width: 360, height: 128)
-    let rightRect = NSRect(x: CGFloat(width) - 432, y: 258, width: 360, height: 128)
-
-    drawPill(
-        "问题不是没想法",
-        rect: NSRect(x: 72, y: 404, width: 182, height: 36),
-        fill: NSColor.white.withAlphaComponent(0.84),
-        textColor: accentColor,
-        size: 16
+    let panelRect = NSRect(x: 72, y: 124, width: CGFloat(width) - 144, height: 474)
+    drawRoundedRect(
+        NSRect(x: panelRect.minX, y: panelRect.minY - 16, width: panelRect.width, height: panelRect.height),
+        radius: 34,
+        fill: NSColor.black.withAlphaComponent(0.12)
+    )
+    drawRoundedRect(panelRect, radius: 34, fill: NSColor.white.withAlphaComponent(0.86))
+    drawRoundedStroke(panelRect, radius: 34, stroke: accentColor.withAlphaComponent(0.12))
+    drawRoundedRect(
+        NSRect(x: panelRect.minX + 24, y: panelRect.maxY - 10, width: 116, height: 6),
+        radius: 3,
+        fill: accentColor.withAlphaComponent(0.74)
     )
 
-    drawRoundedRect(leftRect, radius: 24, fill: NSColor.white.withAlphaComponent(0.70))
-    drawRoundedStroke(leftRect, radius: 24, stroke: accentColor.withAlphaComponent(0.12))
-    drawRoundedRect(rightRect, radius: 24, fill: NSColor.black.withAlphaComponent(0.74))
+    drawPill(
+        "当前卡点",
+        rect: NSRect(x: panelRect.minX + 24, y: panelRect.maxY - 68, width: 102, height: 30),
+        fill: accentColor.withAlphaComponent(0.10),
+        textColor: accentColor,
+        size: 14
+    )
+
+    (slide.headline as NSString).draw(
+        in: NSRect(x: panelRect.minX + 24, y: panelRect.maxY - 214, width: panelRect.width - 48, height: 126),
+        withAttributes: textAttributes(size: 52, weight: .black, color: NSColor.black.withAlphaComponent(0.84))
+    )
+    (slide.support as NSString).draw(
+        in: NSRect(x: panelRect.minX + 24, y: panelRect.maxY - 272, width: panelRect.width - 48, height: 48),
+        withAttributes: textAttributes(size: 22, weight: .medium, color: NSColor.black.withAlphaComponent(0.52))
+    )
 
     if slide.chips.count > 0 {
         drawPill(
-            "表面上",
-            rect: NSRect(x: leftRect.minX + 16, y: leftRect.maxY - 40, width: 86, height: 24),
-            fill: NSColor.white.withAlphaComponent(0.84),
-            textColor: NSColor.black.withAlphaComponent(0.72),
-            size: 13
-        )
-        (slide.chips[0] as NSString).draw(
-            in: NSRect(x: leftRect.minX + 18, y: leftRect.minY + 34, width: leftRect.width - 36, height: 42),
-            withAttributes: textAttributes(size: 28, weight: .bold, color: NSColor.black.withAlphaComponent(0.82))
+            slide.chips[0],
+            rect: NSRect(x: panelRect.minX + 24, y: panelRect.minY + 118, width: 174, height: 42),
+            fill: NSColor(calibratedWhite: 0.97, alpha: 0.96),
+            textColor: NSColor.black.withAlphaComponent(0.76),
+            size: 18
         )
     }
-
     if slide.chips.count > 1 {
         drawPill(
-            "真正卡点",
-            rect: NSRect(x: rightRect.minX + 16, y: rightRect.maxY - 40, width: 96, height: 24),
-            fill: NSColor.white.withAlphaComponent(0.18),
-            textColor: .white,
-            size: 13
-        )
-        (slide.chips[1] as NSString).draw(
-            in: NSRect(x: rightRect.minX + 18, y: rightRect.minY + 34, width: rightRect.width - 36, height: 42),
-            withAttributes: textAttributes(size: 28, weight: .bold, color: .white)
+            slide.chips[1],
+            rect: NSRect(x: panelRect.minX + 214, y: panelRect.minY + 118, width: 202, height: 42),
+            fill: accentColor.withAlphaComponent(0.12),
+            textColor: accentColor,
+            size: 18
         )
     }
 
-    ("→" as NSString).draw(
-        in: NSRect(x: leftRect.maxX + 8, y: leftRect.minY + 42, width: 40, height: 36),
-        withAttributes: textAttributes(size: 28, weight: .bold, color: accentColor, alignment: .center)
-    )
-
-    let detailRect = NSRect(x: 72, y: 188, width: CGFloat(width) - 144, height: 46)
-    drawRoundedRect(detailRect, radius: 18, fill: NSColor.black.withAlphaComponent(0.48))
+    let detailRect = NSRect(x: panelRect.minX + 24, y: panelRect.minY + 32, width: panelRect.width - 48, height: 64)
+    drawRoundedRect(detailRect, radius: 18, fill: NSColor.black.withAlphaComponent(0.06))
     (slide.detail as NSString).draw(
-        in: detailRect.insetBy(dx: 16, dy: 10),
-        withAttributes: textAttributes(size: 18, weight: .medium, color: .white)
+        in: detailRect.insetBy(dx: 16, dy: 16),
+        withAttributes: textAttributes(size: 18, weight: .medium, color: NSColor.black.withAlphaComponent(0.56))
     )
 }
 
@@ -451,53 +453,81 @@ func drawProcessLayout(_ slide: Slide, in cardRect: NSRect, accentColor: NSColor
 }
 
 func drawTransitionLayout(_ slide: Slide, width: Int, height: Int, accentColor: NSColor) {
-    drawPill(
-        "可交接 SOP",
-        rect: NSRect(x: 72, y: CGFloat(height) - 224, width: 156, height: 44),
-        fill: NSColor.white.withAlphaComponent(0.88),
-        textColor: accentColor,
-        size: 18
-    )
-
     let gradientRect = NSRect(x: 0, y: 0, width: width, height: 520)
     if let gradient = NSGradient(
-        starting: NSColor.black.withAlphaComponent(0.86),
+        starting: NSColor.black.withAlphaComponent(0.58),
         ending: NSColor.black.withAlphaComponent(0.0)
     ) {
         gradient.draw(in: gradientRect, angle: 90)
     }
 
-    (slide.headline as NSString).draw(
-        in: NSRect(x: 72, y: 226, width: CGFloat(width) - 144, height: 118),
-        withAttributes: textAttributes(size: 56, weight: .black, color: .white)
+    let panelRect = NSRect(x: CGFloat(width) - 428, y: 132, width: 356, height: 540)
+    drawRoundedRect(
+        NSRect(x: panelRect.minX, y: panelRect.minY - 14, width: panelRect.width, height: panelRect.height),
+        radius: 36,
+        fill: NSColor.black.withAlphaComponent(0.10)
     )
-    (slide.support as NSString).draw(
-        in: NSRect(x: 72, y: 172, width: CGFloat(width) - 144, height: 40),
-        withAttributes: textAttributes(size: 26, weight: .medium, color: NSColor.white.withAlphaComponent(0.84))
+    drawRoundedRect(panelRect, radius: 36, fill: NSColor.white.withAlphaComponent(0.88))
+    drawRoundedStroke(panelRect, radius: 36, stroke: accentColor.withAlphaComponent(0.10))
+    drawRoundedRect(
+        NSRect(x: panelRect.minX + 26, y: panelRect.maxY - 12, width: 112, height: 6),
+        radius: 3,
+        fill: accentColor.withAlphaComponent(0.72)
     )
 
-    let chipWidths: [CGFloat] = [118, 118, 118]
+    drawPill(
+        "结构收束",
+        rect: NSRect(x: panelRect.minX + 28, y: panelRect.maxY - 72, width: 118, height: 30),
+        fill: accentColor.withAlphaComponent(0.10),
+        textColor: accentColor,
+        size: 14
+    )
+
+    (slide.headline as NSString).draw(
+        in: NSRect(x: panelRect.minX + 28, y: panelRect.maxY - 214, width: panelRect.width - 56, height: 128),
+        withAttributes: textAttributes(size: 44, weight: .black, color: NSColor.black.withAlphaComponent(0.84))
+    )
+    (slide.support as NSString).draw(
+        in: NSRect(x: panelRect.minX + 28, y: panelRect.maxY - 268, width: panelRect.width - 56, height: 54),
+        withAttributes: textAttributes(size: 22, weight: .medium, color: NSColor.black.withAlphaComponent(0.52))
+    )
+
+    let rowHeight: CGFloat = 62
+    let rowGap: CGFloat = 14
+    let rowBaseY = panelRect.maxY - 360
     for (index, chip) in slide.chips.enumerated() {
-        let pillRect = NSRect(
-            x: 72 + CGFloat(index) * 138,
-            y: 118,
-            width: chipWidths[index],
-            height: 38
+        let rowRect = NSRect(
+            x: panelRect.minX + 28,
+            y: rowBaseY - CGFloat(index) * (rowHeight + rowGap),
+            width: panelRect.width - 56,
+            height: rowHeight
         )
+        drawRoundedRect(
+            rowRect,
+            radius: 20,
+            fill: index == 0
+                ? accentColor.withAlphaComponent(0.12)
+                : NSColor(calibratedWhite: 0.97, alpha: 0.96)
+        )
+        drawRoundedStroke(rowRect, radius: 20, stroke: accentColor.withAlphaComponent(0.10), lineWidth: 1.6)
         drawPill(
-            chip,
-            rect: pillRect,
-            fill: NSColor.white.withAlphaComponent(index == 0 ? 0.94 : 0.74),
-            textColor: accentColor,
-            size: 18
+            String(format: "%02d", index + 1),
+            rect: NSRect(x: rowRect.minX + 14, y: rowRect.minY + 14, width: 38, height: 34),
+            fill: accentColor.withAlphaComponent(0.86),
+            textColor: .white,
+            size: 14
+        )
+        (chip as NSString).draw(
+            in: NSRect(x: rowRect.minX + 66, y: rowRect.minY + 14, width: rowRect.width - 84, height: 34),
+            withAttributes: textAttributes(size: 24, weight: .bold, color: NSColor.black.withAlphaComponent(0.82))
         )
     }
 
-    let detailRect = NSRect(x: 72, y: 52, width: CGFloat(width) - 144, height: 48)
-    drawRoundedRect(detailRect, radius: 20, fill: NSColor.black.withAlphaComponent(0.78))
+    let detailRect = NSRect(x: panelRect.minX + 28, y: panelRect.minY + 28, width: panelRect.width - 56, height: 70)
+    drawRoundedRect(detailRect, radius: 18, fill: NSColor.black.withAlphaComponent(0.06))
     (slide.detail as NSString).draw(
-        in: detailRect.insetBy(dx: 18, dy: 10),
-        withAttributes: textAttributes(size: 20, weight: .medium, color: .white)
+        in: detailRect.insetBy(dx: 16, dy: 16),
+        withAttributes: textAttributes(size: 18, weight: .medium, color: NSColor.black.withAlphaComponent(0.56))
     )
 }
 
@@ -555,20 +585,44 @@ func drawOutcomeLayout(_ slide: Slide, in cardRect: NSRect, accentColor: NSColor
 }
 
 func drawOutcomeOverlay(_ slide: Slide, width: Int, height: Int, accentColor: NSColor) {
-    let bannerRect = NSRect(x: 72, y: 304, width: CGFloat(width) - 144, height: 78)
-    drawRoundedRect(bannerRect, radius: 24, fill: accentColor.withAlphaComponent(0.88))
-    (slide.support as NSString).draw(
-        in: NSRect(x: bannerRect.minX + 22, y: bannerRect.minY + 24, width: bannerRect.width - 44, height: 30),
-        withAttributes: textAttributes(size: 24, weight: .bold, color: .white)
+    let panelRect = NSRect(x: 72, y: 116, width: CGFloat(width) - 144, height: 360)
+    drawRoundedRect(
+        NSRect(x: panelRect.minX, y: panelRect.minY - 14, width: panelRect.width, height: panelRect.height),
+        radius: 32,
+        fill: NSColor.black.withAlphaComponent(0.10)
+    )
+    drawRoundedRect(panelRect, radius: 32, fill: NSColor.white.withAlphaComponent(0.84))
+    drawRoundedStroke(panelRect, radius: 32, stroke: accentColor.withAlphaComponent(0.12))
+    drawRoundedRect(
+        NSRect(x: panelRect.minX + 24, y: panelRect.maxY - 10, width: 104, height: 6),
+        radius: 3,
+        fill: accentColor.withAlphaComponent(0.70)
     )
 
-    let boxWidth = (CGFloat(width) - 172) / 2
-    let leftRect = NSRect(x: 72, y: 184, width: boxWidth, height: 104)
-    let rightRect = NSRect(x: leftRect.maxX + 28, y: 184, width: boxWidth, height: 104)
-    drawRoundedRect(leftRect, radius: 22, fill: NSColor.white.withAlphaComponent(0.68))
-    drawRoundedRect(rightRect, radius: 22, fill: NSColor.white.withAlphaComponent(0.56))
-    drawRoundedStroke(leftRect, radius: 22, stroke: accentColor.withAlphaComponent(0.12))
-    drawRoundedStroke(rightRect, radius: 22, stroke: accentColor.withAlphaComponent(0.12))
+    drawPill(
+        "结果落点",
+        rect: NSRect(x: panelRect.minX + 24, y: panelRect.maxY - 68, width: 104, height: 30),
+        fill: accentColor.withAlphaComponent(0.10),
+        textColor: accentColor,
+        size: 14
+    )
+
+    (slide.headline as NSString).draw(
+        in: NSRect(x: panelRect.minX + 24, y: panelRect.maxY - 180, width: panelRect.width - 48, height: 98),
+        withAttributes: textAttributes(size: 46, weight: .black, color: NSColor.black.withAlphaComponent(0.84))
+    )
+    (slide.support as NSString).draw(
+        in: NSRect(x: panelRect.minX + 24, y: panelRect.maxY - 228, width: panelRect.width - 48, height: 40),
+        withAttributes: textAttributes(size: 21, weight: .medium, color: NSColor.black.withAlphaComponent(0.52))
+    )
+
+    let boxWidth = (panelRect.width - 72) / 2
+    let leftRect = NSRect(x: panelRect.minX + 24, y: panelRect.minY + 94, width: boxWidth, height: 92)
+    let rightRect = NSRect(x: leftRect.maxX + 24, y: leftRect.minY, width: boxWidth, height: 92)
+    drawRoundedRect(leftRect, radius: 22, fill: NSColor(calibratedWhite: 0.97, alpha: 0.96))
+    drawRoundedRect(rightRect, radius: 22, fill: accentColor.withAlphaComponent(0.12))
+    drawRoundedStroke(leftRect, radius: 22, stroke: accentColor.withAlphaComponent(0.10), lineWidth: 1.6)
+    drawRoundedStroke(rightRect, radius: 22, stroke: accentColor.withAlphaComponent(0.10), lineWidth: 1.6)
 
     if slide.chips.count > 0 {
         drawPill(
@@ -579,8 +633,8 @@ func drawOutcomeOverlay(_ slide: Slide, width: Int, height: Int, accentColor: NS
             size: 13
         )
         (slide.chips[0] as NSString).draw(
-            in: NSRect(x: leftRect.minX + 16, y: leftRect.minY + 28, width: leftRect.width - 32, height: 34),
-            withAttributes: textAttributes(size: 24, weight: .bold, color: NSColor.black.withAlphaComponent(0.82))
+            in: NSRect(x: leftRect.minX + 16, y: leftRect.minY + 24, width: leftRect.width - 32, height: 30),
+            withAttributes: textAttributes(size: 22, weight: .bold, color: NSColor.black.withAlphaComponent(0.82))
         )
     }
 
@@ -593,16 +647,16 @@ func drawOutcomeOverlay(_ slide: Slide, width: Int, height: Int, accentColor: NS
             size: 13
         )
         (slide.chips[1] as NSString).draw(
-            in: NSRect(x: rightRect.minX + 16, y: rightRect.minY + 28, width: rightRect.width - 32, height: 34),
-            withAttributes: textAttributes(size: 24, weight: .bold, color: NSColor.black.withAlphaComponent(0.82))
+            in: NSRect(x: rightRect.minX + 16, y: rightRect.minY + 24, width: rightRect.width - 32, height: 30),
+            withAttributes: textAttributes(size: 22, weight: .bold, color: NSColor.black.withAlphaComponent(0.82))
         )
     }
 
-    let detailRect = NSRect(x: 72, y: 116, width: CGFloat(width) - 144, height: 44)
-    drawRoundedRect(detailRect, radius: 18, fill: NSColor.black.withAlphaComponent(0.48))
+    let detailRect = NSRect(x: panelRect.minX + 24, y: panelRect.minY + 28, width: panelRect.width - 48, height: 44)
+    drawRoundedRect(detailRect, radius: 18, fill: NSColor.black.withAlphaComponent(0.06))
     (slide.detail as NSString).draw(
-        in: detailRect.insetBy(dx: 16, dy: 9),
-        withAttributes: textAttributes(size: 18, weight: .medium, color: .white)
+        in: detailRect.insetBy(dx: 16, dy: 10),
+        withAttributes: textAttributes(size: 18, weight: .medium, color: NSColor.black.withAlphaComponent(0.56))
     )
 }
 

@@ -24,6 +24,7 @@
   - 当前成功事实只成立于任务分支 `codex/round1`
   - 当前还不能把“正式主读取分支已同步”写成 success
   - 本轮已对真实导出成片做初检式验收，但这仍不是最终拍板
+  - 本轮已产出一版保守型视觉修正候选片，但这仍是任务分支内的候选样片，不是正式回流结果
 
 ## 当前最新真实重跑结论
 
@@ -63,6 +64,20 @@
   - 但整体画面仍带较明显的 demo / 样机感，与当前 pure PPT / 信息卡母版要求的“白领咨询报告感 / 体面专业感 / 信息高效感”仍有差距
 - 当前是否建议进入正式回流讨论：
   - `暂不建议`
+- 当前状态标签：
+  - `task_branch_only`
+
+## 当前最新保守型视觉修正结论
+
+- 当前工作分支：
+  - `codex/round1-visual-pass-conservative`
+- 本轮在不改 generation、不改 assembly 主链的前提下，对本地预览渲染模板做了保守型视觉修正。
+- 新候选成片位置：
+  - `dist/formal_api_demo_visual_pass_conservative/final.mp4`
+- 新证据包位置：
+  - `dist/formal_api_demo_visual_pass_conservative/review_frames/`
+- 当前一句话自检：
+  - demo 感已明显下降，整体更接近“白领咨询报告感 / 体面专业感 / 信息高效感”，但首屏背景里红色问题字样仍稍重，当前仍不建议直接进入正式主读取分支回流。
 - 当前状态标签：
   - `task_branch_only`
 
@@ -146,12 +161,31 @@
   - 初检判断：
     - 技术导出成立
     - 内容初检暂不建议直接回流正式主读取分支
+- 本轮新增保守型视觉修正：
+  - 基于现有 `preview_manifest.json`、现有配音和现有 3 段结构
+  - 只调整 `video_builder.swift` 中与画面表现层直接相关的 hook / process / outcome 叠层样式
+  - 未修改：
+    - `formal_api_demo_core.py`
+    - `formal_api_demo_cloud_assembly.py`
+    - generation 逻辑
+    - assembly 主链逻辑
+  - 新候选片技术结果：
+    - 时长 `15.0s`
+    - 分辨率 `1080x1920`
+    - 文件大小 `15922005 bytes`
+    - 视频流 / 音频流均存在
+  - 新证据包：
+    - `frame_start.jpg`
+    - `frame_middle.jpg`
+    - `frame_end.jpg`
+    - `contact_sheet.jpg`
 
 ## 当前交接提醒
 
 - 仓库口径仍然是 cloud-only，而且代码已经接到真实云端 assembly 主链。
 - 当前任务分支已经拿到真实云端导出成功结果，但这不等于主读取分支已同步。
-- 若后续继续推进，下一步应优先针对“画面 demo 感仍偏重”这一最高优先级问题做定向验收修正讨论，再决定是否进入正式回流讨论。
+- 当前保守型视觉修正版已产出，但首屏红色问题字样仍是最明显残余短板。
+- 若后续继续推进，下一步应优先围绕“首屏问题字样仍偏重”做一次更小范围的画面收口，再决定是否进入正式回流讨论。
 - `config/formal_api_demo.local.toml` 是 `.gitignore` / `local_only`：
   - 不会上传到 GitHub
   - 但它已经准备好，用户无需自己设计字段结构
