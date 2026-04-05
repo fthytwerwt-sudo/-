@@ -42,6 +42,21 @@
 - 当前状态标签：
   - `repo_status_updated`
 
+## 当前最新权限复核结论
+
+- 本轮在分支 `codex/round1`、起始 HEAD `d9d634b292ce6e6155446d08af10098cd979079e` 上，已重新做最小权限前置检查，不是聊天推断：
+  - `STS GetCallerIdentity`
+  - `ICE ListEditingProjects`
+- 当前调用主体仍是：RAM 用户 `video-factory-oss-1`
+- 当前 `ice:ListEditingProjects` 仍未通过：
+  - 返回：`403 Forbidden`
+  - RequestId：`435BE7F3-4126-528E-8B87-5E55DC9B0C29`
+- 本轮路径判断：
+  - 走 `路径 B`
+  - 因权限状态未变化，本轮未重跑 assembly
+- 当前状态标签：
+  - `permission_pending_recheck`
+
 ## 本轮关键执行事实
 
 - 本轮实际改动：
@@ -101,13 +116,18 @@
   - ICE `ListEditingProjects` 返回 `403 Forbidden`
   - STS 已确认当前主体为 RAM 用户 `video-factory-oss-1`
   - 只读 RAM API 也返回 `403 NoPermission`
+  - 本轮新增权限复核：
+    - 当前主体仍是 RAM 用户 `video-factory-oss-1`
+    - `ice:ListEditingProjects` 仍返回 `403 Forbidden`
+    - 因权限未生效，本轮未重跑 assembly
 
 ## 当前交接提醒
 
 - 仓库口径仍然是 cloud-only，而且代码已经接到真实云端 assembly 主链。
 - 当前不再是“等填密钥”，而是：
   - 等具备 RAM 管理权限的主体给 `video-factory-oss-1` 挂最小 ICE / 云剪策略
-- 策略挂好后优先重跑：
+- 当前权限复核仍未通过，因此本轮不做无效重跑。
+- 策略挂好后再优先重跑：
   - `python3 scripts/assemble_formal_api_demo.py --manifest dist/formal_api_demo/manifest.json --local-config config/formal_api_demo.local.toml`
 - `config/formal_api_demo.local.toml` 是 `.gitignore` / `local_only`：
   - 不会上传到 GitHub
