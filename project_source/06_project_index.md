@@ -107,8 +107,8 @@
 
 - 解决什么问题：
   - 当前 `formal_api_demo` / 纯 PPT 主线默认 assembly 路径是什么
-  - `OSS + 云剪` 与 `local assembly fallback` 的分工是什么
-  - 哪些旧的“local default / cloud optional”口径已经失效
+  - 北京区 `OSS + 云剪工程` 为什么已经是唯一 assembly 主路径
+  - 哪些旧的“local default / cloud optional / local fallback”口径已经失效
 
 ### `project_source/10_video_review_record_template.md`
 
@@ -321,6 +321,8 @@
 看：
 
 - `project_source/10_formal_api_demo_current_route_patch_20260402.md`
+
+当前正式口径已经不是“云剪默认、本地兜底”，而是“北京区 OSS + 云剪工程唯一主路径；本地 assembly 已退出 pure PPT / 信息卡主线”。
 
 ### 想知道整套项目脑文件怎么配合
 

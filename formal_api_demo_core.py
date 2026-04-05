@@ -654,88 +654,17 @@ def run_assembly_pipeline(
     manifest["machine_gate"]["assembly_gate"] = assembly_gate
     local_assembly_result = build_default_local_assembly(output_dir)
     preview_result = build_default_assembly_preview(output_dir)
-    if not dry_run:
-        local_missing = [
-            item
-            for item in _assembly_missing_prerequisites(
-                manifest=manifest,
-                config=config,
-                has_local_config=config_bundle["has_local_config"],
-            )
-            if item not in {"space_name", "assembly_template_id", "visual_assets_not_ready"}
-        ]
-        preview_result = execute_local_preview_assembly(
-            manifest=manifest,
-            config=config,
-            output_dir=output_dir,
-        )
-        if preview_result.get("status") == STATUS_SUCCESS:
-            local_assembly_result.update(
-                {
-                    "status": STATUS_SUCCESS,
-                    "video_path": preview_result.get("final_video_path")
-                    or preview_result.get("video_path"),
-                    "blocked_reason": "",
-                    "failure_reason": "",
-                    "error_message": "",
-                    "current_missing_prerequisites": [],
-                    "missing_implementations": [],
-                }
-            )
-        elif local_missing:
-            local_assembly_result.update(
-                {
-                    "status": STATUS_BLOCKED,
-                    "blocked_reason": "缺少正式本地 assembly 前提：" + "、".join(local_missing),
-                    "current_missing_prerequisites": local_missing,
-                }
-            )
-        elif preview_result.get("status") == STATUS_FAILED:
-            local_assembly_result.update(
-                {
-                    "status": STATUS_FAILED,
-                    "failure_reason": preview_result.get("failure_reason", ""),
-                    "error_message": preview_result.get("error_message", ""),
-                }
-            )
-        else:
-            local_assembly_result.update(
-                {
-                    "status": STATUS_BLOCKED,
-                    "blocked_reason": preview_result.get("blocked_reason", "")
-                    or "缺少正式本地 assembly 前提",
-                }
-            )
-    else:
+    if dry_run:
         local_assembly_result["status"] = STATUS_PLANNED
-    local_assembly_status = STATUS_PLANNED if dry_run else local_assembly_result["status"]
+        preview_result["status"] = STATUS_PLANNED
+    local_assembly_status = STATUS_PLANNED if dry_run else STATUS_NOT_STARTED
     cloud_assembly_status = STATUS_PLANNED if dry_run else assembly_gate["status"]
-    local_fallback_allowed = _nested_get(config, "quality_gate", "allow_local_fallback") is True
-    local_fallback_used = (
-        not dry_run
-        and local_assembly_status == STATUS_SUCCESS
-        and cloud_assembly_status != STATUS_SUCCESS
-        and local_fallback_allowed
-    )
-    if local_fallback_used:
-        local_assembly_result["used_as_fallback"] = True
-        local_assembly_result["fallback_reason"] = (
-            assembly_gate.get("blocked_reason")
-            or "默认 OSS + 云剪主路径未完成，已回退本地 assembly 兜底。"
-        )
     delivery_status = (
         STATUS_PLANNED
         if dry_run
-        else (
-            STATUS_SUCCESS
-            if cloud_assembly_status == STATUS_SUCCESS or local_fallback_used
-            else _combine_stage_statuses(
-                [cloud_assembly_status, local_assembly_status],
-                dry_run=False,
-            )
-        )
+        else cloud_assembly_status
     )
-    delivery_mode = "local_mp4_fallback" if local_fallback_used else "oss_cloud_assembly"
+    delivery_mode = "oss_cloud_assembly"
     overall_status = _combine_stage_statuses(
         [
             manifest.get("generation", {}).get("status", STATUS_NOT_STARTED),
@@ -749,10 +678,7 @@ def run_assembly_pipeline(
         "resource_id": None,
         "output_id": None,
         "delivery_mode": delivery_mode,
-        "delivery_video_path": local_assembly_result.get("video_path")
-        if local_assembly_status == STATUS_SUCCESS
-        else None,
-        "fallback_allowed": local_fallback_allowed,
+        "delivery_video_path": None,
         "local": local_assembly_result,
         "cloud": {
             "status": cloud_assembly_status,
@@ -760,6 +686,7 @@ def run_assembly_pipeline(
             "missing_prerequisites": assembly_gate["missing_prerequisites"],
             "missing_implementations": assembly_gate["missing_implementations"],
             "is_primary_path": True,
+            "target": build_cloud_assembly_target(config),
         },
         "preview": preview_result,
     }
@@ -854,11 +781,9 @@ def _evaluate_tts_generation_gate(
             "detail": "当前 TTS probe 默认要求显式 voice，避免调用时隐式失败。",
         },
         {
-            "name": "local_fallback_forbidden",
-            "status": "pass"
-            if _nested_get(config, "quality_gate", "allow_local_fallback") is False
-            else "fail",
-            "detail": "正式版骨架禁止回退到本地 say / ffmpeg / Swift 链路。",
+            "name": "cloud_only_assembly_route_locked",
+            "status": "pass",
+            "detail": "纯 PPT / 信息卡主线已锁定为北京区 OSS + 云剪唯一 assembly 路线，本地 fallback 不再作为正常交付。",
         },
     ]
     checks.extend(
@@ -998,7 +923,7 @@ def evaluate_generation_gate(
         "notes": [
             "正式 generation success 仍要求配音 API 与图片 / 视频 API 都真实成功。",
             "visual plan / preview storyboard 只能算辅助产物，不能再冒充 visual generation success。",
-            "cloud assembly 已降级为可选增强项，但这不影响图片 / 视频 API 继续留在 generation 主链。",
+            "assembly 主线已升级为北京区 OSS + 云剪 cloud-only，这不影响图片 / 视频 API 继续留在 generation 主链。",
         ],
     }
 
@@ -1222,23 +1147,26 @@ def evaluate_assembly_gate(
             "detail": f"segments={len(manifest.get('segments', []))}",
         },
         {
-            "name": "local_fallback_enabled",
-            "status": "pass"
-            if _nested_get(config, "quality_gate", "allow_local_fallback") is True
-            else "fail",
-            "detail": "纯 PPT / 信息卡主线默认走 OSS + 云剪；local assembly 只允许在云剪失败、模板异常、上传异常或任务超时时兜底。",
+            "name": "cloud_only_route_locked",
+            "status": "pass",
+            "detail": "纯 PPT / 信息卡主线已锁定为北京区 OSS + 云剪唯一 assembly 主路径，不再接受 local assembly fallback。",
         },
     ]
+    checks.extend(_cloud_assembly_checks(config))
 
     if dry_run:
         status = STATUS_PLANNED
         blocked_reason = ""
     elif missing:
         status = STATUS_BLOCKED
-        blocked_reason = "缺少默认 OSS + 云剪组装前提：" + "、".join(missing)
+        blocked_reason = "缺少北京区 OSS + 云剪主路径前提：" + "、".join(missing)
     else:
         status = STATUS_BLOCKED
-        blocked_reason = "默认主路径应走 OSS + 云剪；当前正式云端组装 provider implementation 尚未接入，本地 assembly 仅保留 fallback / 兜底语义。"
+        blocked_reason = (
+            "北京区 OSS + 云剪已锁定为唯一 assembly 主路径；"
+            "当前正式云端组装 provider implementation 尚未接入，"
+            "真实导出仍待本地注入 AccessKey 后验证。"
+        )
 
     return {
         "gate_name": "assembly_gate",
@@ -1249,9 +1177,9 @@ def evaluate_assembly_gate(
         "missing_implementations": implementation_missing,
         "checks": checks,
         "notes": [
-            "assembly Gate 负责标记纯 PPT 主线的默认 OSS + 云剪主路径，不得再把本地 assembly 写成默认交付。",
+            "assembly Gate 负责标记纯 PPT 主线的北京区 OSS + 云剪唯一主路径，不得再把本地 assembly 写成默认交付。",
             "manifest 是修正循环和复审的事实锚点，assembly 不得绕开 manifest 自由猜测。",
-            "当前纯 PPT / 信息卡主线默认走 OSS + 云剪；local assembly 仅用于云剪失败、模板异常、上传异常或任务超时后的 fallback。",
+            "当前 pure PPT / 信息卡主线已经改为 cloud-only；缺密钥、缺云端参数或缺 provider implementation 时必须如实 blocked，不得再用 local mp4 补位。",
         ],
     }
 
@@ -1410,8 +1338,6 @@ def build_manifest(
             "output_id": None,
             "delivery_mode": "oss_cloud_assembly",
             "delivery_video_path": None,
-            "fallback_allowed": _nested_get(config, "quality_gate", "allow_local_fallback")
-            is True,
             "local": build_default_local_assembly(output_dir),
             "cloud": {
                 "status": STATUS_NOT_STARTED,
@@ -1419,6 +1345,7 @@ def build_manifest(
                 "missing_prerequisites": [],
                 "missing_implementations": [],
                 "is_primary_path": True,
+                "target": build_cloud_assembly_target(config),
             },
             "preview": build_default_assembly_preview(output_dir),
         },
@@ -1539,7 +1466,8 @@ def build_assembly_plan(
             for segment in manifest.get("segments", [])
         ],
         "gate_status": assembly_gate["status"],
-        "preview_target": str(pathlib.Path(_nested_get(config, "output", "dist_dir") or DEFAULT_FORMAL_OUTPUT_DIR) / "assembly" / "formal_api_demo_preview.mp4"),
+        "cloud_target": build_cloud_assembly_target(config),
+        "legacy_local_preview_target": str(pathlib.Path(_nested_get(config, "output", "dist_dir") or DEFAULT_FORMAL_OUTPUT_DIR) / "assembly" / "formal_api_demo_preview.mp4"),
         "next_action_hint": _assembly_next_action_hint(assembly_gate, dry_run=True),
     }
 
@@ -1553,6 +1481,7 @@ def build_assembly_result_summary(
     generation_status = manifest.get("generation", {}).get("status", STATUS_NOT_STARTED)
     assembly = manifest.get("assembly", {})
     local = assembly.get("local", {})
+    cloud = assembly.get("cloud", {})
     preview = assembly.get("preview", {})
     assembly_status = STATUS_PLANNED if dry_run else assembly.get("status", STATUS_NOT_STARTED)
     local_status = STATUS_PLANNED if dry_run else local.get("status", STATUS_NOT_STARTED)
@@ -1574,8 +1503,6 @@ def build_assembly_result_summary(
         "cloud_assembly_status": cloud_status,
         "assembly_preview_status": preview.get("status", STATUS_NOT_STARTED),
         "delivery_mode": assembly.get("delivery_mode"),
-        "local_fallback_used": bool(local.get("used_as_fallback")),
-        "local_fallback_reason": local.get("fallback_reason", ""),
         "machine_gate_result": {
             "generation_gate": manifest.get("machine_gate", {})
             .get("generation_gate", {})
@@ -1585,10 +1512,8 @@ def build_assembly_result_summary(
         "blocked_reason": ""
         if dry_run
         else (
-            local.get("blocked_reason")
-            or local.get("error_message")
-            or preview.get("blocked_reason")
-            or preview.get("error_message")
+            cloud.get("blocked_reason")
+            or cloud.get("error_message")
             or (assembly_gate.get("blocked_reason", "") if overall_status == STATUS_BLOCKED else "")
         ),
         "artifact_paths": {
@@ -1596,27 +1521,17 @@ def build_assembly_result_summary(
             "assembly_gate": str(output_dir / "assembly_gate.json"),
             "assembly_plan": str(output_dir / "assembly_plan.json"),
             "result_summary": str(output_dir / "result_summary.json"),
-            "final_video": local.get("video_path") if local_status == STATUS_SUCCESS else None,
+            "final_video": assembly.get("delivery_video_path") if assembly_status == STATUS_SUCCESS else None,
             "preview_video": preview.get("video_path"),
             "preview_manifest": preview.get("preview_manifest_path"),
         },
-        "next_action_hint": _assembly_next_action_hint(
-            assembly_gate,
-            dry_run,
-            local_assembly=local,
-        ),
+        "next_action_hint": _assembly_next_action_hint(assembly_gate, dry_run),
         "current_missing_prerequisites": []
         if overall_status == STATUS_SUCCESS
-        else (
-            local.get("current_missing_prerequisites")
-            or assembly_gate["missing_prerequisites"]
-        ),
+        else assembly_gate["missing_prerequisites"],
         "current_missing_implementations": []
         if overall_status == STATUS_SUCCESS
-        else (
-            local.get("missing_implementations")
-            or assembly_gate["missing_implementations"]
-        ),
+        else assembly_gate["missing_implementations"],
         "cloud_missing_prerequisites": assembly_gate["missing_prerequisites"],
         "known_issues": manifest.get("known_issues", []),
     }
@@ -1725,13 +1640,13 @@ def build_default_local_assembly(output_dir: pathlib.Path) -> dict[str, Any]:
     return {
         "status": STATUS_NOT_STARTED,
         "video_path": None,
-        "used_as_fallback": False,
-        "fallback_reason": "",
         "blocked_reason": "",
         "failure_reason": "",
         "error_message": "",
         "current_missing_prerequisites": [],
         "missing_implementations": [],
+        "deprecated": True,
+        "deprecated_reason": "pure PPT / 信息卡主线已改为 cloud-only；local assembly 已移出主线，不再承担 fallback 或正常交付。",
     }
 
 
@@ -1745,6 +1660,8 @@ def build_default_assembly_preview(output_dir: pathlib.Path) -> dict[str, Any]:
         "blocked_reason": "",
         "failure_reason": "",
         "error_message": "",
+        "deprecated": True,
+        "deprecated_reason": "local preview 只保留历史调试意义，已移出 pure PPT 主线路由，不再作为 fallback / 验收路径。",
     }
 
 
@@ -2974,12 +2891,9 @@ def _assembly_missing_prerequisites(
     missing: list[str] = []
     if not has_local_config:
         missing.append("local_config_file")
-    if _is_missing_secret(_nested_get(config, "storage", "space_name")):
-        missing.append("space_name")
-    if _is_missing_secret(_nested_get(config, "assembly", "template_id")):
-        missing.append("assembly_template_id")
-    if _is_missing_secret(_nested_get(config, "provider", "region")):
-        missing.append("provider_region")
+    for keys, missing_name, _detail in _cloud_assembly_required_fields():
+        if _is_missing_secret(_nested_get(config, *keys)):
+            missing.append(missing_name)
     if not manifest.get("segments"):
         missing.append("manifest_segments")
     if manifest.get("generation", {}).get("voiceover", {}).get("status") != STATUS_SUCCESS:
@@ -2989,6 +2903,55 @@ def _assembly_missing_prerequisites(
     if manifest.get("generation", {}).get("visual_generation", {}).get("status") != STATUS_SUCCESS:
         missing.append("visual_assets_not_ready")
     return missing
+
+
+def _cloud_assembly_required_fields() -> list[tuple[tuple[str, ...], str, str]]:
+    return [
+        (("aliyun_oss", "bucket"), "aliyun_oss_bucket", "北京区 OSS bucket；当前已确认可写入仓库。"),
+        (("aliyun_oss", "region"), "aliyun_oss_region", "北京区 OSS region；纯 PPT 主线固定为 cn-beijing。"),
+        (("aliyun_oss", "endpoint"), "aliyun_oss_endpoint", "北京区 OSS endpoint；云端上传必须显式配置。"),
+        (("aliyun_oss", "bucket_domain"), "aliyun_oss_bucket_domain", "北京区 OSS bucket domain；云端资源定位需要该字段。"),
+        (("aliyun_oss", "access_key_id"), "aliyun_oss_access_key_id", "OSS AccessKey ID 仅允许在本地注入，仓库示例必须留占位。"),
+        (("aliyun_oss", "access_key_secret"), "aliyun_oss_access_key_secret", "OSS AccessKey Secret 仅允许在本地注入，仓库示例必须留占位。"),
+        (("aliyun_oss", "prefix_raw"), "aliyun_oss_prefix_raw", "raw 前缀用于云端组装原始素材上传路径。"),
+        (("aliyun_oss", "prefix_final"), "aliyun_oss_prefix_final", "final 前缀用于云端导出成片路径。"),
+        (("aliyun_oss", "prefix_temp"), "aliyun_oss_prefix_temp", "temp 前缀用于云端临时文件路径。"),
+        (("aliyun_ims", "region"), "aliyun_ims_region", "IMS / 云剪区域；当前主线固定为 cn-beijing。"),
+        (("aliyun_ims", "storage_address"), "aliyun_ims_storage_address", "IMS 存储地址；当前已确认为北京区 OSS domain。"),
+        (("aliyun_ims", "cloud_project_name"), "aliyun_ims_cloud_project_name", "云剪工程名称；当前主线应指向 video-factory-ppt-master-v1。"),
+    ]
+
+
+def _cloud_assembly_checks(config: dict[str, Any]) -> list[dict[str, str]]:
+    checks: list[dict[str, str]] = []
+    for keys, missing_name, detail in _cloud_assembly_required_fields():
+        checks.append(
+            {
+                "name": missing_name,
+                "status": "pass" if not _is_missing_secret(_nested_get(config, *keys)) else "fail",
+                "detail": detail,
+            }
+        )
+    return checks
+
+
+def build_cloud_assembly_target(config: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "assembly_mode": _nested_get(config, "assembly", "mode"),
+        "subtitle_mode": _nested_get(config, "assembly", "subtitle_mode"),
+        "resolution": _nested_get(config, "assembly", "resolution"),
+        "fps": _nested_get(config, "assembly", "fps"),
+        "oss_bucket": _nested_get(config, "aliyun_oss", "bucket"),
+        "oss_region": _nested_get(config, "aliyun_oss", "region"),
+        "oss_endpoint": _nested_get(config, "aliyun_oss", "endpoint"),
+        "oss_bucket_domain": _nested_get(config, "aliyun_oss", "bucket_domain"),
+        "oss_prefix_raw": _nested_get(config, "aliyun_oss", "prefix_raw"),
+        "oss_prefix_final": _nested_get(config, "aliyun_oss", "prefix_final"),
+        "oss_prefix_temp": _nested_get(config, "aliyun_oss", "prefix_temp"),
+        "ims_region": _nested_get(config, "aliyun_ims", "region"),
+        "ims_storage_address": _nested_get(config, "aliyun_ims", "storage_address"),
+        "ims_cloud_project_name": _nested_get(config, "aliyun_ims", "cloud_project_name"),
+    }
 
 
 def _is_missing_secret(value: Any) -> bool:
@@ -3085,7 +3048,7 @@ def _tts_probe_known_issues(tts_probe: dict[str, Any]) -> list[str]:
     if tts_probe.get("status") == STATUS_FAILED and tts_probe.get("error_message"):
         issues.append("TTS probe failed：" + tts_probe["error_message"])
     if tts_probe.get("status") == STATUS_SUCCESS:
-        issues.append("当前 TTS 调用已接通；图片 / 视频 API 与正式本地 assembly 仍需继续补齐。")
+        issues.append("当前 TTS 调用已接通；图片 / 视频 API 与北京区 OSS + 云剪主路径仍需继续补齐。")
     return issues
 
 
@@ -3161,41 +3124,21 @@ def _generation_next_action_hint(
     if tts_probe.get("status") == STATUS_FAILED:
         return "当前已进入真实请求层失败；优先核对远端返回码、请求结构和 provider 接口兼容性。"
     if tts_probe.get("status") == STATUS_SUCCESS:
-        return "当前配音链路已通；只有在图片 / 视频 API 也真实成功后，才能继续推进正式本地 assembly。"
+        return "当前配音链路已通；只有在图片 / 视频 API 也真实成功后，才能继续推进北京区 OSS + 云剪 cloud-only 主路径。"
     return "当前已具备部分 generation 前提；下一步可执行真实 generation，并把失败压到字段或 provider 层。"
 
 
 def _assembly_next_action_hint(
     gate: dict[str, Any],
     dry_run: bool,
-    local_assembly: dict[str, Any] | None = None,
 ) -> str:
     if dry_run:
-        return "当前为 assembly dry-run；纯 PPT 主线默认应走 OSS + 云剪，下一步先确认 space_name、template_id、上传链路和本地 fallback 规则。"
-    if local_assembly:
-        if local_assembly.get("used_as_fallback"):
-            return (
-                "当前默认主路径应走 OSS + 云剪；因"
-                + (
-                    local_assembly.get("fallback_reason")
-                    or gate.get("blocked_reason")
-                    or "云端组装异常"
-                )
-                + " 已回退本地 assembly 兜底。下一步先修复云端主路径，再复审当前 fallback 样片。"
-            )
-        if local_assembly.get("status") == STATUS_SUCCESS:
-            if "visual_assets_not_ready" in gate.get("missing_prerequisites", []):
-                return "当前本地样片已落出，但 generation 还缺真实 visual assets；下一步先补齐图片 / 视频 API 成功态，再继续提质。"
-            return "当前默认组装主路径应先核对 OSS + 云剪执行结果；若本地样片已生成，也只能按 fallback 样片处理并继续修云端主路径。"
-        if local_assembly.get("current_missing_prerequisites"):
-            return "先补齐本地 fallback 所需素材，再决定是否启用本地 assembly 兜底。"
-        if local_assembly.get("status") == STATUS_FAILED:
-            return "本地 assembly fallback 已执行失败；下一步应先核对素材路径、拼接实现和导出错误。"
+        return "当前为 assembly dry-run；纯 PPT 主线已锁定北京区 OSS + 云剪唯一主路径，下一步先在本地注入 AccessKey 并核对 OSS / IMS / 云剪工程参数。"
     if "visual_assets_not_ready" in gate.get("missing_prerequisites", []):
-        return "当前缺少真实 visual assets；应先补图片 / 视频 API provider，再推进默认 OSS + 云剪主路径。"
+        return "当前缺少真实 visual assets；应先补图片 / 视频 API provider，再推进北京区 OSS + 云剪 cloud-only 主路径。"
     if gate["missing_prerequisites"]:
-        return "先补齐默认 OSS + 云剪主路径缺失前提，再决定是否启用本地 assembly fallback。"
-    return "默认主路径应走 OSS + 云剪；下一步是补齐正式云端组装实现或执行链路，不得再把本地 assembly 写成默认交付。"
+        return "先补齐北京区 OSS + 云剪主路径缺失前提；缺密钥时只允许标记待注入 / 待验证，不得再回退本地 assembly。"
+    return "北京区 OSS + 云剪已锁定为唯一 assembly 主路径；下一步是补齐正式云端组装实现并在本地注入密钥后执行真实导出验证。"
 
 
 def _select_tts_probe_text(video_spec: dict[str, Any]) -> tuple[str, str]:

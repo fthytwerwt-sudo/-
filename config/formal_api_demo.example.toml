@@ -113,7 +113,7 @@ enabled = true
 # 当前正式 generation 主链仍包含图片生成 API：
 # - 建议继续接入，不要把 image_generation.model 当成可删除摆设
 # - 缺失该字段时，generation 不应写成 success
-# - 当前仓库默认先落视觉计划，再进入本地 assembly；这不等于图片 API 已被取消
+# - 当前仓库默认先落视觉计划，再进入北京区 OSS + 云剪 cloud-only assembly；这不等于图片 API 已被取消
 # 免费优先主线默认模型：
 # - wan2.6-image 用于首帧 / 背景 / 人像底图生成
 # - 若只是修图 / 改图，不要回到 facechain-generation，改走 qwen-image-edit-plus
@@ -146,23 +146,90 @@ enabled = false
 model = "liveportrait"
 
 [assembly]
-mode = "cloud"
-# 当前纯 PPT / 信息卡主线默认组装路径已经升级为 OSS + 云剪：
-# - template_id 是当前默认主路径前提，不再是 optional 增强项
-# - local assembly 仅用于云剪失败、模板异常、上传异常或任务超时后的 fallback / 兜底
-# - 当前升级只适用于纯 PPT / 信息卡主线，不扩到动态 PPT 或复杂动效
-template_id = "SET_IN_LOCAL_FILE"
+# mode：当前 pure PPT / 信息卡主线的组装模式。
+# 用途：把主线路由显式锁定为 cloud-only。
+# 是否必填：是。
+# 当前是否已确认：是。
+mode = "cloud_only"
+# subtitle_mode：云端组装后的字幕处理方式。
+# 用途：控制字幕是否直接烧录到导出成片。
+# 是否必填：是。
+# 当前是否已确认：是。
 subtitle_mode = "burn_in"
+# resolution：云端导出的默认分辨率。
+# 用途：统一纯 PPT / 信息卡主线的成片尺寸。
+# 是否必填：是。
+# 当前是否已确认：是。
 resolution = "1080x1920"
+# fps：云端导出的默认帧率。
+# 用途：统一纯 PPT / 信息卡主线的时间线采样率。
+# 是否必填：是。
+# 当前是否已确认：是。
 fps = 25
 
-[storage]
-# OSS 已进入当前默认主路径：
-# - space_name 是当前默认组装主路径前提，不再写成后续增强项
-# - upload_prefix 用于纯 PPT / 信息卡母版的默认云端组装资源前缀
-# - 本地 assembly 不删除，但只保留 fallback 语义
-space_name = "SET_IN_LOCAL_FILE"
-upload_prefix = "formal_api_demo/"
+[aliyun_oss]
+# bucket：北京区 OSS bucket 名称。
+# 用途：云端组装上传源素材与导出成片的归属 bucket。
+# 是否必填：是。
+# 当前是否已确认：是。
+bucket = "zvip1-video-beijing"
+# region：北京区 OSS 区域。
+# 用途：拼接 endpoint、签名与上传请求时使用。
+# 是否必填：是。
+# 当前是否已确认：是。
+region = "cn-beijing"
+# endpoint：北京区 OSS endpoint。
+# 用途：本地上传到 OSS 与后续云端回写时使用。
+# 是否必填：是。
+# 当前是否已确认：是。
+endpoint = "oss-cn-beijing.aliyuncs.com"
+# bucket_domain：bucket 对应的访问域名。
+# 用途：让 IMS / 云剪工程定位同一套 OSS 资源。
+# 是否必填：是。
+# 当前是否已确认：是。
+bucket_domain = "zvip1-video-beijing.oss-cn-beijing.aliyuncs.com"
+# access_key_id：RAM 项目专用用户的 AccessKey ID。
+# 用途：本地发起 OSS 上传与云端请求签名。
+# 是否必填：是。
+# 当前是否已确认：待本地注入，不可写入仓库。
+access_key_id = "SET_IN_LOCAL_FILE"
+# access_key_secret：RAM 项目专用用户的 AccessKey Secret。
+# 用途：本地发起 OSS 上传与云端请求签名。
+# 是否必填：是。
+# 当前是否已确认：待本地注入，不可写入仓库。
+access_key_secret = "SET_IN_LOCAL_FILE"
+# prefix_raw：原始素材上传前缀。
+# 用途：统一纯 PPT / 信息卡主线的 raw 素材路径。
+# 是否必填：是。
+# 当前是否已确认：是。
+prefix_raw = "video-factory/raw/"
+# prefix_final：成片导出前缀。
+# 用途：统一云端导出成片在 OSS 中的 final 路径。
+# 是否必填：是。
+# 当前是否已确认：是。
+prefix_final = "video-factory/final/"
+# prefix_temp：临时文件前缀。
+# 用途：统一云端组装过程中的 temp 路径。
+# 是否必填：是。
+# 当前是否已确认：是。
+prefix_temp = "video-factory/temp/"
+
+[aliyun_ims]
+# region：智能媒体服务 / 云剪所在区域。
+# 用途：确保 IMS、OSS、云剪工程都指向北京区。
+# 是否必填：是。
+# 当前是否已确认：是。
+region = "cn-beijing"
+# storage_address：IMS 已绑定的存储地址。
+# 用途：让云剪工程直接使用北京区 OSS 存储。
+# 是否必填：是。
+# 当前是否已确认：是。
+storage_address = "zvip1-video-beijing.oss-cn-beijing.aliyuncs.com"
+# cloud_project_name：当前 pure PPT 主线唯一云剪工程名。
+# 用途：把纯 PPT / 信息卡主线统一路由到北京区云剪工程。
+# 是否必填：是。
+# 当前是否已确认：是。
+cloud_project_name = "video-factory-ppt-master-v1"
 
 [output]
 dist_dir = "dist/formal_api_demo"
@@ -172,10 +239,9 @@ interval_seconds = 5
 timeout_seconds = 600
 
 [quality_gate]
-# 当前纯 PPT / 信息卡主线默认走 OSS + 云剪：
-# - 仅在云剪失败、模板异常、上传异常或任务超时时，允许回退本地 assembly
-# - 不得再把 local assembly 写成默认主路径
-allow_local_fallback = true
+# 当前 pure PPT / 信息卡主线已经改为 cloud-only：
+# - 本地 assembly 不再作为 fallback / 兜底 / 正常交付路径
+# - 若缺密钥、缺云端参数或缺 provider implementation，必须如实 blocked
 require_hook = true
 min_segments = 3
 require_manifest_schema = true

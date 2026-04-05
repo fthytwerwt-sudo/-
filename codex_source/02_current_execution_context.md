@@ -67,8 +67,8 @@
 - 不得把数字人问题继续写成纯 PPT / 信息卡母版的前置阻塞
 - OSS 已具备
 - 阿里云剪已具备
-- 当前纯 PPT / 信息卡主线默认 assembly 路径升级为 `OSS + 云剪`
-- `local assembly` 只保留为 fallback / 兜底路径
+- 当前 pure PPT / 信息卡主线 assembly 路径已正式升级为“北京区 OSS + 云剪唯一主路径”
+- `local assembly` 已移出 pure PPT / 信息卡主线，不再保留 fallback / 兜底语义
 
 ## 3B. 当前纯 PPT 母版默认风格口径
 
@@ -103,20 +103,20 @@
 
 当前执行层默认采用的正式主路径是：
 
-`文本需求 → 脚本 → 配音 API → 图片 / 视频生成 API → 纯 PPT / 信息卡母版 → OSS + 云剪 assembly → 成片导出 → 人工上传`
+`文本需求 → 脚本 → 配音 API → 图片 / 视频生成 API → 纯 PPT / 信息卡母版 → 北京区 OSS + 云剪工程 assembly → 成片导出 → 人工上传`
 
 执行含义必须写清：
 
 - 当前内容主承载优先走纯 PPT / 信息卡母版
 - generation 层继续接 API
-- 纯 PPT / 信息卡主线默认 assembly 路径改为 `OSS + 云剪`
-- `local assembly` 仅用于 fallback / 兜底，不再是默认主路径
-- 当前允许云端组装后人工上传；必要时本地 fallback 后人工上传
+- pure PPT / 信息卡主线唯一 assembly 主路径固定为北京区 OSS + 云剪工程
+- `local assembly` 已移出 pure PPT / 信息卡主线路由，不再作为 fallback / 兜底 / 应急正常交付
+- 当前允许云端组装后人工上传；若缺密钥、缺云端参数或缺 provider implementation，必须如实标记 `待注入` / `待验证`
 - 数字人 / 真人口播分支继续并行修，但默认不阻塞纯 PPT / 信息卡母版推进
 - 当前不把“只差平台 API”当项目成立前提
 - 当前不把动态 PPT 写成现阶段正式主路径
 - visual plan / preview 只能算辅助产物，不得写成 generation success
-- local assembly fallback 只负责在云剪失败、模板异常、上传异常或任务超时时兜底，不得再写成默认主交付路径
+- 不得再把本地 preview / 本地 mp4 写成 pure PPT 主线的 fallback、兜底或默认主交付路径
 
 当前免费优先模型路线也已经明确：
 
@@ -149,6 +149,31 @@
 - 不是动态 PPT
 - 不是复杂 motion design
 - 不是高成本视觉特效路线
+
+## 5B. 当前北京区 OSS + 云剪外部已确认状态包
+
+以下信息已被确认，可以作为当前执行层的正式上下文：
+
+- OSS bucket：`zvip1-video-beijing`
+- OSS region：`cn-beijing`
+- OSS endpoint：`oss-cn-beijing.aliyuncs.com`
+- OSS bucket domain：`zvip1-video-beijing.oss-cn-beijing.aliyuncs.com`
+- OSS ACL：`private`
+- RAM 项目专用用户：`video-factory-oss-1`
+- IMS / ICE / 智能媒体服务区域：北京区
+- 功能体验月包：已生效
+- 体验包有效期：`2026-05-05 05:00:00`
+- IMS storage address：`zvip1-video-beijing.oss-cn-beijing.aliyuncs.com`
+- 存储状态：正常
+- 当前首个云剪工程：`video-factory-ppt-master-v1`
+- 当前云剪工程状态：草稿
+- 编辑器可打开：是
+
+必须同时明确：
+
+- AccessKey / Secret 已生成，但只保存在用户本地，不得写入 repo
+- 当前代码与配置已经改为 cloud-only 主线
+- 真实云端导出仍待本地注入密钥后验证
 
 ## 6. 当前 demo 身份
 
@@ -202,7 +227,7 @@
 9. 若涉及执行现实偏差 / 原方案失效 / 资源权限环境问题，再读 `codex_source/05_execution_deviation_and_reality_sync.md`
 10. 再补读与当前任务直接相关的 `project_source/*`、代码、测试与产物
 11. 若涉及纯 PPT 母版风格、信息卡视觉、转场、字幕安全区或默认母版结构，再读 `project_source/17_white_collar_ppt_style_rules.md`
-12. 若涉及纯 PPT 主线默认 assembly 路径、OSS、云剪或 local fallback，再读 `project_source/10_formal_api_demo_current_route_patch_20260402.md`
+12. 若涉及 pure PPT 主线默认 assembly 路径、OSS、云剪或旧 local fallback 语义，再读 `project_source/10_formal_api_demo_current_route_patch_20260402.md`
 
 ## 8A. 当前主读取分支与正式状态
 
@@ -308,4 +333,4 @@ Codex 不得擅自拍板：
 
 ## 11. 当前一句话执行前上下文
 
-当前先用纯 PPT / 信息卡母版按“白领咨询报告感 / 体面专业感 / 信息高效感”压质量，默认走 `OSS + 云剪` 组装、本地 assembly 只作 fallback，数字人并行修但不阻塞主线，动态 PPT 暂缓，云剪第一轮只服务转场统一、字幕安全区与模板化 assembly。
+当前先用纯 PPT / 信息卡母版按“白领咨询报告感 / 体面专业感 / 信息高效感”压质量，pure PPT 主线统一走北京区 `OSS + 云剪工程` cloud-only 组装，`local assembly` 已退出主线，数字人并行修但不阻塞主线，动态 PPT 暂缓，云剪第一轮只服务转场统一、字幕安全区与模板化 assembly，真实云端导出仍待本地注入密钥后验证。
