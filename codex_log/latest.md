@@ -2,62 +2,97 @@
 
 ## 当前主结论
 
-- 2026-04-07 已把 Codex 多 agent 执行模板正式落成双层结构：
-  - 仓库内版本：
-    - `codex_source/10_codex_multi_agent_prompt_library.md`
-  - 全局版本：
-    - `~/.codex/skills/parallel-explorer-integrator/SKILL.md`
-- 当前默认结构已明确写死为：
-  - `2 explorers 并行只读 + 1 integrator 统一落地`
-- 当前明确不是：
-  - 多个 agent 一起乱改文件
-  - explorer 越权拍板项目结论
-  - 通用 team / 多写手框架
+- 2026-04-08 已把“AI 写汇报，临发领导前才发现全是套话”的 45 秒主题，正式桥接进执行层并新建独立 case：
+  - `cases/ai_report_fluff_trap_45s.md`
+- 本轮正式内容源已固定采用用户拍板的“版本 A”口播文案。
+- 当前正式主链已真实执行到：
+  - `manifest / script / captions / visual plan / result_summary` 全部落出
+- 当前正式主链未完成的唯一根 blocker 仍是：
+  - `config/formal_api_demo.local.toml` 缺正式可用的 `DashScope API Key` 与 `tts.voice`
+- 因此当前正式主链状态是：
+  - `generation = blocked`
+  - `assembly = blocked`
+- 为了不只停在 blocked，本轮额外补出 1 条明确标记为 `local_only` 的辅助预览样片：
+  - `dist/formal_api_demo_ai_report_fluff_trap_45s/local_preview/final.mp4`
+- 必须明确：
+  - 上述 `local_preview/final.mp4` 只用于辅助验收 reveal 节奏与信息卡结构
+  - 它不等于北京区 OSS + 云剪正式主链已完成
 
-## 当前审计结论
+## 本轮已桥接的外部信息
 
-- 仓库内：
-  - 无现成同类“多 agent prompt library”文件
-  - 最接近的是 `codex_source/06_execution_gate_and_parallel_rules.md`
-  - 但它不是当前这次的模板库
-- 全局 skills：
-  - 无重名 skill
-  - 有强相关 skill，但都不等于当前结构：
-    - `dispatching-parallel-agents`
-    - `subagent-driven-development`
-    - `parallel-feature-development`
-    - `task-coordination-strategies`
-    - `team`
+- 已写入：
+  - `codex_source/03_research_findings_bridge.md`
+- 本轮已采用的桥接重点包括：
+  - 核心情绪固定为：
+    - “我明明用了 AI，怎么最后还是自己重写了一遍？”
+  - 主场景固定为：
+    - `AI 写汇报 / 周报`
+    - `发给领导前才发现全是套话`
+  - 当前心理机制固定服务：
+    - `身份命中 / 自我代入`
+    - `认知减负`
+    - `自我效能感`
+    - `最小行动`
+  - 当前视觉口径固定优先：
+    - `分步 reveal`
+    - `关键词显影`
+    - `结果句 / 数字句强调`
+    - `局部高亮 / 框选`
+    - `停顿点设计`
+  - 当前默认避免：
+    - `bounce / 回弹`
+    - `粒子 / 发光 / 3D 炫技`
+    - `把旁白全文搬上屏`
+    - `一页强化多个重点`
+    - `为了可看性乱加素材`
 
-## 当前本轮落文件
+## 本轮仓库内改动
 
-- 仓库内：
-  - `codex_source/10_codex_multi_agent_prompt_library.md`
-  - `codex_log/20260407_multi_agent_prompt_library_and_skill.md`
-- 仓库内更新：
-  - `codex_source/00_codex_readme.md`
-  - `codex_log/latest.md`
-- 本机全局：
-  - `~/.codex/skills/parallel-explorer-integrator/SKILL.md`
+- 更新：
+  - `codex_source/03_research_findings_bridge.md`
+- 新增：
+  - `cases/ai_report_fluff_trap_45s.md`
+  - `codex_log/20260408_report_fluff_trap_45s_sample.md`
+- 待保持不动的无关既有修改：
+  - `project_source/03_perplexity_prompt_library.md`
 
-## 当前下一步
+## 本轮产物
 
-- 以后在《视频工厂》里发起多 agent 任务时：
-  - 优先从 `codex_source/10_codex_multi_agent_prompt_library.md` 直接复制对应模板
-- 以后在其他项目里复用时：
-  - 直接调用全局 skill `parallel-explorer-integrator`
-- 必须继续保持：
-  - explorer 默认只读
-  - integrator 独占写文件权
+- 正式主链产物目录：
+  - `dist/formal_api_demo_ai_report_fluff_trap_45s/`
+- 当前已落出的正式执行材料：
+  - `dist/formal_api_demo_ai_report_fluff_trap_45s/manifest.json`
+  - `dist/formal_api_demo_ai_report_fluff_trap_45s/script.txt`
+  - `dist/formal_api_demo_ai_report_fluff_trap_45s/captions.srt`
+  - `dist/formal_api_demo_ai_report_fluff_trap_45s/timeline.json`
+  - `dist/formal_api_demo_ai_report_fluff_trap_45s/visual_generation_plan.json`
+  - `dist/formal_api_demo_ai_report_fluff_trap_45s/assembly_plan.json`
+  - `dist/formal_api_demo_ai_report_fluff_trap_45s/result_summary.json`
+- 当前 local-only 辅助预览：
+  - `dist/formal_api_demo_ai_report_fluff_trap_45s/local_preview/final.mp4`
+  - `dist/formal_api_demo_ai_report_fluff_trap_45s/local_preview/review_frames/contact_sheet.jpg`
+  - `dist/formal_api_demo_ai_report_fluff_trap_45s/local_preview/review_frames/frame_start.jpg`
+  - `dist/formal_api_demo_ai_report_fluff_trap_45s/local_preview/review_frames/frame_middle.jpg`
+  - `dist/formal_api_demo_ai_report_fluff_trap_45s/local_preview/review_frames/frame_end.jpg`
+- 本轮必须明确：
+  - `dist/formal_api_demo_ai_report_fluff_trap_45s/` 当前是本地生成目录
+  - 它不会自动上传到 GitHub
+  - 它属于 `local_only` 验收辅助产物，不构成仓库正式同步事实
+
+## 下一步最小动作
+
+- 若要把这轮从“正式主链 blocked + local_only 预览”推进到“正式主链完整完成”，最小动作只有 1 个：
+  - 在 `config/formal_api_demo.local.toml` 本地注入真实可用的 `DashScope API Key` 和 `tts.voice`
+- 然后重新执行：
+  - `python3 scripts/generate_formal_api_demo.py --input cases/ai_report_fluff_trap_45s.md --out dist/formal_api_demo_ai_report_fluff_trap_45s`
+  - `python3 scripts/assemble_formal_api_demo.py --manifest dist/formal_api_demo_ai_report_fluff_trap_45s/manifest.json --out dist/formal_api_demo_ai_report_fluff_trap_45s`
 
 ## 当前工作分支与状态
 
 - 当前工作分支：
-  - `codex/round1-visual-pass-conservative`
-- 当前 draft PR：
-  - `https://github.com/fthytwerwt-sudo/-/pull/3`
-- 当前必须额外说明：
-  - 该 PR 基于现有长分支创建，包含此前该分支上的历史改动
-  - 它不等于“只含本轮多 agent 模板文件”的净 PR
+  - `codex/report-failure-45s-sample`
 - 当前状态标签：
-  - `pr_open_not_merged_to_reading_branch`
+  - `task_branch_only`
+- 当前必须继续明确：
+  - 这轮结果尚未同步回 `codex/user-readable-map`
+  - 仓库正式状态仍未更新到主读取分支
