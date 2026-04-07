@@ -35,6 +35,35 @@ pitch_rate = 0.92
 volume = 46
 response_format = "mp3"
 
+# 可选：TTS 资源池
+# - 运行时仍只认 formal_api_demo.local.toml 这一份正式配置源
+# - 若定义 [tts_pool.<candidate_id>]，系统会把 base [tts]/[auth]/[provider] 视为 primary，
+#   再把这些候选作为 backup 链
+# - 当前已实现的自动切换触发条件包括：
+#   - 429 / quota exhausted
+#   - 401 / 403 / invalid key
+#   - voice unavailable / unsupported
+#   - timeout / upstream unavailable
+# - 没有候补时，系统只会如实报资源池已耗尽，不会伪造新 key
+#
+# [tts_pool.backup_edge]
+# label = "Edge 备选"
+# priority = 20
+# enabled = true
+# api_route_family = "edge_gateway_openai_compatible"
+# api_key = "SET_IN_LOCAL_FILE"
+# model = "SET_IN_LOCAL_FILE"
+# voice = "SET_IN_LOCAL_FILE"
+# style_profile = "report"
+#
+# [tts_pool.backup_aliyun_voice_b]
+# label = "阿里同 provider 备声线"
+# priority = 30
+# enabled = true
+# api_route_family = "aliyun_bailian_cosyvoice"
+# voice = "SET_IN_LOCAL_FILE"
+# style_profile = "report"
+
 [tts_style_probe]
 # 固定测试文案：当前声音目标稿 v1 的所有 probe 轮次共用同一段文案，不推进 assembly。
 text = "这套方案表面上堆满了参数，真正决定上限的其实只有供电、火控和协同链路。前两项还能补，第三项一旦掉队，再新的壳子也只是好看。说得更直白一点，它不是没亮点，是关键战力根本没站住。"
@@ -119,6 +148,16 @@ enabled = true
 # - 若只是修图 / 改图，不要回到 facechain-generation，改走 qwen-image-edit-plus
 model = "wan2.6-image"
 
+# 可选：图片资源池
+# [image_generation_pool.backup_image]
+# label = "图片备选"
+# priority = 20
+# enabled = true
+# provider = "aliyun_bailian"
+# api_key = "SET_IN_LOCAL_FILE"
+# model = "wan2.6-image"
+# style_profile = "report"
+
 [video_generation]
 enabled = true
 # 当前正式 generation 主链仍包含视频生成 API：
@@ -129,6 +168,16 @@ enabled = true
 # - 普通视频主线改为 wan2.6-image -> wan2.7-i2v
 # - wan2.7-videoedit 只用于后期修补 / 编辑增强，不是主生成模型
 model = "wan2.7-i2v"
+
+# 可选：视频资源池
+# [video_generation_pool.backup_video]
+# label = "视频备选"
+# priority = 20
+# enabled = true
+# provider = "aliyun_bailian"
+# api_key = "SET_IN_LOCAL_FILE"
+# model = "wan2.7-i2v"
+# style_profile = "report"
 
 [portrait_detect]
 enabled = false

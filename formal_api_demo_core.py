@@ -68,6 +68,15 @@ DEFAULT_IMAGE_EDIT_MODEL = "qwen-image-edit-plus"
 DEFAULT_VIDEO_EDIT_MODEL = "wan2.7-videoedit"
 DEFAULT_PORTRAIT_DETECT_MODEL = "liveportrait-detect"
 DEFAULT_PORTRAIT_VIDEO_MODEL = "liveportrait"
+RESOURCE_KIND_TTS = "tts"
+RESOURCE_KIND_IMAGE = "image_generation"
+RESOURCE_KIND_VIDEO = "video_generation"
+FAILURE_CATEGORY_AUTH = "auth_failed"
+FAILURE_CATEGORY_QUOTA = "quota_exhausted"
+FAILURE_CATEGORY_VOICE = "voice_unavailable"
+FAILURE_CATEGORY_TIMEOUT = "provider_timeout"
+FAILURE_CATEGORY_CANDIDATE = "candidate_invalid"
+FAILURE_CATEGORY_UNKNOWN = "unknown"
 DEFAULT_ALIYUN_TTS_STYLE_PROBE_TEXT = (
     "这套方案表面上堆满了参数，真正决定上限的其实只有供电、火控和协同链路。"
     "前两项还能补，第三项一旦掉队，再新的壳子也只是好看。"
@@ -352,6 +361,7 @@ def run_generation_pipeline(
     voiceover = build_default_voiceover_generation(video_spec, config)
     caption_assets = build_default_caption_assets(video_spec)
     visual_generation = build_default_visual_generation(video_spec, config)
+    rotation_state = _build_default_rotation_state()
     manifest = build_manifest(
         input_path=input_path,
         video_spec=video_spec,
@@ -365,8 +375,10 @@ def run_generation_pipeline(
     generation_gate_path = output_dir / "generation_gate.json"
 
     if dry_run:
+        tts_probe["candidate_pool"] = tts_gate.get("candidate_pool", {})
         tts_probe["current_missing_prerequisites"] = tts_gate["missing_prerequisites"]
         voiceover["current_missing_prerequisites"] = tts_gate["missing_prerequisites"]
+        visual_generation["candidate_pool"] = visual_gate.get("candidate_pool", {})
         visual_generation["current_missing_prerequisites"] = visual_gate["missing_prerequisites"]
         visual_generation["missing_implementations"] = visual_gate["missing_implementations"]
         manifest = apply_tts_probe_to_manifest(manifest, tts_probe, generation_gate)
@@ -379,6 +391,7 @@ def run_generation_pipeline(
                 video_spec=video_spec,
                 config=config,
                 output_dir=output_dir,
+                rotation_state=rotation_state,
             )
         else:
             tts_probe = build_blocked_tts_probe(video_spec, tts_gate)
@@ -389,6 +402,7 @@ def run_generation_pipeline(
                 video_spec=video_spec,
                 config=config,
                 output_dir=output_dir,
+                rotation_state=rotation_state,
             )
         else:
             voiceover = build_blocked_voiceover_generation(video_spec, tts_probe, tts_gate)
@@ -405,6 +419,7 @@ def run_generation_pipeline(
             config=config,
             output_dir=output_dir,
             visual_gate=visual_gate,
+            rotation_state=rotation_state,
         )
         manifest = apply_visual_generation_to_manifest(manifest, visual_generation)
 
@@ -456,6 +471,7 @@ def build_blocked_tts_probe(
             "error_code": "",
             "error_message": tts_gate.get("blocked_reason", ""),
             "current_missing_prerequisites": tts_gate["missing_prerequisites"],
+            "candidate_pool": tts_gate.get("candidate_pool", {}),
         }
     )
     return blocked_probe
@@ -789,7 +805,14 @@ def _evaluate_tts_generation_gate(
     route_family = _get_tts_api_route_family(config)
     tts_provider = _get_tts_provider_name(config, route_family=route_family)
     configured_provider = _nested_get(config, "provider", "name")
-    missing = _generation_missing_prerequisites(
+    tts_candidates = _resolve_tts_candidate_pool(config)
+    candidate_pool = _summarize_tts_candidate_pool(tts_candidates)
+    available_candidates = [
+        candidate
+        for candidate in tts_candidates
+        if not _tts_candidate_missing_prerequisites(candidate)
+    ]
+    missing = [] if available_candidates else _generation_missing_prerequisites(
         video_spec,
         config,
         has_local_config,
@@ -831,16 +854,23 @@ def _evaluate_tts_generation_gate(
         {
             "name": "tts_api_key_present",
             "status": "pass"
-            if not _is_missing_secret(_nested_get(config, "auth", "api_key"))
+            if available_candidates
             else "fail",
-            "detail": "TTS probe 从 local 配置读取访问密钥，不回显真实值。",
+            "detail": "当前 preflight 已升级为整条候选链检查，不再只看单个 auth.api_key。",
         },
         {
             "name": "tts_voice_present",
             "status": "pass"
-            if not _is_missing_secret(_nested_get(config, "tts", "voice"))
+            if available_candidates
             else "fail",
-            "detail": "当前 TTS probe 默认要求显式 voice，避免调用时隐式失败。",
+            "detail": "当前 preflight 已升级为整条候选链检查，不再只看单个 tts.voice。",
+        },
+        {
+            "name": "tts_usable_candidate_present",
+            "status": "pass"
+            if available_candidates
+            else "fail",
+            "detail": f"available_candidates={len(available_candidates)} / total_candidates={len(tts_candidates)}",
         },
         {
             "name": "cloud_only_assembly_route_locked",
@@ -864,7 +894,7 @@ def _evaluate_tts_generation_gate(
     elif route_family not in SUPPORTED_TTS_ROUTE_FAMILIES:
         status = STATUS_BLOCKED
         blocked_reason = f"当前不支持的 TTS route family：{route_family}"
-    elif missing:
+    elif not available_candidates:
         status = STATUS_BLOCKED
         blocked_reason = "缺少 TTS probe 前提：" + "、".join(missing)
     elif OpenAI is None and route_family in {
@@ -896,6 +926,7 @@ def _evaluate_tts_generation_gate(
         "failure_reason": failure_reason,
         "missing_prerequisites": missing,
         "missing_implementations": implementation_missing,
+        "candidate_pool": candidate_pool,
         "tts_target": {
             "api_route_family": route_family,
             "model_identifier": _get_tts_model_identifier(config, route_family=route_family),
@@ -911,6 +942,7 @@ def _evaluate_tts_generation_gate(
             "当前子 Gate 只评估 TTS probe / voiceover 所需前提。",
             "dry-run 只验证输入、契约和 Gate，不调用远端。",
             "route family 已显式拆分为 Ark / Edge Gateway / 阿里百炼 CosyVoice / Doubao OpenSpeech，不再默认混走 Ark。",
+            "当前 TTS preflight 已升级为候选链检查；只要存在 1 个可用候选，就不再把单个 primary 缺失误判成整体 blocked。",
         ],
     }
 
@@ -999,22 +1031,62 @@ def _evaluate_visual_generation_gate(
     missing: list[str] = []
     implementation_missing: list[str] = []
     visual_routes = _build_visual_model_routes(config)
-    visual_provider = _nested_get(config, "provider", "name")
-    aliyun_visual_supported = visual_provider == PROVIDER_ALIYUN_BAILIAN
+    image_candidates = _resolve_visual_candidate_pool(config, resource_kind=RESOURCE_KIND_IMAGE)
+    video_candidates = _resolve_visual_candidate_pool(config, resource_kind=RESOURCE_KIND_VIDEO)
+    candidate_pool = _summarize_visual_candidate_pool(image_candidates, video_candidates)
+    available_image_candidates = [
+        candidate
+        for candidate in image_candidates
+        if not _visual_candidate_missing_prerequisites(candidate, resource_kind=RESOURCE_KIND_IMAGE)
+    ]
+    available_video_candidates = [
+        candidate
+        for candidate in video_candidates
+        if not _visual_candidate_missing_prerequisites(candidate, resource_kind=RESOURCE_KIND_VIDEO)
+    ]
+    visual_provider = available_image_candidates[0]["provider"] if available_image_candidates else _nested_get(config, "provider", "name")
+    image_provider_supported = any(
+        candidate.get("provider") == PROVIDER_ALIYUN_BAILIAN
+        for candidate in available_image_candidates
+    ) if available_image_candidates else (_nested_get(config, "provider", "name") == PROVIDER_ALIYUN_BAILIAN)
+    video_provider_supported = any(
+        candidate.get("provider") == PROVIDER_ALIYUN_BAILIAN
+        for candidate in available_video_candidates
+    ) if available_video_candidates else (_nested_get(config, "provider", "name") == PROVIDER_ALIYUN_BAILIAN)
     needs_image = any(segment.get("needs_image") for segment in video_spec.get("segments", []))
     needs_video = any(segment.get("needs_video") for segment in video_spec.get("segments", []))
     portrait_detect_enabled = visual_routes["portrait_detect"]["enabled"]
     portrait_video_enabled = visual_routes["portrait_video_generation"]["enabled"]
+    image_missing_union = _candidate_missing_union(
+        image_candidates,
+        missing_fn=lambda candidate: _visual_candidate_missing_prerequisites(
+            candidate,
+            resource_kind=RESOURCE_KIND_IMAGE,
+        ),
+    )
+    video_missing_union = _candidate_missing_union(
+        video_candidates,
+        missing_fn=lambda candidate: _visual_candidate_missing_prerequisites(
+            candidate,
+            resource_kind=RESOURCE_KIND_VIDEO,
+        ),
+    )
     if not has_local_config:
         missing.append("local_config_file")
-    if _is_missing_secret(_nested_get(config, "auth", "api_key")):
+    if not available_image_candidates and not available_video_candidates:
         missing.append("api_key")
-    if _is_missing_secret(_nested_get(config, "provider", "region")):
+    if _is_missing_secret(_nested_get(config, "provider", "region")) and not (
+        available_image_candidates or available_video_candidates
+    ):
         missing.append("provider_region")
-    if needs_image and _is_missing_secret(_nested_get(config, "image_generation", "model")):
-        missing.append("image_generation_model")
-    if needs_video and _is_missing_secret(_nested_get(config, "video_generation", "model")):
-        missing.append("video_generation_model")
+    if needs_image and not available_image_candidates:
+        for item in image_missing_union or ["image_generation_model"]:
+            if item not in missing:
+                missing.append(item)
+    if needs_video and not available_video_candidates:
+        for item in video_missing_union or ["video_generation_model"]:
+            if item not in missing:
+                missing.append(item)
     if portrait_video_enabled and not portrait_detect_enabled:
         missing.append("portrait_detect_enabled")
     if portrait_detect_enabled and _is_missing_secret(_nested_get(config, "portrait_detect", "model")):
@@ -1023,9 +1095,9 @@ def _evaluate_visual_generation_gate(
         _nested_get(config, "portrait_video_generation", "model")
     ):
         missing.append("portrait_video_generation_model")
-    if needs_image and not aliyun_visual_supported:
+    if needs_image and not image_provider_supported:
         implementation_missing.append("image_generation_provider_implementation")
-    if needs_video and not aliyun_visual_supported:
+    if needs_video and not video_provider_supported:
         implementation_missing.append("video_generation_provider_implementation")
     if portrait_detect_enabled:
         implementation_missing.append("portrait_detect_provider_implementation")
@@ -1041,16 +1113,16 @@ def _evaluate_visual_generation_gate(
         {
             "name": "image_model_present_when_required",
             "status": "pass"
-            if not needs_image or not _is_missing_secret(_nested_get(config, "image_generation", "model"))
+            if not needs_image or bool(available_image_candidates)
             else "fail",
-            "detail": "有图片段落时必须显式提供 image_generation.model。",
+            "detail": f"有图片段落时必须存在至少 1 个可用 image candidate；available={len(available_image_candidates)}。",
         },
         {
             "name": "video_model_present_when_required",
             "status": "pass"
-            if not needs_video or not _is_missing_secret(_nested_get(config, "video_generation", "model"))
+            if not needs_video or bool(available_video_candidates)
             else "fail",
-            "detail": "有视频段落时必须显式提供 video_generation.model。",
+            "detail": f"有视频段落时必须存在至少 1 个可用 video candidate；available={len(available_video_candidates)}。",
         },
         {
             "name": "portrait_detect_enabled_before_liveportrait",
@@ -1126,6 +1198,7 @@ def _evaluate_visual_generation_gate(
         "failure_reason": "",
         "missing_prerequisites": missing,
         "missing_implementations": implementation_missing,
+        "candidate_pool": candidate_pool,
         "checks": checks,
         "notes": [
             "visual_generation Gate 继续代表图片 / 视频生成 API 的正式 generation 前提。",
@@ -1135,6 +1208,7 @@ def _evaluate_visual_generation_gate(
             f"{DEFAULT_VIDEO_EDIT_MODEL} 只用于后期修补 / 编辑增强，不是主生成模型。",
             "缺少 image_generation.model / video_generation.model 时，generation 不能写成 success。",
             "provider implementation 尚未接入时，当前必须诚实 blocked，不能再把 visual plan / preview 写成 success。",
+            "当前 visual preflight 已升级为候选链检查；只要存在 1 个可用 image/video 候选，就不再把单个 primary 缺失误判成整体 blocked。",
         ],
     }
 
@@ -1489,6 +1563,13 @@ def build_generation_result_summary(
             "preview_storyboard": visual_generation.get("preview_storyboard_path"),
             "visual_assets": visual_assets,
         },
+        "rotation_summary": {
+            "tts_candidate_pool": tts_probe.get("candidate_pool", {}),
+            "tts_fallback_events": tts_probe.get("fallback_events", []),
+            "tts_selected_candidate_id": tts_probe.get("selected_candidate_id", ""),
+            "voiceover_last_success_candidate_id": voiceover.get("last_success_candidate_id", ""),
+            "visual_candidate_pool": visual_generation.get("candidate_pool", {}),
+        },
         "next_action_hint": _generation_next_action_hint(generation_gate, tts_probe, dry_run),
         "current_missing_prerequisites": generation_gate["missing_prerequisites"],
         "current_missing_implementations": generation_gate["missing_implementations"],
@@ -1619,6 +1700,8 @@ def build_default_voiceover_generation(
         "failure_reason": "",
         "error_message": "",
         "current_missing_prerequisites": [],
+        "fallback_events": [],
+        "last_success_candidate_id": "",
     }
 
 
@@ -1682,6 +1765,7 @@ def build_default_visual_generation(
         "error_message": "",
         "current_missing_prerequisites": [],
         "missing_implementations": [],
+        "candidate_pool": {},
         "cloud": {
             "status": STATUS_NOT_STARTED,
             "blocked_reason": "",
@@ -1746,6 +1830,13 @@ def build_default_tts_probe(video_spec: dict[str, Any]) -> dict[str, Any]:
         "response_format": None,
         "request_debug": {},
         "current_missing_prerequisites": [],
+        "candidate_pool": {},
+        "fallback_events": [],
+        "selected_candidate_id": "",
+        "selected_candidate_label": "",
+        "selected_voice": "",
+        "failure_category": "",
+        "resource_pool_exhausted": False,
     }
 
 
@@ -1820,18 +1911,123 @@ def execute_tts_probe(
     probe_text_source: str | None = None,
     output_stem: str = "voice_probe",
     tts_override: dict[str, Any] | None = None,
+    rotation_state: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     probe = build_default_tts_probe(video_spec)
     if probe_text is not None:
         probe["probe_text"] = probe_text.strip()
         probe["probe_text_source"] = probe_text_source or "runtime_override"
+    runtime_state = rotation_state or _build_default_rotation_state()
+    candidates = _resolve_tts_candidate_pool(config)
+    probe["candidate_pool"] = _summarize_tts_candidate_pool(candidates)
+    ordered_candidates = _ordered_runtime_candidates(
+        candidates,
+        runtime_state=runtime_state,
+        resource_kind=RESOURCE_KIND_TTS,
+        missing_fn=lambda candidate: _tts_candidate_missing_prerequisites(candidate),
+    )
+    if not ordered_candidates:
+        probe.update(
+            {
+                "status": STATUS_BLOCKED,
+                "blocked_reason": "TTS 资源池没有可用候选；请补齐候补 key / voice / provider。",
+                "error_message": "TTS 资源池没有可用候选；请补齐候补 key / voice / provider。",
+                "current_missing_prerequisites": ["tts_candidate_pool_exhausted"],
+                "resource_pool_exhausted": True,
+            }
+        )
+        return probe
+
+    fallback_events: list[dict[str, Any]] = []
+    for index, candidate in enumerate(ordered_candidates):
+        effective_config = _build_effective_tts_config(config, candidate)
+        attempt_result = _execute_tts_probe_once(
+            probe=probe,
+            config=effective_config,
+            output_dir=output_dir,
+            output_stem=output_stem,
+            tts_override=tts_override,
+        )
+        failure_category = _categorize_tts_probe_failure(attempt_result)
+        remaining_candidate_count = max(0, len(ordered_candidates) - index - 1)
+        if attempt_result.get("status") == STATUS_SUCCESS:
+            attempt_result.update(
+                {
+                    "candidate_pool": probe["candidate_pool"],
+                    "fallback_events": fallback_events,
+                    "selected_candidate_id": candidate["candidate_id"],
+                    "selected_candidate_label": candidate["label"],
+                    "selected_voice": candidate.get("voice") or "",
+                    "failure_category": "",
+                    "resource_pool_exhausted": False,
+                }
+            )
+            runtime_state.setdefault("last_success", {})[RESOURCE_KIND_TTS] = candidate["candidate_id"]
+            return attempt_result
+
+        next_candidate_id = (
+            ordered_candidates[index + 1]["candidate_id"]
+            if remaining_candidate_count
+            else ""
+        )
+        fallback_events.append(
+            {
+                "resource_kind": RESOURCE_KIND_TTS,
+                "from_candidate_id": candidate["candidate_id"],
+                "from_provider": candidate["provider"],
+                "from_voice": "" if _is_missing_secret(candidate.get("voice")) else candidate.get("voice"),
+                "reason_category": failure_category,
+                "reason": attempt_result.get("error_message") or attempt_result.get("blocked_reason") or "",
+                "switch_to_candidate_id": next_candidate_id,
+                "remaining_candidate_count": remaining_candidate_count,
+            }
+        )
+        if _should_disable_tts_candidate(failure_category):
+            _disable_runtime_candidate(
+                runtime_state,
+                resource_kind=RESOURCE_KIND_TTS,
+                candidate_id=candidate["candidate_id"],
+                reason=failure_category,
+            )
+        if remaining_candidate_count:
+            continue
+        attempt_result.update(
+            {
+                "candidate_pool": probe["candidate_pool"],
+                "fallback_events": fallback_events,
+                "selected_candidate_id": candidate["candidate_id"],
+                "selected_candidate_label": candidate["label"],
+                "selected_voice": "" if _is_missing_secret(candidate.get("voice")) else candidate.get("voice"),
+                "failure_category": failure_category,
+                "resource_pool_exhausted": True,
+                "blocked_reason": (
+                    attempt_result.get("blocked_reason")
+                    or attempt_result.get("error_message")
+                    or "TTS 资源池已耗尽，没有可继续切换的候选。"
+                ),
+            }
+        )
+        return attempt_result
+
+    return probe
+
+
+def _execute_tts_probe_once(
+    *,
+    probe: dict[str, Any],
+    config: dict[str, Any],
+    output_dir: pathlib.Path,
+    output_stem: str,
+    tts_override: dict[str, Any] | None,
+) -> dict[str, Any]:
+    attempt_probe = copy.deepcopy(probe)
     route_family = _get_tts_api_route_family(config)
     model_identifier = _get_tts_model_identifier(config, route_family=route_family)
     base_url = _build_tts_base_url(config, route_family)
     response_format = (_nested_get(config, "tts", "response_format") or "mp3").strip() or "mp3"
     tts_options = _resolve_tts_runtime_options(config, tts_override=tts_override)
     audio_path = output_dir / "tts" / f"{output_stem}.{response_format}"
-    probe.update(
+    attempt_probe.update(
         {
             "provider": _get_tts_provider_name(config, route_family=route_family),
             "api_route_family": route_family,
@@ -1865,21 +2061,21 @@ def execute_tts_probe(
         if route_family == TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE:
             request_id = _execute_aliyun_bailian_tts_probe(
                 config=config,
-                probe=probe,
+                probe=attempt_probe,
                 audio_path=audio_path,
                 base_url=base_url,
                 model_identifier=model_identifier,
                 response_format=response_format,
                 tts_options=tts_options,
             )
-            probe.update(
+            attempt_probe.update(
                 {
                     "status": STATUS_SUCCESS,
                     "audio_path": str(audio_path),
                     "request_id": request_id,
                 }
             )
-            return probe
+            return attempt_probe
 
         client = OpenAI(
             api_key=_nested_get(config, "auth", "api_key"),
@@ -1888,7 +2084,7 @@ def execute_tts_probe(
         request_kwargs: dict[str, Any] = {
             "model": model_identifier,
             "voice": tts_options["voice"],
-            "input": probe["probe_text"],
+            "input": attempt_probe["probe_text"],
             "response_format": response_format,
         }
         style = tts_options["style"]
@@ -1903,7 +2099,7 @@ def execute_tts_probe(
                     "tts probe audio file missing or empty after provider response",
                     error_code="TtsAudioFileMissing",
                 )
-            probe.update(
+            attempt_probe.update(
                 {
                     "status": STATUS_SUCCESS,
                     "audio_path": str(audio_path),
@@ -1914,7 +2110,7 @@ def execute_tts_probe(
         status, failure_reason, http_status_code, error_code, error_message = _classify_tts_exception(
             exc, config
         )
-        probe.update(
+        attempt_probe.update(
             {
                 "status": status,
                 "blocked_reason": error_message if status == STATUS_BLOCKED else "",
@@ -1924,18 +2120,186 @@ def execute_tts_probe(
                 "error_message": error_message,
             }
         )
+    return attempt_probe
 
-    return probe
+
+def _ordered_runtime_candidates(
+    candidates: list[dict[str, Any]],
+    *,
+    runtime_state: dict[str, Any],
+    resource_kind: str,
+    missing_fn: Any,
+) -> list[dict[str, Any]]:
+    disabled = runtime_state.get("disabled_candidates", {}).get(resource_kind, {})
+    last_success = runtime_state.get("last_success", {}).get(resource_kind)
+    eligible = [
+        candidate
+        for candidate in candidates
+        if candidate.get("candidate_id") not in disabled and not missing_fn(candidate)
+    ]
+    return sorted(
+        eligible,
+        key=lambda candidate: (
+            0 if candidate.get("candidate_id") == last_success else 1,
+            candidate.get("priority", 999),
+            candidate.get("candidate_id", ""),
+        ),
+    )
+
+
+def _build_effective_tts_config(config: dict[str, Any], candidate: dict[str, Any]) -> dict[str, Any]:
+    effective = copy.deepcopy(config)
+    _nested_set(effective, "provider", "name", value=candidate.get("provider"))
+    _nested_set(effective, "provider", "region", value=candidate.get("region"))
+    _nested_set(effective, "auth", "api_key", value=candidate.get("api_key"))
+    _nested_set(effective, "auth", "app_id", value=candidate.get("app_id"))
+    _nested_set(effective, "tts", "api_route_family", value=candidate.get("api_route_family"))
+    _nested_set(effective, "tts", "model", value=candidate.get("model"))
+    _nested_set(effective, "tts", "endpoint_id", value=candidate.get("endpoint_id"))
+    _nested_set(effective, "tts", "resource_id", value=candidate.get("resource_id"))
+    _nested_set(effective, "tts", "voice", value=candidate.get("voice"))
+    _nested_set(effective, "tts", "style", value=candidate.get("style"))
+    _nested_set(effective, "tts", "instruction", value=candidate.get("instruction"))
+    _nested_set(effective, "tts", "speech_rate", value=candidate.get("speech_rate"))
+    _nested_set(effective, "tts", "pitch_rate", value=candidate.get("pitch_rate"))
+    _nested_set(effective, "tts", "volume", value=candidate.get("volume"))
+    _nested_set(effective, "tts", "response_format", value=candidate.get("response_format"))
+    return effective
+
+
+def _categorize_tts_probe_failure(result: dict[str, Any]) -> str:
+    http_status_code = result.get("http_status_code")
+    message = (
+        str(result.get("error_message") or result.get("blocked_reason") or "")
+        .strip()
+        .lower()
+    )
+    if http_status_code in {401, 403} or any(
+        token in message
+        for token in ("invalid key", "unauthorized", "forbidden", "auth", "authentication")
+    ):
+        return FAILURE_CATEGORY_AUTH
+    if http_status_code == 429 or any(
+        token in message
+        for token in ("quota", "rate limit", "too many requests", "exhausted", "insufficient_quota")
+    ):
+        return FAILURE_CATEGORY_QUOTA
+    if any(token in message for token in ("voice", "speaker")) and any(
+        token in message
+        for token in ("invalid", "not found", "unsupported", "unavailable", "illegal")
+    ):
+        return FAILURE_CATEGORY_VOICE
+    if http_status_code in {404} and any(
+        token in message for token in ("model", "endpoint", "resource", "route")
+    ):
+        return FAILURE_CATEGORY_CANDIDATE
+    if http_status_code in {408, 500, 502, 503, 504} or any(
+        token in message
+        for token in (
+            "timeout",
+            "temporarily unavailable",
+            "connection reset",
+            "connection refused",
+            "network",
+            "unavailable",
+        )
+    ):
+        return FAILURE_CATEGORY_TIMEOUT
+    return FAILURE_CATEGORY_UNKNOWN
+
+
+def _should_disable_tts_candidate(failure_category: str) -> bool:
+    return failure_category in {
+        FAILURE_CATEGORY_AUTH,
+        FAILURE_CATEGORY_QUOTA,
+        FAILURE_CATEGORY_VOICE,
+        FAILURE_CATEGORY_CANDIDATE,
+        FAILURE_CATEGORY_TIMEOUT,
+    }
+
+
+def _disable_runtime_candidate(
+    runtime_state: dict[str, Any],
+    *,
+    resource_kind: str,
+    candidate_id: str,
+    reason: str,
+) -> None:
+    disabled = runtime_state.setdefault("disabled_candidates", {}).setdefault(resource_kind, {})
+    disabled[candidate_id] = reason
+
+
+def _build_effective_visual_config(
+    config: dict[str, Any],
+    candidate: dict[str, Any],
+    *,
+    resource_kind: str,
+) -> dict[str, Any]:
+    effective = copy.deepcopy(config)
+    section_name = "image_generation" if resource_kind == RESOURCE_KIND_IMAGE else "video_generation"
+    _nested_set(effective, "provider", "name", value=candidate.get("provider"))
+    _nested_set(effective, "provider", "region", value=candidate.get("region"))
+    _nested_set(effective, "auth", "api_key", value=candidate.get("api_key"))
+    _nested_set(effective, section_name, "model", value=candidate.get("model"))
+    return effective
+
+
+def _categorize_visual_generation_failure(result: dict[str, Any]) -> str:
+    http_status_code = result.get("http_status_code")
+    message = (
+        str(result.get("error_message") or result.get("blocked_reason") or "")
+        .strip()
+        .lower()
+    )
+    if http_status_code in {401, 403} or any(
+        token in message
+        for token in ("invalid key", "unauthorized", "forbidden", "auth", "authentication")
+    ):
+        return FAILURE_CATEGORY_AUTH
+    if http_status_code == 429 or any(
+        token in message
+        for token in ("quota", "rate limit", "too many requests", "exhausted", "insufficient_quota")
+    ):
+        return FAILURE_CATEGORY_QUOTA
+    if http_status_code in {404} and any(
+        token in message for token in ("model", "route", "provider", "not found")
+    ):
+        return FAILURE_CATEGORY_CANDIDATE
+    if http_status_code in {408, 500, 502, 503, 504} or any(
+        token in message
+        for token in (
+            "timeout",
+            "temporarily unavailable",
+            "connection reset",
+            "connection refused",
+            "network",
+            "unavailable",
+        )
+    ):
+        return FAILURE_CATEGORY_TIMEOUT
+    return FAILURE_CATEGORY_UNKNOWN
+
+
+def _should_disable_visual_candidate(failure_category: str) -> bool:
+    return failure_category in {
+        FAILURE_CATEGORY_AUTH,
+        FAILURE_CATEGORY_QUOTA,
+        FAILURE_CATEGORY_CANDIDATE,
+        FAILURE_CATEGORY_TIMEOUT,
+    }
 
 
 def execute_formal_voiceover_generation(
     video_spec: dict[str, Any],
     config: dict[str, Any],
     output_dir: pathlib.Path,
+    *,
+    rotation_state: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     voiceover = build_default_voiceover_generation(video_spec, config)
     segment_results: list[dict[str, Any]] = []
     segment_audio_paths: list[pathlib.Path] = []
+    runtime_state = rotation_state or _build_default_rotation_state()
 
     for segment in video_spec.get("segments", []):
         probe = execute_tts_probe(
@@ -1945,6 +2309,7 @@ def execute_formal_voiceover_generation(
             probe_text=segment["voiceover_text"],
             probe_text_source=f"{segment['segment_id']}_voiceover",
             output_stem=f"segment_{segment['segment_id']}",
+            rotation_state=runtime_state,
         )
         segment_result = {
             "segment_id": segment["segment_id"],
@@ -1953,6 +2318,8 @@ def execute_formal_voiceover_generation(
             "request_id": probe.get("request_id"),
             "failure_reason": probe.get("failure_reason", ""),
             "error_message": probe.get("error_message", ""),
+            "selected_candidate_id": probe.get("selected_candidate_id", ""),
+            "fallback_events": probe.get("fallback_events", []),
         }
         segment_results.append(segment_result)
         if probe.get("status") != STATUS_SUCCESS:
@@ -1964,6 +2331,7 @@ def execute_formal_voiceover_generation(
                     "blocked_reason": probe.get("blocked_reason", ""),
                     "failure_reason": probe.get("failure_reason", ""),
                     "error_message": probe.get("error_message", ""),
+                    "fallback_events": probe.get("fallback_events", []),
                 }
             )
             return voiceover
@@ -1979,6 +2347,7 @@ def execute_formal_voiceover_generation(
             "audio_path": str(bundle_path),
             "segment_audio_paths": [str(path) for path in segment_audio_paths],
             "segment_results": segment_results,
+            "last_success_candidate_id": runtime_state.get("last_success", {}).get(RESOURCE_KIND_TTS, ""),
         }
     )
     return voiceover
@@ -2037,6 +2406,8 @@ def build_visual_generation_plan(
     config: dict[str, Any],
     output_dir: pathlib.Path,
     visual_gate: dict[str, Any],
+    *,
+    rotation_state: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     visual_generation = build_default_visual_generation(video_spec, config)
     plan_path = output_dir / "visual_generation_plan.json"
@@ -2105,6 +2476,7 @@ def build_visual_generation_plan(
             "plan_path": str(plan_path),
             "preview_storyboard_path": str(preview_storyboard_path),
             "segment_assets": segment_assets,
+            "candidate_pool": visual_gate.get("candidate_pool", {}),
         }
     )
 
@@ -2236,6 +2608,7 @@ def build_visual_generation_plan(
             "blocked_reason": "",
         }
     )
+    runtime_state = rotation_state or _build_default_rotation_state()
 
     for segment, asset in zip(video_spec.get("segments", []), segment_assets):
         image_result = {
@@ -2246,6 +2619,8 @@ def build_visual_generation_plan(
             "blocked_reason": "",
             "failure_reason": "",
             "error_message": "",
+            "fallback_events": [],
+            "selected_candidate_id": "",
         }
         video_result = {
             "status": STATUS_SKIPPED,
@@ -2255,6 +2630,8 @@ def build_visual_generation_plan(
             "blocked_reason": "",
             "failure_reason": "",
             "error_message": "",
+            "fallback_events": [],
+            "selected_candidate_id": "",
         }
 
         if asset["needs_image"]:
@@ -2263,9 +2640,12 @@ def build_visual_generation_plan(
                 output_dir=output_dir,
                 segment_id=segment["segment_id"],
                 prompt=asset["image_prompt"],
+                rotation_state=runtime_state,
             )
             asset["image_task_id"] = image_result["task_id"]
             asset["image_asset_path"] = image_result["asset_path"]
+            asset["image_candidate_id"] = image_result.get("selected_candidate_id", "")
+            asset["image_fallback_events"] = image_result.get("fallback_events", [])
 
         if asset["needs_video"]:
             seed_image_url = None
@@ -2291,9 +2671,12 @@ def build_visual_generation_plan(
                     prompt=asset["video_prompt"],
                     duration_seconds=segment["planned_duration_seconds"],
                     seed_image_url=seed_image_url,
+                    rotation_state=runtime_state,
                 )
             asset["video_task_id"] = video_result["task_id"]
             asset["video_asset_path"] = video_result["asset_path"]
+            asset["video_candidate_id"] = video_result.get("selected_candidate_id", "")
+            asset["video_fallback_events"] = video_result.get("fallback_events", [])
             visual_generation["general_video_generation"].update(
                 {
                     "status": video_result["status"],
@@ -2383,6 +2766,7 @@ def _write_visual_generation_files(
             "error_message": visual_generation.get("error_message", ""),
             "current_missing_prerequisites": visual_generation["current_missing_prerequisites"],
             "missing_implementations": visual_generation["missing_implementations"],
+            "candidate_pool": visual_generation.get("candidate_pool", {}),
             "auxiliary_only": visual_generation["delivery_mode"] != "api_generated_local_assets",
             "cloud": visual_generation["cloud"],
             "segment_assets": visual_generation["segment_assets"],
@@ -2412,32 +2796,17 @@ def _execute_aliyun_wan_image_generation(
     output_dir: pathlib.Path,
     segment_id: str,
     prompt: str,
+    rotation_state: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    payload = {
-        "model": _nested_get(config, "image_generation", "model") or DEFAULT_GENERAL_IMAGE_MODEL,
-        "input": {
-            "messages": [
-                {
-                    "role": "user",
-                    "content": [{"text": prompt}],
-                }
-            ]
-        },
-        "parameters": {
-            "size": "720*1280",
-            "max_images": 1,
-            "enable_interleave": True,
-        },
-    }
-    return _execute_aliyun_visual_generation_task(
+    return _execute_aliyun_visual_generation_with_fallback(
         config=config,
         output_dir=output_dir,
         segment_id=segment_id,
-        asset_kind="image",
-        create_relative_path="/services/aigc/image-generation/generation",
-        payload=payload,
-        result_url_extractor=_extract_aliyun_image_result_url,
-        default_extension=".png",
+        resource_kind=RESOURCE_KIND_IMAGE,
+        prompt=prompt,
+        duration_seconds=None,
+        seed_image_url=None,
+        rotation_state=rotation_state,
     )
 
 
@@ -2478,26 +2847,171 @@ def _execute_aliyun_wan_video_generation(
     prompt: str,
     duration_seconds: float,
     seed_image_url: str | None = None,
+    rotation_state: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    payload = _build_aliyun_video_generation_payload(
-        config=config,
-        prompt=prompt,
-        duration_seconds=duration_seconds,
-        seed_image_url=seed_image_url,
-    )
-    return _execute_aliyun_visual_generation_task(
+    return _execute_aliyun_visual_generation_with_fallback(
         config=config,
         output_dir=output_dir,
         segment_id=segment_id,
-        asset_kind="video",
-        create_relative_path="/services/aigc/video-generation/video-synthesis",
-        payload=payload,
-        result_url_extractor=_extract_aliyun_video_result_url,
-        default_extension=".mp4",
+        resource_kind=RESOURCE_KIND_VIDEO,
+        prompt=prompt,
+        duration_seconds=duration_seconds,
+        seed_image_url=seed_image_url,
+        rotation_state=rotation_state,
     )
 
 
-def _execute_aliyun_visual_generation_task(
+def _execute_aliyun_visual_generation_with_fallback(
+    *,
+    config: dict[str, Any],
+    output_dir: pathlib.Path,
+    segment_id: str,
+    resource_kind: str,
+    prompt: str,
+    duration_seconds: float | None,
+    seed_image_url: str | None,
+    rotation_state: dict[str, Any] | None,
+) -> dict[str, Any]:
+    runtime_state = rotation_state or _build_default_rotation_state()
+    candidates = _resolve_visual_candidate_pool(config, resource_kind=resource_kind)
+    summary = _summarize_visual_candidate_pool(
+        candidates if resource_kind == RESOURCE_KIND_IMAGE else _resolve_visual_candidate_pool(config, resource_kind=RESOURCE_KIND_IMAGE),
+        candidates if resource_kind == RESOURCE_KIND_VIDEO else _resolve_visual_candidate_pool(config, resource_kind=RESOURCE_KIND_VIDEO),
+    )
+    ordered_candidates = _ordered_runtime_candidates(
+        candidates,
+        runtime_state=runtime_state,
+        resource_kind=resource_kind,
+        missing_fn=lambda candidate: _visual_candidate_missing_prerequisites(candidate, resource_kind=resource_kind),
+    )
+    if not ordered_candidates:
+        # Compatibility path: low-level helpers can still be called directly in
+        # focused unit tests before gate checks run.
+        ordered_candidates = candidates[:1]
+
+    fallback_events: list[dict[str, Any]] = []
+    for index, candidate in enumerate(ordered_candidates):
+        effective_config = _build_effective_visual_config(config, candidate, resource_kind=resource_kind)
+        if resource_kind == RESOURCE_KIND_IMAGE:
+            payload = {
+                "model": _nested_get(effective_config, "image_generation", "model") or DEFAULT_GENERAL_IMAGE_MODEL,
+                "input": {
+                    "messages": [
+                        {
+                            "role": "user",
+                            "content": [{"text": prompt}],
+                        }
+                    ]
+                },
+                "parameters": {
+                    "size": "720*1280",
+                    "max_images": 1,
+                    "enable_interleave": True,
+                },
+            }
+            attempt_result = _execute_aliyun_visual_generation_task(
+                config=effective_config,
+                output_dir=output_dir,
+                segment_id=segment_id,
+                asset_kind="image",
+                create_relative_path="/services/aigc/image-generation/generation",
+                payload=payload,
+                result_url_extractor=_extract_aliyun_image_result_url,
+                default_extension=".png",
+            )
+        else:
+            payload = _build_aliyun_video_generation_payload(
+                config=effective_config,
+                prompt=prompt,
+                duration_seconds=duration_seconds or 0,
+                seed_image_url=seed_image_url,
+            )
+            attempt_result = _execute_aliyun_visual_generation_task(
+                config=effective_config,
+                output_dir=output_dir,
+                segment_id=segment_id,
+                asset_kind="video",
+                create_relative_path="/services/aigc/video-generation/video-synthesis",
+                payload=payload,
+                result_url_extractor=_extract_aliyun_video_result_url,
+                default_extension=".mp4",
+            )
+
+        failure_category = _categorize_visual_generation_failure(attempt_result)
+        remaining_candidate_count = max(0, len(ordered_candidates) - index - 1)
+        if attempt_result.get("status") == STATUS_SUCCESS:
+            attempt_result.update(
+                {
+                    "candidate_pool": summary.get(resource_kind, {}),
+                    "fallback_events": fallback_events,
+                    "selected_candidate_id": candidate["candidate_id"],
+                    "selected_candidate_label": candidate["label"],
+                    "resource_pool_exhausted": False,
+                }
+            )
+            runtime_state.setdefault("last_success", {})[resource_kind] = candidate["candidate_id"]
+            return attempt_result
+
+        next_candidate_id = (
+            ordered_candidates[index + 1]["candidate_id"]
+            if remaining_candidate_count
+            else ""
+        )
+        fallback_events.append(
+            {
+                "resource_kind": resource_kind,
+                "from_candidate_id": candidate["candidate_id"],
+                "from_provider": candidate["provider"],
+                "reason_category": failure_category,
+                "reason": attempt_result.get("error_message") or attempt_result.get("blocked_reason") or "",
+                "switch_to_candidate_id": next_candidate_id,
+                "remaining_candidate_count": remaining_candidate_count,
+            }
+        )
+        if _should_disable_visual_candidate(failure_category):
+            _disable_runtime_candidate(
+                runtime_state,
+                resource_kind=resource_kind,
+                candidate_id=candidate["candidate_id"],
+                reason=failure_category,
+            )
+        if remaining_candidate_count:
+            continue
+        attempt_result.update(
+            {
+                "candidate_pool": summary.get(resource_kind, {}),
+                "fallback_events": fallback_events,
+                "selected_candidate_id": candidate["candidate_id"],
+                "selected_candidate_label": candidate["label"],
+                "resource_pool_exhausted": True,
+                "blocked_reason": (
+                    attempt_result.get("blocked_reason")
+                    or attempt_result.get("error_message")
+                    or f"{resource_kind} 资源池已耗尽，没有可继续切换的候选。"
+                ),
+            }
+        )
+        return attempt_result
+
+    return {
+        "status": STATUS_BLOCKED,
+        "task_id": None,
+        "request_id": None,
+        "asset_path": None,
+        "source_url": None,
+        "blocked_reason": f"{resource_kind} 资源池没有可用候选。",
+        "failure_reason": f"{resource_kind}_candidate_pool_exhausted",
+        "error_message": f"{resource_kind} 资源池没有可用候选。",
+        "http_status_code": None,
+        "error_code": "",
+        "candidate_pool": summary.get(resource_kind, {}),
+        "fallback_events": fallback_events,
+        "selected_candidate_id": "",
+        "resource_pool_exhausted": True,
+    }
+
+
+def _execute_aliyun_visual_generation_task_once(
     *,
     config: dict[str, Any],
     output_dir: pathlib.Path,
@@ -2579,6 +3093,8 @@ def _execute_aliyun_visual_generation_task(
             "blocked_reason": "",
             "failure_reason": "",
             "error_message": "",
+            "http_status_code": None,
+            "error_code": "",
         }
     except VisualGenerationError as exc:
         message = _sanitize_message(str(exc), config)
@@ -2591,7 +3107,32 @@ def _execute_aliyun_visual_generation_task(
             "blocked_reason": message if exc.status == STATUS_BLOCKED else "",
             "failure_reason": exc.failure_reason or "",
             "error_message": message,
+            "http_status_code": exc.status_code,
+            "error_code": exc.error_code or "",
         }
+
+
+def _execute_aliyun_visual_generation_task(
+    *,
+    config: dict[str, Any],
+    output_dir: pathlib.Path,
+    segment_id: str,
+    asset_kind: str,
+    create_relative_path: str,
+    payload: dict[str, Any],
+    result_url_extractor: Any,
+    default_extension: str,
+) -> dict[str, Any]:
+    return _execute_aliyun_visual_generation_task_once(
+        config=config,
+        output_dir=output_dir,
+        segment_id=segment_id,
+        asset_kind=asset_kind,
+        create_relative_path=create_relative_path,
+        payload=payload,
+        result_url_extractor=result_url_extractor,
+        default_extension=default_extension,
+    )
 
 
 def _poll_aliyun_visual_task(
@@ -2867,12 +3408,12 @@ def _parse_simple_toml(path: pathlib.Path) -> dict[str, Any]:
     current_section: dict[str, Any] | None = None
 
     for line in path.read_text(encoding="utf-8").splitlines():
-        stripped = line.strip()
+        stripped = _strip_toml_inline_comment(line).strip()
         if not stripped or stripped.startswith("#"):
             continue
         if stripped.startswith("[") and stripped.endswith("]"):
             section_name = stripped[1:-1].strip()
-            current_section = result.setdefault(section_name, {})
+            current_section = _ensure_nested_section(result, section_name)
             continue
         if "=" not in stripped or current_section is None:
             continue
@@ -2885,6 +3426,11 @@ def _parse_simple_toml(path: pathlib.Path) -> dict[str, Any]:
 def _parse_toml_value(raw_value: str) -> Any:
     if raw_value.startswith('"') and raw_value.endswith('"'):
         return raw_value[1:-1]
+    if raw_value.startswith("[") and raw_value.endswith("]"):
+        inner = raw_value[1:-1].strip()
+        if not inner:
+            return []
+        return [_parse_toml_value(part.strip()) for part in _split_toml_array(inner)]
     lowered = raw_value.lower()
     if lowered == "true":
         return True
@@ -2904,6 +3450,380 @@ def _deep_merge(target: dict[str, Any], source: dict[str, Any]) -> None:
             _deep_merge(target[key], value)
         else:
             target[key] = value
+
+
+def _strip_toml_inline_comment(line: str) -> str:
+    in_string = False
+    escaped = False
+    chars: list[str] = []
+    for char in line:
+        if char == '"' and not escaped:
+            in_string = not in_string
+        if char == "#" and not in_string:
+            break
+        chars.append(char)
+        escaped = char == "\\" and not escaped
+    return "".join(chars).rstrip()
+
+
+def _split_toml_array(raw_value: str) -> list[str]:
+    items: list[str] = []
+    buffer: list[str] = []
+    in_string = False
+    escaped = False
+    for char in raw_value:
+        if char == '"' and not escaped:
+            in_string = not in_string
+        if char == "," and not in_string:
+            items.append("".join(buffer))
+            buffer = []
+            escaped = False
+            continue
+        buffer.append(char)
+        escaped = char == "\\" and not escaped
+    if buffer:
+        items.append("".join(buffer))
+    return items
+
+
+def _ensure_nested_section(root: dict[str, Any], section_name: str) -> dict[str, Any]:
+    current = root
+    for key in [part.strip() for part in section_name.split(".") if part.strip()]:
+        current = current.setdefault(key, {})
+    return current
+
+
+def _nested_set(payload: dict[str, Any], *keys: str, value: Any) -> None:
+    current = payload
+    for key in keys[:-1]:
+        current = current.setdefault(key, {})
+    current[keys[-1]] = value
+
+
+def _build_default_rotation_state() -> dict[str, Any]:
+    return {
+        "disabled_candidates": {
+            RESOURCE_KIND_TTS: {},
+            RESOURCE_KIND_IMAGE: {},
+            RESOURCE_KIND_VIDEO: {},
+        },
+        "last_success": {},
+    }
+
+
+def _candidate_priority(section: dict[str, Any], default: int) -> int:
+    return _coerce_int_or_none(section.get("priority")) or default
+
+
+def _candidate_enabled(section: dict[str, Any]) -> bool:
+    return _config_flag({"section": section}, "section", "enabled", default=True)
+
+
+def _candidate_label(candidate_id: str, section: dict[str, Any], default: str) -> str:
+    return _normalize_optional_text(section.get("label")) or default or candidate_id
+
+
+def _primary_tts_candidate(config: dict[str, Any]) -> dict[str, Any]:
+    route_family = _get_tts_api_route_family(config)
+    return {
+        "candidate_id": "primary",
+        "label": "primary",
+        "priority": 10,
+        "enabled": True,
+        "provider": _get_tts_provider_name(config, route_family=route_family),
+        "api_route_family": route_family,
+        "region": _nested_get(config, "provider", "region"),
+        "api_key": _nested_get(config, "auth", "api_key"),
+        "app_id": _nested_get(config, "auth", "app_id"),
+        "model": _nested_get(config, "tts", "model"),
+        "endpoint_id": _nested_get(config, "tts", "endpoint_id"),
+        "resource_id": _nested_get(config, "tts", "resource_id"),
+        "voice": _nested_get(config, "tts", "voice"),
+        "style": _nested_get(config, "tts", "style"),
+        "instruction": _nested_get(config, "tts", "instruction"),
+        "speech_rate": _nested_get(config, "tts", "speech_rate"),
+        "pitch_rate": _nested_get(config, "tts", "pitch_rate"),
+        "volume": _nested_get(config, "tts", "volume"),
+        "response_format": _nested_get(config, "tts", "response_format"),
+        "style_profile": _normalize_optional_text(_nested_get(config, "tts", "style_profile"))
+        or "default",
+        "source": "base_config",
+    }
+
+
+def _resolve_tts_candidate_pool(config: dict[str, Any]) -> list[dict[str, Any]]:
+    primary = _primary_tts_candidate(config)
+    candidates: list[dict[str, Any]] = [primary]
+    pool = _nested_get(config, "tts_pool")
+    if not isinstance(pool, dict):
+        return _sort_tts_candidates(candidates)
+
+    for candidate_id, section in pool.items():
+        if not isinstance(section, dict):
+            continue
+        if candidate_id == "primary":
+            target = primary
+        else:
+            target = dict(primary)
+            target["candidate_id"] = candidate_id
+            target["source"] = "tts_pool"
+            candidates.append(target)
+        route_family = _normalize_optional_text(section.get("api_route_family")) or target["api_route_family"]
+        target.update(
+            {
+                "label": _candidate_label(candidate_id, section, target["label"]),
+                "priority": _candidate_priority(section, 100 + len(candidates)),
+                "enabled": _candidate_enabled(section),
+                "api_route_family": route_family,
+                "provider": _normalize_optional_text(section.get("provider"))
+                or (
+                    PROVIDER_ALIYUN_BAILIAN
+                    if route_family == TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE
+                    else PROVIDER_VOLCENGINE
+                ),
+                "region": _normalize_optional_text(section.get("region")) or target["region"],
+                "api_key": section.get("api_key", target["api_key"]),
+                "app_id": section.get("app_id", target["app_id"]),
+                "model": section.get("model", target["model"]),
+                "endpoint_id": section.get("endpoint_id", target["endpoint_id"]),
+                "resource_id": section.get("resource_id", target["resource_id"]),
+                "voice": section.get("voice", target["voice"]),
+                "style": section.get("style", target["style"]),
+                "instruction": section.get("instruction", target["instruction"]),
+                "speech_rate": section.get("speech_rate", target["speech_rate"]),
+                "pitch_rate": section.get("pitch_rate", target["pitch_rate"]),
+                "volume": section.get("volume", target["volume"]),
+                "response_format": section.get("response_format", target["response_format"]),
+                "style_profile": _normalize_optional_text(section.get("style_profile"))
+                or target["style_profile"],
+            }
+        )
+    return _sort_tts_candidates(candidates)
+
+
+def _sort_tts_candidates(candidates: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return sorted(
+        candidates,
+        key=lambda candidate: (
+            len(_tts_candidate_missing_prerequisites(candidate)) > 0,
+            candidate.get("priority", 999),
+            candidate.get("candidate_id", ""),
+        ),
+    )
+
+
+def _tts_candidate_model_identifier(candidate: dict[str, Any]) -> str | None:
+    route_family = candidate.get("api_route_family") or TTS_ROUTE_FAMILY_ARK
+    if route_family in {
+        TTS_ROUTE_FAMILY_EDGE_GATEWAY,
+        TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE,
+    }:
+        model = candidate.get("model")
+        return None if _is_missing_secret(model) else str(model).strip()
+    endpoint_id = candidate.get("endpoint_id")
+    if not _is_missing_secret(endpoint_id):
+        return str(endpoint_id).strip()
+    model = candidate.get("model")
+    return None if _is_missing_secret(model) else str(model).strip()
+
+
+def _tts_candidate_missing_prerequisites(candidate: dict[str, Any]) -> list[str]:
+    missing: list[str] = []
+    if not candidate.get("enabled", True):
+        missing.append("candidate_disabled")
+        return missing
+    route_family = candidate.get("api_route_family") or TTS_ROUTE_FAMILY_ARK
+    if route_family not in SUPPORTED_TTS_ROUTE_FAMILIES:
+        missing.append("tts_api_route_family")
+        return missing
+    if _is_missing_secret(candidate.get("api_key")):
+        missing.append("api_key")
+    if _is_missing_secret(candidate.get("voice")):
+        missing.append("tts_voice")
+    if route_family == TTS_ROUTE_FAMILY_ARK:
+        if _is_missing_secret(candidate.get("region")):
+            missing.append("provider_region")
+        if not _tts_candidate_model_identifier(candidate):
+            missing.append("tts_model_or_endpoint")
+    elif route_family in {
+        TTS_ROUTE_FAMILY_EDGE_GATEWAY,
+        TTS_ROUTE_FAMILY_ALIYUN_BAILIAN_COSYVOICE,
+    }:
+        if _is_missing_secret(candidate.get("model")):
+            missing.append("tts_model")
+    elif route_family == TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH:
+        if _is_missing_secret(candidate.get("app_id")):
+            missing.append("app_id")
+        if _is_missing_secret(candidate.get("resource_id")):
+            missing.append("tts_resource_id")
+    return missing
+
+
+def _summarize_tts_candidate_pool(candidates: list[dict[str, Any]]) -> dict[str, Any]:
+    entries: list[dict[str, Any]] = []
+    available_candidate_count = 0
+    for candidate in _sort_tts_candidates(candidates):
+        missing = _tts_candidate_missing_prerequisites(candidate)
+        available = not missing
+        if available:
+            available_candidate_count += 1
+        entries.append(
+            {
+                "candidate_id": candidate["candidate_id"],
+                "label": candidate["label"],
+                "provider": candidate["provider"],
+                "api_route_family": candidate["api_route_family"],
+                "voice": "" if _is_missing_secret(candidate.get("voice")) else candidate.get("voice"),
+                "model_identifier": _tts_candidate_model_identifier(candidate),
+                "style_profile": candidate.get("style_profile", "default"),
+                "priority": candidate.get("priority"),
+                "enabled": candidate.get("enabled", True),
+                "available": available,
+                "missing_prerequisites": missing,
+            }
+        )
+    return {
+        "total_candidate_count": len(candidates),
+        "available_candidate_count": available_candidate_count,
+        "backup_candidate_count": max(0, len(candidates) - 1),
+        "candidates": entries,
+    }
+
+
+def _resolve_visual_candidate_pool(
+    config: dict[str, Any],
+    *,
+    resource_kind: str,
+) -> list[dict[str, Any]]:
+    section_name = "image_generation" if resource_kind == RESOURCE_KIND_IMAGE else "video_generation"
+    primary = {
+        "candidate_id": "primary",
+        "label": "primary",
+        "priority": 10,
+        "enabled": True,
+        "provider": _nested_get(config, "provider", "name"),
+        "region": _nested_get(config, "provider", "region"),
+        "api_key": _nested_get(config, "auth", "api_key"),
+        "model": _nested_get(config, section_name, "model"),
+        "style_profile": _normalize_optional_text(_nested_get(config, section_name, "style_profile"))
+        or "default",
+        "source": "base_config",
+    }
+    candidates: list[dict[str, Any]] = [primary]
+    pool = _nested_get(config, f"{resource_kind}_pool")
+    if not isinstance(pool, dict):
+        return _sort_visual_candidates(candidates, resource_kind=resource_kind)
+
+    for candidate_id, section in pool.items():
+        if not isinstance(section, dict):
+            continue
+        if candidate_id == "primary":
+            target = primary
+        else:
+            target = dict(primary)
+            target["candidate_id"] = candidate_id
+            target["source"] = f"{resource_kind}_pool"
+            candidates.append(target)
+        target.update(
+            {
+                "label": _candidate_label(candidate_id, section, target["label"]),
+                "priority": _candidate_priority(section, 100 + len(candidates)),
+                "enabled": _candidate_enabled(section),
+                "provider": _normalize_optional_text(section.get("provider")) or target["provider"],
+                "region": _normalize_optional_text(section.get("region")) or target["region"],
+                "api_key": section.get("api_key", target["api_key"]),
+                "model": section.get("model", target["model"]),
+                "style_profile": _normalize_optional_text(section.get("style_profile"))
+                or target["style_profile"],
+            }
+        )
+    return _sort_visual_candidates(candidates, resource_kind=resource_kind)
+
+
+def _sort_visual_candidates(
+    candidates: list[dict[str, Any]],
+    *,
+    resource_kind: str,
+) -> list[dict[str, Any]]:
+    return sorted(
+        candidates,
+        key=lambda candidate: (
+            len(_visual_candidate_missing_prerequisites(candidate, resource_kind=resource_kind)) > 0,
+            candidate.get("priority", 999),
+            candidate.get("candidate_id", ""),
+        ),
+    )
+
+
+def _visual_candidate_missing_prerequisites(
+    candidate: dict[str, Any],
+    *,
+    resource_kind: str,
+) -> list[str]:
+    missing: list[str] = []
+    if not candidate.get("enabled", True):
+        missing.append("candidate_disabled")
+        return missing
+    if _is_missing_secret(candidate.get("provider")):
+        missing.append("provider")
+    if _is_missing_secret(candidate.get("region")):
+        missing.append("provider_region")
+    if _is_missing_secret(candidate.get("api_key")):
+        missing.append("api_key")
+    if _is_missing_secret(candidate.get("model")):
+        missing.append(f"{resource_kind}_model")
+    return missing
+
+
+def _summarize_visual_candidate_pool(
+    image_candidates: list[dict[str, Any]],
+    video_candidates: list[dict[str, Any]],
+) -> dict[str, Any]:
+    def build_summary(candidates: list[dict[str, Any]], resource_kind: str) -> dict[str, Any]:
+        entries: list[dict[str, Any]] = []
+        available_candidate_count = 0
+        for candidate in _sort_visual_candidates(candidates, resource_kind=resource_kind):
+            missing = _visual_candidate_missing_prerequisites(candidate, resource_kind=resource_kind)
+            available = not missing
+            if available:
+                available_candidate_count += 1
+            entries.append(
+                {
+                    "candidate_id": candidate["candidate_id"],
+                    "label": candidate["label"],
+                    "provider": candidate["provider"],
+                    "model": candidate["model"],
+                    "style_profile": candidate.get("style_profile", "default"),
+                    "priority": candidate.get("priority"),
+                    "enabled": candidate.get("enabled", True),
+                    "available": available,
+                    "missing_prerequisites": missing,
+                }
+            )
+        return {
+            "total_candidate_count": len(candidates),
+            "available_candidate_count": available_candidate_count,
+            "backup_candidate_count": max(0, len(candidates) - 1),
+            "candidates": entries,
+        }
+
+    return {
+        RESOURCE_KIND_IMAGE: build_summary(image_candidates, RESOURCE_KIND_IMAGE),
+        RESOURCE_KIND_VIDEO: build_summary(video_candidates, RESOURCE_KIND_VIDEO),
+    }
+
+
+def _candidate_missing_union(
+    candidates: list[dict[str, Any]],
+    *,
+    missing_fn: Any,
+) -> list[str]:
+    merged: list[str] = []
+    for candidate in candidates:
+        for item in missing_fn(candidate):
+            if item != "candidate_disabled" and item not in merged:
+                merged.append(item)
+    return merged
 
 
 def _generation_missing_prerequisites(

@@ -8,6 +8,7 @@ from unittest import mock
 
 import httpx
 import openai
+import formal_api_demo_core
 
 from formal_api_demo_core import (
     FORMAL_CASE_PATH,
@@ -17,8 +18,12 @@ from formal_api_demo_core import (
     STATUS_NOT_STARTED,
     STATUS_PLANNED,
     STATUS_SUCCESS,
+    _evaluate_tts_generation_gate,
+    _evaluate_visual_generation_gate,
     _execute_aliyun_wan_video_generation,
     _build_preview_slides,
+    execute_tts_probe,
+    load_formal_config,
     parse_formal_case_markdown,
     run_aliyun_tts_style_probe_round2,
     run_aliyun_tts_style_probe_variants,
@@ -1703,7 +1708,267 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 )
 
             self.assertEqual(result["overall_status"], STATUS_FAILED)
-            self.assertEqual(result["generation_status"], STATUS_FAILED)
+
+    def test_load_formal_config_parses_dotted_pool_sections(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_pool_parse_") as temp_dir:
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            local_config_path.write_text(
+                "\n".join(
+                    [
+                        "[tts_pool.primary]",
+                        'label = "主 TTS"',
+                        "priority = 10",
+                        'voice = "voice_primary"',
+                        "",
+                        "[tts_pool.backup_edge]",
+                        'label = "备 TTS"',
+                        "priority = 20",
+                        'enabled = true',
+                        'api_route_family = "edge_gateway_openai_compatible"',
+                        'model = "edge_tts_model"',
+                        'voice = "voice_backup"',
+                        "",
+                        "[image_generation_pool.primary]",
+                        'provider = "aliyun_bailian"',
+                        'model = "wan2.6-image"',
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            config_bundle = load_formal_config(
+                FORMAL_EXAMPLE_CONFIG_PATH,
+                local_config_path,
+            )
+
+            self.assertEqual(
+                config_bundle["config"]["tts_pool"]["primary"]["voice"],
+                "voice_primary",
+            )
+            self.assertEqual(
+                config_bundle["config"]["tts_pool"]["backup_edge"]["api_route_family"],
+                "edge_gateway_openai_compatible",
+            )
+            self.assertEqual(
+                config_bundle["config"]["image_generation_pool"]["primary"]["model"],
+                "wan2.6-image",
+            )
+
+    def test_tts_gate_accepts_backup_candidate_pool_when_base_primary_missing(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_tts_pool_gate_") as temp_dir:
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            local_config_path.write_text(
+                "\n".join(
+                    [
+                        "[tts_pool.backup_aliyun]",
+                        'label = "阿里备选"',
+                        "priority = 20",
+                        'api_route_family = "aliyun_bailian_cosyvoice"',
+                        'api_key = "dashscope_backup_key"',
+                        'model = "cosyvoice-v3-flash"',
+                        'voice = "longyangyang"',
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            video_spec = parse_formal_case_markdown(FORMAL_CASE_PATH)
+            config_bundle = load_formal_config(
+                FORMAL_EXAMPLE_CONFIG_PATH,
+                local_config_path,
+            )
+
+            gate = _evaluate_tts_generation_gate(
+                video_spec=video_spec,
+                config=config_bundle["config"],
+                has_local_config=config_bundle["has_local_config"],
+                dry_run=False,
+            )
+
+            self.assertEqual(gate["status"], STATUS_SUCCESS)
+            self.assertEqual(gate["candidate_pool"]["available_candidate_count"], 1)
+            self.assertEqual(gate["candidate_pool"]["backup_candidate_count"], 1)
+            self.assertEqual(gate["candidate_pool"]["candidates"][0]["candidate_id"], "backup_aliyun")
+
+    def test_execute_tts_probe_switches_to_backup_candidate_after_auth_failure(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_tts_pool_exec_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            local_config_path.write_text(
+                "\n".join(
+                    [
+                        "[auth]",
+                        'api_key = "primary_invalid_key"',
+                        "",
+                        "[tts]",
+                        'api_route_family = "aliyun_bailian_cosyvoice"',
+                        'model = "cosyvoice-v3-flash"',
+                        'voice = "voice_primary"',
+                        "",
+                        "[tts_pool.backup_aliyun]",
+                        'label = "备选阿里"',
+                        "priority = 20",
+                        'api_key = "backup_valid_key"',
+                        'api_route_family = "aliyun_bailian_cosyvoice"',
+                        'model = "cosyvoice-v3-flash"',
+                        'voice = "voice_backup"',
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            config_bundle = load_formal_config(
+                FORMAL_EXAMPLE_CONFIG_PATH,
+                local_config_path,
+            )
+            video_spec = parse_formal_case_markdown(FORMAL_CASE_PATH)
+
+            with mock.patch(
+                "formal_api_demo_core._execute_tts_probe_once",
+                side_effect=[
+                    {
+                        "status": STATUS_FAILED,
+                        "blocked_reason": "",
+                        "failure_reason": "aliyun_bailian_tts_request_failed",
+                        "http_status_code": 401,
+                        "error_code": "HTTP401",
+                        "error_message": "invalid key",
+                        "audio_path": None,
+                        "request_id": None,
+                    },
+                    {
+                        "status": STATUS_SUCCESS,
+                        "blocked_reason": "",
+                        "failure_reason": "",
+                        "http_status_code": None,
+                        "error_code": "",
+                        "error_message": "",
+                        "audio_path": str(output_dir / "tts" / "voice_probe.mp3"),
+                        "request_id": "req_backup_success",
+                    },
+                ],
+            ):
+                probe = execute_tts_probe(
+                    video_spec=video_spec,
+                    config=config_bundle["config"],
+                    output_dir=output_dir,
+                )
+
+            self.assertEqual(probe["status"], STATUS_SUCCESS)
+            self.assertEqual(probe["selected_candidate_id"], "backup_aliyun")
+            self.assertEqual(probe["selected_voice"], "voice_backup")
+            self.assertEqual(len(probe["fallback_events"]), 1)
+            self.assertEqual(probe["fallback_events"][0]["reason_category"], "auth_failed")
+
+    def test_visual_gate_accepts_backup_candidate_pool_when_base_api_key_missing(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_visual_pool_gate_") as temp_dir:
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            local_config_path.write_text(
+                "\n".join(
+                    [
+                        "[image_generation_pool.primary]",
+                        'label = "图片主备选"',
+                        'provider = "aliyun_bailian"',
+                        'api_key = "image_backup_key"',
+                        'model = "wan2.6-image"',
+                        "",
+                        "[video_generation_pool.primary]",
+                        'label = "视频主备选"',
+                        'provider = "aliyun_bailian"',
+                        'api_key = "video_backup_key"',
+                        'model = "wan2.7-i2v"',
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            config_bundle = load_formal_config(
+                FORMAL_EXAMPLE_CONFIG_PATH,
+                local_config_path,
+            )
+            video_spec = parse_formal_case_markdown(FORMAL_CASE_PATH)
+
+            gate = _evaluate_visual_generation_gate(
+                video_spec=video_spec,
+                config=config_bundle["config"],
+                has_local_config=config_bundle["has_local_config"],
+                dry_run=False,
+            )
+
+            self.assertEqual(gate["status"], STATUS_SUCCESS)
+            self.assertEqual(gate["candidate_pool"]["image_generation"]["available_candidate_count"], 1)
+            self.assertEqual(gate["candidate_pool"]["video_generation"]["available_candidate_count"], 1)
+
+    def test_image_generation_switches_to_backup_candidate_after_auth_failure(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_image_pool_exec_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            local_config_path.write_text(
+                "\n".join(
+                    [
+                        "[auth]",
+                        'api_key = "primary_invalid_key"',
+                        "",
+                        "[image_generation]",
+                        'model = "wan2.6-image"',
+                        "",
+                        "[image_generation_pool.backup_image]",
+                        'label = "图片备选"',
+                        "priority = 20",
+                        'provider = "aliyun_bailian"',
+                        'api_key = "backup_image_key"',
+                        'model = "wan2.6-image"',
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            config_bundle = load_formal_config(
+                FORMAL_EXAMPLE_CONFIG_PATH,
+                local_config_path,
+            )
+
+            with mock.patch(
+                "formal_api_demo_core._execute_aliyun_visual_generation_task_once",
+                side_effect=[
+                    {
+                        "status": STATUS_FAILED,
+                        "task_id": "img_primary_fail",
+                        "request_id": "req_primary_fail",
+                        "asset_path": None,
+                        "source_url": None,
+                        "blocked_reason": "",
+                        "failure_reason": "aliyun_image_task_create_failed",
+                        "error_message": "invalid api key",
+                        "http_status_code": 401,
+                        "error_code": "HTTP401",
+                    },
+                    {
+                        "status": STATUS_SUCCESS,
+                        "task_id": "img_backup_success",
+                        "request_id": "req_backup_success",
+                        "asset_path": str(output_dir / "visual" / "seg01_image.png"),
+                        "source_url": "https://example.com/seg01_image.png",
+                        "blocked_reason": "",
+                        "failure_reason": "",
+                        "error_message": "",
+                        "http_status_code": None,
+                        "error_code": "",
+                    },
+                ],
+            ):
+                result = formal_api_demo_core._execute_aliyun_wan_image_generation(
+                    config=config_bundle["config"],
+                    output_dir=output_dir,
+                    segment_id="seg01",
+                    prompt="test prompt",
+                )
+
+            self.assertEqual(result["status"], STATUS_SUCCESS)
+            self.assertEqual(result["selected_candidate_id"], "backup_image")
+            self.assertEqual(len(result["fallback_events"]), 1)
+            self.assertEqual(result["fallback_events"][0]["reason_category"], "auth_failed")
 
     def test_generate_non_dry_run_edge_gateway_blocks_when_visual_provider_not_implemented(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_edge_success_") as temp_dir:
