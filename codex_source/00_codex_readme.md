@@ -233,6 +233,9 @@
 - `codex_source/07_formal_api_demo_target_plan.md`
   - 正式版 API demo 的目标态执行计划
   - 用于定义目标标准、执行 Gate、修正循环与交接规则
+- `codex_source/10_codex_multi_agent_prompt_library.md`
+  - 当前项目内的多 agent 执行模板库
+  - 用于快速复用 `2 explorers + 1 integrator` 的执行 prompt
   - 不是当前仓库已跑通事实，当前真实运行事实仍以 `codex_source/05_runtime_and_artifact_rules.md` 为准
 
 ## 9. 当前最优先要遵守的执行原则
