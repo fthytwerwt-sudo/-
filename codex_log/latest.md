@@ -45,5 +45,7 @@
 
 - 当前工作分支：
   - `codex/round1-visual-pass-conservative`
+- 当前 draft PR：
+  - `https://github.com/fthytwerwt-sudo/-/pull/3`
 - 当前状态标签：
-  - `task_branch_only`
+  - `pr_open_not_merged_to_reading_branch`

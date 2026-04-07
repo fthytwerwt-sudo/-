@@ -102,6 +102,10 @@
   - `建议判断`
   - `外部参考`
 - 已避免把单轮外部资料写成长期已成立规律
+- 当前已创建 draft PR：
+  - `https://github.com/fthytwerwt-sudo/-/pull/3`
+- 当前仓库状态分类已更新为：
+  - `pr_open_not_merged_to_reading_branch`
 
 ## 下一轮修改单草稿
 
@@ -148,5 +152,5 @@
 - 若 reveal 节奏已成立，再单独开下一轮讨论：
   - 稳转场替换
   - 固定字号层级
-- 当前仓库状态分类：
-  - `task_branch_only`
+- 当前 draft PR 已可供 ChatGPT / AI 复审，但正式状态仍未回流：
+  - `https://github.com/fthytwerwt-sudo/-/pull/3`
