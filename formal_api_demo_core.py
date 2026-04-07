@@ -6,6 +6,7 @@ import hashlib
 import hmac
 import json
 import mimetypes
+import os
 import pathlib
 import shutil
 import subprocess
@@ -31,7 +32,10 @@ from formal_api_demo_cloud_assembly import (
 ROOT = pathlib.Path(__file__).resolve().parent
 FORMAL_CASE_PATH = ROOT / "cases" / "formal_api_demo.md"
 FORMAL_EXAMPLE_CONFIG_PATH = ROOT / "config" / "formal_api_demo.example.toml"
-DEFAULT_FORMAL_LOCAL_CONFIG_PATH = ROOT / "config" / "formal_api_demo.local.toml"
+OFFICIAL_FORMAL_LOCAL_CONFIG_PATH = (
+    pathlib.Path.home() / ".config" / "video-factory" / "formal_api_demo.local.toml"
+)
+LEGACY_REPO_FORMAL_LOCAL_CONFIG_PATH = ROOT / "config" / "formal_api_demo.local.toml"
 DEFAULT_FORMAL_OUTPUT_DIR = ROOT / "dist" / "formal_api_demo"
 
 MANIFEST_SCHEMA_VERSION = "formal_api_demo_manifest/v1"
@@ -82,6 +86,18 @@ DEFAULT_ALIYUN_TTS_STYLE_PROBE_TEXT = (
     "前两项还能补，第三项一旦掉队，再新的壳子也只是好看。"
     "说得更直白一点，它不是没亮点，是关键战力根本没站住。"
 )
+
+
+def _resolve_default_formal_local_config_path() -> pathlib.Path:
+    env_override = os.environ.get("FORMAL_API_DEMO_LOCAL_CONFIG")
+    if env_override:
+        return pathlib.Path(env_override).expanduser()
+    if OFFICIAL_FORMAL_LOCAL_CONFIG_PATH.exists():
+        return OFFICIAL_FORMAL_LOCAL_CONFIG_PATH
+    return LEGACY_REPO_FORMAL_LOCAL_CONFIG_PATH
+
+
+DEFAULT_FORMAL_LOCAL_CONFIG_PATH = _resolve_default_formal_local_config_path()
 DEFAULT_ALIYUN_TTS_STYLE_VARIANTS = (
     {
         "variant_id": "A",

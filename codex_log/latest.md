@@ -2,97 +2,75 @@
 
 ## 当前主结论
 
-- 2026-04-08 已把 `formal_api_demo` 的 provider / key / voice 治理升级成“资源池 + 自动切换”结构：
-  - `formal_api_demo_core.py`
-  - `config/formal_api_demo.example.toml`
-  - `tests/test_formal_api_demo_pipeline.py`
-- 当前正式 local config 已被正确读到：
-  - `has_local_config = true`
-- 但按当前代码真实读取结果，本机 formal local config 当前只读到：
-  - `tts_candidate_total = 1`
-  - `tts_candidate_available = 0`
-  - `image_candidate_total = 1`
-  - `image_candidate_available = 0`
-  - `video_candidate_total = 1`
-  - `video_candidate_available = 0`
-- 当前最关键的现实结论不是“代码读不到 config”，而是：
-  - 当前 formal local config 里没有任何 `tts_pool / image_generation_pool / video_generation_pool` 备用候选
-  - 当前 primary TTS 候选仍被解析成 placeholder：
-    - `auth.api_key`
-    - `tts.voice`
-- 这与“本地正式 config 已经填好”的口头预期存在冲突；执行层必须以当前文件真实读取结果为准
+- 2026-04-08 已把 `formal_api_demo` 的正式 local config 读取路径从 repo 内 legacy 副本，切到当前机器的官方配置源：
+  - `/Users/fan/.config/video-factory/formal_api_demo.local.toml`
+- 当前 repo 内的：
+  - `config/formal_api_demo.local.toml`
+  现在只是 legacy 占位副本，不再是默认正式读取源。
+- 已基于这份官方 config 完成：
+  - 旧配置 -> 新资源池结构迁移
+  - `ai_report_fluff_trap_45s` 正式 generation
+  - `ai_report_fluff_trap_45s` 正式 cloud assembly
+  - 正式成片下载回本地
+  - 正式 `review_frames` 导出
 
-## 现有自动切换逻辑的真实审计结论
+## 当前正式 config 真实状态
 
 - `已确认`
-  - 旧逻辑已存在的只有：
-    - TTS `route family` 选择
-    - TTS style probe 候选
-    - 普通图片 / 视频 provider implementation 路由
-  - 旧逻辑缺少的关键部分包括：
-    - 真正的运行时 key / voice / provider 候选池
-    - 失败后自动切换到备用项
-    - 候选链 preflight
-    - 自动切换事件日志
+  - 当前正式 config 路径：
+    - `/Users/fan/.config/video-factory/formal_api_demo.local.toml`
 - `已确认`
-  - 真人分支目前仍只有：
-    - `liveportrait-detect -> liveportrait` 路线语义
-  - 真实 provider implementation 仍未接入
-  - 因此本轮没有把“真人自动切换”伪装成已完成能力
-
-## 本轮新增 / 修正的 fallback 机制
-
+  - 当前 primary 已真实可用：
+    - TTS primary：`1`
+    - 图片 primary：`1`
+    - 视频 primary：`1`
 - `已确认`
-  - parser 已支持 dotted section：
-    - `[tts_pool.<candidate_id>]`
-    - `[image_generation_pool.<candidate_id>]`
-    - `[video_generation_pool.<candidate_id>]`
+  - 当前真实 backup 候选：
+    - TTS backup：`0`
+    - 图片 backup：`0`
+    - 视频 backup：`1`
 - `已确认`
-  - preflight / gate 已升级为候选链检查，不再只看单个 primary
-- `已确认`
-  - TTS 已支持真实运行时 fallback：
-    - auth failed
-    - quota exhausted / 429
-    - voice unavailable
-    - timeout / upstream unavailable
-    - model / endpoint / resource invalid
-- `已确认`
-  - 图片生成已支持真实运行时 fallback：
-    - auth failed
-    - quota exhausted / 429
-    - timeout / upstream unavailable
-    - candidate invalid
-- `已确认`
-  - 视频生成已接入同一套候选池与 fallback 执行器
-- `已确认`
-  - 自动切换痕迹已回写到：
-    - `manifest.json`
-    - `visual_generation_plan.json`
-    - `result_summary.json`
-
-## 当前本机真实状态
-
-- 代码能力状态：
-  - `partial_auto_rotation`
-- 当前本机资源状态：
-  - `blocked_by_no_backup_resources`
-- 原因：
-  - 代码已经能轮转已有资源池
-  - 但当前本机 formal local config 里没有任何备用候选
-  - 且 primary TTS 候选本身仍不可用
+  - 当前视频 backup 来自旧配置迁移时保留的旧模型：
+    - `legacy_t2v`
 - 必须明确：
-  - 系统现在可以“自动轮转已有资源”
-  - 但不能“凭空自动获得新 key”
+  - 当前代码已经支持自动轮转已有资源池
+  - 但当前机器上：
+    - TTS 没有 backup
+    - 图片没有 backup
+  - 所以如果主 TTS / 主图片额度耗尽或不可用，系统会诚实报资源池已耗尽，不会伪造恢复成功
+
+## 当前样片状态
+
+- `已确认`
+  - `cases/ai_report_fluff_trap_45s.md` 已完成正式 generation
+  - 已完成正式 cloud assembly
+  - 已把正式成片下载回本地：
+    - `dist/formal_api_demo_ai_report_fluff_trap_45s/final.mp4`
+- `已确认`
+  - 当前正式云端导出路径：
+    - `oss://zvip1-video-beijing/video-factory/final/20260407T194328Z/formal_api_demo.mp4`
+- `已确认`
+  - 当前正式 review frames：
+    - `dist/formal_api_demo_ai_report_fluff_trap_45s/review_frames/contact_sheet.jpg`
+    - `dist/formal_api_demo_ai_report_fluff_trap_45s/review_frames/frame_start.jpg`
+    - `dist/formal_api_demo_ai_report_fluff_trap_45s/review_frames/frame_middle.jpg`
+    - `dist/formal_api_demo_ai_report_fluff_trap_45s/review_frames/frame_end.jpg`
+
+## 当前一句话判断
+
+- 当前这轮已经不再是“sample blocked”；更准确的现状是：
+  - 正式 config 迁移已完成
+  - 正式样片已完成
+  - 自动轮转代码已落成
+  - 但当前机器的 TTS / 图片 backup 资源池仍为空
 
 ## 当前下一步
 
-- 若要让这台机器真正进入接近 `auto_rotation_ready` 的状态，最小动作不是再改代码，而是：
-  - 在 `config/formal_api_demo.local.toml` 中补至少 1 组真实可用的候补资源池
-  - 例如：
+- 若下一轮目标是把 auto-rotation 从“代码可用”推进到“资源也真有冗余”，最小动作只有：
+  - 在 `/Users/fan/.config/video-factory/formal_api_demo.local.toml` 里补真实可用的：
     - `tts_pool.backup_*`
     - `image_generation_pool.backup_*`
-    - `video_generation_pool.backup_*`
-- 当前 example config 已写入新结构说明：
+- 当前 example config 已写入新结构示例：
   - `config/formal_api_demo.example.toml`
 
 ## 当前工作分支与状态
