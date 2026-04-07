@@ -47,5 +47,9 @@
   - `codex/round1-visual-pass-conservative`
 - 当前 draft PR：
   - `https://github.com/fthytwerwt-sudo/-/pull/3`
+- 当前必须额外说明：
+  - 该 PR 基于现有长分支创建，包含此前该分支上的视觉修正历史
+  - 它不等于“只含本轮 4 个文档文件”的净 PR
+  - 若只看本轮文档收束，请优先看本轮新增 / 更新的 4 个文件与本轮两次提交
 - 当前状态标签：
   - `pr_open_not_merged_to_reading_branch`

@@ -104,6 +104,10 @@
 - 已避免把单轮外部资料写成长期已成立规律
 - 当前已创建 draft PR：
   - `https://github.com/fthytwerwt-sudo/-/pull/3`
+- 当前必须额外说明：
+  - 该 draft PR 基于现有 `codex/round1-visual-pass-conservative` 长分支创建
+  - 因此它包含此前该分支上的视觉修正历史，不是只含本轮 4 个文档文件的净 PR
+  - 若只审本轮文档收束，应优先看本轮两次提交和本轮 4 个目标文件
 - 当前仓库状态分类已更新为：
   - `pr_open_not_merged_to_reading_branch`
 
