@@ -2,66 +2,89 @@
 
 ## 当前主结论
 
-- 2026-04-05 已把 pure PPT / 信息卡主线从“`OSS + 云剪 = 默认主路径`、`local assembly = fallback`”正式升级为：
-  - `北京区 OSS + 云剪工程 = 唯一 assembly 主路径`
-  - `local assembly / local mp4` 已退出 pure PPT / 信息卡主线，不再作为 fallback / 兜底 / 应急正常交付
-- 这次升级当前只适用于 pure PPT / 信息卡主线，不自动扩到动态 PPT、数字人 / 真人口播并行分支或复杂 motion design 路线。
-- 当前真实边界已经收口为：
-  - OSS / IMS / 云剪工程的非密钥参数已写回 repo
-  - AccessKey / Secret 仍只保存在用户本地
-  - 正式云端导出仍待本地注入密钥后验证
-  - `provider_assembly_implementation` 当前仍未真实跑通
-
-## 本轮关键执行事实
-
-- 这轮已经把执行层、项目脑、配置模板、代码与测试统一收口到 cloud-only：
-  - `formal_api_demo_core.py`
-  - `scripts/assemble_formal_api_demo.py`
-  - `config/formal_api_demo.example.toml`
-  - `tests/test_formal_api_demo_pipeline.py`
+- `已确认` 当前任务分支里：
+  - `project_source/08_quality_baseline_and_90_score_rules.md`
+  - `project_source/21_topic_selection_and_copywriting_rules.md`
+  - `project_source/22_copy_mode_routing_rules.md`
+  - `project_source/25_ai_knowledge_video_value_rules.md`
+  已经补齐。
+- `已确认` codex 侧桥接也已补齐：
+  - `codex_source/00_codex_readme.md`
   - `codex_source/01_execution_rules.md`
   - `codex_source/02_current_execution_context.md`
   - `codex_source/03_research_findings_bridge.md`
-  - `project_source/00_project_brief.md`
-  - `project_source/01_project_system_prompt.md`
-  - `project_source/06_project_index.md`
-  - `project_source/08_quality_baseline_and_90_score_rules.md`
-  - `project_source/10_formal_api_demo_current_route_patch_20260402.md`
-  - `codex_log/latest.md`
-- 这轮新增完整执行日志：
-  - `codex_log/20260405_ppt_cloud_only_assembly_route.md`
-- 当前代码层已经改为：
-  - assembly gate 改查 OSS / IMS / 云剪工程显式字段
-  - pure PPT 主线不再从 `run_assembly_pipeline()` 进入本地 preview / 本地 mp4 补位
-  - 缺密钥、缺云端参数或缺 provider implementation 时直接 `blocked`
-  - `space_name` / `template_id` 旧前提已退出当前主线配置
+  - `codex_source/11_ai_knowledge_video_value_bridge.md`
+  - `codex_source/12_codex_known_state_three_layer_rules.md`
+- `已确认` 这些规则现在已经升到“当前分支正式已知”。
+- `待确认`
+  - 是否已升到“主读取分支正式已知”，要看这轮是否成功同步回 `codex/user-readable-map`
+- `已确认`
+  - 不能把这轮写成“样片质量已经被验证成立”
 
-## 当前外部已确认状态包
+## 当前新增桥接口径
 
-- OSS bucket：`zvip1-video-beijing`
-- OSS region：`cn-beijing`
-- OSS endpoint：`oss-cn-beijing.aliyuncs.com`
-- OSS bucket domain：`zvip1-video-beijing.oss-cn-beijing.aliyuncs.com`
-- OSS ACL：`private`
-- RAM 用户：`video-factory-oss-1`
-- IMS / ICE / 智能媒体服务：北京区已就绪
-- 功能体验月包有效期：`2026-05-05 05:00:00`
-- IMS storage address：`zvip1-video-beijing.oss-cn-beijing.aliyuncs.com`
-- 云剪工程：`video-factory-ppt-master-v1`
-- 云剪工程状态：草稿
-- 编辑器可打开：是
+- `AI 项目讲解`
+  - 默认交付：判断项目卡点、关键取舍和最小下一步
+  - 默认结尾：`judgment_card + 最小行动`
+- `AI 方法分享`
+  - 默认交付：可直接试的方法 + 易错点
+  - 默认结尾：`steps_error_card`
+- `AI 学习实操`
+  - 默认交付：最小步骤 + 自检
+  - 默认结尾：`steps_card + 自检句`
+- `AI 案例拆解`
+  - 默认交付：案例为什么成立 + 如何迁移
+  - 默认结尾：`judgment_card + 可迁移句`
 
-## 本轮实际验证
+## 当前样片执行前新增要求
 
-- 已复读命中的规则、项目脑、执行上下文、代码、配置与测试文件。
-- 已执行：
-  - `python3 -m unittest tests.test_formal_api_demo_pipeline`
-  - `git diff --check`
-- 当前验证结果：
-  - `30` 个测试通过
-  - `git diff --check` 通过
+- `已确认` 后续 Codex 在以下任务里必须先锁清：
+  - 当前内容类型
+  - 用户看完后能做什么
+  - 用户看完后能判断什么
+  - 最关键证据是什么
+  - 最小行动 / 自检句是什么
+  - 对应结尾总结卡类型是什么
+- `已确认` 未锁清前：
+  - 不得把文案直接压进样片执行
+  - 不得把 generation / assembly 成功写成内容过线
 
-## 当前交接提醒
+## 当前已知状态三层
 
-- 仓库口径已经改成 cloud-only，但这不等于真实云端导出已经成功。
-- 下一步若继续推进，只需要在本地注入真实 AccessKey / Secret，然后针对北京区 OSS + 云剪工程执行最小真实导出验证。
+- `GPT 已知`
+  - 只存在于聊天、外部研究、GPT Project 替换包、还没进当前仓库正文的内容
+- `Codex 条件已知`
+  - 已进入 bridge / codex_source / latest，但还没进 project_source 正文或还没进主读取分支
+- `当前分支正式已知`
+  - 已进入当前任务分支的 `project_source` 正文与 codex 读取口径
+- `主读取分支正式已知`
+  - 在“当前分支正式已知”基础上，再同步回 `codex/user-readable-map`
+
+## 当前接手建议先读
+
+1. `AGENTS.md`
+2. `codex_source/00_codex_readme.md`
+3. `codex_log/latest.md`
+4. `codex_source/02_current_execution_context.md`
+5. `codex_source/03_research_findings_bridge.md`
+6. `codex_source/11_ai_knowledge_video_value_bridge.md`
+7. `codex_source/12_codex_known_state_three_layer_rules.md`
+8. 若继续做样片，再补读：
+   - `project_source/08_quality_baseline_and_90_score_rules.md`
+   - `project_source/21_topic_selection_and_copywriting_rules.md`
+   - `project_source/22_copy_mode_routing_rules.md`
+   - `project_source/25_ai_knowledge_video_value_rules.md`
+   - `project_source/02_scene_mode_templates.md`
+   - `project_source/16_presentation_routing_rules.md`
+   - `project_source/24_human_self_footage_light_ppt_routing_rules.md`
+
+## 当前工作分支与状态
+
+- 当前工作分支：
+  - `codex/provider-auto-rotation`
+- 当前状态标签：
+  - `task_branch_only`
+- 当前必须继续明确：
+  - 本轮结果尚未同步回 `codex/user-readable-map`
+  - 仓库正式状态仍未更新到主读取分支
+  - `dist/*` 样片产物和本地配置均为 `local_only`

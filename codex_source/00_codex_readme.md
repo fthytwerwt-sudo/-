@@ -12,6 +12,17 @@
 - 发生冲突时按什么顺序裁决
 - 什么情况下继续执行，什么情况下先停下汇报
 
+当前还要额外帮 Codex 站稳一个执行事实：
+
+- 当前默认主承载已不是 pure PPT / 信息卡全片承载
+- 当前默认主线已切到“人物 + 用户真实录制素材 + 少量 PPT / 图片”
+- 当前结构跟着文案走，不先预设整条视频的固定载体顺序
+- 当前人物出现 1 次还是 2 次，是 block 路由结果，不是预设模板
+- `AI talking avatar / 数字人口播` 当前不是默认主线
+- 正式组装继续固定为北京区 `OSS + 云剪 cloud-only`
+- 当前 AI 知识类内容还必须显式判断“看完后用户能做什么 / 能判断什么 / 证据是什么 / 最小行动或自检句是什么”
+- AI 项目讲解、AI 方法分享、AI 学习实操、AI 案例拆解不再共用同一种价值交付和同一种结尾总结卡
+
 它不是：
 
 - 项目身份说明书
@@ -113,6 +124,14 @@
   - 它用于写清当前阶段长期有效、但 Codex 不能默认知道的执行前上下文
 - 若任务涉及外部结论、用户新拍板、Perplexity / ChatGPT 收束结果是否已进入执行层，再补读：
   - `codex_source/03_research_findings_bridge.md`
+- 若任务涉及当前正式默认主线的职责分工、人物出现次数、真人与录屏如何按 block 路由理解，再补读：
+  - `codex_source/02_current_execution_context.md`
+  - `project_source/24_human_self_footage_light_ppt_routing_rules.md`
+  - 若当前仓库里的 `project_source` 文件名尚未同步到 `24_*`，以 `codex_log/latest.md` 与 `codex_source/03_research_findings_bridge.md` 的现口径为准
+- 若任务涉及脚本写法、block 路由、结尾总结卡选择、样片是否值得进入执行、或样片验收，再补读：
+  - `codex_source/11_ai_knowledge_video_value_bridge.md`
+- 若任务涉及“GPT 已知 / Codex 条件已知 / Codex 正式已知”的区分，再补读：
+  - `codex_source/12_codex_known_state_three_layer_rules.md`
 - 若任务涉及最终汇报、完成状态、失败说明或验收口径，再补读：
   - `codex_source/04_completion_and_review_contract.md`
 - 若任务涉及执行现实与原方案不一致、资源 / 权限 / 环境 / 接口 / 成本 / 素材等偏差，再补读：
@@ -233,6 +252,15 @@
 - `codex_source/07_formal_api_demo_target_plan.md`
   - 正式版 API demo 的目标态执行计划
   - 用于定义目标标准、执行 Gate、修正循环与交接规则
+- `codex_source/11_ai_knowledge_video_value_bridge.md`
+  - GPT Project 新增价值底线、4 类内容交付差异、证据线与结尾卡映射的 codex 侧桥接文件
+  - 用于防止后续 Codex 在脚本、路由、样片执行与验收时继续按旧口径误读项目
+- `codex_source/12_codex_known_state_three_layer_rules.md`
+  - GPT 已知 / Codex 条件已知 / 当前分支正式已知 / 主读取分支正式已知的分层规则
+  - 用于防止把 bridge 摘要、当前分支状态和主读取分支状态混写
+- `codex_source/10_codex_multi_agent_prompt_library.md`
+  - 当前项目内的多 agent 执行模板库
+  - 用于快速复用 `2 explorers + 1 integrator` 的执行 prompt
   - 不是当前仓库已跑通事实，当前真实运行事实仍以 `codex_source/05_runtime_and_artifact_rules.md` 为准
 
 ## 9. 当前最优先要遵守的执行原则
@@ -267,6 +295,14 @@
 - 当前已确认仓库事实仍是本地 demo 运行链路
 - 两者不得混写，更不得把目标态计划写成已跑通结论
 
+补充到当前默认主线：
+
+- 当前 Codex 执行层默认必须按“人物 + 用户真实录制素材 + 少量 PPT / 图片”理解项目
+- 人物出现 1 次还是 2 次，是 block 路由结果，不是预设模板
+- 中段主体默认优先交给真实录制素材承担
+- pure PPT / 信息卡当前只保留为次级支路
+- AI talking avatar / 数字人口播默认不再承担主承载
+
 ### 原则 5：有停线就停，不硬冲
 
 只要冲突、缺文件或无法验证已经影响动作选择，就先汇报，不假装能继续。
@@ -288,6 +324,6 @@
 
 如果 Codex 这轮只记一句话：
 
-**新会话默认先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md`；若任务偏执行规则，再补读 `codex_source/01_execution_rules.md`；命中仓库型任务默认走 GitHub / PR 线路，无法安全推进就先停下汇报。**
+**新会话默认先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md`；当前默认主线按“人物 + 用户真实录制素材 + 少量 PPT / 图片”理解，结构跟着文案走、人物出现次数由 block 路由决定，`AI talking avatar` 不是默认主线，cloud assembly 继续是正式主路径；若任务偏执行规则，再补读 `codex_source/01_execution_rules.md`；命中仓库型任务默认走 GitHub / PR 线路，无法安全推进就先停下汇报。**
 
 若任务偏正式版 API demo 目标态，则再补读 `codex_source/07_formal_api_demo_target_plan.md`，并同时回到 `codex_source/05_runtime_and_artifact_rules.md` 核对当前仓库已确认事实。
