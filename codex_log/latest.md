@@ -37,17 +37,17 @@
 ## 本轮同步结果
 
 - 当前工作分支：
+  - `codex/user-readable-map`
+- 本轮来源工作分支：
   - `codex/repo-sync-fix-20260409`
 - 当前状态标签：
-  - `task_branch_only`
+  - `formal_synced`
 - 当前已完成：
   - 主线口径正式纠偏
   - `24` 号锚点文件补齐
   - 不同步机制已写入执行层
-- 当前仍待完成：
-  - commit
-  - push 当前工作分支
-  - 同步回 `codex/user-readable-map`
+  - 当前工作分支已 push
+  - 已同步回 `codex/user-readable-map`
 
 ## 当前必须继续明确
 
