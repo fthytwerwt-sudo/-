@@ -357,7 +357,7 @@
 - 结论摘要：项目正式默认主线从“pure PPT / 信息卡主承载”切到“人物 + 用户自己的真实录制素材 + 少量 PPT / 图片辅助”；正式 assembly 继续固定为北京区 OSS + 云剪 cloud-only；AI talking avatar / 数字人口播因口型、性别、动作和文案匹配风险，不再承担默认主承载。
 - 对项目的影响：项目脑、执行层、formal_api_demo case、route_plan、manifest、config example、review 模板和日志口径都必须同步改写；pure PPT 只能保留为次级支路，不再是默认主线；若缺真实素材，只能诚实写成“待素材注入验证”，不得伪造已跑通。
 - 原计划需要改哪里：
-  - `project_source/19_human_self_footage_hybrid_mainline_rules.md`
+  - `project_source/24_human_self_footage_light_ppt_routing_rules.md`
   - `project_source/10_formal_api_demo_current_route_patch_20260402.md`
   - `codex_source/02_current_execution_context.md`
   - `formal_api_demo_core.py`
@@ -374,7 +374,7 @@
   - 当前仓库只完成了“路由 / schema / case / config 占位与最小执行入口”层面的收口
   - 真实人物素材、自录素材和结果卡是否已经全部注入并完成正式云端导出，仍待本地继续验证
 - 建议落点文件：
-  - `project_source/19_human_self_footage_hybrid_mainline_rules.md`
+  - `project_source/24_human_self_footage_light_ppt_routing_rules.md`
   - `codex_source/02_current_execution_context.md`
   - `config/formal_api_demo.example.toml`
   - `codex_log/latest.md`

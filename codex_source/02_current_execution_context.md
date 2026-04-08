@@ -253,7 +253,7 @@
 8. 若涉及完成回报 / 状态判断 / 验收口径，再读 `codex_source/04_completion_and_review_contract.md`
 9. 若涉及执行现实偏差 / 原方案失效 / 资源权限环境问题，再读 `codex_source/05_execution_deviation_and_reality_sync.md`
 10. 再补读与当前任务直接相关的 `project_source/*`、代码、测试与产物
-11. 若涉及正式默认主线的人物判断 / 自录素材 / 轻 PPT 分工，再读 `project_source/19_human_self_footage_hybrid_mainline_rules.md`
+11. 若涉及正式默认主线的人物判断 / 自录素材 / 轻 PPT 分工，再读 `project_source/24_human_self_footage_light_ppt_routing_rules.md`
 12. 若涉及 pure PPT 次级支路风格、信息卡视觉、转场、字幕安全区或默认母版结构，再读 `project_source/17_white_collar_ppt_style_rules.md`
 13. 若涉及默认主线 assembly 路径、OSS、云剪或旧 local fallback 语义，再读 `project_source/10_formal_api_demo_current_route_patch_20260402.md`
 
