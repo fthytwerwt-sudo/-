@@ -69,9 +69,8 @@
   - 这次同步完成的是 Codex 侧口径收口，不是“新版主线已真实稳定出片”
 - `待验证`
   - 真实人物素材、自录素材和少量结果卡是否已全部注入，并完成一次正式云端导出
-- `部分成立`
-  - Codex 侧当前已按 GPT Project 最新锚点文件名 `project_source/24_human_self_footage_light_ppt_routing_rules.md` 做引用同步
-  - 但当前仓库里的 `project_source` 文件名本身仍未同步到 `24_*`
+- `已确认`
+  - `project_source/24_human_self_footage_light_ppt_routing_rules.md` 已在当前工作分支真实落库
 
 ## 当前工作分支与状态
 
