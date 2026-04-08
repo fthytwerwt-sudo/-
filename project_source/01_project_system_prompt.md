@@ -60,13 +60,16 @@ AI 视频内核项目。
 - 展示路由正确
 - 协作链路可复用
 
-默认优先无人出镜。
+当前默认主线不是 pure PPT，也不是 AI talking avatar，而是：
+- 人物判断
+- 用户自己的真实录制素材
+- 少量 PPT / 图片辅助
 前端页面不是当前阶段重点。
 平台 API 不是当前阶段前置依赖。
 当前主阶段是内容阶段，正往试发阶段过渡。
-当前不要把“允许真人固定背景”偷换成“所有内容默认真人”。
+当前不要把“人物 + 自录素材主线”偷换成“整条视频全程只有真人口播”。
 
-当前纯 PPT / 信息卡母版若作为主线推进，默认风格统一走：
+当前 pure PPT / 信息卡母版若作为次级支路推进，默认风格统一走：
 
 - 白领咨询报告感
 - 体面专业感
@@ -77,22 +80,26 @@ AI 视频内核项目。
 - 不走培训班感、模板货感、学生作业感、低质 AI 感
 - 不把“苹果风”“极简风”这类空标签当执行标准
 - 不把花哨动效当高级感来源
-- 具体默认规则统一以 `project_source/17_white_collar_ppt_style_rules.md` 为准
+- 具体次级支路规则统一以 `project_source/17_white_collar_ppt_style_rules.md` 为准
 
-当前纯 PPT / 信息卡主线若命中 assembly 路径问题，默认按以下口径理解：
+当前正式默认主线若命中 assembly 路径问题，默认按以下口径理解：
 
 - `北京区 OSS + 云剪工程 = 唯一 assembly 主路径`
-- `local assembly` 已退出 pure PPT / 信息卡主线，不再作为 fallback / 兜底 / 应急正常交付
+- `local assembly` 已退出默认主线，不再作为 fallback / 兜底 / 应急正常交付
+- AI talking avatar / 数字人口播默认不再承担主承载
 
 同时必须明确：
 
-- 这次升级只适用于纯 PPT / 信息卡母版主线
+- 当前默认 block 分工是：
+  - 人物负责开头判断和结尾收束
+  - 自录素材负责过程证据
+  - 少量 PPT / 图片负责关键词和结果句
 - 当前暂不考虑动态 PPT
-- 数字人 / 真人口播分支继续并行修，但不阻塞纯 PPT 主线
-- 云剪第一轮仍只服务转场统一、字幕安全区、模板化 assembly、片头 / 正文 / 结尾模板化
+- 若继续保留数字人 / 真人开口路线，只能作为待验证支线
+- 云剪正式主链继续存在，不回退到 local assembly 默认路径
 - 不是复杂 motion design / 高成本视觉特效路线
-- 若真实云端导出仍依赖本地密钥或额外外部条件，必须明确写成“待注入 / 待验证”
-- 具体默认路线统一以 `project_source/10_formal_api_demo_current_route_patch_20260402.md` 为准
+- 若真实云端导出或真实素材仍依赖本地注入，必须明确写成“待注入 / 待验证”
+- 具体默认路线统一以 `project_source/19_human_self_footage_hybrid_mainline_rules.md` 与 `project_source/10_formal_api_demo_current_route_patch_20260402.md` 为准
 
 ### 3. 当前 demo 的判断基线
 
@@ -352,14 +359,15 @@ Codex 不应在信息尚未收束时提前下场。
 
 ## 使用说明
 
-当 ChatGPT 接手本项目时，默认先做七件事：
+当 ChatGPT 接手本项目时，默认先做八件事：
 
 1. 判断当前问题属于边界、质量、结构、执行中的哪一层
 2. 判断当前是否需要先用 Perplexity 做外部搜索与补位
 3. 判断当前是否已经满足交给 Codex 的执行闸门
 4. 如果命中 demo 身份、质量标准或火山引擎 TTS 优先级问题，先回到 `project_source/08_quality_baseline_and_90_score_rules.md` 的口径
 5. 如果命中展示路由 / 真人与 PPT 选择 / 混合承载判断，先回到 `project_source/16_presentation_routing_rules.md`
-6. 如果命中纯 PPT 母版风格、信息卡视觉气质、字幕安全区、转场克制规则或 45–60 秒母版结构，先回到 `project_source/17_white_collar_ppt_style_rules.md`
-7. 如果命中纯 PPT 主线的 assembly 路径、OSS、云剪默认主链或旧 local fallback 语义，先回到 `project_source/10_formal_api_demo_current_route_patch_20260402.md`
+6. 如果命中当前正式默认主线，先回到 `project_source/19_human_self_footage_hybrid_mainline_rules.md`
+7. 如果命中 pure PPT 次级支路的风格、信息卡视觉、安全区或转场克制规则，再回到 `project_source/17_white_collar_ppt_style_rules.md`
+8. 如果命中默认主线的 assembly 路径、OSS、云剪默认主链或旧 local fallback 语义，先回到 `project_source/10_formal_api_demo_current_route_patch_20260402.md`
 
 只要偏离这七点，项目就很容易再次把 demo、质量样片、平台标准、风格标准、assembly 主链和能力优先级混在一起。

@@ -186,7 +186,7 @@
 ### BRIDGE-20260405-02
 
 - 来源类型：`用户新拍板`
-- 状态：`已采用`
+- 状态：`已被 BRIDGE-20260408-03 部分覆盖`
 - 结论摘要：pure PPT / 信息卡主线从 cloud-first 正式升级为 cloud-only；北京区 OSS + 云剪工程成为唯一 assembly 主路径，`local assembly` 不再保留为 fallback / 兜底 / 应急正常交付。
 - 对项目的影响：执行层、项目脑、配置示例、组装脚本、assembly gate、result summary 和测试都必须同步移除 `local fallback` 合法性；缺密钥、缺云端参数或缺 provider implementation 时，必须如实标记 `待注入` / `待验证`，不得再用本地 mp4 补位。
 - 原计划需要改哪里：当前执行前上下文、formal_api_demo 路线补丁、config example、assembly 主线代码、测试断言、latest log 与执行日志都必须同步改口，并把北京区 OSS / IMS / 云剪工程状态包桥接回仓库。
@@ -349,3 +349,32 @@
   - `cases/ai_report_fluff_trap_45s.md`
   - `codex_log/latest.md`
   - 本轮执行日志
+
+### BRIDGE-20260408-03
+
+- 来源类型：`用户新拍板`
+- 状态：`已采用`
+- 结论摘要：项目正式默认主线从“pure PPT / 信息卡主承载”切到“人物 + 用户自己的真实录制素材 + 少量 PPT / 图片辅助”；正式 assembly 继续固定为北京区 OSS + 云剪 cloud-only；AI talking avatar / 数字人口播因口型、性别、动作和文案匹配风险，不再承担默认主承载。
+- 对项目的影响：项目脑、执行层、formal_api_demo case、route_plan、manifest、config example、review 模板和日志口径都必须同步改写；pure PPT 只能保留为次级支路，不再是默认主线；若缺真实素材，只能诚实写成“待素材注入验证”，不得伪造已跑通。
+- 原计划需要改哪里：
+  - `project_source/19_human_self_footage_hybrid_mainline_rules.md`
+  - `project_source/10_formal_api_demo_current_route_patch_20260402.md`
+  - `codex_source/02_current_execution_context.md`
+  - `formal_api_demo_core.py`
+  - `config/formal_api_demo.example.toml`
+  - `cases/formal_api_demo_human_self_footage.md`
+  - `scripts/generate_formal_api_demo.py`
+- 本轮执行必须遵守项：
+  - 人物承担开头命中、关键判断、收束 / 最小行动
+  - 用户自己的真实录制素材承担现场感、过程感、证据感
+  - 少量 PPT / 图片只负责关键词显影、前后对比、结果句 / 数字句收束和局部说明
+  - AI talking avatar / 数字人口播若继续保留，只能作为可选 / 待验证支线
+  - 正式 assembly 不得回退到 local fallback
+- 暂未确认项：
+  - 当前仓库只完成了“路由 / schema / case / config 占位与最小执行入口”层面的收口
+  - 真实人物素材、自录素材和结果卡是否已经全部注入并完成正式云端导出，仍待本地继续验证
+- 建议落点文件：
+  - `project_source/19_human_self_footage_hybrid_mainline_rules.md`
+  - `codex_source/02_current_execution_context.md`
+  - `config/formal_api_demo.example.toml`
+  - `codex_log/latest.md`

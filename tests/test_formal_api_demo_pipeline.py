@@ -4,6 +4,7 @@ import pathlib
 import tempfile
 import unittest
 import urllib.error
+from typing import List, Optional, Tuple
 from unittest import mock
 
 import httpx
@@ -13,6 +14,7 @@ import formal_api_demo_core
 from formal_api_demo_core import (
     FORMAL_CASE_PATH,
     FORMAL_EXAMPLE_CONFIG_PATH,
+    FORMAL_MAINLINE_CASE_PATH,
     STATUS_BLOCKED,
     STATUS_FAILED,
     STATUS_NOT_STARTED,
@@ -78,76 +80,81 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
         ims_cloud_project_name: str = "video-factory-ppt-master-v1",
         polling_interval_seconds: int = 5,
         polling_timeout_seconds: int = 600,
+        footage_inputs: Optional[List[Tuple[str, str, str]]] = None,
     ) -> None:
-        path.write_text(
-            "\n".join(
+        lines = [
+            "[provider]",
+            f'name = "{provider_name}"',
+            'region = "cn-beijing"',
+            "",
+            "[auth]",
+            f'api_key = "{api_key}"',
+            f'app_id = "{app_id}"',
+            "",
+            "[tts]",
+            f'api_route_family = "{route_family}"',
+            f'model = "{model}"',
+            f'endpoint_id = "{endpoint_id}"',
+            f'resource_id = "{resource_id}"',
+            f'voice = "{voice}"',
+            f'style = "{style}"',
+            f'instruction = "{instruction}"',
+            f"speech_rate = {speech_rate}",
+            f"pitch_rate = {pitch_rate}",
+            f"volume = {volume}",
+            'response_format = "mp3"',
+            'baseline_profile = "aliyun_old_A"',
+            "",
+            "[image_generation]",
+            f'model = "{image_model}"',
+            "",
+            "[video_generation]",
+            f'model = "{video_model}"',
+            "",
+            "[portrait_detect]",
+            f"enabled = {'true' if portrait_detect_enabled else 'false'}",
+            f'model = "{portrait_detect_model}"',
+            "",
+            "[portrait_video_generation]",
+            f"enabled = {'true' if portrait_video_generation_enabled else 'false'}",
+            f'model = "{portrait_video_model}"',
+            "",
+            "[assembly]",
+            'mode = "cloud_only"',
+            'subtitle_mode = "burn_in"',
+            'resolution = "1080x1920"',
+            "fps = 25",
+            "",
+            "[aliyun_oss]",
+            f'bucket = "{oss_bucket}"',
+            f'region = "{oss_region}"',
+            f'endpoint = "{oss_endpoint}"',
+            f'bucket_domain = "{oss_bucket_domain}"',
+            f'access_key_id = "{oss_access_key_id}"',
+            f'access_key_secret = "{oss_access_key_secret}"',
+            f'prefix_raw = "{oss_prefix_raw}"',
+            f'prefix_final = "{oss_prefix_final}"',
+            f'prefix_temp = "{oss_prefix_temp}"',
+            "",
+            "[aliyun_ims]",
+            f'region = "{ims_region}"',
+            f'storage_address = "{ims_storage_address}"',
+            f'cloud_project_name = "{ims_cloud_project_name}"',
+            "",
+            "[polling]",
+            f"interval_seconds = {polling_interval_seconds}",
+            f"timeout_seconds = {polling_timeout_seconds}",
+        ]
+        for asset_key, local_path, source_type in footage_inputs or []:
+            lines.extend(
                 [
-                    "[provider]",
-                    f'name = "{provider_name}"',
-                    'region = "cn-beijing"',
                     "",
-                    "[auth]",
-                    f'api_key = "{api_key}"',
-                    f'app_id = "{app_id}"',
-                    "",
-                    "[tts]",
-                    f'api_route_family = "{route_family}"',
-                    f'model = "{model}"',
-                    f'endpoint_id = "{endpoint_id}"',
-                    f'resource_id = "{resource_id}"',
-                    f'voice = "{voice}"',
-                    f'style = "{style}"',
-                    f'instruction = "{instruction}"',
-                    f"speech_rate = {speech_rate}",
-                    f"pitch_rate = {pitch_rate}",
-                    f"volume = {volume}",
-                    'response_format = "mp3"',
-                    'baseline_profile = "aliyun_old_A"',
-                    "",
-                    "[image_generation]",
-                    f'model = "{image_model}"',
-                    "",
-                    "[video_generation]",
-                    f'model = "{video_model}"',
-                    "",
-                    "[portrait_detect]",
-                    f"enabled = {'true' if portrait_detect_enabled else 'false'}",
-                    f'model = "{portrait_detect_model}"',
-                    "",
-                    "[portrait_video_generation]",
-                    f"enabled = {'true' if portrait_video_generation_enabled else 'false'}",
-                    f'model = "{portrait_video_model}"',
-                    "",
-                    "[assembly]",
-                    'mode = "cloud_only"',
-                    'subtitle_mode = "burn_in"',
-                    'resolution = "1080x1920"',
-                    "fps = 25",
-                    "",
-                    "[aliyun_oss]",
-                    f'bucket = "{oss_bucket}"',
-                    f'region = "{oss_region}"',
-                    f'endpoint = "{oss_endpoint}"',
-                    f'bucket_domain = "{oss_bucket_domain}"',
-                    f'access_key_id = "{oss_access_key_id}"',
-                    f'access_key_secret = "{oss_access_key_secret}"',
-                    f'prefix_raw = "{oss_prefix_raw}"',
-                    f'prefix_final = "{oss_prefix_final}"',
-                    f'prefix_temp = "{oss_prefix_temp}"',
-                    "",
-                    "[aliyun_ims]",
-                    f'region = "{ims_region}"',
-                    f'storage_address = "{ims_storage_address}"',
-                    f'cloud_project_name = "{ims_cloud_project_name}"',
-                    "",
-                    "[polling]",
-                    f"interval_seconds = {polling_interval_seconds}",
-                    f"timeout_seconds = {polling_timeout_seconds}",
+                    f"[footage_inputs.{asset_key}]",
+                    f'local_path = "{local_path}"',
+                    f'source_type = "{source_type}"',
                 ]
             )
-            + "\n",
-            encoding="utf-8",
-        )
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     def test_parse_formal_case_markdown_reads_core_fields(self) -> None:
         spec = parse_formal_case_markdown(FORMAL_CASE_PATH)
@@ -240,6 +247,134 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 len(segment["caption_text"]),
                 budget_by_segment[segment_id],
                 f"{segment_id} 字幕文案超出当前 15 秒时间线预算",
+            )
+
+    def test_parse_formal_mainline_case_reads_route_fields(self) -> None:
+        spec = parse_formal_case_markdown(FORMAL_MAINLINE_CASE_PATH)
+
+        self.assertEqual(spec["route_profile"], "human_self_footage_light_ppt")
+        self.assertEqual(spec["video_route_strategy"], "hybrid")
+        self.assertEqual(
+            [segment["carrier"] for segment in spec["segments"]],
+            ["human", "self_footage", "light_ppt", "human"],
+        )
+        self.assertEqual(
+            [segment["asset_source"] for segment in spec["segments"]],
+            ["user_media", "user_media", "user_media", "user_media"],
+        )
+        self.assertEqual(
+            [segment["asset_key"] for segment in spec["segments"]],
+            ["hook_human", "process_self_footage", "result_card", "close_human"],
+        )
+
+    def test_generate_non_dry_run_reuses_user_footage_for_formal_mainline_case(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_mainline_local_media_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            hook_video = pathlib.Path(temp_dir) / "hook_human.mp4"
+            workflow_video = pathlib.Path(temp_dir) / "process_self_footage.mp4"
+            result_card = pathlib.Path(temp_dir) / "result_card.png"
+            close_video = pathlib.Path(temp_dir) / "close_human.mp4"
+            hook_video.write_bytes(b"hook-video")
+            workflow_video.write_bytes(b"workflow-video")
+            result_card.write_bytes(b"result-card")
+            close_video.write_bytes(b"close-video")
+            self._write_local_config(
+                local_config_path,
+                provider_name="aliyun_bailian",
+                route_family="aliyun_bailian_cosyvoice",
+                api_key="dashscope_test_key",
+                model="cosyvoice-v3-flash",
+                voice="longxiaochun",
+                image_model="wan2.6-image",
+                video_model="wan2.7-i2v",
+                footage_inputs=[
+                    ("hook_human", str(hook_video), "user_recorded_video"),
+                    (
+                        "process_self_footage",
+                        str(workflow_video),
+                        "user_screen_recording",
+                    ),
+                    ("result_card", str(result_card), "user_ppt_image"),
+                    ("close_human", str(close_video), "user_recorded_video"),
+                ],
+            )
+
+            def fake_probe(*_args, **kwargs):
+                output_stem = kwargs.get("output_stem", "voice_probe")
+                audio_path = output_dir / "tts" / f"{output_stem}.mp3"
+                audio_path.parent.mkdir(parents=True, exist_ok=True)
+                audio_path.write_bytes(f"fake-{output_stem}".encode("utf-8"))
+                return {
+                    "status": STATUS_SUCCESS,
+                    "blocked_reason": "",
+                    "failure_reason": "",
+                    "error_code": "",
+                    "error_message": "",
+                    "audio_path": str(audio_path),
+                    "request_id": f"req_{output_stem}",
+                    "model_identifier": "cosyvoice-v3-flash",
+                    "probe_text": "测试配音",
+                    "voice": "longxiaochun",
+                    "used_model_id": "cosyvoice-v3-flash",
+                    "request_debug": {
+                        "provider": "aliyun_bailian",
+                        "api_route_family": "aliyun_bailian_cosyvoice",
+                    },
+                }
+
+            with mock.patch("formal_api_demo_core.execute_tts_probe", side_effect=fake_probe), mock.patch(
+                "formal_api_demo_core.concatenate_audio_files",
+                side_effect=self._fake_concatenate_audio_files,
+            ), mock.patch(
+                "formal_api_demo_core._execute_aliyun_wan_image_generation"
+            ) as mocked_image, mock.patch(
+                "formal_api_demo_core._execute_aliyun_wan_video_generation"
+            ) as mocked_video:
+                result = run_generation_pipeline(
+                    input_path=FORMAL_MAINLINE_CASE_PATH,
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                    dry_run=False,
+                )
+
+            mocked_image.assert_not_called()
+            mocked_video.assert_not_called()
+
+            manifest = json.loads((output_dir / "manifest.json").read_text(encoding="utf-8"))
+            visual_generation = manifest["generation"]["visual_generation"]
+            visual_assets = visual_generation["segment_assets"]
+            self.assertEqual(result["generation_status"], STATUS_SUCCESS)
+            self.assertEqual(result["visual_generation_status"], STATUS_SUCCESS)
+            self.assertEqual(visual_generation["status"], STATUS_SUCCESS)
+            self.assertEqual(
+                visual_generation["delivery_mode"],
+                "user_provided_local_assets",
+            )
+            self.assertEqual(
+                [asset["asset_origin"] for asset in visual_assets],
+                ["user_media", "user_media", "user_media", "user_media"],
+            )
+            self.assertEqual(
+                [asset["status"] for asset in visual_assets],
+                [STATUS_SUCCESS, STATUS_SUCCESS, STATUS_SUCCESS, STATUS_SUCCESS],
+            )
+            self.assertEqual(
+                manifest["segments"][0]["output_slots"]["visual_uri"],
+                str(hook_video),
+            )
+            self.assertEqual(
+                manifest["segments"][1]["output_slots"]["visual_uri"],
+                str(workflow_video),
+            )
+            self.assertEqual(
+                manifest["segments"][2]["output_slots"]["visual_uri"],
+                str(result_card),
+            )
+            self.assertEqual(
+                manifest["segments"][3]["output_slots"]["visual_uri"],
+                str(close_video),
             )
 
     def test_parse_formal_case_markdown_raises_for_missing_hook(self) -> None:

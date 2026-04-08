@@ -1,4 +1,4 @@
-# formal_api_demo 当前执行路线补丁（2026-04-05 cloud-only 版）
+# formal_api_demo 当前执行路线补丁（2026-04-08 主线改版版）
 
 ## 1. 文件定位
 
@@ -22,8 +22,10 @@
 
 - **继续接 TTS API**
 - **继续接图片 / 视频生成 API**
-- **纯 PPT / 信息卡主线 assembly 正式改为北京区 OSS + 云剪工程唯一主路径**
-- **`local assembly` 已退出 pure PPT / 信息卡主线，不再作为 fallback / 兜底 / 应急正常交付**
+- **默认主承载改成：人物 + 用户自己的真实录制素材 + 少量 PPT / 图片**
+- **正式 assembly 继续固定为北京区 OSS + 云剪工程唯一主路径**
+- **`local assembly` 已退出默认主线，不再作为 fallback / 兜底 / 应急正常交付**
+- **AI talking avatar / 数字人口播不再作为默认主承载**
 - **当前暂不考虑动态 PPT，也不扩成复杂 motion design 路线**
 
 ## 3. 当前正式主路径
@@ -33,8 +35,9 @@
 文本需求
 → 脚本
 → 配音 API
-→ 图片 / 视频生成 API
-→ 纯 PPT / 信息卡母版
+→ 人物判断段
+→ 用户真实录制素材段
+→ 少量 PPT / 图片辅助段
 → 北京区 OSS + 云剪工程 assembly
 → 成片导出
 → 人工上传
@@ -43,9 +46,10 @@
 
 - 这里不是“视频 API 暂时不接”
 - 这里也不是“当前必须先把动态 PPT 或复杂动效做起来”
-- 当前是“**生成层继续走 API，pure PPT 主线的组装层只走北京区 OSS + 云剪工程 cloud-only**”
-- 若缺密钥、缺云端参数或缺 provider implementation，必须如实 `blocked`
-- 不得再把本地 preview / 本地 mp4 写成 pure PPT 主线的可接受补位结果
+- 当前是“**默认主承载切到 human + self_footage + light_ppt/image，组装层继续只走北京区 OSS + 云剪工程 cloud-only**”
+- 若缺真实素材、缺密钥、缺云端参数或缺 provider implementation，必须如实 `blocked`
+- 不得再把本地 preview / 本地 mp4 写成默认主线的可接受补位结果
+- 不得再把 AI talking avatar / 数字人口播写成默认人物段补位方案
 
 ## 4. generation 层与 assembly 层的最新分工
 
@@ -56,7 +60,7 @@
 - TTS API
 - 图片生成 API
 - 视频生成 API
-- 脚本 / 字幕 / 视觉计划
+- 脚本 / 字幕 / route plan / 素材注入 / 视觉计划
 
 当前要求：
 
@@ -88,7 +92,11 @@
   - `aliyun_ims.storage_address`
   - `aliyun_ims.cloud_project_name`
 - 缺少上述字段时，当前主线必须直接 `blocked`
-- 当前升级只适用于纯 PPT / 信息卡主线，不自动外溢到动态 PPT 或数字人主线
+- 当前默认主线必须允许：
+  - block 级 carrier
+  - 用户真实素材输入字段
+  - route plan / manifest 中的 `human` / `self_footage` / `light_ppt`
+- 当前 pure PPT / 信息卡改为次级支路，不再是默认主线
 
 ## 5. 当前北京区云端状态包
 
@@ -119,15 +127,16 @@
 以下内容当前仍不采用：
 
 - local preview 冒充正式 assembly success
-- local mp4 冒充 pure PPT 主线正常交付
+- local mp4 冒充默认主线正常交付
 - local fallback 作为“云端先不通也没关系”的默认兜底
+- AI talking avatar / 数字人口播冒充默认人物段
 - 动态 PPT
 - 复杂 motion design
 - 高成本视觉特效路线
 
 这不代表旧代码必须立刻完全删除，只代表：
 
-**它们当前不属于 pure PPT / 信息卡主线的合法主链结果。**
+**它们当前不属于正式默认主线的合法主链结果。**
 
 ## 7. 与旧口径冲突时怎么裁决
 
@@ -149,4 +158,4 @@
 
 当前 `formal_api_demo` 的最新正式路线是：
 
-**视频 API 继续接；pure PPT / 信息卡主线统一走北京区 `OSS + 云剪工程` cloud-only 组装；`local assembly` 已退出主线；真实云端导出仍待本地注入密钥后验证；动态 PPT 仍暂不考虑。**
+**视频 API 继续接；正式默认主承载已经改成“人物 + 用户自己的真实录制素材 + 少量 PPT / 图片”；正式组装继续统一走北京区 `OSS + 云剪工程` cloud-only；`local assembly` 已退出主线；AI talking avatar / 数字人口播不再承担默认主承载；真实云端导出与真实素材注入仍待本地验证。**

@@ -179,11 +179,36 @@ model = "wan2.7-i2v"
 # model = "wan2.7-i2v"
 # style_profile = "report"
 
+# 默认正式主线的人物 / 自录素材输入：
+# - hook_human：开头人物判断段
+# - process_self_footage：真实录屏 / 真实工作片段
+# - result_card：少量结果卡 / 关键词信息卡
+# - close_human：结尾人物收束段
+# - 这些字段只允许写在本地正式配置里，不要提交真实路径
+# - 若当前轮缺真实素材，generation 必须诚实 blocked，不得回退 AI talking avatar / 数字人口播
+#
+# [footage_inputs.hook_human]
+# local_path = "SET_IN_LOCAL_FILE"
+# source_type = "user_recorded_video"
+#
+# [footage_inputs.process_self_footage]
+# local_path = "SET_IN_LOCAL_FILE"
+# source_type = "user_screen_recording"
+#
+# [footage_inputs.result_card]
+# local_path = "SET_IN_LOCAL_FILE"
+# source_type = "user_ppt_image"
+#
+# [footage_inputs.close_human]
+# local_path = "SET_IN_LOCAL_FILE"
+# source_type = "user_recorded_video"
+
 [portrait_detect]
 enabled = false
 # 真人开口分支前置检测：
 # - liveportrait-detect 先做人像 / 面部检测
 # - 仅表示路线已定，不代表 provider implementation 已完成
+# - 当前不再作为默认主承载路线；只有明确切到待验证支线时才允许启用
 model = "liveportrait-detect"
 
 [portrait_video_generation]
@@ -192,10 +217,11 @@ enabled = false
 # - liveportrait 用于固定背景 / 人物开口视频
 # - 必须先过 liveportrait-detect
 # - 仅表示路线已定，不代表 provider implementation 已完成
+# - 当前不再作为默认主承载路线；只有明确切到待验证支线时才允许启用
 model = "liveportrait"
 
 [assembly]
-# mode：当前 pure PPT / 信息卡主线的组装模式。
+# mode：当前正式默认主线的组装模式。
 # 用途：把主线路由显式锁定为 cloud-only。
 # 是否必填：是。
 # 当前是否已确认：是。
@@ -274,8 +300,9 @@ region = "cn-beijing"
 # 是否必填：是。
 # 当前是否已确认：是。
 storage_address = "zvip1-video-beijing.oss-cn-beijing.aliyuncs.com"
-# cloud_project_name：当前 pure PPT 主线唯一云剪工程名。
-# 用途：把纯 PPT / 信息卡主线统一路由到北京区云剪工程。
+# cloud_project_name：当前正式主线继续复用的北京区云剪工程名。
+# 用途：把 human + self_footage + light_ppt 主线统一路由到北京区云剪工程。
+# 说明：项目名里保留 `ppt` 属于历史命名，不代表当前正式主线仍是 pure PPT。
 # 是否必填：是。
 # 当前是否已确认：是。
 cloud_project_name = "video-factory-ppt-master-v1"
@@ -283,14 +310,38 @@ cloud_project_name = "video-factory-ppt-master-v1"
 [output]
 dist_dir = "dist/formal_api_demo"
 
+[footage_inputs]
+# 正式默认主线的真人 / 自录素材从本地配置注入，不直接写死进 case。
+# 若当前段落的素材来源是 user_media，则 generation 会优先读取这里的 local_path：
+# - 有真实文件 => 直接进入 manifest / cloud assembly
+# - 缺真实文件 => 诚实 blocked
+
+[footage_inputs.hook_human]
+local_path = "SET_IN_LOCAL_FILE"
+source_type = "user_recorded_video"
+
+[footage_inputs.process_self_footage]
+local_path = "SET_IN_LOCAL_FILE"
+source_type = "user_screen_recording"
+
+[footage_inputs.result_card]
+local_path = "SET_IN_LOCAL_FILE"
+source_type = "user_ppt_image"
+
+[footage_inputs.close_human]
+local_path = "SET_IN_LOCAL_FILE"
+source_type = "user_recorded_video"
+
 [polling]
 interval_seconds = 5
 timeout_seconds = 600
 
 [quality_gate]
-# 当前 pure PPT / 信息卡主线已经改为 cloud-only：
-# - 本地 assembly 不再作为 fallback / 兜底 / 正常交付路径
-# - 若缺密钥、缺云端参数或缺 provider implementation，必须如实 blocked
+# 当前正式默认主线已切到：
+# - human + user self footage + light_ppt/image
+# - 正式 assembly 继续固定走北京区 OSS + 云剪 cloud-only
+# - AI talking avatar / 数字人口播默认不再承担主承载
+# - 若缺真实素材、缺密钥、缺云端参数或缺 provider implementation，必须如实 blocked
 require_hook = true
 min_segments = 3
 require_manifest_schema = true

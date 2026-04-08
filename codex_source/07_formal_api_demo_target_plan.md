@@ -184,7 +184,12 @@
 
 建议目标态路径：
 
-- `cases/formal_api_demo.md`
+- `cases/formal_api_demo_human_self_footage.md`
+
+补充说明：
+
+- `cases/formal_api_demo.md` 可继续保留为 pure PPT / 信息卡次级支路样例
+- 但正式默认主线应优先以 `cases/formal_api_demo_human_self_footage.md` 为准
 
 它的职责不是“随便写一条需求”，而是：
 

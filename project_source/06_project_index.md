@@ -106,9 +106,9 @@
 ### `project_source/10_formal_api_demo_current_route_patch_20260402.md`
 
 - 解决什么问题：
-  - 当前 `formal_api_demo` / 纯 PPT 主线默认 assembly 路径是什么
+  - 当前 `formal_api_demo` 默认主线的 assembly 路径是什么
   - 北京区 `OSS + 云剪工程` 为什么已经是唯一 assembly 主路径
-  - 哪些旧的“local default / cloud optional / local fallback”口径已经失效
+  - 哪些旧的“pure PPT 默认主线 / local default / cloud optional / local fallback”口径已经失效
 
 ### `project_source/10_video_review_record_template.md`
 
@@ -138,10 +138,18 @@
 ### `project_source/17_white_collar_ppt_style_rules.md`
 
 - 解决什么问题：
-  - 当前纯 PPT / 信息卡母版默认该呈现什么气质
+  - 当前 pure PPT / 信息卡次级支路该呈现什么气质
   - 默认视觉、文案、字幕、转场和页面结构该怎么落
   - 哪些低质信号当前必须明确禁止
   - “白领风是否成立”回审时该怎么看
+
+### `project_source/19_human_self_footage_hybrid_mainline_rules.md`
+
+- 解决什么问题：
+  - 当前正式默认主线为什么改成“人物 + 自录素材 + 少量 PPT / 图片”
+  - 三层职责分工是什么
+  - AI talking avatar / 数字人口播为什么降级为非默认路线
+  - 缺真实素材时当前仓库该如何诚实落到“待素材注入验证”
 
 ## 3. 建议阅读顺序
 
@@ -154,11 +162,12 @@
 5. `project_source/02_scene_mode_templates.md`
 6. `project_source/05_psychology_execution_rules.md`
 7. `project_source/16_presentation_routing_rules.md`
-8. `project_source/17_white_collar_ppt_style_rules.md`
-9. `project_source/04_review_templates.md`
-10. `project_source/10_video_review_record_template.md`
-11. `project_source/03_perplexity_prompt_library.md`
-12. `project_source/07_user_readable_repo_map.md`
+8. `project_source/19_human_self_footage_hybrid_mainline_rules.md`
+9. `project_source/17_white_collar_ppt_style_rules.md`
+10. `project_source/04_review_templates.md`
+11. `project_source/10_video_review_record_template.md`
+12. `project_source/03_perplexity_prompt_library.md`
+13. `project_source/07_user_readable_repo_map.md`
 
 原因：
 
@@ -166,7 +175,7 @@
 - 再看质量基线总口径
 - 再看项目定义与阶段
 - 再看系统理解框架
-- 再看场景、心理机制、展示路由与纯 PPT 默认风格
+- 再看场景、心理机制、展示路由、正式默认主线与 pure PPT 次级支路
 - 再看回审模板与回审记录
 - 最后看用户视角地图
 
@@ -186,11 +195,12 @@
 5. `project_source/02_scene_mode_templates.md`
 6. `project_source/05_psychology_execution_rules.md`
 7. `project_source/16_presentation_routing_rules.md`
-8. `project_source/17_white_collar_ppt_style_rules.md`
-9. `project_source/04_review_templates.md`
-10. `project_source/10_video_review_record_template.md`
-11. `project_source/03_perplexity_prompt_library.md`
-12. `project_source/07_user_readable_repo_map.md`
+8. `project_source/19_human_self_footage_hybrid_mainline_rules.md`
+9. `project_source/17_white_collar_ppt_style_rules.md`
+10. `project_source/04_review_templates.md`
+11. `project_source/10_video_review_record_template.md`
+12. `project_source/03_perplexity_prompt_library.md`
+13. `project_source/07_user_readable_repo_map.md`
 
 ### 如果当前任务命中“质量标准 / demo 身份 / 火山引擎 TTS 优先级”
 
@@ -290,6 +300,12 @@
 
 - `project_source/17_white_collar_ppt_style_rules.md`
 
+### 想确认当前正式默认主线为什么改成“人物 + 自录素材 + 少量 PPT / 图片”
+
+看：
+
+- `project_source/19_human_self_footage_hybrid_mainline_rules.md`
+
 ### 想去 Perplexity 查资料、拿首稿、找表达参考
 
 看：
@@ -316,13 +332,13 @@
 
 - `project_source/08_quality_baseline_and_90_score_rules.md`
 
-### 想确认纯 PPT 主线现在默认走云剪还是本地兜底
+### 想确认当前正式默认主线现在走云剪还是本地兜底
 
 看：
 
 - `project_source/10_formal_api_demo_current_route_patch_20260402.md`
 
-当前正式口径已经不是“云剪默认、本地兜底”，而是“北京区 OSS + 云剪工程唯一主路径；本地 assembly 已退出 pure PPT / 信息卡主线”。
+当前正式口径已经不是“pure PPT 默认主线”，而是“人物 + 自录素材 + 少量 PPT / 图片”为默认主承载，同时正式组装继续固定为“北京区 OSS + 云剪工程唯一主路径”；本地 assembly 已退出默认主线。
 
 ### 想知道整套项目脑文件怎么配合
 
@@ -350,6 +366,7 @@
 - 回审记录模板
 - 阶段与回审循环治理
 - 心理机制规则
+- 正式默认主线规则
 - 白领向纯 PPT 母版风格规则
 - 四方协作分工
 

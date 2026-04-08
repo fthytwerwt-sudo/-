@@ -549,15 +549,16 @@ skill 检查在当前仓库中是硬规则。
   - 文本需求
   - 脚本
   - 配音 API
-  - 图片 / 视频生成 API
-  - 纯 PPT / 信息卡母版
+  - 人物判断段 / 自录过程段 / 少量结果卡素材
   - OSS + 云剪 assembly
   - 成片导出
   - 人工上传
 - 当前主路径补充口径：
-  - generation 层继续接 API
-  - 纯 PPT / 信息卡主线统一走北京区 OSS + 云剪工程
-  - local assembly 已移出 pure PPT / 信息卡主线，不再作为 fallback / 兜底 / 应急正常交付
+  - 配音 API 继续接，少量辅助图片 / 视频段仍可继续接 API
+  - 正式默认主承载是“人物 + 用户自录素材 + 少量 PPT / 图片”
+  - 正式默认主线统一走北京区 OSS + 云剪工程
+  - local assembly 已移出正式默认主线，不再作为 fallback / 兜底 / 应急正常交付
+  - AI talking avatar / 数字人口播不再承担默认主承载
   - 动态 PPT 仍暂不考虑
 - 当前 demo 输入锚点：`cases/demo.md`
 - 当前 demo 约束：

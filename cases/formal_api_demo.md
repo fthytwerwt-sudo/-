@@ -18,6 +18,11 @@ AI 项目讲解
 - 画面不能只是静态轮播
 - 结尾必须有明确落点
 
+## 展示主线
+- 路由画像：pure_ppt_cloud_only_secondary
+- 主策略：ppt_primary
+- 路由理由：这条样例只保留为纯 PPT / 信息卡次级支路，用于结构解释或素材不足场景，不再是正式默认主线。
+
 ## Hook
 很多 AI 项目不是做不动，而是需求和步骤一直说不清。
 
@@ -35,6 +40,9 @@ AI 项目讲解
 - 需要图片：是
 - 需要视频：否
 - 允许真实桌面素材：否
+- 段载体：light_ppt
+- 素材键：ppt_hook_card
+- 素材来源：api_generated
 
 ### 第2段
 - 段落ID：seg02
@@ -46,6 +54,9 @@ AI 项目讲解
 - 需要图片：是
 - 需要视频：是
 - 允许真实桌面素材：否
+- 段载体：api_visual
+- 素材键：ppt_process_motion
+- 素材来源：api_generated
 
 ### 第3段
 - 段落ID：seg03
@@ -57,3 +68,6 @@ AI 项目讲解
 - 需要图片：是
 - 需要视频：否
 - 允许真实桌面素材：否
+- 段载体：light_ppt
+- 素材键：ppt_outcome_card
+- 素材来源：api_generated

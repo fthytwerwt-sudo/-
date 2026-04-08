@@ -31,6 +31,7 @@ from formal_api_demo_cloud_assembly import (
 
 ROOT = pathlib.Path(__file__).resolve().parent
 FORMAL_CASE_PATH = ROOT / "cases" / "formal_api_demo.md"
+FORMAL_MAINLINE_CASE_PATH = ROOT / "cases" / "formal_api_demo_human_self_footage.md"
 FORMAL_EXAMPLE_CONFIG_PATH = ROOT / "config" / "formal_api_demo.example.toml"
 OFFICIAL_FORMAL_LOCAL_CONFIG_PATH = (
     pathlib.Path.home() / ".config" / "video-factory" / "formal_api_demo.local.toml"
@@ -72,6 +73,18 @@ DEFAULT_IMAGE_EDIT_MODEL = "qwen-image-edit-plus"
 DEFAULT_VIDEO_EDIT_MODEL = "wan2.7-videoedit"
 DEFAULT_PORTRAIT_DETECT_MODEL = "liveportrait-detect"
 DEFAULT_PORTRAIT_VIDEO_MODEL = "liveportrait"
+DEFAULT_PPT_ROUTE_PROFILE = "pure_ppt_cloud_only_secondary"
+DEFAULT_MAINLINE_ROUTE_PROFILE = "human_self_footage_light_ppt"
+CARRIER_API_VISUAL = "api_visual"
+CARRIER_HUMAN = "human"
+CARRIER_SELF_FOOTAGE = "self_footage"
+CARRIER_LIGHT_PPT = "light_ppt"
+LOCAL_VIDEO_CARRIERS = {
+    CARRIER_HUMAN,
+    CARRIER_SELF_FOOTAGE,
+}
+USER_MEDIA_SOURCE = "user_media"
+API_GENERATED_SOURCE = "api_generated"
 RESOURCE_KIND_TTS = "tts"
 RESOURCE_KIND_IMAGE = "image_generation"
 RESOURCE_KIND_VIDEO = "video_generation"
@@ -269,6 +282,12 @@ REQUIRED_SEGMENT_FIELDS = {
     "允许真实桌面素材": "allow_real_desktop_footage",
 }
 
+OPTIONAL_SEGMENT_FIELDS = {
+    "段载体": "carrier",
+    "素材键": "asset_key",
+    "素材来源": "asset_source",
+}
+
 
 def parse_formal_case_markdown(path: pathlib.Path) -> dict[str, Any]:
     raw_sections: dict[str, list[str]] = {}
@@ -319,6 +338,21 @@ def parse_formal_case_markdown(path: pathlib.Path) -> dict[str, Any]:
     if not segments:
         raise ValueError("分段结构不能为空")
 
+    route_settings = _parse_bullet_kv(raw_sections.get("展示主线", []))
+    route_profile = route_settings.get("路由画像", "").strip()
+    video_route_strategy = route_settings.get("主策略", "").strip()
+    route_reason = route_settings.get("路由理由", "").strip()
+    if not route_profile:
+        route_profile = _default_route_profile(segments)
+    if not video_route_strategy:
+        video_route_strategy = "hybrid" if route_profile == DEFAULT_MAINLINE_ROUTE_PROFILE else "ppt_primary"
+    if not route_reason:
+        route_reason = (
+            "人物负责判断与收束，用户真实录制素材负责过程证据，少量 PPT / 图片负责关键词显影。"
+            if route_profile == DEFAULT_MAINLINE_ROUTE_PROFILE
+            else "当前样例仍以 pure PPT / 信息卡承载结构解释与结果收束。"
+        )
+
     return {
         "theme": _section_text(raw_sections["主题"]),
         "total_duration_seconds": total_duration,
@@ -328,7 +362,87 @@ def parse_formal_case_markdown(path: pathlib.Path) -> dict[str, Any]:
         "quality_requirements": _section_list(raw_sections["全局质量要求"]),
         "hook": _section_text(raw_sections["Hook"]),
         "ending": _section_text(raw_sections["结尾落点"]),
+        "route_profile": route_profile,
+        "video_route_strategy": video_route_strategy,
+        "route_reason": route_reason,
         "segments": segments,
+    }
+
+
+def build_presentation_route_plan(video_spec: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "schema_version": "formal_api_demo_route_plan/v1",
+        "route_profile": video_spec.get("route_profile") or _default_route_profile(video_spec.get("segments", [])),
+        "video_route_strategy": video_spec.get("video_route_strategy")
+        or (
+            "hybrid"
+            if (video_spec.get("route_profile") or "") == DEFAULT_MAINLINE_ROUTE_PROFILE
+            else "ppt_primary"
+        ),
+        "route_reason": video_spec.get("route_reason", ""),
+        "blocks": [
+            {
+                "block_id": segment["segment_id"],
+                "block_goal": segment["goal"],
+                "block_carrier": segment["carrier"],
+                "asset_source": segment["asset_source"],
+                "asset_key": segment["asset_key"],
+                "needs_image": segment["needs_image"],
+                "needs_video": segment["needs_video"],
+                "allow_real_desktop_footage": segment["allow_real_desktop_footage"],
+                "visual_intent": segment["visual_intent"],
+            }
+            for segment in video_spec.get("segments", [])
+        ],
+    }
+
+
+def _default_route_profile(segments: list[dict[str, Any]]) -> str:
+    if any(segment.get("carrier") in LOCAL_VIDEO_CARRIERS for segment in segments):
+        return DEFAULT_MAINLINE_ROUTE_PROFILE
+    return DEFAULT_PPT_ROUTE_PROFILE
+
+
+def _default_segment_carrier(
+    *,
+    needs_image: bool,
+    needs_video: bool,
+    allow_real_desktop_footage: bool,
+) -> str:
+    if allow_real_desktop_footage and needs_video:
+        return CARRIER_SELF_FOOTAGE
+    if needs_image and not needs_video:
+        return CARRIER_LIGHT_PPT
+    return CARRIER_API_VISUAL
+
+
+def _default_segment_asset_source(
+    *,
+    carrier: str,
+    allow_real_desktop_footage: bool,
+) -> str:
+    if carrier in LOCAL_VIDEO_CARRIERS or allow_real_desktop_footage:
+        return USER_MEDIA_SOURCE
+    return API_GENERATED_SOURCE
+
+
+def _resolve_visual_delivery_mode(segment_assets: list[dict[str, Any]]) -> str:
+    origins = {
+        asset.get("asset_origin") or API_GENERATED_SOURCE
+        for asset in segment_assets
+    }
+    if origins == {USER_MEDIA_SOURCE}:
+        return "user_provided_local_assets"
+    if USER_MEDIA_SOURCE in origins and API_GENERATED_SOURCE in origins:
+        return "mixed_user_and_api_local_assets"
+    return "api_generated_local_assets"
+
+
+def _visual_delivery_is_primary_asset_mode(delivery_mode: str) -> bool:
+    return delivery_mode in {
+        "api_generated_local_assets",
+        "user_provided_local_assets",
+        "mixed_user_and_api_local_assets",
     }
 
 
@@ -389,6 +503,7 @@ def run_generation_pipeline(
     )
     manifest_path = output_dir / "manifest.json"
     generation_gate_path = output_dir / "generation_gate.json"
+    route_plan_path = output_dir / "route_plan.json"
 
     if dry_run:
         tts_probe["candidate_pool"] = tts_gate.get("candidate_pool", {})
@@ -463,6 +578,7 @@ def run_generation_pipeline(
 
     write_json(manifest_path, manifest)
     write_json(generation_gate_path, generation_gate)
+    write_json(route_plan_path, manifest["presentation_routing"])
 
     result_summary = build_generation_result_summary(
         manifest=manifest,
@@ -891,7 +1007,7 @@ def _evaluate_tts_generation_gate(
         {
             "name": "cloud_only_assembly_route_locked",
             "status": "pass",
-            "detail": "纯 PPT / 信息卡主线已锁定为北京区 OSS + 云剪唯一 assembly 路线，本地 fallback 不再作为正常交付。",
+            "detail": "正式默认主线已锁定为北京区 OSS + 云剪唯一 assembly 路线，本地 fallback 不再作为正常交付。",
         },
     ]
     checks.extend(
@@ -1031,10 +1147,38 @@ def evaluate_generation_gate(
         },
         "checks": tts_gate["checks"] + visual_gate["checks"],
         "notes": [
-            "正式 generation success 仍要求配音 API 与图片 / 视频 API 都真实成功。",
+            "正式 generation success 仍要求配音 API 成功，且视觉层必须真实拿到可组装资产：要么是用户注入的真人 / 自录 / 结果卡素材，要么是图片 / 视频 API 成功产物。",
             "visual plan / preview storyboard 只能算辅助产物，不能再冒充 visual generation success。",
-            "assembly 主线已升级为北京区 OSS + 云剪 cloud-only，这不影响图片 / 视频 API 继续留在 generation 主链。",
+            "默认正式主线已切到 human + self_footage + light_ppt；AI talking avatar / 数字人口播不再承担默认主承载。",
+            "assembly 主线继续固定为北京区 OSS + 云剪 cloud-only，不回退 local assembly 默认主路径。",
         ],
+    }
+
+
+def _segment_requires_local_media(segment: dict[str, Any]) -> bool:
+    if segment.get("carrier") in LOCAL_VIDEO_CARRIERS:
+        return True
+    return bool(segment.get("asset_key")) and segment.get("asset_source") == USER_MEDIA_SOURCE
+
+
+def _segment_needs_api_image(segment: dict[str, Any]) -> bool:
+    return bool(segment.get("needs_image")) and not _segment_requires_local_media(segment)
+
+
+def _segment_needs_api_video(segment: dict[str, Any]) -> bool:
+    return bool(segment.get("needs_video")) and not _segment_requires_local_media(segment)
+
+
+def _resolve_footage_input(config: dict[str, Any], asset_key: str) -> dict[str, Any]:
+    payload = _nested_get(config, "footage_inputs", asset_key) or {}
+    local_path = _normalize_optional_text(payload.get("local_path"))
+    source_type = _normalize_optional_text(payload.get("source_type")) or "user_recorded_video"
+    media_kind = "image" if source_type in {"user_image", "user_ppt_image"} else "video"
+    return {
+        "asset_key": asset_key,
+        "local_path": local_path,
+        "source_type": source_type,
+        "media_kind": media_kind,
     }
 
 
@@ -1069,10 +1213,17 @@ def _evaluate_visual_generation_gate(
         candidate.get("provider") == PROVIDER_ALIYUN_BAILIAN
         for candidate in available_video_candidates
     ) if available_video_candidates else (_nested_get(config, "provider", "name") == PROVIDER_ALIYUN_BAILIAN)
-    needs_image = any(segment.get("needs_image") for segment in video_spec.get("segments", []))
-    needs_video = any(segment.get("needs_video") for segment in video_spec.get("segments", []))
+    needs_image = any(
+        _segment_needs_api_image(segment) for segment in video_spec.get("segments", [])
+    )
+    needs_video = any(
+        _segment_needs_api_video(segment) for segment in video_spec.get("segments", [])
+    )
     portrait_detect_enabled = visual_routes["portrait_detect"]["enabled"]
     portrait_video_enabled = visual_routes["portrait_video_generation"]["enabled"]
+    required_local_media_inputs = [
+        segment for segment in video_spec.get("segments", []) if _segment_requires_local_media(segment)
+    ]
     image_missing_union = _candidate_missing_union(
         image_candidates,
         missing_fn=lambda candidate: _visual_candidate_missing_prerequisites(
@@ -1111,6 +1262,19 @@ def _evaluate_visual_generation_gate(
         _nested_get(config, "portrait_video_generation", "model")
     ):
         missing.append("portrait_video_generation_model")
+    for segment in required_local_media_inputs:
+        asset_key = segment.get("asset_key") or segment["segment_id"]
+        footage_input = _resolve_footage_input(config, asset_key)
+        local_path = footage_input["local_path"]
+        if _is_missing_secret(local_path):
+            missing_name = f"footage_input_{asset_key}_local_path"
+            if missing_name not in missing:
+                missing.append(missing_name)
+            continue
+        if not pathlib.Path(local_path).expanduser().exists():
+            missing_name = f"footage_input_{asset_key}_file_exists"
+            if missing_name not in missing:
+                missing.append(missing_name)
     if needs_image and not image_provider_supported:
         implementation_missing.append("image_generation_provider_implementation")
     if needs_video and not video_provider_supported:
@@ -1139,6 +1303,22 @@ def _evaluate_visual_generation_gate(
             if not needs_video or bool(available_video_candidates)
             else "fail",
             "detail": f"有视频段落时必须存在至少 1 个可用 video candidate；available={len(available_video_candidates)}。",
+        },
+        {
+            "name": "required_user_footage_present",
+            "status": "pass"
+            if not required_local_media_inputs
+            or all(
+                not _is_missing_secret(_resolve_footage_input(config, segment.get("asset_key") or segment["segment_id"])["local_path"])
+                and pathlib.Path(
+                    _resolve_footage_input(config, segment.get("asset_key") or segment["segment_id"])["local_path"]
+                )
+                .expanduser()
+                .exists()
+                for segment in required_local_media_inputs
+            )
+            else "fail",
+            "detail": "默认正式主线要求的真人 / 自录素材必须先在本地配置里注入真实文件路径。",
         },
         {
             "name": "portrait_detect_enabled_before_liveportrait",
@@ -1218,6 +1398,7 @@ def _evaluate_visual_generation_gate(
         "checks": checks,
         "notes": [
             "visual_generation Gate 继续代表图片 / 视频生成 API 的正式 generation 前提。",
+            "默认正式主线已切到 human + self_footage + light_ppt；真人判断段和自录证据段优先吃用户真实素材，不再默认走 AI talking avatar。",
             "普通视频默认主线固定为 wan2.6-image -> wan2.7-i2v；先出首帧 / 底图，再转视频。",
             f"人物图 / 人像底图默认走 {DEFAULT_GENERAL_IMAGE_MODEL}；需要修图时走 {DEFAULT_IMAGE_EDIT_MODEL}，不再默认依赖 facechain-generation。",
             "真人开口分支固定为 liveportrait-detect + liveportrait；liveportrait 必须先经过 liveportrait-detect。",
@@ -1301,7 +1482,7 @@ def evaluate_assembly_gate(
         {
             "name": "cloud_only_route_locked",
             "status": "pass",
-            "detail": "纯 PPT / 信息卡主线已锁定为北京区 OSS + 云剪唯一 assembly 主路径，不再接受 local assembly fallback。",
+            "detail": "正式默认主线已锁定为北京区 OSS + 云剪唯一 assembly 主路径，不再接受 local assembly fallback。",
         },
     ]
     checks.extend(_cloud_assembly_checks(config))
@@ -1325,9 +1506,9 @@ def evaluate_assembly_gate(
         "missing_implementations": implementation_missing,
         "checks": checks,
         "notes": [
-            "assembly Gate 负责标记纯 PPT 主线的北京区 OSS + 云剪唯一主路径，不得再把本地 assembly 写成默认交付。",
+            "assembly Gate 负责标记正式默认主线的北京区 OSS + 云剪唯一主路径，不得再把本地 assembly 写成默认交付。",
             "manifest 是修正循环和复审的事实锚点，assembly 不得绕开 manifest 自由猜测。",
-            "当前 pure PPT / 信息卡主线已经改为 cloud-only；缺密钥、缺云端参数或缺 provider implementation 时必须如实 blocked，不得再用 local mp4 补位。",
+            "当前正式默认主线已经改为 cloud-only；缺密钥、缺云端参数、缺真实素材或缺 provider implementation 时必须如实 blocked，不得再用 local mp4 补位。",
         ],
     }
 
@@ -1342,6 +1523,7 @@ def build_manifest(
     tts_probe: dict[str, Any],
 ) -> dict[str, Any]:
     tts_baseline = _resolve_formal_tts_baseline(config)
+    route_plan = build_presentation_route_plan(video_spec)
     segments: list[dict[str, Any]] = []
     cursor = 0.0
     for index, segment in enumerate(video_spec["segments"], start=1):
@@ -1361,6 +1543,14 @@ def build_manifest(
                     "allow_real_desktop_footage": segment[
                         "allow_real_desktop_footage"
                     ],
+                    "carrier": segment["carrier"],
+                    "asset_key": segment["asset_key"],
+                    "asset_source": segment["asset_source"],
+                },
+                "presentation": {
+                    "carrier": segment["carrier"],
+                    "asset_key": segment["asset_key"],
+                    "asset_source": segment["asset_source"],
                 },
                 "provider_plan": {
                     "tts_provider": _get_tts_provider_name(config),
@@ -1428,7 +1618,11 @@ def build_manifest(
             "target_scenario": video_spec["target_scenario"],
             "target_user": video_spec["target_user"],
             "quality_requirements": video_spec["quality_requirements"],
+            "route_profile": video_spec.get("route_profile", ""),
+            "video_route_strategy": video_spec.get("video_route_strategy", ""),
+            "route_reason": video_spec.get("route_reason", ""),
         },
+        "presentation_routing": route_plan,
         "segments": segments,
         "provider_summary": {
             "provider": _nested_get(config, "provider", "name"),
@@ -1571,6 +1765,7 @@ def build_generation_result_summary(
             "manifest": str(output_dir / "manifest.json"),
             "generation_gate": str(output_dir / "generation_gate.json"),
             "result_summary": str(output_dir / "result_summary.json"),
+            "route_plan": str(output_dir / "route_plan.json"),
             "tts_audio": tts_probe.get("audio_path"),
             "voiceover_audio": voiceover.get("audio_path"),
             "script": captions.get("script_path"),
@@ -1609,6 +1804,9 @@ def build_assembly_plan(
         "segments": [
             {
                 "segment_id": segment["segment_id"],
+                "carrier": _nested_get(segment, "presentation", "carrier"),
+                "asset_source": _nested_get(segment, "presentation", "asset_source"),
+                "asset_key": _nested_get(segment, "presentation", "asset_key"),
                 "planned_duration_seconds": segment["timeline"][
                     "planned_duration_seconds"
                 ],
@@ -1676,6 +1874,7 @@ def build_assembly_result_summary(
             "assembly_gate": str(output_dir / "assembly_gate.json"),
             "assembly_plan": str(output_dir / "assembly_plan.json"),
             "result_summary": str(output_dir / "result_summary.json"),
+            "route_plan": str(output_dir / "route_plan.json"),
             "final_video": assembly.get("delivery_video_path") if assembly_status == STATUS_SUCCESS else None,
             "preview_video": preview.get("video_path"),
             "preview_manifest": preview.get("preview_manifest_path"),
@@ -1762,6 +1961,9 @@ def build_default_visual_generation(
         "segment_assets": [
             {
                 "segment_id": segment["segment_id"],
+                "carrier": segment.get("carrier", CARRIER_API_VISUAL),
+                "asset_key": segment.get("asset_key", ""),
+                "asset_source": segment.get("asset_source", API_GENERATED_SOURCE),
                 "needs_image": segment["needs_image"],
                 "needs_video": segment["needs_video"],
                 "image_prompt": "",
@@ -1770,6 +1972,8 @@ def build_default_visual_generation(
                 "video_task_id": None,
                 "image_asset_path": None,
                 "video_asset_path": None,
+                "local_asset_path": None,
+                "asset_origin": API_GENERATED_SOURCE,
                 "failure_reason": "",
                 "error_message": "",
                 "status": STATUS_NOT_STARTED,
@@ -1804,7 +2008,7 @@ def build_default_local_assembly(output_dir: pathlib.Path) -> dict[str, Any]:
         "current_missing_prerequisites": [],
         "missing_implementations": [],
         "deprecated": True,
-        "deprecated_reason": "pure PPT / 信息卡主线已改为 cloud-only；local assembly 已移出主线，不再承担 fallback 或正常交付。",
+        "deprecated_reason": "正式默认主线已改为 cloud-only；local assembly 已移出主线，不再承担 fallback 或正常交付。",
     }
 
 
@@ -1819,7 +2023,7 @@ def build_default_assembly_preview(output_dir: pathlib.Path) -> dict[str, Any]:
         "failure_reason": "",
         "error_message": "",
         "deprecated": True,
-        "deprecated_reason": "local preview 只保留历史调试意义，已移出 pure PPT 主线路由，不再作为 fallback / 验收路径。",
+        "deprecated_reason": "local preview 只保留历史调试意义，已移出正式默认主线路由，不再作为 fallback / 验收路径。",
     }
 
 
@@ -1913,6 +2117,10 @@ def apply_visual_generation_to_manifest(
         segment["task_slots"]["video_task_id"] = asset.get("video_task_id")
         segment["output_slots"]["visual_uri"] = (
             asset.get("video_asset_path") or asset.get("image_asset_path")
+        )
+        segment.setdefault("presentation", {})["resolved_asset_origin"] = asset.get(
+            "asset_origin",
+            API_GENERATED_SOURCE,
         )
         segment["current_status"] = asset.get("status", segment["current_status"])
     return manifest
@@ -2434,11 +2642,76 @@ def build_visual_generation_plan(
     video_requires_seed_image = _video_model_requires_seed_image(video_model)
 
     for index, segment in enumerate(video_spec.get("segments", []), start=1):
-        segment_needs_image = segment["needs_image"] or (
-            segment["needs_video"] and video_requires_seed_image
+        uses_local_media = _segment_requires_local_media(segment)
+        local_asset = None
+        if uses_local_media:
+            asset_key = segment.get("asset_key") or segment["segment_id"]
+            local_asset = _resolve_footage_input(config, asset_key)
+        segment_needs_image = (
+            not uses_local_media
+            and (
+                segment["needs_image"]
+                or (segment["needs_video"] and video_requires_seed_image)
+            )
         )
         image_prompt = ""
         video_prompt = ""
+        if uses_local_media and local_asset is not None:
+            if _is_missing_secret(local_asset["local_path"]):
+                visual_generation.update(
+                    {
+                        "status": STATUS_BLOCKED,
+                        "blocked_reason": f"缺少 {segment.get('asset_key') or segment['segment_id']} 的本地真实素材路径。",
+                        "error_message": f"缺少 {segment.get('asset_key') or segment['segment_id']} 的本地真实素材路径。",
+                    }
+                )
+                _write_visual_generation_files(
+                    visual_generation=visual_generation,
+                    video_spec=video_spec,
+                    plan_path=plan_path,
+                    preview_storyboard_path=preview_storyboard_path,
+                )
+                return visual_generation
+            local_path = pathlib.Path(local_asset["local_path"]).expanduser()
+            if not local_path.exists():
+                visual_generation.update(
+                    {
+                        "status": STATUS_BLOCKED,
+                        "blocked_reason": f"找不到 {segment.get('asset_key') or segment['segment_id']} 的本地真实素材文件：{local_path}",
+                        "error_message": f"找不到 {segment.get('asset_key') or segment['segment_id']} 的本地真实素材文件：{local_path}",
+                    }
+                )
+                _write_visual_generation_files(
+                    visual_generation=visual_generation,
+                    video_spec=video_spec,
+                    plan_path=plan_path,
+                    preview_storyboard_path=preview_storyboard_path,
+                )
+                return visual_generation
+            asset_record = {
+                "segment_id": segment["segment_id"],
+                "sequence": index,
+                "carrier": segment.get("carrier", CARRIER_API_VISUAL),
+                "asset_key": segment.get("asset_key", ""),
+                "asset_source": segment.get("asset_source", API_GENERATED_SOURCE),
+                "needs_image": local_asset["media_kind"] == "image",
+                "needs_video": local_asset["media_kind"] == "video",
+                "seed_image_required": False,
+                "image_prompt": "",
+                "video_prompt": "",
+                "image_task_id": None,
+                "video_task_id": None,
+                "image_asset_path": str(local_path) if local_asset["media_kind"] == "image" else None,
+                "video_asset_path": str(local_path) if local_asset["media_kind"] == "video" else None,
+                "local_asset_path": str(local_path),
+                "asset_origin": USER_MEDIA_SOURCE,
+                "preview_visual_ref": f"preview_slide_{index}",
+                "failure_reason": "",
+                "error_message": "",
+                "status": STATUS_SUCCESS,
+            }
+            segment_assets.append(asset_record)
+            continue
         if segment_needs_image:
             if segment["segment_id"] == "seg01":
                 image_prompt = (
@@ -2471,6 +2744,9 @@ def build_visual_generation_plan(
             {
                 "segment_id": segment["segment_id"],
                 "sequence": index,
+                "carrier": segment.get("carrier", CARRIER_API_VISUAL),
+                "asset_key": segment.get("asset_key", ""),
+                "asset_source": segment.get("asset_source", API_GENERATED_SOURCE),
                 "needs_image": segment_needs_image,
                 "needs_video": segment["needs_video"],
                 "seed_image_required": segment["needs_video"] and video_requires_seed_image,
@@ -2480,6 +2756,8 @@ def build_visual_generation_plan(
                 "video_task_id": None,
                 "image_asset_path": None,
                 "video_asset_path": None,
+                "local_asset_path": None,
+                "asset_origin": API_GENERATED_SOURCE,
                 "preview_visual_ref": f"preview_slide_{index}",
                 "failure_reason": "",
                 "error_message": "",
@@ -2627,6 +2905,8 @@ def build_visual_generation_plan(
     runtime_state = rotation_state or _build_default_rotation_state()
 
     for segment, asset in zip(video_spec.get("segments", []), segment_assets):
+        if asset.get("asset_origin") == USER_MEDIA_SOURCE:
+            continue
         image_result = {
             "status": STATUS_SKIPPED,
             "task_id": None,
@@ -2749,6 +3029,7 @@ def build_visual_generation_plan(
             )
             return visual_generation
 
+    visual_generation["delivery_mode"] = _resolve_visual_delivery_mode(segment_assets)
     _write_visual_generation_files(
         visual_generation=visual_generation,
         video_spec=video_spec,
@@ -2783,7 +3064,9 @@ def _write_visual_generation_files(
             "current_missing_prerequisites": visual_generation["current_missing_prerequisites"],
             "missing_implementations": visual_generation["missing_implementations"],
             "candidate_pool": visual_generation.get("candidate_pool", {}),
-            "auxiliary_only": visual_generation["delivery_mode"] != "api_generated_local_assets",
+            "auxiliary_only": not _visual_delivery_is_primary_asset_mode(
+                visual_generation["delivery_mode"]
+            ),
             "cloud": visual_generation["cloud"],
             "segment_assets": visual_generation["segment_assets"],
         },
@@ -2792,7 +3075,9 @@ def _write_visual_generation_files(
         preview_storyboard_path,
         {
             "schema_version": "formal_api_demo_preview_storyboard/v1",
-            "auxiliary_only": visual_generation["delivery_mode"] != "api_generated_local_assets",
+            "auxiliary_only": not _visual_delivery_is_primary_asset_mode(
+                visual_generation["delivery_mode"]
+            ),
             "segments": [
                 {
                     "segment_id": segment["segment_id"],
@@ -3361,6 +3646,20 @@ def _parse_segment_block(block: dict[str, Any]) -> dict[str, Any]:
             f"段落 {block['heading']} 缺少必填字段：{', '.join(missing_keys)}"
         )
 
+    needs_image = _parse_yes_no(values["需要图片"])
+    needs_video = _parse_yes_no(values["需要视频"])
+    allow_real_desktop_footage = _parse_yes_no(values["允许真实桌面素材"])
+    carrier = values.get("段载体", "").strip() or _default_segment_carrier(
+        needs_image=needs_image,
+        needs_video=needs_video,
+        allow_real_desktop_footage=allow_real_desktop_footage,
+    )
+    asset_key = values.get("素材键", "").strip()
+    asset_source = values.get("素材来源", "").strip() or _default_segment_asset_source(
+        carrier=carrier,
+        allow_real_desktop_footage=allow_real_desktop_footage,
+    )
+
     return {
         "segment_heading": block["heading"],
         "segment_id": values["段落ID"].strip(),
@@ -3369,9 +3668,12 @@ def _parse_segment_block(block: dict[str, Any]) -> dict[str, Any]:
         "voiceover_text": values["配音文案"].strip(),
         "caption_text": values["字幕文案"].strip(),
         "visual_intent": values["画面意图"].strip(),
-        "needs_image": _parse_yes_no(values["需要图片"]),
-        "needs_video": _parse_yes_no(values["需要视频"]),
-        "allow_real_desktop_footage": _parse_yes_no(values["允许真实桌面素材"]),
+        "needs_image": needs_image,
+        "needs_video": needs_video,
+        "allow_real_desktop_footage": allow_real_desktop_footage,
+        "carrier": carrier,
+        "asset_key": asset_key,
+        "asset_source": asset_source,
     }
 
 
@@ -4042,7 +4344,9 @@ def _tts_probe_known_issues(tts_probe: dict[str, Any]) -> list[str]:
     if tts_probe.get("status") == STATUS_FAILED and tts_probe.get("error_message"):
         issues.append("TTS probe failed：" + tts_probe["error_message"])
     if tts_probe.get("status") == STATUS_SUCCESS:
-        issues.append("当前 TTS 调用已接通；图片 / 视频 API 与北京区 OSS + 云剪主路径仍需继续补齐。")
+        issues.append(
+            "当前 TTS 调用已接通；正式主线下一步取决于用户真实素材注入或辅助图片资产准备，再进入北京区 OSS + 云剪主路径。"
+        )
     return issues
 
 
@@ -4058,11 +4362,18 @@ def _generation_next_action_hint(
     )
     if dry_run:
         return "当前为 dry-run；下一步应先确认配音与图片/视频 API 前提，再执行真实 generation。visual plan 只算辅助产物。"
+    footage_missing = [
+        item
+        for item in gate.get("missing_prerequisites", [])
+        if item.startswith("footage_input_")
+    ]
+    if footage_missing:
+        return "先在 formal_api_demo.local.toml 的 [footage_inputs.*] 里注入真人口播、自录录屏和结果卡的真实本地路径；默认主线不再拿 AI avatar 顶替这些段落。"
     if any(
         item in gate.get("missing_prerequisites", [])
         for item in ("image_generation_model", "video_generation_model")
     ):
-        return "先补齐 image_generation.model / video_generation.model；图片 / 视频 API 仍在 generation 主链，不能只靠 visual plan 继续推进。"
+        return "先补齐 image_generation.model / video_generation.model；默认主线允许真人 / 自录素材直接进 assembly，但少量辅助图片段若要走 API 生成，仍需要可用 image/video model。"
     if any(
         item in gate.get("missing_prerequisites", [])
         for item in (
@@ -4118,7 +4429,7 @@ def _generation_next_action_hint(
     if tts_probe.get("status") == STATUS_FAILED:
         return "当前已进入真实请求层失败；优先核对远端返回码、请求结构和 provider 接口兼容性。"
     if tts_probe.get("status") == STATUS_SUCCESS:
-        return "当前配音链路已通；只有在图片 / 视频 API 也真实成功后，才能继续推进北京区 OSS + 云剪 cloud-only 主路径。"
+        return "当前配音链路已通；下一步只要把真人口播、自录过程素材和结果卡准备齐，或补齐必要的辅助图片段资产，就可以继续推进北京区 OSS + 云剪 cloud-only 主路径。"
     return "当前已具备部分 generation 前提；下一步可执行真实 generation，并把失败压到字段或 provider 层。"
 
 
@@ -4127,7 +4438,7 @@ def _assembly_next_action_hint(
     dry_run: bool,
 ) -> str:
     if dry_run:
-        return "当前为 assembly dry-run；纯 PPT 主线已锁定北京区 OSS + 云剪唯一主路径，下一步先在本地注入 AccessKey 并核对 OSS / IMS / 云剪工程参数。"
+        return "当前为 assembly dry-run；正式主线已锁定北京区 OSS + 云剪唯一主路径，下一步先在本地注入 AccessKey 并核对 OSS / IMS / 云剪工程参数。"
     if "visual_assets_not_ready" in gate.get("missing_prerequisites", []):
         return "当前缺少真实 visual assets；应先补图片 / 视频 API provider，再推进北京区 OSS + 云剪 cloud-only 主路径。"
     if gate["missing_prerequisites"]:
