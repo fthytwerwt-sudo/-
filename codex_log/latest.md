@@ -16,8 +16,9 @@
   - `codex_source/11_ai_knowledge_video_value_bridge.md`
   - `codex_source/12_codex_known_state_three_layer_rules.md`
 - `已确认` 这些规则现在已经升到“当前分支正式已知”。
-- `待确认`
-  - 是否已升到“主读取分支正式已知”，要看这轮是否成功同步回 `codex/user-readable-map`
+- `已确认`
+  - 这轮 doc-only 改动已经同步回 `codex/user-readable-map`
+  - 当前这组价值规则已升到“主读取分支正式已知”
 - `已确认`
   - 不能把这轮写成“样片质量已经被验证成立”
 
@@ -83,8 +84,6 @@
 - 当前工作分支：
   - `codex/provider-auto-rotation`
 - 当前状态标签：
-  - `task_branch_only`
+  - `formal_synced`
 - 当前必须继续明确：
-  - 本轮结果尚未同步回 `codex/user-readable-map`
-  - 仓库正式状态仍未更新到主读取分支
   - `dist/*` 样片产物和本地配置均为 `local_only`
