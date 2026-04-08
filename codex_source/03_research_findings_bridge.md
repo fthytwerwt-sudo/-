@@ -378,3 +378,29 @@
   - `codex_source/02_current_execution_context.md`
   - `config/formal_api_demo.example.toml`
   - `codex_log/latest.md`
+
+### BRIDGE-20260408-04
+
+- 来源类型：`用户新拍板`
+- 状态：`已采用`
+- 结论摘要：这轮要求把 GPT Project 最新已拍板口径正式同步进 Codex 侧入口文件、执行前上下文、bridge 与 latest。当前 Codex 侧必须明确：默认主线是“人物 + 用户真实录制素材 + 少量 PPT / 图片”；人物出现 1 次还是 2 次由 block 路由决定；中段主体默认优先给真实录制素材承担；`AI talking avatar / 数字人口播` 当前不是默认主线。
+- 对项目的影响：新会话不得再因为旧 `AGENTS` / `00` / `02` / `latest` 口径而把项目误读为 pure PPT 默认主线，也不得继续把 talking avatar 当成默认人物层。
+- 原计划需要改哪里：
+  - `AGENTS.md`
+  - `codex_source/00_codex_readme.md`
+  - `codex_source/01_execution_rules.md`
+  - `codex_source/02_current_execution_context.md`
+  - `codex_source/03_research_findings_bridge.md`
+  - `codex_log/latest.md`
+- 本轮执行必须遵守项：
+  - 正式 assembly 继续固定为北京区 OSS + 云剪 `cloud-only`
+  - `local preview / local mp4` 只能作为辅助存在，不得写成正式默认交付
+  - GPT 侧新主线已桥接进 Codex 侧，不等于“已用真实素材稳定出片验证完成”
+- 暂未确认项：
+  - 当前新版主线的真实素材注入与正式云端导出，仍待后续真实执行验证
+- 建议落点文件：
+  - `AGENTS.md`
+  - `codex_source/00_codex_readme.md`
+  - `codex_source/01_execution_rules.md`
+  - `codex_source/02_current_execution_context.md`
+  - `codex_log/latest.md`
