@@ -2,71 +2,78 @@
 
 ## 当前主结论
 
-- `已确认` 2026-04-08 已用用户本地 `素材录制/` 下 3 段真实 `.mov` 素材，按固定选题《为什么你明明用了 AI 写汇报，最后还是得自己重写一遍？》跑完一次正式北京区 `OSS + 云剪 cloud-only` 样片。
-- `已确认` 本轮新增专用 case：
-  - `cases/ai_report_rewrite_trap_50s.md`
-- `已确认` 本轮正式云端导出成功：
-  - 本地回拉成片：`dist/formal_api_demo/final.mp4`
-  - 云端输出：`oss://zvip1-video-beijing/video-factory/final/20260408T134055Z/formal_api_demo.mp4`
-  - 视频时长：`50.00s`
-  - 分辨率：`1080x1920`
-  - 音轨：AAC
-- `已确认` 本轮修复了一个 cloud assembly timeline bug：
-  - 云剪视觉主轨 clip 不应把全局段落时间写入 `TimelineIn / TimelineOut`
-  - 视频 clip 改用 `In / MaxOut` 控制素材内裁剪
-  - 图片 clip 改用 `Duration` 控制停留时长
-  - 该问题已用回归测试锁住
+- `已确认` 2026-04-08 刚完成的 50 秒样片只能作为“真实素材注入 + 北京区 OSS + 云剪 cloud-only 技术链路可行”证据，不能作为内容达标样片。
+- `已确认` 用户本轮明确判定：
+  - 内容上完全不合格
+  - 主要问题 1：没有真正的可见真人出镜
+  - 主要问题 2：结尾总结卡不是用户要的“步骤 + 易错点”表达
+  - 不接受继续沿这条质量口径往下走
+- `已确认` 本轮已补最小 guardrail：
+  - `carrier=human` 的本地素材必须在 `formal_api_demo.local.toml` 里显式标记 `verified_role="human_on_camera"`
+  - `verified_role="screen_recording"` 不得静默占用 `hook_human / close_human`
+  - 当前本机配置会被 generation gate 阻断，而不是继续生成新样片
 
-## 当前素材层判断
+## 根因摘要
 
-- `已确认` 实际检查到的 3 段素材是：
-  - `素材录制/1.mov`：约 `39.38s`
-  - `素材录制/2.mov`：约 `49.28s`
-  - `素材录制/3.mov`：约 `38.20s`
-- `已确认` 3 段素材均为 HEVC + AAC、`3366x2180`，且都可被项目内 `ffmpeg-static` 读取。
-- `部分成立` 本轮素材全部更像真实屏幕录制 / ChatGPT 工作流录制，不是明显可见真人半身口播。
-- `已确认` 本轮路由采用：
-  - `hook_human` → `1.mov`
-  - `process_self_footage` → `2.mov`
-  - `result_card` → 本地生成的结果卡 PNG
-  - `close_human` → `3.mov`
-- `部分成立` 该路由能跑通正式云端链路，但 hook / close 画面并不满足“可见真人承担信任 / 判断 / 收束”的质量口径，不得写成 90 分水位已通过。
+- `素材层主因`
+  - `素材录制/1.mov`、`2.mov`、`3.mov` 都是屏幕录制 / ChatGPT 工作流画面，不是明显可见真人半身口播。
+- `case / 文案层放大器`
+  - `cases/ai_report_rewrite_trap_50s.md` 明确写了 `1.mov` 与 `3.mov` 可作为 `hook / close` 的“最低可执行占位”，导致技术执行优先于内容质量。
+  - 第 3 段写的是“核心判断收束”，配音文案也是判断句，因此结果卡自然生成成“判断式结果卡”，不是“步骤 + 易错点列表”。
+- `配置层放大器`
+  - 本机正式配置此前把 `hook_human` / `close_human` 指向屏幕录制，并写成 `source_type="user_screen_recording"`，但没有更硬的角色校验字段。
+- `代码 guardrail 层放大器`
+  - 旧逻辑只检查本地路径是否存在，不检查 `carrier=human` 是否真的由可见真人素材承担。
+- `样片验收层表面现象`
+  - 云端链路成功、50 秒时长正确，但这只能说明技术可行，不能说明内容达标。
 
-## 当前本地配置状态
+## 本轮实际 guardrail
 
-- `已确认` 本轮写入的正式本地配置源是：
+- 已更新：
+  - `formal_api_demo_core.py`
+  - `config/formal_api_demo.example.toml`
+  - `tests/test_formal_api_demo_pipeline.py`
+- 已更新本机配置：
   - `~/.config/video-factory/formal_api_demo.local.toml`
-- `已确认` 本地配置新增 / 更新了：
-  - `[footage_inputs.hook_human]`
-  - `[footage_inputs.process_self_footage]`
-  - `[footage_inputs.result_card]`
-  - `[footage_inputs.close_human]`
-  - `[tts].speech_rate = 1.0`
-- `local_only` 该本地配置包含密钥或本机路径，不进入 GitHub。
-
-## 当前验证结果
-
-- `已确认` 已执行：
-  - `python3 scripts/generate_formal_api_demo.py --input cases/ai_report_rewrite_trap_50s.md --out dist/formal_api_demo --dry-run`
-  - `python3 scripts/generate_formal_api_demo.py --input cases/ai_report_rewrite_trap_50s.md --out dist/formal_api_demo`
-  - `python3 scripts/assemble_formal_api_demo.py --manifest dist/formal_api_demo/manifest.json --out dist/formal_api_demo`
-  - `node_modules/ffmpeg-static/ffmpeg -hide_banner -i dist/formal_api_demo/final.mp4`
+- 当前本机配置的素材角色：
+  - `hook_human` → `verified_role="screen_recording"`
+  - `process_self_footage` → `verified_role="screen_recording"`
+  - `result_card` → `verified_role="ppt_image"`
+  - `close_human` → `verified_role="screen_recording"`
+- 当前验证命令：
+  - `python3 scripts/generate_formal_api_demo.py --input cases/ai_report_rewrite_trap_50s.md --out dist/_guardrail_probe_20260408`
+- 当前验证结果：
+  - `overall_status = blocked`
+  - blocked reason 包含：
+    - `footage_input_hook_human_verified_role_human_on_camera`
+    - `footage_input_close_human_verified_role_human_on_camera`
+- `已确认` 当前相关测试：
   - `python3 -m unittest tests.test_formal_api_demo_pipeline tests.test_formal_hybrid_master`
-- `已确认` 单测结果：
-  - `44` tests passed
-- `已确认` 回审帧已导出到：
-  - `dist/formal_api_demo/review_frames/`
+  - `46` tests passed
 
-## 当前接手时建议先读
+## 下一轮改“步骤 + 易错点总结卡”的最小落点
+
+- 最小必须改：
+  - `cases/ai_report_rewrite_trap_50s.md`
+    - 第 3 段 `段目标 / 配音文案 / 字幕文案 / 画面意图` 改为“步骤 + 易错点列表”
+  - result_card 生成模板 / 生成脚本
+    - 当前结果卡是一次性本地 PNG，不是仓库模板；下一轮若要可复用，必须把模板落到脚本或 case 派生逻辑里
+  - `~/.config/video-factory/formal_api_demo.local.toml`
+    - `result_card` 指向新的步骤型结果卡图片
+- 不建议只改图片：
+  - 因为当前 case 第 3 段文案本身就是判断句，只改图会造成旁白与画面断连。
+
+## 当前接手建议先读
 
 1. `AGENTS.md`
 2. `codex_source/00_codex_readme.md`
 3. `codex_log/latest.md`
-4. `codex_log/20260408_ai_report_rewrite_trap_50s_real_footage_cloud_sample.md`
+4. `codex_log/20260408_ai_report_rewrite_trap_50s_root_cause_guardrail.md`
 5. `cases/ai_report_rewrite_trap_50s.md`
-6. `formal_api_demo_cloud_assembly.py`
-7. `tests/test_formal_api_demo_pipeline.py`
-8. 若继续跑本机样片，再检查 `~/.config/video-factory/formal_api_demo.local.toml`
+6. `formal_api_demo_core.py`
+7. `config/formal_api_demo.example.toml`
+8. `tests/test_formal_api_demo_pipeline.py`
+9. 若继续跑本机样片，再检查 `~/.config/video-factory/formal_api_demo.local.toml`
 
 ## 当前工作分支与状态
 
@@ -77,4 +84,4 @@
 - 当前必须继续明确：
   - 本轮结果尚未同步回 `codex/user-readable-map`
   - 仓库正式状态仍未更新到主读取分支
-  - `dist/formal_api_demo/*` 和本地配置均为 `local_only`
+  - `dist/*` 样片产物和本地配置均为 `local_only`

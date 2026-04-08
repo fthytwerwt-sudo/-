@@ -85,6 +85,7 @@ LOCAL_VIDEO_CARRIERS = {
 }
 USER_MEDIA_SOURCE = "user_media"
 API_GENERATED_SOURCE = "api_generated"
+FOOTAGE_ROLE_HUMAN_ON_CAMERA = "human_on_camera"
 RESOURCE_KIND_TTS = "tts"
 RESOURCE_KIND_IMAGE = "image_generation"
 RESOURCE_KIND_VIDEO = "video_generation"
@@ -517,7 +518,48 @@ def run_generation_pipeline(
         manifest = apply_caption_assets_to_manifest(manifest, caption_assets)
         manifest = apply_visual_generation_to_manifest(manifest, visual_generation)
     else:
-        if tts_gate["status"] == STATUS_SUCCESS:
+        human_role_blocked = any(
+            item.endswith("_verified_role_human_on_camera")
+            for item in visual_gate.get("missing_prerequisites", [])
+        )
+        if human_role_blocked:
+            blocked_gate = copy.deepcopy(tts_gate)
+            blocked_gate.update(
+                {
+                    "status": STATUS_BLOCKED,
+                    "blocked_reason": generation_gate.get("blocked_reason", ""),
+                    "failure_reason": "",
+                    "missing_prerequisites": generation_gate.get(
+                        "missing_prerequisites",
+                        [],
+                    ),
+                }
+            )
+            tts_probe = build_blocked_tts_probe(video_spec, blocked_gate)
+            manifest = apply_tts_probe_to_manifest(manifest, tts_probe, generation_gate)
+
+            voiceover = build_blocked_voiceover_generation(
+                video_spec,
+                tts_probe,
+                blocked_gate,
+            )
+            manifest = apply_voiceover_to_manifest(manifest, voiceover)
+
+            caption_assets = write_formal_script_and_captions(
+                video_spec=video_spec,
+                output_dir=output_dir,
+            )
+            manifest = apply_caption_assets_to_manifest(manifest, caption_assets)
+
+            visual_generation = build_visual_generation_plan(
+                video_spec=video_spec,
+                config=config,
+                output_dir=output_dir,
+                visual_gate=visual_gate,
+                rotation_state=rotation_state,
+            )
+            manifest = apply_visual_generation_to_manifest(manifest, visual_generation)
+        elif tts_gate["status"] == STATUS_SUCCESS:
             tts_probe = execute_tts_probe(
                 video_spec=video_spec,
                 config=config,
@@ -1173,11 +1215,13 @@ def _resolve_footage_input(config: dict[str, Any], asset_key: str) -> dict[str, 
     payload = _nested_get(config, "footage_inputs", asset_key) or {}
     local_path = _normalize_optional_text(payload.get("local_path"))
     source_type = _normalize_optional_text(payload.get("source_type")) or "user_recorded_video"
+    verified_role = _normalize_optional_text(payload.get("verified_role"))
     media_kind = "image" if source_type in {"user_image", "user_ppt_image"} else "video"
     return {
         "asset_key": asset_key,
         "local_path": local_path,
         "source_type": source_type,
+        "verified_role": verified_role,
         "media_kind": media_kind,
     }
 
@@ -1275,6 +1319,13 @@ def _evaluate_visual_generation_gate(
             missing_name = f"footage_input_{asset_key}_file_exists"
             if missing_name not in missing:
                 missing.append(missing_name)
+        if (
+            segment.get("carrier") == CARRIER_HUMAN
+            and footage_input["verified_role"] != FOOTAGE_ROLE_HUMAN_ON_CAMERA
+        ):
+            missing_name = f"footage_input_{asset_key}_verified_role_human_on_camera"
+            if missing_name not in missing:
+                missing.append(missing_name)
     if needs_image and not image_provider_supported:
         implementation_missing.append("image_generation_provider_implementation")
     if needs_video and not video_provider_supported:
@@ -1319,6 +1370,21 @@ def _evaluate_visual_generation_gate(
             )
             else "fail",
             "detail": "默认正式主线要求的真人 / 自录素材必须先在本地配置里注入真实文件路径。",
+        },
+        {
+            "name": "human_carrier_requires_verified_on_camera_footage",
+            "status": "pass"
+            if all(
+                segment.get("carrier") != CARRIER_HUMAN
+                or _resolve_footage_input(
+                    config,
+                    segment.get("asset_key") or segment["segment_id"],
+                )["verified_role"]
+                == FOOTAGE_ROLE_HUMAN_ON_CAMERA
+                for segment in required_local_media_inputs
+            )
+            else "fail",
+            "detail": "carrier=human 的本地素材必须在 formal_api_demo.local.toml 显式标记 verified_role=\"human_on_camera\"；屏幕录制不得静默占用人物槽位。",
         },
         {
             "name": "portrait_detect_enabled_before_liveportrait",
@@ -2688,12 +2754,38 @@ def build_visual_generation_plan(
                     preview_storyboard_path=preview_storyboard_path,
                 )
                 return visual_generation
+            if (
+                segment.get("carrier") == CARRIER_HUMAN
+                and local_asset["verified_role"] != FOOTAGE_ROLE_HUMAN_ON_CAMERA
+            ):
+                asset_key = segment.get("asset_key") or segment["segment_id"]
+                visual_generation.update(
+                    {
+                        "status": STATUS_BLOCKED,
+                        "blocked_reason": (
+                            f"{asset_key} 是 carrier=human 槽位，但本地配置未显式标记 "
+                            'verified_role="human_on_camera"；屏幕录制不得静默占用人物槽位。'
+                        ),
+                        "error_message": (
+                            f"{asset_key} 是 carrier=human 槽位，但本地配置未显式标记 "
+                            'verified_role="human_on_camera"；屏幕录制不得静默占用人物槽位。'
+                        ),
+                    }
+                )
+                _write_visual_generation_files(
+                    visual_generation=visual_generation,
+                    video_spec=video_spec,
+                    plan_path=plan_path,
+                    preview_storyboard_path=preview_storyboard_path,
+                )
+                return visual_generation
             asset_record = {
                 "segment_id": segment["segment_id"],
                 "sequence": index,
                 "carrier": segment.get("carrier", CARRIER_API_VISUAL),
                 "asset_key": segment.get("asset_key", ""),
                 "asset_source": segment.get("asset_source", API_GENERATED_SOURCE),
+                "verified_role": local_asset["verified_role"],
                 "needs_image": local_asset["media_kind"] == "image",
                 "needs_video": local_asset["media_kind"] == "video",
                 "seed_image_required": False,
@@ -4368,7 +4460,10 @@ def _generation_next_action_hint(
         if item.startswith("footage_input_")
     ]
     if footage_missing:
-        return "先在 formal_api_demo.local.toml 的 [footage_inputs.*] 里注入真人口播、自录录屏和结果卡的真实本地路径；默认主线不再拿 AI avatar 顶替这些段落。"
+        return (
+            "先在 formal_api_demo.local.toml 的 [footage_inputs.*] 里注入真实本地路径和 verified_role；"
+            'carrier=human 必须显式标记 verified_role="human_on_camera"，屏幕录制不得静默占用人物槽位。'
+        )
     if any(
         item in gate.get("missing_prerequisites", [])
         for item in ("image_generation_model", "video_generation_model")

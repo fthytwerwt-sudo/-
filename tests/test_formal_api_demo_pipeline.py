@@ -215,12 +215,19 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             f"timeout_seconds = {polling_timeout_seconds}",
         ]
         for asset_key, local_path, source_type in footage_inputs or []:
+            verified_role = {
+                "user_recorded_video": "human_on_camera",
+                "user_screen_recording": "screen_recording",
+                "user_ppt_image": "ppt_image",
+                "user_image": "ppt_image",
+            }.get(source_type, "")
             lines.extend(
                 [
                     "",
                     f"[footage_inputs.{asset_key}]",
                     f'local_path = "{local_path}"',
                     f'source_type = "{source_type}"',
+                    f'verified_role = "{verified_role}"',
                 ]
             )
         path.write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -335,6 +342,102 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             [segment["asset_key"] for segment in spec["segments"]],
             ["hook_human", "process_self_footage", "result_card", "close_human"],
         )
+
+    def test_generation_gate_blocks_screen_recording_in_human_carrier_slots(self) -> None:
+        spec = parse_formal_case_markdown(FORMAL_MAINLINE_CASE_PATH)
+
+        with tempfile.TemporaryDirectory(prefix="formal_human_guardrail_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir)
+            hook_video = output_dir / "inputs" / "hook_human.mov"
+            process_video = output_dir / "inputs" / "process_self_footage.mov"
+            result_card = output_dir / "inputs" / "result_card.png"
+            close_video = output_dir / "inputs" / "close_human.mov"
+            for path in (hook_video, process_video, result_card, close_video):
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(b"asset")
+
+            local_config_path = output_dir / "formal_api_demo.local.toml"
+            self._write_local_config(
+                local_config_path,
+                provider_name="aliyun_bailian",
+                route_family="aliyun_bailian_cosyvoice",
+                api_key="dashscope_test_key",
+                model="cosyvoice-v3-flash",
+                voice="longanyang",
+                image_model="wan2.6-image",
+                video_model="wan2.7-i2v",
+                footage_inputs=[
+                    ("hook_human", str(hook_video), "user_screen_recording"),
+                    ("process_self_footage", str(process_video), "user_screen_recording"),
+                    ("result_card", str(result_card), "user_ppt_image"),
+                    ("close_human", str(close_video), "user_screen_recording"),
+                ],
+            )
+            config_bundle = load_formal_config(
+                example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                local_config_path=local_config_path,
+            )
+
+            gate = _evaluate_visual_generation_gate(
+                video_spec=spec,
+                config=config_bundle["config"],
+                has_local_config=config_bundle["has_local_config"],
+                dry_run=False,
+            )
+
+        self.assertEqual(gate["status"], STATUS_BLOCKED)
+        self.assertIn(
+            "footage_input_hook_human_verified_role_human_on_camera",
+            gate["missing_prerequisites"],
+        )
+        self.assertIn(
+            "footage_input_close_human_verified_role_human_on_camera",
+            gate["missing_prerequisites"],
+        )
+
+    def test_generation_pipeline_skips_tts_when_human_footage_role_is_blocked(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="formal_human_guardrail_run_") as temp_dir:
+            output_dir = pathlib.Path(temp_dir) / "dist"
+            local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
+            hook_video = pathlib.Path(temp_dir) / "hook_human.mov"
+            workflow_video = pathlib.Path(temp_dir) / "process_self_footage.mov"
+            result_card = pathlib.Path(temp_dir) / "result_card.png"
+            close_video = pathlib.Path(temp_dir) / "close_human.mov"
+            for path in (hook_video, workflow_video, result_card, close_video):
+                path.write_bytes(b"asset")
+
+            self._write_local_config(
+                local_config_path,
+                provider_name="aliyun_bailian",
+                route_family="aliyun_bailian_cosyvoice",
+                api_key="dashscope_test_key",
+                model="cosyvoice-v3-flash",
+                voice="longanyang",
+                image_model="wan2.6-image",
+                video_model="wan2.7-i2v",
+                footage_inputs=[
+                    ("hook_human", str(hook_video), "user_screen_recording"),
+                    ("process_self_footage", str(workflow_video), "user_screen_recording"),
+                    ("result_card", str(result_card), "user_ppt_image"),
+                    ("close_human", str(close_video), "user_screen_recording"),
+                ],
+            )
+
+            with mock.patch("formal_api_demo_core.execute_tts_probe") as mocked_probe:
+                result = run_generation_pipeline(
+                    input_path=FORMAL_MAINLINE_CASE_PATH,
+                    example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
+                    local_config_path=local_config_path,
+                    output_dir=output_dir,
+                    dry_run=False,
+                )
+
+        self.assertEqual(result["generation_status"], STATUS_BLOCKED)
+        self.assertIn(
+            "footage_input_hook_human_verified_role_human_on_camera",
+            result["current_missing_prerequisites"],
+        )
+        mocked_probe.assert_not_called()
 
     def test_generate_non_dry_run_reuses_user_footage_for_formal_mainline_case(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_mainline_local_media_") as temp_dir:

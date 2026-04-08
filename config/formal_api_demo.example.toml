@@ -185,23 +185,32 @@ model = "wan2.7-i2v"
 # - result_card：少量结果卡 / 关键词信息卡
 # - close_human：结尾人物收束段
 # - 这些字段只允许写在本地正式配置里，不要提交真实路径
+# - verified_role 是人工确认过的素材角色，不是文件类型自动推断：
+#   - human_on_camera：可见真人出镜，允许进入 carrier=human 槽位
+#   - screen_recording：屏幕录制 / 工作流过程，适合 self_footage，不得静默占用 human 槽位
+#   - ppt_image：结果卡 / 信息卡图片
+# - 当 segment carrier=human 时，必须显式写 verified_role="human_on_camera"，否则 generation blocked
 # - 若当前轮缺真实素材，generation 必须诚实 blocked，不得回退 AI talking avatar / 数字人口播
 #
 # [footage_inputs.hook_human]
 # local_path = "SET_IN_LOCAL_FILE"
 # source_type = "user_recorded_video"
+# verified_role = "human_on_camera"
 #
 # [footage_inputs.process_self_footage]
 # local_path = "SET_IN_LOCAL_FILE"
 # source_type = "user_screen_recording"
+# verified_role = "screen_recording"
 #
 # [footage_inputs.result_card]
 # local_path = "SET_IN_LOCAL_FILE"
 # source_type = "user_ppt_image"
+# verified_role = "ppt_image"
 #
 # [footage_inputs.close_human]
 # local_path = "SET_IN_LOCAL_FILE"
 # source_type = "user_recorded_video"
+# verified_role = "human_on_camera"
 
 [portrait_detect]
 enabled = false
@@ -319,18 +328,22 @@ dist_dir = "dist/formal_api_demo"
 [footage_inputs.hook_human]
 local_path = "SET_IN_LOCAL_FILE"
 source_type = "user_recorded_video"
+verified_role = "human_on_camera"
 
 [footage_inputs.process_self_footage]
 local_path = "SET_IN_LOCAL_FILE"
 source_type = "user_screen_recording"
+verified_role = "screen_recording"
 
 [footage_inputs.result_card]
 local_path = "SET_IN_LOCAL_FILE"
 source_type = "user_ppt_image"
+verified_role = "ppt_image"
 
 [footage_inputs.close_human]
 local_path = "SET_IN_LOCAL_FILE"
 source_type = "user_recorded_video"
+verified_role = "human_on_camera"
 
 [polling]
 interval_seconds = 5
