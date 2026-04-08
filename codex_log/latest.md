@@ -2,78 +2,62 @@
 
 ## 当前主结论
 
-- `已确认` 2026-04-08 刚完成的 50 秒样片只能作为“真实素材注入 + 北京区 OSS + 云剪 cloud-only 技术链路可行”证据，不能作为内容达标样片。
-- `已确认` 用户本轮明确判定：
-  - 内容上完全不合格
-  - 主要问题 1：没有真正的可见真人出镜
-  - 主要问题 2：结尾总结卡不是用户要的“步骤 + 易错点”表达
-  - 不接受继续沿这条质量口径往下走
-- `已确认` 本轮已补最小 guardrail：
-  - `carrier=human` 的本地素材必须在 `formal_api_demo.local.toml` 里显式标记 `verified_role="human_on_camera"`
-  - `verified_role="screen_recording"` 不得静默占用 `hook_human / close_human`
-  - 当前本机配置会被 generation gate 阻断，而不是继续生成新样片
+- `已确认` GPT Project 侧新增 / 重写的 4 份规则，已正式桥接进 codex 侧执行层。
+- `已确认` 当前 Codex 侧现在必须明确知道：
+  - AI 知识类视频“看完必须有收获”
+  - 不能只说问题、只给观点、没有动作、没有证据、没有最小行动 / 自检句
+  - AI 项目讲解 / AI 方法分享 / AI 学习实操 / AI 案例拆解 不再共用一种价值交付、证据结构和结尾总结卡
+- `已确认` 当前分支真实仓库状态：
+  - `project_source/08_quality_baseline_and_90_score_rules.md` 存在
+  - `project_source/21_topic_selection_and_copywriting_rules.md` 不存在
+  - `project_source/22_copy_mode_routing_rules.md` 不存在
+  - `project_source/25_ai_knowledge_video_value_rules.md` 不存在
+- `已确认` 因此当前表达只能是：
+  - “Codex 侧桥接已完成”
+  - 不能写成“project_source 已全量同步完成”
+  - 更不能写成“这些规则已经被样片验证成立”
 
-## 根因摘要
+## 当前新增桥接口径
 
-- `素材层主因`
-  - `素材录制/1.mov`、`2.mov`、`3.mov` 都是屏幕录制 / ChatGPT 工作流画面，不是明显可见真人半身口播。
-- `case / 文案层放大器`
-  - `cases/ai_report_rewrite_trap_50s.md` 明确写了 `1.mov` 与 `3.mov` 可作为 `hook / close` 的“最低可执行占位”，导致技术执行优先于内容质量。
-  - 第 3 段写的是“核心判断收束”，配音文案也是判断句，因此结果卡自然生成成“判断式结果卡”，不是“步骤 + 易错点列表”。
-- `配置层放大器`
-  - 本机正式配置此前把 `hook_human` / `close_human` 指向屏幕录制，并写成 `source_type="user_screen_recording"`，但没有更硬的角色校验字段。
-- `代码 guardrail 层放大器`
-  - 旧逻辑只检查本地路径是否存在，不检查 `carrier=human` 是否真的由可见真人素材承担。
-- `样片验收层表面现象`
-  - 云端链路成功、50 秒时长正确，但这只能说明技术可行，不能说明内容达标。
+- `AI 项目讲解`
+  - 默认交付：判断项目卡点、关键取舍和最小下一步
+  - 默认结尾：`judgment_card + 最小行动`
+- `AI 方法分享`
+  - 默认交付：可直接试的方法 + 易错点
+  - 默认结尾：`steps_error_card`
+- `AI 学习实操`
+  - 默认交付：最小步骤 + 自检
+  - 默认结尾：`steps_card + 自检句`
+- `AI 案例拆解`
+  - 默认交付：案例为什么成立 + 如何迁移
+  - 默认结尾：`judgment_card + 可迁移句`
 
-## 本轮实际 guardrail
+## 当前样片执行前新增要求
 
-- 已更新：
-  - `formal_api_demo_core.py`
-  - `config/formal_api_demo.example.toml`
-  - `tests/test_formal_api_demo_pipeline.py`
-- 已更新本机配置：
-  - `~/.config/video-factory/formal_api_demo.local.toml`
-- 当前本机配置的素材角色：
-  - `hook_human` → `verified_role="screen_recording"`
-  - `process_self_footage` → `verified_role="screen_recording"`
-  - `result_card` → `verified_role="ppt_image"`
-  - `close_human` → `verified_role="screen_recording"`
-- 当前验证命令：
-  - `python3 scripts/generate_formal_api_demo.py --input cases/ai_report_rewrite_trap_50s.md --out dist/_guardrail_probe_20260408`
-- 当前验证结果：
-  - `overall_status = blocked`
-  - blocked reason 包含：
-    - `footage_input_hook_human_verified_role_human_on_camera`
-    - `footage_input_close_human_verified_role_human_on_camera`
-- `已确认` 当前相关测试：
-  - `python3 -m unittest tests.test_formal_api_demo_pipeline tests.test_formal_hybrid_master`
-  - `46` tests passed
-
-## 下一轮改“步骤 + 易错点总结卡”的最小落点
-
-- 最小必须改：
-  - `cases/ai_report_rewrite_trap_50s.md`
-    - 第 3 段 `段目标 / 配音文案 / 字幕文案 / 画面意图` 改为“步骤 + 易错点列表”
-  - result_card 生成模板 / 生成脚本
-    - 当前结果卡是一次性本地 PNG，不是仓库模板；下一轮若要可复用，必须把模板落到脚本或 case 派生逻辑里
-  - `~/.config/video-factory/formal_api_demo.local.toml`
-    - `result_card` 指向新的步骤型结果卡图片
-- 不建议只改图片：
-  - 因为当前 case 第 3 段文案本身就是判断句，只改图会造成旁白与画面断连。
+- `已确认` 后续 Codex 在以下任务里必须先锁清：
+  - 当前内容类型
+  - 用户看完后能做什么
+  - 用户看完后能判断什么
+  - 最关键证据是什么
+  - 最小行动 / 自检句是什么
+  - 对应结尾总结卡类型是什么
+- `已确认` 未锁清前：
+  - 不得把文案直接压进样片执行
+  - 不得把 generation / assembly 成功写成内容过线
 
 ## 当前接手建议先读
 
 1. `AGENTS.md`
 2. `codex_source/00_codex_readme.md`
 3. `codex_log/latest.md`
-4. `codex_log/20260408_ai_report_rewrite_trap_50s_root_cause_guardrail.md`
-5. `cases/ai_report_rewrite_trap_50s.md`
-6. `formal_api_demo_core.py`
-7. `config/formal_api_demo.example.toml`
-8. `tests/test_formal_api_demo_pipeline.py`
-9. 若继续跑本机样片，再检查 `~/.config/video-factory/formal_api_demo.local.toml`
+4. `codex_source/02_current_execution_context.md`
+5. `codex_source/03_research_findings_bridge.md`
+6. `codex_source/11_ai_knowledge_video_value_bridge.md`
+7. 若继续做样片，再补读：
+   - `project_source/08_quality_baseline_and_90_score_rules.md`
+   - `project_source/02_scene_mode_templates.md`
+   - `project_source/16_presentation_routing_rules.md`
+   - `project_source/24_human_self_footage_light_ppt_routing_rules.md`
 
 ## 当前工作分支与状态
 

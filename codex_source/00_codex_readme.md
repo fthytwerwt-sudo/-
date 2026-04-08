@@ -20,6 +20,8 @@
 - 当前人物出现 1 次还是 2 次，是 block 路由结果，不是预设模板
 - `AI talking avatar / 数字人口播` 当前不是默认主线
 - 正式组装继续固定为北京区 `OSS + 云剪 cloud-only`
+- 当前 AI 知识类内容还必须显式判断“看完后用户能做什么 / 能判断什么 / 证据是什么 / 最小行动或自检句是什么”
+- AI 项目讲解、AI 方法分享、AI 学习实操、AI 案例拆解不再共用同一种价值交付和同一种结尾总结卡
 
 它不是：
 
@@ -126,6 +128,8 @@
   - `codex_source/02_current_execution_context.md`
   - `project_source/24_human_self_footage_light_ppt_routing_rules.md`
   - 若当前仓库里的 `project_source` 文件名尚未同步到 `24_*`，以 `codex_log/latest.md` 与 `codex_source/03_research_findings_bridge.md` 的现口径为准
+- 若任务涉及脚本写法、block 路由、结尾总结卡选择、样片是否值得进入执行、或样片验收，再补读：
+  - `codex_source/11_ai_knowledge_video_value_bridge.md`
 - 若任务涉及最终汇报、完成状态、失败说明或验收口径，再补读：
   - `codex_source/04_completion_and_review_contract.md`
 - 若任务涉及执行现实与原方案不一致、资源 / 权限 / 环境 / 接口 / 成本 / 素材等偏差，再补读：
@@ -246,6 +250,9 @@
 - `codex_source/07_formal_api_demo_target_plan.md`
   - 正式版 API demo 的目标态执行计划
   - 用于定义目标标准、执行 Gate、修正循环与交接规则
+- `codex_source/11_ai_knowledge_video_value_bridge.md`
+  - GPT Project 新增价值底线、4 类内容交付差异、证据线与结尾卡映射的 codex 侧桥接文件
+  - 用于防止后续 Codex 在脚本、路由、样片执行与验收时继续按旧口径误读项目
 - `codex_source/10_codex_multi_agent_prompt_library.md`
   - 当前项目内的多 agent 执行模板库
   - 用于快速复用 `2 explorers + 1 integrator` 的执行 prompt
