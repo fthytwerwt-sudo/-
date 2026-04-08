@@ -309,6 +309,7 @@
 12. 若涉及 pure PPT 次级支路风格、信息卡视觉、转场、字幕安全区或默认母版结构，再读 `project_source/17_white_collar_ppt_style_rules.md`
 13. 若涉及默认主线 assembly 路径、OSS、云剪或旧 local fallback 语义，再读 `project_source/10_formal_api_demo_current_route_patch_20260402.md`
 14. 若涉及脚本写法、block 路由、结尾总结卡、样片是否值得进入执行或样片验收，再读 `codex_source/11_ai_knowledge_video_value_bridge.md`
+15. 若涉及“这条资料当前属于 GPT 已知、Codex 条件已知，还是主读取分支正式已知”，再读 `codex_source/12_codex_known_state_three_layer_rules.md`
 
 ## 8A. 当前主读取分支与正式状态
 

@@ -130,6 +130,8 @@
   - 若当前仓库里的 `project_source` 文件名尚未同步到 `24_*`，以 `codex_log/latest.md` 与 `codex_source/03_research_findings_bridge.md` 的现口径为准
 - 若任务涉及脚本写法、block 路由、结尾总结卡选择、样片是否值得进入执行、或样片验收，再补读：
   - `codex_source/11_ai_knowledge_video_value_bridge.md`
+- 若任务涉及“GPT 已知 / Codex 条件已知 / Codex 正式已知”的区分，再补读：
+  - `codex_source/12_codex_known_state_three_layer_rules.md`
 - 若任务涉及最终汇报、完成状态、失败说明或验收口径，再补读：
   - `codex_source/04_completion_and_review_contract.md`
 - 若任务涉及执行现实与原方案不一致、资源 / 权限 / 环境 / 接口 / 成本 / 素材等偏差，再补读：
@@ -253,6 +255,9 @@
 - `codex_source/11_ai_knowledge_video_value_bridge.md`
   - GPT Project 新增价值底线、4 类内容交付差异、证据线与结尾卡映射的 codex 侧桥接文件
   - 用于防止后续 Codex 在脚本、路由、样片执行与验收时继续按旧口径误读项目
+- `codex_source/12_codex_known_state_three_layer_rules.md`
+  - GPT 已知 / Codex 条件已知 / 当前分支正式已知 / 主读取分支正式已知的分层规则
+  - 用于防止把 bridge 摘要、当前分支状态和主读取分支状态混写
 - `codex_source/10_codex_multi_agent_prompt_library.md`
   - 当前项目内的多 agent 执行模板库
   - 用于快速复用 `2 explorers + 1 integrator` 的执行 prompt

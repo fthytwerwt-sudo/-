@@ -20,17 +20,17 @@
 ## 2. 当前仓库现实
 
 - `已确认`
-  - `project_source/08_quality_baseline_and_90_score_rules.md` 当前仓库存在
-- `待同步`
-  - `project_source/21_topic_selection_and_copywriting_rules.md` 当前分支不存在
-  - `project_source/22_copy_mode_routing_rules.md` 当前分支不存在
-  - `project_source/25_ai_knowledge_video_value_rules.md` 当前分支不存在
+  - `project_source/08_quality_baseline_and_90_score_rules.md` 当前分支存在
+  - `project_source/21_topic_selection_and_copywriting_rules.md` 当前分支存在
+  - `project_source/22_copy_mode_routing_rules.md` 当前分支存在
+  - `project_source/25_ai_knowledge_video_value_rules.md` 当前分支存在
 
 因此当前桥接口径必须明确：
 
-- 本文件采用的是用户本轮提供的 GPT Project 正式摘要
-- 这些规则已经被 Codex 执行层 `已采用`
-- 但它们当前不能被表述成“当前仓库里的 project_source 已全部同步完成”
+- 本文件不再只是“缺失 project_source 文件的临时承接”
+- 当前分支里 project_source 正文已经补齐
+- 这些规则当前已经升到“当前分支正式已知”
+- 但是否升到“主读取分支正式已知”，仍取决于是否同步回 `codex/user-readable-map`
 - 更不能被表述成“已经被样片验证为市场成立”
 
 ## 3. 当前正式价值底线

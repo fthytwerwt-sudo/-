@@ -410,7 +410,7 @@
 ### BRIDGE-20260409-01
 
 - 来源类型：`用户新拍板`
-- 状态：`已采用`
+- 状态：`已被 BRIDGE-20260409-02 覆盖`
 - 结论摘要：GPT Project 侧已新增 / 重写 4 份正式规则文件，用于收紧 AI 知识类视频的价值底线、选题 / 文案口径、文案路由和上位内容价值线。当前 Codex 侧必须正式采用以下新增判断：
   - AI 知识类视频默认不能只说问题、只给观点、没有动作、没有证据、没有最小行动 / 自检句
   - generation / assembly 成功，不等于内容已过线
@@ -432,13 +432,33 @@
   - 但它不自动等于“当前仓库 project_source 已全部同步完成”
   - 更不自动等于“已通过样片验证成立”
 - 暂未确认项：
-  - `project_source/08_quality_baseline_and_90_score_rules.md` 当前仓库存在
-  - `project_source/21_topic_selection_and_copywriting_rules.md` 当前分支不存在
-  - `project_source/22_copy_mode_routing_rules.md` 当前分支不存在
-  - `project_source/25_ai_knowledge_video_value_rules.md` 当前分支不存在
-  - 因此当前是“Codex 侧桥接已完成”，不是“project_source 已全量同步完成”
+  - 当时桥接落下时，`project_source/21/22/25` 仍未补回当前分支
+  - 后续已由 `BRIDGE-20260409-02` 接管
 - 建议落点文件：
   - `codex_source/02_current_execution_context.md`
   - `codex_source/11_ai_knowledge_video_value_bridge.md`
   - `codex_source/01_execution_rules.md`
+  - `codex_log/latest.md`
+
+### BRIDGE-20260409-02
+
+- 来源类型：`执行偏差升级`
+- 状态：`已采用`
+- 结论摘要：这轮已把 `project_source/21_topic_selection_and_copywriting_rules.md`、`project_source/22_copy_mode_routing_rules.md`、`project_source/25_ai_knowledge_video_value_rules.md` 真实补回当前任务分支，并与 `project_source/08_quality_baseline_and_90_score_rules.md` 一起构成当前分支完整的 AI 知识类价值口径；因此 Codex 侧不再应把 `21/22/25` 写成“当前分支缺失”。
+- 对项目的影响：当前状态已从“Codex 条件已知”提升为“当前分支正式已知”；但是否提升为“主读取分支正式已知”，仍取决于是否成功同步回 `codex/user-readable-map`。
+- 原计划需要改哪里：
+  - `codex_source/11_ai_knowledge_video_value_bridge.md`
+  - `codex_log/latest.md`
+  - 新增 `codex_source/12_codex_known_state_three_layer_rules.md`
+- 本轮执行必须遵守项：
+  - 不得再把 `project_source/21/22/25` 写成当前分支缺失
+  - 不得把“当前分支正式已知”偷换成“主读取分支正式已知”
+  - 不得把规则已入正文写成“样片已验证成立”
+- 暂未确认项：
+  - 是否已成功同步回 `codex/user-readable-map`
+- 建议落点文件：
+  - `project_source/21_topic_selection_and_copywriting_rules.md`
+  - `project_source/22_copy_mode_routing_rules.md`
+  - `project_source/25_ai_knowledge_video_value_rules.md`
+  - `codex_source/12_codex_known_state_three_layer_rules.md`
   - `codex_log/latest.md`

@@ -41,6 +41,7 @@ Codex 每次接到任务，默认按以下顺序读取：
 15. 若任务命中正式版 API demo 目标态，再读 `codex_source/07_formal_api_demo_target_plan.md`
 16. 若任务涉及 GPT 项目源更新、ChatGPT 侧动态资料变化、动态资料是否影响执行，则必读 `codex_source/09_dynamic_source_sync_rules.md`
 17. 若任务涉及脚本写法、block 路由、结尾总结卡类型、样片是否值得进入执行或样片验收，则必读 `codex_source/11_ai_knowledge_video_value_bridge.md`
+18. 若任务涉及“当前哪些内容只是 GPT 已知 / Codex 条件已知 / 当前分支正式已知 / 主读取分支正式已知”，则必读 `codex_source/12_codex_known_state_three_layer_rules.md`
 
 当前仓库已确认事实：
 
