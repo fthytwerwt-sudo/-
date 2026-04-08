@@ -10,6 +10,7 @@ from unittest import mock
 import httpx
 import openai
 import formal_api_demo_core
+from formal_api_demo_cloud_assembly import _build_cloud_timeline
 
 from formal_api_demo_core import (
     FORMAL_CASE_PATH,
@@ -42,6 +43,74 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
     def _fake_concatenate_audio_files(_input_paths, output_path) -> None:
         pathlib.Path(output_path).parent.mkdir(parents=True, exist_ok=True)
         pathlib.Path(output_path).write_bytes(b"fake-merged-mp3")
+
+    def test_cloud_timeline_uses_per_clip_trim_ranges_not_global_offsets(self) -> None:
+        manifest = {
+            "segments": [
+                {
+                    "segment_id": "seg01",
+                    "timeline": {
+                        "planned_start_seconds": 0.0,
+                        "planned_end_seconds": 7.0,
+                    },
+                },
+                {
+                    "segment_id": "seg02",
+                    "timeline": {
+                        "planned_start_seconds": 7.0,
+                        "planned_end_seconds": 37.0,
+                    },
+                },
+                {
+                    "segment_id": "seg03",
+                    "timeline": {
+                        "planned_start_seconds": 37.0,
+                        "planned_end_seconds": 46.0,
+                    },
+                },
+                {
+                    "segment_id": "seg04",
+                    "timeline": {
+                        "planned_start_seconds": 46.0,
+                        "planned_end_seconds": 50.0,
+                    },
+                },
+            ]
+        }
+        upload_bundle = {
+            "voiceover_url": "https://example.test/audio.mp3",
+            "captions_url": "https://example.test/captions.srt",
+            "segment_media": {
+                "seg01": {"clip_type": "Video", "media_url": "https://example.test/seg01.mov"},
+                "seg02": {"clip_type": "Video", "media_url": "https://example.test/seg02.mov"},
+                "seg03": {"clip_type": "Image", "media_url": "https://example.test/seg03.png"},
+                "seg04": {"clip_type": "Video", "media_url": "https://example.test/seg04.mov"},
+            },
+        }
+
+        timeline = _build_cloud_timeline(manifest=manifest, upload_bundle=upload_bundle)
+
+        clips = timeline["VideoTracks"][0]["VideoTrackClips"]
+        self.assertEqual(
+            [
+                (
+                    clip["Type"],
+                    clip.get("In"),
+                    clip.get("MaxOut"),
+                    clip.get("Duration"),
+                    "TimelineIn" in clip,
+                    "TimelineOut" in clip,
+                )
+                for clip in clips
+            ],
+            [
+                ("Video", 0.0, 7.0, None, False, False),
+                ("Video", 0.0, 30.0, None, False, False),
+                ("Image", None, None, 9.0, False, False),
+                ("Video", 0.0, 4.0, None, False, False),
+            ],
+        )
+        self.assertEqual(timeline["AudioTracks"][0]["AudioTrackClips"][0]["TimelineOut"], 50.0)
 
     def _write_local_config(
         self,

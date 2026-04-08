@@ -288,16 +288,25 @@ def _build_cloud_timeline(
         timeline = segment["timeline"]
         start_seconds = float(timeline["planned_start_seconds"])
         end_seconds = float(timeline["planned_end_seconds"])
+        clip_duration = max(0.0, end_seconds - start_seconds)
         total_duration = max(total_duration, end_seconds)
+        # MainTrack clips concatenate when TimelineIn/TimelineOut are omitted.
+        # Use source-trim fields here so later clips do not overlap or run full length.
         clip = {
             "Type": media["clip_type"],
             "MediaURL": media["media_url"],
-            "TimelineIn": start_seconds,
-            "TimelineOut": end_seconds,
         }
+        if media["clip_type"] == "Video":
+            clip.update(
+                {
+                    "In": 0.0,
+                    "MaxOut": clip_duration,
+                }
+            )
         if media["clip_type"] == "Image":
             clip.update(
                 {
+                    "Duration": clip_duration,
                     "X": 0.0,
                     "Y": 0.0,
                     "Width": 1.0,
