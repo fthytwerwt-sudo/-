@@ -53,17 +53,15 @@
 
 - 从 `codex/user-readable-map` 新建工作分支 `codex/repo-sync-fix-20260409`
 - 按允许修改范围内文件进行覆盖 / 新建
-- 运行 `git diff --check`
-- commit 当前工作分支
-- push `codex/repo-sync-fix-20260409`
-- fast-forward 本地 `codex/user-readable-map`
-- 后续只剩：
-  - commit 最终 `formal_synced` 日志状态
-  - push `codex/user-readable-map`
+- 后续仍需继续完成：
+  - `git diff --check`
+  - commit
+  - push 当前工作分支
+  - 同步回 `codex/user-readable-map`
   - 用 `git show codex/user-readable-map:...` 复核关键文件
 
 ## 当前结果
 
-- 当前结果 `已确认` 是：仓库口径同步修复已落文件，且主读取分支已在本地完成 fast-forward
-- 当前结果 `待验证` 是：远端 `codex/user-readable-map` push 后的关键文件复核
+- 当前结果 `已确认` 是：仓库口径同步修复已落文件
+- 当前结果 `待验证` 是：是否已完成 commit / push / reading branch 回流
 - 当前不得写成：新主线样片已验证成立

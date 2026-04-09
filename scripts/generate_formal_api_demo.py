@@ -13,17 +13,22 @@ if str(ROOT) not in sys.path:
 from formal_api_demo_core import (  # noqa: E402
     DEFAULT_FORMAL_LOCAL_CONFIG_PATH,
     DEFAULT_FORMAL_OUTPUT_DIR,
-    FORMAL_CASE_PATH,
     FORMAL_EXAMPLE_CONFIG_PATH,
+    FORMAL_MAINLINE_CASE_PATH,
     run_generation_pipeline,
 )
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="正式版 API 视频 demo 生成入口。当前正式主线要求 generation 同时包含配音 API 与图片/视频 API；若 visual provider 尚未真实接通，则 generation 必须诚实 blocked。visual plan / preview storyboard 仅是辅助产物，不代表 generation success。"
+        description=(
+            "正式版 API 视频 demo 生成入口。默认主线已切到 "
+            "API human + user local footage + light_ppt/image + cloud editing；缺本地过程素材或 API 人像链路缺口时必须诚实 blocked。"
+            "generation 仍要求配音 API、API 真人链路与少量辅助图像链路成立，visual plan / preview storyboard "
+            "仅是辅助产物，不代表 generation success。"
+        )
     )
-    parser.add_argument("--input", type=pathlib.Path, default=FORMAL_CASE_PATH)
+    parser.add_argument("--input", type=pathlib.Path, default=FORMAL_MAINLINE_CASE_PATH)
     parser.add_argument(
         "--example-config",
         type=pathlib.Path,

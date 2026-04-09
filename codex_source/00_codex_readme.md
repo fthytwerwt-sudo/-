@@ -64,9 +64,10 @@
 
 当前正式默认主线 `已确认` 为：
 
-- 人物
-- 用户自己的真实录制素材
+- API 生成真人
+- 用户本地录制素材
 - 少量 PPT / 图片辅助
+- 云端剪辑
 
 必须同时默认理解：
 
@@ -104,4 +105,4 @@
 
 ## 7. 入口一句话
 
-新会话默认先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md`；当前正式默认主线按“人物 + 用户真实录制素材 + 少量 PPT / 图片”理解，结构跟着文案走，人物次数由 block 路由决定；若 GPT 数据源与仓库不同步，以已写回仓库并已同步到 `codex/user-readable-map` 的事实为准。
+新会话默认先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md`；当前正式默认主线按“API 生成真人 + 用户本地录制素材 + 少量 PPT / 图片 + 云端剪辑”理解，结构跟着文案走，人物次数由 block 路由决定；若 GPT 数据源与仓库不同步，以已写回仓库并已同步到 `codex/user-readable-map` 的事实为准。

@@ -35,6 +35,35 @@ pitch_rate = 0.92
 volume = 46
 response_format = "mp3"
 
+# 可选：TTS 资源池
+# - 运行时仍只认 formal_api_demo.local.toml 这一份正式配置源
+# - 若定义 [tts_pool.<candidate_id>]，系统会把 base [tts]/[auth]/[provider] 视为 primary，
+#   再把这些候选作为 backup 链
+# - 当前已实现的自动切换触发条件包括：
+#   - 429 / quota exhausted
+#   - 401 / 403 / invalid key
+#   - voice unavailable / unsupported
+#   - timeout / upstream unavailable
+# - 没有候补时，系统只会如实报资源池已耗尽，不会伪造新 key
+#
+# [tts_pool.backup_edge]
+# label = "Edge 备选"
+# priority = 20
+# enabled = true
+# api_route_family = "edge_gateway_openai_compatible"
+# api_key = "SET_IN_LOCAL_FILE"
+# model = "SET_IN_LOCAL_FILE"
+# voice = "SET_IN_LOCAL_FILE"
+# style_profile = "report"
+#
+# [tts_pool.backup_aliyun_voice_b]
+# label = "阿里同 provider 备声线"
+# priority = 30
+# enabled = true
+# api_route_family = "aliyun_bailian_cosyvoice"
+# voice = "SET_IN_LOCAL_FILE"
+# style_profile = "report"
+
 [tts_style_probe]
 # 固定测试文案：当前声音目标稿 v1 的所有 probe 轮次共用同一段文案，不推进 assembly。
 text = "这套方案表面上堆满了参数，真正决定上限的其实只有供电、火控和协同链路。前两项还能补，第三项一旦掉队，再新的壳子也只是好看。说得更直白一点，它不是没亮点，是关键战力根本没站住。"
@@ -119,6 +148,16 @@ enabled = true
 # - 若只是修图 / 改图，不要回到 facechain-generation，改走 qwen-image-edit-plus
 model = "wan2.6-image"
 
+# 可选：图片资源池
+# [image_generation_pool.backup_image]
+# label = "图片备选"
+# priority = 20
+# enabled = true
+# provider = "aliyun_bailian"
+# api_key = "SET_IN_LOCAL_FILE"
+# model = "wan2.6-image"
+# style_profile = "report"
+
 [video_generation]
 enabled = true
 # 当前正式 generation 主链仍包含视频生成 API：
@@ -130,23 +169,55 @@ enabled = true
 # - wan2.7-videoedit 只用于后期修补 / 编辑增强，不是主生成模型
 model = "wan2.7-i2v"
 
+# 可选：视频资源池
+# [video_generation_pool.backup_video]
+# label = "视频备选"
+# priority = 20
+# enabled = true
+# provider = "aliyun_bailian"
+# api_key = "SET_IN_LOCAL_FILE"
+# model = "wan2.7-i2v"
+# style_profile = "report"
+
+# 默认正式主线的本地素材输入：
+# - hook_human / close_human 默认改走 API 真人，不再要求本地人物视频
+# - process_self_footage：用户本地真实录屏 / 真实工作片段
+# - 若需要自带结果卡，也可以通过 result_card 注入
+# - 这些字段只允许写在本地正式配置里，不要提交真实路径
+# - verified_role 是人工确认过的素材角色，不是文件类型自动推断：
+#   - screen_recording：屏幕录制 / 工作流过程，适合 self_footage
+#   - ppt_image：结果卡 / 信息卡图片
+#   - human_on_camera：仅当你显式把 human carrier 改回本地真人素材时才需要
+#
+# [footage_inputs.process_self_footage]
+# local_path = "SET_IN_LOCAL_FILE"
+# source_type = "user_screen_recording"
+# verified_role = "screen_recording"
+#
+# [footage_inputs.result_card]
+# local_path = "SET_IN_LOCAL_FILE"
+# source_type = "user_ppt_image"
+# verified_role = "ppt_image"
+#
 [portrait_detect]
-enabled = false
+enabled = true
 # 真人开口分支前置检测：
 # - liveportrait-detect 先做人像 / 面部检测
 # - 当前在 provider=aliyun_bailian 且 enabled=true 时，已支持真实 detect 请求
+# - 当前唯一正式主线要求 API 真人承担 hook / close，因此默认启用
 model = "liveportrait-detect"
 
 [portrait_video_generation]
-enabled = false
+enabled = true
 # 真人开口分支生成模型：
 # - liveportrait 用于固定背景 / 人物开口视频
 # - 必须先过 liveportrait-detect
 # - 当前在 provider=aliyun_bailian 且 enabled=true 时，已支持真实 create / poll / download
+# - 当前唯一正式主线要求 API 真人承担 hook / close，因此默认启用
 model = "liveportrait"
 
 [assembly]
-# mode：当前 pure PPT / 信息卡主线的组装模式。
+# mode：当前正式默认主线的组装模式。
 # 用途：把主线路由显式锁定为 cloud-only。
 # 是否必填：是。
 # 当前是否已确认：是。
@@ -225,8 +296,9 @@ region = "cn-beijing"
 # 是否必填：是。
 # 当前是否已确认：是。
 storage_address = "zvip1-video-beijing.oss-cn-beijing.aliyuncs.com"
-# cloud_project_name：当前 pure PPT 主线唯一云剪工程名。
-# 用途：把纯 PPT / 信息卡主线统一路由到北京区云剪工程。
+# cloud_project_name：当前正式主线继续复用的北京区云剪工程名。
+# 用途：把 human + self_footage + light_ppt 主线统一路由到北京区云剪工程。
+# 说明：项目名里保留 `ppt` 属于历史命名，不代表当前正式主线仍是 pure PPT。
 # 是否必填：是。
 # 当前是否已确认：是。
 cloud_project_name = "video-factory-ppt-master-v1"
@@ -234,14 +306,42 @@ cloud_project_name = "video-factory-ppt-master-v1"
 [output]
 dist_dir = "dist/formal_api_demo"
 
+[footage_inputs]
+# 正式默认主线的真人 / 自录素材从本地配置注入，不直接写死进 case。
+# 若当前段落的素材来源是 user_media，则 generation 会优先读取这里的 local_path：
+# - 有真实文件 => 直接进入 manifest / cloud assembly
+# - 缺真实文件 => 诚实 blocked
+
+[footage_inputs.hook_human]
+local_path = "SET_IN_LOCAL_FILE"
+source_type = "user_recorded_video"
+verified_role = "human_on_camera"
+
+[footage_inputs.process_self_footage]
+local_path = "SET_IN_LOCAL_FILE"
+source_type = "user_screen_recording"
+verified_role = "screen_recording"
+
+[footage_inputs.result_card]
+local_path = "SET_IN_LOCAL_FILE"
+source_type = "user_ppt_image"
+verified_role = "ppt_image"
+
+[footage_inputs.close_human]
+local_path = "SET_IN_LOCAL_FILE"
+source_type = "user_recorded_video"
+verified_role = "human_on_camera"
+
 [polling]
 interval_seconds = 5
 timeout_seconds = 600
 
 [quality_gate]
-# 当前 pure PPT / 信息卡主线已经改为 cloud-only：
-# - 本地 assembly 不再作为 fallback / 兜底 / 正常交付路径
-# - 若缺密钥、缺云端参数或缺 provider implementation，必须如实 blocked
+# 当前正式默认主线已切到：
+# - human + user self footage + light_ppt/image
+# - 正式 assembly 继续固定走北京区 OSS + 云剪 cloud-only
+# - AI talking avatar / 数字人口播默认不再承担主承载
+# - 若缺真实素材、缺密钥、缺云端参数或缺 provider implementation，必须如实 blocked
 require_hook = true
 min_segments = 3
 require_manifest_schema = true
