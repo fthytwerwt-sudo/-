@@ -57,6 +57,33 @@
 
 4. 同步回 `codex/user-readable-map`
 
+这里的“新的仓库正式事实”必须按下面这条补丁理解，不得再偷换成“只有成功达标才算”：
+
+只要本轮结果改变了下个聊天框默认应该知道的当前状态，无论本轮是成功、失败、半成功还是 blocked，都必须：
+1. 更新 `codex_log/latest.md`
+2. 若有真实执行结果，补 `codex_log/YYYYMMDD_任务名.md`
+3. commit
+4. push
+5. 同步回 `codex/user-readable-map`
+
+注意：
+- `content_validation` 未通过，不等于不能同步
+- 只要当前已知状态变了，就必须同步
+- 同步时必须如实写状态，不能把半成功写成已达标
+
+### 4.2A. 哪些“状态变化”属于必须回流条件
+
+以下情况都默认属于“下个聊天框默认应该知道的当前状态变化”，因此必须回流主读取分支：
+
+- `technical_validation` 结果变化
+- `content_validation` 结果变化
+- 从 `blocked` 变为部分成立 / 半成功 / 成功
+- 从成功变为 `blocked`
+- 新增或消除真实 blocker
+- 样片 / 产物已落出，但内容未达标
+- `technical_validation` 通过，但 `content_validation` 未通过
+- 任何会改变新聊天默认接手判断的当前结论更新
+
 信息同步任务补充规则：
 
 - 若本轮改的是 `project_source/`、`codex_source/`、`codex_log/latest.md`
@@ -101,6 +128,11 @@
 - 已 push
 - 已同步回 `codex/user-readable-map`
 
+补充解释：
+
+- 不要求本轮一定“成功达标”
+- `blocked` / 半成功 / `technical_validation` 通过但 `content_validation` 未通过，只要已如实回流，也属于 `formal_synced`
+
 ### `task_branch_only`
 
 同时满足：
@@ -108,6 +140,11 @@
 - 已 commit
 - 已 push 到任务分支
 - 但主读取分支还没更新
+
+补充解释：
+
+- 不得因为“本轮还没完全达标”就长期停留在 `task_branch_only`
+- 只要当前已知状态已变化，继续停在 `task_branch_only` 就属于默认同步缺口
 
 ### `pr_open_not_merged_to_reading_branch`
 
@@ -156,7 +193,7 @@
 3. 命中写日志条件时补完整日志
 4. commit
 5. push 当前任务分支
-6. 若结果应成为正式接手口径，则同步回 `codex/user-readable-map`
+6. 只要本轮结果改变了下个聊天框默认应该知道的当前状态，就同步回 `codex/user-readable-map`
 7. 回报 4 个同步锚点
 
 ## 9. 允许例外
@@ -177,4 +214,4 @@
 
 ## 10. 当前一句话规则
 
-凡本轮存在 Git 跟踪的仓库改动，且不是 `local_only` / `no_repo_change`，必须完成 `latest.md + commit + push`；凡本轮结果应成为仓库正式状态，还必须同步回 `codex/user-readable-map`；未满足这些条件时，不得写“已完成上传”或“已同步”。
+凡本轮存在 Git 跟踪的仓库改动，且不是 `local_only` / `no_repo_change`，必须完成 `latest.md + commit + push`；只要本轮结果改变了下个聊天框默认应该知道的当前状态，无论成功、失败、半成功还是 `blocked`，都还必须同步回 `codex/user-readable-map`；未满足这些条件时，不得写“已完成上传”或“已同步”。

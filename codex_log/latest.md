@@ -2,71 +2,59 @@
 
 ## 当前主结论
 
-- `已确认` 本轮完成的是 **信息同步任务**，不是代码实现任务。
-- `已确认` `GPT 数据源/` 当前 25 份中文文件，已经同步进仓库信息层：
-  - `project_source/`
-  - `codex_source/`
-  - `codex_log/latest.md`
-- `已确认` 当前仓库信息层的唯一正式主线已统一为：
-  - API 生成真人
-  - 用户录制素材
-  - 少量 PPT / 图片辅助
-  - 云端剪辑
-- `已确认` 当前仓库信息层已经明确拆开：
-  - 当前正式事实
-  - 目标态计划
-  - 历史说明
-  - 临时执行说明
-- `已确认` 当前 reading branch 默认接手口径，已改成与本轮信息同步一致。
+- `已确认` 本轮完成的是 **执行层默认同步规则补丁**，不是代码实现任务。
+- `已确认` 当前仓库正式执行层默认新增了一条硬规则：
+
+只要本轮结果改变了下个聊天框默认应该知道的当前状态，无论本轮是成功、失败、半成功还是 blocked，都必须：
+1. 更新 `codex_log/latest.md`
+2. 若有真实执行结果，补 `codex_log/YYYYMMDD_任务名.md`
+3. commit
+4. push
+5. 同步回 `codex/user-readable-map`
+
+注意：
+- `content_validation` 未通过，不等于不能同步
+- 只要当前已知状态变了，就必须同步
+- 同步时必须如实写状态，不能把半成功写成已达标
+
+- `已确认` 这条规则已经补进仓库执行层入口，不再依赖 GPT Project 数据源文件补这条，也不再依赖聊天记忆补这条。
+- `已确认` 以后默认不能再把“只有成功达标才同步”当成仓库规则。
+- `已确认` 以后只要当前已知状态变了，哪怕是 `blocked`、半成功、或 `technical_validation` 通过但 `content_validation` 未通过，也必须回流 `codex/user-readable-map`。
+- `已确认` 当前 reading branch 已更新到这条新规则口径。
 
 ## 当前接手建议先读
 
 1. `AGENTS.md`
 2. `codex_source/00_codex_readme.md`
 3. `codex_log/latest.md`
-4. `codex_source/02_current_execution_context.md`
-5. `codex_source/03_research_findings_bridge.md`
-6. `project_source/00_project_brief.md`
-7. `project_source/02_term_definitions_and_state_boundaries.md`
-8. `project_source/07_current_formal_facts.md`
-9. `project_source/09_target_state_plan.md`
-10. `project_source/16_presentation_routing_rules.md`
-11. `project_source/24_human_self_footage_light_ppt_routing_rules.md`
-12. `project_source/21_topic_selection_and_copywriting_rules.md`
-13. `project_source/22_copy_mode_routing_rules.md`
-14. `project_source/25_ai_knowledge_video_value_rules.md`
+4. `codex_source/08_branch_sync_and_reading_branch_rules.md`
+5. `codex_log/20260410_execution_layer_state_change_sync_rule_patch.md`
 
 ## 本轮状态
 
-- 当前工作分支：
-  - `codex/user-readable-map`
 - 当前状态标签：
   - `formal_synced`
 - 当前任务性质：
-  - 信息层同步
-  - 不是 runtime 验证
-  - 不是 provider 实现
-  - 不是样片执行
+  - 执行层默认同步规则补丁
+- 当前影响范围：
+  - 顶层入口
+  - 执行层入口
+  - 详细分支同步规则
+  - 默认接手日志口径
 
-## 本轮替换掉的旧仓库口径
+## 当前默认行为变化
 
-- 旧“人物 / 用户本地录制素材 / 少量 PPT”的默认主线表述
-- 旧“cloud-only / 云端剪辑容易被误读成已稳定跑通”的表述
-- 旧“当前正式事实 / 目标态计划 / 历史说明”混写口径
-- 旧“信息同步完成 ≈ 代码已跑通 / 样片已验证”的误读
+- 过去容易出现：
+  - 任务分支已 push，但 reading branch 没更新
+  - `blocked` / 半成功状态没有进入新聊天默认已知
+  - `content_validation` 未通过被误当成“先别同步”
+- 当前正式默认改成：
+  - 只要下个聊天框默认应该知道的当前状态变了，就必须回流主读取分支
+  - 同步时必须如实写明成功、失败、半成功或 `blocked`
+  - 不允许把半成功写成已达标
 
-## 当前仍待验证的 runtime / provider / 代码事项
+## 当前仍需明确
 
-- `待验证` `云端剪辑 / cloud-only` 是否已在当前 runtime / provider / 配置层稳定跑通
-- `待验证` `API 生成真人` 当前具体采用哪条 provider / 模型链路才算真正可执行
-- `待验证` 当前 TTS / provider 配额 / 凭证 / 运行环境是否满足真实 generation
-- `待验证` 当前样片是否已经达到质量过线水位
-
-## 当前必须继续明确
-
-- 本轮完成的是 **仓库信息层同步**
-- 这不等于：
-  - 代码主线已重新验证通过
-  - provider 已验证成立
-  - 云端剪辑已稳定跑通
-  - 样片已验证成立
+- 本轮修的是执行层仓库规则，不是 `project_source/`
+- 本轮没有新增任何 GPT Project 数据源文件
+- 本轮规则要以仓库文件和 `codex/user-readable-map` 为准，不以聊天记忆为准
