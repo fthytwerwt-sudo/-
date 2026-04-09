@@ -23,8 +23,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
             "正式版 API 视频 demo 生成入口。默认主线已切到 "
-            "human + user self footage + light_ppt/image；缺真实素材时必须诚实 blocked。"
-            "generation 仍要求配音 API 与少量辅助图像链路成立，visual plan / preview storyboard "
+            "API human + user local footage + light_ppt/image + cloud editing；缺本地过程素材或 API 人像链路缺口时必须诚实 blocked。"
+            "generation 仍要求配音 API、API 真人链路与少量辅助图像链路成立，visual plan / preview storyboard "
             "仅是辅助产物，不代表 generation success。"
         )
     )

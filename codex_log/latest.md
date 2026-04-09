@@ -2,54 +2,56 @@
 
 ## 当前主结论
 
-- `已确认` 当前仓库正式默认主线已纠偏为：
-  - 人物
-  - 用户自己的真实录制素材
+- `已确认` 当前正式分支的唯一正式主线已统一改成：
+  - API 生成真人
+  - 用户本地录制素材
   - 少量 PPT / 图片辅助
-- `已确认` `project_source/24_human_self_footage_light_ppt_routing_rules.md` 已补齐为当前主线锚点文件
-- `已确认` GPT 数据源不会自动同步到 Codex 仓库，这条机制已正式写入执行层
-- `已确认` 当前已知状态继续按：
-  - `GPT 已知`
-  - `Codex 条件已知`
-  - `当前分支正式已知`
-  - `主读取分支正式已知`
-  进行区分
-- `已确认` 本轮完成的是仓库口径同步，不是新主线样片验证
+  - 北京区 `OSS + 云剪 cloud-only`
+- `已确认` 当前正式分支代码事实已经同时具备：
+  - `FORMAL_MAINLINE_CASE_PATH`
+  - `footage_inputs.process_self_footage`
+  - `liveportrait-detect -> liveportrait`
+  - `execute_cloud_only_assembly`
+- `已确认` 当前主线相关单测已通过：
+  - `tests.test_formal_api_demo_pipeline`
+  - `tests.test_formal_mainline_route`
+- `已确认` 当前真实 dry-run gate 已通过：
+  - `current_missing_prerequisites = []`
+  - `current_missing_implementations = []`
+- `已确认` 当前真实 generation 仍 blocked 在环境层：
+  - `aliyun_bailian_tts_request_failed`
+  - `AllocationQuota.FreeTierOnly`
 
 ## 当前接手建议先读
 
 1. `AGENTS.md`
 2. `codex_source/00_codex_readme.md`
 3. `codex_log/latest.md`
-4. `codex_source/01_execution_rules.md`
-5. `codex_source/02_current_execution_context.md`
-6. `codex_source/03_research_findings_bridge.md`
+4. `codex_source/02_current_execution_context.md`
+5. `codex_source/03_research_findings_bridge.md`
+6. `project_source/00_project_brief.md`
 7. `project_source/16_presentation_routing_rules.md`
 8. `project_source/24_human_self_footage_light_ppt_routing_rules.md`
-9. 命中价值 / 文案任务时，再补读：
-   - `project_source/21_topic_selection_and_copywriting_rules.md`
-   - `project_source/22_copy_mode_routing_rules.md`
-   - `project_source/25_ai_knowledge_video_value_rules.md`
-   - `codex_source/11_ai_knowledge_video_value_bridge.md`
-10. 命中“什么算已知”时，再补读：
-   - `codex_source/12_codex_known_state_three_layer_rules.md`
+9. `cases/formal_api_demo_human_self_footage.md`
+10. `formal_api_demo_core.py`
+11. `formal_api_demo_cloud_assembly.py`
 
-## 本轮同步结果
+## 本轮状态
 
 - 当前工作分支：
-  - `codex/repo-sync-fix-20260409`
+  - `codex/api-human-mainline-unify-20260409`
 - 当前状态标签：
-  - `task_branch_only`
+  - `blocked`
 - 当前已完成：
-  - 主线口径正式纠偏
-  - `24` 号锚点文件补齐
-  - 不同步机制已写入执行层
-- 当前仍待完成：
-  - commit
-  - push 当前工作分支
-  - 同步回 `codex/user-readable-map`
+  - 正式主线代码与文档已统一
+  - API 真人路径已并回当前正式分支
+  - 用户本地素材注入路径已并回当前正式分支
+  - 云端 assembly 代码路径已并回当前正式分支
+- 当前 blocker：
+  - 正式 local config 对应的阿里 TTS 免费额度已耗尽，真实 generation 卡在 `AllocationQuota.FreeTierOnly`
 
 ## 当前必须继续明确
 
 - `dist/*` 产物和本地配置仍属于 `local_only`
-- 仓库口径同步完成，不等于新主线样片已验证成立
+- 当前 reading branch 还没同步本轮统一改造
+- 当前 blocked 发生在环境 / provider 配额层，不是默认主线代码缺失层

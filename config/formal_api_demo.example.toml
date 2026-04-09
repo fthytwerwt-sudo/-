@@ -179,23 +179,15 @@ model = "wan2.7-i2v"
 # model = "wan2.7-i2v"
 # style_profile = "report"
 
-# 默认正式主线的人物 / 自录素材输入：
-# - hook_human：开头人物判断段
-# - process_self_footage：真实录屏 / 真实工作片段
-# - result_card：少量结果卡 / 关键词信息卡
-# - close_human：结尾人物收束段
+# 默认正式主线的本地素材输入：
+# - hook_human / close_human 默认改走 API 真人，不再要求本地人物视频
+# - process_self_footage：用户本地真实录屏 / 真实工作片段
+# - 若需要自带结果卡，也可以通过 result_card 注入
 # - 这些字段只允许写在本地正式配置里，不要提交真实路径
 # - verified_role 是人工确认过的素材角色，不是文件类型自动推断：
-#   - human_on_camera：可见真人出镜，允许进入 carrier=human 槽位
-#   - screen_recording：屏幕录制 / 工作流过程，适合 self_footage，不得静默占用 human 槽位
+#   - screen_recording：屏幕录制 / 工作流过程，适合 self_footage
 #   - ppt_image：结果卡 / 信息卡图片
-# - 当 segment carrier=human 时，必须显式写 verified_role="human_on_camera"，否则 generation blocked
-# - 若当前轮缺真实素材，generation 必须诚实 blocked，不得回退 AI talking avatar / 数字人口播
-#
-# [footage_inputs.hook_human]
-# local_path = "SET_IN_LOCAL_FILE"
-# source_type = "user_recorded_video"
-# verified_role = "human_on_camera"
+#   - human_on_camera：仅当你显式把 human carrier 改回本地真人素材时才需要
 #
 # [footage_inputs.process_self_footage]
 # local_path = "SET_IN_LOCAL_FILE"
@@ -207,26 +199,21 @@ model = "wan2.7-i2v"
 # source_type = "user_ppt_image"
 # verified_role = "ppt_image"
 #
-# [footage_inputs.close_human]
-# local_path = "SET_IN_LOCAL_FILE"
-# source_type = "user_recorded_video"
-# verified_role = "human_on_camera"
-
 [portrait_detect]
-enabled = false
+enabled = true
 # 真人开口分支前置检测：
 # - liveportrait-detect 先做人像 / 面部检测
 # - 当前在 provider=aliyun_bailian 且 enabled=true 时，已支持真实 detect 请求
-# - 当前不再作为默认主承载路线；只有明确切到 API 真人主线时才允许默认启用
+# - 当前唯一正式主线要求 API 真人承担 hook / close，因此默认启用
 model = "liveportrait-detect"
 
 [portrait_video_generation]
-enabled = false
+enabled = true
 # 真人开口分支生成模型：
 # - liveportrait 用于固定背景 / 人物开口视频
 # - 必须先过 liveportrait-detect
 # - 当前在 provider=aliyun_bailian 且 enabled=true 时，已支持真实 create / poll / download
-# - 当前不再作为默认主承载路线；只有明确切到 API 真人主线时才允许默认启用
+# - 当前唯一正式主线要求 API 真人承担 hook / close，因此默认启用
 model = "liveportrait"
 
 [assembly]

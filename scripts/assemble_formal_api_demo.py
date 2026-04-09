@@ -22,8 +22,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
             "正式版 API 视频 demo 组装入口。当前默认主线已切到 "
-            "human + user self footage + light_ppt/image，但正式 assembly 仍固定为北京区 OSS + 云剪 cloud-only；"
-            "缺密钥、缺云端参数或缺真实素材时必须如实 blocked。"
+            "API human + user local footage + light_ppt/image，正式 assembly 固定为北京区 OSS + 云剪 cloud-only；"
+            "缺密钥、缺云端参数或缺主线素材时必须如实 blocked。"
         )
     )
     parser.add_argument(

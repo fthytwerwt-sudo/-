@@ -22,7 +22,7 @@
 
 - **继续接 TTS API**
 - **继续接图片 / 视频生成 API**
-- **默认主承载改成：人物 + 用户自己的真实录制素材 + 少量 PPT / 图片**
+- **默认主承载改成：API 生成真人 + 用户本地录制素材 + 少量 PPT / 图片**
 - **正式 assembly 继续固定为北京区 OSS + 云剪工程唯一主路径**
 - **`local assembly` 已退出默认主线，不再作为 fallback / 兜底 / 应急正常交付**
 - **AI talking avatar / 数字人口播不再作为默认主承载**
@@ -35,8 +35,8 @@
 文本需求
 → 脚本
 → 配音 API
-→ 人物判断段
-→ 用户真实录制素材段
+→ API 真人判断段
+→ 用户本地录制素材段
 → 少量 PPT / 图片辅助段
 → 北京区 OSS + 云剪工程 assembly
 → 成片导出
@@ -46,7 +46,7 @@
 
 - 这里不是“视频 API 暂时不接”
 - 这里也不是“当前必须先把动态 PPT 或复杂动效做起来”
-- 当前是“**默认主承载切到 human + self_footage + light_ppt/image，组装层继续只走北京区 OSS + 云剪工程 cloud-only**”
+- 当前是“**默认主承载切到 API human + local footage + light_ppt/image，组装层继续只走北京区 OSS + 云剪工程 cloud-only**”
 - 若缺真实素材、缺密钥、缺云端参数或缺 provider implementation，必须如实 `blocked`
 - 不得再把本地 preview / 本地 mp4 写成默认主线的可接受补位结果
 - 不得再把 AI talking avatar / 数字人口播写成默认人物段补位方案
@@ -158,4 +158,4 @@
 
 当前 `formal_api_demo` 的最新正式路线是：
 
-**视频 API 继续接；正式默认主承载已经改成“人物 + 用户自己的真实录制素材 + 少量 PPT / 图片”；正式组装继续统一走北京区 `OSS + 云剪工程` cloud-only；`local assembly` 已退出主线；AI talking avatar / 数字人口播不再承担默认主承载；真实云端导出与真实素材注入仍待本地验证。**
+**视频 API 继续接；正式默认主承载已经改成“API 生成真人 + 用户本地录制素材 + 少量 PPT / 图片”；正式组装继续统一走北京区 `OSS + 云剪工程` cloud-only；`local assembly` 已退出主线；AI talking avatar / 数字人口播不再承担默认主承载；真实云端导出与本地过程素材注入仍待本地验证。**

@@ -74,13 +74,12 @@ DEFAULT_VIDEO_EDIT_MODEL = "wan2.7-videoedit"
 DEFAULT_PORTRAIT_DETECT_MODEL = "liveportrait-detect"
 DEFAULT_PORTRAIT_VIDEO_MODEL = "liveportrait"
 DEFAULT_PPT_ROUTE_PROFILE = "pure_ppt_cloud_only_secondary"
-DEFAULT_MAINLINE_ROUTE_PROFILE = "human_self_footage_light_ppt"
+DEFAULT_MAINLINE_ROUTE_PROFILE = "api_human_local_footage_light_ppt_cloud_editing"
 CARRIER_API_VISUAL = "api_visual"
 CARRIER_HUMAN = "human"
 CARRIER_SELF_FOOTAGE = "self_footage"
 CARRIER_LIGHT_PPT = "light_ppt"
 LOCAL_VIDEO_CARRIERS = {
-    CARRIER_HUMAN,
     CARRIER_SELF_FOOTAGE,
 }
 USER_MEDIA_SOURCE = "user_media"
@@ -349,7 +348,7 @@ def parse_formal_case_markdown(path: pathlib.Path) -> dict[str, Any]:
         video_route_strategy = "hybrid" if route_profile == DEFAULT_MAINLINE_ROUTE_PROFILE else "ppt_primary"
     if not route_reason:
         route_reason = (
-            "人物负责判断与收束，用户真实录制素材负责过程证据，少量 PPT / 图片负责关键词显影。"
+            "API 真人负责判断与收束，用户本地录制素材负责过程证据，少量 PPT / 图片负责关键词显影，最终统一进云端剪辑。"
             if route_profile == DEFAULT_MAINLINE_ROUTE_PROFILE
             else "当前样例仍以 pure PPT / 信息卡承载结构解释与结果收束。"
         )
@@ -422,7 +421,7 @@ def _default_segment_asset_source(
     carrier: str,
     allow_real_desktop_footage: bool,
 ) -> str:
-    if carrier in LOCAL_VIDEO_CARRIERS or allow_real_desktop_footage:
+    if carrier == CARRIER_SELF_FOOTAGE or allow_real_desktop_footage:
         return USER_MEDIA_SOURCE
     return API_GENERATED_SOURCE
 
@@ -518,11 +517,11 @@ def run_generation_pipeline(
         manifest = apply_caption_assets_to_manifest(manifest, caption_assets)
         manifest = apply_visual_generation_to_manifest(manifest, visual_generation)
     else:
-        human_role_blocked = any(
-            item.endswith("_verified_role_human_on_camera")
+        local_media_blocked = any(
+            item.startswith("footage_input_")
             for item in visual_gate.get("missing_prerequisites", [])
         )
-        if human_role_blocked:
+        if local_media_blocked:
             blocked_gate = copy.deepcopy(tts_gate)
             blocked_gate.update(
                 {
@@ -1189,22 +1188,30 @@ def evaluate_generation_gate(
         },
         "checks": tts_gate["checks"] + visual_gate["checks"],
         "notes": [
-            "正式 generation success 仍要求配音 API 成功，且视觉层必须真实拿到可组装资产：要么是用户注入的真人 / 自录 / 结果卡素材，要么是图片 / 视频 API 成功产物。",
+            "正式 generation success 仍要求配音 API 成功，且视觉层必须真实拿到可组装资产：默认人物段走 API 真人，过程段走用户本地素材，少量信息卡走 API 图像。",
             "visual plan / preview storyboard 只能算辅助产物，不能再冒充 visual generation success。",
-            "默认正式主线已切到 human + self_footage + light_ppt；AI talking avatar / 数字人口播不再承担默认主承载。",
+            "默认正式主线已切到 API human + user local footage + light_ppt；本地 preview 只保留辅助调试意义。",
             "assembly 主线继续固定为北京区 OSS + 云剪 cloud-only，不回退 local assembly 默认主路径。",
         ],
     }
 
 
 def _segment_requires_local_media(segment: dict[str, Any]) -> bool:
-    if segment.get("carrier") in LOCAL_VIDEO_CARRIERS:
-        return True
     return bool(segment.get("asset_key")) and segment.get("asset_source") == USER_MEDIA_SOURCE
 
 
+def _segment_uses_api_human(segment: dict[str, Any]) -> bool:
+    return (
+        segment.get("carrier") == CARRIER_HUMAN
+        and segment.get("asset_source") != USER_MEDIA_SOURCE
+        and bool(segment.get("needs_video"))
+    )
+
+
 def _segment_needs_api_image(segment: dict[str, Any]) -> bool:
-    return bool(segment.get("needs_image")) and not _segment_requires_local_media(segment)
+    return _segment_uses_api_human(segment) or (
+        bool(segment.get("needs_image")) and not _segment_requires_local_media(segment)
+    )
 
 
 def _segment_needs_api_video(segment: dict[str, Any]) -> bool:
@@ -1249,6 +1256,7 @@ def _evaluate_visual_generation_gate(
         if not _visual_candidate_missing_prerequisites(candidate, resource_kind=RESOURCE_KIND_VIDEO)
     ]
     visual_provider = available_image_candidates[0]["provider"] if available_image_candidates else _nested_get(config, "provider", "name")
+    portrait_provider_supported = _nested_get(config, "provider", "name") == PROVIDER_ALIYUN_BAILIAN
     image_provider_supported = any(
         candidate.get("provider") == PROVIDER_ALIYUN_BAILIAN
         for candidate in available_image_candidates
@@ -1330,9 +1338,9 @@ def _evaluate_visual_generation_gate(
         implementation_missing.append("image_generation_provider_implementation")
     if needs_video and not video_provider_supported:
         implementation_missing.append("video_generation_provider_implementation")
-    if portrait_detect_enabled and not aliyun_visual_supported:
+    if portrait_detect_enabled and not portrait_provider_supported:
         implementation_missing.append("portrait_detect_provider_implementation")
-    if portrait_video_enabled and not aliyun_visual_supported:
+    if portrait_video_enabled and not portrait_provider_supported:
         implementation_missing.append("portrait_video_generation_provider_implementation")
 
     checks = [
@@ -1369,13 +1377,14 @@ def _evaluate_visual_generation_gate(
                 for segment in required_local_media_inputs
             )
             else "fail",
-            "detail": "默认正式主线要求的真人 / 自录素材必须先在本地配置里注入真实文件路径。",
+            "detail": "默认正式主线要求的用户本地录制素材必须先在本地配置里注入真实文件路径。",
         },
         {
             "name": "human_carrier_requires_verified_on_camera_footage",
             "status": "pass"
             if all(
                 segment.get("carrier") != CARRIER_HUMAN
+                or segment.get("asset_source") != USER_MEDIA_SOURCE
                 or _resolve_footage_input(
                     config,
                     segment.get("asset_key") or segment["segment_id"],
@@ -1384,7 +1393,7 @@ def _evaluate_visual_generation_gate(
                 for segment in required_local_media_inputs
             )
             else "fail",
-            "detail": "carrier=human 的本地素材必须在 formal_api_demo.local.toml 显式标记 verified_role=\"human_on_camera\"；屏幕录制不得静默占用人物槽位。",
+            "detail": "只有当 carrier=human 且素材来源=user_media 时，才必须显式标记 verified_role=\"human_on_camera\"；API 真人段不读取本地人物槽位。",
         },
         {
             "name": "portrait_detect_enabled_before_liveportrait",
@@ -1464,7 +1473,7 @@ def _evaluate_visual_generation_gate(
         "checks": checks,
         "notes": [
             "visual_generation Gate 继续代表图片 / 视频生成 API 的正式 generation 前提。",
-            "默认正式主线已切到 human + self_footage + light_ppt；真人判断段和自录证据段优先吃用户真实素材，不再默认走 AI talking avatar。",
+            "默认正式主线已切到 API human + user local footage + light_ppt；hook / close 默认走 API 真人，过程证据默认走用户本地素材。",
             "普通视频默认主线固定为 wan2.6-image -> wan2.7-i2v；先出首帧 / 底图，再转视频。",
             f"人物图 / 人像底图默认走 {DEFAULT_GENERAL_IMAGE_MODEL}；需要修图时走 {DEFAULT_IMAGE_EDIT_MODEL}，不再默认依赖 facechain-generation。",
             "真人开口分支固定为 liveportrait-detect + liveportrait；liveportrait 必须先经过 liveportrait-detect。",
@@ -2713,10 +2722,12 @@ def build_visual_generation_plan(
         if uses_local_media:
             asset_key = segment.get("asset_key") or segment["segment_id"]
             local_asset = _resolve_footage_input(config, asset_key)
+        api_human_segment = _segment_uses_api_human(segment)
         segment_needs_image = (
             not uses_local_media
             and (
-                segment["needs_image"]
+                api_human_segment
+                or segment["needs_image"]
                 or (segment["needs_video"] and video_requires_seed_image)
             )
         )
@@ -2805,7 +2816,20 @@ def build_visual_generation_plan(
             segment_assets.append(asset_record)
             continue
         if segment_needs_image:
-            if segment["segment_id"] == "seg01":
+            if api_human_segment:
+                if segment["segment_id"] == "seg01":
+                    image_prompt = (
+                        "9:16 竖版，东亚职场创作者面对镜头，半身构图，固定背景，"
+                        "眼神稳定，语气克制但有判断感，真实摄影质感，像在给团队下判断。"
+                        "不要大字，不要卡片感，不要课件感，不要夸张动作。"
+                    )
+                else:
+                    image_prompt = (
+                        "9:16 竖版，同一位东亚职场创作者面对镜头做结尾收束，半身构图，固定背景，"
+                        "有轻微点头和收束手势，真实摄影质感，像在强调最小行动。"
+                        "不要大字，不要卡片感，不要课件感，不要夸张动作。"
+                    )
+            elif segment["segment_id"] == "seg01":
                 image_prompt = (
                     f"{segment['visual_intent']}。9:16 竖版，真实工作台 / 白板视角，"
                     "让人一眼看出信息很多但流程没有拉齐；纪录片式案例讲解画面，"
@@ -2823,7 +2847,7 @@ def build_visual_generation_plan(
                     "SOP 看板旁边带样片缩略图和修正清单，像真实项目收口画面；"
                     "不要 PPT 模板，不要广告感，不要人物正脸。"
                 )
-        if segment["needs_video"]:
+        if segment["needs_video"] and not api_human_segment:
             has_video_segments = True
             video_prompt = (
                 f"{segment['visual_intent']}。9:16 竖版，单一固定镜头里，"
@@ -2975,12 +2999,23 @@ def build_visual_generation_plan(
         }
     )
     portrait_route_in_use = (
-        visual_generation["portrait_video_generation"]["enabled"] and has_video_segments
+        visual_generation["portrait_video_generation"]["enabled"]
+        and any(
+            asset.get("carrier") == CARRIER_HUMAN
+            and asset.get("asset_origin") != USER_MEDIA_SOURCE
+            and asset.get("needs_video")
+            for asset in segment_assets
+        )
     )
     visual_generation["general_video_generation"].update(
         {
             "status": STATUS_SKIPPED
-            if not has_video_segments or portrait_route_in_use
+            if not any(
+                asset.get("needs_video")
+                and asset.get("asset_origin") != USER_MEDIA_SOURCE
+                and asset.get("carrier") != CARRIER_HUMAN
+                for asset in segment_assets
+            )
             else STATUS_NOT_STARTED,
             "blocked_reason": "",
             "failure_reason": "",
@@ -4912,14 +4947,14 @@ def _generation_next_action_hint(
     ]
     if footage_missing:
         return (
-            "先在 formal_api_demo.local.toml 的 [footage_inputs.*] 里注入真实本地路径和 verified_role；"
-            'carrier=human 必须显式标记 verified_role="human_on_camera"，屏幕录制不得静默占用人物槽位。'
+            "先在 formal_api_demo.local.toml 的 [footage_inputs.*] 里注入用户本地过程素材路径；"
+            "只有当你显式把人物段改回本地真人素材时，才需要 verified_role=\"human_on_camera\"。"
         )
     if any(
         item in gate.get("missing_prerequisites", [])
         for item in ("image_generation_model", "video_generation_model")
     ):
-        return "先补齐 image_generation.model / video_generation.model；默认主线允许真人 / 自录素材直接进 assembly，但少量辅助图片段若要走 API 生成，仍需要可用 image/video model。"
+        return "先补齐 image_generation.model / video_generation.model；默认主线要求 API 真人和轻量信息卡都可用，缺模型时不能继续推进。"
     if any(
         item in gate.get("missing_prerequisites", [])
         for item in (
@@ -4947,9 +4982,9 @@ def _generation_next_action_hint(
         )
     ):
         return (
-            "当前默认路线已定：普通视频走 wan2.6-image -> wan2.7-i2v；"
-            "人物图 / 底图默认走 wan2.6-image，必要修图走 qwen-image-edit-plus；"
-            "真人开口继续走 liveportrait-detect -> liveportrait。"
+            "当前默认路线已定：hook / close 走 API 真人 liveportrait-detect -> liveportrait；"
+            "轻量信息卡走 wan2.6-image；"
+            "普通辅助视频段才走 wan2.6-image -> wan2.7-i2v。"
             "wan2.7-videoedit 只做后期编辑增强，provider implementation 未接通前不要把 preview 当 generation success。"
         )
     if route_family == TTS_ROUTE_FAMILY_DOUBAO_OPENSPEECH and gate["missing_implementations"]:

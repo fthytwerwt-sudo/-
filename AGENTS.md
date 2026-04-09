@@ -32,9 +32,10 @@
 - 当前主阶段是内容阶段，正往试发阶段过渡
 - 当前优先把“内容过线 / 路由正确 / 模板稳定”压实，不做人优先主义
 - 当前正式默认主线已切到：
-  - 人物
-  - 用户自己的真实录制素材
+  - API 生成真人
+  - 用户本地录制素材
   - 少量 PPT / 图片辅助
+  - 云端剪辑
 - 当前结构跟着文案走，不先预设整条视频的固定载体顺序
 - 当前人物出现 1 次还是 2 次，是 block 路由结果，不是预设模板
 - 当前不再把 pure PPT / 信息卡全片承载当默认主线
@@ -89,7 +90,7 @@
 - 若任务明显偏项目判断、内容边界或场景结构，再补读 `project_source/06_project_index.md` 与相关 `project_source/*`
 - 若任务命中展示路由 / 真人与 PPT 选择 / 录屏与案例图取舍 / 混合承载判断，则在最小接手集合之外补读：
   - `project_source/16_presentation_routing_rules.md`
-  - 若任务同时命中“人物 + 自录素材 + 少量 PPT / 图片”的新版默认主线，再补读：
+  - 若任务同时命中“API 真人 + 本地素材 + 少量 PPT / 图片 + 云端剪辑”的新版默认主线，再补读：
     - `project_source/24_human_self_footage_light_ppt_routing_rules.md`
   - 若任务同时涉及回审记录，再补读 `project_source/10_video_review_record_template.md`
 - 若任务命中“正式版 API demo / 正式版目标态 / 云端组装 / 修正循环 / 质量达标反推”，则在最小接手集合之外补读：
@@ -300,4 +301,4 @@
 
 如果 Codex 这轮只记一句话：
 
-**新会话先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md` 完成最小启动；当前默认主线按“人物 + 用户真实录制素材 + 少量 PPT / 图片”理解，结构跟着文案走、人物出现次数由 block 路由决定，cloud assembly 继续是正式主路径；若任务命中展示路由 / 真人与 PPT / 混合承载判断，则再补读 `project_source/16_presentation_routing_rules.md` 与 `project_source/24_human_self_footage_light_ppt_routing_rules.md`；若任务涉及 commit / push / PR / 主读取分支回流 / `latest.md` 更新，则再补读 `codex_source/08_branch_sync_and_reading_branch_rules.md`；命中仓库型任务时，只有同步回 `codex/user-readable-map` 才算仓库正式状态。**
+**新会话先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md` 完成最小启动；当前默认主线按“API 生成真人 + 用户本地录制素材 + 少量 PPT / 图片 + 云端剪辑”理解，结构跟着文案走、人物出现次数由 block 路由决定，cloud assembly 继续是正式主路径；若任务命中展示路由 / 真人与 PPT / 混合承载判断，则再补读 `project_source/16_presentation_routing_rules.md` 与 `project_source/24_human_self_footage_light_ppt_routing_rules.md`；若任务涉及 commit / push / PR / 主读取分支回流 / `latest.md` 更新，则再补读 `codex_source/08_branch_sync_and_reading_branch_rules.md`；命中仓库型任务时，只有同步回 `codex/user-readable-map` 才算仓库正式状态。**

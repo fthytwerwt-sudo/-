@@ -76,6 +76,36 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
         pathlib.Path(output_path).parent.mkdir(parents=True, exist_ok=True)
         pathlib.Path(output_path).write_bytes(b"fake-merged-mp3")
 
+    @staticmethod
+    def _build_fake_probe(output_dir: pathlib.Path, voice: str = "longanyang"):
+        def fake_probe(*_args, **kwargs):
+            stem = kwargs.get("output_stem", "voice_probe")
+            audio_path = output_dir / "tts" / f"{stem}.mp3"
+            audio_path.parent.mkdir(parents=True, exist_ok=True)
+            audio_path.write_bytes(b"fake-mp3")
+            return {
+                "status": STATUS_SUCCESS,
+                "blocked_reason": "",
+                "failure_reason": "",
+                "error_code": "",
+                "error_message": "",
+                "audio_path": str(audio_path),
+                "request_id": f"req_{stem}",
+                "model_identifier": "cosyvoice-v3-flash",
+                "probe_text": "测试配音",
+                "voice": voice,
+                "used_model_id": "cosyvoice-v3-flash",
+                "request_debug": {
+                    "provider": "aliyun_bailian",
+                    "api_route_family": "aliyun_bailian_cosyvoice",
+                },
+                "candidate_pool": {},
+                "fallback_events": [],
+                "selected_candidate_id": "primary",
+            }
+
+        return fake_probe
+
     def test_cloud_timeline_uses_per_clip_trim_ranges_not_global_offsets(self) -> None:
         manifest = {
             "segments": [
@@ -246,7 +276,21 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             f"interval_seconds = {polling_interval_seconds}",
             f"timeout_seconds = {polling_timeout_seconds}",
         ]
-        for asset_key, local_path, source_type in footage_inputs or []:
+        effective_footage_inputs = list(footage_inputs or [])
+        if (
+            not effective_footage_inputs
+            and (portrait_detect_enabled or portrait_video_generation_enabled)
+        ):
+            default_process_path = path.parent / "process_self_footage.mp4"
+            default_process_path.write_bytes(b"default-process-footage")
+            effective_footage_inputs.append(
+                (
+                    "process_self_footage",
+                    str(default_process_path),
+                    "user_screen_recording",
+                )
+            )
+        for asset_key, local_path, source_type in effective_footage_inputs:
             verified_role = {
                 "user_recorded_video": "human_on_camera",
                 "user_screen_recording": "screen_recording",
@@ -378,7 +422,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
     def test_parse_formal_mainline_case_reads_route_fields(self) -> None:
         spec = parse_formal_case_markdown(FORMAL_MAINLINE_CASE_PATH)
 
-        self.assertEqual(spec["route_profile"], "human_self_footage_light_ppt")
+        self.assertEqual(spec["route_profile"], "api_human_local_footage_light_ppt_cloud_editing")
         self.assertEqual(spec["video_route_strategy"], "hybrid")
         self.assertEqual(
             [segment["carrier"] for segment in spec["segments"]],
@@ -386,25 +430,21 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
         )
         self.assertEqual(
             [segment["asset_source"] for segment in spec["segments"]],
-            ["user_media", "user_media", "user_media", "user_media"],
+            ["api_generated", "user_media", "api_generated", "api_generated"],
         )
         self.assertEqual(
             [segment["asset_key"] for segment in spec["segments"]],
             ["hook_human", "process_self_footage", "result_card", "close_human"],
         )
 
-    def test_generation_gate_blocks_screen_recording_in_human_carrier_slots(self) -> None:
+    def test_generation_gate_requires_only_local_process_footage_for_mainline(self) -> None:
         spec = parse_formal_case_markdown(FORMAL_MAINLINE_CASE_PATH)
 
         with tempfile.TemporaryDirectory(prefix="formal_human_guardrail_") as temp_dir:
             output_dir = pathlib.Path(temp_dir)
-            hook_video = output_dir / "inputs" / "hook_human.mov"
             process_video = output_dir / "inputs" / "process_self_footage.mov"
-            result_card = output_dir / "inputs" / "result_card.png"
-            close_video = output_dir / "inputs" / "close_human.mov"
-            for path in (hook_video, process_video, result_card, close_video):
-                path.parent.mkdir(parents=True, exist_ok=True)
-                path.write_bytes(b"asset")
+            process_video.parent.mkdir(parents=True, exist_ok=True)
+            process_video.write_bytes(b"asset")
 
             local_config_path = output_dir / "formal_api_demo.local.toml"
             self._write_local_config(
@@ -416,13 +456,13 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 voice="longanyang",
                 image_model="wan2.6-image",
                 video_model="wan2.7-i2v",
+                portrait_detect_enabled=True,
+                portrait_video_generation_enabled=True,
                 footage_inputs=[
-                    ("hook_human", str(hook_video), "user_screen_recording"),
                     ("process_self_footage", str(process_video), "user_screen_recording"),
-                    ("result_card", str(result_card), "user_ppt_image"),
-                    ("close_human", str(close_video), "user_screen_recording"),
                 ],
             )
+            process_video.unlink()
             config_bundle = load_formal_config(
                 example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
                 local_config_path=local_config_path,
@@ -436,25 +476,16 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             )
 
         self.assertEqual(gate["status"], STATUS_BLOCKED)
-        self.assertIn(
-            "footage_input_hook_human_verified_role_human_on_camera",
-            gate["missing_prerequisites"],
-        )
-        self.assertIn(
-            "footage_input_close_human_verified_role_human_on_camera",
-            gate["missing_prerequisites"],
-        )
+        self.assertIn("footage_input_process_self_footage_file_exists", gate["missing_prerequisites"])
+        self.assertNotIn("footage_input_hook_human_local_path", gate["missing_prerequisites"])
+        self.assertNotIn("footage_input_close_human_local_path", gate["missing_prerequisites"])
 
-    def test_generation_pipeline_skips_tts_when_human_footage_role_is_blocked(self) -> None:
+    def test_generation_pipeline_skips_tts_when_required_process_footage_is_missing(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_human_guardrail_run_") as temp_dir:
             output_dir = pathlib.Path(temp_dir) / "dist"
             local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
-            hook_video = pathlib.Path(temp_dir) / "hook_human.mov"
             workflow_video = pathlib.Path(temp_dir) / "process_self_footage.mov"
-            result_card = pathlib.Path(temp_dir) / "result_card.png"
-            close_video = pathlib.Path(temp_dir) / "close_human.mov"
-            for path in (hook_video, workflow_video, result_card, close_video):
-                path.write_bytes(b"asset")
+            workflow_video.write_bytes(b"asset")
 
             self._write_local_config(
                 local_config_path,
@@ -465,13 +496,13 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 voice="longanyang",
                 image_model="wan2.6-image",
                 video_model="wan2.7-i2v",
+                portrait_detect_enabled=True,
+                portrait_video_generation_enabled=True,
                 footage_inputs=[
-                    ("hook_human", str(hook_video), "user_screen_recording"),
                     ("process_self_footage", str(workflow_video), "user_screen_recording"),
-                    ("result_card", str(result_card), "user_ppt_image"),
-                    ("close_human", str(close_video), "user_screen_recording"),
                 ],
             )
+            workflow_video.unlink()
 
             with mock.patch("formal_api_demo_core.execute_tts_probe") as mocked_probe:
                 result = run_generation_pipeline(
@@ -483,24 +514,15 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 )
 
         self.assertEqual(result["generation_status"], STATUS_BLOCKED)
-        self.assertIn(
-            "footage_input_hook_human_verified_role_human_on_camera",
-            result["current_missing_prerequisites"],
-        )
+        self.assertIn("footage_input_process_self_footage_file_exists", result["current_missing_prerequisites"])
         mocked_probe.assert_not_called()
 
-    def test_generate_non_dry_run_reuses_user_footage_for_formal_mainline_case(self) -> None:
+    def test_generate_non_dry_run_uses_api_human_and_local_process_footage_for_mainline_case(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_mainline_local_media_") as temp_dir:
             output_dir = pathlib.Path(temp_dir) / "dist"
             local_config_path = pathlib.Path(temp_dir) / "formal_api_demo.local.toml"
-            hook_video = pathlib.Path(temp_dir) / "hook_human.mp4"
             workflow_video = pathlib.Path(temp_dir) / "process_self_footage.mp4"
-            result_card = pathlib.Path(temp_dir) / "result_card.png"
-            close_video = pathlib.Path(temp_dir) / "close_human.mp4"
-            hook_video.write_bytes(b"hook-video")
             workflow_video.write_bytes(b"workflow-video")
-            result_card.write_bytes(b"result-card")
-            close_video.write_bytes(b"close-video")
             self._write_local_config(
                 local_config_path,
                 provider_name="aliyun_bailian",
@@ -510,15 +532,14 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 voice="longxiaochun",
                 image_model="wan2.6-image",
                 video_model="wan2.7-i2v",
+                portrait_detect_enabled=True,
+                portrait_video_generation_enabled=True,
                 footage_inputs=[
-                    ("hook_human", str(hook_video), "user_recorded_video"),
                     (
                         "process_self_footage",
                         str(workflow_video),
                         "user_screen_recording",
                     ),
-                    ("result_card", str(result_card), "user_ppt_image"),
-                    ("close_human", str(close_video), "user_recorded_video"),
                 ],
             )
 
@@ -545,12 +566,62 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                     },
                 }
 
+            def fake_image_generation(*, output_dir, segment_id, **_kwargs):
+                asset_path = output_dir / "visual" / f"{segment_id}_image.png"
+                asset_path.parent.mkdir(parents=True, exist_ok=True)
+                asset_path.write_bytes(f"fake-image-{segment_id}".encode("utf-8"))
+                return {
+                    "status": STATUS_SUCCESS,
+                    "task_id": f"img_task_{segment_id}",
+                    "asset_path": str(asset_path),
+                    "source_url": f"https://dashscope-result.example.com/{segment_id}_image.png",
+                    "blocked_reason": "",
+                    "failure_reason": "",
+                    "error_message": "",
+                    "fallback_events": [],
+                    "selected_candidate_id": "primary",
+                }
+
+            def fake_liveportrait(*, output_dir, segment_id, **_kwargs):
+                asset_path = output_dir / "visual" / f"{segment_id}_portrait.mp4"
+                asset_path.parent.mkdir(parents=True, exist_ok=True)
+                asset_path.write_bytes(f"fake-portrait-{segment_id}".encode("utf-8"))
+                return {
+                    "status": STATUS_SUCCESS,
+                    "blocked_reason": "",
+                    "failure_reason": "",
+                    "error_message": "",
+                    "detect": {
+                        "status": STATUS_SUCCESS,
+                        "blocked_reason": "",
+                        "failure_reason": "",
+                        "error_message": "",
+                        "request_id": f"detect_{segment_id}",
+                        "source_image_url": f"https://dashscope-result.example.com/{segment_id}_detect.png",
+                    },
+                    "generation": {
+                        "status": STATUS_SUCCESS,
+                        "blocked_reason": "",
+                        "failure_reason": "",
+                        "error_message": "",
+                        "task_id": f"portrait_task_{segment_id}",
+                        "request_id": f"portrait_req_{segment_id}",
+                        "asset_path": str(asset_path),
+                        "source_image_url": f"https://dashscope-result.example.com/{segment_id}_image.png",
+                        "source_audio_url": f"https://dashscope-result.example.com/{segment_id}.mp3",
+                    },
+                }
+
             with mock.patch("formal_api_demo_core.execute_tts_probe", side_effect=fake_probe), mock.patch(
                 "formal_api_demo_core.concatenate_audio_files",
                 side_effect=self._fake_concatenate_audio_files,
             ), mock.patch(
-                "formal_api_demo_core._execute_aliyun_wan_image_generation"
+                "formal_api_demo_core._execute_aliyun_wan_image_generation",
+                side_effect=fake_image_generation,
             ) as mocked_image, mock.patch(
+                "formal_api_demo_core._execute_aliyun_liveportrait_video_generation",
+                side_effect=fake_liveportrait,
+            ) as mocked_portrait, mock.patch(
                 "formal_api_demo_core._execute_aliyun_wan_video_generation"
             ) as mocked_video:
                 result = run_generation_pipeline(
@@ -561,7 +632,8 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                     dry_run=False,
                 )
 
-            mocked_image.assert_not_called()
+            self.assertEqual(mocked_image.call_count, 3)
+            self.assertEqual(mocked_portrait.call_count, 2)
             mocked_video.assert_not_called()
 
             manifest = json.loads((output_dir / "manifest.json").read_text(encoding="utf-8"))
@@ -572,32 +644,35 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             self.assertEqual(visual_generation["status"], STATUS_SUCCESS)
             self.assertEqual(
                 visual_generation["delivery_mode"],
-                "user_provided_local_assets",
+                "mixed_user_and_api_local_assets",
             )
             self.assertEqual(
                 [asset["asset_origin"] for asset in visual_assets],
-                ["user_media", "user_media", "user_media", "user_media"],
+                ["api_generated", "user_media", "api_generated", "api_generated"],
             )
             self.assertEqual(
                 [asset["status"] for asset in visual_assets],
                 [STATUS_SUCCESS, STATUS_SUCCESS, STATUS_SUCCESS, STATUS_SUCCESS],
             )
-            self.assertEqual(
-                manifest["segments"][0]["output_slots"]["visual_uri"],
-                str(hook_video),
+            self.assertTrue(
+                manifest["segments"][0]["output_slots"]["visual_uri"].endswith("seg01_portrait.mp4")
             )
             self.assertEqual(
                 manifest["segments"][1]["output_slots"]["visual_uri"],
                 str(workflow_video),
             )
-            self.assertEqual(
-                manifest["segments"][2]["output_slots"]["visual_uri"],
-                str(result_card),
+            self.assertTrue(
+                manifest["segments"][2]["output_slots"]["visual_uri"].endswith("seg03_image.png")
+            )
+            self.assertTrue(
+                manifest["segments"][3]["output_slots"]["visual_uri"].endswith("seg04_portrait.mp4")
             )
             self.assertEqual(
-                manifest["segments"][3]["output_slots"]["visual_uri"],
-                str(close_video),
+                visual_generation["portrait_video_generation"]["status"],
+                STATUS_SUCCESS,
             )
+            self.assertEqual(mocked_image.call_count, 3)
+            self.assertEqual(mocked_portrait.call_count, 2)
 
     def test_parse_formal_case_markdown_raises_for_missing_hook(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_case_") as temp_dir:
@@ -765,7 +840,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 side_effect=self._fake_concatenate_audio_files,
             ):
                 run_generation_pipeline(
-                    input_path=FORMAL_CASE_PATH,
+                    input_path=FORMAL_MAINLINE_CASE_PATH,
                     example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
                     local_config_path=local_config_path,
                     output_dir=output_dir,
@@ -963,7 +1038,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 side_effect=self._fake_concatenate_audio_files,
             ):
                 run_generation_pipeline(
-                    input_path=FORMAL_CASE_PATH,
+                    input_path=FORMAL_MAINLINE_CASE_PATH,
                     example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
                     local_config_path=local_config_path,
                     output_dir=output_dir,
@@ -1801,7 +1876,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 side_effect=self._fake_concatenate_audio_files,
             ):
                 result = run_generation_pipeline(
-                    input_path=FORMAL_CASE_PATH,
+                    input_path=FORMAL_MAINLINE_CASE_PATH,
                     example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
                     local_config_path=local_config_path,
                     output_dir=output_dir,
@@ -1810,7 +1885,8 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
 
             manifest = json.loads((output_dir / "manifest.json").read_text(encoding="utf-8"))
             visual_generation = manifest["generation"]["visual_generation"]
-            seg02 = visual_generation["segment_assets"][1]
+            seg01 = visual_generation["segment_assets"][0]
+            seg04 = visual_generation["segment_assets"][3]
             self.assertEqual(result["generation_status"], STATUS_SUCCESS)
             self.assertEqual(visual_generation["portrait_detect"]["status"], STATUS_SUCCESS)
             self.assertEqual(
@@ -1821,15 +1897,18 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 visual_generation["general_video_generation"]["status"],
                 STATUS_SKIPPED,
             )
-            self.assertEqual(manifest["segments"][1]["task_slots"]["video_task_id"], "portrait_task_1")
-            self.assertTrue(pathlib.Path(seg02["video_asset_path"]).exists())
-            self.assertEqual(pathlib.Path(seg02["video_asset_path"]).read_bytes(), b"fake-portrait-video")
+            self.assertEqual(manifest["segments"][0]["task_slots"]["video_task_id"], "portrait_task_1")
+            self.assertEqual(manifest["segments"][3]["task_slots"]["video_task_id"], "portrait_task_1")
+            self.assertTrue(pathlib.Path(seg01["video_asset_path"]).exists())
+            self.assertTrue(pathlib.Path(seg04["video_asset_path"]).exists())
+            self.assertEqual(pathlib.Path(seg01["video_asset_path"]).read_bytes(), b"fake-portrait-video")
+            self.assertEqual(pathlib.Path(seg04["video_asset_path"]).read_bytes(), b"fake-portrait-video")
             self.assertNotIn(
                 "https://dashscope.aliyuncs.com/api/v1/services/aigc/video-generation/video-synthesis",
                 called_urls,
             )
-            self.assertIn("liveportrait-detect", upload_models)
-            self.assertEqual(upload_models.count("liveportrait"), 2)
+            self.assertEqual(upload_models.count("liveportrait-detect"), 2)
+            self.assertEqual(upload_models.count("liveportrait"), 4)
 
     def test_generate_non_dry_run_liveportrait_blocks_when_detect_rejects_image(self) -> None:
         with tempfile.TemporaryDirectory(prefix="formal_liveportrait_detect_fail_") as temp_dir:
@@ -1914,7 +1993,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 side_effect=self._fake_concatenate_audio_files,
             ):
                 result = run_generation_pipeline(
-                    input_path=FORMAL_CASE_PATH,
+                    input_path=FORMAL_MAINLINE_CASE_PATH,
                     example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
                     local_config_path=local_config_path,
                     output_dir=output_dir,
@@ -2008,7 +2087,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 side_effect=self._fake_concatenate_audio_files,
             ):
                 result = run_generation_pipeline(
-                    input_path=FORMAL_CASE_PATH,
+                    input_path=FORMAL_MAINLINE_CASE_PATH,
                     example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
                     local_config_path=local_config_path,
                     output_dir=output_dir,
@@ -2128,7 +2207,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 side_effect=self._fake_concatenate_audio_files,
             ):
                 result = run_generation_pipeline(
-                    input_path=FORMAL_CASE_PATH,
+                    input_path=FORMAL_MAINLINE_CASE_PATH,
                     example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
                     local_config_path=local_config_path,
                     output_dir=output_dir,
@@ -2245,7 +2324,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 side_effect=self._fake_concatenate_audio_files,
             ), mock.patch("time.sleep", return_value=None):
                 result = run_generation_pipeline(
-                    input_path=FORMAL_CASE_PATH,
+                    input_path=FORMAL_MAINLINE_CASE_PATH,
                     example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
                     local_config_path=local_config_path,
                     output_dir=output_dir,
@@ -2375,7 +2454,7 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
                 side_effect=self._fake_concatenate_audio_files,
             ):
                 result = run_generation_pipeline(
-                    input_path=FORMAL_CASE_PATH,
+                    input_path=FORMAL_MAINLINE_CASE_PATH,
                     example_config_path=FORMAL_EXAMPLE_CONFIG_PATH,
                     local_config_path=local_config_path,
                     output_dir=output_dir,

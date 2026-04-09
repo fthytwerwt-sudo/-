@@ -23,9 +23,10 @@
 
 - 当前主阶段是内容阶段，正往试发阶段过渡
 - 当前正式默认主线是：
-  - 人物
-  - 用户自己的真实录制素材
+  - API 生成真人
+  - 用户本地录制素材
   - 少量 PPT / 图片辅助
+  - 云端剪辑
 - 结构跟着文案走，不先预设整条视频固定载体顺序
 - 人物出现 1 次还是 2 次，是 block 路由结果，不是预设模板
 - 中段主体默认优先交给真实素材承担
@@ -86,11 +87,11 @@ L1 负责回答：
 当前默认推荐值 `已确认`：
 
 - `video_route_strategy = hybrid`
-- `route_profile = human_self_footage_light_ppt`
+- `route_profile = api_human_local_footage_light_ppt_cloud_editing`
 
 补充说明：
 
-- `route_profile = human_self_footage_light_ppt` 是当前正式默认主线
+- `route_profile = api_human_local_footage_light_ppt_cloud_editing` 是当前正式默认主线
 - `route_profile = pure_ppt_secondary` 只表示次级支路，不是默认主线
 
 ## 6. L2：block 层
@@ -99,8 +100,8 @@ L2 负责回答“每个 block 由谁承担”。
 
 常见 block 职责与默认承载映射如下：
 
-- 信任建立 -> `human`
-- 关键判断 / 转折 -> `human`
+- 信任建立 -> `human`（默认由 API 真人承担）
+- 关键判断 / 转折 -> `human`（默认由 API 真人承担）
 - 过程演示 / 过程证据 -> `self_footage`
 - 前后变化 / 现场感 -> `self_footage`
 - 关键词显影 / 结构整理 / 结果句 -> `ppt_or_image`
@@ -147,4 +148,4 @@ L4 负责回答：
 
 ## 9. 当前一句话规则
 
-当前展示路由默认按“人物 + 用户真实录制素材 + 少量 PPT / 图片”理解：结构跟着文案走，人物次数由 block 决定，中段主体默认优先给真实素材承担，pure PPT 与 AI talking avatar 都不再是默认主线。
+当前展示路由默认按“API 生成真人 + 用户本地录制素材 + 少量 PPT / 图片 + 云端剪辑”理解：结构跟着文案走，人物次数由 block 决定，hook / close 默认优先给 API 真人承担，中段主体默认优先给用户本地素材承担，pure PPT 与 AI talking avatar 都不再是默认主线。
