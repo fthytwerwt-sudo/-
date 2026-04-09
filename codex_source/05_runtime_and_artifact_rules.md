@@ -20,7 +20,7 @@
 - 本文件描述的是 `dist/demo/*` 这条 legacy demo 运行事实
 - 当前正式主线已切到：
   - API 生成真人
-  - 用户本地录制素材
+  - 用户录制素材
   - 少量 PPT / 图片
   - 北京区 `OSS + 云剪 cloud-only` 组装
 - 因此 demo 运行事实不能再被偷换成正式主线已验证成立
@@ -475,4 +475,4 @@ python3 generate_demo.py
 
 **`cases/demo.md` → `generate_demo.py` → `say` / `afconvert` / 项目内 `ffmpeg-static` → `video_builder.swift` → `dist/demo/` 四件套产物。**
 
-Codex 后续如果要动这条链路，必须先确认自己动的是哪一层；只要还没验证到 `final.mp4`，就不能把整条链路写成“已成功”。 
+Codex 后续如果要动这条链路，必须先确认自己动的是哪一层；只要还没验证到 `final.mp4`，就不能把整条链路写成“已成功”。

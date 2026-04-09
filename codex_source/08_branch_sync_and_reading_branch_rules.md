@@ -57,6 +57,12 @@
 
 4. 同步回 `codex/user-readable-map`
 
+信息同步任务补充规则：
+
+- 若本轮改的是 `project_source/`、`codex_source/`、`codex_log/latest.md`
+- 且这些改动会改变新聊天默认接手口径
+- 则本轮默认属于“必须同步回主读取分支”的仓库正式事实更新
+
 ### 4.3 不得误报
 
 若未满足对应条件，不得写：

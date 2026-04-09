@@ -1,111 +1,89 @@
-# project_source 导航
+# 项目脑索引
 
-## 1. 目录用途
+## 1. 文件定位
+本文件是 `project_source/` 的总索引。
 
-`project_source/` 是《视频工厂》的项目脑目录。
+当前必须写死：
+- `GPT 数据源/` 当前 25 份中文文件是上游源事实
+- `project_source/` 是同步后的仓库项目脑镜像
+- 若 `project_source/` 与 `GPT 数据源/` 冲突，以 `GPT 数据源/` 当前中文文件集为准
 
-它负责：
+## 2. 项目脑核心文件
 
-- 项目身份
-- 当前阶段
-- 默认主线
-- 展示路由
-- 内容价值底线
-- 选题 / 文案 / 结尾卡判断
+### A. 总述、术语、事实、计划
+- `project_source/00_project_brief.md`
+- `project_source/01_project_system_prompt.md`
+- `project_source/02_term_definitions_and_state_boundaries.md`
+- `project_source/06_project_index.md`
+- `project_source/07_current_formal_facts.md`
+- `project_source/09_target_state_plan.md`
 
-它不负责：
+### B. 内容前置与主线锚点
+- `project_source/21_topic_selection_and_copywriting_rules.md`
+- `project_source/22_copy_mode_routing_rules.md`
+- `project_source/24_human_self_footage_light_ppt_routing_rules.md`
+- `project_source/25_ai_knowledge_video_value_rules.md`
+- `project_source/16_presentation_routing_rules.md`
 
-- 代码实现
-- 执行步骤
-- Git / 分支 / 提交规则
+### C. 搜索、回审、复盘
+- `project_source/03_perplexity_prompt_library.md`
+- `project_source/04_review_templates.md`
+- `project_source/10_video_review_record_template.md`
+- `project_source/11_result_diagnosis_map.md`
+- `project_source/12_review_role_split_and_workflow.md`
+- `project_source/13_stage_and_acceptance_gates.md`
+- `project_source/14_content_review_and_loop_governance_rules.md`
 
-这些属于 `codex_source/`。
-
-## 2. 当前最关键文件
-
-### `project_source/00_project_brief.md`
-
-- 项目当前是什么
-- 当前阶段是什么
-- 当前默认主线是什么
-- demo 当前身份是什么
-
-### `project_source/01_project_system_prompt.md`
-
-- ChatGPT 接手项目时应按什么默认理解项目
-- GPT 数据源与仓库事实冲突时，谁优先
-
-### `project_source/08_quality_baseline_and_90_score_rules.md`
-
-- demo 身份
-- 质量基线
-- 质量闸门与样片交付规则
-
-### `project_source/16_presentation_routing_rules.md`
-
-- 展示路由的四层判断框架
-- block 级路由与回退规则
-
-### `project_source/17_white_collar_ppt_style_rules.md`
-
-- pure PPT / 信息卡次级支路的风格与黑名单
-
-### `project_source/21_topic_selection_and_copywriting_rules.md`
-
-- 选题与文案进入样片前要先锁什么
-
-### `project_source/22_copy_mode_routing_rules.md`
-
-- 4 类内容为什么不能共用一种结构 / 证据 / 结尾卡
-
-### `project_source/24_human_self_footage_light_ppt_routing_rules.md`
-
-- 当前正式默认主线为什么切到“API 真人 + 用户本地素材 + 少量 PPT / 图片 + 云端剪辑”
-- 三类承载各自负责什么
-- 人物出现 1 次还是 2 次为什么是 block 路由结果
-
-### `project_source/25_ai_knowledge_video_value_rules.md`
-
-- AI 知识类内容的价值底线是什么
-- 什么样的内容不够格进样片
+### D. 外层治理与补充层
+- `project_source/15_distribution_and_commercialization_rules.md`
+- `project_source/18_visual_motion_and_information_density_rules.md`
+- `project_source/19_ai_capability_boundary_rules.md`
+- `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md`
+- `project_source/02_scene_mode_templates.md`
+- `project_source/23_scene_and_failure_experience_material_bank.md`
+- `project_source/05_psychology_execution_rules.md`
+- `project_source/08_quality_baseline_and_90_score_rules.md`
 
 ## 3. 建议阅读顺序
 
-### 第一次接手本项目
-
-1. `project_source/06_project_index.md`
-2. `project_source/00_project_brief.md`
-3. `project_source/01_project_system_prompt.md`
-4. `project_source/16_presentation_routing_rules.md`
+### 最小接手顺序
+1. `project_source/00_project_brief.md`
+2. `project_source/02_term_definitions_and_state_boundaries.md`
+3. `project_source/07_current_formal_facts.md`
+4. `project_source/09_target_state_plan.md`
 5. `project_source/24_human_self_footage_light_ppt_routing_rules.md`
-6. `project_source/21_topic_selection_and_copywriting_rules.md`
-7. `project_source/22_copy_mode_routing_rules.md`
-8. `project_source/25_ai_knowledge_video_value_rules.md`
-9. `project_source/08_quality_baseline_and_90_score_rules.md`
-10. 命中 pure PPT 次级支路时，再补读 `project_source/17_white_collar_ppt_style_rules.md`
+6. `project_source/06_project_index.md`
 
-### 命中展示路由任务
+### 内容前置顺序
+7. `project_source/21_topic_selection_and_copywriting_rules.md`
+8. `project_source/22_copy_mode_routing_rules.md`
+9. `project_source/25_ai_knowledge_video_value_rules.md`
+10. `project_source/16_presentation_routing_rules.md`
+11. `project_source/02_scene_mode_templates.md`
+12. `project_source/23_scene_and_failure_experience_material_bank.md`
+13. `project_source/05_psychology_execution_rules.md`
+14. `project_source/08_quality_baseline_and_90_score_rules.md`
 
-优先读：
+### 搜索、回审、复盘顺序
+15. `project_source/03_perplexity_prompt_library.md`
+16. `project_source/04_review_templates.md`
+17. `project_source/10_video_review_record_template.md`
+18. `project_source/11_result_diagnosis_map.md`
+19. `project_source/12_review_role_split_and_workflow.md`
+20. `project_source/13_stage_and_acceptance_gates.md`
+21. `project_source/14_content_review_and_loop_governance_rules.md`
 
-1. `project_source/16_presentation_routing_rules.md`
-2. `project_source/24_human_self_footage_light_ppt_routing_rules.md`
+### 外层治理与协作顺序
+22. `project_source/15_distribution_and_commercialization_rules.md`
+23. `project_source/18_visual_motion_and_information_density_rules.md`
+24. `project_source/19_ai_capability_boundary_rules.md`
+25. `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md`
 
-### 命中选题 / 文案 / 价值判断任务
+## 4. 当前硬规则
+- `project_source/` 只保留当前有效项目脑
+- 当前正式事实与目标态计划必须分开写
+- `云端剪辑 / cloud-only` 在项目脑里只能写成当前正式方向或目标态组成部分，不能冒充 runtime 已稳定跑通
+- `API 生成真人` 不能偷换成某条 provider 已验证成立
 
-优先读：
-
-1. `project_source/21_topic_selection_and_copywriting_rules.md`
-2. `project_source/22_copy_mode_routing_rules.md`
-3. `project_source/25_ai_knowledge_video_value_rules.md`
-
-### 命中 pure PPT 次级支路任务
-
-优先读：
-
-1. `project_source/16_presentation_routing_rules.md`
-2. `project_source/17_white_collar_ppt_style_rules.md`
-
-## 4. 当前导航一句话
-
-当前项目脑默认先按“API 生成真人 + 用户本地录制素材 + 少量 PPT / 图片 + 云端剪辑”理解主线；命中展示路由看 `16 + 24`，命中价值 / 选题 / 文案看 `21 + 22 + 25`，命中 pure PPT 次级支路再看 `17`。
+## 5. 一句话规则
+**以后 `project_source/` 默认按当前同步后的项目脑读取；若与 `GPT 数据源/` 当前中文文件集冲突，以后者为准，并重新同步回仓库。**
