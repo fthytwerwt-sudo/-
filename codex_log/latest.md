@@ -39,7 +39,7 @@
 ## 本轮状态
 
 - 当前工作分支：
-  - `codex/api-human-mainline-unify-20260409`
+  - `codex/user-readable-map`
 - 当前状态标签：
   - `blocked`
 - 当前已完成：
@@ -47,11 +47,11 @@
   - API 真人路径已并回当前正式分支
   - 用户本地素材注入路径已并回当前正式分支
   - 云端 assembly 代码路径已并回当前正式分支
+  - reading branch 已同步本轮统一改造
 - 当前 blocker：
   - 正式 local config 对应的阿里 TTS 免费额度已耗尽，真实 generation 卡在 `AllocationQuota.FreeTierOnly`
 
 ## 当前必须继续明确
 
 - `dist/*` 产物和本地配置仍属于 `local_only`
-- 当前 reading branch 还没同步本轮统一改造
 - 当前 blocked 发生在环境 / provider 配额层，不是默认主线代码缺失层
