@@ -1,0 +1,41 @@
+{
+  "schema_version": "formal_api_demo_route_plan/v1",
+  "route_profile": "api_human_local_footage_light_ppt_cloud_editing",
+  "video_route_strategy": "hybrid",
+  "route_reason": "API 真人负责开头判断，用户真实录屏负责主体推进和证据感，结尾只用一张轻量收束卡把动作点压实。",
+  "blocks": [
+    {
+      "block_id": "seg01",
+      "block_goal": "API 真人开头，先把“为什么总返工”的判断打出去",
+      "block_carrier": "human",
+      "asset_source": "api_generated",
+      "asset_key": "hook_human",
+      "needs_image": true,
+      "needs_video": true,
+      "allow_real_desktop_footage": false,
+      "visual_intent": "API 真人半身口播，固定背景，第一句就像在提醒团队别再直接开干"
+    },
+    {
+      "block_id": "seg02",
+      "block_goal": "用用户录屏把“先压清，再执行”的过程推进做实",
+      "block_carrier": "self_footage",
+      "asset_source": "user_media",
+      "asset_key": "process_self_footage",
+      "needs_image": false,
+      "needs_video": true,
+      "allow_real_desktop_footage": true,
+      "visual_intent": "用户自己的真实录屏，从开头就能看到在整理步骤、确认路径、推进执行，像把任务真正压成可交接动作"
+    },
+    {
+      "block_id": "seg03",
+      "block_goal": "用一张轻量信息卡把动作点收束",
+      "block_carrier": "light_ppt",
+      "asset_source": "api_generated",
+      "asset_key": "",
+      "needs_image": true,
+      "needs_video": false,
+      "allow_real_desktop_footage": false,
+      "visual_intent": "极简结果卡，只显影“目标 / 边界 / 验收 / 再执行”四个关键词，像收口，不像课件"
+    }
+  ]
+}

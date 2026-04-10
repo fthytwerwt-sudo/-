@@ -90,6 +90,19 @@
 - 且这些改动会改变新聊天默认接手口径
 - 则本轮默认属于“必须同步回主读取分支”的仓库正式事实更新
 
+当前待发对象 / 当前样片任务补充规则：
+
+- 若本轮结果改变了以下任一项：
+  - 当前待发对象
+  - 当前审核对象
+  - 当前正式状态
+  - 当前唯一最高优先级 blocker
+  - 现在最该改的唯一一点
+- 则除 `codex_log/latest.md` 外，还必须同步更新：
+  - `codex_log/current_publish_target.md`
+- 若本轮补齐、替换或确认了 Git 可追踪轻量证据包，还应同步更新：
+  - `codex_log/current_publish_target_light_evidence.md`
+
 ### 4.3 不得误报
 
 若未满足对应条件，不得写：
@@ -190,11 +203,13 @@
 
 1. 确认本轮状态分类
 2. 更新 `codex_log/latest.md`
-3. 命中写日志条件时补完整日志
-4. commit
-5. push 当前任务分支
-6. 只要本轮结果改变了下个聊天框默认应该知道的当前状态，就同步回 `codex/user-readable-map`
-7. 回报 4 个同步锚点
+3. 若本轮涉及当前待发对象 / 当前审核对象 / 当前唯一 blocker / 当前样片状态，再更新 `codex_log/current_publish_target.md`
+4. 若本轮涉及轻量证据包变化，再更新 `codex_log/current_publish_target_light_evidence.md`
+5. 命中写日志条件时补完整日志
+6. commit
+7. push 当前任务分支
+8. 只要本轮结果改变了下个聊天框默认应该知道的当前状态，就同步回 `codex/user-readable-map`
+9. 回报 4 个同步锚点
 
 ## 9. 允许例外
 

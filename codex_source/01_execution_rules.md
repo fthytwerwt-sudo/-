@@ -22,13 +22,16 @@
 3. 若本地无相关 skill，再检查全局 `~/.codex/skills`
 4. `codex_source/00_codex_readme.md`
 5. `codex_log/latest.md`
-6. `codex_source/01_execution_rules.md`
-7. `codex_source/02_current_execution_context.md`
-8. `codex_source/03_research_findings_bridge.md`
-9. 当前任务直接相关的 `project_source/*`
-10. 命中价值 / 文案 / 结尾卡时，读 `codex_source/11_ai_knowledge_video_value_bridge.md`
-11. 命中“什么算已知”时，读 `codex_source/12_codex_known_state_three_layer_rules.md`
-12. 命中 commit / push / reading branch 回流时，再读 `codex_source/08_branch_sync_and_reading_branch_rules.md`
+6. 若任务命中“当前待发对象 / 当前最新样片 / 发布线复核 / 当前唯一 blocker / 只改这一条内容”，在 `codex_log/latest.md` 之后优先读：
+   - `codex_log/current_publish_target.md`
+   - 若需要快速复核当前样片的 Git 可追踪轻量证据，再读 `codex_log/current_publish_target_light_evidence.md`
+7. `codex_source/01_execution_rules.md`
+8. `codex_source/02_current_execution_context.md`
+9. `codex_source/03_research_findings_bridge.md`
+10. 当前任务直接相关的 `project_source/*`
+11. 命中价值 / 文案 / 结尾卡时，读 `codex_source/11_ai_knowledge_video_value_bridge.md`
+12. 命中“什么算已知”时，读 `codex_source/12_codex_known_state_three_layer_rules.md`
+13. 命中 commit / push / reading branch 回流时，再读 `codex_source/08_branch_sync_and_reading_branch_rules.md`
 
 当前仓库现实 `已确认`：
 
@@ -120,6 +123,17 @@
 1. 刷新 `codex_log/latest.md`
 2. 新增一条 `codex_log/YYYYMMDD_任务名.md`
 
+若本轮结果会改变以下任一项，还必须同步刷新：
+
+- `codex_log/current_publish_target.md`
+  - 当前待发对象
+  - 当前审核对象
+  - 当前正式状态
+  - 当前唯一最高优先级 blocker
+  - 现在最该改的唯一一点
+- 若当前样片的 Git 可追踪轻量证据有变化，再同步刷新：
+  - `codex_log/current_publish_target_light_evidence.md`
+
 ## 9. 主读取分支与状态分类
 
 当前仓库默认主读取分支固定为：
@@ -146,7 +160,9 @@
 
 1. `git diff --check`
 2. 重新读取关键目标文件，确认口径一致
-3. 若声称已同步回主读取分支，使用 `git show codex/user-readable-map:路径` 做实际读取验证
+3. 重新读取 `codex_log/current_publish_target.md`，确认只靠稳定入口就能知道当前对象、状态、blocker 与下一步
+4. 若本轮补了轻量证据包，再读取 `codex_log/current_publish_target_light_evidence.md`
+5. 若声称已同步回主读取分支，使用 `git show codex/user-readable-map:路径` 做实际读取验证
 
 ## 11. 完成口径硬规则
 

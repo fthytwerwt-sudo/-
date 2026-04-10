@@ -38,33 +38,38 @@
 2. `codex_source/00_codex_readme.md`
 3. `codex_log/latest.md`
 
+若任务命中“当前待发对象 / 当前最新样片 / 发布线复核 / 当前唯一 blocker / 只改这一条内容”，则在 `codex_log/latest.md` 之后优先补读：
+
+4. `codex_log/current_publish_target.md`
+5. 若需要快速复核当前样片结构与轻量证据，再补读 `codex_log/current_publish_target_light_evidence.md`
+
 若任务偏执行规则，再补读：
 
-4. `codex_source/01_execution_rules.md`
-5. `codex_source/02_current_execution_context.md`
-6. `codex_source/03_research_findings_bridge.md`
+6. `codex_source/01_execution_rules.md`
+7. `codex_source/02_current_execution_context.md`
+8. `codex_source/03_research_findings_bridge.md`
 
 若任务命中展示路由，再补读：
 
-7. `project_source/16_presentation_routing_rules.md`
-8. `project_source/24_human_self_footage_light_ppt_routing_rules.md`
+9. `project_source/16_presentation_routing_rules.md`
+10. `project_source/24_human_self_footage_light_ppt_routing_rules.md`
 
 若任务命中选题 / 文案 / 价值判断，再补读：
 
-9. `project_source/21_topic_selection_and_copywriting_rules.md`
-10. `project_source/22_copy_mode_routing_rules.md`
-11. `project_source/25_ai_knowledge_video_value_rules.md`
-12. `codex_source/11_ai_knowledge_video_value_bridge.md`
+11. `project_source/21_topic_selection_and_copywriting_rules.md`
+12. `project_source/22_copy_mode_routing_rules.md`
+13. `project_source/25_ai_knowledge_video_value_rules.md`
+14. `codex_source/11_ai_knowledge_video_value_bridge.md`
 
 若任务命中“当前正式事实 / 目标态计划 / 术语边界”，再补读：
 
-13. `project_source/02_term_definitions_and_state_boundaries.md`
-14. `project_source/07_current_formal_facts.md`
-15. `project_source/09_target_state_plan.md`
+15. `project_source/02_term_definitions_and_state_boundaries.md`
+16. `project_source/07_current_formal_facts.md`
+17. `project_source/09_target_state_plan.md`
 
 若任务命中“什么算已知”，再补读：
 
-16. `codex_source/12_codex_known_state_three_layer_rules.md`
+18. `codex_source/12_codex_known_state_three_layer_rules.md`
 
 ## 4. 当前正式默认主线
 
@@ -72,7 +77,7 @@
 
 - API 生成真人
 - 用户录制素材
-- 少量 PPT / 图片辅助
+- 少量 PPT
 - 云端剪辑
 
 必须同时默认理解：
@@ -130,4 +135,4 @@
 
 ## 7. 入口一句话
 
-新会话默认先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md`；当前正式默认主线按“API 生成真人 + 用户录制素材 + 少量 PPT / 图片 + 云端剪辑”理解，结构跟着文案走，`API生成真人段` 次数由 block 路由决定；若 GPT 数据源与仓库不同步，以已同步进 `project_source/`、`codex_source/` 并已回流 `codex/user-readable-map` 的事实为准。
+新会话默认先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md`；若任务命中当前待发对象 / 当前最新样片 / 发布线复核 / 当前唯一 blocker / 只改这一条内容，再优先读 `codex_log/current_publish_target.md`，需要轻量证据时再读 `codex_log/current_publish_target_light_evidence.md`；当前正式默认主线按“API 生成真人 + 用户录制素材 + 少量 PPT + 云端剪辑”理解，结构跟着文案走，`API生成真人段` 次数由 block 路由决定；若 GPT 数据源与仓库不同步，以已同步进 `project_source/`、`codex_source/` 并已回流 `codex/user-readable-map` 的事实为准。
