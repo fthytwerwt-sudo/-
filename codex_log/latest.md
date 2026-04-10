@@ -2,70 +2,30 @@
 
 ## 当前主结论
 
-- `已确认` 本轮完成的是 **AI 知识类视频价值与结构规则补强**，不是代码实现任务。
-- `已确认` 当前仓库不再只停在“价值底线粗版”。
-- `已确认` 当前已把四类 AI 知识类内容的：
-  - 最低价值交付
-  - 强证据 / 弱证据层级
-  - 结构匹配
-  - 开头匹配
-  - 结尾总结卡匹配
-  - block 职责细化
-  正式补进仓库现有镜像文件。
-- `已确认` 当前 AI 知识类视频的正式默认，不再只是“讲了很多”，而是：
-  - 用户看完后能做什么
-  - 用户看完后能判断什么
-  - 用户能看到什么证据
-- `已确认` 以后默认不能只写价值底线，还要同时按四类内容去判断：
-  - 更适合什么结构
-  - 更适合什么开头
-  - 更适合什么结尾
-  - 更需要谁承担关键判断、主体推进和整理收束
+- `已确认` 当前最新审核对象锁定为 `dist/formal_api_demo_user_footage_20260409/final.mp4`。
+- `已确认` 本轮前，reading branch 入口层未见这条 15 秒样片的正式验收写回，属于 `待复核事实`。
+- `已确认` 本轮正式结论是：`technical_validation 通过，content_validation 未通过`。
+- `已确认` 当前唯一最高优先级 blocker 是：`seg02` 用户录屏在 9:16 竖版里有效信息面积过小、黑边过大，没承担起中段主体推进和证据职责，整条片子因此滑回 `demo 感 / 说明书感`。
+- `已确认` 当前更像“明天这条内容本身不过线”，不是规则层缺失。
+- `部分成立` 当前样片文件、manifest、script、captions 都存在于本地，但 `dist/formal_api_demo_user_footage_20260409/` 仍未纳入 Git 跟踪；本轮同步回仓库的是审核结论，不是样片二进制。
 
-## 当前接手建议先读
+## 审核对象与关键证据
+
+1. `dist/formal_api_demo_user_footage_20260409/final.mp4`
+2. `dist/formal_api_demo_user_footage_20260409/manifest.json`
+3. `dist/formal_api_demo_user_footage_20260409/script.txt`
+4. `dist/formal_api_demo_user_footage_20260409/captions.srt`
+5. `dist/formal_api_demo_user_footage_20260409/route_plan.json`
+6. `codex_log/20260411_latest_sample_publish_line_review.md`
+
+## 当前默认接手建议先读
 
 1. `AGENTS.md`
 2. `codex_source/00_codex_readme.md`
 3. `codex_log/latest.md`
-4. `project_source/25_ai_knowledge_video_value_rules.md`
-5. `project_source/21_topic_selection_and_copywriting_rules.md`
-6. `project_source/22_copy_mode_routing_rules.md`
-7. `codex_source/03_research_findings_bridge.md`
-8. `codex_log/20260410_ai_knowledge_value_and_structure_rule_patch.md`
-
-## 本轮状态
-
-- 当前任务性质：
-  - 外部研究收束
-  - 项目规则补强
-  - 路由规则补强
-- 当前影响范围：
-  - AI 知识类视频价值底线
-  - 文案进入前的前置锁定项
-  - 四类内容的结构 / 开头 / 结尾矩阵
-  - block 职责细化
-  - 执行层 bridge
-
-## 当前默认行为变化
-
-- 过去容易出现：
-  - 只知道“有价值”大方向，但不知道四类内容该怎么落结构
-  - 进入文案前没有锁清最小收获、关键证据、开头类型、结尾类型
-  - 文案路由里缺结构矩阵、开头矩阵、结尾矩阵和 block 职责细化
-- 当前正式默认改成：
-  - AI 项目讲解更适合 `结论先行 → 过程补充`
-  - AI 方法分享更适合 `旧方式 → 新方式`，或 `错误点 → 正确动作 → 自检标准`
-  - AI 学习实操更适合 `问题 → 动作 → 结果`
-  - AI 案例拆解更适合 `提问 → 拆解 → 结论`
-  - 进入文案前必须至少锁：
-    - 用户最小收获
-    - 最关键证据
-    - 最合适开头类型
-    - 最合适结尾类型
-
-## 当前仍需明确
-
-- 本轮没有新建任何 `project_source` 新文件
-- 本轮没有新建任何 GPT Project 数据源文件
-- 本轮没有改动任何代码 / 测试 / config / case / `dist`
-- 当前 reading branch 应以这轮“AI 知识类视频价值与结构规则补强”后的口径为准
+4. `project_source/07_current_formal_facts.md`
+5. `project_source/08_quality_baseline_and_90_score_rules.md`
+6. `project_source/14_content_review_and_loop_governance_rules.md`
+7. `project_source/16_presentation_routing_rules.md`
+8. `project_source/24_human_self_footage_light_ppt_routing_rules.md`
+9. `codex_log/20260411_latest_sample_publish_line_review.md`
