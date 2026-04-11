@@ -12,15 +12,20 @@
 
 - `technical_validation`：`通过`
 - `content_validation`：`未通过`
-- 当前判断：`Route B｜素材阻断态继续成立：新素材 最新.mp4 也不足以把当前样片推过发布线`
+- 当前判断：`Route B｜素材阻断态继续成立：当前仓库内现成素材（1.mov / 2.mov / 3.mov / 最新.mp4）都不足以把当前样片推过发布线`
 
 ## 唯一最高优先级 blocker
 
-- 新素材 `素材录制/最新.mp4` 更像在展示补录清单 / 结构化要求本身，而不是录下“同一任务从旧状态到新状态”的真实前后差值；因此它不能替代 `seg02` 主证据素材，也不能把当前样片推过发布线。
+- 当前仓库内现成素材：
+  - `素材录制/1.mov`
+  - `素材录制/2.mov`
+  - `素材录制/3.mov`
+  - `素材录制/最新.mp4`
+  都更像聊天录屏、结构说明或要求清单展示，而不是录下“同一任务从旧状态到新状态”的真实前后差值；因此它们都不能替代 `seg02` 主证据素材，也不能把当前样片推过发布线。
 
 ## 现在最该改的唯一一点
 
-- 重新按 `seg02_capture_brief` 补录真正的同一任务差值素材：旧状态不可直接交 AI、压清动作、压清后可直接交接状态三者必须在同一任务链里连续成立；不要再录对补录清单本身的讲解画面。
+- 重新按 `seg02_capture_brief` 补录真正的同一任务差值素材：旧状态不可直接交 AI、压清动作、压清后可直接交接状态三者必须在同一任务链里连续成立；不要再录对补录清单本身的讲解画面，也不要再从现有 `2.mov / 3.mov / 最新.mp4` 里硬找替代窗口。
 
 ## 当前已追踪证据
 
@@ -34,6 +39,7 @@
 - `codex_log/20260411_latest_sample_publish_line_review.md`
 - `codex_log/20260411_seg02_evidence_recut_review.md`
 - `codex_log/20260411_seg02_capture_brief.md`
+- `codex_log/20260412_existing_local_footage_delta_audit.md`
 - `codex_log/20260412_new_material_route_b_recheck.md`
 
 ## 当前 `local_only` 证据
@@ -42,6 +48,8 @@
 - `dist/formal_api_demo_user_footage_20260409/assembly/formal_api_demo_preview.mp4`
 - `dist/formal_api_demo_user_footage_20260409/visual/seg02_evidence_focus_v3.mp4`
 - `素材录制/1.mov`
+- `素材录制/2.mov`
+- `素材录制/3.mov`
 - `素材录制/最新.mp4`
 
 ## `lane_recommendation`
@@ -84,7 +92,7 @@
 
 ## 最后更新时间
 
-- `2026-04-12 00:53:58 CST`
+- `2026-04-12 02:52:54 CST`
 
 ## 对应 dated log 路径
 
@@ -93,3 +101,4 @@
 - 本轮 `seg02` 重剪复核：`codex_log/20260411_seg02_evidence_recut_review.md`
 - 本轮素材阻断与补录清单：`codex_log/20260411_seg02_capture_brief.md`
 - 本轮新素材复核：`codex_log/20260412_new_material_route_b_recheck.md`
+- 本轮现成素材全量审计：`codex_log/20260412_existing_local_footage_delta_audit.md`
