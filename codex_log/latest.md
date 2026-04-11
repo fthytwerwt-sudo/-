@@ -2,26 +2,16 @@
 
 ## 当前主结论
 
-- `已确认` 本轮完成的是 `execution lane + parallel gate` 机制补全，不是当前样片状态变化。
-- `已确认` GPT Project 路由层现在已经能先判：
-  - 该走 `fast_lane` / `standard_lane` / `audit_lane`
-  - 能不能并发
-  - 该用哪种并发结构
-- `已确认` Codex 执行层现在已经有完整的 lane / parallel 正文规则与 prompt skeleton：
-  - `codex_source/13_execution_lane_and_parallel_rules.md`
-- `已确认` `current_publish_target.md` 现在已新增：
-  - `lane_recommendation`
-  - `lane_reason`
-  - `lane_invalid_if`
-  - `parallel_recommendation`
-  - `parallel_reason`
-  - `parallel_invalid_if`
-- `已确认` 当前对象的默认建议已明确写成：
-  - `lane_recommendation = standard_lane`
-  - `parallel_recommendation = serial_only`
-- `已确认` 本轮没有改当前样片正式状态结论：
-  - 当前仍是 `technical_validation 通过，content_validation 未通过`
-- `已确认` 本轮机制提速只针对读取 / 对齐 / 下发，不得被偷换成 runtime 一定更快。
+- `已确认` 本轮围绕当前待发样片只做了最后一轮 `seg02` 素材强度判定，结论收成 `Route B`。
+- `已确认` 当前样片正式状态仍是：
+  - `technical_validation 通过`
+  - `content_validation 未通过`
+- `已确认` 当前不再建议继续硬修现有 `1.mov`，而是已正式进入“素材阻断态”。
+- `已确认` 当前唯一最高优先级 blocker 已正式收敛为：
+  - 现有 `1.mov` 缺足够强的同任务前后差值，继续剪只会更顺，不会真正把样片推过发布线。
+- `已确认` 已新增一份可直接补录的精确清单：
+  - `codex_log/20260411_seg02_capture_brief.md`
+- `已确认` 当前对象指针已刷新，下一轮若继续推进这条样片，应先按补录清单准备素材，而不是继续改当前剪辑。
 
 ## 当前默认接手建议先读
 
@@ -29,8 +19,7 @@
 2. `codex_source/00_codex_readme.md`
 3. `codex_log/latest.md`
 4. `codex_log/current_publish_target.md`
-5. `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md`
-6. `codex_source/13_execution_lane_and_parallel_rules.md`
-7. `codex_log/current_publish_target_light_evidence.md`
-8. `codex_log/20260411_execution_lane_and_parallel_mechanism_patch.md`
-9. `codex_log/20260411_seg02_evidence_recut_review.md`
+5. `codex_log/20260411_seg02_capture_brief.md`
+6. `codex_log/current_publish_target_light_evidence.md`
+7. `codex_log/20260411_seg02_evidence_recut_review.md`
+8. `codex_log/20260411_latest_sample_publish_line_review.md`
