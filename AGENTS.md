@@ -85,6 +85,9 @@
 补充规则：
 
 - 若任务明显偏执行规则，再补读 `codex_source/01_execution_rules.md`
+- 若任务命中“execution lane / parallel gate / 是否适合提速 / 是否适合并发 / lane recommendation / parallel recommendation”，则在 `codex_log/latest.md` 之后补读：
+  - `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md`
+  - `codex_source/13_execution_lane_and_parallel_rules.md`
 - 若任务涉及 commit / push / PR / 主读取分支回流 / `latest.md` 更新 / `.gitignore` 边界，则必读：
   - `codex_source/08_branch_sync_and_reading_branch_rules.md`
 - 若任务明显偏项目判断、内容边界或场景结构，再补读 `project_source/06_project_index.md` 与相关 `project_source/*`
@@ -92,6 +95,10 @@
   - `codex_log/current_publish_target.md`
   - 若需要快速复核当前样片的 Git 可追踪轻量证据，再补读：
     - `codex_log/current_publish_target_light_evidence.md`
+  - 当前若涉及提速或并发，也必须同时检查：
+    - `lane_recommendation`
+    - `parallel_recommendation`
+    - 它们的 `invalid_if`
 - 若任务命中展示路由 / 真人与 PPT 选择 / 录屏与案例图取舍 / 混合承载判断，则在最小接手集合之外补读：
   - `project_source/16_presentation_routing_rules.md`
   - 若任务同时命中“API 生成真人 + 用户录制素材 + 少量 PPT + 云端剪辑”的新版默认主线，再补读：
@@ -319,4 +326,4 @@
 
 如果 Codex 这轮只记一句话：
 
-**新会话先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md` 完成最小启动；若任务命中“当前待发对象 / 当前最新样片 / 发布线复核 / 当前唯一 blocker / 只改这一条内容”，则在 `latest.md` 之后先读 `codex_log/current_publish_target.md`，需要轻量证据时再读 `codex_log/current_publish_target_light_evidence.md`；当前默认主线按“API 生成真人 + 用户录制素材 + 少量 PPT + 云端剪辑”理解，结构跟着文案走、人物出现次数由 block 路由决定，cloud assembly 继续是正式主路径；若任务命中展示路由 / 真人与 PPT / 混合承载判断，则再补读 `project_source/16_presentation_routing_rules.md` 与 `project_source/24_human_self_footage_light_ppt_routing_rules.md`；若任务涉及 commit / push / PR / 主读取分支回流 / `latest.md` 更新，则再补读 `codex_source/08_branch_sync_and_reading_branch_rules.md`；命中仓库型任务时，只有同步回 `codex/user-readable-map` 才算仓库正式状态。**
+**新会话先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md` 完成最小启动；若任务命中“当前待发对象 / 当前最新样片 / 发布线复核 / 当前唯一 blocker / 只改这一条内容”，则在 `latest.md` 之后先读 `codex_log/current_publish_target.md`，需要轻量证据时再读 `codex_log/current_publish_target_light_evidence.md`；若任务命中 execution lane / parallel gate / 是否适合提速 / 是否适合并发，再补读 `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md` 与 `codex_source/13_execution_lane_and_parallel_rules.md`；当前默认主线按“API 生成真人 + 用户录制素材 + 少量 PPT + 云端剪辑”理解，结构跟着文案走、人物出现次数由 block 路由决定，cloud assembly 继续是正式主路径；若任务命中展示路由 / 真人与 PPT / 混合承载判断，则再补读 `project_source/16_presentation_routing_rules.md` 与 `project_source/24_human_self_footage_light_ppt_routing_rules.md`；若任务涉及 commit / push / PR / 主读取分支回流 / `latest.md` 更新，则再补读 `codex_source/08_branch_sync_and_reading_branch_rules.md`；命中仓库型任务时，只有同步回 `codex/user-readable-map` 才算仓库正式状态。**

@@ -41,6 +41,41 @@
 - `dist/formal_api_demo_user_footage_20260409/visual/seg02_evidence_focus_v3.mp4`
 - `素材录制/1.mov`
 
+## `lane_recommendation`
+
+- `standard_lane`
+
+## `lane_reason`
+
+- 当前对象、当前状态、当前唯一 blocker 和下一步都已固定；
+- 但当前对象任务仍会碰同一条样片、同一组输出路径和 `local_only` 重证据；
+- 因此它已经不需要先重判边界，却也不适合被写成无条件低风险的 `fast_lane`。
+
+## `lane_invalid_if`
+
+- 当前对象指针过期或未刷新
+- 当前 blocker 不止一个
+- 当前状态重新依赖大量本地重证据才能判断
+- 当前任务开始碰 `project_source/*`
+- 当前任务重新变成“这到底是规则问题还是内容问题”的重判
+- 当前任务风险升到 provider / runtime / 配置层
+
+## `parallel_recommendation`
+
+- `serial_only`
+
+## `parallel_reason`
+
+- 当前对象任务会写同一条样片、同一份 manifest / route_plan / result_summary 和同一组输出路径；
+- 当前慢点主要在真实生成 / 组装 / 复核，而不是读取本身；
+- 因此当前对象层默认应保持单写手串行，不建议并发写入。
+
+## `parallel_invalid_if`
+
+- 当前任务降成纯读取 / 审计，不再写同一条样片
+- 当前任务能清楚拆成互不写同一路径的子任务
+- 当前慢点重新回到读取 / 定位 / 结构化整理，而不再是执行 / 组装
+
 ## 当前同步状态
 
 - 状态分类：`formal_synced`
@@ -50,7 +85,7 @@
 
 ## 最后更新时间
 
-- `2026-04-11 04:37:37 CST`
+- `2026-04-11 21:09:44 CST`
 
 ## 对应 dated log 路径
 

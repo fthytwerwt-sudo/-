@@ -22,16 +22,19 @@
 3. 若本地无相关 skill，再检查全局 `~/.codex/skills`
 4. `codex_source/00_codex_readme.md`
 5. `codex_log/latest.md`
-6. 若任务命中“当前待发对象 / 当前最新样片 / 发布线复核 / 当前唯一 blocker / 只改这一条内容”，在 `codex_log/latest.md` 之后优先读：
+6. 若任务命中“execution lane / parallel gate / 是否适合提速 / 是否适合并发 / lane recommendation / parallel recommendation”，在 `codex_log/latest.md` 之后优先读：
+   - `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md`
+   - `codex_source/13_execution_lane_and_parallel_rules.md`
+7. 若任务命中“当前待发对象 / 当前最新样片 / 发布线复核 / 当前唯一 blocker / 只改这一条内容”，在 `codex_log/latest.md` 之后优先读：
    - `codex_log/current_publish_target.md`
    - 若需要快速复核当前样片的 Git 可追踪轻量证据，再读 `codex_log/current_publish_target_light_evidence.md`
-7. `codex_source/01_execution_rules.md`
-8. `codex_source/02_current_execution_context.md`
-9. `codex_source/03_research_findings_bridge.md`
-10. 当前任务直接相关的 `project_source/*`
-11. 命中价值 / 文案 / 结尾卡时，读 `codex_source/11_ai_knowledge_video_value_bridge.md`
-12. 命中“什么算已知”时，读 `codex_source/12_codex_known_state_three_layer_rules.md`
-13. 命中 commit / push / reading branch 回流时，再读 `codex_source/08_branch_sync_and_reading_branch_rules.md`
+8. `codex_source/01_execution_rules.md`
+9. `codex_source/02_current_execution_context.md`
+10. `codex_source/03_research_findings_bridge.md`
+11. 当前任务直接相关的 `project_source/*`
+12. 命中价值 / 文案 / 结尾卡时，读 `codex_source/11_ai_knowledge_video_value_bridge.md`
+13. 命中“什么算已知”时，读 `codex_source/12_codex_known_state_three_layer_rules.md`
+14. 命中 commit / push / reading branch 回流时，再读 `codex_source/08_branch_sync_and_reading_branch_rules.md`
 
 当前仓库现实 `已确认`：
 
@@ -52,6 +55,11 @@
 - `using-superpowers`
 - `context-driven-development`
 - `verification-before-completion`
+
+当前这类“execution lane / parallel mechanism”任务，额外必须检查：
+
+- `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md`
+- `codex_source/13_execution_lane_and_parallel_rules.md`
 
 ## 4. 哪些情况必须先审计
 
@@ -131,6 +139,12 @@
   - 当前正式状态
   - 当前唯一最高优先级 blocker
   - 现在最该改的唯一一点
+  - `lane_recommendation`
+  - `lane_reason`
+  - `lane_invalid_if`
+  - `parallel_recommendation`
+  - `parallel_reason`
+  - `parallel_invalid_if`
 - 若当前样片的 Git 可追踪轻量证据有变化，再同步刷新：
   - `codex_log/current_publish_target_light_evidence.md`
 
@@ -162,7 +176,10 @@
 2. 重新读取关键目标文件，确认口径一致
 3. 重新读取 `codex_log/current_publish_target.md`，确认只靠稳定入口就能知道当前对象、状态、blocker 与下一步
 4. 若本轮补了轻量证据包，再读取 `codex_log/current_publish_target_light_evidence.md`
-5. 若声称已同步回主读取分支，使用 `git show codex/user-readable-map:路径` 做实际读取验证
+5. 若本轮补的是 lane / parallel 机制，再读取：
+   - `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md`
+   - `codex_source/13_execution_lane_and_parallel_rules.md`
+6. 若声称已同步回主读取分支，使用 `git show codex/user-readable-map:路径` 做实际读取验证
 
 ## 11. 完成口径硬规则
 

@@ -103,6 +103,24 @@
 - 若本轮补齐、替换或确认了 Git 可追踪轻量证据包，还应同步更新：
   - `codex_log/current_publish_target_light_evidence.md`
 
+执行车道 / 并发建议补充规则：
+
+- 若本轮结果改变了以下任一项：
+  - `lane_recommendation`
+  - `lane_reason`
+  - `lane_invalid_if`
+  - `parallel_recommendation`
+  - `parallel_reason`
+  - `parallel_invalid_if`
+- 则除 `codex_log/latest.md` 外，也必须同步更新：
+  - `codex_log/current_publish_target.md`
+
+必须明确：
+
+- lane / parallel 建议属于接手口径
+- 不是只在聊天里说过就算完成
+- 只有回流到 `codex/user-readable-map` 才算正式已知
+
 ### 4.3 不得误报
 
 若未满足对应条件，不得写：
@@ -229,4 +247,4 @@
 
 ## 10. 当前一句话规则
 
-凡本轮存在 Git 跟踪的仓库改动，且不是 `local_only` / `no_repo_change`，必须完成 `latest.md + commit + push`；只要本轮结果改变了下个聊天框默认应该知道的当前状态，无论成功、失败、半成功还是 `blocked`，都还必须同步回 `codex/user-readable-map`；未满足这些条件时，不得写“已完成上传”或“已同步”。
+凡本轮存在 Git 跟踪的仓库改动，且不是 `local_only` / `no_repo_change`，必须完成 `latest.md + commit + push`；只要本轮结果改变了下个聊天框默认应该知道的当前状态，无论成功、失败、半成功还是 `blocked`，都还必须同步回 `codex/user-readable-map`；当前待发对象指针里的 `lane_recommendation / parallel_recommendation` 也属于这种必须回流的接手口径；未满足这些条件时，不得写“已完成上传”或“已同步”。

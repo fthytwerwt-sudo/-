@@ -108,6 +108,29 @@
 
 - `codex_log/current_publish_target_light_evidence.md`
 
+## 8B. 执行车道与并发建议来源
+
+凡任务命中以下任一情况，默认补读：
+
+- `execution lane`
+- `parallel gate`
+- 是否适合提速
+- 是否适合并发
+- `lane_recommendation`
+- `parallel_recommendation`
+
+优先读：
+
+- `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md`
+- `codex_source/13_execution_lane_and_parallel_rules.md`
+
+必须明确：
+
+- `fast_lane` 不是默认无条件可用
+- 并发不是默认无条件可用
+- 条件失效时必须降级
+- 提速 / 并发不等于 runtime 一定更快
+
 ## 9. 当前一句话上下文
 
-当前执行层默认按“API 生成真人 + 用户录制素材 + 少量 PPT + 云端剪辑”理解项目：结构跟着文案走，`API生成真人段` 次数由 block 路由决定，`云端剪辑 / cloud-only` 只先算正式方向，不自动等于 runtime 已稳定跑通；命中当前待发对象 / 当前样片 / 发布线复核时，在 `latest.md` 之后优先看 `codex_log/current_publish_target.md`；本轮信息同步若完成，只代表仓库信息层已更新，不代表代码、provider 或样片已验证成立。
+当前执行层默认按“API 生成真人 + 用户录制素材 + 少量 PPT + 云端剪辑”理解项目：结构跟着文案走，`API生成真人段` 次数由 block 路由决定，`云端剪辑 / cloud-only` 只先算正式方向，不自动等于 runtime 已稳定跑通；命中当前待发对象 / 当前样片 / 发布线复核时，在 `latest.md` 之后优先看 `codex_log/current_publish_target.md`；命中提速 / 并发判定时，再看 `project_source/20...` 与 `codex_source/13...`；本轮信息同步若完成，只代表仓库信息层已更新，不代表代码、provider 或样片已验证成立。
