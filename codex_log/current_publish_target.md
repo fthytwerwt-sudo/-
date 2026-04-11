@@ -16,11 +16,11 @@
 
 ## 唯一最高优先级 blocker
 
-- `seg02` 用户录屏在 `9:16` 竖版里有效信息面积过小、黑边过大，没承担起中段主体推进和证据职责，整条片子因此滑回 `demo 感 / 说明书感`。
+- `seg02` 已经不再是“小录屏 + 大黑边”的占位段，但当前 `1.mov` 仍缺足够强的同任务前后差值；这轮靠竖裁、放大和分拍标签把证据感拉起来了，可还是更像“看懂你在压清”，还没强到“一眼就懂同一任务已经被压成可直接交接状态”。
 
 ## 现在最该改的唯一一点
 
-- 只重做 `seg02` 的竖版证据呈现，让观众在 9 秒内看清一个完整动作或一个明确差值；优先改裁切、放大、跟随、高亮或换更适合 `9:16` 的真实素材，不先扩规则，不先重写整条片。
+- 若要继续冲发布线，下一步最该做的唯一一点是：补一段同一任务从“没压清”到“已压成目标 / 边界 / 验收清单”的更强原始录屏差值，而不是再加人物段或再扩规则。
 
 ## 当前已追踪证据
 
@@ -32,11 +32,13 @@
 - `dist/formal_api_demo_user_footage_20260409/result_summary.json`
 - `codex_log/current_publish_target_light_evidence.md`
 - `codex_log/20260411_latest_sample_publish_line_review.md`
+- `codex_log/20260411_seg02_evidence_recut_review.md`
 
 ## 当前 `local_only` 证据
 
 - `dist/formal_api_demo_user_footage_20260409/final.mp4`
 - `dist/formal_api_demo_user_footage_20260409/assembly/formal_api_demo_preview.mp4`
+- `dist/formal_api_demo_user_footage_20260409/visual/seg02_evidence_focus_v3.mp4`
 - `素材录制/1.mov`
 
 ## 当前同步状态
@@ -48,9 +50,10 @@
 
 ## 最后更新时间
 
-- `2026-04-11 01:23:10 CST`
+- `2026-04-11 04:37:37 CST`
 
 ## 对应 dated log 路径
 
 - 状态判定：`codex_log/20260411_latest_sample_publish_line_review.md`
 - 指针与证据包维护：`codex_log/20260411_current_publish_target_pointer_and_light_evidence_patch.md`
+- 本轮 `seg02` 重剪复核：`codex_log/20260411_seg02_evidence_recut_review.md`

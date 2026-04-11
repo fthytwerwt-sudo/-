@@ -24,7 +24,7 @@
       "needs_image": false,
       "needs_video": true,
       "allow_real_desktop_footage": true,
-      "visual_intent": "用户自己的真实录屏，从开头就能看到在整理步骤、确认路径、推进执行，像把任务真正压成可交接动作"
+      "visual_intent": "Beat A 先给没压清前的旧状态；Beat B 用竖裁、放大和分拍标签把目标 / 边界 / 验收三步依次压实；Beat C 收在压清后再交给 AI 的稳定交接状态，静音看也能看出前后差值"
     },
     {
       "block_id": "seg03",

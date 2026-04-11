@@ -14,14 +14,14 @@
   },
   "blocked_reason": "",
   "artifact_paths": {
-    "manifest": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/manifest.json",
-    "assembly_gate": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/assembly_gate.json",
-    "assembly_plan": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/assembly_plan.json",
-    "result_summary": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/result_summary.json",
-    "route_plan": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/route_plan.json",
-    "final_video": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/final.mp4",
-    "preview_video": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/assembly/formal_api_demo_preview.mp4",
-    "preview_manifest": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/assembly/preview_manifest.json"
+    "manifest": "dist/formal_api_demo_user_footage_20260409/manifest.json",
+    "assembly_gate": "dist/formal_api_demo_user_footage_20260409/assembly_gate.json",
+    "assembly_plan": "dist/formal_api_demo_user_footage_20260409/assembly_plan.json",
+    "result_summary": "dist/formal_api_demo_user_footage_20260409/result_summary.json",
+    "route_plan": "dist/formal_api_demo_user_footage_20260409/route_plan.json",
+    "final_video": "oss://zvip1-video-beijing/video-factory/final/20260410T202608Z/formal_api_demo.mp4",
+    "preview_video": "dist/formal_api_demo_user_footage_20260409/assembly/formal_api_demo_preview.mp4",
+    "preview_manifest": "dist/formal_api_demo_user_footage_20260409/assembly/preview_manifest.json"
   },
   "next_action_hint": "北京区 OSS + 云剪 assembly 已接入代码主链；下一步是在本地配置文件填入真实 AccessKey / Secret，然后执行真实云端导出验证。",
   "current_missing_prerequisites": [],

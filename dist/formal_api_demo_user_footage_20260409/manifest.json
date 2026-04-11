@@ -162,7 +162,7 @@
       "goal": "用用户录屏把“先压清，再执行”的过程推进做实",
       "voiceover_text": "我现在先把目标、边界、验收压进执行清单，再交给 AI，返工会少很多。",
       "caption_text": "我现在先把目标、边界、验收压进执行清单，再交给 AI，返工会少很多。",
-      "visual_intent": "用户自己的真实录屏，从开头就能看到在整理步骤、确认路径、推进执行，像把任务真正压成可交接动作",
+      "visual_intent": "Beat A 先给没压清前的旧状态；Beat B 用竖裁、放大和分拍标签把目标 / 边界 / 验收三步依次压实；Beat C 收在压清后再交给 AI 的稳定交接状态，静音看也能看出前后差值",
       "material_requirements": {
         "needs_image": false,
         "needs_video": true,
@@ -232,7 +232,7 @@
       "output_slots": {
         "voice_uri": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/tts/segment_seg02.mp3",
         "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/captions.srt",
-        "visual_uri": "/Users/fan/Documents/视频工厂/素材录制/1.mov"
+        "visual_uri": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/visual/seg02_evidence_focus_v3.mp4"
       },
       "timeline": {
         "planned_start_seconds": 3.0,
@@ -709,8 +709,8 @@
           "image_task_id": null,
           "video_task_id": null,
           "image_asset_path": null,
-          "video_asset_path": "/Users/fan/Documents/视频工厂/素材录制/1.mov",
-          "local_asset_path": "/Users/fan/Documents/视频工厂/素材录制/1.mov",
+          "video_asset_path": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/visual/seg02_evidence_focus_v3.mp4",
+          "local_asset_path": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/visual/seg02_evidence_focus_v3.mp4",
           "asset_origin": "user_media",
           "preview_visual_ref": "preview_slide_2",
           "failure_reason": "",
@@ -797,11 +797,11 @@
   },
   "assembly": {
     "status": "success",
-    "task_id": "5c23a38228b248269235a45fbbc658e3",
+    "task_id": "1ff9b4989f984f18ba7cce8f02faf518",
     "resource_id": "a139456cf3334509b20192f3203d75bc",
-    "output_id": "abe45ae0343071f19b48f7e6c4596302",
+    "output_id": "84b09470351b71f1ac2ce7f7d45b6302",
     "delivery_mode": "oss_cloud_assembly",
-    "delivery_video_path": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/final.mp4",
+    "delivery_video_path": "oss://zvip1-video-beijing/video-factory/final/20260410T202608Z/formal_api_demo.mp4",
     "local": {
       "status": "not_started",
       "video_path": null,
@@ -823,57 +823,56 @@
       "is_primary_path": true,
       "project_id": "a139456cf3334509b20192f3203d75bc",
       "project_title": "video-factory-ppt-master-v1",
-      "job_id": "5c23a38228b248269235a45fbbc658e3",
-      "media_id": "abe45ae0343071f19b48f7e6c4596302",
-      "output_url": "oss://zvip1-video-beijing/video-factory/final/20260409T162500Z/formal_api_demo.mp4",
-      "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/final/20260409T162500Z/formal_api_demo.mp4",
-      "local_final_video_path": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/final.mp4",
-      "timeline_path": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/assembly/cloud_timeline.json",
+      "job_id": "1ff9b4989f984f18ba7cce8f02faf518",
+      "media_id": "84b09470351b71f1ac2ce7f7d45b6302",
+      "output_url": "oss://zvip1-video-beijing/video-factory/final/20260410T202608Z/formal_api_demo.mp4",
+      "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/final/20260410T202608Z/formal_api_demo.mp4",
+      "timeline_path": "dist/formal_api_demo_user_footage_20260409/assembly/cloud_timeline.json",
       "request_ids": {
-        "list_projects": "840F6451-292E-5833-A82F-F58A29090E14",
-        "update_project": "98BFEBFD-AA1F-5E65-B067-488F229A62C0",
-        "submit_job": "3B0C58B6-DA22-5988-83F8-1DB50F76F8BD",
-        "get_job": "BD8DD806-C93F-5B91-8BA7-E36FC2AC82B5"
+        "list_projects": "8E49891D-B8B5-56B7-A756-9A2FD78EBC7C",
+        "update_project": "36A30541-2C28-5194-800A-680D6A607976",
+        "submit_job": "D72D628D-ADC4-54C7-B5B4-627DB2D3000C",
+        "get_job": "C59E56B1-0315-5FE1-B6E0-C64E8F42D99C"
       },
       "uploaded_assets": [
         {
           "asset_kind": "voiceover_audio",
           "local_path": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/tts/formal_voiceover.mp3",
-          "object_key": "video-factory/raw/20260409T162500Z/audio/formal_voiceover.mp3",
-          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260409T162500Z/audio/formal_voiceover.mp3?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1775755501&Signature=ToUR8p%2BFBPDLrfwOWq2c00tG3Vc%3D"
+          "object_key": "video-factory/raw/20260410T202608Z/audio/formal_voiceover.mp3",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260410T202608Z/audio/formal_voiceover.mp3?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1775856369&Signature=XgSHfV6IFsSeYpwd4%2FBS2K6JZtU%3D"
         },
         {
           "asset_kind": "captions_srt",
           "local_path": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/captions.srt",
-          "object_key": "video-factory/raw/20260409T162500Z/captions/captions.srt",
-          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260409T162500Z/captions/captions.srt?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1775755501&Signature=tpy2g27uhSRox9IuNLT5kMHE5YA%3D"
+          "object_key": "video-factory/raw/20260410T202608Z/captions/captions.srt",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260410T202608Z/captions/captions.srt?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1775856369&Signature=yO0PWsQgCnK2FEUq95n%2B8C9mrnc%3D"
         },
         {
           "asset_kind": "visual_seg01",
           "local_path": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/visual/seg01_video.mp4",
-          "object_key": "video-factory/raw/20260409T162500Z/visuals/seg01.mp4",
-          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260409T162500Z/visuals/seg01.mp4?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1775755501&Signature=Ee8UDHhHcr7OM1A3mzexcF8UdS4%3D",
+          "object_key": "video-factory/raw/20260410T202608Z/visuals/seg01.mp4",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260410T202608Z/visuals/seg01.mp4?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1775856369&Signature=K%2FCP5LrxZ7IPkiur2hyWFjM9rq4%3D",
           "clip_type": "Video"
         },
         {
           "asset_kind": "visual_seg02",
-          "local_path": "/Users/fan/Documents/视频工厂/素材录制/1.mov",
-          "object_key": "video-factory/raw/20260409T162500Z/visuals/seg02.mov",
-          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260409T162500Z/visuals/seg02.mov?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1775755505&Signature=zgeXoRb0xSVRLWJEhqxQPicZJTU%3D",
+          "local_path": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/visual/seg02_evidence_focus_v3.mp4",
+          "object_key": "video-factory/raw/20260410T202608Z/visuals/seg02.mp4",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260410T202608Z/visuals/seg02.mp4?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1775856370&Signature=i5zRAU%2BVEPWH6kQSWivC5rmKNrs%3D",
           "clip_type": "Video"
         },
         {
           "asset_kind": "visual_seg03",
           "local_path": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/visual/seg03_image.png",
-          "object_key": "video-factory/raw/20260409T162500Z/visuals/seg03.png",
-          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260409T162500Z/visuals/seg03.png?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1775755505&Signature=12cJm7DJNt0F%2FUljJbqK7kzvA%2B8%3D",
+          "object_key": "video-factory/raw/20260410T202608Z/visuals/seg03.png",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260410T202608Z/visuals/seg03.png?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1775856371&Signature=UtnMAI2Iph5rrS85runpU%2BQdufg%3D",
           "clip_type": "Image"
         },
         {
           "asset_kind": "timeline_debug",
-          "local_path": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/assembly/cloud_timeline.json",
-          "object_key": "video-factory/temp/20260409T162500Z/cloud_timeline.json",
-          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/temp/20260409T162500Z/cloud_timeline.json"
+          "local_path": "dist/formal_api_demo_user_footage_20260409/assembly/cloud_timeline.json",
+          "object_key": "video-factory/temp/20260410T202608Z/cloud_timeline.json",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/temp/20260410T202608Z/cloud_timeline.json"
         }
       ],
       "target": {
@@ -895,9 +894,9 @@
     },
     "preview": {
       "status": "not_started",
-      "video_path": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/assembly/formal_api_demo_preview.mp4",
-      "preview_manifest_path": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/assembly/preview_manifest.json",
-      "captions_path": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_user_footage_20260409/captions.srt",
+      "video_path": "dist/formal_api_demo_user_footage_20260409/assembly/formal_api_demo_preview.mp4",
+      "preview_manifest_path": "dist/formal_api_demo_user_footage_20260409/assembly/preview_manifest.json",
+      "captions_path": "dist/formal_api_demo_user_footage_20260409/captions.srt",
       "blocked_reason": "",
       "failure_reason": "",
       "error_message": "",

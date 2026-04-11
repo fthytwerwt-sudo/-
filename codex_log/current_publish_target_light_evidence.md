@@ -28,6 +28,9 @@
 7. `codex_log/20260411_latest_sample_publish_line_review.md`
    - 当前正式发布线复核结论。
    - 可直接确认：`technical_validation 通过，content_validation 未通过`。
+8. `codex_log/20260411_seg02_evidence_recut_review.md`
+   - 当前 `seg02` 局部改片后的复核结论。
+   - 可直接确认：本轮已发生真实改动、已重新组装导出，但 `content_validation` 仍未通过。
 
 ## 这些轻量证据共同证明什么
 
@@ -47,6 +50,8 @@
   - 当前最新样片成片。
 - `dist/formal_api_demo_user_footage_20260409/assembly/formal_api_demo_preview.mp4`
   - 本地预览成片。
+- `dist/formal_api_demo_user_footage_20260409/visual/seg02_evidence_focus_v3.mp4`
+  - 本轮 `seg02` 重剪后的证据版 clip。
 - `素材录制/1.mov`
   - 当前 `seg02` 证据段直接引用的原始录屏素材。
 
@@ -63,3 +68,16 @@
   - 已按 `manifest.json` 的 `input_snapshot`、`video_spec`、`presentation_routing` 与 `segments` grounded 补回该输入稿。
 - 若后续发现与历史原稿不一致：
   - 以当前已追踪的 `manifest.json` 和 dated log 为准，继续做证据级修正，不回头伪造“原始历史文件”。
+
+## 本轮 `seg02` 实际改片落点
+
+- 当前 manifest / assembly_plan 已改为使用：
+  - `dist/formal_api_demo_user_footage_20260409/visual/seg02_evidence_focus_v3.mp4`
+- 这个 clip 的实际处理只围绕 `seg02`：
+  - 竖裁
+  - 放大
+  - 分拍拼接
+  - 轻量标签
+- 没有新增人物段
+- 没有改 `seg01`
+- 没有改 `seg03`
