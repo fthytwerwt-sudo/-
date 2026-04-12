@@ -51,6 +51,11 @@
 
 - 当前最新样片是谁：
   - `dist/formal_api_demo_doubao_task_clear_20260412/local_review/final_review_clean.mp4`
+- 当前样片 4 层状态是什么：
+  - `technical_validation（技术验证）`：`通过`
+  - `content_validation（内容验证）`：`通过`
+  - `user_acceptance（用户验收）`：`通过`
+  - `send_ready（可直接发送）`：`是`
 - 当前样片结构是什么：
   - `API 生成真人 -> 豆包真实录屏 -> 单屏 steps_card`
 - 当前样片技术状态是什么：
@@ -64,6 +69,9 @@
     - `先收 3 件事`
     - `三个判断点`
     - `今天能开工的起手句`
+- 当前应该怎么理解后续动作：
+  - 当前样片已可直接发送
+  - 后续若继续推进，属于发布包装与系统升级空间，不再属于“继续救片”
 - 当前路径偏差是什么：
   - 用户给的是不存在的目录
   - 本轮实际执行的是同级单文件：
@@ -103,3 +111,4 @@
 
 - 旧 `seg02` 的“差值不够硬”问题已经被 `豆包素材.mp4` 里的同任务收清链路替换掉；当前最新样片已经完成技术通过、内容通过与可发布测试线通过，且本地可审对象已切到：
   - `dist/formal_api_demo_doubao_task_clear_20260412/local_review/final_review_clean.mp4`
+  - 且当前状态已扩展为：`user_acceptance 通过`、`send_ready = 是`

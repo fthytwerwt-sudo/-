@@ -8,6 +8,10 @@
   "cloud_assembly_status": "success",
   "assembly_preview_status": "not_started",
   "delivery_mode": "oss_cloud_assembly",
+  "technical_validation": "passed",
+  "content_validation": "passed",
+  "user_acceptance": "passed",
+  "send_ready": true,
   "machine_gate_result": {
     "generation_gate": "success",
     "assembly_gate": "success"
@@ -23,11 +27,9 @@
     "preview_video": "dist/formal_api_demo_doubao_task_clear_20260412/assembly/formal_api_demo_preview.mp4",
     "preview_manifest": "dist/formal_api_demo_doubao_task_clear_20260412/assembly/preview_manifest.json"
   },
-  "next_action_hint": "北京区 OSS + 云剪 assembly 已接入代码主链；下一步是在本地配置文件填入真实 AccessKey / Secret，然后执行真实云端导出验证。",
+  "next_action_hint": "当前样片状态已过线、已通过用户验收、可直接发送；后续动作转为发布包装与系统升级，而不是继续救片。",
   "current_missing_prerequisites": [],
   "current_missing_implementations": [],
   "cloud_missing_prerequisites": [],
-  "known_issues": [
-    "当前 TTS 调用已接通；正式主线下一步取决于用户真实素材注入或辅助图片资产准备，再进入北京区 OSS + 云剪主路径。"
-  ]
+  "known_issues": []
 }
