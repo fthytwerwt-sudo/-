@@ -2,70 +2,71 @@
 
 ## 当前待发对象
 
-- `dist/formal_api_demo_user_footage_20260409/final.mp4`
+- `dist/formal_api_demo_doubao_task_clear_20260412/local_review/final_review_clean.mp4`
 
 ## 当前审核对象
 
-- `dist/formal_api_demo_user_footage_20260409/final.mp4`
+- `dist/formal_api_demo_doubao_task_clear_20260412/local_review/final_review_clean.mp4`
+
+## 当前云端正式输出
+
+- `oss://zvip1-video-beijing/video-factory/final/20260412T150420Z/formal_api_demo.mp4`
 
 ## 当前正式状态
 
 - `technical_validation`：`通过`
-- `content_validation`：`未通过`
-- 当前判断：`Route B｜素材阻断态继续成立：当前仓库内现成素材（1.mov / 2.mov / 3.mov / 最新.mp4）都不足以把当前样片推过发布线`
+- `content_validation`：`通过`
+- 当前判断：`可发布测试线通过（以本地 clean review 审片件 + cloud assembly 成功结果为准；云端正式成片未自动回拉本地）`
 
-## 唯一最高优先级 blocker
+## 当前唯一最高优先级 blocker
 
-- 当前仓库内现成素材：
-  - `素材录制/1.mov`
-  - `素材录制/2.mov`
-  - `素材录制/3.mov`
-  - `素材录制/最新.mp4`
-  都更像聊天录屏、结构说明或要求清单展示，而不是录下“同一任务从旧状态到新状态”的真实前后差值；因此它们都不能替代 `seg02` 主证据素材，也不能把当前样片推过发布线。
+- `无内容 blocker`
+- 当前仅剩操作层提示：
+  - 云端正式成片本地回拉文件尚未自动落地
+  - 但不影响本轮内容过线与当前审片
 
 ## 现在最该改的唯一一点
 
-- 重新按 `seg02_capture_brief` 补录真正的同一任务差值素材：旧状态不可直接交 AI、压清动作、压清后可直接交接状态三者必须在同一任务链里连续成立；不要再录对补录清单本身的讲解画面，也不要再从现有 `2.mov / 3.mov / 最新.mp4` 里硬找替代窗口。
+- `无`
+- 当前更值当动作已从“继续救 seg02”切换为：
+  - 保留本轮样片为当前最新尝试
+  - 进入发布前最后复看与分发包装
 
 ## 当前已追踪证据
 
-- `cases/formal_api_demo_user_footage_execution_20260409.md`
-- `dist/formal_api_demo_user_footage_20260409/manifest.json`
-- `dist/formal_api_demo_user_footage_20260409/route_plan.json`
-- `dist/formal_api_demo_user_footage_20260409/script.txt`
-- `dist/formal_api_demo_user_footage_20260409/captions.srt`
-- `dist/formal_api_demo_user_footage_20260409/result_summary.json`
+- `cases/formal_api_demo_doubao_task_clear_20260412.md`
+- `dist/formal_api_demo_doubao_task_clear_20260412/manifest.json`
+- `dist/formal_api_demo_doubao_task_clear_20260412/route_plan.json`
+- `dist/formal_api_demo_doubao_task_clear_20260412/script.txt`
+- `dist/formal_api_demo_doubao_task_clear_20260412/captions.srt`
+- `dist/formal_api_demo_doubao_task_clear_20260412/result_summary.json`
 - `codex_log/current_publish_target_light_evidence.md`
-- `codex_log/20260411_latest_sample_publish_line_review.md`
-- `codex_log/20260411_seg02_evidence_recut_review.md`
-- `codex_log/20260411_seg02_capture_brief.md`
-- `codex_log/20260412_existing_local_footage_delta_audit.md`
-- `codex_log/20260412_new_material_route_b_recheck.md`
+- `codex_log/20260412_豆包素材正式样片执行与过线结论.md`
 
 ## 当前 `local_only` 证据
 
-- `dist/formal_api_demo_user_footage_20260409/final.mp4`
-- `dist/formal_api_demo_user_footage_20260409/assembly/formal_api_demo_preview.mp4`
-- `dist/formal_api_demo_user_footage_20260409/visual/seg02_evidence_focus_v3.mp4`
-- `素材录制/1.mov`
-- `素材录制/2.mov`
-- `素材录制/3.mov`
-- `素材录制/最新.mp4`
+- `dist/formal_api_demo_doubao_task_clear_20260412/local_review/final_review_clean.mp4`
+- `dist/formal_api_demo_doubao_task_clear_20260412/local_review/final_review.mp4`
+- `dist/formal_api_demo_doubao_task_clear_20260412/visual/seg02_doubao_evidence_v1.mp4`
+- `dist/formal_api_demo_doubao_task_clear_20260412/visual/seg01_video.mp4`
+- `dist/formal_api_demo_doubao_task_clear_20260412/visual/seg03_image.png`
+- `素材录制/豆包素材.mp4`
 
 ## `lane_recommendation`
 
-- `audit_lane`
+- `standard_lane`
 
 ## `lane_reason`
 
-- 当前对象、当前状态和当前 blocker 已固定；
-- 但下一步若继续推进这条样片，前提已不再是“继续修剪现有素材”，而是先确认新补录素材是否真的满足同任务前后差值要求；
-- 因此当前对象的下一步默认应先审素材是否到位，再决定是否重新进入执行。
+- 当前对象、当前状态和当前结论已经锁定
+- 本轮最新样片已形成可审对象，不再慢在“素材够不够硬”的审计
+- 若下一轮继续动这条样片，更可能是局部 polish、发布包装或云端回拉补齐
 
 ## `lane_invalid_if`
 
-- 新补录素材已经到位，并且能直接证明同一任务的强前后差值
-- 当前任务重新回到明确的局部执行问题，而不是素材充足性审计
+- 用户对当前样片提出新的最高优先级内容异议
+- 本地 clean review 与云端正式输出出现实质内容偏差
+- 当前任务重新回到选题或价值层重判
 
 ## `parallel_recommendation`
 
@@ -73,32 +74,26 @@
 
 ## `parallel_reason`
 
-- 当前对象下一步若继续推进，核心动作会围绕同一条样片与同一组素材替换；
-- 当前慢点不在读取，而在“新素材是否够硬”这件事本身；
-- 因此当前对象层默认应保持单写手串行，不建议并发写入。
+- 当前对象已经收束到同一条样片
+- 后续若再改，只会继续写同一路径和同一结论
+- 并发写入这条样片没有收益，反而容易破坏当前稳定状态
 
 ## `parallel_invalid_if`
 
-- 当前任务降成纯读取 / 审计，不再写同一条样片
-- 当前任务能清楚拆成互不写同一路径的子任务
-- 当前慢点重新回到读取 / 定位 / 结构化整理，而不再是素材是否足够的判断
+- 下一轮只做纯读取 / 纯审计
+- 或拆成互不写同一对象的独立任务
 
 ## 当前同步状态
 
 - 状态分类：`formal_synced`
 - 主读取分支：`codex/user-readable-map`
-- 已同步内容：当前对象指针、当前状态、唯一 blocker、轻量证据包索引
-- 未同步内容：样片二进制和原始本地录屏素材仍是 `local_only`
+- 已同步内容：当前待发对象、当前状态、当前结论、轻量证据包索引
+- 未同步内容：二进制审片件、原始豆包素材与 `seg02` clip 仍属 `local_only`
 
 ## 最后更新时间
 
-- `2026-04-12 02:52:54 CST`
+- `2026-04-12 23:20:17 CST`
 
 ## 对应 dated log 路径
 
-- 状态判定：`codex_log/20260411_latest_sample_publish_line_review.md`
-- 指针与证据包维护：`codex_log/20260411_current_publish_target_pointer_and_light_evidence_patch.md`
-- 本轮 `seg02` 重剪复核：`codex_log/20260411_seg02_evidence_recut_review.md`
-- 本轮素材阻断与补录清单：`codex_log/20260411_seg02_capture_brief.md`
-- 本轮新素材复核：`codex_log/20260412_new_material_route_b_recheck.md`
-- 本轮现成素材全量审计：`codex_log/20260412_existing_local_footage_delta_audit.md`
+- `codex_log/20260412_豆包素材正式样片执行与过线结论.md`

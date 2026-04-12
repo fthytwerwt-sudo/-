@@ -1,0 +1,65 @@
+{
+  "schema_version": "formal_api_demo_assembly_plan/v1",
+  "manifest_schema_version": "formal_api_demo_manifest/v1",
+  "assembly_mode": "cloud_only",
+  "subtitle_mode": "burn_in",
+  "resolution": "1080x1920",
+  "fps": 25,
+  "segments": [
+    {
+      "segment_id": "seg01",
+      "carrier": "human",
+      "asset_source": "api_generated",
+      "asset_key": "hook_human",
+      "planned_duration_seconds": 10.0,
+      "needs_subtitle": true,
+      "needs_visual_asset": true,
+      "voice_uri": "dist/formal_api_demo_doubao_task_clear_20260412/tts/segment_seg01.mp3",
+      "subtitle_uri": "dist/formal_api_demo_doubao_task_clear_20260412/captions.srt",
+      "visual_uri": "dist/formal_api_demo_doubao_task_clear_20260412/visual/seg01_video.mp4"
+    },
+    {
+      "segment_id": "seg02",
+      "carrier": "self_footage",
+      "asset_source": "user_media",
+      "asset_key": "process_self_footage",
+      "planned_duration_seconds": 26.0,
+      "needs_subtitle": true,
+      "needs_visual_asset": true,
+      "voice_uri": "dist/formal_api_demo_doubao_task_clear_20260412/tts/segment_seg02.mp3",
+      "subtitle_uri": "dist/formal_api_demo_doubao_task_clear_20260412/captions.srt",
+      "visual_uri": "/Users/fan/Documents/视频工厂/dist/formal_api_demo_doubao_task_clear_20260412/visual/seg02_doubao_evidence_v1.mp4"
+    },
+    {
+      "segment_id": "seg03",
+      "carrier": "light_ppt",
+      "asset_source": "api_generated",
+      "asset_key": "",
+      "planned_duration_seconds": 18.0,
+      "needs_subtitle": true,
+      "needs_visual_asset": true,
+      "voice_uri": "dist/formal_api_demo_doubao_task_clear_20260412/tts/segment_seg03.mp3",
+      "subtitle_uri": "dist/formal_api_demo_doubao_task_clear_20260412/captions.srt",
+      "visual_uri": "dist/formal_api_demo_doubao_task_clear_20260412/visual/seg03_image.png"
+    }
+  ],
+  "gate_status": "success",
+  "cloud_target": {
+    "assembly_mode": "cloud_only",
+    "subtitle_mode": "burn_in",
+    "resolution": "1080x1920",
+    "fps": 25,
+    "oss_bucket": "zvip1-video-beijing",
+    "oss_region": "cn-beijing",
+    "oss_endpoint": "oss-cn-beijing.aliyuncs.com",
+    "oss_bucket_domain": "zvip1-video-beijing.oss-cn-beijing.aliyuncs.com",
+    "oss_prefix_raw": "video-factory/raw/",
+    "oss_prefix_final": "video-factory/final/",
+    "oss_prefix_temp": "video-factory/temp/",
+    "ims_region": "cn-beijing",
+    "ims_storage_address": "zvip1-video-beijing.oss-cn-beijing.aliyuncs.com",
+    "ims_cloud_project_name": "video-factory-ppt-master-v1"
+  },
+  "legacy_local_preview_target": "dist/formal_api_demo/assembly/formal_api_demo_preview.mp4",
+  "next_action_hint": "当前为 assembly dry-run；正式主线已锁定北京区 OSS + 云剪唯一主路径，下一步先在本地注入 AccessKey 并核对 OSS / IMS / 云剪工程参数。"
+}

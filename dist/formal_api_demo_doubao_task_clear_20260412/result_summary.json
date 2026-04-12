@@ -1,0 +1,33 @@
+{
+  "schema_version": "formal_api_demo_result_summary/v1",
+  "stage": "assembly",
+  "overall_status": "success",
+  "generation_status": "success",
+  "assembly_status": "success",
+  "local_assembly_status": "not_started",
+  "cloud_assembly_status": "success",
+  "assembly_preview_status": "not_started",
+  "delivery_mode": "oss_cloud_assembly",
+  "machine_gate_result": {
+    "generation_gate": "success",
+    "assembly_gate": "success"
+  },
+  "blocked_reason": "",
+  "artifact_paths": {
+    "manifest": "dist/formal_api_demo_doubao_task_clear_20260412/manifest.json",
+    "assembly_gate": "dist/formal_api_demo_doubao_task_clear_20260412/assembly_gate.json",
+    "assembly_plan": "dist/formal_api_demo_doubao_task_clear_20260412/assembly_plan.json",
+    "result_summary": "dist/formal_api_demo_doubao_task_clear_20260412/result_summary.json",
+    "route_plan": "dist/formal_api_demo_doubao_task_clear_20260412/route_plan.json",
+    "final_video": "oss://zvip1-video-beijing/video-factory/final/20260412T150420Z/formal_api_demo.mp4",
+    "preview_video": "dist/formal_api_demo_doubao_task_clear_20260412/assembly/formal_api_demo_preview.mp4",
+    "preview_manifest": "dist/formal_api_demo_doubao_task_clear_20260412/assembly/preview_manifest.json"
+  },
+  "next_action_hint": "北京区 OSS + 云剪 assembly 已接入代码主链；下一步是在本地配置文件填入真实 AccessKey / Secret，然后执行真实云端导出验证。",
+  "current_missing_prerequisites": [],
+  "current_missing_implementations": [],
+  "cloud_missing_prerequisites": [],
+  "known_issues": [
+    "当前 TTS 调用已接通；正式主线下一步取决于用户真实素材注入或辅助图片资产准备，再进入北京区 OSS + 云剪主路径。"
+  ]
+}

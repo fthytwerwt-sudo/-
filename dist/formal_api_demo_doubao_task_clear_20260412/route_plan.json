@@ -1,0 +1,41 @@
+{
+  "schema_version": "formal_api_demo_route_plan/v1",
+  "route_profile": "api_human_local_footage_light_ppt_cloud_editing",
+  "video_route_strategy": "hybrid",
+  "route_reason": "API 真人负责开头判断，豆包真实录屏承担“把一句糊话收成可交付任务”的主证据，结尾只用一张 steps_card 把起手句和 3 个判断点压实。",
+  "blocks": [
+    {
+      "block_id": "seg01",
+      "block_goal": "API 真人开头，先把“返工不是不会用 AI，而是没先收清任务”打出去",
+      "block_carrier": "human",
+      "asset_source": "api_generated",
+      "asset_key": "hook_human",
+      "needs_image": true,
+      "needs_video": true,
+      "allow_real_desktop_footage": false,
+      "visual_intent": "API 真人半身口播，固定背景，第一句像在拦住团队别再直接让 AI 开写。"
+    },
+    {
+      "block_id": "seg02",
+      "block_goal": "用豆包真实录屏把“先别直接写，先收清任务”的动作做成主证据",
+      "block_carrier": "self_footage",
+      "asset_source": "user_media",
+      "asset_key": "process_self_footage",
+      "needs_image": false,
+      "needs_video": true,
+      "allow_real_desktop_footage": true,
+      "visual_intent": "Beat A 先给“别再直接写”的旧状态提示；Beat B 显示豆包把内容收成结构化文档；Beat C 把 3 个判断点稳定停住；Beat D 收在“今天能开工的起手句”。静音看也能读出从一句糊话到可交接状态的差值。"
+    },
+    {
+      "block_id": "seg03",
+      "block_goal": "用单屏 steps_card 收束起手句与 3 个判断点，让用户知道现在先怎么做",
+      "block_carrier": "light_ppt",
+      "asset_source": "api_generated",
+      "asset_key": "",
+      "needs_image": true,
+      "needs_video": false,
+      "allow_real_desktop_footage": false,
+      "visual_intent": "单屏深色 `steps_card`。顶部是一句可直接开口的起手话，中下方并列 3 模块：给谁看 / 最怕哪里翻车 / 手里什么能直接用。信息密度高但必须一屏可读，像交接卡，不像培训课件。"
+    }
+  ]
+}
