@@ -3,34 +3,38 @@
 ## 当前主结论
 
 - `已确认` 本轮完成的是：
-  - 文案知识库初始化
-  - 两份原始样本文本正式入库
-- `已确认` 本轮只做了原始入库与最小骨架搭建，不是：
-  - 规则重写
-  - 文案分析
+  - 喜欢样本初拆
+  - 文案知识库第二层建立
+- `已确认` 本轮只处理了“喜欢样本”，不是：
+  - 不喜欢样本深拆
+  - “只喜欢哪一段”拆分
   - 自动化机制设计
-- `已确认` 本轮导入的本机原始样本文件为：
-  - `/Users/fan/Documents/视频工厂/文案库/喜欢 txt.txt`
-  - `/Users/fan/Documents/视频工厂/文案库/不喜欢.txt`
-- `已确认` 当前仓库文案知识库已新增：
-  - `project_source/30_copy_library/00_copy_library_readme.md`
-  - `project_source/30_copy_library/01_gold_samples_raw.md`
-  - `project_source/30_copy_library/02_anti_patterns_raw.md`
-  - `project_source/30_copy_library/08_update_log.md`
-- `已确认` 当前知识库里已有：
-  - 喜欢样本（10 条原始文案）
-  - 不喜欢样本（10 条原始文案）
-- `已确认` 当前导入状态为：
-  - 原始样本已入库
-  - 尚未结构化整理
-  - 尚未做优劣分析、打分或规则总结
+- `已确认` 当前文案知识库已经进入第二层，新增：
+  - `project_source/30_copy_library/11_gold_samples_first_split.md`
+  - `project_source/30_copy_library/12_opening_library_v1.md`
+  - `project_source/30_copy_library/13_judgment_library_v1.md`
+  - `project_source/30_copy_library/14_transition_library_v1.md`
+  - `project_source/30_copy_library/15_closing_and_cta_library_v1.md`
+  - `project_source/30_copy_library/16_current_preference_summary_v1.md`
+- `已确认` 当前已拆出的部分包括：
+  - 喜欢样本 A / B / C 第一轮分层
+  - 开头库 v1
+  - 判断句库 v1
+  - 过渡句库 v1
+  - 收束与 CTA 库 v1
+  - 当前偏好总结 v1
+- `已确认` 当前这些判断都属于：
+  - 第一轮初拆
+  - 可继续补强
+  - 不是最终风格定稿
 - `已确认` 后续可继续补：
+  - 不喜欢样本深拆
   - 喜欢的片段
   - 口语原话
-  - 反例片段
-  - 组件库
+  - 组件库细化
+  - 自动化机制设计
 - `已确认` 本轮已新增 dated log：
-  - `codex_log/20260413_copy_library_init_and_raw_sample_import.md`
+  - `codex_log/20260414_gold_samples_first_split_and_second_layer_library.md`
 
 ## 当前默认接手建议先读
 
@@ -39,6 +43,11 @@
 3. `codex_log/latest.md`
 4. `project_source/30_copy_library/00_copy_library_readme.md`
 5. `project_source/30_copy_library/01_gold_samples_raw.md`
-6. `project_source/30_copy_library/02_anti_patterns_raw.md`
-7. `project_source/30_copy_library/08_update_log.md`
-8. `codex_log/20260413_copy_library_init_and_raw_sample_import.md`
+6. `project_source/30_copy_library/11_gold_samples_first_split.md`
+7. `project_source/30_copy_library/12_opening_library_v1.md`
+8. `project_source/30_copy_library/13_judgment_library_v1.md`
+9. `project_source/30_copy_library/14_transition_library_v1.md`
+10. `project_source/30_copy_library/15_closing_and_cta_library_v1.md`
+11. `project_source/30_copy_library/16_current_preference_summary_v1.md`
+12. `project_source/30_copy_library/08_update_log.md`
+13. `codex_log/20260414_gold_samples_first_split_and_second_layer_library.md`
