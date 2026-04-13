@@ -286,6 +286,7 @@ OPTIONAL_SEGMENT_FIELDS = {
     "段载体": "carrier",
     "素材键": "asset_key",
     "素材来源": "asset_source",
+    "风格提示": "style_prompt",
 }
 
 
@@ -2719,6 +2720,7 @@ def build_visual_generation_plan(
     for index, segment in enumerate(video_spec.get("segments", []), start=1):
         uses_local_media = _segment_requires_local_media(segment)
         local_asset = None
+        style_prompt = _normalize_optional_text(segment.get("style_prompt"))
         if uses_local_media:
             asset_key = segment.get("asset_key") or segment["segment_id"]
             local_asset = _resolve_footage_input(config, asset_key)
@@ -2817,17 +2819,54 @@ def build_visual_generation_plan(
             continue
         if segment_needs_image:
             if api_human_segment:
-                if segment["segment_id"] == "seg01":
+                if style_prompt:
+                    if segment["segment_id"] == "seg01":
+                        image_prompt = (
+                            f"9:16 竖版，单一角色，{style_prompt}，半身构图，固定背景，"
+                            "面对镜头，眼神稳定，语气克制但有判断感，像在直接点破常见误区。"
+                            "整体要可信、克制、可爱但不低幼，不要廉价卖萌，不要玩具广告感，"
+                            "不要大字，不要卡片感，不要课件感，不要夸张动作。"
+                        )
+                        video_prompt = (
+                            f"{style_prompt}。9:16 竖版，单一角色半身面对镜头做简短口播，"
+                            "镜头固定，轻微嘴型、自然眨眼、极轻点头，表情认真但不凶，"
+                            "像在提醒用户别再走弯路。保持同一角色设定和哑光 3D 质感，"
+                            "不要夸张肢体，不要跳切，不要卖萌。"
+                        )
+                    else:
+                        image_prompt = (
+                            f"9:16 竖版，单一角色，{style_prompt}，半身构图，固定背景，"
+                            "面对镜头做结尾收束，表情稳定，有轻微点头和最小动作手势，"
+                            "像在给出今天就能执行的下一步。整体要可信、克制、可爱但不低幼，"
+                            "不要廉价卖萌，不要大字，不要卡片感，不要课件感。"
+                        )
+                        video_prompt = (
+                            f"{style_prompt}。9:16 竖版，单一角色半身面对镜头做结尾口播，"
+                            "镜头固定，轻微嘴型、自然眨眼、收束型小点头和很轻的手势，"
+                            "语气像在压实最小行动。保持同一角色设定和哑光 3D 质感，"
+                            "不要夸张动作，不要卖萌，不要广告感。"
+                        )
+                elif segment["segment_id"] == "seg01":
                     image_prompt = (
                         "9:16 竖版，东亚职场创作者面对镜头，半身构图，固定背景，"
                         "眼神稳定，语气克制但有判断感，真实摄影质感，像在给团队下判断。"
                         "不要大字，不要卡片感，不要课件感，不要夸张动作。"
+                    )
+                    video_prompt = (
+                        "9:16 竖版，同一位东亚职场创作者半身面对镜头做简短口播，"
+                        "镜头固定，轻微嘴型、自然眨眼、极轻点头，语气克制但有判断感。"
+                        "不要夸张手势，不要广告感，不要课件感。"
                     )
                 else:
                     image_prompt = (
                         "9:16 竖版，同一位东亚职场创作者面对镜头做结尾收束，半身构图，固定背景，"
                         "有轻微点头和收束手势，真实摄影质感，像在强调最小行动。"
                         "不要大字，不要卡片感，不要课件感，不要夸张动作。"
+                    )
+                    video_prompt = (
+                        "9:16 竖版，同一位东亚职场创作者半身面对镜头做结尾口播，"
+                        "镜头固定，轻微嘴型、自然眨眼、收束型点头和很轻的手势，"
+                        "像在强调最小行动。不要夸张动作，不要广告感，不要课件感。"
                     )
             elif segment["segment_id"] == "seg01":
                 image_prompt = (
@@ -3311,7 +3350,12 @@ def _build_aliyun_video_generation_payload(
         },
     }
     if seed_image_url and _video_model_requires_seed_image(model):
-        payload["input"]["img_url"] = seed_image_url
+        payload["input"]["media"] = [
+            {
+                "type": "first_frame",
+                "url": seed_image_url,
+            }
+        ]
     return payload
 
 
@@ -4252,6 +4296,7 @@ def _parse_segment_block(block: dict[str, Any]) -> dict[str, Any]:
         "carrier": carrier,
         "asset_key": asset_key,
         "asset_source": asset_source,
+        "style_prompt": values.get("风格提示", "").strip(),
     }
 
 

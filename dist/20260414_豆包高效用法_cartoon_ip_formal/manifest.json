@@ -1,0 +1,1631 @@
+{
+  "schema_version": "formal_api_demo_manifest/v1",
+  "pipeline_kind": "formal_api_demo",
+  "current_status": "success",
+  "input_snapshot": {
+    "input_path": "cases/20260414_豆包高效用法_cartoon_ip正式样片.md",
+    "theme": "别再瞎用豆包了。先别让它直接写，先让它帮你搭框架、做整理、做优化，今天就能上手。",
+    "hook": "你是不是天天用豆包，却越用越累？不是它没用，是你一直在让它瞎写。",
+    "ending": "你今天先抄一条去试。想要我把这 3 套复制模板整理好，评论区扣豆包，我发你能直接粘贴的版本。",
+    "segment_count": 5
+  },
+  "video_spec": {
+    "theme": "别再瞎用豆包了。先别让它直接写，先让它帮你搭框架、做整理、做优化，今天就能上手。",
+    "total_duration_seconds": 72.0,
+    "aspect_ratio": "9:16",
+    "target_scenario": "AI 职场任务现场拆解 / AI 问题点破",
+    "target_user": "已经在用豆包，但总觉得“看着厉害、最后还得自己改”的职场用户；希望今天就能抄走动作，不想再听抽象理念。",
+    "quality_requirements": [
+      "开头与结尾继续由 API 人物段承担判断与收束，但人物视觉统一改成 Q版 3D 卡通人形 IP",
+      "中段主体必须由真实豆包录屏承担，不能退化成纯 PPT / 纯卡片说明",
+      "至少清楚出现 3 个动作位：先搭框架、先做整理、只做优化 / 纪要变待办",
+      "轻量 `steps_card` 只负责压实口诀与最小动作，不抢主体",
+      "静音看也能读出“问题 → 动作 → 结果”的推进",
+      "卡通人物必须可信、克制、可爱但不低幼，不做廉价卖萌",
+      "正式 assembly 继续按北京区 `OSS + 云剪 cloud-only` 理解"
+    ],
+    "route_profile": "api_human_local_footage_light_ppt_cloud_editing",
+    "video_route_strategy": "hybrid",
+    "route_reason": "开头和结尾继续用 API 卡通 IP 做判断与收束；中段把豆包的 3 个真实工位拆开给用户看；口诀单独压成一张轻卡，避免卡片反过来抢掉证据。"
+  },
+  "presentation_routing": {
+    "schema_version": "formal_api_demo_route_plan/v1",
+    "route_profile": "api_human_local_footage_light_ppt_cloud_editing",
+    "video_route_strategy": "hybrid",
+    "route_reason": "开头和结尾继续用 API 卡通 IP 做判断与收束；中段把豆包的 3 个真实工位拆开给用户看；口诀单独压成一张轻卡，避免卡片反过来抢掉证据。",
+    "blocks": [
+      {
+        "block_id": "seg01",
+        "block_goal": "卡通 IP 开头判断，快速点破“越用越累”的根因不是豆包不行，而是一直让它直接写",
+        "block_carrier": "human",
+        "asset_source": "api_generated",
+        "asset_key": "hook_human",
+        "needs_image": true,
+        "needs_video": true,
+        "allow_real_desktop_footage": false,
+        "visual_intent": "Q版 3D 卡通人形 IP 半身面对镜头，固定背景，像可信账号人物在直接拦住用户别再乱问。"
+      },
+      {
+        "block_id": "seg02",
+        "block_goal": "真实豆包录屏承接前两种工位：临时汇报先搭框架、资料太乱先做整理和 PPT 结构",
+        "block_carrier": "self_footage",
+        "asset_source": "user_media",
+        "asset_key": "doubao_scene_12",
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": true,
+        "visual_intent": "真实豆包录屏里要连续看见“第一招：先搭框架”和“第二招：先做整理 / PPT 结构”，让观众知道 prompt 该怎么发、结果会长什么样。"
+      },
+      {
+        "block_id": "seg03",
+        "block_goal": "真实豆包录屏承接第三种工位：稿子写完只做优化，并把会议纪要改成待办清单",
+        "block_carrier": "self_footage",
+        "asset_source": "user_media",
+        "asset_key": "doubao_scene_3",
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": true,
+        "visual_intent": "真实豆包录屏里要看见“第三招：只做优化”和“纪要变待办”的结果页，让观众知道这不是重写，而是保留自己内容后做最后一步打磨。"
+      },
+      {
+        "block_id": "seg04",
+        "block_goal": "轻量 steps_card 压实万能口诀和最低成本动作",
+        "block_carrier": "light_ppt",
+        "asset_source": "user_media",
+        "asset_key": "steps_card",
+        "needs_image": true,
+        "needs_video": false,
+        "allow_real_desktop_footage": false,
+        "visual_intent": "单屏深色 `steps_card`，顶部只放万能口诀，下半屏用三列压住“框架 / 整理 / 优化”的最小 prompt 结构，一屏可读。"
+      },
+      {
+        "block_id": "seg05",
+        "block_goal": "同一卡通 IP 回到镜头前做轻 CTA，强调今天就去试，不做强卖课",
+        "block_carrier": "human",
+        "asset_source": "api_generated",
+        "asset_key": "close_human",
+        "needs_image": true,
+        "needs_video": true,
+        "allow_real_desktop_footage": false,
+        "visual_intent": "同一位 Q版 3D 卡通人形 IP 半身收尾，表情认真但友好，像在把门槛压到最低。"
+      }
+    ]
+  },
+  "segments": [
+    {
+      "sequence": 1,
+      "segment_id": "seg01",
+      "goal": "卡通 IP 开头判断，快速点破“越用越累”的根因不是豆包不行，而是一直让它直接写",
+      "voiceover_text": "你是不是天天用豆包，却越用越累？不是它没用，是你一直在让它瞎写。今天我只给你 3 个今天就能抄的动作。",
+      "caption_text": "你是不是天天用豆包，却越用越累？不是它没用，是你一直在让它瞎写。今天我只给你 3 个今天就能抄的动作。",
+      "visual_intent": "Q版 3D 卡通人形 IP 半身面对镜头，固定背景，像可信账号人物在直接拦住用户别再乱问。",
+      "material_requirements": {
+        "needs_image": true,
+        "needs_video": true,
+        "allow_real_desktop_footage": false,
+        "carrier": "human",
+        "asset_key": "hook_human",
+        "asset_source": "api_generated"
+      },
+      "presentation": {
+        "carrier": "human",
+        "asset_key": "hook_human",
+        "asset_source": "api_generated",
+        "resolved_asset_origin": "api_generated"
+      },
+      "provider_plan": {
+        "tts_provider": "aliyun_bailian",
+        "tts_api_route_family": "aliyun_bailian_cosyvoice",
+        "tts_model": "cosyvoice-v2",
+        "tts_endpoint_id": "4429057155",
+        "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "visual_model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": false,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": false,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        },
+        "tts_baseline_profile": "aliyun_old_A"
+      },
+      "task_slots": {
+        "voice_task_id": "80e7f74a-4ca3-9409-89e8-181f2b29ffd8",
+        "image_task_id": "0844beed-da38-47c5-96e7-5c6dd8379649",
+        "video_task_id": "50e97a13-5a1d-4033-a570-6ea1277968a1"
+      },
+      "resource_slots": {
+        "voice_resource_id": null,
+        "image_resource_id": null,
+        "video_resource_id": null
+      },
+      "output_slots": {
+        "voice_uri": "dist/20260414_豆包高效用法_cartoon_ip_formal/tts/segment_seg01.mp3",
+        "subtitle_uri": "dist/20260414_豆包高效用法_cartoon_ip_formal/captions.srt",
+        "visual_uri": "dist/20260414_豆包高效用法_cartoon_ip_formal/visual/seg01_video.mp4"
+      },
+      "timeline": {
+        "planned_start_seconds": 0.0,
+        "planned_end_seconds": 9.0,
+        "planned_duration_seconds": 9.0
+      },
+      "known_issues": [],
+      "current_status": "success"
+    },
+    {
+      "sequence": 2,
+      "segment_id": "seg02",
+      "goal": "真实豆包录屏承接前两种工位：临时汇报先搭框架、资料太乱先做整理和 PPT 结构",
+      "voiceover_text": "第一种，临时要汇报，先让它搭框架，不写全文。直接发：我要做工作汇报，有数据和用户反馈，先给我 5 页大纲，每页只写标题、3 个重点、1 句总结。第二种，资料一团乱，也别让它自由发挥。直接发：把文案、聊天记录、截图分成能直接用、只能参考、用不上的三类，再改成 6 页 PPT 结构，最后告诉我先写哪页。",
+      "caption_text": "第一种，临时要汇报，先让它搭框架，不写全文。直接发：我要做工作汇报，有数据和用户反馈，先给我 5 页大纲，每页只写标题、3 个重点、1 句总结。第二种，资料一团乱，也别让它自由发挥。直接发：把文案、聊天记录、截图分成能直接用、只能参考、用不上的三类，再改成 6 页 PPT 结构，最后告诉我先写哪页。",
+      "visual_intent": "真实豆包录屏里要连续看见“第一招：先搭框架”和“第二招：先做整理 / PPT 结构”，让观众知道 prompt 该怎么发、结果会长什么样。",
+      "material_requirements": {
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": true,
+        "carrier": "self_footage",
+        "asset_key": "doubao_scene_12",
+        "asset_source": "user_media"
+      },
+      "presentation": {
+        "carrier": "self_footage",
+        "asset_key": "doubao_scene_12",
+        "asset_source": "user_media",
+        "resolved_asset_origin": "user_media"
+      },
+      "provider_plan": {
+        "tts_provider": "aliyun_bailian",
+        "tts_api_route_family": "aliyun_bailian_cosyvoice",
+        "tts_model": "cosyvoice-v2",
+        "tts_endpoint_id": "4429057155",
+        "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "visual_model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": false,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": false,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        },
+        "tts_baseline_profile": "aliyun_old_A"
+      },
+      "task_slots": {
+        "voice_task_id": "1af2e115-26d5-91a5-9786-afd31eeedc8b",
+        "image_task_id": null,
+        "video_task_id": null
+      },
+      "resource_slots": {
+        "voice_resource_id": null,
+        "image_resource_id": null,
+        "video_resource_id": null
+      },
+      "output_slots": {
+        "voice_uri": "dist/20260414_豆包高效用法_cartoon_ip_formal/tts/segment_seg02.mp3",
+        "subtitle_uri": "dist/20260414_豆包高效用法_cartoon_ip_formal/captions.srt",
+        "visual_uri": "dist/20260414_豆包高效用法_cartoon_ip_formal/素材切片_clips/seg02_豆包动作位_scene12_vfill.mp4"
+      },
+      "timeline": {
+        "planned_start_seconds": 9.0,
+        "planned_end_seconds": 35.0,
+        "planned_duration_seconds": 26.0
+      },
+      "known_issues": [],
+      "current_status": "success"
+    },
+    {
+      "sequence": 3,
+      "segment_id": "seg03",
+      "goal": "真实豆包录屏承接第三种工位：稿子写完只做优化，并把会议纪要改成待办清单",
+      "voiceover_text": "第三种，稿子写完只做优化，不要重写。改口语就说：内容不变，别扩写，去掉官方腔，改成我平时说话的样子。会议纪要就说：改成待办清单，分今天做、本周做、待定，标好谁来做、什么时候做完。",
+      "caption_text": "第三种，稿子写完只做优化，不要重写。改口语就说：内容不变，别扩写，去掉官方腔，改成我平时说话的样子。会议纪要就说：改成待办清单，分今天做、本周做、待定，标好谁来做、什么时候做完。",
+      "visual_intent": "真实豆包录屏里要看见“第三招：只做优化”和“纪要变待办”的结果页，让观众知道这不是重写，而是保留自己内容后做最后一步打磨。",
+      "material_requirements": {
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": true,
+        "carrier": "self_footage",
+        "asset_key": "doubao_scene_3",
+        "asset_source": "user_media"
+      },
+      "presentation": {
+        "carrier": "self_footage",
+        "asset_key": "doubao_scene_3",
+        "asset_source": "user_media",
+        "resolved_asset_origin": "user_media"
+      },
+      "provider_plan": {
+        "tts_provider": "aliyun_bailian",
+        "tts_api_route_family": "aliyun_bailian_cosyvoice",
+        "tts_model": "cosyvoice-v2",
+        "tts_endpoint_id": "4429057155",
+        "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "visual_model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": false,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": false,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        },
+        "tts_baseline_profile": "aliyun_old_A"
+      },
+      "task_slots": {
+        "voice_task_id": "d0d11f4d-227d-904b-8eaf-1e1c4833bd7b",
+        "image_task_id": null,
+        "video_task_id": null
+      },
+      "resource_slots": {
+        "voice_resource_id": null,
+        "image_resource_id": null,
+        "video_resource_id": null
+      },
+      "output_slots": {
+        "voice_uri": "dist/20260414_豆包高效用法_cartoon_ip_formal/tts/segment_seg03.mp3",
+        "subtitle_uri": "dist/20260414_豆包高效用法_cartoon_ip_formal/captions.srt",
+        "visual_uri": "dist/20260414_豆包高效用法_cartoon_ip_formal/素材切片_clips/seg03_豆包动作位_scene3_vfill.mp4"
+      },
+      "timeline": {
+        "planned_start_seconds": 35.0,
+        "planned_end_seconds": 55.0,
+        "planned_duration_seconds": 20.0
+      },
+      "known_issues": [],
+      "current_status": "success"
+    },
+    {
+      "sequence": 4,
+      "segment_id": "seg04",
+      "goal": "轻量 steps_card 压实万能口诀和最低成本动作",
+      "voiceover_text": "记住这句：别说帮我写，只说帮我做。先要框架，先做整理，只做优化。先收任务，再要结果。",
+      "caption_text": "记住这句：别说帮我写，只说帮我做。先要框架，先做整理，只做优化。先收任务，再要结果。",
+      "visual_intent": "单屏深色 `steps_card`，顶部只放万能口诀，下半屏用三列压住“框架 / 整理 / 优化”的最小 prompt 结构，一屏可读。",
+      "material_requirements": {
+        "needs_image": true,
+        "needs_video": false,
+        "allow_real_desktop_footage": false,
+        "carrier": "light_ppt",
+        "asset_key": "steps_card",
+        "asset_source": "user_media"
+      },
+      "presentation": {
+        "carrier": "light_ppt",
+        "asset_key": "steps_card",
+        "asset_source": "user_media",
+        "resolved_asset_origin": "user_media"
+      },
+      "provider_plan": {
+        "tts_provider": "aliyun_bailian",
+        "tts_api_route_family": "aliyun_bailian_cosyvoice",
+        "tts_model": "cosyvoice-v2",
+        "tts_endpoint_id": "4429057155",
+        "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "visual_model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": false,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": false,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        },
+        "tts_baseline_profile": "aliyun_old_A"
+      },
+      "task_slots": {
+        "voice_task_id": "b0989df6-a6e1-9bc8-aca9-38002867c5bc",
+        "image_task_id": null,
+        "video_task_id": null
+      },
+      "resource_slots": {
+        "voice_resource_id": null,
+        "image_resource_id": null,
+        "video_resource_id": null
+      },
+      "output_slots": {
+        "voice_uri": "dist/20260414_豆包高效用法_cartoon_ip_formal/tts/segment_seg04.mp3",
+        "subtitle_uri": "dist/20260414_豆包高效用法_cartoon_ip_formal/captions.srt",
+        "visual_uri": "/Users/fan/Documents/视频工厂/dist/20260414_豆包高效用法_cartoon_ip_formal/visual/seg04_口诀_steps_card.png"
+      },
+      "timeline": {
+        "planned_start_seconds": 55.0,
+        "planned_end_seconds": 63.0,
+        "planned_duration_seconds": 8.0
+      },
+      "known_issues": [],
+      "current_status": "success"
+    },
+    {
+      "sequence": 5,
+      "segment_id": "seg05",
+      "goal": "同一卡通 IP 回到镜头前做轻 CTA，强调今天就去试，不做强卖课",
+      "voiceover_text": "你今天先抄一条去试。想要我把这 3 套复制模板整理好，评论区扣豆包，我发你能直接粘贴的版本。",
+      "caption_text": "你今天先抄一条去试。想要我把这 3 套复制模板整理好，评论区扣豆包，我发你能直接粘贴的版本。",
+      "visual_intent": "同一位 Q版 3D 卡通人形 IP 半身收尾，表情认真但友好，像在把门槛压到最低。",
+      "material_requirements": {
+        "needs_image": true,
+        "needs_video": true,
+        "allow_real_desktop_footage": false,
+        "carrier": "human",
+        "asset_key": "close_human",
+        "asset_source": "api_generated"
+      },
+      "presentation": {
+        "carrier": "human",
+        "asset_key": "close_human",
+        "asset_source": "api_generated",
+        "resolved_asset_origin": "api_generated"
+      },
+      "provider_plan": {
+        "tts_provider": "aliyun_bailian",
+        "tts_api_route_family": "aliyun_bailian_cosyvoice",
+        "tts_model": "cosyvoice-v2",
+        "tts_endpoint_id": "4429057155",
+        "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "visual_model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": false,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": false,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        },
+        "tts_baseline_profile": "aliyun_old_A"
+      },
+      "task_slots": {
+        "voice_task_id": "bcd2c781-aed7-9c2a-9a05-f1b3173de2b3",
+        "image_task_id": "reused_from_seg01",
+        "video_task_id": "reused_from_seg01"
+      },
+      "resource_slots": {
+        "voice_resource_id": null,
+        "image_resource_id": null,
+        "video_resource_id": null
+      },
+      "output_slots": {
+        "voice_uri": "dist/20260414_豆包高效用法_cartoon_ip_formal/tts/segment_seg05.mp3",
+        "subtitle_uri": "dist/20260414_豆包高效用法_cartoon_ip_formal/captions.srt",
+        "visual_uri": "dist/20260414_豆包高效用法_cartoon_ip_formal/visual/seg05_video.mp4"
+      },
+      "timeline": {
+        "planned_start_seconds": 63.0,
+        "planned_end_seconds": 72.0,
+        "planned_duration_seconds": 9.0
+      },
+      "known_issues": [],
+      "current_status": "success"
+    }
+  ],
+  "provider_summary": {
+    "provider": "aliyun_bailian",
+    "tts_provider": "aliyun_bailian",
+    "region": "cn-beijing",
+    "tts_baseline": {
+      "profile_id": "aliyun_old_A",
+      "source_variant": "tts_style_probe_variant_A",
+      "label": "旧 A 可用基线",
+      "instruction": "你说话的情感是neutral。",
+      "speech_rate": 1.18,
+      "pitch_rate": 0.92,
+      "volume": 46,
+      "note": "当前正式链路继续沿用旧 A 作为默认可用配音基线，不再继续扩声音实验分支。"
+    },
+    "models": {
+      "tts_api_route_family": "aliyun_bailian_cosyvoice",
+      "tts": "cosyvoice-v2",
+      "tts_endpoint_id": "4429057155",
+      "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+      "image_generation": "wan2.6-image",
+      "video_generation": "wan2.7-i2v",
+      "general_video_generation": "wan2.7-i2v",
+      "portrait_detect": "liveportrait-detect",
+      "portrait_video_generation": "liveportrait",
+      "visual_model_routes": {
+        "image_generation": {
+          "enabled": true,
+          "model": "wan2.6-image",
+          "role": "首帧 / 背景 / 人像底图生成",
+          "recommended_free_model": "wan2.6-image"
+        },
+        "general_video_generation": {
+          "enabled": true,
+          "model": "wan2.7-i2v",
+          "role": "普通视频主线（先图后视频）",
+          "recommended_free_model": "wan2.7-i2v"
+        },
+        "portrait_detect": {
+          "enabled": false,
+          "model": "liveportrait-detect",
+          "role": "liveportrait 前置检测",
+          "recommended_free_model": "liveportrait-detect"
+        },
+        "portrait_video_generation": {
+          "enabled": false,
+          "model": "liveportrait",
+          "role": "固定背景 / 人物开口分支",
+          "recommended_free_model": "liveportrait",
+          "requires": [
+            "portrait_detect"
+          ]
+        }
+      }
+    }
+  },
+  "config_summary": {
+    "assembly_mode": "cloud_only",
+    "subtitle_mode": "burn_in",
+    "output_dir": "dist/20260414_豆包高效用法_cartoon_ip_formal",
+    "quality_gate": {
+      "require_hook": true,
+      "min_segments": 3,
+      "require_manifest_schema": true,
+      "allow_local_fallback": false
+    }
+  },
+  "timeline": {
+    "planned_total_duration_seconds": 72.0,
+    "planned_segment_count": 5
+  },
+  "status_summary": {
+    "generation": "success",
+    "assembly_delivery": "success",
+    "local_assembly": "not_started",
+    "cloud_assembly": "success",
+    "overall_status": "success"
+  },
+  "generation": {
+    "status": "success",
+    "task_id": null,
+    "resource_id": null,
+    "output_id": null,
+    "tts_baseline": {
+      "profile_id": "aliyun_old_A",
+      "source_variant": "tts_style_probe_variant_A",
+      "label": "旧 A 可用基线",
+      "instruction": "你说话的情感是neutral。",
+      "speech_rate": 1.18,
+      "pitch_rate": 0.92,
+      "volume": 46,
+      "note": "当前正式链路继续沿用旧 A 作为默认可用配音基线，不再继续扩声音实验分支。"
+    },
+    "tts_probe": {
+      "status": "success",
+      "blocked_reason": "",
+      "failure_reason": "",
+      "http_status_code": null,
+      "error_code": "",
+      "error_message": "",
+      "audio_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/tts/voice_probe.mp3",
+      "request_id": "5c3e6608-6eb3-9dc2-b979-38cb41f6de8c",
+      "provider": "aliyun_bailian",
+      "api_route_family": "aliyun_bailian_cosyvoice",
+      "model_identifier": "cosyvoice-v2",
+      "probe_text": "你是不是天天用豆包，却越用越累？不是它没用，是你一直在让它瞎写。今天我只给你 3 个今天就能抄的动作。",
+      "probe_text_source": "segment_1_voiceover",
+      "voice": "longxiaochun_v2",
+      "used_endpoint_id": "4429057155",
+      "used_model_id": "cosyvoice-v2",
+      "used_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+      "response_format": "mp3",
+      "request_debug": {
+        "provider": "aliyun_bailian",
+        "api_route_family": "aliyun_bailian_cosyvoice",
+        "provider_route_family": "aliyun_bailian_cosyvoice",
+        "request_method": "POST",
+        "base_url": "https://dashscope.aliyuncs.com/api/v1",
+        "relative_path": "/services/audio/tts/SpeechSynthesizer",
+        "sdk_call": "urllib.request.urlopen",
+        "model_identifier_source": "model",
+        "model_identifier_shape": {
+          "present": true,
+          "length": 12,
+          "has_digit": true,
+          "has_dash": true,
+          "prefix": "co",
+          "suffix": "v2"
+        },
+        "endpoint_id_shape": {
+          "present": true,
+          "length": 10,
+          "has_digit": true,
+          "has_dash": false,
+          "prefix": "44",
+          "suffix": "55"
+        },
+        "model_shape": {
+          "present": true,
+          "length": 12,
+          "has_digit": true,
+          "has_dash": true,
+          "prefix": "co",
+          "suffix": "v2"
+        },
+        "resource_id_shape": {
+          "present": true,
+          "length": 26,
+          "has_digit": false,
+          "has_dash": false,
+          "prefix": "SE",
+          "suffix": "ED"
+        },
+        "app_id_shape": {
+          "present": false,
+          "length": 0,
+          "has_digit": false,
+          "has_dash": false,
+          "prefix": "",
+          "suffix": ""
+        },
+        "voice_location": "payload.input.voice",
+        "voice_shape": {
+          "present": true,
+          "length": 15,
+          "has_digit": true,
+          "has_dash": false,
+          "prefix": "lo",
+          "suffix": "v2"
+        },
+        "style_shape": {
+          "present": true,
+          "length": 9,
+          "has_digit": false,
+          "has_dash": false,
+          "prefix": "kn",
+          "suffix": "ge"
+        },
+        "response_format": "mp3",
+        "instruction_location": "payload.input.instruction",
+        "instruction_shape": {
+          "present": false,
+          "length": 0,
+          "has_digit": false,
+          "has_dash": false,
+          "prefix": "",
+          "suffix": ""
+        },
+        "speech_rate": 1.0,
+        "pitch_rate": 0.92,
+        "volume": 46,
+        "request_input_keys": [
+          "text",
+          "voice",
+          "format",
+          "rate",
+          "pitch",
+          "volume"
+        ],
+        "style_draft_in_request": false
+      },
+      "current_missing_prerequisites": [],
+      "candidate_pool": {
+        "total_candidate_count": 1,
+        "available_candidate_count": 1,
+        "backup_candidate_count": 0,
+        "candidates": [
+          {
+            "candidate_id": "primary",
+            "label": "primary",
+            "provider": "aliyun_bailian",
+            "api_route_family": "aliyun_bailian_cosyvoice",
+            "voice": "longxiaochun_v2",
+            "model_identifier": "cosyvoice-v2",
+            "style_profile": "default",
+            "priority": 10,
+            "enabled": true,
+            "available": true,
+            "missing_prerequisites": []
+          }
+        ]
+      },
+      "fallback_events": [],
+      "selected_candidate_id": "primary",
+      "selected_candidate_label": "primary",
+      "selected_voice": "longxiaochun_v2",
+      "failure_category": "",
+      "resource_pool_exhausted": false
+    },
+    "voiceover": {
+      "status": "success",
+      "baseline_profile": {
+        "profile_id": "aliyun_old_A",
+        "source_variant": "tts_style_probe_variant_A",
+        "label": "旧 A 可用基线",
+        "instruction": "你说话的情感是neutral。",
+        "speech_rate": 1.18,
+        "pitch_rate": 0.92,
+        "volume": 46,
+        "note": "当前正式链路继续沿用旧 A 作为默认可用配音基线，不再继续扩声音实验分支。"
+      },
+      "audio_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/tts/formal_voiceover.mp3",
+      "segment_audio_paths": [
+        "dist/20260414_豆包高效用法_cartoon_ip_formal/tts/segment_seg01.mp3",
+        "dist/20260414_豆包高效用法_cartoon_ip_formal/tts/segment_seg02.mp3",
+        "dist/20260414_豆包高效用法_cartoon_ip_formal/tts/segment_seg03.mp3",
+        "dist/20260414_豆包高效用法_cartoon_ip_formal/tts/segment_seg04.mp3",
+        "dist/20260414_豆包高效用法_cartoon_ip_formal/tts/segment_seg05.mp3"
+      ],
+      "segment_results": [
+        {
+          "segment_id": "seg01",
+          "status": "success",
+          "audio_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/tts/segment_seg01.mp3",
+          "request_id": "80e7f74a-4ca3-9409-89e8-181f2b29ffd8",
+          "failure_reason": "",
+          "error_message": "",
+          "selected_candidate_id": "primary",
+          "fallback_events": []
+        },
+        {
+          "segment_id": "seg02",
+          "status": "success",
+          "audio_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/tts/segment_seg02.mp3",
+          "request_id": "1af2e115-26d5-91a5-9786-afd31eeedc8b",
+          "failure_reason": "",
+          "error_message": "",
+          "selected_candidate_id": "primary",
+          "fallback_events": []
+        },
+        {
+          "segment_id": "seg03",
+          "status": "success",
+          "audio_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/tts/segment_seg03.mp3",
+          "request_id": "d0d11f4d-227d-904b-8eaf-1e1c4833bd7b",
+          "failure_reason": "",
+          "error_message": "",
+          "selected_candidate_id": "primary",
+          "fallback_events": []
+        },
+        {
+          "segment_id": "seg04",
+          "status": "success",
+          "audio_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/tts/segment_seg04.mp3",
+          "request_id": "b0989df6-a6e1-9bc8-aca9-38002867c5bc",
+          "failure_reason": "",
+          "error_message": "",
+          "selected_candidate_id": "primary",
+          "fallback_events": []
+        },
+        {
+          "segment_id": "seg05",
+          "status": "success",
+          "audio_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/tts/segment_seg05.mp3",
+          "request_id": "bcd2c781-aed7-9c2a-9a05-f1b3173de2b3",
+          "failure_reason": "",
+          "error_message": "",
+          "selected_candidate_id": "primary",
+          "fallback_events": []
+        }
+      ],
+      "blocked_reason": "",
+      "failure_reason": "",
+      "error_message": "",
+      "current_missing_prerequisites": [],
+      "fallback_events": [],
+      "last_success_candidate_id": "primary"
+    },
+    "captions": {
+      "status": "success",
+      "script_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/script.txt",
+      "captions_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/captions.srt",
+      "timeline_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/timeline.json",
+      "segment_count": 5
+    },
+    "visual_generation": {
+      "status": "success",
+      "delivery_mode": "api_generated_local_assets",
+      "provider": "aliyun_bailian",
+      "image_model": "wan2.6-image",
+      "video_model": "wan2.7-i2v",
+      "general_video_generation": {
+        "status": "success",
+        "enabled": true,
+        "model": "wan2.7-i2v",
+        "role": "普通视频主线（先图后视频）",
+        "recommended_free_model": "wan2.7-i2v",
+        "blocked_reason": "",
+        "failure_reason": "",
+        "error_message": ""
+      },
+      "portrait_detect": {
+        "status": "skipped",
+        "enabled": false,
+        "model": "liveportrait-detect",
+        "role": "liveportrait 前置检测",
+        "recommended_free_model": "liveportrait-detect",
+        "blocked_reason": "",
+        "failure_reason": "",
+        "error_message": "",
+        "request_id": null,
+        "source_image_url": null
+      },
+      "portrait_video_generation": {
+        "status": "skipped",
+        "enabled": false,
+        "model": "liveportrait",
+        "role": "固定背景 / 人物开口分支",
+        "recommended_free_model": "liveportrait",
+        "requires": [
+          "portrait_detect"
+        ],
+        "blocked_reason": "",
+        "failure_reason": "",
+        "error_message": "",
+        "task_id": null,
+        "request_id": null,
+        "asset_path": null,
+        "source_image_url": null,
+        "source_audio_url": null
+      },
+      "plan_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/visual_generation_plan.json",
+      "preview_storyboard_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/preview_storyboard.json",
+      "segment_assets": [
+        {
+          "segment_id": "seg01",
+          "sequence": 1,
+          "carrier": "human",
+          "asset_key": "hook_human",
+          "asset_source": "api_generated",
+          "needs_image": true,
+          "needs_video": true,
+          "seed_image_required": true,
+          "image_prompt": "9:16 竖版，单一角色，Q版 / chibi / 3D盲盒手办感 / 软陶树脂哑光质感 / 大头小身材 / 大眼睛 / 浅色短发偏金发 / 浅绿色帽子 / 可信账号人物IP / 可爱但不低幼，半身构图，固定背景，面对镜头，眼神稳定，语气克制但有判断感，像在直接点破常见误区。整体要可信、克制、可爱但不低幼，不要廉价卖萌，不要玩具广告感，不要大字，不要卡片感，不要课件感，不要夸张动作。",
+          "video_prompt": "Q版 / chibi / 3D盲盒手办感 / 软陶树脂哑光质感 / 大头小身材 / 大眼睛 / 浅色短发偏金发 / 浅绿色帽子 / 可信账号人物IP / 可爱但不低幼。9:16 竖版，单一角色半身面对镜头做简短口播，镜头固定，轻微嘴型、自然眨眼、极轻点头，表情认真但不凶，像在提醒用户别再走弯路。保持同一角色设定和哑光 3D 质感，不要夸张肢体，不要跳切，不要卖萌。",
+          "image_task_id": "0844beed-da38-47c5-96e7-5c6dd8379649",
+          "video_task_id": "50e97a13-5a1d-4033-a570-6ea1277968a1",
+          "image_asset_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/visual/seg01_image.png",
+          "video_asset_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/visual/seg01_video.mp4",
+          "local_asset_path": null,
+          "asset_origin": "api_generated",
+          "preview_visual_ref": "preview_slide_1",
+          "failure_reason": "",
+          "error_message": "",
+          "status": "success",
+          "image_candidate_id": "primary",
+          "image_fallback_events": [],
+          "video_candidate_id": "primary",
+          "video_fallback_events": []
+        },
+        {
+          "segment_id": "seg02",
+          "sequence": 2,
+          "carrier": "self_footage",
+          "asset_key": "doubao_scene_12",
+          "asset_source": "user_media",
+          "verified_role": "screen_recording",
+          "needs_image": false,
+          "needs_video": true,
+          "seed_image_required": false,
+          "image_prompt": "",
+          "video_prompt": "",
+          "image_task_id": null,
+          "video_task_id": null,
+          "image_asset_path": null,
+          "video_asset_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/素材切片_clips/seg02_豆包动作位_scene12_vfill.mp4",
+          "local_asset_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/素材切片_clips/seg02_豆包动作位_scene12_vfill.mp4",
+          "asset_origin": "user_media",
+          "preview_visual_ref": "preview_slide_2",
+          "failure_reason": "",
+          "error_message": "",
+          "status": "success"
+        },
+        {
+          "segment_id": "seg03",
+          "sequence": 3,
+          "carrier": "self_footage",
+          "asset_key": "doubao_scene_3",
+          "asset_source": "user_media",
+          "verified_role": "screen_recording",
+          "needs_image": false,
+          "needs_video": true,
+          "seed_image_required": false,
+          "image_prompt": "",
+          "video_prompt": "",
+          "image_task_id": null,
+          "video_task_id": null,
+          "image_asset_path": null,
+          "video_asset_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/素材切片_clips/seg03_豆包动作位_scene3_vfill.mp4",
+          "local_asset_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/素材切片_clips/seg03_豆包动作位_scene3_vfill.mp4",
+          "asset_origin": "user_media",
+          "preview_visual_ref": "preview_slide_3",
+          "failure_reason": "",
+          "error_message": "",
+          "status": "success"
+        },
+        {
+          "segment_id": "seg04",
+          "sequence": 4,
+          "carrier": "light_ppt",
+          "asset_key": "steps_card",
+          "asset_source": "user_media",
+          "verified_role": "ppt_image",
+          "needs_image": true,
+          "needs_video": false,
+          "seed_image_required": false,
+          "image_prompt": "",
+          "video_prompt": "",
+          "image_task_id": null,
+          "video_task_id": null,
+          "image_asset_path": "/Users/fan/Documents/视频工厂/dist/20260414_豆包高效用法_cartoon_ip_formal/visual/seg04_口诀_steps_card.png",
+          "video_asset_path": null,
+          "local_asset_path": "/Users/fan/Documents/视频工厂/dist/20260414_豆包高效用法_cartoon_ip_formal/visual/seg04_口诀_steps_card.png",
+          "asset_origin": "user_media",
+          "preview_visual_ref": "preview_slide_4",
+          "failure_reason": "",
+          "error_message": "",
+          "status": "success"
+        },
+        {
+          "segment_id": "seg05",
+          "sequence": 5,
+          "carrier": "human",
+          "asset_key": "close_human",
+          "asset_source": "api_generated",
+          "needs_image": true,
+          "needs_video": true,
+          "seed_image_required": true,
+          "image_prompt": "9:16 竖版，单一角色，Q版 / chibi / 3D盲盒手办感 / 软陶树脂哑光质感 / 大头小身材 / 大眼睛 / 浅色短发偏金发 / 浅绿色帽子 / 可信账号人物IP / 可爱但不低幼，半身构图，固定背景，面对镜头做结尾收束，表情稳定，有轻微点头和最小动作手势，像在给出今天就能执行的下一步。整体要可信、克制、可爱但不低幼，不要廉价卖萌，不要大字，不要卡片感，不要课件感。",
+          "video_prompt": "Q版 / chibi / 3D盲盒手办感 / 软陶树脂哑光质感 / 大头小身材 / 大眼睛 / 浅色短发偏金发 / 浅绿色帽子 / 可信账号人物IP / 可爱但不低幼。9:16 竖版，单一角色半身面对镜头做结尾口播，镜头固定，轻微嘴型、自然眨眼、收束型小点头和很轻的手势，语气像在压实最小行动。保持同一角色设定和哑光 3D 质感，不要夸张动作，不要卖萌，不要广告感。",
+          "image_task_id": "reused_from_seg01",
+          "video_task_id": "reused_from_seg01",
+          "image_asset_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/visual/seg05_image.png",
+          "video_asset_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/visual/seg05_video.mp4",
+          "local_asset_path": null,
+          "asset_origin": "api_generated",
+          "preview_visual_ref": "preview_slide_5",
+          "failure_reason": "",
+          "error_message": "",
+          "status": "success",
+          "image_candidate_id": "primary",
+          "image_fallback_events": [],
+          "video_candidate_id": "",
+          "video_fallback_events": [],
+          "selected_candidate_id": "reused_seg01_asset",
+          "selected_candidate_label": "reused_seg01_asset"
+        }
+      ],
+      "blocked_reason": "",
+      "failure_reason": "",
+      "error_message": "",
+      "current_missing_prerequisites": [],
+      "missing_implementations": [],
+      "candidate_pool": {
+        "image_generation": {
+          "total_candidate_count": 1,
+          "available_candidate_count": 1,
+          "backup_candidate_count": 0,
+          "candidates": [
+            {
+              "candidate_id": "primary",
+              "label": "Aliyun Image Primary",
+              "provider": "aliyun_bailian",
+              "model": "wan2.6-image",
+              "style_profile": "report",
+              "priority": 10,
+              "enabled": true,
+              "available": true,
+              "missing_prerequisites": []
+            }
+          ]
+        },
+        "video_generation": {
+          "total_candidate_count": 1,
+          "available_candidate_count": 1,
+          "backup_candidate_count": 0,
+          "candidates": [
+            {
+              "candidate_id": "primary",
+              "label": "Aliyun Video Primary",
+              "provider": "aliyun_bailian",
+              "model": "wan2.7-i2v",
+              "style_profile": "report",
+              "priority": 10,
+              "enabled": true,
+              "available": true,
+              "missing_prerequisites": []
+            }
+          ]
+        }
+      },
+      "cloud": {
+        "status": "success",
+        "blocked_reason": "",
+        "failure_reason": "",
+        "error_message": "",
+        "missing_prerequisites": [],
+        "missing_implementations": []
+      }
+    }
+  },
+  "assembly": {
+    "status": "success",
+    "task_id": "156062ceecb34985a5946e1382eb70b6",
+    "resource_id": "a139456cf3334509b20192f3203d75bc",
+    "output_id": "7a18bcf0377c71f1adb7e7f7d45b6302",
+    "delivery_mode": "oss_cloud_assembly",
+    "delivery_video_path": "oss://zvip1-video-beijing/video-factory/final/20260413T210511Z/formal_api_demo.mp4",
+    "local": {
+      "status": "not_started",
+      "video_path": null,
+      "blocked_reason": "",
+      "failure_reason": "",
+      "error_message": "",
+      "current_missing_prerequisites": [],
+      "missing_implementations": [],
+      "deprecated": true,
+      "deprecated_reason": "正式默认主线已改为 cloud-only；local assembly 已移出主线，不再承担 fallback 或正常交付。"
+    },
+    "cloud": {
+      "status": "success",
+      "blocked_reason": "",
+      "failure_reason": "",
+      "error_message": "",
+      "missing_prerequisites": [],
+      "missing_implementations": [],
+      "is_primary_path": true,
+      "project_id": "a139456cf3334509b20192f3203d75bc",
+      "project_title": "video-factory-ppt-master-v1",
+      "job_id": "156062ceecb34985a5946e1382eb70b6",
+      "media_id": "7a18bcf0377c71f1adb7e7f7d45b6302",
+      "output_url": "oss://zvip1-video-beijing/video-factory/final/20260413T210511Z/formal_api_demo.mp4",
+      "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/final/20260413T210511Z/formal_api_demo.mp4",
+      "timeline_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/assembly/cloud_timeline.json",
+      "request_ids": {
+        "list_projects": "D9459909-91DD-59CF-84C3-F7477AF0F084",
+        "update_project": "EF322425-2810-5612-B025-6C7A68ECC0F7",
+        "submit_job": "0AA46B84-1B8D-5985-861E-F4D99CA7148C",
+        "get_job": "B54F2FB9-71DC-5062-9D9E-FD7940ACE558"
+      },
+      "uploaded_assets": [
+        {
+          "asset_kind": "voiceover_audio",
+          "local_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/tts/formal_voiceover.mp3",
+          "object_key": "video-factory/raw/20260413T210511Z/audio/formal_voiceover.mp3",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260413T210511Z/audio/formal_voiceover.mp3?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1776117912&Signature=RXgB2c8BB1kFYXVwEU8ZgxncQB4%3D"
+        },
+        {
+          "asset_kind": "captions_srt",
+          "local_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/captions.srt",
+          "object_key": "video-factory/raw/20260413T210511Z/captions/captions.srt",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260413T210511Z/captions/captions.srt?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1776117912&Signature=Pon8T2H7HVz%2BbjLSuH8Mk4yYW6c%3D"
+        },
+        {
+          "asset_kind": "visual_seg01",
+          "local_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/visual/seg01_video.mp4",
+          "object_key": "video-factory/raw/20260413T210511Z/visuals/seg01.mp4",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260413T210511Z/visuals/seg01.mp4?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1776117914&Signature=8ezgWktaDn%2BD9WFFi2SwTgLkH7o%3D",
+          "clip_type": "Video"
+        },
+        {
+          "asset_kind": "visual_seg02",
+          "local_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/素材切片_clips/seg02_豆包动作位_scene12_vfill.mp4",
+          "object_key": "video-factory/raw/20260413T210511Z/visuals/seg02.mp4",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260413T210511Z/visuals/seg02.mp4?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1776117914&Signature=BH%2FUbRfvU0XqPAnyZ9agLRKjNGY%3D",
+          "clip_type": "Video"
+        },
+        {
+          "asset_kind": "visual_seg03",
+          "local_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/素材切片_clips/seg03_豆包动作位_scene3_vfill.mp4",
+          "object_key": "video-factory/raw/20260413T210511Z/visuals/seg03.mp4",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260413T210511Z/visuals/seg03.mp4?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1776117915&Signature=AmQ5EsQ0gko3nbiGkbC9Ow2o1JM%3D",
+          "clip_type": "Video"
+        },
+        {
+          "asset_kind": "visual_seg04",
+          "local_path": "/Users/fan/Documents/视频工厂/dist/20260414_豆包高效用法_cartoon_ip_formal/visual/seg04_口诀_steps_card.png",
+          "object_key": "video-factory/raw/20260413T210511Z/visuals/seg04.png",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260413T210511Z/visuals/seg04.png?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1776117916&Signature=8u%2Blmrg36f6DgH7sep6zqO3sEaw%3D",
+          "clip_type": "Image"
+        },
+        {
+          "asset_kind": "visual_seg05",
+          "local_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/visual/seg05_video.mp4",
+          "object_key": "video-factory/raw/20260413T210511Z/visuals/seg05.mp4",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260413T210511Z/visuals/seg05.mp4?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1776117917&Signature=14vscjWjRfy%2B%2BSR0RDUnfa5R8Hw%3D",
+          "clip_type": "Video"
+        },
+        {
+          "asset_kind": "timeline_debug",
+          "local_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/assembly/cloud_timeline.json",
+          "object_key": "video-factory/temp/20260413T210511Z/cloud_timeline.json",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/temp/20260413T210511Z/cloud_timeline.json"
+        }
+      ],
+      "target": {
+        "assembly_mode": "cloud_only",
+        "subtitle_mode": "burn_in",
+        "resolution": "1080x1920",
+        "fps": 25,
+        "oss_bucket": "zvip1-video-beijing",
+        "oss_region": "cn-beijing",
+        "oss_endpoint": "oss-cn-beijing.aliyuncs.com",
+        "oss_bucket_domain": "zvip1-video-beijing.oss-cn-beijing.aliyuncs.com",
+        "oss_prefix_raw": "video-factory/raw/",
+        "oss_prefix_final": "video-factory/final/",
+        "oss_prefix_temp": "video-factory/temp/",
+        "ims_region": "cn-beijing",
+        "ims_storage_address": "zvip1-video-beijing.oss-cn-beijing.aliyuncs.com",
+        "ims_cloud_project_name": "video-factory-ppt-master-v1"
+      }
+    },
+    "preview": {
+      "status": "not_started",
+      "video_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/assembly/formal_api_demo_preview.mp4",
+      "preview_manifest_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/assembly/preview_manifest.json",
+      "captions_path": "dist/20260414_豆包高效用法_cartoon_ip_formal/captions.srt",
+      "blocked_reason": "",
+      "failure_reason": "",
+      "error_message": "",
+      "deprecated": true,
+      "deprecated_reason": "local preview 只保留历史调试意义，已移出正式默认主线路由，不再作为 fallback / 验收路径。"
+    }
+  },
+  "known_issues": [
+    "seg05 由于 wan2.6-image 免费额度耗尽，当前复用 seg01 的同一 API 生成卡通 IP 资产做收尾；属于手动降级修复，不能当成完整自动生成闭环。",
+    "seg02 / seg03 来自横屏桌面录屏的竖版转制，中段仍保留模糊背景填充；证据成立，但画面沉浸感仍有提升空间。"
+  ],
+  "machine_gate": {
+    "generation_gate": {
+      "gate_name": "generation_gate",
+      "status": "success",
+      "scope": "tts_voiceover_and_visual_generation",
+      "allow_execution": true,
+      "blocked_reason": "",
+      "failure_reason": "",
+      "missing_prerequisites": [],
+      "missing_implementations": [],
+      "tts_target": {
+        "api_route_family": "aliyun_bailian_cosyvoice",
+        "model_identifier": "cosyvoice-v2",
+        "endpoint_id": "4429057155",
+        "model": "cosyvoice-v2",
+        "resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "voice": "longxiaochun_v2",
+        "region": "cn-beijing",
+        "provider": "aliyun_bailian"
+      },
+      "visual_target": {
+        "provider": "aliyun_bailian",
+        "region": "cn-beijing",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": false,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": false,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        }
+      },
+      "stage_gates": {
+        "tts_probe": {
+          "gate_name": "generation_gate",
+          "status": "success",
+          "scope": "tts_probe_only",
+          "allow_execution": true,
+          "blocked_reason": "",
+          "failure_reason": "",
+          "missing_prerequisites": [],
+          "missing_implementations": [],
+          "candidate_pool": {
+            "total_candidate_count": 1,
+            "available_candidate_count": 1,
+            "backup_candidate_count": 0,
+            "candidates": [
+              {
+                "candidate_id": "primary",
+                "label": "primary",
+                "provider": "aliyun_bailian",
+                "api_route_family": "aliyun_bailian_cosyvoice",
+                "voice": "longxiaochun_v2",
+                "model_identifier": "cosyvoice-v2",
+                "style_profile": "default",
+                "priority": 10,
+                "enabled": true,
+                "available": true,
+                "missing_prerequisites": []
+              }
+            ]
+          },
+          "tts_target": {
+            "api_route_family": "aliyun_bailian_cosyvoice",
+            "model_identifier": "cosyvoice-v2",
+            "endpoint_id": "4429057155",
+            "model": "cosyvoice-v2",
+            "resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+            "voice": "longxiaochun_v2",
+            "region": "cn-beijing",
+            "provider": "aliyun_bailian"
+          },
+          "checks": [
+            {
+              "name": "input_segments_present",
+              "status": "pass",
+              "detail": "当前共有 5 个段落。"
+            },
+            {
+              "name": "provider_selected",
+              "status": "pass",
+              "detail": "configured_provider=aliyun_bailian, resolved_tts_provider=aliyun_bailian"
+            },
+            {
+              "name": "tts_route_family_selected",
+              "status": "pass",
+              "detail": "api_route_family=aliyun_bailian_cosyvoice"
+            },
+            {
+              "name": "tts_route_family_ready",
+              "status": "pass",
+              "detail": "当前 Ark、Edge Gateway 和阿里百炼 CosyVoice 已接入真实 probe；Doubao OpenSpeech 仍是 gate-only。"
+            },
+            {
+              "name": "tts_api_key_present",
+              "status": "pass",
+              "detail": "当前 preflight 已升级为整条候选链检查，不再只看单个 auth.api_key。"
+            },
+            {
+              "name": "tts_voice_present",
+              "status": "pass",
+              "detail": "当前 preflight 已升级为整条候选链检查，不再只看单个 tts.voice。"
+            },
+            {
+              "name": "tts_usable_candidate_present",
+              "status": "pass",
+              "detail": "available_candidates=1 / total_candidates=1"
+            },
+            {
+              "name": "cloud_only_assembly_route_locked",
+              "status": "pass",
+              "detail": "正式默认主线已锁定为北京区 OSS + 云剪唯一 assembly 路线，本地 fallback 不再作为正常交付。"
+            },
+            {
+              "name": "tts_model_present",
+              "status": "pass",
+              "detail": "阿里百炼 CosyVoice 使用 tts.model + voice，不读取 endpoint_id。"
+            }
+          ],
+          "notes": [
+            "当前子 Gate 只评估 TTS probe / voiceover 所需前提。",
+            "dry-run 只验证输入、契约和 Gate，不调用远端。",
+            "route family 已显式拆分为 Ark / Edge Gateway / 阿里百炼 CosyVoice / Doubao OpenSpeech，不再默认混走 Ark。",
+            "当前 TTS preflight 已升级为候选链检查；只要存在 1 个可用候选，就不再把单个 primary 缺失误判成整体 blocked。"
+          ]
+        },
+        "visual_generation": {
+          "gate_name": "visual_generation_gate",
+          "status": "success",
+          "allow_execution": true,
+          "blocked_reason": "",
+          "failure_reason": "",
+          "missing_prerequisites": [],
+          "missing_implementations": [],
+          "candidate_pool": {
+            "image_generation": {
+              "total_candidate_count": 1,
+              "available_candidate_count": 1,
+              "backup_candidate_count": 0,
+              "candidates": [
+                {
+                  "candidate_id": "primary",
+                  "label": "Aliyun Image Primary",
+                  "provider": "aliyun_bailian",
+                  "model": "wan2.6-image",
+                  "style_profile": "report",
+                  "priority": 10,
+                  "enabled": true,
+                  "available": true,
+                  "missing_prerequisites": []
+                }
+              ]
+            },
+            "video_generation": {
+              "total_candidate_count": 1,
+              "available_candidate_count": 1,
+              "backup_candidate_count": 0,
+              "candidates": [
+                {
+                  "candidate_id": "primary",
+                  "label": "Aliyun Video Primary",
+                  "provider": "aliyun_bailian",
+                  "model": "wan2.7-i2v",
+                  "style_profile": "report",
+                  "priority": 10,
+                  "enabled": true,
+                  "available": true,
+                  "missing_prerequisites": []
+                }
+              ]
+            }
+          },
+          "checks": [
+            {
+              "name": "visual_segments_present",
+              "status": "pass",
+              "detail": "segments=5"
+            },
+            {
+              "name": "image_model_present_when_required",
+              "status": "pass",
+              "detail": "有图片段落时必须存在至少 1 个可用 image candidate；available=1。"
+            },
+            {
+              "name": "video_model_present_when_required",
+              "status": "pass",
+              "detail": "有视频段落时必须存在至少 1 个可用 video candidate；available=1。"
+            },
+            {
+              "name": "required_user_footage_present",
+              "status": "pass",
+              "detail": "默认正式主线要求的用户本地录制素材必须先在本地配置里注入真实文件路径。"
+            },
+            {
+              "name": "human_carrier_requires_verified_on_camera_footage",
+              "status": "pass",
+              "detail": "只有当 carrier=human 且素材来源=user_media 时，才必须显式标记 verified_role=\"human_on_camera\"；API 真人段不读取本地人物槽位。"
+            },
+            {
+              "name": "portrait_detect_enabled_before_liveportrait",
+              "status": "pass",
+              "detail": "启用 liveportrait 前必须先启用 portrait_detect。"
+            },
+            {
+              "name": "portrait_detect_model_present_when_enabled",
+              "status": "pass",
+              "detail": "启用 portrait_detect 时必须显式提供 portrait_detect.model。"
+            },
+            {
+              "name": "portrait_video_model_present_when_enabled",
+              "status": "pass",
+              "detail": "启用 liveportrait 时必须显式提供 portrait_video_generation.model。"
+            }
+          ],
+          "notes": [
+            "visual_generation Gate 继续代表图片 / 视频生成 API 的正式 generation 前提。",
+            "默认正式主线已切到 API human + user local footage + light_ppt；hook / close 默认走 API 真人，过程证据默认走用户本地素材。",
+            "普通视频默认主线固定为 wan2.6-image -> wan2.7-i2v；先出首帧 / 底图，再转视频。",
+            "人物图 / 人像底图默认走 wan2.6-image；需要修图时走 qwen-image-edit-plus，不再默认依赖 facechain-generation。",
+            "真人开口分支固定为 liveportrait-detect + liveportrait；liveportrait 必须先经过 liveportrait-detect。",
+            "wan2.7-videoedit 只用于后期修补 / 编辑增强，不是主生成模型。",
+            "缺少 image_generation.model / video_generation.model 时，generation 不能写成 success。",
+            "provider implementation 尚未接入时，当前必须诚实 blocked，不能再把 visual plan / preview 写成 success。",
+            "当前 visual preflight 已升级为候选链检查；只要存在 1 个可用 image/video 候选，就不再把单个 primary 缺失误判成整体 blocked。"
+          ]
+        }
+      },
+      "checks": [
+        {
+          "name": "input_segments_present",
+          "status": "pass",
+          "detail": "当前共有 5 个段落。"
+        },
+        {
+          "name": "provider_selected",
+          "status": "pass",
+          "detail": "configured_provider=aliyun_bailian, resolved_tts_provider=aliyun_bailian"
+        },
+        {
+          "name": "tts_route_family_selected",
+          "status": "pass",
+          "detail": "api_route_family=aliyun_bailian_cosyvoice"
+        },
+        {
+          "name": "tts_route_family_ready",
+          "status": "pass",
+          "detail": "当前 Ark、Edge Gateway 和阿里百炼 CosyVoice 已接入真实 probe；Doubao OpenSpeech 仍是 gate-only。"
+        },
+        {
+          "name": "tts_api_key_present",
+          "status": "pass",
+          "detail": "当前 preflight 已升级为整条候选链检查，不再只看单个 auth.api_key。"
+        },
+        {
+          "name": "tts_voice_present",
+          "status": "pass",
+          "detail": "当前 preflight 已升级为整条候选链检查，不再只看单个 tts.voice。"
+        },
+        {
+          "name": "tts_usable_candidate_present",
+          "status": "pass",
+          "detail": "available_candidates=1 / total_candidates=1"
+        },
+        {
+          "name": "cloud_only_assembly_route_locked",
+          "status": "pass",
+          "detail": "正式默认主线已锁定为北京区 OSS + 云剪唯一 assembly 路线，本地 fallback 不再作为正常交付。"
+        },
+        {
+          "name": "tts_model_present",
+          "status": "pass",
+          "detail": "阿里百炼 CosyVoice 使用 tts.model + voice，不读取 endpoint_id。"
+        },
+        {
+          "name": "visual_segments_present",
+          "status": "pass",
+          "detail": "segments=5"
+        },
+        {
+          "name": "image_model_present_when_required",
+          "status": "pass",
+          "detail": "有图片段落时必须存在至少 1 个可用 image candidate；available=1。"
+        },
+        {
+          "name": "video_model_present_when_required",
+          "status": "pass",
+          "detail": "有视频段落时必须存在至少 1 个可用 video candidate；available=1。"
+        },
+        {
+          "name": "required_user_footage_present",
+          "status": "pass",
+          "detail": "默认正式主线要求的用户本地录制素材必须先在本地配置里注入真实文件路径。"
+        },
+        {
+          "name": "human_carrier_requires_verified_on_camera_footage",
+          "status": "pass",
+          "detail": "只有当 carrier=human 且素材来源=user_media 时，才必须显式标记 verified_role=\"human_on_camera\"；API 真人段不读取本地人物槽位。"
+        },
+        {
+          "name": "portrait_detect_enabled_before_liveportrait",
+          "status": "pass",
+          "detail": "启用 liveportrait 前必须先启用 portrait_detect。"
+        },
+        {
+          "name": "portrait_detect_model_present_when_enabled",
+          "status": "pass",
+          "detail": "启用 portrait_detect 时必须显式提供 portrait_detect.model。"
+        },
+        {
+          "name": "portrait_video_model_present_when_enabled",
+          "status": "pass",
+          "detail": "启用 liveportrait 时必须显式提供 portrait_video_generation.model。"
+        }
+      ],
+      "notes": [
+        "正式 generation success 仍要求配音 API 成功，且视觉层必须真实拿到可组装资产：默认人物段走 API 真人，过程段走用户本地素材，少量信息卡走 API 图像。",
+        "visual plan / preview storyboard 只能算辅助产物，不能再冒充 visual generation success。",
+        "默认正式主线已切到 API human + user local footage + light_ppt；本地 preview 只保留辅助调试意义。",
+        "assembly 主线继续固定为北京区 OSS + 云剪 cloud-only，不回退 local assembly 默认主路径。"
+      ]
+    },
+    "assembly_gate": {
+      "gate_name": "assembly_gate",
+      "status": "success",
+      "allow_execution": true,
+      "blocked_reason": "",
+      "missing_prerequisites": [],
+      "missing_implementations": [],
+      "checks": [
+        {
+          "name": "manifest_schema_present",
+          "status": "pass",
+          "detail": "formal_api_demo_manifest/v1"
+        },
+        {
+          "name": "segments_present",
+          "status": "pass",
+          "detail": "segments=5"
+        },
+        {
+          "name": "cloud_only_route_locked",
+          "status": "pass",
+          "detail": "正式默认主线已锁定为北京区 OSS + 云剪唯一 assembly 主路径，不再接受 local assembly fallback。"
+        },
+        {
+          "name": "aliyun_oss_bucket",
+          "status": "pass",
+          "detail": "北京区 OSS bucket；当前已确认可写入仓库。"
+        },
+        {
+          "name": "aliyun_oss_region",
+          "status": "pass",
+          "detail": "北京区 OSS region；纯 PPT 主线固定为 cn-beijing。"
+        },
+        {
+          "name": "aliyun_oss_endpoint",
+          "status": "pass",
+          "detail": "北京区 OSS endpoint；云端上传必须显式配置。"
+        },
+        {
+          "name": "aliyun_oss_bucket_domain",
+          "status": "pass",
+          "detail": "北京区 OSS bucket domain；云端资源定位需要该字段。"
+        },
+        {
+          "name": "aliyun_oss_access_key_id",
+          "status": "pass",
+          "detail": "OSS AccessKey ID 仅允许在本地注入，仓库示例必须留占位。"
+        },
+        {
+          "name": "aliyun_oss_access_key_secret",
+          "status": "pass",
+          "detail": "OSS AccessKey Secret 仅允许在本地注入，仓库示例必须留占位。"
+        },
+        {
+          "name": "aliyun_oss_prefix_raw",
+          "status": "pass",
+          "detail": "raw 前缀用于云端组装原始素材上传路径。"
+        },
+        {
+          "name": "aliyun_oss_prefix_final",
+          "status": "pass",
+          "detail": "final 前缀用于云端导出成片路径。"
+        },
+        {
+          "name": "aliyun_oss_prefix_temp",
+          "status": "pass",
+          "detail": "temp 前缀用于云端临时文件路径。"
+        },
+        {
+          "name": "aliyun_ims_region",
+          "status": "pass",
+          "detail": "IMS / 云剪区域；当前主线固定为 cn-beijing。"
+        },
+        {
+          "name": "aliyun_ims_storage_address",
+          "status": "pass",
+          "detail": "IMS 存储地址；当前已确认为北京区 OSS domain。"
+        },
+        {
+          "name": "aliyun_ims_cloud_project_name",
+          "status": "pass",
+          "detail": "云剪工程名称；当前主线应指向 video-factory-ppt-master-v1。"
+        }
+      ],
+      "notes": [
+        "assembly Gate 负责标记正式默认主线的北京区 OSS + 云剪唯一主路径，不得再把本地 assembly 写成默认交付。",
+        "manifest 是修正循环和复审的事实锚点，assembly 不得绕开 manifest 自由猜测。",
+        "当前正式默认主线已经改为 cloud-only；缺密钥、缺云端参数、缺真实素材或缺 provider implementation 时必须如实 blocked，不得再用 local mp4 补位。"
+      ]
+    }
+  }
+}

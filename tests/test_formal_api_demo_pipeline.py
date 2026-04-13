@@ -768,8 +768,13 @@ class FormalApiDemoPipelineTests(unittest.TestCase):
             payload = mocked.call_args.kwargs["payload"]
             self.assertEqual(payload["model"], "wan2.7-i2v")
             self.assertEqual(
-                payload["input"]["img_url"],
-                "https://dashscope-result.example.com/seg02_image.png",
+                payload["input"]["media"],
+                [
+                    {
+                        "type": "first_frame",
+                        "url": "https://dashscope-result.example.com/seg02_image.png",
+                    }
+                ],
             )
             self.assertEqual(payload["input"]["prompt"], "测试视频提示词")
 

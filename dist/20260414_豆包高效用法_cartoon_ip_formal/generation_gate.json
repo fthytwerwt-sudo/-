@@ -1,0 +1,346 @@
+{
+  "gate_name": "generation_gate",
+  "status": "success",
+  "scope": "tts_voiceover_and_visual_generation",
+  "allow_execution": true,
+  "blocked_reason": "",
+  "failure_reason": "",
+  "missing_prerequisites": [],
+  "missing_implementations": [],
+  "tts_target": {
+    "api_route_family": "aliyun_bailian_cosyvoice",
+    "model_identifier": "cosyvoice-v2",
+    "endpoint_id": "4429057155",
+    "model": "cosyvoice-v2",
+    "resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+    "voice": "longxiaochun_v2",
+    "region": "cn-beijing",
+    "provider": "aliyun_bailian"
+  },
+  "visual_target": {
+    "provider": "aliyun_bailian",
+    "region": "cn-beijing",
+    "image_model": "wan2.6-image",
+    "video_model": "wan2.7-i2v",
+    "general_video_model": "wan2.7-i2v",
+    "portrait_detect_model": "liveportrait-detect",
+    "portrait_video_model": "liveportrait",
+    "model_routes": {
+      "image_generation": {
+        "enabled": true,
+        "model": "wan2.6-image",
+        "role": "首帧 / 背景 / 人像底图生成",
+        "recommended_free_model": "wan2.6-image"
+      },
+      "general_video_generation": {
+        "enabled": true,
+        "model": "wan2.7-i2v",
+        "role": "普通视频主线（先图后视频）",
+        "recommended_free_model": "wan2.7-i2v"
+      },
+      "portrait_detect": {
+        "enabled": false,
+        "model": "liveportrait-detect",
+        "role": "liveportrait 前置检测",
+        "recommended_free_model": "liveportrait-detect"
+      },
+      "portrait_video_generation": {
+        "enabled": false,
+        "model": "liveportrait",
+        "role": "固定背景 / 人物开口分支",
+        "recommended_free_model": "liveportrait",
+        "requires": [
+          "portrait_detect"
+        ]
+      }
+    }
+  },
+  "stage_gates": {
+    "tts_probe": {
+      "gate_name": "generation_gate",
+      "status": "success",
+      "scope": "tts_probe_only",
+      "allow_execution": true,
+      "blocked_reason": "",
+      "failure_reason": "",
+      "missing_prerequisites": [],
+      "missing_implementations": [],
+      "candidate_pool": {
+        "total_candidate_count": 1,
+        "available_candidate_count": 1,
+        "backup_candidate_count": 0,
+        "candidates": [
+          {
+            "candidate_id": "primary",
+            "label": "primary",
+            "provider": "aliyun_bailian",
+            "api_route_family": "aliyun_bailian_cosyvoice",
+            "voice": "longxiaochun_v2",
+            "model_identifier": "cosyvoice-v2",
+            "style_profile": "default",
+            "priority": 10,
+            "enabled": true,
+            "available": true,
+            "missing_prerequisites": []
+          }
+        ]
+      },
+      "tts_target": {
+        "api_route_family": "aliyun_bailian_cosyvoice",
+        "model_identifier": "cosyvoice-v2",
+        "endpoint_id": "4429057155",
+        "model": "cosyvoice-v2",
+        "resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "voice": "longxiaochun_v2",
+        "region": "cn-beijing",
+        "provider": "aliyun_bailian"
+      },
+      "checks": [
+        {
+          "name": "input_segments_present",
+          "status": "pass",
+          "detail": "当前共有 5 个段落。"
+        },
+        {
+          "name": "provider_selected",
+          "status": "pass",
+          "detail": "configured_provider=aliyun_bailian, resolved_tts_provider=aliyun_bailian"
+        },
+        {
+          "name": "tts_route_family_selected",
+          "status": "pass",
+          "detail": "api_route_family=aliyun_bailian_cosyvoice"
+        },
+        {
+          "name": "tts_route_family_ready",
+          "status": "pass",
+          "detail": "当前 Ark、Edge Gateway 和阿里百炼 CosyVoice 已接入真实 probe；Doubao OpenSpeech 仍是 gate-only。"
+        },
+        {
+          "name": "tts_api_key_present",
+          "status": "pass",
+          "detail": "当前 preflight 已升级为整条候选链检查，不再只看单个 auth.api_key。"
+        },
+        {
+          "name": "tts_voice_present",
+          "status": "pass",
+          "detail": "当前 preflight 已升级为整条候选链检查，不再只看单个 tts.voice。"
+        },
+        {
+          "name": "tts_usable_candidate_present",
+          "status": "pass",
+          "detail": "available_candidates=1 / total_candidates=1"
+        },
+        {
+          "name": "cloud_only_assembly_route_locked",
+          "status": "pass",
+          "detail": "正式默认主线已锁定为北京区 OSS + 云剪唯一 assembly 路线，本地 fallback 不再作为正常交付。"
+        },
+        {
+          "name": "tts_model_present",
+          "status": "pass",
+          "detail": "阿里百炼 CosyVoice 使用 tts.model + voice，不读取 endpoint_id。"
+        }
+      ],
+      "notes": [
+        "当前子 Gate 只评估 TTS probe / voiceover 所需前提。",
+        "dry-run 只验证输入、契约和 Gate，不调用远端。",
+        "route family 已显式拆分为 Ark / Edge Gateway / 阿里百炼 CosyVoice / Doubao OpenSpeech，不再默认混走 Ark。",
+        "当前 TTS preflight 已升级为候选链检查；只要存在 1 个可用候选，就不再把单个 primary 缺失误判成整体 blocked。"
+      ]
+    },
+    "visual_generation": {
+      "gate_name": "visual_generation_gate",
+      "status": "success",
+      "allow_execution": true,
+      "blocked_reason": "",
+      "failure_reason": "",
+      "missing_prerequisites": [],
+      "missing_implementations": [],
+      "candidate_pool": {
+        "image_generation": {
+          "total_candidate_count": 1,
+          "available_candidate_count": 1,
+          "backup_candidate_count": 0,
+          "candidates": [
+            {
+              "candidate_id": "primary",
+              "label": "Aliyun Image Primary",
+              "provider": "aliyun_bailian",
+              "model": "wan2.6-image",
+              "style_profile": "report",
+              "priority": 10,
+              "enabled": true,
+              "available": true,
+              "missing_prerequisites": []
+            }
+          ]
+        },
+        "video_generation": {
+          "total_candidate_count": 1,
+          "available_candidate_count": 1,
+          "backup_candidate_count": 0,
+          "candidates": [
+            {
+              "candidate_id": "primary",
+              "label": "Aliyun Video Primary",
+              "provider": "aliyun_bailian",
+              "model": "wan2.7-i2v",
+              "style_profile": "report",
+              "priority": 10,
+              "enabled": true,
+              "available": true,
+              "missing_prerequisites": []
+            }
+          ]
+        }
+      },
+      "checks": [
+        {
+          "name": "visual_segments_present",
+          "status": "pass",
+          "detail": "segments=5"
+        },
+        {
+          "name": "image_model_present_when_required",
+          "status": "pass",
+          "detail": "有图片段落时必须存在至少 1 个可用 image candidate；available=1。"
+        },
+        {
+          "name": "video_model_present_when_required",
+          "status": "pass",
+          "detail": "有视频段落时必须存在至少 1 个可用 video candidate；available=1。"
+        },
+        {
+          "name": "required_user_footage_present",
+          "status": "pass",
+          "detail": "默认正式主线要求的用户本地录制素材必须先在本地配置里注入真实文件路径。"
+        },
+        {
+          "name": "human_carrier_requires_verified_on_camera_footage",
+          "status": "pass",
+          "detail": "只有当 carrier=human 且素材来源=user_media 时，才必须显式标记 verified_role=\"human_on_camera\"；API 真人段不读取本地人物槽位。"
+        },
+        {
+          "name": "portrait_detect_enabled_before_liveportrait",
+          "status": "pass",
+          "detail": "启用 liveportrait 前必须先启用 portrait_detect。"
+        },
+        {
+          "name": "portrait_detect_model_present_when_enabled",
+          "status": "pass",
+          "detail": "启用 portrait_detect 时必须显式提供 portrait_detect.model。"
+        },
+        {
+          "name": "portrait_video_model_present_when_enabled",
+          "status": "pass",
+          "detail": "启用 liveportrait 时必须显式提供 portrait_video_generation.model。"
+        }
+      ],
+      "notes": [
+        "visual_generation Gate 继续代表图片 / 视频生成 API 的正式 generation 前提。",
+        "默认正式主线已切到 API human + user local footage + light_ppt；hook / close 默认走 API 真人，过程证据默认走用户本地素材。",
+        "普通视频默认主线固定为 wan2.6-image -> wan2.7-i2v；先出首帧 / 底图，再转视频。",
+        "人物图 / 人像底图默认走 wan2.6-image；需要修图时走 qwen-image-edit-plus，不再默认依赖 facechain-generation。",
+        "真人开口分支固定为 liveportrait-detect + liveportrait；liveportrait 必须先经过 liveportrait-detect。",
+        "wan2.7-videoedit 只用于后期修补 / 编辑增强，不是主生成模型。",
+        "缺少 image_generation.model / video_generation.model 时，generation 不能写成 success。",
+        "provider implementation 尚未接入时，当前必须诚实 blocked，不能再把 visual plan / preview 写成 success。",
+        "当前 visual preflight 已升级为候选链检查；只要存在 1 个可用 image/video 候选，就不再把单个 primary 缺失误判成整体 blocked。"
+      ]
+    }
+  },
+  "checks": [
+    {
+      "name": "input_segments_present",
+      "status": "pass",
+      "detail": "当前共有 5 个段落。"
+    },
+    {
+      "name": "provider_selected",
+      "status": "pass",
+      "detail": "configured_provider=aliyun_bailian, resolved_tts_provider=aliyun_bailian"
+    },
+    {
+      "name": "tts_route_family_selected",
+      "status": "pass",
+      "detail": "api_route_family=aliyun_bailian_cosyvoice"
+    },
+    {
+      "name": "tts_route_family_ready",
+      "status": "pass",
+      "detail": "当前 Ark、Edge Gateway 和阿里百炼 CosyVoice 已接入真实 probe；Doubao OpenSpeech 仍是 gate-only。"
+    },
+    {
+      "name": "tts_api_key_present",
+      "status": "pass",
+      "detail": "当前 preflight 已升级为整条候选链检查，不再只看单个 auth.api_key。"
+    },
+    {
+      "name": "tts_voice_present",
+      "status": "pass",
+      "detail": "当前 preflight 已升级为整条候选链检查，不再只看单个 tts.voice。"
+    },
+    {
+      "name": "tts_usable_candidate_present",
+      "status": "pass",
+      "detail": "available_candidates=1 / total_candidates=1"
+    },
+    {
+      "name": "cloud_only_assembly_route_locked",
+      "status": "pass",
+      "detail": "正式默认主线已锁定为北京区 OSS + 云剪唯一 assembly 路线，本地 fallback 不再作为正常交付。"
+    },
+    {
+      "name": "tts_model_present",
+      "status": "pass",
+      "detail": "阿里百炼 CosyVoice 使用 tts.model + voice，不读取 endpoint_id。"
+    },
+    {
+      "name": "visual_segments_present",
+      "status": "pass",
+      "detail": "segments=5"
+    },
+    {
+      "name": "image_model_present_when_required",
+      "status": "pass",
+      "detail": "有图片段落时必须存在至少 1 个可用 image candidate；available=1。"
+    },
+    {
+      "name": "video_model_present_when_required",
+      "status": "pass",
+      "detail": "有视频段落时必须存在至少 1 个可用 video candidate；available=1。"
+    },
+    {
+      "name": "required_user_footage_present",
+      "status": "pass",
+      "detail": "默认正式主线要求的用户本地录制素材必须先在本地配置里注入真实文件路径。"
+    },
+    {
+      "name": "human_carrier_requires_verified_on_camera_footage",
+      "status": "pass",
+      "detail": "只有当 carrier=human 且素材来源=user_media 时，才必须显式标记 verified_role=\"human_on_camera\"；API 真人段不读取本地人物槽位。"
+    },
+    {
+      "name": "portrait_detect_enabled_before_liveportrait",
+      "status": "pass",
+      "detail": "启用 liveportrait 前必须先启用 portrait_detect。"
+    },
+    {
+      "name": "portrait_detect_model_present_when_enabled",
+      "status": "pass",
+      "detail": "启用 portrait_detect 时必须显式提供 portrait_detect.model。"
+    },
+    {
+      "name": "portrait_video_model_present_when_enabled",
+      "status": "pass",
+      "detail": "启用 liveportrait 时必须显式提供 portrait_video_generation.model。"
+    }
+  ],
+  "notes": [
+    "正式 generation success 仍要求配音 API 成功，且视觉层必须真实拿到可组装资产：默认人物段走 API 真人，过程段走用户本地素材，少量信息卡走 API 图像。",
+    "visual plan / preview storyboard 只能算辅助产物，不能再冒充 visual generation success。",
+    "默认正式主线已切到 API human + user local footage + light_ppt；本地 preview 只保留辅助调试意义。",
+    "assembly 主线继续固定为北京区 OSS + 云剪 cloud-only，不回退 local assembly 默认主路径。"
+  ]
+}

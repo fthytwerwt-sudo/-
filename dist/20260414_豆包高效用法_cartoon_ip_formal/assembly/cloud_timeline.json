@@ -1,0 +1,66 @@
+{
+  "VideoTracks": [
+    {
+      "MainTrack": true,
+      "VideoTrackClips": [
+        {
+          "Type": "Video",
+          "MediaURL": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260413T210511Z/visuals/seg01.mp4?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1776117914&Signature=8ezgWktaDn%2BD9WFFi2SwTgLkH7o%3D",
+          "In": 0.0,
+          "MaxOut": 9.0
+        },
+        {
+          "Type": "Video",
+          "MediaURL": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260413T210511Z/visuals/seg02.mp4?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1776117914&Signature=BH%2FUbRfvU0XqPAnyZ9agLRKjNGY%3D",
+          "In": 0.0,
+          "MaxOut": 26.0
+        },
+        {
+          "Type": "Video",
+          "MediaURL": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260413T210511Z/visuals/seg03.mp4?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1776117915&Signature=AmQ5EsQ0gko3nbiGkbC9Ow2o1JM%3D",
+          "In": 0.0,
+          "MaxOut": 20.0
+        },
+        {
+          "Type": "Image",
+          "MediaURL": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260413T210511Z/visuals/seg04.png?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1776117916&Signature=8u%2Blmrg36f6DgH7sep6zqO3sEaw%3D",
+          "Duration": 8.0,
+          "X": 0.0,
+          "Y": 0.0,
+          "Width": 1.0,
+          "Height": 1.0,
+          "AdaptMode": "Cover"
+        },
+        {
+          "Type": "Video",
+          "MediaURL": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260413T210511Z/visuals/seg05.mp4?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1776117917&Signature=14vscjWjRfy%2B%2BSR0RDUnfa5R8Hw%3D",
+          "In": 0.0,
+          "MaxOut": 9.0
+        }
+      ]
+    }
+  ],
+  "AudioTracks": [
+    {
+      "MainTrack": true,
+      "AudioTrackClips": [
+        {
+          "MediaURL": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260413T210511Z/audio/formal_voiceover.mp3?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1776117912&Signature=RXgB2c8BB1kFYXVwEU8ZgxncQB4%3D",
+          "TimelineIn": 0.0,
+          "TimelineOut": 72.0
+        }
+      ]
+    }
+  ],
+  "SubtitleTracks": [
+    {
+      "SubtitleTrackClips": [
+        {
+          "Type": "Subtitle",
+          "SubType": "srt",
+          "FileURL": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260413T210511Z/captions/captions.srt?OSSAccessKeyId=LTAI5tF8bVwAw1qaCm9Vpx85&Expires=1776117912&Signature=Pon8T2H7HVz%2BbjLSuH8Mk4yYW6c%3D"
+        }
+      ]
+    }
+  ]
+}

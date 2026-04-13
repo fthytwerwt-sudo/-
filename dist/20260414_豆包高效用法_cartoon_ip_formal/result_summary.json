@@ -1,0 +1,38 @@
+{
+  "schema_version": "formal_api_demo_result_summary/v1",
+  "stage": "assembly",
+  "overall_status": "success",
+  "generation_status": "success",
+  "assembly_status": "success",
+  "local_assembly_status": "not_started",
+  "cloud_assembly_status": "success",
+  "assembly_preview_status": "not_started",
+  "delivery_mode": "oss_cloud_assembly",
+  "machine_gate_result": {
+    "generation_gate": "success",
+    "assembly_gate": "success"
+  },
+  "blocked_reason": "",
+  "artifact_paths": {
+    "manifest": "dist/20260414_豆包高效用法_cartoon_ip_formal/manifest.json",
+    "assembly_gate": "dist/20260414_豆包高效用法_cartoon_ip_formal/assembly_gate.json",
+    "assembly_plan": "dist/20260414_豆包高效用法_cartoon_ip_formal/assembly_plan.json",
+    "result_summary": "dist/20260414_豆包高效用法_cartoon_ip_formal/result_summary.json",
+    "route_plan": "dist/20260414_豆包高效用法_cartoon_ip_formal/route_plan.json",
+    "final_video": "oss://zvip1-video-beijing/video-factory/final/20260413T210511Z/formal_api_demo.mp4",
+    "preview_video": "dist/20260414_豆包高效用法_cartoon_ip_formal/assembly/formal_api_demo_preview.mp4",
+    "preview_manifest": "dist/20260414_豆包高效用法_cartoon_ip_formal/assembly/preview_manifest.json"
+  },
+  "next_action_hint": "当前样片内容链已成立，但技术层仍带手动降级修复；若要写成可直接发送，需补齐 seg05 的独立 API 收尾资产并进一步压中段竖版观感。",
+  "current_missing_prerequisites": [],
+  "current_missing_implementations": [],
+  "cloud_missing_prerequisites": [],
+  "known_issues": [
+    "seg05 由于 wan2.6-image 免费额度耗尽，当前复用 seg01 的同一 API 生成卡通 IP 资产做收尾；属于手动降级修复，不能当成完整自动生成闭环。",
+    "seg02 / seg03 来自横屏桌面录屏的竖版转制，中段仍保留模糊背景填充；证据成立，但画面沉浸感仍有提升空间。"
+  ],
+  "technical_validation": "partial_pass",
+  "content_validation": "passed",
+  "user_acceptance": "not_reviewed",
+  "send_ready": false
+}
