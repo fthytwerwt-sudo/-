@@ -3,38 +3,27 @@
 ## 当前主结论
 
 - `已确认` 本轮完成的是：
-  - 喜欢样本初拆
-  - 文案知识库第二层建立
-- `已确认` 本轮只处理了“喜欢样本”，不是：
-  - 不喜欢样本深拆
-  - “只喜欢哪一段”拆分
-  - 自动化机制设计
-- `已确认` 当前文案知识库已经进入第二层，新增：
-  - `project_source/30_copy_library/11_gold_samples_first_split.md`
-  - `project_source/30_copy_library/12_opening_library_v1.md`
-  - `project_source/30_copy_library/13_judgment_library_v1.md`
-  - `project_source/30_copy_library/14_transition_library_v1.md`
-  - `project_source/30_copy_library/15_closing_and_cta_library_v1.md`
-  - `project_source/30_copy_library/16_current_preference_summary_v1.md`
-- `已确认` 当前已拆出的部分包括：
-  - 喜欢样本 A / B / C 第一轮分层
-  - 开头库 v1
-  - 判断句库 v1
-  - 过渡句库 v1
-  - 收束与 CTA 库 v1
-  - 当前偏好总结 v1
-- `已确认` 当前这些判断都属于：
-  - 第一轮初拆
-  - 可继续补强
-  - 不是最终风格定稿
-- `已确认` 后续可继续补：
-  - 不喜欢样本深拆
-  - 喜欢的片段
-  - 口语原话
-  - 组件库细化
-  - 自动化机制设计
+  - 当前文案知识库第二层内容已同步写入本机 `GPT 数据源` 目录
+- `已确认` 本轮同步写入的本地中文文件为：
+  - `30_文案知识库说明.md`
+  - `31_喜欢样本第一轮分层拆分.md`
+  - `32_开头库_v1.md`
+  - `33_判断句库_v1.md`
+  - `34_过渡句库_v1.md`
+  - `35_收束与CTA库_v1.md`
+  - `36_当前偏好总结_v1.md`
+- `已确认` 本轮没有新建额外同步包目录，也没有改写第二层知识库正文
+- `已确认` 上述 7 个本地文件当前都属于：
+  - `local_only`
+  - 已在本机生成
+  - 不会自动进入 GPT Project
+  - 不是 GitHub 仓库正式文件本身
+- `已确认` 本轮未做：
+  - 新一轮文案拆分
+  - raw 文件同步
+  - 执行日志同步进 `GPT 数据源`
 - `已确认` 本轮已新增 dated log：
-  - `codex_log/20260414_gold_samples_first_split_and_second_layer_library.md`
+  - `codex_log/20260414_gpt_data_source_second_layer_sync.md`
 
 ## 当前默认接手建议先读
 
@@ -42,12 +31,11 @@
 2. `codex_source/00_codex_readme.md`
 3. `codex_log/latest.md`
 4. `project_source/30_copy_library/00_copy_library_readme.md`
-5. `project_source/30_copy_library/01_gold_samples_raw.md`
-6. `project_source/30_copy_library/11_gold_samples_first_split.md`
-7. `project_source/30_copy_library/12_opening_library_v1.md`
-8. `project_source/30_copy_library/13_judgment_library_v1.md`
-9. `project_source/30_copy_library/14_transition_library_v1.md`
-10. `project_source/30_copy_library/15_closing_and_cta_library_v1.md`
-11. `project_source/30_copy_library/16_current_preference_summary_v1.md`
-12. `project_source/30_copy_library/08_update_log.md`
-13. `codex_log/20260414_gold_samples_first_split_and_second_layer_library.md`
+5. `project_source/30_copy_library/11_gold_samples_first_split.md`
+6. `project_source/30_copy_library/12_opening_library_v1.md`
+7. `project_source/30_copy_library/13_judgment_library_v1.md`
+8. `project_source/30_copy_library/14_transition_library_v1.md`
+9. `project_source/30_copy_library/15_closing_and_cta_library_v1.md`
+10. `project_source/30_copy_library/16_current_preference_summary_v1.md`
+11. `project_source/30_copy_library/08_update_log.md`
+12. `codex_log/20260414_gpt_data_source_second_layer_sync.md`
