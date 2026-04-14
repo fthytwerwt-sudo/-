@@ -4,6 +4,8 @@
 
 本文件是《视频工厂》当前 Codex 执行层入口。
 
+它是《视频工厂》子入口，不是整个仓库的总入口；仓库总入口与项目分流规则统一看 `AGENTS.md`。
+
 它负责回答：
 
 - `codex_source/` 是干什么的
@@ -147,4 +149,4 @@
 
 ## 7. 入口一句话
 
-新会话默认先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md`；若任务命中 execution lane / parallel gate / 是否适合提速 / 是否适合并发，再优先读 `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md` 与 `codex_source/13_execution_lane_and_parallel_rules.md`；若任务命中当前待发对象 / 当前最新样片 / 发布线复核 / 当前唯一 blocker / 只改这一条内容，再优先读 `codex_log/current_publish_target.md`，需要轻量证据时再读 `codex_log/current_publish_target_light_evidence.md`；若任务命中项目价值 / 场景工作包 / 文案交付 / 录制素材 / 豆包 prompt 职责，再优先读 `project_source/26_scene_work_package_mainline_rules.md` 与 `project_source/27_recording_assets_and_prompt_delivery_rules.md`；当前正式默认主线按“API 生成真人 + 用户录制素材 + 少量 PPT + 云端剪辑”理解，结构跟着文案走，`API生成真人段` 次数由 block 路由决定；若 GPT 数据源与仓库不同步，以已同步进 `project_source/`、`codex_source/` 并已回流 `codex/user-readable-map` 的事实为准。
+命中《视频工厂》后，新会话默认先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md`；若任务命中 execution lane / parallel gate / 是否适合提速 / 是否适合并发，再优先读 `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md` 与 `codex_source/13_execution_lane_and_parallel_rules.md`；若任务命中当前待发对象 / 当前最新样片 / 发布线复核 / 当前唯一 blocker / 只改这一条内容，再优先读 `codex_log/current_publish_target.md`，需要轻量证据时再读 `codex_log/current_publish_target_light_evidence.md`；若任务命中项目价值 / 场景工作包 / 文案交付 / 录制素材 / 豆包 prompt 职责，再优先读 `project_source/26_scene_work_package_mainline_rules.md` 与 `project_source/27_recording_assets_and_prompt_delivery_rules.md`；当前正式默认主线按“API 生成真人 + 用户录制素材 + 少量 PPT + 云端剪辑”理解，结构跟着文案走，`API生成真人段` 次数由 block 路由决定；若 GPT 数据源与仓库不同步，以已同步进 `project_source/`、`codex_source/` 并已回流 `codex/user-readable-map` 的事实为准。
