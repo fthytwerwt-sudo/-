@@ -136,6 +136,8 @@
 - GPT Project 数据源不会自动同步到 Codex 仓库
 - 聊天里说过，不等于 Codex 已知
 - GPT 数据源里有，不等于 Codex 已知
+- 当任务命中“核验 GPT 数据源原文 / 对照本地 GPT 数据源同步文本”时，优先读取 repo 内 `GPT数据源/` 镜像目录
+- `GPT数据源/` 是本地 `GPT 数据源/` 的 GitHub 可读精确镜像；`project_source/` 仍是主题化同步镜像，不是独立源事实
 - 当前仓库 `project_source/` 是 GPT 数据源中文文件集的同步镜像，不是独立源事实
 - 只有写进仓库文件，并同步到 `codex/user-readable-map`，才算新聊天默认正式已知
 
