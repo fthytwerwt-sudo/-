@@ -1,0 +1,17 @@
+name: video_factory_workbench
+
+services:
+  workbench:
+    build:
+      context: .
+      dockerfile: docker/工作台_workbench.Dockerfile
+    working_dir: /workspace
+    command: ["python", "-c", "import time; time.sleep(10**9)"]
+    environment:
+      WORKBENCH_MODE: local_only
+    volumes:
+      - ./:/workspace
+      - workbench_state:/workspace/.workbench_state
+
+volumes:
+  workbench_state:

@@ -4,7 +4,7 @@
 本文件是 `project_source/` 的总索引。
 
 当前必须写死：
-- `GPT 数据源/` 当前 25 份中文文件是上游源事实
+- `GPT 数据源/` 当前基础主规则 + vNext 规则补充 + 文案知识库补充，共同构成上游源事实
 - `project_source/` 是同步后的仓库项目脑镜像
 - 若 `project_source/` 与 `GPT 数据源/` 冲突，以 `GPT 数据源/` 当前中文文件集为准
 
@@ -24,6 +24,9 @@
 - `project_source/24_human_self_footage_light_ppt_routing_rules.md`
 - `project_source/25_ai_knowledge_video_value_rules.md`
 - `project_source/16_presentation_routing_rules.md`
+- `project_source/28_minecraft_inspired_visual_and_audio_rules.md`
+- `project_source/29_docker_workbench_and_recording_optimization_rules.md`
+- `project_source/31_prompt_pack_and_tail_card_rules.md`
 
 ### C. 搜索、回审、复盘
 - `project_source/03_perplexity_prompt_library.md`
@@ -58,11 +61,14 @@
 7. `project_source/21_topic_selection_and_copywriting_rules.md`
 8. `project_source/22_copy_mode_routing_rules.md`
 9. `project_source/25_ai_knowledge_video_value_rules.md`
-10. `project_source/16_presentation_routing_rules.md`
-11. `project_source/02_scene_mode_templates.md`
-12. `project_source/23_scene_and_failure_experience_material_bank.md`
-13. `project_source/05_psychology_execution_rules.md`
-14. `project_source/08_quality_baseline_and_90_score_rules.md`
+10. `project_source/28_minecraft_inspired_visual_and_audio_rules.md`
+11. `project_source/29_docker_workbench_and_recording_optimization_rules.md`
+12. `project_source/31_prompt_pack_and_tail_card_rules.md`
+13. `project_source/16_presentation_routing_rules.md`
+14. `project_source/02_scene_mode_templates.md`
+15. `project_source/23_scene_and_failure_experience_material_bank.md`
+16. `project_source/05_psychology_execution_rules.md`
+17. `project_source/08_quality_baseline_and_90_score_rules.md`
 
 ### 搜索、回审、复盘顺序
 15. `project_source/03_perplexity_prompt_library.md`
@@ -86,4 +92,4 @@
 - `API 生成真人` 不能偷换成某条 provider 已验证成立
 
 ## 5. 一句话规则
-**以后 `project_source/` 默认按当前同步后的项目脑读取；若与 `GPT 数据源/` 当前中文文件集冲突，以后者为准，并重新同步回仓库。**
+**以后 `project_source/` 默认按当前同步后的项目脑读取；若任务命中 vNext 外壳 / Docker 工作台 / 三层 prompt，则补读 `28 / 29 / 31`；若与 `GPT 数据源/` 当前中文文件集冲突，以后者为准，并重新同步回仓库。**

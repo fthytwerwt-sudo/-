@@ -73,15 +73,24 @@
 15. `project_source/26_scene_work_package_mainline_rules.md`
 16. `project_source/27_recording_assets_and_prompt_delivery_rules.md`
 
+若任务命中“vNext 外壳 / Minecraft-inspired / Docker 工作台 / 录制减负 / 三层 prompt / Prompt 引用尾卡”，再补读：
+
+17. `GPT数据源/28_Minecraft-inspired视觉与声音规则.md`
+18. `GPT数据源/29_Docker工作台与录制减负规则.md`
+19. `GPT数据源/37_三层Prompt交付与尾卡规则.md`
+20. `project_source/28_minecraft_inspired_visual_and_audio_rules.md`
+21. `project_source/29_docker_workbench_and_recording_optimization_rules.md`
+22. `project_source/31_prompt_pack_and_tail_card_rules.md`
+
 若任务命中“当前正式事实 / 目标态计划 / 术语边界”，再补读：
 
-17. `project_source/02_term_definitions_and_state_boundaries.md`
-18. `project_source/07_current_formal_facts.md`
-19. `project_source/09_target_state_plan.md`
+23. `project_source/02_term_definitions_and_state_boundaries.md`
+24. `project_source/07_current_formal_facts.md`
+25. `project_source/09_target_state_plan.md`
 
 若任务命中“什么算已知”，再补读：
 
-20. `codex_source/12_codex_known_state_three_layer_rules.md`
+26. `codex_source/12_codex_known_state_three_layer_rules.md`
 
 ## 4. 当前正式默认主线
 
@@ -149,4 +158,4 @@
 
 ## 7. 入口一句话
 
-命中《视频工厂》后，新会话默认先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md`；若任务命中 execution lane / parallel gate / 是否适合提速 / 是否适合并发，再优先读 `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md` 与 `codex_source/13_execution_lane_and_parallel_rules.md`；若任务命中当前待发对象 / 当前最新样片 / 发布线复核 / 当前唯一 blocker / 只改这一条内容，再优先读 `codex_log/current_publish_target.md`，需要轻量证据时再读 `codex_log/current_publish_target_light_evidence.md`；若任务命中项目价值 / 场景工作包 / 文案交付 / 录制素材 / 豆包 prompt 职责，再优先读 `project_source/26_scene_work_package_mainline_rules.md` 与 `project_source/27_recording_assets_and_prompt_delivery_rules.md`；当前正式默认主线按“API 生成真人 + 用户录制素材 + 少量 PPT + 云端剪辑”理解，结构跟着文案走，`API生成真人段` 次数由 block 路由决定；若 GPT 数据源与仓库不同步，以已同步进 `project_source/`、`codex_source/` 并已回流 `codex/user-readable-map` 的事实为准。
+命中《视频工厂》后，新会话默认先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md`；若任务命中 execution lane / parallel gate / 是否适合提速 / 是否适合并发，再优先读 `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md` 与 `codex_source/13_execution_lane_and_parallel_rules.md`；若任务命中当前待发对象 / 当前最新样片 / 发布线复核 / 当前唯一 blocker / 只改这一条内容，再优先读 `codex_log/current_publish_target.md`，需要轻量证据时再读 `codex_log/current_publish_target_light_evidence.md`；若任务命中项目价值 / 场景工作包 / 文案交付 / 录制素材 / 豆包 prompt 职责，再优先读 `project_source/26_scene_work_package_mainline_rules.md` 与 `project_source/27_recording_assets_and_prompt_delivery_rules.md`；若任务命中 `Minecraft-inspired`、Docker 工作台、录制减负、三层 prompt 或 `Prompt 引用尾卡`，再补读 `GPT数据源/28`、`GPT数据源/29`、`GPT数据源/37` 与对应 `project_source/28`、`project_source/29`、`project_source/31`；当前正式默认主线按“API 生成真人 + 用户录制素材 + 少量 PPT + 云端剪辑”理解，结构跟着文案走，`API生成真人段` 次数由 block 路由决定；若 GPT 数据源与仓库不同步，以已同步进 `project_source/`、`codex_source/` 并已回流 `codex/user-readable-map` 的事实为准。
