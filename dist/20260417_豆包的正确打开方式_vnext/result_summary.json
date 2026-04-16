@@ -1,0 +1,53 @@
+{
+  "schema_version": "video_factory_vnext_result_summary/v1",
+  "stage": "local_review",
+  "overall_status": "success",
+  "generation_status": "success",
+  "assembly_status": "success",
+  "technical_validation": "passed",
+  "content_validation": "partial_pass",
+  "user_acceptance": "not_reviewed",
+  "send_ready": false,
+  "artifact_paths": {
+    "script": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/script.txt",
+    "captions": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/captions.srt",
+    "route_plan": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/route_plan.json",
+    "manifest": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/manifest.json",
+    "result_summary": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/result_summary.json",
+    "final_review_clean": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/local_review/final_review_clean.mp4",
+    "final_review": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/local_review/final_review.mp4"
+  },
+  "review_frames": [
+    "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/local_review/review_frames/review_01.jpg",
+    "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/local_review/review_frames/review_02.jpg",
+    "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/local_review/review_frames/review_03.jpg",
+    "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/local_review/review_frames/review_04.jpg",
+    "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/local_review/review_frames/review_05.jpg",
+    "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/local_review/review_frames/review_06.jpg",
+    "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/local_review/review_frames/review_07.jpg"
+  ],
+  "voice_route": {
+    "voice_name": "Flo (中文（中国大陆）)",
+    "voice_rate": 188,
+    "status": "trial_only",
+    "technical_validation": "passed",
+    "content_validation": "trial_only",
+    "combined_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/tts/voiceover_combined.wav"
+  },
+  "known_issues": [
+    "负面录屏的真实输入是“帮我把这个方案整理一下”，不是用户文字里点名的“给我一份方案”。",
+    "负面录屏未定位到“建议关注用户体验 / 建议加强品牌认知”这类原句，只能用长段落 + 表格 + 无先诊断结构来证明差值。",
+    "声音路线当前使用 macOS `say` 的 `Flo (中文（中国大陆）)` 试配，只能算 technical_validation 通过，不代表最终定音。"
+  ],
+  "remaining_blockers": [
+    "如果要把这条内容升级到完全对齐用户口径，仍需要一段更明确的反面录屏，把“直接问方案 -> 空泛输出”录得更准。"
+  ],
+  "route_summary": {
+    "block_count": 7,
+    "segment_count": 8,
+    "source_materials": {
+      "negative": "/Users/fan/Documents/视频工厂/素材录制/反面/录制于 2026-04-16 22.41.32.mp4",
+      "positive": "/Users/fan/Documents/视频工厂/素材录制/正面/录制于 2026-04-16 23.03.53.mp4"
+    }
+  }
+}
