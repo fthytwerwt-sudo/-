@@ -19,7 +19,7 @@
     "negative_supplement_brief": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/negative_supplement_brief.md",
     "voice_route_report": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_route_report.json",
     "voice_listen_sheet": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_listen_sheet.md",
-    "voice_ab_review_bundle_round3": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle_round3",
+    "voice_ab_review_bundle_round4": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle_round4",
     "host_motion_audit": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_audit.md",
     "host_motion_min_spec": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_min_spec.md",
     "final_review_clean": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/local_review/final_review_clean.mp4",
@@ -52,17 +52,17 @@
     "technical_validation": "passed_candidates_generated",
     "content_validation": "pending_listen_review",
     "selection_status": "machine_selected_needs_human_review",
-    "selected_candidate_id": "C2",
+    "selected_candidate_id": "E1",
     "selected_model": "qwen3-tts-instruct-flash-realtime",
     "selected_voice": "Serena",
     "blocked_reason": "",
-    "current_implementation": "aliyun qwen realtime websocket + ffmpeg postprocess (round3)",
-    "fallback_exhaustion_summary": "Round 3 中 C1/C2/C3 三组新候选均成功落出；当前暂定第一名为 C2，备选为 C1，淘汰为 C3。",
+    "current_implementation": "aliyun qwen realtime websocket + ffmpeg postprocess (round4)",
+    "fallback_exhaustion_summary": "Round 4 中 E1/E2/E3 三组新候选均成功落出；当前暂定第一名为 E1，备选为 E2，淘汰为 E3。",
     "combined_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/tts/voiceover_combined.wav",
     "audit_report_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_route_report.json",
     "listen_sheet_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_listen_sheet.md",
-    "candidate_dir": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates_round3",
-    "voice_ab_review_bundle_round3": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle_round3"
+    "candidate_dir": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates_round4",
+    "voice_ab_review_bundle_round4": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle_round4"
   },
   "lane_status": {
     "lane_A_evidence": "待补录",
@@ -72,14 +72,14 @@
   "known_issues": [
     "当前开头 / 结尾主持壳仍是静态体素图循环成段，抽帧 0.2s 与 4.0s 可见主画面不变，不能冒充真实动态主持娃娃。",
     "liveportrait 最小实测对当前体素壳返回 `No human face detected.`，说明历史真人开口链不能直接复用为本轮主持壳。",
-    "阿里 Round 3 新候选 C1/C2/C3 已全部落盘，但四项听感仍缺人工试听，不能直接写成已过线。",
-    "阿里 Round 3 当前主排序已收出：C2 暂定第一名，C1 备选，C3 淘汰。",
+    "阿里 Round 4 新候选 E1/E2/E3 已全部落盘，但四项听感仍缺人工试听，不能直接写成已过线。",
+    "阿里 Round 4 当前主排序已收出：E1 暂定第一名，E2 备选，E3 淘汰。",
     "负面录屏的真实输入是“帮我把这个方案整理一下”，不是用户文字里点名的“给我一份方案”。",
     "负面录屏未定位到“建议关注用户体验 / 建议加强品牌认知”这类原句，只能用长段落 + 表格 + 无先诊断结构来证明差值。"
   ],
   "remaining_blockers": [
     "A线待补录：现有反面素材仍缺用户点名原句级证据，已新增 negative_supplement_brief.md。",
-    "B线待定版：Round 3 的 C1 / C2 / C3 已完成排序，但功能词抬高、停顿分布、句内快慢层次、情绪在场感仍缺人工听审定版。",
+    "B线待定版：Round 4 的 E1 / E2 / E3 已完成排序，但句尾上扬、功能词抬高、悬置感、下压后沉闷感仍缺人工听审定版。",
     "C线 blocked：当前共享主持壳是假动态；liveportrait 对当前体素壳最小实测直接返回 `No human face detected.`。"
   ],
   "content_validation_v1": {
@@ -89,7 +89,7 @@
     },
     "voice": {
       "status": "部分成立",
-      "reason": "阿里 Round 3 的 C1 / C2 / C3 三组新候选已生成，并已完成轻后处理与试听包整理；但四项核心维度仍缺人工听审，所以当前只能记部分成立。"
+      "reason": "阿里 Round 4 的 E1 / E2 / E3 三组新候选已生成，并已完成轻后处理与试听包整理；但四项核心维度仍缺人工听审，所以当前只能记部分成立。"
     },
     "materials": {
       "status": "待补录",
@@ -98,7 +98,7 @@
   },
   "coordinator_summary": {
     "status": "已确认",
-    "next_round_single_recommendation": "先执行反面最小补录，再对 C1/C2/C3 三组阿里 Round 3 候选做人审定版；在这两步完成前，不进入最终样片组装。",
+    "next_round_single_recommendation": "先执行反面最小补录，再对 E1/E2/E3 三组阿里 Round 4 候选做人审定版；在这两步完成前，不进入最终样片组装。",
     "stop_line_triggered": [
       "A线不过线",
       "C线 blocked"
