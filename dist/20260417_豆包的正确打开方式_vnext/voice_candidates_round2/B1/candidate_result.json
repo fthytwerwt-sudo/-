@@ -1,0 +1,25 @@
+{
+  "candidate_id": "B1",
+  "model": "qwen3-tts-instruct-flash-realtime",
+  "voice": "Serena",
+  "instruction": "你是一个真人，在用语音给朋友录一段操作教程。说话自然，带一点点口语感，偶尔强调。语速稳定偏快，不是快嘴，是那种“熟悉这件事的人讲起来”的节奏。重要的地方，语气稍微压低一点，不是加重，是让人觉得“这句是关键”。不要有新闻腔，不要有客服腔，不要卖萌。",
+  "speech_rate": 1.05,
+  "pitch_rate": 0.97,
+  "volume": 50,
+  "postprocess": "highpass=f=80,lowpass=f=12000,deesser=i=0.4:m=0.5:f=0.5:s=o,acompressor=threshold=-18dB:ratio=2.5:attack=50:release=120:makeup=3,loudnorm=I=-16:TP=-1.5:LRA=7",
+  "goal": "主要解决：速度偏慢",
+  "status": "success",
+  "request_debug": {
+    "provider": "aliyun_bailian",
+    "api_route_family": "aliyun_qwen_realtime_websocket",
+    "request_method": "WEBSOCKET",
+    "base_url": "wss://dashscope.aliyuncs.com/api-ws/v1/realtime?model=qwen3-tts-instruct-flash-realtime",
+    "sdk_call": "websockets.connect",
+    "voice": "Serena",
+    "instructions_present": true,
+    "response_format": "pcm",
+    "sample_rate": 24000
+  },
+  "raw_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates_round2/B1/B1_raw.wav",
+  "processed_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates_round2/B1/B1_processed.wav"
+}

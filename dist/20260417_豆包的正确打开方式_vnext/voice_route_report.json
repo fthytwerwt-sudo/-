@@ -1,33 +1,25 @@
 {
-  "schema_version": "video_factory_voice_route_report/v2",
+  "schema_version": "video_factory_voice_route_report/v3",
   "task_object": "《豆包的正确打开方式》vNext",
   "lane": "B线｜声音线（阿里体系内先排尽）",
+  "round": "round2",
   "status": "candidate_ranked",
   "report_status": "已确认",
   "provider_scope": "aliyun_only",
-  "probe_text": "豆包给你出的方案，你有没有觉得——\n能看，但用不了？\n最后你还是自己重写了一遍？\n\n这不是豆包的问题。\n是你问的方式，就决定了它只能给你那种结果。",
-  "priority_order": [
-    "A1_qwen3_serena_light",
-    "A2_qwen3_serena_steady",
-    "A3_qwen3_cherry_hint",
-    "B1_cosy_plus_longanling",
-    "B2_cosy_flash_longanqin",
-    "B3_cosy_flash_longanwen"
-  ],
+  "probe_copy_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates_round2/probe_copy_round2.txt",
+  "probe_text": "豆包给你出的方案，\n你有没有觉得，\n能看，\n但用不了？\n\n最后，\n你还是自己重写了一遍。\n\n这不是豆包的问题。\n\n是你问的方式，\n就决定了它只能给你那种结果。",
   "results": [
     {
-      "candidate_id": "A1_qwen3_serena_light",
-      "route": "primary",
-      "provider": "aliyun_bailian",
+      "candidate_id": "B1",
       "model": "qwen3-tts-instruct-flash-realtime",
       "voice": "Serena",
-      "instruction": "你要像轻陪伴的游戏向导一样说话，低压、自然、克制，不要播音腔，不要客服腔，不要装嫩，重点句更稳，句间停顿更自然。",
-      "speech_rate": 0.98,
+      "instruction": "你是一个真人，在用语音给朋友录一段操作教程。说话自然，带一点点口语感，偶尔强调。语速稳定偏快，不是快嘴，是那种“熟悉这件事的人讲起来”的节奏。重要的地方，语气稍微压低一点，不是加重，是让人觉得“这句是关键”。不要有新闻腔，不要有客服腔，不要卖萌。",
+      "speech_rate": 1.05,
       "pitch_rate": 0.97,
       "volume": 50,
-      "postprocess": "highpass=f=80,lowpass=f=12000,deesser=i=0.4:m=0.5:f=0.5:s=o,acompressor=threshold=-18dB:ratio=2.5:attack=20:release=120:makeup=3,loudnorm=I=-16:TP=-1.5:LRA=7",
+      "postprocess": "highpass=f=80,lowpass=f=12000,deesser=i=0.4:m=0.5:f=0.5:s=o,acompressor=threshold=-18dB:ratio=2.5:attack=50:release=120:makeup=3,loudnorm=I=-16:TP=-1.5:LRA=7",
+      "goal": "主要解决：速度偏慢",
       "status": "success",
-      "request_id": null,
       "request_debug": {
         "provider": "aliyun_bailian",
         "api_route_family": "aliyun_qwen_realtime_websocket",
@@ -39,25 +31,20 @@
         "response_format": "pcm",
         "sample_rate": 24000
       },
-      "raw_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates/A1_qwen3_serena_light/A1_qwen3_serena_light_raw.wav",
-      "processed_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates/A1_qwen3_serena_light/A1_qwen3_serena_light_processed.wav",
-      "blocked_reason": "",
-      "error_message": "",
-      "failure_reason": ""
+      "raw_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates_round2/B1/B1_raw.wav",
+      "processed_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates_round2/B1/B1_processed.wav"
     },
     {
-      "candidate_id": "A2_qwen3_serena_steady",
-      "route": "primary",
-      "provider": "aliyun_bailian",
+      "candidate_id": "B2",
       "model": "qwen3-tts-instruct-flash-realtime",
       "voice": "Serena",
-      "instruction": "你像冷静、低压的中文向导，句子更稳，减少夸张起伏，判断句收得更准，避免任何新闻播音和客服播报感。",
-      "speech_rate": 0.94,
-      "pitch_rate": 0.95,
-      "volume": 48,
-      "postprocess": "highpass=f=80,lowpass=f=12000,deesser=i=0.4:m=0.5:f=0.5:s=o,acompressor=threshold=-18dB:ratio=2.5:attack=20:release=120:makeup=3,loudnorm=I=-16:TP=-1.5:LRA=7",
+      "instruction": "说话像一个熟悉你的游戏老玩家，在你耳边轻声告诉你下一步怎么做。不是在教你，是在陪你。语速比正常对话稍快一点点，重点词落得稳，不拖，不播报。句子之间的停顿随意一些，不要机械。",
+      "speech_rate": 1.03,
+      "pitch_rate": 0.98,
+      "volume": 52,
+      "postprocess": "highpass=f=80,lowpass=f=12000,deesser=i=0.4:m=0.5:f=0.5:s=o,acompressor=threshold=-20dB:ratio=2:attack=50:release=150:makeup=2,loudnorm=I=-16:TP=-1.5:LRA=9",
+      "goal": "主要解决：情绪太平 / 没有陪伴感",
       "status": "success",
-      "request_id": null,
       "request_debug": {
         "provider": "aliyun_bailian",
         "api_route_family": "aliyun_qwen_realtime_websocket",
@@ -69,25 +56,20 @@
         "response_format": "pcm",
         "sample_rate": 24000
       },
-      "raw_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates/A2_qwen3_serena_steady/A2_qwen3_serena_steady_raw.wav",
-      "processed_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates/A2_qwen3_serena_steady/A2_qwen3_serena_steady_processed.wav",
-      "blocked_reason": "",
-      "error_message": "",
-      "failure_reason": ""
+      "raw_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates_round2/B2/B2_raw.wav",
+      "processed_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates_round2/B2/B2_processed.wav"
     },
     {
-      "candidate_id": "A3_qwen3_cherry_hint",
-      "route": "primary",
-      "provider": "aliyun_bailian",
+      "candidate_id": "B3",
       "model": "qwen3-tts-instruct-flash-realtime",
       "voice": "Cherry",
-      "instruction": "你像一个轻提醒型的中文向导，清楚但不强势，带一点陪伴感，不要广告腔，不要朗读腔，重点词轻轻带出来。",
-      "speech_rate": 0.99,
-      "pitch_rate": 0.98,
-      "volume": 49,
-      "postprocess": "highpass=f=80,lowpass=f=12000,deesser=i=0.4:m=0.5:f=0.5:s=o,acompressor=threshold=-18dB:ratio=2.5:attack=20:release=120:makeup=3,loudnorm=I=-16:TP=-1.5:LRA=7",
+      "instruction": "音色温暖，不尖，不甜，不AI。语速 1.0 到 1.1 之间，不拖。每个句子的开头稍微有点力道，结尾自然收，不要拖长音。情绪是：淡淡的、在场的、可信任的。不是表演陪伴，是真的在旁边。",
+      "speech_rate": 1.02,
+      "pitch_rate": 1.0,
+      "volume": 50,
+      "postprocess": "highpass=f=80,lowpass=f=12000,deesser=i=0.4:m=0.5:f=0.5:s=o,acompressor=threshold=-20dB:ratio=2:attack=50:release=150:makeup=2,loudnorm=I=-16:TP=-1.5:LRA=9",
+      "goal": "主要解决：节奏不像真人，验证音色本体差异",
       "status": "success",
-      "request_id": null,
       "request_debug": {
         "provider": "aliyun_bailian",
         "api_route_family": "aliyun_qwen_realtime_websocket",
@@ -99,404 +81,45 @@
         "response_format": "pcm",
         "sample_rate": 24000
       },
-      "raw_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates/A3_qwen3_cherry_hint/A3_qwen3_cherry_hint_raw.wav",
-      "processed_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates/A3_qwen3_cherry_hint/A3_qwen3_cherry_hint_processed.wav",
-      "blocked_reason": "",
-      "error_message": "",
-      "failure_reason": ""
-    },
-    {
-      "candidate_id": "B1_cosy_plus_longanling",
-      "route": "fallback",
-      "provider": "aliyun_bailian",
-      "model": "cosyvoice-v3-plus",
-      "voice": "longanling_v3",
-      "instruction": "你说话的情感是neutral。",
-      "speech_rate": 1.02,
-      "pitch_rate": 0.96,
-      "volume": 48,
-      "postprocess": "highpass=f=80,lowpass=f=12000,deesser=i=0.4:m=0.5:f=0.5:s=o,acompressor=threshold=-18dB:ratio=2.5:attack=20:release=120:makeup=3,loudnorm=I=-16:TP=-1.5:LRA=7",
-      "status": "failed",
-      "request_id": null,
-      "request_debug": {
-        "provider": "aliyun_bailian",
-        "api_route_family": "aliyun_bailian_cosyvoice",
-        "provider_route_family": "aliyun_bailian_cosyvoice",
-        "request_method": "POST",
-        "base_url": "https://dashscope.aliyuncs.com/api/v1",
-        "relative_path": "/services/audio/tts/SpeechSynthesizer",
-        "sdk_call": "urllib.request.urlopen",
-        "model_identifier_source": "model",
-        "model_identifier_shape": {
-          "present": true,
-          "length": 17,
-          "has_digit": true,
-          "has_dash": true,
-          "prefix": "co",
-          "suffix": "us"
-        },
-        "endpoint_id_shape": {
-          "present": true,
-          "length": 10,
-          "has_digit": true,
-          "has_dash": false,
-          "prefix": "44",
-          "suffix": "55"
-        },
-        "model_shape": {
-          "present": true,
-          "length": 17,
-          "has_digit": true,
-          "has_dash": true,
-          "prefix": "co",
-          "suffix": "us"
-        },
-        "resource_id_shape": {
-          "present": true,
-          "length": 26,
-          "has_digit": false,
-          "has_dash": false,
-          "prefix": "SE",
-          "suffix": "ED"
-        },
-        "app_id_shape": {
-          "present": false,
-          "length": 0,
-          "has_digit": false,
-          "has_dash": false,
-          "prefix": "",
-          "suffix": ""
-        },
-        "voice_location": "payload.input.voice",
-        "voice_shape": {
-          "present": true,
-          "length": 13,
-          "has_digit": true,
-          "has_dash": false,
-          "prefix": "lo",
-          "suffix": "v3"
-        },
-        "style_shape": {
-          "present": true,
-          "length": 9,
-          "has_digit": false,
-          "has_dash": false,
-          "prefix": "kn",
-          "suffix": "ge"
-        },
-        "response_format": "mp3",
-        "instruction_location": "payload.input.instruction",
-        "instruction_shape": {
-          "present": true,
-          "length": 15,
-          "has_digit": false,
-          "has_dash": false,
-          "prefix": "你说",
-          "suffix": "l。"
-        },
-        "speech_rate": 1.02,
-        "pitch_rate": 0.96,
-        "volume": 48,
-        "request_input_keys": [
-          "text",
-          "voice",
-          "format",
-          "instruction",
-          "rate",
-          "pitch",
-          "volume"
-        ],
-        "style_draft_in_request": true
-      },
-      "raw_audio_path": null,
-      "processed_audio_path": null,
-      "blocked_reason": "{\"request_id\":\"93cac5b8-463e-90bb-a464-0a5bdf178212\",\"code\":\"InvalidParameter\",\"message\":\"[cosyvoice:]Engine return error code: 418\"}",
-      "error_message": "{\"request_id\":\"93cac5b8-463e-90bb-a464-0a5bdf178212\",\"code\":\"InvalidParameter\",\"message\":\"[cosyvoice:]Engine return error code: 418\"}",
-      "failure_reason": "aliyun_bailian_tts_request_failed"
-    },
-    {
-      "candidate_id": "B2_cosy_flash_longanqin",
-      "route": "fallback",
-      "provider": "aliyun_bailian",
-      "model": "cosyvoice-v3-flash",
-      "voice": "longanqin_v3",
-      "instruction": "你说话的情感是neutral。",
-      "speech_rate": 1.0,
-      "pitch_rate": 0.96,
-      "volume": 47,
-      "postprocess": "highpass=f=80,lowpass=f=12000,deesser=i=0.4:m=0.5:f=0.5:s=o,acompressor=threshold=-18dB:ratio=2.5:attack=20:release=120:makeup=3,loudnorm=I=-16:TP=-1.5:LRA=7",
-      "status": "failed",
-      "request_id": null,
-      "request_debug": {
-        "provider": "aliyun_bailian",
-        "api_route_family": "aliyun_bailian_cosyvoice",
-        "provider_route_family": "aliyun_bailian_cosyvoice",
-        "request_method": "POST",
-        "base_url": "https://dashscope.aliyuncs.com/api/v1",
-        "relative_path": "/services/audio/tts/SpeechSynthesizer",
-        "sdk_call": "urllib.request.urlopen",
-        "model_identifier_source": "model",
-        "model_identifier_shape": {
-          "present": true,
-          "length": 18,
-          "has_digit": true,
-          "has_dash": true,
-          "prefix": "co",
-          "suffix": "sh"
-        },
-        "endpoint_id_shape": {
-          "present": true,
-          "length": 10,
-          "has_digit": true,
-          "has_dash": false,
-          "prefix": "44",
-          "suffix": "55"
-        },
-        "model_shape": {
-          "present": true,
-          "length": 18,
-          "has_digit": true,
-          "has_dash": true,
-          "prefix": "co",
-          "suffix": "sh"
-        },
-        "resource_id_shape": {
-          "present": true,
-          "length": 26,
-          "has_digit": false,
-          "has_dash": false,
-          "prefix": "SE",
-          "suffix": "ED"
-        },
-        "app_id_shape": {
-          "present": false,
-          "length": 0,
-          "has_digit": false,
-          "has_dash": false,
-          "prefix": "",
-          "suffix": ""
-        },
-        "voice_location": "payload.input.voice",
-        "voice_shape": {
-          "present": true,
-          "length": 12,
-          "has_digit": true,
-          "has_dash": false,
-          "prefix": "lo",
-          "suffix": "v3"
-        },
-        "style_shape": {
-          "present": true,
-          "length": 9,
-          "has_digit": false,
-          "has_dash": false,
-          "prefix": "kn",
-          "suffix": "ge"
-        },
-        "response_format": "mp3",
-        "instruction_location": "payload.input.instruction",
-        "instruction_shape": {
-          "present": true,
-          "length": 15,
-          "has_digit": false,
-          "has_dash": false,
-          "prefix": "你说",
-          "suffix": "l。"
-        },
-        "speech_rate": 1.0,
-        "pitch_rate": 0.96,
-        "volume": 47,
-        "request_input_keys": [
-          "text",
-          "voice",
-          "format",
-          "instruction",
-          "rate",
-          "pitch",
-          "volume"
-        ],
-        "style_draft_in_request": true
-      },
-      "raw_audio_path": null,
-      "processed_audio_path": null,
-      "blocked_reason": "{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"59b25dfb-208e-969c-9519-59fd803416c3\"}",
-      "error_message": "{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"59b25dfb-208e-969c-9519-59fd803416c3\"}",
-      "failure_reason": "aliyun_bailian_tts_request_failed"
-    },
-    {
-      "candidate_id": "B3_cosy_flash_longanwen",
-      "route": "fallback",
-      "provider": "aliyun_bailian",
-      "model": "cosyvoice-v3-flash",
-      "voice": "longanwen_v3",
-      "instruction": "你说话的情感是neutral。",
-      "speech_rate": 0.98,
-      "pitch_rate": 0.95,
-      "volume": 47,
-      "postprocess": "highpass=f=80,lowpass=f=12000,deesser=i=0.4:m=0.5:f=0.5:s=o,acompressor=threshold=-18dB:ratio=2.5:attack=20:release=120:makeup=3,loudnorm=I=-16:TP=-1.5:LRA=7",
-      "status": "failed",
-      "request_id": null,
-      "request_debug": {
-        "provider": "aliyun_bailian",
-        "api_route_family": "aliyun_bailian_cosyvoice",
-        "provider_route_family": "aliyun_bailian_cosyvoice",
-        "request_method": "POST",
-        "base_url": "https://dashscope.aliyuncs.com/api/v1",
-        "relative_path": "/services/audio/tts/SpeechSynthesizer",
-        "sdk_call": "urllib.request.urlopen",
-        "model_identifier_source": "model",
-        "model_identifier_shape": {
-          "present": true,
-          "length": 18,
-          "has_digit": true,
-          "has_dash": true,
-          "prefix": "co",
-          "suffix": "sh"
-        },
-        "endpoint_id_shape": {
-          "present": true,
-          "length": 10,
-          "has_digit": true,
-          "has_dash": false,
-          "prefix": "44",
-          "suffix": "55"
-        },
-        "model_shape": {
-          "present": true,
-          "length": 18,
-          "has_digit": true,
-          "has_dash": true,
-          "prefix": "co",
-          "suffix": "sh"
-        },
-        "resource_id_shape": {
-          "present": true,
-          "length": 26,
-          "has_digit": false,
-          "has_dash": false,
-          "prefix": "SE",
-          "suffix": "ED"
-        },
-        "app_id_shape": {
-          "present": false,
-          "length": 0,
-          "has_digit": false,
-          "has_dash": false,
-          "prefix": "",
-          "suffix": ""
-        },
-        "voice_location": "payload.input.voice",
-        "voice_shape": {
-          "present": true,
-          "length": 12,
-          "has_digit": true,
-          "has_dash": false,
-          "prefix": "lo",
-          "suffix": "v3"
-        },
-        "style_shape": {
-          "present": true,
-          "length": 9,
-          "has_digit": false,
-          "has_dash": false,
-          "prefix": "kn",
-          "suffix": "ge"
-        },
-        "response_format": "mp3",
-        "instruction_location": "payload.input.instruction",
-        "instruction_shape": {
-          "present": true,
-          "length": 15,
-          "has_digit": false,
-          "has_dash": false,
-          "prefix": "你说",
-          "suffix": "l。"
-        },
-        "speech_rate": 0.98,
-        "pitch_rate": 0.95,
-        "volume": 47,
-        "request_input_keys": [
-          "text",
-          "voice",
-          "format",
-          "instruction",
-          "rate",
-          "pitch",
-          "volume"
-        ],
-        "style_draft_in_request": true
-      },
-      "raw_audio_path": null,
-      "processed_audio_path": null,
-      "blocked_reason": "{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"270b788e-4650-9eaf-9e4a-1c5c09f84633\"}",
-      "error_message": "{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"270b788e-4650-9eaf-9e4a-1c5c09f84633\"}",
-      "failure_reason": "aliyun_bailian_tts_request_failed"
+      "raw_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates_round2/B3/B3_raw.wav",
+      "processed_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates_round2/B3/B3_processed.wav"
     }
   ],
   "selected_route": {
     "status": "暂定第一名",
-    "candidate_id": "A1_qwen3_serena_light",
+    "candidate_id": "B1",
     "model": "qwen3-tts-instruct-flash-realtime",
     "voice": "Serena",
-    "route": "primary",
-    "selection_reason": "当前三组阿里主候选都成功落盘后，优先选择更贴近“轻陪伴 / 游戏向导”目标的 Serena 轻陪伴版作为本轮暂定第一名。",
-    "why_others_rejected": [
-      {
-        "candidate_id": "A2_qwen3_serena_steady",
-        "decision": "备选",
-        "reason": "更稳、更克制，适合作为备选，但主目标的人味和陪伴感预期弱于 A1。"
-      },
-      {
-        "candidate_id": "A3_qwen3_cherry_hint",
-        "decision": "淘汰",
-        "reason": "更像轻提醒，不是当前轮要的主导感觉。"
-      },
-      {
-        "candidate_id": "B1_cosy_plus_longanling",
-        "decision": "淘汰",
-        "reason": "{\"request_id\":\"93cac5b8-463e-90bb-a464-0a5bdf178212\",\"code\":\"InvalidParameter\",\"message\":\"[cosyvoice:]Engine return error code: 418\"}"
-      },
-      {
-        "candidate_id": "B2_cosy_flash_longanqin",
-        "decision": "淘汰",
-        "reason": "{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"59b25dfb-208e-969c-9519-59fd803416c3\"}"
-      },
-      {
-        "candidate_id": "B3_cosy_flash_longanwen",
-        "decision": "淘汰",
-        "reason": "{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"270b788e-4650-9eaf-9e4a-1c5c09f84633\"}"
-      }
-    ]
+    "reason": "更直接对应当前最核心问题：先改 instruction，再提升 speech_rate，并把压缩器 attack 调到 50ms。"
   },
   "backup_route": {
     "status": "备选",
-    "candidate_id": "A2_qwen3_serena_steady",
+    "candidate_id": "B2",
     "model": "qwen3-tts-instruct-flash-realtime",
     "voice": "Serena",
-    "route": "primary"
+    "reason": "更偏陪伴感，可作为情绪修正向的备选。"
   },
   "rejected_route": {
     "status": "淘汰",
-    "candidate_id": "A3_qwen3_cherry_hint",
+    "candidate_id": "B3",
     "model": "qwen3-tts-instruct-flash-realtime",
     "voice": "Cherry",
-    "route": "primary"
+    "reason": "当前只保留它做音色本体差异对照，不作为这轮主导路线。"
   },
-  "voice_ab_review_bundle": {
-    "path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle",
+  "voice_ab_review_bundle_round2": {
+    "path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle_round2",
     "files": [
-      "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle/00_三候选顺序连听.wav",
-      "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle/01_暂定第一名_A1_qwen3_serena_light.wav",
-      "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle/02_备选_A2_qwen3_serena_steady.wav",
-      "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle/03_淘汰_A3_qwen3_cherry_hint.wav",
-      "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle/试听说明.md"
+      "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle_round2/00_三候选顺序连听.wav",
+      "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle_round2/01_暂定第一名_B1.wav",
+      "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle_round2/02_备选_B2.wav",
+      "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle_round2/03_淘汰_B3.wav",
+      "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle_round2/试听说明.md"
     ]
   },
-  "blocked_reason": "",
   "dimension_status": {
     "自然度": "待人工听审",
     "向导感": "待人工听审",
     "停顿与韵律": "待人工听审",
-    "播音腔 / AI 感": "待人工听审"
+    "播音腔 / AI感": "待人工听审"
   }
 }

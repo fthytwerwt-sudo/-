@@ -1,0 +1,25 @@
+{
+  "candidate_id": "B2",
+  "model": "qwen3-tts-instruct-flash-realtime",
+  "voice": "Serena",
+  "instruction": "说话像一个熟悉你的游戏老玩家，在你耳边轻声告诉你下一步怎么做。不是在教你，是在陪你。语速比正常对话稍快一点点，重点词落得稳，不拖，不播报。句子之间的停顿随意一些，不要机械。",
+  "speech_rate": 1.03,
+  "pitch_rate": 0.98,
+  "volume": 52,
+  "postprocess": "highpass=f=80,lowpass=f=12000,deesser=i=0.4:m=0.5:f=0.5:s=o,acompressor=threshold=-20dB:ratio=2:attack=50:release=150:makeup=2,loudnorm=I=-16:TP=-1.5:LRA=9",
+  "goal": "主要解决：情绪太平 / 没有陪伴感",
+  "status": "success",
+  "request_debug": {
+    "provider": "aliyun_bailian",
+    "api_route_family": "aliyun_qwen_realtime_websocket",
+    "request_method": "WEBSOCKET",
+    "base_url": "wss://dashscope.aliyuncs.com/api-ws/v1/realtime?model=qwen3-tts-instruct-flash-realtime",
+    "sdk_call": "websockets.connect",
+    "voice": "Serena",
+    "instructions_present": true,
+    "response_format": "pcm",
+    "sample_rate": 24000
+  },
+  "raw_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates_round2/B2/B2_raw.wav",
+  "processed_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates_round2/B2/B2_processed.wav"
+}

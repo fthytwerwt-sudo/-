@@ -47,21 +47,22 @@
   },
   "voice_route": {
     "provider": "aliyun_qwen_realtime_primary__aliyun_cosyvoice_fallback",
-    "voice_name": "Serena / Cherry / longanling_v3 / longanqin_v3 / longanwen_v3",
+    "voice_name": "Serena / Cherry",
     "status": "candidate_ready",
     "technical_validation": "passed_candidates_generated",
     "content_validation": "pending_listen_review",
     "selection_status": "machine_selected_needs_human_review",
-    "selected_candidate_id": "A1_qwen3_serena_light",
+    "selected_candidate_id": "B1",
     "selected_model": "qwen3-tts-instruct-flash-realtime",
     "selected_voice": "Serena",
     "blocked_reason": "",
-    "current_implementation": "aliyun qwen realtime websocket + ffmpeg postprocess",
-    "fallback_exhaustion_summary": "qwen3 主路线 3 组候选均成功；cosyvoice-v3-plus 返回 engine 418；cosyvoice-v3-flash 两组触发 FreeTierOnly quota。",
+    "current_implementation": "aliyun qwen realtime websocket + ffmpeg postprocess (round2)",
+    "fallback_exhaustion_summary": "Round 2 中 B1/B2/B3 三组新候选均成功落出；当前暂定第一名为 B1，备选为 B2，淘汰为 B3。",
     "combined_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/tts/voiceover_combined.wav",
     "audit_report_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_route_report.json",
     "listen_sheet_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_listen_sheet.md",
-    "candidate_dir": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates"
+    "candidate_dir": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates_round2",
+    "voice_ab_review_bundle_round2": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle_round2"
   },
   "lane_status": {
     "lane_A_evidence": "待补录",
@@ -71,14 +72,14 @@
   "known_issues": [
     "当前开头 / 结尾主持壳仍是静态体素图循环成段，抽帧 0.2s 与 4.0s 可见主画面不变，不能冒充真实动态主持娃娃。",
     "liveportrait 最小实测对当前体素壳返回 `No human face detected.`，说明历史真人开口链不能直接复用为本轮主持壳。",
-    "阿里主路线 qwen3-tts-instruct-flash-realtime + Serena/Cherry 已落出 3 组候选，但四项听感仍缺人工试听，不能直接写成已过线。",
-    "阿里内部 fallback 已排尽：cosyvoice-v3-plus 返回 engine 418；cosyvoice-v3-flash 两组触发 FreeTierOnly quota。",
+    "阿里 Round 2 新候选 B1/B2/B3 已全部落盘，但四项听感仍缺人工试听，不能直接写成已过线。",
+    "阿里内部当前主排序已收出：B1 暂定第一名，B2 备选，B3 淘汰。",
     "负面录屏的真实输入是“帮我把这个方案整理一下”，不是用户文字里点名的“给我一份方案”。",
     "负面录屏未定位到“建议关注用户体验 / 建议加强品牌认知”这类原句，只能用长段落 + 表格 + 无先诊断结构来证明差值。"
   ],
   "remaining_blockers": [
     "A线待补录：现有反面素材仍缺用户点名原句级证据，已新增 negative_supplement_brief.md。",
-    "B线待定版：暂定第一名 / 备选 / 淘汰 已收出，但自然度、向导感、停顿与韵律、播音腔 / AI 感 仍缺人工听审定版。",
+    "B线待定版：Round 2 的 B1 / B2 / B3 已完成排序，但自然度、向导感、停顿与韵律、播音腔 / AI 感 仍缺人工听审定版。",
     "C线 blocked：当前共享主持壳是假动态；liveportrait 对当前体素壳最小实测直接返回 `No human face detected.`。"
   ],
   "content_validation_v1": {
@@ -88,7 +89,7 @@
     },
     "voice": {
       "status": "部分成立",
-      "reason": "阿里主路线 qwen3-tts-instruct-flash-realtime + Serena/Cherry 已生成 3 组候选，并已完成轻后处理；但四项核心维度仍缺人工听审，所以当前只能记部分成立。"
+      "reason": "阿里 Round 2 的 B1 / B2 / B3 三组新候选已生成，并已完成轻后处理与试听包整理；但四项核心维度仍缺人工听审，所以当前只能记部分成立。"
     },
     "materials": {
       "status": "待补录",
@@ -97,7 +98,7 @@
   },
   "coordinator_summary": {
     "status": "已确认",
-    "next_round_single_recommendation": "先执行反面最小补录，再对 A1/A2/A3 三组阿里候选做人审定版；在这两步完成前，不进入最终样片组装。",
+    "next_round_single_recommendation": "先执行反面最小补录，再对 B1/B2/B3 三组阿里 Round 2 候选做人审定版；在这两步完成前，不进入最终样片组装。",
     "stop_line_triggered": [
       "A线不过线",
       "C线 blocked"

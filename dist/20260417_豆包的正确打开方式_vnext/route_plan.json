@@ -10,17 +10,18 @@
     "style_rule": "Minecraft-inspired inspired-only 原创体素方块风，不复用任何官方资产",
     "voice_route": {
       "provider": "aliyun_qwen_realtime_primary__aliyun_cosyvoice_fallback",
-      "voice_name": "Serena / Cherry / longanling_v3 / longanqin_v3 / longanwen_v3",
+      "voice_name": "Serena / Cherry",
       "status": "candidate_ready",
-      "selected_candidate_id": "A1_qwen3_serena_light",
+      "selected_candidate_id": "B1",
       "selected_model": "qwen3-tts-instruct-flash-realtime",
       "selected_voice": "Serena",
       "selection_status": "machine_selected_needs_human_review",
-      "current_implementation": "aliyun qwen realtime websocket + ffmpeg postprocess",
-      "internal_exhaustion_summary": "主路线 qwen3-tts-instruct-flash-realtime + Serena/Cherry 已成功落出 3 组候选；阿里内部 fallback 中 cosyvoice-v3-plus 返回 engine 418，cosyvoice-v3-flash 两组触发 FreeTierOnly quota。",
+      "current_implementation": "aliyun qwen realtime websocket + ffmpeg postprocess (round2)",
+      "internal_exhaustion_summary": "Round 2 中 B1/B2/B3 三组新候选均成功落出；当前暂定第一名为 B1，备选为 B2，淘汰为 B3。",
       "audit_report_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_route_report.json",
       "listen_sheet_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_listen_sheet.md",
-      "candidate_dir": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates"
+      "candidate_dir": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates_round2",
+      "voice_ab_review_bundle_round2": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle_round2"
     },
     "host_route": {
       "provider": "static_voxel_panel_loop",
@@ -121,6 +122,7 @@
     "negative_supplement_brief": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/negative_supplement_brief.md",
     "voice_route_report": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_route_report.json",
     "voice_listen_sheet": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_listen_sheet.md",
+    "voice_ab_review_bundle_round2": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle_round2",
     "host_motion_audit": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_audit.md"
   },
   "blocks": [
