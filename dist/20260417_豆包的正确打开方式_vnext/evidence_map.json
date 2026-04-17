@@ -2,9 +2,9 @@
   "schema_version": "video_factory_vnext_evidence_map/v1",
   "task_object": "《豆包的正确打开方式》vNext",
   "lane": "A线｜正反证据线",
-  "status": "部分成立",
+  "status": "待补录",
   "evidence_readiness": {
-    "negative": "部分成立",
+    "negative": "待补录",
     "positive": "已确认",
     "xml_bridge": "已确认",
     "ppt_result": "已确认"
@@ -194,11 +194,16 @@
   ],
   "blocking_points": [
     {
-      "status": "部分成立",
+      "status": "待补录",
       "item": "反面仍缺用户点名原句",
       "impact": "不影响“反面是长整稿式输出”的判断，但会削弱与用户原话的一一对应强度。"
     }
   ],
+  "negative_supplement": {
+    "status": "待补录",
+    "brief_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/negative_supplement_brief.md",
+    "replace_target_segment": "seg02_negative"
+  },
   "suggested_shared_json_updates": {
     "status": "通用建议",
     "route_plan": [

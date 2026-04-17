@@ -1,0 +1,3 @@
+file '/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle/01_暂定第一名_A1_qwen3_serena_light.wav'
+file '/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle/02_备选_A2_qwen3_serena_steady.wav'
+file '/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle/03_淘汰_A3_qwen3_cherry_hint.wav'

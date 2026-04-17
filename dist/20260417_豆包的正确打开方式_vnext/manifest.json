@@ -45,6 +45,7 @@
     "result_summary": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/result_summary.json",
     "evidence_map": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/evidence_map.json",
     "evidence_notes": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/evidence_notes.md",
+    "negative_supplement_brief": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/negative_supplement_brief.md",
     "voice_route_report": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_route_report.json",
     "voice_listen_sheet": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_listen_sheet.md",
     "host_motion_audit": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_audit.md",
@@ -104,8 +105,9 @@
       "audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/tts/seg02_negative.wav",
       "duration_seconds": 17.433,
       "rendered_segment_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/segments/02_seg02_negative.mp4",
-      "evidence_status": "部分成立",
+      "evidence_status": "待补录",
       "evidence_gap_note": "缺用户点名原句；当前真实输入为“帮我把这个方案整理一下”",
+      "negative_supplement_brief_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/negative_supplement_brief.md",
       "clip_plan": {
         "clip_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/tmp/seg02_negative_curated.mp4",
         "source_video": "/Users/fan/Documents/视频工厂/素材录制/反面/录制于 2026-04-16 22.41.32.mp4",

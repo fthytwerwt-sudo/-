@@ -2,7 +2,7 @@
   "schema_version": "video_factory_voice_route_report/v2",
   "task_object": "《豆包的正确打开方式》vNext",
   "lane": "B线｜声音线（阿里体系内先排尽）",
-  "status": "success",
+  "status": "candidate_ranked",
   "report_status": "已确认",
   "provider_scope": "aliyun_only",
   "probe_text": "豆包给你出的方案，你有没有觉得——\n能看，但用不了？\n最后你还是自己重写了一遍？\n\n这不是豆包的问题。\n是你问的方式，就决定了它只能给你那种结果。",
@@ -434,40 +434,69 @@
     }
   ],
   "selected_route": {
-    "status": "推测",
+    "status": "暂定第一名",
     "candidate_id": "A1_qwen3_serena_light",
     "model": "qwen3-tts-instruct-flash-realtime",
     "voice": "Serena",
     "route": "primary",
-    "selection_reason": "按本轮优先级排序，在真实成功候选中优先选择 qwen3 主路线，再选阿里内部 fallback；该结果仍需人工试听确认。",
+    "selection_reason": "当前三组阿里主候选都成功落盘后，优先选择更贴近“轻陪伴 / 游戏向导”目标的 Serena 轻陪伴版作为本轮暂定第一名。",
     "why_others_rejected": [
       {
         "candidate_id": "A2_qwen3_serena_steady",
-        "reason": "优先级低于暂定主路线，待人工听审再决定是否保留。"
+        "decision": "备选",
+        "reason": "更稳、更克制，适合作为备选，但主目标的人味和陪伴感预期弱于 A1。"
       },
       {
         "candidate_id": "A3_qwen3_cherry_hint",
-        "reason": "优先级低于暂定主路线，待人工听审再决定是否保留。"
+        "decision": "淘汰",
+        "reason": "更像轻提醒，不是当前轮要的主导感觉。"
       },
       {
         "candidate_id": "B1_cosy_plus_longanling",
+        "decision": "淘汰",
         "reason": "{\"request_id\":\"93cac5b8-463e-90bb-a464-0a5bdf178212\",\"code\":\"InvalidParameter\",\"message\":\"[cosyvoice:]Engine return error code: 418\"}"
       },
       {
         "candidate_id": "B2_cosy_flash_longanqin",
+        "decision": "淘汰",
         "reason": "{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"59b25dfb-208e-969c-9519-59fd803416c3\"}"
       },
       {
         "candidate_id": "B3_cosy_flash_longanwen",
+        "decision": "淘汰",
         "reason": "{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"270b788e-4650-9eaf-9e4a-1c5c09f84633\"}"
       }
     ]
   },
+  "backup_route": {
+    "status": "备选",
+    "candidate_id": "A2_qwen3_serena_steady",
+    "model": "qwen3-tts-instruct-flash-realtime",
+    "voice": "Serena",
+    "route": "primary"
+  },
+  "rejected_route": {
+    "status": "淘汰",
+    "candidate_id": "A3_qwen3_cherry_hint",
+    "model": "qwen3-tts-instruct-flash-realtime",
+    "voice": "Cherry",
+    "route": "primary"
+  },
+  "voice_ab_review_bundle": {
+    "path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle",
+    "files": [
+      "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle/00_三候选顺序连听.wav",
+      "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle/01_暂定第一名_A1_qwen3_serena_light.wav",
+      "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle/02_备选_A2_qwen3_serena_steady.wav",
+      "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle/03_淘汰_A3_qwen3_cherry_hint.wav",
+      "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle/试听说明.md"
+    ]
+  },
   "blocked_reason": "",
   "dimension_status": {
-    "自然度": "待验证",
-    "向导感": "待验证",
-    "停顿与韵律": "待验证",
-    "播音腔 / AI 感": "待验证"
+    "自然度": "待人工听审",
+    "向导感": "待人工听审",
+    "停顿与韵律": "待人工听审",
+    "播音腔 / AI 感": "待人工听审"
   }
 }

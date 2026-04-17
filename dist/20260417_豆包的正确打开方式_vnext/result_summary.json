@@ -16,8 +16,10 @@
     "result_summary": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/result_summary.json",
     "evidence_map": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/evidence_map.json",
     "evidence_notes": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/evidence_notes.md",
+    "negative_supplement_brief": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/negative_supplement_brief.md",
     "voice_route_report": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_route_report.json",
     "voice_listen_sheet": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_listen_sheet.md",
+    "voice_ab_review_bundle": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle",
     "host_motion_audit": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_audit.md",
     "host_motion_min_spec": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_min_spec.md",
     "final_review_clean": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/local_review/final_review_clean.mp4",
@@ -62,8 +64,8 @@
     "candidate_dir": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates"
   },
   "lane_status": {
-    "lane_A_evidence": "部分成立",
-    "lane_B_voice": "部分成立",
+    "lane_A_evidence": "待补录",
+    "lane_B_voice": "已收口_待听审确认",
     "lane_C_host_motion": "blocked"
   },
   "known_issues": [
@@ -75,8 +77,8 @@
     "负面录屏未定位到“建议关注用户体验 / 建议加强品牌认知”这类原句，只能用长段落 + 表格 + 无先诊断结构来证明差值。"
   ],
   "remaining_blockers": [
-    "A线不过线：反面最强证据位目前只能证明“帮我把这个方案整理一下 -> 长整稿输出”，仍缺用户点名原句级证据。",
-    "B线未过线：阿里主路线已落出 3 组候选，但自然度、向导感、停顿与韵律、播音腔 / AI 感 仍缺人工听审定版。",
+    "A线待补录：现有反面素材仍缺用户点名原句级证据，已新增 negative_supplement_brief.md。",
+    "B线待定版：暂定第一名 / 备选 / 淘汰 已收出，但自然度、向导感、停顿与韵律、播音腔 / AI 感 仍缺人工听审定版。",
     "C线 blocked：当前共享主持壳是假动态；liveportrait 对当前体素壳最小实测直接返回 `No human face detected.`。"
   ],
   "content_validation_v1": {
@@ -89,13 +91,13 @@
       "reason": "阿里主路线 qwen3-tts-instruct-flash-realtime + Serena/Cherry 已生成 3 组候选，并已完成轻后处理；但四项核心维度仍缺人工听审，所以当前只能记部分成立。"
     },
     "materials": {
-      "status": "部分成立",
-      "reason": "正面 30.0-45.0s、XML 299.8-310.0s、PPT 699.9-720.0s 已收窄到静音可理解窗口；反面 24.8-39.8s 仍缺用户点名原句证据。"
+      "status": "待补录",
+      "reason": "正面 30.0-45.0s、XML 299.8-310.0s、PPT 699.9-720.0s 已收窄到静音可理解窗口；反面 24.8-39.8s 仍缺用户点名原句证据，已新增最小补录单。"
     }
   },
   "coordinator_summary": {
     "status": "已确认",
-    "next_round_single_recommendation": "先补反面证据并对 3 组阿里候选做人审定版，不进入最终样片组装；动态主持壳继续独立能力线推进。",
+    "next_round_single_recommendation": "先执行反面最小补录，再对 A1/A2/A3 三组阿里候选做人审定版；在这两步完成前，不进入最终样片组装。",
     "stop_line_triggered": [
       "A线不过线",
       "C线 blocked"

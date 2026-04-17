@@ -18,14 +18,15 @@
 ## 三线结果
 
 1. `lane_A_evidence`
-   - `部分成立`
+   - `待补录`
    - 正面 / XML / PPT 证据位已收窄到静音可理解窗口
-   - 反面仍缺用户点名原句级证据
+   - 反面已收成最强现有窗口，但仍缺用户点名原句级证据
+   - 已新增 `negative_supplement_brief.md`
 2. `lane_B_voice`
-   - `部分成立`
+   - `已收口，待听审确认`
    - 阿里主路线 `qwen3-tts-instruct-flash-realtime + Serena/Cherry` 已落出 3 组候选
    - 阿里内部 fallback 已排尽并记录失败原因
-   - 当前仍缺人工听审定版
+   - 已收出：`暂定第一名 / 备选 / 淘汰`
 3. `lane_C_host_motion`
    - `blocked`
    - 当前共享壳仍是假动态
@@ -33,25 +34,27 @@
 
 ## 当前 blocker
 
-1. `部分成立` 反面仍缺用户点名原句级证据
-2. `部分成立` 阿里主路线已建立，但 3 组候选仍缺人工听审定版
+1. `待补录` 反面仍缺用户点名原句级证据
+2. `待验证` 阿里主路线已收出暂定定版，但 3 组候选仍缺人工听审定版
 3. `已确认` 当前体素娃娃主持壳没有可直接复用的真动态路线
 
 ## 本轮产出
 
 1. `dist/20260417_豆包的正确打开方式_vnext/evidence_map.json`
 2. `dist/20260417_豆包的正确打开方式_vnext/evidence_notes.md`
-3. `dist/20260417_豆包的正确打开方式_vnext/voice_route_report.json`
-4. `dist/20260417_豆包的正确打开方式_vnext/voice_listen_sheet.md`
-5. `dist/20260417_豆包的正确打开方式_vnext/voice_candidates/*`
-6. `dist/20260417_豆包的正确打开方式_vnext/host_motion_audit.md`
-7. `dist/20260417_豆包的正确打开方式_vnext/host_motion_min_spec.md`
-8. `dist/20260417_豆包的正确打开方式_vnext/host_motion_prototype/liveportrait_probe_result.json`
-9. `codex_log/20260417_豆包vnext并行三线执行.md`
+3. `dist/20260417_豆包的正确打开方式_vnext/negative_supplement_brief.md`
+4. `dist/20260417_豆包的正确打开方式_vnext/voice_route_report.json`
+5. `dist/20260417_豆包的正确打开方式_vnext/voice_listen_sheet.md`
+6. `dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle/*`
+7. `dist/20260417_豆包的正确打开方式_vnext/voice_candidates/*`
+8. `dist/20260417_豆包的正确打开方式_vnext/host_motion_audit.md`
+9. `dist/20260417_豆包的正确打开方式_vnext/host_motion_min_spec.md`
+10. `dist/20260417_豆包的正确打开方式_vnext/host_motion_prototype/liveportrait_probe_result.json`
+11. `codex_log/20260417_豆包vnext并行三线执行.md`
 
 ## 下一轮唯一建议
 
-- `已确认` 先补反面证据并对 3 组阿里候选做人审定版，不进入最终样片组装
+- `已确认` 先执行反面最小补录，再对 3 组阿里候选做人审定版，不进入最终样片组装
 - `已确认` 动态主持壳转成独立能力线
 
 ## 当前默认接手建议先读
@@ -61,7 +64,8 @@
 3. `codex_log/latest.md`
 4. `codex_log/20260417_豆包vnext并行三线执行.md`
 5. `dist/20260417_豆包的正确打开方式_vnext/evidence_map.json`
-6. `dist/20260417_豆包的正确打开方式_vnext/voice_route_report.json`
-7. `dist/20260417_豆包的正确打开方式_vnext/voice_listen_sheet.md`
-8. `dist/20260417_豆包的正确打开方式_vnext/host_motion_audit.md`
-9. `dist/20260417_豆包的正确打开方式_vnext/result_summary.json`
+6. `dist/20260417_豆包的正确打开方式_vnext/negative_supplement_brief.md`
+7. `dist/20260417_豆包的正确打开方式_vnext/voice_route_report.json`
+8. `dist/20260417_豆包的正确打开方式_vnext/voice_listen_sheet.md`
+9. `dist/20260417_豆包的正确打开方式_vnext/host_motion_audit.md`
+10. `dist/20260417_豆包的正确打开方式_vnext/result_summary.json`

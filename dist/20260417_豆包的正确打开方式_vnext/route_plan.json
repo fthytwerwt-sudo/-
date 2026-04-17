@@ -39,7 +39,7 @@
   },
   "material_mapping": {
     "negative": {
-      "status": "部分成立",
+      "status": "待补录",
       "source": "/Users/fan/Documents/视频工厂/素材录制/反面/录制于 2026-04-16 22.41.32.mp4",
       "matched_input_on_screen": "帮我把这个方案整理一下",
       "used_for": "反面证明：画面里有长段落、表格和执行清单，但没有先压核心问题与主结构。",
@@ -52,6 +52,7 @@
         "帮我把这个方案整理一下",
         "铁壁计划-轻量版 麦肯锡战略执行总案"
       ],
+      "supplement_brief_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/negative_supplement_brief.md",
       "missing_exact_evidence": [
         "未在现有负面录屏中定位到“建议关注用户体验 / 建议加强品牌认知”这类原句。"
       ]
@@ -117,6 +118,7 @@
   "evidence_artifacts": {
     "evidence_map": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/evidence_map.json",
     "evidence_notes": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/evidence_notes.md",
+    "negative_supplement_brief": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/negative_supplement_brief.md",
     "voice_route_report": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_route_report.json",
     "voice_listen_sheet": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_listen_sheet.md",
     "host_motion_audit": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_audit.md"
