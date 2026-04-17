@@ -22,10 +22,10 @@
    - 正面 / XML / PPT 证据位已收窄到静音可理解窗口
    - 反面仍缺用户点名原句级证据
 2. `lane_B_voice`
-   - `blocked`
-   - Doubao 2.0 缺 provider implementation
-   - Azure 当前无执行面
-   - 阿里 `prosody-only` 只算已失败历史线
+   - `部分成立`
+   - 阿里主路线 `qwen3-tts-instruct-flash-realtime + Serena/Cherry` 已落出 3 组候选
+   - 阿里内部 fallback 已排尽并记录失败原因
+   - 当前仍缺人工听审定版
 3. `lane_C_host_motion`
    - `blocked`
    - 当前共享壳仍是假动态
@@ -34,9 +34,8 @@
 ## 当前 blocker
 
 1. `部分成立` 反面仍缺用户点名原句级证据
-2. `已确认` Doubao 2.0 provider implementation 未接入
-3. `已确认` Azure 当前无执行面
-4. `已确认` 当前体素娃娃主持壳没有可直接复用的真动态路线
+2. `部分成立` 阿里主路线已建立，但 3 组候选仍缺人工听审定版
+3. `已确认` 当前体素娃娃主持壳没有可直接复用的真动态路线
 
 ## 本轮产出
 
@@ -44,14 +43,15 @@
 2. `dist/20260417_豆包的正确打开方式_vnext/evidence_notes.md`
 3. `dist/20260417_豆包的正确打开方式_vnext/voice_route_report.json`
 4. `dist/20260417_豆包的正确打开方式_vnext/voice_listen_sheet.md`
-5. `dist/20260417_豆包的正确打开方式_vnext/voice_candidates/候选阻塞_blocked.json`
+5. `dist/20260417_豆包的正确打开方式_vnext/voice_candidates/*`
 6. `dist/20260417_豆包的正确打开方式_vnext/host_motion_audit.md`
-7. `dist/20260417_豆包的正确打开方式_vnext/host_motion_prototype/liveportrait_probe_result.json`
-8. `codex_log/20260417_豆包vnext并行三线执行.md`
+7. `dist/20260417_豆包的正确打开方式_vnext/host_motion_min_spec.md`
+8. `dist/20260417_豆包的正确打开方式_vnext/host_motion_prototype/liveportrait_probe_result.json`
+9. `codex_log/20260417_豆包vnext并行三线执行.md`
 
 ## 下一轮唯一建议
 
-- `已确认` 继续补证据与声音，不进入最终样片组装
+- `已确认` 先补反面证据并对 3 组阿里候选做人审定版，不进入最终样片组装
 - `已确认` 动态主持壳转成独立能力线
 
 ## 当前默认接手建议先读
@@ -62,5 +62,6 @@
 4. `codex_log/20260417_豆包vnext并行三线执行.md`
 5. `dist/20260417_豆包的正确打开方式_vnext/evidence_map.json`
 6. `dist/20260417_豆包的正确打开方式_vnext/voice_route_report.json`
-7. `dist/20260417_豆包的正确打开方式_vnext/host_motion_audit.md`
-8. `dist/20260417_豆包的正确打开方式_vnext/result_summary.json`
+7. `dist/20260417_豆包的正确打开方式_vnext/voice_listen_sheet.md`
+8. `dist/20260417_豆包的正确打开方式_vnext/host_motion_audit.md`
+9. `dist/20260417_豆包的正确打开方式_vnext/result_summary.json`

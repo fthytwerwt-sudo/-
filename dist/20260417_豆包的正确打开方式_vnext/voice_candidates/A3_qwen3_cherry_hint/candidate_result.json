@@ -1,0 +1,30 @@
+{
+  "candidate_id": "A3_qwen3_cherry_hint",
+  "route": "primary",
+  "provider": "aliyun_bailian",
+  "model": "qwen3-tts-instruct-flash-realtime",
+  "voice": "Cherry",
+  "instruction": "你像一个轻提醒型的中文向导，清楚但不强势，带一点陪伴感，不要广告腔，不要朗读腔，重点词轻轻带出来。",
+  "speech_rate": 0.99,
+  "pitch_rate": 0.98,
+  "volume": 49,
+  "postprocess": "highpass=f=80,lowpass=f=12000,deesser=i=0.4:m=0.5:f=0.5:s=o,acompressor=threshold=-18dB:ratio=2.5:attack=20:release=120:makeup=3,loudnorm=I=-16:TP=-1.5:LRA=7",
+  "status": "success",
+  "request_id": null,
+  "request_debug": {
+    "provider": "aliyun_bailian",
+    "api_route_family": "aliyun_qwen_realtime_websocket",
+    "request_method": "WEBSOCKET",
+    "base_url": "wss://dashscope.aliyuncs.com/api-ws/v1/realtime?model=qwen3-tts-instruct-flash-realtime",
+    "sdk_call": "websockets.connect",
+    "voice": "Cherry",
+    "instructions_present": true,
+    "response_format": "pcm",
+    "sample_rate": 24000
+  },
+  "raw_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates/A3_qwen3_cherry_hint/A3_qwen3_cherry_hint_raw.wav",
+  "processed_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates/A3_qwen3_cherry_hint/A3_qwen3_cherry_hint_processed.wav",
+  "blocked_reason": "",
+  "error_message": "",
+  "failure_reason": ""
+}

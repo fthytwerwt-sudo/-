@@ -1,0 +1,109 @@
+{
+  "candidate_id": "B1_cosy_plus_longanling",
+  "route": "fallback",
+  "provider": "aliyun_bailian",
+  "model": "cosyvoice-v3-plus",
+  "voice": "longanling_v3",
+  "instruction": "你说话的情感是neutral。",
+  "speech_rate": 1.02,
+  "pitch_rate": 0.96,
+  "volume": 48,
+  "postprocess": "highpass=f=80,lowpass=f=12000,deesser=i=0.4:m=0.5:f=0.5:s=o,acompressor=threshold=-18dB:ratio=2.5:attack=20:release=120:makeup=3,loudnorm=I=-16:TP=-1.5:LRA=7",
+  "status": "failed",
+  "request_id": null,
+  "request_debug": {
+    "provider": "aliyun_bailian",
+    "api_route_family": "aliyun_bailian_cosyvoice",
+    "provider_route_family": "aliyun_bailian_cosyvoice",
+    "request_method": "POST",
+    "base_url": "https://dashscope.aliyuncs.com/api/v1",
+    "relative_path": "/services/audio/tts/SpeechSynthesizer",
+    "sdk_call": "urllib.request.urlopen",
+    "model_identifier_source": "model",
+    "model_identifier_shape": {
+      "present": true,
+      "length": 17,
+      "has_digit": true,
+      "has_dash": true,
+      "prefix": "co",
+      "suffix": "us"
+    },
+    "endpoint_id_shape": {
+      "present": true,
+      "length": 10,
+      "has_digit": true,
+      "has_dash": false,
+      "prefix": "44",
+      "suffix": "55"
+    },
+    "model_shape": {
+      "present": true,
+      "length": 17,
+      "has_digit": true,
+      "has_dash": true,
+      "prefix": "co",
+      "suffix": "us"
+    },
+    "resource_id_shape": {
+      "present": true,
+      "length": 26,
+      "has_digit": false,
+      "has_dash": false,
+      "prefix": "SE",
+      "suffix": "ED"
+    },
+    "app_id_shape": {
+      "present": false,
+      "length": 0,
+      "has_digit": false,
+      "has_dash": false,
+      "prefix": "",
+      "suffix": ""
+    },
+    "voice_location": "payload.input.voice",
+    "voice_shape": {
+      "present": true,
+      "length": 13,
+      "has_digit": true,
+      "has_dash": false,
+      "prefix": "lo",
+      "suffix": "v3"
+    },
+    "style_shape": {
+      "present": true,
+      "length": 9,
+      "has_digit": false,
+      "has_dash": false,
+      "prefix": "kn",
+      "suffix": "ge"
+    },
+    "response_format": "mp3",
+    "instruction_location": "payload.input.instruction",
+    "instruction_shape": {
+      "present": true,
+      "length": 15,
+      "has_digit": false,
+      "has_dash": false,
+      "prefix": "你说",
+      "suffix": "l。"
+    },
+    "speech_rate": 1.02,
+    "pitch_rate": 0.96,
+    "volume": 48,
+    "request_input_keys": [
+      "text",
+      "voice",
+      "format",
+      "instruction",
+      "rate",
+      "pitch",
+      "volume"
+    ],
+    "style_draft_in_request": true
+  },
+  "raw_audio_path": null,
+  "processed_audio_path": null,
+  "blocked_reason": "{\"request_id\":\"93cac5b8-463e-90bb-a464-0a5bdf178212\",\"code\":\"InvalidParameter\",\"message\":\"[cosyvoice:]Engine return error code: 418\"}",
+  "error_message": "{\"request_id\":\"93cac5b8-463e-90bb-a464-0a5bdf178212\",\"code\":\"InvalidParameter\",\"message\":\"[cosyvoice:]Engine return error code: 418\"}",
+  "failure_reason": "aliyun_bailian_tts_request_failed"
+}
