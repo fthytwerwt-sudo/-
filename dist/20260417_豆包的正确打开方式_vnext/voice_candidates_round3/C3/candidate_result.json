@@ -1,0 +1,25 @@
+{
+  "candidate_id": "C3",
+  "model": "qwen3-tts-instruct-flash-realtime",
+  "voice": "Serena",
+  "instruction": "你在用语音给一个朋友发一段语音消息，内容是你刚发现的一个东西。不是在表演，不是在教学，是在分享一个真实的发现。语速不是均匀的：知道的部分说得快，想让对方想想的部分稍微慢下来。情绪不用表演，但要在场。“在场”的意思是：你说这句话的时候你是真的觉得这是真的，不是在念稿。音调不要高，但不能死平，要有轻微的起伏，来自真实的语气，不是表演的语气。",
+  "speech_rate": 1.04,
+  "pitch_rate": 0.98,
+  "volume": 52,
+  "postprocess": "highpass=f=80,lowpass=f=12000,deesser=i=0.4:m=0.5:f=0.5:s=o,acompressor=threshold=-18dB:ratio=2:attack=50:release=150:makeup=3,loudnorm=I=-16:TP=-1.5:LRA=9",
+  "goal": "主要解决：情绪微调不对 / 验证 pitch_rate 0.97 是否压过头",
+  "status": "success",
+  "request_debug": {
+    "provider": "aliyun_bailian",
+    "api_route_family": "aliyun_qwen_realtime_websocket",
+    "request_method": "WEBSOCKET",
+    "base_url": "wss://dashscope.aliyuncs.com/api-ws/v1/realtime?model=qwen3-tts-instruct-flash-realtime",
+    "sdk_call": "websockets.connect",
+    "voice": "Serena",
+    "instructions_present": true,
+    "response_format": "pcm",
+    "sample_rate": 24000
+  },
+  "raw_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates_round3/C3/C3_raw.wav",
+  "processed_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates_round3/C3/C3_processed.wav"
+}

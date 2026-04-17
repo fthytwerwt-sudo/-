@@ -1,0 +1,25 @@
+{
+  "candidate_id": "C2",
+  "model": "qwen3-tts-instruct-flash-realtime",
+  "voice": "Serena",
+  "instruction": "说话节奏不要匀速，要有快区和慢区。铺垫的部分、功能词的部分，快一点，带过去。关键判断的部分，稍慢，稍稳，但不是加重，是让人觉得这是真的。句子和句子之间，不要机械停顿，有时候自然连过去，有时候真的停一下。停顿要落在语义转折前，不要落在每个标点后。整体感觉是：这个人知道自己在说什么，所以不用刻意表现。",
+  "speech_rate": 1.05,
+  "pitch_rate": 0.97,
+  "volume": 50,
+  "postprocess": "highpass=f=80,lowpass=f=12000,deesser=i=0.4:m=0.5:f=0.5:s=o,acompressor=threshold=-18dB:ratio=2:attack=50:release=150:makeup=2,loudnorm=I=-16:TP=-1.5:LRA=9",
+  "goal": "主要解决：句内快慢层次 / 停顿分布不像真人",
+  "status": "success",
+  "request_debug": {
+    "provider": "aliyun_bailian",
+    "api_route_family": "aliyun_qwen_realtime_websocket",
+    "request_method": "WEBSOCKET",
+    "base_url": "wss://dashscope.aliyuncs.com/api-ws/v1/realtime?model=qwen3-tts-instruct-flash-realtime",
+    "sdk_call": "websockets.connect",
+    "voice": "Serena",
+    "instructions_present": true,
+    "response_format": "pcm",
+    "sample_rate": 24000
+  },
+  "raw_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates_round3/C2/C2_raw.wav",
+  "processed_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates_round3/C2/C2_processed.wav"
+}
