@@ -86,21 +86,21 @@
     }
   ],
   "selected_route": {
-    "status": "暂定第一名",
+    "status": "已确认当前暂定定版",
     "candidate_id": "E1",
     "model": "qwen3-tts-instruct-flash-realtime",
     "voice": "Serena",
-    "reason": "更直接压住句尾上扬和悬置感，且保持 C2 的整体动态范围。"
+    "reason": "用户本轮已拍板当前正式 B 线暂定定版固定为 E1；它继续作为当前正式可读版本，不代表整条样片或整体内容已过线。"
   },
   "backup_route": {
-    "status": "备选",
+    "status": "已确认备选",
     "candidate_id": "E2",
     "model": "qwen3-tts-instruct-flash-realtime",
     "voice": "Serena",
     "reason": "更偏功能词 / 连接词抬高修正，可作为备选。"
   },
   "rejected_route": {
-    "status": "淘汰",
+    "status": "已确认淘汰",
     "candidate_id": "E3",
     "model": "qwen3-tts-instruct-flash-realtime",
     "voice": "Serena",

@@ -23,10 +23,10 @@
    - 反面已收成最强现有窗口，但仍缺用户点名原句级证据
    - 已新增 `negative_supplement_brief.md`
 2. `lane_B_voice`
-   - `已收口，待听审确认`
-   - 阿里 Round 4 的 `E1 / E2 / E3` 已落出 3 组新候选
-   - 已收出：`暂定第一名 / 备选 / 淘汰`
-   - 已落 `voice_ab_review_bundle_round4/`
+   - `已收口到 E1`
+   - 当前正式 B 线暂定定版：`E1`
+   - `E2` 保留为备选
+   - `E3` 保留为淘汰对照
 3. `lane_C_host_motion`
    - `blocked`
    - 当前共享壳仍是假动态
@@ -35,8 +35,7 @@
 ## 当前 blocker
 
 1. `待补录` 反面仍缺用户点名原句级证据
-2. `待验证` 阿里 Round 4 已收出暂定定版，但 3 组候选仍缺人工听审定版
-3. `已确认` 当前体素娃娃主持壳没有可直接复用的真动态路线
+2. `已确认` 当前体素娃娃主持壳没有可直接复用的真动态路线（独立能力线，非当前主阻塞）
 
 ## 本轮产出
 
@@ -51,11 +50,11 @@
 9. `dist/20260417_豆包的正确打开方式_vnext/host_motion_min_spec.md`
 10. `dist/20260417_豆包的正确打开方式_vnext/host_motion_prototype/liveportrait_probe_result.json`
 11. `codex_log/20260417_豆包vnext并行三线执行.md`
-12. `codex_log/20260418_豆包vnext_B线声音精修_round4.md`
+12. `codex_log/20260418_豆包vnext_B线E1暂定定版同步.md`
 
 ## 下一轮唯一建议
 
-- `已确认` 先执行反面最小补录，再对 3 组阿里候选做人审定版，不进入最终样片组装
+- `已确认` 先只补 A 线反面原句级证据，不进入最终样片组装
 - `已确认` 动态主持壳转成独立能力线
 
 ## 当前默认接手建议先读
@@ -70,4 +69,4 @@
 8. `dist/20260417_豆包的正确打开方式_vnext/voice_listen_sheet.md`
 9. `dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle_round4/试听说明.md`
 10. `dist/20260417_豆包的正确打开方式_vnext/result_summary.json`
-11. `codex_log/20260418_豆包vnext_B线声音精修_round4.md`
+11. `codex_log/20260418_豆包vnext_B线E1暂定定版同步.md`

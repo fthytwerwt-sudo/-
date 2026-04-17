@@ -51,7 +51,7 @@
     "status": "candidate_ready",
     "technical_validation": "passed_candidates_generated",
     "content_validation": "pending_listen_review",
-    "selection_status": "machine_selected_needs_human_review",
+    "selection_status": "已确认当前暂定定版",
     "selected_candidate_id": "E1",
     "selected_model": "qwen3-tts-instruct-flash-realtime",
     "selected_voice": "Serena",
@@ -66,7 +66,7 @@
   },
   "lane_status": {
     "lane_A_evidence": "待补录",
-    "lane_B_voice": "已收口_待听审确认",
+    "lane_B_voice": "已收口到E1",
     "lane_C_host_motion": "blocked"
   },
   "known_issues": [
@@ -79,8 +79,7 @@
   ],
   "remaining_blockers": [
     "A线待补录：现有反面素材仍缺用户点名原句级证据，已新增 negative_supplement_brief.md。",
-    "B线待定版：Round 4 的 E1 / E2 / E3 已完成排序，但句尾上扬、功能词抬高、悬置感、下压后沉闷感仍缺人工听审定版。",
-    "C线 blocked：当前共享主持壳是假动态；liveportrait 对当前体素壳最小实测直接返回 `No human face detected.`。"
+    "C线仍是独立能力线：当前共享主持壳是假动态；liveportrait 对当前体素壳最小实测直接返回 `No human face detected.`。"
   ],
   "content_validation_v1": {
     "dynamic_host": {
@@ -89,7 +88,7 @@
     },
     "voice": {
       "status": "部分成立",
-      "reason": "阿里 Round 4 的 E1 / E2 / E3 三组新候选已生成，并已完成轻后处理与试听包整理；但四项核心维度仍缺人工听审，所以当前只能记部分成立。"
+      "reason": "当前正式 B 线暂定定版已锁为 E1，E2 保留为备选、E3 保留为淘汰对照；这表示 B 线当前收口，但不代表整条内容或整条样片已过线。"
     },
     "materials": {
       "status": "待补录",
@@ -98,10 +97,9 @@
   },
   "coordinator_summary": {
     "status": "已确认",
-    "next_round_single_recommendation": "先执行反面最小补录，再对 E1/E2/E3 三组阿里 Round 4 候选做人审定版；在这两步完成前，不进入最终样片组装。",
+    "next_round_single_recommendation": "先只补 A 线反面原句级证据，不进入最终样片组装。",
     "stop_line_triggered": [
-      "A线不过线",
-      "C线 blocked"
+      "A线不过线"
     ]
   },
   "route_summary": {

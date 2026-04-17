@@ -25,7 +25,7 @@
     "status": "candidate_ready",
     "technical_validation": "passed_candidates_generated",
     "content_validation": "pending_listen_review",
-    "selection_status": "machine_selected_needs_human_review",
+    "selection_status": "已确认当前暂定定版",
     "selected_candidate_id": "E1",
     "selected_model": "qwen3-tts-instruct-flash-realtime",
     "selected_voice": "Serena",
