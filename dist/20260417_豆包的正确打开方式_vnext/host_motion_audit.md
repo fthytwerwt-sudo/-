@@ -1,5 +1,14 @@
 # 主持壳动态审计｜《豆包的正确打开方式》vNext
 
+- `已确认` 在旧共享路线仍为 `static_voxel_panel_loop` 的前提下，仓库现已新增一条独立的 `round1` 分层 `2D` 体素娃娃技术样片路线：
+  - `dist/20260417_豆包的正确打开方式_vnext/host_motion_prototype_round1/`
+- `已确认` 这条新路线只代表：
+  - `technical_validation = passed_for_prototype`
+  - 当前仓库已经存在对体素娃娃成立的真动态方案雏形
+- `已确认` 这不代表：
+  - 已替换主线 `seg01_hook / seg07_close_shell`
+  - 当前主线 `content_validation` 通过
+
 ## 1. 审计范围
 
 - `已确认` 本轮只审计并写入以下范围：
