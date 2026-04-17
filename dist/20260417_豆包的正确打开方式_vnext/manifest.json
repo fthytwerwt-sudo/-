@@ -2,16 +2,27 @@
   "schema_version": "video_factory_vnext_manifest/v1",
   "title": "豆包的正确打开方式",
   "output_dir": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext",
-  "status": "success",
+  "status": "blocked",
   "technical_validation": "passed",
-  "content_validation": "partial_pass",
+  "content_validation": "blocked",
   "assembly_mode": "local_ffmpeg_review",
+  "host_route": {
+    "provider": "static_voxel_panel_loop",
+    "status": "blocked",
+    "technical_validation": "passed_local_render_only",
+    "content_validation": "blocked",
+    "blocked_reason": "当前开头 / 结尾主持壳仍是 `PIL` 单张体素图生成后用 ffmpeg `-loop 1` 直接成段，没有真实嘴型、没有音频驱动、没有主持感级别的动态层。",
+    "current_implementation": "PIL draw -> PNG -> ffmpeg -loop 1"
+  },
   "voice_route": {
+    "provider": "macos_say_fallback",
     "voice_name": "Flo (中文（中国大陆）)",
     "voice_rate": 188,
-    "status": "trial_only",
-    "technical_validation": "passed",
-    "content_validation": "trial_only",
+    "status": "blocked",
+    "technical_validation": "passed_local_render_only",
+    "content_validation": "blocked",
+    "blocked_reason": "当前仍使用 macOS `say` 的 `Flo (中文（中国大陆）)` 试配，没有切到豆包语音合成 2.0 主路线，也没有 Azure 兜底实现。",
+    "current_implementation": "macOS say -> AIFF -> WAV",
     "combined_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/tts/voiceover_combined.wav"
   },
   "artifacts": {
@@ -407,6 +418,7 @@
   "notes": [
     "文案主干沿用用户提供的 Perplexity 版本，只做 block / segment、壳图、总结卡和尾卡补全。",
     "中段证据全部来自 `素材录制/*` 真实录屏。",
-    "负面录屏可证明‘有内容但难改’，但未定位到用户点名的那两句泛空表达原文。"
+    "负面录屏可证明‘有内容但难改’，但未定位到用户点名的那两句泛空表达原文。",
+    "当前输出目录已经切回本轮正式对象，但主持壳与声音路线都仍未达到 content_validation V1 合格线。"
   ]
 }

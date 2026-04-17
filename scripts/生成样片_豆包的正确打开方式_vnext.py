@@ -31,6 +31,18 @@ TAIL_CARD_SECONDS = 2.8
 
 VOICE_NAME = "Flo (中文（中国大陆）)"
 VOICE_RATE = 188
+VOICE_ROUTE_PROVIDER = "macos_say_fallback"
+VOICE_ROUTE_STATUS = "blocked"
+VOICE_ROUTE_BLOCKED_REASON = (
+    "当前仍使用 macOS `say` 的 `Flo (中文（中国大陆）)` 试配，"
+    "没有切到豆包语音合成 2.0 主路线，也没有 Azure 兜底实现。"
+)
+HOST_ROUTE_PROVIDER = "static_voxel_panel_loop"
+HOST_ROUTE_STATUS = "blocked"
+HOST_ROUTE_BLOCKED_REASON = (
+    "当前开头 / 结尾主持壳仍是 `PIL` 单张体素图生成后用 ffmpeg `-loop 1` 直接成段，"
+    "没有真实嘴型、没有音频驱动、没有主持感级别的动态层。"
+)
 
 PIXEL_ORANGE = "#E58439"
 PIXEL_GOLD = "#F5C04A"
@@ -824,6 +836,7 @@ def build_route_plan(segments: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "schema_version": "video_factory_vnext_route_plan/v1",
         "title": "豆包的正确打开方式",
+        "task_object": "《豆包的正确打开方式》vNext",
         "route_profile": "api_human_user_footage_light_ppt_local_review",
         "video_route_strategy": "hook_shell + negative proof + positive two-step + summary + shell close + prompt tail",
         "constraints": {
@@ -831,9 +844,18 @@ def build_route_plan(segments: list[dict[str, Any]]) -> dict[str, Any]:
             "timing_rule": "不写死总时长，按素材与口播自然反推",
             "style_rule": "Minecraft-inspired inspired-only 原创体素方块风，不复用任何官方资产",
             "voice_route": {
+                "provider": VOICE_ROUTE_PROVIDER,
                 "voice_name": VOICE_NAME,
                 "voice_rate": VOICE_RATE,
-                "status": "trial_only",
+                "status": VOICE_ROUTE_STATUS,
+                "blocked_reason": VOICE_ROUTE_BLOCKED_REASON,
+                "current_implementation": "macOS say -> AIFF -> WAV",
+            },
+            "host_route": {
+                "provider": HOST_ROUTE_PROVIDER,
+                "status": HOST_ROUTE_STATUS,
+                "blocked_reason": HOST_ROUTE_BLOCKED_REASON,
+                "current_implementation": "PIL draw -> PNG -> ffmpeg -loop 1",
             },
         },
         "source_materials": {
@@ -918,16 +940,27 @@ def build_manifest(segments: list[dict[str, Any]], *, script_path: pathlib.Path,
         "schema_version": "video_factory_vnext_manifest/v1",
         "title": "豆包的正确打开方式",
         "output_dir": str(OUTPUT_DIR),
-        "status": "success",
+        "status": "blocked",
         "technical_validation": "passed",
-        "content_validation": "partial_pass",
+        "content_validation": "blocked",
         "assembly_mode": "local_ffmpeg_review",
+        "host_route": {
+            "provider": HOST_ROUTE_PROVIDER,
+            "status": HOST_ROUTE_STATUS,
+            "technical_validation": "passed_local_render_only",
+            "content_validation": "blocked",
+            "blocked_reason": HOST_ROUTE_BLOCKED_REASON,
+            "current_implementation": "PIL draw -> PNG -> ffmpeg -loop 1",
+        },
         "voice_route": {
+            "provider": VOICE_ROUTE_PROVIDER,
             "voice_name": VOICE_NAME,
             "voice_rate": VOICE_RATE,
-            "status": "trial_only",
-            "technical_validation": "passed",
-            "content_validation": "trial_only",
+            "status": VOICE_ROUTE_STATUS,
+            "technical_validation": "passed_local_render_only",
+            "content_validation": "blocked",
+            "blocked_reason": VOICE_ROUTE_BLOCKED_REASON,
+            "current_implementation": "macOS say -> AIFF -> WAV",
         },
         "artifacts": {
             "script": str(script_path),
@@ -948,6 +981,7 @@ def build_manifest(segments: list[dict[str, Any]], *, script_path: pathlib.Path,
             "文案主干沿用用户提供的 Perplexity 版本，只做 block / segment、壳图、总结卡和尾卡补全。",
             "中段证据全部来自 `素材录制/*` 真实录屏。",
             "负面录屏可证明‘有内容但难改’，但未定位到用户点名的那两句泛空表达原文。",
+            "当前输出目录已经切回本轮正式对象，但主持壳与声音路线都仍未达到 content_validation V1 合格线。",
         ],
     }
 
@@ -956,24 +990,42 @@ def build_result_summary(manifest: dict[str, Any], route_plan: dict[str, Any], r
     return {
         "schema_version": "video_factory_vnext_result_summary/v1",
         "stage": "local_review",
-        "overall_status": "success",
+        "overall_status": "blocked",
         "generation_status": "success",
         "assembly_status": "success",
         "technical_validation": "passed",
-        "content_validation": "partial_pass",
-        "user_acceptance": "not_reviewed",
+        "content_validation": "blocked",
+        "user_acceptance": "rejected_current_round",
         "send_ready": False,
         "artifact_paths": manifest["artifacts"],
         "review_frames": review_frames,
+        "host_route": manifest["host_route"],
         "voice_route": manifest["voice_route"],
         "known_issues": [
+            "当前开头 / 结尾主持壳仍是静态体素图循环成段，抽帧 0.2s 与 4.0s 可见主画面不变，不能冒充真实动态主持娃娃。",
+            "声音路线当前使用 macOS `say` 的 `Flo (中文（中国大陆）)` 试配，只能算本地可渲染，不代表最低可听线达标。",
             "负面录屏的真实输入是“帮我把这个方案整理一下”，不是用户文字里点名的“给我一份方案”。",
             "负面录屏未定位到“建议关注用户体验 / 建议加强品牌认知”这类原句，只能用长段落 + 表格 + 无先诊断结构来证明差值。",
-            "声音路线当前使用 macOS `say` 的 `Flo (中文（中国大陆）)` 试配，只能算 technical_validation 通过，不代表最终定音。",
         ],
         "remaining_blockers": [
+            HOST_ROUTE_BLOCKED_REASON,
+            VOICE_ROUTE_BLOCKED_REASON,
             "如果要把这条内容升级到完全对齐用户口径，仍需要一段更明确的反面录屏，把“直接问方案 -> 空泛输出”录得更准。",
         ],
+        "content_validation_v1": {
+            "dynamic_host": {
+                "status": "blocked",
+                "reason": HOST_ROUTE_BLOCKED_REASON,
+            },
+            "voice": {
+                "status": "blocked",
+                "reason": VOICE_ROUTE_BLOCKED_REASON,
+            },
+            "materials": {
+                "status": "部分成立",
+                "reason": "正面 / XML / PPT 真实素材已对齐；反面录屏仍缺用户点名的最精确原句证据。",
+            },
+        },
         "route_summary": {
             "block_count": len(route_plan["blocks"]),
             "segment_count": len(manifest["segments"]),

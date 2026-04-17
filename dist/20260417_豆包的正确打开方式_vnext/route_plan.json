@@ -1,6 +1,7 @@
 {
   "schema_version": "video_factory_vnext_route_plan/v1",
   "title": "豆包的正确打开方式",
+  "task_object": "《豆包的正确打开方式》vNext",
   "route_profile": "api_human_user_footage_light_ppt_local_review",
   "video_route_strategy": "hook_shell + negative proof + positive two-step + summary + shell close + prompt tail",
   "constraints": {
@@ -8,9 +9,18 @@
     "timing_rule": "不写死总时长，按素材与口播自然反推",
     "style_rule": "Minecraft-inspired inspired-only 原创体素方块风，不复用任何官方资产",
     "voice_route": {
+      "provider": "macos_say_fallback",
       "voice_name": "Flo (中文（中国大陆）)",
       "voice_rate": 188,
-      "status": "trial_only"
+      "status": "blocked",
+      "blocked_reason": "当前仍使用 macOS `say` 的 `Flo (中文（中国大陆）)` 试配，没有切到豆包语音合成 2.0 主路线，也没有 Azure 兜底实现。",
+      "current_implementation": "macOS say -> AIFF -> WAV"
+    },
+    "host_route": {
+      "provider": "static_voxel_panel_loop",
+      "status": "blocked",
+      "blocked_reason": "当前开头 / 结尾主持壳仍是 `PIL` 单张体素图生成后用 ffmpeg `-loop 1` 直接成段，没有真实嘴型、没有音频驱动、没有主持感级别的动态层。",
+      "current_implementation": "PIL draw -> PNG -> ffmpeg -loop 1"
     }
   },
   "source_materials": {
