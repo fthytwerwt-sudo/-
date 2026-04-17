@@ -14,6 +14,11 @@
     "route_plan": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/route_plan.json",
     "manifest": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/manifest.json",
     "result_summary": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/result_summary.json",
+    "evidence_map": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/evidence_map.json",
+    "evidence_notes": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/evidence_notes.md",
+    "voice_route_report": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_route_report.json",
+    "voice_listen_sheet": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_listen_sheet.md",
+    "host_motion_audit": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_audit.md",
     "final_review_clean": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/local_review/final_review_clean.mp4",
     "final_review": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/local_review/final_review.mp4"
   },
@@ -29,46 +34,69 @@
   "host_route": {
     "provider": "static_voxel_panel_loop",
     "status": "blocked",
-    "technical_validation": "passed_local_render_only",
+    "technical_validation": "blocked_probe_rejected",
     "content_validation": "blocked",
-    "blocked_reason": "当前开头 / 结尾主持壳仍是 `PIL` 单张体素图生成后用 ffmpeg `-loop 1` 直接成段，没有真实嘴型、没有音频驱动、没有主持感级别的动态层。",
-    "current_implementation": "PIL draw -> PNG -> ffmpeg -loop 1"
+    "blocked_reason": "当前仓库现有共享主持壳路线仍是 `PIL` 单图 + ffmpeg `-loop 1` 的静态成段，属于假动态；仓库内虽有历史真实跑通的 `liveportrait-detect -> liveportrait` 路线，但对当前体素壳最小实测直接返回 `No human face detected.`，因此本轮不存在可直接复用到当前对象的真实动态主持壳路线。",
+    "current_implementation": "static_voxel_panel_loop + liveportrait_probe_result(blocked)",
+    "audit_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_audit.md",
+    "prototype_probe_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_prototype/liveportrait_probe_result.json",
+    "provider_probe_status": "portrait_detect_rejected_for_voxel_shell"
   },
   "voice_route": {
-    "provider": "macos_say_fallback",
-    "voice_name": "Flo (中文（中国大陆）)",
+    "provider": "doubao_openspeech_v3_primary__azure_fallback_unavailable",
+    "voice_name": "Flo (中文（中国大陆）) [historical local fallback only]",
     "voice_rate": 188,
     "status": "blocked",
-    "technical_validation": "passed_local_render_only",
-    "content_validation": "blocked",
-    "blocked_reason": "当前仍使用 macOS `say` 的 `Flo (中文（中国大陆）)` 试配，没有切到豆包语音合成 2.0 主路线，也没有 Azure 兜底实现。",
-    "current_implementation": "macOS say -> AIFF -> WAV",
-    "combined_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/tts/voiceover_combined.wav"
+    "technical_validation": "blocked_provider_gap",
+    "content_validation": "blocked_no_new_candidate",
+    "blocked_reason": "Doubao 2.0 在当前仓库只有 route family、没有 provider implementation；Azure 在当前仓库没有 provider / route family / SDK / config 执行面；阿里 prosody-only 属于已试过且不合格历史线，本轮不回退生成新候选。",
+    "current_implementation": "audit_only_no_new_candidate_generated",
+    "historical_local_fallback": "macOS say -> AIFF -> WAV",
+    "combined_audio_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/tts/voiceover_combined.wav",
+    "audit_report_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_route_report.json",
+    "listen_sheet_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_listen_sheet.md",
+    "candidate_dir": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates"
+  },
+  "lane_status": {
+    "lane_A_evidence": "部分成立",
+    "lane_B_voice": "blocked",
+    "lane_C_host_motion": "blocked"
   },
   "known_issues": [
     "当前开头 / 结尾主持壳仍是静态体素图循环成段，抽帧 0.2s 与 4.0s 可见主画面不变，不能冒充真实动态主持娃娃。",
-    "声音路线当前使用 macOS `say` 的 `Flo (中文（中国大陆）)` 试配，只能算本地可渲染，不代表最低可听线达标。",
+    "liveportrait 最小实测对当前体素壳返回 `No human face detected.`，说明历史真人开口链不能直接复用为本轮主持壳。",
+    "本轮没有生成 Doubao / Azure 新候选音频，四项听感当前只能维持 blocked 判断。",
+    "Doubao 2.0 在当前仓库只有 route family、没有 provider implementation；Azure 也没有执行面。",
     "负面录屏的真实输入是“帮我把这个方案整理一下”，不是用户文字里点名的“给我一份方案”。",
     "负面录屏未定位到“建议关注用户体验 / 建议加强品牌认知”这类原句，只能用长段落 + 表格 + 无先诊断结构来证明差值。"
   ],
   "remaining_blockers": [
-    "当前开头 / 结尾主持壳仍是 `PIL` 单张体素图生成后用 ffmpeg `-loop 1` 直接成段，没有真实嘴型、没有音频驱动、没有主持感级别的动态层。",
-    "当前仍使用 macOS `say` 的 `Flo (中文（中国大陆）)` 试配，没有切到豆包语音合成 2.0 主路线，也没有 Azure 兜底实现。",
-    "如果要把这条内容升级到完全对齐用户口径，仍需要一段更明确的反面录屏，把“直接问方案 -> 空泛输出”录得更准。"
+    "A线不过线：反面最强证据位目前只能证明“帮我把这个方案整理一下 -> 长整稿输出”，仍缺用户点名原句级证据。",
+    "B线不过线：Doubao 2.0 provider implementation 未接入，Azure 兜底无执行面，本轮没有新候选音频。",
+    "C线 blocked：当前共享主持壳是假动态；liveportrait 对当前体素壳最小实测直接返回 `No human face detected.`。"
   ],
   "content_validation_v1": {
     "dynamic_host": {
       "status": "blocked",
-      "reason": "当前开头 / 结尾主持壳仍是 `PIL` 单张体素图生成后用 ffmpeg `-loop 1` 直接成段，没有真实嘴型、没有音频驱动、没有主持感级别的动态层。"
+      "reason": "当前共享主持壳是假动态，且 `liveportrait-detect -> liveportrait` 对当前体素壳最小实测返回 `No human face detected.`。"
     },
     "voice": {
       "status": "blocked",
-      "reason": "当前仍使用 macOS `say` 的 `Flo (中文（中国大陆）)` 试配，没有切到豆包语音合成 2.0 主路线，也没有 Azure 兜底实现。"
+      "reason": "Doubao 2.0 在当前仓库只有 route family、没有 provider implementation；Azure 没有 provider / route family / SDK / config 执行面；阿里 prosody-only 属于已试过且不合格历史线。"
     },
     "materials": {
       "status": "部分成立",
-      "reason": "正面 / XML / PPT 真实素材已对齐；反面录屏仍缺用户点名的最精确原句证据。"
+      "reason": "正面 30.0-45.0s、XML 299.8-310.0s、PPT 699.9-720.0s 已收窄到静音可理解窗口；反面 24.8-39.8s 仍缺用户点名原句证据。"
     }
+  },
+  "coordinator_summary": {
+    "status": "已确认",
+    "next_round_single_recommendation": "继续补证据与声音，不进入最终样片组装；动态主持壳改为能力线独立处理。",
+    "stop_line_triggered": [
+      "A线不过线",
+      "B线不过线",
+      "C线 blocked"
+    ]
   },
   "route_summary": {
     "block_count": 7,

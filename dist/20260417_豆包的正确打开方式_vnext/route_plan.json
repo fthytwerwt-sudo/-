@@ -9,18 +9,24 @@
     "timing_rule": "不写死总时长，按素材与口播自然反推",
     "style_rule": "Minecraft-inspired inspired-only 原创体素方块风，不复用任何官方资产",
     "voice_route": {
-      "provider": "macos_say_fallback",
-      "voice_name": "Flo (中文（中国大陆）)",
+      "provider": "doubao_openspeech_v3_primary__azure_fallback_unavailable",
+      "voice_name": "Flo (中文（中国大陆）) [historical local fallback only]",
       "voice_rate": 188,
       "status": "blocked",
-      "blocked_reason": "当前仍使用 macOS `say` 的 `Flo (中文（中国大陆）)` 试配，没有切到豆包语音合成 2.0 主路线，也没有 Azure 兜底实现。",
-      "current_implementation": "macOS say -> AIFF -> WAV"
+      "blocked_reason": "Doubao 2.0 在当前仓库只有 route family、没有 provider implementation；Azure 在当前仓库没有 provider / route family / SDK / config 执行面；阿里 prosody-only 属于已试过且不合格历史线，本轮不回退生成新候选。",
+      "current_implementation": "audit_only_no_new_candidate_generated",
+      "audit_report_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_route_report.json",
+      "listen_sheet_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_listen_sheet.md",
+      "candidate_dir": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_candidates"
     },
     "host_route": {
       "provider": "static_voxel_panel_loop",
       "status": "blocked",
-      "blocked_reason": "当前开头 / 结尾主持壳仍是 `PIL` 单张体素图生成后用 ffmpeg `-loop 1` 直接成段，没有真实嘴型、没有音频驱动、没有主持感级别的动态层。",
-      "current_implementation": "PIL draw -> PNG -> ffmpeg -loop 1"
+      "blocked_reason": "当前仓库现有共享主持壳路线仍是 `PIL` 单图 + ffmpeg `-loop 1` 的静态成段，属于假动态；仓库内虽有历史真实跑通的 `liveportrait-detect -> liveportrait` 路线，但对当前体素壳最小实测直接返回 `No human face detected.`，因此本轮不存在可直接复用到当前对象的真实动态主持壳路线。",
+      "current_implementation": "PIL draw -> PNG -> ffmpeg -loop 1",
+      "audit_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_audit.md",
+      "prototype_probe": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_prototype/liveportrait_probe_result.json",
+      "provider_probe_status": "portrait_detect_rejected_for_voxel_shell"
     }
   },
   "source_materials": {
@@ -33,6 +39,15 @@
       "source": "/Users/fan/Documents/视频工厂/素材录制/反面/录制于 2026-04-16 22.41.32.mp4",
       "matched_input_on_screen": "帮我把这个方案整理一下",
       "used_for": "反面证明：画面里有长段落、表格和执行清单，但没有先压核心问题与主结构。",
+      "time_window_seconds": {
+        "start": 24.8,
+        "hero": 35.1,
+        "end": 39.8
+      },
+      "ocr_visible_evidence": [
+        "帮我把这个方案整理一下",
+        "铁壁计划-轻量版 麦肯锡战略执行总案"
+      ],
       "missing_exact_evidence": [
         "未在现有负面录屏中定位到“建议关注用户体验 / 建议加强品牌认知”这类原句。"
       ]
@@ -41,6 +56,11 @@
       "status": "已确认",
       "source": "/Users/fan/Documents/视频工厂/素材录制/正面/录制于 2026-04-16 23.03.53.mp4",
       "used_for": "一句策略判断 / 当前问题诊断 / 主结构 / 核心逻辑",
+      "time_window_seconds": {
+        "start": 30.0,
+        "hero": 30.0,
+        "end": 45.0
+      },
       "time_anchor_seconds": [
         0,
         30,
@@ -54,6 +74,16 @@
       "status": "已确认",
       "source": "/Users/fan/Documents/视频工厂/素材录制/正面/录制于 2026-04-16 23.03.53.mp4",
       "used_for": "XML 出现 -> 复制 -> 再粘贴回豆包",
+      "time_window_seconds": {
+        "start": 299.8,
+        "hero": 299.8,
+        "end": 310.0
+      },
+      "visible_tokens": [
+        "<pages>",
+        "<page>",
+        "# 页面设计"
+      ],
       "time_anchor_seconds": [
         270,
         280,
@@ -66,6 +96,12 @@
       "status": "已确认",
       "source": "/Users/fan/Documents/视频工厂/素材录制/正面/录制于 2026-04-16 23.03.53.mp4",
       "used_for": "PPT 结果页、缩略图列表、最终页结构",
+      "time_window_seconds": {
+        "start": 699.9,
+        "hero": 720.0,
+        "end": 720.0
+      },
+      "ppt_ready_visible": true,
       "time_anchor_seconds": [
         580,
         620,
@@ -73,6 +109,13 @@
         700
       ]
     }
+  },
+  "evidence_artifacts": {
+    "evidence_map": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/evidence_map.json",
+    "evidence_notes": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/evidence_notes.md",
+    "voice_route_report": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_route_report.json",
+    "voice_listen_sheet": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_listen_sheet.md",
+    "host_motion_audit": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_audit.md"
   },
   "blocks": [
     {

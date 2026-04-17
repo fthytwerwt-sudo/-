@@ -2,55 +2,65 @@
 
 ## 当前主结论
 
-- `已确认` 旧 repair 方案已经被本轮明确判定为失败主线：
-  - 旧对象：`formal_api_demo_doubao_task_clear_20260412_repair_v1`
-  - 旧问题：修错对象、主持壳伪动态、声音仍明显 AI 感
-- `已确认` 当前轮正式对象已经切回：
+- `已确认` 当前轮正式对象仍是：
   - `《豆包的正确打开方式》vNext`
   - 输出目录：`dist/20260417_豆包的正确打开方式_vnext/`
-- `已确认` 当前轮真实素材映射已经回到本轮对象：
-  - 反面：`素材录制/反面/录制于 2026-04-16 22.41.32.mp4`
-  - 正面：`素材录制/正面/录制于 2026-04-16 23.03.53.mp4`
-  - 已包含：正面步骤、XML 桥梁、PPT 结果、总结卡、`Prompt 引用尾卡`
+- `已确认` 本轮已按“并行三线”收口：
+  - A 线：证据线
+  - B 线：声音线
+  - C 线：动态主持壳线
 - `已确认` 当前轮 `technical_validation`：
   - `passed`
 - `已确认` 当前轮 `content_validation`：
   - `blocked`
-- `已确认` 当前轮不能继续往下发。
+- `已确认` 当前轮不要进入最终样片组装。
 
-## 失败根因摘要
+## 三线结果
 
-1. `已确认` 修错了对象：
-   - 本轮不该继续围绕旧 `task_clear` repair 目录与旧 `3 段` 结构打转。
-2. `已确认` 主持壳路线不成立：
-   - 当前 vNext 开头 / 结尾仍是 `PIL` 单张体素图 + ffmpeg `-loop 1`
-   - 不是可发布的动态主持娃娃
-3. `已确认` 声音路线不成立：
-   - 旧 repair 线卡在阿里 `prosody-only`
-   - 当前 vNext 线退回 `macOS say + Flo`
-   - 豆包正式 provider 仍未接通，Azure 兜底未落实现成执行面
-4. `已确认` 所以当前失败不是“再微调一下”，而是路线级失败。
+1. `lane_A_evidence`
+   - `部分成立`
+   - 正面 / XML / PPT 证据位已收窄到静音可理解窗口
+   - 反面仍缺用户点名原句级证据
+2. `lane_B_voice`
+   - `blocked`
+   - Doubao 2.0 缺 provider implementation
+   - Azure 当前无执行面
+   - 阿里 `prosody-only` 只算已失败历史线
+3. `lane_C_host_motion`
+   - `blocked`
+   - 当前共享壳仍是假动态
+   - `liveportrait` 对当前体素壳最小实测返回 `No human face detected.`
 
 ## 当前 blocker
 
-1. `已确认` 动态主持壳 `blocked`：
-   - 当前仓库没有可直接复用到本轮体素娃娃壳的真实动态系统
-2. `已确认` 声音主路线 `blocked`：
-   - 当前没有可直接用于本轮的豆包 2.0 / Azure 正式配音落地链
-3. `部分成立` 反面录屏还缺用户点名的最精确原句证据
+1. `部分成立` 反面仍缺用户点名原句级证据
+2. `已确认` Doubao 2.0 provider implementation 未接入
+3. `已确认` Azure 当前无执行面
+4. `已确认` 当前体素娃娃主持壳没有可直接复用的真动态路线
 
 ## 本轮产出
 
-1. `codex_log/20260417_豆包样片失败复盘与回炉方案.md`
-2. `dist/20260417_豆包的正确打开方式_vnext/route_plan.json`
-3. `dist/20260417_豆包的正确打开方式_vnext/manifest.json`
-4. `dist/20260417_豆包的正确打开方式_vnext/result_summary.json`
+1. `dist/20260417_豆包的正确打开方式_vnext/evidence_map.json`
+2. `dist/20260417_豆包的正确打开方式_vnext/evidence_notes.md`
+3. `dist/20260417_豆包的正确打开方式_vnext/voice_route_report.json`
+4. `dist/20260417_豆包的正确打开方式_vnext/voice_listen_sheet.md`
+5. `dist/20260417_豆包的正确打开方式_vnext/voice_candidates/候选阻塞_blocked.json`
+6. `dist/20260417_豆包的正确打开方式_vnext/host_motion_audit.md`
+7. `dist/20260417_豆包的正确打开方式_vnext/host_motion_prototype/liveportrait_probe_result.json`
+8. `codex_log/20260417_豆包vnext并行三线执行.md`
+
+## 下一轮唯一建议
+
+- `已确认` 继续补证据与声音，不进入最终样片组装
+- `已确认` 动态主持壳转成独立能力线
 
 ## 当前默认接手建议先读
 
 1. `AGENTS.md`
 2. `codex_source/00_codex_readme.md`
 3. `codex_log/latest.md`
-4. `codex_log/20260417_豆包样片失败复盘与回炉方案.md`
-5. `dist/20260417_豆包的正确打开方式_vnext/result_summary.json`
-6. `dist/20260417_豆包的正确打开方式_vnext/route_plan.json`
+4. `codex_log/20260417_豆包vnext并行三线执行.md`
+5. `dist/20260417_豆包的正确打开方式_vnext/evidence_map.json`
+6. `dist/20260417_豆包的正确打开方式_vnext/voice_route_report.json`
+7. `dist/20260417_豆包的正确打开方式_vnext/host_motion_audit.md`
+8. `dist/20260417_豆包的正确打开方式_vnext/result_summary.json`

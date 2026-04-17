@@ -1,0 +1,22 @@
+{
+  "status": "blocked",
+  "blocked_reason": "No human face detected.",
+  "failure_reason": "portrait_detect_rejected",
+  "error_message": "No human face detected.",
+  "detect": {
+    "status": "blocked",
+    "blocked_reason": "No human face detected.",
+    "failure_reason": "portrait_detect_rejected",
+    "error_message": "No human face detected.",
+    "request_id": "bc44cbfd-24f0-9cd2-9f16-410fef433104",
+    "source_image_url": "oss://dashscope-instant/4a9a278c4f513c88f5e76f327d5c3da0/2026-04-17/01db5e21-f87b-984b-a008-227b120ffa73/7a27e9c0a0a049b7aa051cb7c3524ac6_开头人物壳_hook_shell.png"
+  },
+  "generation": {
+    "status": "blocked",
+    "task_id": null,
+    "asset_path": null,
+    "blocked_reason": "No human face detected.",
+    "failure_reason": "portrait_detect_rejected",
+    "error_message": "No human face detected."
+  }
+}
