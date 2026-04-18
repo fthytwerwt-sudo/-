@@ -38,13 +38,13 @@
 
 ## modified_files
 
-- `已确认` 本轮计划修改：
+- `已确认` 本轮已修改：
   - `GPT数据源/01_项目系统提示词.md`
   - `GPT数据源/08_当前正式事实.md`
   - `GPT数据源/09_目标态计划.md`
   - `AGENTS.md`
   - `codex_log/latest.md`
-- `已确认` 本轮计划新增：
+- `已确认` 本轮已新增：
   - `codex_log/20260418_视频工厂_GPT_Project配合机制修补.md`
   - `codex_log/20260418_视频工厂_Project指令补丁_账号层硬执行.md`
 
@@ -82,19 +82,27 @@
   - `codex/user-readable-map` 已落后于当前分支的 `codex_log/latest.md`
   - `codex_log/20260418_豆包vnext_C线元素娃娃能力审计.md` 尚未进入 reading branch
   - 本轮两份新机制文件执行前不存在
-- `待验证` 执行后状态：
-  - 待本轮 commit / push 完成后，再同步回 `codex/user-readable-map` 并用 `git show codex/user-readable-map:路径` 复核
+- `已确认` 执行后状态：
+  - 当前工作分支提交 `2dff25600aebfd02827fe512f99ce451c1285cd2` 已 push 到 `origin/codex/doubao-vnext-direct-fix-20260417`
+  - reading branch 提交 `1bb7f1add16b28977bd6d0df3a529404bb357458` 已 push 到 `origin/codex/user-readable-map`
+  - 已用 `git show codex/user-readable-map:路径` 实际复核：
+    - `codex_log/latest.md`
+    - `GPT数据源/08_当前正式事实.md`
+    - `codex_log/20260418_视频工厂_Project指令补丁_账号层硬执行.md`
+    - `AGENTS.md`
+    - `GPT数据源/01_项目系统提示词.md`
+    - `GPT数据源/09_目标态计划.md`
+    - `codex_log/20260418_视频工厂_GPT_Project配合机制修补.md`
 
 ## remaining_old_mechanisms
 
 - `已确认` `codex_log/current_publish_target.md` 仍保留“旧样片就是当前待发对象”的旧机制口径。
 - `已确认` 该文件不在本轮允许修改名单内，因此本轮只显式标记冲突，不在此轮内直接改写。
-- `部分成立` reading branch 在本轮同步前，仍会保留部分旧接手口径；本轮同步完成后可以先消除 `latest / 01 / 08 / 09 / patch log` 这一层缺口。
+- `已确认` 本轮同步完成后，`latest / 01 / 08 / 09 / patch log / AGENTS` 这一层缺口已补齐。
 
 ## final_state
 
-- `待验证` 本轮目标是：
-  - 生成可直接粘贴的 Project 指令补丁文件
-  - 对齐 `01 / 08 / 09 / AGENTS / latest`
-  - 同步更新 `codex/user-readable-map`
-  - 不新增第 `11` 份 root 执行包
+- `已确认` 已生成可直接粘贴的 Project 指令补丁文件。
+- `已确认` `01 / 08 / 09 / AGENTS / latest` 已按本轮机制补丁对齐。
+- `已确认` `codex/user-readable-map` 已完成同步。
+- `已确认` 本轮未新增第 `11` 份 root 执行包。
