@@ -1,0 +1,164 @@
+{
+  "schema_version": "video_factory_host_motion_asset_gate_round2/v1",
+  "provider_snapshot": {
+    "local_config_path": "/Users/fan/.config/video-factory/formal_api_demo.local.toml",
+    "provider": {
+      "name": "aliyun_bailian",
+      "region": "cn-beijing"
+    },
+    "image_generation": {
+      "enabled": true,
+      "model": "wan2.6-image",
+      "candidates": [
+        {
+          "candidate_id": "primary",
+          "label": "Aliyun Image Primary",
+          "priority": 10,
+          "enabled": true,
+          "provider": "aliyun_bailian",
+          "region": "cn-beijing",
+          "api_key": "sk-cea27498d6dc4799a64cefbb3e3825b1",
+          "model": "wan2.6-image",
+          "style_profile": "report",
+          "source": "base_config"
+        }
+      ]
+    },
+    "video_generation": {
+      "enabled": true,
+      "model": "wan2.7-i2v",
+      "candidates": [
+        {
+          "candidate_id": "primary",
+          "label": "Aliyun Video Primary",
+          "priority": 10,
+          "enabled": true,
+          "provider": "aliyun_bailian",
+          "region": "cn-beijing",
+          "api_key": "sk-cea27498d6dc4799a64cefbb3e3825b1",
+          "model": "wan2.7-i2v",
+          "style_profile": "report",
+          "source": "base_config"
+        }
+      ]
+    },
+    "portrait_detect": {
+      "enabled": true,
+      "model": "liveportrait-detect"
+    },
+    "portrait_video_generation": {
+      "enabled": true,
+      "model": "liveportrait"
+    }
+  },
+  "asset_candidates": [
+    {
+      "candidate_id": "候选A_正脸主持娃娃",
+      "label": "候选A｜正脸主持娃娃",
+      "design_goal": "优先保证正脸识别、五官清楚、detect 友好。",
+      "prompt": "9:16 vertical portrait, a cute original host doll facing the camera, upper body close-up, clear frontal face, large open eyes, visible nose, clear mouth, gentle smile, head larger than body, orange top, dark blue lower clothing, warm brown hair, soft studio light, clean beige background, high-quality stylized 3D mascot render, original character, inspired by voxel aesthetics only, subtle blocky hair edges and costume panels, but the face is rounded and human-face-friendly, not realistic human, not photorealistic, no text, no props, no watermark, centered composition.",
+      "image_generation": {
+        "status": "failed",
+        "task_id": null,
+        "request_id": null,
+        "asset_path": null,
+        "source_url": null,
+        "blocked_reason": "{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"055440d6-c693-9634-b74b-a2851cee7d0e\"}",
+        "failure_reason": "aliyun_image_task_create_failed",
+        "error_message": "{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"055440d6-c693-9634-b74b-a2851cee7d0e\"}",
+        "http_status_code": 403,
+        "error_code": "HTTP403",
+        "candidate_pool": {
+          "total_candidate_count": 1,
+          "available_candidate_count": 1,
+          "backup_candidate_count": 0,
+          "candidates": [
+            {
+              "candidate_id": "primary",
+              "label": "Aliyun Image Primary",
+              "provider": "aliyun_bailian",
+              "model": "wan2.6-image",
+              "style_profile": "report",
+              "priority": 10,
+              "enabled": true,
+              "available": true,
+              "missing_prerequisites": []
+            }
+          ]
+        },
+        "fallback_events": [
+          {
+            "resource_kind": "image_generation",
+            "from_candidate_id": "primary",
+            "from_provider": "aliyun_bailian",
+            "reason_category": "auth_failed",
+            "reason": "{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"055440d6-c693-9634-b74b-a2851cee7d0e\"}",
+            "switch_to_candidate_id": "",
+            "remaining_candidate_count": 0
+          }
+        ],
+        "selected_candidate_id": "primary",
+        "selected_candidate_label": "Aliyun Image Primary",
+        "resource_pool_exhausted": true
+      },
+      "raw_asset_path": "",
+      "review_asset_path": ""
+    },
+    {
+      "candidate_id": "候选B_软体素主持娃娃",
+      "label": "候选B｜软体素主持娃娃",
+      "design_goal": "保留更强的体素来源感，但仍把脸做成人脸友好的主持娃娃。",
+      "prompt": "9:16 vertical portrait, adorable original guide doll host, front-facing half-body portrait, clear symmetrical face, big bright eyes, visible nose bridge, small clear lips, cute presenter expression, soft 2.5D / stylized 3D illustration quality, original Minecraft-inspired vibe without copying any official assets, voxel-inspired costume blocks, square silhouette hints, orange hoodie, brown hair, soft cream background, face occupies a large portion of the frame, clean portrait for lip-sync detect, no text, no props, no watermark.",
+      "image_generation": {
+        "status": "failed",
+        "task_id": null,
+        "request_id": null,
+        "asset_path": null,
+        "source_url": null,
+        "blocked_reason": "{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"20783930-4210-9547-8296-20f1867718f0\"}",
+        "failure_reason": "aliyun_image_task_create_failed",
+        "error_message": "{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"20783930-4210-9547-8296-20f1867718f0\"}",
+        "http_status_code": 403,
+        "error_code": "HTTP403",
+        "candidate_pool": {
+          "total_candidate_count": 1,
+          "available_candidate_count": 1,
+          "backup_candidate_count": 0,
+          "candidates": [
+            {
+              "candidate_id": "primary",
+              "label": "Aliyun Image Primary",
+              "provider": "aliyun_bailian",
+              "model": "wan2.6-image",
+              "style_profile": "report",
+              "priority": 10,
+              "enabled": true,
+              "available": true,
+              "missing_prerequisites": []
+            }
+          ]
+        },
+        "fallback_events": [
+          {
+            "resource_kind": "image_generation",
+            "from_candidate_id": "primary",
+            "from_provider": "aliyun_bailian",
+            "reason_category": "auth_failed",
+            "reason": "{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"20783930-4210-9547-8296-20f1867718f0\"}",
+            "switch_to_candidate_id": "",
+            "remaining_candidate_count": 0
+          }
+        ],
+        "selected_candidate_id": "primary",
+        "selected_candidate_label": "Aliyun Image Primary",
+        "resource_pool_exhausted": true
+      },
+      "raw_asset_path": "",
+      "review_asset_path": ""
+    }
+  ],
+  "detect_results": [],
+  "liveportrait_probe": {},
+  "ability_gate": "blocked",
+  "stop_line_triggered": "image_generation_unavailable_or_failed"
+}
