@@ -1,0 +1,234 @@
+{
+  "schema_version": "video_factory_host_motion_asset_gate_round4/v1",
+  "provider_snapshot": {
+    "local_config_path": "/Users/fan/.config/video-factory/formal_api_demo.local.toml",
+    "provider": {
+      "name": "aliyun_bailian",
+      "region": "cn-beijing"
+    },
+    "current_image_candidates": [
+      {
+        "candidate_id": "primary",
+        "label": "Aliyun Image Primary",
+        "priority": 10,
+        "enabled": true,
+        "provider": "aliyun_bailian",
+        "region": "cn-beijing",
+        "api_key": "sk-cea27498d6dc4799a64cefbb3e3825b1",
+        "model": "wan2.6-image",
+        "style_profile": "report",
+        "source": "base_config"
+      }
+    ],
+    "round4_route": {
+      "primary_image_model": "wan2.7-image-pro",
+      "fallback_image_model": "wan2.7-image",
+      "s2v_detect_model": "wan2.2-s2v-detect",
+      "s2v_model": "wan2.2-s2v"
+    }
+  },
+  "round3_failure_hypothesis": [
+    "候选A 的脸虽然更柔，但五官仍偏简化，眼睛是大块黑色椭圆，嘴部存在过度简写，可能不够像可驱动的人脸。",
+    "候选B 的脸更方，眉眼嘴仍有明显块面边界，方块切面与发型边缘可能干扰 detect。",
+    "两张 round3 资产的脸部占比还不够极端，仍然保留较多肩颈和衣服面积，detect 友好优先级不够高。",
+    "当前 detect 更可能偏好‘更大脸、更正脸、更清楚的眼白/虹膜/鼻孔/嘴唇’，而不是体素味最强的脸。"
+  ],
+  "asset_candidates": [
+    {
+      "candidate_id": "候选A_大脸正脸主持娃娃",
+      "label": "候选A｜大脸正脸主持娃娃",
+      "design_goal": "最大化脸部占比、正脸程度和五官可识别度。",
+      "prompt": "vertical 9:16 portrait, head-and-shoulders only, large face filling most of the frame, front-facing symmetrical cute presenter mascot, smooth rounded cheeks, visible forehead, large humanlike cartoon eyes with white sclera, iris and pupil, natural eyebrows, clear small nose with nostrils, closed lips with a gentle smile, soft warm studio lighting, plain cream background, orange presenter jacket, subtle voxel-inspired clothing seams only, original character, not photorealistic, not realistic human, not pixel art, not game screenshot, clean face for lip-sync detection, no text, no props, no watermark.",
+      "attempts": [
+        {
+          "status": "success",
+          "task_id": "e89da2f9-3184-4b3d-a22f-5463933af4b2",
+          "request_id": "3479052d-a71c-9a31-bc4f-3c88ce39dec6",
+          "asset_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_asset_gate_round4/visual/候选A_大脸正脸主持娃娃_wan2.7-image-pro_image.png",
+          "source_url": "https://dashscope-7c2c.oss-accelerate.aliyuncs.com/1d/f6/20260418/218dd9c9/e0e6d333-68d2-451f-945e-30964a323b42_0.png?Expires=1776609056&OSSAccessKeyId=LTAI5tPxpiCM2hjmWrFXrym1&Signature=OC9bMveU%2FABaOsIgxlQjcu8I2tc%3D",
+          "blocked_reason": "",
+          "failure_reason": "",
+          "error_message": "",
+          "http_status_code": null,
+          "error_code": "",
+          "model_name": "wan2.7-image-pro",
+          "request_payload": {
+            "model": "wan2.7-image-pro",
+            "parameters": {
+              "size": "1152*2048",
+              "n": 1,
+              "watermark": false,
+              "thinking_mode": true
+            }
+          }
+        }
+      ],
+      "final_status": "success",
+      "selected_model": "wan2.7-image-pro",
+      "raw_asset_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_asset_gate_round4/assets/候选A_大脸正脸主持娃娃_wan2.7-image-pro_raw.png",
+      "review_asset_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_asset_gate_round4/assets/候选A_大脸正脸主持娃娃_wan2.7-image-pro_review_1080x1920.png"
+    },
+    {
+      "candidate_id": "候选B_弱化方块切面主持娃娃",
+      "label": "候选B｜弱化方块切面主持娃娃",
+      "design_goal": "降低脸部方块切面，提升眼口鼻对比度。",
+      "prompt": "vertical 9:16 portrait, cute explainer host doll, clear front face, half-body close-up, soft animated-film style face, round forehead, visible ears, bright eyes with clear iris, readable nose bridge and nostrils, clear lips, gentle confident host smile, orange hoodie, soft brown hair, blocky style limited to clothing and hair edges, high contrast eyes nose mouth, clean beige studio background, original mascot, non-photorealistic, non-realistic, no text, no watermark.",
+      "attempts": [
+        {
+          "status": "success",
+          "task_id": "e9a9bca4-3303-47f8-9494-b3610c56007e",
+          "request_id": "86dbb494-732a-905d-b813-8539b276127d",
+          "asset_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_asset_gate_round4/visual/候选B_弱化方块切面主持娃娃_wan2.7-image-pro_image.png",
+          "source_url": "https://dashscope-7c2c.oss-accelerate.aliyuncs.com/1d/b5/20260418/70729cf4/64c42f5a-1056-433e-b043-50095b1dbf7a_0.png?Expires=1776609111&OSSAccessKeyId=LTAI5tPxpiCM2hjmWrFXrym1&Signature=tWTSY6RXMKIyG09PlnXNiI2qYv0%3D",
+          "blocked_reason": "",
+          "failure_reason": "",
+          "error_message": "",
+          "http_status_code": null,
+          "error_code": "",
+          "model_name": "wan2.7-image-pro",
+          "request_payload": {
+            "model": "wan2.7-image-pro",
+            "parameters": {
+              "size": "1152*2048",
+              "n": 1,
+              "watermark": false,
+              "thinking_mode": true
+            }
+          }
+        }
+      ],
+      "final_status": "success",
+      "selected_model": "wan2.7-image-pro",
+      "raw_asset_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_asset_gate_round4/assets/候选B_弱化方块切面主持娃娃_wan2.7-image-pro_raw.png",
+      "review_asset_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_asset_gate_round4/assets/候选B_弱化方块切面主持娃娃_wan2.7-image-pro_review_1080x1920.png"
+    },
+    {
+      "candidate_id": "候选C_半体素软面部主持娃娃",
+      "label": "候选C｜半体素软面部主持娃娃",
+      "design_goal": "保留 inspired 主持娃娃感，但让脸更接近卡通数字人肖像。",
+      "prompt": "vertical 9:16 portrait, original guide mascot host, semi-voxel clothing but smooth cartoon face, head and upper chest portrait, perfectly front-facing, face larger than body, clear eyes with sclera and iris, clear eyebrows, simple natural nose, visible lips, pleasant neutral presenter expression, orange outerwear with subtle voxel blocks, soft brown hair, uncluttered cream background, premium stylized 3D character, not photorealistic, not game screenshot, no text, no watermark.",
+      "attempts": [
+        {
+          "status": "success",
+          "task_id": "f3881430-fc09-4d34-9b0e-6c6ee34cfb9d",
+          "request_id": "0e7594db-3ba7-9c89-9579-e18a9492bd56",
+          "asset_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_asset_gate_round4/visual/候选C_半体素软面部主持娃娃_wan2.7-image-pro_image.png",
+          "source_url": "https://dashscope-7c2c.oss-accelerate.aliyuncs.com/1d/01/20260418/70729cf4/284f9da2-93a1-4048-9308-619076221180_0.png?Expires=1776609161&OSSAccessKeyId=LTAI5tPxpiCM2hjmWrFXrym1&Signature=Oxi5h4YIF7aEbkpQnUP9bPQdVoo%3D",
+          "blocked_reason": "",
+          "failure_reason": "",
+          "error_message": "",
+          "http_status_code": null,
+          "error_code": "",
+          "model_name": "wan2.7-image-pro",
+          "request_payload": {
+            "model": "wan2.7-image-pro",
+            "parameters": {
+              "size": "1152*2048",
+              "n": 1,
+              "watermark": false,
+              "thinking_mode": true
+            }
+          }
+        }
+      ],
+      "final_status": "success",
+      "selected_model": "wan2.7-image-pro",
+      "raw_asset_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_asset_gate_round4/assets/候选C_半体素软面部主持娃娃_wan2.7-image-pro_raw.png",
+      "review_asset_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_asset_gate_round4/assets/候选C_半体素软面部主持娃娃_wan2.7-image-pro_review_1080x1920.png"
+    },
+    {
+      "candidate_id": "候选D_卡通数字人肖像版",
+      "label": "候选D｜卡通数字人肖像版",
+      "design_goal": "若前三张仍失败，进一步向 detect 友好的卡通数字人肖像靠近。",
+      "prompt": "vertical 9:16 portrait, original cartoon digital-host mascot, presenter bust portrait, centered passport-style composition, strong front face, realistic cartoon eye structure, visible eyelashes, clear eyebrows, visible nose with nostrils, defined lips, soft smile, orange presenter jacket, subtle voxel-inspired trim on clothing only, clean ivory background, cinematic but non-photorealistic, not realistic human, face optimized for talking-avatar detection, no text, no props, no watermark.",
+      "attempts": [
+        {
+          "status": "success",
+          "task_id": "58e82ccc-8e42-490f-bd13-5a9303ce316a",
+          "request_id": "697700f1-da10-97d7-ba73-4959fbdb0a04",
+          "asset_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_asset_gate_round4/visual/候选D_卡通数字人肖像版_wan2.7-image-pro_image.png",
+          "source_url": "https://dashscope-7c2c.oss-accelerate.aliyuncs.com/1d/18/20260418/70729cf4/b7305cbe-d3ad-4346-a47d-15394e2c6b08_0.png?Expires=1776609196&OSSAccessKeyId=LTAI5tPxpiCM2hjmWrFXrym1&Signature=yjUe16Mf0NCmgSNBN%2FxXqATntco%3D",
+          "blocked_reason": "",
+          "failure_reason": "",
+          "error_message": "",
+          "http_status_code": null,
+          "error_code": "",
+          "model_name": "wan2.7-image-pro",
+          "request_payload": {
+            "model": "wan2.7-image-pro",
+            "parameters": {
+              "size": "1152*2048",
+              "n": 1,
+              "watermark": false,
+              "thinking_mode": true
+            }
+          }
+        }
+      ],
+      "final_status": "success",
+      "selected_model": "wan2.7-image-pro",
+      "raw_asset_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_asset_gate_round4/assets/候选D_卡通数字人肖像版_wan2.7-image-pro_raw.png",
+      "review_asset_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_asset_gate_round4/assets/候选D_卡通数字人肖像版_wan2.7-image-pro_review_1080x1920.png"
+    }
+  ],
+  "detect_results": [
+    {
+      "candidate_id": "候选A_大脸正脸主持娃娃",
+      "result": {
+        "status": "blocked",
+        "blocked_reason": "wan2.2-s2v-detect did not pass.",
+        "failure_reason": "wan_s2v_detect_rejected",
+        "error_message": "wan2.2-s2v-detect did not pass.",
+        "request_id": "ef819740-96c0-9fd1-8ca3-9111c403569e",
+        "source_image_url": "oss://dashscope-instant/4a9a278c4f513c88f5e76f327d5c3da0/2026-04-18/f6616f72-791f-9fd4-9598-049a6306a9f1/444fbf4723f84d7eaa1057269615412d_候选A_大脸正脸主持娃娃_wan2.7-image-pro_raw.png"
+      },
+      "result_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_asset_gate_round4/detect_probe/候选A_大脸正脸主持娃娃_detect.json"
+    },
+    {
+      "candidate_id": "候选B_弱化方块切面主持娃娃",
+      "result": {
+        "status": "blocked",
+        "blocked_reason": "wan2.2-s2v-detect did not pass.",
+        "failure_reason": "wan_s2v_detect_rejected",
+        "error_message": "wan2.2-s2v-detect did not pass.",
+        "request_id": "7696c630-3dd2-9cd2-98d5-2cc745ee763d",
+        "source_image_url": "oss://dashscope-instant/4a9a278c4f513c88f5e76f327d5c3da0/2026-04-18/c4afbb51-fb8a-931d-99ae-b1720a6c657f/53757db56d094f21a3dfa11202081337_候选B_弱化方块切面主持娃娃_wan2.7-image-pro_raw.png"
+      },
+      "result_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_asset_gate_round4/detect_probe/候选B_弱化方块切面主持娃娃_detect.json"
+    },
+    {
+      "candidate_id": "候选C_半体素软面部主持娃娃",
+      "result": {
+        "status": "blocked",
+        "blocked_reason": "wan2.2-s2v-detect did not pass.",
+        "failure_reason": "wan_s2v_detect_rejected",
+        "error_message": "wan2.2-s2v-detect did not pass.",
+        "request_id": "24843f41-8028-9673-8307-843e0c4054e2",
+        "source_image_url": "oss://dashscope-instant/4a9a278c4f513c88f5e76f327d5c3da0/2026-04-18/10c6992a-2b60-93fd-a13f-6b723cc261ca/93791084ad0b41dc9097b4d8c8c9c84e_候选C_半体素软面部主持娃娃_wan2.7-image-pro_raw.png"
+      },
+      "result_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_asset_gate_round4/detect_probe/候选C_半体素软面部主持娃娃_detect.json"
+    },
+    {
+      "candidate_id": "候选D_卡通数字人肖像版",
+      "result": {
+        "status": "blocked",
+        "blocked_reason": "wan2.2-s2v-detect did not pass.",
+        "failure_reason": "wan_s2v_detect_rejected",
+        "error_message": "wan2.2-s2v-detect did not pass.",
+        "request_id": "46e54b8c-ce24-9f1a-83c8-9c2f82401b42",
+        "source_image_url": "oss://dashscope-instant/4a9a278c4f513c88f5e76f327d5c3da0/2026-04-18/1addc192-0a23-909a-be44-ccb551179d4f/899afd63b8824163898e2ed8bc371759_候选D_卡通数字人肖像版_wan2.7-image-pro_raw.png"
+      },
+      "result_path": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_asset_gate_round4/detect_probe/候选D_卡通数字人肖像版_detect.json"
+    }
+  ],
+  "selected_detect_pass_candidate_id": "",
+  "audio_probe": {
+    "source_audio": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/tts/seg01_hook.wav",
+    "trimmed_audio": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_motion_asset_gate_round4/tmp/audio_hook_excerpt_2p6s.wav",
+    "trim_seconds": 2.6
+  },
+  "s2v_smoke_test": null,
+  "technical_validation": "blocked",
+  "content_validation": "blocked",
+  "stop_line_triggered": "all_round4_assets_failed_s2v_detect"
+}
