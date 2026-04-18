@@ -1,0 +1,9 @@
+{
+  "asset_card": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_shell_high_fidelity_probe_round6/assets/主持壳角色设定_round6.png",
+  "video": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_shell_high_fidelity_probe_round6/renders/高保真主持壳方向验证_round6.mp4",
+  "contact_sheet": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/host_shell_high_fidelity_probe_round6/renders/关键帧联系表_round6.jpg",
+  "route_choice": "A_local_puppet_timeline",
+  "technical_validation": "passed_for_probe",
+  "content_validation": "blocked",
+  "high_fidelity_direction": "partially_converging"
+}

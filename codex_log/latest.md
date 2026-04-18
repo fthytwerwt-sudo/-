@@ -6,13 +6,13 @@
   - `《豆包的正确打开方式》vNext`
   - 输出目录：`dist/20260417_豆包的正确打开方式_vnext/`
 - `已确认` 当前最新 C 线独立能力验证已推进到：
-  - `host_motion_asset_gate_round5`
+  - `host_shell_high_fidelity_probe_round6`
 - `已确认` 本轮最新新增结论是：
-  - 已修正 round3 / round4 自定义 detect 逻辑误读 `output.pass` 的问题，当前按 `output.check_pass` 判定
-  - `wan2.7-image-pro` 本轮继续真实可用
-  - round5 首张新资产已通过 `wan2.2-s2v-detect`
-  - 可选最短 `wan2.2-s2v` smoke test 已真实成功落出最小 `mp4`
-  - 这只代表：`detect gate + smoke route` 已成立，不代表主线可替换或正式样片已成立
+  - 本轮是 `feature-only` 的 C 线方向纠偏 probe
+  - 不是最终样片、不是最终组装、不是主线替换判断
+  - 本轮已真实落出 1 条全身静音主持壳 `mp4`
+  - 当前结果已经开始摆脱 `talking head / 大头特写`
+  - 但当前仍带明显程序化循环感，还不能写成“高保真主持壳已成立”
 - `已确认` `dist/formal_api_demo_doubao_task_clear_20260412/local_review/final_review_clean.mp4` 现只作为：`历史通过样片 / 历史口径`
 - `已确认` 当前主线状态仍是：
   - `technical_validation = passed`
@@ -36,22 +36,22 @@
 
 - `已确认` 当前项目 / 当前已接模型 **仍不具备** 直接产出“高质量视频级元素娃娃样片”的能力。
 - `已确认` 本轮已按既定路线进入：
-  - `host_motion_asset_gate_round5`
-- `已确认` 当前 C 线已停止继续沿：
-  - `wan2.6-image -> liveportrait`
-- `已确认` 当前 C 线当前最小主路线已切到：
-  - `wan2.7-image-pro / wan2.7-image -> wan2.2-s2v`
+- `已确认` 路线选择审计结果：
+  - 选 `路线 A`：本地程序化 / 分层 / 时间线 / `ffmpeg`
+  - 不选 `路线 B`：单镜头 `I2V`
+  - 原因：A 更能保证全身存在、身体承担动作、镜头不滑向头肩近景
 - `已确认` 本轮真实已成立：
-  - `wan2.7-image-pro` 可用
-  - 已真实落出新主持娃娃资产
-  - 已锁定当前过检资产：`候选A_round5_软脸主持肖像`
-- `已确认` 因此本轮结果是：
-  - `wan2.2-s2v-detect` 已对当前 round5 资产返回 `success`
-  - 最短 `wan2.2-s2v` smoke test 已成功产出最小 `mp4`
+  - 已真实落出 `5s` 静音全身主持壳 `mp4`
+  - 第一帧就是完整全身
+  - 角色运动由身体承担，不是脸驱动
 - `已确认` 当前 C 线新增最高优先级 blocker 为：
-  - 已从“detect 过检”推进到“生成结果质量判断”
-  - 当前还没有证明已摆脱 `gif` 感或达到主持壳最低可用线
-  - 因而当前仍不能写成主线可用
+  - 当前结果虽已脱离 `talking head`
+  - 但仍带明显程序化循环感
+  - 距离“高保真主持壳最低可用线”仍差一步
+- `已确认` 当前结果判断应写成：
+  - `technical_validation = passed_for_probe`
+  - `content_validation = blocked`
+  - `high_fidelity_direction = partially_converging`
 
 ## 本轮新增产出
 
@@ -74,16 +74,22 @@
 17. `dist/20260417_豆包的正确打开方式_vnext/host_motion_asset_gate_round5/audit/最小闸门审计_round5.md`
 18. `scripts/元素娃娃线_round5_s2v_detect过检优化.py`
 19. `codex_log/20260418_元素娃娃线_round5_s2v_detect过检优化.md`
+20. `dist/20260417_豆包的正确打开方式_vnext/host_shell_high_fidelity_probe_round6/renders/高保真主持壳方向验证_round6.mp4`
+21. `dist/20260417_豆包的正确打开方式_vnext/host_shell_high_fidelity_probe_round6/renders/关键帧联系表_round6.jpg`
+22. `dist/20260417_豆包的正确打开方式_vnext/host_shell_high_fidelity_probe_round6/audit/正式质量审计_round6.md`
+23. `scripts/元素娃娃线_round6_高保真主持壳方向验证.py`
+24. `codex_log/20260419_元素娃娃线_round6_主持壳高保真方向验证.md`
 
 ## 下一轮唯一建议
 
 - `已确认` 主线仍先补 A 线反面原句级证据，不进入最终样片组装
-- `已确认` C 线本轮已跨过新路线的 `s2v detect` 闸门
+- `已确认` C 线本轮已初步纠偏出“全身主持壳”方向
 - `已确认` 下一步不该回退到旧 `wan2.6-image -> liveportrait`
-- `通用建议` 下一步应转到“最小视频质量审查”：
-  - 判断 smoke test 是否仍像 `gif / 图片动起来`
-  - 判断口型 / 头部 / 动作是否达到主持壳最低可用线
-  - 若不过线，再继续在新路线里修资产和参数，而不是回退旧 provider
+- `通用建议` 下一步应转到：
+  - 继续保住全身 / 中景 / 身体主导动作
+  - 再提升角色细节层次、动作语言和游戏角色自由活动感
+  - 若要继续验证，可在 A 路线上增加 1 个更完整的“入场 / 指向 / 收束”动作片段
+  - 不要回退到 `talking head`
 
 ## 当前默认接手建议先读
 
@@ -100,3 +106,4 @@
 11. `codex_log/20260418_元素娃娃线_round3_切换wan2.7与s2v闭环.md`
 12. `codex_log/20260418_元素娃娃线_round4_s2v_detect过检优化.md`
 13. `codex_log/20260418_元素娃娃线_round5_s2v_detect过检优化.md`
+14. `codex_log/20260419_元素娃娃线_round6_主持壳高保真方向验证.md`
