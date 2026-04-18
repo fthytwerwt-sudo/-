@@ -1,0 +1,9 @@
+{
+  "status": "success",
+  "blocked_reason": "",
+  "failure_reason": "",
+  "error_message": "",
+  "request_id": "fb58d3d5-1fbe-949d-ac3e-dc152b016cb1",
+  "source_image_url": "oss://dashscope-instant/4a9a278c4f513c88f5e76f327d5c3da0/2026-04-18/beb1b4b0-7bea-9f12-8c99-ee463d238b44/463fdb0b45164e639d545e41cf15ce98_候选A_round5_软脸主持肖像_wan2.7-image-pro_raw.png",
+  "humanoid": false
+}

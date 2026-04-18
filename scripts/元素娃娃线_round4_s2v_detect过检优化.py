@@ -347,7 +347,7 @@ def execute_wan_s2v_detect(
             invalid_json_message="wan2.2-s2v-detect returned invalid JSON payload",
         )
         detect_result["request_id"] = response_payload.get("request_id")
-        if response_payload.get("output", {}).get("pass"):
+        if response_payload.get("output", {}).get("check_pass") or response_payload.get("output", {}).get("pass"):
             detect_result["status"] = STATUS_SUCCESS
             return detect_result
         message = response_payload.get("output", {}).get("message") or "wan2.2-s2v-detect did not pass."
