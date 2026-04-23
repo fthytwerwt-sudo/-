@@ -9,6 +9,8 @@ struct Manifest: Decodable {
     let fps: Int
     let audioPath: String
     let outputPath: String
+    let reviewImageDir: String?
+    let reviewOnly: Bool?
     let slides: [Slide]
 }
 
@@ -66,10 +68,37 @@ func textAttributes(size: CGFloat, weight: NSFont.Weight, color: NSColor) -> [NS
     ]
 }
 
+func measuredTextHeight(_ text: String, width: CGFloat, attributes: [NSAttributedString.Key: Any]) -> CGFloat {
+    let attributed = NSAttributedString(string: text, attributes: attributes)
+    let rect = attributed.boundingRect(
+        with: NSSize(width: width, height: CGFloat.greatestFiniteMagnitude),
+        options: [.usesLineFragmentOrigin, .usesFontLeading]
+    )
+    return ceil(rect.height)
+}
+
 func renderSlide(_ slide: Slide, width: Int, height: Int) -> CGImage {
     let size = NSSize(width: width, height: height)
-    let image = NSImage(size: size)
-    image.lockFocus()
+    guard let bitmap = NSBitmapImageRep(
+        bitmapDataPlanes: nil,
+        pixelsWide: width,
+        pixelsHigh: height,
+        bitsPerSample: 8,
+        samplesPerPixel: 4,
+        hasAlpha: true,
+        isPlanar: false,
+        colorSpaceName: .deviceRGB,
+        bytesPerRow: 0,
+        bitsPerPixel: 0
+    ) else {
+        fatalError("无法创建 1x 渲染画布")
+    }
+    bitmap.size = size
+    NSGraphicsContext.saveGraphicsState()
+    NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: bitmap)
+    defer {
+        NSGraphicsContext.restoreGraphicsState()
+    }
 
     let backgroundRect = NSRect(x: 0, y: 0, width: width, height: height)
     color(hex: slide.background).setFill()
@@ -90,7 +119,7 @@ func renderSlide(_ slide: Slide, width: Int, height: Int) -> CGImage {
 
     (slide.title as NSString).draw(
         in: NSRect(x: 96, y: height - 460, width: width - 192, height: 180),
-        withAttributes: textAttributes(size: 72, weight: .bold, color: .white)
+        withAttributes: textAttributes(size: 72, weight: .bold, color: NSColor.black.withAlphaComponent(0.78))
     )
 
     let bodyLines = slide.body
@@ -99,29 +128,57 @@ func renderSlide(_ slide: Slide, width: Int, height: Int) -> CGImage {
     var currentY = cardRect.maxY - 160
     for (index, line) in bodyLines.enumerated() {
         let drawLine = index == 0 ? line : "• " + line
+        let fontSize: CGFloat = index == 0 ? 42 : 38
+        let weight: NSFont.Weight = index == 0 ? .bold : .regular
+        let attributes = textAttributes(size: fontSize, weight: weight, color: .black)
+        let textWidth = cardRect.width - 128
+        let measuredHeight = measuredTextHeight(drawLine, width: textWidth, attributes: attributes)
+        let rowHeight = max(index == 0 ? 96 : 76, measuredHeight + 18)
         (drawLine as NSString).draw(
-            in: NSRect(x: cardRect.minX + 64, y: currentY, width: cardRect.width - 128, height: 110),
-            withAttributes: textAttributes(size: index == 0 ? 42 : 38, weight: index == 0 ? .bold : .regular, color: .black)
+            in: NSRect(x: cardRect.minX + 64, y: currentY, width: textWidth, height: rowHeight),
+            withAttributes: attributes
         )
-        currentY -= index == 0 ? 120 : 96
+        currentY -= rowHeight + 24
     }
 
     let footerRect = NSRect(x: 96, y: 150, width: width - 192, height: 86)
     drawRoundedRect(footerRect, radius: 28, fill: NSColor.black.withAlphaComponent(0.88))
+    let pageRect = NSRect(x: width - 250, y: 150, width: 154, height: 86)
     (slide.footer as NSString).draw(
-        in: NSRect(x: 132, y: 175, width: width - 264, height: 30),
+        in: NSRect(x: 132, y: 168, width: pageRect.minX - 156, height: 48),
         withAttributes: textAttributes(size: 28, weight: .medium, color: .white)
     )
 
-    let pageRect = NSRect(x: width - 250, y: 150, width: 154, height: 86)
     drawRoundedRect(pageRect, radius: 28, fill: color(hex: slide.accent))
     ("PPT Demo" as NSString).draw(
         in: NSRect(x: width - 222, y: 175, width: 120, height: 28),
         withAttributes: textAttributes(size: 24, weight: .semibold, color: .white)
     )
 
-    image.unlockFocus()
-    return image.cgImage(forProposedRect: nil, context: nil, hints: nil)!
+    return bitmap.cgImage!
+}
+
+func savePNG(_ image: CGImage, to url: URL) throws {
+    let bitmap = NSBitmapImageRep(cgImage: image)
+    guard let data = bitmap.representation(using: .png, properties: [:]) else {
+        throw VideoBuilderError.exportFailed("无法创建 PNG review 图")
+    }
+    try data.write(to: url)
+}
+
+func writeReviewImages(_ manifest: Manifest) throws {
+    guard let reviewImageDir = manifest.reviewImageDir else {
+        return
+    }
+
+    let reviewURL = URL(fileURLWithPath: reviewImageDir)
+    try FileManager.default.createDirectory(at: reviewURL, withIntermediateDirectories: true)
+
+    for (index, slide) in manifest.slides.enumerated() {
+        let image = renderSlide(slide, width: manifest.width, height: manifest.height)
+        let fileName = String(format: "%02d_1x默认视图_no_zoom.png", index + 1)
+        try savePNG(image, to: reviewURL.appendingPathComponent(fileName))
+    }
 }
 
 func makePixelBuffer(from image: CGImage, width: Int, height: Int) throws -> CVPixelBuffer {
@@ -286,6 +343,12 @@ func exportWithAudio(videoURL: URL, audioURL: URL, outputURL: URL) throws {
 
 do {
     let manifest = try loadManifest()
+    try writeReviewImages(manifest)
+
+    if manifest.reviewOnly == true {
+        exit(0)
+    }
+
     let outputURL = URL(fileURLWithPath: manifest.outputPath)
     let tempVideoURL = outputURL.deletingLastPathComponent().appendingPathComponent("video_only.mp4")
     let audioURL = URL(fileURLWithPath: manifest.audioPath)

@@ -1,0 +1,119 @@
+{
+  "width": 1080,
+  "height": 1920,
+  "fps": 10,
+  "audioPath": "",
+  "outputPath": "/Users/fan/Documents/视频工厂/dist/20260424_不放大完整可读_no_zoom_completeness/review_only.mp4",
+  "reviewImageDir": "/Users/fan/Documents/视频工厂/dist/20260424_不放大完整可读_no_zoom_completeness/1x默认视图_review_frames",
+  "reviewOnly": true,
+  "slides": [
+    {
+      "title": "当前在看：完整承接路径（1/2）",
+      "body": "先交代这拍在验证什么：不是继续压缩文案，而是检查默认视图能不能完整承接。\n第一层信息：用户原始输入要先被拆成目标、边界、步骤和交付物，不能只给半截。\n第二层信息：正确做法标签必须跟主体正文同时出现，不能只剩标签还看不到证据。\n第三层信息：完整承接路径要说明从输入到工作包正文，再到录制计划和回审清单。\n第四层信息：如果正文高度超过安全显示区，必须先拆成多拍，再进入渲染。\n第五层信息：每一拍都要保留完整标题和上下文，不能只留下上半或下半的残片。",
+      "accent": "#0F766E",
+      "background": "#F4FBF9",
+      "badge": "正确做法",
+      "footer": "这块信息太高时，必须拆两拍才能保证完整可读",
+      "source_slide_index": 0,
+      "split_part_index": 1,
+      "split_count": 2,
+      "no_zoom_layout_metrics": {
+        "source_slide_index": 0,
+        "canvas_size": {
+          "width": 1080,
+          "height": 1920
+        },
+        "safe_area": {
+          "x": 160,
+          "y": 416,
+          "width": 760,
+          "height": 904
+        },
+        "title_bbox": {
+          "x": 96,
+          "y": 1460,
+          "width": 888,
+          "height": 180
+        },
+        "body_bbox": {
+          "x": 160,
+          "y": 416,
+          "width": 760,
+          "height": 895
+        },
+        "footer_bbox": {
+          "x": 96,
+          "y": 150,
+          "width": 888,
+          "height": 86
+        },
+        "text_total_height": 1313,
+        "safe_area_available_height": 904,
+        "overflow": false,
+        "split_required": true,
+        "split_count": 2,
+        "min_readable_body_font_size": 34,
+        "zoom_used_for_completeness": false,
+        "title": "当前在看：完整承接路径（1/2）",
+        "badge": "正确做法",
+        "footer": "这块信息太高时，必须拆两拍才能保证完整可读"
+      },
+      "duration": 2.0
+    },
+    {
+      "title": "当前在看：完整承接路径（2/2）",
+      "body": "第六层信息：zoom 只能让字更舒服，不能用来补救默认视图里已经被裁掉的信息。\n第七层信息：标题、标签、正文、底部说明都要参与高度计算，装饰层也不能遮挡。\n第八层信息：技术生成成功不等于内容完整可读，两种 validation 必须分开记录。\n最终判断：1x 默认视图完整显示才算本拍通过，否则只能进入人工复审或继续拆拍。",
+      "accent": "#0F766E",
+      "background": "#F4FBF9",
+      "badge": "正确做法",
+      "footer": "这块信息太高时，必须拆两拍才能保证完整可读",
+      "source_slide_index": 0,
+      "split_part_index": 2,
+      "split_count": 2,
+      "no_zoom_layout_metrics": {
+        "source_slide_index": 0,
+        "canvas_size": {
+          "width": 1080,
+          "height": 1920
+        },
+        "safe_area": {
+          "x": 160,
+          "y": 416,
+          "width": 760,
+          "height": 904
+        },
+        "title_bbox": {
+          "x": 96,
+          "y": 1460,
+          "width": 888,
+          "height": 180
+        },
+        "body_bbox": {
+          "x": 160,
+          "y": 416,
+          "width": 760,
+          "height": 670
+        },
+        "footer_bbox": {
+          "x": 96,
+          "y": 150,
+          "width": 888,
+          "height": 86
+        },
+        "text_total_height": 1088,
+        "safe_area_available_height": 904,
+        "overflow": false,
+        "split_required": true,
+        "split_count": 2,
+        "min_readable_body_font_size": 34,
+        "zoom_used_for_completeness": false,
+        "title": "当前在看：完整承接路径（2/2）",
+        "badge": "正确做法",
+        "footer": "这块信息太高时，必须拆两拍才能保证完整可读"
+      },
+      "duration": 2.0
+    }
+  ],
+  "totalDuration": 4.0,
+  "layoutMetricsPath": "/Users/fan/Documents/视频工厂/dist/20260424_不放大完整可读_no_zoom_completeness/布局指标_layout_metrics.json"
+}

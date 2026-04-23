@@ -8,3 +8,5 @@ dist/demo/*.wav
 dist/demo/*.aiff
 dist/demo/manifest.json
 dist/demo/segment_*
+dist/demo/local_review/
+dist/demo/布局指标_layout_metrics.json
