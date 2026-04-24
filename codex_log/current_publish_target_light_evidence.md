@@ -2,113 +2,92 @@
 
 ## 对应对象
 
-- 当前待发对象：`dist/formal_api_demo_doubao_task_clear_20260412/local_review/final_review_clean.mp4`
-- 当前审核对象：`dist/formal_api_demo_doubao_task_clear_20260412/local_review/final_review_clean.mp4`
-- 云端正式输出：`oss://zvip1-video-beijing/video-factory/final/20260412T150420Z/formal_api_demo.mp4`
+- 当前最新复审对象：`dist/latest_review_pack/`
+- 当前 round 指向：`round32_全片边框残留与跳切连续性修复`
+- 当前完整正片：`dist/latest_review_pack/full.mp4`
+- 当前中段预览：`dist/latest_review_pack/middle_preview.mp4`
+- 当前审片入口：`dist/latest_review_pack/review_manifest.md`
 
-## Git 可追踪轻量证据包
+## 历史对象
 
-1. `cases/formal_api_demo_doubao_task_clear_20260412.md`
-   - 本轮正式样片执行输入稿。
-   - 明确写死：
-     - `54s`
-     - `seg01 = human`
-     - `seg02 = self_footage`
-     - `seg03 = light_ppt`
-2. `dist/formal_api_demo_doubao_task_clear_20260412/manifest.json`
-   - 本轮完整执行快照。
-   - 可直接看到：
-     - 总时长 `54s`
-     - `seg02` 绑定到 `seg02_doubao_evidence_v1.mp4`
-3. `dist/formal_api_demo_doubao_task_clear_20260412/route_plan.json`
-   - 本轮 carrier 分发结果。
+- 历史待发对象：`dist/formal_api_demo_doubao_task_clear_20260412/local_review/final_review_clean.mp4`
+- 历史云端正式输出：`oss://zvip1-video-beijing/video-factory/final/20260412T150420Z/formal_api_demo.mp4`
+- 当前解释：该对象只代表 20260412 当时口径下的历史通过样片，不再是当前最新复审 target。
+
+## 主读取分支 Git 可追踪轻量证据包
+
+1. `dist/latest_review_pack/review_manifest.md`
+   - 当前 ChatGPT / 用户复审入口。
+   - 明确复审顺序：
+     - 先看边框残留报告
+     - 再看跳切连续性报告
+     - 再看 30-32 秒问题窗口
+     - 再看 middle preview
+     - 最后看 full
+2. `dist/latest_review_pack/summary.json`
+   - 当前 round32 验证状态摘要。
    - 可直接确认：
-     - `seg01 = human`
-     - `seg02 = self_footage`
-     - `seg03 = light_ppt`
-4. `dist/formal_api_demo_doubao_task_clear_20260412/script.txt`
-   - 当前样片最短脚本摘要。
-   - 可快速确认本轮已从旧 15 秒对象升级到“问题 → 动作 → 结果”结构。
-5. `dist/formal_api_demo_doubao_task_clear_20260412/captions.srt`
-   - 当前样片字幕与时间切分。
-   - 可快速确认时长为：
-     - `10s / 26s / 18s`
-6. `dist/formal_api_demo_doubao_task_clear_20260412/result_summary.json`
-   - 机器侧结果摘要。
-   - 可直接确认：
-     - `overall_status = success`
-     - `assembly_status = success`
-     - `cloud_assembly_status = success`
-7. `codex_log/20260412_豆包素材正式样片执行与过线结论.md`
-   - 本轮素材路径偏差、执行命令、技术验证、内容验证与过线结论。
-8. `codex_log/current_publish_target.md`
-   - 当前仓库正式指针。
-   - 可直接确认：
-     - 当前待发对象已切到 `dist/formal_api_demo_doubao_task_clear_20260412/local_review/final_review_clean.mp4`
-     - 旧 `formal_api_demo_user_footage_20260409` 不再是当前对象
+     - `border_residue_validation = 通过`
+     - `jump_cut_validation = 通过`
+     - `technical_validation = 通过`
+     - `content_validation = 待用户 / ChatGPT 最终复审`
+     - `send_ready = false`
+3. `codex_log/current_publish_target.md`
+   - 当前复审 target、validation 状态与 remaining blocker。
+4. `codex_log/20260425_默认主读取分支口径同步与视频修改同步规则.md`
+   - 本轮同步差异、修改范围与新增规则。
+
+## 来源分支 / 本地审片包证据
+
+以下文件属于来源视频工作分支 `codex/doubao-vnext-direct-fix-20260417` 或本地审片包证据；`codex/user-readable-map` 本轮只同步轻量入口与状态摘要，不新增视频二进制。
+
+1. `dist/latest_review_pack/timeline.json`
+   - 当前 segment / shot 时间轴与承载方式。
+2. `dist/latest_review_pack/cut_map.md`
+   - 当前逐镜头承载说明。
+3. `dist/latest_review_pack/cut_contact_sheet.jpg`
+   - 当前按镜头切点抽帧的联系表。
+4. `dist/latest_review_pack/problem_windows/30_32s.mp4`
+   - 当前保留的 30-32 秒问题窗口。
+5. `dist/latest_review_pack/problem_windows/30_32s_frames.jpg`
+   - 30-32 秒高频抽帧联系表。
+6. `codex_log/20260424_round32_全片边框残留与跳切连续性修复.md`
+   - round32 生成、修复、验证与防复发脚本落地日志。
+7. `scripts/视频全片边框与跳切审计.py`
+   - 后续每轮输出前用于自动抽帧检查边框残留和跳切风险的脚本。
 
 ## 这些轻量证据共同证明什么
 
-- 当前最新样片是谁：
-  - `dist/formal_api_demo_doubao_task_clear_20260412/local_review/final_review_clean.mp4`
-- 当前样片 4 层状态是什么：
+- 当前最新复审对象是谁：
+  - `dist/latest_review_pack/`
+- 当前审片包指向哪一轮：
+  - `round32_全片边框残留与跳切连续性修复`
+- 当前技术状态是什么：
   - `technical_validation（技术验证）`：`通过`
-  - `content_validation（内容验证）`：`通过`
-  - `user_acceptance（用户验收）`：`通过`
-  - `send_ready（可直接发送）`：`是`
-- 当前样片结构是什么：
-  - `API 生成真人 -> 豆包真实录屏 -> 单屏 steps_card`
-- 当前样片技术状态是什么：
-  - generation 成功
-  - assembly 成功
-  - cloud assembly 成功
-- 当前样片为什么已过线：
-  - `seg02` 已不再只是抽象说明
-  - 已能看见：
-    - `别再直接写`
-    - `先收 3 件事`
-    - `三个判断点`
-    - `今天能开工的起手句`
-- 当前应该怎么理解后续动作：
-  - 当前样片已可直接发送
-  - 后续若继续推进，属于发布包装与系统升级空间，不再属于“继续救片”
-- 当前路径偏差是什么：
-  - 用户给的是不存在的目录
-  - 本轮实际执行的是同级单文件：
-    - `素材录制/豆包素材.mp4`
+  - `border_residue_validation（边框残留验证）`：`通过`
+  - `jump_cut_validation（跳切连续性验证）`：`通过`
+- 当前内容状态是什么：
+  - `content_validation（内容验证）`：`待用户 / ChatGPT 最终复审`
+  - `send_ready（可直接发送）`：`no`
+- 当前证据链原则是什么：
+  - 中段主体仍由用户真实录屏承担。
+  - 卡片 / PPT / 图片只允许辅助解释，不允许替代证据。
+- 当前不能证明什么：
+  - 不能证明 round32 已经可直接发送。
+  - 不能证明 `content_validation` 已通过。
+  - 不能证明 `云端剪辑` runtime 已稳定跑通。
 
-## 当前 `local_only` 重证据
+## 当前本地审片包
 
-- `dist/formal_api_demo_doubao_task_clear_20260412/local_review/final_review_clean.mp4`
-  - 当前可直接打开的本地审片件。
-- `dist/formal_api_demo_doubao_task_clear_20260412/local_review/final_review.mp4`
-  - 带字幕 burn-in 的辅助版。
-- `dist/formal_api_demo_doubao_task_clear_20260412/visual/seg02_doubao_evidence_v1.mp4`
-  - 本轮新的 `seg02` 证据 clip。
-- `dist/formal_api_demo_doubao_task_clear_20260412/visual/seg03_image.png`
-  - 本轮手工重做的单屏 `steps_card`。
-- `素材录制/豆包素材.mp4`
-  - 本轮真实素材源文件。
+- `/Users/fan/Documents/视频工厂/dist/latest_review_pack/`
+- `dist/latest_review_pack/`
 
-## 为什么这轮仍不追踪二进制
+## 为什么仍保留历史 20260412 证据
 
-- 当前仓库继续优先追踪：
-  - `case`
-  - `manifest`
-  - `route_plan`
-  - `script`
-  - `captions`
-  - `result_summary`
-  - dated log
-- 二进制样片和原始录屏仍保持 `local_only`
-- 这样新聊天能先靠 Git 轻量证据锁定：
-  - 对象
-  - 结构
-  - 状态
-  - 过线结论
+- 20260412 是当时口径下的历史通过样片。
+- 历史日志不删除，继续用于追溯旧判断。
+- 当前复审 target 已切到 round32，不得再用 20260412 冒充当前最新可发样片。
 
 ## 当前一句话
 
-- 旧 `seg02` 的“差值不够硬”问题已经被 `豆包素材.mp4` 里的同任务收清链路替换掉；当前最新样片已经完成技术通过、内容通过与可发布测试线通过，且本地可审对象已切到：
-  - `dist/formal_api_demo_doubao_task_clear_20260412/local_review/final_review_clean.mp4`
-  - 且当前状态已扩展为：`user_acceptance 通过`、`send_ready = 是`
+- 当前最新复审对象是 `dist/latest_review_pack/`，指向 `round32_全片边框残留与跳切连续性修复`；技术扫描通过不等于内容最终过线，`content_validation = 待用户 / ChatGPT 最终复审`，`send_ready = no`。

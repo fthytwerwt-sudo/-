@@ -1,0 +1,44 @@
+{
+  "round": "round32_全片边框残留与跳切连续性修复",
+  "baseline_round": "round31_一镜到底录屏证据链重构",
+  "border_residue_validation": "通过",
+  "jump_cut_validation": "通过",
+  "technical_validation": "通过：round32 已生成，full/middle/problem window 已产出，全片边框残留扫描与跳切连续性扫描已完成。",
+  "content_validation": "待用户 / ChatGPT 最终复审",
+  "send_ready": false,
+  "whole_video_duration_seconds": 54.16,
+  "middle_preview_duration_seconds": 26.92,
+  "repair_scope": {
+    "removed_round31_window_seconds": [
+      37.324,
+      38.62
+    ],
+    "base_crossfade_seconds": 0.12,
+    "primary_crossfade_seconds": 0.22,
+    "middle_evidence_chain_changed": false,
+    "new_cards_added": false,
+    "ali_api_called": false,
+    "host_avatar_regenerated": false,
+    "raw_recordings_modified": false
+  },
+  "round31_border_findings_seconds": [
+    38.5,
+    38.4,
+    38.5
+  ],
+  "round32_border_findings_seconds": [],
+  "artifacts": {
+    "full": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/round32_全片边框残留与跳切连续性修复/renders/主持壳正式正片_round32_全片边框残留与跳切连续性修复.mp4",
+    "middle_preview": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/round32_全片边框残留与跳切连续性修复/renders/中段preview_round32_证据链保持不变.mp4",
+    "before_after": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/round32_全片边框残留与跳切连续性修复/audit/round31_vs_round32_30_40s_before_after.mp4",
+    "problem_30_40": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/round32_全片边框残留与跳切连续性修复/audit/problem_windows/30_40s.mp4",
+    "problem_37_39_frames": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/round32_全片边框残留与跳切连续性修复/audit/problem_windows/37_39s_frames.jpg",
+    "border_report": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/round32_全片边框残留与跳切连续性修复/audit/full_border_residue_report.md",
+    "jump_report": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/round32_全片边框残留与跳切连续性修复/audit/full_jump_cut_report.md",
+    "border_contact_sheet": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/round32_全片边框残留与跳切连续性修复/audit/border_residue_contact_sheet.jpg",
+    "jump_contact_sheet": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/round32_全片边框残留与跳切连续性修复/audit/jump_cut_contact_sheet.jpg"
+  },
+  "remaining_blockers": [
+    "用户 / ChatGPT 尚未完成 round32 内容最终复审，send_ready 必须保持 no。"
+  ]
+}

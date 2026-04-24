@@ -148,6 +148,31 @@
 - 若当前样片的 Git 可追踪轻量证据有变化，再同步刷新：
   - `codex_log/current_publish_target_light_evidence.md`
 
+## 8A. 视频修改必须同步口径规则
+
+以后凡是修改《视频工厂》的任何视频产物、样片轮次、`round`、`latest_review_pack`、`current_publish_target`、审片状态、`technical_validation`、`content_validation`、`send_ready`、`remaining_blockers`，都必须同步更新相关口径文件。
+
+默认必须同步检查：
+1. `codex_log/latest.md`
+2. `codex_log/current_publish_target.md`
+3. `codex_log/current_publish_target_light_evidence.md`
+4. `GPT数据源/08_当前正式事实.md`
+5. `dist/latest_review_pack/summary.json`
+6. `dist/latest_review_pack/review_manifest.md`
+7. 如改变入口 / 分支 / 读取顺序，还必须同步 `AGENTS.md` 和 `codex_source/00_codex_readme.md`
+
+硬规则：
+- 不允许只改视频、不改口径
+- 不允许只在工作分支改口径、不同步默认主读取分支 `codex/user-readable-map`
+- 不允许把历史样片写成当前最新样片
+- 不允许把 `technical_validation` 写成 `content_validation`
+- 不允许用户未最终确认前写 `send_ready = yes`
+- 不允许旧 `round` 状态继续覆盖最新 `latest_review_pack`
+- 只要改动会影响新会话默认接手判断，就必须同步到 `codex/user-readable-map`
+
+完成判定：
+- 视频修改后，如果最新口径没有同步到默认主读取分支，则本轮不能写“已完成”，只能写“视频产物已修改，口径同步未完成”。
+
 ## 9. 主读取分支与状态分类
 
 当前仓库默认主读取分支固定为：
