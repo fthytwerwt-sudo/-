@@ -60,7 +60,7 @@
 `project_source/` 只作为历史 / 辅助主题化镜像，不得默认高于 `GPT数据源/` 当前 10 份执行包、`codex_log/latest.md` 或 `dist/latest_review_pack/`。
 
 当前已确认：
-- `latest_review_pack` 指向 `round32_全片边框残留与跳切连续性修复`
+- `latest_review_pack` 指向 `round33_正反展示提示卡补齐与风格统一`
 - `technical_validation = 通过`
 - `border_residue_validation = 通过`
 - `jump_cut_validation = 通过`
@@ -82,7 +82,7 @@
 
 硬规则：
 - 不允许只改视频、不改口径
-- 不允许只在工作分支改口径、不同步默认主读取分支 `codex/user-readable-map`
+- 不允许只在工作分支改口径、不同步默认主读取分支
 - 不允许把历史样片写成当前最新样片
 - 不允许把 `technical_validation` 写成 `content_validation`
 - 不允许用户未最终确认前写 `send_ready = yes`

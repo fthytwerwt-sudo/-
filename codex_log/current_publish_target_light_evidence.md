@@ -3,7 +3,7 @@
 ## 对应对象
 
 - 当前最新复审对象：`dist/latest_review_pack/`
-- 当前 round 指向：`round32_全片边框残留与跳切连续性修复`
+- 当前 round 指向：`round33_正反展示提示卡补齐与风格统一`
 - 当前完整正片：`dist/latest_review_pack/full.mp4`
 - 当前中段预览：`dist/latest_review_pack/middle_preview.mp4`
 - 当前审片入口：`dist/latest_review_pack/review_manifest.md`
@@ -14,54 +14,60 @@
 - 历史云端正式输出：`oss://zvip1-video-beijing/video-factory/final/20260412T150420Z/formal_api_demo.mp4`
 - 当前解释：该对象只代表 20260412 当时口径下的历史通过样片，不再是当前最新复审 target。
 
-## 主读取分支 Git 可追踪轻量证据包
+## Git 可追踪轻量证据包
 
 1. `dist/latest_review_pack/review_manifest.md`
    - 当前 ChatGPT / 用户复审入口。
-   - 明确复审顺序：
-     - 先看边框残留报告
-     - 再看跳切连续性报告
-     - 再看 30-32 秒问题窗口
-     - 再看 middle preview
-     - 最后看 full
+   - 明确复审顺序：先看正反提示卡关键帧，再看 `middle_preview.mp4`，再看 30-32 秒问题窗口、切点联系表和 full。
 2. `dist/latest_review_pack/summary.json`
-   - 当前 round32 验证状态摘要。
+   - 当前 round33 验证状态摘要。
    - 可直接确认：
      - `border_residue_validation = 通过`
      - `jump_cut_validation = 通过`
      - `technical_validation = 通过`
      - `content_validation = 待用户 / ChatGPT 最终复审`
      - `send_ready = false`
-3. `codex_log/current_publish_target.md`
-   - 当前复审 target、validation 状态与 remaining blocker。
-4. `codex_log/20260425_默认主读取分支口径同步与视频修改同步规则.md`
-   - 本轮同步差异、修改范围与新增规则。
-
-## 来源分支 / 本地审片包证据
-
-以下文件属于来源视频工作分支 `codex/doubao-vnext-direct-fix-20260417` 或本地审片包证据；`codex/user-readable-map` 本轮只同步轻量入口与状态摘要，不新增视频二进制。
-
-1. `dist/latest_review_pack/timeline.json`
+3. `dist/latest_review_pack/timeline.json`
    - 当前 segment / shot 时间轴与承载方式。
-2. `dist/latest_review_pack/cut_map.md`
+   - 可直接确认《正面展示》提示卡位于反面录屏之后、正面录屏之前。
+4. `dist/latest_review_pack/cut_map.md`
    - 当前逐镜头承载说明。
-3. `dist/latest_review_pack/cut_contact_sheet.jpg`
+5. `dist/latest_review_pack/cut_contact_sheet.jpg`
    - 当前按镜头切点抽帧的联系表。
-4. `dist/latest_review_pack/problem_windows/30_32s.mp4`
+6. `dist/latest_review_pack/反面展示提示卡_单帧.png`
+   - 反面展示提示卡 9:16 单帧。
+7. `dist/latest_review_pack/正面展示提示卡_单帧.png`
+   - 正面展示提示卡 9:16 单帧。
+8. `dist/latest_review_pack/正反提示卡_并排对比.png`
+   - 正反提示卡统一风格对比图。
+9. `dist/latest_review_pack/problem_windows/30_32s.mp4`
    - 当前保留的 30-32 秒问题窗口。
-5. `dist/latest_review_pack/problem_windows/30_32s_frames.jpg`
-   - 30-32 秒高频抽帧联系表。
-6. `codex_log/20260424_round32_全片边框残留与跳切连续性修复.md`
-   - round32 生成、修复、验证与防复发脚本落地日志。
-7. `scripts/视频全片边框与跳切审计.py`
-   - 后续每轮输出前用于自动抽帧检查边框残留和跳切风险的脚本。
+   - 该窗口仍落在正面真实录屏内部。
+10. `dist/latest_review_pack/problem_windows/30_32s_frames.jpg`
+    - 30-32 秒高频抽帧联系表。
+11. `dist/latest_review_pack/audit/full_border_residue_report.md`
+    - round33 全片边框残留报告。
+12. `dist/latest_review_pack/audit/full_jump_cut_report.md`
+    - round33 全片跳切连续性报告。
+13. `dist/latest_review_pack/audit/border_residue_contact_sheet.jpg`
+    - round33 全片边框残留抽帧联系表。
+14. `dist/latest_review_pack/audit/jump_cut_contact_sheet.jpg`
+    - round33 全片跳切抽帧联系表。
+15. `codex_log/20260425_round33_正反展示提示卡补齐与风格统一.md`
+    - round33 生成、修复、验证与口径同步日志。
+16. `scripts/元素娃娃线_round33_正反展示提示卡补齐与风格统一.py`
+    - round33 局部修复生成脚本。
+17. `scripts/视频全片边框与跳切审计.py`
+    - 后续每轮输出前用于自动抽帧检查边框残留和跳切风险的脚本。
 
 ## 这些轻量证据共同证明什么
 
 - 当前最新复审对象是谁：
   - `dist/latest_review_pack/`
 - 当前审片包指向哪一轮：
-  - `round32_全片边框残留与跳切连续性修复`
+  - `round33_正反展示提示卡补齐与风格统一`
+- 当前中段结构是什么：
+  - 反面展示提示卡 -> 反面真实录屏 -> 正面展示提示卡 -> 正面真实录屏 -> 结果差提示卡
 - 当前技术状态是什么：
   - `technical_validation（技术验证）`：`通过`
   - `border_residue_validation（边框残留验证）`：`通过`
@@ -72,8 +78,9 @@
 - 当前证据链原则是什么：
   - 中段主体仍由用户真实录屏承担。
   - 卡片 / PPT / 图片只允许辅助解释，不允许替代证据。
+  - 新增《正面展示》提示卡不能替代正面真实录屏。
 - 当前不能证明什么：
-  - 不能证明 round32 已经可直接发送。
+  - 不能证明 round33 已经可直接发送。
   - 不能证明 `content_validation` 已通过。
   - 不能证明 `云端剪辑` runtime 已稳定跑通。
 
@@ -86,8 +93,8 @@
 
 - 20260412 是当时口径下的历史通过样片。
 - 历史日志不删除，继续用于追溯旧判断。
-- 当前复审 target 已切到 round32，不得再用 20260412 冒充当前最新可发样片。
+- 当前复审 target 已切到 round33，不得再用 20260412 冒充当前最新可发样片。
 
 ## 当前一句话
 
-- 当前最新复审对象是 `dist/latest_review_pack/`，指向 `round32_全片边框残留与跳切连续性修复`；技术扫描通过不等于内容最终过线，`content_validation = 待用户 / ChatGPT 最终复审`，`send_ready = no`。
+- 当前最新复审对象是 `dist/latest_review_pack/`，指向 `round33_正反展示提示卡补齐与风格统一`；技术扫描通过不等于内容最终过线，`content_validation = 待用户 / ChatGPT 最终复审`，`send_ready = no`。
