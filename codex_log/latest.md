@@ -1,5 +1,33 @@
 # Latest
 
+## 20260424｜PR #4 交接口径修正与状态清理
+
+- `已确认` 当前 PR #4 分支是 `fix/no-zoom-completeness-layout`，base 是 `main`，PR 仍保持 draft，不合并。
+- `已确认` PR #4 的正确交接口径不是“round27 项目产物缺失”，而是三层并列：
+  - `no_zoom_completeness` 不放大完整可读最小链路技术修复；
+  - `round27_首拍完整信息块修复` 的分支接手口径纠偏；
+  - `content_validation` 仍待基于正确视频工作分支继续复审。
+- `已确认` `no_zoom_completeness` 最小链路技术修复已在本 PR 分支落地：
+  - `generate_demo.py` 渲染前高度估算、safe_area 容量检查、自动拆拍、layout_metrics 输出；
+  - `video_builder.swift` 按真实文字高度绘制，并支持 1x 默认视图 PNG；
+  - `tests/test_generate_demo.py` 覆盖 no_zoom validation fixture；
+  - `dist/20260424_不放大完整可读_no_zoom_completeness/` 保留 1x review 图与 layout_metrics。
+- `已确认` `no_zoom_completeness` 最小验证证据：
+  - `python3 -m unittest tests/test_generate_demo.py`
+  - `python3 generate_demo.py --layout-fixture`
+  - `python3 generate_demo.py`
+  - `git diff --check`
+  - `layout_metrics: split_count = 2 / any_overflow = false`
+- `已确认` `round27_首拍完整信息块修复` 的 4 个关键复审产物存在于正确视频工作分支：
+  - `codex/doubao-vnext-direct-fix-20260417`
+  - `fix/no-zoom-completeness-layout` 未携带这些二进制产物，只能说明 PR 分支缺产物，不能写成 `round27` 项目事实缺失。
+- `已确认` 当前 vNext 活动线已在正确视频工作分支推进到：
+  - `round29_中段图片页风格与正反差修复`
+  - `origin/codex/doubao-vnext-direct-fix-20260417` 当前对象：`8bb7ef37afe73077c3493a25e6b1885ca7192036`
+  - `send_ready = no`
+- `待验证` PR #4 不包含 round27 / round28 / round29 内容最终验收，不声明可直接发送。
+- `待验证` `content_validation` 只能写为：待基于正确分支继续复审；不得把 no_zoom 最小技术验证成功写成 vNext 全链路内容过线。
+
 ## 20260424｜round27 产物接手审计纠偏
 
 - `已确认` 本轮只做 GitHub 分支产物找回与接手审计口径纠偏；没有重新生成视频，没有修改任何 `round27` 视频内容。
