@@ -1,0 +1,42 @@
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'codex_log/audio_reference/20260425_语音样本/语音样本_分析副本.m4a':
+  Metadata:
+    major_brand     : M4A
+    minor_version   : 512
+    compatible_brands: M4A isomiso2
+    encoder         : Lavf60.3.100
+  Duration: 00:00:30.67, start: 0.000000, bitrate: 109 kb/s
+  Stream #0:0[0x1](und): Audio: aac (LC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 107 kb/s (default)
+    Metadata:
+      handler_name    : Core Media Audio
+      vendor_id       : [0][0][0][0]
+Stream mapping:
+  Stream #0:0 -> #0:0 (aac (native) -> pcm_s16le (native))
+Press [q] to stop, [?] for help
+Output #0, null, to 'pipe:':
+  Metadata:
+    major_brand     : M4A
+    minor_version   : 512
+    compatible_brands: M4A isomiso2
+    encoder         : Lavf60.3.100
+  Stream #0:0(und): Audio: pcm_s16le, 192000 Hz, stereo, s16, 6144 kb/s (default)
+    Metadata:
+      handler_name    : Core Media Audio
+      vendor_id       : [0][0][0][0]
+      encoder         : Lavc60.3.100 pcm_s16le
+size=       0kB time=-577014:32:22.77 bitrate=  -0.0kbits/s speed=N/A
+size=N/A time=00:00:15.50 bitrate=N/A speed=  31x
+size=N/A time=00:00:27.80 bitrate=N/A speed=32.5x
+video:0kB audio:23020kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: unknown
+[Parsed_loudnorm_0 @ 0x136604690]
+{
+	"input_i" : "-9.10",
+	"input_tp" : "0.22",
+	"input_lra" : "2.50",
+	"input_thresh" : "-19.34",
+	"output_i" : "-15.61",
+	"output_tp" : "-5.01",
+	"output_lra" : "1.80",
+	"output_thresh" : "-25.83",
+	"normalization_type" : "dynamic",
+	"target_offset" : "-0.39"
+}

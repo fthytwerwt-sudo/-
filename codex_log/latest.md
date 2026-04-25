@@ -1,5 +1,20 @@
 # Latest
 
+## 20260425｜语音样本只读排查与声音参考锚点
+
+- `已确认` 本轮任务只做语音样本定位、音频基础参数分析、声音参考锚点落地与仓库口径更新；不改视频、不替换旁白、不生成新 round、不做 TTS 试配。
+- `已确认` 当前 latest_review_pack 仍指向：`round34_中段双展示提示卡_正反分段提示修复`。
+- `已确认` 用户语音样本已通过兜底搜索命中：`/Users/fan/Documents/视频工厂/素材录制/语音样本_04-25-2026 22-19-11_1.MP4`。
+- `已确认` 样本用于记录 `可爱女生向导音` 的 reference anchor（参考锚点）；它不等于最终 TTS 方案已确定，也不等于声音内容验证通过。
+- `部分成立` `ffmpeg` 可用并已完成分析用音频副本提取、`volumedetect`、`astats`、`silencedetect` 与 `loudnorm` 初步测量；`ffprobe` 未在本机可执行路径中命中，本轮元数据读取降级使用 `ffmpeg` 输入信息。
+- `已确认` 音频基础参数报告：`codex_log/20260425_语音样本_audio_reference_report.md`。
+- `已确认` 分析文本输出目录：`codex_log/audio_reference/20260425_语音样本/`。
+- `已确认` 当前视频状态未改变：
+  - `content_validation = 待用户 / ChatGPT 最终复审`
+  - `full_content_validation = 待用户 / ChatGPT 最终复审`
+  - `send_ready = no`
+- `待验证` 下一步声音动作是基于该样本做 10-15 秒最小声音试配，再和当前视频开头 / 结尾主持壳做听感匹配复审；不得直接全片替换。
+
 ## 20260425｜round34 中段双展示提示卡正反分段提示修复
 
 - `已确认` 当前视频工作分支为 `codex/doubao-vnext-direct-fix-20260417`；该分支当前由 Git worktree `/private/tmp/视频工厂_round28_complete_readability` 持有。

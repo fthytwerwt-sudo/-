@@ -70,6 +70,13 @@
    - 本轮继续使用的边框残留与跳切审计脚本。
 21. `codex_log/20260425_round34_中段双展示提示卡_正反分段提示修复.md`
    - round34 生成、修复、验证与口径同步日志。
+22. `codex_log/20260425_语音样本_audio_reference_report.md`
+   - 用户语音样本 reference anchor 的基础参数报告。
+   - 记录样本路径、文件名、容器 / 编码 / 时长 / 采样率 / 声道 / 音量 / 静音段等客观参数。
+   - 只能证明“样本已找到并已做基础参数分析”，不能证明声音已通过内容验证。
+23. `codex_log/audio_reference/20260425_语音样本/`
+   - 本轮音频分析文本输出目录。
+   - `语音样本_分析副本.m4a` 为本地分析副本，不代表最终 TTS 产物，不直接替换当前视频音轨。
 
 ## 这些轻量证据共同证明什么
 
@@ -89,6 +96,11 @@
   - `content_validation（内容验证）`：`待用户 / ChatGPT 最终复审`
   - `full_content_validation（全片内容验证）`：`待用户 / ChatGPT 最终复审`
   - `send_ready（可直接发送）`：`no`
+- 当前声音参考状态是什么：
+  - `voice_reference_anchor`：用户样本已提供，待听感复审与试配
+  - `voice_validation_status`：待验证
+  - `tts_vendor_status`：待验证
+  - `next_voice_step`：先做 10-15 秒最小声音试配，不直接全片替换
 - 当前证据链原则是什么：
   - 中段主体仍由用户真实录屏承担。
   - 卡片 / PPT / 图片只允许辅助解释，不允许替代证据。
@@ -97,6 +109,9 @@
   - 不能证明 round34 已经可直接发送。
   - 不能证明 `content_validation` 已通过。
   - 不能证明 `云端剪辑` runtime 已稳定跑通。
+  - 不能证明最终 TTS 供应商已确定。
+  - 不能证明用户语音样本已经通过项目听感验证。
+  - 不能证明单个约 30 秒样本足以作为完整 voice cloning 训练集。
 
 ## 当前本地审片包
 
@@ -111,4 +126,4 @@
 
 ## 当前一句话
 
-- 当前最新复审对象是 `dist/latest_review_pack/`，指向 `round34_中段双展示提示卡_正反分段提示修复`；用户已暂定接受中段并要求当前不继续修改中段；技术扫描通过与中段暂定接受都不等于全片内容最终过线，`content_validation = 待用户 / ChatGPT 最终复审`，`send_ready = no`。
+- 当前最新复审对象是 `dist/latest_review_pack/`，指向 `round34_中段双展示提示卡_正反分段提示修复`；用户已暂定接受中段并要求当前不继续修改中段；技术扫描通过与中段暂定接受都不等于全片内容最终过线，`content_validation = 待用户 / ChatGPT 最终复审`，`send_ready = no`；声音路线已新增用户语音样本 reference anchor，但仍待最小声音试配与听感复审。

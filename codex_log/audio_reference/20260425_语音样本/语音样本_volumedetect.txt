@@ -1,0 +1,32 @@
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'codex_log/audio_reference/20260425_语音样本/语音样本_分析副本.m4a':
+  Metadata:
+    major_brand     : M4A
+    minor_version   : 512
+    compatible_brands: M4A isomiso2
+    encoder         : Lavf60.3.100
+  Duration: 00:00:30.67, start: 0.000000, bitrate: 109 kb/s
+  Stream #0:0[0x1](und): Audio: aac (LC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 107 kb/s (default)
+    Metadata:
+      handler_name    : Core Media Audio
+      vendor_id       : [0][0][0][0]
+Stream mapping:
+  Stream #0:0 -> #0:0 (aac (native) -> pcm_s16le (native))
+Press [q] to stop, [?] for help
+Output #0, null, to 'pipe:':
+  Metadata:
+    major_brand     : M4A
+    minor_version   : 512
+    compatible_brands: M4A isomiso2
+    encoder         : Lavf60.3.100
+  Stream #0:0(und): Audio: pcm_s16le, 44100 Hz, stereo, s16, 1411 kb/s (default)
+    Metadata:
+      handler_name    : Core Media Audio
+      vendor_id       : [0][0][0][0]
+      encoder         : Lavc60.3.100 pcm_s16le
+size=       0kB time=00:00:00.00 bitrate=N/A speed=   0x
+size=N/A time=00:00:30.67 bitrate=N/A speed= 460x
+video:0kB audio:5288kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: unknown
+[Parsed_volumedetect_0 @ 0x128e04880] n_samples: 2707206
+[Parsed_volumedetect_0 @ 0x128e04880] mean_volume: -12.7 dB
+[Parsed_volumedetect_0 @ 0x128e04880] max_volume: 0.0 dB
+[Parsed_volumedetect_0 @ 0x128e04880] histogram_0db: 10198

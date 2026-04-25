@@ -41,9 +41,12 @@
 ## 当前唯一最高优先级 blocker
 
 - `用户 / ChatGPT 尚未对 round34 完整正片做最终内容复审`
+- `声音路线新增用户语音样本 reference anchor，仍待最小声音试配与听感复审`
 - 当前不能写：
   - `content_validation = 通过`
   - `send_ready = yes`
+  - `最终 TTS 已选定`
+  - `声音路线已完成验证`
   - `云端剪辑已稳定跑通`
 
 ## 本轮结构变化
@@ -86,6 +89,8 @@
 - `dist/latest_review_pack/audit/jump_cut_contact_sheet.jpg`
 - `codex_log/20260425_round34_中段双展示提示卡_正反分段提示修复.md`
 - `codex_log/current_publish_target_light_evidence.md`
+- `codex_log/20260425_语音样本_audio_reference_report.md`
+- `codex_log/20260425_语音样本只读排查与声音参考锚点.md`
 
 ## 当前 `local_review_pack` 证据
 
@@ -129,7 +134,7 @@
 - 当前复审 target：`dist/latest_review_pack/`
 - 当前可打开本地审片包：`/private/tmp/视频工厂_round28_complete_readability/dist/latest_review_pack/`
 - 本轮同步要求：必须 push 当前视频工作分支，并同步默认主读取分支 `codex/user-readable-map`
-- 未同步事项：用户 / ChatGPT 全片最终内容复审结论尚未产生
+- 未同步事项：用户 / ChatGPT 全片最终内容复审结论尚未产生；声音路线只新增样本参考锚点，尚未完成最小声音试配与听感复审
 
 ## 最后更新时间
 
@@ -144,3 +149,5 @@
 - `codex_log/20260425_round33_正反展示提示卡补齐与风格统一.md`
 - `codex_log/20260425_round34_中段双展示提示卡_正反分段提示修复.md`
 - `codex_log/20260425_round34_中段暂定通过与本地审片路径修正.md`
+- `codex_log/20260425_语音样本只读排查与声音参考锚点.md`
+- `codex_log/20260425_语音样本_audio_reference_report.md`
