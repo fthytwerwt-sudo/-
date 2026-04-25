@@ -91,6 +91,19 @@
    - 本轮声音 trial 失败排查日志。
    - 记录用户反馈、请求体核对、模型能力层判断、样本未进入生成链路、仓库旧规则冲突与下一轮最小路线。
    - 只能证明失败排查完成，不能证明声音已通过。
+28. `dist/voice_trials/20260425_round28_voice_clone_trial/语音样本_复刻输入_10-20秒.wav`
+   - 已裁出的合规声音复刻输入样本。
+   - 参数为 `17.00s / wav / pcm_s16le / 24000 Hz / mono / 816078 bytes`。
+   - 只能证明输入样本已准备好，不能证明 custom voice 已创建。
+29. `dist/voice_trials/20260425_round28_voice_clone_trial/voice_clone_request_debug_sanitized.json`
+   - 本轮声音复刻创建请求的脱敏记录。
+   - 记录 `qwen-voice-enrollment -> qwen3-tts-vc-realtime-2026-01-15` 实际调用。
+   - 当前返回 `400 / Arrearage`，证明阻塞发生在 create_custom_voice 阶段。
+30. `dist/voice_trials/20260425_round28_voice_clone_trial/README.md`
+   - 本轮声音复刻最小试配说明。
+   - 记录用户授权、复刻输入样本参数、API 路线和阻塞结果。
+31. `codex_log/20260425_round28_声音复刻最小试配.md`
+   - 本轮声音复刻执行日志。
 
 ## 这些轻量证据共同证明什么
 
@@ -112,10 +125,11 @@
   - `send_ready（可直接发送）`：`no`
 - 当前声音参考状态是什么：
   - `voice_reference_anchor`：用户样本已提供，待听感复审与试配
-  - `voice_trial_status`：round28 10-15 秒最小 trial 已生成，但用户反馈为不像样本、非常生硬、AI 感明显；当前 trial 不通过听感目标
+  - `voice_trial_status`：上一轮 round28 10-15 秒最小 trial 已生成，但用户反馈为不像样本、非常生硬、AI 感明显；当前系统音色 trial 不通过听感目标
+  - `voice_clone_trial_status`：用户授权已记录，合规复刻输入样本已生成，但 create_custom_voice 被 `400 / Arrearage` 阻塞，新的 voice cloning trial 未生成
   - `voice_validation_status`：待验证
   - `tts_vendor_status`：待验证
-  - `next_voice_step`：先取得用户明确授权，再走 voice cloning 最小修正试配；若不授权上传样本，则退到 voice design，不直接全片替换
+  - `next_voice_step`：先恢复阿里百炼账户可用状态，再复用本轮裁好的样本继续 voice cloning 最小试配；不直接全片替换
 - 当前证据链原则是什么：
   - 中段主体仍由用户真实录屏承担。
   - 卡片 / PPT / 图片只允许辅助解释，不允许替代证据。
@@ -127,6 +141,8 @@
   - 不能证明最终 TTS 供应商已确定。
   - 不能证明用户语音样本已经通过项目听感验证。
   - 不能证明本轮声音 trial 已经通过听感复审。
+  - 不能证明 custom voice 已创建成功。
+  - 不能证明新的 voice cloning trial 已生成。
   - 不能证明单个约 30 秒样本足以作为完整 voice cloning 训练集。
 
 ## 当前本地审片包
@@ -142,4 +158,4 @@
 
 ## 当前一句话
 
-- 当前最新复审对象是 `dist/latest_review_pack/`，指向 `round34_中段双展示提示卡_正反分段提示修复`；用户已暂定接受中段并要求当前不继续修改中段；技术扫描通过与中段暂定接受都不等于全片内容最终过线，`content_validation = 待用户 / ChatGPT 最终复审`，`send_ready = no`；声音路线已新增用户语音样本 reference anchor，round28 10-15 秒最小声音 trial 已被用户反馈为不像样本且 AI 感明显，当前声音仍待授权后的最小修正试配。
+- 当前最新复审对象是 `dist/latest_review_pack/`，指向 `round34_中段双展示提示卡_正反分段提示修复`；用户已暂定接受中段并要求当前不继续修改中段；技术扫描通过与中段暂定接受都不等于全片内容最终过线，`content_validation = 待用户 / ChatGPT 最终复审`，`send_ready = no`；声音路线已新增用户语音样本 reference anchor，用户授权后的声音复刻最小试配已启动，但阿里百炼在 create_custom_voice 阶段返回 `400 / Arrearage`，当前仍未生成新的 voice cloning trial。

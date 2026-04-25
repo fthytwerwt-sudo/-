@@ -41,7 +41,7 @@
 ## 当前唯一最高优先级 blocker
 
 - `用户 / ChatGPT 尚未对 round34 完整正片做最终内容复审`
-- `声音路线已新增用户语音样本 reference anchor；round28 10-15 秒最小声音 trial 已被用户反馈为“不像样本、非常生硬、AI 感明显”，当前已完成失败排查，仍待授权后的最小修正试配`
+- `声音路线已新增用户语音样本 reference anchor；用户授权后的声音复刻最小试配已启动，但阿里百炼在 create_custom_voice 阶段返回 400 / Arrearage，当前仍未生成可听的 voice cloning trial`
 - 当前不能写：
   - `content_validation = 通过`
   - `send_ready = yes`
@@ -95,6 +95,10 @@
 - `dist/voice_trials/20260425_round28_10s_voice_trial/round28_声音试配_10-15秒.m4a`
 - `codex_log/20260425_round28_最小声音试配.md`
 - `codex_log/20260425_round28_声音试配失败排查.md`
+- `codex_log/20260425_round28_声音复刻最小试配.md`
+- `dist/voice_trials/20260425_round28_voice_clone_trial/README.md`
+- `dist/voice_trials/20260425_round28_voice_clone_trial/语音样本_复刻输入_10-20秒.wav`
+- `dist/voice_trials/20260425_round28_voice_clone_trial/voice_clone_request_debug_sanitized.json`
 
 ## 当前 `local_review_pack` 证据
 
@@ -138,7 +142,7 @@
 - 当前复审 target：`dist/latest_review_pack/`
 - 当前可打开本地审片包：`/private/tmp/视频工厂_round28_complete_readability/dist/latest_review_pack/`
 - 本轮同步要求：必须 push 当前视频工作分支，并同步默认主读取分支 `codex/user-readable-map`
-- 未同步事项：用户 / ChatGPT 全片最终内容复审结论尚未产生；round28 最小声音 trial 已被用户判为失败，下一轮若走声音复刻需要用户明确授权上传样本
+- 未同步事项：用户 / ChatGPT 全片最终内容复审结论尚未产生；用户授权已到位，但阿里百炼账户 `Arrearage` 阻塞声音复刻 create_custom_voice，当前仍未生成新的 voice cloning trial
 
 ## 最后更新时间
 
@@ -157,3 +161,4 @@
 - `codex_log/20260425_语音样本_audio_reference_report.md`
 - `codex_log/20260425_round28_最小声音试配.md`
 - `codex_log/20260425_round28_声音试配失败排查.md`
+- `codex_log/20260425_round28_声音复刻最小试配.md`
