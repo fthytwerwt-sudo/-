@@ -1,6 +1,6 @@
 # latest_review_pack 审片入口
 
-`已确认` 本包指向 `round33_正反展示提示卡补齐与风格统一`。
+`已确认` 本包指向 `round34_中段双展示提示卡_正反分段提示修复`。
 
 - 仓库相对路径：`dist/latest_review_pack/`
 - 本地绝对路径：`/Users/fan/Documents/视频工厂/dist/latest_review_pack/`
@@ -9,7 +9,7 @@
 ## 本轮先看顺序
 
 1. 先看 `反面展示提示卡_单帧.png`、`正面展示提示卡_单帧.png`、`正反提示卡_并排对比.png`
-   - 判断正反提示卡是否统一为粉色樱花柔和展示牌风格，且为 9:16 竖屏重构。
+   - 判断正反提示卡是否统一参考图二的粉色樱花柔和展示牌风格，且为 9:16 竖屏重构。
 2. 再看 `middle_preview.mp4`
    - 确认中段结构为：反面展示提示卡 -> 反面真实录屏 -> 正面展示提示卡 -> 正面真实录屏 -> 结果差提示卡。
 3. 再看 `problem_windows/30_32s.mp4`
@@ -23,9 +23,10 @@
 
 | 文件 | 中文备注 |
 | --- | --- |
-| `full.mp4` | round33 最新完整正片。 |
-| `middle_preview.mp4` | round33 中段预览，用于快速检查正反提示卡与证据链。 |
-| `before_after.mp4` | round32 与 round33 中段对比视频。 |
+| `full.mp4` | round34 最新完整正片。 |
+| `middle_preview.mp4` | round34 中段预览，用于快速检查正反提示卡与证据链。 |
+| `before_after.mp4` | round33 与 round34 中段对比视频。 |
+| `图二参考图.png` | 用户本轮同步的图二参考图副本，只用于证明风格参考来源。 |
 | `cut_contact_sheet.jpg` | 按镜头切点抽帧，方便判断跳屏、风格断裂、卡片过短。 |
 | `反面展示提示卡_单帧.png` | 反面展示提示卡单帧图。 |
 | `正面展示提示卡_单帧.png` | 正面展示提示卡单帧图。 |
@@ -36,8 +37,8 @@
 | `audit/full_jump_cut_report.md` | 全片跳切连续性扫描报告。 |
 | `audit/border_residue_contact_sheet.jpg` | 全片边框残留抽帧联系表。 |
 | `audit/jump_cut_contact_sheet.jpg` | 全片跳切抽帧联系表。 |
-| `timeline.json` | round33 每个 segment / shot 的时间轴、承载方式、文件来源。 |
-| `cut_map.md` | round33 逐镜头说明。 |
+| `timeline.json` | round34 每个 segment / shot 的时间轴、承载方式、文件来源。 |
+| `cut_map.md` | round34 逐镜头说明。 |
 | `summary.json` | 写明 `technical_validation`、`content_validation`、`send_ready`、`remaining_blockers`。 |
 | `review_manifest.md` | 给 ChatGPT 的审片入口。 |
 
@@ -52,6 +53,6 @@
 
 - `border_residue_validation`: 通过
 - `jump_cut_validation`: 通过
-- `technical_validation`: 通过：round33 已生成 full/middle/before_after/problem window，正反提示卡已补齐并完成边框残留与跳切连续性扫描。
+- `technical_validation`: 通过：round34 已生成 full/middle/before_after/problem window，正反提示卡已补齐并完成边框残留与跳切连续性扫描。
 - `content_validation`: 待用户 / ChatGPT 最终复审
 - `send_ready`: no

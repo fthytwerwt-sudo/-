@@ -15,12 +15,12 @@
   - `content_validation`：`通过`
   - `user_acceptance`：`通过`
   - `send_ready`：`是`
-- 当前解释：上述状态只代表 20260412 当时口径下的历史 target，不代表当前 vNext / round33 可直接发送。
+- 当前解释：上述状态只代表 20260412 当时口径下的历史 target，不代表当前 vNext / round34 可直接发送。
 
 ## 当前复审 target
 
 - 当前最新复审对象：`dist/latest_review_pack/`
-- 当前 round 指向：`round33_正反展示提示卡补齐与风格统一`
+- 当前 round 指向：`round34_中段双展示提示卡_正反分段提示修复`
 - 当前完整正片：`dist/latest_review_pack/full.mp4`
 - 当前中段预览：`dist/latest_review_pack/middle_preview.mp4`
 - 当前 before / after：`dist/latest_review_pack/before_after.mp4`
@@ -34,11 +34,11 @@
 - `jump_cut_validation`：`通过`
 - `content_validation`：`待用户 / ChatGPT 最终复审`
 - `send_ready`：`no`
-- 当前判断：`round33 已完成正反展示提示卡局部修复并生成审片包；内容最终过线与可发送状态仍待用户 / ChatGPT 复审`
+- 当前判断：`round34 已完成中段双展示提示卡正反分段提示修复并生成审片包；内容最终过线与可发送状态仍待用户 / ChatGPT 复审`
 
 ## 当前唯一最高优先级 blocker
 
-- `用户 / ChatGPT 尚未对 round33 完整正片、中段 preview、正反提示卡关键帧做最终内容复审`
+- `用户 / ChatGPT 尚未对 round34 完整正片、中段 preview、正反提示卡关键帧做最终内容复审`
 - 当前不能写：
   - `content_validation = 通过`
   - `send_ready = yes`
@@ -46,8 +46,9 @@
 
 ## 本轮结构变化
 
-- round32 中段结构：反面提示卡 -> 反面真实录屏 -> 正面真实录屏 -> 结果差提示卡。
-- round33 中段结构：反面展示提示卡 -> 反面真实录屏 -> 正面展示提示卡 -> 正面真实录屏 -> 结果差提示卡。
+- 读取到的 round33 中段结构：反面展示提示卡 -> 反面真实录屏 -> 正面展示提示卡 -> 正面真实录屏 -> 结果差提示卡。
+- round34 中段结构：反面展示提示卡 -> 反面真实录屏 -> 正面展示提示卡 -> 正面真实录屏 -> 结果差提示卡。
+- round34 本轮实际变化是：基于用户本轮图二参考图，重构《反面展示》《正面展示》两张 720x1280、9:16 粉色樱花柔和展示牌提示卡，并保留录屏证据时间码不变。
 - 两张提示卡时长均为 `1.6s`。
 - 中段主要切点使用 `0.16s` 轻 crossfade；结果差卡回主持壳使用 `0.22s` 轻 crossfade。
 - 反面录屏与正面录屏仍是中段主体证据，卡片只承担段落标识。
@@ -56,10 +57,11 @@
 
 1. `dist/latest_review_pack/review_manifest.md`
 2. `dist/latest_review_pack/正反提示卡_并排对比.png`
-3. `dist/latest_review_pack/middle_preview.mp4`
-4. `dist/latest_review_pack/problem_windows/30_32s.mp4`
-5. `dist/latest_review_pack/cut_contact_sheet.jpg`
-6. `dist/latest_review_pack/full.mp4`
+3. `dist/latest_review_pack/反面展示提示卡_单帧.png`
+4. `dist/latest_review_pack/正面展示提示卡_单帧.png`
+5. `dist/latest_review_pack/middle_preview.mp4`
+6. `dist/latest_review_pack/cut_contact_sheet.jpg`
+7. `dist/latest_review_pack/full.mp4`
 
 ## 当前已追踪证据
 
@@ -68,6 +70,7 @@
 - `dist/latest_review_pack/timeline.json`
 - `dist/latest_review_pack/cut_map.md`
 - `dist/latest_review_pack/cut_contact_sheet.jpg`
+- `dist/latest_review_pack/图二参考图.png`
 - `dist/latest_review_pack/反面展示提示卡_单帧.png`
 - `dist/latest_review_pack/正面展示提示卡_单帧.png`
 - `dist/latest_review_pack/正反提示卡_并排对比.png`
@@ -77,7 +80,7 @@
 - `dist/latest_review_pack/audit/full_jump_cut_report.md`
 - `dist/latest_review_pack/audit/border_residue_contact_sheet.jpg`
 - `dist/latest_review_pack/audit/jump_cut_contact_sheet.jpg`
-- `codex_log/20260425_round33_正反展示提示卡补齐与风格统一.md`
+- `codex_log/20260425_round34_中段双展示提示卡_正反分段提示修复.md`
 - `codex_log/current_publish_target_light_evidence.md`
 
 ## 当前 `local_review_pack` 证据
@@ -91,14 +94,14 @@
 
 ## `lane_reason`
 
-- 当前对象已收束到 round33 审片包。
-- 当前动作不是继续生成视频，而是按 review_manifest 进行最终人工复审。
+- 当前对象已收束到 round34 审片包。
+- 当前动作是按 review_manifest 进行最终人工复审。
 - 用户最终确认前，不得把技术验证通过升级成内容通过。
 
 ## `lane_invalid_if`
 
 - 用户要求新开 round 或继续修视频内容。
-- 用户人工确认 round33 内容通过并允许更新 `send_ready`。
+- 用户人工确认 round34 内容通过并允许更新 `send_ready`。
 - `dist/latest_review_pack/summary.json` 指向发生变化。
 
 ## `parallel_recommendation`
@@ -116,11 +119,11 @@
 
 ## 当前同步状态
 
-- 状态分类：`formal_synced`
+- 状态分类：`task_branch_round34_review_pack_ready`
 - 当前工作分支：`codex/doubao-vnext-direct-fix-20260417`
 - 当前主读目录：`GPT数据源/`
 - 当前复审 target：`dist/latest_review_pack/`
-- 本轮同步结果：默认主读取分支 `codex/user-readable-map` 已同步到 round33 口径；视频产物完整文件在 `codex/doubao-vnext-direct-fix-20260417`
+- 本轮同步要求：必须 push 当前视频工作分支，并同步默认主读取分支 `codex/user-readable-map`
 - 未同步事项：用户 / ChatGPT 最终内容复审结论尚未产生
 
 ## 最后更新时间
@@ -134,3 +137,4 @@
 - `codex_log/20260424_round32_全片边框残留与跳切连续性修复.md`
 - `codex_log/20260425_全仓口径审计第一批修正.md`
 - `codex_log/20260425_round33_正反展示提示卡补齐与风格统一.md`
+- `codex_log/20260425_round34_中段双展示提示卡_正反分段提示修复.md`

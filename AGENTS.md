@@ -60,7 +60,7 @@
 `project_source/` 只作为历史 / 辅助主题化镜像，不得默认高于 `GPT数据源/` 当前 10 份执行包、`codex_log/latest.md` 或 `dist/latest_review_pack/`。
 
 当前已确认：
-- `latest_review_pack` 指向 `round33_正反展示提示卡补齐与风格统一`
+- `latest_review_pack` 指向 `round34_中段双展示提示卡_正反分段提示修复`
 - `technical_validation = 通过`
 - `border_residue_validation = 通过`
 - `jump_cut_validation = 通过`
