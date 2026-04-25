@@ -1,5 +1,20 @@
 # Latest
 
+## 20260425｜round28 声音试配失败排查
+
+- `已确认` 用户已听审 `dist/voice_trials/20260425_round28_10s_voice_trial/round28_声音试配_10-15秒.m4a`，反馈为：和样本完全不一样，非常生硬，一听就是 AI。
+- `已确认` 本轮只做声音路线诊断；未生成新音频，未修改视频 / 图片 / 原始素材 / 当前 trial 音频 / 脚本，未调用 TTS API，未上传用户样本。
+- `已确认` 当前 trial 请求体为 `qwen3-tts-instruct-flash-realtime + Serena` 系统音色 + 指令控制；请求体里没有用户样本、custom voice、voice cloning 或 voice design 字段。
+- `已确认` 失败主因：用户样本没有实际进入生成链路，当前路线只能做系统音色的风格指令控制，不能复刻用户样本声纹。
+- `部分成立` 文案韵律和后处理可能放大生硬 / AI 感，但不是“完全不像样本”的主因。
+- `待验证` 下一轮最值路线是：先取得用户明确授权，再走 `voice cloning（声音复刻）` 最小试配；若用户不授权上传样本，则退而走 `voice design（声音设计）`，不要继续盲调 `Serena`。
+- `已确认` 诊断日志：`codex_log/20260425_round28_声音试配失败排查.md`。
+- `已确认` 当前视频状态未改变：
+  - `latest_review_pack = round34_中段双展示提示卡_正反分段提示修复`
+  - `content_validation = 待用户 / ChatGPT 最终复审`
+  - `full_content_validation = 待用户 / ChatGPT 最终复审`
+  - `send_ready = no`
+
 ## 20260425｜round28 最小声音试配
 
 - `已确认` 本轮只生成 1 条 10-15 秒声音 trial（试配）音频；未修改任何视频、图片、原始素材、当前成片音轨或视频装配脚本。

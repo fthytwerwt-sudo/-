@@ -80,13 +80,17 @@
 24. `dist/voice_trials/20260425_round28_10s_voice_trial/README.md`
    - round28 最小声音 trial 说明。
    - 记录使用文案、TTS 工具 / 模型 / 音色 / 参数、输出路径、时长与响度基础信息。
-   - 只能证明 trial 已生成并可进入听感复审，不能证明声音已通过。
+   - 只能证明 trial 已生成；当前已收到用户失败反馈，不能证明声音已通过。
 25. `dist/voice_trials/20260425_round28_10s_voice_trial/round28_声音试配_10-15秒.m4a`
    - 本轮唯一声音试配音频。
    - 时长 `13.00s`，用于复审“低压、清楚、有一点可爱感的女生游戏向导音”是否接近目标。
    - 不替换当前视频音轨，不改变 `latest_review_pack`。
 26. `codex_log/20260425_round28_最小声音试配.md`
    - 本轮声音 trial 执行日志。
+27. `codex_log/20260425_round28_声音试配失败排查.md`
+   - 本轮声音 trial 失败排查日志。
+   - 记录用户反馈、请求体核对、模型能力层判断、样本未进入生成链路、仓库旧规则冲突与下一轮最小路线。
+   - 只能证明失败排查完成，不能证明声音已通过。
 
 ## 这些轻量证据共同证明什么
 
@@ -108,10 +112,10 @@
   - `send_ready（可直接发送）`：`no`
 - 当前声音参考状态是什么：
   - `voice_reference_anchor`：用户样本已提供，待听感复审与试配
-  - `voice_trial_status`：round28 10-15 秒最小 trial 已生成，待用户 / ChatGPT 听感复审
+  - `voice_trial_status`：round28 10-15 秒最小 trial 已生成，但用户反馈为不像样本、非常生硬、AI 感明显；当前 trial 不通过听感目标
   - `voice_validation_status`：待验证
   - `tts_vendor_status`：待验证
-  - `next_voice_step`：先听审本轮 trial，不直接全片替换
+  - `next_voice_step`：先取得用户明确授权，再走 voice cloning 最小修正试配；若不授权上传样本，则退到 voice design，不直接全片替换
 - 当前证据链原则是什么：
   - 中段主体仍由用户真实录屏承担。
   - 卡片 / PPT / 图片只允许辅助解释，不允许替代证据。
@@ -138,4 +142,4 @@
 
 ## 当前一句话
 
-- 当前最新复审对象是 `dist/latest_review_pack/`，指向 `round34_中段双展示提示卡_正反分段提示修复`；用户已暂定接受中段并要求当前不继续修改中段；技术扫描通过与中段暂定接受都不等于全片内容最终过线，`content_validation = 待用户 / ChatGPT 最终复审`，`send_ready = no`；声音路线已新增用户语音样本 reference anchor，并生成 round28 10-15 秒最小声音 trial，但仍待用户 / ChatGPT 听感复审。
+- 当前最新复审对象是 `dist/latest_review_pack/`，指向 `round34_中段双展示提示卡_正反分段提示修复`；用户已暂定接受中段并要求当前不继续修改中段；技术扫描通过与中段暂定接受都不等于全片内容最终过线，`content_validation = 待用户 / ChatGPT 最终复审`，`send_ready = no`；声音路线已新增用户语音样本 reference anchor，round28 10-15 秒最小声音 trial 已被用户反馈为不像样本且 AI 感明显，当前声音仍待授权后的最小修正试配。
