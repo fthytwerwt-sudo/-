@@ -3,8 +3,14 @@
 `已确认` 本包指向 `round34_中段双展示提示卡_正反分段提示修复`。
 
 - 仓库相对路径：`dist/latest_review_pack/`
-- 本地绝对路径：`/Users/fan/Documents/视频工厂/dist/latest_review_pack/`
+- 当前可打开本地绝对路径：`/private/tmp/视频工厂_round28_complete_readability/dist/latest_review_pack/`
 - `codex/user-readable-map` 只同步默认接手口径与轻量 manifest / summary；完整视频产物与图片文件以 `codex/doubao-vnext-direct-fix-20260417` 分支为准。
+
+## 用户最新中段复审结论
+
+- `已确认` 用户已打开当前可用本地审片包，并反馈 round34 中段“现在中段没什么问题了”。
+- `已确认` 中段状态记录为：`middle_segment_review = 用户暂定通过 / 暂不继续修改中段`。
+- `已确认` 该结论只代表中段暂定收束，不代表全片内容验证通过。
 
 ## 本轮先看顺序
 
@@ -45,6 +51,7 @@
 ## 不得写成已完成的结论
 
 - `content_validation` 不能因为技术扫描通过就写成通过。
+- `middle_segment_review` 暂定通过不能写成全片 `content_validation` 通过。
 - `send_ready` 必须保持 `no`，除非用户人工最终确认。
 - 不得说云端剪辑链路已稳定跑通。
 - 不得把提示卡写成中段主体证据；中段主体仍必须是用户真实录屏。
@@ -54,5 +61,7 @@
 - `border_residue_validation`: 通过
 - `jump_cut_validation`: 通过
 - `technical_validation`: 通过：round34 已生成 full/middle/before_after/problem window，正反提示卡已补齐并完成边框残留与跳切连续性扫描。
+- `middle_segment_review`: 用户暂定通过 / 暂不继续修改中段
 - `content_validation`: 待用户 / ChatGPT 最终复审
+- `full_content_validation`: 待用户 / ChatGPT 最终复审
 - `send_ready`: no

@@ -32,13 +32,15 @@
 - `technical_validation`：`通过`
 - `border_residue_validation`：`通过`
 - `jump_cut_validation`：`通过`
+- `middle_segment_review`：`用户暂定通过 / 暂不继续修改中段`
 - `content_validation`：`待用户 / ChatGPT 最终复审`
+- `full_content_validation`：`待用户 / ChatGPT 最终复审`
 - `send_ready`：`no`
-- 当前判断：`round34 已完成中段双展示提示卡正反分段提示修复并生成审片包；内容最终过线与可发送状态仍待用户 / ChatGPT 复审`
+- 当前判断：`round34 中段结构已获用户暂定接受，当前不继续修改中段；全片内容最终过线与可发送状态仍待用户 / ChatGPT 复审`
 
 ## 当前唯一最高优先级 blocker
 
-- `用户 / ChatGPT 尚未对 round34 完整正片、中段 preview、正反提示卡关键帧做最终内容复审`
+- `用户 / ChatGPT 尚未对 round34 完整正片做最终内容复审`
 - 当前不能写：
   - `content_validation = 通过`
   - `send_ready = yes`
@@ -49,6 +51,8 @@
 - 读取到的 round33 中段结构：反面展示提示卡 -> 反面真实录屏 -> 正面展示提示卡 -> 正面真实录屏 -> 结果差提示卡。
 - round34 中段结构：反面展示提示卡 -> 反面真实录屏 -> 正面展示提示卡 -> 正面真实录屏 -> 结果差提示卡。
 - round34 本轮实际变化是：基于用户本轮图二参考图，重构《反面展示》《正面展示》两张 720x1280、9:16 粉色樱花柔和展示牌提示卡，并保留录屏证据时间码不变。
+- 用户最新复审反馈：round34 中段“现在中段没什么问题了”，仓库口径记为中段暂定接受，当前不继续修改中段。
+- 注意：中段暂定接受不等于全片内容验证通过。
 - 两张提示卡时长均为 `1.6s`。
 - 中段主要切点使用 `0.16s` 轻 crossfade；结果差卡回主持壳使用 `0.22s` 轻 crossfade。
 - 反面录屏与正面录屏仍是中段主体证据，卡片只承担段落标识。
@@ -85,7 +89,7 @@
 
 ## 当前 `local_review_pack` 证据
 
-- `/Users/fan/Documents/视频工厂/dist/latest_review_pack/`
+- `/private/tmp/视频工厂_round28_complete_readability/dist/latest_review_pack/`
 - `dist/latest_review_pack/`
 
 ## `lane_recommendation`
@@ -95,7 +99,7 @@
 ## `lane_reason`
 
 - 当前对象已收束到 round34 审片包。
-- 当前动作是按 review_manifest 进行最终人工复审。
+- 当前动作是按 review_manifest 进行全片最终人工复审；中段已暂定收束，当前不继续修改中段。
 - 用户最终确认前，不得把技术验证通过升级成内容通过。
 
 ## `lane_invalid_if`
@@ -123,8 +127,9 @@
 - 当前工作分支：`codex/doubao-vnext-direct-fix-20260417`
 - 当前主读目录：`GPT数据源/`
 - 当前复审 target：`dist/latest_review_pack/`
+- 当前可打开本地审片包：`/private/tmp/视频工厂_round28_complete_readability/dist/latest_review_pack/`
 - 本轮同步要求：必须 push 当前视频工作分支，并同步默认主读取分支 `codex/user-readable-map`
-- 未同步事项：用户 / ChatGPT 最终内容复审结论尚未产生
+- 未同步事项：用户 / ChatGPT 全片最终内容复审结论尚未产生
 
 ## 最后更新时间
 
@@ -138,3 +143,4 @@
 - `codex_log/20260425_全仓口径审计第一批修正.md`
 - `codex_log/20260425_round33_正反展示提示卡补齐与风格统一.md`
 - `codex_log/20260425_round34_中段双展示提示卡_正反分段提示修复.md`
+- `codex_log/20260425_round34_中段暂定通过与本地审片路径修正.md`

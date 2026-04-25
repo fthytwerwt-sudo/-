@@ -1,6 +1,9 @@
 {
   "round": "round34_中段双展示提示卡_正反分段提示修复",
   "baseline_round": "round33_正反展示提示卡补齐与风格统一",
+  "local_review_pack_path": "/private/tmp/视频工厂_round28_complete_readability/dist/latest_review_pack/",
+  "middle_segment_review": "用户暂定通过 / 暂不继续修改中段",
+  "full_content_validation": "待用户 / ChatGPT 最终复审",
   "border_residue_validation": "通过",
   "jump_cut_validation": "通过",
   "technical_validation": "通过：round34 已生成 full/middle/before_after/problem window，正反提示卡已补齐并完成边框残留与跳切连续性扫描。",
@@ -44,6 +47,7 @@
     "cut_contact_sheet": "/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/round34_中段双展示提示卡_正反分段提示修复/audit/cut_contact_sheet.jpg"
   },
   "remaining_blockers": [
-    "用户 / ChatGPT 尚未完成 round34 内容最终复审，send_ready 必须保持 no。"
+    "用户已暂定接受 round34 中段，当前不继续修改中段。",
+    "用户 / ChatGPT 尚未完成 round34 全片内容最终复审，send_ready 必须保持 no。"
   ]
 }

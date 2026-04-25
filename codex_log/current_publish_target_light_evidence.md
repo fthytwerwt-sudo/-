@@ -25,7 +25,9 @@
      - `border_residue_validation = 通过`
      - `jump_cut_validation = 通过`
      - `technical_validation = 通过`
+     - `middle_segment_review = 用户暂定通过 / 暂不继续修改中段`
      - `content_validation = 待用户 / ChatGPT 最终复审`
+     - `full_content_validation = 待用户 / ChatGPT 最终复审`
      - `send_ready = false`
 3. `dist/latest_review_pack/timeline.json`
    - 当前 segment / shot 时间轴与承载方式。
@@ -77,12 +79,15 @@
   - `round34_中段双展示提示卡_正反分段提示修复`
 - 当前中段结构是什么：
   - 反面展示提示卡 -> 反面真实录屏 -> 正面展示提示卡 -> 正面真实录屏 -> 结果差提示卡
+- 当前中段复审状态是什么：
+  - 用户已确认 round34 中段“暂时就这样”，仓库口径为 `middle_segment_review = 用户暂定通过 / 暂不继续修改中段`
 - 当前技术状态是什么：
   - `technical_validation（技术验证）`：`通过`
   - `border_residue_validation（边框残留验证）`：`通过`
   - `jump_cut_validation（跳切连续性验证）`：`通过`
 - 当前内容状态是什么：
   - `content_validation（内容验证）`：`待用户 / ChatGPT 最终复审`
+  - `full_content_validation（全片内容验证）`：`待用户 / ChatGPT 最终复审`
   - `send_ready（可直接发送）`：`no`
 - 当前证据链原则是什么：
   - 中段主体仍由用户真实录屏承担。
@@ -95,7 +100,7 @@
 
 ## 当前本地审片包
 
-- `/Users/fan/Documents/视频工厂/dist/latest_review_pack/`
+- `/private/tmp/视频工厂_round28_complete_readability/dist/latest_review_pack/`
 - `dist/latest_review_pack/`
 
 ## 为什么仍保留历史 20260412 证据
@@ -106,4 +111,4 @@
 
 ## 当前一句话
 
-- 当前最新复审对象是 `dist/latest_review_pack/`，指向 `round34_中段双展示提示卡_正反分段提示修复`；技术扫描通过不等于内容最终过线，`content_validation = 待用户 / ChatGPT 最终复审`，`send_ready = no`。
+- 当前最新复审对象是 `dist/latest_review_pack/`，指向 `round34_中段双展示提示卡_正反分段提示修复`；用户已暂定接受中段并要求当前不继续修改中段；技术扫描通过与中段暂定接受都不等于全片内容最终过线，`content_validation = 待用户 / ChatGPT 最终复审`，`send_ready = no`。

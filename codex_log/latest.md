@@ -14,16 +14,21 @@
 - `已确认` `latest_review_pack` 已更新指向：
   - `round34_中段双展示提示卡_正反分段提示修复`
 - `已确认` 当前审片包口径：
+  - `middle_segment_review = 用户暂定通过 / 暂不继续修改中段`
   - `border_residue_validation = 通过`
   - `jump_cut_validation = 通过`
   - `technical_validation = 通过`
   - `content_validation = 待用户 / ChatGPT 最终复审`
   - `send_ready = no`
+- `已确认` 用户已打开实际可用本地审片包路径：`/private/tmp/视频工厂_round28_complete_readability/dist/latest_review_pack/`。
+- `已确认` 用户最新反馈为“现在中段没什么问题了”，仓库口径记录为：round34 中段结构暂定接受，当前不继续修改中段。
+- `已确认` 中段暂定接受只代表 `middle_segment_review` 暂定收束，不代表全片 `content_validation` 通过。
 - `待验证` round34 内容最终是否过线仍需用户 / ChatGPT 人工复审。
 - `禁止误写` 不得把技术扫描通过写成内容最终通过；不得写 `send_ready = yes`；不得把云端剪辑写成稳定跑通。
 
 ## 当前最新审片入口
 
+- 当前可打开本地审片包：`/private/tmp/视频工厂_round28_complete_readability/dist/latest_review_pack/`
 - `dist/latest_review_pack/review_manifest.md`
 - `dist/latest_review_pack/summary.json`
 - `dist/latest_review_pack/full.mp4`
@@ -47,3 +52,4 @@
 - `dist/latest_review_pack/review_manifest.md`
 - `dist/latest_review_pack/summary.json`
 - `codex_log/20260425_round34_中段双展示提示卡_正反分段提示修复.md`
+- `codex_log/20260425_round34_中段暂定通过与本地审片路径修正.md`
