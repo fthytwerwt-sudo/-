@@ -170,6 +170,15 @@
 - `tts_vendor_status`：待验证。
 - `next_voice_step`：基于样本做 10-15 秒最小声音试配，不直接全片替换。
 
+### 8B. 声音复刻最小试配状态
+
+- `已确认` 用户已授权将合规裁剪样本用于《视频工厂》本项目内部最小声音复刻试配。
+- `已确认` 已复用合规复刻输入：`dist/voice_trials/20260425_round28_voice_clone_trial/语音样本_复刻输入_10-20秒.wav`。
+- `已确认` 已通过阿里百炼 `qwen-voice-enrollment -> qwen3-tts-vc-realtime-2026-01-15` 创建测试 custom voice，脱敏标识为 `qwen-t...de43`。
+- `已确认` 已生成 round28 声音复刻 trial：`dist/voice_trials/20260425_round28_voice_clone_trial/round28_声音复刻试配_10-15秒.wav`，时长 `12.96s`。
+- `待验证` 该复刻 trial 是否明显比上一轮 `Serena` 系统音色更接近用户样本，仍需用户 / ChatGPT 听感复审。
+- `voice_clone_trial_status`：已生成，待听感复审。
+
 必须保留以下边界：
 - 样本参考 ≠ 最终 TTS 方案。
 - 样本好听 ≠ 项目内容验证通过。

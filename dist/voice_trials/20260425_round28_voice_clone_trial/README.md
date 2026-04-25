@@ -40,8 +40,12 @@
 - 创建音色 API：`POST https://dashscope.aliyuncs.com/api/v1/services/audio/tts/customization`
 - 创建模型：`qwen-voice-enrollment`
 - 目标合成模型：`qwen3-tts-vc-realtime-2026-01-15`
-- `preferred_name`：`vf_r28_clone_20260426`
+- 用户 prompt 指定 `preferred_name`：`vf_r28_clone_20260426`
+- 实际使用 `preferred_name`：`vfr28clone0426`
+- 调整原因：官方 `preferred_name` 只允许数字 / 大小写字母 / 下划线且不超过 16 字符；原名超长，首次重试返回 `InvalidParameter`，缩短后成功。
 - 请求记录：`dist/voice_trials/20260425_round28_voice_clone_trial/voice_clone_request_debug_sanitized.json`
+- 合成请求记录：`dist/voice_trials/20260425_round28_voice_clone_trial/voice_clone_tts_request_debug_sanitized.json`
+- custom voice 脱敏标识：`qwen-t...de43`
 
 ## round28 文案
 
@@ -53,21 +57,31 @@
 ```
 
 - 来源路径：`dist/20260417_豆包的正确打开方式_vnext/round28_完整可读终修/subtitles/round28_完整可读终修.srt`
-- 说明：本轮准备按最小 TTS 断句版生成，但由于 custom voice 创建阶段被远端阻塞，未进入合成。
+- 说明：本轮按最小 TTS 断句版生成，不新增观点，不改成播音稿。
 
 ## 当前结果
 
 - `voice_clone_input_status`：已生成合规复刻输入样本。
-- `custom_voice_status`：未创建成功。
-- `custom_voice_id`：无。
-- `output_audio_status`：未生成。
-- 阻塞阶段：`create_custom_voice`
-- 错误码：`Arrearage`
-- 错误信息：`Access denied, please make sure your account is in good standing.`
-- 请求 ID：`62407946-568b-9d5a-b396-2531d2cdefe1`
+- `custom_voice_status`：已创建测试 custom voice。
+- `custom_voice_id`：`qwen-t...de43`（脱敏标识）。
+- `output_audio_status`：已生成 1 条声音复刻 trial。
+- 输出音频：`dist/voice_trials/20260425_round28_voice_clone_trial/round28_声音复刻试配_10-15秒.wav`
+- 实际时长：`12.96s`
+- 音频格式：`wav / pcm_s16le / 24000 Hz / mono`
+- 文件大小：`622124 bytes`
+- `ffmpeg` 解码验证：通过。
+- `volumedetect.mean_volume`：`-23.5 dB`
+- `volumedetect.max_volume`：`-5.8 dB`
+- `loudnorm.input_i`：`-23.57 LUFS`
+- `loudnorm.input_lra`：`2.20 LU`
+- 验证日志：
+  - `dist/voice_trials/20260425_round28_voice_clone_trial/复刻输出_ffmpeg_decode_check.txt`
+  - `dist/voice_trials/20260425_round28_voice_clone_trial/复刻输出_volumedetect.txt`
+  - `dist/voice_trials/20260425_round28_voice_clone_trial/复刻输出_loudnorm_measure.txt`
 
 ## 当前状态
 
+- `voice_clone_trial_status`：已生成，待用户 / ChatGPT 听感复审。
 - `voice_validation_status`：待验证。
 - `tts_vendor_status`：待验证。
 - `content_validation`：仍待用户 / ChatGPT 最终复审。
@@ -76,8 +90,7 @@
 
 ## 禁止误写
 
-- 本轮没有成功创建 custom voice。
-- 本轮没有成功生成声音复刻试配音频。
+- 本轮只创建测试 custom voice，用于《视频工厂》内部最小声音复刻试配。
 - 这不是最终音色。
 - 这不代表声音验证已通过。
 - 这不代表 `content_validation` 已通过。
