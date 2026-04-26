@@ -1,0 +1,45 @@
+{
+  "provider": "aliyun_bailian",
+  "endpoint": "https://dashscope.aliyuncs.com/api/v1/services/audio/tts/customization",
+  "request_method": "POST",
+  "model": "qwen-voice-enrollment",
+  "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+  "preferred_name": "vfsample20426",
+  "input_audio": {
+    "path": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_复刻输入_10-20秒.wav",
+    "absolute_path": "/private/tmp/视频工厂_user_readable_map_sync/dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_复刻输入_10-20秒.wav",
+    "duration_seconds": 17.0,
+    "format": "wav",
+    "codec": "pcm_s16le",
+    "sample_rate": 24000,
+    "channels": 1,
+    "sample_width_bytes": 2,
+    "frames": 408000,
+    "file_size_bytes": 816078
+  },
+  "create_payload_sanitized": {
+    "model": "qwen-voice-enrollment",
+    "input": {
+      "action": "create",
+      "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+      "preferred_name": "vfsample20426",
+      "audio": {
+        "data": "data:audio/wav;base64,<omitted>"
+      },
+      "language": "zh"
+    }
+  },
+  "attempts": [
+    {
+      "preferred_name": "vfsample20426",
+      "status_code": 200,
+      "elapsed_seconds": 4.686,
+      "request_id": "6da63d9f-7637-95e8-ac9f-6dc1c7ee3c21",
+      "code": null,
+      "message": null,
+      "voice_masked": "qwen-t...ac19",
+      "target_model": "qwen3-tts-vc-realtime-2026-01-15"
+    }
+  ],
+  "final_voice_masked": "qwen-t...ac19"
+}

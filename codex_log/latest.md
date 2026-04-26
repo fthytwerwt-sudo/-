@@ -1,5 +1,32 @@
 # Latest
 
+## 20260426｜语音样本2复刻与文案风格解析
+
+- `已确认` 本轮重开新语音样本链路，未沿用上一轮 A / B 声音试配结果；上一轮 A / B 只保留为失败参考。
+- `已确认` 已定位用户新样本：`/Users/fan/Documents/视频工厂/素材录制/语音样本 2.MP4`，候选数量为 `1`，未回退使用旧样本。
+- `已确认` 新样本只读解析：`23.16s / mov,mp4,m4a,3gp,3g2,mj2 / hevc / aac / 44100 Hz / stereo / mean_volume -13.3 dB / loudnorm.input_i -10.26 LUFS`。
+- `已确认` 已生成分析副本与复刻输入：
+  - `dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_分析副本.m4a`
+  - `dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_复刻输入_10-20秒.wav`
+- `已确认` 复刻输入样本为 `17.00s / wav / pcm_s16le / 24000 Hz / mono / 816078 bytes`，从原 MP4 `2.0s` 起连续裁剪。
+- `已确认` 已用新样本创建新的测试 custom voice，脱敏标识：`qwen-t...ac19`；`model = qwen-voice-enrollment`，`target_model = qwen3-tts-vc-realtime-2026-01-15`，`preferred_name = vfsample20426`。
+- `已确认` 已生成 1 条新样本声音复刻试听 trial：`dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav`。
+- `已确认` 试听 trial 可被 `ffmpeg` 解码：`13.60s / wav / pcm_s16le / 24000 Hz / mono / mean_volume -23.8 dB / loudnorm.input_i -23.72 LUFS`。
+- `已确认` 已尝试并完成完整 MP4 自动 ASR 转写，模型为 `paraformer-realtime-v2`；转写文件：`dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_转写文本_transcript.md`。
+- `待验证` 自动转写尚未人工校对，可能存在误识别；文案风格记录只能作为本轮 reference style，不能写成唯一标准风格。
+- `已确认` 已新增高保真文案风格记录：`codex_log/20260426_语音样本2_文案风格高保真记录.md`。
+- `已确认` 已新增音频参考报告：`codex_log/20260426_语音样本2_audio_reference_report.md`。
+- `已确认` 已新增执行日志：`codex_log/20260426_语音样本2复刻与文案风格解析.md`。
+- `已确认` 已新增本轮脚本：`scripts/语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis.py`。
+- `待验证` 本轮只证明 `technical_generation` 通过；`voice_validation_status` 仍为待用户 / ChatGPT 听感复审。
+- `已确认` 当前视频状态未改变：
+  - `latest_review_pack = round34_中段双展示提示卡_正反分段提示修复`
+  - `technical_validation = 通过`
+  - `middle_segment_review = 用户暂定通过 / 暂不继续修改中段`
+  - `content_validation = 待用户 / ChatGPT 最终复审`
+  - `full_content_validation = 待用户 / ChatGPT 最终复审`
+  - `send_ready = no`
+
 ## 20260426｜台湾口语开心降噪声音第二轮试配
 
 - `已确认` 本轮只生成《视频工厂》声音第二轮最小对照 trial；未修改视频、未替换全片音轨、未生成新视频 round。

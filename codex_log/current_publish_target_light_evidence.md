@@ -136,6 +136,26 @@
    - 本轮 A / B 技术生成、API 原始直出、节奏校准、降噪与音频验证的结构化摘要。
 43. `codex_log/20260426_台湾口语开心降噪声音试配.md`
    - 本轮声音第二轮试配执行日志。
+44. `dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/README.md`
+   - 本轮新样本 voice cloning 与文案风格解析入口说明。
+   - 记录新样本定位、声音解析结果、custom voice 脱敏标识、试听 trial、转写与验证结果。
+45. `dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav`
+   - 基于用户新样本重新创建测试 custom voice 后生成的声音复刻试听 trial。
+   - 时长 `13.60s`，格式 `wav / pcm_s16le / 24000 Hz / mono`。
+   - 不替换当前视频音轨，不改变 `latest_review_pack`。
+46. `dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_复刻输入_10-20秒.wav`
+   - 从新样本裁出的 voice cloning 输入样本。
+   - 参数为 `17.00s / wav / pcm_s16le / 24000 Hz / mono / 816078 bytes`。
+47. `dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_转写文本_transcript.md`
+   - 完整 MP4 音频的自动 ASR 转写文本。
+   - 使用 `paraformer-realtime-v2`，仍待人工校对。
+48. `codex_log/20260426_语音样本2_audio_reference_report.md`
+   - 新样本基础音频参数报告。
+49. `codex_log/20260426_语音样本2_文案风格高保真记录.md`
+   - 新样本文案 reference style 高保真记录。
+   - 包含 Source Anchor、Language Texture、Sentence Rhythm、Narrative Move、Emotion / Persona、Copywriting Reuse Rules、Prohibited Distortion。
+50. `codex_log/20260426_语音样本2复刻与文案风格解析.md`
+   - 本轮新样本复刻与文案风格解析执行日志。
 
 ## 这些轻量证据共同证明什么
 
@@ -158,10 +178,11 @@
 - 当前声音参考状态是什么：
   - `voice_reference_anchor`：用户样本已提供，待听感复审与试配
   - `voice_trial_status`：上一轮 round28 10-15 秒最小 trial 已生成，但用户反馈为不像样本、非常生硬、AI 感明显；当前系统音色 trial 不通过听感目标
-  - `voice_clone_trial_status`：用户授权已记录，合规复刻输入样本已复用，测试 custom voice 已创建，上一轮 voice cloning trial 已生成；20260426 已新增台湾口语开心降噪 A / B 对照 trial，待用户 / ChatGPT 听感复审
+  - `voice_clone_trial_status`：用户授权已记录；上一轮台湾口语开心降噪 A / B 对照 trial 已被用户判定完全不合格，仅保留失败参考；20260426 已基于新样本 `语音样本 2.MP4` 重新创建测试 custom voice，并生成 13.60s 复刻试听 trial，待用户 / ChatGPT 听感复审
+  - `copy_style_status`：语音样本2完整 MP4 自动转写已生成，文案 reference style 已高保真记录；自动转写仍待人工校对，不能写成“文案风格已完全掌握”
   - `voice_validation_status`：待验证
   - `tts_vendor_status`：待验证
-  - `next_voice_step`：先听审本轮 A / B 的原始与轻降噪版本，判断是否更开心、是否更像台湾口语、降噪后人声是否仍自然；听感复审通过前，不直接全片替换
+  - `next_voice_step`：先听审语音样本2新复刻试听 trial，判断是否比上一轮 A / B 更接近新样本；听感复审通过前，不直接全片替换
 - 当前证据链原则是什么：
   - 中段主体仍由用户真实录屏承担。
   - 卡片 / PPT / 图片只允许辅助解释，不允许替代证据。
@@ -176,7 +197,7 @@
   - 不能证明 custom voice 已经是最终音色。
   - 不能证明新的 voice cloning trial 已经通过听感复审。
   - 不能证明台湾口音、开心情绪和降噪听感已经通过人工验证。
-  - 不能证明单个约 30 秒样本足以作为完整 voice cloning 训练集。
+  - 不能证明单个约 23 秒样本足以作为完整 voice cloning 训练集。
 
 ## 当前本地审片包
 
@@ -191,4 +212,4 @@
 
 ## 当前一句话
 
-- 当前最新复审对象是 `dist/latest_review_pack/`，指向 `round34_中段双展示提示卡_正反分段提示修复`；用户已暂定接受中段并要求当前不继续修改中段；技术扫描通过与中段暂定接受都不等于全片内容最终过线，`content_validation = 待用户 / ChatGPT 最终复审`，`send_ready = no`；声音路线已新增用户语音样本 reference anchor，用户授权后的声音复刻最小 trial 已生成，当前仍待用户 / ChatGPT 听感复审，不能写成最终音色或声音验证通过。
+- 当前最新复审对象是 `dist/latest_review_pack/`，指向 `round34_中段双展示提示卡_正反分段提示修复`；用户已暂定接受中段并要求当前不继续修改中段；技术扫描通过与中段暂定接受都不等于全片内容最终过线，`content_validation = 待用户 / ChatGPT 最终复审`，`send_ready = no`；上一轮 A / B 声音试配已被用户判定完全不合格，只保留失败参考；当前声音路线已基于新样本 `语音样本 2.MP4` 生成 13.60s 复刻试听 trial，并已高保真记录样本文案 reference style，但声音与文案风格仍待用户 / ChatGPT 复审，不能写成最终音色、声音验证通过或文案风格已完全掌握。

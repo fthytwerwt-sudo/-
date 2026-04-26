@@ -1,0 +1,1416 @@
+{
+  "run_date": "20260426",
+  "project": "视频工厂",
+  "task": "语音样本2复刻与文案风格解析",
+  "technical_generation": "通过",
+  "voice_validation_status": "待验证",
+  "copy_style_status": "完整自动转写已生成 / 待高保真记录",
+  "content_validation": "待用户 / ChatGPT 最终复审",
+  "full_content_validation": "待用户 / ChatGPT 最终复审",
+  "send_ready": "no",
+  "ffmpeg": "/Users/fan/Documents/视频工厂/node_modules/ffmpeg-static/ffmpeg",
+  "sample_location": {
+    "path": "/Users/fan/Documents/视频工厂/素材录制/语音样本 2.MP4",
+    "searched": [
+      "/Users/fan/Documents/视频工厂/素材录制/语音样本 2",
+      "/Users/fan/Documents/视频工厂/素材录制/语音样本2",
+      "/Users/fan/Documents/视频工厂/素材录制/语音样本_2",
+      "/Users/fan/Documents/视频工厂/素材录制/语音样本-2",
+      "/Users/fan/Documents/视频工厂/素材录制"
+    ],
+    "selection": "search_latest_matching_audio_video_file",
+    "search_candidates": [
+      "/Users/fan/Documents/视频工厂/素材录制/语音样本 2.MP4"
+    ]
+  },
+  "sample_analysis": {
+    "path": "/Users/fan/Documents/视频工厂/素材录制/语音样本 2.MP4",
+    "file_name": "语音样本 2.MP4",
+    "file_size_bytes": 20614012,
+    "mtime_epoch": 1777217864.0,
+    "ffmpeg_info": {
+      "duration_seconds": 23.16,
+      "bitrate": "7121 kb/s",
+      "container": "mov,mp4,m4a,3gp,3g2,mj2",
+      "video_codec": "hevc (Main) (hvc1 / 0x31637668)",
+      "audio_codec": "aac (LC) (mp4a / 0x6134706D)",
+      "sample_rate": 44100,
+      "channels": "stereo",
+      "audio_bitrate": "115 kb/s"
+    },
+    "decode_status": "通过",
+    "volumedetect": {
+      "mean_volume": "-13.3 dB",
+      "max_volume": "0.0 dB"
+    },
+    "loudnorm": {
+      "input_i": "-10.26",
+      "input_tp": "0.20",
+      "input_lra": "3.00",
+      "input_thresh": "-20.75",
+      "output_i": "-15.73",
+      "output_tp": "-5.07",
+      "output_lra": "2.80",
+      "output_thresh": "-26.29",
+      "normalization_type": "dynamic",
+      "target_offset": "-0.27"
+    },
+    "silencedetect": {
+      "threshold": "-35dB",
+      "min_duration_seconds": 0.25,
+      "events": []
+    },
+    "logs": {
+      "decode": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/sample_ffmpeg_decode_check.txt",
+      "volumedetect": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/sample_volumedetect.txt",
+      "loudnorm": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/sample_loudnorm_measure.txt",
+      "silencedetect": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/sample_silencedetect.txt"
+    }
+  },
+  "extracted_assets": {
+    "analysis_copy": {
+      "path": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_分析副本.m4a",
+      "absolute_path": "/private/tmp/视频工厂_user_readable_map_sync/dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_分析副本.m4a",
+      "file_size_bytes": 340325
+    },
+    "clone_input": {
+      "path": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_复刻输入_10-20秒.wav",
+      "absolute_path": "/private/tmp/视频工厂_user_readable_map_sync/dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_复刻输入_10-20秒.wav",
+      "duration_seconds": 17.0,
+      "format": "wav",
+      "codec": "pcm_s16le",
+      "sample_rate": 24000,
+      "channels": 1,
+      "sample_width_bytes": 2,
+      "frames": 408000,
+      "file_size_bytes": 816078
+    },
+    "asr_input": {
+      "path": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_转写输入_24k_mono.wav",
+      "absolute_path": "/private/tmp/视频工厂_user_readable_map_sync/dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_转写输入_24k_mono.wav",
+      "duration_seconds": 17.0,
+      "format": "wav",
+      "codec": "pcm_s16le",
+      "sample_rate": 24000,
+      "channels": 1,
+      "sample_width_bytes": 2,
+      "frames": 408000,
+      "file_size_bytes": 816078
+    },
+    "crop": {
+      "start_seconds": 2.0,
+      "duration_seconds": 17.0,
+      "reason": "silencedetect 未检出明显静音；选择避开首尾的连续片段作为 10-20 秒复刻输入"
+    }
+  },
+  "asr": {
+    "provider": "aliyun_bailian_dashscope_asr",
+    "status": "transcribed",
+    "input_audio": {
+      "path": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_转写输入_24k_mono.wav",
+      "absolute_path": "/private/tmp/视频工厂_user_readable_map_sync/dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_转写输入_24k_mono.wav",
+      "duration_seconds": 17.0,
+      "format": "wav",
+      "codec": "pcm_s16le",
+      "sample_rate": 24000,
+      "channels": 1,
+      "sample_width_bytes": 2,
+      "frames": 408000,
+      "file_size_bytes": 816078
+    },
+    "model_attempts": [
+      {
+        "model": "paraformer-realtime-v2",
+        "status_code": 200,
+        "request_id": "c9363a986a4e42449f56c861d1b2288e",
+        "code": "",
+        "message": "",
+        "elapsed_seconds": 3.596,
+        "sentence_count": 2,
+        "transcript_nonempty": true
+      }
+    ],
+    "transcript_text": "你会收获知识，跟长辈聊天你会收获做人道理，跟网友聊天你会收获一大堆表情包。你会发现当代男生和女生的表情包真的是两个极端。男生的表情包越来越可爱，女生的表情包那都啥呀，那么抽象，啥玩意儿真的是。\n好了，服了，你们女孩能不能。",
+    "sentences": [
+      {
+        "sentence_id": 1,
+        "begin_time": 0,
+        "end_time": 14300,
+        "text": "你会收获知识，跟长辈聊天你会收获做人道理，跟网友聊天你会收获一大堆表情包。你会发现当代男生和女生的表情包真的是两个极端。男生的表情包越来越可爱，女生的表情包那都啥呀，那么抽象，啥玩意儿真的是。",
+        "channel_id": 0,
+        "speaker_id": null,
+        "sentence_end": true,
+        "words": [
+          {
+            "begin_time": 0,
+            "end_time": 325,
+            "text": "你会",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 325,
+            "end_time": 650,
+            "text": "收获",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 650,
+            "end_time": 975,
+            "text": "知识",
+            "punctuation": "，",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 975,
+            "end_time": 1276,
+            "text": "跟长",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 1276,
+            "end_time": 1577,
+            "text": "辈聊",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 1577,
+            "end_time": 1878,
+            "text": "天你",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 1878,
+            "end_time": 2179,
+            "text": "会收",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 2179,
+            "end_time": 2480,
+            "text": "获做",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 2480,
+            "end_time": 2781,
+            "text": "人道",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 2781,
+            "end_time": 3082,
+            "text": "理",
+            "punctuation": "，",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 3087,
+            "end_time": 3391,
+            "text": "跟网",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 3391,
+            "end_time": 3695,
+            "text": "友聊",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 3695,
+            "end_time": 3999,
+            "text": "天你",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 3999,
+            "end_time": 4303,
+            "text": "会收",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 4303,
+            "end_time": 4607,
+            "text": "获一",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 4607,
+            "end_time": 4911,
+            "text": "大堆",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 4911,
+            "end_time": 5215,
+            "text": "表情",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 5215,
+            "end_time": 5519,
+            "text": "包",
+            "punctuation": "。",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 5525,
+            "end_time": 5850,
+            "text": "你会",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 5850,
+            "end_time": 6175,
+            "text": "发现",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 6175,
+            "end_time": 6500,
+            "text": "当代",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 6500,
+            "end_time": 6825,
+            "text": "男生",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 6825,
+            "end_time": 7150,
+            "text": "和女",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 7150,
+            "end_time": 7475,
+            "text": "生的",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 7475,
+            "end_time": 7800,
+            "text": "表情",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 7800,
+            "end_time": 8125,
+            "text": "包真",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 8125,
+            "end_time": 8450,
+            "text": "的是",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 8450,
+            "end_time": 8775,
+            "text": "两个",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 8775,
+            "end_time": 9100,
+            "text": "极端",
+            "punctuation": "。",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 9100,
+            "end_time": 9397,
+            "text": "男生",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 9397,
+            "end_time": 9694,
+            "text": "的表",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 9694,
+            "end_time": 9991,
+            "text": "情包",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 9991,
+            "end_time": 10288,
+            "text": "越来",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 10288,
+            "end_time": 10585,
+            "text": "越可",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 10585,
+            "end_time": 10882,
+            "text": "爱",
+            "punctuation": "，",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 10887,
+            "end_time": 11212,
+            "text": "女生",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 11212,
+            "end_time": 11537,
+            "text": "的表",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 11537,
+            "end_time": 11862,
+            "text": "情包",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 11862,
+            "end_time": 12187,
+            "text": "那都",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 12187,
+            "end_time": 12512,
+            "text": "啥呀",
+            "punctuation": "，",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 12512,
+            "end_time": 12837,
+            "text": "那么",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 12837,
+            "end_time": 13162,
+            "text": "抽象",
+            "punctuation": "，",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 13162,
+            "end_time": 13446,
+            "text": "啥玩",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 13446,
+            "end_time": 13730,
+            "text": "意儿",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 13730,
+            "end_time": 14014,
+            "text": "真的",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 14014,
+            "end_time": 14300,
+            "text": "是",
+            "punctuation": "。",
+            "fixed": false,
+            "speaker_id": null
+          }
+        ],
+        "stash": {
+          "sentence_id": 2,
+          "text": "",
+          "begin_time": 14300,
+          "current_time": 14300,
+          "words": []
+        }
+      },
+      {
+        "sentence_id": 2,
+        "begin_time": 15400,
+        "end_time": 16980,
+        "text": "好了，服了，你们女孩能不能。",
+        "channel_id": 0,
+        "speaker_id": null,
+        "sentence_end": true,
+        "words": [
+          {
+            "begin_time": 15400,
+            "end_time": 15687,
+            "text": "好了",
+            "punctuation": "，",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 15687,
+            "end_time": 15974,
+            "text": "服了",
+            "punctuation": "，",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 15974,
+            "end_time": 16225,
+            "text": "你们",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 16225,
+            "end_time": 16476,
+            "text": "女孩",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 16476,
+            "end_time": 16727,
+            "text": "能不",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 16727,
+            "end_time": 16980,
+            "text": "能",
+            "punctuation": "。",
+            "fixed": false,
+            "speaker_id": null
+          }
+        ],
+        "stash": {
+          "sentence_id": 3,
+          "text": "",
+          "begin_time": 16980,
+          "current_time": 16980,
+          "words": []
+        }
+      }
+    ],
+    "transcript_path": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_转写文本_transcript.md",
+    "note": "裁剪段 ASR；完整 MP4 ASR 见 asr_full 与 语音样本2_full_ASR_attempt_debug_sanitized.json"
+  },
+  "model": "qwen3-tts-vc-realtime-2026-01-15",
+  "create_model": "qwen-voice-enrollment",
+  "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+  "preferred_name": "vfsample20426",
+  "voice_masked": "qwen-t...ac19",
+  "trial_text_status": "临时试配文案，不代表样本文案风格原文",
+  "trial_text": "其实我觉得，最容易卡住的地方，不是工具不会用。\n是你一开始不知道该怎么问。\n如果前面那句话问对了，后面的结果会顺很多。\n所以重点不是换一个工具，而是先把问题说清楚。",
+  "instructions": "请参考新样本里的说话方式，保持自然口语、真人分享感和解释型节奏。\n语气要平实亲近，不要播音腔，不要广告腔，不要夸张带货，也不要刻意表演。\n请在约 15 秒内自然说完，停顿清楚但不要拖沓。",
+  "tts_debug": {
+    "provider": "aliyun_bailian",
+    "api_route_family": "aliyun_qwen_realtime_websocket_voice_clone",
+    "request_method": "WEBSOCKET",
+    "base_url": "wss://dashscope.aliyuncs.com/api-ws/v1/realtime?model=qwen3-tts-vc-realtime-2026-01-15",
+    "model": "qwen3-tts-vc-realtime-2026-01-15",
+    "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+    "voice_masked": "qwen-t...ac19",
+    "uses_custom_voice": true,
+    "uses_serena": false,
+    "uses_previous_ab_voice": false,
+    "instructions": "请参考新样本里的说话方式，保持自然口语、真人分享感和解释型节奏。\n语气要平实亲近，不要播音腔，不要广告腔，不要夸张带货，也不要刻意表演。\n请在约 15 秒内自然说完，停顿清楚但不要拖沓。",
+    "trial_text_status": "临时试配文案，不代表样本文案风格原文",
+    "voice_trial_text": "其实我觉得，最容易卡住的地方，不是工具不会用。\n是你一开始不知道该怎么问。\n如果前面那句话问对了，后面的结果会顺很多。\n所以重点不是换一个工具，而是先把问题说清楚。",
+    "tts_input_text": "其实我觉得，最容易卡住的地方，不是工具不会用。 是你一开始不知道该怎么问。 如果前面那句话问对了，后面的结果会顺很多。 所以重点不是换一个工具，而是先把问题说清楚。",
+    "session_update": {
+      "voice": "<custom_voice_masked>",
+      "instructions": "请参考新样本里的说话方式，保持自然口语、真人分享感和解释型节奏。\n语气要平实亲近，不要播音腔，不要广告腔，不要夸张带货，也不要刻意表演。\n请在约 15 秒内自然说完，停顿清楚但不要拖沓。",
+      "optimize_instructions": true,
+      "language_type": "Chinese",
+      "response_format": "pcm",
+      "sample_rate": 24000,
+      "mode": "commit"
+    },
+    "audio_chunks": 34,
+    "audio_bytes": 652800,
+    "elapsed_seconds": 7.678,
+    "event_types": [
+      "session.created",
+      "session.updated",
+      "input_text_buffer.committed",
+      "response.created",
+      "response.output_item.added",
+      "response.content_part.added",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.delta",
+      "response.audio.done",
+      "response.content_part.done",
+      "response.output_item.done",
+      "response.done"
+    ],
+    "output_audio": {
+      "path": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_API原始.wav",
+      "absolute_path": "/private/tmp/视频工厂_user_readable_map_sync/dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_API原始.wav",
+      "duration_seconds": 13.6,
+      "format": "wav",
+      "codec": "pcm_s16le",
+      "sample_rate": 24000,
+      "channels": 1,
+      "sample_width_bytes": 2,
+      "frames": 326400,
+      "file_size_bytes": 652844
+    }
+  },
+  "tempo_adjustment": {
+    "applied": false,
+    "reason": "API 原始输出已在约 15 秒范围内",
+    "raw": {
+      "path": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_API原始.wav",
+      "absolute_path": "/private/tmp/视频工厂_user_readable_map_sync/dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_API原始.wav",
+      "duration_seconds": 13.6,
+      "format": "wav",
+      "codec": "pcm_s16le",
+      "sample_rate": 24000,
+      "channels": 1,
+      "sample_width_bytes": 2,
+      "frames": 326400,
+      "file_size_bytes": 652844
+    },
+    "final": {
+      "path": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
+      "absolute_path": "/private/tmp/视频工厂_user_readable_map_sync/dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
+      "duration_seconds": 13.6,
+      "format": "wav",
+      "codec": "pcm_s16le",
+      "sample_rate": 24000,
+      "channels": 1,
+      "sample_width_bytes": 2,
+      "frames": 326400,
+      "file_size_bytes": 652844
+    }
+  },
+  "trial_validation": {
+    "path": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
+    "absolute_path": "/private/tmp/视频工厂_user_readable_map_sync/dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
+    "duration_seconds": 13.6,
+    "format": "wav",
+    "codec": "pcm_s16le",
+    "sample_rate": 24000,
+    "channels": 1,
+    "sample_width_bytes": 2,
+    "frames": 326400,
+    "file_size_bytes": 652844,
+    "decode_status": "通过",
+    "volumedetect": {
+      "mean_volume": "-23.8 dB",
+      "max_volume": "-5.0 dB"
+    },
+    "loudnorm": {
+      "input_i": "-23.72",
+      "input_tp": "-5.00",
+      "input_lra": "1.80",
+      "input_thresh": "-34.40",
+      "output_i": "-16.42",
+      "output_tp": "-1.50",
+      "output_lra": "1.90",
+      "output_thresh": "-27.19",
+      "normalization_type": "dynamic",
+      "target_offset": "0.42"
+    },
+    "logs": {
+      "decode": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/ffmpeg_decode_check.txt",
+      "volumedetect": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/volumedetect.txt",
+      "loudnorm": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/loudnorm_measure.txt"
+    }
+  },
+  "outputs": {
+    "output_dir": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis",
+    "analysis_copy": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_分析副本.m4a",
+    "clone_input": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_复刻输入_10-20秒.wav",
+    "raw_trial": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_API原始.wav",
+    "trial": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
+    "create_request_sanitized": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/voice_clone_request_debug_sanitized.json",
+    "tts_request_sanitized": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/voice_clone_tts_request_debug_sanitized.json",
+    "ffmpeg_decode_check": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/ffmpeg_decode_check.txt",
+    "volumedetect": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/volumedetect.txt",
+    "loudnorm_measure": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/loudnorm_measure.txt",
+    "full_asr_input": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_完整转写输入_24k_mono.wav",
+    "transcript": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_转写文本_transcript.md",
+    "full_asr_debug": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_full_ASR_attempt_debug_sanitized.json"
+  },
+  "forbidden_actions_preserved": {
+    "modified_full_mp4": false,
+    "modified_middle_preview_mp4": false,
+    "replaced_full_audio_track": false,
+    "generated_new_video_round": false,
+    "marked_voice_passed": false,
+    "marked_content_validation_passed": false,
+    "marked_send_ready_yes": false,
+    "used_previous_ab_trial_as_basis": false
+  },
+  "asr_full": {
+    "provider": "aliyun_bailian_dashscope_asr",
+    "status": "transcribed",
+    "input_audio": {
+      "path": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_完整转写输入_24k_mono.wav",
+      "absolute_path": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_完整转写输入_24k_mono.wav",
+      "duration_seconds": 23.149,
+      "format": "wav",
+      "codec": "pcm_s16le",
+      "sample_rate": 24000,
+      "channels": 1,
+      "sample_width_bytes": 2,
+      "frames": 555572,
+      "file_size_bytes": 1111222
+    },
+    "model_attempts": [
+      {
+        "model": "paraformer-realtime-v2",
+        "status_code": 200,
+        "request_id": "83db13e3ca9146ddbe4e21790fdebf8b",
+        "code": "",
+        "message": "",
+        "elapsed_seconds": 5.258,
+        "sentence_count": 3,
+        "transcript_nonempty": true
+      }
+    ],
+    "transcript_text": "你会说我知识，说跟老师聊天你会说我知识，跟长辈聊天你会说获做人道理，跟网友聊天你会收获一大堆表情包。你会发现当代男生和女生的表情包真的是两个极端。男生的表情包越来越可爱，女生的表情包那说啥呀，那么抽象，啥玩意儿？真的是。\n好了，服务了你们女孩儿能不能找一些好看可爱的表情包？我在评论区都乱的啥样子？",
+    "sentences": [
+      {
+        "sentence_id": 1,
+        "begin_time": 0,
+        "end_time": 16280,
+        "text": "你会说我知识，说跟老师聊天你会说我知识，跟长辈聊天你会说获做人道理，跟网友聊天你会收获一大堆表情包。你会发现当代男生和女生的表情包真的是两个极端。男生的表情包越来越可爱，女生的表情包那说啥呀，那么抽象，啥玩意儿？真的是。",
+        "channel_id": 0,
+        "speaker_id": null,
+        "sentence_end": true,
+        "words": [
+          {
+            "begin_time": 0,
+            "end_time": 325,
+            "text": "你会",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 325,
+            "end_time": 650,
+            "text": "说我",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 650,
+            "end_time": 975,
+            "text": "知识",
+            "punctuation": "，",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 976,
+            "end_time": 1301,
+            "text": "说跟",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 1301,
+            "end_time": 1626,
+            "text": "老师",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 1626,
+            "end_time": 1951,
+            "text": "聊天",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 1951,
+            "end_time": 2276,
+            "text": "你会",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 2276,
+            "end_time": 2601,
+            "text": "说我",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 2601,
+            "end_time": 2926,
+            "text": "知识",
+            "punctuation": "，",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 2930,
+            "end_time": 3232,
+            "text": "跟长",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 3232,
+            "end_time": 3534,
+            "text": "辈聊",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 3534,
+            "end_time": 3836,
+            "text": "天你",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 3836,
+            "end_time": 4138,
+            "text": "会说",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 4138,
+            "end_time": 4440,
+            "text": "获做",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 4440,
+            "end_time": 4742,
+            "text": "人道",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 4742,
+            "end_time": 5044,
+            "text": "理",
+            "punctuation": "，",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 5046,
+            "end_time": 5351,
+            "text": "跟网",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 5351,
+            "end_time": 5656,
+            "text": "友聊",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 5656,
+            "end_time": 5961,
+            "text": "天你",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 5961,
+            "end_time": 6266,
+            "text": "会收",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 6266,
+            "end_time": 6571,
+            "text": "获一",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 6571,
+            "end_time": 6876,
+            "text": "大堆",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 6876,
+            "end_time": 7181,
+            "text": "表情",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 7181,
+            "end_time": 7486,
+            "text": "包",
+            "punctuation": "。",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 7488,
+            "end_time": 7813,
+            "text": "你会",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 7813,
+            "end_time": 8138,
+            "text": "发现",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 8138,
+            "end_time": 8463,
+            "text": "当代",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 8463,
+            "end_time": 8788,
+            "text": "男生",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 8788,
+            "end_time": 9113,
+            "text": "和女",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 9113,
+            "end_time": 9438,
+            "text": "生的",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 9438,
+            "end_time": 9763,
+            "text": "表情",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 9763,
+            "end_time": 10088,
+            "text": "包真",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 10088,
+            "end_time": 10413,
+            "text": "的是",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 10413,
+            "end_time": 10738,
+            "text": "两个",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 10738,
+            "end_time": 11063,
+            "text": "极端",
+            "punctuation": "。",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 11070,
+            "end_time": 11368,
+            "text": "男生",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 11368,
+            "end_time": 11666,
+            "text": "的表",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 11666,
+            "end_time": 11964,
+            "text": "情包",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 11964,
+            "end_time": 12262,
+            "text": "越来",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 12262,
+            "end_time": 12560,
+            "text": "越可",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 12560,
+            "end_time": 12858,
+            "text": "爱",
+            "punctuation": "，",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 12861,
+            "end_time": 13186,
+            "text": "女生",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 13186,
+            "end_time": 13511,
+            "text": "的表",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 13511,
+            "end_time": 13836,
+            "text": "情包",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 13836,
+            "end_time": 14161,
+            "text": "那说",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 14161,
+            "end_time": 14486,
+            "text": "啥呀",
+            "punctuation": "，",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 14489,
+            "end_time": 14814,
+            "text": "那么",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 14814,
+            "end_time": 15139,
+            "text": "抽象",
+            "punctuation": "，",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 15140,
+            "end_time": 15465,
+            "text": "啥玩",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 15465,
+            "end_time": 15790,
+            "text": "意儿",
+            "punctuation": "？",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 15791,
+            "end_time": 16035,
+            "text": "真的",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 16035,
+            "end_time": 16280,
+            "text": "是",
+            "punctuation": "。",
+            "fixed": false,
+            "speaker_id": null
+          }
+        ],
+        "stash": {
+          "sentence_id": 2,
+          "text": "",
+          "begin_time": 16280,
+          "current_time": 16280,
+          "words": []
+        }
+      },
+      {
+        "sentence_id": 2,
+        "begin_time": 17380,
+        "end_time": 22180,
+        "text": "好了，服务了你们女孩儿能不能找一些好看可爱的表情包？我在评论区都乱的啥样子？",
+        "channel_id": 0,
+        "speaker_id": null,
+        "sentence_end": true,
+        "words": [
+          {
+            "begin_time": 17380,
+            "end_time": 17654,
+            "text": "好了",
+            "punctuation": "，",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 17654,
+            "end_time": 17928,
+            "text": "服务",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 17928,
+            "end_time": 18202,
+            "text": "了你",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 18202,
+            "end_time": 18476,
+            "text": "们女",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 18476,
+            "end_time": 18750,
+            "text": "孩儿",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 18750,
+            "end_time": 19024,
+            "text": "能不",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 19024,
+            "end_time": 19298,
+            "text": "能找",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 19298,
+            "end_time": 19572,
+            "text": "一些",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 19572,
+            "end_time": 19846,
+            "text": "好看",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 19846,
+            "end_time": 20120,
+            "text": "可爱",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 20120,
+            "end_time": 20394,
+            "text": "的表",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 20394,
+            "end_time": 20668,
+            "text": "情包",
+            "punctuation": "？",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 20671,
+            "end_time": 20922,
+            "text": "我在",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 20922,
+            "end_time": 21173,
+            "text": "评论",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 21173,
+            "end_time": 21424,
+            "text": "区都",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 21424,
+            "end_time": 21675,
+            "text": "乱的",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 21675,
+            "end_time": 21926,
+            "text": "啥样",
+            "punctuation": "",
+            "fixed": false,
+            "speaker_id": null
+          },
+          {
+            "begin_time": 21926,
+            "end_time": 22180,
+            "text": "子",
+            "punctuation": "？",
+            "fixed": false,
+            "speaker_id": null
+          }
+        ],
+        "stash": {
+          "sentence_id": 3,
+          "text": "",
+          "begin_time": 22180,
+          "current_time": 22180,
+          "words": []
+        }
+      },
+      {
+        "sentence_id": 3,
+        "begin_time": 22560,
+        "end_time": 23140,
+        "text": "",
+        "channel_id": 0,
+        "speaker_id": null,
+        "sentence_end": true,
+        "words": [],
+        "stash": {
+          "sentence_id": 4,
+          "text": "",
+          "begin_time": 23140,
+          "current_time": 23140,
+          "words": []
+        }
+      }
+    ]
+  }
+}
