@@ -1,5 +1,40 @@
 # Latest
 
+## 20260426｜台湾口语开心降噪声音第二轮试配
+
+- `已确认` 本轮只生成《视频工厂》声音第二轮最小对照 trial；未修改视频、未替换全片音轨、未生成新视频 round。
+- `已确认` 用户本轮听感反馈已保真记录：
+  1. 情绪上面还不够开心的那种。
+  2. 需要把口语改成台湾的口音。
+  3. 现在生成的环境音有点吵，需要降噪。
+- `已确认` 新增本轮输出目录：`dist/voice_trials/20260426_台湾口语开心降噪试配_taiwan_happy_denoise_trial/`。
+- `已确认` A 版沿用当前 custom voice（脱敏：`qwen-t...de43`），使用台湾口语文本 + 开心轻快 instructions 生成，并保留：
+  - `A_沿用音色_台湾口语开心_API原始_未节奏校准.wav`
+  - `A_沿用音色_台湾口语开心_原始.wav`
+  - `A_沿用音色_台湾口语开心_轻降噪.wav`
+- `已确认` B 版先对复刻输入样本做轻降噪，再重新创建测试 custom voice（脱敏：`qwen-t...bb3b`），使用同一文本 + 同一 instructions 生成，并保留：
+  - `B_复刻输入样本_轻降噪.wav`
+  - `B_重建音色_台湾口语开心_API原始_未节奏校准.wav`
+  - `B_重建音色_台湾口语开心_原始.wav`
+  - `B_重建音色_台湾口语开心_轻降噪.wav`
+- `已确认` 因固定文案较长，API 直出分别为 `17.60s` / `16.56s`；本轮保留 API 直出审计文件，同时用 `atempo` 生成 10-15 秒未降噪节奏校准版。
+- `已确认` 四个正式对照输出均可被 `ffmpeg` 解码：
+  - A 原始：`14.18s / wav / pcm_s16le / 24000 Hz / mono / mean_volume -22.8 dB / loudnorm.input_i -22.13 LUFS`
+  - A 轻降噪：`14.18s / wav / pcm_s16le / 24000 Hz / mono / mean_volume -23.3 dB / loudnorm.input_i -22.64 LUFS`
+  - B 原始：`14.20s / wav / pcm_s16le / 24000 Hz / mono / mean_volume -22.4 dB / loudnorm.input_i -22.40 LUFS`
+  - B 轻降噪：`14.20s / wav / pcm_s16le / 24000 Hz / mono / mean_volume -22.7 dB / loudnorm.input_i -22.65 LUFS`
+- `已确认` 脱敏请求与验证记录已落盘：`custom_voice_list_debug_sanitized.json`、`A_voice_clone_tts_request_debug_sanitized.json`、`B_重建音色_create_custom_voice_request_debug_sanitized.json`、`B_voice_clone_tts_request_debug_sanitized.json`、`run_summary.json`。
+- `已确认` 新增脚本：`scripts/声音第二轮台湾口语开心降噪_trial_round2.py`。
+- `已确认` 新增日志：`codex_log/20260426_台湾口语开心降噪声音试配.md`。
+- `待验证` 本轮只证明 `technical_generation` 通过；A / B 是否更开心、是否像台湾口语、降噪后是否仍自然，仍待用户 / ChatGPT 听感复审。
+- `已确认` 当前视频状态未改变：
+  - `latest_review_pack = round34_中段双展示提示卡_正反分段提示修复`
+  - `technical_validation = 通过`
+  - `middle_segment_review = 用户暂定通过 / 暂不继续修改中段`
+  - `content_validation = 待用户 / ChatGPT 最终复审`
+  - `full_content_validation = 待用户 / ChatGPT 最终复审`
+  - `send_ready = no`
+
 ## 20260426｜GPT Project 协作规则包更新
 
 - `已确认` 本轮只更新 `GPT 数据源/`，将其定位改为 GPT Project 协作规则包；它只负责告诉 ChatGPT 如何协作、如何读 GitHub、如何处理冲突，不再承载动态当前事实。

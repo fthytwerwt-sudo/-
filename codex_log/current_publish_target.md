@@ -41,7 +41,7 @@
 ## 当前唯一最高优先级 blocker
 
 - `用户 / ChatGPT 尚未对 round34 完整正片做最终内容复审`
-- `声音路线已新增用户语音样本 reference anchor；用户授权后的声音复刻最小试配已生成可听 trial，但仍待用户 / ChatGPT 听感复审`
+- `声音路线已新增用户语音样本 reference anchor；用户授权后的声音复刻最小试配已生成可听 trial；20260426 已新增台湾口语开心降噪 A / B 对照 trial，但仍待用户 / ChatGPT 听感复审`
 - 当前不能写：
   - `content_validation = 通过`
   - `send_ready = yes`
@@ -104,6 +104,13 @@
 - `dist/voice_trials/20260425_round28_voice_clone_trial/复刻输出_ffmpeg_decode_check.txt`
 - `dist/voice_trials/20260425_round28_voice_clone_trial/复刻输出_volumedetect.txt`
 - `dist/voice_trials/20260425_round28_voice_clone_trial/复刻输出_loudnorm_measure.txt`
+- `dist/voice_trials/20260426_台湾口语开心降噪试配_taiwan_happy_denoise_trial/README.md`
+- `dist/voice_trials/20260426_台湾口语开心降噪试配_taiwan_happy_denoise_trial/A_沿用音色_台湾口语开心_原始.wav`
+- `dist/voice_trials/20260426_台湾口语开心降噪试配_taiwan_happy_denoise_trial/A_沿用音色_台湾口语开心_轻降噪.wav`
+- `dist/voice_trials/20260426_台湾口语开心降噪试配_taiwan_happy_denoise_trial/B_重建音色_台湾口语开心_原始.wav`
+- `dist/voice_trials/20260426_台湾口语开心降噪试配_taiwan_happy_denoise_trial/B_重建音色_台湾口语开心_轻降噪.wav`
+- `dist/voice_trials/20260426_台湾口语开心降噪试配_taiwan_happy_denoise_trial/run_summary.json`
+- `codex_log/20260426_台湾口语开心降噪声音试配.md`
 
 ## 当前 `local_review_pack` 证据
 
@@ -147,7 +154,7 @@
 - 当前复审 target：`dist/latest_review_pack/`
 - 当前可打开本地审片包：`/private/tmp/视频工厂_round28_complete_readability/dist/latest_review_pack/`
 - 本轮同步要求：必须 push 当前视频工作分支，并同步默认主读取分支 `codex/user-readable-map`
-- 未同步事项：用户 / ChatGPT 全片最终内容复审结论尚未产生；声音复刻 trial 已生成但尚未完成听感复审，不能写成最终音色或声音验证通过
+- 未同步事项：用户 / ChatGPT 全片最终内容复审结论尚未产生；声音第二轮台湾口语开心降噪 A / B trial 已生成但尚未完成听感复审，不能写成最终音色或声音验证通过
 
 ## 最后更新时间
 
@@ -167,3 +174,4 @@
 - `codex_log/20260425_round28_最小声音试配.md`
 - `codex_log/20260425_round28_声音试配失败排查.md`
 - `codex_log/20260425_round28_声音复刻最小试配.md`
+- `codex_log/20260426_台湾口语开心降噪声音试配.md`

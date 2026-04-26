@@ -117,6 +117,25 @@
    - 本轮复刻 trial 的基础音量分析日志。
 36. `dist/voice_trials/20260425_round28_voice_clone_trial/复刻输出_loudnorm_measure.txt`
    - 本轮复刻 trial 的响度初测日志。
+37. `dist/voice_trials/20260426_台湾口语开心降噪试配_taiwan_happy_denoise_trial/README.md`
+   - 本轮声音第二轮 A / B 对照 trial 说明。
+   - 记录用户反馈原文、台湾口语文本、开心轻快 instructions、A / B 差异、模型、音色脱敏标识、降噪处理和验证结果。
+38. `dist/voice_trials/20260426_台湾口语开心降噪试配_taiwan_happy_denoise_trial/A_沿用音色_台湾口语开心_原始.wav`
+   - A 版沿用当前 custom voice 的未降噪节奏校准输出。
+   - 时长 `14.18s`，格式 `wav / pcm_s16le / 24000 Hz / mono`。
+39. `dist/voice_trials/20260426_台湾口语开心降噪试配_taiwan_happy_denoise_trial/A_沿用音色_台湾口语开心_轻降噪.wav`
+   - A 版沿用当前 custom voice 的输出后轻降噪版本。
+   - 时长 `14.18s`，格式 `wav / pcm_s16le / 24000 Hz / mono`。
+40. `dist/voice_trials/20260426_台湾口语开心降噪试配_taiwan_happy_denoise_trial/B_重建音色_台湾口语开心_原始.wav`
+   - B 版基于轻降噪输入样本重建 custom voice 的未降噪节奏校准输出。
+   - 时长 `14.20s`，格式 `wav / pcm_s16le / 24000 Hz / mono`。
+41. `dist/voice_trials/20260426_台湾口语开心降噪试配_taiwan_happy_denoise_trial/B_重建音色_台湾口语开心_轻降噪.wav`
+   - B 版基于轻降噪输入样本重建 custom voice 的输出后轻降噪版本。
+   - 时长 `14.20s`，格式 `wav / pcm_s16le / 24000 Hz / mono`。
+42. `dist/voice_trials/20260426_台湾口语开心降噪试配_taiwan_happy_denoise_trial/run_summary.json`
+   - 本轮 A / B 技术生成、API 原始直出、节奏校准、降噪与音频验证的结构化摘要。
+43. `codex_log/20260426_台湾口语开心降噪声音试配.md`
+   - 本轮声音第二轮试配执行日志。
 
 ## 这些轻量证据共同证明什么
 
@@ -139,10 +158,10 @@
 - 当前声音参考状态是什么：
   - `voice_reference_anchor`：用户样本已提供，待听感复审与试配
   - `voice_trial_status`：上一轮 round28 10-15 秒最小 trial 已生成，但用户反馈为不像样本、非常生硬、AI 感明显；当前系统音色 trial 不通过听感目标
-  - `voice_clone_trial_status`：用户授权已记录，合规复刻输入样本已复用，测试 custom voice 已创建，新的 voice cloning trial 已生成，待用户 / ChatGPT 听感复审
+  - `voice_clone_trial_status`：用户授权已记录，合规复刻输入样本已复用，测试 custom voice 已创建，上一轮 voice cloning trial 已生成；20260426 已新增台湾口语开心降噪 A / B 对照 trial，待用户 / ChatGPT 听感复审
   - `voice_validation_status`：待验证
   - `tts_vendor_status`：待验证
-  - `next_voice_step`：先听审 `round28_声音复刻试配_10-15秒.wav` 是否明显比上一轮 `Serena` 更接近样本；听感复审通过前，不直接全片替换
+  - `next_voice_step`：先听审本轮 A / B 的原始与轻降噪版本，判断是否更开心、是否更像台湾口语、降噪后人声是否仍自然；听感复审通过前，不直接全片替换
 - 当前证据链原则是什么：
   - 中段主体仍由用户真实录屏承担。
   - 卡片 / PPT / 图片只允许辅助解释，不允许替代证据。
@@ -156,6 +175,7 @@
   - 不能证明本轮声音 trial 已经通过听感复审。
   - 不能证明 custom voice 已经是最终音色。
   - 不能证明新的 voice cloning trial 已经通过听感复审。
+  - 不能证明台湾口音、开心情绪和降噪听感已经通过人工验证。
   - 不能证明单个约 30 秒样本足以作为完整 voice cloning 训练集。
 
 ## 当前本地审片包
