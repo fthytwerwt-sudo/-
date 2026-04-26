@@ -1,5 +1,29 @@
 # Latest
 
+## 20260427｜十五秒文案语速停顿试配
+
+- `已确认` 本轮只做《视频工厂》声音文案适配试听；未换音色、未重做 voice cloning、未重新裁剪 / 上传样本、未替换全片音轨。
+- `已确认` 用户本轮确认方向已记录：新样本2音色底子可以继续用，后续主要调语速、停顿和文案搭配；偏好“微反转 + 说话带梗 + 自然口语”；需避免类似“下一步从哪打”的 AI 感硬词。
+- `已确认` 使用新样本2 custom voice：`qwen-t...ac19`（脱敏）；`model / target_model = qwen3-tts-vc-realtime-2026-01-15`。
+- `已确认` 本轮只通过 custom voice list 解析既有 voice，未重新 `create_custom_voice`；未使用 Serena；未使用上一轮 A / B custom voice。
+- `已确认` 新增输出目录：`dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/`。
+- `已确认` A 版文案为自然节奏，去空白字数 `93`；B 版文案为停顿梗感，去空白字数 `97`；两版均未命中本轮禁用硬词。
+- `已确认` 已生成 A / B 两条声音试听：
+  - A：`A_15秒文案_自然节奏.wav`，`17.20s / wav / pcm_s16le / 24000 Hz / mono / mean_volume -23.9 dB / loudnorm.input_i -23.92 LUFS`
+  - B：`B_15秒文案_停顿梗感.wav`，`16.32s / wav / pcm_s16le / 24000 Hz / mono / mean_volume -23.4 dB / loudnorm.input_i -23.67 LUFS`
+- `已确认` A / B 均可被 `ffmpeg` 解码，且时长均在 13-18 秒范围内。
+- `已确认` A / B API 原始输出已在目标范围内，本轮未使用 `atempo`。
+- `已确认` 脱敏请求、音频验证与运行摘要已落盘：`A_voice_clone_tts_request_debug_sanitized.json`、`B_voice_clone_tts_request_debug_sanitized.json`、`A_ffmpeg_decode_check.txt`、`B_ffmpeg_decode_check.txt`、`A_volumedetect.txt`、`B_volumedetect.txt`、`A_loudnorm_measure.txt`、`B_loudnorm_measure.txt`、`run_summary.json`。
+- `已确认` 新增日志：`codex_log/20260427_十五秒文案语速停顿试配.md`。
+- `待验证` 本轮只证明 `technical_generation` 通过；A / B 的语速、停顿、轻吐槽和文案搭配是否合适，仍待用户 / ChatGPT 听感复审。
+- `已确认` 当前视频状态未改变：
+  - `latest_review_pack = round34_中段双展示提示卡_正反分段提示修复`
+  - `technical_validation = 通过`
+  - `middle_segment_review = 用户暂定通过 / 暂不继续修改中段`
+  - `content_validation = 待用户 / ChatGPT 最终复审`
+  - `full_content_validation = 待用户 / ChatGPT 最终复审`
+  - `send_ready = no`
+
 ## 20260426｜语音样本2复刻与文案风格解析
 
 - `已确认` 本轮重开新语音样本链路，未沿用上一轮 A / B 声音试配结果；上一轮 A / B 只保留为失败参考。
