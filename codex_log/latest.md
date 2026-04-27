@@ -13,6 +13,8 @@
   - `方案B整页反应版15秒预览_scheme_b_full_page_reaction_v2.mp4`
 - `已确认` 整页 reaction 出现 `1.40s`，只出现 1 次，人物胸口没有 `AI` 标识。
 - `已确认` ffmpeg 解码通过，视频时长 `15.00s`，分辨率 `720x1280`。
+- `已确认` 本轮已提交并推送到任务分支：`codex/scheme-b-full-page-reaction-v2-20260428`。
+- `已确认` 已创建 draft PR：`https://github.com/fthytwerwt-sudo/-/pull/6`，base 为 `codex/user-readable-map`。
 - `已确认` 本轮不改 `full.mp4`、不生成正式新 round、不改 `dist/latest_review_pack/`、不改 `content_validation`、不改 `send_ready`。
 - `待验证` 本轮不代表方案 B 最终口径，不代表内容验证通过。
 
