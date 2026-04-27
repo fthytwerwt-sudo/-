@@ -1,0 +1,28 @@
+{
+  "status": "pass",
+  "expected_config_path": "/Users/fan/.config/video-factory/formal_api_demo.local.toml",
+  "actual_config_path": "/Users/fan/.config/video-factory/formal_api_demo.local.toml",
+  "config_path_matches_expected": true,
+  "has_local_config": true,
+  "provider": "aliyun_bailian",
+  "region": "cn-beijing",
+  "auth_api_key": {
+    "present": true,
+    "prefix_type": "sk_dashscope_like",
+    "length_range": "20-39"
+  },
+  "image_generation_model_from_config": "wan2.6-image",
+  "video_generation_model_from_config": "wan2.7-i2v",
+  "forced_image_model": "wan2.7-image-pro",
+  "forced_video_model": "wan2.7-i2v",
+  "official_i2v_reference": {
+    "url": "https://help.aliyun.com/zh/model-studio/image-to-video-general-api-reference",
+    "endpoint": "/services/aigc/video-generation/video-synthesis",
+    "media_type": "first_frame",
+    "parameter_resolution": "720P",
+    "duration_range_seconds": "[2,15]"
+  },
+  "env_FORMAL_API_DEMO_LOCAL_CONFIG_set": true,
+  "key_leakage": false,
+  "failures": []
+}

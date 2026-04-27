@@ -1,0 +1,17 @@
+{
+  "status": "success",
+  "task_id": "81eaed8f-df33-45b3-8a7e-6aa0be456463",
+  "request_id": "80bc045d-0d87-9e32-97cc-eeb398cfe10d",
+  "asset_path": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应页_static_reaction_page.png",
+  "blocked_reason": "",
+  "failure_reason": "",
+  "error_message": "",
+  "http_status_code": null,
+  "error_code": "",
+  "selected_model": "wan2.7-image-pro",
+  "raw_asset_path": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应页_static_reaction_page_raw_from_wan.png",
+  "image_size": [
+    720,
+    1280
+  ]
+}

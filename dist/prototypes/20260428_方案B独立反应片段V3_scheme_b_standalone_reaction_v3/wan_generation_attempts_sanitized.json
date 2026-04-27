@@ -3,23 +3,25 @@
     {
       "kind": "image",
       "model": "wan2.7-image-pro",
-      "status": "failed",
-      "failure_reason": "aliyun_image_task_create_failed",
+      "status": "success",
+      "failure_reason": "",
       "blocked_reason": "",
-      "error_code": "HTTP401",
-      "http_status_code": 401,
-      "request_id": null
-    },
-    {
-      "kind": "image",
-      "model": "wan2.7-image",
-      "status": "failed",
-      "failure_reason": "aliyun_image_task_create_failed",
-      "blocked_reason": "",
-      "error_code": "HTTP401",
-      "http_status_code": 401,
-      "request_id": null
+      "error_code": "",
+      "http_status_code": null,
+      "request_id": "80bc045d-0d87-9e32-97cc-eeb398cfe10d",
+      "task_id": "81eaed8f-df33-45b3-8a7e-6aa0be456463",
+      "endpoint": "https://dashscope.aliyuncs.com/api/v1/services/aigc/image-generation/generation"
     }
   ],
-  "video_attempt": null
+  "video_attempt": {
+    "kind": "video",
+    "model": "wan2.7-i2v",
+    "status": "success",
+    "failure_reason": "",
+    "blocked_reason": "",
+    "error_code": "",
+    "http_status_code": null,
+    "request_id": "ea86281a-fa9f-9b37-8305-b0805ab97ebe",
+    "task_id": "2e6c54e9-39f4-4bb8-9c9f-5f38bb6d8e42"
+  }
 }

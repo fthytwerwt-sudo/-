@@ -1,5 +1,15 @@
 # Latest
 
+## 20260428｜方案 B V3 复用历史配置生成独立反应预览
+
+- `已确认` 本轮显式复用历史成功配置 `/Users/fan/.config/video-factory/formal_api_demo.local.toml`，脱敏 preflight 通过：`provider = aliyun_bailian`，`region = cn-beijing`，key 存在且为 `sk_dashscope_like / 20-39`。
+- `已确认` `wan2.7-image-pro` 已成功生成整页 reaction page：`dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应页_static_reaction_page.png`。
+- `已确认` `wan2.7-i2v` 已成功生成独立 reaction clip，并裁剪为 `1.52s / 720x1280`：`dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应片段_reaction_clip.mp4`。
+- `已确认` 已装配 15 秒技术预览：`dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应15秒预览_scheme_b_standalone_reaction_v3.mp4`，结构为 `round34 录屏片段 A -> 独立 reaction clip -> round34 录屏片段 B`，不是 overlay compositing。
+- `已确认` 已生成 contact sheet 与 before / after contact sheet；已写 `run_summary.json` 与 `方案B独立反应V3说明_preview_report.md`。
+- `已确认` 本轮未泄露 key、未提交本地私有配置、未本地绘图兜底、未改正式 `full.mp4`、未改 `dist/latest_review_pack/`、未改 `content_validation`、未改 `send_ready`。
+- `待验证` 本轮只是 `technical_preview_generated`，仍待 ChatGPT / 用户复审画质、表情、节奏和是否可进入正式方案；不代表方案 B 最终口径。
+
 ## 20260428｜方案 B V3 阿里历史生成链路审计
 
 - `已确认` 本轮只做阿里 / 百炼 / DashScope 图像与视频生成链路审计；未重新生成 V3 图 / 视频。
