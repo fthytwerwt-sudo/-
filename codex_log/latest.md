@@ -1,20 +1,20 @@
 # Latest
 
-## 20260428｜方案 B 独立反应片段 V3 排查与预览准备
+## 20260428｜方案 B V3 阿里历史生成链路审计
 
-- `已确认` 本轮从 `origin/codex/user-readable-map` 开出任务分支：`codex/scheme-b-standalone-v3-diagnostics-20260428`。
-- `已确认` 当前 `latest_review_pack` 仍指向：`round34_中段双展示提示卡_正反分段提示修复`。
-- `已确认` 当前状态仍为：`middle_segment_review = 用户暂定通过 / 暂不继续修改中段`，`content_validation = 待用户 / ChatGPT 最终复审`，`send_ready = no`。
-- `已确认` 已完成上一轮 V2 问题诊断：V2 是本地程序绘图 + 叠加式 compositing，不是高质量生成模型生成的独立 reaction clip。
-- `已确认` 当前 shell 环境未发现 DashScope / 百炼相关 key；原始项目未跟踪本地配置存在 `aliyun_bailian` key 字段，但实测 DashScope 返回 `HTTP401 / InvalidApiKey`。
-- `已确认` 项目已有阿里视觉生成 helper 和历史脚本，但当前 key 不可用，所以 V3 状态为 `blocked`。
-- `已确认` 本轮没有继续用本地 Mac 程序画图，没有生成低保真替代图，没有生成 V3 预览视频。
-- `已确认` 本轮输出诊断目录：
-  - `dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/`
-- `已确认` 本轮已提交并推送到任务分支：`codex/scheme-b-standalone-v3-diagnostics-20260428`。
-- `已确认` 已创建 draft PR：`https://github.com/fthytwerwt-sudo/-/pull/7`，base 为 `codex/user-readable-map`。
-- `已确认` 本轮不改 `full.mp4`、不改 `dist/latest_review_pack/`、不改 `content_validation`、不改 `send_ready`。
-- `待验证` 本轮不代表方案 B 最终口径；下一步需补齐可用 DashScope / 百炼 key 后再重新执行 V3。
+- `已确认` 本轮只做阿里 / 百炼 / DashScope 图像与视频生成链路审计；未重新生成 V3 图 / 视频。
+- `已确认` 历史成功链路存在：正式 API demo 曾用 `wan2.6-image` / `liveportrait` 生成开头、结尾、辅助视觉；元素娃娃 round3 / round4 / round5 曾用 `wan2.7-image-pro` 成功生成主持娃娃图像。
+- `已确认` round5 还成功跑通过 `wan2.2-s2v-detect` 与 `wan2.2-s2v` 最短 smoke test。
+- `已确认` 历史 round3 / round4 / round5 的成功配置来源指向 `/Users/fan/.config/video-factory/formal_api_demo.local.toml`。
+- `已确认` V3 `run_summary.json` 记录的配置来源是 `/Users/fan/Documents/视频工厂/config/formal_api_demo.local.toml`，并在 `wan2.7-image-pro` / `wan2.7-image` 创建阶段返回 `HTTP401 / InvalidApiKey`。
+- `已确认` 当前脱敏复查中，`/Users/fan/.config/video-factory/formal_api_demo.local.toml` 有 `sk-` 形态 DashScope key；`/Users/fan/Documents/视频工厂/config/formal_api_demo.local.toml` 当前未呈现为可用 DashScope `auth.api_key`。
+- `已确认` 最可能主因不是“用户没配 API”，而是 V3 没有复用历史成功的配置来源 / key 来源，跑到了 legacy config 或 stale key source。
+- `已确认` 新增审计报告：
+  - `dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/历史生成链路审计_history_generation_path_audit.md`
+  - `dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/history_generation_path_audit_summary.json`
+  - `codex_log/20260428_方案B_V3_历史生成链路审计.md`
+- `已确认` 本轮未改 key、未生成 V3、未改 `full.mp4`、未改 `dist/latest_review_pack/`、未改 `content_validation`、未改 `send_ready`。
+- `待验证` 下一轮若继续 V3，应先显式复用 `/Users/fan/.config/video-factory/formal_api_demo.local.toml`；若仍 401，再补齐支持万相图像 + 图生视频的百炼 / DashScope key。
 
 ## 20260427｜中段吐槽插入风格视觉证据补齐
 

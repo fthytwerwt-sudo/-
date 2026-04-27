@@ -1,0 +1,202 @@
+{
+  "schema": "history_generation_path_audit/v1",
+  "project": "视频工厂",
+  "task": "方案 B 独立反应片段 V3 阿里 / 百炼 / DashScope 历史生成链路审计",
+  "date": "2026-04-28",
+  "status": "audit_complete_blocked_for_generation",
+  "v3_generation_rerun": false,
+  "key_leakage": false,
+  "skills": {
+    "local_skills_dir_exists": false,
+    "global_relevant_skills_used": [
+      "verification-before-completion",
+      "debugging-strategies"
+    ],
+    "aliyun_dashscope_specific_skill_found": false
+  },
+  "historical_generation_paths": [
+    {
+      "id": "formal_api_demo_general_visual",
+      "script_paths": [
+        "scripts/generate_formal_api_demo.py",
+        "formal_api_demo_core.py"
+      ],
+      "service_position": [
+        "开头",
+        "结尾",
+        "辅助视觉"
+      ],
+      "models": [
+        "wan2.6-image",
+        "liveportrait",
+        "wan2.7-i2v(candidate)"
+      ],
+      "provider": "aliyun_bailian",
+      "helper": [
+        "run_generation_pipeline",
+        "_execute_aliyun_wan_image_generation",
+        "_execute_aliyun_visual_generation_task",
+        "_execute_aliyun_liveportrait_video_generation"
+      ],
+      "endpoint_base": "https://dashscope.aliyuncs.com/api/v1",
+      "evidence": [
+        "dist/formal_api_demo_doubao_task_clear_20260412/visual_generation_plan.json: portrait_video_generation.status=success",
+        "codex_log/20260404_formal_api_demo_liveportrait_round5_success.md"
+      ]
+    },
+    {
+      "id": "formal_api_demo_platform_uniqueness_source",
+      "script_paths": [
+        "scripts/generate_formal_api_demo.py",
+        "formal_api_demo_core.py"
+      ],
+      "service_position": [
+        "开头",
+        "结尾",
+        "过程辅助视觉"
+      ],
+      "models": [
+        "wan2.6-image"
+      ],
+      "provider": "aliyun_bailian",
+      "helper": [
+        "_execute_aliyun_wan_image_generation",
+        "_execute_aliyun_visual_generation_task"
+      ],
+      "success_task_ids": [
+        "d31d9377-5e4d-4c2a-8ac8-dbfa20352970",
+        "acf72057-3723-485d-95e5-a85c62c2af4a",
+        "8cf96368-368d-48c7-8d9f-9eb3bac09323"
+      ],
+      "evidence": [
+        "/Users/fan/Documents/视频工厂/dist/formal_api_demo_platform_uniqueness_source/visual_generation_plan.json"
+      ]
+    },
+    {
+      "id": "host_motion_asset_gate_round3_round4_round5",
+      "script_paths": [
+        "scripts/元素娃娃线_round3_切换wan2.7与s2v闭环.py",
+        "scripts/元素娃娃线_round4_s2v_detect过检优化.py",
+        "scripts/元素娃娃线_round5_s2v_detect过检优化.py"
+      ],
+      "service_position": [
+        "主持壳",
+        "元素娃娃"
+      ],
+      "models": [
+        "wan2.7-image-pro",
+        "wan2.7-image",
+        "wan2.2-s2v-detect",
+        "wan2.2-s2v"
+      ],
+      "provider": "aliyun_bailian",
+      "helper": [
+        "_execute_aliyun_visual_generation_task",
+        "_upload_file_to_aliyun_temp_storage",
+        "_urlopen_json_request",
+        "_poll_aliyun_visual_task"
+      ],
+      "config_source": "/Users/fan/.config/video-factory/formal_api_demo.local.toml",
+      "success_evidence": {
+        "round3_image_success_task_id": "ae8dde69-9385-4542-9b61-655322795497",
+        "round4_image_success_count": 4,
+        "round5_image_success_task_id": "ffd704b9-25d1-425a-81ca-c575c31ae68b",
+        "round5_s2v_success_task_id": "471601a5-8a5d-40ce-b161-43bb1ab87bb7",
+        "round5_s2v_success_request_id": "f1cdfeaf-8b9b-9786-a7e1-c68259bfa5ec"
+      }
+    }
+  ],
+  "v3_failure_path": {
+    "script_path": "scripts/方案B独立反应片段V3_wan_generation.py",
+    "service_position": "中段独立 reaction clip",
+    "models": {
+      "image": [
+        "wan2.7-image-pro",
+        "wan2.7-image"
+      ],
+      "video": "wan2.7-i2v"
+    },
+    "helper": [
+      "_execute_aliyun_visual_generation_task",
+      "_extract_aliyun_image_result_url",
+      "_extract_aliyun_video_result_url",
+      "load_formal_config"
+    ],
+    "recorded_config_source": "/Users/fan/Documents/视频工厂/config/formal_api_demo.local.toml",
+    "endpoint_base": "https://dashscope.aliyuncs.com/api/v1",
+    "image_endpoint": "/services/aigc/image-generation/generation",
+    "video_endpoint": "/services/aigc/video-generation/video-synthesis",
+    "failure": {
+      "wan2.7-image-pro": "HTTP401 / InvalidApiKey",
+      "wan2.7-image": "HTTP401 / InvalidApiKey",
+      "wan2.7-i2v": "not_started"
+    }
+  },
+  "sanitized_key_sources": {
+    "env": {
+      "DASHSCOPE_API_KEY": false,
+      "DASHSCOPE_API_KEY_CN": false,
+      "BAILIAN_API_KEY": false,
+      "ALIBABA_CLOUD_ACCESS_KEY_ID": false,
+      "ALIBABA_CLOUD_ACCESS_KEY_SECRET": false,
+      "FORMAL_API_DEMO_LOCAL_CONFIG": false
+    },
+    "official_config": {
+      "path": "/Users/fan/.config/video-factory/formal_api_demo.local.toml",
+      "exists": true,
+      "provider": "aliyun_bailian",
+      "region": "cn-beijing",
+      "auth_api_key_present": true,
+      "auth_api_key_prefix_type": "sk_dashscope_like",
+      "auth_api_key_length_range": "20-39",
+      "image_generation_model": "wan2.6-image",
+      "video_generation_model": "wan2.7-i2v"
+    },
+    "legacy_repo_config": {
+      "path": "/Users/fan/Documents/视频工厂/config/formal_api_demo.local.toml",
+      "exists": true,
+      "provider": "aliyun_bailian",
+      "region": "cn-beijing",
+      "auth_api_key_currently_usable": false,
+      "image_generation_model": "wan2.6-image",
+      "video_generation_model": "wan2.7-i2v"
+    },
+    "most_likely_historical_success_source": "/Users/fan/.config/video-factory/formal_api_demo.local.toml"
+  },
+  "most_likely_root_cause": {
+    "label": "v3_used_legacy_or_stale_config_source_instead_of_historical_success_config_source",
+    "confidence": "high",
+    "evidence": [
+      "V3 run_summary recorded /Users/fan/Documents/视频工厂/config/formal_api_demo.local.toml",
+      "round3/round4/round5 summaries recorded /Users/fan/.config/video-factory/formal_api_demo.local.toml",
+      "current core default resolves to /Users/fan/.config/video-factory/formal_api_demo.local.toml",
+      "official config has sk_dashscope_like key shape; legacy config currently does not expose a usable auth.api_key",
+      "V3 failed before task creation with HTTP401 / InvalidApiKey"
+    ]
+  },
+  "alternate_causes": [
+    {
+      "label": "legacy_config_key_stale_expired_or_non_dashscope",
+      "evidence_strength": "medium"
+    },
+    {
+      "label": "current_key_permission_does_not_cover_required_wan_models",
+      "evidence_strength": "medium"
+    },
+    {
+      "label": "video_model_route_differs_from_historical_s2v_success",
+      "evidence_strength": "weak"
+    },
+    {
+      "label": "endpoint_or_region_mismatch",
+      "evidence_strength": "weak"
+    }
+  ],
+  "formal_state_changes": {
+    "full_mp4_modified": false,
+    "latest_review_pack_modified": false,
+    "content_validation_modified": false,
+    "send_ready_modified": false
+  },
+  "next_target": "让 V3 复用 /Users/fan/.config/video-factory/formal_api_demo.local.toml 历史成功配置链路；若仍 401，则在阿里百炼 / DashScope 控制台补齐支持万相图像和图生视频的通用 API Key。"
+}
