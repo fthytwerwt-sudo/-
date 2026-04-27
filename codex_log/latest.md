@@ -1,5 +1,21 @@
 # Latest
 
+## 20260428｜方案 B 整页反应版 15 秒技术预览 V2
+
+- `已确认` 本轮已先校准到主读取 worktree：`/private/tmp/视频工厂_user_readable_map_sync`。
+- `已确认` 校准起点分支为：`codex/user-readable-map`。
+- `已确认` 当前 `latest_review_pack` 指向：`round34_中段双展示提示卡_正反分段提示修复`。
+- `已确认` 当前状态仍为：`middle_segment_review = 用户暂定通过 / 暂不继续修改中段`，`content_validation = 待用户 / ChatGPT 最终复审`，`send_ready = no`。
+- `已确认` 本轮只生成 `方案 B：AI向导崩溃模式` 的整页 reaction V2 技术预览，待 ChatGPT / 用户复审。
+- `已确认` 预览输出目录：
+  - `dist/prototypes/20260428_方案B整页反应版15秒预览_scheme_b_full_page_reaction_v2/`
+- `已确认` 预览视频：
+  - `方案B整页反应版15秒预览_scheme_b_full_page_reaction_v2.mp4`
+- `已确认` 整页 reaction 出现 `1.40s`，只出现 1 次，人物胸口没有 `AI` 标识。
+- `已确认` ffmpeg 解码通过，视频时长 `15.00s`，分辨率 `720x1280`。
+- `已确认` 本轮不改 `full.mp4`、不生成正式新 round、不改 `dist/latest_review_pack/`、不改 `content_validation`、不改 `send_ready`。
+- `待验证` 本轮不代表方案 B 最终口径，不代表内容验证通过。
+
 ## 20260427｜中段吐槽插入风格视觉证据补齐
 
 - `已确认` 本轮只是补齐上一轮 reference pack 的轻量视觉证据，用于待 ChatGPT / 用户复审。

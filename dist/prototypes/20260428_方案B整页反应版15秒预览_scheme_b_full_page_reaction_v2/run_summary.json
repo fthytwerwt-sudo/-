@@ -1,0 +1,87 @@
+{
+  "task": "方案B整页反应版15秒技术预览V2",
+  "date": "2026-04-28",
+  "status": "generated_pending_review",
+  "repo": {
+    "cwd": "/private/tmp/视频工厂_user_readable_map_sync",
+    "base_reading_branch": "codex/user-readable-map",
+    "task_branch": "codex/scheme-b-full-page-reaction-v2-20260428"
+  },
+  "fact_source": {
+    "latest_review_pack_round": "round34_中段双展示提示卡_正反分段提示修复",
+    "middle_segment_review": "用户暂定通过 / 暂不继续修改中段",
+    "content_validation": "待用户 / ChatGPT 最终复审",
+    "send_ready": false
+  },
+  "source": {
+    "base_video": "/private/tmp/视频工厂_user_readable_map_sync/dist/latest_review_pack/middle_preview.mp4",
+    "base_video_round": "round34_中段双展示提示卡_正反分段提示修复",
+    "source_start_seconds": 1.6,
+    "output_duration_seconds": 15.0
+  },
+  "outputs": {
+    "preview_video": "/private/tmp/视频工厂_user_readable_map_sync/dist/prototypes/20260428_方案B整页反应版15秒预览_scheme_b_full_page_reaction_v2/方案B整页反应版15秒预览_scheme_b_full_page_reaction_v2.mp4",
+    "full_page_reaction_png": "/private/tmp/视频工厂_user_readable_map_sync/dist/prototypes/20260428_方案B整页反应版15秒预览_scheme_b_full_page_reaction_v2/方案B整页反应页_full_page_reaction.png",
+    "character_alpha_png": "/private/tmp/视频工厂_user_readable_map_sync/dist/prototypes/20260428_方案B整页反应版15秒预览_scheme_b_full_page_reaction_v2/方案B整页反应页_透明人物层_character_alpha.png",
+    "contact_sheet": "/private/tmp/视频工厂_user_readable_map_sync/dist/prototypes/20260428_方案B整页反应版15秒预览_scheme_b_full_page_reaction_v2/方案B整页反应版_contact_sheet.jpg",
+    "before_after_contact_sheet": "/private/tmp/视频工厂_user_readable_map_sync/dist/prototypes/20260428_方案B整页反应版15秒预览_scheme_b_full_page_reaction_v2/方案B整页反应版_before_after_contact_sheet.jpg",
+    "preview_report": "/private/tmp/视频工厂_user_readable_map_sync/dist/prototypes/20260428_方案B整页反应版15秒预览_scheme_b_full_page_reaction_v2/方案B整页反应版说明_preview_report.md"
+  },
+  "video_properties": {
+    "duration_seconds": 15.0,
+    "resolution": "720x1280",
+    "fps": 25,
+    "file_size_bytes": 1334105,
+    "audio": "kept_round34_middle_preview_audio"
+  },
+  "reaction_page": {
+    "name": "方案B整页反应版_scheme_b_full_page_reaction_v2",
+    "occurrence_count": 1,
+    "start_seconds": 4.52,
+    "end_seconds_exclusive": 5.92,
+    "duration_seconds": 1.4,
+    "punchline": ["方案很满", "用起来空"],
+    "is_full_page_reaction": true,
+    "is_corner_sticker": false,
+    "character_chest_ai_label_removed": true,
+    "character_text_logo_present": false,
+    "style_elements": [
+      "原创Q版AI向导",
+      "头大身小",
+      "X眼",
+      "旋涡眼",
+      "大张嘴",
+      "崩溃泪",
+      "双手抱头",
+      "头顶!?",
+      "汗滴",
+      "手足无措姿势",
+      "轻微震动和bounce",
+      "黄橙色放射线",
+      "速度线",
+      "模糊暗化录屏背景"
+    ]
+  },
+  "skills": {
+    "local_skills_dir": "missing",
+    "global_visual_verdict": "used_for_contact_sheet_visual_gate",
+    "global_verification_before_completion": "used_for_fresh_verification_before_commit",
+    "global_card_transition_smoother": "read; used as timing guidance for short punch-in/return, no profile file generated",
+    "global_visual_design_foundations": "read; used for hierarchy and large readable punchline",
+    "direct_video_assembly_or_gif_skill": "not_found"
+  },
+  "verification": {
+    "ffmpeg_decode": "passed",
+    "duration_14_to_16_seconds": true,
+    "resolution_720x1280_or_current_middle": true,
+    "reaction_page_appears": true,
+    "reaction_page_under_2_seconds": true,
+    "chest_ai_label_removed": true,
+    "uses_current_round34_base": true,
+    "latest_review_pack_hash_unchanged": true,
+    "content_validation_modified": false,
+    "send_ready_modified": false,
+    "git_diff_check": "passed"
+  },
+  "review_status": "待 ChatGPT / 用户复审；本轮仍是技术预览，不代表最终口径，不代表 content_validation 通过。"
+}
