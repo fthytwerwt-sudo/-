@@ -1,5 +1,16 @@
 # Latest
 
+## 20260428｜方案 B V3 骚萌表情迭代技术预览
+
+- `已确认` 本轮只改方案 B V3 独立反应片段的角色表情与动作气质；未重做路线，未回退本地绘图，未改正式正片。
+- `已确认` 继续显式复用历史成功配置 `/Users/fan/.config/video-factory/formal_api_demo.local.toml`，脱敏 preflight 通过：`provider = aliyun_bailian`，`region = cn-beijing`，key 存在且为 `sk_dashscope_like / 20-39`。
+- `已确认` 已生成 2 张骚萌表情候选图：A 版为挑眉 wink + 捂嘴偷笑，B 版为吐舌 + 歪头；候选对比图为 `dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应页_骚萌候选对比_contact_sheet.jpg`。
+- `已确认` 选中 A 版进入 i2v：A 版更接近贱萌得瑟，且不低幼、不暧昧、胸口无 `AI`；B 版吐舌更强但略偏低幼 / 暧昧。
+- `已确认` `wan2.7-i2v` 已生成骚萌独立 reaction clip：`dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应片段_骚萌_reaction_clip.mp4`，`1.52s / 720x1280`。
+- `已确认` 已装配 15 秒骚萌版技术预览：`dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应15秒预览_骚萌版_scheme_b_standalone_reaction_v3_sassy_cute.mp4`，结构仍为 `round34 录屏片段 A -> 骚萌独立 reaction clip -> round34 录屏片段 B`，不是 overlay compositing。
+- `已确认` 本轮未泄露 key、未提交本地私有配置、未本地绘图兜底、未改正式 `full.mp4`、未改 `dist/latest_review_pack/`、未改 `content_validation`、未改 `send_ready`。
+- `待验证` 本轮只是 `technical_preview_generated_content_pending`，仍待 ChatGPT / 用户复审“骚萌表情、GIF 感、插入节奏、是否能进入正式方案”；不代表方案 B 最终口径。
+
 ## 20260428｜方案 B V3 复用历史配置生成独立反应预览
 
 - `已确认` 本轮显式复用历史成功配置 `/Users/fan/.config/video-factory/formal_api_demo.local.toml`，脱敏 preflight 通过：`provider = aliyun_bailian`，`region = cn-beijing`，key 存在且为 `sk_dashscope_like / 20-39`。

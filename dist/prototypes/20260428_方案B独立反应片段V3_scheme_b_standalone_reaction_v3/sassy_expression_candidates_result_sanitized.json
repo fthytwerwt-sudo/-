@@ -1,0 +1,68 @@
+{
+  "candidates": {
+    "A": {
+      "candidate_id": "A",
+      "status": "success",
+      "task_id": "0e572645-7897-412c-a82a-9fdf0dbd13e3",
+      "request_id": "fe31cbcb-a834-94b6-b52a-f4a8d17ab335",
+      "asset_path": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应页_骚萌A_static_reaction_page.png",
+      "blocked_reason": "",
+      "failure_reason": "",
+      "error_message": "",
+      "http_status_code": null,
+      "error_code": "",
+      "selected_model": "wan2.7-image-pro",
+      "raw_asset_path": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应页_骚萌A_static_reaction_page_raw_from_wan.png",
+      "image_size": [
+        720,
+        1280
+      ]
+    },
+    "B": {
+      "candidate_id": "B",
+      "status": "success",
+      "task_id": "1e0bb603-4978-48cc-8c29-358297faae0b",
+      "request_id": "eaa3dec2-b5dc-92de-91fc-76dd0912f6a0",
+      "asset_path": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应页_骚萌B_static_reaction_page.png",
+      "blocked_reason": "",
+      "failure_reason": "",
+      "error_message": "",
+      "http_status_code": null,
+      "error_code": "",
+      "selected_model": "wan2.7-image-pro",
+      "raw_asset_path": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应页_骚萌B_static_reaction_page_raw_from_wan.png",
+      "image_size": [
+        720,
+        1280
+      ]
+    }
+  },
+  "attempts": [
+    {
+      "kind": "image",
+      "candidate_id": "A",
+      "model": "wan2.7-image-pro",
+      "status": "success",
+      "failure_reason": "",
+      "blocked_reason": "",
+      "error_code": "",
+      "http_status_code": null,
+      "request_id": "fe31cbcb-a834-94b6-b52a-f4a8d17ab335",
+      "task_id": "0e572645-7897-412c-a82a-9fdf0dbd13e3",
+      "endpoint": "https://dashscope.aliyuncs.com/api/v1/services/aigc/image-generation/generation"
+    },
+    {
+      "kind": "image",
+      "candidate_id": "B",
+      "model": "wan2.7-image-pro",
+      "status": "success",
+      "failure_reason": "",
+      "blocked_reason": "",
+      "error_code": "",
+      "http_status_code": null,
+      "request_id": "eaa3dec2-b5dc-92de-91fc-76dd0912f6a0",
+      "task_id": "1e0bb603-4978-48cc-8c29-358297faae0b",
+      "endpoint": "https://dashscope.aliyuncs.com/api/v1/services/aigc/image-generation/generation"
+    }
+  ]
+}

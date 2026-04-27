@@ -1,7 +1,7 @@
 {
   "task": "方案B独立反应片段V3",
-  "mode": "video-preview",
-  "status": "technical_preview_generated",
+  "mode": "sassy-video-preview",
+  "status": "technical_preview_generated_content_pending",
   "fact_source": {
     "round": "round34_中段双展示提示卡_正反分段提示修复",
     "base_video": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/latest_review_pack/middle_preview.mp4"
@@ -14,43 +14,44 @@
     "actual_local_config_path": "/Users/fan/.config/video-factory/formal_api_demo.local.toml"
   },
   "outputs": {
-    "static_reaction_page": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应页_static_reaction_page.png",
-    "raw_static_reaction_page": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应页_static_reaction_page_raw_from_wan.png",
-    "reaction_clip": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应片段_reaction_clip.mp4",
-    "raw_reaction_clip": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应片段_reaction_clip_raw_from_wan.mp4",
-    "preview_video": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应15秒预览_scheme_b_standalone_reaction_v3.mp4",
-    "contact_sheet": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应15秒预览_contact_sheet.jpg",
-    "before_after_contact_sheet": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应15秒预览_before_after_contact_sheet.jpg",
-    "attempts_sanitized": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/wan_generation_attempts_sanitized.json",
-    "image_generation_result_sanitized": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/image_generation_result_sanitized.json",
+    "sassy_candidate_a": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应页_骚萌A_static_reaction_page.png",
+    "sassy_candidate_b": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应页_骚萌B_static_reaction_page.png",
+    "sassy_candidate_contact_sheet": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应页_骚萌候选对比_contact_sheet.jpg",
+    "sassy_reaction_clip": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应片段_骚萌_reaction_clip.mp4",
+    "sassy_raw_reaction_clip": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应片段_骚萌_reaction_clip_raw_from_wan.mp4",
+    "sassy_preview_video": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应15秒预览_骚萌版_scheme_b_standalone_reaction_v3_sassy_cute.mp4",
+    "sassy_contact_sheet": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应15秒预览_骚萌版_contact_sheet.jpg",
+    "sassy_before_after_contact_sheet": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应15秒预览_骚萌版_before_after_contact_sheet.jpg",
+    "sassy_candidates_result_sanitized": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/sassy_expression_candidates_result_sanitized.json",
     "official_config_preflight_sanitized": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/official_config_preflight_sanitized.json",
     "prompts": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应V3_prompts.json",
+    "attempts_sanitized": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/wan_generation_attempts_sanitized.json",
     "preview_report": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应V3说明_preview_report.md"
   },
   "verification": {
     "ffmpeg_preview_probe": [
-      "Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应15秒预览_scheme_b_standalone_reaction_v3.mp4':",
+      "Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应15秒预览_骚萌版_scheme_b_standalone_reaction_v3_sassy_cute.mp4':",
       "  Metadata:",
       "    major_brand     : isom",
       "    minor_version   : 512",
       "    compatible_brands: isomiso2avc1mp41",
       "    encoder         : Lavf61.7.100",
-      "  Duration: 00:00:15.00, start: 0.000000, bitrate: 978 kb/s",
-      "  Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(progressive), 720x1280 [SAR 1:1 DAR 9:16], 976 kb/s, 25 fps, 25 tbr, 12800 tbn (default)",
+      "  Duration: 00:00:15.00, start: 0.000000, bitrate: 1413 kb/s",
+      "  Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(progressive), 720x1280 [SAR 1:1 DAR 9:16], 1410 kb/s, 25 fps, 25 tbr, 12800 tbn (default)",
       "      Metadata:",
       "        handler_name    : VideoHandler",
       "        vendor_id       : [0][0][0][0]",
       "        encoder         : Lavc61.19.100 libx264"
     ],
     "ffmpeg_reaction_probe": [
-      "Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应片段_reaction_clip.mp4':",
+      "Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应片段_骚萌_reaction_clip.mp4':",
       "  Metadata:",
       "    major_brand     : isom",
       "    minor_version   : 512",
       "    compatible_brands: isomiso2avc1mp41",
       "    encoder         : Lavf61.7.100",
-      "  Duration: 00:00:01.52, start: 0.000000, bitrate: 4715 kb/s",
-      "  Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(progressive), 720x1280, 4708 kb/s, 25 fps, 25 tbr, 12800 tbn (default)",
+      "  Duration: 00:00:01.52, start: 0.000000, bitrate: 9003 kb/s",
+      "  Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(progressive), 720x1280, 8996 kb/s, 25 fps, 25 tbr, 12800 tbn (default)",
       "      Metadata:",
       "        handler_name    : VideoHandler",
       "        vendor_id       : [0][0][0][0]",
@@ -70,19 +71,27 @@
     "ffmpeg_reaction_clip_decode_passed": true,
     "preview_duration_in_14_to_16_seconds": true,
     "reaction_clip_duration_in_1_4_to_1_6_seconds": true,
-    "static_reaction_page_manual_visual_check": {
-      "full_page_reaction": true,
+    "sassy_expression_manual_visual_check": {
+      "selected_candidate": "A",
+      "closer_to_sassy_funny_gif": true,
+      "not_crying_panic_meltdown": true,
+      "not_x_eye_or_spiral_eye": true,
       "no_chest_ai_visible": true,
-      "punchline_text_visible": "方案很满 / 用起来空",
-      "expression_elements": [
-        "X eye",
-        "spiral eye",
-        "open mouth",
-        "tears",
-        "hands holding head",
-        "question/exclamation marks"
+      "not_sexy_or_edgy": true,
+      "selected_reason": "A版挑眉wink+捂嘴偷笑更接近贱萌得瑟，B版吐舌更强但略偏低幼/暧昧；A版文字与胸口空白也更稳。",
+      "content_validation": "待用户 / ChatGPT 复审"
+    },
+    "visual_verdict": {
+      "score": 91,
+      "verdict": "pass_for_technical_preview",
+      "category_match": true,
+      "differences": [
+        "仍需用户判断是否足够“骚萌”和是否过于安全"
       ],
-      "visual_quality_route": "wan2.7-image-pro generated image; no local character drawing"
+      "suggestions": [
+        "若还不够得瑟，下一轮可增强歪头、小扭动或吐舌，但需避免低幼/暧昧"
+      ],
+      "reasoning": "A 版保留高质量整页 reaction、清晰大字和独立 clip 结构，同时由惊恐崩溃改为 wink、捂嘴偷笑和得瑟手势。"
     }
   },
   "state_boundary": {
@@ -120,49 +129,80 @@
     "key_leakage": false,
     "failures": []
   },
-  "image_generation": {
-    "status": "success",
-    "task_id": "81eaed8f-df33-45b3-8a7e-6aa0be456463",
-    "request_id": "80bc045d-0d87-9e32-97cc-eeb398cfe10d",
-    "asset_path": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应页_static_reaction_page.png",
-    "blocked_reason": "",
-    "failure_reason": "",
-    "error_message": "",
-    "http_status_code": null,
-    "error_code": "",
-    "selected_model": "wan2.7-image-pro",
-    "raw_asset_path": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应页_static_reaction_page_raw_from_wan.png",
-    "image_size": [
-      720,
-      1280
-    ]
+  "image_candidates": {
+    "A": {
+      "candidate_id": "A",
+      "status": "success",
+      "task_id": "0e572645-7897-412c-a82a-9fdf0dbd13e3",
+      "request_id": "fe31cbcb-a834-94b6-b52a-f4a8d17ab335",
+      "asset_path": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应页_骚萌A_static_reaction_page.png",
+      "blocked_reason": "",
+      "failure_reason": "",
+      "error_message": "",
+      "http_status_code": null,
+      "error_code": "",
+      "selected_model": "wan2.7-image-pro",
+      "raw_asset_path": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应页_骚萌A_static_reaction_page_raw_from_wan.png",
+      "image_size": [
+        720,
+        1280
+      ]
+    },
+    "B": {
+      "candidate_id": "B",
+      "status": "success",
+      "task_id": "1e0bb603-4978-48cc-8c29-358297faae0b",
+      "request_id": "eaa3dec2-b5dc-92de-91fc-76dd0912f6a0",
+      "asset_path": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应页_骚萌B_static_reaction_page.png",
+      "blocked_reason": "",
+      "failure_reason": "",
+      "error_message": "",
+      "http_status_code": null,
+      "error_code": "",
+      "selected_model": "wan2.7-image-pro",
+      "raw_asset_path": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应页_骚萌B_static_reaction_page_raw_from_wan.png",
+      "image_size": [
+        720,
+        1280
+      ]
+    }
   },
+  "selected_candidate": "A",
+  "selection_reason": "A版挑眉wink+捂嘴偷笑更接近贱萌得瑟，B版吐舌更强但略偏低幼/暧昧；A版文字与胸口空白也更稳。",
   "video_generation": {
     "status": "success",
-    "task_id": "2e6c54e9-39f4-4bb8-9c9f-5f38bb6d8e42",
-    "request_id": "ea86281a-fa9f-9b37-8305-b0805ab97ebe",
-    "asset_path": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应片段_reaction_clip.mp4",
+    "task_id": "00843322-0685-4eb2-a2ca-d9802ddc11b0",
+    "request_id": "bb5a7a91-d3f9-9588-8aa6-1c7cd10ab680",
+    "asset_path": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应片段_骚萌_reaction_clip.mp4",
     "blocked_reason": "",
     "failure_reason": "",
     "error_message": "",
     "http_status_code": null,
     "error_code": "",
     "selected_model": "wan2.7-i2v",
-    "raw_asset_path": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应片段_reaction_clip_raw_from_wan.mp4",
-    "provider_asset_path": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/visual/scheme_b_v3_reaction_clip_wan_i2v_video.mp4"
+    "raw_asset_path": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应片段_骚萌_reaction_clip_raw_from_wan.mp4",
+    "provider_asset_path": "not_committed_generated_cache_removed_after_copy",
+    "provider_asset_path_note": "temporary provider download cache removed after copying raw_reaction_clip"
+  },
+  "expression_iteration": {
+    "target": "骚萌搞笑 GIF 感",
+    "candidate_limit": 2,
+    "selected_candidate": "A",
+    "selection_reason": "A版挑眉wink+捂嘴偷笑更接近贱萌得瑟，B版吐舌更强但略偏低幼/暧昧；A版文字与胸口空白也更稳。",
+    "content_validation": "待用户 / ChatGPT 复审"
   },
   "video_properties": {
     "preview_duration_seconds": 15.0,
     "preview_resolution": "720x1280",
-    "preview_file_size_bytes": 1835279,
+    "preview_file_size_bytes": 2649877,
     "reaction_clip_duration_seconds": 1.52,
     "reaction_clip_resolution": "720x1280",
-    "reaction_clip_file_size_bytes": 895986,
+    "reaction_clip_file_size_bytes": 1710584,
     "preview_audio": "silent_preview"
   },
   "edit_structure": {
     "segment_a": "round34 middle_preview recording excerpt",
-    "reaction_clip": "standalone generated Wan i2v clip, inserted as its own segment",
+    "reaction_clip": "standalone generated Wan i2v sassy-cute clip, inserted as its own segment",
     "segment_b": "round34 middle_preview mainline continuation",
     "is_overlay": false
   }

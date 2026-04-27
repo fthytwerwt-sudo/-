@@ -52,6 +52,17 @@ SUMMARY_PATH = OUT_DIR / "run_summary.json"
 ATTEMPTS_PATH = OUT_DIR / "wan_generation_attempts_sanitized.json"
 PREFLIGHT_PATH = OUT_DIR / "official_config_preflight_sanitized.json"
 IMAGE_RESULT_PATH = OUT_DIR / "image_generation_result_sanitized.json"
+SASSY_CANDIDATE_A_IMAGE_PATH = OUT_DIR / "方案B独立反应页_骚萌A_static_reaction_page.png"
+SASSY_CANDIDATE_A_RAW_IMAGE_PATH = OUT_DIR / "方案B独立反应页_骚萌A_static_reaction_page_raw_from_wan.png"
+SASSY_CANDIDATE_B_IMAGE_PATH = OUT_DIR / "方案B独立反应页_骚萌B_static_reaction_page.png"
+SASSY_CANDIDATE_B_RAW_IMAGE_PATH = OUT_DIR / "方案B独立反应页_骚萌B_static_reaction_page_raw_from_wan.png"
+SASSY_CANDIDATE_SHEET_PATH = OUT_DIR / "方案B独立反应页_骚萌候选对比_contact_sheet.jpg"
+SASSY_IMAGE_RESULT_PATH = OUT_DIR / "sassy_expression_candidates_result_sanitized.json"
+SASSY_RAW_REACTION_CLIP_PATH = OUT_DIR / "方案B独立反应片段_骚萌_reaction_clip_raw_from_wan.mp4"
+SASSY_REACTION_CLIP_PATH = OUT_DIR / "方案B独立反应片段_骚萌_reaction_clip.mp4"
+SASSY_PREVIEW_PATH = OUT_DIR / "方案B独立反应15秒预览_骚萌版_scheme_b_standalone_reaction_v3_sassy_cute.mp4"
+SASSY_CONTACT_SHEET_PATH = OUT_DIR / "方案B独立反应15秒预览_骚萌版_contact_sheet.jpg"
+SASSY_BEFORE_AFTER_CONTACT_SHEET_PATH = OUT_DIR / "方案B独立反应15秒预览_骚萌版_before_after_contact_sheet.jpg"
 
 SOURCE_VIDEO = ROOT / "dist" / "latest_review_pack" / "middle_preview.mp4"
 SOURCE_START_SECONDS = 1.6
@@ -73,6 +84,26 @@ Style keywords: premium 3D mascot illustration, expressive comedy reaction, orig
 
 VIDEO_PROMPT = """Animate this standalone reaction page as a short punchline clip. Keep the same original AI guide character and composition. Add a quick bounce, tiny shake, moving speed lines, tears wobbling, and text popping slightly. No camera travel, no new logos, no platform UI, no recording overlay. Keep the Chinese text readable: 方案很满 / 用起来空. Funny meltdown reaction, energetic but clean."""
 
+SASSY_PROMPT_A = """Vertical 9:16 high quality stylized 3D cartoon full-page reaction card, original cute-but-not-childish digital guide mascot / tiny project host character, big head small body, polished commercial illustration quality.
+Character expression direction: cheeky cute funny GIF expression, playful smug face, one eyebrow raised, one eye wink, sly grin, one hand covering mouth like holding back laughter, another hand making a tiny playful gesture. The mood is naughty-cute, sassy, teasing, theatrical, meme-like, as if the guide sees an empty-looking plan and cannot help raising an eyebrow and giggling.
+Important emotion rules: not meltdown, not crying, not scared, not panic, no X eyes, no spiral eyes, no screaming mouth, no hands holding head, no horror. Cute but not childish, sassy but not sexy, family-friendly, slightly mischievous and funny.
+The character body and outfit must be completely plain and blank: no chest text, no shirt letters, no badge, no emblem, no logo, no English letters, no "AI", no visible words or marks anywhere on the character. Use a smooth simple mascot body instead of a labeled shirt.
+No real person, no existing IP, no copyrighted character, no meme copy, no platform UI, no Douyin or TikTok UI, no social app icons, no logos. The only text in the entire image should be the two Chinese punchline lines.
+Background: standalone orange and yellow comic burst reaction page with energetic speed lines and GIF-like punchline energy, not a screen recording overlay, not a transparent sticker, not a corner sticker.
+Put two large Chinese punchline lines near the top in bold rounded lettering: 方案很满 / 用起来空. Keep the text clean and readable.
+Style keywords: premium 3D mascot illustration, cheeky cute reaction, smug wink, expressive comedy GIF frame, original character, high detail clean rendering, vivid orange-yellow burst background, 720x1280 vertical video insert, no watermark."""
+
+SASSY_PROMPT_B = """Vertical 9:16 high quality stylized 3D cartoon full-page reaction card, original cute-but-not-childish digital guide mascot / tiny project host character, big head small body, polished commercial illustration quality.
+Character expression direction: funny GIF sticker frame, head tilted, tiny tongue out, half-lidded clever eyes, playful smug grin, shoulders doing a tiny wiggle, one hand near cheek in a teasing pose and another hand making a small playful gesture. The mood is sassy-cute, cheeky, theatrical, adorable but a little annoying in a funny way.
+Important emotion rules: not meltdown, not crying, not scared, not panic, no X eyes, no spiral eyes, no screaming mouth, no hands holding head, no horror. Cute but not childish, sassy but not sexy, family-friendly, slightly mischievous and funny.
+The character body and outfit must be completely plain and blank: no chest text, no shirt letters, no badge, no emblem, no logo, no English letters, no "AI", no visible words or marks anywhere on the character. Use a smooth simple mascot body instead of a labeled shirt.
+No real person, no existing IP, no copyrighted character, no meme copy, no platform UI, no Douyin or TikTok UI, no social app icons, no logos. The only text in the entire image should be the two Chinese punchline lines.
+Background: standalone orange and yellow comic burst reaction page with energetic speed lines and GIF-like punchline energy, not a screen recording overlay, not a transparent sticker, not a corner sticker.
+Put two large Chinese punchline lines near the top in bold rounded lettering: 方案很满 / 用起来空. Keep the text clean and readable.
+Style keywords: premium 3D mascot illustration, cheeky cute reaction, tongue-out head tilt, expressive comedy GIF frame, original character, high detail clean rendering, vivid orange-yellow burst background, 720x1280 vertical video insert, no watermark."""
+
+SASSY_VIDEO_PROMPT = """Animate this standalone sassy-cute reaction page as a short funny GIF-like punchline clip. Keep the same original mascot and full-page composition. Add a quick playful bounce, tiny shoulder wiggle, cheeky head tilt, subtle wink or tongue-out motion, lively speed lines, and slightly popping Chinese punchline text. No crying, no panic, no horror, no X eyes, no spiral eyes, no screaming. No camera travel, no new logos, no platform UI, no recording overlay. Keep the Chinese text readable: 方案很满 / 用起来空. Sassy-cute, smug, teasing, funny, family-friendly."""
+
 
 def write_json(path: pathlib.Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -83,9 +114,20 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="方案 B 独立 reaction V3 万相生成与装配")
     parser.add_argument(
         "--mode",
-        choices=["image", "video-preview"],
+        choices=["image", "video-preview", "sassy-image", "sassy-video-preview"],
         default="image",
-        help="image 只做 preflight + wan2.7-image-pro；video-preview 复用已生成静态图继续 i2v 和 15 秒预览。",
+        help="image 只做 preflight + wan2.7-image-pro；video-preview 复用已生成静态图继续 i2v；sassy-* 用于骚萌表情迭代。",
+    )
+    parser.add_argument(
+        "--selected-candidate",
+        choices=["A", "B"],
+        default="A",
+        help="sassy-video-preview 使用的骚萌候选。",
+    )
+    parser.add_argument(
+        "--selection-reason",
+        default="",
+        help="记录人工选择候选的脱敏理由。",
     )
     parser.add_argument(
         "--local-config",
@@ -298,11 +340,130 @@ def generate_static_image(config: dict[str, Any]) -> tuple[dict[str, Any], str |
     return {"result": final_result, "attempts": attempts}, source_url
 
 
+def generate_static_image_candidate(
+    config: dict[str, Any],
+    *,
+    candidate_id: str,
+    prompt: str,
+    static_path: pathlib.Path,
+    raw_path: pathlib.Path,
+) -> tuple[dict[str, Any], str | None]:
+    model = IMAGE_MODEL
+    effective = image_config_for(config, model)
+    payload = {
+        "model": model,
+        "input": {
+            "messages": [
+                {
+                    "role": "user",
+                    "content": [{"text": prompt}],
+                }
+            ]
+        },
+        "parameters": {
+            "size": "1152*2048",
+            "n": 1,
+            "watermark": False,
+            "thinking_mode": True,
+        },
+    }
+    result = _execute_aliyun_visual_generation_task(
+        config=effective,
+        output_dir=OUT_DIR,
+        segment_id=f"scheme_b_v3_sassy_{candidate_id}_{model}",
+        asset_kind="image",
+        create_relative_path="/services/aigc/image-generation/generation",
+        payload=payload,
+        result_url_extractor=_extract_aliyun_image_result_url,
+        default_extension=".png",
+    )
+    source_url: str | None = None
+    final_result: dict[str, Any] = {
+        "candidate_id": candidate_id,
+        **result,
+        "selected_model": model,
+    }
+    if result.get("status") == STATUS_SUCCESS and result.get("asset_path"):
+        generated = pathlib.Path(result["asset_path"])
+        shutil.copyfile(generated, raw_path)
+        image = Image.open(generated).convert("RGB")
+        fitted = ImageOps.fit(image, (720, 1280), method=Image.Resampling.LANCZOS)
+        fitted.save(static_path, quality=96)
+        source_url = result.get("source_url")
+        final_result = {
+            **final_result,
+            "asset_path": str(static_path),
+            "raw_asset_path": str(raw_path),
+            "image_size": list(fitted.size),
+        }
+    return final_result, source_url
+
+
+def make_sassy_candidate_sheet() -> None:
+    candidates = [
+        ("A", SASSY_CANDIDATE_A_IMAGE_PATH),
+        ("B", SASSY_CANDIDATE_B_IMAGE_PATH),
+    ]
+    thumbs: list[Image.Image] = []
+    for label, path in candidates:
+        image = Image.open(path).convert("RGB").resize((360, 640), Image.Resampling.LANCZOS)
+        thumbs.append(image)
+    sheet = Image.new("RGB", (720, 640), "white")
+    for index, thumb in enumerate(thumbs):
+        sheet.paste(thumb, (index * 360, 0))
+    sheet.save(SASSY_CANDIDATE_SHEET_PATH, quality=92)
+
+
+def generate_sassy_candidates(config: dict[str, Any]) -> dict[str, Any]:
+    candidates: dict[str, Any] = {}
+    attempts: list[dict[str, Any]] = []
+    specs = [
+        ("A", SASSY_PROMPT_A, SASSY_CANDIDATE_A_IMAGE_PATH, SASSY_CANDIDATE_A_RAW_IMAGE_PATH),
+        ("B", SASSY_PROMPT_B, SASSY_CANDIDATE_B_IMAGE_PATH, SASSY_CANDIDATE_B_RAW_IMAGE_PATH),
+    ]
+    for candidate_id, prompt, static_path, raw_path in specs:
+        result, _source_url = generate_static_image_candidate(
+            config,
+            candidate_id=candidate_id,
+            prompt=prompt,
+            static_path=static_path,
+            raw_path=raw_path,
+        )
+        sanitized = {
+            k: v
+            for k, v in result.items()
+            if k not in {"source_url"}
+        }
+        candidates[candidate_id] = sanitized
+        attempts.append(
+            {
+                "kind": "image",
+                "candidate_id": candidate_id,
+                "model": IMAGE_MODEL,
+                "status": result.get("status"),
+                "failure_reason": result.get("failure_reason"),
+                "blocked_reason": result.get("blocked_reason"),
+                "error_code": result.get("error_code"),
+                "http_status_code": result.get("http_status_code"),
+                "request_id": result.get("request_id"),
+                "task_id": result.get("task_id"),
+                "endpoint": "https://dashscope.aliyuncs.com/api/v1/services/aigc/image-generation/generation",
+            }
+        )
+    if all(candidates.get(candidate_id, {}).get("status") == STATUS_SUCCESS for candidate_id in ("A", "B")):
+        make_sassy_candidate_sheet()
+    return {"candidates": candidates, "attempts": attempts}
+
+
 def source_url_from_completed_image_task(config: dict[str, Any]) -> str:
     image_result = read_json_if_exists(IMAGE_RESULT_PATH, {})
     task_id = image_result.get("task_id")
     if not task_id:
         raise RuntimeError(f"missing image task_id in {IMAGE_RESULT_PATH}")
+    return source_url_from_task_id(config, task_id)
+
+
+def source_url_from_task_id(config: dict[str, Any], task_id: str) -> str:
     task_payload = _poll_aliyun_visual_task(
         config=config,
         task_id=task_id,
@@ -366,6 +527,58 @@ def generate_reaction_video(config: dict[str, Any], seed_image_url: str) -> dict
     return {"result": result, "attempt": sanitized}
 
 
+def generate_sassy_reaction_video(config: dict[str, Any], seed_image_url: str) -> dict[str, Any]:
+    effective = video_config_for(config)
+    payload = {
+        "model": VIDEO_MODEL,
+        "input": {
+            "prompt": SASSY_VIDEO_PROMPT,
+            "media": [
+                {
+                    "type": "first_frame",
+                    "url": seed_image_url,
+                }
+            ],
+        },
+        "parameters": {
+            "resolution": "720P",
+            "duration": 2,
+            "prompt_extend": True,
+            "watermark": False,
+        },
+    }
+    result = _execute_aliyun_visual_generation_task(
+        config=effective,
+        output_dir=OUT_DIR,
+        segment_id="scheme_b_v3_sassy_cute_reaction_clip_wan_i2v",
+        asset_kind="video",
+        create_relative_path="/services/aigc/video-generation/video-synthesis",
+        payload=payload,
+        result_url_extractor=_extract_aliyun_video_result_url,
+        default_extension=".mp4",
+    )
+    sanitized = {
+        "kind": "video",
+        "model": VIDEO_MODEL,
+        "status": result.get("status"),
+        "failure_reason": result.get("failure_reason"),
+        "blocked_reason": result.get("blocked_reason"),
+        "error_code": result.get("error_code"),
+        "http_status_code": result.get("http_status_code"),
+        "request_id": result.get("request_id"),
+        "task_id": result.get("task_id"),
+    }
+    if result.get("status") == STATUS_SUCCESS and result.get("asset_path"):
+        generated = pathlib.Path(result["asset_path"])
+        shutil.copyfile(generated, SASSY_RAW_REACTION_CLIP_PATH)
+        result = {
+            **result,
+            "selected_model": VIDEO_MODEL,
+            "raw_asset_path": str(SASSY_RAW_REACTION_CLIP_PATH),
+        }
+    return {"result": result, "attempt": sanitized}
+
+
 def normalize_reaction_clip(ffmpeg: str) -> None:
     run(
         [
@@ -385,6 +598,29 @@ def normalize_reaction_clip(ffmpeg: str) -> None:
             "-crf",
             "18",
             str(REACTION_CLIP_PATH),
+        ]
+    )
+
+
+def normalize_clip(ffmpeg: str, raw_path: pathlib.Path, output_path: pathlib.Path) -> None:
+    run(
+        [
+            ffmpeg,
+            "-y",
+            "-i",
+            str(raw_path),
+            "-t",
+            str(REACTION_SECONDS),
+            "-vf",
+            f"scale=720:1280:force_original_aspect_ratio=increase,crop=720:1280,fps={FPS},format=yuv420p",
+            "-an",
+            "-c:v",
+            "libx264",
+            "-preset",
+            "veryfast",
+            "-crf",
+            "18",
+            str(output_path),
         ]
     )
 
@@ -455,6 +691,47 @@ def assemble_preview(ffmpeg: str) -> None:
         temp_path.unlink(missing_ok=True)
 
 
+def assemble_preview_with_clip(ffmpeg: str, reaction_clip: pathlib.Path, preview_path: pathlib.Path) -> None:
+    segment_a = OUT_DIR / "tmp_录屏片段A_negative_before.mp4"
+    segment_b = OUT_DIR / "tmp_录屏片段B_mainline_after.mp4"
+    concat_list = OUT_DIR / "tmp_concat_list.txt"
+    make_source_segment(ffmpeg, SOURCE_START_SECONDS, SEGMENT_A_SECONDS, segment_a)
+    make_source_segment(
+        ffmpeg,
+        SOURCE_START_SECONDS + SEGMENT_A_SECONDS,
+        SEGMENT_B_SECONDS,
+        segment_b,
+    )
+    concat_list.write_text(
+        "\n".join(
+            [
+                f"file '{segment_a.as_posix()}'",
+                f"file '{reaction_clip.as_posix()}'",
+                f"file '{segment_b.as_posix()}'",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    run(
+        [
+            ffmpeg,
+            "-y",
+            "-f",
+            "concat",
+            "-safe",
+            "0",
+            "-i",
+            str(concat_list),
+            "-c",
+            "copy",
+            str(preview_path),
+        ]
+    )
+    for temp_path in (segment_a, segment_b, concat_list):
+        temp_path.unlink(missing_ok=True)
+
+
 def make_contact_sheet(ffmpeg: str) -> None:
     frame_dir = OUT_DIR / "contact_frames"
     frame_dir.mkdir(parents=True, exist_ok=True)
@@ -487,6 +764,41 @@ def make_contact_sheet(ffmpeg: str) -> None:
         y = (index // 4) * 320
         sheet.paste(thumb, (x, y))
     sheet.save(CONTACT_SHEET_PATH, quality=92)
+    shutil.rmtree(frame_dir, ignore_errors=True)
+
+
+def make_contact_sheet_for(ffmpeg: str, preview_path: pathlib.Path, sheet_path: pathlib.Path, frame_dir_name: str) -> None:
+    frame_dir = OUT_DIR / frame_dir_name
+    frame_dir.mkdir(parents=True, exist_ok=True)
+    times = [0.8, 3.8, 4.65, 5.35, 6.2, 9.6, 11.4, 14.4]
+    frames: list[pathlib.Path] = []
+    for index, timestamp in enumerate(times):
+        out = frame_dir / f"frame_{index:02d}_{timestamp:.2f}s.jpg"
+        run(
+            [
+                ffmpeg,
+                "-y",
+                "-ss",
+                f"{timestamp:.3f}",
+                "-i",
+                str(preview_path),
+                "-frames:v",
+                "1",
+                "-update",
+                "1",
+                "-q:v",
+                "2",
+                str(out),
+            ]
+        )
+        frames.append(out)
+    thumbs = [Image.open(path).convert("RGB").resize((180, 320), Image.Resampling.LANCZOS) for path in frames]
+    sheet = Image.new("RGB", (180 * 4, 320 * 2), "white")
+    for index, thumb in enumerate(thumbs):
+        x = (index % 4) * 180
+        y = (index // 4) * 320
+        sheet.paste(thumb, (x, y))
+    sheet.save(sheet_path, quality=92)
     shutil.rmtree(frame_dir, ignore_errors=True)
 
 
@@ -524,6 +836,48 @@ def make_before_after_contact_sheet(ffmpeg: str) -> None:
     for index, thumb in enumerate(thumbs):
         sheet.paste(thumb, (index * 240, 0))
     sheet.save(BEFORE_AFTER_CONTACT_SHEET_PATH, quality=92)
+    shutil.rmtree(frame_dir, ignore_errors=True)
+
+
+def make_before_after_contact_sheet_for(
+    ffmpeg: str,
+    preview_path: pathlib.Path,
+    sheet_path: pathlib.Path,
+    frame_dir_name: str,
+) -> None:
+    frame_dir = OUT_DIR / frame_dir_name
+    frame_dir.mkdir(parents=True, exist_ok=True)
+    frame_specs = [
+        ("before_recording", preview_path, 3.6),
+        ("standalone_reaction", preview_path, 5.0),
+        ("after_recording", preview_path, 7.2),
+    ]
+    frames: list[pathlib.Path] = []
+    for index, (label, source, timestamp) in enumerate(frame_specs):
+        out = frame_dir / f"{index:02d}_{label}.jpg"
+        run(
+            [
+                ffmpeg,
+                "-y",
+                "-ss",
+                f"{timestamp:.3f}",
+                "-i",
+                str(source),
+                "-frames:v",
+                "1",
+                "-update",
+                "1",
+                "-q:v",
+                "2",
+                str(out),
+            ]
+        )
+        frames.append(out)
+    thumbs = [Image.open(path).convert("RGB").resize((240, 426), Image.Resampling.LANCZOS) for path in frames]
+    sheet = Image.new("RGB", (240 * 3, 426), "white")
+    for index, thumb in enumerate(thumbs):
+        sheet.paste(thumb, (index * 240, 0))
+    sheet.save(sheet_path, quality=92)
     shutil.rmtree(frame_dir, ignore_errors=True)
 
 
@@ -599,6 +953,12 @@ def write_prompts() -> None:
             "video_model": VIDEO_MODEL,
             "image_prompt": IMAGE_PROMPT,
             "video_prompt": VIDEO_PROMPT,
+            "sassy_expression_iteration": {
+                "candidate_A_prompt": SASSY_PROMPT_A,
+                "candidate_B_prompt": SASSY_PROMPT_B,
+                "video_prompt": SASSY_VIDEO_PROMPT,
+                "intent": "把崩溃大哭 / 惊恐抱头改成贱萌、得瑟、戏精、小坏笑、GIF 感。",
+            },
         },
     )
 
@@ -681,6 +1041,46 @@ def main() -> int:
             write_preview_report(summary)
             return 2
 
+        if args.mode == "sassy-image":
+            sassy_result = generate_sassy_candidates(config)
+            attempts["image_attempts"] = sassy_result["attempts"]
+            summary["status"] = "sassy_image_candidates_generated_pending_visual_check"
+            summary["expression_iteration"] = {
+                "target": "骚萌搞笑 GIF 感",
+                "candidate_limit": 2,
+                "avoid": ["崩溃", "大哭", "惊恐", "抱头", "X 眼", "旋涡眼", "尖叫"],
+                "desired": ["贱萌", "得瑟", "戏精", "小坏笑", "挑眉", "wink", "吐舌", "歪头", "捂嘴偷笑", "小扭动"],
+            }
+            summary["image_candidates"] = sassy_result["candidates"]
+            if not all(
+                sassy_result["candidates"].get(candidate_id, {}).get("status") == STATUS_SUCCESS
+                for candidate_id in ("A", "B")
+            ):
+                summary["status"] = "blocked"
+                summary["blocked_reason"] = "sassy_image_candidate_generation_failed"
+            summary["outputs"] = {
+                "sassy_candidate_a": str(SASSY_CANDIDATE_A_IMAGE_PATH),
+                "sassy_candidate_b": str(SASSY_CANDIDATE_B_IMAGE_PATH),
+                "sassy_candidate_contact_sheet": str(SASSY_CANDIDATE_SHEET_PATH),
+                "sassy_candidates_result_sanitized": str(SASSY_IMAGE_RESULT_PATH),
+                "official_config_preflight_sanitized": str(PREFLIGHT_PATH),
+                "prompts": str(PROMPTS_PATH),
+                "attempts_sanitized": str(ATTEMPTS_PATH),
+                "preview_report": str(PREVIEW_REPORT_PATH),
+            }
+            summary["verification"] = {
+                "candidate_a_exists": SASSY_CANDIDATE_A_IMAGE_PATH.exists(),
+                "candidate_b_exists": SASSY_CANDIDATE_B_IMAGE_PATH.exists(),
+                "candidate_sheet_exists": SASSY_CANDIDATE_SHEET_PATH.exists(),
+                "no_local_program_character_drawing": True,
+                "i2v_not_started_until_visual_check": True,
+            }
+            write_json(ATTEMPTS_PATH, attempts)
+            write_json(SASSY_IMAGE_RESULT_PATH, sassy_result)
+            write_json(SUMMARY_PATH, summary)
+            write_preview_report(summary)
+            return 0 if summary["status"] != "blocked" else 3
+
         if args.mode == "image":
             image_outcome, seed_url = generate_static_image(config)
             attempts["image_attempts"] = image_outcome["attempts"]
@@ -728,6 +1128,120 @@ def main() -> int:
                     if k not in {"source_url"}
                 },
             )
+            write_json(SUMMARY_PATH, summary)
+            write_preview_report(summary)
+            return 0
+
+        if args.mode == "sassy-video-preview":
+            sassy_result = read_json_if_exists(SASSY_IMAGE_RESULT_PATH, {})
+            candidates = sassy_result.get("candidates", {})
+            selected = candidates.get(args.selected_candidate, {})
+            if selected.get("status") != STATUS_SUCCESS or not selected.get("task_id"):
+                summary["status"] = "blocked"
+                summary["blocked_reason"] = "selected_sassy_candidate_missing_or_failed"
+                summary["selected_candidate"] = args.selected_candidate
+                summary["outputs"] = {
+                    "sassy_candidates_result_sanitized": str(SASSY_IMAGE_RESULT_PATH),
+                    "official_config_preflight_sanitized": str(PREFLIGHT_PATH),
+                    "prompts": str(PROMPTS_PATH),
+                    "preview_report": str(PREVIEW_REPORT_PATH),
+                }
+                write_json(SUMMARY_PATH, summary)
+                write_preview_report(summary)
+                return 3
+            seed_url = source_url_from_task_id(config, selected["task_id"])
+            attempts = read_json_if_exists(ATTEMPTS_PATH, attempts)
+            video_outcome = generate_sassy_reaction_video(config, seed_url)
+            attempts["video_attempt"] = video_outcome["attempt"]
+            summary["image_candidates"] = candidates
+            summary["selected_candidate"] = args.selected_candidate
+            summary["selection_reason"] = args.selection_reason
+            summary["video_generation"] = {
+                k: v
+                for k, v in video_outcome["result"].items()
+                if k not in {"source_url"}
+            }
+            if video_outcome["result"].get("status") != STATUS_SUCCESS:
+                summary["status"] = "partial_success_image_only"
+                summary["blocked_reason"] = "video_generation_failed"
+                summary["outputs"] = {
+                    "sassy_candidate_a": str(SASSY_CANDIDATE_A_IMAGE_PATH),
+                    "sassy_candidate_b": str(SASSY_CANDIDATE_B_IMAGE_PATH),
+                    "sassy_candidate_contact_sheet": str(SASSY_CANDIDATE_SHEET_PATH),
+                    "sassy_candidates_result_sanitized": str(SASSY_IMAGE_RESULT_PATH),
+                    "official_config_preflight_sanitized": str(PREFLIGHT_PATH),
+                    "prompts": str(PROMPTS_PATH),
+                    "attempts_sanitized": str(ATTEMPTS_PATH),
+                    "preview_report": str(PREVIEW_REPORT_PATH),
+                }
+                write_json(ATTEMPTS_PATH, attempts)
+                write_json(SUMMARY_PATH, summary)
+                write_preview_report(summary)
+                return 4
+            ffmpeg = resolve_ffmpeg()
+            normalize_clip(ffmpeg, SASSY_RAW_REACTION_CLIP_PATH, SASSY_REACTION_CLIP_PATH)
+            provider_video_asset_path = summary["video_generation"].get("asset_path", "")
+            summary["video_generation"]["provider_asset_path"] = provider_video_asset_path
+            summary["video_generation"]["asset_path"] = str(SASSY_REACTION_CLIP_PATH)
+            assemble_preview_with_clip(ffmpeg, SASSY_REACTION_CLIP_PATH, SASSY_PREVIEW_PATH)
+            make_contact_sheet_for(ffmpeg, SASSY_PREVIEW_PATH, SASSY_CONTACT_SHEET_PATH, "sassy_contact_frames")
+            make_before_after_contact_sheet_for(
+                ffmpeg,
+                SASSY_PREVIEW_PATH,
+                SASSY_BEFORE_AFTER_CONTACT_SHEET_PATH,
+                "sassy_before_after_frames",
+            )
+            preview_size = SASSY_PREVIEW_PATH.stat().st_size
+            reaction_size = SASSY_REACTION_CLIP_PATH.stat().st_size
+            summary["status"] = "technical_preview_generated_content_pending"
+            summary["expression_iteration"] = {
+                "target": "骚萌搞笑 GIF 感",
+                "candidate_limit": 2,
+                "selected_candidate": args.selected_candidate,
+                "selection_reason": args.selection_reason,
+                "content_validation": "待用户 / ChatGPT 复审",
+            }
+            summary["outputs"] = {
+                "sassy_candidate_a": str(SASSY_CANDIDATE_A_IMAGE_PATH),
+                "sassy_candidate_b": str(SASSY_CANDIDATE_B_IMAGE_PATH),
+                "sassy_candidate_contact_sheet": str(SASSY_CANDIDATE_SHEET_PATH),
+                "sassy_reaction_clip": str(SASSY_REACTION_CLIP_PATH),
+                "sassy_raw_reaction_clip": str(SASSY_RAW_REACTION_CLIP_PATH),
+                "sassy_preview_video": str(SASSY_PREVIEW_PATH),
+                "sassy_contact_sheet": str(SASSY_CONTACT_SHEET_PATH),
+                "sassy_before_after_contact_sheet": str(SASSY_BEFORE_AFTER_CONTACT_SHEET_PATH),
+                "sassy_candidates_result_sanitized": str(SASSY_IMAGE_RESULT_PATH),
+                "official_config_preflight_sanitized": str(PREFLIGHT_PATH),
+                "prompts": str(PROMPTS_PATH),
+                "attempts_sanitized": str(ATTEMPTS_PATH),
+                "preview_report": str(PREVIEW_REPORT_PATH),
+            }
+            summary["video_properties"] = {
+                "preview_duration_seconds": 15.0,
+                "preview_resolution": "720x1280",
+                "preview_file_size_bytes": preview_size,
+                "reaction_clip_duration_seconds": REACTION_SECONDS,
+                "reaction_clip_resolution": "720x1280",
+                "reaction_clip_file_size_bytes": reaction_size,
+                "preview_audio": "silent_preview",
+            }
+            summary["edit_structure"] = {
+                "segment_a": "round34 middle_preview recording excerpt",
+                "reaction_clip": "standalone generated Wan i2v sassy-cute clip, inserted as its own segment",
+                "segment_b": "round34 middle_preview mainline continuation",
+                "is_overlay": False,
+            }
+            summary["verification"] = {
+                "ffmpeg_preview_probe": ffmpeg_probe(ffmpeg, SASSY_PREVIEW_PATH).splitlines()[:12],
+                "ffmpeg_reaction_probe": ffmpeg_probe(ffmpeg, SASSY_REACTION_CLIP_PATH).splitlines()[:12],
+                "ffprobe_preview": ffprobe_json(SASSY_PREVIEW_PATH),
+                "ffprobe_reaction_clip": ffprobe_json(SASSY_REACTION_CLIP_PATH),
+                "uses_round34_base": True,
+                "reaction_clip_is_standalone_segment": True,
+                "no_local_program_character_drawing": True,
+                "not_overlay_compositing": True,
+            }
+            write_json(ATTEMPTS_PATH, attempts)
             write_json(SUMMARY_PATH, summary)
             write_preview_report(summary)
             return 0
