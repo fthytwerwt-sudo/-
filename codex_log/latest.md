@@ -1,5 +1,23 @@
 # Latest
 
+## 20260427｜中段吐槽插入风格参考包同步
+
+- `已确认` 本轮只是把上一轮本地“中段吐槽插入风格高保真提取”文本 reference_pack 同步到 `codex/user-readable-map`，用于待 ChatGPT / 用户复审。
+- `已确认` 本轮新增 / 同步文本报告路径：
+  - `dist/reference_packs/20260427_中段吐槽插入风格_faithful_extract/素材清单_assets_inventory.md`
+  - `dist/reference_packs/20260427_中段吐槽插入风格_faithful_extract/audio_reference_note.md`
+  - `dist/reference_packs/20260427_中段吐槽插入风格_faithful_extract/scene_index.md`
+  - `dist/reference_packs/20260427_中段吐槽插入风格_faithful_extract/吐槽插入风格_reference_pack.md`
+  - `dist/reference_packs/20260427_中段吐槽插入风格_faithful_extract/给ChatGPT的素材汇报_material_report.md`
+  - `dist/reference_packs/20260427_中段吐槽插入风格_faithful_extract/run_summary.json`
+- `已确认` 本轮同步源来自上一轮本地分析包：`/Users/fan/Documents/视频工厂/dist/reference_packs/20260427_中段吐槽插入风格_faithful_extract/`。
+- `已确认` 上一轮本地分析包生成于 `fix/no-zoom-completeness-layout`，不是主读取分支；本轮已在 `codex/user-readable-map` 重新同步文本报告。
+- `已确认` 上一轮存在路径漂移风险：上一轮分支中无空格 `GPT数据源/` 缺失，只读到 `GPT 数据源/`；本轮已在 `codex/user-readable-map` 读取无空格 `GPT数据源/` 当前执行包。
+- `待验证` 吐槽插入风格仍待 ChatGPT / 用户复审；本轮不代表最终口径。
+- `已确认` 本轮不写入正式风格规则，不改视频，不生成新 round，不修改 `dist/latest_review_pack/`。
+- `已确认` 本轮不改变 `content_validation`，不改变 `send_ready`。
+- `已确认` 本轮未提交二进制证据文件：`keyframes_contact_sheet.jpg`、`audio/reference_audio.m4a`、`audio_waveform.png`、`frames/`；本轮只同步 Markdown / JSON 文本报告。
+
 ## 20260427｜文案生产流程与 B 版声音口径固化
 
 - `已确认` 本轮只做《视频工厂》文案生产流程、最终风格锚点、声音 B 版暂定口径的规则落仓库；未生成新音频、新视频，未修改现有样片，未替换全片音轨。
