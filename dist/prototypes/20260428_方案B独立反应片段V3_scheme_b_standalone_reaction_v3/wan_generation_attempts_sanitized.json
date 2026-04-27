@@ -1,0 +1,25 @@
+{
+  "image_attempts": [
+    {
+      "kind": "image",
+      "model": "wan2.7-image-pro",
+      "status": "failed",
+      "failure_reason": "aliyun_image_task_create_failed",
+      "blocked_reason": "",
+      "error_code": "HTTP401",
+      "http_status_code": 401,
+      "request_id": null
+    },
+    {
+      "kind": "image",
+      "model": "wan2.7-image",
+      "status": "failed",
+      "failure_reason": "aliyun_image_task_create_failed",
+      "blocked_reason": "",
+      "error_code": "HTTP401",
+      "http_status_code": 401,
+      "request_id": null
+    }
+  ],
+  "video_attempt": null
+}

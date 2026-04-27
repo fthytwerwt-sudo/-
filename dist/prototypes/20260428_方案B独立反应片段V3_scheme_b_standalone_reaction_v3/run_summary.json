@@ -1,0 +1,76 @@
+{
+  "task": "方案B独立反应片段V3排查与预览准备",
+  "date": "2026-04-28",
+  "status": "blocked",
+  "blocked_reason": "aliyun_dashscope_auth_failed_invalid_api_key",
+  "repo": {
+    "cwd": "/private/tmp/视频工厂_scheme_b_v3_diagnostics",
+    "base_reading_branch": "codex/user-readable-map",
+    "task_branch": "codex/scheme-b-standalone-v3-diagnostics-20260428"
+  },
+  "fact_source": {
+    "round": "round34_中段双展示提示卡_正反分段提示修复",
+    "middle_segment_review": "用户暂定通过 / 暂不继续修改中段",
+    "content_validation": "待用户 / ChatGPT 最终复审",
+    "send_ready": false,
+    "base_video": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/latest_review_pack/middle_preview.mp4"
+  },
+  "v2_diagnosis": {
+    "used_generation_model": false,
+    "used_local_program_drawing": true,
+    "used_overlay_compositing": true,
+    "satisfies_standalone_reaction_clip": false,
+    "main_quality_issue": "本地程序绘图低保真 + overlay 剪辑结构，不是高质量模型生成的独立片段。"
+  },
+  "capability_check": {
+    "env_keys": {
+      "DASHSCOPE_API_KEY": false,
+      "DASHSCOPE_API_KEY_CN": false,
+      "BAILIAN_API_KEY": false,
+      "ALIBABA_CLOUD_ACCESS_KEY_ID": false,
+      "ALIBABA_CLOUD_ACCESS_KEY_SECRET": false
+    },
+    "local_config_path": "/Users/fan/Documents/视频工厂/config/formal_api_demo.local.toml",
+    "local_config_exists": true,
+    "local_config_auth_api_key_present": true,
+    "provider": "aliyun_bailian",
+    "image_generation_script_capability_found": true,
+    "video_generation_script_capability_found": true,
+    "direct_video_assembly_skill_found": false
+  },
+  "api_attempt": {
+    "provider": "aliyun_bailian_dashscope",
+    "image_models": [
+      "wan2.7-image-pro",
+      "wan2.7-image"
+    ],
+    "video_model": "wan2.7-i2v",
+    "image_generation_status": "failed",
+    "image_generation_http_status_code": 401,
+    "image_generation_error_code": "HTTP401",
+    "image_generation_error_message": "Invalid API-key provided.",
+    "video_generation_status": "not_started_due_to_image_generation_failure",
+    "attempts_sanitized": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/wan_generation_attempts_sanitized.json"
+  },
+  "outputs": {
+    "problem_diagnosis_report": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/问题诊断_report.md",
+    "preview_report": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/方案B独立反应V3说明_preview_report.md",
+    "run_summary": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/run_summary.json",
+    "attempts_sanitized": "/private/tmp/视频工厂_scheme_b_v3_diagnostics/dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/wan_generation_attempts_sanitized.json",
+    "static_reaction_page": null,
+    "reaction_clip": null,
+    "preview_video": null,
+    "contact_sheet": null
+  },
+  "verification": {
+    "round34_confirmed": true,
+    "v3_generation_allowed": false,
+    "ffmpeg_decode": "not_run_no_v3_video",
+    "reaction_clip_is_standalone_segment": false,
+    "uses_round34_base": true,
+    "latest_review_pack_modified": false,
+    "content_validation_modified": false,
+    "send_ready_modified": false
+  },
+  "review_status": "待 ChatGPT / 用户复审 blocked 原因；本轮不代表方案 B 最终口径，不代表 content_validation 通过。"
+}

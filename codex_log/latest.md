@@ -1,5 +1,19 @@
 # Latest
 
+## 20260428｜方案 B 独立反应片段 V3 排查与预览准备
+
+- `已确认` 本轮从 `origin/codex/user-readable-map` 开出任务分支：`codex/scheme-b-standalone-v3-diagnostics-20260428`。
+- `已确认` 当前 `latest_review_pack` 仍指向：`round34_中段双展示提示卡_正反分段提示修复`。
+- `已确认` 当前状态仍为：`middle_segment_review = 用户暂定通过 / 暂不继续修改中段`，`content_validation = 待用户 / ChatGPT 最终复审`，`send_ready = no`。
+- `已确认` 已完成上一轮 V2 问题诊断：V2 是本地程序绘图 + 叠加式 compositing，不是高质量生成模型生成的独立 reaction clip。
+- `已确认` 当前 shell 环境未发现 DashScope / 百炼相关 key；原始项目未跟踪本地配置存在 `aliyun_bailian` key 字段，但实测 DashScope 返回 `HTTP401 / InvalidApiKey`。
+- `已确认` 项目已有阿里视觉生成 helper 和历史脚本，但当前 key 不可用，所以 V3 状态为 `blocked`。
+- `已确认` 本轮没有继续用本地 Mac 程序画图，没有生成低保真替代图，没有生成 V3 预览视频。
+- `已确认` 本轮输出诊断目录：
+  - `dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/`
+- `已确认` 本轮不改 `full.mp4`、不改 `dist/latest_review_pack/`、不改 `content_validation`、不改 `send_ready`。
+- `待验证` 本轮不代表方案 B 最终口径；下一步需补齐可用 DashScope / 百炼 key 后再重新执行 V3。
+
 ## 20260427｜中段吐槽插入风格视觉证据补齐
 
 - `已确认` 本轮只是补齐上一轮 reference pack 的轻量视觉证据，用于待 ChatGPT / 用户复审。
