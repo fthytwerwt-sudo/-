@@ -11,6 +11,8 @@
 - `已确认` 本轮没有继续用本地 Mac 程序画图，没有生成低保真替代图，没有生成 V3 预览视频。
 - `已确认` 本轮输出诊断目录：
   - `dist/prototypes/20260428_方案B独立反应片段V3_scheme_b_standalone_reaction_v3/`
+- `已确认` 本轮已提交并推送到任务分支：`codex/scheme-b-standalone-v3-diagnostics-20260428`。
+- `已确认` 已创建 draft PR：`https://github.com/fthytwerwt-sudo/-/pull/7`，base 为 `codex/user-readable-map`。
 - `已确认` 本轮不改 `full.mp4`、不改 `dist/latest_review_pack/`、不改 `content_validation`、不改 `send_ready`。
 - `待验证` 本轮不代表方案 B 最终口径；下一步需补齐可用 DashScope / 百炼 key 后再重新执行 V3。
 
