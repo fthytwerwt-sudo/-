@@ -11,6 +11,9 @@
 - `已确认` 反应层为原创 Q 版 AI 向导崩溃模式，出现 `1.40s`，只出现 1 次。
 - `已确认` ffmpeg 解码通过，视频时长 `15.00s`，分辨率 `720x1280`。
 - `已确认` 本轮不改 `full.mp4`、不生成正式新 round、不改 `dist/latest_review_pack/`、不改 `content_validation`、不改 `send_ready`。
+- `已确认` 已 push 分支：`codex/scheme-b-15s-preview-20260427`。
+- `已确认` 已创建 draft PR：`https://github.com/fthytwerwt-sudo/-/pull/5`。
+- `已确认` 未同步回 `codex/user-readable-map`。
 - `待验证` 本轮不代表方案 B 最终口径，不代表内容验证通过。
 
 ## 新会话接手建议先读
