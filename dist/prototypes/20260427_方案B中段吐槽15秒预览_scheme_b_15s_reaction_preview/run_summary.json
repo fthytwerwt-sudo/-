@@ -1,0 +1,76 @@
+{
+  "task": "方案B_AI向导崩溃模式_中段吐槽15秒技术预览",
+  "date": "2026-04-27",
+  "status": "generated_pending_review",
+  "repo": {
+    "cwd": "/Users/fan/Documents/视频工厂",
+    "branch": "fix/no-zoom-completeness-layout"
+  },
+  "source": {
+    "requested_round34_found": false,
+    "latest_review_pack_round": "round32_全片边框残留与跳切连续性修复",
+    "base_video": "/Users/fan/Documents/视频工厂/dist/latest_review_pack/middle_preview.mp4",
+    "base_time_range_seconds": [0.0, 15.0]
+  },
+  "outputs": {
+    "preview_video": "/Users/fan/Documents/视频工厂/dist/prototypes/20260427_方案B中段吐槽15秒预览_scheme_b_15s_reaction_preview/方案B中段吐槽15秒预览_scheme_b_15s_preview.mp4",
+    "contact_sheet": "/Users/fan/Documents/视频工厂/dist/prototypes/20260427_方案B中段吐槽15秒预览_scheme_b_15s_reaction_preview/方案B中段吐槽15秒预览_contact_sheet.jpg",
+    "overlay_png": "/Users/fan/Documents/视频工厂/dist/prototypes/20260427_方案B中段吐槽15秒预览_scheme_b_15s_reaction_preview/方案B人物反应层_ai_guide_meltdown_overlay.png",
+    "overlay_alpha_png": "/Users/fan/Documents/视频工厂/dist/prototypes/20260427_方案B中段吐槽15秒预览_scheme_b_15s_reaction_preview/方案B人物反应层_透明版_ai_guide_meltdown_overlay_alpha.png",
+    "before_after_contact_sheet": "/Users/fan/Documents/视频工厂/dist/prototypes/20260427_方案B中段吐槽15秒预览_scheme_b_15s_reaction_preview/方案B中段吐槽_before_after_contact_sheet.jpg",
+    "preview_report": "/Users/fan/Documents/视频工厂/dist/prototypes/20260427_方案B中段吐槽15秒预览_scheme_b_15s_reaction_preview/方案B中段吐槽15秒预览说明_preview_report.md"
+  },
+  "video_properties": {
+    "duration_seconds": 15.0,
+    "resolution": "720x1280",
+    "fps": 25,
+    "file_size_bytes": 1307568,
+    "audio": "kept_original_middle_preview_audio"
+  },
+  "reaction_overlay": {
+    "scheme": "方案B_AI向导崩溃模式_scheme_b_ai_guide_meltdown",
+    "occurrence_count": 1,
+    "start_seconds": 4.52,
+    "end_seconds_exclusive": 5.92,
+    "duration_seconds": 1.4,
+    "punchline": ["方案很满", "用起来空"],
+    "style": [
+      "Q版AI向导",
+      "头大身小",
+      "X眼",
+      "旋涡眼",
+      "大张嘴",
+      "崩溃泪",
+      "双手抱头",
+      "橙黄局部放射背景",
+      "短促bounce弹出"
+    ]
+  },
+  "scope_boundary": {
+    "modified_full_mp4": false,
+    "generated_formal_new_round": false,
+    "modified_latest_review_pack": false,
+    "modified_content_validation": false,
+    "modified_send_ready": false,
+    "modified_gpt_rules": false,
+    "final_scheme_b_decided": false
+  },
+  "skills": {
+    "local_skills_dir": "missing",
+    "global_visual_verdict": "used_for_contact_sheet_visual_gate",
+    "global_verification_before_completion": "used_for_fresh_verification_before_commit",
+    "global_card_transition_smoother": "read; no transition profile generated because this is a one-shot overlay, not a card transition repair",
+    "direct_video_assembly_or_gif_skill": "not_found"
+  },
+  "verification": {
+    "ffmpeg_decode": "passed",
+    "duration_14_to_16_seconds": true,
+    "vertical_9_16_or_current_middle_size": true,
+    "reaction_overlay_appears": true,
+    "reaction_overlay_under_2_seconds": true,
+    "structure_visible_in_contact_sheet": true,
+    "latest_review_pack_hash_unchanged": true,
+    "git_diff_check": "passed"
+  },
+  "review_status": "待 ChatGPT / 用户复审；本轮不代表方案 B 最终口径，不代表 content_validation 通过。"
+}
