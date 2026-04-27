@@ -1,5 +1,24 @@
 # Latest
 
+## 20260427｜中段吐槽插入风格视觉证据补齐
+
+- `已确认` 本轮只是补齐上一轮 reference pack 的轻量视觉证据，用于待 ChatGPT / 用户复审。
+- `已确认` 本轮新增 / 同步视觉证据：
+  - `dist/reference_packs/20260427_中段吐槽插入风格_faithful_extract/视觉证据_关键帧联系表_keyframes_contact_sheet.jpg`
+  - `dist/reference_packs/20260427_中段吐槽插入风格_faithful_extract/视觉证据_吐槽三连帧_punchline_triptych.jpg`
+  - `dist/reference_packs/20260427_中段吐槽插入风格_faithful_extract/视觉证据_第一次吐槽前后_context_01.jpg`
+  - `dist/reference_packs/20260427_中段吐槽插入风格_faithful_extract/视觉证据_第二次吐槽前后_context_02.jpg`
+  - `dist/reference_packs/20260427_中段吐槽插入风格_faithful_extract/视觉证据_第三次吐槽前后_context_03.jpg`
+  - `dist/reference_packs/20260427_中段吐槽插入风格_faithful_extract/视觉证据_GIF式吐槽动态预览_visual_punchline_preview.mp4`
+- `已确认` 本轮新增报告：
+  - `dist/reference_packs/20260427_中段吐槽插入风格_faithful_extract/画面层保真补充_visual_punchline_report.md`
+  - `dist/reference_packs/20260427_中段吐槽插入风格_faithful_extract/视觉证据补齐_run_summary.json`
+- `待验证` GIF 式吐槽画面层仍待 ChatGPT / 用户复审；本轮不代表最终口径。
+- `已确认` 本轮不改视频，不生成新 round，不替换音轨，不修改 `dist/latest_review_pack/`。
+- `已确认` 本轮不改变 `content_validation（内容验证）`，不改变 `send_ready（可发送状态）`。
+- `已确认` 本轮不修改 `GPT数据源/04_选题与文案规则.md`、`GPT数据源/05_文案路由规则.md`、`GPT数据源/07_AI知识类视频价值规则.md`、`GPT数据源/08_当前正式事实.md`。
+- `已确认` 原始 50MB MP4、完整 `frames/` 目录、音频副本与波形图未提交；本轮只提交筛选后的轻量视觉证据。
+
 ## 20260427｜中段吐槽插入风格参考包同步
 
 - `已确认` 本轮只是把上一轮本地“中段吐槽插入风格高保真提取”文本 reference_pack 同步到 `codex/user-readable-map`，用于待 ChatGPT / 用户复审。
