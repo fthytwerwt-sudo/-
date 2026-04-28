@@ -1,5 +1,18 @@
 # Latest
 
+## 20260428｜方案 B 骚萌卡结构机制与节奏预算
+
+- `已确认` 本轮只完成《视频工厂》方案 B「三类骚萌卡结构机制 + 节奏预算」的项目口径修改；未生成新视频，未调用阿里 / DashScope API，未修改正式正片。
+- `已确认` 本轮已把用户确认的新结构写入仓库口径：元素娃娃 slogan 后触发 `problem_hook_sassy_card（问题钩子骚萌卡）`，反面结果露馅后触发 `negative_reversal_sassy_card（反面反转骚萌卡）`，正面结果明显变好后触发 `positive_reversal_sassy_card（正面反转骚萌卡）`。
+- `已确认` 已写入总机制：骚萌卡不是装饰图，不是固定贴片，而是“文案功能触发的搞笑人格分身”；三张骚萌卡必须统一风格，且每张都要搞笑。
+- `已确认` 已写入三张卡的差异职责：`problem_hook_sassy_card（问题钩子骚萌卡）` 负责“把问题讲得好笑”，`negative_reversal_sassy_card（反面反转骚萌卡）` 负责“把翻车讲得好笑”，`positive_reversal_sassy_card（正面反转骚萌卡）` 负责“把变好讲得好笑”。
+- `已确认` 已写入触发规则：按问题钩子 / 反面反转 / 正面反转触发；没有文案钩子、没有反转、没有停顿、只是为了热闹、会打断录屏证据链或超过节奏预算时，禁止触发。
+- `已确认` 当前结构预算已复读：`full = 55.92s（约 56s）`，`middle_preview = 28.52s（约 28.5s）`。
+- `已确认` 三张骚萌卡预计新增 `4.0s-5.4s`；若启用三张骚萌卡，必须从后半段回收至少 `4-6s`，优先删除或极短化 `shot07_clean_host（回场主持壳）`，并把 `shot08_judgment_card（判断总结卡）` 默认合并进 `shot06_result_diff_card（结果差提示卡）`。
+- `已确认` 本轮未修改 `dist/latest_review_pack/`，未修改 `full.mp4` / `middle_preview.mp4`，未修改 `content_validation（内容验证）`，未修改 `send_ready（可发送状态）`。
+- `已确认` 本轮新增日志：`codex_log/20260428_方案B骚萌卡结构机制与节奏预算.md`。
+- `待验证` 下一轮目标是基于新口径做一版“3 张骚萌卡 + 压缩后半段”的中段 / 全片技术预览，但仍不改正式 `content_validation（内容验证）` 与 `send_ready（可发送状态）`。
+
 ## 20260427｜中段吐槽插入风格视觉证据补齐
 
 - `已确认` 本轮只是补齐上一轮 reference pack 的轻量视觉证据，用于待 ChatGPT / 用户复审。
