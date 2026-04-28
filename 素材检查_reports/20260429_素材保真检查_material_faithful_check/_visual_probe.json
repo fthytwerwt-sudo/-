@@ -1,0 +1,30 @@
+{
+  "positive": {
+    "duration": 745.6833333333333,
+    "fps": 59.9168547864375,
+    "frame_count": 44679.0,
+    "sample_count": 373,
+    "failed_samples": 0,
+    "black_candidate_times": [],
+    "black_candidate_count": 0,
+    "lowdetail_candidate_count": 0,
+    "static_candidate_count": 229,
+    "min_mean": 55.398433282091105,
+    "max_mean": 118.79095693539782,
+    "median_delta": 0.05464221014492754
+  },
+  "negative": {
+    "duration": 67.08333333333334,
+    "fps": 59.880745341614904,
+    "frame_count": 4017.0,
+    "sample_count": 68,
+    "failed_samples": 0,
+    "black_candidate_times": [],
+    "black_candidate_count": 0,
+    "lowdetail_candidate_count": 0,
+    "static_candidate_count": 20,
+    "min_mean": 56.15945128554599,
+    "max_mean": 117.93988216928953,
+    "median_delta": 4.039643719806763
+  }
+}

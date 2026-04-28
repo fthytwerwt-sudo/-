@@ -1,0 +1,77 @@
+{
+  "status": "completed_material_faithful_check_report_generated",
+  "task_boundary": {
+    "read_only_original_materials": true,
+    "generated_new_round": false,
+    "modified_latest_review_pack": false,
+    "modified_content_validation": false,
+    "modified_send_ready": false,
+    "called_video_generation_api": false,
+    "called_tts_or_voice_cloning": false
+  },
+  "checked_at_local": "2026-04-29",
+  "workspace": "/Users/fan/Documents/视频工厂",
+  "checked_dirs": [
+    "/Users/fan/Documents/视频工厂/素材录制/正面",
+    "/Users/fan/Documents/视频工厂/素材录制/反面",
+    "/Users/fan/Documents/视频工厂/素材录制/正面-反面"
+  ],
+  "material_found": {
+    "positive": "/Users/fan/Documents/视频工厂/素材录制/正面/录制于 2026-04-16 23.03.53.mp4",
+    "negative": "/Users/fan/Documents/视频工厂/素材录制/反面/录制于 2026-04-16 22.41.32.mp4",
+    "combined_dir_exists": false,
+    "partial_material_found": false
+  },
+  "tools": {
+    "ffmpeg_available": false,
+    "ffprobe_available": false,
+    "used_mdls": true,
+    "used_afinfo": true,
+    "used_opencv_python": true,
+    "ocr_available": false
+  },
+  "technical_readability": {
+    "positive": {
+      "openable": true,
+      "duration_seconds": 745.6833333333333,
+      "resolution": "3420x2214",
+      "fps": 59.9168547864375,
+      "audio": "AAC stereo 48000 Hz",
+      "failed_frame_samples": 0,
+      "black_candidate_count": 0
+    },
+    "negative": {
+      "openable": true,
+      "duration_seconds": 67.08333333333334,
+      "resolution": "3420x2214",
+      "fps": 59.880745341614904,
+      "audio": "AAC stereo 48000 Hz",
+      "failed_frame_samples": 0,
+      "black_candidate_count": 0
+    }
+  },
+  "fact_conflicts": [
+    "current worktree dist/latest_review_pack/summary.json says round32; origin/codex/user-readable-map formal facts say round34",
+    "current worktree is GPT 数据源 with space; user-mentioned/GitHub older package uses GPT数据源 without space",
+    "new real AI experience + work efficiency framing treated as 本轮用户 / ChatGPT 给定执行口径，待仓库正式同步"
+  ],
+  "outputs": {
+    "material_inventory": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/素材清单_material_inventory.md",
+    "faithful_report": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/素材保真检查报告_material_faithful_report.md",
+    "contact_sheet": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/素材联系表_material_contact_sheet.jpg",
+    "keyframes_evidence": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/关键帧证据_keyframes_evidence.jpg",
+    "timecode_frames_dir": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames",
+    "run_summary": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/run_summary.json"
+  },
+  "main_evidence_summary": {
+    "negative": "PDF + “帮我把这个方案整理一下” -> text strategy/execution plan, useful but not directly a PPT deliverable.",
+    "positive": "Explicit deliverable criteria + PPT/XML generation instruction -> 16-page PPT deck visible; UI shows PPT generation completed in 6m31s."
+  },
+  "remaining_missing_evidence": [
+    "original PDF content/key pages not fully visible",
+    "complete positive prompt typing process not fully visible",
+    "final PPT pages not all readable at full detail",
+    "no user acceptance of PPT quality",
+    "no independent manual time baseline"
+  ]
+}

@@ -1,5 +1,27 @@
 # Latest
 
+## 20260429｜素材保真检查与细节证据报告
+
+- `已确认` 本轮只做用户录制素材保真检查；未剪视频、未生成新 round、未调用视频生成 API、未调用 TTS / voice cloning。
+- `已确认` 本轮素材来源只读检查：
+  - `/Users/fan/Documents/视频工厂/素材录制/正面/录制于 2026-04-16 23.03.53.mp4`
+  - `/Users/fan/Documents/视频工厂/素材录制/反面/录制于 2026-04-16 22.41.32.mp4`
+  - `/Users/fan/Documents/视频工厂/素材录制/正面-反面/` 不存在。
+- `已确认` 已生成素材证据报告目录：
+  - `/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/`
+- `已确认` 关键输出：
+  - `素材保真检查报告_material_faithful_report.md`
+  - `素材清单_material_inventory.md`
+  - `素材联系表_material_contact_sheet.jpg`
+  - `关键帧证据_keyframes_evidence.jpg`
+  - `时间码截图_timecode_frames/`
+  - `run_summary.json`
+- `已确认` 本轮没有修改 `dist/latest_review_pack/`、`content_validation`、`send_ready`。
+- `已确认` 本轮报告结论只作为 `ChatGPT（最终落稿与复审入口）` 的素材事实包，不是最终脚本，不代表内容已过线。
+- `fact_conflict_detected（事实冲突已发现）` 当前工作树 `dist/latest_review_pack/summary.json` 指向 `round32`，而 `origin/codex/user-readable-map:GPT数据源/08_当前正式事实.md` 指向 `round34`；本轮只标记冲突，不覆盖状态。
+- `待验证` 用户本轮“真实 AI 使用经验 + 工作提效实录”新口径是否已完全同步到主读取分支；本轮按用户 / ChatGPT 给定执行口径处理。
+- `下一个目标`：ChatGPT 基于本轮素材事实包写最终脚本，并继续把可写事实、不能写 claims、补录缺口分开。
+
 ## 20260424｜PR #4 交接口径修正与状态清理
 
 - `已确认` 当前 PR #4 分支是 `fix/no-zoom-completeness-layout`，base 是 `main`，PR 仍保持 draft，不合并。
