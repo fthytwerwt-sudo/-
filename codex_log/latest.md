@@ -1,5 +1,15 @@
 # Latest
 
+## 20260428｜元素娃娃开头无字锚点固定
+
+- `已确认` 用户已验收通过 `005_1496_seg01_no_text_inpaint.mp4（005_1496_seg01 去字修补版视频）`，反馈为“完全没问题”。
+- `已确认` 本轮已将该视频固定为后续 `opening_visual_anchor（开头视觉锚点）` / 元素娃娃开头锚点，可作为方案 B / 元素娃娃体系的开头主持壳、slogan 开头视觉底子和可爱元素主持娃娃角色参考。
+- `已确认` 已复制稳定素材到：`素材库_assets/元素娃娃开头锚点_opening_anchor_20260428/005_1496_seg01_no_text_inpaint_opening_anchor.mp4`。
+- `已确认` 已新增素材说明与 manifest：`README_开头锚点说明.md`、`opening_anchor_manifest.json`。
+- `已确认` 已在 `GPT数据源/08_当前正式事实.md` 写入用户验收与开头视觉锚点事实；已在 `GPT数据源/06_当前主线锚点_API生成真人_用户录制素材_少量PPT_云端剪辑.md` 写入主线职责边界。
+- `已确认` 本轮不生成新视频、不调用 API、不重新修复视频、不修改 `dist/latest_review_pack/`，不改变 `content_validation（内容验证）` 或 `send_ready（可发送状态）`。
+- `待验证` 该开头锚点进入正式正片后的整体节奏、声音、内容验证仍需后续审片。
+
 ## 20260427｜中段吐槽插入风格视觉证据补齐
 
 - `已确认` 本轮只是补齐上一轮 reference pack 的轻量视觉证据，用于待 ChatGPT / 用户复审。

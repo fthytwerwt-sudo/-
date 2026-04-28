@@ -1,0 +1,42 @@
+{
+  "asset_role": "opening_visual_anchor",
+  "asset_role_cn": "开头视觉锚点",
+  "asset_name": "005_1496_seg01_no_text_inpaint_opening_anchor.mp4",
+  "source_review_pack_path": "/Users/fan/Desktop/视频工厂_元素娃娃1080P复审包_20260428/00_先看这里_视频总入口_video_review_entry/02_005_1496_seg01_去字候选_no_text_candidates/005_1496_seg01_no_text_inpaint.mp4",
+  "stable_asset_path": "/Users/fan/Documents/视频工厂/素材库_assets/元素娃娃开头锚点_opening_anchor_20260428/005_1496_seg01_no_text_inpaint_opening_anchor.mp4",
+  "repo_relative_path": "素材库_assets/元素娃娃开头锚点_opening_anchor_20260428/005_1496_seg01_no_text_inpaint_opening_anchor.mp4",
+  "is_original_clean_source": false,
+  "is_inpaint_no_text_candidate": true,
+  "user_acceptance": "accepted_as_fixed_opening_reference",
+  "user_acceptance_cn": "用户已确认完全没问题，可固定为后续开头素材 / 元素娃娃开头锚点",
+  "removed_text_regions": [
+    {
+      "region": "top_left_title",
+      "region_cn": "左上大标题框",
+      "removed_text": "豆包的正确打开方式"
+    },
+    {
+      "region": "top_right_label",
+      "region_cn": "右上小标签框",
+      "removed_text": "AI 壳主版复用"
+    }
+  ],
+  "resolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "duration_seconds": 4.08,
+  "fps": 25.0,
+  "frame_count": 102,
+  "file_size_bytes": 9367050,
+  "audio_present": false,
+  "content_validation_changed": false,
+  "send_ready_changed": false,
+  "latest_review_pack_changed": false,
+  "formal_full_replaced": false,
+  "notes": [
+    "已确认：该素材是 inpaint（逐帧修补 / 图像修复）去字候选版，不是原始无字源片。",
+    "已确认：该素材可作为后续固定开头素材 / 元素娃娃开头锚点。",
+    "待验证：进入正式正片后的整体节奏、声音、内容验证仍需后续审片。"
+  ]
+}
