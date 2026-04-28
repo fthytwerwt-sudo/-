@@ -1,5 +1,18 @@
 # Latest
 
+## 20260428｜GPT Project 唯一资料源与项目路径硬规则
+
+- `已确认` 本轮把 GPT Project 静态协作包唯一修改和上传目录固定为：`/Users/fan/Documents/视频工厂/GPT 数据源/`。
+- `已确认` 以后更新 GPT Project 文件时，只修改该目录内的 10 份核心文件，不再创建桌面上传包，不再让用户从多个目录里判断哪个是最新版。
+- `已确认` 已写入项目路径硬规则：以后《视频工厂》项目相关最终产物都必须落在 `/Users/fan/Documents/视频工厂` 内部，禁止把 `/Users/fan/Desktop`、`/Users/fan/Downloads`、`/private/tmp` 作为最终交付路径。
+- `已确认` 已同步保留 PR #10 新口径：当前项目中心价值为 `真实 AI 使用经验 + 工作提效实录`；场景是内容切口 / 证据容器 / 问题发生地；工作包是可选沉淀单元；用户录制素材在新口径下更核心。
+- `已确认` 已同步保留三类骚萌卡机制：`problem_hook_sassy_card（问题钩子骚萌卡）`、`negative_reversal_sassy_card（反面反转骚萌卡）`、`positive_reversal_sassy_card（正面反转骚萌卡）`。
+- `已确认` GPT Project 静态包第 8 份保留为 `08_当前事实读取规则.md`，不保存当前 round、`content_validation（内容验证）`、`send_ready（可发送状态）` 等动态事实。
+- `已确认` 本轮不删除、不移动历史桌面文件；本轮未创建新的桌面上传包。
+- `已确认` 本轮未生成视频，未调用阿里 / DashScope API，未修改 `dist/latest_review_pack/（最新审片包）`。
+- `已确认` 当前 `content_validation（内容验证）` 未改变，当前 `send_ready（可发送状态）` 未改变。
+- `已确认` 新增日志：`codex_log/20260428_GPTProject唯一资料源与路径硬规则.md`。
+
 ## 20260427｜中段吐槽插入风格视觉证据补齐
 
 - `已确认` 本轮只是补齐上一轮 reference pack 的轻量视觉证据，用于待 ChatGPT / 用户复审。

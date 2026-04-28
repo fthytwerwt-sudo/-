@@ -59,6 +59,37 @@
 
 `project_source/` 只作为历史 / 辅助主题化镜像，不得默认高于 `GPT数据源/` 当前 10 份执行包、`codex_log/latest.md` 或 `dist/latest_review_pack/`。
 
+### 2.2B 《视频工厂》项目路径硬规则
+
+`已确认` 以后《视频工厂》项目内，ChatGPT / Codex 生成、修改、导出、整理、归档、打包的所有项目相关文件，都必须落在：
+
+`/Users/fan/Documents/视频工厂`
+
+`已确认` 禁止再把项目文件、上传包、复审包、导出包、素材包、manifest、README、contact sheet、zip 或用户需要打开的交付文件生成到：
+
+- `/Users/fan/Desktop`
+- `/Users/fan/Downloads`
+- `/private/tmp` 作为最终交付路径
+- 其他临时散目录
+
+`已确认` GPT Project 静态协作包唯一默认目录为：
+
+`/Users/fan/Documents/视频工厂/GPT 数据源/`
+
+`已确认` 如果需要给用户一个“最终可上传包 / 可查看包 / 复审包”，也必须放在项目根目录内部，例如：
+
+- `/Users/fan/Documents/视频工厂/交付_exports/`
+- `/Users/fan/Documents/视频工厂/复审包_review_packs/`
+- `/Users/fan/Documents/视频工厂/素材库_assets/`
+- `/Users/fan/Documents/视频工厂/临时产物_staging/`
+- `/Users/fan/Documents/视频工厂/GPT 数据源/`
+
+`已确认` Codex 最终汇报里的文件地址，必须优先给 `/Users/fan/Documents/视频工厂` 下的稳定路径，不得把桌面或临时目录作为正式交付地址。
+
+`已确认` 如果某轮工具或脚本必须使用临时缓存目录，只能作为过程缓存；最终用户要打开或上传的文件，必须复制 / 生成到 `/Users/fan/Documents/视频工厂` 内部。
+
+`已确认` 本规则只约束后续新增和修改，不要求本轮删除或迁移历史桌面文件；历史桌面文件如需清理，必须由用户另行明确授权。
+
 当前已确认：
 - `latest_review_pack` 指向 `round34_中段双展示提示卡_正反分段提示修复`
 - `technical_validation = 通过`
