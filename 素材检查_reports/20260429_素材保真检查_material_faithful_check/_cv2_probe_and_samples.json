@@ -1,0 +1,234 @@
+{
+  "positive": {
+    "path": "/Users/fan/Documents/视频工厂/素材录制/正面/录制于 2026-04-16 23.03.53.mp4",
+    "opened": true,
+    "fps_cv2": 59.9168547864375,
+    "frame_count_cv2": 44679.0,
+    "width_cv2": 3420,
+    "height_cv2": 2214,
+    "duration_cv2": 745.6833333333333,
+    "sampled_frames": [
+      {
+        "time": 0,
+        "timecode": "00:00.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_00m00_00s.jpg"
+      },
+      {
+        "time": 15,
+        "timecode": "00:15.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_00m15_00s.jpg"
+      },
+      {
+        "time": 30,
+        "timecode": "00:30.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_00m30_00s.jpg"
+      },
+      {
+        "time": 45,
+        "timecode": "00:45.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_00m45_00s.jpg"
+      },
+      {
+        "time": 60,
+        "timecode": "01:00.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_01m00_00s.jpg"
+      },
+      {
+        "time": 90,
+        "timecode": "01:30.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_01m30_00s.jpg"
+      },
+      {
+        "time": 120,
+        "timecode": "02:00.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_02m00_00s.jpg"
+      },
+      {
+        "time": 150,
+        "timecode": "02:30.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_02m30_00s.jpg"
+      },
+      {
+        "time": 180,
+        "timecode": "03:00.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_03m00_00s.jpg"
+      },
+      {
+        "time": 210,
+        "timecode": "03:30.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_03m30_00s.jpg"
+      },
+      {
+        "time": 240,
+        "timecode": "04:00.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_04m00_00s.jpg"
+      },
+      {
+        "time": 270,
+        "timecode": "04:30.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_04m30_00s.jpg"
+      },
+      {
+        "time": 300,
+        "timecode": "05:00.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_05m00_00s.jpg"
+      },
+      {
+        "time": 330,
+        "timecode": "05:30.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_05m30_00s.jpg"
+      },
+      {
+        "time": 360,
+        "timecode": "06:00.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_06m00_00s.jpg"
+      },
+      {
+        "time": 390,
+        "timecode": "06:30.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_06m30_00s.jpg"
+      },
+      {
+        "time": 420,
+        "timecode": "07:00.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_07m00_00s.jpg"
+      },
+      {
+        "time": 450,
+        "timecode": "07:30.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_07m30_00s.jpg"
+      },
+      {
+        "time": 480,
+        "timecode": "08:00.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_08m00_00s.jpg"
+      },
+      {
+        "time": 510,
+        "timecode": "08:30.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_08m30_00s.jpg"
+      },
+      {
+        "time": 540,
+        "timecode": "09:00.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_09m00_00s.jpg"
+      },
+      {
+        "time": 570,
+        "timecode": "09:30.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_09m30_00s.jpg"
+      },
+      {
+        "time": 600,
+        "timecode": "10:00.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_10m00_00s.jpg"
+      },
+      {
+        "time": 630,
+        "timecode": "10:30.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_10m30_00s.jpg"
+      },
+      {
+        "time": 660,
+        "timecode": "11:00.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_11m00_00s.jpg"
+      },
+      {
+        "time": 690,
+        "timecode": "11:30.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_11m30_00s.jpg"
+      },
+      {
+        "time": 720,
+        "timecode": "12:00.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_12m00_00s.jpg"
+      },
+      {
+        "time": 744,
+        "timecode": "12:24.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/positive_12m24_00s.jpg"
+      }
+    ]
+  },
+  "negative": {
+    "path": "/Users/fan/Documents/视频工厂/素材录制/反面/录制于 2026-04-16 22.41.32.mp4",
+    "opened": true,
+    "fps_cv2": 59.880745341614904,
+    "frame_count_cv2": 4017.0,
+    "width_cv2": 3420,
+    "height_cv2": 2214,
+    "duration_cv2": 67.08333333333334,
+    "sampled_frames": [
+      {
+        "time": 0,
+        "timecode": "00:00.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/negative_00m00_00s.jpg"
+      },
+      {
+        "time": 5,
+        "timecode": "00:05.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/negative_00m05_00s.jpg"
+      },
+      {
+        "time": 10,
+        "timecode": "00:10.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/negative_00m10_00s.jpg"
+      },
+      {
+        "time": 15,
+        "timecode": "00:15.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/negative_00m15_00s.jpg"
+      },
+      {
+        "time": 20,
+        "timecode": "00:20.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/negative_00m20_00s.jpg"
+      },
+      {
+        "time": 25,
+        "timecode": "00:25.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/negative_00m25_00s.jpg"
+      },
+      {
+        "time": 30,
+        "timecode": "00:30.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/negative_00m30_00s.jpg"
+      },
+      {
+        "time": 35,
+        "timecode": "00:35.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/negative_00m35_00s.jpg"
+      },
+      {
+        "time": 40,
+        "timecode": "00:40.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/negative_00m40_00s.jpg"
+      },
+      {
+        "time": 45,
+        "timecode": "00:45.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/negative_00m45_00s.jpg"
+      },
+      {
+        "time": 50,
+        "timecode": "00:50.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/negative_00m50_00s.jpg"
+      },
+      {
+        "time": 55,
+        "timecode": "00:55.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/negative_00m55_00s.jpg"
+      },
+      {
+        "time": 60,
+        "timecode": "01:00.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/negative_01m00_00s.jpg"
+      },
+      {
+        "time": 66,
+        "timecode": "01:06.00",
+        "path": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_素材保真检查_material_faithful_check/时间码截图_timecode_frames/negative_01m06_00s.jpg"
+      }
+    ]
+  }
+}
