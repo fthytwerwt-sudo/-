@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0",
+  "task": "copy_sample_rhythm_extract",
+  "status": [
+    "sample_video_found",
+    "blocked_no_asr_available",
+    "sample_structure_extracted"
+  ],
+  "video": {
+    "path": "/Users/fan/Documents/视频工厂/素材录制/文案样本.MP4",
+    "file_name": "文案样本.MP4",
+    "size_bytes": 311788804,
+    "duration_seconds": 220.94,
+    "duration_timecode": "00:03:40.94",
+    "resolution": "1180x2556",
+    "video_codec": "HEVC",
+    "audio_codec": "AAC",
+    "audio_status": "has_audio",
+    "open_status": "can_open_with_ffmpeg_static"
+  },
+  "transcript": {
+    "status": "blocked_no_asr_available",
+    "full_transcript_available": false,
+    "source_note": "segments use visible captions and visual evidence only; transcript fields are not full spoken-word transcript"
+  },
+  "segments": [
+    {
+      "timecode": "00:00-00:04",
+      "segment": "pre_roll_context",
+      "transcript": "未转写；可见画面为搜索页/上一条视频残留，非目标样本主体。",
+      "function": "排除非样本主体，确认目标样本约从 00:04-00:05 开始。",
+      "rhythm_note": "屏幕切换/滑动进入目标样本，不作为文案结构判断依据。",
+      "confidence": "high"
+    },
+    {
+      "timecode": "00:05-00:18",
+      "segment": "opening_hook",
+      "transcript": "未转写；可见画面包括 `海底生命 / 2026分享会`、`SURVIVE` 等成品海报/PPT视觉。",
+      "function": "先给结果，让观众先看到 AI 做 PPT 的成品质感，再进入方法。",
+      "rhythm_note": "开头不是先讲概念，而是连续甩成品画面；信息密度高，靠视觉结果抓人。",
+      "confidence": "high"
+    },
+    {
+      "timecode": "00:18-00:32",
+      "segment": "problem_setup",
+      "transcript": "可见字幕：`同时我也把所有用到的提示词`；`首先得先了解它的组成结构`。",
+      "function": "从成品展示转为方法承诺：不只展示效果，还要讲提示词和结构。",
+      "rhythm_note": "用短句把观众从“好看”拉到“我也能学”；第一个方法关键词是 `组成结构`。",
+      "confidence": "high"
+    },
+    {
+      "timecode": "00:32-00:52",
+      "segment": "context_building",
+      "transcript": "可见字幕：`因为AI对这个词做过专业训练`；`怎么做?`；`是风景人物动物还是某种物品`。",
+      "function": "解释为什么提示词要先定义类型/对象，把抽象的 AI 生成拆成可操作入口。",
+      "rhythm_note": "黑底大字 `PPT 海报设计`、`怎么做?` 形成停顿点，问题句带着下一段走。",
+      "confidence": "high"
+    },
+    {
+      "timecode": "00:52-01:14",
+      "segment": "example_or_case",
+      "transcript": "可见字幕：`我们以这张图为例`；画面文字包括 `诗与远方 / Poetry & Distance / MOUNTAIN RANGE`。",
+      "function": "进入第一个具体案例，用风景封面展示提示词如何落成画面。",
+      "rhythm_note": "案例承接很快，几乎没有抽象铺垫；画面和字幕同步解释。",
+      "confidence": "high"
+    },
+    {
+      "timecode": "01:14-01:35",
+      "segment": "method_or_explanation",
+      "transcript": "可见字幕：`描写山长什么样`；`中间白色大字加粗作为主标题`；`画面重心会偏右`。",
+      "function": "拆解画面构成：主体、标题、文字层级、画面重心。",
+      "rhythm_note": "细节密度明显提高，开始出现可复制的具体动作。",
+      "confidence": "high"
+    },
+    {
+      "timecode": "01:35-01:52",
+      "segment": "turning_point",
+      "transcript": "可见字幕：`位置改成描写人物`；`人物在右`。",
+      "function": "展示方法不是固定模板，而是可替换变量：从风景转到人物/人文。",
+      "rhythm_note": "反转不是剧情翻盘，而是认知转折：同一套结构可以换对象和位置。",
+      "confidence": "high"
+    },
+    {
+      "timecode": "01:52-02:12",
+      "segment": "result_or_reveal",
+      "transcript": "可见字幕：`那就选中这张图`；`这回看着就舒服多了`。",
+      "function": "展示调整后的结果更顺眼，给出小型结果差。",
+      "rhythm_note": "口径低压，没有夸成“完美”，只说 `舒服多了`，降低广告感。",
+      "confidence": "high"
+    },
+    {
+      "timecode": "02:12-03:10",
+      "segment": "method_or_explanation",
+      "transcript": "可见字幕/画面：`把它丢给豆包`；`再用刚刚讲过的这套`；画面出现工业、安全生产、修复照片等示例。",
+      "function": "扩展同一方法到图片修复、工业风格和其他画面类型，证明可复用。",
+      "rhythm_note": "进入多例快切，细节由画面承担，字幕只做动作提示。",
+      "confidence": "medium"
+    },
+    {
+      "timecode": "03:10-03:40.94",
+      "segment": "summary_or_cta",
+      "transcript": "可见字幕：`当然了这也不是绝对的`；`比如这种插画风格`；画面继续展示插画/工业风格结果。",
+      "function": "用边界句收住：规则可用但不是绝对，最后以更多风格样例结束。",
+      "rhythm_note": "收尾不是强 CTA，而是低压扩展；用“不是绝对”避免方法论过满。",
+      "confidence": "high"
+    }
+  ]
+}

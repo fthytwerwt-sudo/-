@@ -1,5 +1,19 @@
 # Latest
 
+## 20260429｜文案样本节奏报告同步 PR
+
+- `已确认` 本轮只做文案样本视频保真提取报告同步，供 ChatGPT 从 GitHub 读取；不重新分析视频，不生成新文案。
+- `已确认` 已检查本地路径：`/Users/fan/Documents/视频工厂/素材录制/文案样本/`；实际命中样本文件：`/Users/fan/Documents/视频工厂/素材录制/文案样本.MP4`。
+- `已确认` 已输出文案样本节奏报告：
+  - `素材检查_reports/20260429_文案样本节奏提取_copy_sample_rhythm_extract/文案样本节奏报告_copy_sample_rhythm_report.md`
+- `blocked_no_asr_available（阻塞：缺少可用转写工具）`：本轮已抽取音频，但未成功完成全量 ASR 转写；报告中的字幕内容只来自可见字幕和关键帧，不冒充完整口播逐字稿。
+- `已确认` 已成功拆出带时间码的样本结构：
+  - `素材检查_reports/20260429_文案样本节奏提取_copy_sample_rhythm_extract/文案样本结构_segments.json`
+- `已确认` 本轮不生成新视频。
+- `已确认` 本轮不修改 `dist/latest_review_pack`。
+- `已确认` 本轮不修改 `content_validation`。
+- `已确认` 本轮不修改 `send_ready`。
+
 ## 20260427｜中段吐槽插入风格视觉证据补齐
 
 - `已确认` 本轮只是补齐上一轮 reference pack 的轻量视觉证据，用于待 ChatGPT / 用户复审。

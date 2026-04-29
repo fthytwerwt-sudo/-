@@ -1,0 +1,100 @@
+{
+  "run_id": "20260429_文案样本节奏提取_copy_sample_rhythm_extract",
+  "created_at": "2026-04-29",
+  "workspace": "/Users/fan/Documents/视频工厂",
+  "status": {
+    "sample_video_found": true,
+    "sample_transcript_extracted": false,
+    "sample_structure_extracted": true,
+    "transcript_status": "blocked_no_asr_available",
+    "overall_status": [
+      "sample_video_found",
+      "blocked_no_asr_available",
+      "sample_structure_extracted"
+    ]
+  },
+  "read_paths": [
+    "/Users/fan/Documents/视频工厂/AGENTS.md",
+    "/Users/fan/Documents/视频工厂/codex_source/00_codex_readme.md",
+    "/Users/fan/Documents/视频工厂/codex_source/01_execution_rules.md",
+    "/Users/fan/Documents/视频工厂/codex_log/latest.md",
+    "/Users/fan/Documents/视频工厂/GPT 数据源/04_选题与文案规则.md",
+    "/Users/fan/Documents/视频工厂/GPT 数据源/05_文案路由规则.md",
+    "/Users/fan/Documents/视频工厂/GPT 数据源/07_AI知识类视频价值规则.md",
+    "/Users/fan/Documents/视频工厂/project_source/06_project_index.md",
+    "/Users/fan/.codex/skills/copywriting-cn/SKILL.md",
+    "/Users/fan/.codex/skills/verification-before-completion/SKILL.md"
+  ],
+  "skill_check": {
+    "local_skills_dir": "/Users/fan/Documents/视频工厂/skills",
+    "local_skills_found": false,
+    "global_skills_dir": "/Users/fan/.codex/skills",
+    "used_skills": [
+      "copywriting-cn",
+      "verification-before-completion"
+    ],
+    "note": "copywriting-cn used only for copy rhythm/style extraction boundaries, not for final script generation"
+  },
+  "candidate_video_paths_checked": [
+    "/Users/fan/Documents/视频工厂/素材录制/文案样本/",
+    "/Users/fan/Documents/视频工厂/素材录制/文案样片/",
+    "/Users/fan/Documents/视频工厂/素材录制/文案样本.MP4",
+    "/Users/fan/Documents/视频工厂/素材录制/文案样片.MP4"
+  ],
+  "video": {
+    "selected_path": "/Users/fan/Documents/视频工厂/素材录制/文案样本.MP4",
+    "file_name": "文案样本.MP4",
+    "size_bytes": 311788804,
+    "size_human": "297M",
+    "duration_seconds": 220.94,
+    "duration_timecode": "00:03:40.94",
+    "resolution": "1180x2556",
+    "video_codec": "HEVC",
+    "audio_codec": "AAC",
+    "audio_channels": 2,
+    "audio_sample_rate_hz": 44100,
+    "can_open": true
+  },
+  "tools": {
+    "ffmpeg_path": "/Users/fan/Documents/视频工厂/node_modules/ffmpeg-static/ffmpeg",
+    "ffmpeg_path_available": true,
+    "ffprobe_path_available": false,
+    "asr_tools_available": false,
+    "asr_checks": {
+      "whisper_cli": false,
+      "mlx_whisper_cli": false,
+      "python_whisper": false,
+      "python_faster_whisper": false,
+      "python_mlx_whisper": false,
+      "vosk": false,
+      "funasr": false,
+      "modelscope": false,
+      "transformers": false,
+      "paddlespeech": false,
+      "macos_speech": "blocked_by_tcc_privacy_violation"
+    }
+  },
+  "generated_files": {
+    "report": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_文案样本节奏提取_copy_sample_rhythm_extract/文案样本节奏报告_copy_sample_rhythm_report.md",
+    "transcript": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_文案样本节奏提取_copy_sample_rhythm_extract/文案样本转写_transcript.md",
+    "segments_json": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_文案样本节奏提取_copy_sample_rhythm_extract/文案样本结构_segments.json",
+    "run_summary": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_文案样本节奏提取_copy_sample_rhythm_extract/run_summary.json"
+  },
+  "intermediate_files": {
+    "audio_wav": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_文案样本节奏提取_copy_sample_rhythm_extract/intermediate/文案样本_audio_16k_mono.wav",
+    "contact_sheet": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_文案样本节奏提取_copy_sample_rhythm_extract/intermediate/文案样本_contact_sheet_10s_labeled.jpg",
+    "keyframes_dir": "/Users/fan/Documents/视频工厂/素材检查_reports/20260429_文案样本节奏提取_copy_sample_rhythm_extract/intermediate/frames"
+  },
+  "boundaries": {
+    "generated_new_video": false,
+    "edited_original_video": false,
+    "modified_dist_latest_review_pack": false,
+    "modified_content_validation": false,
+    "modified_send_ready": false,
+    "generated_final_script": false
+  },
+  "manual_review_needed": [
+    "Full spoken transcript requires ASR or human transcription.",
+    "All visible-caption based rhythm conclusions should be treated as partial evidence, not full oral transcript."
+  ]
+}
