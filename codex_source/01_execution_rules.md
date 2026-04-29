@@ -34,7 +34,10 @@
 11. 当前任务直接相关的 `project_source/*`
 12. 命中价值 / 文案 / 结尾卡时，读 `codex_source/11_ai_knowledge_video_value_bridge.md`
 13. 命中“什么算已知”时，读 `codex_source/12_codex_known_state_three_layer_rules.md`
-14. 命中 commit / push / reading branch 回流时，再读 `codex_source/08_branch_sync_and_reading_branch_rules.md`
+14. 命中“完整成片 / 成品候选片 / 技术预览升级成候选片 / 样片回炉 / 开头重做 / 中段剪辑 / 字幕修正 / TTS 修正 / 功能卡修正 / 结果差卡修正 / 骚萌卡修正 / 录屏放大修正 / 视觉母版修正”时，读：
+   - `codex_source/14_locked_reference_inheritance_rules.md`
+   - `codex_source/locked_reference_registry.md`
+15. 命中 commit / push / reading branch 回流时，再读 `codex_source/08_branch_sync_and_reading_branch_rules.md`
 
 当前仓库现实 `已确认`：
 
@@ -169,6 +172,48 @@
 - 不允许用户未最终确认前写 `send_ready = yes`
 - 不允许旧 `round` 状态继续覆盖最新 `latest_review_pack`
 - 只要改动会影响新会话默认接手判断，就必须同步到 `codex/user-readable-map`
+
+## 8B. locked reference 继承硬规则
+
+以后凡任务命中以下任一类型，必须先读 locked reference 机制：
+
+- 完整成片
+- 成品候选片
+- 技术预览升级成候选片
+- 样片回炉
+- 开头重做
+- 中段剪辑
+- 字幕修正
+- TTS 修正
+- 功能卡修正
+- 结果差卡修正
+- 骚萌卡修正
+- 录屏放大修正
+- 视觉母版修正
+
+强制读取：
+
+1. `codex_source/14_locked_reference_inheritance_rules.md`
+2. `codex_source/locked_reference_registry.md`
+
+硬规则：
+
+- 任一文件读不到，必须 `blocked`，不得直接生成完整片。
+- `candidate_reference` 只能写成候选参考，不得写成 `locked_reference`。
+- `failed_reference` 只能作为反例或复盘材料，不得默认继承。
+- 用户 / ChatGPT 未明确确认前，不得把 PR 自评 pass 写成用户已确认。
+- 完整成片 / 成品候选片 / 样片回炉完成时，必须输出 `locked_reference_inheritance_report.md`。
+- summary 必须写 `locked_reference_registry_read`、`locked_reference_inheritance_validation`、`locked_reference_inheritance_report`、`unapproved_reference_changes`、`reference_deviation_blockers`、`candidate_references_used`、`locked_references_used`。
+
+以下情况必须 `blocked`：
+
+- 找不到已锁定 reference。
+- 没有读取 locked reference registry。
+- 继承失败或只写“类似”但没有对照证据。
+- 字幕、TTS、放大、卡片、剪辑语法与 locked reference 不一致。
+- 用户没有授权但 Codex 自行换风格、重做或替换。
+- 完整片使用 candidate reference 却写成 locked reference。
+- 只有 technical_validation / content_validation，没有 reference inheritance validation。
 
 ## 9. 主读取分支与状态分类
 
