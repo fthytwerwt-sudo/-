@@ -1,5 +1,21 @@
 # Latest
 
+## 20260430｜锁定参考登记表全量追回
+
+- `已确认` 本轮只补全并升级 `codex_source/locked_reference_registry.md（锁定参考登记表）`，不生成视频、不做 v3、不修改现有视频产物。
+- `已确认` 本轮新增日志：`codex_log/20260430_locked_reference_registry_full_recovery.md（锁定参考登记表全量追回日志）`。
+- `已确认` 第一批升级为 `locked（锁定参考）`：
+  - `middle_editing_round34_locked_20260425（round34 中段剪辑语法锁定参考）`
+  - `sassy_card_three_type_rule_locked_20260428（三类骚萌卡放置规则锁定参考）`
+  - `tts_15s_b_pacing_locked_20260427（20260427 B 版 15 秒停顿梗感 TTS 节奏锁定参考）`
+  - `opening_reference_element_doll_no_text_locked_20260428（元素娃娃无字开头锚点锁定参考）`
+- `已确认` `sassy_card_pr7_a_candidate_20260428（PR #7 A 版骚萌卡视觉候选）` 仍保持 `candidate（候选参考）`，不升级为视觉锁定参考。
+- `已确认` 新增候选 / 缺口登记：体素元素娃娃视觉母版候选、round34 粉色樱花提示卡候选、功能卡 / 结果差卡候选、Prompt 引用尾卡规则候选、语音样本2声音底子候选、字幕标准缺口、正确放大方式缺口。
+- `已确认` PR #15 v2 字幕、layout / 背景、TTS 缺失仍保持 `failed（失败参考）`；新增 PR #15 v2 放大位置失败参考。
+- `已确认` 20260412 历史通过样片仍保持 `historical（历史参考）`，不升级为当前默认母版。
+- `已确认` 本轮不修改 `dist/latest_review_pack/（最新审片包）`，不修改 `content_validation（内容验证）`，不修改 `send_ready（可发送状态）`。
+- `待验证` 本轮分支 / PR 合并回 `codex/user-readable-map（主读取分支）` 后，第一批 locked reference 才成为新聊天默认正式已知。
+
 ## 20260430｜锁定参考继承机制修补
 
 - `已确认` 本轮不生成新视频，不修改现有视频，不创建成片候选。
