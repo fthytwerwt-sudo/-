@@ -1,0 +1,13 @@
+{
+  "status": "generated_for_preview",
+  "output_dir": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260429_AI做PPT踩坑_技术预览_v1_ai_ppt_pitfall_preview_v1",
+  "ffmpeg": "/Users/fan/Documents/视频工厂/node_modules/ffmpeg-static/ffmpeg",
+  "segment_count": 18,
+  "duration_seconds": 154.7,
+  "notes": [
+    "技术预览字幕节奏版",
+    "无 voice cloning",
+    "不修改 dist/latest_review_pack",
+    "内容仍待 ChatGPT / 用户复审"
+  ]
+}

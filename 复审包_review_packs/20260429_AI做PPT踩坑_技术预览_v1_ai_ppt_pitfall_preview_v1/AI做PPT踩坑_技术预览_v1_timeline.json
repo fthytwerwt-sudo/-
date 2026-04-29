@@ -1,0 +1,210 @@
+{
+  "project": "视频工厂",
+  "title": "我用 AI 做 PPT 踩过的坑",
+  "preview_type": "technical_preview",
+  "voice_status": "temporary_no_voice_preview",
+  "resolution": "1080x1920",
+  "fps": 25,
+  "duration_seconds": 154.7,
+  "source_from_prompt_loaded": true,
+  "segments": [
+    {
+      "shot_id": "shot00_opening_hello_wave",
+      "title": "元素娃娃开场招手",
+      "start": 0.0,
+      "end": 2.0,
+      "duration": 2.0,
+      "carrier": "元素娃娃开场素材",
+      "source": "/Users/fan/Documents/视频工厂/素材库_assets/元素娃娃开头锚点_opening_anchor_20260428/005_1496_seg01_no_text_inpaint_opening_anchor.mp4",
+      "note": "字幕：hello，大家好；不讲方法",
+      "file": "/Users/fan/Documents/视频工厂/临时产物_staging/ai_ppt_pitfall_preview_v1_20260429/segments/00_opening_base.mp4"
+    },
+    {
+      "shot_id": "shot01_result_gap_opening",
+      "title": "结果差开头",
+      "start": 2.0,
+      "end": 9.0,
+      "duration": 7.0,
+      "carrier": "分屏对比卡",
+      "source": "negative_035 + positive_720",
+      "note": "先给结果差",
+      "file": "/Users/fan/Documents/视频工厂/临时产物_staging/ai_ppt_pitfall_preview_v1_20260429/segments/01_result_gap_opening.mp4"
+    },
+    {
+      "shot_id": "shot02_negative_input_wrong_prompt",
+      "title": "反面输入：错误问法出现",
+      "start": 9.0,
+      "end": 17.0,
+      "duration": 8.0,
+      "carrier": "反面录屏",
+      "source": "/Users/fan/Documents/视频工厂/素材录制/反面/录制于 2026-04-16 22.41.32.mp4",
+      "note": "最新方案.pdf + 帮我把这个方案整理一下",
+      "file": "/Users/fan/Documents/视频工厂/临时产物_staging/ai_ppt_pitfall_preview_v1_20260429/segments/02_negative_input.mp4"
+    },
+    {
+      "shot_id": "shot03_problem_hook_sassy_card",
+      "title": "问题钩子骚萌卡",
+      "start": 17.0,
+      "end": 18.6,
+      "duration": 1.6,
+      "carrier": "骚萌卡",
+      "source": "generated_card",
+      "note": "只做轻吐槽",
+      "file": "/Users/fan/Documents/视频工厂/临时产物_staging/ai_ppt_pitfall_preview_v1_20260429/segments/03_problem_hook_sassy_card.mp4"
+    },
+    {
+      "shot_id": "shot04_negative_result_text_plan",
+      "title": "反面结果：AI认真整理了",
+      "start": 18.6,
+      "end": 31.6,
+      "duration": 13.0,
+      "carrier": "反面录屏",
+      "source": "/Users/fan/Documents/视频工厂/素材录制/反面/录制于 2026-04-16 22.41.32.mp4",
+      "note": "标题/产品矩阵/30天计划/最终执行铁律",
+      "file": "/Users/fan/Documents/视频工厂/临时产物_staging/ai_ppt_pitfall_preview_v1_20260429/segments/04_negative_result.mp4"
+    },
+    {
+      "shot_id": "shot05_negative_reversal_sassy_card",
+      "title": "反面反转骚萌卡",
+      "start": 31.6,
+      "end": 33.1,
+      "duration": 1.5,
+      "carrier": "骚萌卡",
+      "source": "generated_card",
+      "note": "Word/PPT 落差吐槽",
+      "file": "/Users/fan/Documents/视频工厂/临时产物_staging/ai_ppt_pitfall_preview_v1_20260429/segments/05_negative_reversal_sassy_card.mp4"
+    },
+    {
+      "shot_id": "shot06_attribution_turn",
+      "title": "归因转折",
+      "start": 33.1,
+      "end": 44.1,
+      "duration": 11.0,
+      "carrier": "判断卡",
+      "source": "generated_card",
+      "note": "AI 没偷懒，是交付没说清",
+      "file": "/Users/fan/Documents/视频工厂/临时产物_staging/ai_ppt_pitfall_preview_v1_20260429/segments/06_attribution_turn_card.mp4"
+    },
+    {
+      "shot_id": "shot07_positive_method_deliverable_draft",
+      "title": "正面方法词出现：可交付初稿",
+      "start": 44.1,
+      "end": 53.1,
+      "duration": 9.0,
+      "carrier": "正面录屏",
+      "source": "/Users/fan/Documents/视频工厂/素材录制/正面/录制于 2026-04-16 23.03.53.mp4",
+      "note": "放大可交付初稿检查项",
+      "file": "/Users/fan/Documents/视频工厂/临时产物_staging/ai_ppt_pitfall_preview_v1_20260429/segments/07_positive_method_word.mp4"
+    },
+    {
+      "shot_id": "shot08_prompt_architecture",
+      "title": "正面 prompt 架构",
+      "start": 53.1,
+      "end": 69.1,
+      "duration": 16.0,
+      "carrier": "Prompt 架构卡",
+      "source": "generated_card",
+      "note": "三层：交付物/检查/生成结构",
+      "file": "/Users/fan/Documents/视频工厂/临时产物_staging/ai_ppt_pitfall_preview_v1_20260429/segments/08_prompt_architecture_card.mp4"
+    },
+    {
+      "shot_id": "shot09_positive_title_specific",
+      "title": "正面结果第一层：标题变具体",
+      "start": 69.1,
+      "end": 81.1,
+      "duration": 12.0,
+      "carrier": "正面录屏",
+      "source": "/Users/fan/Documents/视频工厂/素材录制/正面/录制于 2026-04-16 23.03.53.mp4",
+      "note": "AI 时间管理小程序 7 天种子用户拉新营销方案",
+      "file": "/Users/fan/Documents/视频工厂/临时产物_staging/ai_ppt_pitfall_preview_v1_20260429/segments/09_positive_title_specific.mp4"
+    },
+    {
+      "shot_id": "shot10_positive_constraints_clear",
+      "title": "正面结果第二层：约束变清楚",
+      "start": 81.1,
+      "end": 93.1,
+      "duration": 12.0,
+      "carrier": "正面录屏",
+      "source": "/Users/fan/Documents/视频工厂/素材录制/正面/录制于 2026-04-16 23.03.53.mp4",
+      "note": "周期/预算/渠道/目标",
+      "file": "/Users/fan/Documents/视频工厂/临时产物_staging/ai_ppt_pitfall_preview_v1_20260429/segments/10_positive_constraints.mp4"
+    },
+    {
+      "shot_id": "shot11_positive_ppt_page_instruction",
+      "title": "正面结果第三层：进入 PPT 页面指令",
+      "start": 93.1,
+      "end": 105.1,
+      "duration": 12.0,
+      "carrier": "正面录屏",
+      "source": "/Users/fan/Documents/视频工厂/素材录制/正面/录制于 2026-04-16 23.03.53.mp4",
+      "note": "页面设计/XML/核心指标",
+      "file": "/Users/fan/Documents/视频工厂/临时产物_staging/ai_ppt_pitfall_preview_v1_20260429/segments/11_positive_ppt_xml.mp4"
+    },
+    {
+      "shot_id": "shot12_ppt_generation_process",
+      "title": "PPT 生成过程",
+      "start": 105.1,
+      "end": 119.1,
+      "duration": 14.0,
+      "carrier": "正面录屏",
+      "source": "/Users/fan/Documents/视频工厂/素材录制/正面/录制于 2026-04-16 23.03.53.mp4",
+      "note": "正在生成 PPT + 缩略图逐页出现",
+      "file": "/Users/fan/Documents/视频工厂/临时产物_staging/ai_ppt_pitfall_preview_v1_20260429/segments/12_ppt_generation_process.mp4"
+    },
+    {
+      "shot_id": "shot13_result_preview_6m31_16pages",
+      "title": "结果落点：6分31秒 / 16页预览",
+      "start": 119.1,
+      "end": 129.1,
+      "duration": 10.0,
+      "carrier": "正面录屏",
+      "source": "/Users/fan/Documents/视频工厂/素材录制/正面/录制于 2026-04-16 23.03.53.mp4",
+      "note": "已完成PPT生成(6m31s) + 16 页预览",
+      "file": "/Users/fan/Documents/视频工厂/临时产物_staging/ai_ppt_pitfall_preview_v1_20260429/segments/13_result_6m31_16pages.mp4"
+    },
+    {
+      "shot_id": "shot14_positive_reversal_sassy_card",
+      "title": "正面反转骚萌卡",
+      "start": 129.1,
+      "end": 130.7,
+      "duration": 1.6,
+      "carrier": "骚萌卡",
+      "source": "generated_card",
+      "note": "正向反转但保留边界",
+      "file": "/Users/fan/Documents/视频工厂/临时产物_staging/ai_ppt_pitfall_preview_v1_20260429/segments/14_positive_reversal_sassy_card.mp4"
+    },
+    {
+      "shot_id": "shot15_result_diff_card",
+      "title": "结果差卡",
+      "start": 130.7,
+      "end": 138.7,
+      "duration": 8.0,
+      "carrier": "结果差卡",
+      "source": "generated_card",
+      "note": "普通问法 vs 交付标准",
+      "file": "/Users/fan/Documents/视频工厂/临时产物_staging/ai_ppt_pitfall_preview_v1_20260429/segments/15_result_diff_card.mp4"
+    },
+    {
+      "shot_id": "shot16_low_pressure_ending",
+      "title": "低压结尾",
+      "start": 138.7,
+      "end": 150.7,
+      "duration": 12.0,
+      "carrier": "总结卡",
+      "source": "generated_card",
+      "note": "不是一步到位，进入可检查初稿",
+      "file": "/Users/fan/Documents/视频工厂/临时产物_staging/ai_ppt_pitfall_preview_v1_20260429/segments/16_low_pressure_end_card.mp4"
+    },
+    {
+      "shot_id": "shot17_prompt_tail_card",
+      "title": "可选尾卡",
+      "start": 150.7,
+      "end": 154.7,
+      "duration": 4.0,
+      "carrier": "Prompt 引用尾卡",
+      "source": "generated_card",
+      "note": "经验承接尾卡",
+      "file": "/Users/fan/Documents/视频工厂/临时产物_staging/ai_ppt_pitfall_preview_v1_20260429/segments/17_prompt_tail_card.mp4"
+    }
+  ]
+}

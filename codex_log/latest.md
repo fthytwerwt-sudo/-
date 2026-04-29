@@ -1,5 +1,37 @@
 # Latest
 
+## 20260429｜AI 做 PPT 踩坑技术预览 v1
+
+- `已确认` 本轮只生成 `technical_preview（技术预览）`，不是合格样片、正式成片、内容验证通过或可发送状态。
+- `已确认` 已生成本地复审包：
+  - `/Users/fan/Documents/视频工厂/复审包_review_packs/20260429_AI做PPT踩坑_技术预览_v1_ai_ppt_pitfall_preview_v1/`
+- `已确认` 关键输出：
+  - `AI做PPT踩坑_技术预览_v1_full.mp4`
+  - `shot00_opening_hello_wave_preview.mp4`
+  - `AI做PPT踩坑_技术预览_v1_contact_sheet.jpg`
+  - `AI做PPT踩坑_技术预览_v1_review_manifest.md`
+  - `AI做PPT踩坑_技术预览_v1_summary.json`
+  - `AI做PPT踩坑_技术预览_v1_timeline.json`
+  - `AI做PPT踩坑_技术预览_v1_cut_map.md`
+  - `AI做PPT踩坑_技术预览_v1_run_summary.json`
+- `已确认` 完整技术预览为 `1080x1920 / 25fps / 00:02:34.70`，可被 FFmpeg 解码打开，带静音音轨和烧录字幕。
+- `已确认` `shot00_opening_hello_wave` 使用元素娃娃开场锚点素材，单段 `00:00:02.00`，字幕包含 `hello，大家好`。
+- `已确认` 本轮包含反面录屏、正面录屏、三张骚萌卡、结果差卡、低压收束和可选尾卡。
+- `temporary_no_voice_preview（临时无声音预览）`：本轮未使用稳定 TTS，未调用 voice cloning，视频仅保留静音音轨 + 字幕节奏版。
+- `已确认` `content_validation = pending_user_chatgpt_review`，`send_ready = false`，`technical_validation = generated_for_preview`。
+- `已确认` 本轮没有修改 `dist/latest_review_pack/`；前后 checksum 对比一致。
+- `已确认` 本轮没有修改正式 `content_validation（内容验证）` 或 `send_ready（可发送状态）` 文件。
+- `下一个目标`：ChatGPT / 用户基于技术预览复审内容、节奏、字幕与证据可读性，再决定是否进入声音试配和正式样片修正。
+
+## 新会话接手建议先读
+
+- `AGENTS.md`
+- `codex_source/00_codex_readme.md`
+- `codex_source/01_execution_rules.md`
+- `codex_log/latest.md`
+- `codex_log/20260429_AI做PPT踩坑技术预览v1.md`
+- `复审包_review_packs/20260429_AI做PPT踩坑_技术预览_v1_ai_ppt_pitfall_preview_v1/AI做PPT踩坑_技术预览_v1_review_manifest.md`
+
 ## 20260427｜中段吐槽插入风格视觉证据补齐
 
 - `已确认` 本轮只是补齐上一轮 reference pack 的轻量视觉证据，用于待 ChatGPT / 用户复审。
