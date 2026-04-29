@@ -1,5 +1,37 @@
 # Latest
 
+## 20260430｜AI 做 PPT 踩坑成品标准候选 v2
+
+- `已确认` 本轮生成《我用 AI 做 PPT 踩过的坑》`finished_quality_candidate_v2（成品标准候选片 v2）`，不是技术预览，也不是正式发布片。
+- `已确认` v2 审片包路径：
+  - `复审包_review_packs/20260430_AI做PPT踩坑_成品标准候选_v2_ai_ppt_pitfall_finished_candidate_v2/`
+- `已确认` 完整候选片：
+  - `AI做PPT踩坑_成品标准候选_v2_full.mp4`
+- `已确认` 三张骚萌卡独立图、prompt、contact sheet 和 visual-verdict 报告已输出：
+  - `sassy_cards/problem_hook_sassy_card.png`
+  - `sassy_cards/negative_reversal_sassy_card.png`
+  - `sassy_cards/positive_reversal_sassy_card.png`
+  - `sassy_cards/sassy_card_generation_prompts.md`
+  - `sassy_cards/sassy_card_visual_verdict.md`
+  - `sassy_cards/sassy_card_contact_sheet.jpg`
+- `已确认` 已输出 `round34_editing_inheritance_report.md`、`layout_gate_report.md`、`quality_gates_report.md`、`copy_compression_diff.md`。
+- `已确认` 视频可被 ffmpeg 解码：`81.76s / 1080x1920 / 25fps`，未超过 100 秒硬上限。
+- `已确认` v2 未继承 PR #14 的 18-shot 教程结构；按 round34 继承“真实录屏为主体、卡片为辅助”的剪辑语法。
+- `部分成立` 三张骚萌卡按 PR #7 A 版 reference 做同角色体系风格扩展，并按 PR #8 职责自检；最终“骚萌感 / 搞笑感”仍待用户 / ChatGPT 复审。
+- `已确认` 本轮未调用 voice cloning，未进入最终声音试配；状态为 `temporary_no_voice_preview（临时无声音预览）`。
+- `已确认` 本轮不修改 `dist/latest_review_pack/`，不修改正式 `content_validation（内容验证）`，不修改正式 `send_ready（可发送状态）`。
+- `已确认` 状态边界：
+  - `preview_type = finished_quality_candidate_v2`
+  - `technical_validation = generated_for_candidate_review`
+  - `content_validation = pending_user_chatgpt_review`
+  - `sassy_card_validation = pending_user_chatgpt_review`
+  - `editing_style_validation = inherited_round34_style_pending_review`
+  - `layout_validation = pending_user_chatgpt_review`
+  - `send_ready = false`
+  - `modified_latest_review_pack = false`
+- `待验证` 文案口径、成片观感、骚萌卡视觉效果、剪辑继承效果仍待用户 / ChatGPT 看片复审。
+- `下一个目标`：等待用户 / ChatGPT 看片复审，判断 v2 是否可作为文案口径和成片观感的暂定候选。
+
 ## 20260427｜中段吐槽插入风格视觉证据补齐
 
 - `已确认` 本轮只是补齐上一轮 reference pack 的轻量视觉证据，用于待 ChatGPT / 用户复审。
