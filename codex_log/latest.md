@@ -1,5 +1,20 @@
 # Latest
 
+## 20260430｜锁定参考继承机制修补
+
+- `已确认` 本轮不生成新视频，不修改现有视频，不创建成片候选。
+- `已确认` 本轮只修机制：新增 locked_reference（锁定参考）定义、晋升条件、默认继承规则、完整成片前置读取、继承报告、summary 字段和 blocked 条件。
+- `已确认` 当前仓库审计结论为 `locked_reference_inheritance_missing（缺少锁定参考继承机制）`：已有 reference pack / 声音参考锚点 / 当前审片包等相近机制，但没有统一 locked reference registry、强制继承报告和未继承 blocked 条件。
+- `已确认` 新增规则文件：`codex_source/14_locked_reference_inheritance_rules.md`。
+- `已确认` 新增登记表：`codex_source/locked_reference_registry.md`。
+- `已确认` 初始 registry 没有任何 `locked` reference；只登记 `candidate`、`failed`、`historical`，避免把候选或失败样本误写成正式继承样板。
+- `已确认` 初始 registry 已登记 round34 中段剪辑语法候选、PR #7 A 版骚萌卡视觉候选、PR #8 三类骚萌卡规则候选、PR #15 v2 字幕 / layout / TTS 失败参考、20260427 B 版 15 秒 TTS 节奏候选、20260412 历史通过样片。
+- `已确认` 已接入读取链路：完整成片 / 成品候选片 / 技术预览升级 / 样片回炉 / 字幕 / TTS / 卡片 / 放大 / 剪辑 / 视觉母版修正任务，后续必须先读 locked reference 规则和 registry。
+- `已确认` 若读不到 locked reference 规则或 registry，或未继承已锁定 reference，必须 `blocked`，不得写成候选片完成。
+- `已确认` 后续完整成片 / 成品候选片 / 样片回炉必须输出 `locked_reference_inheritance_report.md（锁定参考继承报告）`。
+- `已确认` 本轮不修改 `dist/latest_review_pack/`，不修改 `content_validation`，不修改 `send_ready`。
+- `待验证` 本机制当前只在工作分支 / PR 中成立；合并或同步回 `codex/user-readable-map` 后，才算主读取分支正式已知。
+
 ## 20260427｜中段吐槽插入风格视觉证据补齐
 
 - `已确认` 本轮只是补齐上一轮 reference pack 的轻量视觉证据，用于待 ChatGPT / 用户复审。
