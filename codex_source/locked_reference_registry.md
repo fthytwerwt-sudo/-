@@ -128,7 +128,7 @@
 | `allowed_changes` | 可调整音色、供应商、文案内容、语速细节、停顿点、响度、降噪和轻微后处理。 |
 | `blocked_if` | 写成 `voice_validation（声音验证）= 通过`；写成 `final_voice_validated（最终声音已验证）= true`；无听感对照却声明 TTS 继承通过；完整片没有 TTS 却声明 TTS 通过。 |
 | `last_verified_at` | 2026-04-30 |
-| `notes` | 锁定的是 TTS pacing（文本转语音节奏），不是 final voice（最终音色）或成片音轨。 |
+| `notes` | 锁定的是 TTS pacing（文本转语音节奏），不是 final voice（最终音色）或成片音轨。`已确认` 用户本轮要求 v3 前置参考先采用最近 custom voice（自定义音色，脱敏标识 `qwen-t...ac19`）+ B 版停顿梗感节奏作为参考；仍必须保持“节奏 locked、音色待验证”，不得写最终声音通过，不得写 `final_voice_validated = true`。 |
 
 ### 3.5 元素娃娃无字开头锚点锁定参考
 
@@ -174,7 +174,7 @@
 | `allowed_changes` | 可调整表情夸张度、构图、角色、文案、动效和时长。 |
 | `blocked_if` | 把 PR #7 A 版写成用户已确认 locked；忽略用户后续对骚萌视觉的负反馈。 |
 | `last_verified_at` | 2026-04-30 |
-| `notes` | PR #8 锁定的是放置规则，不锁 PR #7 A 版视觉。 |
+| `notes` | PR #8 锁定的是放置规则，不锁 PR #7 A 版视觉。`已确认` 用户本轮再次确认 v3 骚萌卡视觉先以 PR #7 A 版作为参考；本条仍保持 `candidate（候选参考）`，后续 v3 可写为 `candidate_reference_used（使用候选参考）`，不得升级为用户最终锁定的视觉样板。 |
 
 ### 4.2 体素元素娃娃视觉母版候选
 
@@ -220,7 +220,29 @@
 | `last_verified_at` | 2026-04-30 |
 | `notes` | 该条补足背景 / 卡片风格散落口径，但仍是局部 candidate。 |
 
-### 4.4 round34 功能卡 / 结果差卡候选参考
+### 4.4 功能卡 / 结果差卡 / Prompt 引用尾卡清晰质感候选参考
+
+| 字段 | 值 |
+| --- | --- |
+| `reference_id` | `card_visual_quality_clean_ui_texture_candidate_20260430` |
+| `name` | 功能卡 / 结果差卡 / Prompt 引用尾卡清晰质感候选参考 |
+| `type` | `card_visual_quality（卡片视觉质感）`; `function_card（功能卡）`; `result_diff_card（结果差卡）`; `prompt_tail_card（Prompt 引用尾卡）` |
+| `status` | `candidate（候选参考）` |
+| `confirmation_state` | `candidate_or_rule_reference（候选规则参考）` |
+| `source_pr_or_log` | `codex_log/20260430_card_visual_quality_reference_for_v3.md` |
+| `artifact_path` | `待补仓库内图片证据；当前 ChatGPT 对话图片 Codex 不可直接读取` |
+| `evidence_path` | `codex_log/20260430_card_visual_quality_reference_for_v3.md`; `codex_source/locked_reference_registry.md` |
+| `confirmed_by` | `user（用户）` |
+| `confirmation_quote_or_record` | `已确认` 用户本轮确认：图片引用“完全对”，但真正继承的是功能卡、结果差卡、Prompt 引用尾卡的“清晰、有质感、干净、层级舒服”的视觉质感；不继承底部按钮、不继承电商筛选页结构、不继承假 App 导航。 |
+| `applies_to` | v3 的 `function_card（功能卡）`; v3 的 `result_diff_card（结果差卡）`; v3 的 `prompt_tail_card（Prompt 引用尾卡）`; 少量 PPT / 卡片承载的信息整理段；需要提升清晰度、质感、层级、可读性的 9:16 竖屏卡片。 |
+| `does_not_apply_to` | 字幕样式；中段真实录屏主体；骚萌卡角色视觉；API 生成真人 / 元素娃娃开头；电商筛选页 UI；App 导航页；底部 CTA 按钮；`More Filters` 式按钮结构；密集列表型筛选项。 |
+| `inheritance_rule` | 后续 v3 若生成功能卡、结果差卡、Prompt 引用尾卡，应继承此参考的“清晰质感”：画面干净、留白足、信息清楚、一眼能读懂、圆角卡片、轻阴影、轻高光、层级分明、文字清晰、不糊、不脏、不像 PPT 模板、有一点高级 UI 感；同时必须融合《视频工厂》当前体素 / 元素娃娃风格，不能变成真实 App 筛选页，不能照抄用户图里的具体 UI、按钮和分类结构。 |
+| `allowed_changes` | 可将参考质感转译成原创体素风格卡片；可调整颜色、圆角、阴影、版式、信息密度；可按功能卡 / 结果差卡 / Prompt 引用尾卡不同职责拆成不同信息层级；可减少信息量，保证短视频一眼可读；可使用中文大字、结构标签、分组卡片；可保留轻微高级 UI 质感，但不得压过项目风格。 |
+| `blocked_if` | 照抄底部黑色大按钮；做成电商筛选页；做成 App 导航页；出现 `More Filters` 式行动按钮感；出现一堆筛选项 / 分类项；出现英文乱码感；字太小、太糊、不可读；画面像普通 PPT 模板；阴影厚重发脏；信息过密；UI 质感和当前项目体素 / 元素娃娃风格断裂；卡片抢走用户录制素材主体；把该 candidate 写成 locked visual master（视觉母版锁定参考）。 |
+| `last_verified_at` | 2026-04-30 |
+| `notes` | 该参考是用户本轮从一张手机竖屏 UI 图中确认的“质感参考”。Codex 不知道原图，也不能默认读取 ChatGPT 图片上下文；本条 registry 的文字描述就是执行器可用的唯一参考锚点。本条不代表视觉母版已锁定，不代表 v3 已生成，不代表 `content_validation（内容验证）` 通过，也不代表 `send_ready（可发送状态）= yes`。v3 若按此方向生成并通过用户 / ChatGPT 复审，才允许后续升级为更正式的 `visual_master_reference（视觉母版参考）` 或卡片视觉 locked reference。 |
+
+### 4.5 round34 功能卡 / 结果差卡候选参考
 
 | 字段 | 值 |
 | --- | --- |
@@ -240,9 +262,9 @@
 | `allowed_changes` | 可调整文案、布局、信息密度、和 judgment_card（判断总结卡）的合并方式。 |
 | `blocked_if` | 结果差卡变成骚萌卡；功能卡挤占录屏主体；没有结果差证明点却强行做卡。 |
 | `last_verified_at` | 2026-04-30 |
-| `notes` | 有职责规则，缺用户确认的统一视觉母版产物。 |
+| `notes` | 有职责规则，缺用户确认的统一视觉母版产物。后续 v3 的功能卡 / 结果差卡可引用 `card_visual_quality_clean_ui_texture_candidate_20260430（功能卡 / 结果差卡 / Prompt 引用尾卡清晰质感候选参考）` 作为质感候选参考；不得照抄底部按钮和筛选页布局。 |
 
-### 4.5 Prompt 引用尾卡规则候选参考
+### 4.6 Prompt 引用尾卡规则候选参考
 
 | 字段 | 值 |
 | --- | --- |
@@ -262,9 +284,9 @@
 | `allowed_changes` | 可调整尾卡文案、引用内容、展示时长和版式。 |
 | `blocked_if` | Prompt 引用尾卡承担主叙事；重复讲结论；被写成完整 ending locked 视觉样板。 |
 | `last_verified_at` | 2026-04-30 |
-| `notes` | 当前是规则候选，缺锁定视觉产物。 |
+| `notes` | 当前是规则候选，缺锁定视觉产物。后续 v3 的 Prompt 引用尾卡可引用 `card_visual_quality_clean_ui_texture_candidate_20260430（功能卡 / 结果差卡 / Prompt 引用尾卡清晰质感候选参考）` 作为质感候选参考；不得继承底部黑色按钮，不得做成 `More Filters` 式 CTA。 |
 
-### 4.6 语音样本2可爱女生向导音候选
+### 4.7 语音样本2可爱女生向导音候选
 
 | 字段 | 值 |
 | --- | --- |
@@ -284,7 +306,7 @@
 | `allowed_changes` | 可更换音色、重做复刻、调整降噪和后处理。 |
 | `blocked_if` | 写成 final voice（最终音色）；写 `voice_validation（声音验证）= 通过`；把自定义音色候选当成 TTS 节奏 locked。 |
 | `last_verified_at` | 2026-04-30 |
-| `notes` | 声音底子仍是 candidate；节奏参考另见 B 版 locked。 |
+| `notes` | 声音底子仍是 candidate；节奏参考另见 B 版 locked。`已确认` 用户本轮要求 TTS 先用最近 custom voice（脱敏标识 `qwen-t...ac19`）+ B 版停顿梗感节奏作为参考；该确认不等于最终音色已定，不等于声音验证通过。 |
 
 ## 5. failed_reference（失败参考）
 
@@ -449,6 +471,7 @@
 ## 8. 当前不得升级项
 
 - `sassy_card_pr7_a_candidate_20260428（PR #7 A 版骚萌卡视觉候选）`：保持 `candidate（候选参考）`，因为未找到用户明确确认“以后骚萌卡视觉就按这个走”。
+- `card_visual_quality_clean_ui_texture_candidate_20260430（功能卡 / 结果差卡 / Prompt 引用尾卡清晰质感候选参考）`：保持 `candidate（候选参考）`，因为当前只有用户本轮文字化质感锚点，缺仓库内可复审图片证据和 v3 成片验证；不得写成视觉母版 locked。
 - `subtitle_pr15_v2_failed_20260430（PR #15 v2 字幕失败参考）`：保持 `failed（失败参考）`，因为用户指出字幕样式不是标准。
 - `layout_pr15_v2_failed_20260430（PR #15 v2 layout / 背景失败参考）`：保持 `failed（失败参考）`，因为用户指出背景风格被换掉。
 - `tts_pr15_v2_failed_20260430（PR #15 v2 TTS 缺失失败参考）`：保持 `failed（失败参考）`，因为用户指出没有 TTS。
@@ -462,6 +485,7 @@
 - `visual_master_reference（视觉母版参考）`：已有体素元素娃娃方向和 round34 局部提示卡风格，但仍缺完整视觉母版锁定产物。
 - `sassy_card_visual_reference（骚萌卡视觉参考）`：PR #7 A 版仍是候选，尚未锁定为默认视觉。
 - `ending_reference（结尾参考）`：已有 Prompt 引用尾卡职责规则，但缺锁定视觉产物。
+- `card_visual_quality_reference（卡片视觉质感参考）`：本轮新增清晰质感 candidate，只能作为功能卡、结果差卡、Prompt 引用尾卡的文字化质感锚点；若 v3 生成并通过用户 / ChatGPT 复审，才可另行晋升或补证据。
 
 ## 10. 更新规则
 
