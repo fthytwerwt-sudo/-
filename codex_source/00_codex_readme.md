@@ -54,6 +54,11 @@
 5. `codex_source/` 执行规则
 6. `project_source/` 历史 / 辅助镜像
 
+本地可打开路径读取规则：
+- 当 ChatGPT / Codex 需要给用户本地可打开路径时，必须优先读取 `codex_log/current_local_artifact_paths.md（当前本地产物路径索引）`。
+- 如果该索引中没有 `path_exists = true（路径存在）` 的记录，只能说“路径待本地复核”，不能直接把 `summary.json（状态摘要）` / `review_manifest.md（审片入口）` 中的路径当成真实可打开路径。
+- `summary.json（状态摘要）` / `review_manifest.md（审片入口）` 中的路径只能作为线索，必须经 Codex 本地复核后才能输出给用户。
+
 当前 `latest_review_pack` 已确认指向 `round34_中段双展示提示卡_正反分段提示修复`；`technical_validation`、`border_residue_validation`、`jump_cut_validation` 为 `通过`，`content_validation` 仍为 `待用户 / ChatGPT 最终复审`，`send_ready = no`。
 
 若任务命中“完整成片 / 成品候选片 / 技术预览升级成候选片 / 样片回炉 / 开头重做 / 中段剪辑 / 字幕修正 / TTS 修正 / 功能卡修正 / 结果差卡修正 / 骚萌卡修正 / 录屏放大修正 / 视觉母版修正”，则在 `codex_log/latest.md` 之后必须先补读：

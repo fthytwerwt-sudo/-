@@ -1,5 +1,18 @@
 # Latest
 
+## 20260430｜本地真实路径索引机制
+
+- `已确认` 本轮新增 `codex_log/current_local_artifact_paths.md（当前本地产物路径索引）`，记录 Codex 已在本机验证存在的本地审片 / 复审产物路径。
+- `已确认` 后续 ChatGPT / Codex 给用户本地可打开路径时，必须优先读取该索引。
+- `已确认` `summary.json（状态摘要）` / `review_manifest.md（审片入口）` 中的路径只能作为线索，不能直接当真实可打开路径输出。
+- `已确认` 只有索引中 `path_exists = true（路径存在）` 的记录，才能作为用户可打开路径输出；缺失或超过 24 小时未验证时，必须写成“路径待本地复核”。
+- `已确认` 已验证 clean worktree 首选路径存在：`/Users/fan/Documents/视频工厂_clean_user_readable_map_20260430/dist/latest_review_pack/middle_preview.mp4`、`problem_windows/30_32s.mp4`、`problem_windows/30_32s_frames.jpg`、`cut_contact_sheet.jpg`、`full.mp4`。
+- `已确认` `no_zoom_completeness` 两张 1x PNG 与布局指标 JSON 在 clean worktree 指定路径未命中；本轮只在旧脏 worktree 中验证到备选打开路径，已标注不得作为默认执行路径。
+- `部分成立` 视频文件已完成 `test -f` 与 `stat`；本机没有 `ffprobe`，本轮已尝试但命令不可用，时长 / 分辨率用 macOS `mdls` 只读补充。
+- `已确认` 已在 `codex_source/00_codex_readme.md（Codex 执行层总入口）` 和 `codex_source/01_execution_rules.md（Codex 执行规则）` 接入本地路径索引读取规则。
+- `已确认` 本轮未生成视频，未修改视频 / 音频 / 图片，未修改 `dist/latest_review_pack（最新审片包）` 内容本体，未修改 `content_validation（内容验证）`，未修改 `send_ready（可发送状态）`。
+- `待验证` 本轮 PR 合并 / 同步回 `codex/user-readable-map（主读取分支）` 后，该路径索引机制才成为新聊天默认正式已知。
+
 ## 20260430｜中段放大剪辑参考锁定
 
 - `已确认` 本轮只更新 `codex_source/locked_reference_registry.md（锁定参考登记表）` 和日志，不生成视频、不修改视频产物。
