@@ -1,5 +1,18 @@
 # Latest
 
+## 20260430｜中段放大剪辑参考锁定
+
+- `已确认` 本轮只更新 `codex_source/locked_reference_registry.md（锁定参考登记表）` 和日志，不生成视频、不修改视频产物。
+- `已确认` 用户已看片确认：这一轮 `middle_preview（中段预览样片）` 的放大剪辑是对的，可以作为参考样本。
+- `已确认` 用户确认样本路径：`/Users/fan/Documents/视频工厂_clean_user_readable_map_20260430/dist/latest_review_pack/middle_preview.mp4`；repo relative（仓库相对路径）为 `dist/latest_review_pack/middle_preview.mp4`。
+- `已确认` 新增 `middle_zoom_reference_confirmed_middle_preview_20260430（用户确认的中段放大剪辑锁定参考）`。
+- `已确认` 该 reference 的 `status（状态） = locked（锁定参考）`，`confirmation_state（确认状态） = locked_reference_confirmed_by_user（用户确认锁定参考）`。
+- `已确认` 锁定范围为同类中段录屏证据展示的放大剪辑方式、证据窗口选择方式和关键文字可读尺度；不锁所有视频的固定秒级时间码。
+- `已确认` `zoom_pr15_v2_failed_20260430（PR #15 v2 放大位置失败参考）` 仍保持 `failed（失败参考）`；后续完整成片不得继承 PR #15 的失败放大位置。
+- `已确认` `zoom_reference_missing_20260430（正确放大方式缺失历史记录）` 已标记为 `deprecated（已废弃缺口）`，并注明主要中段放大缺口已由新的 locked reference 补足。
+- `已确认` 本轮不修改 `dist/latest_review_pack（最新审片包）`，不修改 `content_validation（内容验证）`，不修改 `send_ready（可发送状态）`。
+- `待验证` 本轮分支 / PR 合并回 `codex/user-readable-map（主读取分支）` 后，该 middle zoom locked reference 才成为新聊天默认正式已知。
+
 ## 20260430｜锁定参考登记表全量追回
 
 - `已确认` 本轮只补全并升级 `codex_source/locked_reference_registry.md（锁定参考登记表）`，不生成视频、不做 v3、不修改现有视频产物。

@@ -64,7 +64,29 @@
 | `last_verified_at` | 2026-04-30 |
 | `notes` | 锁定的是剪辑语法，不锁具体秒级时间码、具体文案、具体素材长度，也不要求所有题材完全复刻 round34。 |
 
-### 3.2 三类骚萌卡放置规则锁定参考
+### 3.2 用户确认的中段放大剪辑锁定参考
+
+| 字段 | 值 |
+| --- | --- |
+| `reference_id` | `middle_zoom_reference_confirmed_middle_preview_20260430` |
+| `name` | 用户确认的中段放大剪辑锁定参考 |
+| `type` | `zoom_reference（录屏放大方式参考）`; `middle_zoom_reference（中段放大剪辑参考）` |
+| `status` | `locked（锁定参考）` |
+| `confirmation_state` | `locked_reference_confirmed_by_user（用户确认锁定参考）` |
+| `source_pr_or_log` | 当前执行单用户确认；上一轮只读查找结果；`codex_log/current_publish_target.md`; `dist/latest_review_pack/review_manifest.md`; `dist/latest_review_pack/summary.json`; `codex_log/20260425_round34_中段双展示提示卡_正反分段提示修复.md` |
+| `artifact_path` | `/Users/fan/Documents/视频工厂_clean_user_readable_map_20260430/dist/latest_review_pack/middle_preview.mp4`; repo relative: `dist/latest_review_pack/middle_preview.mp4` |
+| `evidence_path` | `dist/latest_review_pack/middle_preview.mp4`; `dist/latest_review_pack/cut_contact_sheet.jpg`; `dist/latest_review_pack/problem_windows/30_32s.mp4`; `dist/latest_review_pack/problem_windows/30_32s_frames.jpg`; `dist/latest_review_pack/timeline.json`; `dist/latest_review_pack/cut_map.md`; `dist/latest_review_pack/summary.json`; `dist/latest_review_pack/review_manifest.md` |
+| `confirmed_by` | `user（用户）` |
+| `confirmation_quote_or_record` | `已确认` 用户在当前执行单确认：“这一轮 middle_preview（中段预览样片）的放大剪辑是对的，可以作为参考样本。” |
+| `applies_to` | 同类中段录屏证据展示；需要继承中段放大 / 裁切 / 证据窗口选择 / 关键文字可读尺度的片段；需要检查问题窗口和中段主体录屏是否对得上号的完整成片。 |
+| `does_not_apply_to` | 无录屏证据的视频；探索新放大方式；用户明确要求重做放大；完全不同素材结构；非中段位置且没有可对照证据窗口的片段。 |
+| `inheritance_rule` | 后续同类中段必须继承该样片的放大剪辑尺度、证据窗口选择方式和关键文字可读性标准；Codex 不得自行乱选放大位置，不得只写“类似”，必须输出 middle_preview / problem window / contact sheet 等对照证据。 |
+| `allowed_changes` | 可按新素材调整时间码、裁切框、缩放比例和证据窗口落点，但必须输出对照证据，证明关键文字可读、放大位置与讲述证据点一致、真实录屏仍是主体。 |
+| `blocked_if` | 未读取本 reference；未输出放大对照证据；关键文字不可读；放大位置与证据点对不上；Codex 自行换放大逻辑；沿用 `zoom_pr15_v2_failed_20260430（PR #15 v2 放大位置失败参考）`；没有用户授权却改放大方式；完整成片未输出 `locked_reference_inheritance_report.md（锁定参考继承报告）`。 |
+| `last_verified_at` | 2026-04-30 |
+| `notes` | 锁定的是中段放大剪辑方式、证据窗口选择方式和可读尺度，不锁所有视频的固定秒级时间码，不锁具体文案，也不代表 full content validation（全片内容验证）通过。 |
+
+### 3.3 三类骚萌卡放置规则锁定参考
 
 | 字段 | 值 |
 | --- | --- |
@@ -86,7 +108,7 @@
 | `last_verified_at` | 2026-04-30 |
 | `notes` | 锁定的是 rule-level locked reference（规则级锁定参考），不是 visual locked reference（视觉锁定参考）；不锁 PR #7 A 版具体角色、具体视觉、具体秒数或每条视频必须三张。 |
 
-### 3.3 20260427 B 版 15 秒停顿梗感 TTS 节奏锁定参考
+### 3.4 20260427 B 版 15 秒停顿梗感 TTS 节奏锁定参考
 
 | 字段 | 值 |
 | --- | --- |
@@ -108,7 +130,7 @@
 | `last_verified_at` | 2026-04-30 |
 | `notes` | 锁定的是 TTS pacing（文本转语音节奏），不是 final voice（最终音色）或成片音轨。 |
 
-### 3.4 元素娃娃无字开头锚点锁定参考
+### 3.5 元素娃娃无字开头锚点锁定参考
 
 | 字段 | 值 |
 | --- | --- |
@@ -348,11 +370,11 @@
 | `confirmation_quote_or_record` | `已确认` 当前执行单记录用户认为 PR #15 v2 “中段录屏放大位置对不上号”。 |
 | `applies_to` | 复盘 PR #15 v2 zoom / crop（录屏放大 / 裁切）为什么不能作为放大方式参考。 |
 | `does_not_apply_to` | 后续完整成片默认 zoom reference（录屏放大方式参考）。 |
-| `inheritance_rule` | 不得继承 PR #15 v2 的 zoom / crop 方式；后续必须建立帧级 zoom reference 或 blocked。 |
+| `inheritance_rule` | 不得继承 PR #15 v2 的 zoom / crop 方式；后续同类中段应对照 `middle_zoom_reference_confirmed_middle_preview_20260430（用户确认的中段放大剪辑锁定参考）`。 |
 | `allowed_changes` | 只能作为失败样本复盘。 |
 | `blocked_if` | 沿用 PR #15 v2 放大位置；没有帧级对照却声明 zoom 继承通过。 |
 | `last_verified_at` | 2026-04-30 |
-| `notes` | 当前尚未定位正确 zoom locked reference。 |
+| `notes` | 后续完整成片不得继承 PR #15 的放大位置；应对照新的 `middle_zoom_reference_confirmed_middle_preview_20260430（用户确认的中段放大剪辑锁定参考）`。 |
 
 ## 6. gap_reference（缺口参考）
 
@@ -378,27 +400,27 @@
 | `last_verified_at` | 2026-04-30 |
 | `notes` | 这是缺口记录，不是 candidate 样板。 |
 
-### 6.2 正确放大方式缺失记录
+### 6.2 正确放大方式缺失历史记录
 
 | 字段 | 值 |
 | --- | --- |
 | `reference_id` | `zoom_reference_missing_20260430` |
-| `name` | 正确放大方式缺失记录 |
+| `name` | 正确放大方式缺失历史记录 |
 | `type` | `zoom_gap（录屏放大缺口）` |
-| `status` | `failed_gap（失败缺口）` |
+| `status` | `deprecated（已废弃缺口）` |
 | `confirmation_state` | `failed_or_pending_reference（失败或待复盘参考）` |
-| `source_pr_or_log` | 当前 registry 全量追回审计；PR #15 用户负反馈 |
-| `artifact_path` | `待确认` |
-| `evidence_path` | `codex_source/locked_reference_registry.md#zoom_pr15_v2_failed_20260430`; 当前执行单 |
+| `source_pr_or_log` | 当前 registry 全量追回审计；PR #15 用户负反馈；当前执行单用户确认 |
+| `artifact_path` | `codex_source/locked_reference_registry.md#middle_zoom_reference_confirmed_middle_preview_20260430` |
+| `evidence_path` | `codex_source/locked_reference_registry.md#zoom_pr15_v2_failed_20260430`; `codex_source/locked_reference_registry.md#middle_zoom_reference_confirmed_middle_preview_20260430`; 当前执行单 |
 | `confirmed_by` | `user_negative_feedback（用户负反馈）` |
-| `confirmation_quote_or_record` | `已确认` PR #15 放大位置失败；`待验证` 未找到当前被确认的正确 zoom reference（录屏放大方式参考）。 |
-| `applies_to` | 后续录屏放大修正、完整成片前置检查。 |
+| `confirmation_quote_or_record` | `已确认` PR #15 放大位置失败；`已确认` 当前执行单中用户确认 `middle_preview（中段预览样片）` 的放大剪辑是对的，可以作为参考样本。 |
+| `applies_to` | 历史说明：本缺口曾用于阻断没有正确 zoom reference 的完整成片；当前主要中段放大缺口已由 `middle_zoom_reference_confirmed_middle_preview_20260430（用户确认的中段放大剪辑锁定参考）` 补足。 |
 | `does_not_apply_to` | 默认 zoom 继承。 |
-| `inheritance_rule` | 不得继承；后续必须建立帧级 zoom reference（录屏放大方式参考）。 |
-| `allowed_changes` | 可补 frame（帧）、contact sheet（联系表）、时间码、裁切框和对照说明。 |
-| `blocked_if` | 完整成片需要录屏放大但没有正确 zoom reference；沿用 PR #15 失败放大方式。 |
+| `inheritance_rule` | 不再作为 active missing blocker（当前活跃缺口阻断项）；后续同类中段录屏放大默认读取并继承 `middle_zoom_reference_confirmed_middle_preview_20260430`。 |
+| `allowed_changes` | 若后续出现非中段、不同素材结构或用户要求探索新放大方式，可新增新的 candidate / locked zoom reference。 |
+| `blocked_if` | 完整成片需要中段录屏放大却未读取新的 middle zoom locked reference；沿用 PR #15 失败放大方式。 |
 | `last_verified_at` | 2026-04-30 |
-| `notes` | 这是缺口记录，不是 candidate 样板。 |
+| `notes` | 已由 `middle_zoom_reference_confirmed_middle_preview_20260430（用户确认的中段放大剪辑锁定参考）` 补足主要缺口；保留本条作为历史缺口记录，不删除。 |
 
 ## 7. historical_reference（历史参考）
 
@@ -430,13 +452,13 @@
 - `subtitle_pr15_v2_failed_20260430（PR #15 v2 字幕失败参考）`：保持 `failed（失败参考）`，因为用户指出字幕样式不是标准。
 - `layout_pr15_v2_failed_20260430（PR #15 v2 layout / 背景失败参考）`：保持 `failed（失败参考）`，因为用户指出背景风格被换掉。
 - `tts_pr15_v2_failed_20260430（PR #15 v2 TTS 缺失失败参考）`：保持 `failed（失败参考）`，因为用户指出没有 TTS。
-- `zoom_pr15_v2_failed_20260430（PR #15 v2 放大位置失败参考）`：保持 `failed（失败参考）`，因为用户指出放大位置对不上号。
+- `zoom_pr15_v2_failed_20260430（PR #15 v2 放大位置失败参考）`：保持 `failed（失败参考）`，因为用户指出放大位置对不上号；后续应对照 `middle_zoom_reference_confirmed_middle_preview_20260430（用户确认的中段放大剪辑锁定参考）`。
 - `historical_api_demo_clean_sample_20260412（20260412 历史通过样片）`：保持 `historical（历史参考）`，因为历史通过不等于当前默认母版。
 
 ## 9. 当前仍需补证据的缺口
 
 - `subtitle_reference（字幕参考）`：未找到正确字幕样板；后续必须建立标准字幕位置、字号、背景、安全区和对照截图。
-- `zoom_reference（录屏放大方式参考）`：未找到正确放大样板；后续必须建立帧级 zoom reference。
+- `zoom_reference（录屏放大方式参考）`：同类中段放大剪辑已由 `middle_zoom_reference_confirmed_middle_preview_20260430（用户确认的中段放大剪辑锁定参考）` 补足主要 locked reference；非中段或不同素材结构仍需另建对照参考。
 - `visual_master_reference（视觉母版参考）`：已有体素元素娃娃方向和 round34 局部提示卡风格，但仍缺完整视觉母版锁定产物。
 - `sassy_card_visual_reference（骚萌卡视觉参考）`：PR #7 A 版仍是候选，尚未锁定为默认视觉。
 - `ending_reference（结尾参考）`：已有 Prompt 引用尾卡职责规则，但缺锁定视觉产物。
