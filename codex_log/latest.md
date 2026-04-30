@@ -1,5 +1,18 @@
 # Latest
 
+## 20260430｜video-metadata-probe skill 安装与配置
+
+- `已确认` 本轮安装并验证 `Homebrew（Mac 包管理器）`：`/opt/homebrew/bin/brew`，版本 `Homebrew 5.1.8`。
+- `已确认` 本轮安装并验证 `ffmpeg（音视频工具套件）`：`/opt/homebrew/bin/ffmpeg`，版本 `ffmpeg version 8.1`。
+- `已确认` 本轮安装并验证 `ffprobe（视频信息读取工具）`：`/opt/homebrew/bin/ffprobe`，版本 `ffprobe version 8.1`。
+- `已确认` 已创建全局 `video-metadata-probe（视频元数据检查）` skill：`/Users/fan/.codex/skills/video-metadata-probe/`。
+- `已确认` skill 包含 `SKILL.md（skill 说明文件）`、`scripts/probe_video.sh（视频元数据检查脚本）`、`examples/README.md（使用示例）`。
+- `已确认` 已用 `round34_middle_preview（round34 中段预览样片）` 做冒烟测试：`/Users/fan/Documents/视频工厂_clean_user_readable_map_20260430/dist/latest_review_pack/middle_preview.mp4`。
+- `已确认` 冒烟测试结果：`28.520000s / 720x1280 / 25.000fps / h264 / aac / 2ch / decodable = true / fallback_used = false / validation_status = passed`。
+- `已确认` 冒烟测试只代表 `technical_validation（技术验证）`、`metadata_validation（元数据验证）`、`audio_validation（音频验证）`，不代表 `content_validation（内容验证）` 通过。
+- `已确认` 本轮未生成视频，未修改视频 / 音频 / 图片，未修改 `dist/latest_review_pack（最新审片包）`，未修改 `content_validation（内容验证）`，未修改 `send_ready（可发送状态）`。
+- `待验证` 本轮日志分支 / PR 合并回 `codex/user-readable-map（主读取分支）` 后，skill 安装记录才成为主读取分支正式已知。
+
 ## 20260430｜本地真实路径索引机制
 
 - `已确认` 本轮新增 `codex_log/current_local_artifact_paths.md（当前本地产物路径索引）`，记录 Codex 已在本机验证存在的本地审片 / 复审产物路径。
