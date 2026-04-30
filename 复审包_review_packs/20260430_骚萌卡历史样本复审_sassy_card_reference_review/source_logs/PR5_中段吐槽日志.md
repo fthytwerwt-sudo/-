@@ -1,0 +1,65 @@
+# 20260427 方案 B 中段吐槽 15 秒技术预览
+
+## 本轮目标
+
+- `已确认` 只生成《视频工厂》中段 `方案 B：AI向导崩溃模式` 的 15 秒左右技术预览。
+- `已确认` 本轮不是最终成片修改，不是最终口径确认，不是 `content_validation` 通过任务。
+
+## 执行前已确认事实
+
+- `已确认` 当前目录：`/Users/fan/Documents/视频工厂`
+- `已确认` 当前分支：`fix/no-zoom-completeness-layout`
+- `已确认` `dist/latest_review_pack/summary.json` 当前指向 `round32_全片边框残留与跳切连续性修复`。
+- `待验证` 用户任务提到的 `round34` 在当前工作区未找到对应目录。
+- `已确认` 当前正式主线仍是 `API 生成真人 + 用户录制素材 + 少量 PPT + 云端剪辑`，中段主体必须由用户录制素材承担。
+
+## 实际读取
+
+- `已确认` 已读取：`AGENTS.md`
+- `已确认` 已读取：`codex_source/00_codex_readme.md`
+- `已确认` 已读取：`codex_source/01_execution_rules.md`
+- `待验证` `codex_source/08_branch_sync_and_reading_branch_rules.md` 按点名路径不存在；`codex_source/` 下未找到同名文件。
+- `已确认` 已读取：`codex_log/latest.md`
+- `待验证` `codex_log/current_publish_target.md` 按点名路径不存在。
+- `已确认` 已读取：`dist/latest_review_pack/summary.json`
+- `已确认` 已读取：`dist/latest_review_pack/review_manifest.md`
+- `已确认` 已读取：`dist/latest_review_pack/timeline.json`
+- `待验证` 点名的 `dist/reference_packs/.../画面层保真补充_visual_punchline_report.md` 与 `视觉证据补齐_run_summary.json` 不存在；已读取同目录真实存在的 `run_summary.json` 和 `吐槽插入风格_reference_pack.md`。
+- `待验证` 点名的 `GPT数据源/*` 路径不存在；已读取真实路径 `GPT 数据源/04_选题与文案规则.md`、`05_文案路由规则.md`、`07_AI知识类视频价值规则.md`、`08_当前正式事实.md`。
+- `已确认` 仓库内无本地 `skills/` 目录。
+- `已确认` 已读取全局相关 skills：`visual-verdict`、`verification-before-completion`、`card-transition-smoother`。
+
+## 实际改动
+
+- `已确认` 新增技术预览目录：`dist/prototypes/20260427_方案B中段吐槽15秒预览_scheme_b_15s_reaction_preview/`
+- `已确认` 新增 15 秒预览视频：`方案B中段吐槽15秒预览_scheme_b_15s_preview.mp4`
+- `已确认` 新增 contact sheet：`方案B中段吐槽15秒预览_contact_sheet.jpg`
+- `已确认` 新增人物反应层图片与透明版：`方案B人物反应层_ai_guide_meltdown_overlay.png`、`方案B人物反应层_透明版_ai_guide_meltdown_overlay_alpha.png`
+- `已确认` 新增 before / after 联系表：`方案B中段吐槽_before_after_contact_sheet.jpg`
+- `已确认` 新增预览说明报告与 `run_summary.json`
+- `已确认` 更新 `codex_log/latest.md`，只记录技术预览已生成、待复审。
+
+## 实际执行
+
+- `已确认` 使用 `imageio-ffmpeg` 提供的本地 ffmpeg 二进制进行装配和验证；系统 PATH 原本没有 `ffmpeg/ffprobe`。
+- `已确认` 使用本地程序绘制原创 Q 版 AI 向导崩溃反应层。
+- `已确认` 使用 `dist/latest_review_pack/middle_preview.mp4` 的 `0.0s-15.0s` 作为底片。
+- `已确认` 反应层出现在 `4.52s-5.92s`，持续 `1.40s`，只出现 1 次。
+
+## 当前结果
+
+- `已确认` 预览视频时长 `15.00s`，分辨率 `720x1280`，文件大小 `1,307,568 bytes`。
+- `已确认` ffmpeg 解码通过。
+- `已确认` 预览结构为：反面结果露出 → AI 向导崩溃反应 → 回到录屏主线 → 正面做法开头。
+- `已确认` 审片包关键文件哈希未变化：`summary.json`、`review_manifest.md`、`timeline.json`、`full.mp4`。
+- `已确认` `git diff --check` 通过。
+- `已确认` 本轮不改 `full.mp4`、不生成正式新 round、不改 `dist/latest_review_pack/`、不改 `content_validation`、不改 `send_ready`。
+- `已确认` 已提交 commit：`85d6e1773c96c3076263072cc87e1eb77b795b9f`。
+- `已确认` 已 push 分支：`codex/scheme-b-15s-preview-20260427`。
+- `已确认` 已创建 draft PR：`https://github.com/fthytwerwt-sudo/-/pull/5`，base 为 `fix/no-zoom-completeness-layout`。
+- `已确认` 未同步回 `codex/user-readable-map`；远端 `codex/user-readable-map` 与本轮分支 SHA 不同。
+
+## 下一步建议
+
+- `待验证` 把 15 秒技术预览交给 ChatGPT / 用户复审，重点判断人物表情、搞笑强度、插入时机是否成立。
+- `待验证` 若复审认为 punchline 有效，再另起正式成片修改任务；本轮不直接推进正式正片。

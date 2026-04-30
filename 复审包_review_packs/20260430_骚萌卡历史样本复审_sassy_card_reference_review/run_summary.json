@@ -1,0 +1,58 @@
+{
+  "task": "20260430_骚萌卡历史样本复审_sassy_card_reference_review",
+  "preview_type": "historical_sassy_card_reference_review_pack",
+  "generated_new_sassy_cards": false,
+  "generated_new_video": false,
+  "modified_latest_review_pack": false,
+  "modified_content_validation": false,
+  "modified_send_ready": false,
+  "modified_registry": false,
+  "skills_used": [
+    "visual-verdict",
+    "visual-design-foundations",
+    "verification-before-completion",
+    "video-metadata-probe"
+  ],
+  "local_review_pack": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_骚萌卡历史样本复审_sassy_card_reference_review",
+  "repo_review_pack": "复审包_review_packs/20260430_骚萌卡历史样本复审_sassy_card_reference_review",
+  "samples": [
+    {
+      "id": "pr7_a_sassy_static_reaction_page",
+      "status_label": "preferred_candidate",
+      "source": "origin/codex/scheme-b-standalone-v3-diagnostics-20260428",
+      "local_file": "PR7_A_骚萌反应页.png",
+      "judgment": "current best candidate for sassy visual direction; not locked"
+    },
+    {
+      "id": "pr7_b_sassy_static_reaction_page",
+      "status_label": "weak_candidate",
+      "source": "origin/codex/scheme-b-standalone-v3-diagnostics-20260428",
+      "local_file": "PR7_B_骚萌反应页.png",
+      "judgment": "use as contrast only because it risks low-childish or ambiguous tone"
+    },
+    {
+      "id": "pr6_full_page_reaction_v2",
+      "status_label": "weak_candidate",
+      "source": "origin/codex/scheme-b-full-page-reaction-v2-20260428",
+      "local_file": "PR6_整页反应版_contact_sheet.jpg",
+      "judgment": "full-page reaction route is useful, but expression is meltdown not sassy"
+    },
+    {
+      "id": "pr5_middle_reaction_overlay",
+      "status_label": "historical_only",
+      "source": "origin/codex/scheme-b-15s-preview-20260427",
+      "local_file": "PR5_中段吐槽_preview_contact_sheet.jpg",
+      "judgment": "historical overlay route; not recommended as visual inheritance"
+    },
+    {
+      "id": "pr15_v2_sassy_cards",
+      "status_label": "weak_candidate_failed_container",
+      "source": "origin/codex/ai-ppt-pitfall-finished-candidate-v2-20260430",
+      "local_file": "PR15_v2_骚萌卡_contact_sheet.jpg",
+      "judgment": "local sassy card visuals can be compared, but PR15 package remains failed reference"
+    }
+  ],
+  "preferred_next_reference": "pr7_a_sassy_static_reaction_page",
+  "content_validation": "unchanged",
+  "send_ready": "unchanged"
+}

@@ -1,5 +1,14 @@
 # Latest
 
+## 20260430｜骚萌卡历史样本复审包
+
+- `已确认` 本轮只整理历史骚萌卡 / reaction card 样本，不生成新骚萌卡，不生成新视频。
+- `已确认` 新增复审包：`复审包_review_packs/20260430_骚萌卡历史样本复审_sassy_card_reference_review/`。
+- `已确认` 复审包包含 PR #7 A/B 静态反应页、PR #7 15 秒历史技术预览、PR #6 整页反应版、PR #5 中段吐槽 overlay、PR #15 v2 三张骚萌卡局部对照。
+- `已确认` 只读判断：PR #7 A 版是当前最值得重新给用户确认的 `preferred_candidate（优先候选）`，但不得自动升级为 locked。
+- `部分成立` PR #15 v2 的三张骚萌卡可作为“PR #7 A 风格扩成三张卡”的局部对照；PR #15 整包仍是 `failed_reference（失败参考）`，不得默认继承。
+- `已确认` 本轮未修改 `dist/latest_review_pack/`，未修改 `content_validation`，未修改 `send_ready`，未修改 registry。
+
 ## 20260430｜v3 功能卡 / 结果差卡 / 尾卡清晰质感参考落仓库
 
 - `已确认` 本轮只做 v3 前置参考口径落仓库，不生成 v3，不生成视频，不生成音频，不生成图片。
