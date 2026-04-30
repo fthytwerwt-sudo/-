@@ -1,0 +1,6 @@
+$ /opt/homebrew/bin/ffmpeg -hide_banner -v error -i /Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3/AI做PPT踩坑_成品候选_v3_full.mp4 -f null -
+
+STDOUT:
+
+
+STDERR:
