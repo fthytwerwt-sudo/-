@@ -60,15 +60,18 @@
 `project_source/` 只作为历史 / 辅助主题化镜像，不得默认高于 `GPT数据源/` 当前 10 份执行包、`codex_log/latest.md` 或 `dist/latest_review_pack/`。
 
 当前已确认：
-- `latest_review_pack` 指向 `20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3`
-- `v3_technical_milestone = reached_for_current_stage（当前阶段技术里程碑达成）`
-- `technical_line_locked = false（技术线未锁定）`
-- `technical_baseline_locked = false（技术基线未锁定）`
+- `latest_review_pack` 当前指向 `20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix`
+- `current_video_baseline = v3.1（当前视频基线）`
+- `future_iteration_base = v3.1（后续升级 / 修改 / 技术优化 / GPT 文案侧回炉的默认基础）`
+- v3 只保留为历史候选 / 对照，不再作为后续默认修改基础。
+- `technical_validation = passed（v3.1 技术验证通过）`，但 `technical_line_locked = false（技术线未锁定）`
 - `technical_upgrade_next = true（下一步仍需技术升级）`
-- `content_validation = not_passed_user_review_gpt_copywriting_side（用户复审未过线，主要在 GPT 文案侧）`
+- `content_validation = pending_user_chatgpt_review_or_not_passed_copywriting_side（v3.1 仍待用户 / ChatGPT 内容复审；不得写成内容通过）`
 - `send_ready = false`
 - `visual_master_locked = false`
-- 下一轮 v3.1 必须先输出并验证 `visual_route_map.json（视觉路由表）`
+- `voice_validation = pending_user_chatgpt_review`
+- `final_voice_validated = false`
+- `visual_route_map.json（视觉路由表）` 与 `visual_route_validation_report.json（视觉路由验证报告）` 已随 v3.1 基线进入 `dist/latest_review_pack/`
 
 ### 2.2A 视频修改必须同步口径规则
 
@@ -97,11 +100,13 @@
 当前《视频工厂》接手时，必须先应用以下覆盖规则：
 
 - `round34` 只能作为历史中段剪辑 / 提示卡参考，不是当前最新样片状态。
-- PR #22 仍是 v3 成品候选草稿 PR；主读取分支中的 v3 状态以用户复审后口径为准。
-- PR #23 的“PR #7 A 优先”是旧只读判断，已被用户 2026-05-01 最新确认覆盖。
-- 后续骚萌卡执行参考是 `PR7_B_骚萌反应页.png`；读不到 PR #7 B 必须 blocked，不得回退 PR #7 A。
+- PR #22 仍是 v3 历史候选草稿 PR；v3 不再作为后续默认修改基础，不得直接合并覆盖当前 v3.1 基线。
+- PR #23 的“PR #7 A 优先”是旧只读判断，已被用户最新确认覆盖；PR #23 只能作为历史样本包。
+- PR #24 的 v3.1 有效产物已安全回流到主读取分支；PR #24 本身不得再直接合并，以免回退 PR #25 清理结果。
+- 后续骚萌卡唯一执行参考是 `PR7_B_骚萌反应页.png`；读不到 PR #7 B 必须 blocked，不得回退 PR #7 A。
+- PR #7 A 只能作为历史 / candidate 对照，不能出现在任何未来执行 reference 字段里。
 - `归档_archive/旧口径_old_context_*/` 只保存旧判断证据，不作为默认事实入口。
-- 下一轮 v3.1 必须先输出并验证 `visual_route_map.json（视觉路由表）`，不得让段落提示卡、信息卡、骚萌卡共用同一套外壳。
+- 后续所有 v3.1 基线升级必须保留并复核 `visual_route_map.json（视觉路由表）`，不得让段落提示卡、信息卡、骚萌卡共用同一套外壳。
 
 若任务继续命中《视频工厂》的内容生产，再补读：
 8. `GPT数据源/04_选题与文案规则.md`

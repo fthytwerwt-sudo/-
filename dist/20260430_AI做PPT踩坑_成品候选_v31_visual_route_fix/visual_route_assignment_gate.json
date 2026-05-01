@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "route_map_exists": true,
+  "missing_segments": [],
+  "mismatched_segments": [],
+  "sassy_wrong_assignments": [],
+  "info_wrong_assignments": [],
+  "prompt_wrong_assignments": [],
+  "blocker": null
+}

@@ -1,0 +1,61 @@
+{
+  "route_map_exists": true,
+  "all_card_segments_assigned_route": true,
+  "negative_display_prompt_card_exists": true,
+  "positive_display_prompt_card_exists": true,
+  "sassy_cards_use_pr7_b_reference": true,
+  "sassy_cards_do_not_use_info_card_shell": true,
+  "info_cards_do_not_use_sassy_reaction_shell": true,
+  "cute_prompt_cards_use_pink_sakura_reference": true,
+  "cute_info_cards_use_pink_sakura_skin_and_clean_structure": true,
+  "content_validation_unchanged": true,
+  "send_ready_unchanged": true,
+  "candidate_not_promoted_to_locked": true,
+  "passed": true,
+  "assignment_gate": {
+    "passed": true,
+    "route_map_exists": true,
+    "missing_segments": [],
+    "mismatched_segments": [],
+    "sassy_wrong_assignments": [],
+    "info_wrong_assignments": [],
+    "prompt_wrong_assignments": [],
+    "blocker": null
+  },
+  "sassy_card_execution_reference": "PR7_B_骚萌反应页.png",
+  "sassy_card_reference_status": "locked_reference_formal_synced_for_future_execution",
+  "sassy_card_reference_locked": true,
+  "content_validation_expected": "pending_user_chatgpt_review_or_not_passed_copywriting_side",
+  "send_ready_expected": false,
+  "visual_master_locked_expected": false,
+  "voice_validation_expected": "pending_user_chatgpt_review",
+  "card_files": {
+    "negative_display_prompt_card": "/Users/fan/Documents/视频工厂/dist/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/cards/negative_display_prompt_card.png",
+    "positive_display_prompt_card": "/Users/fan/Documents/视频工厂/dist/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/cards/positive_display_prompt_card.png",
+    "shot03_problem_hook_sassy_card": "/Users/fan/Documents/视频工厂/dist/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/cards/shot03_problem_hook_sassy_card.png",
+    "shot05_negative_reversal_sassy_card": "/Users/fan/Documents/视频工厂/dist/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/cards/shot05_negative_reversal_sassy_card.png",
+    "shot14_positive_reversal_sassy_card": "/Users/fan/Documents/视频工厂/dist/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/cards/shot14_positive_reversal_sassy_card.png",
+    "shot01_result_diff_opening": "/Users/fan/Documents/视频工厂/dist/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/cards/shot01_result_diff_opening.png",
+    "shot06_cause_turning_point": "/Users/fan/Documents/视频工厂/dist/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/cards/shot06_cause_turning_point.png",
+    "shot08_prompt_architecture_card": "/Users/fan/Documents/视频工厂/dist/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/cards/shot08_prompt_architecture_card.png",
+    "shot15_result_diff_card": "/Users/fan/Documents/视频工厂/dist/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/cards/shot15_result_diff_card.png",
+    "shot16_low_pressure_ending": "/Users/fan/Documents/视频工厂/dist/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/cards/shot16_low_pressure_ending.png"
+  },
+  "blocker": null,
+  "post_review_reference_policy": {
+    "sassy_card_execution_reference": "PR7_B_骚萌反应页.png",
+    "sassy_card_execution_reference_id": "sassy_card_pr7_b_visual_locked_20260501",
+    "status": "locked_reference_formal_synced_for_future_execution",
+    "only_future_sassy_card_execution_reference": true,
+    "pr7_a_future_execution_allowed": false,
+    "pr7_b_missing_policy": "blocked_do_not_fallback_to_PR7_A"
+  },
+  "current_baseline_policy": {
+    "current_video_baseline": "v3.1",
+    "future_iteration_base": "v3.1",
+    "send_ready": false,
+    "content_validation": "pending_user_chatgpt_review_or_not_passed_copywriting_side"
+  },
+  "generation_time_candidate_not_promoted_to_locked": true,
+  "generation_time_sassy_card_reference_status": "candidate_in_pr24_before_pr25_registry_lock"
+}

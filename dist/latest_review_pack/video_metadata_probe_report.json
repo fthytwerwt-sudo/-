@@ -1,12 +1,12 @@
 {
   "skill": "video-metadata-probe",
   "script_path": "/Users/fan/.codex/skills/video-metadata-probe/scripts/probe_video.sh",
-  "markdown_report": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3/video_metadata_probe_report.md",
+  "markdown_report": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/video_metadata_probe_report.md",
   "fields": {
-    "file_path": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3/AI做PPT踩坑_成品候选_v3_full.mp4",
+    "file_path": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/AI做PPT踩坑_成品候选_v31_full.mp4",
     "exists": "true",
-    "file_size_bytes": "8925598",
-    "duration_seconds": "150.002000",
+    "file_size_bytes": "9118073",
+    "duration_seconds": "149.993000",
     "width": "720",
     "height": "1280",
     "fps": "25.000",

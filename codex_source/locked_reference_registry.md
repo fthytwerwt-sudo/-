@@ -165,14 +165,14 @@
 | `artifact_path` | `复审包_review_packs/20260430_骚萌卡历史样本复审_sassy_card_reference_review/PR7_B_骚萌反应页.png` |
 | `evidence_path` | `复审包_review_packs/20260430_骚萌卡历史样本复审_sassy_card_reference_review/PR7_B_骚萌反应页.png`; `复审包_review_packs/20260430_骚萌卡历史样本复审_sassy_card_reference_review/PR7_骚萌候选对比_contact_sheet.jpg`; `复审包_review_packs/20260430_骚萌卡历史样本复审_sassy_card_reference_review/样本索引_sassy_sample_index.md`; `复审包_review_packs/20260430_骚萌卡历史样本复审_sassy_card_reference_review/视觉判断_sassy_visual_review.md` |
 | `confirmed_by` | `user（用户）` |
-| `confirmation_quote_or_record` | `已确认` 用户本轮明确确认：`PR7_B_骚萌反应页.png（PR #7 B 版骚萌反应页）` 是后续骚萌卡样本 / 执行参考；如果读不到 PR #7 B，必须 blocked，不得回退 PR #7 A。 |
+| `confirmation_quote_or_record` | `已确认` 用户本轮明确确认：`PR7_B_骚萌反应页.png（PR #7 B 版骚萌反应页）` 是后续骚萌卡唯一执行参考；如果读不到 PR #7 B，必须 blocked，不得回退 PR #7 A。 |
 | `applies_to` | 后续 v3.1 及同类 AI 知识视频的三张骚萌反应卡：`shot03_problem_hook_sassy_card（问题钩子骚萌卡）`、`shot05_negative_reversal_sassy_card（反面反转骚萌卡）`、`shot14_positive_reversal_sassy_card（正面反转骚萌卡）`。 |
 | `does_not_apply_to` | 段落提示卡、功能卡、结果差卡、Prompt 引用尾卡、真实录屏主体、字幕、TTS、完整视觉母版 locked。 |
 | `inheritance_rule` | 后续骚萌卡必须走 `sassy_reaction_card_route（骚萌反应卡路由）`，继承 PR #7 B 的独立 reaction page、大面积角色、明确表情 / 动作、漫画冲击背景、大字 punchline、9:16 竖屏整页反应卡；不得和信息卡 / 段落提示卡共用外壳。 |
-| `allowed_changes` | 可按当前文案改 punchline、局部表情强度、角色姿态、卡片时长和三张卡的具体文案；必须保持 PR #7 B 作为视觉执行参考，且三张骚萌卡角色体系统一。 |
+| `allowed_changes` | 可按当前文案改 punchline、局部表情强度、角色姿态、卡片时长和三张卡的具体文案；必须保持 PR #7 B 作为唯一视觉执行参考，且三张骚萌卡角色体系统一。 |
 | `blocked_if` | 读不到 PR #7 B 原始文件或证据路径；回退 PR #7 A；骚萌卡走信息卡路由；信息卡走骚萌卡路由；三张骚萌卡角色体系不统一；把 PR #7 B 写成信息卡或普通 PPT 卡；完整成片未输出 route map / route validation；把 v3 技术里程碑误写成技术线最终锁定。 |
 | `last_verified_at` | 2026-05-02 |
-| `notes` | 该条锁定的是后续骚萌卡视觉执行参考，不代表 v3 内容过线，不代表可发送，不代表视觉母版 locked。PR #7 A 保留为历史 / candidate 对照，但不再作为下一轮 v3.1 后续骚萌卡执行参考。2026-05-02 仓库清理已将 PR #22 / PR #23 / 可爱卡片旧分支中的旧 A 优先判断归档降权，默认入口不得再按旧判断执行。 |
+| `notes` | 该条锁定的是后续骚萌卡唯一视觉执行参考，不代表 v3.1 内容过线，不代表可发送，不代表视觉母版 locked。PR #7 A 保留为历史 / candidate 对照，但不再作为任何后续骚萌卡执行参考。2026-05-02 仓库清理已将 PR #22 / PR #23 / 可爱卡片旧分支中的旧 A 优先判断归档降权；2026-05-02 v3.1 基线切换已确认后续默认基于 v3.1，默认入口不得再按旧判断执行。 |
 
 ### 3.7 可爱段落提示卡路由锁定参考
 
@@ -240,7 +240,7 @@
 | `allowed_changes` | 可调整表情夸张度、构图、角色、文案、动效和时长。 |
 | `blocked_if` | 把 PR #7 A 版写成用户已确认 locked；忽略用户后续对骚萌视觉的负反馈。 |
 | `last_verified_at` | 2026-04-30 |
-| `notes` | PR #8 锁定的是放置规则，不锁 PR #7 A 版视觉。`已确认` 用户 2026-05-01 最新确认已覆盖旧判断：下一轮 v3.1 后续骚萌卡执行参考改为 `sassy_card_pr7_b_visual_locked_20260501（PR #7 B 骚萌卡视觉锁定参考）`；本条保留为历史 / candidate 对照，不删除、不升级 locked、不再作为后续执行参考。 |
+| `notes` | PR #8 锁定的是放置规则，不锁 PR #7 A 版视觉。`已确认` 用户最新确认已覆盖旧判断：后续任何骚萌卡执行参考只能是 `sassy_card_pr7_b_visual_locked_20260501（PR #7 B 骚萌卡视觉锁定参考）`；本条保留为历史 / candidate 对照，不删除、不升级 locked、不再作为任何后续执行参考。 |
 
 ### 4.2 体素元素娃娃视觉母版候选
 

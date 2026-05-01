@@ -1,0 +1,6 @@
+$ /opt/homebrew/bin/ffmpeg -hide_banner -v error -i /Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/AI做PPT踩坑_成品候选_v31_full.mp4 -f null -
+
+STDOUT:
+
+
+STDERR:
