@@ -59,7 +59,7 @@
 - 如果该索引中没有 `path_exists = true（路径存在）` 的记录，只能说“路径待本地复核”，不能直接把 `summary.json（状态摘要）` / `review_manifest.md（审片入口）` 中的路径当成真实可打开路径。
 - `summary.json（状态摘要）` / `review_manifest.md（审片入口）` 中的路径只能作为线索，必须经 Codex 本地复核后才能输出给用户。
 
-当前 `latest_review_pack` 已确认指向 `20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3`；v3 技术层只能写为 `v3_technical_milestone = reached_for_current_stage（当前阶段技术里程碑达成）`，技术线未最终锁定，下一步仍需技术升级；`content_validation = not_passed_user_review_gpt_copywriting_side（用户复审未过线，主要在 GPT 文案侧）`，`send_ready = false`，`visual_master_locked = false`。
+当前 `latest_review_pack` 已确认指向 `20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3`；v3 技术层只能写为 `v3_technical_milestone = reached_for_current_stage（当前阶段技术里程碑达成）`，`technical_line_locked = false（技术线未锁定）`，下一步仍需技术升级；`content_validation = not_passed_user_review_gpt_copywriting_side（用户复审未过线，主要在 GPT 文案侧）`，`send_ready = false`，`visual_master_locked = false`。
 
 若任务命中“完整成片 / 成品候选片 / 技术预览升级成候选片 / 样片回炉 / 开头重做 / 中段剪辑 / 字幕修正 / TTS 修正 / 功能卡修正 / 结果差卡修正 / 骚萌卡修正 / 录屏放大修正 / 视觉母版修正”，则在 `codex_log/latest.md` 之后必须先补读：
 
@@ -189,9 +189,27 @@
 - 不允许只在工作分支改口径、不同步默认主读取分支
 - 不允许把历史样片写成当前最新样片
 - 不允许把 `technical_validation` 写成 `content_validation`
-- 不允许用户未最终确认前写 `send_ready = yes`
+- 不允许用户未最终确认前把当前片子写成可发送状态
 - 不允许旧 `round` 状态继续覆盖最新 `latest_review_pack`
 - 只要改动会影响新会话默认接手判断，就必须同步到 `codex/user-readable-map`
+
+## 5C. 旧口径与归档读取规则
+
+当前《视频工厂》已进入 v3 用户复审后状态。新 Codex 会话不得再让旧 round、旧 PR 草稿或旧分支报告覆盖当前主事实。
+
+默认降权：
+
+- `round34`：只作为中段剪辑语法、放大方式和可爱提示卡参考，不作为当前最新样片状态。
+- PR #22 原始状态：只代表 v3 PR 创建时的草稿口径；用户复审后内容已明确未过线。
+- PR #23 原始状态：只代表 2026-04-30 只读判断；其中 PR #7 A 优先判断已被用户最新确认覆盖。
+- `归档_archive/旧口径_old_context_*/`：只供复盘旧判断来源，默认不参与当前事实裁决。
+
+当前事实裁决顺序仍为：
+
+1. 用户最新执行单中明确写入并已同步到 `codex/user-readable-map` 的口径。
+2. `GPT数据源/08_当前正式事实.md`、`dist/latest_review_pack/summary.json`、`codex_log/current_publish_target.md`。
+3. registry 与 v3.1 视觉路由规则。
+4. 归档目录和旧 PR 报告，仅作历史证据。
 
 ## 6. GPT 数据源与仓库不同步时的硬规则
 
@@ -201,8 +219,10 @@
 - 聊天里说过，不等于 Codex 已知
 - GPT 数据源里有，不等于 Codex 已知
 - 当任务命中“核验 GPT 数据源原文 / 对照本地 GPT 数据源同步文本”时，优先读取 repo 内 `GPT数据源/` 镜像目录
-- 当前仓库主读目录为 `GPT数据源/`；本分支未发现并行存在的 `GPT 数据源/` 目录
-- 若未来 `GPT数据源/` 与 `GPT 数据源/` 同时存在，必须先对照差异并明确主读目录，不得猜测
+- 当前仓库同时存在 `GPT数据源/` 与 `GPT 数据源/`
+- 当前仓库主读动态事实目录为无空格 `GPT数据源/`
+- 有空格 `GPT 数据源/` 是 GPT Project 静态协作包，不承载当前 v3 / v3.1 动态状态；除非用户明确要求，不得在仓库清理或视频执行任务中修改它
+- 若两者内容冲突，当前动态事实以无空格 `GPT数据源/`、`dist/latest_review_pack/`、`codex_log/current_publish_target.md` 和用户最新同步口径为准
 - `project_source/` 是历史 / 辅助主题化镜像，不是当前正式事实源
 - 只有写进仓库文件，并同步到 `codex/user-readable-map`，才算新聊天默认正式已知
 

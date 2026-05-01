@@ -9,6 +9,7 @@
 ## 2. v3 用户复审后的硬边界
 
 - `已确认` v3 技术层只能写为 `v3_technical_milestone = reached_for_current_stage（当前阶段技术里程碑达成）`。
+- `已确认` v3 技术线未锁定，必须保持 `technical_line_locked = false（技术线未锁定）`。
 - `已确认` v3 技术线没有最终锁死，必须保持 `technical_baseline_locked = false（技术基线未锁定）`。
 - `已确认` 下一步仍需要 `technical_upgrade_next = true（技术升级）`。
 - `已确认` v3 内容未过线，主要问题在 GPT 文案侧，必须写 `content_validation = not_passed_user_review_gpt_copywriting_side（用户复审未过线，主要在 GPT 文案侧）`。

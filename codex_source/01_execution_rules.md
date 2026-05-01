@@ -186,11 +186,38 @@
 - 不允许只在工作分支改口径、不同步默认主读取分支
 - 不允许把历史样片写成当前最新样片
 - 不允许把 `technical_validation` 写成 `content_validation`
-- 不允许用户未最终确认前写 `send_ready = yes`
+- 不允许用户未最终确认前把当前片子写成可发送状态
 - 不允许旧 `round` 状态继续覆盖最新 `latest_review_pack`
 - 只要改动会影响新会话默认接手判断，就必须同步到 `codex/user-readable-map`
 
-## 8B. locked reference 继承硬规则
+## 8B. 仓库清理与旧口径归档规则
+
+命中“仓库清理 / 旧口径归档 / 未提交文件处理 / 执行噪音删除”时，必须先输出 `cleanup_audit（清理审计）`，再动手。
+
+清理审计必须分为：
+
+1. `safe_delete（可安全删除）`：确认无引用、无证据价值、可重新生成或明显临时的文件。
+2. `archive_only（只归档不删除）`：旧判断、旧入口、旧 PR 报告、仍有复盘价值但不应作为默认入口的文件。
+3. `rewrite_needed（需要改清楚）`：仍会被 Codex 默认读取、且可能误导当前状态的入口 / 状态 / registry / summary。
+4. `keep_as_evidence（作为证据保留）`：素材、复审包、registry 引用证据、summary / manifest / timeline / cut_map 引用产物。
+5. `blocked_unknown（不确定，先不动）`：无法判断是否可删的未追踪文件或目录。
+
+未提交 / 未追踪文件处理规则：
+
+- 不允许直接运行全仓清理命令。
+- 不允许不分类就删除 `untracked` 文件。
+- 不允许删除 `素材录制/`、`素材库_assets/`、当前 v3 / v3.1 可能用到的复审包、PR #7 B、可爱卡片参考图、registry 已引用 artifact / evidence。
+- 只删除 `safe_delete`，且必须在 dated log 中列出相对路径和原因。
+- `blocked_unknown` 一律不删，只记录后续专项清理建议。
+
+旧口径归档规则：
+
+- PR #22 / PR #23 / 旧 round 报告中的历史判断不得原样覆盖用户最新确认。
+- 可将旧判断摘录或副本放入 `归档_archive/旧口径_old_context_YYYYMMDD/`。
+- 归档目录必须有 README，说明默认不再读取哪些旧口径。
+- 归档内容只作复盘证据，不作为当前事实、不作为后续执行参考。
+
+## 8C. locked reference 继承硬规则
 
 以后凡任务命中以下任一类型，必须先读 locked reference 机制：
 
@@ -222,7 +249,7 @@
 - 完整成片 / 成品候选片 / 样片回炉完成时，必须输出 `locked_reference_inheritance_report.md`。
 - summary 必须写 `locked_reference_registry_read`、`locked_reference_inheritance_validation`、`locked_reference_inheritance_report`、`unapproved_reference_changes`、`reference_deviation_blockers`、`candidate_references_used`、`locked_references_used`。
 
-## 8C. v3.1 视觉路由前置硬规则
+## 8D. v3.1 视觉路由前置硬规则
 
 后续任何 v3.1 生成 / 样片回炉 / 卡片视觉修正任务，若涉及段落提示卡、信息卡、骚萌卡，必须先读：
 
@@ -234,6 +261,7 @@
 - `cute_prompt_card_route（可爱段落提示卡路由）` 只给反面 / 正面展示提示卡。
 - `cute_info_card_route（可爱信息卡路由）` 只给结果差、归因转折、Prompt 架构、Prompt 尾卡等信息卡。
 - `sassy_reaction_card_route（骚萌反应卡路由）` 只给三张骚萌反应卡。
+- v3 技术状态只能写成当前阶段里程碑达成，必须保持 `technical_line_locked = false（技术线未锁定）`。
 - 读不到 `PR7_B_骚萌反应页.png` 必须 `blocked`，不得回退 PR #7 A。
 - 任意骚萌卡走信息卡路由、任意信息卡走骚萌路由、任意段落提示卡走复杂信息卡路由且未重审，必须 `blocked`。
 

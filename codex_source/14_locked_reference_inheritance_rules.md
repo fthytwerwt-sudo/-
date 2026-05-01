@@ -205,7 +205,7 @@ registry 中必须区分以下状态：
 没有 `locked_reference_inheritance_report.md`：
 
 - 不得写成成片候选完成；
-- 不得写 `send_ready = yes`；
+- 不得把当前片子写成可发送状态；
 - 不得只用 `technical_validation` 或 `content_validation` 替代继承验证。
 
 ## 10. summary 必填字段

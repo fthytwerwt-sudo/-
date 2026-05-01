@@ -4,6 +4,7 @@
 - `visual_master_candidate`: `true`
 - `subtitle_enabled`: `false`
 - `v3_technical_milestone`: `reached_for_current_stage`
+- `technical_line_locked`: `false`
 - `technical_baseline_locked`: `false`
 - `technical_upgrade_next`: `true`
 - `content_validation`: `not_passed_user_review_gpt_copywriting_side`

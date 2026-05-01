@@ -12,6 +12,7 @@
 
 1. `dist/latest_review_pack/summary.json`
    - `v3_technical_milestone = reached_for_current_stage`
+   - `technical_line_locked = false`
    - `technical_baseline_locked = false`
    - `technical_upgrade_next = true`
    - `content_validation = not_passed_user_review_gpt_copywriting_side`
@@ -44,6 +45,8 @@
    - 可爱段落提示卡参考证据，尺寸已验证为 `720x1280`。
 10. `复审包_review_packs/20260430_可爱风格卡片页参考核查_cute_card_reference_audit/round34_正面展示提示卡.png`
    - 可爱段落提示卡参考证据，尺寸已验证为 `720x1280`。
+11. `归档_archive/旧口径_old_context_20260502/README_归档说明_archive_readme.md`
+   - 说明 PR #22 原始待复审状态、PR #23 原始 PR #7 A 优先判断、可爱卡片旧 route suggestion 已归档降权，后续默认不按旧口径执行。
 
 ## 这些轻量证据共同证明什么
 
@@ -63,7 +66,8 @@
 - 不能证明视觉母版已锁定。
 - 不能证明声音最终通过。
 - 不能证明 v3.1 已生成。
+- 不能证明归档中的旧判断仍可作为当前执行依据。
 
 ## 最后更新时间
 
-- `2026-05-01 CST`
+- `2026-05-02 CST`

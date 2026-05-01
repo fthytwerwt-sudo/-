@@ -9,7 +9,7 @@
   "generated_screenshot": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3/AI做PPT踩坑_成品候选_v3_contact_sheet.jpg",
   "reference_basis": [
     "card_visual_quality_clean_ui_texture_candidate_20260430 textual reference",
-    "sassy_card_pr7_a_candidate_20260428 candidate direction",
+    "legacy_generation_sassy_card_pr7_a_candidate_20260428_superseded_by_pr7_b",
     "visual_master_voxel_element_doll_candidate_20260430 candidate direction"
   ],
   "checks": [
@@ -27,5 +27,9 @@
     "下一轮若要冲 send_ready，应人工复核关键录屏文字可读性和声音听感",
     "如果用户确认此方向，再反向沉淀为视觉母版候选或 locked reference"
   ],
-  "reasoning": "联系表显示卡片质感已避开 PR #15 v2 失败布局和底部黑按钮结构，整体符合候选视觉方向；仍需用户/ChatGPT 复审后才能锁定。"
+  "reasoning": "联系表显示卡片质感已避开 PR #15 v2 失败布局和底部黑按钮结构，整体符合候选视觉方向；仍需用户/ChatGPT 复审后才能锁定。",
+  "post_review_reference_override": {
+    "sassy_card_future_execution_reference": "sassy_card_pr7_b_visual_locked_20260501",
+    "legacy_pr7_a_status": "historical_generation_candidate_only"
+  }
 }

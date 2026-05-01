@@ -1,5 +1,18 @@
 # Latest
 
+## 20260502｜仓库清理与旧口径归档
+
+- `已确认` 本轮只做仓库清理、旧口径归档、入口口径重写和执行噪音删除；不生成 v3.1，不生成新视频，不生成新音频，不重新装配全片。
+- `已确认` 已从 `codex/user-readable-map` 创建清理分支：`codex/repo-cleanup-old-context-20260502`。
+- `已确认` 当前入口继续写明 v3 技术层为 `v3_technical_milestone = reached_for_current_stage`，技术线未锁定，下一步仍需技术升级。
+- `已确认` v3 内容未过线，主要在 GPT 文案侧；`content_validation = not_passed_user_review_gpt_copywriting_side`，`send_ready = false`，`visual_master_locked = false`。
+- `已确认` PR #7 B 仍是后续骚萌卡执行参考；读不到 PR #7 B 必须 blocked，不得回退 PR #7 A。
+- `已确认` PR #7 A 已降权为历史 / candidate 对照；v3 生成时的 PR #7 A 痕迹已在 metadata 中标为 `legacy_generation_candidate_references`，不再放在可继承候选参考字段里。
+- `已确认` 新增归档目录：`归档_archive/旧口径_old_context_20260502/`，归档 PR #22 原始待复审口径、PR #23 原始 PR #7 A 优先判断、可爱卡片旧 route suggestion。
+- `已确认` 更新 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_source/01_execution_rules.md`，明确归档目录只作复盘证据，不作为当前默认事实入口。
+- `已确认` 本地原始脏工作区只删除 `dist/routeA_frame_*.png` 这 10 张未引用临时帧；素材、复审包、v3 证据、PR7_B、可爱卡片参考图均未删除。
+- `已确认` 本轮必须 commit、push、创建 PR，并在验证通过后合并到 `codex/user-readable-map`，合并后清理口径才算新聊天默认正式已知。
+
 ## 20260501｜v3 技术里程碑与 v3.1 视觉参考锁定
 
 - `已确认` 本轮只做仓库口径回写、reference registry 修补、v3.1 视觉路由前置规则同步和主读取分支回流；未生成 v3.1、未生成新视频、未生成新音频、未重新装配全片。

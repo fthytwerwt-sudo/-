@@ -71,10 +71,18 @@
     "locked_references": [
       "sassy_card_three_type_rule_locked_20260428"
     ],
-    "candidate_references": [
-      "sassy_card_pr7_a_candidate_20260428"
+    "candidate_references": [],
+    "failed_references_avoided": [],
+    "legacy_generation_candidate_references": [
+      {
+        "reference_id": "sassy_card_pr7_a_candidate_20260428",
+        "status_after_user_review": "historical_generation_candidate_superseded_by_pr7_b_20260501",
+        "not_for_future_execution": true,
+        "future_execution_reference": "sassy_card_pr7_b_visual_locked_20260501"
+      }
     ],
-    "failed_references_avoided": []
+    "post_review_execution_reference": "sassy_card_pr7_b_visual_locked_20260501",
+    "post_review_reference_note": "PR #7 A was a v3 generation-time candidate only; user review superseded future sassy-card execution reference to PR #7 B."
   },
   {
     "index": 4,
@@ -112,10 +120,18 @@
     "locked_references": [
       "sassy_card_three_type_rule_locked_20260428"
     ],
-    "candidate_references": [
-      "sassy_card_pr7_a_candidate_20260428"
+    "candidate_references": [],
+    "failed_references_avoided": [],
+    "legacy_generation_candidate_references": [
+      {
+        "reference_id": "sassy_card_pr7_a_candidate_20260428",
+        "status_after_user_review": "historical_generation_candidate_superseded_by_pr7_b_20260501",
+        "not_for_future_execution": true,
+        "future_execution_reference": "sassy_card_pr7_b_visual_locked_20260501"
+      }
     ],
-    "failed_references_avoided": []
+    "post_review_execution_reference": "sassy_card_pr7_b_visual_locked_20260501",
+    "post_review_reference_note": "PR #7 A was a v3 generation-time candidate only; user review superseded future sassy-card execution reference to PR #7 B."
   },
   {
     "index": 6,
@@ -283,10 +299,18 @@
     "locked_references": [
       "sassy_card_three_type_rule_locked_20260428"
     ],
-    "candidate_references": [
-      "sassy_card_pr7_a_candidate_20260428"
+    "candidate_references": [],
+    "failed_references_avoided": [],
+    "legacy_generation_candidate_references": [
+      {
+        "reference_id": "sassy_card_pr7_a_candidate_20260428",
+        "status_after_user_review": "historical_generation_candidate_superseded_by_pr7_b_20260501",
+        "not_for_future_execution": true,
+        "future_execution_reference": "sassy_card_pr7_b_visual_locked_20260501"
+      }
     ],
-    "failed_references_avoided": []
+    "post_review_execution_reference": "sassy_card_pr7_b_visual_locked_20260501",
+    "post_review_reference_note": "PR #7 A was a v3 generation-time candidate only; user review superseded future sassy-card execution reference to PR #7 B."
   },
   {
     "index": 15,
