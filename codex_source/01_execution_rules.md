@@ -251,19 +251,34 @@
 
 ## 8D. v3.1 视觉路由前置硬规则
 
+当前状态：
+
+- `已确认` v3.1 已成为《我用 AI 做 PPT 踩过的坑》当前视频基线。
+- `已确认` 后续升级 / 修改 / 技术优化 / GPT 文案侧回炉默认基于 v3.1，不再基于 v3 或 round34。
+- `已确认` v3 只保留为历史候选 / 对照，不作为后续默认修改基础。
+- `已确认` v3.1 已有 `dist/latest_review_pack/visual_route_map.json（视觉路由表）` 和 `dist/latest_review_pack/visual_route_validation_report.json（视觉路由验证报告）`；后续修改必须先复核并保持三条视觉路由不混。
+
 后续任何 v3.1 生成 / 样片回炉 / 卡片视觉修正任务，若涉及段落提示卡、信息卡、骚萌卡，必须先读：
 
 - `codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md`
 
 硬规则：
 
-- 生成 v3.1 全片前必须先输出并验证 `visual_route_map.json（视觉路由表）`。
+- 生成或修改 v3.1 全片前必须先读取 / 输出并验证 `visual_route_map.json（视觉路由表）`。
 - `cute_prompt_card_route（可爱段落提示卡路由）` 只给反面 / 正面展示提示卡。
 - `cute_info_card_route（可爱信息卡路由）` 只给结果差、归因转折、Prompt 架构、Prompt 尾卡等信息卡。
 - `sassy_reaction_card_route（骚萌反应卡路由）` 只给三张骚萌反应卡。
 - v3 技术状态只能写成当前阶段里程碑达成，必须保持 `technical_line_locked = false（技术线未锁定）`。
+- PR #7 B 是后续骚萌卡唯一执行参考。
+- PR #7 A 只能作为历史 / candidate 对照，不能作为任何后续骚萌卡执行参考。
 - 读不到 `PR7_B_骚萌反应页.png` 必须 `blocked`，不得回退 PR #7 A。
 - 任意骚萌卡走信息卡路由、任意信息卡走骚萌路由、任意段落提示卡走复杂信息卡路由且未重审，必须 `blocked`。
+
+旧 PR 降噪规则：
+
+- PR #22：v3 历史候选，不再直接合并，不再作为后续默认基础。
+- PR #23：历史样本包，PR #7 A 优先判断已被 PR #7 B 覆盖，不再直接合并。
+- PR #24：v3.1 有效产物已回流到最新主读取分支，PR #24 本身不得再直接合并，避免回退 PR #25 清理口径。
 
 以下情况必须 `blocked`：
 

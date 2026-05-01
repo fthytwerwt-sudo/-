@@ -2,19 +2,23 @@
 
 ## 1. 文件定位
 
-本文件是《视频工厂》v3.1 之前必须读取的视觉路由前置规则。
+本文件是《视频工厂》v3.1 当前基线及后续升级必须读取的视觉路由规则。
 
-它只规定后续生成前的 routing gate（路由门）和 reference inheritance（参考继承），不代表本轮已经生成 v3.1，不代表视觉母版已锁定，也不代表内容验证通过。
+它规定后续生成 / 修改前的 routing gate（路由门）和 reference inheritance（参考继承）。当前 v3.1 已成为视频基线，但这不代表可发送，不代表内容验证通过，不代表视觉母版已锁定。
 
-## 2. v3 用户复审后的硬边界
+## 2. 当前 v3.1 基线硬边界
 
-- `已确认` v3 技术层只能写为 `v3_technical_milestone = reached_for_current_stage（当前阶段技术里程碑达成）`。
-- `已确认` v3 技术线未锁定，必须保持 `technical_line_locked = false（技术线未锁定）`。
-- `已确认` v3 技术线没有最终锁死，必须保持 `technical_baseline_locked = false（技术基线未锁定）`。
+- `已确认` 当前最新视频基线为 v3.1：`current_video_baseline = v3.1`。
+- `已确认` 后续升级 / 修改 / 技术优化 / GPT 文案侧回炉默认基于 v3.1：`future_iteration_base = v3.1`。
+- `已确认` v3 只保留为历史候选 / 对照，不再作为后续默认修改基础。
+- `已确认` v3.1 技术验证已通过，但技术线未锁定，必须保持 `technical_line_locked = false（技术线未锁定）`。
 - `已确认` 下一步仍需要 `technical_upgrade_next = true（技术升级）`。
-- `已确认` v3 内容未过线，主要问题在 GPT 文案侧，必须写 `content_validation = not_passed_user_review_gpt_copywriting_side（用户复审未过线，主要在 GPT 文案侧）`。
+- `已确认` v3.1 内容没有新的通过确认，必须写 `content_validation = pending_user_chatgpt_review_or_not_passed_copywriting_side（仍待用户 / ChatGPT 内容复审；不得写成内容通过）`。
 - `已确认` `send_ready = false（不可发送）`。
 - `已确认` `visual_master_locked = false（视觉母版未锁定）`。
+- `已确认` `voice_validation = pending_user_chatgpt_review`，`final_voice_validated = false`。
+- `已确认` `visual_route_map.json（视觉路由表）` 与 `visual_route_validation_report.json（视觉路由验证报告）` 已进入 `dist/latest_review_pack/`。
+- `已确认` PR #7 B 是后续骚萌卡唯一执行参考；PR #7 A 只能作为历史 / candidate 对照。
 
 ## 3. 三条视觉路由
 
@@ -134,7 +138,7 @@
 
 ## 4. v3.1 生成前置 gate
 
-后续任何 v3.1 生成任务必须先输出：
+后续任何基于 v3.1 的生成 / 修改 / 技术升级任务必须先读取或输出：
 
 `visual_route_map.json（视觉路由表）`
 
@@ -176,4 +180,4 @@ route map 必须至少包含：
 
 ## 6. 一句话规则
 
-**下一轮 v3.1 生成前，必须先输出并验证 `visual_route_map.json（视觉路由表）`；route map 通过前不得生成全片；PR #7 B 是骚萌反应卡执行参考，段落提示卡走可爱段落提示卡路由，信息卡走可爱信息卡路由，三者不得共用外壳。**
+**当前视频基线是 v3.1；后续任何生成 / 修改 / 技术升级前，必须先读取或输出并验证 `visual_route_map.json（视觉路由表）`；route map 通过前不得生成或修改全片；PR #7 B 是后续骚萌反应卡唯一执行参考，PR #7 A 只能作为历史 / candidate 对照；段落提示卡走可爱段落提示卡路由，信息卡走可爱信息卡路由，三者不得共用外壳。**

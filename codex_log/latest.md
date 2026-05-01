@@ -1,5 +1,20 @@
 # Latest
 
+## 20260502｜v3.1 当前基线切换与旧 PR 降噪
+
+- `已确认` 本轮只做当前基线切换、v3.1 有效产物回流、旧 PR 降噪和仓库口径同步；不重新生成视频、不重新生成音频、不重新生成图片、不重新装配全片。
+- `已确认` 已从最新 `codex/user-readable-map` 创建工作分支：`codex/v31-current-baseline-sync-20260502`。
+- `已确认` PR #24 不能原样合并：它基于 PR #22 head，会回退 PR #25 的旧口径归档与入口清理结果。
+- `已确认` 已安全回流 PR #24 的 v3.1 有效产物：`dist/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/`、`复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/`、`dist/latest_review_pack/` 中的 v3.1 当前入口。
+- `已确认` 当前最新视频基线切换为：`current_video_baseline = v3.1`。
+- `已确认` 后续升级 / 修改 / 技术优化 / GPT 文案侧回炉默认基于：`future_iteration_base = v3.1`。
+- `已确认` v3 只保留为历史候选 / 对照，不再作为后续默认修改基础。
+- `已确认` v3.1 仍不可发送：`send_ready = false`。
+- `已确认` v3.1 内容没有写成通过：`content_validation = pending_user_chatgpt_review_or_not_passed_copywriting_side`。
+- `已确认` PR #7 B 版 `PR7_B_骚萌反应页.png` 是后续骚萌卡唯一执行参考；读不到 PR #7 B 必须 blocked，不得回退 PR #7 A。
+- `已确认` PR #7 A 只保留为历史 / candidate 对照，不能再作为任何后续骚萌卡执行参考。
+- `已确认` PR #22 / PR #23 / PR #24 均已写入降噪口径：不得直接合并，不得覆盖当前 v3.1 基线。
+
 ## 20260502｜仓库清理与旧口径归档
 
 - `已确认` 本轮只做仓库清理、旧口径归档、入口口径重写和执行噪音删除；不生成 v3.1，不生成新视频，不生成新音频，不重新装配全片。
