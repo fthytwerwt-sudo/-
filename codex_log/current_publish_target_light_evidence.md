@@ -9,13 +9,22 @@
 - 当前完整片：`dist/latest_review_pack/full.mp4`
 - 当前审片入口：`dist/latest_review_pack/review_manifest.md`
 - 当前状态摘要：`dist/latest_review_pack/summary.json`
+- 当前阶段：`post_publish_gray_test`
+- 当前发布状态：`gray_test_published`
+- 当前灰度状态：`active`
+- 当前灰度目标：`codex_log/current_gray_test_target.md`
+- 当前单条记录：`review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
 
 ## Git 可追踪轻量证据包
 
 1. `dist/latest_review_pack/summary.json`
    - `current_video_baseline = v3.1`
    - `future_iteration_base = v3.1`
-   - `content_validation = pending_user_chatgpt_review_or_not_passed_copywriting_side`
+   - `current_phase = post_publish_gray_test`
+   - `publish_status = gray_test_published`
+   - `gray_test_status = active`
+   - `post_publish_review_required = true`
+   - `content_validation = gray_testing_not_final_passed`
    - `send_ready = false`
    - `visual_master_locked = false`
    - `voice_validation = pending_user_chatgpt_review`
@@ -24,7 +33,8 @@
 2. `dist/latest_review_pack/review_manifest.md`
    - 明确 v3.1 是当前基线。
    - 明确 v3.1 不是可发送状态。
-   - 明确内容仍待用户 / ChatGPT 复审，未写成内容通过。
+   - 明确 v3.1 已发片进入灰度测试。
+   - 明确灰度测试不等于内容通过。
 3. `dist/latest_review_pack/visual_route_map.json`
    - 三张骚萌卡走 `sassy_reaction_card_route`。
    - 信息卡走 `cute_info_card_route`。
@@ -52,11 +62,19 @@
    - 独立 v3.1 复审包已进入仓库。
 9. `归档_archive/旧口径_old_context_20260502/README_归档说明_archive_readme.md`
    - 说明 PR #22 原始待复审状态、PR #23 原始 PR #7 A 优先判断、可爱卡片旧 route suggestion 已归档降权，后续默认不按旧口径执行。
+10. `codex_log/current_gray_test_target.md`
+   - 明确当前目标是跑完 24h / 72h 灰度观察，判断主要问题层，并产出下一轮只改一个变量。
+11. `review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
+   - 已建立 v3.1 单条发布后灰度测试记录；发布平台、发布时间、链接、24h / 72h 数据均待用户回填。
+12. `review_loop/00_review_loop_readme.md`
+   - 明确当前 v3.1 灰度测试接入既有 `review_loop/`，不另起独立灰度系统。
 
 ## 这些轻量证据共同证明什么
 
 - `已确认` 当前最新视频基线已经切换到 v3.1。
 - `已确认` 后续升级 / 修改 / 技术优化 / GPT 文案侧回炉默认基于 v3.1。
+- `已确认` v3.1 已发片，当前进入发布后灰度测试。
+- `已确认` 发布后复盘机制已接入既有 `review_loop/`。
 - `已确认` v3 只保留为历史候选 / 对照。
 - `已确认` v3.1 技术验证与视觉路由验证有可追踪证据。
 - `已确认` v3.1 仍不可发送。
@@ -68,6 +86,8 @@
 
 - 不能证明 v3.1 内容通过。
 - 不能证明 v3.1 可发送。
+- 不能证明灰度测试已经成功。
+- 不能证明账号方向、市场或规律已经成立。
 - 不能证明技术线最终锁定。
 - 不能证明视觉母版已锁定。
 - 不能证明声音最终通过。

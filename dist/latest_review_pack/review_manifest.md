@@ -2,7 +2,9 @@
 
 `已确认` 本包是 `finished_quality_candidate_v31（成品质量候选片 v3.1）` 与当前视频基线；后续升级、修改、技术优化、GPT 文案侧回炉默认基于 v3.1。
 
-`已确认` 本包不是可发送版本，不代表内容验证通过，不代表视觉母版 locked。
+`已确认` 本包已作为 v3.1 当前基线发片，当前进入 `post_publish_gray_test（发布后灰度测试阶段）`。
+
+`已确认` 本包不是可发送版本，不代表内容验证通过，不代表视觉母版 locked；灰度测试不等于验证成功。
 
 ## 先看文件
 
@@ -18,7 +20,11 @@
 
 ## 当前边界
 
-- `content_validation = pending_user_chatgpt_review_or_not_passed_copywriting_side`
+- `current_phase = post_publish_gray_test`
+- `publish_status = gray_test_published`
+- `gray_test_status = active`
+- `post_publish_review_required = true`
+- `content_validation = gray_testing_not_final_passed`
 - `send_ready = false`
 - `subtitle_enabled = false`
 - `voice_validation = pending_user_chatgpt_review`
@@ -26,6 +32,23 @@
 - `visual_master_candidate = true`，但 `visual_master_locked = false`。
 - `sassy_card_execution_reference = PR7_B_骚萌反应页.png`
 - `sassy_card_reference_locked = true`
+
+## 发布后灰度测试
+
+- 当前灰度目标：`codex_log/current_gray_test_target.md`
+- 单条记录：`review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
+- 复盘执行层：`review_loop/`
+- 观察窗口：`24h 初检`、`72h 复检`
+- 结果字段：播放量、完播率、收藏率、前 3 秒留存、平均观看时长、点赞率、评论数、转粉数、私信 / 咨询数、中段主要流失点
+- 下一步：等待用户回填发布平台、发布时间、视频链接和 24h 数据；Codex 做初检，ChatGPT / 用户判断下一轮只改一个变量
+
+当前禁止判断：
+
+- 不得写成内容通过
+- 不得写成账号方向已验证
+- 不得写成市场成立
+- 不得写成规律成立
+- 不得跳过数据直接设定下一条文案
 
 ## 本轮重点
 

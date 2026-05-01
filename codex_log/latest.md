@@ -1,5 +1,35 @@
 # Latest
 
+## 20260502｜v3.1 发片灰度测试与复盘机制接入
+
+- `已确认` 本轮只做 v3.1 发片状态回写、灰度测试目标设定、既有 `review_loop/` 发布后复盘机制接入和仓库口径同步；不写新文案、不生成视频、不生成音频、不重新装配全片。
+- `已确认` 当前工作分支：`codex/v31-gray-test-review-loop-20260502`。
+- `已确认` 当前阶段已写入：`current_phase = post_publish_gray_test（发布后灰度测试阶段）`。
+- `已确认` 当前发布状态已写入：`publish_status = gray_test_published（v3.1 已发片，进入灰度测试）`。
+- `已确认` 当前灰度状态已写入：`gray_test_status = active（灰度测试中）`。
+- `已确认` 当前发布后复盘要求已写入：`post_publish_review_required = true`。
+- `已确认` 当前内容状态已写入：`content_validation = gray_testing_not_final_passed（灰度测试中，不等于内容最终通过）`。
+- `已确认` 仍保持：`send_ready = false`、`visual_master_locked = false`、`voice_validation = pending_user_chatgpt_review`、`final_voice_validated = false`、`technical_upgrade_next = true`。
+- `已确认` 发布后复盘默认接入既有 `review_loop/`，不新建独立灰度系统。
+- `已确认` 新增当前灰度测试目标文件：`codex_log/current_gray_test_target.md`。
+- `已确认` 新增 v3.1 单条灰度测试记录：`review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`。
+- `已确认` 24h / 72h、一次只改一个变量、小样本状态、异常样本处理、规律沉淀门槛沿用 `project_source/14_content_review_and_loop_governance_rules.md`。
+- `已确认` PR #7 B 仍是后续骚萌卡唯一执行参考；PR #7 A 仍只作历史 / candidate 对照，不能作为后续执行参考。
+- `待验证` 发布平台、发布时间、视频链接、24h 数据、72h 数据均待用户回填。
+- `下一个目标`：等待用户补充发布平台、发布时间、视频链接和 24h 数据；24h 数据回填后，Codex 做初检，ChatGPT 做质量判断。
+
+## 新会话接手建议先读
+
+- `AGENTS.md`
+- `codex_source/00_codex_readme.md`
+- `codex_source/01_execution_rules.md`
+- `codex_log/latest.md`
+- `codex_log/current_publish_target.md`
+- `codex_log/current_gray_test_target.md`
+- `review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
+- `review_loop/00_review_loop_readme.md`
+- `GPT数据源/08_当前正式事实.md`
+
 ## 20260502｜v3.1 当前基线切换与旧 PR 降噪
 
 - `已确认` 本轮只做当前基线切换、v3.1 有效产物回流、旧 PR 降噪和仓库口径同步；不重新生成视频、不重新生成音频、不重新生成图片、不重新装配全片。
