@@ -174,7 +174,29 @@
 | `allowed_changes` | 可调整表情夸张度、构图、角色、文案、动效和时长。 |
 | `blocked_if` | 把 PR #7 A 版写成用户已确认 locked；忽略用户后续对骚萌视觉的负反馈。 |
 | `last_verified_at` | 2026-04-30 |
-| `notes` | PR #8 锁定的是放置规则，不锁 PR #7 A 版视觉。`已确认` 用户本轮再次确认 v3 骚萌卡视觉先以 PR #7 A 版作为参考；本条仍保持 `candidate（候选参考）`，后续 v3 可写为 `candidate_reference_used（使用候选参考）`，不得升级为用户最终锁定的视觉样板。 |
+| `notes` | PR #8 锁定的是放置规则，不锁 PR #7 A 版视觉。`已确认` 本轮 v3.1 用户改口径为 PR #7 B 作为骚萌卡执行参考；本条仅保留为历史 / 对比候选，不删除、不升级 locked。 |
+
+### 4.1A PR #7 B 版骚萌卡用户本轮选择候选
+
+| 字段 | 值 |
+| --- | --- |
+| `reference_id` | `sassy_card_pr7_b_user_selected_candidate_20260430` |
+| `name` | PR #7 B 版骚萌卡用户本轮选择候选 |
+| `type` | `sassy_card_visual（骚萌卡视觉）`; `sassy_reaction_card_route（骚萌反应卡路由）` |
+| `status` | `candidate（候选参考）` |
+| `confirmation_state` | `candidate_or_rule_reference（候选规则参考）` |
+| `source_pr_or_log` | 当前 v3.1 visual route fix 执行单；`origin/codex/sassy-card-reference-review-20260430`；PR #23 复审包 |
+| `artifact_path` | `origin/codex/sassy-card-reference-review-20260430:复审包_review_packs/20260430_骚萌卡历史样本复审_sassy_card_reference_review/PR7_B_骚萌反应页.png` |
+| `evidence_path` | `origin/codex/sassy-card-reference-review-20260430:复审包_review_packs/20260430_骚萌卡历史样本复审_sassy_card_reference_review/样本索引_sassy_sample_index.md`; `复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/visual_route_map.json`; `复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/visual_route_validation_report.json` |
+| `confirmed_by` | `user（用户）` |
+| `confirmation_quote_or_record` | `已确认` 用户本轮明确确认：`PR7_B_骚萌反应页.png（PR #7 B 版骚萌反应页）` 是本轮三张骚萌卡样本 / 执行参考；这覆盖之前“PR #7 A 版是 preferred_candidate”的报告结论。 |
+| `applies_to` | 本轮 v3.1 的 `problem_hook_sassy_card（问题钩子骚萌卡）`、`negative_reversal_sassy_card（反面反转骚萌卡）`、`positive_reversal_sassy_card（正面反转骚萌卡）`；独立 reaction page；大面积角色；漫画冲击背景；大字 punchline。 |
+| `does_not_apply_to` | locked visual reference（视觉锁定参考）；信息卡；段落提示卡；白粉展示牌外壳；冷静科技 UI；完整 visual master（视觉母版）。 |
+| `inheritance_rule` | 本轮只作为 v3.1 三张骚萌卡执行参考；必须标注 `candidate`，不得写 locked；不得回退 PR #7 A；不得与 `cute_prompt_card_route` 或 `cute_info_card_route` 共用外壳。 |
+| `allowed_changes` | 可按三张骚萌卡职责调整 punchline 文案、上方大字、节奏和局部遮挡；角色表情 / 动作方向和整页 reaction 感以 PR #7 B 为准。 |
+| `blocked_if` | 读不到 PR7_B 图片；回退 PR7_A；写成 locked；骚萌卡套用信息卡 / 粉色展示牌外壳；三张卡不再是独立 reaction page；抢真实录屏证据。 |
+| `last_verified_at` | 2026-05-01 |
+| `notes` | `已确认` 本条是任务分支新增 candidate reference，不代表主读取分支已 formal synced，不代表视觉母版已 locked，不代表 PR #7 B 成为 locked reference。 |
 
 ### 4.2 体素元素娃娃视觉母版候选
 
@@ -471,6 +493,7 @@
 ## 8. 当前不得升级项
 
 - `sassy_card_pr7_a_candidate_20260428（PR #7 A 版骚萌卡视觉候选）`：保持 `candidate（候选参考）`，因为未找到用户明确确认“以后骚萌卡视觉就按这个走”。
+- `sassy_card_pr7_b_user_selected_candidate_20260430（PR #7 B 版骚萌卡用户本轮选择候选）`：保持 `candidate（候选参考）`，因为用户本轮只确认它是 v3.1 执行参考，不是 locked visual reference。
 - `card_visual_quality_clean_ui_texture_candidate_20260430（功能卡 / 结果差卡 / Prompt 引用尾卡清晰质感候选参考）`：保持 `candidate（候选参考）`，因为当前只有用户本轮文字化质感锚点，缺仓库内可复审图片证据和 v3 成片验证；不得写成视觉母版 locked。
 - `subtitle_pr15_v2_failed_20260430（PR #15 v2 字幕失败参考）`：保持 `failed（失败参考）`，因为用户指出字幕样式不是标准。
 - `layout_pr15_v2_failed_20260430（PR #15 v2 layout / 背景失败参考）`：保持 `failed（失败参考）`，因为用户指出背景风格被换掉。
@@ -483,7 +506,7 @@
 - `subtitle_reference（字幕参考）`：未找到正确字幕样板；后续必须建立标准字幕位置、字号、背景、安全区和对照截图。
 - `zoom_reference（录屏放大方式参考）`：同类中段放大剪辑已由 `middle_zoom_reference_confirmed_middle_preview_20260430（用户确认的中段放大剪辑锁定参考）` 补足主要 locked reference；非中段或不同素材结构仍需另建对照参考。
 - `visual_master_reference（视觉母版参考）`：已有体素元素娃娃方向和 round34 局部提示卡风格，但仍缺完整视觉母版锁定产物。
-- `sassy_card_visual_reference（骚萌卡视觉参考）`：PR #7 A 版仍是候选，尚未锁定为默认视觉。
+- `sassy_card_visual_reference（骚萌卡视觉参考）`：PR #7 A 与本轮新增 PR #7 B 均仍是候选，尚未锁定为默认视觉。
 - `ending_reference（结尾参考）`：已有 Prompt 引用尾卡职责规则，但缺锁定视觉产物。
 - `card_visual_quality_reference（卡片视觉质感参考）`：本轮新增清晰质感 candidate，只能作为功能卡、结果差卡、Prompt 引用尾卡的文字化质感锚点；若 v3 生成并通过用户 / ChatGPT 复审，才可另行晋升或补证据。
 

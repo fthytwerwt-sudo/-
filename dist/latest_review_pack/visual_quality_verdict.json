@@ -4,28 +4,30 @@
     "visual-verdict"
   ],
   "verdict": "pass_for_candidate_review",
-  "score": 91,
+  "score": 92,
   "category_match": true,
-  "generated_screenshot": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3/AI做PPT踩坑_成品候选_v3_contact_sheet.jpg",
+  "generated_screenshot": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/AI做PPT踩坑_成品候选_v31_contact_sheet.jpg",
   "reference_basis": [
-    "card_visual_quality_clean_ui_texture_candidate_20260430 textual reference",
-    "sassy_card_pr7_a_candidate_20260428 candidate direction",
-    "visual_master_voxel_element_doll_candidate_20260430 candidate direction"
+    "prompt_card_pink_sakura_round34_candidate_20260430 candidate skin",
+    "card_visual_quality_clean_ui_texture_candidate_20260430 structure rules only",
+    "PR7_B_骚萌反应页.png user-selected candidate execution reference"
   ],
   "checks": [
-    "卡片保持清晰、有留白、圆角、轻阴影、轻高光",
-    "结果差卡信息密度控制在 2 列 + 1 句底部判断",
-    "未使用底部黑色按钮、More Filters CTA、电商筛选页或假 App 导航",
-    "三张骚萌卡仅作为情绪标点，未替代真实录屏主体",
+    "段落提示卡使用 round34 粉色樱花展示牌候选参考",
+    "信息卡使用粉色樱花柔和皮肤，并保持 2-3 个清晰信息模块",
+    "三张骚萌卡以 PR #7 B 版 reaction page 作为执行参考",
+    "信息卡未使用深蓝科技 SaaS UI、黑色底部按钮、More Filters CTA、电商筛选页或假 App 导航",
+    "骚萌卡未使用白粉展示牌外壳，也未套信息卡排版",
     "真实录屏仍承担正反证据主体"
   ],
   "differences": [
-    "本轮是候选视觉母版，不是 locked visual master",
+    "本轮是 v3.1 视觉路由修正候选，不是 locked visual master",
+    "PR #7 B 仍是 candidate execution reference，不是 locked",
     "录屏原素材为桌面横屏窗口，裁切后部分小字仍需用户/ChatGPT 复审"
   ],
   "suggestions": [
-    "下一轮若要冲 send_ready，应人工复核关键录屏文字可读性和声音听感",
-    "如果用户确认此方向，再反向沉淀为视觉母版候选或 locked reference"
+    "下一轮若要冲 send_ready，应人工复核关键录屏文字可读性、卡片观感和声音听感",
+    "如果用户确认此方向，再另行沉淀视觉母版或卡片视觉 locked reference"
   ],
-  "reasoning": "联系表显示卡片质感已避开 PR #15 v2 失败布局和底部黑按钮结构，整体符合候选视觉方向；仍需用户/ChatGPT 复审后才能锁定。"
+  "reasoning": "联系表显示三条视觉路由已拆开：段落提示卡、信息卡和骚萌 reaction card 使用不同外壳；仍需用户/ChatGPT 复审后才能锁定。"
 }
