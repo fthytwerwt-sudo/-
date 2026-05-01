@@ -82,6 +82,9 @@
 - 当前灰度测试指标体系 V1 看 `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
 - 当前 7 天播放量 6000 是小样本阶段基础测试流量门槛，不是最终商业目标
 - 当前指标体系不是运营数据大表，而是下一轮改动定位器
+- 当前截图优先录入规则看 `review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`
+- 当前 v3.1 主记录目录看 `review_loop/records/V001_v31_AI做PPT踩坑_gray_test/`
+- 当前 v3.1 截图证据目录看 `review_loop/screenshots/V001_v31_AI做PPT踩坑/`
 - 当前下一步不是先写新文案，而是先记录 24h / 72h / 7 天数据，回答四个复盘问题，再由 ChatGPT / 用户判断下一轮只改一个变量
 
 ### 2.2A 视频修改必须同步口径规则
@@ -127,16 +130,26 @@
 若任务继续命中《视频工厂》的阶段 / 复盘 / 商业化，再补读：
 11. `GPT数据源/09_目标态计划.md`
 
-若任务命中《视频工厂》的灰度测试 / 发片 / 发布后 / 复盘 / 数据记录，再补读：
+若任务命中《视频工厂》的截图 / 数据截图 / 24h / 72h / 7 天 / 灰度测试 / 发片复盘 / 发片 / 发布后 / 复盘 / 数据记录 / 私信 / 咨询，再补读：
 12. `codex_log/current_gray_test_target.md`
 13. `review_loop/00_review_loop_readme.md`
-14. `review_loop/02_video_record_template.md`
-15. `review_loop/03_result_dashboard_template.md`
-16. `review_loop/04_diagnosis_template.md`
-17. `review_loop/05_dual_review_handoff_template.md`
-18. `review_loop/06_next_round_task_template.md`
-19. `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
-20. `review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
+14. `review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`
+15. `review_loop/02_video_record_template.md`
+16. `review_loop/03_result_dashboard_template.md`
+17. `review_loop/04_diagnosis_template.md`
+18. `review_loop/05_dual_review_handoff_template.md`
+19. `review_loop/06_next_round_task_template.md`
+20. `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
+21. `review_loop/records/V001_v31_AI做PPT踩坑_gray_test/`
+22. `review_loop/screenshots/V001_v31_AI做PPT踩坑/screenshot_manifest.md`
+23. `review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
+
+截图优先录入机制硬规则：
+- 命中“截图 / 数据截图 / 24h / 72h / 7 天 / 灰度测试 / 发片复盘 / 私信 / 咨询”时，默认进入 `review_loop/` 截图优先录入机制。
+- 必须按 `video_id` 分开记录；不同视频不得混写。
+- 必须按 `24h / 72h / 7d` 分开记录；不同时间窗不得互相覆盖。
+- 必须按数据类型分开归档；平台数据、留存完播、互动、账号增长、评论、私信、咨询不得混写。
+- Codex 只做截图归档、字段提取、缺失标记、初检和交接，不做最终内容判断。
 
 后续复盘默认先回答四个问题：
 1. 这条有没有达到 6000 播放基础门槛？

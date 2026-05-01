@@ -101,10 +101,21 @@
   "gray_test_target": "codex_log/current_gray_test_target.md",
   "current_gray_test_target": "codex_log/current_gray_test_target.md",
   "gray_test_metrics_v1": "review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md",
+  "screenshot_data_intake_rules": "review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md",
+  "screenshot_data_intake_policy": "screenshot_first_bucket_by_video_time_window_and_data_type_no_guessing",
   "post_publish_record": "review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md",
-  "current_video_record": "review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md",
+  "legacy_video_record": "review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md",
+  "current_video_record_dir": "review_loop/records/V001_v31_AI做PPT踩坑_gray_test/",
+  "current_video_record": "review_loop/records/V001_v31_AI做PPT踩坑_gray_test/V001_gray_test_record.md",
+  "current_screenshot_root": "review_loop/screenshots/V001_v31_AI做PPT踩坑/",
+  "current_screenshot_manifest": "review_loop/screenshots/V001_v31_AI做PPT踩坑/screenshot_manifest.md",
   "review_loop_connected": true,
   "review_loop_policy": "use_existing_review_loop_templates_do_not_create_parallel_gray_system",
+  "screenshot_bucket_layers": [
+    "video_id",
+    "time_window_24h_72h_7d",
+    "data_type_platform_metrics_audience_retention_interaction_account_growth_comments_dm_consult_other"
+  ],
   "gray_test_metrics_positioning": "not_an_operations_dashboard_next_iteration_change_locator",
   "gray_test_base_flow_threshold": {
     "metric": "7d_play_count",

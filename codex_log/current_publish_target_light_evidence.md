@@ -13,7 +13,10 @@
 - 当前发布状态：`gray_test_published`
 - 当前灰度状态：`active`
 - 当前灰度目标：`codex_log/current_gray_test_target.md`
-- 当前单条记录：`review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
+- 当前截图录入规则：`review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`
+- 当前单条主记录：`review_loop/records/V001_v31_AI做PPT踩坑_gray_test/V001_gray_test_record.md`
+- 当前记录目录：`review_loop/records/V001_v31_AI做PPT踩坑_gray_test/`
+- 当前截图证据目录：`review_loop/screenshots/V001_v31_AI做PPT踩坑/`
 - 当前指标体系 V1：`review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
 
 ## Git 可追踪轻量证据包
@@ -66,15 +69,25 @@
 10. `codex_log/current_gray_test_target.md`
    - 明确当前目标是跑完 24h / 72h / 7 天灰度观察，判断主要问题层，并产出下一轮只改一个变量。
    - 明确 7 天播放量 6000 是当前小样本阶段基础测试流量门槛。
-11. `review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
-   - 已建立 v3.1 单条发布后灰度测试记录；发布平台、发布时间、链接、24h / 72h / 7 天数据均待用户回填。
-12. `review_loop/00_review_loop_readme.md`
+11. `review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`
+   - 明确用户可以直接给截图，Codex 负责按视频 / 时间窗 / 数据类型归档、提取字段、标记缺失与不确定项。
+   - 明确不同视频、`24h / 72h / 7d`、平台数据 / 评论 / 私信 / 咨询不得混写。
+12. `review_loop/records/V001_v31_AI做PPT踩坑_gray_test/V001_gray_test_record.md`
+   - 已建立 V001 独立主记录，支持 `24h / 72h / 7d` 分开写入；发布平台、发布时间、链接、24h / 72h / 7 天数据均待用户截图或回填。
+13. `review_loop/records/V001_v31_AI做PPT踩坑_gray_test/`
+   - 已建立 README、三份截图提取报告模板、缺失字段记录和给 ChatGPT 的复盘输入文件。
+14. `review_loop/screenshots/V001_v31_AI做PPT踩坑/screenshot_manifest.md`
+   - 已建立当前视频截图证据目录索引，截图按时间窗和数据类型分桶。
+15. `review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
+   - 保留为兼容入口，并指向新的 V001 主记录目录。
+16. `review_loop/00_review_loop_readme.md`
    - 明确当前 v3.1 灰度测试接入既有 `review_loop/`，不另起独立灰度系统。
-13. `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
+17. `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
    - 明确指标体系不是运营数据大表，而是下一轮改动定位器。
    - 明确四层指标：流量层、内容层、账号增长层、私域 / 客户转化层。
    - 明确字段分级：核心必填、辅助观察、商业线索出现时才填。
    - 明确四个复盘问题和下一轮只改一个变量规则。
+   - 明确最低统计 `24h / 72h`，标准统计 `24h / 72h / 7d`，并按视频、时间窗、数据类型分桶。
 
 ## 这些轻量证据共同证明什么
 
@@ -83,6 +96,8 @@
 - `已确认` v3.1 已发片，当前进入发布后灰度测试。
 - `已确认` 发布后复盘机制已接入既有 `review_loop/`。
 - `已确认` v3.1 灰度测试指标体系 V1 已接入既有 `review_loop/`。
+- `已确认` 截图优先录入机制已接入既有 `review_loop/`。
+- `已确认` 后续截图必须按视频、`24h / 72h / 7d` 时间窗和数据类型分开归档。
 - `已确认` 7 天播放量 6000 是当前小样本阶段基础测试流量门槛。
 - `已确认` 指标体系不是运营数据大表，而是下一轮改动定位器。
 - `已确认` v3 只保留为历史候选 / 对照。

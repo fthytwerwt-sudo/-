@@ -1,5 +1,41 @@
 # Latest
 
+## 20260502｜截图数据录入与时间窗分桶机制
+
+- `已确认` 本轮只修《视频工厂》v3.1 发布后灰度测试的数据记录机制；未写新文案、未生成视频、未生成音频、未重新装配全片、未修改 v3.1 视频产物。
+- `已确认` 当前工作分支：`codex/v31-screenshot-data-buckets-20260502`。
+- `已确认` 截图优先录入机制已接入既有 `review_loop/`，不新建重复复盘系统。
+- `已确认` 新增截图录入规则：`review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`。
+- `已确认` 当前 v3.1 视频已建立独立记录目录：`review_loop/records/V001_v31_AI做PPT踩坑_gray_test/`。
+- `已确认` 当前 v3.1 主记录：`review_loop/records/V001_v31_AI做PPT踩坑_gray_test/V001_gray_test_record.md`。
+- `已确认` 当前截图证据目录：`review_loop/screenshots/V001_v31_AI做PPT踩坑/`。
+- `已确认` 旧记录 `review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md` 保留为兼容入口，并指向新的 V001 主记录目录。
+- `已确认` 已新增按视频分桶：不同视频必须使用不同 `video_id` 和独立记录目录。
+- `已确认` 已新增 `24h / 72h / 7d` 时间窗分桶：不同时间窗不得互相覆盖。
+- `已确认` 已新增平台数据 / 留存完播 / 互动 / 账号增长 / 评论 / 私信 / 咨询 / 其他证据分类。
+- `已确认` 已新增三份截图提取报告模板、缺失字段记录、给 ChatGPT 的复盘输入文件和 screenshot manifest。
+- `已确认` 截图看不清或字段不确定时必须标记 `uncertain_need_human_check`；截图未提供字段必须标记 `missing`；不得硬猜。
+- `已确认` Codex 后续只负责截图归档、字段提取、缺失标记、初检和交接；最终判断仍交给 ChatGPT / 用户。
+- `已确认` PR #7 B 仍是后续骚萌卡唯一执行参考；PR #7 A 仍只作历史 / candidate 对照。
+- `待验证` 发布平台、发布时间、视频链接、24h / 72h / 7 天截图和数据仍待用户提交。
+- `下一个目标`：等待用户提交 v3.1 的 24h 截图；Codex 根据截图提取数据并更新 V001 记录；ChatGPT 根据四个复盘问题判断下一轮只改一个变量。
+
+## 新会话接手建议先读
+
+- `AGENTS.md`
+- `codex_source/00_codex_readme.md`
+- `codex_source/01_execution_rules.md`
+- `codex_log/latest.md`
+- `codex_log/current_publish_target.md`
+- `codex_log/current_gray_test_target.md`
+- `review_loop/00_review_loop_readme.md`
+- `review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`
+- `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
+- `review_loop/records/V001_v31_AI做PPT踩坑_gray_test/README_video_context.md`
+- `review_loop/records/V001_v31_AI做PPT踩坑_gray_test/V001_gray_test_record.md`
+- `review_loop/screenshots/V001_v31_AI做PPT踩坑/screenshot_manifest.md`
+- `GPT数据源/08_当前正式事实.md`
+
 ## 20260502｜v3.1 灰度测试指标体系 V1 落仓库
 
 - `已确认` 本轮只做 v3.1 发布后灰度测试指标体系 V1 落仓库，并接入既有 `review_loop/`；未写新文案、未生成视频、未生成音频、未重新装配全片、未修改 v3.1 视频产物。
