@@ -66,12 +66,19 @@
 - v3 只保留为历史候选 / 对照，不再作为后续默认修改基础。
 - `technical_validation = passed（v3.1 技术验证通过）`，但 `technical_line_locked = false（技术线未锁定）`
 - `technical_upgrade_next = true（下一步仍需技术升级）`
-- `content_validation = pending_user_chatgpt_review_or_not_passed_copywriting_side（v3.1 仍待用户 / ChatGPT 内容复审；不得写成内容通过）`
+- `content_validation = gray_testing_not_final_passed（灰度测试中，不等于内容最终通过；不得写成内容通过）`
 - `send_ready = false`
 - `visual_master_locked = false`
 - `voice_validation = pending_user_chatgpt_review`
 - `final_voice_validated = false`
 - `visual_route_map.json（视觉路由表）` 与 `visual_route_validation_report.json（视觉路由验证报告）` 已随 v3.1 基线进入 `dist/latest_review_pack/`
+- `publish_status = gray_test_published（v3.1 已发片，进入灰度测试）`
+- `gray_test_status = active（灰度测试中）`
+- `post_publish_review_required = true（需要发布后复盘）`
+- `current_phase = post_publish_gray_test（发布后灰度测试阶段）`
+- 上述 `content_validation` 是当前发布后阶段口径；不得把它写成 `passed`
+- 发布后复盘默认走 `review_loop/`，不另起独立灰度系统
+- 当前下一步不是先写新文案，而是先记录 24h / 72h 数据，完成 Codex 初检，再由 ChatGPT / 用户判断下一轮只改一个变量
 
 ### 2.2A 视频修改必须同步口径规则
 
@@ -115,6 +122,22 @@
 
 若任务继续命中《视频工厂》的阶段 / 复盘 / 商业化，再补读：
 11. `GPT数据源/09_目标态计划.md`
+
+若任务命中《视频工厂》的灰度测试 / 发片 / 发布后 / 复盘 / 数据记录，再补读：
+12. `codex_log/current_gray_test_target.md`
+13. `review_loop/00_review_loop_readme.md`
+14. `review_loop/02_video_record_template.md`
+15. `review_loop/03_result_dashboard_template.md`
+16. `review_loop/04_diagnosis_template.md`
+17. `review_loop/05_dual_review_handoff_template.md`
+18. `review_loop/06_next_round_task_template.md`
+
+当前灰度测试硬边界：
+- 发片不等于内容过线
+- 灰度测试不等于验证成功
+- `send_ready` 仍保持 `false`
+- `visual_master_locked` 仍保持 `false`
+- PR #7 B 仍是后续骚萌卡唯一执行参考，PR #7 A 仍只作历史 / candidate 对照
 
 ### 2.3 `AI 直播前台验证项目` 命中规则
 若任务命中以下任一关键词，默认按 `AI 直播前台验证项目` 接手：

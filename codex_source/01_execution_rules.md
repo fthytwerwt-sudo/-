@@ -28,18 +28,27 @@
 7. 若任务命中“当前待发对象 / 当前最新样片 / 发布线复核 / 当前唯一 blocker / 只改这一条内容”，在 `codex_log/latest.md` 之后优先读：
    - `codex_log/current_publish_target.md`
    - 若需要快速复核当前样片的 Git 可追踪轻量证据，再读 `codex_log/current_publish_target_light_evidence.md`
-8. `codex_source/01_execution_rules.md`
-9. `codex_source/02_current_execution_context.md`
-10. `codex_source/03_research_findings_bridge.md`
-11. 当前任务直接相关的 `project_source/*`
-12. 命中价值 / 文案 / 结尾卡时，读 `codex_source/11_ai_knowledge_video_value_bridge.md`
-13. 命中“什么算已知”时，读 `codex_source/12_codex_known_state_three_layer_rules.md`
-14. 命中“完整成片 / 成品候选片 / 技术预览升级成候选片 / 样片回炉 / 开头重做 / 中段剪辑 / 字幕修正 / TTS 修正 / 功能卡修正 / 结果差卡修正 / 骚萌卡修正 / 录屏放大修正 / 视觉母版修正”时，读：
+8. 若任务命中“灰度测试 / 发片 / 发布后 / 复盘 / 数据记录 / 24h / 72h / 播放量 / 完播率 / 留存 / 下一轮只改一个变量”，在 `current_publish_target` 之后优先读：
+   - `codex_log/current_gray_test_target.md`
+   - `review_loop/00_review_loop_readme.md`
+   - `review_loop/02_video_record_template.md`
+   - `review_loop/03_result_dashboard_template.md`
+   - `review_loop/04_diagnosis_template.md`
+   - `review_loop/05_dual_review_handoff_template.md`
+   - `review_loop/06_next_round_task_template.md`
+   - `project_source/14_content_review_and_loop_governance_rules.md`
+9. `codex_source/01_execution_rules.md`
+10. `codex_source/02_current_execution_context.md`
+11. `codex_source/03_research_findings_bridge.md`
+12. 当前任务直接相关的 `project_source/*`
+13. 命中价值 / 文案 / 结尾卡时，读 `codex_source/11_ai_knowledge_video_value_bridge.md`
+14. 命中“什么算已知”时，读 `codex_source/12_codex_known_state_three_layer_rules.md`
+15. 命中“完整成片 / 成品候选片 / 技术预览升级成候选片 / 样片回炉 / 开头重做 / 中段剪辑 / 字幕修正 / TTS 修正 / 功能卡修正 / 结果差卡修正 / 骚萌卡修正 / 录屏放大修正 / 视觉母版修正”时，读：
    - `codex_source/14_locked_reference_inheritance_rules.md`
    - `codex_source/locked_reference_registry.md`
-15. 命中 v3.1 / 卡片视觉路由 / 段落提示卡 / 信息卡 / 骚萌卡三路拆分时，再读：
+16. 命中 v3.1 / 卡片视觉路由 / 段落提示卡 / 信息卡 / 骚萌卡三路拆分时，再读：
    - `codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md`
-16. 命中 commit / push / reading branch 回流时，再读 `codex_source/08_branch_sync_and_reading_branch_rules.md`
+17. 命中 commit / push / reading branch 回流时，再读 `codex_source/08_branch_sync_and_reading_branch_rules.md`
 
 当前仓库现实 `已确认`：
 
@@ -189,6 +198,39 @@
 - 不允许用户未最终确认前把当前片子写成可发送状态
 - 不允许旧 `round` 状态继续覆盖最新 `latest_review_pack`
 - 只要改动会影响新会话默认接手判断，就必须同步到 `codex/user-readable-map`
+
+## 8A-1. 发布后灰度测试与复盘接入规则
+
+当前 v3.1 已进入 `post_publish_gray_test（发布后灰度测试阶段）`。
+
+状态硬规则：
+
+- `publish_status = gray_test_published（已发片，进入灰度测试）`
+- `gray_test_status = active（灰度测试中）`
+- `post_publish_review_required = true（需要发布后复盘）`
+- `content_validation = gray_testing_not_final_passed（灰度测试中，不等于内容最终通过）`
+- `send_ready = false`
+- `visual_master_locked = false`
+- `voice_validation = pending_user_chatgpt_review`
+- `final_voice_validated = false`
+
+执行硬规则：
+
+1. 发布后复盘默认接入 `review_loop/`，不新建独立灰度系统。
+2. 单条记录走 `review_loop/02_video_record_template.md`。
+3. 结果看板走 `review_loop/03_result_dashboard_template.md`。
+4. 诊断初检走 `review_loop/04_diagnosis_template.md`。
+5. Codex 初检 / ChatGPT 判断交接走 `review_loop/05_dual_review_handoff_template.md`。
+6. 下一轮只改一个变量走 `review_loop/06_next_round_task_template.md`。
+7. 24h / 72h 数据窗口、一次只改一个变量、小样本状态升级 / 降级、异常样本处理、规律沉淀门槛沿用 `project_source/14_content_review_and_loop_governance_rules.md`。
+
+Codex 职责边界：
+
+- Codex 可以记录、初检、归档、标缺失、生成下轮草稿。
+- Codex 不得把灰度测试写成内容通过。
+- Codex 不得把已发片写成最终成功。
+- Codex 不得跳过 24h / 72h 数据直接设定下一条文案。
+- 最终问题层、是否继续、下一轮唯一改点由 ChatGPT / 用户拍板。
 
 ## 8B. 仓库清理与旧口径归档规则
 
