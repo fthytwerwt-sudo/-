@@ -37,7 +37,9 @@
 14. 命中“完整成片 / 成品候选片 / 技术预览升级成候选片 / 样片回炉 / 开头重做 / 中段剪辑 / 字幕修正 / TTS 修正 / 功能卡修正 / 结果差卡修正 / 骚萌卡修正 / 录屏放大修正 / 视觉母版修正”时，读：
    - `codex_source/14_locked_reference_inheritance_rules.md`
    - `codex_source/locked_reference_registry.md`
-15. 命中 commit / push / reading branch 回流时，再读 `codex_source/08_branch_sync_and_reading_branch_rules.md`
+15. 命中 v3.1 / 卡片视觉路由 / 段落提示卡 / 信息卡 / 骚萌卡三路拆分时，再读：
+   - `codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md`
+16. 命中 commit / push / reading branch 回流时，再读 `codex_source/08_branch_sync_and_reading_branch_rules.md`
 
 当前仓库现实 `已确认`：
 
@@ -219,6 +221,21 @@
 - 用户 / ChatGPT 未明确确认前，不得把 PR 自评 pass 写成用户已确认。
 - 完整成片 / 成品候选片 / 样片回炉完成时，必须输出 `locked_reference_inheritance_report.md`。
 - summary 必须写 `locked_reference_registry_read`、`locked_reference_inheritance_validation`、`locked_reference_inheritance_report`、`unapproved_reference_changes`、`reference_deviation_blockers`、`candidate_references_used`、`locked_references_used`。
+
+## 8C. v3.1 视觉路由前置硬规则
+
+后续任何 v3.1 生成 / 样片回炉 / 卡片视觉修正任务，若涉及段落提示卡、信息卡、骚萌卡，必须先读：
+
+- `codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md`
+
+硬规则：
+
+- 生成 v3.1 全片前必须先输出并验证 `visual_route_map.json（视觉路由表）`。
+- `cute_prompt_card_route（可爱段落提示卡路由）` 只给反面 / 正面展示提示卡。
+- `cute_info_card_route（可爱信息卡路由）` 只给结果差、归因转折、Prompt 架构、Prompt 尾卡等信息卡。
+- `sassy_reaction_card_route（骚萌反应卡路由）` 只给三张骚萌反应卡。
+- 读不到 `PR7_B_骚萌反应页.png` 必须 `blocked`，不得回退 PR #7 A。
+- 任意骚萌卡走信息卡路由、任意信息卡走骚萌路由、任意段落提示卡走复杂信息卡路由且未重审，必须 `blocked`。
 
 以下情况必须 `blocked`：
 

@@ -1,67 +1,47 @@
-# latest_review_pack 审片入口
+# AI 做 PPT 踩坑成品候选 v3 审片入口
 
-`已确认` 本包指向 `round34_中段双展示提示卡_正反分段提示修复`。
+`已确认` 本包是 `finished_quality_candidate_v3（成品质量候选片 v3）` 与 `visual_master_candidate_v3（视觉母版候选 v3）`。
 
-- 仓库相对路径：`dist/latest_review_pack/`
-- 当前可打开本地绝对路径：`/private/tmp/视频工厂_round28_complete_readability/dist/latest_review_pack/`
-- `codex/user-readable-map` 只同步默认接手口径与轻量 manifest / summary；完整视频产物与图片文件以 `codex/doubao-vnext-direct-fix-20260417` 分支为准。
+`已确认` 用户已完成 v3 复审：v3 技术层只能写为 `v3_technical_milestone = reached_for_current_stage（当前阶段技术里程碑达成）`，不能写成技术线最终锁定；下一步仍需 `technical_upgrade_next = true（技术升级）`。
 
-## 用户最新中段复审结论
+`已确认` v3 内容层没有过线，主要问题在 GPT 文案侧；本包必须使用用户复审后的未过线口径，不能沿用旧待复审口径或写成内容通过。
 
-- `已确认` 用户已打开当前可用本地审片包，并反馈 round34 中段“现在中段没什么问题了”。
-- `已确认` 中段状态记录为：`middle_segment_review = 用户暂定通过 / 暂不继续修改中段`。
-- `已确认` 该结论只代表中段暂定收束，不代表全片内容验证通过。
+## 先看文件
 
-## 本轮先看顺序
+1. `AI做PPT踩坑_成品候选_v3_full.mp4`：v3 完整成品候选片。
+2. `AI做PPT踩坑_成品候选_v3_contact_sheet.jpg`：全片关键帧联系表。
+3. `locked_reference_inheritance_report.md`：锁定参考继承报告。
+4. `video_metadata_probe_report.json`：video-metadata-probe 检查报告 JSON。
+5. `AI做PPT踩坑_成品候选_v3_summary.json`：状态摘要。
+6. `AI做PPT踩坑_成品候选_v3_timeline.json`：时间线。
+7. `AI做PPT踩坑_成品候选_v3_cut_map.md`：镜头说明。
 
-1. 先看 `反面展示提示卡_单帧.png`、`正面展示提示卡_单帧.png`、`正反提示卡_并排对比.png`
-   - 判断正反提示卡是否统一参考图二的粉色樱花柔和展示牌风格，且为 9:16 竖屏重构。
-2. 再看 `middle_preview.mp4`
-   - 确认中段结构为：反面展示提示卡 -> 反面真实录屏 -> 正面展示提示卡 -> 正面真实录屏 -> 结果差提示卡。
-3. 再看 `problem_windows/30_32s.mp4`
-   - 确认 30-32 秒仍在正面真实录屏内部，新增正面提示卡没有替代证据。
-4. 再看 `cut_contact_sheet.jpg`
-   - 判断正反提示卡前后轻过渡是否降低跳屏感。
-5. 最后看 `full.mp4`
-   - 判断全片节奏；用户确认前不能写可发。
+## 当前边界
 
-## 文件清单与中文备注
+- `v3_technical_milestone = reached_for_current_stage`
+- `technical_baseline_locked = false`
+- `technical_upgrade_next = true`
+- `content_validation = not_passed_user_review_gpt_copywriting_side`
+- `send_ready = false`
+- `subtitle_enabled = false`
+- `voice_validation = pending_user_chatgpt_review`
+- `final_voice_validated = false`
+- `visual_master_candidate = true`，但 `visual_master_locked = false`。
+- `sassy_card_execution_reference_next = PR7_B_骚萌反应页.png`
+- `v31_visual_route_map_required_before_generation = true`
 
-| 文件 | 中文备注 |
-| --- | --- |
-| `full.mp4` | round34 最新完整正片。 |
-| `middle_preview.mp4` | round34 中段预览，用于快速检查正反提示卡与证据链。 |
-| `before_after.mp4` | round33 与 round34 中段对比视频。 |
-| `图二参考图.png` | 用户本轮同步的图二参考图副本，只用于证明风格参考来源。 |
-| `cut_contact_sheet.jpg` | 按镜头切点抽帧，方便判断跳屏、风格断裂、卡片过短。 |
-| `反面展示提示卡_单帧.png` | 反面展示提示卡单帧图。 |
-| `正面展示提示卡_单帧.png` | 正面展示提示卡单帧图。 |
-| `正反提示卡_并排对比.png` | 两张提示卡并排对比图。 |
-| `problem_windows/30_32s.mp4` | 30-32 秒问题窗口。 |
-| `problem_windows/30_32s_frames.jpg` | 30-32 秒高频抽帧联系表。 |
-| `audit/full_border_residue_report.md` | 全片边框残留扫描报告。 |
-| `audit/full_jump_cut_report.md` | 全片跳切连续性扫描报告。 |
-| `audit/border_residue_contact_sheet.jpg` | 全片边框残留抽帧联系表。 |
-| `audit/jump_cut_contact_sheet.jpg` | 全片跳切抽帧联系表。 |
-| `timeline.json` | round34 每个 segment / shot 的时间轴、承载方式、文件来源。 |
-| `cut_map.md` | round34 逐镜头说明。 |
-| `summary.json` | 写明 `technical_validation`、`content_validation`、`send_ready`、`remaining_blockers`。 |
-| `review_manifest.md` | 给 ChatGPT 的审片入口。 |
+## 本轮重点
 
-## 不得写成已完成的结论
+- 保留“反面结果露馅 -> 方法词出现 -> 字段拆解 -> 正面操作 -> 结果预览 -> 边界收束”的节奏。
+- 保留正反录屏素材事实，以真实录屏作为中段主体。
+- 保留核心方法词：`可交付初稿`。
+- 使用 custom voice TTS 入片，但声音仍待用户 / ChatGPT 听感复审。
+- 下一轮 v3.1 生成前必须先输出并验证 `visual_route_map.json（视觉路由表）`，不得继续让段落提示卡、信息卡、骚萌卡共用同一套外壳。
 
-- `content_validation` 不能因为技术扫描通过就写成通过。
-- `middle_segment_review` 暂定通过不能写成全片 `content_validation` 通过。
-- `send_ready` 必须保持 `no`，除非用户人工最终确认。
-- 不得说云端剪辑链路已稳定跑通。
-- 不得把提示卡写成中段主体证据；中段主体仍必须是用户真实录屏。
+## 本地路径
 
-## 当前 validation
-
-- `border_residue_validation`: 通过
-- `jump_cut_validation`: 通过
-- `technical_validation`: 通过：round34 已生成 full/middle/before_after/problem window，正反提示卡已补齐并完成边框残留与跳切连续性扫描。
-- `middle_segment_review`: 用户暂定通过 / 暂不继续修改中段
-- `content_validation`: 待用户 / ChatGPT 最终复审
-- `full_content_validation`: 待用户 / ChatGPT 最终复审
-- `send_ready`: no
+- 复审包：`/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3`
+- full video：`/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3/AI做PPT踩坑_成品候选_v3_full.mp4`
+- duration_seconds：`150.002`
+- resolution：`720x1280`
+- audio_codec：`aac`

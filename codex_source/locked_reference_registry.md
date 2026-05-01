@@ -148,9 +148,75 @@
 | `does_not_apply_to` | 用户明确要求本轮没有开头；用户要求换开头风格；非元素娃娃体系；正式正片整体节奏、声音、内容验证。 |
 | `inheritance_rule` | 后续需要元素娃娃开头时，默认优先继承该无字 / 去字修补版开头锚点；Codex 不得自行换未经确认的开头素材，不得重新找未确认开头。 |
 | `allowed_changes` | 可调整开头文案、时长裁剪、转场、字幕和与后续片段的拼接；不得替换核心开头素材，除非用户授权。 |
-| `blocked_if` | 目标分支或远端无法读取该 artifact；Codex 自行换开头素材；把开头锁定误写成整片内容通过；写 `send_ready（可发送状态）= yes`。 |
+| `blocked_if` | 目标分支或远端无法读取该 artifact；Codex 自行换开头素材；把开头锁定误写成整片内容通过；把当前片子误写成可发送状态。 |
 | `last_verified_at` | 2026-04-30 |
 | `notes` | 该素材当前仍位于 PR #9 分支；本轮只登记 registry（登记表），不复制视频产物。若完整成片任务读不到该远端 artifact，必须 blocked 或先同步素材。 |
+
+### 3.6 PR #7 B 骚萌卡视觉锁定参考
+
+| 字段 | 值 |
+| --- | --- |
+| `reference_id` | `sassy_card_pr7_b_visual_locked_20260501` |
+| `name` | PR #7 B 骚萌卡视觉锁定参考 |
+| `type` | `sassy_card_visual（骚萌卡视觉）` |
+| `status` | `locked（锁定参考）` |
+| `confirmation_state` | `locked_reference_confirmed_by_user（用户确认锁定参考）` |
+| `source_pr_or_log` | 当前执行单用户确认；PR #23 `codex/sassy-card-reference-review-20260430`; `复审包_review_packs/20260430_骚萌卡历史样本复审_sassy_card_reference_review/样本索引_sassy_sample_index.md`; `复审包_review_packs/20260430_骚萌卡历史样本复审_sassy_card_reference_review/视觉判断_sassy_visual_review.md` |
+| `artifact_path` | `复审包_review_packs/20260430_骚萌卡历史样本复审_sassy_card_reference_review/PR7_B_骚萌反应页.png` |
+| `evidence_path` | `复审包_review_packs/20260430_骚萌卡历史样本复审_sassy_card_reference_review/PR7_B_骚萌反应页.png`; `复审包_review_packs/20260430_骚萌卡历史样本复审_sassy_card_reference_review/PR7_骚萌候选对比_contact_sheet.jpg`; `复审包_review_packs/20260430_骚萌卡历史样本复审_sassy_card_reference_review/样本索引_sassy_sample_index.md`; `复审包_review_packs/20260430_骚萌卡历史样本复审_sassy_card_reference_review/视觉判断_sassy_visual_review.md` |
+| `confirmed_by` | `user（用户）` |
+| `confirmation_quote_or_record` | `已确认` 用户本轮明确确认：`PR7_B_骚萌反应页.png（PR #7 B 版骚萌反应页）` 是后续骚萌卡样本 / 执行参考；如果读不到 PR #7 B，必须 blocked，不得回退 PR #7 A。 |
+| `applies_to` | 后续 v3.1 及同类 AI 知识视频的三张骚萌反应卡：`shot03_problem_hook_sassy_card（问题钩子骚萌卡）`、`shot05_negative_reversal_sassy_card（反面反转骚萌卡）`、`shot14_positive_reversal_sassy_card（正面反转骚萌卡）`。 |
+| `does_not_apply_to` | 段落提示卡、功能卡、结果差卡、Prompt 引用尾卡、真实录屏主体、字幕、TTS、完整视觉母版 locked。 |
+| `inheritance_rule` | 后续骚萌卡必须走 `sassy_reaction_card_route（骚萌反应卡路由）`，继承 PR #7 B 的独立 reaction page、大面积角色、明确表情 / 动作、漫画冲击背景、大字 punchline、9:16 竖屏整页反应卡；不得和信息卡 / 段落提示卡共用外壳。 |
+| `allowed_changes` | 可按当前文案改 punchline、局部表情强度、角色姿态、卡片时长和三张卡的具体文案；必须保持 PR #7 B 作为视觉执行参考，且三张骚萌卡角色体系统一。 |
+| `blocked_if` | 读不到 PR #7 B 原始文件或证据路径；回退 PR #7 A；骚萌卡走信息卡路由；信息卡走骚萌卡路由；三张骚萌卡角色体系不统一；把 PR #7 B 写成信息卡或普通 PPT 卡；完整成片未输出 route map / route validation；把 v3 技术里程碑误写成技术线最终锁定。 |
+| `last_verified_at` | 2026-05-01 |
+| `notes` | 该条锁定的是后续骚萌卡视觉执行参考，不代表 v3 内容过线，不代表可发送，不代表视觉母版 locked。PR #7 A 保留为历史 / candidate 对照，但不再作为下一轮 v3.1 后续骚萌卡执行参考。 |
+
+### 3.7 可爱段落提示卡路由锁定参考
+
+| 字段 | 值 |
+| --- | --- |
+| `reference_id` | `cute_prompt_card_route_locked_20260501` |
+| `name` | 可爱段落提示卡路由锁定参考 |
+| `type` | `card_route（卡片路由）`; `prompt_card_visual（段落提示卡视觉）` |
+| `status` | `locked（锁定参考）` |
+| `confirmation_state` | `locked_reference_confirmed_by_user（用户确认锁定参考）` |
+| `source_pr_or_log` | 当前执行单用户确认；`codex/cute-card-reference-audit-20260430`; `复审包_review_packs/20260430_可爱风格卡片页参考核查_cute_card_reference_audit/视觉判断_cute_card_visual_review.md` |
+| `artifact_path` | `复审包_review_packs/20260430_可爱风格卡片页参考核查_cute_card_reference_audit/round34_反面展示提示卡.png`; `复审包_review_packs/20260430_可爱风格卡片页参考核查_cute_card_reference_audit/round34_正面展示提示卡.png` |
+| `evidence_path` | `复审包_review_packs/20260430_可爱风格卡片页参考核查_cute_card_reference_audit/round34_正反提示卡并排对比.png`; `复审包_review_packs/20260430_可爱风格卡片页参考核查_cute_card_reference_audit/可爱卡片参考_contact_sheet.jpg`; `复审包_review_packs/20260430_可爱风格卡片页参考核查_cute_card_reference_audit/视觉判断_cute_card_visual_review.md`; `codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md` |
+| `confirmed_by` | `user（用户）` |
+| `confirmation_quote_or_record` | `已确认` 用户确认可爱卡片视觉参考可以进入后续 locked reference 流程；本轮要求将 `cute_prompt_card_route（可爱段落提示卡路由）` 与信息卡、骚萌卡拆开。 |
+| `applies_to` | `negative_display_prompt_card（反面展示提示卡）`; `positive_display_prompt_card（正面展示提示卡）`; 同类少信息量段落提示卡。 |
+| `does_not_apply_to` | 结果差卡、归因转折卡、Prompt 架构功能卡、Prompt 引用尾卡、骚萌反应卡、真实录屏主体、完整视觉母版 locked。 |
+| `inheritance_rule` | 继承粉色樱花柔和展示牌、白粉圆角主卡、细线边框、轻花边 / 蕾丝边感、樱花枝、小蝴蝶结、柔光、少量花瓣、中心大标题、一句短副标题、少信息量和段落提示职责。 |
+| `allowed_changes` | 可改标题、副标题、字距、时长、留白和柔和装饰密度；不得提高到复杂信息卡信息量。 |
+| `blocked_if` | 段落提示卡承载复杂字段；做成科技 UI；做成骚萌 reaction card；做成真实 App UI；抢录屏主体；未在 v3.1 前输出并验证 `visual_route_map.json`。 |
+| `last_verified_at` | 2026-05-01 |
+| `notes` | 这是 route-level locked reference（路由级锁定参考），不代表完整视觉母版 locked。 |
+
+### 3.8 可爱信息卡路由锁定参考
+
+| 字段 | 值 |
+| --- | --- |
+| `reference_id` | `cute_info_card_route_locked_20260501` |
+| `name` | 可爱信息卡路由锁定参考 |
+| `type` | `card_route（卡片路由）`; `info_card_visual（信息卡视觉）` |
+| `status` | `locked（锁定参考）` |
+| `confirmation_state` | `locked_reference_confirmed_by_user（用户确认锁定参考）` |
+| `source_pr_or_log` | 当前执行单用户确认；`codex/cute-card-reference-audit-20260430`; `card_visual_quality_clean_ui_texture_candidate_20260430`; `复审包_review_packs/20260430_可爱风格卡片页参考核查_cute_card_reference_audit/视觉判断_cute_card_visual_review.md` |
+| `artifact_path` | `codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md`; `复审包_review_packs/20260430_可爱风格卡片页参考核查_cute_card_reference_audit/可爱卡片参考_contact_sheet.jpg` |
+| `evidence_path` | `复审包_review_packs/20260430_可爱风格卡片页参考核查_cute_card_reference_audit/视觉判断_cute_card_visual_review.md`; `复审包_review_packs/20260430_可爱风格卡片页参考核查_cute_card_reference_audit/round34_反面展示提示卡.png`; `复审包_review_packs/20260430_可爱风格卡片页参考核查_cute_card_reference_audit/round34_正面展示提示卡.png`; `codex_source/locked_reference_registry.md#card_visual_quality_clean_ui_texture_candidate_20260430`; `codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md` |
+| `confirmed_by` | `user（用户）` |
+| `confirmation_quote_or_record` | `已确认` 用户确认信息卡路线为“粉色樱花柔和展示牌皮肤 + 清晰信息卡结构”；可爱信息卡不得继承深蓝科技 SaaS UI，也不得和骚萌卡共用视觉外壳。 |
+| `applies_to` | `shot01_result_diff_opening（结果差开头卡）`; `shot06_cause_turning_point（归因转折卡）`; `shot08_prompt_architecture_card（Prompt 架构功能卡）`; `shot15_result_diff_card（结果差卡）`; `shot16_low_pressure_ending（低压尾卡 / Prompt 引用尾卡）`。 |
+| `does_not_apply_to` | `negative_display_prompt_card`; `positive_display_prompt_card`; 三张骚萌卡；真实 App 导航；电商筛选页；完整视觉母版 locked。 |
+| `inheritance_rule` | 主皮肤继承粉色樱花柔和展示牌方向；结构继承清晰信息卡结构、留白、分组、层级、可读性；一屏最多 2-3 个模块，重点内容用浅粉 / 淡橙 / 温柔强调色标出。 |
+| `allowed_changes` | 可按不同信息卡职责调整两列对比、引用框、模块数量、标题和高亮；可转译为原创视觉，但不得回到冷静科技 UI 或普通 PPT 模板。 |
+| `blocked_if` | 深蓝冷静科技 UI；黑色底部按钮；电商筛选页；`More Filters` 式 CTA；假 App 导航；一堆分类筛选项；英文乱码；小字堆叠；信息卡走骚萌卡路由；和骚萌卡共用外壳；未在 v3.1 前输出并验证 `visual_route_map.json`。 |
+| `last_verified_at` | 2026-05-01 |
+| `notes` | 这是 route-level locked reference（路由级锁定参考），锁“可爱信息卡路线”，不锁完整视觉母版，不代表 v3 内容过线。 |
 
 ## 4. candidate_reference（候选参考）
 
@@ -174,7 +240,7 @@
 | `allowed_changes` | 可调整表情夸张度、构图、角色、文案、动效和时长。 |
 | `blocked_if` | 把 PR #7 A 版写成用户已确认 locked；忽略用户后续对骚萌视觉的负反馈。 |
 | `last_verified_at` | 2026-04-30 |
-| `notes` | PR #8 锁定的是放置规则，不锁 PR #7 A 版视觉。`已确认` 用户本轮再次确认 v3 骚萌卡视觉先以 PR #7 A 版作为参考；本条仍保持 `candidate（候选参考）`，后续 v3 可写为 `candidate_reference_used（使用候选参考）`，不得升级为用户最终锁定的视觉样板。 |
+| `notes` | PR #8 锁定的是放置规则，不锁 PR #7 A 版视觉。`已确认` 用户 2026-05-01 最新确认已覆盖旧判断：下一轮 v3.1 后续骚萌卡执行参考改为 `sassy_card_pr7_b_visual_locked_20260501（PR #7 B 骚萌卡视觉锁定参考）`；本条保留为历史 / candidate 对照，不删除、不升级 locked、不再作为后续执行参考。 |
 
 ### 4.2 体素元素娃娃视觉母版候选
 
@@ -240,7 +306,7 @@
 | `allowed_changes` | 可将参考质感转译成原创体素风格卡片；可调整颜色、圆角、阴影、版式、信息密度；可按功能卡 / 结果差卡 / Prompt 引用尾卡不同职责拆成不同信息层级；可减少信息量，保证短视频一眼可读；可使用中文大字、结构标签、分组卡片；可保留轻微高级 UI 质感，但不得压过项目风格。 |
 | `blocked_if` | 照抄底部黑色大按钮；做成电商筛选页；做成 App 导航页；出现 `More Filters` 式行动按钮感；出现一堆筛选项 / 分类项；出现英文乱码感；字太小、太糊、不可读；画面像普通 PPT 模板；阴影厚重发脏；信息过密；UI 质感和当前项目体素 / 元素娃娃风格断裂；卡片抢走用户录制素材主体；把该 candidate 写成 locked visual master（视觉母版锁定参考）。 |
 | `last_verified_at` | 2026-04-30 |
-| `notes` | 该参考是用户本轮从一张手机竖屏 UI 图中确认的“质感参考”。Codex 不知道原图，也不能默认读取 ChatGPT 图片上下文；本条 registry 的文字描述就是执行器可用的唯一参考锚点。本条不代表视觉母版已锁定，不代表 v3 已生成，不代表 `content_validation（内容验证）` 通过，也不代表 `send_ready（可发送状态）= yes`。v3 若按此方向生成并通过用户 / ChatGPT 复审，才允许后续升级为更正式的 `visual_master_reference（视觉母版参考）` 或卡片视觉 locked reference。 |
+| `notes` | 该参考是用户本轮从一张手机竖屏 UI 图中确认的“质感参考”。Codex 不知道原图，也不能默认读取 ChatGPT 图片上下文；本条 registry 的文字描述就是执行器可用的唯一参考锚点。本条不代表视觉母版已锁定，不代表 v3 已生成，不代表 `content_validation（内容验证）` 通过，也不代表当前片子可发送。v3 若按此方向生成并通过用户 / ChatGPT 复审，才允许后续升级为更正式的 `visual_master_reference（视觉母版参考）` 或卡片视觉 locked reference。 |
 
 ### 4.5 round34 功能卡 / 结果差卡候选参考
 
@@ -470,8 +536,8 @@
 
 ## 8. 当前不得升级项
 
-- `sassy_card_pr7_a_candidate_20260428（PR #7 A 版骚萌卡视觉候选）`：保持 `candidate（候选参考）`，因为未找到用户明确确认“以后骚萌卡视觉就按这个走”。
-- `card_visual_quality_clean_ui_texture_candidate_20260430（功能卡 / 结果差卡 / Prompt 引用尾卡清晰质感候选参考）`：保持 `candidate（候选参考）`，因为当前只有用户本轮文字化质感锚点，缺仓库内可复审图片证据和 v3 成片验证；不得写成视觉母版 locked。
+- `sassy_card_pr7_a_candidate_20260428（PR #7 A 版骚萌卡视觉候选）`：保持 `candidate（候选参考）` / historical comparison（历史对照），因为用户 2026-05-01 最新确认已将后续执行参考覆盖为 `sassy_card_pr7_b_visual_locked_20260501`；不得再写成下一轮 v3.1 后续执行参考。
+- `card_visual_quality_clean_ui_texture_candidate_20260430（功能卡 / 结果差卡 / Prompt 引用尾卡清晰质感候选参考）`：自身仍保持 `candidate（候选参考）`，但其“清晰结构 / 留白 / 可读性”已被 `cute_info_card_route_locked_20260501（可爱信息卡路由锁定参考）` 吸收为 route-level locked reference；不得写成完整视觉母版 locked。
 - `subtitle_pr15_v2_failed_20260430（PR #15 v2 字幕失败参考）`：保持 `failed（失败参考）`，因为用户指出字幕样式不是标准。
 - `layout_pr15_v2_failed_20260430（PR #15 v2 layout / 背景失败参考）`：保持 `failed（失败参考）`，因为用户指出背景风格被换掉。
 - `tts_pr15_v2_failed_20260430（PR #15 v2 TTS 缺失失败参考）`：保持 `failed（失败参考）`，因为用户指出没有 TTS。
@@ -483,9 +549,9 @@
 - `subtitle_reference（字幕参考）`：未找到正确字幕样板；后续必须建立标准字幕位置、字号、背景、安全区和对照截图。
 - `zoom_reference（录屏放大方式参考）`：同类中段放大剪辑已由 `middle_zoom_reference_confirmed_middle_preview_20260430（用户确认的中段放大剪辑锁定参考）` 补足主要 locked reference；非中段或不同素材结构仍需另建对照参考。
 - `visual_master_reference（视觉母版参考）`：已有体素元素娃娃方向和 round34 局部提示卡风格，但仍缺完整视觉母版锁定产物。
-- `sassy_card_visual_reference（骚萌卡视觉参考）`：PR #7 A 版仍是候选，尚未锁定为默认视觉。
-- `ending_reference（结尾参考）`：已有 Prompt 引用尾卡职责规则，但缺锁定视觉产物。
-- `card_visual_quality_reference（卡片视觉质感参考）`：本轮新增清晰质感 candidate，只能作为功能卡、结果差卡、Prompt 引用尾卡的文字化质感锚点；若 v3 生成并通过用户 / ChatGPT 复审，才可另行晋升或补证据。
+- `visual_master_reference（视觉母版参考）`：已有体素元素娃娃方向、PR #7 B 骚萌卡视觉锁定参考、可爱段落提示卡路由和可爱信息卡路由，但仍缺完整视觉母版锁定产物。
+- `ending_reference（结尾参考）`：已有 Prompt 引用尾卡职责规则，并已纳入 `cute_info_card_route_locked_20260501`，但完整结尾视觉母版仍未锁定。
+- `card_visual_quality_reference（卡片视觉质感参考）`：清晰结构 / 留白 / 可读性已进入 `cute_info_card_route_locked_20260501` 的 route-level locked reference；不得单独写成完整视觉母版 locked。
 
 ## 10. 更新规则
 

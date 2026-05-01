@@ -59,15 +59,17 @@
 - 如果该索引中没有 `path_exists = true（路径存在）` 的记录，只能说“路径待本地复核”，不能直接把 `summary.json（状态摘要）` / `review_manifest.md（审片入口）` 中的路径当成真实可打开路径。
 - `summary.json（状态摘要）` / `review_manifest.md（审片入口）` 中的路径只能作为线索，必须经 Codex 本地复核后才能输出给用户。
 
-当前 `latest_review_pack` 已确认指向 `round34_中段双展示提示卡_正反分段提示修复`；`technical_validation`、`border_residue_validation`、`jump_cut_validation` 为 `通过`，`content_validation` 仍为 `待用户 / ChatGPT 最终复审`，`send_ready = no`。
+当前 `latest_review_pack` 已确认指向 `20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3`；v3 技术层只能写为 `v3_technical_milestone = reached_for_current_stage（当前阶段技术里程碑达成）`，技术线未最终锁定，下一步仍需技术升级；`content_validation = not_passed_user_review_gpt_copywriting_side（用户复审未过线，主要在 GPT 文案侧）`，`send_ready = false`，`visual_master_locked = false`。
 
 若任务命中“完整成片 / 成品候选片 / 技术预览升级成候选片 / 样片回炉 / 开头重做 / 中段剪辑 / 字幕修正 / TTS 修正 / 功能卡修正 / 结果差卡修正 / 骚萌卡修正 / 录屏放大修正 / 视觉母版修正”，则在 `codex_log/latest.md` 之后必须先补读：
 
 4. `codex_source/14_locked_reference_inheritance_rules.md`
 5. `codex_source/locked_reference_registry.md`
+6. 若任务涉及 v3.1 / 卡片视觉路由 / 段落提示卡 / 信息卡 / 骚萌卡，则还必须读 `codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md`
 
 硬规则：
 - 任一文件读不到，必须 `blocked`，不得直接生成完整片或写成成片候选完成。
+- v3.1 生成前读不到视觉路由规则，或未先输出并验证 `visual_route_map.json（视觉路由表）`，必须 `blocked`，不得生成全片。
 - 完整成片 / 成品候选片 / 样片回炉完成时，必须输出 `locked_reference_inheritance_report.md（锁定参考继承报告）`。
 - summary 必须写 `locked_reference_registry_read`、`locked_reference_inheritance_validation`、`locked_reference_inheritance_report`、`unapproved_reference_changes`、`reference_deviation_blockers`、`candidate_references_used`、`locked_references_used`。
 
@@ -208,6 +210,18 @@
 
 - `codex_source/12_codex_known_state_three_layer_rules.md`
 
-## 7. 入口一句话
+## 7. v3.1 视觉路由入口补丁
 
-命中《视频工厂》后，新会话默认先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md`，再按 10 份执行包最小顺序补读 `GPT数据源/00`、`GPT数据源/01`、`GPT数据源/03`、`GPT数据源/08`、`GPT数据源/06`；当前正式事实以 `GPT数据源/` 当前 10 份执行包、`dist/latest_review_pack/summary.json`、`dist/latest_review_pack/review_manifest.md` 和 `codex_log/latest.md` 为准，`project_source/` 只作历史 / 辅助镜像；当前 `latest_review_pack` 指向 round34，`send_ready = no`；若任务命中完整成片 / 成品候选片 / 技术预览升级 / 样片回炉 / 字幕 / TTS / 卡片 / 放大 / 剪辑 / 视觉母版修正，必须先读 `codex_source/14_locked_reference_inheritance_rules.md` 和 `codex_source/locked_reference_registry.md`，读不到即 blocked；若任务命中当前待发对象 / 当前最新样片 / 发布线复核 / 当前唯一 blocker / 只改这一条内容，再优先读 `codex_log/current_publish_target.md`，需要轻量证据时再读 `codex_log/current_publish_target_light_evidence.md`；当前正式默认主线按“API 生成真人 + 用户录制素材 + 少量 PPT + 云端剪辑”理解，结构跟着文案走，`API生成真人段` 次数由 block 路由决定，`云端剪辑 / cloud-only` 只能写成正式方向，不能写成 runtime 已稳定跑通。
+以后凡任务命中“骚萌卡 / 信息卡 / 段落提示卡 / v3.1 / visual_route_map”，必须先读取：
+
+- `codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md`
+
+并在生成 v3.1 前先输出并验证：
+
+- `visual_route_map.json（视觉路由表）`
+
+读不到 PR #7 B 或 route map 未通过时，必须 `blocked`，不得回退 PR #7 A，不得生成全片。
+
+## 8. 入口一句话
+
+命中《视频工厂》后，新会话默认先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md`，再按 10 份执行包最小顺序补读 `GPT数据源/00`、`GPT数据源/01`、`GPT数据源/03`、`GPT数据源/08`、`GPT数据源/06`；当前正式事实以 `GPT数据源/` 当前 10 份执行包、`dist/latest_review_pack/summary.json`、`dist/latest_review_pack/review_manifest.md` 和 `codex_log/latest.md` 为准，`project_source/` 只作历史 / 辅助镜像；当前 `latest_review_pack` 指向 v3，`v3_technical_milestone = reached_for_current_stage`，`content_validation = not_passed_user_review_gpt_copywriting_side`，`send_ready = false`；若任务命中完整成片 / 成品候选片 / 技术预览升级 / 样片回炉 / 字幕 / TTS / 卡片 / 放大 / 剪辑 / 视觉母版修正，必须先读 `codex_source/14_locked_reference_inheritance_rules.md` 和 `codex_source/locked_reference_registry.md`，读不到即 blocked；若任务命中 v3.1 / 段落提示卡 / 信息卡 / 骚萌卡 / visual_route_map，还必须先读 `codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md`，并在生成全片前输出并验证 `visual_route_map.json`；若任务命中当前待发对象 / 当前最新样片 / 发布线复核 / 当前唯一 blocker / 只改这一条内容，再优先读 `codex_log/current_publish_target.md`，需要轻量证据时再读 `codex_log/current_publish_target_light_evidence.md`；当前正式默认主线按“API 生成真人 + 用户录制素材 + 少量 PPT + 云端剪辑”理解，结构跟着文案走，`API生成真人段` 次数由 block 路由决定，`云端剪辑 / cloud-only` 只能写成正式方向，不能写成 runtime 已稳定跑通。

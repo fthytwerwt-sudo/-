@@ -60,12 +60,14 @@
 `project_source/` 只作为历史 / 辅助主题化镜像，不得默认高于 `GPT数据源/` 当前 10 份执行包、`codex_log/latest.md` 或 `dist/latest_review_pack/`。
 
 当前已确认：
-- `latest_review_pack` 指向 `round34_中段双展示提示卡_正反分段提示修复`
-- `technical_validation = 通过`
-- `border_residue_validation = 通过`
-- `jump_cut_validation = 通过`
-- `content_validation = 待用户 / ChatGPT 最终复审`
-- `send_ready = no`
+- `latest_review_pack` 指向 `20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3`
+- `v3_technical_milestone = reached_for_current_stage（当前阶段技术里程碑达成）`
+- `technical_baseline_locked = false（技术基线未锁定）`
+- `technical_upgrade_next = true（下一步仍需技术升级）`
+- `content_validation = not_passed_user_review_gpt_copywriting_side（用户复审未过线，主要在 GPT 文案侧）`
+- `send_ready = false`
+- `visual_master_locked = false`
+- 下一轮 v3.1 必须先输出并验证 `visual_route_map.json（视觉路由表）`
 
 ### 2.2A 视频修改必须同步口径规则
 

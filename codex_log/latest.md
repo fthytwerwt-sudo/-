@@ -1,5 +1,22 @@
 # Latest
 
+## 20260501｜v3 技术里程碑与 v3.1 视觉参考锁定
+
+- `已确认` 本轮只做仓库口径回写、reference registry 修补、v3.1 视觉路由前置规则同步和主读取分支回流；未生成 v3.1、未生成新视频、未生成新音频、未重新装配全片。
+- `已确认` 用户已复审《我用 AI 做 PPT 踩过的坑》v3：技术层只能写为 `v3_technical_milestone = reached_for_current_stage（当前阶段技术里程碑达成）`，不得写成技术线最终锁定。
+- `已确认` 下一步仍需要 `technical_upgrade_next = true（技术升级）`，`technical_baseline_locked = false（技术基线未锁定）`。
+- `已确认` v3 内容未过线，主要问题在 GPT 文案侧；状态写为 `content_validation = not_passed_user_review_gpt_copywriting_side`，不得写 `passed` 或仅写 `pending_user_chatgpt_review`。
+- `已确认` `send_ready = false`，`visual_master_locked = false`，`visual_master_candidate = true`。
+- `已确认` PR #7 B 版 `PR7_B_骚萌反应页.png` 已写为后续骚萌卡执行参考；读不到 PR #7 B 必须 `blocked`，不得回退 PR #7 A。
+- `已确认` PR #7 A 保留为历史 / candidate 对照，不删除、不升级 locked、不再作为下一轮 v3.1 后续骚萌卡执行参考。
+- `已确认` 新增 route-level locked references：`sassy_card_pr7_b_visual_locked_20260501`、`cute_prompt_card_route_locked_20260501`、`cute_info_card_route_locked_20260501`。
+- `已确认` 新增 v3.1 前置规则文件：`codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md`。
+- `已确认` 下一轮 v3.1 必须先输出并验证 `visual_route_map.json（视觉路由表）`；route map 通过前不得生成全片。
+- `已确认` 三条视觉路由已写清：`cute_prompt_card_route（可爱段落提示卡路由）`、`cute_info_card_route（可爱信息卡路由）`、`sassy_reaction_card_route（骚萌反应卡路由）`。
+- `已确认` 本轮同步了 PR #22 v3 latest review pack 的既有产物作为当前复审对象，但只改状态口径，不生成新产物。
+- `已确认` 本轮新增 dated log：`codex_log/20260501_v3技术里程碑与v31视觉参考锁定.md`。
+- `已确认` 只有 commit / push / 合并到 `codex/user-readable-map` 后，上述口径才算新聊天默认正式已知。
+
 ## 20260430｜v3 功能卡 / 结果差卡 / 尾卡清晰质感参考落仓库
 
 - `已确认` 本轮只做 v3 前置参考口径落仓库，不生成 v3，不生成视频，不生成音频，不生成图片。
@@ -10,7 +27,7 @@
 - `已确认` 该参考不继承底部黑色按钮、电商筛选页、`More Filters` 式 CTA、假 App 导航、一堆分类筛选项、英文乱码或真实 UI 照抄。
 - `已确认` 当前没有 `visual_master_reference（视觉母版锁定参考）`；v3 若按该方向生成并通过用户 / ChatGPT 复审，后续才可能反向成为视觉母版候选。
 - `已确认` 字幕本轮先不上；PR #15 v2 字幕仍是 `failed_reference（失败参考）`，不得继承为字幕标准。
-- `已确认` PR #7 A 版骚萌卡视觉仍是 `candidate（候选参考）`；用户本轮确认 v3 可先以它作为视觉参考，但不得写成 locked。
+- `已确认` PR #7 A 版骚萌卡视觉仍是 `candidate（候选参考）`；20260430 “v3 可先以它作为视觉参考”的旧口径已被 20260501 用户最新确认覆盖，后续骚萌卡执行参考改为 PR #7 B。
 - `已确认` TTS 节奏 reference 仍是 `tts_15s_b_pacing_locked_20260427（B 版 15 秒停顿梗感 TTS 节奏锁定参考）`；最近 custom voice（脱敏标识 `qwen-t...ac19`）仍是声音底子候选，最终音色待验证。
 - `已确认` 本轮新增 dated log：`codex_log/20260430_card_visual_quality_reference_for_v3.md`。
 - `已确认` 本轮未修改 `dist/latest_review_pack/（最新审片包）`，未修改 `content_validation（内容验证）`，未修改 `send_ready（可发送状态）`。
