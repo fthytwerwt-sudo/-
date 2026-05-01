@@ -28,15 +28,18 @@
 7. 若任务命中“当前待发对象 / 当前最新样片 / 发布线复核 / 当前唯一 blocker / 只改这一条内容”，在 `codex_log/latest.md` 之后优先读：
    - `codex_log/current_publish_target.md`
    - 若需要快速复核当前样片的 Git 可追踪轻量证据，再读 `codex_log/current_publish_target_light_evidence.md`
-8. 若任务命中“灰度测试 / 发片 / 发布后 / 复盘 / 数据记录 / 24h / 72h / 7 天 / 播放量 / 完播率 / 留存 / 私信 / 咨询 / 下一轮只改一个变量”，在 `current_publish_target` 之后优先读：
+8. 若任务命中“截图 / 数据截图 / 截图数据录入 / 灰度测试 / 发片 / 发布后 / 复盘 / 数据记录 / 24h / 72h / 7 天 / 播放量 / 完播率 / 留存 / 私信 / 咨询 / 下一轮只改一个变量”，在 `current_publish_target` 之后优先读：
    - `codex_log/current_gray_test_target.md`
    - `review_loop/00_review_loop_readme.md`
+   - `review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`
    - `review_loop/02_video_record_template.md`
    - `review_loop/03_result_dashboard_template.md`
    - `review_loop/04_diagnosis_template.md`
    - `review_loop/05_dual_review_handoff_template.md`
    - `review_loop/06_next_round_task_template.md`
    - `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
+   - `review_loop/records/V001_v31_AI做PPT踩坑_gray_test/`
+   - `review_loop/screenshots/V001_v31_AI做PPT踩坑/screenshot_manifest.md`
    - `review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
    - `project_source/14_content_review_and_loop_governance_rules.md`
 9. `codex_source/01_execution_rules.md`
@@ -233,6 +236,18 @@
    - 当前最短板在哪一层：流量 / 内容 / 账号 / 转化？
    - 下一轮只改哪一个变量？
    - 为什么先改它，改完看哪个指标？
+
+截图数据录入硬规则：
+
+1. 截图录入前必须先确认 `video_id`；未确认视频归属时不得入表。
+2. 截图录入前必须先确认时间窗：`24h / 72h / 7d`；未确认时间窗时不得入表。
+3. 截图录入前必须先确认数据类型：`platform_metrics / audience_retention / interaction / account_growth / comments / dm / consult / other`。
+4. 不同视频、不同时间窗、不同数据类型不得混写。
+5. `24h` 数据不得被 `72h` 或 `7d` 覆盖；`72h` 数据不得被 `7d` 覆盖。
+6. 截图字段识别不清必须标记 `uncertain_need_human_check`。
+7. 截图没有提供的字段必须标记 `missing`，不得硬猜。
+8. 评论截图不得当成私信截图；私信数不得自动等于有效咨询数。
+9. Codex 只做截图归档、字段提取、缺失标记、初检和交接，不做最终内容判断。
 
 Codex 职责边界：
 

@@ -36,12 +36,18 @@
 ## 发布后灰度测试
 
 - 当前灰度目标：`codex_log/current_gray_test_target.md`
-- 单条记录：`review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
+- 截图录入规则：`review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`
+- 单条主记录：`review_loop/records/V001_v31_AI做PPT踩坑_gray_test/V001_gray_test_record.md`
+- 当前记录目录：`review_loop/records/V001_v31_AI做PPT踩坑_gray_test/`
+- 兼容旧记录入口：`review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
+- 截图证据目录：`review_loop/screenshots/V001_v31_AI做PPT踩坑/`
 - 指标体系 V1：`review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
 - 复盘执行层：`review_loop/`
-- 观察窗口：`24h 初检`、`72h 复检`
+- 观察窗口：`24h 初检`、`72h 复检`、`7d 封账`
 - 7 天播放量基础测试流量门槛：`6000`
 - 指标体系定位：不是运营数据大表，而是下一轮改动定位器
+- 截图录入定位：用户可直接给截图，Codex 按视频 / 时间窗 / 数据类型归档并提取字段，不要求用户手填完整数据表
+- 分桶规则：不同视频分开；`24h / 72h / 7d` 分开；平台数据 / 评论 / 私信 / 咨询分开
 - 结果字段：播放量、完播率、收藏率、前 3 秒留存、平均观看时长、点赞率、评论数、转粉数、私信 / 咨询数、中段主要流失点
 - 四层指标：流量层、内容层、账号增长层、私域 / 客户转化层
 - 字段分级：核心必填字段、辅助观察字段、商业线索出现时才填字段
@@ -59,6 +65,8 @@
 - 不得写成市场成立
 - 不得写成规律成立
 - 不得跳过数据直接设定下一条文案
+- 不得把不同视频、不同时间窗或不同截图类型混写
+- 不得把截图识别不清的字段硬猜成确定值
 
 ## 本轮重点
 

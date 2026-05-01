@@ -40,7 +40,11 @@
 - `post_publish_review_required`：`true`
 - `gray_test_metrics_v1`：`review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
 - `current_gray_test_target`：`codex_log/current_gray_test_target.md`
-- `current_video_record`：`review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
+- `screenshot_data_intake_rules`：`review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`
+- `current_video_record_dir`：`review_loop/records/V001_v31_AI做PPT踩坑_gray_test/`
+- `current_video_record`：`review_loop/records/V001_v31_AI做PPT踩坑_gray_test/V001_gray_test_record.md`
+- `legacy_video_record`：`review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
+- `current_screenshot_root`：`review_loop/screenshots/V001_v31_AI做PPT踩坑/`
 - `technical_validation`：`passed`
 - `technical_line_locked`：`false`
 - `technical_baseline_locked`：`false`
@@ -66,12 +70,18 @@
 ## 当前灰度测试目标
 
 - 当前目标文件：`codex_log/current_gray_test_target.md`
-- 当前单条记录：`review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
+- 截图录入规则：`review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`
+- 当前视频记录目录：`review_loop/records/V001_v31_AI做PPT踩坑_gray_test/`
+- 当前单条主记录：`review_loop/records/V001_v31_AI做PPT踩坑_gray_test/V001_gray_test_record.md`
+- 兼容旧记录入口：`review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
+- 当前截图证据目录：`review_loop/screenshots/V001_v31_AI做PPT踩坑/`
 - 当前复盘机制：沿用既有 `review_loop/`，不新建独立灰度系统。
 - 当前指标体系 V1：`review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
 - 当前目标：用 v3.1 这条已发布视频跑完 24h / 72h / 7 天灰度观察，判断它的主要问题层，并产出下一轮“只改一个变量”的执行方向。
 - 7 天播放量基础测试流量门槛：`6000`
 - 指标体系定位：不是运营数据大表，而是下一轮改动定位器。
+- 当前录入方式：用户可直接提交截图；Codex 按视频 / 时间窗 / 数据类型归档，提取可识别字段，标记缺失与不确定项，再交给 ChatGPT 复盘。
+- 当前分桶规则：不同视频分开，`24h / 72h / 7d` 分开，平台数据 / 评论 / 私信 / 咨询等类型分开。
 - 当前 24h 数据状态：`待用户回填`
 - 当前 72h 数据状态：`待用户回填`
 - 当前 7 天数据状态：`待用户回填`
@@ -107,14 +117,17 @@
 7. `复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/`
 8. `复审包_review_packs/20260430_骚萌卡历史样本复审_sassy_card_reference_review/PR7_B_骚萌反应页.png`
 9. `codex_log/current_gray_test_target.md`
-10. `review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
-11. `review_loop/00_review_loop_readme.md`
-12. `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
+10. `review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`
+11. `review_loop/records/V001_v31_AI做PPT踩坑_gray_test/V001_gray_test_record.md`
+12. `review_loop/screenshots/V001_v31_AI做PPT踩坑/screenshot_manifest.md`
+13. `review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
+14. `review_loop/00_review_loop_readme.md`
+15. `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
 
 ## 当前同步状态
 
 - 状态分类：`formal_sync_target_for_user_readable_map`
-- 当前工作分支：`codex/v31-gray-test-metrics-v1-20260502`
+- 当前工作分支：`codex/v31-screenshot-data-buckets-20260502`
 - 当前主读取分支：`codex/user-readable-map`
 - 本轮同步要求：commit、push 当前分支，创建 PR，并在验证通过后合并到 `codex/user-readable-map`。
 - 本轮边界：不重新生成视频、不重新生成音频、不重新生成图片、不重新装配全片、不写新文案。
@@ -125,4 +138,4 @@
 
 ## 对应 dated log 路径
 
-- `codex_log/20260502_v31灰度测试指标体系V1落仓库.md`
+- `codex_log/20260502_截图数据录入与时间窗分桶机制.md`

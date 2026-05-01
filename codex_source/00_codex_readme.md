@@ -83,24 +83,30 @@
 6. `codex_log/current_publish_target.md`
 7. 若需要快速复核当前样片结构与轻量证据，再补读 `codex_log/current_publish_target_light_evidence.md`
 
-若任务命中“灰度测试 / 发片 / 发布后 / 复盘 / 数据记录 / 24h / 72h / 7 天 / 播放量 / 完播率 / 留存 / 私信 / 咨询 / 下一轮只改一个变量”，则在 `codex_log/latest.md` 和 `codex_log/current_publish_target.md` 之后优先补读：
+若任务命中“截图 / 数据截图 / 截图数据录入 / 灰度测试 / 发片 / 发布后 / 复盘 / 数据记录 / 24h / 72h / 7 天 / 播放量 / 完播率 / 留存 / 私信 / 咨询 / 下一轮只改一个变量”，则在 `codex_log/latest.md` 和 `codex_log/current_publish_target.md` 之后优先补读：
 
 8. `codex_log/current_gray_test_target.md`
 9. `review_loop/00_review_loop_readme.md`
-10. `review_loop/02_video_record_template.md`
-11. `review_loop/03_result_dashboard_template.md`
-12. `review_loop/04_diagnosis_template.md`
-13. `review_loop/05_dual_review_handoff_template.md`
-14. `review_loop/06_next_round_task_template.md`
-15. `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
-16. `review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
-17. `project_source/14_content_review_and_loop_governance_rules.md`
+10. `review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`
+11. `review_loop/02_video_record_template.md`
+12. `review_loop/03_result_dashboard_template.md`
+13. `review_loop/04_diagnosis_template.md`
+14. `review_loop/05_dual_review_handoff_template.md`
+15. `review_loop/06_next_round_task_template.md`
+16. `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
+17. `review_loop/records/V001_v31_AI做PPT踩坑_gray_test/`
+18. `review_loop/screenshots/V001_v31_AI做PPT踩坑/screenshot_manifest.md`
+19. `review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
+20. `project_source/14_content_review_and_loop_governance_rules.md`
 
 发布后复盘规则：
 - 灰度测试只是当前阶段名称，不另起独立灰度系统
 - 单条记录、结果看板、诊断初检、双层交接和下轮草稿均走 `review_loop/`
 - 24h / 72h 数据窗口、一次只改一个变量、小样本状态、异常样本和规律沉淀门槛沿用 `project_source/14_content_review_and_loop_governance_rules.md`
 - v3.1 灰度测试指标体系 V1 看 `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
+- 截图数据录入任务先看 `review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md` 和当前视频记录目录
+- 用户可以直接给截图；Codex 负责按视频 / 时间窗 / 数据类型归档截图、提取字段、标记缺失和不确定项、更新记录
+- 截图录入前必须先确认 `video_id`、`24h / 72h / 7d` 时间窗和数据类型；未确认不得入表
 - `7d_play_count（7 天播放量）= 6000` 是当前小样本阶段基础测试流量门槛，不是最终商业目标
 - 指标体系不是运营数据大表，而是下一轮改动定位器
 - 后续复盘先回答四个问题：是否达到 6000 播放基础门槛、最短板在哪一层、下一轮只改哪一个变量、为什么先改它并看哪个指标
@@ -271,4 +277,4 @@
 
 ## 8. 入口一句话
 
-命中《视频工厂》后，新会话默认先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md`，再按 10 份执行包最小顺序补读 `GPT数据源/00`、`GPT数据源/01`、`GPT数据源/03`、`GPT数据源/08`、`GPT数据源/06`；当前正式事实以 `GPT数据源/` 当前 10 份执行包、`dist/latest_review_pack/summary.json`、`dist/latest_review_pack/review_manifest.md` 和 `codex_log/latest.md` 为准，`project_source/` 只作历史 / 辅助镜像；当前 `latest_review_pack` 指向 v3.1，`current_video_baseline = v3.1`，`future_iteration_base = v3.1`，`publish_status = gray_test_published`，`gray_test_status = active`，`current_phase = post_publish_gray_test`，`content_validation = gray_testing_not_final_passed`，`send_ready = false`；若任务命中完整成片 / 成品候选片 / 技术预览升级 / 样片回炉 / 字幕 / TTS / 卡片 / 放大 / 剪辑 / 视觉母版修正，必须先读 `codex_source/14_locked_reference_inheritance_rules.md` 和 `codex_source/locked_reference_registry.md`，读不到即 blocked；若任务命中 v3.1 / 段落提示卡 / 信息卡 / 骚萌卡 / visual_route_map，还必须先读 `codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md`，并先验证 `visual_route_map.json`；PR #7 B 是后续骚萌卡唯一执行参考，读不到必须 blocked，不得回退 PR #7 A；若任务命中灰度测试 / 发片 / 发布后 / 复盘 / 数据记录 / 7 天 / 播放量 / 私信 / 咨询，必须读取 `codex_log/current_gray_test_target.md`、`review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md` 与当前单条记录；`7d_play_count = 6000` 是当前小样本基础测试流量门槛，指标体系不是运营数据大表而是下一轮改动定位器；先记录 24h / 72h / 7 天数据，再回答四个复盘问题并做 Codex 初检和 ChatGPT 判断，不得跳过数据直接设定下一条文案；当前正式默认主线按“API 生成真人 + 用户录制素材 + 少量 PPT + 云端剪辑”理解，结构跟着文案走，`API生成真人段` 次数由 block 路由决定，`云端剪辑 / cloud-only` 只能写成正式方向，不能写成 runtime 已稳定跑通。
+命中《视频工厂》后，新会话默认先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md`，再按 10 份执行包最小顺序补读 `GPT数据源/00`、`GPT数据源/01`、`GPT数据源/03`、`GPT数据源/08`、`GPT数据源/06`；当前正式事实以 `GPT数据源/` 当前 10 份执行包、`dist/latest_review_pack/summary.json`、`dist/latest_review_pack/review_manifest.md` 和 `codex_log/latest.md` 为准，`project_source/` 只作历史 / 辅助镜像；当前 `latest_review_pack` 指向 v3.1，`current_video_baseline = v3.1`，`future_iteration_base = v3.1`，`publish_status = gray_test_published`，`gray_test_status = active`，`current_phase = post_publish_gray_test`，`content_validation = gray_testing_not_final_passed`，`send_ready = false`；若任务命中完整成片 / 成品候选片 / 技术预览升级 / 样片回炉 / 字幕 / TTS / 卡片 / 放大 / 剪辑 / 视觉母版修正，必须先读 `codex_source/14_locked_reference_inheritance_rules.md` 和 `codex_source/locked_reference_registry.md`，读不到即 blocked；若任务命中 v3.1 / 段落提示卡 / 信息卡 / 骚萌卡 / visual_route_map，还必须先读 `codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md`，并先验证 `visual_route_map.json`；PR #7 B 是后续骚萌卡唯一执行参考，读不到必须 blocked，不得回退 PR #7 A；若任务命中截图 / 数据截图 / 灰度测试 / 发片 / 发布后 / 复盘 / 数据记录 / 24h / 72h / 7 天 / 播放量 / 私信 / 咨询，必须读取 `codex_log/current_gray_test_target.md`、`review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`、`review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md` 与当前 V001 记录目录；`7d_play_count = 6000` 是当前小样本基础测试流量门槛，指标体系不是运营数据大表而是下一轮改动定位器；用户可以直接给截图，Codex 按视频 / 时间窗 / 数据类型归档并提取字段，先记录 24h / 72h / 7 天数据，再回答四个复盘问题并做 Codex 初检和 ChatGPT 判断，不得跳过数据直接设定下一条文案；当前正式默认主线按“API 生成真人 + 用户录制素材 + 少量 PPT + 云端剪辑”理解，结构跟着文案走，`API生成真人段` 次数由 block 路由决定，`云端剪辑 / cloud-only` 只能写成正式方向，不能写成 runtime 已稳定跑通。

@@ -35,6 +35,36 @@
 - `72h 复检`：等待用户回填发布后 72h 数据。
 - `7 天复盘`：等待用户回填发布后 7 天数据，用于判断 6000 播放基础门槛。
 
+## 数据统计频率
+
+### 最低统计
+
+每条视频最低统计两次：
+
+1. 24h 初检
+2. 72h 复检
+
+### 标准统计
+
+建议每条视频统计三次：
+
+1. 24h 初检
+2. 72h 复检
+3. 7d 封账
+
+### 分工
+
+- 用户：提供截图
+- Codex：按视频 / 时间窗 / 数据类型归档截图，提取字段，更新记录
+- ChatGPT：根据四个复盘问题做最终判断
+
+### 截图归档原则
+
+- 不同视频分开。
+- 24h / 72h / 7d 分开。
+- 平台数据 / 评论 / 私信 / 咨询分开。
+- 截图不清楚就标记待人工确认，不硬猜。
+
 ## 基础测试流量门槛
 
 - `7d_play_count（7 天播放量）`
@@ -107,7 +137,11 @@
 
 ## 当前执行机制
 
-- 单条记录：`review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
+- 截图录入规则：`review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`
+- 当前视频记录目录：`review_loop/records/V001_v31_AI做PPT踩坑_gray_test/`
+- 当前单条主记录：`review_loop/records/V001_v31_AI做PPT踩坑_gray_test/V001_gray_test_record.md`
+- 兼容旧记录入口：`review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
+- 截图证据目录：`review_loop/screenshots/V001_v31_AI做PPT踩坑/`
 - 单条模板：`review_loop/02_video_record_template.md`
 - 灰度测试指标体系 V1：`review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
 - 结果看板模板：`review_loop/03_result_dashboard_template.md`
@@ -143,7 +177,7 @@
 ## 下一步
 
 1. 等待用户补充发布平台、发布时间、视频链接。
-2. 等待用户回填 24h / 72h / 7 天数据。
-3. 24h 数据回填后，Codex 按 `review_loop/04_diagnosis_template.md` 做初检。
-4. 72h 数据回填后，Codex 复检播放增长、留存、完播、收藏、涨粉和私信 / 咨询变化。
-5. 7 天数据回填后，按四个复盘问题收口；ChatGPT / 用户基于初检判断主要问题层和下一轮唯一改点，不提前写成规律成立。
+2. 等待用户提交 24h 截图；Codex 按视频 / 时间窗 / 数据类型归档并提取字段。
+3. 24h 截图录入后，Codex 按 `review_loop/04_diagnosis_template.md` 做初检。
+4. 72h 截图录入后，Codex 复检播放增长、留存、完播、收藏、涨粉和私信 / 咨询变化。
+5. 7 天截图录入后，按四个复盘问题收口；ChatGPT / 用户基于初检判断主要问题层和下一轮唯一改点，不提前写成规律成立。

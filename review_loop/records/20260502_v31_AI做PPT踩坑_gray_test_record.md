@@ -1,5 +1,7 @@
 # 20260502 v3.1 AI 做 PPT 踩坑灰度测试记录
 
+当前记录已迁移到 `review_loop/records/V001_v31_AI做PPT踩坑_gray_test/V001_gray_test_record.md`，后续以新目录为准。本文件保留为兼容入口和历史记录，不删除、不覆盖。
+
 ## 基础信息
 
 - 视频编号：`V001`
