@@ -1205,10 +1205,17 @@
         "locked_references": [
           "sassy_card_three_type_rule_locked_20260428"
         ],
-        "candidate_references": [
-          "sassy_card_pr7_a_candidate_20260428"
+        "candidate_references": [],
+        "failed_references_avoided": [],
+        "legacy_generation_candidate_references": [
+          {
+            "reference_id": "sassy_card_pr7_a_candidate_20260428",
+            "status_after_user_review": "historical_generation_candidate_superseded_by_pr7_b_20260501",
+            "not_for_future_execution": true,
+            "future_execution_reference": "sassy_card_pr7_b_visual_locked_20260501"
+          }
         ],
-        "failed_references_avoided": []
+        "post_review_execution_reference": "sassy_card_pr7_b_visual_locked_20260501"
       },
       {
         "index": 4,
@@ -1246,10 +1253,17 @@
         "locked_references": [
           "sassy_card_three_type_rule_locked_20260428"
         ],
-        "candidate_references": [
-          "sassy_card_pr7_a_candidate_20260428"
+        "candidate_references": [],
+        "failed_references_avoided": [],
+        "legacy_generation_candidate_references": [
+          {
+            "reference_id": "sassy_card_pr7_a_candidate_20260428",
+            "status_after_user_review": "historical_generation_candidate_superseded_by_pr7_b_20260501",
+            "not_for_future_execution": true,
+            "future_execution_reference": "sassy_card_pr7_b_visual_locked_20260501"
+          }
         ],
-        "failed_references_avoided": []
+        "post_review_execution_reference": "sassy_card_pr7_b_visual_locked_20260501"
       },
       {
         "index": 6,
@@ -1417,10 +1431,17 @@
         "locked_references": [
           "sassy_card_three_type_rule_locked_20260428"
         ],
-        "candidate_references": [
-          "sassy_card_pr7_a_candidate_20260428"
+        "candidate_references": [],
+        "failed_references_avoided": [],
+        "legacy_generation_candidate_references": [
+          {
+            "reference_id": "sassy_card_pr7_a_candidate_20260428",
+            "status_after_user_review": "historical_generation_candidate_superseded_by_pr7_b_20260501",
+            "not_for_future_execution": true,
+            "future_execution_reference": "sassy_card_pr7_b_visual_locked_20260501"
+          }
         ],
-        "failed_references_avoided": []
+        "post_review_execution_reference": "sassy_card_pr7_b_visual_locked_20260501"
       },
       {
         "index": 15,
@@ -1522,7 +1543,7 @@
     "generated_screenshot": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3/AI做PPT踩坑_成品候选_v3_contact_sheet.jpg",
     "reference_basis": [
       "card_visual_quality_clean_ui_texture_candidate_20260430 textual reference",
-      "sassy_card_pr7_a_candidate_20260428 candidate direction",
+      "legacy_generation_sassy_card_pr7_a_candidate_20260428_superseded_by_pr7_b",
       "visual_master_voxel_element_doll_candidate_20260430 candidate direction"
     ],
     "checks": [
@@ -1540,7 +1561,11 @@
       "下一轮若要冲 send_ready，应人工复核关键录屏文字可读性和声音听感",
       "如果用户确认此方向，再反向沉淀为视觉母版候选或 locked reference"
     ],
-    "reasoning": "联系表显示卡片质感已避开 PR #15 v2 失败布局和底部黑按钮结构，整体符合候选视觉方向；仍需用户/ChatGPT 复审后才能锁定。"
+    "reasoning": "联系表显示卡片质感已避开 PR #15 v2 失败布局和底部黑按钮结构，整体符合候选视觉方向；仍需用户/ChatGPT 复审后才能锁定。",
+    "post_review_reference_override": {
+      "sassy_card_future_execution_reference": "sassy_card_pr7_b_visual_locked_20260501",
+      "legacy_pr7_a_status": "historical_generation_candidate_only"
+    }
   },
   "summary": {
     "round": "20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3",
@@ -1565,7 +1590,6 @@
     ],
     "candidate_references_used": [
       "card_visual_quality_clean_ui_texture_candidate_20260430",
-      "sassy_card_pr7_a_candidate_20260428",
       "visual_master_voxel_element_doll_candidate_20260430",
       "voice_sample2_cute_guide_voice_candidate_20260426"
     ],
@@ -1611,6 +1635,18 @@
       "locked_reference_inheritance_report": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3/locked_reference_inheritance_report.md",
       "opening_preview": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3/shot00_opening_hello_wave_preview.mp4",
       "video_metadata_probe_report": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3/video_metadata_probe_report.json"
-    }
+    },
+    "legacy_generation_candidate_references_used": [
+      {
+        "reference_id": "sassy_card_pr7_a_candidate_20260428",
+        "status_after_user_review": "historical_generation_candidate_superseded_by_pr7_b_20260501",
+        "not_for_future_execution": true,
+        "future_execution_reference": "sassy_card_pr7_b_visual_locked_20260501"
+      }
+    ],
+    "sassy_card_execution_reference_next_id": "sassy_card_pr7_b_visual_locked_20260501",
+    "technical_line_locked": false,
+    "technical_baseline_locked": false,
+    "technical_upgrade_next": true
   }
 }

@@ -22,6 +22,7 @@
 
 - `v3_technical_milestone`：`reached_for_current_stage（当前阶段技术里程碑达成）`
 - `technical_validation`：`reached_for_current_stage（当前阶段达成，不等于技术线最终锁定）`
+- `technical_line_locked`：`false`
 - `technical_baseline_locked`：`false`
 - `technical_upgrade_next`：`true`
 - `metadata_validation`：`passed`
@@ -68,14 +69,16 @@
 ## 当前同步状态
 
 - 状态分类：`formal_sync_target_for_user_readable_map`
-- 当前工作分支：`codex/v3-milestone-reference-locks-v31-routing-20260501`
+- 当前工作分支：`codex/repo-cleanup-old-context-20260502`
 - 当前主读取分支：`codex/user-readable-map`
-- 本轮同步要求：commit、push 当前工作分支，并合并 / 快进到 `codex/user-readable-map`。
+- 本轮同步要求：commit、push 当前清理分支，创建 PR，并在验证通过后合并 / 快进到 `codex/user-readable-map`。
+- 本轮清理边界：不生成 v3.1，不生成新视频，不生成新音频，不重新装配全片。
+- 本轮旧口径处理：PR #22 原始待复审口径、PR #23 原始 PR #7 A 优先判断、可爱卡片旧 route suggestion 已归档降权；后续默认只按主读取分支当前口径执行。
 
 ## 最后更新时间
 
-- `2026-05-01 CST`
+- `2026-05-02 CST`
 
 ## 对应 dated log 路径
 
-- `codex_log/20260501_v3技术里程碑与v31视觉参考锁定.md`
+- `codex_log/20260502_仓库清理与旧口径归档.md`

@@ -62,6 +62,7 @@
 当前已确认：
 - `latest_review_pack` 指向 `20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3`
 - `v3_technical_milestone = reached_for_current_stage（当前阶段技术里程碑达成）`
+- `technical_line_locked = false（技术线未锁定）`
 - `technical_baseline_locked = false（技术基线未锁定）`
 - `technical_upgrade_next = true（下一步仍需技术升级）`
 - `content_validation = not_passed_user_review_gpt_copywriting_side（用户复审未过线，主要在 GPT 文案侧）`
@@ -87,9 +88,20 @@
 - 不允许只在工作分支改口径、不同步默认主读取分支
 - 不允许把历史样片写成当前最新样片
 - 不允许把 `technical_validation` 写成 `content_validation`
-- 不允许用户未最终确认前写 `send_ready = yes`
+- 不允许用户未最终确认前把当前片子写成可发送状态
 - 不允许旧 `round` 状态继续覆盖最新 `latest_review_pack`
 - 只要改动会影响新会话默认接手判断，就必须同步到 `codex/user-readable-map`
+
+### 2.2B 《视频工厂》旧口径降权规则
+
+当前《视频工厂》接手时，必须先应用以下覆盖规则：
+
+- `round34` 只能作为历史中段剪辑 / 提示卡参考，不是当前最新样片状态。
+- PR #22 仍是 v3 成品候选草稿 PR；主读取分支中的 v3 状态以用户复审后口径为准。
+- PR #23 的“PR #7 A 优先”是旧只读判断，已被用户 2026-05-01 最新确认覆盖。
+- 后续骚萌卡执行参考是 `PR7_B_骚萌反应页.png`；读不到 PR #7 B 必须 blocked，不得回退 PR #7 A。
+- `归档_archive/旧口径_old_context_*/` 只保存旧判断证据，不作为默认事实入口。
+- 下一轮 v3.1 必须先输出并验证 `visual_route_map.json（视觉路由表）`，不得让段落提示卡、信息卡、骚萌卡共用同一套外壳。
 
 若任务继续命中《视频工厂》的内容生产，再补读：
 8. `GPT数据源/04_选题与文案规则.md`
