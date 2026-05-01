@@ -78,7 +78,11 @@
 - `current_phase = post_publish_gray_test（发布后灰度测试阶段）`
 - 上述 `content_validation` 是当前发布后阶段口径；不得把它写成 `passed`
 - 发布后复盘默认走 `review_loop/`，不另起独立灰度系统
-- 当前下一步不是先写新文案，而是先记录 24h / 72h 数据，完成 Codex 初检，再由 ChatGPT / 用户判断下一轮只改一个变量
+- 当前灰度测试目标看 `codex_log/current_gray_test_target.md`
+- 当前灰度测试指标体系 V1 看 `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
+- 当前 7 天播放量 6000 是小样本阶段基础测试流量门槛，不是最终商业目标
+- 当前指标体系不是运营数据大表，而是下一轮改动定位器
+- 当前下一步不是先写新文案，而是先记录 24h / 72h / 7 天数据，回答四个复盘问题，再由 ChatGPT / 用户判断下一轮只改一个变量
 
 ### 2.2A 视频修改必须同步口径规则
 
@@ -131,6 +135,14 @@
 16. `review_loop/04_diagnosis_template.md`
 17. `review_loop/05_dual_review_handoff_template.md`
 18. `review_loop/06_next_round_task_template.md`
+19. `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
+20. `review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
+
+后续复盘默认先回答四个问题：
+1. 这条有没有达到 6000 播放基础门槛？
+2. 当前最短板在哪一层：流量 / 内容 / 账号 / 转化？
+3. 下一轮只改哪一个变量？
+4. 为什么先改它，改完看哪个指标？
 
 当前灰度测试硬边界：
 - 发片不等于内容过线
@@ -138,6 +150,7 @@
 - `send_ready` 仍保持 `false`
 - `visual_master_locked` 仍保持 `false`
 - PR #7 B 仍是后续骚萌卡唯一执行参考，PR #7 A 仍只作历史 / candidate 对照
+- 下一轮文案前必须先看 v3.1 灰度测试记录和四个复盘问题
 
 ### 2.3 `AI 直播前台验证项目` 命中规则
 若任务命中以下任一关键词，默认按 `AI 直播前台验证项目` 接手：

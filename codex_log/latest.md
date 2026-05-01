@@ -1,5 +1,36 @@
 # Latest
 
+## 20260502｜v3.1 灰度测试指标体系 V1 落仓库
+
+- `已确认` 本轮只做 v3.1 发布后灰度测试指标体系 V1 落仓库，并接入既有 `review_loop/`；未写新文案、未生成视频、未生成音频、未重新装配全片、未修改 v3.1 视频产物。
+- `已确认` 当前工作分支：`codex/v31-gray-test-metrics-v1-20260502`。
+- `已确认` 当前状态仍为：`publish_status = gray_test_published`、`gray_test_status = active`、`current_phase = post_publish_gray_test`、`content_validation = gray_testing_not_final_passed`。
+- `已确认` 新增指标体系文件：`review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`。
+- `已确认` 当前灰度测试目标文件：`codex_log/current_gray_test_target.md` 已更新为 24h / 72h / 7 天观察。
+- `已确认` 当前 v3.1 单条记录：`review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md` 已补入 7 天播放目标、三类字段和四个复盘问题。
+- `已确认` 7 天播放量 6000 是当前小样本阶段基础测试流量门槛，不是最终商业目标。
+- `已确认` 指标体系不是运营数据大表，而是下一轮改动定位器。
+- `已确认` 四层指标已写入：流量层、内容层、账号增长层、私域 / 客户转化层。
+- `已确认` 字段已分为：核心必填字段、辅助观察字段、商业线索出现时才填字段。
+- `已确认` 后续复盘默认收成四个问题：是否达到 6000 播放基础门槛、最短板在哪一层、下一轮只改哪一个变量、为什么先改它并看哪个指标。
+- `已确认` Codex 在发布后复盘中只做记录、初检、归档和下一轮任务草稿；最终判断仍交给 ChatGPT / 用户。
+- `已确认` PR #7 B 仍是后续骚萌卡唯一执行参考；PR #7 A 仍只作历史 / candidate 对照。
+- `待验证` 发布平台、发布时间、视频链接、24h / 72h / 7 天数据均待用户回填。
+- `下一个目标`：等待用户回填 24h / 72h / 7 天数据；回填后 Codex 做初检，ChatGPT 根据四个复盘问题判断下一轮只改一个变量。
+
+## 新会话接手建议先读
+
+- `AGENTS.md`
+- `codex_source/00_codex_readme.md`
+- `codex_source/01_execution_rules.md`
+- `codex_log/latest.md`
+- `codex_log/current_publish_target.md`
+- `codex_log/current_gray_test_target.md`
+- `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
+- `review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
+- `review_loop/00_review_loop_readme.md`
+- `GPT数据源/08_当前正式事实.md`
+
 ## 20260502｜v3.1 发片灰度测试与复盘机制接入
 
 - `已确认` 本轮只做 v3.1 发片状态回写、灰度测试目标设定、既有 `review_loop/` 发布后复盘机制接入和仓库口径同步；不写新文案、不生成视频、不生成音频、不重新装配全片。
