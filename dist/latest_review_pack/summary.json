@@ -97,14 +97,41 @@
   "technical_line_locked": false,
   "technical_baseline_locked": false,
   "technical_upgrade_next": true,
-  "content_validation_note": "v3.1 has been published for gray testing, but this is not content-passed or send-ready; 24h/72h post-publish review and user/ChatGPT judgment are still required.",
+  "content_validation_note": "v3.1 has been published for gray testing, but this is not content-passed or send-ready; 24h/72h/7d post-publish review and user/ChatGPT judgment are still required.",
   "gray_test_target": "codex_log/current_gray_test_target.md",
+  "current_gray_test_target": "codex_log/current_gray_test_target.md",
+  "gray_test_metrics_v1": "review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md",
   "post_publish_record": "review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md",
+  "current_video_record": "review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md",
   "review_loop_connected": true,
   "review_loop_policy": "use_existing_review_loop_templates_do_not_create_parallel_gray_system",
+  "gray_test_metrics_positioning": "not_an_operations_dashboard_next_iteration_change_locator",
+  "gray_test_base_flow_threshold": {
+    "metric": "7d_play_count",
+    "target": 6000,
+    "meaning": "small_sample_basic_test_traffic_threshold_not_final_business_goal"
+  },
+  "gray_test_metric_layers": [
+    "traffic",
+    "content",
+    "account_growth",
+    "private_domain_customer_conversion"
+  ],
+  "gray_test_field_groups": [
+    "core_required_fields",
+    "auxiliary_observation_fields",
+    "commercial_lead_only_fields"
+  ],
+  "gray_test_review_questions": [
+    "did_this_video_reach_the_6000_play_basic_threshold",
+    "which_layer_is_the_shortest_board_traffic_content_account_conversion",
+    "which_single_variable_should_next_round_change",
+    "why_change_it_first_and_which_metric_to_watch_afterward"
+  ],
   "gray_test_observation_windows": [
     "24h_initial_check",
-    "72h_recheck"
+    "72h_recheck",
+    "7d_review"
   ],
   "sassy_card_execution_reference_id": "sassy_card_pr7_b_visual_locked_20260501",
   "sassy_card_execution_reference_policy": "only_future_sassy_card_execution_reference",

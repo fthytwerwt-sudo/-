@@ -46,7 +46,12 @@
 
 - 24h 数据状态：
 - 72h 数据状态：
+- 7 天数据状态：
 - 播放量：
+- 24h 播放量：
+- 72h 播放量：
+- 7 天播放量：
+- 是否达到 6000 播放基础门槛：
 - 完播率：
 - 收藏率：
 - 前 3 秒留存（可选）：
@@ -95,3 +100,65 @@
 - 如果已经能看出方向，但仍不够稳，优先用 `部分成立`
 - 24h / 72h 数据未回填前，不得写成内容通过或规律成立
 - 异常样本可以记录、可以参考，但不得作为规律沉淀主证据
+
+## v3.1 灰度测试 V1 推荐填写方式
+
+详细指标体系见：`review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`。
+
+这套字段不是运营数据大表，而是下一轮改动定位器。
+
+### 核心必填字段
+
+后续每条视频发布后必须尽量填写；缺数据时写 `待回填`，不要补脑。
+
+- `24h_play_count（24 小时播放量）`
+- `72h_play_count（72 小时播放量）`
+- `7d_play_count（7 天播放量）`
+- `3s_retention（3 秒留存）`
+- `completion_rate（完播率）`
+- `average_watch_time（平均观看时长）`
+- `favorite_count（收藏数）`
+- `favorite_rate（收藏率）`
+- `profile_visit_count（主页访问数）`
+- `new_follow_count（新增关注数）`
+- `dm_count（私信数）`
+- `effective_dm_count（有效私信数）`
+- `effective_consult_count（有效咨询数）`
+
+### 辅助观察字段
+
+有数据就填，没有不要硬补。
+
+- `5s_retention（5 秒留存）`
+- `main_drop_off_point（中段主要流失点）`
+- `like_count（点赞数）`
+- `like_rate（点赞率）`
+- `comment_count（评论数）`
+- `comment_rate（评论率）`
+- `share_count（转发数）`
+- `share_rate（转发率）`
+- `profile_visit_rate（主页访问率）`
+- `play_to_follow_rate（播放转粉率）`
+- `profile_to_follow_rate（主页访问转粉率）`
+- `real_question_comment_count（评论中的真实问题数）`
+- `next_topic_clues（后续选题线索）`
+
+### 商业线索出现时才填
+
+有线索才填，没有写 `无 / 待观察`。
+
+- `clear_need_customer_count（有明确需求的客户数）`
+- `followable_customer_count（可跟进客户数）`
+- `appointment_count（预约数）`
+- `deal_count（成交数）`
+- `customer_problem_types（客户问题类型）`
+- `budget_or_payment_intent（预算 / 付费意愿）`
+- `valid_lead_notes（有效线索摘录）`
+- `invalid_lead_notes（无效线索摘录）`
+
+### 四个复盘问题
+
+1. 这条有没有达到 6000 播放基础门槛？
+2. 当前最短板在哪一层：流量 / 内容 / 账号 / 转化？
+3. 下一轮只改哪一个变量？
+4. 为什么先改它，改完看哪个指标？

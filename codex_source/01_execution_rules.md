@@ -28,7 +28,7 @@
 7. 若任务命中“当前待发对象 / 当前最新样片 / 发布线复核 / 当前唯一 blocker / 只改这一条内容”，在 `codex_log/latest.md` 之后优先读：
    - `codex_log/current_publish_target.md`
    - 若需要快速复核当前样片的 Git 可追踪轻量证据，再读 `codex_log/current_publish_target_light_evidence.md`
-8. 若任务命中“灰度测试 / 发片 / 发布后 / 复盘 / 数据记录 / 24h / 72h / 播放量 / 完播率 / 留存 / 下一轮只改一个变量”，在 `current_publish_target` 之后优先读：
+8. 若任务命中“灰度测试 / 发片 / 发布后 / 复盘 / 数据记录 / 24h / 72h / 7 天 / 播放量 / 完播率 / 留存 / 私信 / 咨询 / 下一轮只改一个变量”，在 `current_publish_target` 之后优先读：
    - `codex_log/current_gray_test_target.md`
    - `review_loop/00_review_loop_readme.md`
    - `review_loop/02_video_record_template.md`
@@ -36,6 +36,8 @@
    - `review_loop/04_diagnosis_template.md`
    - `review_loop/05_dual_review_handoff_template.md`
    - `review_loop/06_next_round_task_template.md`
+   - `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
+   - `review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
    - `project_source/14_content_review_and_loop_governance_rules.md`
 9. `codex_source/01_execution_rules.md`
 10. `codex_source/02_current_execution_context.md`
@@ -222,14 +224,23 @@
 4. 诊断初检走 `review_loop/04_diagnosis_template.md`。
 5. Codex 初检 / ChatGPT 判断交接走 `review_loop/05_dual_review_handoff_template.md`。
 6. 下一轮只改一个变量走 `review_loop/06_next_round_task_template.md`。
-7. 24h / 72h 数据窗口、一次只改一个变量、小样本状态升级 / 降级、异常样本处理、规律沉淀门槛沿用 `project_source/14_content_review_and_loop_governance_rules.md`。
+7. 灰度测试指标体系 V1 走 `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`。
+8. 24h / 72h 数据窗口、一次只改一个变量、小样本状态升级 / 降级、异常样本处理、规律沉淀门槛沿用 `project_source/14_content_review_and_loop_governance_rules.md`。
+9. 7 天播放量 6000 是当前小样本阶段基础测试流量门槛，不是最终商业目标。
+10. 指标体系不是运营数据大表，而是下一轮改动定位器。
+11. 后续复盘默认收成四个问题：
+   - 这条有没有达到 6000 播放基础门槛？
+   - 当前最短板在哪一层：流量 / 内容 / 账号 / 转化？
+   - 下一轮只改哪一个变量？
+   - 为什么先改它，改完看哪个指标？
 
 Codex 职责边界：
 
 - Codex 可以记录、初检、归档、标缺失、生成下轮草稿。
 - Codex 不得把灰度测试写成内容通过。
 - Codex 不得把已发片写成最终成功。
-- Codex 不得跳过 24h / 72h 数据直接设定下一条文案。
+- Codex 不得跳过 24h / 72h / 7 天数据直接设定下一条文案。
+- Codex 不得把所有字段都升级成硬必填；字段必须分为核心必填、辅助观察、商业线索出现时才填。
 - 最终问题层、是否继续、下一轮唯一改点由 ChatGPT / 用户拍板。
 
 ## 8B. 仓库清理与旧口径归档规则

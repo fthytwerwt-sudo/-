@@ -38,6 +38,9 @@
 - `publish_status`：`gray_test_published`
 - `gray_test_status`：`active`
 - `post_publish_review_required`：`true`
+- `gray_test_metrics_v1`：`review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
+- `current_gray_test_target`：`codex_log/current_gray_test_target.md`
+- `current_video_record`：`review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
 - `technical_validation`：`passed`
 - `technical_line_locked`：`false`
 - `technical_baseline_locked`：`false`
@@ -65,9 +68,18 @@
 - 当前目标文件：`codex_log/current_gray_test_target.md`
 - 当前单条记录：`review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
 - 当前复盘机制：沿用既有 `review_loop/`，不新建独立灰度系统。
-- 当前目标：用 v3.1 这条已发布视频跑完 24h / 72h 灰度观察，判断它的主要问题层，并产出下一轮“只改一个变量”的执行方向。
+- 当前指标体系 V1：`review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
+- 当前目标：用 v3.1 这条已发布视频跑完 24h / 72h / 7 天灰度观察，判断它的主要问题层，并产出下一轮“只改一个变量”的执行方向。
+- 7 天播放量基础测试流量门槛：`6000`
+- 指标体系定位：不是运营数据大表，而是下一轮改动定位器。
 - 当前 24h 数据状态：`待用户回填`
 - 当前 72h 数据状态：`待用户回填`
+- 当前 7 天数据状态：`待用户回填`
+- 当前四个复盘问题：
+  1. 这条有没有达到 6000 播放基础门槛？
+  2. 当前最短板在哪一层：流量 / 内容 / 账号 / 转化？
+  3. 下一轮只改哪一个变量？
+  4. 为什么先改它，改完看哪个指标？
 - 当前禁止：不得写成内容通过、不得写成最终成功、不得跳过数据直接设定新文案。
 
 ## reference 口径
@@ -97,11 +109,12 @@
 9. `codex_log/current_gray_test_target.md`
 10. `review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
 11. `review_loop/00_review_loop_readme.md`
+12. `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
 
 ## 当前同步状态
 
 - 状态分类：`formal_sync_target_for_user_readable_map`
-- 当前工作分支：`codex/v31-gray-test-review-loop-20260502`
+- 当前工作分支：`codex/v31-gray-test-metrics-v1-20260502`
 - 当前主读取分支：`codex/user-readable-map`
 - 本轮同步要求：commit、push 当前分支，创建 PR，并在验证通过后合并到 `codex/user-readable-map`。
 - 本轮边界：不重新生成视频、不重新生成音频、不重新生成图片、不重新装配全片、不写新文案。
@@ -112,4 +125,4 @@
 
 ## 对应 dated log 路径
 
-- `codex_log/20260502_v31发片灰度测试与复盘机制接入.md`
+- `codex_log/20260502_v31灰度测试指标体系V1落仓库.md`

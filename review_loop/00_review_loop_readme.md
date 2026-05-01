@@ -76,7 +76,22 @@
 4. 诊断初检：`review_loop/04_diagnosis_template.md`
 5. 双层交接：`review_loop/05_dual_review_handoff_template.md`
 6. 下一轮草稿：`review_loop/06_next_round_task_template.md`
-7. 当前灰度目标：`codex_log/current_gray_test_target.md`
+7. 灰度测试指标体系 V1：`review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
+8. 当前灰度目标：`codex_log/current_gray_test_target.md`
+
+当前指标体系定位：
+
+- 这套指标体系不是运营数据大表。
+- 它是下一轮改动定位器。
+- `7d_play_count（7 天播放量）= 6000` 是当前小样本阶段基础测试流量门槛，不是最终商业目标。
+- 播放量做母数，比例指标定位问题层，私信 / 咨询 / 客户质量用于判断商业信号。
+
+后续复盘默认先回答 4 个问题：
+
+1. 这条有没有达到 6000 播放基础门槛？
+2. 当前最短板在哪一层：流量 / 内容 / 账号 / 转化？
+3. 下一轮只改哪一个变量？
+4. 为什么先改它，改完看哪个指标？
 
 本阶段治理规则吸收 `project_source/14_content_review_and_loop_governance_rules.md`：
 
@@ -93,6 +108,7 @@
 - 不得把 `content_validation` 写成 `passed`
 - 不得跳过数据直接设定下一条文案
 - 不得把 PR #7 A 写成后续执行参考
+- 不得把所有字段都升级成硬必填；字段必须分为核心必填、辅助观察、商业线索出现时才填
 
 ## 5. 当前归档口径
 
