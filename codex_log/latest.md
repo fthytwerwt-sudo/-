@@ -1,5 +1,19 @@
 # Latest
 
+## 20260503｜vNext 阿里云最小云端总装验证
+
+- `已确认` PR #36「验证阿里云剪辑复接 after audit」已合并到 `codex/user-readable-map`，合并提交：`dddad679b8cc5fd9503a6a3be05ff612b6207c7e`。
+- `已确认` 本轮从最新 `codex/user-readable-map` 创建分支：`codex/vnext-min-cloud-assembly-validation-20260503`。
+- `已确认` 本轮已读取 PR #36 复接验证报告、v3.1 视觉路由规则、`visual_route_map.json`、v3.1 timeline、HyperFrames 卡片边界报告、阿里云 assembly 代码和本地配置。
+- `已确认` 本轮使用三类既有素材构造 vNext 最小云端总装验证样片：用户录制素材段 + 结果差卡 + Prompt 尾卡 + 既有 v3.1 音轨。
+- `已确认` 阿里云 OSS + ICE / 云剪真实调用成功：OSS 上传、ICE 工程更新、云剪任务提交、轮询、MP4 导出均完成。
+- `已确认` 导出样片本地下载后通过 `ffprobe`：24 秒，1080x1920，H.264，AAC。
+- `候选判断`：阿里云剪辑可以作为 vNext 云端总装候选继续评估；本轮仍只是 `technical_validation`，不代表正式链路已稳定。
+- `已确认` 本轮未修改 v3.1 正片，未修改 `dist/latest_review_pack/` 既有产物，未修改 `current_publish_target`。
+- `已确认` 本轮未写新文案，未处理 HyperFrames 中段录屏，未将本地样片、签名链接、原始运行结果或敏感凭据提交进 Git。
+- `验证报告`：`验证_reports/20260503_vnext_阿里云最小云端总装验证_vnext_min_aliyun_cloud_assembly_validation/vNext阿里云最小云端总装验证报告_vnext_min_aliyun_cloud_assembly_validation_report.md`
+- `下一个目标`：由 ChatGPT 复审本轮 PR；若通过，再决定是否将阿里云剪辑升级为 vNext 云端总装候选路线。
+
 ## 20260503｜阿里云剪辑复接验证 after audit
 
 - `已确认` PR #34「接入 HyperFrames 三类卡片动效边界并审计阿里云剪辑」已合并到 `codex/user-readable-map`，合并提交：`edbe61e512c972d75c786a53f82c9e3db53ecfb2`。

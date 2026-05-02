@@ -1,0 +1,90 @@
+{
+  "generated_at": "2026-05-03 03:30:03 CST",
+  "workspace": "/Users/fan/Documents/视频工厂",
+  "branch": "codex/vnext-min-cloud-assembly-validation-20260503",
+  "status": "已确认",
+  "validation_type": "technical_validation_only",
+  "pr36": {
+    "merged": true,
+    "merge_commit": "dddad679b8cc5fd9503a6a3be05ff612b6207c7e"
+  },
+  "base": {
+    "branch": "codex/user-readable-map",
+    "commit": "dddad679b8cc5fd9503a6a3be05ff612b6207c7e"
+  },
+  "inputs": {
+    "user_recording_segment": {
+      "path": "/Users/fan/Documents/视频工厂/dist/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/clips/04_shot02_negative_input.mp4",
+      "timeline_segment_id": "shot02_negative_input",
+      "original_source_path": "/Users/fan/Documents/视频工厂/素材录制/反面/录制于 2026-04-16 22.41.32.mp4"
+    },
+    "card_segments": [
+      {
+        "path": "/Users/fan/Documents/视频工厂/dist/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/cards/shot15_result_diff_card.png",
+        "timeline_segment_id": "shot15_result_diff_card",
+        "route": "cute_info_card_route"
+      },
+      {
+        "path": "/Users/fan/Documents/视频工厂/dist/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/cards/shot16_low_pressure_ending.png",
+        "timeline_segment_id": "shot16_low_pressure_ending",
+        "route": "cute_info_card_route"
+      }
+    ],
+    "audio_path": "/Users/fan/Documents/视频工厂/dist/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/tts/voiceover_v31_custom_voice_ac19.wav",
+    "subtitle_input_path": "/Users/fan/Documents/视频工厂/dist/formal_api_demo/captions.srt"
+  },
+  "timeline": {
+    "duration_seconds": 24.0,
+    "segments": [
+      "0-8s user_recording_segment",
+      "8-16s result_diff_card",
+      "16-24s prompt_tail_card"
+    ]
+  },
+  "config": {
+    "oss_config_present": true,
+    "ice_ims_config_present": true,
+    "missing_required_fields_count": 0,
+    "credentials_written_to_git": false
+  },
+  "execution": {
+    "real_aliyun_api_called": true,
+    "oss_uploaded": true,
+    "uploaded_assets_count": 6,
+    "ice_project_updated": true,
+    "ice_job_submitted": true,
+    "ice_job_polled": true,
+    "cloud_mp4_exported": true,
+    "request_chain": [
+      "ListEditingProjects",
+      "UpdateEditingProject",
+      "SubmitMediaProducingJob",
+      "GetMediaProducingJob"
+    ]
+  },
+  "output": {
+    "oss_output_path": "oss://zvip1-video-beijing/video-factory/final/20260502T192857Z/formal_api_demo.mp4",
+    "local_validation_mp4_path": "/Users/fan/Documents/视频工厂/dist/验证样片_validation_samples/20260503_vnext_阿里云最小云端总装验证_vnext_min_aliyun_cloud_assembly_validation/vnext_min_cloud_assembly_validation.mp4",
+    "signed_url_committed": false
+  },
+  "ffprobe": {
+    "status": "passed",
+    "duration_seconds": 24.0,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "width": 1080,
+    "height": 1920,
+    "size_bytes": 952097
+  },
+  "vnext_candidate": {
+    "status": "可以作为候选",
+    "not_formal_stable_route": true,
+    "remaining_checks": [
+      "full_vnext_timeline_compatibility",
+      "multi_recording_and_card_motion_mix",
+      "hyperframes_card_motion_asset_format",
+      "private_oss_distribution_policy",
+      "cloud_project_isolation_decision"
+    ]
+  }
+}
