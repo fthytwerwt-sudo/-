@@ -59,6 +59,15 @@
 - 如果该索引中没有 `path_exists = true（路径存在）` 的记录，只能说“路径待本地复核”，不能直接把 `summary.json（状态摘要）` / `review_manifest.md（审片入口）` 中的路径当成真实可打开路径。
 - `summary.json（状态摘要）` / `review_manifest.md（审片入口）` 中的路径只能作为线索，必须经 Codex 本地复核后才能输出给用户。
 
+单工作区硬规则 `single_workspace_rule`：
+- 《视频工厂》唯一正式工作区是 `/Users/fan/Documents/视频工厂`。
+- Codex 后续不得默认创建 `/Users/fan/Documents/视频工厂_*`、`/Users/fan/Documents/视频工厂-*` 或 `/Users/fan/Documents/视频工厂-worktrees` 作为执行工作区。
+- 新分支只能在 `/Users/fan/Documents/视频工厂` 内创建或切换；不得默认 `git worktree add` 到外部路径。
+- 所有最终产物、复审包、截图归档、报告、路径索引、执行日志、清理记录都必须落在唯一正式工作区内部。
+- `/Users/fan/Desktop`、`/Users/fan/Downloads`、`/private/tmp` 和外部 `/Users/fan/Documents/视频工厂*` 目录只能作为历史来源读取，不得作为最终交付路径。
+- `codex_log/current_local_artifact_paths.md` 的 `canonical_local_path` 只能指向 `/Users/fan/Documents/视频工厂` 内部；旧外部路径最多保留为 `historical_source_path` 或 `fallback_path`。
+- 后续清理 / 归档 / 迁移任务也必须从唯一正式工作区发起和记录。
+
 当前 `latest_review_pack` 已确认指向 `20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix`；`current_video_baseline = v3.1`，后续升级 / 修改 / 技术优化 / GPT 文案侧回炉默认基于 v3.1；v3 只保留为历史候选 / 对照，不再作为后续默认修改基础。v3.1 技术验证已通过，但 `technical_line_locked = false（技术线未锁定）`，下一步仍需技术升级；v3.1 已发片并进入 `post_publish_gray_test（发布后灰度测试阶段）`，`publish_status = gray_test_published`，`gray_test_status = active`，`post_publish_review_required = true`；当前发布后内容状态写为 `content_validation = gray_testing_not_final_passed（灰度测试中，不等于内容最终通过）`，`send_ready = false`，`visual_master_locked = false`；当前灰度测试指标体系 V1 为 `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`，7 天播放量 6000 是小样本阶段基础测试流量门槛。
 
 若任务命中“完整成片 / 成品候选片 / 技术预览升级成候选片 / 样片回炉 / 开头重做 / 中段剪辑 / 字幕修正 / TTS 修正 / 功能卡修正 / 结果差卡修正 / 骚萌卡修正 / 录屏放大修正 / 视觉母版修正”，则在 `codex_log/latest.md` 之后必须先补读：

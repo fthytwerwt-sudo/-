@@ -1,0 +1,203 @@
+{
+  "generated_at": "2026-05-03 00:32:44 CST",
+  "quarantine_root": "/Users/fan/Documents/视频工厂/本地隔离区_local_quarantine/外部散目录待确认_external_dirs_pending_delete_20260502",
+  "results": [
+    {
+      "path": "/Users/fan/.config/superpowers/worktrees/视频工厂/codex-v001-24h-screenshot-intake-20260502",
+      "action": "git_worktree_remove",
+      "code": 0,
+      "stdout": "",
+      "stderr": "",
+      "final_exists": false
+    },
+    {
+      "path": "/Users/fan/.config/superpowers/worktrees/视频工厂/material-faithful-check-20260429",
+      "action": "git_worktree_remove",
+      "code": 0,
+      "stdout": "",
+      "stderr": "",
+      "final_exists": false
+    },
+    {
+      "path": "/Users/fan/.config/superpowers/worktrees/视频工厂/v31-gray-test-metrics-v1-20260502",
+      "action": "git_worktree_remove",
+      "code": 0,
+      "stdout": "",
+      "stderr": "",
+      "final_exists": false
+    },
+    {
+      "path": "/Users/fan/.config/superpowers/worktrees/视频工厂/v31-gray-test-review-loop-20260502",
+      "action": "git_worktree_remove",
+      "code": 0,
+      "stdout": "",
+      "stderr": "",
+      "final_exists": false
+    },
+    {
+      "path": "/Users/fan/.config/superpowers/worktrees/视频工厂/v31-screenshot-data-buckets-20260502",
+      "action": "git_worktree_remove",
+      "code": 0,
+      "stdout": "",
+      "stderr": "",
+      "final_exists": false
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂-worktrees/copy-sample-rhythm-extract-20260429",
+      "action": "git_worktree_remove",
+      "code": 0,
+      "stdout": "",
+      "stderr": "",
+      "final_exists": false
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂/临时产物_staging/worktrees/ai_ppt_pitfall_preview_v1_20260429",
+      "action": "git_worktree_remove",
+      "code": 0,
+      "stdout": "",
+      "stderr": "",
+      "final_exists": false
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂/临时产物_staging/worktrees/gpt_project_source_path_rule_20260428",
+      "action": "git_worktree_remove",
+      "code": 0,
+      "stdout": "",
+      "stderr": "",
+      "final_exists": false
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂_clean_user_readable_map_20260430",
+      "action": "git_worktree_remove",
+      "code": 0,
+      "stdout": "",
+      "stderr": "",
+      "final_exists": false
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂_locked_reference_inheritance_20260430",
+      "action": "git_worktree_remove",
+      "code": 0,
+      "stdout": "",
+      "stderr": "",
+      "final_exists": false
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂_repo_cleanup_old_context_20260502",
+      "action": "git_worktree_remove",
+      "code": 0,
+      "stdout": "",
+      "stderr": "",
+      "final_exists": false
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂_sassy-card-structure-budget-20260428",
+      "action": "git_worktree_remove",
+      "code": 0,
+      "stdout": "",
+      "stderr": "",
+      "final_exists": false
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂_v2_candidate_worktree",
+      "action": "git_worktree_remove",
+      "code": 0,
+      "stdout": "",
+      "stderr": "",
+      "final_exists": false
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂_v31_current_baseline_sync_20260502",
+      "action": "git_worktree_remove",
+      "code": 0,
+      "stdout": "",
+      "stderr": "",
+      "final_exists": false
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂_v31_visual_route_fix",
+      "action": "git_worktree_remove",
+      "code": 0,
+      "stdout": "",
+      "stderr": "",
+      "final_exists": false
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂_v3_milestone_reference_locks_20260501",
+      "action": "git_worktree_remove",
+      "code": 0,
+      "stdout": "",
+      "stderr": "",
+      "final_exists": false
+    },
+    {
+      "path": "/private/tmp/视频工厂_opening_anchor_20260428",
+      "action": "git_worktree_remove",
+      "code": 0,
+      "stdout": "",
+      "stderr": "",
+      "final_exists": false
+    },
+    {
+      "path": "/private/tmp/视频工厂_real_ai_experience_mainline_20260428",
+      "action": "git_worktree_remove",
+      "code": 0,
+      "stdout": "",
+      "stderr": "",
+      "final_exists": false
+    },
+    {
+      "path": "(git worktree prune)",
+      "action": "git_worktree_prune",
+      "code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂-worktrees",
+      "action": "move_to_quarantine",
+      "target": "/Users/fan/Documents/视频工厂/本地隔离区_local_quarantine/外部散目录待确认_external_dirs_pending_delete_20260502/视频工厂-worktrees",
+      "reason": "非 Git 散目录；可在回收唯一文件后整体移入唯一工作区隔离区",
+      "final_exists": false,
+      "target_exists": true
+    },
+    {
+      "path": "/private/tmp/视频工厂_scheme_b_v3_diagnostics",
+      "action": "move_to_quarantine",
+      "target": "/Users/fan/Documents/视频工厂/本地隔离区_local_quarantine/外部散目录待确认_external_dirs_pending_delete_20260502/视频工厂_scheme_b_v3_diagnostics__private_tmp",
+      "reason": "prunable damaged worktree leftover after prune",
+      "final_exists": false,
+      "target_exists": true
+    },
+    {
+      "path": "/private/tmp/视频工厂_user_readable_map_sync",
+      "action": "move_to_quarantine",
+      "target": "/Users/fan/Documents/视频工厂/本地隔离区_local_quarantine/外部散目录待确认_external_dirs_pending_delete_20260502/视频工厂_user_readable_map_sync__private_tmp",
+      "reason": "prunable damaged worktree leftover after prune",
+      "final_exists": false,
+      "target_exists": true
+    }
+  ],
+  "worktree_list_before_prune": {
+    "cmd": [
+      "git",
+      "worktree",
+      "list",
+      "--porcelain"
+    ],
+    "code": 0,
+    "stdout": "worktree /Users/fan/Documents/视频工厂\nHEAD c83d60e51dcab1a5e022aeee03187b9069cc35ff\nbranch refs/heads/codex/single-workspace-cleanup-from-user-readable-map-20260502\n\nworktree /private/tmp/视频工厂_scheme_b_v3_diagnostics\nHEAD cf503d32b5112650f90619cdb44b458e96283a32\nbranch refs/heads/codex/scheme-b-standalone-v3-diagnostics-20260428\nprunable gitdir file points to non-existent location\n\nworktree /private/tmp/视频工厂_user_readable_map_sync\nHEAD a624808b0472e0938c9b52e3a2838ebd295b01c9\nbranch refs/heads/codex/scheme-b-full-page-reaction-v2-20260428\nprunable gitdir file points to non-existent location\n\nworktree /Users/fan/.config/superpowers/worktrees/视频工厂/codex-formal-api-demo-quality-liveportrait-round1\nHEAD 4beeeb14d193227a8c14bda9d4571af73b3768d5\nbranch refs/heads/codex/formal-api-demo-quality-liveportrait-round1\n\nworktree /Users/fan/.config/superpowers/worktrees/视频工厂/codex-round1-visual-pass-report-style\nHEAD d8234e06fbc1fd51b74ea2590e34e9d9783536b9\nbranch refs/heads/codex/round1-visual-pass-report-style\n\n",
+    "stderr": ""
+  },
+  "worktree_list_after_prune": {
+    "cmd": [
+      "git",
+      "worktree",
+      "list",
+      "--porcelain"
+    ],
+    "code": 0,
+    "stdout": "worktree /Users/fan/Documents/视频工厂\nHEAD c83d60e51dcab1a5e022aeee03187b9069cc35ff\nbranch refs/heads/codex/single-workspace-cleanup-from-user-readable-map-20260502\n\nworktree /Users/fan/.config/superpowers/worktrees/视频工厂/codex-formal-api-demo-quality-liveportrait-round1\nHEAD 4beeeb14d193227a8c14bda9d4571af73b3768d5\nbranch refs/heads/codex/formal-api-demo-quality-liveportrait-round1\n\nworktree /Users/fan/.config/superpowers/worktrees/视频工厂/codex-round1-visual-pass-report-style\nHEAD d8234e06fbc1fd51b74ea2590e34e9d9783536b9\nbranch refs/heads/codex/round1-visual-pass-report-style\n\n",
+    "stderr": ""
+  }
+}
