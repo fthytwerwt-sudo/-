@@ -1,0 +1,138 @@
+{
+  "title": "短视频自动流的最简单流程",
+  "script_type": "流程说明型短视频口播文案执行包",
+  "created_at": "2026-05-03T05:24:26+08:00",
+  "status": {
+    "script_pack": "ready_for_chatgpt_review",
+    "video_generated": false,
+    "audio_generated": false,
+    "image_generated": false,
+    "cloud_sample_generated": false,
+    "content_validation": "unchanged",
+    "send_ready": "unchanged"
+  },
+  "source_facts": {
+    "fixed_title": "《短视频自动流的最简单流程》",
+    "core_flow": [
+      "用户给豆包一句简单需求：我想用 Trae 做一个短视频自动流",
+      "豆包把需求拆成 Trae 搭建方案",
+      "豆包进一步生成可以复制到 Trae SOLO 的核心搭建 Prompt",
+      "用户把 Prompt 放进 Trae SOLO",
+      "Trae SOLO 自动 plan，出现 Updating Tasks 和 11 个待办，并生成 vlog_automation_workflow 项目骨架",
+      "后续再接 API，把工具能力变成可调用能力",
+      "用户选择阿里云剪辑 / ICE / 云剪作为云端总装方向",
+      "Codex 这类工具负责执行、检查、路径确认、结果回报",
+      "除了 Trae，Codex、Claude Code 这类工具也可以参与执行层",
+      "即梦更像单点素材生成 / 抽镜头，短视频自动流更像可复用生产流程"
+    ],
+    "must_not_claim": [
+      "豆包已经工程跑通",
+      "Trae 代码已运行成功",
+      "阿里云剪辑正式稳定",
+      "Codex 证明内容过线",
+      "火山引擎未打码素材可入片"
+    ]
+  },
+  "material_paths": {
+    "doubao": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4",
+    "trae": "/Users/fan/Documents/视频工厂/素材录制/最新素材/trae 素材.mp4",
+    "codex": "/Users/fan/Documents/视频工厂/素材录制/最新素材/codex 素材.mp4",
+    "volcengine_forbidden_until_redacted": "/Users/fan/Documents/视频工厂/素材录制/最新素材/火山引擎素材.mp4",
+    "folder_broll_weak": "/Users/fan/Documents/视频工厂/素材录制/最新素材/创建文件夹.mp4",
+    "historical_long_recording_excluded": "/Users/fan/Documents/视频工厂/素材录制/最新素材/录屏2026-04-30 03.25.28.mov"
+  },
+  "recommended_segments": [
+    {
+      "id": "doubao_simple_need",
+      "material": "豆包素材.mp4",
+      "path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4",
+      "timecode": "00:00:16-00:00:24",
+      "purpose": "用户一句简单需求输入"
+    },
+    {
+      "id": "doubao_plan",
+      "material": "豆包素材.mp4",
+      "path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4",
+      "timecode": "00:01:28-00:02:00",
+      "purpose": "豆包把需求拆成 Trae 搭建方案和短视频生产链路"
+    },
+    {
+      "id": "doubao_prompt_request",
+      "material": "豆包素材.mp4",
+      "path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4",
+      "timecode": "00:02:40-00:02:56",
+      "purpose": "用户要求豆包生成给 Trae 的 Vlog 自动流 prompt"
+    },
+    {
+      "id": "doubao_trae_solo_prompt",
+      "material": "豆包素材.mp4",
+      "path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4",
+      "timecode": "00:03:52-00:04:08",
+      "purpose": "豆包输出可复制到 Trae SOLO 的核心搭建 Prompt"
+    },
+    {
+      "id": "trae_solo_entry",
+      "material": "trae 素材.mp4",
+      "path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/trae 素材.mp4",
+      "timecode": "00:00:32-00:01:04",
+      "purpose": "进入 Trae SOLO Coder"
+    },
+    {
+      "id": "trae_prompt_plan",
+      "material": "trae 素材.mp4",
+      "path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/trae 素材.mp4",
+      "timecode": "00:01:20-00:01:52",
+      "purpose": "prompt 进入 Trae SOLO，出现 Updating Tasks 和 11 待办"
+    },
+    {
+      "id": "trae_project_skeleton",
+      "material": "trae 素材.mp4",
+      "path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/trae 素材.mp4",
+      "timecode": "00:02:00-00:02:40",
+      "purpose": "Trae 生成 vlog_automation_workflow 项目骨架"
+    },
+    {
+      "id": "codex_execution_check",
+      "material": "codex 素材.mp4",
+      "path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/codex 素材.mp4",
+      "timecode": "00:02:56-00:03:08",
+      "purpose": "Codex 执行检查、路径、命令、文件和 Git 状态回报"
+    }
+  ],
+  "card_assets": [
+    "流程总览卡",
+    "豆包 -> Trae prompt 卡",
+    "API 解释卡",
+    "阿里云剪辑总装卡",
+    "Codex / Claude / Trae 执行层卡",
+    "即梦 vs 自动流对比卡",
+    "最后总结卡"
+  ],
+  "forbidden_materials": [
+    {
+      "path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/火山引擎素材.mp4",
+      "reason": "未打码前含手机号、短信验证码、API Key 管理页和资源 ID 痕迹"
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/录屏2026-04-30 03.25.28.mov",
+      "reason": "历史长录屏，不默认进入本条视频"
+    }
+  ],
+  "validation_boundaries": [
+    "本包未生成视频、音频、图片、字幕、云端样片或阿里云任务",
+    "本包未修改 v3.1 正片或 dist/latest_review_pack",
+    "本包未修改 content_validation 或 send_ready",
+    "豆包输出方案不等于工程跑通",
+    "Trae 生成项目骨架不等于代码运行成功",
+    "阿里云剪辑只能写成云端总装方向 / 技术候选，不得写成正式稳定链路",
+    "Codex 检查不等于内容过线",
+    "后续剪辑执行前必须先由 ChatGPT 复审"
+  ],
+  "files": {
+    "full_script": "文案库/20260503_短视频自动流最简单流程_short_video_auto_flow_simple_process/01_完整口播稿_full_script.md",
+    "block_segment_material_map": "文案库/20260503_短视频自动流最简单流程_short_video_auto_flow_simple_process/02_分段承载表_block_segment_material_map.md",
+    "card_copy": "文案库/20260503_短视频自动流最简单流程_short_video_auto_flow_simple_process/03_卡片文案_card_copy.md",
+    "execution_notes": "文案库/20260503_短视频自动流最简单流程_short_video_auto_flow_simple_process/04_执行注意事项_execution_notes.md",
+    "codex_video_execution_input": "文案库/20260503_短视频自动流最简单流程_short_video_auto_flow_simple_process/05_给Codex剪辑执行输入_codex_video_execution_input.md"
+  }
+}

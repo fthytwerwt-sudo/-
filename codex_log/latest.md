@@ -1,5 +1,19 @@
 # Latest
 
+## 20260503｜短视频自动流最简单流程文案执行包
+
+- `已确认` 本轮从最新 `codex/user-readable-map` 创建分支：`codex/short-video-auto-flow-script-pack-20260503`。
+- `已确认` 本轮只生成《短视频自动流的最简单流程》文案执行包，不重新创作方向，不写教程，不生成视频 / 音频 / 图片。
+- `已确认` 完整口播稿已保真写入：`文案库/20260503_短视频自动流最简单流程_short_video_auto_flow_simple_process/01_完整口播稿_full_script.md`。
+- `已确认` 已补全分段承载表、卡片文案、执行注意事项、给 Codex 剪辑执行输入和 `script_pack_manifest.json`。
+- `已确认` 分段承载表已覆盖豆包素材、Trae 素材、Codex 素材关键时间码，并用信息卡承载 API 解释、阿里云剪辑装配台定位、即梦 vs 自动流对比和最后总结。
+- `已确认` 火山引擎素材未打码前禁止入片；如果口播提 API，只使用信息卡。
+- `已确认` 阿里云剪辑只写成云端总装方向 / 技术验证候选，不写成正式稳定链路。
+- `已确认` Trae 生成项目骨架不等于代码运行成功；豆包输出方案不等于工程跑通；Codex 检查不等于内容过线。
+- `已确认` 本轮未修改 v3.1 正片，未修改 `dist/latest_review_pack`，未修改 `content_validation` / `send_ready`，未提交素材本体或大媒体文件。
+- `执行包目录`：`文案库/20260503_短视频自动流最简单流程_short_video_auto_flow_simple_process/`
+- `下一个目标`：ChatGPT 复审文案执行包；复审通过后，再交 Codex 做剪辑执行。
+
 ## 20260503｜阿里云剪辑复接验证 after audit
 
 - `已确认` PR #34「接入 HyperFrames 三类卡片动效边界并审计阿里云剪辑」已合并到 `codex/user-readable-map`，合并提交：`edbe61e512c972d75c786a53f82c9e3db53ecfb2`。
