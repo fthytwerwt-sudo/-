@@ -1,5 +1,20 @@
 # Latest
 
+## 20260503｜Superpowers 历史工作区清理
+
+- `已确认` PR #32「Enforce Video Factory single workspace cleanup」已 squash merge 到 `codex/user-readable-map`，合并提交：`2d7883a`。
+- `已确认` 本轮从最新 `codex/user-readable-map` 创建分支：`codex/superpowers-worktree-cleanup-20260503`。
+- `已确认` 本轮只处理两个指定 Superpowers 历史 worktree，不处理 HyperFrames 任务，不生成视频 / 音频 / 图片，不写新文案。
+- `已确认` 两个 worktree 的 tracked diff、staged diff、untracked 文件数量均为 clean / `0`。
+- `已确认` 两个 worktree 的 commit 均已存在于远端分支，没有未推送提交。
+- `已确认` 本轮新增回收文件数量为 `0`，checksum 失败数量为 `0`。
+- `已确认` 已执行普通 `git worktree remove` 移除两个历史 worktree；未使用 `--force`，未使用 `rm -rf`。
+- `已确认` `git worktree list` 最终只剩 `/Users/fan/Documents/视频工厂`。
+- `已确认` `/Users/fan/Documents` 顶层仍只剩 `/Users/fan/Documents/视频工厂`。
+- `已确认` `content_validation` 保持发布后灰度测试口径，没有写成内容最终通过；`send_ready` 保持否定状态。
+- `治理报告`：`治理_reports/20260503_superpowers工作区清理_superpowers_worktree_cleanup/superpowers_worktree_cleanup_report.md`
+- `下一个目标`：后续所有《视频工厂》任务只允许在 `/Users/fan/Documents/视频工厂` 内执行。
+
 ## 20260502｜单工作区清理归档
 
 - `已确认` 本轮从 `origin/codex/user-readable-map` 创建治理分支：`codex/single-workspace-cleanup-from-user-readable-map-20260502`。
