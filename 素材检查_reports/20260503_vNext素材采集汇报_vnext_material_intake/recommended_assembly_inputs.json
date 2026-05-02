@@ -1,0 +1,105 @@
+{
+  "report_id": "20260503_vNext素材采集汇报_vnext_material_intake",
+  "status": "partially_ready",
+  "source_directory": "/Users/fan/Documents/视频工厂/素材录制/最新素材",
+  "scope_boundary": {
+    "only_scanned_source_directory": true,
+    "no_aliyun_call": true,
+    "no_video_generated": true,
+    "no_v31_modification": true,
+    "no_content_validation_change": true,
+    "no_send_ready_change": true
+  },
+  "readiness_summary": {
+    "user_recording_segment": "ready",
+    "card_segments": "missing_as_files_in_latest_material_directory",
+    "audio_segment": "no_standalone_audio_file_found; embedded_aac_available_in_mp4; silence_placeholder_allowed_for_minimal_assembly_validation",
+    "cloud_assembly_runtime": "not_tested_this_round"
+  },
+  "recommended_minimal_sample": {
+    "target_duration_seconds": 24,
+    "assembly_goal": "验证后续云端总装是否能接住用户录制素材 + 卡片占位素材 + 音轨 / 静音占位 + 云端导出，不证明内容有效。",
+    "user_recording_segment": {
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/trae 素材.mp4",
+      "start_time_seconds": 120.0,
+      "end_time_seconds": 136.0,
+      "duration_seconds": 16.0,
+      "why_selected": "画面清楚显示 Trae / SOLO Coder 正在生成短视频自动化工作流项目结构和 Python 代码，隐私风险低，比登录页和历史复审长录屏更适合作为 vNext 用户录制素材主段。",
+      "evidence_can_prove": [
+        "用户录制素材可提供真实 AI 工具执行画面",
+        "AI 编码 / 工作流生成过程存在"
+      ],
+      "evidence_cannot_prove": [
+        "不能证明生成代码已经运行成功",
+        "不能证明云端剪辑链路稳定",
+        "不能证明内容验证通过"
+      ]
+    },
+    "card_segment_1": {
+      "source_path": null,
+      "recommended_duration_seconds": 4.0,
+      "route_type": "cute_info_card_route",
+      "required_asset_status": "missing_in_latest_material_directory",
+      "recommended_content_role": "结果差 / 工作流价值说明卡，占位验证时可由后续任务按 route 生成小卡片素材。",
+      "why_selected": "当前最新素材目录没有 png/jpg/json/srt 卡片文件；但 v3.1 规则已确认结果差卡与 Prompt 尾卡必须走 cute_info_card_route。后续总装验证若需要卡片，应按该 route 生成临时轻量卡片，不得把用户录屏当信息卡。"
+    },
+    "card_segment_2": {
+      "source_path": null,
+      "recommended_duration_seconds": 4.0,
+      "route_type": "sassy_reaction_card_route",
+      "required_asset_status": "missing_in_latest_material_directory",
+      "recommended_content_role": "问题钩子 / 反转 reaction 卡，占位验证时只测试 route 与时长兼容。",
+      "why_selected": "当前最新素材目录没有骚萌卡本体；如后续需要测试三类卡片兼容，应以 sassy_reaction_card_route 生成占位卡，不得回退 PR #7 A，也不得套 cute_info_card_route 外壳。"
+    },
+    "audio_segment": {
+      "source_path": null,
+      "start_time_seconds": null,
+      "end_time_seconds": null,
+      "can_use_silence_placeholder": true,
+      "embedded_audio_fallback_source_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/trae 素材.mp4",
+      "embedded_audio_fallback_time_range": "120.0-136.0",
+      "why_selected": "最新素材目录没有独立 mp3/wav/aac。为只验证云剪总装容器和音轨兼容，可先使用静音占位；若后续任务必须测试真实音频输入，可从推荐用户录制段的 AAC 内嵌音轨抽取，但不能写成最终旁白或 TTS 验证通过。"
+    }
+  },
+  "alternatives": {
+    "user_recording_segment_alternative_1": {
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4",
+      "start_time_seconds": 16.0,
+      "end_time_seconds": 24.0,
+      "why": "显示用户输入“我想用 trae 做一个短视频自动流...”并提交，适合作为需求输入前置段。"
+    },
+    "user_recording_segment_alternative_2": {
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/codex 素材.mp4",
+      "start_time_seconds": 176.0,
+      "end_time_seconds": 188.0,
+      "why": "显示 Codex / Git / 文件变更执行细节，适合证明 Codex 在执行任务，但内部文件列表可见，需复核展示边界。"
+    },
+    "reference_only_do_not_use_unredacted": {
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/火山引擎素材.mp4",
+      "reason": "包含手机号、验证码、API Key 管理页和资源 ID 痕迹；未打码不得入片。"
+    }
+  },
+  "missing_materials_for_strict_all-assets-from-latest-directory": [
+    {
+      "missing_type": "card_segment_1_file",
+      "required_route": "cute_info_card_route",
+      "why_missing": "最新素材目录没有图片、json、md 或可直接当卡片素材的文件。"
+    },
+    {
+      "missing_type": "card_segment_2_file",
+      "required_route": "sassy_reaction_card_route",
+      "why_missing": "最新素材目录没有骚萌卡素材文件。"
+    },
+    {
+      "missing_type": "standalone_audio_file",
+      "why_missing": "最新素材目录没有 mp3/wav/aac 独立音轨。"
+    }
+  ],
+  "privacy_and_redaction": [
+    {
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/火山引擎素材.mp4",
+      "risk": "visible_phone_sms_code_api_key_management",
+      "decision": "reference_only_until_redacted"
+    }
+  ]
+}

@@ -1,5 +1,25 @@
 # Latest
 
+## 20260503｜vNext 最新素材采集汇报
+
+- `已确认` 本轮从最新 `codex/user-readable-map` 创建分支：`codex/vnext-recorded-material-intake-20260503`。
+- `已确认` 本轮只扫描用户指定素材目录：`/Users/fan/Documents/视频工厂/素材录制/最新素材`；未泛扫 `素材录制/` 下其他历史目录，未扫描 Desktop / Downloads / private/tmp。
+- `已确认` 本轮只做素材发现、素材检查、时间码拆解、证据点整理和给 ChatGPT / 后续云端总装验证的素材事实包。
+- `已确认` 目录下共 7 个文件，其中 6 个候选素材；`.DS_Store` 已忽略。
+- `已确认` 5 个 2026-05-02 晚间修改的 mp4 文件可作为本轮新录制素材候选：`codex 素材.mp4`、`trae 素材.mp4`、`创建文件夹.mp4`、`豆包素材.mp4`、`火山引擎素材.mp4`。
+- `部分成立` `录屏2026-04-30 03.25.28.mov` 位于最新素材目录，但修改时间较旧、时长 106 分钟且无音轨，默认只列为历史 / 参考候选，待用户确认。
+- `已确认` 5 个 mp4 均通过 `ffprobe` 元数据读取和 `ffmpeg` 全片解码检查；106 分钟 `.mov` 只做开头 / 中段 / 末段抽样解码通过，不写成全片完整解码验证通过。
+- `已确认` 推荐 `trae 素材.mp4` 的 `120.0s-136.0s` 作为 vNext 最小云端总装验证的用户录制素材主段。
+- `部分成立` 最新素材目录没有独立卡片文件和独立音轨；若后续总装任务允许生成轻量卡片占位和静音占位，可以进入最小云端总装验证；若要求所有素材都来自本目录，则仍需补卡片和音轨。
+- `已确认` `火山引擎素材.mp4` 包含手机号、短信验证码、API Key 管理页和资源 ID 痕迹，未打码不得入片。
+- `已确认` 本轮未调用阿里云 OSS / ICE，未生成云端样片，未剪正式视频，未修改 v3.1 正片，未修改 `dist/latest_review_pack/` 既有产物。
+- `已确认` 本轮未输出可交付视频 / 音频 / 图片；只读检查中的临时抽帧不作为交付物，不进入 Git。
+- `已确认` 未修改 `content_validation` / `send_ready`，未提交新录制素材本体或大媒体文件。
+- `报告目录`：`素材检查_reports/20260503_vNext素材采集汇报_vnext_material_intake/`
+- `recommended_assembly_inputs`：`素材检查_reports/20260503_vNext素材采集汇报_vnext_material_intake/recommended_assembly_inputs.json`
+- `ChatGPT 复审输入`：`素材检查_reports/20260503_vNext素材采集汇报_vnext_material_intake/chatgpt_review_input.md`
+- `下一个目标`：交给 ChatGPT 判断素材是否足够进入 vNext 最小云端总装验证；如果足够，再由后续阿里云云端总装验证任务读取 `recommended_assembly_inputs.json`。
+
 ## 20260503｜阿里云剪辑复接验证 after audit
 
 - `已确认` PR #34「接入 HyperFrames 三类卡片动效边界并审计阿里云剪辑」已合并到 `codex/user-readable-map`，合并提交：`edbe61e512c972d75c786a53f82c9e3db53ecfb2`。
