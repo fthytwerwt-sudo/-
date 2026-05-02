@@ -1,5 +1,20 @@
 # Latest
 
+## 20260503｜阿里云剪辑复接验证 after audit
+
+- `已确认` PR #34「接入 HyperFrames 三类卡片动效边界并审计阿里云剪辑」已合并到 `codex/user-readable-map`，合并提交：`edbe61e512c972d75c786a53f82c9e3db53ecfb2`。
+- `已确认` PR #35 已关闭并标记 `Superseded`，未合并。
+- `已确认` 本轮从合并 PR #34 后的最新 `codex/user-readable-map` 创建分支：`codex/aliyun-editing-reconnect-validation-after-audit-20260503`。
+- `已确认` 已读取前置阿里云剪辑使用审计报告。
+- `已确认` 阿里云 OSS + ICE / 云剪最小云端总装链路已真实跑通：OSS 上传、ICE 工程更新、云剪任务提交、轮询、MP4 导出均完成。
+- `已确认` 导出样片本地下载后通过 `ffprobe`：12 秒，1080x1920，H.264，AAC。
+- `候选判断`：阿里云剪辑可以作为 vNext 云端总装候选继续评估，但本轮不代表正式链路已稳定。
+- `已确认` 本轮未修改 v3.1 正片，未修改 `dist/latest_review_pack/` 既有产物，未修改 `current_publish_target`。
+- `已确认` 本轮未生成正式视频，未写新文案，未处理 HyperFrames 中段录屏。
+- `已确认` 内容验证字段未提升为最终通过态；发送状态字段未提升；未将本地样片、签名链接、原始运行结果或敏感凭据提交进 Git。
+- `验证报告`：`验证_reports/20260503_阿里云剪辑复接验证_after_audit_aliyun_editing_reconnect_validation/阿里云剪辑复接验证报告_after_audit_aliyun_editing_reconnect_validation_report.md`
+- `下一个目标`：决定是否将阿里云剪辑作为 vNext 云端总装候选推进；若推进，先做 vNext 专用 timeline / manifest 设计和多素材兼容验证。
+
 ## 20260503｜HyperFrames 卡片动效边界与阿里云剪辑审计
 
 - `已确认` 本轮从最新 `codex/user-readable-map` 创建分支：`codex/hyperframes-card-routing-and-aliyun-edit-audit-20260503`。
