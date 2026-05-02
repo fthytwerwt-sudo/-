@@ -1,5 +1,21 @@
 # Latest
 
+## 20260503｜HyperFrames 卡片动效边界与阿里云剪辑审计
+
+- `已确认` 本轮从最新 `codex/user-readable-map` 创建分支：`codex/hyperframes-card-routing-and-aliyun-edit-audit-20260503`。
+- `已确认` 本轮只做 HyperFrames 卡片动效接入规则设计与阿里云剪辑只读审计；未生成视频 / 音频 / 图片，未写新文案，未处理 HyperFrames 中段录屏接入。
+- `已确认` 已先读取并核对 `dist/latest_review_pack/visual_route_map.json` 与 `visual_route_validation_report.json`；三类 HyperFrames 卡片动效均可挂回现有 route，未发现 route map 冲突。
+- `已确认` 数据卡 / 结果差卡动效归属 `cute_info_card_route`，当前主要对应 `shot15_result_diff_card`；未来灰度数据卡 / 指标卡也只能作为该 route 扩展。
+- `已确认` Prompt 引用尾卡动效归属 `cute_info_card_route`，对应 `shot16_low_pressure_ending`，只承担引用、低压收束和承接，不承担主叙事。
+- `已确认` 骚萌卡动效版归属 `sassy_reaction_card_route`，对应 `shot03_problem_hook_sassy_card`、`shot05_negative_reversal_sassy_card`、`shot14_positive_reversal_sassy_card`，必须继承 PR #7 B 独立 reaction page 路线。
+- `已确认` HyperFrames 当前只是 `card_motion_layer（卡片动效层）`，不是新视觉路由，不是中段录屏叠层，不是整条视频生成层，也不是云端剪辑替代品。
+- `部分成立` 阿里云剪辑审计发现仓库仍保留阿里云 ICE / OSS 云端 assembly 代码路径和配置字段，也有历史云剪 / ICE 验证记录。
+- `未发现当前实际调用证据` 当前 v3.1 `dist/latest_review_pack/` 未发现阿里云剪辑 / ICE assembly 调用记录；命中的阿里百炼内容属于 TTS / voice clone，不等于剪辑服务。
+- `已确认` 本轮未修改 v3.1 正片，未修改 `dist/latest_review_pack/` 既有产物，`content_validation` 保持当前灰度测试口径，`send_ready` 保持 `false`。
+- `治理报告`：`治理_reports/20260503_HyperFrames卡片边界与阿里云剪辑审计_hyperframes_card_boundary_aliyun_audit/HyperFrames卡片边界写入报告_hyperframes_card_boundary_report.md`
+- `审计报告`：`治理_reports/20260503_HyperFrames卡片边界与阿里云剪辑审计_hyperframes_card_boundary_aliyun_audit/阿里云剪辑使用审计报告_aliyun_edit_usage_audit.md`
+- `下一个目标`：ChatGPT 复审本轮 PR 是否可合并；若后续要处理阿里云剪辑保留 / 替换 / 降级，另起单独执行链路决策任务。
+
 ## 20260503｜Superpowers 历史工作区清理
 
 - `已确认` PR #32「Enforce Video Factory single workspace cleanup」已 squash merge 到 `codex/user-readable-map`，合并提交：`2d7883a`。
