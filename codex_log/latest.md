@@ -1,5 +1,37 @@
 # Latest
 
+## 20260502｜V001 24h 截图数据录入
+
+- `已确认` 本轮只做《视频工厂》V001 v3.1 的 24h 截图数据录入；未写新文案、未生成视频、未生成音频、未重新装配全片、未修改 v3.1 视频产物。
+- `已确认` 当前工作分支：`codex/v001-24h-screenshot-intake-20260502`，基于 `origin/codex/user-readable-map` 建立隔离 worktree 后执行。
+- `已确认` 3 张 24h 原始截图已归档到 `review_loop/screenshots/V001_v31_AI做PPT踩坑/24h/`：
+  - `platform_metrics/V001_24h_总览播放互动粉丝_overview_play_interaction_fans_20260502_222405.png`
+  - `audience_retention/V001_24h_留存来源互动_retention_traffic_interaction_20260502_222425.png`
+  - `account_growth/V001_24h_观众涨粉脱粉_audience_growth_unfollow_20260502_222440.png`
+- `已确认` V001 主记录已写入 24h 初检数据：播放量 `19`、完播率 `0.00%`、5s 完播率 `15.00%`、平均播放时长 `5 秒`、平均播放占比 `3.43%`、2s 跳出率 `70.00%`、点赞 / 评论 / 分享 / 收藏 / 弹幕均为 `0`、涨粉 / 脱粉均为 `0`、粉丝播放占比 `5.3%`。
+- `已确认` 流量来源占比已记录：推荐页 `84.2%`、个人主页 `10.5%`、朋友页 `5.3%`。
+- `已确认` 缺失字段已集中记录：`video_url`、`3s_retention`、`5s_retention`、`profile_visit_count`、`dm_count`、`effective_dm_count`、`effective_consult_count`、`real_question_comment_count`、`main_drop_off_point`。
+- `已确认` 播放量未超过 `200`，留存趋势图未展示有效数据；`main_drop_off_point` 不硬猜，写为 `missing`。
+- `uncertain_need_human_check`：`screenshot_capture_time`、`exact_24h_window` 仍待人工确认；本轮按用户标记写入 `24h`，不写入 `72h` 或 `7d`。
+- `已确认` 已更新 `V001_24h_screenshot_extract_report.md` 与 `V001_chatgpt_review_input.md`，只作为 ChatGPT 复盘输入，不做最终内容判断。
+- `已确认` `technical_validation = passed` 与 `content_validation = gray_testing_not_final_passed` 保持分离；`send_ready = false`、`visual_master_locked = false`、`technical_upgrade_next = true` 未被改成通过 / 可发送。
+- `下一个目标`：等待 72h 截图回填，继续按同一截图优先录入机制更新 V001；不要提前写下一条新文案。
+
+## 新会话接手建议先读
+
+- `AGENTS.md`
+- `codex_source/00_codex_readme.md`
+- `codex_log/latest.md`
+- `codex_log/current_publish_target.md`
+- `codex_log/current_gray_test_target.md`
+- `review_loop/00_review_loop_readme.md`
+- `review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`
+- `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
+- `review_loop/records/V001_v31_AI做PPT踩坑_gray_test/V001_gray_test_record.md`
+- `review_loop/records/V001_v31_AI做PPT踩坑_gray_test/V001_24h_screenshot_extract_report.md`
+- `review_loop/records/V001_v31_AI做PPT踩坑_gray_test/V001_chatgpt_review_input.md`
+- `review_loop/screenshots/V001_v31_AI做PPT踩坑/screenshot_manifest.md`
+
 ## 20260502｜截图数据录入与时间窗分桶机制
 
 - `已确认` 本轮只修《视频工厂》v3.1 发布后灰度测试的数据记录机制；未写新文案、未生成视频、未生成音频、未重新装配全片、未修改 v3.1 视频产物。

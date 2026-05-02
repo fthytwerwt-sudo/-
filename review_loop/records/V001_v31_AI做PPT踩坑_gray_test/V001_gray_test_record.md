@@ -3,18 +3,27 @@
 ## 基础信息
 
 - video_id：V001
+- video_slug：v31_AI做PPT踩坑
 - video_version：v3.1
 - video_title：我用 AI 做 PPT 踩过的坑
+- published_video_title：vibcoding 2 天做完视频工作流，我一个纯编程小白，真的都去学起来
 - current_video_baseline：v3.1
 - future_iteration_base：v3.1
+- technical_validation：passed（技术验证通过；不等于内容通过）
+- technical_upgrade_next：true
 - publish_status：gray_test_published（已发片，灰度测试中）
 - gray_test_status：active（灰度测试中）
 - current_phase：post_publish_gray_test（发布后灰度测试阶段）
 - content_validation：gray_testing_not_final_passed（灰度测试中，不等于内容最终通过）
-- publish_date：2026-05-02
-- publish_platform：待用户回填
-- publish_time：待用户回填
-- video_url：待用户回填
+- send_ready：false
+- visual_master_locked：false
+- publish_platform：抖音
+- publish_date：2026-05-01
+- publish_time：23:24
+- video_duration：00:02:30
+- video_url：missing（截图未提供）
+- screenshot_capture_time：uncertain_need_human_check（附件文件名显示 2026-05-02 22:24 左右，但不作为仓库确定截图时间）
+- exact_24h_window：uncertain_need_human_check（用户标记为 24h，本轮按 24h 初检录入）
 - current_review_pack：dist/latest_review_pack/
 - current_round：20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix
 - gray_test_metrics_v1：review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md
@@ -39,38 +48,63 @@
 
 ### 截图证据
 
-- platform_metrics：
-- audience_retention：
-- interaction：
-- account_growth：
-- comments：
-- dm：
-- consult：
-- other：
+- platform_metrics：`review_loop/screenshots/V001_v31_AI做PPT踩坑/24h/platform_metrics/V001_24h_总览播放互动粉丝_overview_play_interaction_fans_20260502_222405.png`
+- audience_retention：`review_loop/screenshots/V001_v31_AI做PPT踩坑/24h/audience_retention/V001_24h_留存来源互动_retention_traffic_interaction_20260502_222425.png`
+- interaction：`review_loop/screenshots/V001_v31_AI做PPT踩坑/24h/platform_metrics/V001_24h_总览播放互动粉丝_overview_play_interaction_fans_20260502_222405.png`；`review_loop/screenshots/V001_v31_AI做PPT踩坑/24h/audience_retention/V001_24h_留存来源互动_retention_traffic_interaction_20260502_222425.png`
+- account_growth：`review_loop/screenshots/V001_v31_AI做PPT踩坑/24h/account_growth/V001_24h_观众涨粉脱粉_audience_growth_unfollow_20260502_222440.png`；`review_loop/screenshots/V001_v31_AI做PPT踩坑/24h/platform_metrics/V001_24h_总览播放互动粉丝_overview_play_interaction_fans_20260502_222405.png`
+- comments：missing（截图未提供）
+- dm：missing（截图未提供）
+- consult：missing（截图未提供）
+- other：无
 
 ### 核心字段
 
-- 24h_play_count：
-- 3s_retention：
-- completion_rate：
-- average_watch_time：
-- favorite_count：
-- favorite_rate：
-- profile_visit_count：
-- new_follow_count：
-- dm_count：
-- effective_dm_count：
-- effective_consult_count：
+- 24h_play_count：19（extracted_from_screenshot）
+- 3s_retention：missing（截图未提供）
+- 5s_retention：missing（截图未提供；截图提供的是 5s_completion_rate，不等于 5s_retention）
+- completion_rate：0.00%（extracted_from_screenshot）
+- 5s_completion_rate：15.00%（extracted_from_screenshot）
+- average_watch_time：5 秒（extracted_from_screenshot）
+- average_watch_ratio：3.43%（extracted_from_screenshot）
+- 2s_bounce_rate：70.00%（extracted_from_screenshot）
+- like_count：0（extracted_from_screenshot）
+- like_rate：0.00%（extracted_from_screenshot）
+- comment_count：0（extracted_from_screenshot）
+- comment_rate：0.00%（extracted_from_screenshot）
+- share_count：0（extracted_from_screenshot）
+- share_rate：0.00%（extracted_from_screenshot）
+- favorite_count：0（extracted_from_screenshot）
+- favorite_rate：0.00%（extracted_from_screenshot）
+- danmaku_count：0（extracted_from_screenshot）
+- not_interested_count：0（extracted_from_screenshot）
+- not_interested_rate：0.00%（extracted_from_screenshot）
+- recommendation_feed_source_rate：84.2%（extracted_from_screenshot）
+- profile_page_source_rate：10.5%（extracted_from_screenshot）
+- friend_page_source_rate：5.3%（extracted_from_screenshot）
+- traffic_source_distribution：推荐页 84.2%；个人主页 10.5%；朋友页 5.3%（extracted_from_screenshot）
+- profile_visit_count：missing（截图未提供）
+- new_follow_count：0（extracted_from_screenshot）
+- new_follow_rate：0.00%（extracted_from_screenshot）
+- unfollow_count：0（extracted_from_screenshot）
+- unfollow_rate：0.00%（extracted_from_screenshot）
+- fan_play_ratio：5.3%（extracted_from_screenshot）
+- dm_count：missing（截图未提供）
+- effective_dm_count：missing（截图未提供）
+- effective_consult_count：missing（截图未提供）
+- real_question_comment_count：missing（截图未提供）
+- main_drop_off_point：missing（播放量未超过 200，留存趋势图未展示有效数据）
 
 ### 识别状态
 
-- extracted_fields：
-- missing_fields：
-- uncertain_fields：
+- extracted_fields：publish_platform、publish_date、publish_time、published_video_title、video_duration、24h_play_count、like_count、comment_count、share_count、favorite_count、danmaku_count、completion_rate、5s_completion_rate、average_watch_time、average_watch_ratio、2s_bounce_rate、like_rate、comment_rate、share_rate、favorite_rate、not_interested_count、not_interested_rate、recommendation_feed_source_rate、profile_page_source_rate、friend_page_source_rate、new_follow_count、new_follow_rate、unfollow_count、unfollow_rate、fan_play_ratio
+- missing_fields：video_url、3s_retention、5s_retention、profile_visit_count、dm_count、effective_dm_count、effective_consult_count、real_question_comment_count、main_drop_off_point
+- uncertain_fields：screenshot_capture_time、exact_24h_window
 
 ### 24h 初检备注
 
--
+- 本轮只做 24h 截图数据录入和初检输入；不写新文案、不生成视频、不生成音频、不重新装配全片、不修改 v3.1 视频产物。
+- 播放量未超过 200，留存趋势图提示“播放量超过 200 后，展示数据”，因此 `main_drop_off_point` 记录为 missing。
+- `content_validation` 保持 `gray_testing_not_final_passed`；`send_ready` 保持 `false`；灰度测试不等于内容最终通过。
 
 ## 72h 复检数据
 

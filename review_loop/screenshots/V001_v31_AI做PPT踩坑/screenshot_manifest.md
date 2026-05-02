@@ -19,7 +19,9 @@
 
 | screenshot_path | time_window | data_type | source_status | notes |
 | --- | --- | --- | --- | --- |
-|  | 24h / 72h / 7d | platform_metrics / audience_retention / interaction / account_growth / comments / dm / consult / other | extracted_from_screenshot / uncertain_need_human_check / missing |  |
+| `review_loop/screenshots/V001_v31_AI做PPT踩坑/24h/platform_metrics/V001_24h_总览播放互动粉丝_overview_play_interaction_fans_20260502_222405.png` | 24h | platform_metrics | extracted_from_screenshot | 原图已归档；包含播放量、点赞量、评论量、分享量、收藏量、弹幕量、完播率、2s跳出率、涨粉量、脱粉量、粉丝播放占比；部分互动 / 账号增长字段从该图提取。 |
+| `review_loop/screenshots/V001_v31_AI做PPT踩坑/24h/audience_retention/V001_24h_留存来源互动_retention_traffic_interaction_20260502_222425.png` | 24h | audience_retention | extracted_from_screenshot | 原图已归档；包含完播率、5s完播率、平均播放时长、平均播放占比、2s跳出率、流量来源占比、互动率；播放量未超过 200，留存趋势图未展示有效数据。 |
+| `review_loop/screenshots/V001_v31_AI做PPT踩坑/24h/account_growth/V001_24h_观众涨粉脱粉_audience_growth_unfollow_20260502_222440.png` | 24h | account_growth | extracted_from_screenshot | 原图已归档；包含涨粉量、涨粉率、脱粉量、脱粉率、不感兴趣量、不感兴趣率；截图时间仍标记 uncertain_need_human_check。 |
 
 ## 当前目录结构
 
