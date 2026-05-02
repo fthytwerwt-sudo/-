@@ -1,5 +1,21 @@
 # Latest
 
+## 20260503｜vNext 素材细节复采：豆包到 Trae 流程证据
+
+- `已确认` 本轮从最新 `codex/user-readable-map` 创建分支：`codex/vnext-material-detail-recapture-20260503`。
+- `已确认` 本轮只做素材细节复采和证据整理，不重新做素材清单，不写最终文案，不剪视频，不生成样片。
+- `已确认` 本轮只检查 `/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4`、`/Users/fan/Documents/视频工厂/素材录制/最新素材/trae 素材.mp4`、`/Users/fan/Documents/视频工厂/素材录制/最新素材/codex 素材.mp4`。
+- `已确认` 已补齐上一轮遗漏的真实流程：用户一句简单需求 → 豆包输出 Trae 搭建方案 → 豆包生成可复制到 Trae SOLO 的 Vlog prompt → prompt 进入 Trae SOLO → Trae 自动 plan 并生成 `vlog_automation_workflow` 项目骨架 → Codex 做执行检查和结果回报。
+- `已确认` 豆包素材可见用户原始需求 `我想用 trae 做一个短视频自动流`，以及 `Trae Vlog 自动流 核心搭建 Prompt（直接复制粘贴到 Trae SOLO 即可一键生成完整架构 + 可运行脚本）`。
+- `已确认` Trae 素材可见 `SOLO Coder`、`Updating Tasks...`、`11 待办`、`vlog_automation_workflow`、`modules`、`templates`、`workflows`、`settings.py`、`base_module.py`。
+- `已确认` Codex 素材可见 `ffprobe`、命令执行、文件变更、Git 操作和报告文件，适合作为执行检查证据。
+- `部分成立` Trae 中物理复制 / 粘贴动作未清晰可见；只能确认 prompt 已进入 `SOLO Coder` 输入区并被提交。
+- `待验证` Trae 代码运行状态；本轮不得写成 Trae 代码已运行成功，也不得写成豆包已经工程跑通。
+- `已确认` 本轮未调用阿里云，未修改 v3.1 正片，未修改 `dist/latest_review_pack`，未修改 `content_validation` / `send_ready`，未提交素材本体或大媒体文件。
+- `复采报告`：`素材检查_reports/20260503_vNext素材细节复采_vnext_material_detail_recapture/素材细节复采报告_material_detail_recapture_report.md`
+- `给 ChatGPT 的文案输入`：`素材检查_reports/20260503_vNext素材细节复采_vnext_material_detail_recapture/chatgpt_copywriting_input.md`
+- `下一个目标`：交给 ChatGPT 判断这条“豆包到 Trae”的真实流程细节是否足够进入最终文案重写；若足够，再由后续 vNext 最小云端总装验证任务读取证据链。
+
 ## 20260503｜阿里云剪辑复接验证 after audit
 
 - `已确认` PR #34「接入 HyperFrames 三类卡片动效边界并审计阿里云剪辑」已合并到 `codex/user-readable-map`，合并提交：`edbe61e512c972d75c786a53f82c9e3db53ecfb2`。
