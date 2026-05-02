@@ -1,5 +1,20 @@
 # Latest
 
+## 20260502｜单工作区清理归档
+
+- `已确认` 本轮从 `origin/codex/user-readable-map` 创建治理分支：`codex/single-workspace-cleanup-from-user-readable-map-20260502`。
+- `已确认` `/Users/fan/Documents` 顶层《视频工厂》相关目录已清理到只剩：`/Users/fan/Documents/视频工厂`。
+- `已确认` 已回收外部目录唯一文件 `442` 个，回收目标为 `/Users/fan/Documents/视频工厂/本地归档_local_archive/外部工作区回收_external_workspace_recovery_20260502/`。
+- `已确认` 回收文件 size 与 checksum 全部一致；失败项 `0` 个。
+- `已确认` 已安全 `git worktree remove` 干净外部 / 历史 worktree `18` 个；已将 `3` 个非 Git / 损坏临时残留目录移动到唯一工作区内部隔离区。
+- `部分成立` `git worktree list` 仍保留 2 个 `/Users/fan/.config/superpowers/worktrees/视频工厂/...` 历史 worktree，因为它们有未跟踪文件，按安全规则标记 `blocked_need_user_review`，本轮未移除。
+- `已确认` 已写入 `single_workspace_rule`：以后唯一正式工作区是 `/Users/fan/Documents/视频工厂`；新分支只能在此目录内创建 / 切换；不得默认创建 `/Users/fan/Documents/视频工厂_*` 外部工作区或外部 `git worktree add`。
+- `已确认` `codex_log/current_local_artifact_paths.md` 已改为内部路径优先；所有 `canonical_local_path` 均指向 `/Users/fan/Documents/视频工厂` 内部；旧外部路径只保留为 `historical_source_path` 说明。
+- `已确认` 本轮未生成视频 / 音频 / 图片，未写新文案，未处理 HyperFrames 卡片边界任务，未修改 v3.1 正片内容，未修改 `dist/latest_review_pack` 既有产物内容。
+- `已确认` `content_validation` 未改成 `passed`，`send_ready` 未改成 `true`，本轮未永久删除未回收文件。
+- `审计报告`：`治理_reports/20260502_单工作区清理归档_single_workspace_cleanup_archive/单工作区清理归档报告_single_workspace_cleanup_archive_report.md`
+- `下一个目标`：用户确认两个 blocked superpowers 历史 worktree 后，另起一轮处理剩余 worktree；后续所有《视频工厂》任务只允许在 `/Users/fan/Documents/视频工厂` 内执行。
+
 ## 20260502｜截图数据录入与时间窗分桶机制
 
 - `已确认` 本轮只修《视频工厂》v3.1 发布后灰度测试的数据记录机制；未写新文案、未生成视频、未生成音频、未重新装配全片、未修改 v3.1 视频产物。

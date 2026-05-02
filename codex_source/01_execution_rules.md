@@ -139,6 +139,24 @@
 - `/private/tmp（系统临时目录）` 路径默认不稳定，除非本轮重新验证存在，否则不得作为首选路径。
 - 旧脏 worktree（旧脏工作区）路径不得作为默认执行路径；如确实存在，只能作为历史 / 备选打开路径并明确标注。
 
+## 6B. 单工作区硬规则 single_workspace_rule
+
+《视频工厂》本地执行只能围绕唯一正式工作区：
+
+- `/Users/fan/Documents/视频工厂`
+
+硬规则：
+
+1. Codex 后续不得默认新建 `/Users/fan/Documents/视频工厂_*`、`/Users/fan/Documents/视频工厂-*` 或 `/Users/fan/Documents/视频工厂-worktrees` 作为外部散工作区。
+2. 如果需要新分支，必须在 `/Users/fan/Documents/视频工厂` 内执行 `git switch -c <branch>` 或切换既有分支。
+3. 不得默认使用 `git worktree add` 创建外部 Git 工作区；除非用户当轮明确授权。
+4. 所有最终产物、样片、复审包、截图归档、治理报告、路径索引、执行日志和清理记录，都必须落在唯一正式工作区内部。
+5. `/Users/fan/Desktop`、`/Users/fan/Downloads`、`/private/tmp`、`/Users/fan/Documents/视频工厂_*`、`/Users/fan/Documents/视频工厂-*` 不得作为最终交付路径。
+6. 必须临时读取外部路径时，只能作为 `source（来源）` 只读读取；必须回收到唯一正式工作区后，才能写入路径索引或默认执行口径。
+7. `codex_log/current_local_artifact_paths.md` 的 `canonical_local_path（首选本地路径）` 只能指向唯一正式工作区内部。
+8. 旧外部路径最多只能作为 `historical_source_path（历史来源路径）` 或 `fallback_path（备选路径）`，不得作为默认执行路径。
+9. 后续清理、归档、迁移任务也必须从唯一正式工作区发起、记录、提交和推送。
+
 ## 7. 仓库型任务默认线路
 
 命中以下任一条件，默认按仓库型任务处理：

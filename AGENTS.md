@@ -122,6 +122,24 @@
 - `归档_archive/旧口径_old_context_*/` 只保存旧判断证据，不作为默认事实入口。
 - 后续所有 v3.1 基线升级必须保留并复核 `visual_route_map.json（视觉路由表）`，不得让段落提示卡、信息卡、骚萌卡共用同一套外壳。
 
+### 2.2C 《视频工厂》单工作区硬规则 single_workspace_rule
+
+`已确认` 《视频工厂》唯一正式工作区固定为：
+
+- `/Users/fan/Documents/视频工厂`
+
+硬规则：
+
+- Codex 后续不得默认新建 `/Users/fan/Documents/视频工厂_*`、`/Users/fan/Documents/视频工厂-*`、`/Users/fan/Documents/视频工厂-worktrees` 作为外部散工作区。
+- 如果需要新分支，必须在 `/Users/fan/Documents/视频工厂` 内执行 `git switch -c <branch>` 或切换既有分支。
+- 不得默认使用 `git worktree add` 创建外部 Git 工作区；除非用户当轮明确授权。
+- 所有最终产物、样片、复审包、截图归档、治理报告、路径索引、执行日志和清理记录，都必须落在 `/Users/fan/Documents/视频工厂` 内部。
+- `/Users/fan/Desktop`、`/Users/fan/Downloads`、`/private/tmp`、`/Users/fan/Documents/视频工厂_*`、`/Users/fan/Documents/视频工厂-*` 不得作为最终交付路径。
+- 如果必须临时读取外部路径，只能作为 `source（来源）` 只读读取；必须回收到唯一正式工作区后，才能写入路径索引或默认执行口径。
+- `codex_log/current_local_artifact_paths.md` 的 `canonical_local_path（首选本地路径）` 只能指向 `/Users/fan/Documents/视频工厂` 内部。
+- 旧外部路径最多只能写为 `historical_source_path（历史来源路径）` 或 `fallback_path（备选路径）`，不得作为默认执行路径。
+- 后续清理、归档、迁移任务也必须从 `/Users/fan/Documents/视频工厂` 发起、记录和提交。
+
 若任务继续命中《视频工厂》的内容生产，再补读：
 8. `GPT数据源/04_选题与文案规则.md`
 9. `GPT数据源/05_文案路由规则.md`
