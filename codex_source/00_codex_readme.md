@@ -113,6 +113,23 @@
 - 若任务依赖 skill，则进入实际执行前检查当前仓库本地 `skills/`；若本地没有相关 skill，再检查全局 `~/.codex/skills`
 - 若仓库型任务已形成可判断小闭环，默认先更新 `codex_log/latest.md`，再 commit 并 push 当前分支，供 ChatGPT 复审
 
+### 4A. 单工作区硬规则 single_workspace_rule
+
+《视频工厂》唯一正式工作区是：
+
+`/Users/fan/Documents/视频工厂`
+
+执行层默认规则：
+
+- Codex 后续不得新建 `/Users/fan/Documents/视频工厂_*` 作为默认工作区
+- 如果需要新分支，必须在 `/Users/fan/Documents/视频工厂` 内执行 `git switch -c 新分支`
+- 不得使用 `git worktree add` 创建外部散工作区，除非用户当轮明确授权
+- 所有最终产物、样片、复审包、截图归档、报告、路径索引、清理报告，都必须落在 `/Users/fan/Documents/视频工厂` 内部
+- `/Users/fan/Desktop`、`/Users/fan/Downloads`、`/private/tmp`、`/Users/fan/Documents/视频工厂_*` 都不得作为最终交付路径
+- 外部路径只能作为 `source（来源）` 只读使用；回收到 canonical workspace（唯一正式工作区）后，才能写入路径索引的首选路径
+- `codex_log/current_local_artifact_paths.md` 的 `canonical_local_path` 只能指向 `/Users/fan/Documents/视频工厂` 内部路径
+- 旧外部路径只能作为 `historical_source_path（历史来源路径）` 或 `fallback_path（备选路径）`
+
 ## 5. 任务冲突时的默认裁决顺序
 
 当前仓库内发生规则冲突时，默认按以下顺序裁决：

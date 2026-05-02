@@ -1,0 +1,320 @@
+[
+  {
+    "segment_id": "negative_display_prompt_card",
+    "card_type": "segment_prompt_card",
+    "assigned_route": "cute_prompt_card_route",
+    "primary_reference": "prompt_card_pink_sakura_round34_candidate_20260430",
+    "secondary_reference": [
+      "origin/codex/cute-card-reference-audit-20260430",
+      "复审包_review_packs/20260430_可爱风格卡片页参考核查_cute_card_reference_audit"
+    ],
+    "forbidden_references": [
+      "sassy_card_pr7_a_candidate_20260428 (historical_only_forbidden_not_for_future_execution)",
+      "sassy_card_pr7_b_visual_locked_20260501 as shell",
+      "card_visual_quality_clean_ui_texture_candidate_20260430 as dense UI shell",
+      "deep_blue_tech_saas_ui_rejected"
+    ],
+    "renderer_function": "make_cute_prompt_card",
+    "validation_gate": "cute_prompt_card_route_must_match_assigned_segments",
+    "can_share_shell_with": [
+      "positive_display_prompt_card"
+    ],
+    "must_not_share_shell_with": [
+      "shot01_result_diff_opening",
+      "shot06_cause_turning_point",
+      "shot08_prompt_architecture_card",
+      "shot15_result_diff_card",
+      "shot16_low_pressure_ending",
+      "shot03_problem_hook_sassy_card",
+      "shot05_negative_reversal_sassy_card",
+      "shot14_positive_reversal_sassy_card"
+    ]
+  },
+  {
+    "segment_id": "positive_display_prompt_card",
+    "card_type": "segment_prompt_card",
+    "assigned_route": "cute_prompt_card_route",
+    "primary_reference": "prompt_card_pink_sakura_round34_candidate_20260430",
+    "secondary_reference": [
+      "origin/codex/cute-card-reference-audit-20260430",
+      "复审包_review_packs/20260430_可爱风格卡片页参考核查_cute_card_reference_audit"
+    ],
+    "forbidden_references": [
+      "sassy_card_pr7_a_candidate_20260428 (historical_only_forbidden_not_for_future_execution)",
+      "sassy_card_pr7_b_visual_locked_20260501 as shell",
+      "card_visual_quality_clean_ui_texture_candidate_20260430 as dense UI shell",
+      "deep_blue_tech_saas_ui_rejected"
+    ],
+    "renderer_function": "make_cute_prompt_card",
+    "validation_gate": "cute_prompt_card_route_must_match_assigned_segments",
+    "can_share_shell_with": [
+      "negative_display_prompt_card"
+    ],
+    "must_not_share_shell_with": [
+      "shot01_result_diff_opening",
+      "shot06_cause_turning_point",
+      "shot08_prompt_architecture_card",
+      "shot15_result_diff_card",
+      "shot16_low_pressure_ending",
+      "shot03_problem_hook_sassy_card",
+      "shot05_negative_reversal_sassy_card",
+      "shot14_positive_reversal_sassy_card"
+    ]
+  },
+  {
+    "segment_id": "shot01_result_diff_opening",
+    "card_type": "result_diff_opening_card",
+    "assigned_route": "cute_info_card_route",
+    "primary_reference": "prompt_card_pink_sakura_round34_candidate_20260430",
+    "secondary_reference": [
+      "card_visual_quality_clean_ui_texture_candidate_20260430",
+      "用户确认图文字锚点：粉色樱花柔和展示牌 + 清晰信息层级"
+    ],
+    "forbidden_references": [
+      "sassy_card_pr7_a_candidate_20260428 (historical_only_forbidden_not_for_future_execution)",
+      "sassy_reaction_card_route shell",
+      "deep_blue_tech_saas_ui_rejected",
+      "More Filters CTA",
+      "black_bottom_button"
+    ],
+    "renderer_function": "make_cute_info_card",
+    "validation_gate": "cute_info_card_route_must_match_assigned_segments",
+    "can_share_shell_with": [
+      "shot06_cause_turning_point",
+      "shot08_prompt_architecture_card",
+      "shot15_result_diff_card",
+      "shot16_low_pressure_ending"
+    ],
+    "must_not_share_shell_with": [
+      "negative_display_prompt_card",
+      "positive_display_prompt_card",
+      "shot03_problem_hook_sassy_card",
+      "shot05_negative_reversal_sassy_card",
+      "shot14_positive_reversal_sassy_card"
+    ]
+  },
+  {
+    "segment_id": "shot06_cause_turning_point",
+    "card_type": "turning_point_info_card",
+    "assigned_route": "cute_info_card_route",
+    "primary_reference": "prompt_card_pink_sakura_round34_candidate_20260430",
+    "secondary_reference": [
+      "card_visual_quality_clean_ui_texture_candidate_20260430",
+      "用户确认图文字锚点：粉色樱花柔和展示牌 + 清晰信息层级"
+    ],
+    "forbidden_references": [
+      "sassy_card_pr7_a_candidate_20260428 (historical_only_forbidden_not_for_future_execution)",
+      "sassy_reaction_card_route shell",
+      "deep_blue_tech_saas_ui_rejected",
+      "More Filters CTA",
+      "black_bottom_button"
+    ],
+    "renderer_function": "make_cute_info_card",
+    "validation_gate": "cute_info_card_route_must_match_assigned_segments",
+    "can_share_shell_with": [
+      "shot01_result_diff_opening",
+      "shot08_prompt_architecture_card",
+      "shot15_result_diff_card",
+      "shot16_low_pressure_ending"
+    ],
+    "must_not_share_shell_with": [
+      "negative_display_prompt_card",
+      "positive_display_prompt_card",
+      "shot03_problem_hook_sassy_card",
+      "shot05_negative_reversal_sassy_card",
+      "shot14_positive_reversal_sassy_card"
+    ]
+  },
+  {
+    "segment_id": "shot08_prompt_architecture_card",
+    "card_type": "prompt_architecture_info_card",
+    "assigned_route": "cute_info_card_route",
+    "primary_reference": "prompt_card_pink_sakura_round34_candidate_20260430",
+    "secondary_reference": [
+      "card_visual_quality_clean_ui_texture_candidate_20260430",
+      "用户确认图文字锚点：粉色樱花柔和展示牌 + 清晰信息层级"
+    ],
+    "forbidden_references": [
+      "sassy_card_pr7_a_candidate_20260428 (historical_only_forbidden_not_for_future_execution)",
+      "sassy_reaction_card_route shell",
+      "deep_blue_tech_saas_ui_rejected",
+      "More Filters CTA",
+      "black_bottom_button"
+    ],
+    "renderer_function": "make_cute_info_card",
+    "validation_gate": "cute_info_card_route_must_match_assigned_segments",
+    "can_share_shell_with": [
+      "shot01_result_diff_opening",
+      "shot06_cause_turning_point",
+      "shot15_result_diff_card",
+      "shot16_low_pressure_ending"
+    ],
+    "must_not_share_shell_with": [
+      "negative_display_prompt_card",
+      "positive_display_prompt_card",
+      "shot03_problem_hook_sassy_card",
+      "shot05_negative_reversal_sassy_card",
+      "shot14_positive_reversal_sassy_card"
+    ]
+  },
+  {
+    "segment_id": "shot15_result_diff_card",
+    "card_type": "result_diff_info_card",
+    "assigned_route": "cute_info_card_route",
+    "primary_reference": "prompt_card_pink_sakura_round34_candidate_20260430",
+    "secondary_reference": [
+      "card_visual_quality_clean_ui_texture_candidate_20260430",
+      "用户确认图文字锚点：粉色樱花柔和展示牌 + 清晰信息层级"
+    ],
+    "forbidden_references": [
+      "sassy_card_pr7_a_candidate_20260428 (historical_only_forbidden_not_for_future_execution)",
+      "sassy_reaction_card_route shell",
+      "deep_blue_tech_saas_ui_rejected",
+      "More Filters CTA",
+      "black_bottom_button"
+    ],
+    "renderer_function": "make_cute_info_card",
+    "validation_gate": "cute_info_card_route_must_match_assigned_segments",
+    "can_share_shell_with": [
+      "shot01_result_diff_opening",
+      "shot06_cause_turning_point",
+      "shot08_prompt_architecture_card",
+      "shot16_low_pressure_ending"
+    ],
+    "must_not_share_shell_with": [
+      "negative_display_prompt_card",
+      "positive_display_prompt_card",
+      "shot03_problem_hook_sassy_card",
+      "shot05_negative_reversal_sassy_card",
+      "shot14_positive_reversal_sassy_card"
+    ]
+  },
+  {
+    "segment_id": "shot16_low_pressure_ending",
+    "card_type": "prompt_tail_info_card",
+    "assigned_route": "cute_info_card_route",
+    "primary_reference": "prompt_card_pink_sakura_round34_candidate_20260430",
+    "secondary_reference": [
+      "card_visual_quality_clean_ui_texture_candidate_20260430",
+      "用户确认图文字锚点：粉色樱花柔和展示牌 + 清晰信息层级"
+    ],
+    "forbidden_references": [
+      "sassy_card_pr7_a_candidate_20260428 (historical_only_forbidden_not_for_future_execution)",
+      "sassy_reaction_card_route shell",
+      "deep_blue_tech_saas_ui_rejected",
+      "More Filters CTA",
+      "black_bottom_button"
+    ],
+    "renderer_function": "make_cute_info_card",
+    "validation_gate": "cute_info_card_route_must_match_assigned_segments",
+    "can_share_shell_with": [
+      "shot01_result_diff_opening",
+      "shot06_cause_turning_point",
+      "shot08_prompt_architecture_card",
+      "shot15_result_diff_card"
+    ],
+    "must_not_share_shell_with": [
+      "negative_display_prompt_card",
+      "positive_display_prompt_card",
+      "shot03_problem_hook_sassy_card",
+      "shot05_negative_reversal_sassy_card",
+      "shot14_positive_reversal_sassy_card"
+    ]
+  },
+  {
+    "segment_id": "shot03_problem_hook_sassy_card",
+    "card_type": "sassy_reaction_card",
+    "assigned_route": "sassy_reaction_card_route",
+    "primary_reference": "PR7_B_骚萌反应页.png",
+    "secondary_reference": [
+      "sassy_card_three_type_rule_locked_20260428",
+      "sassy_card_pr7_b_visual_locked_20260501"
+    ],
+    "forbidden_references": [
+      "cute_prompt_card_route shell",
+      "cute_info_card_route shell",
+      "white_pink_display_board_shell",
+      "card_visual_quality_clean_ui_texture_candidate_20260430 as layout shell",
+      "deep_blue_tech_saas_ui_rejected"
+    ],
+    "renderer_function": "make_sassy_reaction_card_from_pr7b",
+    "validation_gate": "sassy_reaction_card_route_must_match_assigned_segments",
+    "can_share_shell_with": [
+      "shot05_negative_reversal_sassy_card",
+      "shot14_positive_reversal_sassy_card"
+    ],
+    "must_not_share_shell_with": [
+      "negative_display_prompt_card",
+      "positive_display_prompt_card",
+      "shot01_result_diff_opening",
+      "shot06_cause_turning_point",
+      "shot08_prompt_architecture_card",
+      "shot15_result_diff_card",
+      "shot16_low_pressure_ending"
+    ]
+  },
+  {
+    "segment_id": "shot05_negative_reversal_sassy_card",
+    "card_type": "sassy_reaction_card",
+    "assigned_route": "sassy_reaction_card_route",
+    "primary_reference": "PR7_B_骚萌反应页.png",
+    "secondary_reference": [
+      "sassy_card_three_type_rule_locked_20260428",
+      "sassy_card_pr7_b_visual_locked_20260501"
+    ],
+    "forbidden_references": [
+      "cute_prompt_card_route shell",
+      "cute_info_card_route shell",
+      "white_pink_display_board_shell",
+      "card_visual_quality_clean_ui_texture_candidate_20260430 as layout shell",
+      "deep_blue_tech_saas_ui_rejected"
+    ],
+    "renderer_function": "make_sassy_reaction_card_from_pr7b",
+    "validation_gate": "sassy_reaction_card_route_must_match_assigned_segments",
+    "can_share_shell_with": [
+      "shot03_problem_hook_sassy_card",
+      "shot14_positive_reversal_sassy_card"
+    ],
+    "must_not_share_shell_with": [
+      "negative_display_prompt_card",
+      "positive_display_prompt_card",
+      "shot01_result_diff_opening",
+      "shot06_cause_turning_point",
+      "shot08_prompt_architecture_card",
+      "shot15_result_diff_card",
+      "shot16_low_pressure_ending"
+    ]
+  },
+  {
+    "segment_id": "shot14_positive_reversal_sassy_card",
+    "card_type": "sassy_reaction_card",
+    "assigned_route": "sassy_reaction_card_route",
+    "primary_reference": "PR7_B_骚萌反应页.png",
+    "secondary_reference": [
+      "sassy_card_three_type_rule_locked_20260428",
+      "sassy_card_pr7_b_visual_locked_20260501"
+    ],
+    "forbidden_references": [
+      "cute_prompt_card_route shell",
+      "cute_info_card_route shell",
+      "white_pink_display_board_shell",
+      "card_visual_quality_clean_ui_texture_candidate_20260430 as layout shell",
+      "deep_blue_tech_saas_ui_rejected"
+    ],
+    "renderer_function": "make_sassy_reaction_card_from_pr7b",
+    "validation_gate": "sassy_reaction_card_route_must_match_assigned_segments",
+    "can_share_shell_with": [
+      "shot03_problem_hook_sassy_card",
+      "shot05_negative_reversal_sassy_card"
+    ],
+    "must_not_share_shell_with": [
+      "negative_display_prompt_card",
+      "positive_display_prompt_card",
+      "shot01_result_diff_opening",
+      "shot06_cause_turning_point",
+      "shot08_prompt_architecture_card",
+      "shot15_result_diff_card",
+      "shot16_low_pressure_ending"
+    ]
+  }
+]

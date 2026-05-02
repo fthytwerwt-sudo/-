@@ -136,6 +136,24 @@
 - 日志还没更新
 - 本轮只有纯读取、无改动、无新结论
 
+## 5C. 单工作区硬规则 single_workspace_rule
+
+《视频工厂》唯一正式工作区固定为：
+
+`/Users/fan/Documents/视频工厂`
+
+后续 Codex 执行必须遵守：
+
+- 不得新建 `/Users/fan/Documents/视频工厂_*` 作为默认工作区
+- 如果需要新分支，必须在 `/Users/fan/Documents/视频工厂` 内执行 `git switch -c 新分支`
+- 不得使用 `git worktree add` 创建外部散工作区，除非用户当轮明确授权
+- 所有最终产物、样片、复审包、截图归档、报告、路径索引、清理报告，都必须落在 `/Users/fan/Documents/视频工厂` 内部
+- `/Users/fan/Desktop`、`/Users/fan/Downloads`、`/private/tmp`、`/Users/fan/Documents/视频工厂_*` 都不得作为最终交付路径
+- 如果必须临时读取外部路径，只能作为 `source（来源）` 读取；必须回收到 canonical workspace（唯一正式工作区）后，才能写入路径索引
+- `codex_log/current_local_artifact_paths.md` 只能把 `/Users/fan/Documents/视频工厂` 内部路径作为首选 `canonical_local_path`
+- 旧外部路径只能作为 `historical_source_path（历史来源路径）` 或 `fallback_path（备选路径）`，不得作为默认执行路径
+- 后续清理、归档、迁移任务也必须从 `/Users/fan/Documents/视频工厂` 内发起和记录
+
 ## 6. 真实性与失败处理
 
 以下规则是硬约束：

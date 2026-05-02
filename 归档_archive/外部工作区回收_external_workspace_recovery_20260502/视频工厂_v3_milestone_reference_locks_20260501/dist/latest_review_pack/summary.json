@@ -1,0 +1,80 @@
+{
+  "round": "20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3",
+  "preview_type": "finished_quality_candidate_v3",
+  "visual_master_candidate": true,
+  "visual_master_locked": false,
+  "v3_technical_milestone": "reached_for_current_stage",
+  "technical_validation": "reached_for_current_stage",
+  "technical_baseline_locked": false,
+  "technical_upgrade_next": true,
+  "metadata_validation": "passed",
+  "audio_validation": "passed_non_silent_tts_track",
+  "subtitle_enabled": false,
+  "user_review_completed": true,
+  "content_validation": "not_passed_user_review_gpt_copywriting_side",
+  "content_review_main_blocker": "GPT_copywriting_side_not_over_line",
+  "send_ready": false,
+  "sassy_card_execution_reference_next": "PR7_B_骚萌反应页.png",
+  "sassy_card_reference_rule": "if_PR7_B_reference_missing_then_blocked_do_not_fallback_to_PR7_A",
+  "v31_visual_route_map_required_before_generation": true,
+  "v31_visual_route_rules": "codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md",
+  "locked_reference_registry_read": true,
+  "locked_reference_inheritance_validation": "passed_for_candidate_v3",
+  "locked_reference_inheritance_report": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3/locked_reference_inheritance_report.md",
+  "locked_references_used": [
+    "middle_editing_round34_locked_20260425",
+    "middle_zoom_reference_confirmed_middle_preview_20260430",
+    "opening_reference_element_doll_no_text_locked_20260428",
+    "sassy_card_three_type_rule_locked_20260428",
+    "tts_15s_b_pacing_locked_20260427"
+  ],
+  "candidate_references_used": [
+    "card_visual_quality_clean_ui_texture_candidate_20260430",
+    "sassy_card_pr7_a_candidate_20260428",
+    "visual_master_voxel_element_doll_candidate_20260430",
+    "voice_sample2_cute_guide_voice_candidate_20260426"
+  ],
+  "failed_references_avoided": [
+    "pr15_v2_subtitle_failed_reference",
+    "pr15_v2_layout_background_failed_reference",
+    "pr15_v2_tts_missing_failed_reference",
+    "zoom_pr15_v2_failed_20260430"
+  ],
+  "modified_latest_review_pack": true,
+  "voice_validation": "pending_user_chatgpt_review",
+  "final_voice_validated": false,
+  "visual_quality_validation": "pass_for_candidate_review_pending_user_chatgpt_review",
+  "visual_quality_verdict": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3/visual_quality_verdict.json",
+  "source_from_prompt_loaded": true,
+  "recording_reports_read": {
+    "material_faithful_report": "read_from_origin/codex/material-faithful-check-20260429",
+    "copy_sample_rhythm_report": "read_from_origin/codex/copy-sample-rhythm-extract-20260429"
+  },
+  "custom_voice": {
+    "found": true,
+    "voice_masked": "qwen-t...ac19",
+    "actual_voice_id_not_written_to_report": true,
+    "target_model": "qwen3-tts-vc-realtime-2026-01-15"
+  },
+  "duration_seconds": 150.002,
+  "resolution": "720x1280",
+  "fps": 25.0,
+  "video_codec": "h264",
+  "audio_codec": "aac",
+  "audio_channels": 1,
+  "decodable": true,
+  "audio_non_silent": true,
+  "subtitle_stream_count": 0,
+  "artifacts": {
+    "full": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3/AI做PPT踩坑_成品候选_v3_full.mp4",
+    "contact_sheet": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3/AI做PPT踩坑_成品候选_v3_contact_sheet.jpg",
+    "timeline": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3/AI做PPT踩坑_成品候选_v3_timeline.json",
+    "cut_map": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3/AI做PPT踩坑_成品候选_v3_cut_map.md",
+    "review_manifest": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3/AI做PPT踩坑_成品候选_v3_review_manifest.md",
+    "summary": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3/AI做PPT踩坑_成品候选_v3_summary.json",
+    "run_summary": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3/AI做PPT踩坑_成品候选_v3_run_summary.json",
+    "locked_reference_inheritance_report": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3/locked_reference_inheritance_report.md",
+    "opening_preview": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3/shot00_opening_hello_wave_preview.mp4",
+    "video_metadata_probe_report": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3/video_metadata_probe_report.json"
+  }
+}
