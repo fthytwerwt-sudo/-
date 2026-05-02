@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-05-03",
+  "workspace": "/Users/fan/Documents/视频工厂",
+  "branch": "codex/aliyun-editing-reconnect-validation-20260503",
+  "status": "blocked",
+  "blocked_layer": "prerequisite_read_missing",
+  "missing_required_files": [
+    "治理_reports/20260503_HyperFrames卡片边界与阿里云剪辑审计_hyperframes_card_boundary_aliyun_audit/阿里云剪辑使用审计报告_aliyun_edit_usage_audit.md"
+  ],
+  "readable_prerequisites": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_log/latest.md",
+    "formal_api_demo_cloud_assembly.py",
+    "formal_api_demo_core.py",
+    "scripts/assemble_formal_api_demo.py",
+    "config/formal_api_demo.example.toml",
+    "config/formal_api_demo.local.toml",
+    "codex_log/current_local_artifact_paths.md",
+    "dist/latest_review_pack/AI做PPT踩坑_成品候选_v31_timeline.json"
+  ],
+  "config_checked": false,
+  "credentials_output": false,
+  "real_api_called": false,
+  "oss_uploaded": false,
+  "ice_job_submitted": false,
+  "cloud_mp4_exported": false,
+  "output_mp4_path": null,
+  "ffprobe_checked": false,
+  "vnext_candidate_status": "待验证",
+  "notes": [
+    "The validation branch was created from the required codex/user-readable-map base.",
+    "The required Aliyun editing audit report is not present on that base.",
+    "Cloud assembly execution was intentionally not attempted after the missing prerequisite was confirmed."
+  ]
+}
