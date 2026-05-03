@@ -92,5 +92,17 @@
     "local_assembly_used": true,
     "full_video_local_fix_v2": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/full_video_local_fix_v2.mp4",
     "duration_seconds": 773.76
+  },
+  "local_reference_fix_v3": {
+    "status": "completed",
+    "technical_validation": "passed",
+    "content_validation": "pending_user_chatgpt_review",
+    "send_ready": false,
+    "assembly_mode": "local_reference_quality_fix_v3",
+    "cloud_assembly_used": false,
+    "local_assembly_used": true,
+    "middle_reference_self_check": "passed",
+    "full_video_local_fix_v3": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/full_video_local_fix_v3.mp4",
+    "duration_seconds": 773.76
   }
 }

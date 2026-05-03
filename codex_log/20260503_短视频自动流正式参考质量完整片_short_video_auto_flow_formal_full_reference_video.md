@@ -90,3 +90,10 @@
 - 中段重剪、画布对齐、骚萌卡、HyperFrames 总结卡和 v3.1 TTS 均有独立证据报告。
 - `content_validation = pending_user_chatgpt_review`，`send_ready = false`。
 - `full_video_local_fix_v2`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/full_video_local_fix_v2.mp4`
+
+## 2026-05-04 local_reference_quality_fix_v3
+
+- 本轮按用户强制修正补丁，不等待用户看中段预览；Codex 自检 v3.1 / round34 reference 后直接总装完整片。
+- 中段去掉粉色卡壳 / 相册框 / 桌面风景背景，保留固定证据窗口。
+- `content_validation = pending_user_chatgpt_review`，`send_ready = false`。
+- `full_video_local_fix_v3`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/full_video_local_fix_v3.mp4`

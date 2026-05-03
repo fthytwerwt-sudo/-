@@ -1,0 +1,25 @@
+{
+  "dynamic_crop_x_found": false,
+  "cos_or_sin_motion_found": false,
+  "middle_segments_checked": [
+    "seg02",
+    "seg04",
+    "seg06",
+    "seg07",
+    "seg08",
+    "seg14"
+  ],
+  "middle_card_route_found": false,
+  "pink_shell_or_photo_frame_found": false,
+  "desktop_wallpaper_crop_risk": false,
+  "canvas_size_consistent": true,
+  "background_full_bleed": true,
+  "transparent_layers_precomposited": true,
+  "middle_source_mode": "raw_user_recordings_recut",
+  "reference_middle_preview_read": "/Users/fan/Documents/视频工厂/dist/latest_review_pack/middle_preview.mp4",
+  "reference_cut_map_read": "/Users/fan/Documents/视频工厂/dist/latest_review_pack/cut_map.md",
+  "inherits_middle_editing_round34_locked_20260425": true,
+  "inherits_middle_zoom_reference_confirmed_middle_preview_20260430": true,
+  "passed": true,
+  "failed_reasons": []
+}

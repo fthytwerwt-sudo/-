@@ -1,0 +1,10 @@
+# local_open_path_report
+
+- `full_video_local_fix_v3.mp4`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/full_video_local_fix_v3.mp4`
+- `middle_preview_stable_v3.mp4`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/middle_preview_stable_v3.mp4`
+- `manifest_local_fix_v3.json`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/manifest_local_fix_v3.json`
+- `timeline_local_fix_v3.json`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/timeline_local_fix_v3.json`
+- `captions_local_fix_v3.srt`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/captions_local_fix_v3.srt`
+- `middle_stable_zoom_contact_sheet_v3.jpg`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/middle_stable_zoom_contact_sheet_v3.jpg`
+- `canvas_alignment_contact_sheet_v3.jpg`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/canvas_alignment_contact_sheet_v3.jpg`
+- `middle_reference_inheritance_report_v3.md`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/middle_reference_inheritance_report_v3.md`

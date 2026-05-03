@@ -1,0 +1,10 @@
+{
+  "score": 93,
+  "verdict": "pass",
+  "category_match": true,
+  "differences": [
+    "当前素材主题不同于 v3.1 参考片，因此 UI 内容不同；剪辑语法按 screen/not_card、固定证据窗口继承。"
+  ],
+  "suggestions": [],
+  "reasoning": "v3 中段不再使用粉色卡壳或相册框，直接以原始录屏固定证据窗口铺满 9:16，符合 round34 / v3.1 中段语法。"
+}

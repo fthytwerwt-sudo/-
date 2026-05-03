@@ -641,3 +641,11 @@
 - `已确认` 画布统一为 `1080x1920`，输出画布和背景对齐报告。
 - `待验证` 内容仍待用户 / ChatGPT 复审，`send_ready = false`。
 - `full_video_local_fix_v2`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/full_video_local_fix_v2.mp4`
+
+## 2026-05-04｜短视频自动流本地修正版 v3
+
+- `已确认` 已生成本地参考修正版 v3，不走阿里云剪辑 / ICE / OSS。
+- `已确认` 中段按 v3.1 / round34 reference 自检，不再等待用户确认中段预览。
+- `已确认` 中段从原始录屏素材重新剪，去掉粉色卡壳 / 相册框 / 桌面风景背景，使用固定证据窗口。
+- `待验证` 内容仍待用户 / ChatGPT 复审，`send_ready = false`。
+- `full_video_local_fix_v3`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/full_video_local_fix_v3.mp4`
