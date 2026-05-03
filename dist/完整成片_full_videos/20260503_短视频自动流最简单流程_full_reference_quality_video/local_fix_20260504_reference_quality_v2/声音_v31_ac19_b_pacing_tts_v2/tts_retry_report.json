@@ -1,0 +1,788 @@
+{
+  "schema_version": "formal_tts_retry_report/v31_ac19_b_pacing_v1",
+  "attempt": "v31_ac19_20260504",
+  "status": "success",
+  "provider": "aliyun_bailian",
+  "api_route_family": "aliyun_qwen_realtime_websocket_voice_clone",
+  "model": "qwen3-tts-vc-realtime-2026-01-15",
+  "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+  "create_model": "qwen-voice-enrollment",
+  "voice_masked": "qwen-t...ac19",
+  "source_reference_voice_masked": "qwen-t...ac19",
+  "voice_resolution": {
+    "voice_masked": "qwen-t...ac19",
+    "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+    "resolved_by": "list_existing_custom_voices_match_suffix_ac19",
+    "source_reference_voice_masked": "qwen-t...ac19"
+  },
+  "uses_custom_voice": true,
+  "create_custom_voice_called": false,
+  "uses_cosyvoice_old_a": false,
+  "v31_reference_voice_inheritance": "voice_sample_2_re_enrolled_custom_voice_plus_b_pacing",
+  "re_enrolled_voice_used": false,
+  "instructions_sent_to_api": null,
+  "local_pacing_reference": "请参考新样本2的说话方式，保持自然口语、轻吐槽和熟人式分享感。\n语气不要太嗨，不要夸张带货，不要综艺腔。\n“陪资料加班”“看着像方案，用起来像空气”这些地方可以稍微停一下，让梗自然落地。\n本轮是完整片重提音轨，不能压缩文案；每个短块按 B 版停顿梗感执行，句间停顿清楚，但不要拖沓。",
+  "vc_session_config_note": "qwen3-tts-vc-realtime-2026-01-15 是声音复刻模型。根据阿里官方文档，instructions / optimize_instructions 只适用于 qwen3-tts-instruct-flash-realtime；本脚本用 ac19 custom voice 合成，再通过分句、chunk 间停顿和整体节奏控制继承 B 版停顿梗感。",
+  "full_script_used": true,
+  "compressed_runtime_used": false,
+  "reference_script_used_for_tts": true,
+  "reference_voice_used_for_tts": true,
+  "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/formal_voiceover.mp3",
+  "raw_wav_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/formal_voiceover_v31_reference_voice.wav",
+  "duration_seconds": 771.76,
+  "segment_audio_paths": [
+    "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg01.mp3",
+    "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg02.mp3",
+    "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg03.mp3",
+    "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg04.mp3",
+    "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg05.mp3",
+    "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg06.mp3",
+    "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg07.mp3",
+    "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg08.mp3",
+    "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg09.mp3",
+    "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg10.mp3",
+    "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg11.mp3",
+    "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg12.mp3",
+    "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg13.mp3",
+    "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg14.mp3",
+    "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg15.mp3",
+    "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg16.mp3",
+    "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg17.mp3"
+  ],
+  "segment_results": [
+    {
+      "segment_id": "seg01",
+      "status": "success",
+      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg01.mp3",
+      "raw_wav_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg01.wav",
+      "request_id": null,
+      "failure_reason": "",
+      "error_message": "",
+      "selected_candidate_id": "v31_custom_voice_ac19_b_pacing",
+      "fallback_events": [],
+      "duration_seconds": 32.32,
+      "chunk_count": 3,
+      "chunk_results": [
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg01/seg01_part01.wav",
+          "duration_seconds": 11.04,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg01/seg01_part01_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg01/seg01_part02.wav",
+          "duration_seconds": 14.16,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg01/seg01_part02_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg01/seg01_part03.wav",
+          "duration_seconds": 7.12,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg01/seg01_part03_debug_sanitized.json",
+          "skipped_existing": false
+        }
+      ]
+    },
+    {
+      "segment_id": "seg02",
+      "status": "success",
+      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg02.mp3",
+      "raw_wav_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg02.wav",
+      "request_id": null,
+      "failure_reason": "",
+      "error_message": "",
+      "selected_candidate_id": "v31_custom_voice_ac19_b_pacing",
+      "fallback_events": [],
+      "duration_seconds": 20.64,
+      "chunk_count": 2,
+      "chunk_results": [
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg02/seg02_part01.wav",
+          "duration_seconds": 13.68,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg02/seg02_part01_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg02/seg02_part02.wav",
+          "duration_seconds": 6.96,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg02/seg02_part02_debug_sanitized.json",
+          "skipped_existing": false
+        }
+      ]
+    },
+    {
+      "segment_id": "seg03",
+      "status": "success",
+      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg03.mp3",
+      "raw_wav_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg03.wav",
+      "request_id": null,
+      "failure_reason": "",
+      "error_message": "",
+      "selected_candidate_id": "v31_custom_voice_ac19_b_pacing",
+      "fallback_events": [],
+      "duration_seconds": 28.96,
+      "chunk_count": 2,
+      "chunk_results": [
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg03/seg03_part01.wav",
+          "duration_seconds": 18.8,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg03/seg03_part01_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg03/seg03_part02.wav",
+          "duration_seconds": 10.16,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg03/seg03_part02_debug_sanitized.json",
+          "skipped_existing": false
+        }
+      ]
+    },
+    {
+      "segment_id": "seg04",
+      "status": "success",
+      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg04.mp3",
+      "raw_wav_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg04.wav",
+      "request_id": null,
+      "failure_reason": "",
+      "error_message": "",
+      "selected_candidate_id": "v31_custom_voice_ac19_b_pacing",
+      "fallback_events": [],
+      "duration_seconds": 56.96,
+      "chunk_count": 4,
+      "chunk_results": [
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg04/seg04_part01.wav",
+          "duration_seconds": 13.2,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg04/seg04_part01_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg04/seg04_part02.wav",
+          "duration_seconds": 13.04,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg04/seg04_part02_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg04/seg04_part03.wav",
+          "duration_seconds": 14.4,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg04/seg04_part03_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg04/seg04_part04.wav",
+          "duration_seconds": 16.32,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg04/seg04_part04_debug_sanitized.json",
+          "skipped_existing": false
+        }
+      ]
+    },
+    {
+      "segment_id": "seg05",
+      "status": "success",
+      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg05.mp3",
+      "raw_wav_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg05.wav",
+      "request_id": null,
+      "failure_reason": "",
+      "error_message": "",
+      "selected_candidate_id": "v31_custom_voice_ac19_b_pacing",
+      "fallback_events": [],
+      "duration_seconds": 26.88,
+      "chunk_count": 3,
+      "chunk_results": [
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg05/seg05_part01.wav",
+          "duration_seconds": 10.56,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg05/seg05_part01_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg05/seg05_part02.wav",
+          "duration_seconds": 13.92,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg05/seg05_part02_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg05/seg05_part03.wav",
+          "duration_seconds": 2.4,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg05/seg05_part03_debug_sanitized.json",
+          "skipped_existing": false
+        }
+      ]
+    },
+    {
+      "segment_id": "seg06",
+      "status": "success",
+      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg06.mp3",
+      "raw_wav_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg06.wav",
+      "request_id": null,
+      "failure_reason": "",
+      "error_message": "",
+      "selected_candidate_id": "v31_custom_voice_ac19_b_pacing",
+      "fallback_events": [],
+      "duration_seconds": 57.92,
+      "chunk_count": 5,
+      "chunk_results": [
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg06/seg06_part01.wav",
+          "duration_seconds": 11.44,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg06/seg06_part01_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg06/seg06_part02.wav",
+          "duration_seconds": 11.28,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg06/seg06_part02_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg06/seg06_part03.wav",
+          "duration_seconds": 13.6,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg06/seg06_part03_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg06/seg06_part04.wav",
+          "duration_seconds": 16.8,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg06/seg06_part04_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg06/seg06_part05.wav",
+          "duration_seconds": 4.8,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg06/seg06_part05_debug_sanitized.json",
+          "skipped_existing": false
+        }
+      ]
+    },
+    {
+      "segment_id": "seg07",
+      "status": "success",
+      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg07.mp3",
+      "raw_wav_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg07.wav",
+      "request_id": null,
+      "failure_reason": "",
+      "error_message": "",
+      "selected_candidate_id": "v31_custom_voice_ac19_b_pacing",
+      "fallback_events": [],
+      "duration_seconds": 42.48,
+      "chunk_count": 5,
+      "chunk_results": [
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg07/seg07_part01.wav",
+          "duration_seconds": 9.84,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg07/seg07_part01_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg07/seg07_part02.wav",
+          "duration_seconds": 9.04,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg07/seg07_part02_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg07/seg07_part03.wav",
+          "duration_seconds": 11.84,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg07/seg07_part03_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg07/seg07_part04.wav",
+          "duration_seconds": 8.8,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg07/seg07_part04_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg07/seg07_part05.wav",
+          "duration_seconds": 2.96,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg07/seg07_part05_debug_sanitized.json",
+          "skipped_existing": false
+        }
+      ]
+    },
+    {
+      "segment_id": "seg08",
+      "status": "success",
+      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg08.mp3",
+      "raw_wav_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg08.wav",
+      "request_id": null,
+      "failure_reason": "",
+      "error_message": "",
+      "selected_candidate_id": "v31_custom_voice_ac19_b_pacing",
+      "fallback_events": [],
+      "duration_seconds": 62.48,
+      "chunk_count": 7,
+      "chunk_results": [
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg08/seg08_part01.wav",
+          "duration_seconds": 8.64,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg08/seg08_part01_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg08/seg08_part02.wav",
+          "duration_seconds": 7.92,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg08/seg08_part02_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg08/seg08_part03.wav",
+          "duration_seconds": 10.64,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg08/seg08_part03_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg08/seg08_part04.wav",
+          "duration_seconds": 10.72,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg08/seg08_part04_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg08/seg08_part05.wav",
+          "duration_seconds": 8.4,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg08/seg08_part05_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg08/seg08_part06.wav",
+          "duration_seconds": 10.64,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg08/seg08_part06_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg08/seg08_part07.wav",
+          "duration_seconds": 5.52,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg08/seg08_part07_debug_sanitized.json",
+          "skipped_existing": false
+        }
+      ]
+    },
+    {
+      "segment_id": "seg09",
+      "status": "success",
+      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg09.mp3",
+      "raw_wav_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg09.wav",
+      "request_id": null,
+      "failure_reason": "",
+      "error_message": "",
+      "selected_candidate_id": "v31_custom_voice_ac19_b_pacing",
+      "fallback_events": [],
+      "duration_seconds": 47.04,
+      "chunk_count": 4,
+      "chunk_results": [
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg09/seg09_part01.wav",
+          "duration_seconds": 15.84,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg09/seg09_part01_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg09/seg09_part02.wav",
+          "duration_seconds": 14.16,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg09/seg09_part02_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg09/seg09_part03.wav",
+          "duration_seconds": 10.56,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg09/seg09_part03_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg09/seg09_part04.wav",
+          "duration_seconds": 6.48,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg09/seg09_part04_debug_sanitized.json",
+          "skipped_existing": false
+        }
+      ]
+    },
+    {
+      "segment_id": "seg10",
+      "status": "success",
+      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg10.mp3",
+      "raw_wav_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg10.wav",
+      "request_id": null,
+      "failure_reason": "",
+      "error_message": "",
+      "selected_candidate_id": "v31_custom_voice_ac19_b_pacing",
+      "fallback_events": [],
+      "duration_seconds": 19.12,
+      "chunk_count": 2,
+      "chunk_results": [
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg10/seg10_part01.wav",
+          "duration_seconds": 11.6,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg10/seg10_part01_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg10/seg10_part02.wav",
+          "duration_seconds": 7.52,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg10/seg10_part02_debug_sanitized.json",
+          "skipped_existing": false
+        }
+      ]
+    },
+    {
+      "segment_id": "seg11",
+      "status": "success",
+      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg11.mp3",
+      "raw_wav_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg11.wav",
+      "request_id": null,
+      "failure_reason": "",
+      "error_message": "",
+      "selected_candidate_id": "v31_custom_voice_ac19_b_pacing",
+      "fallback_events": [],
+      "duration_seconds": 49.76,
+      "chunk_count": 4,
+      "chunk_results": [
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg11/seg11_part01.wav",
+          "duration_seconds": 13.04,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg11/seg11_part01_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg11/seg11_part02.wav",
+          "duration_seconds": 13.76,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg11/seg11_part02_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg11/seg11_part03.wav",
+          "duration_seconds": 14.56,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg11/seg11_part03_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg11/seg11_part04.wav",
+          "duration_seconds": 8.4,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg11/seg11_part04_debug_sanitized.json",
+          "skipped_existing": false
+        }
+      ]
+    },
+    {
+      "segment_id": "seg12",
+      "status": "success",
+      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg12.mp3",
+      "raw_wav_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg12.wav",
+      "request_id": null,
+      "failure_reason": "",
+      "error_message": "",
+      "selected_candidate_id": "v31_custom_voice_ac19_b_pacing",
+      "fallback_events": [],
+      "duration_seconds": 25.2,
+      "chunk_count": 2,
+      "chunk_results": [
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg12/seg12_part01.wav",
+          "duration_seconds": 15.36,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg12/seg12_part01_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg12/seg12_part02.wav",
+          "duration_seconds": 9.84,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg12/seg12_part02_debug_sanitized.json",
+          "skipped_existing": false
+        }
+      ]
+    },
+    {
+      "segment_id": "seg13",
+      "status": "success",
+      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg13.mp3",
+      "raw_wav_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg13.wav",
+      "request_id": null,
+      "failure_reason": "",
+      "error_message": "",
+      "selected_candidate_id": "v31_custom_voice_ac19_b_pacing",
+      "fallback_events": [],
+      "duration_seconds": 32.56,
+      "chunk_count": 3,
+      "chunk_results": [
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg13/seg13_part01.wav",
+          "duration_seconds": 15.04,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg13/seg13_part01_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg13/seg13_part02.wav",
+          "duration_seconds": 12.24,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg13/seg13_part02_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg13/seg13_part03.wav",
+          "duration_seconds": 5.28,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg13/seg13_part03_debug_sanitized.json",
+          "skipped_existing": false
+        }
+      ]
+    },
+    {
+      "segment_id": "seg14",
+      "status": "success",
+      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg14.mp3",
+      "raw_wav_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg14.wav",
+      "request_id": null,
+      "failure_reason": "",
+      "error_message": "",
+      "selected_candidate_id": "v31_custom_voice_ac19_b_pacing",
+      "fallback_events": [],
+      "duration_seconds": 62.72,
+      "chunk_count": 5,
+      "chunk_results": [
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg14/seg14_part01.wav",
+          "duration_seconds": 9.68,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg14/seg14_part01_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg14/seg14_part02.wav",
+          "duration_seconds": 10.8,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg14/seg14_part02_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg14/seg14_part03.wav",
+          "duration_seconds": 15.04,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg14/seg14_part03_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg14/seg14_part04.wav",
+          "duration_seconds": 14.72,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg14/seg14_part04_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg14/seg14_part05.wav",
+          "duration_seconds": 12.48,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg14/seg14_part05_debug_sanitized.json",
+          "skipped_existing": false
+        }
+      ]
+    },
+    {
+      "segment_id": "seg15",
+      "status": "success",
+      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg15.mp3",
+      "raw_wav_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg15.wav",
+      "request_id": null,
+      "failure_reason": "",
+      "error_message": "",
+      "selected_candidate_id": "v31_custom_voice_ac19_b_pacing",
+      "fallback_events": [],
+      "duration_seconds": 33.36,
+      "chunk_count": 3,
+      "chunk_results": [
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg15/seg15_part01.wav",
+          "duration_seconds": 11.76,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg15/seg15_part01_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg15/seg15_part02.wav",
+          "duration_seconds": 10.8,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg15/seg15_part02_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg15/seg15_part03.wav",
+          "duration_seconds": 10.8,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg15/seg15_part03_debug_sanitized.json",
+          "skipped_existing": false
+        }
+      ]
+    },
+    {
+      "segment_id": "seg16",
+      "status": "success",
+      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg16.mp3",
+      "raw_wav_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg16.wav",
+      "request_id": null,
+      "failure_reason": "",
+      "error_message": "",
+      "selected_candidate_id": "v31_custom_voice_ac19_b_pacing",
+      "fallback_events": [],
+      "duration_seconds": 126.16,
+      "chunk_count": 10,
+      "chunk_results": [
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg16/seg16_part01.wav",
+          "duration_seconds": 15.36,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg16/seg16_part01_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg16/seg16_part02.wav",
+          "duration_seconds": 16.56,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg16/seg16_part02_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg16/seg16_part03.wav",
+          "duration_seconds": 11.44,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg16/seg16_part03_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg16/seg16_part04.wav",
+          "duration_seconds": 12.8,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg16/seg16_part04_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg16/seg16_part05.wav",
+          "duration_seconds": 12.32,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg16/seg16_part05_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg16/seg16_part06.wav",
+          "duration_seconds": 8.72,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg16/seg16_part06_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg16/seg16_part07.wav",
+          "duration_seconds": 14.64,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg16/seg16_part07_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg16/seg16_part08.wav",
+          "duration_seconds": 13.12,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg16/seg16_part08_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg16/seg16_part09.wav",
+          "duration_seconds": 12.32,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg16/seg16_part09_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg16/seg16_part10.wav",
+          "duration_seconds": 8.88,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg16/seg16_part10_debug_sanitized.json",
+          "skipped_existing": false
+        }
+      ]
+    },
+    {
+      "segment_id": "seg17",
+      "status": "success",
+      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg17.mp3",
+      "raw_wav_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/segment_seg17.wav",
+      "request_id": null,
+      "failure_reason": "",
+      "error_message": "",
+      "selected_candidate_id": "v31_custom_voice_ac19_b_pacing",
+      "fallback_events": [],
+      "duration_seconds": 47.2,
+      "chunk_count": 4,
+      "chunk_results": [
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg17/seg17_part01.wav",
+          "duration_seconds": 13.28,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg17/seg17_part01_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg17/seg17_part02.wav",
+          "duration_seconds": 6.88,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg17/seg17_part02_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg17/seg17_part03.wav",
+          "duration_seconds": 11.28,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg17/seg17_part03_debug_sanitized.json",
+          "skipped_existing": false
+        },
+        {
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg17/seg17_part04.wav",
+          "duration_seconds": 15.76,
+          "debug_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/chunks/seg17/seg17_part04_debug_sanitized.json",
+          "skipped_existing": false
+        }
+      ]
+    }
+  ],
+  "voice_validation": "pending_user_chatgpt_review",
+  "final_voice_validated": false,
+  "macos_say_used": false
+}

@@ -1,0 +1,37 @@
+{
+  "route": "sassy_reaction_card_route",
+  "reference": "PR7_B_骚萌反应页.png",
+  "legacy_pr7_a_used": false,
+  "cards": [
+    {
+      "segment": "seg01_after_intro",
+      "type": "问题钩子骚萌卡",
+      "punchline": "一键生成？先别急着抽卡"
+    },
+    {
+      "segment": "seg05",
+      "type": "判断转折骚萌卡",
+      "punchline": "先拆流程，工具才有位置"
+    },
+    {
+      "segment": "seg10",
+      "type": "API 工位转折骚萌卡",
+      "punchline": "API 是工位，不是主角"
+    },
+    {
+      "segment": "seg12",
+      "type": "装配台转折骚萌卡",
+      "punchline": "装配台别抢方向盘"
+    },
+    {
+      "segment": "seg14",
+      "type": "执行检查骚萌卡",
+      "punchline": "半成品别装完成"
+    },
+    {
+      "segment": "seg17",
+      "type": "收束反应骚萌卡",
+      "punchline": "流程在，工具才好换"
+    }
+  ]
+}

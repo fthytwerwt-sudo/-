@@ -1,0 +1,14 @@
+{
+  "status": "success",
+  "intro_greeting_audio": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/intro_greeting_audio_2s.wav",
+  "main_voiceover_audio": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/formal_voiceover.mp3",
+  "final_voiceover_audio": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/声音_v31_ac19_b_pacing_tts_v2/tts/voiceover_local_fix_v2.mp3",
+  "duration_seconds": 773.76,
+  "main_duration_seconds": 771.76,
+  "intro_duration_seconds": 2.0,
+  "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+  "custom_voice_reference": "qwen-t...ac19",
+  "reference_voice_or_pacing_used_for_tts": true,
+  "tts_15s_b_pacing_locked_20260427_read": true,
+  "macos_say_used": false
+}

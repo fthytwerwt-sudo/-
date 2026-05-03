@@ -1,0 +1,25 @@
+{
+  "duration_seconds": 773.76,
+  "streams": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_type": "video",
+        "width": 1080,
+        "height": 1920
+      },
+      {
+        "index": 1,
+        "codec_name": "aac",
+        "codec_type": "audio",
+        "sample_rate": "48000",
+        "channels": 1
+      }
+    ]
+  },
+  "decodable": true,
+  "full_video_local_fix_v2": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/full_video_local_fix_v2.mp4"
+}

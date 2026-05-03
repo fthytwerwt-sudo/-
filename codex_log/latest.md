@@ -633,3 +633,11 @@
 - `dist/latest_review_pack/summary.json`
 - `codex_log/20260425_round34_中段双展示提示卡_正反分段提示修复.md`
 - `codex_log/20260425_round34_中段暂定通过与本地审片路径修正.md`
+
+## 2026-05-04｜短视频自动流本地修正版 v2
+
+- `已确认` 已生成本地参考修正版 v2，不走阿里云剪辑 / ICE / OSS。
+- `已确认` 中段从原始录屏素材重新剪，使用固定证据窗口。
+- `已确认` 画布统一为 `1080x1920`，输出画布和背景对齐报告。
+- `待验证` 内容仍待用户 / ChatGPT 复审，`send_ready = false`。
+- `full_video_local_fix_v2`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/full_video_local_fix_v2.mp4`

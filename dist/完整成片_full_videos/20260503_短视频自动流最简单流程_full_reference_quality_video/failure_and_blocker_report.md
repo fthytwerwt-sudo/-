@@ -55,3 +55,13 @@
 - send_ready：false
 
 没有把已解决的 TTS 超时或 liveportrait quota 继续写成 blocker；也没有把未使用的骚萌卡 / HyperFrames 误写成已入片。内容仍待用户 / ChatGPT 复审。
+
+## 2026-05-04 local_reference_quality_fix_v2
+
+- `status`：`completed`
+- `cloud_assembly_used`：`false`
+- `local_assembly_used`：`true`
+- `content_validation`：`pending_user_chatgpt_review`
+- `send_ready`：`false`
+- 用户反馈的中段左右晃和粉色背景不对称已进入 v2 本地修复证据包。
+- `full_video_local_fix_v2`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/full_video_local_fix_v2.mp4`

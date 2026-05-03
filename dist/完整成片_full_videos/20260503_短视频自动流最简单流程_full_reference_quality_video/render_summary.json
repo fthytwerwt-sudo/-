@@ -81,5 +81,16 @@
     "full_video_local_fix_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/full_video_local_fix.mp4",
     "local_fix_dir": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality",
     "render_summary_local_fix_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/render_summary_local_fix.json"
+  },
+  "local_reference_fix_v2": {
+    "status": "completed",
+    "technical_validation": "passed",
+    "content_validation": "pending_user_chatgpt_review",
+    "send_ready": false,
+    "assembly_mode": "local_reference_quality_fix_v2",
+    "cloud_assembly_used": false,
+    "local_assembly_used": true,
+    "full_video_local_fix_v2": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/full_video_local_fix_v2.mp4",
+    "duration_seconds": 773.76
   }
 }

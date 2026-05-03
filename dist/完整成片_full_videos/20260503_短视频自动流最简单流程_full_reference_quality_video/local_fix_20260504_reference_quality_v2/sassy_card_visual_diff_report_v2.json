@@ -1,0 +1,90 @@
+{
+  "cards": {
+    "seg01_sassy": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/assets_local_fix_v2/cards/seg01_sassy_sassy_reaction_card_route.png",
+    "seg05_sassy": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/assets_local_fix_v2/cards/seg05_sassy_sassy_reaction_card_route.png",
+    "seg10_sassy": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/assets_local_fix_v2/cards/seg10_sassy_sassy_reaction_card_route.png",
+    "seg12_sassy": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/assets_local_fix_v2/cards/seg12_sassy_sassy_reaction_card_route.png",
+    "seg14_sassy": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/assets_local_fix_v2/cards/seg14_sassy_sassy_reaction_card_route.png",
+    "seg17_sassy": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v2/assets_local_fix_v2/cards/seg17_sassy_sassy_reaction_card_route.png"
+  },
+  "pairwise": [
+    {
+      "pair": "seg01_sassy__seg05_sassy",
+      "mean_pixel_difference": 36.034,
+      "different": true
+    },
+    {
+      "pair": "seg01_sassy__seg10_sassy",
+      "mean_pixel_difference": 31.957,
+      "different": true
+    },
+    {
+      "pair": "seg01_sassy__seg12_sassy",
+      "mean_pixel_difference": 58.482,
+      "different": true
+    },
+    {
+      "pair": "seg01_sassy__seg14_sassy",
+      "mean_pixel_difference": 36.812,
+      "different": true
+    },
+    {
+      "pair": "seg01_sassy__seg17_sassy",
+      "mean_pixel_difference": 38.403,
+      "different": true
+    },
+    {
+      "pair": "seg05_sassy__seg10_sassy",
+      "mean_pixel_difference": 42.609,
+      "different": true
+    },
+    {
+      "pair": "seg05_sassy__seg12_sassy",
+      "mean_pixel_difference": 53.048,
+      "different": true
+    },
+    {
+      "pair": "seg05_sassy__seg14_sassy",
+      "mean_pixel_difference": 38.562,
+      "different": true
+    },
+    {
+      "pair": "seg05_sassy__seg17_sassy",
+      "mean_pixel_difference": 32.016,
+      "different": true
+    },
+    {
+      "pair": "seg10_sassy__seg12_sassy",
+      "mean_pixel_difference": 60.582,
+      "different": true
+    },
+    {
+      "pair": "seg10_sassy__seg14_sassy",
+      "mean_pixel_difference": 29.655,
+      "different": true
+    },
+    {
+      "pair": "seg10_sassy__seg17_sassy",
+      "mean_pixel_difference": 38.415,
+      "different": true
+    },
+    {
+      "pair": "seg12_sassy__seg14_sassy",
+      "mean_pixel_difference": 62.884,
+      "different": true
+    },
+    {
+      "pair": "seg12_sassy__seg17_sassy",
+      "mean_pixel_difference": 47.703,
+      "different": true
+    },
+    {
+      "pair": "seg14_sassy__seg17_sassy",
+      "mean_pixel_difference": 42.281,
+      "different": true
+    }
+  ],
+  "all_different": true,
+  "legacy_pr7_a_used": false,
+  "reference": "/Users/fan/Documents/视频工厂/dist/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/references/PR7_B_骚萌反应页.png"
+}

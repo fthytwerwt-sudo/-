@@ -1,0 +1,9 @@
+$ npx hyperframes lint
+
+STDOUT:
+◆  Linting hyperframes_summary_card_v2/index.html
+
+◇  0 errors, 0 warnings
+
+
+STDERR:
