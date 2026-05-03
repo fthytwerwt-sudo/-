@@ -1,5 +1,21 @@
 # Latest
 
+## 20260503｜短视频自动流正式参考质量完整片 blocked + TTS 重提
+
+- `已确认` 本轮从最新 `codex/user-readable-map` 创建分支：`codex/short-video-auto-flow-formal-full-reference-video-20260503`。
+- `已确认` 已创建正式 case：`cases/短视频自动流最简单流程_full_reference_quality_video.md`，并将用户确认的完整 `FINAL_SCRIPT_V2` 写入 case、文案库和本轮 `runtime_full_script.md`。
+- `已确认` 已执行正式入口 `scripts/generate_formal_api_demo.py`，未使用 `--dry-run`，未使用 macOS `say`，未使用 local assembly fallback，未用 host card / 信息卡冒充 API 真人。
+- `已确认` 按用户最新要求重新提取项目 TTS 后，独立完整 TTS 音轨已成功生成并可解码：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/formal_voiceover.mp3`，时长 742.848 秒。
+- `部分成立` 独立 TTS 重提成功来自项目正式 TTS 配置；但重新执行正式 generation 时，主 voiceover 步骤仍返回 `The read operation timed out`，manifest 未形成可进入 cloud assembly 的完整 voiceover 状态。
+- `已确认` visual / API 生成仍被远端额度状态 `AllocationQuota.FreeTierOnly` 阻断，API 真人未能真实生成 / 入片。
+- `已确认` 用户录制素材已按时间码预处理并登记；中段继承计划、cut map 和 contact sheet 已输出，但完整片未生成，不能说中段已入最终成片。
+- `已确认` 因 generation 未通过，未执行 `scripts/assemble_formal_api_demo.py`，未启动 OSS + ICE / 云剪总装，未生成 `full_video.mp4`。
+- `已确认` PR #43 的 145 秒压缩稿、macOS `say` 临时音轨、local assembly fallback、host / 信息卡替代 API 真人错误均未继承。
+- `已确认` 本轮未修改 `dist/latest_review_pack/`，未修改当前 v3.1 publish target，`content_validation` 保持 `pending_user_chatgpt_review`，`send_ready` 保持 `false`。
+- `输出目录`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video`
+- `结果状态`：`blocked_full_reference_quality_video_not_completed`
+- `下一个目标`：formal generation 的 voiceover 超时和 visual / API 额度阻断解除后，重新执行正式 generation；只有 API 真人、完整 TTS、用户素材、visual route 全部通过后，才进入 cloud-only assembly。
+
 ## 20260503｜阿里云剪辑复接验证 after audit
 
 - `已确认` PR #34「接入 HyperFrames 三类卡片动效边界并审计阿里云剪辑」已合并到 `codex/user-readable-map`，合并提交：`edbe61e512c972d75c786a53f82c9e3db53ecfb2`。

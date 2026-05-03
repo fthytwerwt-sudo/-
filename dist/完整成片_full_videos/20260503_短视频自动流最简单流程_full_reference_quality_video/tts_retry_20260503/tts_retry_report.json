@@ -1,0 +1,77 @@
+{
+  "schema_version": "formal_tts_retry_report/v1",
+  "status": "failed",
+  "provider": "aliyun_bailian",
+  "api_route_family": "aliyun_bailian_cosyvoice",
+  "model": "cosyvoice-v2",
+  "full_script_used": true,
+  "compressed_runtime_used": false,
+  "reference_script_used_for_tts": true,
+  "audio_path": null,
+  "duration_seconds": null,
+  "segment_audio_paths": [
+    "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503/tts/segment_seg01.mp3",
+    "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503/tts/segment_seg02.mp3",
+    "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503/tts/segment_seg03.mp3"
+  ],
+  "segment_results": [
+    {
+      "segment_id": "seg01",
+      "status": "success",
+      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503/tts/segment_seg01.mp3",
+      "request_id": "c7c72a99-ef0b-910f-9eb6-f44d1617b368",
+      "failure_reason": "",
+      "error_message": "",
+      "selected_candidate_id": "primary",
+      "fallback_events": [],
+      "duration_seconds": 31.248
+    },
+    {
+      "segment_id": "seg02",
+      "status": "success",
+      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503/tts/segment_seg02.mp3",
+      "request_id": "3be34848-d2cc-9770-b700-713902b016e2",
+      "failure_reason": "",
+      "error_message": "",
+      "selected_candidate_id": "primary",
+      "fallback_events": [],
+      "duration_seconds": 17.856
+    },
+    {
+      "segment_id": "seg03",
+      "status": "success",
+      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503/tts/segment_seg03.mp3",
+      "request_id": "8b4e1471-e87e-9485-a478-249d1d406e8a",
+      "failure_reason": "",
+      "error_message": "",
+      "selected_candidate_id": "primary",
+      "fallback_events": [],
+      "duration_seconds": 24.096
+    },
+    {
+      "segment_id": "seg04",
+      "status": "failed",
+      "audio_path": null,
+      "request_id": null,
+      "failure_reason": "aliyun_bailian_tts_request_failed",
+      "error_message": "[Errno 54] Connection reset by peer",
+      "selected_candidate_id": "primary",
+      "fallback_events": [
+        {
+          "resource_kind": "tts",
+          "from_candidate_id": "primary",
+          "from_provider": "aliyun_bailian",
+          "from_voice": "longxiaochun_v2",
+          "reason_category": "provider_timeout",
+          "reason": "[Errno 54] Connection reset by peer",
+          "switch_to_candidate_id": "",
+          "remaining_candidate_count": 0
+        }
+      ],
+      "duration_seconds": null
+    }
+  ],
+  "failure_reason": "aliyun_bailian_tts_request_failed",
+  "blocked_reason": "[Errno 54] Connection reset by peer",
+  "error_message": "[Errno 54] Connection reset by peer"
+}

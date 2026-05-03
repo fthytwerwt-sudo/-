@@ -1,0 +1,15 @@
+{
+  "schema_version": "script_runtime_adjustment_report/v1",
+  "status": "success",
+  "full_script_used": true,
+  "compressed_runtime_used": false,
+  "pr43_compressed_script_reused": false,
+  "reference_script_used_for_tts": true,
+  "reference_script_used_for_captions": true,
+  "deleted_sentences": [],
+  "case_path": "/Users/fan/Documents/视频工厂/cases/短视频自动流最简单流程_full_reference_quality_video.md",
+  "runtime_full_script_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/runtime_full_script.md",
+  "script_library_path": "/Users/fan/Documents/视频工厂/文案库/20260503_短视频自动流最简单流程_short_video_auto_flow_simple_process/01_完整口播稿_full_script.md",
+  "segment_count": 17,
+  "source_anchor": "BEGIN_FINAL_SCRIPT_V2_to_END_FINAL_SCRIPT_V2_user_confirmed"
+}

@@ -56,6 +56,8 @@ def execute_cloud_only_assembly(
     media_id: str | None = None
     output_url: str | None = None
     media_url: str | None = None
+    output_object_key: str | None = None
+    local_download_path: str | None = None
 
     try:
         run_id = _build_run_id()
@@ -106,6 +108,7 @@ def execute_cloud_only_assembly(
             request_ids["update_project"] = update_result["request_id"]
 
         output_target = _build_output_target(config, run_id)
+        output_object_key = output_target["object_key"]
         output_url = output_target["oss_url"]
         media_url = output_target["media_url"]
 
@@ -127,6 +130,15 @@ def execute_cloud_only_assembly(
             request_ids["get_job"] = poll_result["request_id"]
         media_id = poll_result.get("media_id") or media_id
         media_url = poll_result.get("media_url") or media_url
+        if output_object_key:
+            local_video_path = output_dir / "full_video.mp4"
+            download_url = _build_oss_signed_get_url(
+                config=config,
+                object_key=output_object_key,
+                expires_seconds=DEFAULT_ASSET_URL_EXPIRES_SECONDS,
+            )
+            _download_oss_object(download_url, local_video_path, config)
+            local_download_path = str(local_video_path)
 
         return {
             "status": STATUS_SUCCESS,
@@ -139,9 +151,11 @@ def execute_cloud_only_assembly(
             "media_id": media_id,
             "output_url": output_url,
             "media_url": media_url,
+            "output_object_key": output_object_key,
+            "local_download_path": local_download_path,
             "timeline_path": str(timeline_path),
             "request_ids": request_ids,
-            "uploaded_assets": uploaded_assets,
+            "uploaded_assets": _sanitize_uploaded_assets(uploaded_assets, config),
             "missing_prerequisites": [],
             "missing_implementations": [],
         }
@@ -159,9 +173,11 @@ def execute_cloud_only_assembly(
             "media_id": media_id,
             "output_url": output_url,
             "media_url": media_url,
+            "output_object_key": output_object_key,
+            "local_download_path": local_download_path,
             "timeline_path": str(timeline_path),
             "request_ids": request_ids,
-            "uploaded_assets": uploaded_assets,
+            "uploaded_assets": _sanitize_uploaded_assets(uploaded_assets, config),
             "missing_prerequisites": [],
             "missing_implementations": [],
         }
@@ -550,6 +566,58 @@ def _upload_file_to_oss(
             error_code="UrlOpenError",
             failure_reason="aliyun_oss_put_object_failed",
         ) from exc
+
+
+def _download_oss_object(
+    signed_url: str,
+    destination: pathlib.Path,
+    config: dict[str, Any],
+) -> None:
+    request = urllib.request.Request(signed_url, method="GET")
+    try:
+        with urllib.request.urlopen(request, timeout=180) as response:
+            payload = response.read()
+    except urllib.error.HTTPError as exc:
+        raise CloudAssemblyError(
+            _sanitize_message(_read_urllib_error_message(exc), config),
+            status_code=exc.code,
+            error_code=f"HTTP{exc.code}",
+            failure_reason="aliyun_oss_download_output_failed",
+        ) from exc
+    except urllib.error.URLError as exc:
+        raise CloudAssemblyError(
+            _sanitize_message(str(exc.reason or exc), config),
+            error_code="UrlOpenError",
+            failure_reason="aliyun_oss_download_output_failed",
+        ) from exc
+    if not payload:
+        raise CloudAssemblyError(
+            "云剪导出文件下载为空。",
+            failure_reason="aliyun_oss_download_output_empty",
+        )
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_bytes(payload)
+
+
+def _sanitize_uploaded_assets(
+    uploaded_assets: list[dict[str, Any]],
+    config: dict[str, Any],
+) -> list[dict[str, Any]]:
+    sanitized_assets: list[dict[str, Any]] = []
+    for asset in uploaded_assets:
+        sanitized = dict(asset)
+        media_url = _normalize_optional_text(sanitized.get("media_url"))
+        if media_url:
+            sanitized["media_url"] = _sanitize_media_url(media_url, config)
+        sanitized_assets.append(sanitized)
+    return sanitized_assets
+
+
+def _sanitize_media_url(media_url: str, config: dict[str, Any]) -> str:
+    sanitized = _sanitize_message(media_url, config)
+    if "?" in sanitized:
+        return sanitized.split("?", 1)[0] + "?<redacted_signature>"
+    return sanitized
 
 
 def _build_oss_signed_get_url(

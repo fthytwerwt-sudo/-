@@ -1,0 +1,97 @@
+{
+  "schema_version": "formal_full_reference_visual_route_plan/v1",
+  "status": "partial_blocked_api_quota",
+  "prompt_card_route": "cute_prompt_card_route",
+  "info_card_route": "cute_info_card_route",
+  "sassy_reaction_card_route": "sassy_reaction_card_route",
+  "hyperframes_role": "card_motion_layer_only",
+  "route_mixed": false,
+  "segments": [
+    {
+      "segment_id": "seg01",
+      "carrier": "human",
+      "asset_source": "api_generated"
+    },
+    {
+      "segment_id": "seg02",
+      "carrier": "self_footage",
+      "asset_source": "user_media"
+    },
+    {
+      "segment_id": "seg03",
+      "carrier": "light_ppt",
+      "asset_source": "api_generated"
+    },
+    {
+      "segment_id": "seg04",
+      "carrier": "self_footage",
+      "asset_source": "user_media"
+    },
+    {
+      "segment_id": "seg05",
+      "carrier": "human",
+      "asset_source": "api_generated"
+    },
+    {
+      "segment_id": "seg06",
+      "carrier": "self_footage",
+      "asset_source": "user_media"
+    },
+    {
+      "segment_id": "seg07",
+      "carrier": "self_footage",
+      "asset_source": "user_media"
+    },
+    {
+      "segment_id": "seg08",
+      "carrier": "self_footage",
+      "asset_source": "user_media"
+    },
+    {
+      "segment_id": "seg09",
+      "carrier": "light_ppt",
+      "asset_source": "api_generated"
+    },
+    {
+      "segment_id": "seg10",
+      "carrier": "human",
+      "asset_source": "api_generated"
+    },
+    {
+      "segment_id": "seg11",
+      "carrier": "light_ppt",
+      "asset_source": "api_generated"
+    },
+    {
+      "segment_id": "seg12",
+      "carrier": "human",
+      "asset_source": "api_generated"
+    },
+    {
+      "segment_id": "seg13",
+      "carrier": "light_ppt",
+      "asset_source": "api_generated"
+    },
+    {
+      "segment_id": "seg14",
+      "carrier": "self_footage",
+      "asset_source": "user_media"
+    },
+    {
+      "segment_id": "seg15",
+      "carrier": "light_ppt",
+      "asset_source": "api_generated"
+    },
+    {
+      "segment_id": "seg16",
+      "carrier": "light_ppt",
+      "asset_source": "api_generated"
+    },
+    {
+      "segment_id": "seg17",
+      "carrier": "human",
+      "asset_source": "api_generated"
+    }
+  ],
+  "source_route_map_read": "/Users/fan/Documents/视频工厂/dist/latest_review_pack/visual_route_map.json"
+}

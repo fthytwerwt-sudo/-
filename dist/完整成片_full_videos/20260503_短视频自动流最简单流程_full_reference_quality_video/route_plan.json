@@ -1,0 +1,195 @@
+{
+  "schema_version": "formal_api_demo_route_plan/v1",
+  "route_profile": "api_human_local_footage_light_ppt_cloud_editing",
+  "video_route_strategy": "hybrid",
+  "route_reason": "API 真人负责开头、关键判断、工位转折和结尾收束；用户录制素材承担中段真实流程证据；少量信息卡只做边界、关键词和总结辅助；正式总装固定走云端剪辑。",
+  "blocks": [
+    {
+      "block_id": "seg01",
+      "block_goal": "开头进入：纠正一键生成误区",
+      "block_carrier": "human",
+      "asset_source": "api_generated",
+      "asset_key": "",
+      "needs_image": false,
+      "needs_video": true,
+      "allow_real_desktop_footage": false,
+      "visual_intent": "开头进入：纠正一键生成误区；证明边界：开头 API 真人进入，直接点出误区与主判断。"
+    },
+    {
+      "block_id": "seg02",
+      "block_goal": "豆包一句需求输入",
+      "block_carrier": "self_footage",
+      "asset_source": "user_media",
+      "asset_key": "doubao_need_input",
+      "needs_image": false,
+      "needs_video": true,
+      "allow_real_desktop_footage": true,
+      "visual_intent": "豆包一句需求输入；证明边界：用户只给豆包一句简单需求。"
+    },
+    {
+      "block_id": "seg03",
+      "block_goal": "为什么先拆流程",
+      "block_carrier": "light_ppt",
+      "asset_source": "api_generated",
+      "asset_key": "",
+      "needs_image": true,
+      "needs_video": false,
+      "allow_real_desktop_footage": false,
+      "visual_intent": "为什么先拆流程；证明边界：用信息卡显影选题、脚本、分镜、素材、后期、发布。"
+    },
+    {
+      "block_id": "seg04",
+      "block_goal": "豆包拆方案与流程工位",
+      "block_carrier": "self_footage",
+      "asset_source": "user_media",
+      "asset_key": "doubao_plan_flow",
+      "needs_image": false,
+      "needs_video": true,
+      "allow_real_desktop_footage": true,
+      "visual_intent": "豆包拆方案与流程工位；证明边界：豆包输出轻量版到无人值守版方案和核心链路。"
+    },
+    {
+      "block_id": "seg05",
+      "block_goal": "想法层转为可执行 prompt",
+      "block_carrier": "human",
+      "asset_source": "api_generated",
+      "asset_key": "",
+      "needs_image": false,
+      "needs_video": true,
+      "allow_real_desktop_footage": false,
+      "visual_intent": "想法层转为可执行 prompt；证明边界：关键判断：方案还只是想法层，需要变成 Trae 能接住的任务说明。"
+    },
+    {
+      "block_id": "seg06",
+      "block_goal": "豆包输出 Trae SOLO prompt",
+      "block_carrier": "self_footage",
+      "asset_source": "user_media",
+      "asset_key": "doubao_trae_prompt",
+      "needs_image": false,
+      "needs_video": true,
+      "allow_real_desktop_footage": true,
+      "visual_intent": "豆包输出 Trae SOLO prompt；证明边界：豆包生成 Trae Vlog 自动流核心搭建 Prompt 与模块清单。"
+    },
+    {
+      "block_id": "seg07",
+      "block_goal": "Prompt 进入 Trae 并开始 plan",
+      "block_carrier": "self_footage",
+      "asset_source": "user_media",
+      "asset_key": "trae_plan_tasks",
+      "needs_image": false,
+      "needs_video": true,
+      "allow_real_desktop_footage": true,
+      "visual_intent": "Prompt 进入 Trae 并开始 plan；证明边界：Trae SOLO Coder 接住 prompt，出现 Updating Tasks... 和 11 个待办。"
+    },
+    {
+      "block_id": "seg08",
+      "block_goal": "Trae 生成项目骨架",
+      "block_carrier": "self_footage",
+      "asset_source": "user_media",
+      "asset_key": "trae_project_skeleton",
+      "needs_image": false,
+      "needs_video": true,
+      "allow_real_desktop_footage": true,
+      "visual_intent": "Trae 生成项目骨架；证明边界：显示 vlog_automation_workflow、modules、templates、workflows、config、assets、frontend、logs、settings.py、base_module.py。"
+    },
+    {
+      "block_id": "seg09",
+      "block_goal": "可执行 prompt 解释",
+      "block_carrier": "light_ppt",
+      "asset_source": "api_generated",
+      "asset_key": "",
+      "needs_image": true,
+      "needs_video": false,
+      "allow_real_desktop_footage": false,
+      "visual_intent": "可执行 prompt 解释；证明边界：说明豆包负责拆流程，Trae 负责拆待办和生成项目骨架。"
+    },
+    {
+      "block_id": "seg10",
+      "block_goal": "API 工位转折",
+      "block_carrier": "human",
+      "asset_source": "api_generated",
+      "asset_key": "",
+      "needs_image": false,
+      "needs_video": true,
+      "allow_real_desktop_footage": false,
+      "visual_intent": "API 工位转折；证明边界：API 转折：把外部工具接成系统可调用能力。"
+    },
+    {
+      "block_id": "seg11",
+      "block_goal": "API 能力入口边界",
+      "block_carrier": "light_ppt",
+      "asset_source": "api_generated",
+      "asset_key": "",
+      "needs_image": true,
+      "needs_video": false,
+      "allow_real_desktop_footage": false,
+      "visual_intent": "API 能力入口边界；证明边界：用信息卡替代火山引擎敏感页面特写，说明 API 是外部能力入口。"
+    },
+    {
+      "block_id": "seg12",
+      "block_goal": "云剪装配台转折",
+      "block_carrier": "human",
+      "asset_source": "api_generated",
+      "asset_key": "",
+      "needs_image": false,
+      "needs_video": true,
+      "allow_real_desktop_footage": false,
+      "visual_intent": "云剪装配台转折；证明边界：云剪工位转折：阿里云剪辑/ICE/云剪是最后装配台。"
+    },
+    {
+      "block_id": "seg13",
+      "block_goal": "云剪边界说明",
+      "block_carrier": "light_ppt",
+      "asset_source": "api_generated",
+      "asset_key": "",
+      "needs_image": true,
+      "needs_video": false,
+      "allow_real_desktop_footage": false,
+      "visual_intent": "云剪边界说明；证明边界：说明阿里云剪辑不是总控脑，技术验证、内容过线、流程成熟必须分开。"
+    },
+    {
+      "block_id": "seg14",
+      "block_goal": "Codex 执行检查",
+      "block_carrier": "self_footage",
+      "asset_source": "user_media",
+      "asset_key": "codex_check",
+      "needs_image": false,
+      "needs_video": true,
+      "allow_real_desktop_footage": true,
+      "visual_intent": "Codex 执行检查；证明边界：Codex 展示 ffprobe、命令、文件变更、报告等执行检查线索。"
+    },
+    {
+      "block_id": "seg15",
+      "block_goal": "流程总览",
+      "block_carrier": "light_ppt",
+      "asset_source": "api_generated",
+      "asset_key": "",
+      "needs_image": true,
+      "needs_video": false,
+      "allow_real_desktop_footage": false,
+      "visual_intent": "流程总览；证明边界：总结短视频自动流的六步流程。"
+    },
+    {
+      "block_id": "seg16",
+      "block_goal": "即梦与自动流对比",
+      "block_carrier": "light_ppt",
+      "asset_source": "api_generated",
+      "asset_key": "",
+      "needs_image": true,
+      "needs_video": false,
+      "allow_real_desktop_footage": false,
+      "visual_intent": "即梦与自动流对比；证明边界：对比即梦单点素材生成和可复用流程，不做工具评测。"
+    },
+    {
+      "block_id": "seg17",
+      "block_goal": "结尾收束",
+      "block_carrier": "human",
+      "asset_source": "api_generated",
+      "asset_key": "",
+      "needs_image": false,
+      "needs_video": true,
+      "allow_real_desktop_footage": false,
+      "visual_intent": "结尾收束；证明边界：结尾 API 真人收束到顺序对了，自动化才有地方落脚。"
+    }
+  ]
+}

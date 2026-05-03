@@ -1,0 +1,12 @@
+{
+  "schema_version": "formal_full_reference_visual_route_validation/v1",
+  "status": "blocked",
+  "route_map_read": true,
+  "visual_route_validation_passed": false,
+  "route_mixed": false,
+  "blocked_reason": "visual API generation failed before cards/API human could be rendered",
+  "prompt_card_route": "cute_prompt_card_route",
+  "info_card_route": "cute_info_card_route",
+  "sassy_reaction_card_route": "sassy_reaction_card_route",
+  "hyperframes_out_of_bounds": false
+}

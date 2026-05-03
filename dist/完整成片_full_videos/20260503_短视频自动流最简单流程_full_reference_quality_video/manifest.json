@@ -1,0 +1,3006 @@
+{
+  "schema_version": "formal_api_demo_manifest/v1",
+  "pipeline_kind": "formal_api_demo",
+  "current_status": "failed",
+  "input_snapshot": {
+    "input_path": "cases/短视频自动流最简单流程_full_reference_quality_video.md",
+    "theme": "《短视频自动流的最简单流程》正式参考质量完整片。",
+    "hook": "短视频自动流最先要问的不是哪个 AI 一键生成视频，而是一条短视频能不能拆成一套能重复跑的流程。",
+    "ending": "别一上来就追求一键生成。先把顺序理出来。顺序对了，自动化才有地方落脚。",
+    "segment_count": 17
+  },
+  "video_spec": {
+    "theme": "《短视频自动流的最简单流程》正式参考质量完整片。",
+    "total_duration_seconds": 520.0,
+    "aspect_ratio": "9:16",
+    "target_scenario": "观众看完后能理解短视频自动流不是一键生成，而是把需求拆成流程，再让不同工具各自接一段，最后变成可检查、可继续迭代的生产流程。",
+    "target_user": "正在尝试用豆包、Trae、Codex、API 和云剪搭建短视频生产流程，但容易把单点工具误当完整自动流的内容创作者。",
+    "quality_requirements": [
+      "full_reference_quality_video（正式参考质量完整片），不是样片、短片、技术样片或本地拼装演示。",
+      "完整 FINAL_SCRIPT_V2 保真入片；不得使用 PR #43 压缩稿；不得限制时长。",
+      "API 生成真人、项目 TTS、用户录制素材、少量信息卡和 cloud-only assembly 必须各守其位。",
+      "content_validation 只能保持 pending_user_chatgpt_review；send_ready 必须保持 false。"
+    ],
+    "route_profile": "api_human_local_footage_light_ppt_cloud_editing",
+    "video_route_strategy": "hybrid",
+    "route_reason": "API 真人负责开头、关键判断、工位转折和结尾收束；用户录制素材承担中段真实流程证据；少量信息卡只做边界、关键词和总结辅助；正式总装固定走云端剪辑。"
+  },
+  "presentation_routing": {
+    "schema_version": "formal_api_demo_route_plan/v1",
+    "route_profile": "api_human_local_footage_light_ppt_cloud_editing",
+    "video_route_strategy": "hybrid",
+    "route_reason": "API 真人负责开头、关键判断、工位转折和结尾收束；用户录制素材承担中段真实流程证据；少量信息卡只做边界、关键词和总结辅助；正式总装固定走云端剪辑。",
+    "blocks": [
+      {
+        "block_id": "seg01",
+        "block_goal": "开头进入：纠正一键生成误区",
+        "block_carrier": "human",
+        "asset_source": "api_generated",
+        "asset_key": "",
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": false,
+        "visual_intent": "开头进入：纠正一键生成误区；证明边界：开头 API 真人进入，直接点出误区与主判断。"
+      },
+      {
+        "block_id": "seg02",
+        "block_goal": "豆包一句需求输入",
+        "block_carrier": "self_footage",
+        "asset_source": "user_media",
+        "asset_key": "doubao_need_input",
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": true,
+        "visual_intent": "豆包一句需求输入；证明边界：用户只给豆包一句简单需求。"
+      },
+      {
+        "block_id": "seg03",
+        "block_goal": "为什么先拆流程",
+        "block_carrier": "light_ppt",
+        "asset_source": "api_generated",
+        "asset_key": "",
+        "needs_image": true,
+        "needs_video": false,
+        "allow_real_desktop_footage": false,
+        "visual_intent": "为什么先拆流程；证明边界：用信息卡显影选题、脚本、分镜、素材、后期、发布。"
+      },
+      {
+        "block_id": "seg04",
+        "block_goal": "豆包拆方案与流程工位",
+        "block_carrier": "self_footage",
+        "asset_source": "user_media",
+        "asset_key": "doubao_plan_flow",
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": true,
+        "visual_intent": "豆包拆方案与流程工位；证明边界：豆包输出轻量版到无人值守版方案和核心链路。"
+      },
+      {
+        "block_id": "seg05",
+        "block_goal": "想法层转为可执行 prompt",
+        "block_carrier": "human",
+        "asset_source": "api_generated",
+        "asset_key": "",
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": false,
+        "visual_intent": "想法层转为可执行 prompt；证明边界：关键判断：方案还只是想法层，需要变成 Trae 能接住的任务说明。"
+      },
+      {
+        "block_id": "seg06",
+        "block_goal": "豆包输出 Trae SOLO prompt",
+        "block_carrier": "self_footage",
+        "asset_source": "user_media",
+        "asset_key": "doubao_trae_prompt",
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": true,
+        "visual_intent": "豆包输出 Trae SOLO prompt；证明边界：豆包生成 Trae Vlog 自动流核心搭建 Prompt 与模块清单。"
+      },
+      {
+        "block_id": "seg07",
+        "block_goal": "Prompt 进入 Trae 并开始 plan",
+        "block_carrier": "self_footage",
+        "asset_source": "user_media",
+        "asset_key": "trae_plan_tasks",
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": true,
+        "visual_intent": "Prompt 进入 Trae 并开始 plan；证明边界：Trae SOLO Coder 接住 prompt，出现 Updating Tasks... 和 11 个待办。"
+      },
+      {
+        "block_id": "seg08",
+        "block_goal": "Trae 生成项目骨架",
+        "block_carrier": "self_footage",
+        "asset_source": "user_media",
+        "asset_key": "trae_project_skeleton",
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": true,
+        "visual_intent": "Trae 生成项目骨架；证明边界：显示 vlog_automation_workflow、modules、templates、workflows、config、assets、frontend、logs、settings.py、base_module.py。"
+      },
+      {
+        "block_id": "seg09",
+        "block_goal": "可执行 prompt 解释",
+        "block_carrier": "light_ppt",
+        "asset_source": "api_generated",
+        "asset_key": "",
+        "needs_image": true,
+        "needs_video": false,
+        "allow_real_desktop_footage": false,
+        "visual_intent": "可执行 prompt 解释；证明边界：说明豆包负责拆流程，Trae 负责拆待办和生成项目骨架。"
+      },
+      {
+        "block_id": "seg10",
+        "block_goal": "API 工位转折",
+        "block_carrier": "human",
+        "asset_source": "api_generated",
+        "asset_key": "",
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": false,
+        "visual_intent": "API 工位转折；证明边界：API 转折：把外部工具接成系统可调用能力。"
+      },
+      {
+        "block_id": "seg11",
+        "block_goal": "API 能力入口边界",
+        "block_carrier": "light_ppt",
+        "asset_source": "api_generated",
+        "asset_key": "",
+        "needs_image": true,
+        "needs_video": false,
+        "allow_real_desktop_footage": false,
+        "visual_intent": "API 能力入口边界；证明边界：用信息卡替代火山引擎敏感页面特写，说明 API 是外部能力入口。"
+      },
+      {
+        "block_id": "seg12",
+        "block_goal": "云剪装配台转折",
+        "block_carrier": "human",
+        "asset_source": "api_generated",
+        "asset_key": "",
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": false,
+        "visual_intent": "云剪装配台转折；证明边界：云剪工位转折：阿里云剪辑/ICE/云剪是最后装配台。"
+      },
+      {
+        "block_id": "seg13",
+        "block_goal": "云剪边界说明",
+        "block_carrier": "light_ppt",
+        "asset_source": "api_generated",
+        "asset_key": "",
+        "needs_image": true,
+        "needs_video": false,
+        "allow_real_desktop_footage": false,
+        "visual_intent": "云剪边界说明；证明边界：说明阿里云剪辑不是总控脑，技术验证、内容过线、流程成熟必须分开。"
+      },
+      {
+        "block_id": "seg14",
+        "block_goal": "Codex 执行检查",
+        "block_carrier": "self_footage",
+        "asset_source": "user_media",
+        "asset_key": "codex_check",
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": true,
+        "visual_intent": "Codex 执行检查；证明边界：Codex 展示 ffprobe、命令、文件变更、报告等执行检查线索。"
+      },
+      {
+        "block_id": "seg15",
+        "block_goal": "流程总览",
+        "block_carrier": "light_ppt",
+        "asset_source": "api_generated",
+        "asset_key": "",
+        "needs_image": true,
+        "needs_video": false,
+        "allow_real_desktop_footage": false,
+        "visual_intent": "流程总览；证明边界：总结短视频自动流的六步流程。"
+      },
+      {
+        "block_id": "seg16",
+        "block_goal": "即梦与自动流对比",
+        "block_carrier": "light_ppt",
+        "asset_source": "api_generated",
+        "asset_key": "",
+        "needs_image": true,
+        "needs_video": false,
+        "allow_real_desktop_footage": false,
+        "visual_intent": "即梦与自动流对比；证明边界：对比即梦单点素材生成和可复用流程，不做工具评测。"
+      },
+      {
+        "block_id": "seg17",
+        "block_goal": "结尾收束",
+        "block_carrier": "human",
+        "asset_source": "api_generated",
+        "asset_key": "",
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": false,
+        "visual_intent": "结尾收束；证明边界：结尾 API 真人收束到顺序对了，自动化才有地方落脚。"
+      }
+    ]
+  },
+  "segments": [
+    {
+      "sequence": 1,
+      "segment_id": "seg01",
+      "goal": "开头进入：纠正一键生成误区",
+      "voiceover_text": "# 《短视频自动流的最简单流程》 短视频自动流，最简单的流程，真不是一上来就问： “用哪个 AI 帮我一键生成视频？” 这个问题一问，基本就跑偏了。 因为一键生成，更像是在抽一条素材。 这次画面可能不错，下次风格可能又变。 这次镜头刚好能用，下次人物、字幕、节奏可能又得重新来一遍。 所以我现在更关心的不是： 哪个工具最会生成视频。 而是： 一条短视频，能不能拆成一套能重复跑的流程。",
+      "caption_text": "# 《短视频自动流的最简单流程》 短视频自动流，最简单的流程，真不是一上来就问： “用哪个 AI 帮我一键生成视频？” 这个问题一问，基本就跑偏了。 因为一键生成，更像是在抽一条素...",
+      "visual_intent": "开头进入：纠正一键生成误区；证明边界：开头 API 真人进入，直接点出误区与主判断。",
+      "material_requirements": {
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": false,
+        "carrier": "human",
+        "asset_key": "",
+        "asset_source": "api_generated"
+      },
+      "presentation": {
+        "carrier": "human",
+        "asset_key": "",
+        "asset_source": "api_generated",
+        "resolved_asset_origin": "api_generated"
+      },
+      "provider_plan": {
+        "tts_provider": "aliyun_bailian",
+        "tts_api_route_family": "aliyun_bailian_cosyvoice",
+        "tts_model": "cosyvoice-v2",
+        "tts_endpoint_id": "4429057155",
+        "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "visual_model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": true,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": true,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        },
+        "tts_baseline_profile": "aliyun_old_A"
+      },
+      "task_slots": {
+        "voice_task_id": "56f2e92e-e5fb-9844-b154-7842c967eb3d",
+        "image_task_id": null,
+        "video_task_id": null
+      },
+      "resource_slots": {
+        "voice_resource_id": null,
+        "image_resource_id": null,
+        "video_resource_id": null
+      },
+      "output_slots": {
+        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg01.mp3",
+        "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
+        "visual_uri": null
+      },
+      "timeline": {
+        "planned_start_seconds": 0.0,
+        "planned_end_seconds": 34.6,
+        "planned_duration_seconds": 34.6
+      },
+      "known_issues": [],
+      "current_status": "failed"
+    },
+    {
+      "sequence": 2,
+      "segment_id": "seg02",
+      "goal": "豆包一句需求输入",
+      "voiceover_text": "我这次做的第一步，其实特别简单。 我先打开豆包，只输入了一句话： 我想用 Trae 做一个短视频自动流。 就这么一句。 没有什么复杂提示词，也没有一上来写一大堆技术要求。 这一步的重点，不是让豆包直接帮我做视频。 它的作用，是先帮我把顺序理出来。",
+      "caption_text": "我这次做的第一步，其实特别简单。 我先打开豆包，只输入了一句话： 我想用 Trae 做一个短视频自动流。 就这么一句。 没有什么复杂提示词，也没有一上来写一大堆技术要求。 这一步的...",
+      "visual_intent": "豆包一句需求输入；证明边界：用户只给豆包一句简单需求。",
+      "material_requirements": {
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": true,
+        "carrier": "self_footage",
+        "asset_key": "doubao_need_input",
+        "asset_source": "user_media"
+      },
+      "presentation": {
+        "carrier": "self_footage",
+        "asset_key": "doubao_need_input",
+        "asset_source": "user_media",
+        "resolved_asset_origin": "user_media"
+      },
+      "provider_plan": {
+        "tts_provider": "aliyun_bailian",
+        "tts_api_route_family": "aliyun_bailian_cosyvoice",
+        "tts_model": "cosyvoice-v2",
+        "tts_endpoint_id": "4429057155",
+        "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "visual_model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": true,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": true,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        },
+        "tts_baseline_profile": "aliyun_old_A"
+      },
+      "task_slots": {
+        "voice_task_id": "f634a981-17a6-94f8-8106-d3859dcf9e9a",
+        "image_task_id": null,
+        "video_task_id": null
+      },
+      "resource_slots": {
+        "voice_resource_id": null,
+        "image_resource_id": null,
+        "video_resource_id": null
+      },
+      "output_slots": {
+        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg02.mp3",
+        "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
+        "visual_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg02_prepared.mp4"
+      },
+      "timeline": {
+        "planned_start_seconds": 34.6,
+        "planned_end_seconds": 56.7,
+        "planned_duration_seconds": 22.1
+      },
+      "known_issues": [],
+      "current_status": "success"
+    },
+    {
+      "sequence": 3,
+      "segment_id": "seg03",
+      "goal": "为什么先拆流程",
+      "voiceover_text": "因为很多时候，我们不是缺工具。 我们是第一步就没想清楚。 你脑子里想的是： 我要做一个短视频自动流。 但系统真正需要的是： 选题怎么来？ 脚本怎么写？ 分镜怎么拆？ 素材怎么准备？ 视频怎么生成？ 后期怎么处理？ 封面和标题怎么出？ 最后怎么发布？ 这些不拆开，后面工具再多，也只是在乱跑。",
+      "caption_text": "因为很多时候，我们不是缺工具。 我们是第一步就没想清楚。 你脑子里想的是： 我要做一个短视频自动流。 但系统真正需要的是： 选题怎么来？ 脚本怎么写？ 分镜怎么拆？ 素材怎么准备？...",
+      "visual_intent": "为什么先拆流程；证明边界：用信息卡显影选题、脚本、分镜、素材、后期、发布。",
+      "material_requirements": {
+        "needs_image": true,
+        "needs_video": false,
+        "allow_real_desktop_footage": false,
+        "carrier": "light_ppt",
+        "asset_key": "",
+        "asset_source": "api_generated"
+      },
+      "presentation": {
+        "carrier": "light_ppt",
+        "asset_key": "",
+        "asset_source": "api_generated",
+        "resolved_asset_origin": "api_generated"
+      },
+      "provider_plan": {
+        "tts_provider": "aliyun_bailian",
+        "tts_api_route_family": "aliyun_bailian_cosyvoice",
+        "tts_model": "cosyvoice-v2",
+        "tts_endpoint_id": "4429057155",
+        "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "visual_model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": true,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": true,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        },
+        "tts_baseline_profile": "aliyun_old_A"
+      },
+      "task_slots": {
+        "voice_task_id": "18c5f7ef-8578-9000-a33f-58c63aeaa48f",
+        "image_task_id": null,
+        "video_task_id": null
+      },
+      "resource_slots": {
+        "voice_resource_id": null,
+        "image_resource_id": null,
+        "video_resource_id": null
+      },
+      "output_slots": {
+        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg03.mp3",
+        "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
+        "visual_uri": null
+      },
+      "timeline": {
+        "planned_start_seconds": 56.7,
+        "planned_end_seconds": 82.8,
+        "planned_duration_seconds": 26.1
+      },
+      "known_issues": [],
+      "current_status": "not_started"
+    },
+    {
+      "sequence": 4,
+      "segment_id": "seg04",
+      "goal": "豆包拆方案与流程工位",
+      "voiceover_text": "所以豆包先给了我一版方案。 它把这个需求拆成了： 用 Trae 搭建短视频自动流：从 0 基础轻量版到无人值守全自动化版。 这个标题其实就很关键。 它不是说： “给你生成一条视频。” 它是在说： 这件事可以先做轻量版，也可以继续升级成无人值守版。 换句话说，自动流不是一下子憋出一个大系统。 它可以先从一个很小的流程开始。 豆包拆出来的核心链路大概是： 选题策划， 脚本生成， 分镜制作， 视频生成或者剪辑， 配音字幕， 封面标题， 自动发布。 你看，这里它已经不是在讲某个单点工具了。 它是在把短视频生产拆成一排工位。 哪个环节负责想选题， 哪个环节负责写脚本， 哪个环节负责分镜， 哪个环节负责素材， 哪个环节负责后期， 哪个环节负责发布。 这才是自动流的第一层。",
+      "caption_text": "所以豆包先给了我一版方案。 它把这个需求拆成了： 用 Trae 搭建短视频自动流：从 0 基础轻量版到无人值守全自动化版。 这个标题其实就很关键。 它不是说： “给你生成一条视频。...",
+      "visual_intent": "豆包拆方案与流程工位；证明边界：豆包输出轻量版到无人值守版方案和核心链路。",
+      "material_requirements": {
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": true,
+        "carrier": "self_footage",
+        "asset_key": "doubao_plan_flow",
+        "asset_source": "user_media"
+      },
+      "presentation": {
+        "carrier": "self_footage",
+        "asset_key": "doubao_plan_flow",
+        "asset_source": "user_media",
+        "resolved_asset_origin": "user_media"
+      },
+      "provider_plan": {
+        "tts_provider": "aliyun_bailian",
+        "tts_api_route_family": "aliyun_bailian_cosyvoice",
+        "tts_model": "cosyvoice-v2",
+        "tts_endpoint_id": "4429057155",
+        "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "visual_model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": true,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": true,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        },
+        "tts_baseline_profile": "aliyun_old_A"
+      },
+      "task_slots": {
+        "voice_task_id": "f1a7afa1-9579-945f-a6dc-19575fcfe9b3",
+        "image_task_id": null,
+        "video_task_id": null
+      },
+      "resource_slots": {
+        "voice_resource_id": null,
+        "image_resource_id": null,
+        "video_resource_id": null
+      },
+      "output_slots": {
+        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg04.mp3",
+        "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
+        "visual_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg04_prepared.mp4"
+      },
+      "timeline": {
+        "planned_start_seconds": 82.8,
+        "planned_end_seconds": 142.9,
+        "planned_duration_seconds": 60.1
+      },
+      "known_issues": [],
+      "current_status": "success"
+    },
+    {
+      "sequence": 5,
+      "segment_id": "seg05",
+      "goal": "想法层转为可执行 prompt",
+      "voiceover_text": "但光有这层还不够。 因为豆包给的方案，还是“想法层”。 它能帮你把事情拆开，但它不能直接变成可执行项目。 所以我接着问它： 我主要是想做一个 Vlog 的视频自动流，你先给我一个 prompt，让 Trae 帮我把架构搭建出来。 这一步才是关键转折。 我不是让豆包继续聊天。 我是让豆包把方案翻译成： Trae 能接住的任务说明。",
+      "caption_text": "但光有这层还不够。 因为豆包给的方案，还是“想法层”。 它能帮你把事情拆开，但它不能直接变成可执行项目。 所以我接着问它： 我主要是想做一个 Vlog 的视频自动流，你先给我一个 ...",
+      "visual_intent": "想法层转为可执行 prompt；证明边界：关键判断：方案还只是想法层，需要变成 Trae 能接住的任务说明。",
+      "material_requirements": {
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": false,
+        "carrier": "human",
+        "asset_key": "",
+        "asset_source": "api_generated"
+      },
+      "presentation": {
+        "carrier": "human",
+        "asset_key": "",
+        "asset_source": "api_generated",
+        "resolved_asset_origin": "api_generated"
+      },
+      "provider_plan": {
+        "tts_provider": "aliyun_bailian",
+        "tts_api_route_family": "aliyun_bailian_cosyvoice",
+        "tts_model": "cosyvoice-v2",
+        "tts_endpoint_id": "4429057155",
+        "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "visual_model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": true,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": true,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        },
+        "tts_baseline_profile": "aliyun_old_A"
+      },
+      "task_slots": {
+        "voice_task_id": null,
+        "image_task_id": null,
+        "video_task_id": null
+      },
+      "resource_slots": {
+        "voice_resource_id": null,
+        "image_resource_id": null,
+        "video_resource_id": null
+      },
+      "output_slots": {
+        "voice_uri": null,
+        "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
+        "visual_uri": null
+      },
+      "timeline": {
+        "planned_start_seconds": 142.9,
+        "planned_end_seconds": 172.6,
+        "planned_duration_seconds": 29.7
+      },
+      "known_issues": [],
+      "current_status": "not_started"
+    },
+    {
+      "sequence": 6,
+      "segment_id": "seg06",
+      "goal": "豆包输出 Trae SOLO prompt",
+      "voiceover_text": "后面豆包就给了我一份： Trae Vlog 自动流核心搭建 Prompt。 而且标题里直接写着： 直接复制粘贴到 Trae SOLO，即可一键生成完整架构 + 可运行脚本。 当然，这句话不能理解成： 整个系统已经跑通了。 它只是说明，这份 prompt 的目标，是让 Trae 先把架构搭出来。 这里面还拆了几个模块。 比如： 全局人设锚定模块， Vlog 选题与叙事线生成模块， Vlog 分镜与标准化脚本生成模块， 素材智能匹配与调度模块， Vlog 专属自动化后期模块， 成片与运营物料导出模块， 总控调度与异常处理模块。 这些名字听起来有点长。 但翻成人话就是： 先固定账号风格， 再决定拍什么， 再写脚本， 再拆镜头， 再匹配素材， 再做后期， 最后导出成片和发布物料。 到这里，流程已经从“一句话想法”，变成了一份能交给 Trae 的任务说明。",
+      "caption_text": "后面豆包就给了我一份： Trae Vlog 自动流核心搭建 Prompt。 而且标题里直接写着： 直接复制粘贴到 Trae SOLO，即可一键生成完整架构 + 可运行脚本。 当然，...",
+      "visual_intent": "豆包输出 Trae SOLO prompt；证明边界：豆包生成 Trae Vlog 自动流核心搭建 Prompt 与模块清单。",
+      "material_requirements": {
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": true,
+        "carrier": "self_footage",
+        "asset_key": "doubao_trae_prompt",
+        "asset_source": "user_media"
+      },
+      "presentation": {
+        "carrier": "self_footage",
+        "asset_key": "doubao_trae_prompt",
+        "asset_source": "user_media",
+        "resolved_asset_origin": "user_media"
+      },
+      "provider_plan": {
+        "tts_provider": "aliyun_bailian",
+        "tts_api_route_family": "aliyun_bailian_cosyvoice",
+        "tts_model": "cosyvoice-v2",
+        "tts_endpoint_id": "4429057155",
+        "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "visual_model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": true,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": true,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        },
+        "tts_baseline_profile": "aliyun_old_A"
+      },
+      "task_slots": {
+        "voice_task_id": null,
+        "image_task_id": null,
+        "video_task_id": null
+      },
+      "resource_slots": {
+        "voice_resource_id": null,
+        "image_resource_id": null,
+        "video_resource_id": null
+      },
+      "output_slots": {
+        "voice_uri": null,
+        "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
+        "visual_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg06_prepared.mp4"
+      },
+      "timeline": {
+        "planned_start_seconds": 172.6,
+        "planned_end_seconds": 240.6,
+        "planned_duration_seconds": 68.0
+      },
+      "known_issues": [],
+      "current_status": "success"
+    },
+    {
+      "sequence": 7,
+      "segment_id": "seg07",
+      "goal": "Prompt 进入 Trae 并开始 plan",
+      "voiceover_text": "下一步，我就把这份 prompt 放进 Trae。 这里我用的是 Trae 的 SOLO Coder。 你可以把它理解成： 一个会自己规划任务、自己生成项目结构的 AI 编码工具。 这里有一个细节很关键。 我不是把豆包的回答截图保存一下就结束了。 而是把它生成的这份 prompt，真的放进了 Trae 的 SOLO Coder。 画面里能看到，这些模块文字已经进入 Trae 的输入区。 然后 Trae 没有只回一句： “建议你怎么做。” 它先说： 让我先规划一下任务，然后逐步实现。 接着画面里出现了： Updating Tasks... 还有： 11 个待办。 这一步，其实就是自动流开始变实的地方。 因为它已经不是聊天里的一个想法了。 它开始被拆成 Trae 自己能执行的任务列表。",
+      "caption_text": "下一步，我就把这份 prompt 放进 Trae。 这里我用的是 Trae 的 SOLO Coder。 你可以把它理解成： 一个会自己规划任务、自己生成项目结构的 AI 编码工具。...",
+      "visual_intent": "Prompt 进入 Trae 并开始 plan；证明边界：Trae SOLO Coder 接住 prompt，出现 Updating Tasks... 和 11 个待办。",
+      "material_requirements": {
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": true,
+        "carrier": "self_footage",
+        "asset_key": "trae_plan_tasks",
+        "asset_source": "user_media"
+      },
+      "presentation": {
+        "carrier": "self_footage",
+        "asset_key": "trae_plan_tasks",
+        "asset_source": "user_media",
+        "resolved_asset_origin": "user_media"
+      },
+      "provider_plan": {
+        "tts_provider": "aliyun_bailian",
+        "tts_api_route_family": "aliyun_bailian_cosyvoice",
+        "tts_model": "cosyvoice-v2",
+        "tts_endpoint_id": "4429057155",
+        "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "visual_model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": true,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": true,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        },
+        "tts_baseline_profile": "aliyun_old_A"
+      },
+      "task_slots": {
+        "voice_task_id": null,
+        "image_task_id": null,
+        "video_task_id": null
+      },
+      "resource_slots": {
+        "voice_resource_id": null,
+        "image_resource_id": null,
+        "video_resource_id": null
+      },
+      "output_slots": {
+        "voice_uri": null,
+        "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
+        "visual_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg07_prepared.mp4"
+      },
+      "timeline": {
+        "planned_start_seconds": 240.6,
+        "planned_end_seconds": 302.7,
+        "planned_duration_seconds": 62.1
+      },
+      "known_issues": [],
+      "current_status": "success"
+    },
+    {
+      "sequence": 8,
+      "segment_id": "seg08",
+      "goal": "Trae 生成项目骨架",
+      "voiceover_text": "再往后，Trae 开始创建项目结构。 画面里能看到一个项目目录： vlog_automation_workflow。 下面有： modules， templates， workflows， config， assets， frontend， logs。 还出现了： settings.py， base_module.py。 这些代码文件，普通人其实看不懂也没关系。 这一步最重要的，不是你能不能看懂每一行代码。 而是看 Trae 有没有真的把这个东西执行出一个初步形状。 有没有项目目录。 有没有模块。 有没有配置文件。 有没有基础代码。 有没有从一句 prompt，变成一个可以继续往下接的 app 雏形。 所以我看这一步，不是看它代码写得多漂亮。 我是先看： 它有没有从“聊天里的方案”，变成“电脑里真实出现的项目骨架”。 当然，这还不能说 app 已经跑通。 也不能说代码已经验证成功。 但它已经跨过了最重要的一步： 从“我有个想法”，变成“我有一个可以继续测试、继续接 API、继续修的初步项目”。",
+      "caption_text": "再往后，Trae 开始创建项目结构。 画面里能看到一个项目目录： vlog_automation_workflow。 下面有： modules， templates， workfl...",
+      "visual_intent": "Trae 生成项目骨架；证明边界：显示 vlog_automation_workflow、modules、templates、workflows、config、assets、frontend、logs、settings.py、base_module.py。",
+      "material_requirements": {
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": true,
+        "carrier": "self_footage",
+        "asset_key": "trae_project_skeleton",
+        "asset_source": "user_media"
+      },
+      "presentation": {
+        "carrier": "self_footage",
+        "asset_key": "trae_project_skeleton",
+        "asset_source": "user_media",
+        "resolved_asset_origin": "user_media"
+      },
+      "provider_plan": {
+        "tts_provider": "aliyun_bailian",
+        "tts_api_route_family": "aliyun_bailian_cosyvoice",
+        "tts_model": "cosyvoice-v2",
+        "tts_endpoint_id": "4429057155",
+        "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "visual_model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": true,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": true,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        },
+        "tts_baseline_profile": "aliyun_old_A"
+      },
+      "task_slots": {
+        "voice_task_id": null,
+        "image_task_id": null,
+        "video_task_id": null
+      },
+      "resource_slots": {
+        "voice_resource_id": null,
+        "image_resource_id": null,
+        "video_resource_id": null
+      },
+      "output_slots": {
+        "voice_uri": null,
+        "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
+        "visual_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg08_prepared.mp4"
+      },
+      "timeline": {
+        "planned_start_seconds": 302.7,
+        "planned_end_seconds": 372.7,
+        "planned_duration_seconds": 70.0
+      },
+      "known_issues": [],
+      "current_status": "success"
+    },
+    {
+      "sequence": 9,
+      "segment_id": "seg09",
+      "goal": "可执行 prompt 解释",
+      "voiceover_text": "这就是第二个关键点。 很多人做 AI 工作流，会一直停在聊天里。 今天问一个模型，明天问一个模型，后天再换一个模型。 问了很多，最后还是一堆字。 但这次不一样。 豆包负责把需求拆成流程。 豆包第二步，又把流程翻译成 Trae 能接住的 prompt。 Trae 负责把这个 prompt 拆成待办，再生成项目骨架。 这中间多了一层： 可执行 prompt。 也就是： 豆包不是直接替我干活。 它帮我生成了一份能交给 Trae 的工作说明。 Trae 也不是直接替我剪视频。 它先把系统该有的目录、模块、文件生成出来。 这才像一条自动流开始搭起来的样子。",
+      "caption_text": "这就是第二个关键点。 很多人做 AI 工作流，会一直停在聊天里。 今天问一个模型，明天问一个模型，后天再换一个模型。 问了很多，最后还是一堆字。 但这次不一样。 豆包负责把需求拆成...",
+      "visual_intent": "可执行 prompt 解释；证明边界：说明豆包负责拆流程，Trae 负责拆待办和生成项目骨架。",
+      "material_requirements": {
+        "needs_image": true,
+        "needs_video": false,
+        "allow_real_desktop_footage": false,
+        "carrier": "light_ppt",
+        "asset_key": "",
+        "asset_source": "api_generated"
+      },
+      "presentation": {
+        "carrier": "light_ppt",
+        "asset_key": "",
+        "asset_source": "api_generated",
+        "resolved_asset_origin": "api_generated"
+      },
+      "provider_plan": {
+        "tts_provider": "aliyun_bailian",
+        "tts_api_route_family": "aliyun_bailian_cosyvoice",
+        "tts_model": "cosyvoice-v2",
+        "tts_endpoint_id": "4429057155",
+        "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "visual_model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": true,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": true,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        },
+        "tts_baseline_profile": "aliyun_old_A"
+      },
+      "task_slots": {
+        "voice_task_id": null,
+        "image_task_id": null,
+        "video_task_id": null
+      },
+      "resource_slots": {
+        "voice_resource_id": null,
+        "image_resource_id": null,
+        "video_resource_id": null
+      },
+      "output_slots": {
+        "voice_uri": null,
+        "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
+        "visual_uri": null
+      },
+      "timeline": {
+        "planned_start_seconds": 372.7,
+        "planned_end_seconds": 422.4,
+        "planned_duration_seconds": 49.7
+      },
+      "known_issues": [],
+      "current_status": "not_started"
+    },
+    {
+      "sequence": 10,
+      "segment_id": "seg10",
+      "goal": "API 工位转折",
+      "voiceover_text": "然后下一步，才是接 API。 API 这个词听起来很技术，但你可以先把它理解成一句话： 把外部工具，接成系统可以调用的能力。 比如文字生成，可以接一个 API。 配音，可以接一个 API。 图片、卡片、动效，也可以接 API。 剪辑总装，也可以接 API。",
+      "caption_text": "然后下一步，才是接 API。 API 这个词听起来很技术，但你可以先把它理解成一句话： 把外部工具，接成系统可以调用的能力。 比如文字生成，可以接一个 API。 配音，可以接一个 ...",
+      "visual_intent": "API 工位转折；证明边界：API 转折：把外部工具接成系统可调用能力。",
+      "material_requirements": {
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": false,
+        "carrier": "human",
+        "asset_key": "",
+        "asset_source": "api_generated"
+      },
+      "presentation": {
+        "carrier": "human",
+        "asset_key": "",
+        "asset_source": "api_generated",
+        "resolved_asset_origin": "api_generated"
+      },
+      "provider_plan": {
+        "tts_provider": "aliyun_bailian",
+        "tts_api_route_family": "aliyun_bailian_cosyvoice",
+        "tts_model": "cosyvoice-v2",
+        "tts_endpoint_id": "4429057155",
+        "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "visual_model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": true,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": true,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        },
+        "tts_baseline_profile": "aliyun_old_A"
+      },
+      "task_slots": {
+        "voice_task_id": null,
+        "image_task_id": null,
+        "video_task_id": null
+      },
+      "resource_slots": {
+        "voice_resource_id": null,
+        "image_resource_id": null,
+        "video_resource_id": null
+      },
+      "output_slots": {
+        "voice_uri": null,
+        "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
+        "visual_uri": null
+      },
+      "timeline": {
+        "planned_start_seconds": 422.4,
+        "planned_end_seconds": 445.4,
+        "planned_duration_seconds": 23.0
+      },
+      "known_issues": [],
+      "current_status": "not_started"
+    },
+    {
+      "sequence": 11,
+      "segment_id": "seg11",
+      "goal": "API 能力入口边界",
+      "voiceover_text": "画面里我这里可以放一个云平台的 API 管理页特写。 但这个地方一定要说清楚： 不是让你看我的密钥。 也不是证明我已经把所有 API 都接通了。 这个画面只是想说明一件事： 自动流后面真正要做的，是把这些原本需要手动打开网页、复制、粘贴、下载、上传的能力，逐步接进同一套流程里。 如果每一步都还要人手动来回搬，那它最多叫半自动。 真正往自动流走，至少要让这些能力能被系统调用。 但这里也不用一上来做大。 最小可以先做到： 一段录屏， 一张卡片， 一段音轨， 最后能被自动组装成一条视频。 先让这个小链路跑通。 不要一开始就做大平台。 大平台听起来很爽，做起来很容易变成： 看着像方案，用起来像空气。",
+      "caption_text": "画面里我这里可以放一个云平台的 API 管理页特写。 但这个地方一定要说清楚： 不是让你看我的密钥。 也不是证明我已经把所有 API 都接通了。 这个画面只是想说明一件事： 自动流...",
+      "visual_intent": "API 能力入口边界；证明边界：用信息卡替代火山引擎敏感页面特写，说明 API 是外部能力入口。",
+      "material_requirements": {
+        "needs_image": true,
+        "needs_video": false,
+        "allow_real_desktop_footage": false,
+        "carrier": "light_ppt",
+        "asset_key": "",
+        "asset_source": "api_generated"
+      },
+      "presentation": {
+        "carrier": "light_ppt",
+        "asset_key": "",
+        "asset_source": "api_generated",
+        "resolved_asset_origin": "api_generated"
+      },
+      "provider_plan": {
+        "tts_provider": "aliyun_bailian",
+        "tts_api_route_family": "aliyun_bailian_cosyvoice",
+        "tts_model": "cosyvoice-v2",
+        "tts_endpoint_id": "4429057155",
+        "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "visual_model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": true,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": true,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        },
+        "tts_baseline_profile": "aliyun_old_A"
+      },
+      "task_slots": {
+        "voice_task_id": null,
+        "image_task_id": null,
+        "video_task_id": null
+      },
+      "resource_slots": {
+        "voice_resource_id": null,
+        "image_resource_id": null,
+        "video_resource_id": null
+      },
+      "output_slots": {
+        "voice_uri": null,
+        "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
+        "visual_uri": null
+      },
+      "timeline": {
+        "planned_start_seconds": 445.4,
+        "planned_end_seconds": 499.2,
+        "planned_duration_seconds": 53.8
+      },
+      "known_issues": [],
+      "current_status": "not_started"
+    },
+    {
+      "sequence": 12,
+      "segment_id": "seg12",
+      "goal": "云剪装配台转折",
+      "voiceover_text": "接下来，就是剪辑总装。 我现在选择的方向，是阿里云剪辑、ICE、云剪这一类云端剪辑方案。 它在这个流程里，不负责想创意。 不负责写文案。 也不负责判断内容好不好。 它更像最后的装配台。 前面准备好的录屏、卡片、音轨，按照时间线放进去，最后导出成一个视频。",
+      "caption_text": "接下来，就是剪辑总装。 我现在选择的方向，是阿里云剪辑、ICE、云剪这一类云端剪辑方案。 它在这个流程里，不负责想创意。 不负责写文案。 也不负责判断内容好不好。 它更像最后的装配...",
+      "visual_intent": "云剪装配台转折；证明边界：云剪工位转折：阿里云剪辑/ICE/云剪是最后装配台。",
+      "material_requirements": {
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": false,
+        "carrier": "human",
+        "asset_key": "",
+        "asset_source": "api_generated"
+      },
+      "presentation": {
+        "carrier": "human",
+        "asset_key": "",
+        "asset_source": "api_generated",
+        "resolved_asset_origin": "api_generated"
+      },
+      "provider_plan": {
+        "tts_provider": "aliyun_bailian",
+        "tts_api_route_family": "aliyun_bailian_cosyvoice",
+        "tts_model": "cosyvoice-v2",
+        "tts_endpoint_id": "4429057155",
+        "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "visual_model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": true,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": true,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        },
+        "tts_baseline_profile": "aliyun_old_A"
+      },
+      "task_slots": {
+        "voice_task_id": null,
+        "image_task_id": null,
+        "video_task_id": null
+      },
+      "resource_slots": {
+        "voice_resource_id": null,
+        "image_resource_id": null,
+        "video_resource_id": null
+      },
+      "output_slots": {
+        "voice_uri": null,
+        "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
+        "visual_uri": null
+      },
+      "timeline": {
+        "planned_start_seconds": 499.2,
+        "planned_end_seconds": 522.1,
+        "planned_duration_seconds": 22.9
+      },
+      "known_issues": [],
+      "current_status": "not_started"
+    },
+    {
+      "sequence": 13,
+      "segment_id": "seg13",
+      "goal": "云剪边界说明",
+      "voiceover_text": "这里必须说清楚： 阿里云剪辑不是总控脑。 它只是装配台。 真正决定视频能不能复用的，还是前面的流程有没有拆清楚。 所以现在不能说： 阿里云剪辑已经是正式稳定链路。 更准确的说法是： 我选择把它放在“云端总装”这个位置，并且正在验证它能不能接住后面的真实生产流程。 技术验证跑通，不等于内容就能发。 能导出 MP4，不等于视频就好看。 链路能跑，不等于流程已经成熟。 这些状态必须分开。",
+      "caption_text": "这里必须说清楚： 阿里云剪辑不是总控脑。 它只是装配台。 真正决定视频能不能复用的，还是前面的流程有没有拆清楚。 所以现在不能说： 阿里云剪辑已经是正式稳定链路。 更准确的说法是：...",
+      "visual_intent": "云剪边界说明；证明边界：说明阿里云剪辑不是总控脑，技术验证、内容过线、流程成熟必须分开。",
+      "material_requirements": {
+        "needs_image": true,
+        "needs_video": false,
+        "allow_real_desktop_footage": false,
+        "carrier": "light_ppt",
+        "asset_key": "",
+        "asset_source": "api_generated"
+      },
+      "presentation": {
+        "carrier": "light_ppt",
+        "asset_key": "",
+        "asset_source": "api_generated",
+        "resolved_asset_origin": "api_generated"
+      },
+      "provider_plan": {
+        "tts_provider": "aliyun_bailian",
+        "tts_api_route_family": "aliyun_bailian_cosyvoice",
+        "tts_model": "cosyvoice-v2",
+        "tts_endpoint_id": "4429057155",
+        "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "visual_model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": true,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": true,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        },
+        "tts_baseline_profile": "aliyun_old_A"
+      },
+      "task_slots": {
+        "voice_task_id": null,
+        "image_task_id": null,
+        "video_task_id": null
+      },
+      "resource_slots": {
+        "voice_resource_id": null,
+        "image_resource_id": null,
+        "video_resource_id": null
+      },
+      "output_slots": {
+        "voice_uri": null,
+        "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
+        "visual_uri": null
+      },
+      "timeline": {
+        "planned_start_seconds": 522.1,
+        "planned_end_seconds": 556.7,
+        "planned_duration_seconds": 34.6
+      },
+      "known_issues": [],
+      "current_status": "not_started"
+    },
+    {
+      "sequence": 14,
+      "segment_id": "seg14",
+      "goal": "Codex 执行检查",
+      "voiceover_text": "最后一步，是用 Codex 这类工具做执行和检查。 Codex 在我这里，不是负责替我想选题。 它更像一个执行检查员。 比如它可以帮我看： 素材在哪个路径， 哪一段录屏能用， 有没有音频， 能不能解码， 生成了哪些文件， 路径是不是真的存在， 云端总装有没有导出， 最后有没有报告。 这个东西看起来很啰嗦，但对自动流特别重要。 因为自动流最怕的不是失败。 失败其实还好。 知道卡在哪一步，就能修。 最怕的是半成品被写成完成。 比如： 只是生成了项目骨架，却写成系统已经跑通。 只是导出了测试样片，却写成正式链路稳定。 只是技术验证通过，却写成内容已经过线。 这就会越做越乱。 所以 Codex 这类工具的价值，不是“它很聪明”。 而是它能把执行过程写清楚： 哪些已确认， 哪些只是部分成立， 哪些还待验证， 哪些不能说满。",
+      "caption_text": "最后一步，是用 Codex 这类工具做执行和检查。 Codex 在我这里，不是负责替我想选题。 它更像一个执行检查员。 比如它可以帮我看： 素材在哪个路径， 哪一段录屏能用， 有没...",
+      "visual_intent": "Codex 执行检查；证明边界：Codex 展示 ffprobe、命令、文件变更、报告等执行检查线索。",
+      "material_requirements": {
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": true,
+        "carrier": "self_footage",
+        "asset_key": "codex_check",
+        "asset_source": "user_media"
+      },
+      "presentation": {
+        "carrier": "self_footage",
+        "asset_key": "codex_check",
+        "asset_source": "user_media",
+        "resolved_asset_origin": "user_media"
+      },
+      "provider_plan": {
+        "tts_provider": "aliyun_bailian",
+        "tts_api_route_family": "aliyun_bailian_cosyvoice",
+        "tts_model": "cosyvoice-v2",
+        "tts_endpoint_id": "4429057155",
+        "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "visual_model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": true,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": true,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        },
+        "tts_baseline_profile": "aliyun_old_A"
+      },
+      "task_slots": {
+        "voice_task_id": null,
+        "image_task_id": null,
+        "video_task_id": null
+      },
+      "resource_slots": {
+        "voice_resource_id": null,
+        "image_resource_id": null,
+        "video_resource_id": null
+      },
+      "output_slots": {
+        "voice_uri": null,
+        "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
+        "visual_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg14_prepared.mp4"
+      },
+      "timeline": {
+        "planned_start_seconds": 556.7,
+        "planned_end_seconds": 621.7,
+        "planned_duration_seconds": 65.0
+      },
+      "known_issues": [],
+      "current_status": "success"
+    },
+    {
+      "sequence": 15,
+      "segment_id": "seg15",
+      "goal": "流程总览",
+      "voiceover_text": "这才是我现在理解的短视频自动流。 它不是一键生成视频。 它更像这样一条流程： 第一步，给豆包一句简单需求。 第二步，让豆包拆出方案。 第三步，让豆包生成可以复制到 Trae 的 prompt。 第四步，把 prompt 放进 Trae SOLO，让它自动 plan。 第五步，让 Trae 生成项目骨架。 第六步，后面再接 API、云端剪辑和 Codex 检查。 它不是一开始就全自动。 而是先把每一步变得清楚、可执行、可检查。",
+      "caption_text": "这才是我现在理解的短视频自动流。 它不是一键生成视频。 它更像这样一条流程： 第一步，给豆包一句简单需求。 第二步，让豆包拆出方案。 第三步，让豆包生成可以复制到 Trae 的 p...",
+      "visual_intent": "流程总览；证明边界：总结短视频自动流的六步流程。",
+      "material_requirements": {
+        "needs_image": true,
+        "needs_video": false,
+        "allow_real_desktop_footage": false,
+        "carrier": "light_ppt",
+        "asset_key": "",
+        "asset_source": "api_generated"
+      },
+      "presentation": {
+        "carrier": "light_ppt",
+        "asset_key": "",
+        "asset_source": "api_generated",
+        "resolved_asset_origin": "api_generated"
+      },
+      "provider_plan": {
+        "tts_provider": "aliyun_bailian",
+        "tts_api_route_family": "aliyun_bailian_cosyvoice",
+        "tts_model": "cosyvoice-v2",
+        "tts_endpoint_id": "4429057155",
+        "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "visual_model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": true,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": true,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        },
+        "tts_baseline_profile": "aliyun_old_A"
+      },
+      "task_slots": {
+        "voice_task_id": null,
+        "image_task_id": null,
+        "video_task_id": null
+      },
+      "resource_slots": {
+        "voice_resource_id": null,
+        "image_resource_id": null,
+        "video_resource_id": null
+      },
+      "output_slots": {
+        "voice_uri": null,
+        "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
+        "visual_uri": null
+      },
+      "timeline": {
+        "planned_start_seconds": 621.7,
+        "planned_end_seconds": 660.2,
+        "planned_duration_seconds": 38.5
+      },
+      "known_issues": [],
+      "current_status": "not_started"
+    },
+    {
+      "sequence": 16,
+      "segment_id": "seg16",
+      "goal": "即梦与自动流对比",
+      "voiceover_text": "最后再简单说一下，它和即梦这类工具的区别。 即梦这类工具很适合快速生成单个画面。 比如一个镜头、一个人物、一个场景、一个感觉。 你想快速找画面，它很有用。 但它的问题是，很多时候更像抽卡。 这次抽到了，下一次还要再抽。 这次风格对了，下一次还要再调。 这次能用，下一次不一定接得上。 短视频自动流解决的不是“某一个镜头好不好看”。 它解决的是： 我能不能把一个需求， 拆成流程， 变成项目， 接上工具， 最后持续生产。 而且这里也不是只有 Trae 能做。 Trae 可以用来生成项目骨架。 Codex 可以用来执行任务、检查路径、整理文件、跑验证。 Claude Code 这类工具，也可以承担一部分代码和工作流执行。 所以重点不是某个软件一定最强。 重点是： 你有没有把这个流程拆清楚，让不同工具能各自接一段。 豆包负责先把需求和方案拆开。 Trae、Codex、Claude 这类工具，可以负责把方案变成项目、脚本、文件和执行结果。 API 负责把外部能力接进来。 阿里云剪辑这类云端剪辑，负责最后的总装。 Codex 这类执行工具，还可以继续帮你检查： 文件有没有生成， 路径对不对， 视频能不能打开， 哪一步只是候选， 哪一步已经验证。 这就是它和即梦最大的区别。 即梦更像是： 我先抽一个素材，看这次能不能用。 短视频自动流更像是： 我先搭一条流程，让后面每一条都能沿着这条流程继续跑。 前期它一定更慢。 因为你要先把流程搭出来。 但一旦流程能跑，后面就不是每条都重新赌一次。 你可以换选题， 换素材， 换卡片， 换音轨， 换剪辑方式， 甚至换执行工具。 Trae 不合适，可以换 Codex。 Codex 不够顺，可以让 Claude Code 补一段。 某个视频生成工具不稳定，也可以只把它当素材来源，而不是让它决定整条视频。 流程还在。 只是工位上的工具可以换。",
+      "caption_text": "最后再简单说一下，它和即梦这类工具的区别。 即梦这类工具很适合快速生成单个画面。 比如一个镜头、一个人物、一个场景、一个感觉。 你想快速找画面，它很有用。 但它的问题是，很多时候更...",
+      "visual_intent": "即梦与自动流对比；证明边界：对比即梦单点素材生成和可复用流程，不做工具评测。",
+      "material_requirements": {
+        "needs_image": true,
+        "needs_video": false,
+        "allow_real_desktop_footage": false,
+        "carrier": "light_ppt",
+        "asset_key": "",
+        "asset_source": "api_generated"
+      },
+      "presentation": {
+        "carrier": "light_ppt",
+        "asset_key": "",
+        "asset_source": "api_generated",
+        "resolved_asset_origin": "api_generated"
+      },
+      "provider_plan": {
+        "tts_provider": "aliyun_bailian",
+        "tts_api_route_family": "aliyun_bailian_cosyvoice",
+        "tts_model": "cosyvoice-v2",
+        "tts_endpoint_id": "4429057155",
+        "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "visual_model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": true,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": true,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        },
+        "tts_baseline_profile": "aliyun_old_A"
+      },
+      "task_slots": {
+        "voice_task_id": null,
+        "image_task_id": null,
+        "video_task_id": null
+      },
+      "resource_slots": {
+        "voice_resource_id": null,
+        "image_resource_id": null,
+        "video_resource_id": null
+      },
+      "output_slots": {
+        "voice_uri": null,
+        "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
+        "visual_uri": null
+      },
+      "timeline": {
+        "planned_start_seconds": 660.2,
+        "planned_end_seconds": 730.2,
+        "planned_duration_seconds": 70.0
+      },
+      "known_issues": [],
+      "current_status": "not_started"
+    },
+    {
+      "sequence": 17,
+      "segment_id": "seg17",
+      "goal": "结尾收束",
+      "voiceover_text": "而且出问题的时候，你知道卡在哪一步。 是需求没拆清楚？ 是项目结构没生成好？ 是 API 没接上？ 是卡片素材缺了？ 是云端剪辑没导出？ 还是 Codex 检查发现路径不对？ 这才是自动流真正有用的地方。 所以这条视频我想讲的不是： 某个工具有多厉害。 而是： 短视频自动流，最简单的流程，就是先把视频生产拆开，再让每一步都有人负责、有工具能做、有结果能检查。 即梦这类工具适合帮你出素材。 但短视频自动流，是让素材、脚本、剪辑、检查和复盘，变成一条可以重复跑的生产流程。 别一上来就追求一键生成。 先把顺序理出来。 顺序对了，自动化才有地方落脚。",
+      "caption_text": "而且出问题的时候，你知道卡在哪一步。 是需求没拆清楚？ 是项目结构没生成好？ 是 API 没接上？ 是卡片素材缺了？ 是云端剪辑没导出？ 还是 Codex 检查发现路径不对？ 这才...",
+      "visual_intent": "结尾收束；证明边界：结尾 API 真人收束到顺序对了，自动化才有地方落脚。",
+      "material_requirements": {
+        "needs_image": false,
+        "needs_video": true,
+        "allow_real_desktop_footage": false,
+        "carrier": "human",
+        "asset_key": "",
+        "asset_source": "api_generated"
+      },
+      "presentation": {
+        "carrier": "human",
+        "asset_key": "",
+        "asset_source": "api_generated",
+        "resolved_asset_origin": "api_generated"
+      },
+      "provider_plan": {
+        "tts_provider": "aliyun_bailian",
+        "tts_api_route_family": "aliyun_bailian_cosyvoice",
+        "tts_model": "cosyvoice-v2",
+        "tts_endpoint_id": "4429057155",
+        "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "visual_model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": true,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": true,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        },
+        "tts_baseline_profile": "aliyun_old_A"
+      },
+      "task_slots": {
+        "voice_task_id": null,
+        "image_task_id": null,
+        "video_task_id": null
+      },
+      "resource_slots": {
+        "voice_resource_id": null,
+        "image_resource_id": null,
+        "video_resource_id": null
+      },
+      "output_slots": {
+        "voice_uri": null,
+        "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
+        "visual_uri": null
+      },
+      "timeline": {
+        "planned_start_seconds": 730.2,
+        "planned_end_seconds": 779.5,
+        "planned_duration_seconds": 49.3
+      },
+      "known_issues": [],
+      "current_status": "not_started"
+    }
+  ],
+  "provider_summary": {
+    "provider": "aliyun_bailian",
+    "tts_provider": "aliyun_bailian",
+    "region": "cn-beijing",
+    "tts_baseline": {
+      "profile_id": "aliyun_old_A",
+      "source_variant": "tts_style_probe_variant_A",
+      "label": "旧 A 可用基线",
+      "instruction": "你说话的情感是neutral。",
+      "speech_rate": 1.18,
+      "pitch_rate": 0.92,
+      "volume": 46,
+      "note": "当前正式链路继续沿用旧 A 作为默认可用配音基线，不再继续扩声音实验分支。"
+    },
+    "models": {
+      "tts_api_route_family": "aliyun_bailian_cosyvoice",
+      "tts": "cosyvoice-v2",
+      "tts_endpoint_id": "4429057155",
+      "tts_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+      "image_generation": "wan2.6-image",
+      "video_generation": "wan2.7-i2v",
+      "general_video_generation": "wan2.7-i2v",
+      "portrait_detect": "liveportrait-detect",
+      "portrait_video_generation": "liveportrait",
+      "visual_model_routes": {
+        "image_generation": {
+          "enabled": true,
+          "model": "wan2.6-image",
+          "role": "首帧 / 背景 / 人像底图生成",
+          "recommended_free_model": "wan2.6-image"
+        },
+        "general_video_generation": {
+          "enabled": true,
+          "model": "wan2.7-i2v",
+          "role": "普通视频主线（先图后视频）",
+          "recommended_free_model": "wan2.7-i2v"
+        },
+        "portrait_detect": {
+          "enabled": true,
+          "model": "liveportrait-detect",
+          "role": "liveportrait 前置检测",
+          "recommended_free_model": "liveportrait-detect"
+        },
+        "portrait_video_generation": {
+          "enabled": true,
+          "model": "liveportrait",
+          "role": "固定背景 / 人物开口分支",
+          "recommended_free_model": "liveportrait",
+          "requires": [
+            "portrait_detect"
+          ]
+        }
+      }
+    }
+  },
+  "config_summary": {
+    "assembly_mode": "cloud_only",
+    "subtitle_mode": "burn_in",
+    "output_dir": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video",
+    "quality_gate": {
+      "require_hook": true,
+      "min_segments": 3,
+      "require_manifest_schema": true,
+      "allow_local_fallback": false
+    }
+  },
+  "timeline": {
+    "planned_total_duration_seconds": 520.0,
+    "planned_segment_count": 17
+  },
+  "status_summary": {
+    "generation": "failed",
+    "local_assembly": "not_started",
+    "cloud_assembly": "not_started",
+    "overall_status": "failed"
+  },
+  "generation": {
+    "status": "failed",
+    "task_id": null,
+    "resource_id": null,
+    "output_id": null,
+    "tts_baseline": {
+      "profile_id": "aliyun_old_A",
+      "source_variant": "tts_style_probe_variant_A",
+      "label": "旧 A 可用基线",
+      "instruction": "你说话的情感是neutral。",
+      "speech_rate": 1.18,
+      "pitch_rate": 0.92,
+      "volume": 46,
+      "note": "当前正式链路继续沿用旧 A 作为默认可用配音基线，不再继续扩声音实验分支。"
+    },
+    "tts_probe": {
+      "status": "success",
+      "blocked_reason": "",
+      "failure_reason": "",
+      "http_status_code": null,
+      "error_code": "",
+      "error_message": "",
+      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/voice_probe.mp3",
+      "request_id": "ae27c77e-c5c0-93e5-8acd-908c336ad54f",
+      "provider": "aliyun_bailian",
+      "api_route_family": "aliyun_bailian_cosyvoice",
+      "model_identifier": "cosyvoice-v2",
+      "probe_text": "# 《短视频自动流的最简单流程》 短视频自动流，最简单的流程，真不是一上来就问： “用哪个 AI 帮我一键生成视频？” 这个问题一问，基本就跑偏了。 因为一键生成，更像是在抽一条素材。 这次画面可能不错，下次风格可能又变。 这次镜头刚好能用，下次人物、字幕、节奏可能又得重新来一遍。 所以我现在更关心的不是： 哪个工具最会生成视频。 而是： 一条短视频，能不能拆成一套能重复跑的流程。",
+      "probe_text_source": "segment_1_voiceover",
+      "voice": "longxiaochun_v2",
+      "used_endpoint_id": "4429057155",
+      "used_model_id": "cosyvoice-v2",
+      "used_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+      "response_format": "mp3",
+      "request_debug": {
+        "provider": "aliyun_bailian",
+        "api_route_family": "aliyun_bailian_cosyvoice",
+        "provider_route_family": "aliyun_bailian_cosyvoice",
+        "request_method": "POST",
+        "base_url": "https://dashscope.aliyuncs.com/api/v1",
+        "relative_path": "/services/audio/tts/SpeechSynthesizer",
+        "sdk_call": "urllib.request.urlopen",
+        "model_identifier_source": "model",
+        "model_identifier_shape": {
+          "present": true,
+          "length": 12,
+          "has_digit": true,
+          "has_dash": true,
+          "prefix": "co",
+          "suffix": "v2"
+        },
+        "endpoint_id_shape": {
+          "present": true,
+          "length": 10,
+          "has_digit": true,
+          "has_dash": false,
+          "prefix": "44",
+          "suffix": "55"
+        },
+        "model_shape": {
+          "present": true,
+          "length": 12,
+          "has_digit": true,
+          "has_dash": true,
+          "prefix": "co",
+          "suffix": "v2"
+        },
+        "resource_id_shape": {
+          "present": true,
+          "length": 26,
+          "has_digit": false,
+          "has_dash": false,
+          "prefix": "SE",
+          "suffix": "ED"
+        },
+        "app_id_shape": {
+          "present": false,
+          "length": 0,
+          "has_digit": false,
+          "has_dash": false,
+          "prefix": "",
+          "suffix": ""
+        },
+        "voice_location": "payload.input.voice",
+        "voice_shape": {
+          "present": true,
+          "length": 15,
+          "has_digit": true,
+          "has_dash": false,
+          "prefix": "lo",
+          "suffix": "v2"
+        },
+        "style_shape": {
+          "present": true,
+          "length": 9,
+          "has_digit": false,
+          "has_dash": false,
+          "prefix": "kn",
+          "suffix": "ge"
+        },
+        "response_format": "mp3",
+        "instruction_location": "payload.input.instruction",
+        "instruction_shape": {
+          "present": false,
+          "length": 0,
+          "has_digit": false,
+          "has_dash": false,
+          "prefix": "",
+          "suffix": ""
+        },
+        "speech_rate": 1.0,
+        "pitch_rate": 0.92,
+        "volume": 46,
+        "request_input_keys": [
+          "text",
+          "voice",
+          "format",
+          "rate",
+          "pitch",
+          "volume"
+        ],
+        "style_draft_in_request": false
+      },
+      "current_missing_prerequisites": [],
+      "candidate_pool": {
+        "total_candidate_count": 1,
+        "available_candidate_count": 1,
+        "backup_candidate_count": 0,
+        "candidates": [
+          {
+            "candidate_id": "primary",
+            "label": "primary",
+            "provider": "aliyun_bailian",
+            "api_route_family": "aliyun_bailian_cosyvoice",
+            "voice": "longxiaochun_v2",
+            "model_identifier": "cosyvoice-v2",
+            "style_profile": "default",
+            "priority": 10,
+            "enabled": true,
+            "available": true,
+            "missing_prerequisites": []
+          }
+        ]
+      },
+      "fallback_events": [],
+      "selected_candidate_id": "primary",
+      "selected_candidate_label": "primary",
+      "selected_voice": "longxiaochun_v2",
+      "failure_category": "",
+      "resource_pool_exhausted": false
+    },
+    "voiceover": {
+      "status": "failed",
+      "baseline_profile": {
+        "profile_id": "aliyun_old_A",
+        "source_variant": "tts_style_probe_variant_A",
+        "label": "旧 A 可用基线",
+        "instruction": "你说话的情感是neutral。",
+        "speech_rate": 1.18,
+        "pitch_rate": 0.92,
+        "volume": 46,
+        "note": "当前正式链路继续沿用旧 A 作为默认可用配音基线，不再继续扩声音实验分支。"
+      },
+      "audio_path": null,
+      "segment_audio_paths": [
+        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg01.mp3",
+        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg02.mp3",
+        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg03.mp3",
+        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg04.mp3"
+      ],
+      "segment_results": [
+        {
+          "segment_id": "seg01",
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg01.mp3",
+          "request_id": "56f2e92e-e5fb-9844-b154-7842c967eb3d",
+          "failure_reason": "",
+          "error_message": "",
+          "selected_candidate_id": "primary",
+          "fallback_events": [],
+          "duration_seconds": 31.248
+        },
+        {
+          "segment_id": "seg02",
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg02.mp3",
+          "request_id": "f634a981-17a6-94f8-8106-d3859dcf9e9a",
+          "failure_reason": "",
+          "error_message": "",
+          "selected_candidate_id": "primary",
+          "fallback_events": [],
+          "duration_seconds": 17.856
+        },
+        {
+          "segment_id": "seg03",
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg03.mp3",
+          "request_id": "18c5f7ef-8578-9000-a33f-58c63aeaa48f",
+          "failure_reason": "",
+          "error_message": "",
+          "selected_candidate_id": "primary",
+          "fallback_events": [],
+          "duration_seconds": 24.096
+        },
+        {
+          "segment_id": "seg04",
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg04.mp3",
+          "request_id": "f1a7afa1-9579-945f-a6dc-19575fcfe9b3",
+          "failure_reason": "",
+          "error_message": "",
+          "selected_candidate_id": "primary",
+          "fallback_events": [],
+          "duration_seconds": 56.448
+        },
+        {
+          "segment_id": "seg05",
+          "status": "failed",
+          "audio_path": null,
+          "request_id": null,
+          "failure_reason": "aliyun_bailian_tts_request_failed",
+          "error_message": "The read operation timed out",
+          "selected_candidate_id": "primary",
+          "fallback_events": [
+            {
+              "resource_kind": "tts",
+              "from_candidate_id": "primary",
+              "from_provider": "aliyun_bailian",
+              "from_voice": "longxiaochun_v2",
+              "reason_category": "unknown",
+              "reason": "The read operation timed out",
+              "switch_to_candidate_id": "",
+              "remaining_candidate_count": 0
+            }
+          ],
+          "duration_seconds": null
+        }
+      ],
+      "blocked_reason": "The read operation timed out",
+      "failure_reason": "aliyun_bailian_tts_request_failed",
+      "error_message": "The read operation timed out",
+      "current_missing_prerequisites": [],
+      "fallback_events": [
+        {
+          "resource_kind": "tts",
+          "from_candidate_id": "primary",
+          "from_provider": "aliyun_bailian",
+          "from_voice": "longxiaochun_v2",
+          "reason_category": "unknown",
+          "reason": "The read operation timed out",
+          "switch_to_candidate_id": "",
+          "remaining_candidate_count": 0
+        }
+      ],
+      "last_success_candidate_id": ""
+    },
+    "captions": {
+      "status": "success",
+      "script_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/script.txt",
+      "captions_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
+      "timeline_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/timeline.json",
+      "segment_count": 17
+    },
+    "visual_generation": {
+      "status": "failed",
+      "delivery_mode": "api_generated_local_assets",
+      "provider": "aliyun_bailian",
+      "image_model": "wan2.6-image",
+      "video_model": "wan2.7-i2v",
+      "general_video_generation": {
+        "status": "skipped",
+        "enabled": true,
+        "model": "wan2.7-i2v",
+        "role": "普通视频主线（先图后视频）",
+        "recommended_free_model": "wan2.7-i2v",
+        "blocked_reason": "",
+        "failure_reason": "",
+        "error_message": ""
+      },
+      "portrait_detect": {
+        "status": "not_started",
+        "enabled": true,
+        "model": "liveportrait-detect",
+        "role": "liveportrait 前置检测",
+        "recommended_free_model": "liveportrait-detect",
+        "blocked_reason": "",
+        "failure_reason": "",
+        "error_message": "",
+        "request_id": null,
+        "source_image_url": null
+      },
+      "portrait_video_generation": {
+        "status": "not_started",
+        "enabled": true,
+        "model": "liveportrait",
+        "role": "固定背景 / 人物开口分支",
+        "recommended_free_model": "liveportrait",
+        "requires": [
+          "portrait_detect"
+        ],
+        "blocked_reason": "",
+        "failure_reason": "",
+        "error_message": "",
+        "task_id": null,
+        "request_id": null,
+        "asset_path": null,
+        "source_image_url": null,
+        "source_audio_url": null
+      },
+      "plan_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/visual_generation_plan.json",
+      "preview_storyboard_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/preview_storyboard.json",
+      "segment_assets": [
+        {
+          "segment_id": "seg01",
+          "sequence": 1,
+          "carrier": "human",
+          "asset_key": "",
+          "asset_source": "api_generated",
+          "needs_image": true,
+          "needs_video": true,
+          "seed_image_required": true,
+          "image_prompt": "9:16 竖版，单一角色，同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。，半身构图，固定背景，面对镜头，眼神稳定，语气克制但有判断感，像在直接点破常见误区。整体要可信、克制、可爱但不低幼，不要廉价卖萌，不要玩具广告感，不要大字，不要卡片感，不要课件感，不要夸张动作。",
+          "video_prompt": "同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。。9:16 竖版，单一角色半身面对镜头做简短口播，镜头固定，轻微嘴型、自然眨眼、极轻点头，表情认真但不凶，像在提醒用户别再走弯路。保持同一角色设定和哑光 3D 质感，不要夸张肢体，不要跳切，不要卖萌。",
+          "image_task_id": null,
+          "video_task_id": null,
+          "image_asset_path": null,
+          "video_asset_path": null,
+          "local_asset_path": null,
+          "asset_origin": "api_generated",
+          "preview_visual_ref": "preview_slide_1",
+          "failure_reason": "aliyun_image_task_create_failed",
+          "error_message": "{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"4404ee0a-6802-99dc-9f31-bf11567e427e\"}",
+          "status": "failed",
+          "image_candidate_id": "primary",
+          "image_fallback_events": [
+            {
+              "resource_kind": "image_generation",
+              "from_candidate_id": "primary",
+              "from_provider": "aliyun_bailian",
+              "reason_category": "auth_failed",
+              "reason": "{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"4404ee0a-6802-99dc-9f31-bf11567e427e\"}",
+              "switch_to_candidate_id": "",
+              "remaining_candidate_count": 0
+            }
+          ]
+        },
+        {
+          "segment_id": "seg02",
+          "sequence": 2,
+          "carrier": "self_footage",
+          "asset_key": "doubao_need_input",
+          "asset_source": "user_media",
+          "verified_role": "process_screen_evidence",
+          "needs_image": false,
+          "needs_video": true,
+          "seed_image_required": false,
+          "image_prompt": "",
+          "video_prompt": "",
+          "image_task_id": null,
+          "video_task_id": null,
+          "image_asset_path": null,
+          "video_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg02_prepared.mp4",
+          "local_asset_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4",
+          "prepared_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg02_prepared.mp4",
+          "source_timecode": "00:00:16-00:00:24",
+          "source_start_seconds": 16.0,
+          "source_end_seconds": 24.0,
+          "zoom_policy": "cover",
+          "redaction_boxes": [],
+          "redaction_note": "",
+          "asset_origin": "user_media",
+          "preview_visual_ref": "preview_slide_2",
+          "failure_reason": "",
+          "error_message": "",
+          "status": "success"
+        },
+        {
+          "segment_id": "seg03",
+          "sequence": 3,
+          "carrier": "light_ppt",
+          "asset_key": "",
+          "asset_source": "api_generated",
+          "needs_image": true,
+          "needs_video": false,
+          "seed_image_required": false,
+          "image_prompt": "为什么先拆流程；证明边界：用信息卡显影选题、脚本、分镜、素材、后期、发布。。9:16 竖版，结构已经收束，SOP 看板旁边带样片缩略图和修正清单，像真实项目收口画面；不要 PPT 模板，不要广告感，不要人物正脸。",
+          "video_prompt": "",
+          "image_task_id": null,
+          "video_task_id": null,
+          "image_asset_path": null,
+          "video_asset_path": null,
+          "local_asset_path": null,
+          "asset_origin": "api_generated",
+          "preview_visual_ref": "preview_slide_3",
+          "failure_reason": "",
+          "error_message": "",
+          "status": "not_started"
+        },
+        {
+          "segment_id": "seg04",
+          "sequence": 4,
+          "carrier": "self_footage",
+          "asset_key": "doubao_plan_flow",
+          "asset_source": "user_media",
+          "verified_role": "process_screen_evidence",
+          "needs_image": false,
+          "needs_video": true,
+          "seed_image_required": false,
+          "image_prompt": "",
+          "video_prompt": "",
+          "image_task_id": null,
+          "video_task_id": null,
+          "image_asset_path": null,
+          "video_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg04_prepared.mp4",
+          "local_asset_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4",
+          "prepared_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg04_prepared.mp4",
+          "source_timecode": "00:01:28-00:02:00",
+          "source_start_seconds": 88.0,
+          "source_end_seconds": 120.0,
+          "zoom_policy": "cover",
+          "redaction_boxes": [],
+          "redaction_note": "",
+          "asset_origin": "user_media",
+          "preview_visual_ref": "preview_slide_4",
+          "failure_reason": "",
+          "error_message": "",
+          "status": "success"
+        },
+        {
+          "segment_id": "seg05",
+          "sequence": 5,
+          "carrier": "human",
+          "asset_key": "",
+          "asset_source": "api_generated",
+          "needs_image": true,
+          "needs_video": true,
+          "seed_image_required": true,
+          "image_prompt": "9:16 竖版，单一角色，同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。，半身构图，固定背景，面对镜头做结尾收束，表情稳定，有轻微点头和最小动作手势，像在给出今天就能执行的下一步。整体要可信、克制、可爱但不低幼，不要廉价卖萌，不要大字，不要卡片感，不要课件感。",
+          "video_prompt": "同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。。9:16 竖版，单一角色半身面对镜头做结尾口播，镜头固定，轻微嘴型、自然眨眼、收束型小点头和很轻的手势，语气像在压实最小行动。保持同一角色设定和哑光 3D 质感，不要夸张动作，不要卖萌，不要广告感。",
+          "image_task_id": null,
+          "video_task_id": null,
+          "image_asset_path": null,
+          "video_asset_path": null,
+          "local_asset_path": null,
+          "asset_origin": "api_generated",
+          "preview_visual_ref": "preview_slide_5",
+          "failure_reason": "",
+          "error_message": "",
+          "status": "not_started"
+        },
+        {
+          "segment_id": "seg06",
+          "sequence": 6,
+          "carrier": "self_footage",
+          "asset_key": "doubao_trae_prompt",
+          "asset_source": "user_media",
+          "verified_role": "process_screen_evidence",
+          "needs_image": false,
+          "needs_video": true,
+          "seed_image_required": false,
+          "image_prompt": "",
+          "video_prompt": "",
+          "image_task_id": null,
+          "video_task_id": null,
+          "image_asset_path": null,
+          "video_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg06_prepared.mp4",
+          "local_asset_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4",
+          "prepared_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg06_prepared.mp4",
+          "source_timecode": "00:02:40-00:04:08",
+          "source_start_seconds": 160.0,
+          "source_end_seconds": 248.0,
+          "zoom_policy": "cover",
+          "redaction_boxes": [],
+          "redaction_note": "",
+          "asset_origin": "user_media",
+          "preview_visual_ref": "preview_slide_6",
+          "failure_reason": "",
+          "error_message": "",
+          "status": "success"
+        },
+        {
+          "segment_id": "seg07",
+          "sequence": 7,
+          "carrier": "self_footage",
+          "asset_key": "trae_plan_tasks",
+          "asset_source": "user_media",
+          "verified_role": "process_screen_evidence",
+          "needs_image": false,
+          "needs_video": true,
+          "seed_image_required": false,
+          "image_prompt": "",
+          "video_prompt": "",
+          "image_task_id": null,
+          "video_task_id": null,
+          "image_asset_path": null,
+          "video_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg07_prepared.mp4",
+          "local_asset_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/trae 素材.mp4",
+          "prepared_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg07_prepared.mp4",
+          "source_timecode": "00:00:32-00:01:52",
+          "source_start_seconds": 32.0,
+          "source_end_seconds": 112.0,
+          "zoom_policy": "cover",
+          "redaction_boxes": [
+            {
+              "x": 0.0,
+              "y": 0.92,
+              "width": 1.0,
+              "height": 0.08
+            }
+          ],
+          "redaction_note": "遮挡本地路径、分支详情、底部路径和可能泄露的任务信息。",
+          "asset_origin": "user_media",
+          "preview_visual_ref": "preview_slide_7",
+          "failure_reason": "",
+          "error_message": "",
+          "status": "success"
+        },
+        {
+          "segment_id": "seg08",
+          "sequence": 8,
+          "carrier": "self_footage",
+          "asset_key": "trae_project_skeleton",
+          "asset_source": "user_media",
+          "verified_role": "process_screen_evidence",
+          "needs_image": false,
+          "needs_video": true,
+          "seed_image_required": false,
+          "image_prompt": "",
+          "video_prompt": "",
+          "image_task_id": null,
+          "video_task_id": null,
+          "image_asset_path": null,
+          "video_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg08_prepared.mp4",
+          "local_asset_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/trae 素材.mp4",
+          "prepared_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg08_prepared.mp4",
+          "source_timecode": "00:02:00-00:02:40",
+          "source_start_seconds": 120.0,
+          "source_end_seconds": 160.0,
+          "zoom_policy": "cover",
+          "redaction_boxes": [
+            {
+              "x": 0.0,
+              "y": 0.92,
+              "width": 1.0,
+              "height": 0.08
+            }
+          ],
+          "redaction_note": "遮挡本地路径、分支详情、底部路径和可能泄露的任务信息。",
+          "asset_origin": "user_media",
+          "preview_visual_ref": "preview_slide_8",
+          "failure_reason": "",
+          "error_message": "",
+          "status": "success"
+        },
+        {
+          "segment_id": "seg09",
+          "sequence": 9,
+          "carrier": "light_ppt",
+          "asset_key": "",
+          "asset_source": "api_generated",
+          "needs_image": true,
+          "needs_video": false,
+          "seed_image_required": false,
+          "image_prompt": "可执行 prompt 解释；证明边界：说明豆包负责拆流程，Trae 负责拆待办和生成项目骨架。。9:16 竖版，结构已经收束，SOP 看板旁边带样片缩略图和修正清单，像真实项目收口画面；不要 PPT 模板，不要广告感，不要人物正脸。",
+          "video_prompt": "",
+          "image_task_id": null,
+          "video_task_id": null,
+          "image_asset_path": null,
+          "video_asset_path": null,
+          "local_asset_path": null,
+          "asset_origin": "api_generated",
+          "preview_visual_ref": "preview_slide_9",
+          "failure_reason": "",
+          "error_message": "",
+          "status": "not_started"
+        },
+        {
+          "segment_id": "seg10",
+          "sequence": 10,
+          "carrier": "human",
+          "asset_key": "",
+          "asset_source": "api_generated",
+          "needs_image": true,
+          "needs_video": true,
+          "seed_image_required": true,
+          "image_prompt": "9:16 竖版，单一角色，同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。，半身构图，固定背景，面对镜头做结尾收束，表情稳定，有轻微点头和最小动作手势，像在给出今天就能执行的下一步。整体要可信、克制、可爱但不低幼，不要廉价卖萌，不要大字，不要卡片感，不要课件感。",
+          "video_prompt": "同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。。9:16 竖版，单一角色半身面对镜头做结尾口播，镜头固定，轻微嘴型、自然眨眼、收束型小点头和很轻的手势，语气像在压实最小行动。保持同一角色设定和哑光 3D 质感，不要夸张动作，不要卖萌，不要广告感。",
+          "image_task_id": null,
+          "video_task_id": null,
+          "image_asset_path": null,
+          "video_asset_path": null,
+          "local_asset_path": null,
+          "asset_origin": "api_generated",
+          "preview_visual_ref": "preview_slide_10",
+          "failure_reason": "",
+          "error_message": "",
+          "status": "not_started"
+        },
+        {
+          "segment_id": "seg11",
+          "sequence": 11,
+          "carrier": "light_ppt",
+          "asset_key": "",
+          "asset_source": "api_generated",
+          "needs_image": true,
+          "needs_video": false,
+          "seed_image_required": false,
+          "image_prompt": "API 能力入口边界；证明边界：用信息卡替代火山引擎敏感页面特写，说明 API 是外部能力入口。。9:16 竖版，结构已经收束，SOP 看板旁边带样片缩略图和修正清单，像真实项目收口画面；不要 PPT 模板，不要广告感，不要人物正脸。",
+          "video_prompt": "",
+          "image_task_id": null,
+          "video_task_id": null,
+          "image_asset_path": null,
+          "video_asset_path": null,
+          "local_asset_path": null,
+          "asset_origin": "api_generated",
+          "preview_visual_ref": "preview_slide_11",
+          "failure_reason": "",
+          "error_message": "",
+          "status": "not_started"
+        },
+        {
+          "segment_id": "seg12",
+          "sequence": 12,
+          "carrier": "human",
+          "asset_key": "",
+          "asset_source": "api_generated",
+          "needs_image": true,
+          "needs_video": true,
+          "seed_image_required": true,
+          "image_prompt": "9:16 竖版，单一角色，同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。，半身构图，固定背景，面对镜头做结尾收束，表情稳定，有轻微点头和最小动作手势，像在给出今天就能执行的下一步。整体要可信、克制、可爱但不低幼，不要廉价卖萌，不要大字，不要卡片感，不要课件感。",
+          "video_prompt": "同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。。9:16 竖版，单一角色半身面对镜头做结尾口播，镜头固定，轻微嘴型、自然眨眼、收束型小点头和很轻的手势，语气像在压实最小行动。保持同一角色设定和哑光 3D 质感，不要夸张动作，不要卖萌，不要广告感。",
+          "image_task_id": null,
+          "video_task_id": null,
+          "image_asset_path": null,
+          "video_asset_path": null,
+          "local_asset_path": null,
+          "asset_origin": "api_generated",
+          "preview_visual_ref": "preview_slide_12",
+          "failure_reason": "",
+          "error_message": "",
+          "status": "not_started"
+        },
+        {
+          "segment_id": "seg13",
+          "sequence": 13,
+          "carrier": "light_ppt",
+          "asset_key": "",
+          "asset_source": "api_generated",
+          "needs_image": true,
+          "needs_video": false,
+          "seed_image_required": false,
+          "image_prompt": "云剪边界说明；证明边界：说明阿里云剪辑不是总控脑，技术验证、内容过线、流程成熟必须分开。。9:16 竖版，结构已经收束，SOP 看板旁边带样片缩略图和修正清单，像真实项目收口画面；不要 PPT 模板，不要广告感，不要人物正脸。",
+          "video_prompt": "",
+          "image_task_id": null,
+          "video_task_id": null,
+          "image_asset_path": null,
+          "video_asset_path": null,
+          "local_asset_path": null,
+          "asset_origin": "api_generated",
+          "preview_visual_ref": "preview_slide_13",
+          "failure_reason": "",
+          "error_message": "",
+          "status": "not_started"
+        },
+        {
+          "segment_id": "seg14",
+          "sequence": 14,
+          "carrier": "self_footage",
+          "asset_key": "codex_check",
+          "asset_source": "user_media",
+          "verified_role": "process_screen_evidence",
+          "needs_image": false,
+          "needs_video": true,
+          "seed_image_required": false,
+          "image_prompt": "",
+          "video_prompt": "",
+          "image_task_id": null,
+          "video_task_id": null,
+          "image_asset_path": null,
+          "video_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg14_prepared.mp4",
+          "local_asset_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/codex 素材.mp4",
+          "prepared_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg14_prepared.mp4",
+          "source_timecode": "00:02:56-00:03:08",
+          "source_start_seconds": 176.0,
+          "source_end_seconds": 188.0,
+          "zoom_policy": "cover",
+          "redaction_boxes": [
+            {
+              "x": 0.7,
+              "y": 0.0,
+              "width": 0.3,
+              "height": 1.0
+            },
+            {
+              "x": 0.0,
+              "y": 0.86,
+              "width": 1.0,
+              "height": 0.14
+            }
+          ],
+          "redaction_note": "遮挡本地路径、分支详情、底部路径和可能泄露的任务信息。",
+          "asset_origin": "user_media",
+          "preview_visual_ref": "preview_slide_14",
+          "failure_reason": "",
+          "error_message": "",
+          "status": "success"
+        },
+        {
+          "segment_id": "seg15",
+          "sequence": 15,
+          "carrier": "light_ppt",
+          "asset_key": "",
+          "asset_source": "api_generated",
+          "needs_image": true,
+          "needs_video": false,
+          "seed_image_required": false,
+          "image_prompt": "流程总览；证明边界：总结短视频自动流的六步流程。。9:16 竖版，结构已经收束，SOP 看板旁边带样片缩略图和修正清单，像真实项目收口画面；不要 PPT 模板，不要广告感，不要人物正脸。",
+          "video_prompt": "",
+          "image_task_id": null,
+          "video_task_id": null,
+          "image_asset_path": null,
+          "video_asset_path": null,
+          "local_asset_path": null,
+          "asset_origin": "api_generated",
+          "preview_visual_ref": "preview_slide_15",
+          "failure_reason": "",
+          "error_message": "",
+          "status": "not_started"
+        },
+        {
+          "segment_id": "seg16",
+          "sequence": 16,
+          "carrier": "light_ppt",
+          "asset_key": "",
+          "asset_source": "api_generated",
+          "needs_image": true,
+          "needs_video": false,
+          "seed_image_required": false,
+          "image_prompt": "即梦与自动流对比；证明边界：对比即梦单点素材生成和可复用流程，不做工具评测。。9:16 竖版，结构已经收束，SOP 看板旁边带样片缩略图和修正清单，像真实项目收口画面；不要 PPT 模板，不要广告感，不要人物正脸。",
+          "video_prompt": "",
+          "image_task_id": null,
+          "video_task_id": null,
+          "image_asset_path": null,
+          "video_asset_path": null,
+          "local_asset_path": null,
+          "asset_origin": "api_generated",
+          "preview_visual_ref": "preview_slide_16",
+          "failure_reason": "",
+          "error_message": "",
+          "status": "not_started"
+        },
+        {
+          "segment_id": "seg17",
+          "sequence": 17,
+          "carrier": "human",
+          "asset_key": "",
+          "asset_source": "api_generated",
+          "needs_image": true,
+          "needs_video": true,
+          "seed_image_required": true,
+          "image_prompt": "9:16 竖版，单一角色，同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。，半身构图，固定背景，面对镜头做结尾收束，表情稳定，有轻微点头和最小动作手势，像在给出今天就能执行的下一步。整体要可信、克制、可爱但不低幼，不要廉价卖萌，不要大字，不要卡片感，不要课件感。",
+          "video_prompt": "同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。。9:16 竖版，单一角色半身面对镜头做结尾口播，镜头固定，轻微嘴型、自然眨眼、收束型小点头和很轻的手势，语气像在压实最小行动。保持同一角色设定和哑光 3D 质感，不要夸张动作，不要卖萌，不要广告感。",
+          "image_task_id": null,
+          "video_task_id": null,
+          "image_asset_path": null,
+          "video_asset_path": null,
+          "local_asset_path": null,
+          "asset_origin": "api_generated",
+          "preview_visual_ref": "preview_slide_17",
+          "failure_reason": "",
+          "error_message": "",
+          "status": "not_started"
+        }
+      ],
+      "blocked_reason": "",
+      "failure_reason": "aliyun_image_task_create_failed",
+      "error_message": "{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"4404ee0a-6802-99dc-9f31-bf11567e427e\"}",
+      "current_missing_prerequisites": [],
+      "missing_implementations": [],
+      "candidate_pool": {
+        "image_generation": {
+          "total_candidate_count": 1,
+          "available_candidate_count": 1,
+          "backup_candidate_count": 0,
+          "candidates": [
+            {
+              "candidate_id": "primary",
+              "label": "Aliyun Image Primary",
+              "provider": "aliyun_bailian",
+              "model": "wan2.6-image",
+              "style_profile": "report",
+              "priority": 10,
+              "enabled": true,
+              "available": true,
+              "missing_prerequisites": []
+            }
+          ]
+        },
+        "video_generation": {
+          "total_candidate_count": 1,
+          "available_candidate_count": 1,
+          "backup_candidate_count": 0,
+          "candidates": [
+            {
+              "candidate_id": "primary",
+              "label": "Aliyun Video Primary",
+              "provider": "aliyun_bailian",
+              "model": "wan2.7-i2v",
+              "style_profile": "report",
+              "priority": 10,
+              "enabled": true,
+              "available": true,
+              "missing_prerequisites": []
+            }
+          ]
+        }
+      },
+      "cloud": {
+        "status": "failed",
+        "blocked_reason": "",
+        "failure_reason": "aliyun_image_task_create_failed",
+        "error_message": "{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"4404ee0a-6802-99dc-9f31-bf11567e427e\"}",
+        "missing_prerequisites": [],
+        "missing_implementations": []
+      }
+    }
+  },
+  "assembly": {
+    "status": "not_started",
+    "task_id": null,
+    "resource_id": null,
+    "output_id": null,
+    "delivery_mode": "oss_cloud_assembly",
+    "delivery_video_path": null,
+    "local": {
+      "status": "not_started",
+      "video_path": null,
+      "blocked_reason": "",
+      "failure_reason": "",
+      "error_message": "",
+      "current_missing_prerequisites": [],
+      "missing_implementations": [],
+      "deprecated": true,
+      "deprecated_reason": "正式默认主线已改为 cloud-only；local assembly 已移出主线，不再承担 fallback 或正常交付。"
+    },
+    "cloud": {
+      "status": "not_started",
+      "blocked_reason": "",
+      "missing_prerequisites": [],
+      "missing_implementations": [],
+      "is_primary_path": true,
+      "target": {
+        "assembly_mode": "cloud_only",
+        "subtitle_mode": "burn_in",
+        "resolution": "1080x1920",
+        "fps": 25,
+        "oss_bucket": "zvip1-video-beijing",
+        "oss_region": "cn-beijing",
+        "oss_endpoint": "oss-cn-beijing.aliyuncs.com",
+        "oss_bucket_domain": "zvip1-video-beijing.oss-cn-beijing.aliyuncs.com",
+        "oss_prefix_raw": "video-factory/raw/",
+        "oss_prefix_final": "video-factory/final/",
+        "oss_prefix_temp": "video-factory/temp/",
+        "ims_region": "cn-beijing",
+        "ims_storage_address": "zvip1-video-beijing.oss-cn-beijing.aliyuncs.com",
+        "ims_cloud_project_name": "video-factory-ppt-master-v1"
+      }
+    },
+    "preview": {
+      "status": "not_started",
+      "video_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/assembly/formal_api_demo_preview.mp4",
+      "preview_manifest_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/assembly/preview_manifest.json",
+      "captions_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
+      "blocked_reason": "",
+      "failure_reason": "",
+      "error_message": "",
+      "deprecated": true,
+      "deprecated_reason": "local preview 只保留历史调试意义，已移出正式默认主线路由，不再作为 fallback / 验收路径。"
+    }
+  },
+  "known_issues": [
+    "当前 TTS 调用已接通；正式主线下一步取决于用户真实素材注入或辅助图片资产准备，再进入北京区 OSS + 云剪主路径。",
+    "正式配音 failed：The read operation timed out",
+    "视觉生成 failed：{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"4404ee0a-6802-99dc-9f31-bf11567e427e\"}"
+  ],
+  "machine_gate": {
+    "generation_gate": {
+      "gate_name": "generation_gate",
+      "status": "success",
+      "scope": "tts_voiceover_and_visual_generation",
+      "allow_execution": true,
+      "blocked_reason": "",
+      "failure_reason": "",
+      "missing_prerequisites": [],
+      "missing_implementations": [],
+      "tts_target": {
+        "api_route_family": "aliyun_bailian_cosyvoice",
+        "model_identifier": "cosyvoice-v2",
+        "endpoint_id": "4429057155",
+        "model": "cosyvoice-v2",
+        "resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+        "voice": "longxiaochun_v2",
+        "region": "cn-beijing",
+        "provider": "aliyun_bailian"
+      },
+      "visual_target": {
+        "provider": "aliyun_bailian",
+        "region": "cn-beijing",
+        "image_model": "wan2.6-image",
+        "video_model": "wan2.7-i2v",
+        "general_video_model": "wan2.7-i2v",
+        "portrait_detect_model": "liveportrait-detect",
+        "portrait_video_model": "liveportrait",
+        "model_routes": {
+          "image_generation": {
+            "enabled": true,
+            "model": "wan2.6-image",
+            "role": "首帧 / 背景 / 人像底图生成",
+            "recommended_free_model": "wan2.6-image"
+          },
+          "general_video_generation": {
+            "enabled": true,
+            "model": "wan2.7-i2v",
+            "role": "普通视频主线（先图后视频）",
+            "recommended_free_model": "wan2.7-i2v"
+          },
+          "portrait_detect": {
+            "enabled": true,
+            "model": "liveportrait-detect",
+            "role": "liveportrait 前置检测",
+            "recommended_free_model": "liveportrait-detect"
+          },
+          "portrait_video_generation": {
+            "enabled": true,
+            "model": "liveportrait",
+            "role": "固定背景 / 人物开口分支",
+            "recommended_free_model": "liveportrait",
+            "requires": [
+              "portrait_detect"
+            ]
+          }
+        }
+      },
+      "stage_gates": {
+        "tts_probe": {
+          "gate_name": "generation_gate",
+          "status": "success",
+          "scope": "tts_probe_only",
+          "allow_execution": true,
+          "blocked_reason": "",
+          "failure_reason": "",
+          "missing_prerequisites": [],
+          "missing_implementations": [],
+          "candidate_pool": {
+            "total_candidate_count": 1,
+            "available_candidate_count": 1,
+            "backup_candidate_count": 0,
+            "candidates": [
+              {
+                "candidate_id": "primary",
+                "label": "primary",
+                "provider": "aliyun_bailian",
+                "api_route_family": "aliyun_bailian_cosyvoice",
+                "voice": "longxiaochun_v2",
+                "model_identifier": "cosyvoice-v2",
+                "style_profile": "default",
+                "priority": 10,
+                "enabled": true,
+                "available": true,
+                "missing_prerequisites": []
+              }
+            ]
+          },
+          "tts_target": {
+            "api_route_family": "aliyun_bailian_cosyvoice",
+            "model_identifier": "cosyvoice-v2",
+            "endpoint_id": "4429057155",
+            "model": "cosyvoice-v2",
+            "resource_id": "SET_IF_OPENSPEECH_REQUIRED",
+            "voice": "longxiaochun_v2",
+            "region": "cn-beijing",
+            "provider": "aliyun_bailian"
+          },
+          "checks": [
+            {
+              "name": "input_segments_present",
+              "status": "pass",
+              "detail": "当前共有 17 个段落。"
+            },
+            {
+              "name": "provider_selected",
+              "status": "pass",
+              "detail": "configured_provider=aliyun_bailian, resolved_tts_provider=aliyun_bailian"
+            },
+            {
+              "name": "tts_route_family_selected",
+              "status": "pass",
+              "detail": "api_route_family=aliyun_bailian_cosyvoice"
+            },
+            {
+              "name": "tts_route_family_ready",
+              "status": "pass",
+              "detail": "当前 Ark、Edge Gateway 和阿里百炼 CosyVoice 已接入真实 probe；Doubao OpenSpeech 仍是 gate-only。"
+            },
+            {
+              "name": "tts_api_key_present",
+              "status": "pass",
+              "detail": "当前 preflight 已升级为整条候选链检查，不再只看单个 auth.api_key。"
+            },
+            {
+              "name": "tts_voice_present",
+              "status": "pass",
+              "detail": "当前 preflight 已升级为整条候选链检查，不再只看单个 tts.voice。"
+            },
+            {
+              "name": "tts_usable_candidate_present",
+              "status": "pass",
+              "detail": "available_candidates=1 / total_candidates=1"
+            },
+            {
+              "name": "cloud_only_assembly_route_locked",
+              "status": "pass",
+              "detail": "正式默认主线已锁定为北京区 OSS + 云剪唯一 assembly 路线，本地 fallback 不再作为正常交付。"
+            },
+            {
+              "name": "tts_model_present",
+              "status": "pass",
+              "detail": "阿里百炼 CosyVoice 使用 tts.model + voice，不读取 endpoint_id。"
+            }
+          ],
+          "notes": [
+            "当前子 Gate 只评估 TTS probe / voiceover 所需前提。",
+            "dry-run 只验证输入、契约和 Gate，不调用远端。",
+            "route family 已显式拆分为 Ark / Edge Gateway / 阿里百炼 CosyVoice / Doubao OpenSpeech，不再默认混走 Ark。",
+            "当前 TTS preflight 已升级为候选链检查；只要存在 1 个可用候选，就不再把单个 primary 缺失误判成整体 blocked。"
+          ]
+        },
+        "visual_generation": {
+          "gate_name": "visual_generation_gate",
+          "status": "success",
+          "allow_execution": true,
+          "blocked_reason": "",
+          "failure_reason": "",
+          "missing_prerequisites": [],
+          "missing_implementations": [],
+          "candidate_pool": {
+            "image_generation": {
+              "total_candidate_count": 1,
+              "available_candidate_count": 1,
+              "backup_candidate_count": 0,
+              "candidates": [
+                {
+                  "candidate_id": "primary",
+                  "label": "Aliyun Image Primary",
+                  "provider": "aliyun_bailian",
+                  "model": "wan2.6-image",
+                  "style_profile": "report",
+                  "priority": 10,
+                  "enabled": true,
+                  "available": true,
+                  "missing_prerequisites": []
+                }
+              ]
+            },
+            "video_generation": {
+              "total_candidate_count": 1,
+              "available_candidate_count": 1,
+              "backup_candidate_count": 0,
+              "candidates": [
+                {
+                  "candidate_id": "primary",
+                  "label": "Aliyun Video Primary",
+                  "provider": "aliyun_bailian",
+                  "model": "wan2.7-i2v",
+                  "style_profile": "report",
+                  "priority": 10,
+                  "enabled": true,
+                  "available": true,
+                  "missing_prerequisites": []
+                }
+              ]
+            }
+          },
+          "checks": [
+            {
+              "name": "visual_segments_present",
+              "status": "pass",
+              "detail": "segments=17"
+            },
+            {
+              "name": "image_model_present_when_required",
+              "status": "pass",
+              "detail": "有图片段落时必须存在至少 1 个可用 image candidate；available=1。"
+            },
+            {
+              "name": "video_model_present_when_required",
+              "status": "pass",
+              "detail": "有视频段落时必须存在至少 1 个可用 video candidate；available=1。"
+            },
+            {
+              "name": "required_user_footage_present",
+              "status": "fail",
+              "detail": "默认正式主线要求的用户本地录制素材必须先在本地配置里注入真实文件路径。"
+            },
+            {
+              "name": "human_carrier_requires_verified_on_camera_footage",
+              "status": "pass",
+              "detail": "只有当 carrier=human 且素材来源=user_media 时，才必须显式标记 verified_role=\"human_on_camera\"；API 真人段不读取本地人物槽位。"
+            },
+            {
+              "name": "portrait_detect_enabled_before_liveportrait",
+              "status": "pass",
+              "detail": "启用 liveportrait 前必须先启用 portrait_detect。"
+            },
+            {
+              "name": "portrait_detect_model_present_when_enabled",
+              "status": "pass",
+              "detail": "启用 portrait_detect 时必须显式提供 portrait_detect.model。"
+            },
+            {
+              "name": "portrait_video_model_present_when_enabled",
+              "status": "pass",
+              "detail": "启用 liveportrait 时必须显式提供 portrait_video_generation.model。"
+            }
+          ],
+          "notes": [
+            "visual_generation Gate 继续代表图片 / 视频生成 API 的正式 generation 前提。",
+            "默认正式主线已切到 API human + user local footage + light_ppt；hook / close 默认走 API 真人，过程证据默认走用户本地素材。",
+            "普通视频默认主线固定为 wan2.6-image -> wan2.7-i2v；先出首帧 / 底图，再转视频。",
+            "人物图 / 人像底图默认走 wan2.6-image；需要修图时走 qwen-image-edit-plus，不再默认依赖 facechain-generation。",
+            "真人开口分支固定为 liveportrait-detect + liveportrait；liveportrait 必须先经过 liveportrait-detect。",
+            "wan2.7-videoedit 只用于后期修补 / 编辑增强，不是主生成模型。",
+            "缺少 image_generation.model / video_generation.model 时，generation 不能写成 success。",
+            "provider implementation 尚未接入时，当前必须诚实 blocked，不能再把 visual plan / preview 写成 success。",
+            "当前 visual preflight 已升级为候选链检查；只要存在 1 个可用 image/video 候选，就不再把单个 primary 缺失误判成整体 blocked。"
+          ]
+        }
+      },
+      "checks": [
+        {
+          "name": "input_segments_present",
+          "status": "pass",
+          "detail": "当前共有 17 个段落。"
+        },
+        {
+          "name": "provider_selected",
+          "status": "pass",
+          "detail": "configured_provider=aliyun_bailian, resolved_tts_provider=aliyun_bailian"
+        },
+        {
+          "name": "tts_route_family_selected",
+          "status": "pass",
+          "detail": "api_route_family=aliyun_bailian_cosyvoice"
+        },
+        {
+          "name": "tts_route_family_ready",
+          "status": "pass",
+          "detail": "当前 Ark、Edge Gateway 和阿里百炼 CosyVoice 已接入真实 probe；Doubao OpenSpeech 仍是 gate-only。"
+        },
+        {
+          "name": "tts_api_key_present",
+          "status": "pass",
+          "detail": "当前 preflight 已升级为整条候选链检查，不再只看单个 auth.api_key。"
+        },
+        {
+          "name": "tts_voice_present",
+          "status": "pass",
+          "detail": "当前 preflight 已升级为整条候选链检查，不再只看单个 tts.voice。"
+        },
+        {
+          "name": "tts_usable_candidate_present",
+          "status": "pass",
+          "detail": "available_candidates=1 / total_candidates=1"
+        },
+        {
+          "name": "cloud_only_assembly_route_locked",
+          "status": "pass",
+          "detail": "正式默认主线已锁定为北京区 OSS + 云剪唯一 assembly 路线，本地 fallback 不再作为正常交付。"
+        },
+        {
+          "name": "tts_model_present",
+          "status": "pass",
+          "detail": "阿里百炼 CosyVoice 使用 tts.model + voice，不读取 endpoint_id。"
+        },
+        {
+          "name": "visual_segments_present",
+          "status": "pass",
+          "detail": "segments=17"
+        },
+        {
+          "name": "image_model_present_when_required",
+          "status": "pass",
+          "detail": "有图片段落时必须存在至少 1 个可用 image candidate；available=1。"
+        },
+        {
+          "name": "video_model_present_when_required",
+          "status": "pass",
+          "detail": "有视频段落时必须存在至少 1 个可用 video candidate；available=1。"
+        },
+        {
+          "name": "required_user_footage_present",
+          "status": "fail",
+          "detail": "默认正式主线要求的用户本地录制素材必须先在本地配置里注入真实文件路径。"
+        },
+        {
+          "name": "human_carrier_requires_verified_on_camera_footage",
+          "status": "pass",
+          "detail": "只有当 carrier=human 且素材来源=user_media 时，才必须显式标记 verified_role=\"human_on_camera\"；API 真人段不读取本地人物槽位。"
+        },
+        {
+          "name": "portrait_detect_enabled_before_liveportrait",
+          "status": "pass",
+          "detail": "启用 liveportrait 前必须先启用 portrait_detect。"
+        },
+        {
+          "name": "portrait_detect_model_present_when_enabled",
+          "status": "pass",
+          "detail": "启用 portrait_detect 时必须显式提供 portrait_detect.model。"
+        },
+        {
+          "name": "portrait_video_model_present_when_enabled",
+          "status": "pass",
+          "detail": "启用 liveportrait 时必须显式提供 portrait_video_generation.model。"
+        }
+      ],
+      "notes": [
+        "正式 generation success 仍要求配音 API 成功，且视觉层必须真实拿到可组装资产：默认人物段走 API 真人，过程段走用户本地素材，少量信息卡走 API 图像。",
+        "visual plan / preview storyboard 只能算辅助产物，不能再冒充 visual generation success。",
+        "默认正式主线已切到 API human + user local footage + light_ppt；本地 preview 只保留辅助调试意义。",
+        "assembly 主线继续固定为北京区 OSS + 云剪 cloud-only，不回退 local assembly 默认主路径。"
+      ]
+    },
+    "assembly_gate": {
+      "gate_name": "assembly_gate",
+      "status": "not_started",
+      "allow_execution": false,
+      "blocked_reason": "",
+      "missing_prerequisites": [],
+      "missing_implementations": [],
+      "checks": [],
+      "notes": []
+    }
+  }
+}

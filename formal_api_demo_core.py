@@ -577,6 +577,9 @@ def run_generation_pipeline(
                 output_dir=output_dir,
                 rotation_state=rotation_state,
             )
+            if voiceover.get("status") == STATUS_SUCCESS:
+                _apply_voiceover_durations_to_video_spec(video_spec, voiceover)
+                manifest = _refresh_manifest_timeline_from_video_spec(manifest, video_spec)
         else:
             voiceover = build_blocked_voiceover_generation(video_spec, tts_probe, tts_gate)
         manifest = apply_voiceover_to_manifest(manifest, voiceover)
@@ -888,6 +891,8 @@ def run_assembly_pipeline(
         "media_id": None,
         "output_url": None,
         "media_url": None,
+        "output_object_key": None,
+        "local_download_path": None,
         "timeline_path": str(output_dir / "assembly" / "cloud_timeline.json"),
         "request_ids": {},
         "uploaded_assets": [],
@@ -918,7 +923,9 @@ def run_assembly_pipeline(
         "resource_id": cloud_result.get("project_id"),
         "output_id": cloud_result.get("media_id"),
         "delivery_mode": delivery_mode,
-        "delivery_video_path": cloud_result.get("output_url") or cloud_result.get("media_url"),
+        "delivery_video_path": cloud_result.get("local_download_path")
+        or cloud_result.get("output_url")
+        or cloud_result.get("media_url"),
         "local": local_assembly_result,
         "cloud": {
             "status": cloud_assembly_status,
@@ -934,6 +941,8 @@ def run_assembly_pipeline(
             "media_id": cloud_result.get("media_id"),
             "output_url": cloud_result.get("output_url"),
             "media_url": cloud_result.get("media_url"),
+            "output_object_key": cloud_result.get("output_object_key"),
+            "local_download_path": cloud_result.get("local_download_path"),
             "timeline_path": cloud_result.get("timeline_path"),
             "request_ids": cloud_result.get("request_ids", {}),
             "uploaded_assets": cloud_result.get("uploaded_assets", []),
@@ -1198,7 +1207,10 @@ def evaluate_generation_gate(
 
 
 def _segment_requires_local_media(segment: dict[str, Any]) -> bool:
-    return bool(segment.get("asset_key")) and segment.get("asset_source") == USER_MEDIA_SOURCE
+    return (
+        bool(segment.get("asset_key") or segment.get("local_path"))
+        and segment.get("asset_source") == USER_MEDIA_SOURCE
+    )
 
 
 def _segment_uses_api_human(segment: dict[str, Any]) -> bool:
@@ -1231,6 +1243,31 @@ def _resolve_footage_input(config: dict[str, Any], asset_key: str) -> dict[str, 
         "source_type": source_type,
         "verified_role": verified_role,
         "media_kind": media_kind,
+    }
+
+
+def _resolve_segment_footage_input(
+    config: dict[str, Any],
+    segment: dict[str, Any],
+) -> dict[str, Any]:
+    asset_key = segment.get("asset_key") or segment["segment_id"]
+    config_input = _resolve_footage_input(config, asset_key)
+    local_path = _normalize_optional_text(segment.get("local_path")) or config_input["local_path"]
+    source_type = _normalize_optional_text(segment.get("source_type")) or config_input["source_type"]
+    verified_role = _normalize_optional_text(segment.get("verified_role")) or config_input["verified_role"]
+    media_kind = _normalize_optional_text(segment.get("media_kind"))
+    if not media_kind:
+        media_kind = "image" if source_type in {"user_image", "user_ppt_image"} else config_input["media_kind"]
+    return {
+        "asset_key": asset_key,
+        "local_path": local_path,
+        "source_type": source_type,
+        "verified_role": verified_role,
+        "media_kind": media_kind,
+        "source_start_seconds": segment.get("source_start_seconds"),
+        "source_end_seconds": segment.get("source_end_seconds"),
+        "redaction_boxes": segment.get("redaction_boxes", []),
+        "zoom_policy": segment.get("zoom_policy", ""),
     }
 
 
@@ -1317,7 +1354,7 @@ def _evaluate_visual_generation_gate(
         missing.append("portrait_video_generation_model")
     for segment in required_local_media_inputs:
         asset_key = segment.get("asset_key") or segment["segment_id"]
-        footage_input = _resolve_footage_input(config, asset_key)
+        footage_input = _resolve_segment_footage_input(config, segment)
         local_path = footage_input["local_path"]
         if _is_missing_secret(local_path):
             missing_name = f"footage_input_{asset_key}_local_path"
@@ -2620,6 +2657,9 @@ def execute_formal_voiceover_generation(
             "error_message": probe.get("error_message", ""),
             "selected_candidate_id": probe.get("selected_candidate_id", ""),
             "fallback_events": probe.get("fallback_events", []),
+            "duration_seconds": _probe_media_duration_seconds(pathlib.Path(probe["audio_path"]))
+            if probe.get("audio_path")
+            else None,
         }
         segment_results.append(segment_result)
         if probe.get("status") != STATUS_SUCCESS:
@@ -2641,16 +2681,64 @@ def execute_formal_voiceover_generation(
 
     bundle_path = output_dir / "tts" / "formal_voiceover.mp3"
     concatenate_audio_files(segment_audio_paths, bundle_path)
+    bundle_duration = _probe_media_duration_seconds(bundle_path)
     voiceover.update(
         {
             "status": STATUS_SUCCESS,
             "audio_path": str(bundle_path),
             "segment_audio_paths": [str(path) for path in segment_audio_paths],
             "segment_results": segment_results,
+            "duration_seconds": bundle_duration,
             "last_success_candidate_id": runtime_state.get("last_success", {}).get(RESOURCE_KIND_TTS, ""),
         }
     )
     return voiceover
+
+
+def _apply_voiceover_durations_to_video_spec(
+    video_spec: dict[str, Any],
+    voiceover: dict[str, Any],
+) -> None:
+    durations_by_segment = {
+        item.get("segment_id"): item.get("duration_seconds")
+        for item in voiceover.get("segment_results", [])
+        if item.get("segment_id") and item.get("duration_seconds")
+    }
+    total_duration = 0.0
+    for segment in video_spec.get("segments", []):
+        duration = durations_by_segment.get(segment["segment_id"])
+        if duration:
+            segment["planned_duration_seconds"] = round(float(duration), 2)
+        total_duration += float(segment["planned_duration_seconds"])
+    video_spec["total_duration_seconds"] = round(total_duration, 2)
+
+
+def _refresh_manifest_timeline_from_video_spec(
+    manifest: dict[str, Any],
+    video_spec: dict[str, Any],
+) -> dict[str, Any]:
+    segments_by_id = {
+        segment["segment_id"]: segment
+        for segment in video_spec.get("segments", [])
+    }
+    cursor = 0.0
+    for manifest_segment in manifest.get("segments", []):
+        segment = segments_by_id.get(manifest_segment["segment_id"])
+        if segment is None:
+            continue
+        start_seconds = round(cursor, 2)
+        end_seconds = round(cursor + float(segment["planned_duration_seconds"]), 2)
+        manifest_segment["voiceover_text"] = segment["voiceover_text"]
+        manifest_segment["caption_text"] = segment["caption_text"]
+        manifest_segment["timeline"] = {
+            "planned_start_seconds": start_seconds,
+            "planned_end_seconds": end_seconds,
+            "planned_duration_seconds": round(float(segment["planned_duration_seconds"]), 2),
+        }
+        cursor = end_seconds
+    manifest.setdefault("video_spec", {})["total_duration_seconds"] = video_spec["total_duration_seconds"]
+    manifest.setdefault("timeline", {})["planned_total_duration_seconds"] = video_spec["total_duration_seconds"]
+    return manifest
 
 
 def write_formal_script_and_captions(
@@ -2723,7 +2811,7 @@ def build_visual_generation_plan(
         style_prompt = _normalize_optional_text(segment.get("style_prompt"))
         if uses_local_media:
             asset_key = segment.get("asset_key") or segment["segment_id"]
-            local_asset = _resolve_footage_input(config, asset_key)
+            local_asset = _resolve_segment_footage_input(config, segment)
         api_human_segment = _segment_uses_api_human(segment)
         segment_needs_image = (
             not uses_local_media
@@ -2792,6 +2880,28 @@ def build_visual_generation_plan(
                     preview_storyboard_path=preview_storyboard_path,
                 )
                 return visual_generation
+            try:
+                prepared_local_path = _prepare_segment_local_media_asset(
+                    source_path=local_path,
+                    segment=segment,
+                    local_asset=local_asset,
+                    output_dir=output_dir,
+                )
+            except RuntimeError as exc:
+                visual_generation.update(
+                    {
+                        "status": STATUS_BLOCKED,
+                        "blocked_reason": str(exc),
+                        "error_message": str(exc),
+                    }
+                )
+                _write_visual_generation_files(
+                    visual_generation=visual_generation,
+                    video_spec=video_spec,
+                    plan_path=plan_path,
+                    preview_storyboard_path=preview_storyboard_path,
+                )
+                return visual_generation
             asset_record = {
                 "segment_id": segment["segment_id"],
                 "sequence": index,
@@ -2806,9 +2916,16 @@ def build_visual_generation_plan(
                 "video_prompt": "",
                 "image_task_id": None,
                 "video_task_id": None,
-                "image_asset_path": str(local_path) if local_asset["media_kind"] == "image" else None,
-                "video_asset_path": str(local_path) if local_asset["media_kind"] == "video" else None,
+                "image_asset_path": str(prepared_local_path) if local_asset["media_kind"] == "image" else None,
+                "video_asset_path": str(prepared_local_path) if local_asset["media_kind"] == "video" else None,
                 "local_asset_path": str(local_path),
+                "prepared_asset_path": str(prepared_local_path),
+                "source_timecode": segment.get("source_timecode", ""),
+                "source_start_seconds": local_asset.get("source_start_seconds"),
+                "source_end_seconds": local_asset.get("source_end_seconds"),
+                "zoom_policy": local_asset.get("zoom_policy", ""),
+                "redaction_boxes": local_asset.get("redaction_boxes", []),
+                "redaction_note": segment.get("redaction_note", ""),
                 "asset_origin": USER_MEDIA_SOURCE,
                 "preview_visual_ref": f"preview_slide_{index}",
                 "failure_reason": "",
@@ -3125,7 +3242,7 @@ def build_visual_generation_plan(
             asset["image_candidate_id"] = image_result.get("selected_candidate_id", "")
             asset["image_fallback_events"] = image_result.get("fallback_events", [])
 
-        if asset["needs_video"]:
+        if asset["needs_video"] and image_result["status"] == STATUS_SUCCESS:
             use_portrait_route = (
                 portrait_route_in_use
                 and asset.get("carrier") == CARRIER_HUMAN
@@ -3251,6 +3368,145 @@ def build_visual_generation_plan(
         preview_storyboard_path=preview_storyboard_path,
     )
     return visual_generation
+
+
+def _prepare_segment_local_media_asset(
+    *,
+    source_path: pathlib.Path,
+    segment: dict[str, Any],
+    local_asset: dict[str, Any],
+    output_dir: pathlib.Path,
+) -> pathlib.Path:
+    if local_asset["media_kind"] == "image":
+        return source_path
+
+    start_seconds = local_asset.get("source_start_seconds")
+    end_seconds = local_asset.get("source_end_seconds")
+    needs_preparation = bool(
+        start_seconds is not None
+        or end_seconds is not None
+        or local_asset.get("redaction_boxes")
+        or _normalize_optional_text(local_asset.get("zoom_policy"))
+    )
+    if not needs_preparation:
+        return source_path
+
+    target_duration = max(0.1, float(segment["planned_duration_seconds"]))
+    source_duration = None
+    if start_seconds is not None and end_seconds is not None:
+        source_duration = max(0.1, float(end_seconds) - float(start_seconds))
+
+    prepared_dir = output_dir / "prepared_visuals"
+    prepared_dir.mkdir(parents=True, exist_ok=True)
+    output_path = prepared_dir / f"{segment['segment_id']}_prepared.mp4"
+    base_clip_path = prepared_dir / f"{segment['segment_id']}_source_clip.mp4"
+    ffmpeg_binary = resolve_ffmpeg_binary()
+    filter_graph = _build_formal_local_media_filter(
+        zoom_policy=local_asset.get("zoom_policy", ""),
+        redaction_boxes=local_asset.get("redaction_boxes", []),
+    )
+    trim_args: list[str] = [ffmpeg_binary, "-y"]
+    if start_seconds is not None:
+        trim_args.extend(["-ss", f"{float(start_seconds):.3f}"])
+    trim_args.extend(["-i", str(source_path)])
+    if source_duration is not None:
+        trim_args.extend(["-t", f"{source_duration:.3f}"])
+    trim_args.extend(
+        [
+            "-vf",
+            filter_graph,
+            "-an",
+            "-r",
+            "30",
+            "-c:v",
+            "libx264",
+            "-preset",
+            "veryfast",
+            "-crf",
+            "22",
+            "-pix_fmt",
+            "yuv420p",
+            str(base_clip_path),
+        ]
+    )
+    try:
+        run_subprocess(trim_args)
+    except subprocess.CalledProcessError as exc:
+        raise RuntimeError(
+            f"本地素材预处理失败，无法进入正式云剪：{segment['segment_id']}"
+        ) from exc
+
+    effective_source_duration = source_duration or _probe_media_duration_seconds(base_clip_path)
+    if effective_source_duration + 0.25 >= target_duration:
+        shutil.copyfile(base_clip_path, output_path)
+        return output_path
+
+    loop_args = [
+        ffmpeg_binary,
+        "-y",
+        "-stream_loop",
+        "-1",
+        "-i",
+        str(base_clip_path),
+        "-t",
+        f"{target_duration:.3f}",
+        "-an",
+        "-r",
+        "30",
+        "-c:v",
+        "libx264",
+        "-preset",
+        "veryfast",
+        "-crf",
+        "22",
+        "-pix_fmt",
+        "yuv420p",
+        str(output_path),
+    ]
+    try:
+        run_subprocess(loop_args)
+    except subprocess.CalledProcessError as exc:
+        raise RuntimeError(
+            f"本地素材循环补足失败，无法匹配正式 TTS 时间线：{segment['segment_id']}"
+        ) from exc
+    return output_path
+
+
+def _build_formal_local_media_filter(
+    *,
+    zoom_policy: str,
+    redaction_boxes: list[dict[str, float]],
+) -> str:
+    normalized_policy = _normalize_optional_text(zoom_policy)
+    if normalized_policy == "contain":
+        filters = [
+            "scale=1080:1920:force_original_aspect_ratio=decrease",
+            "pad=1080:1920:(ow-iw)/2:(oh-ih)/2:color=0xF8F0F5",
+            "setsar=1",
+        ]
+    else:
+        filters = [
+            "scale=1080:1920:force_original_aspect_ratio=increase",
+            "crop=1080:1920",
+            "setsar=1",
+        ]
+    for box in redaction_boxes:
+        filters.append(_build_drawbox_filter(box))
+    return ",".join(filters)
+
+
+def _build_drawbox_filter(box: dict[str, float]) -> str:
+    x = _format_drawbox_value(box["x"], "iw")
+    y = _format_drawbox_value(box["y"], "ih")
+    width = _format_drawbox_value(box["width"], "iw")
+    height = _format_drawbox_value(box["height"], "ih")
+    return f"drawbox=x={x}:y={y}:w={width}:h={height}:color=black@0.96:t=fill"
+
+
+def _format_drawbox_value(value: float, dimension: str) -> str:
+    if 0 <= value <= 1:
+        return f"{dimension}*{value:.6f}"
+    return str(int(round(value)))
 
 
 def _write_visual_generation_files(
@@ -4281,6 +4537,13 @@ def _parse_segment_block(block: dict[str, Any]) -> dict[str, Any]:
         carrier=carrier,
         allow_real_desktop_footage=allow_real_desktop_footage,
     )
+    source_start_seconds = _parse_optional_time_value(values.get("素材起点", ""))
+    source_end_seconds = _parse_optional_time_value(values.get("素材终点", ""))
+    timecode_start, timecode_end = _parse_optional_timecode_range(values.get("素材时间码", ""))
+    if source_start_seconds is None:
+        source_start_seconds = timecode_start
+    if source_end_seconds is None:
+        source_end_seconds = timecode_end
 
     return {
         "segment_heading": block["heading"],
@@ -4297,6 +4560,20 @@ def _parse_segment_block(block: dict[str, Any]) -> dict[str, Any]:
         "asset_key": asset_key,
         "asset_source": asset_source,
         "style_prompt": values.get("风格提示", "").strip(),
+        "local_path": values.get("本地素材路径", "").strip(),
+        "source_type": values.get("素材类型", "").strip(),
+        "verified_role": values.get("素材角色", "").strip(),
+        "media_kind": values.get("媒体类型", "").strip(),
+        "source_timecode": values.get("素材时间码", "").strip(),
+        "source_start_seconds": source_start_seconds,
+        "source_end_seconds": source_end_seconds,
+        "visual_route": values.get("视觉路由", "").strip(),
+        "zoom_policy": values.get("缩放策略", "").strip(),
+        "redaction_boxes": _parse_redaction_boxes(values.get("遮挡框", "")),
+        "redaction_note": values.get("遮挡说明", "").strip(),
+        "proof_statement": values.get("证明什么", "").strip(),
+        "cannot_prove": values.get("不能证明", "").strip(),
+        "locked_reference_ids": _parse_comma_list(values.get("锁定参考", "")),
     }
 
 
@@ -4333,6 +4610,55 @@ def _parse_seconds(raw: str) -> float:
     if not normalized:
         raise ValueError("时长字段不能为空")
     return float(normalized)
+
+
+def _parse_optional_timecode_range(raw: str) -> tuple[float | None, float | None]:
+    normalized = raw.strip()
+    if not normalized:
+        return None, None
+    delimiter = "-" if "-" in normalized else "–" if "–" in normalized else ""
+    if not delimiter:
+        return _parse_optional_time_value(normalized), None
+    start_raw, end_raw = normalized.split(delimiter, 1)
+    return _parse_optional_time_value(start_raw), _parse_optional_time_value(end_raw)
+
+
+def _parse_optional_time_value(raw: str | None) -> float | None:
+    normalized = (raw or "").strip().replace("秒", "").strip()
+    if not normalized:
+        return None
+    if ":" not in normalized:
+        return float(normalized)
+    parts = [float(part) for part in normalized.split(":")]
+    if len(parts) == 3:
+        hours, minutes, seconds = parts
+        return hours * 3600 + minutes * 60 + seconds
+    if len(parts) == 2:
+        minutes, seconds = parts
+        return minutes * 60 + seconds
+    raise ValueError(f"无法解析时间码：{raw}")
+
+
+def _parse_comma_list(raw: str) -> list[str]:
+    return [
+        item.strip()
+        for item in raw.replace("，", ",").split(",")
+        if item.strip()
+    ]
+
+
+def _parse_redaction_boxes(raw: str) -> list[dict[str, float]]:
+    boxes: list[dict[str, float]] = []
+    for item in raw.split(";"):
+        stripped = item.strip()
+        if not stripped:
+            continue
+        parts = [part.strip() for part in stripped.split(",")]
+        if len(parts) != 4:
+            raise ValueError(f"遮挡框必须写成 x,y,w,h：{raw}")
+        x, y, width, height = (float(part) for part in parts)
+        boxes.append({"x": x, "y": y, "width": width, "height": height})
+    return boxes
 
 
 def _parse_yes_no(raw: str) -> bool:
@@ -5701,6 +6027,42 @@ def resolve_ffmpeg_binary() -> str:
     if bundled_ffmpeg.exists():
         return str(bundled_ffmpeg)
     raise RuntimeError("缺少 ffmpeg，可先安装依赖或补齐本地 ffmpeg 可执行文件。")
+
+
+def resolve_ffprobe_binary() -> str:
+    system_ffprobe = shutil.which("ffprobe")
+    if system_ffprobe:
+        return system_ffprobe
+    bundled_ffprobe = ROOT / "node_modules" / "ffprobe-static" / "bin" / "darwin" / "x64" / "ffprobe"
+    if bundled_ffprobe.exists():
+        return str(bundled_ffprobe)
+    raise RuntimeError("缺少 ffprobe，无法读取媒体时长。")
+
+
+def _probe_media_duration_seconds(path: pathlib.Path) -> float | None:
+    if not path.exists():
+        return None
+    try:
+        ffprobe_binary = resolve_ffprobe_binary()
+        completed = subprocess.run(
+            [
+                ffprobe_binary,
+                "-v",
+                "error",
+                "-show_entries",
+                "format=duration",
+                "-of",
+                "default=noprint_wrappers=1:nokey=1",
+                str(path),
+            ],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        raw_duration = completed.stdout.strip()
+        return round(float(raw_duration), 3) if raw_duration else None
+    except (RuntimeError, subprocess.CalledProcessError, ValueError):
+        return None
 
 
 def run_subprocess(args: list[str]) -> None:
