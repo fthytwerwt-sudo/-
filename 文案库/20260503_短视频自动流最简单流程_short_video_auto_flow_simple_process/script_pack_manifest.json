@@ -1,0 +1,38 @@
+{
+  "title": "短视频自动流的最简单流程",
+  "script_type": "流程证明型视频样片执行包",
+  "updated_at": "2026-05-03T18:49:30+08:00",
+  "source_anchor": "FINAL_SCRIPT_V2_user_confirmed_flow_detail_enhanced",
+  "status": {
+    "script_pack": "updated_to_final_script_v2",
+    "video_generated": true,
+    "content_validation": "pending_user_chatgpt_review",
+    "send_ready": false,
+    "technical_validation": "pending_render_verification"
+  },
+  "must_keep": [
+    "Trae 段：看不懂代码也没关系，重点看 app / 项目有没有初步形状",
+    "火山引擎 API 特写边界：必须脱敏，无法确认安全时 fallback 信息卡",
+    "Trae 项目骨架不等于 app 跑通",
+    "API 特写不等于 API 已接通",
+    "阿里云剪辑不是正式稳定链路",
+    "Codex 检查不等于内容过线"
+  ],
+  "material_paths": {
+    "doubao": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4",
+    "trae": "/Users/fan/Documents/视频工厂/素材录制/最新素材/trae 素材.mp4",
+    "codex": "/Users/fan/Documents/视频工厂/素材录制/最新素材/codex 素材.mp4",
+    "volcengine_conditionally_allowed_only_after_redaction": "/Users/fan/Documents/视频工厂/素材录制/最新素材/火山引擎素材.mp4",
+    "folder_broll_weak": "/Users/fan/Documents/视频工厂/素材录制/最新素材/创建文件夹.mp4",
+    "historical_long_recording_excluded": "/Users/fan/Documents/视频工厂/素材录制/最新素材/录屏2026-04-30 03.25.28.mov"
+  },
+  "output_dir": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample",
+  "script_sha256": "a987382aedede62302cac4ed0df25cf74866a674d4e56415a67a608dc284d7ae",
+  "files": {
+    "full_script": "文案库/20260503_短视频自动流最简单流程_short_video_auto_flow_simple_process/01_完整口播稿_full_script.md",
+    "block_segment_material_map": "文案库/20260503_短视频自动流最简单流程_short_video_auto_flow_simple_process/02_分段承载表_block_segment_material_map.md",
+    "card_copy": "文案库/20260503_短视频自动流最简单流程_short_video_auto_flow_simple_process/03_卡片文案_card_copy.md",
+    "execution_notes": "文案库/20260503_短视频自动流最简单流程_short_video_auto_flow_simple_process/04_执行注意事项_execution_notes.md",
+    "codex_video_execution_input": "文案库/20260503_短视频自动流最简单流程_short_video_auto_flow_simple_process/05_给Codex剪辑执行输入_codex_video_execution_input.md"
+  }
+}

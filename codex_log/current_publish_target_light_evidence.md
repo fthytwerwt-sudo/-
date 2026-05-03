@@ -119,6 +119,15 @@
 - 不能证明视觉母版已锁定。
 - 不能证明声音最终通过。
 
+
+## 旁路样片轻量证据：短视频自动流 V1
+
+- `已确认` 本轮生成独立流程证明型样片，不替换 v3.1 当前发布后灰度测试对象。
+- 样片输出目录：`/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample`
+- 可追踪文字证据：`/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/assembly_manifest.json`、`/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/render_report.md`、`/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/redaction_report.md`、`/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/local_open_path_report.md`
+- 媒体本体：`full_video.mp4` 和图片预览为 `local_only`，不强行提交 Git。
+- 状态边界：`content_validation = pending_user_chatgpt_review`，`send_ready = false`。
+
 ## 最后更新时间
 
-- `2026-05-02 CST`
+- `2026-05-03 CST`

@@ -132,9 +132,18 @@
 - 本轮同步要求：commit、push 当前分支，创建 PR，并在验证通过后合并到 `codex/user-readable-map`。
 - 本轮边界：不重新生成视频、不重新生成音频、不重新生成图片、不重新装配全片、不写新文案。
 
+
+## 本轮旁路样片说明：短视频自动流 V1
+
+- `已确认` 2026-05-03 本轮另行生成《短视频自动流的最简单流程》V1 流程证明型样片。
+- `已确认` 该样片输出目录：`/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample`。
+- `已确认` 该样片 `content_validation = pending_user_chatgpt_review`，`send_ready = false`。
+- `已确认` 该样片不替换当前 v3.1 灰度测试对象，不修改 `dist/latest_review_pack/` 当前基线。
+- `已确认` 当前 publish target 仍为《我用 AI 做 PPT 踩过的坑》v3.1；本轮新样片是独立复审对象。
+
 ## 最后更新时间
 
-- `2026-05-02 CST`
+- `2026-05-03 CST`
 
 ## 对应 dated log 路径
 

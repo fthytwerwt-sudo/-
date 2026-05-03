@@ -1,0 +1,136 @@
+{
+  "schema": "short_video_auto_flow_v2_visual_route_map/v1",
+  "created_at": "2026-05-03T18:49:30+08:00",
+  "content_validation": "pending_user_chatgpt_review",
+  "send_ready": false,
+  "segments": [
+    {
+      "segment_id": "flow_overview",
+      "card_type": "info_card",
+      "assigned_route": "cute_info_card_route",
+      "primary_reference": "cute_info_card_route_locked_20260501",
+      "secondary_reference": "card_visual_quality_clean_ui_texture_candidate_20260430",
+      "forbidden_references": [
+        "sassy_card_pr7_a_candidate_20260428",
+        "deep_blue_tech_saas_ui_info_card_rejected_direction"
+      ],
+      "renderer_function": "PIL_programmatic_cute_info_card",
+      "validation_gate": "not_dense_dashboard_no_fake_data_no_tool_tutorial",
+      "can_share_shell_with": "cute_info_card_route",
+      "must_not_share_shell_with": "sassy_reaction_card_route",
+      "asset_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/01_流程总览_flow_overview.png"
+    },
+    {
+      "segment_id": "doubao_to_trae_prompt",
+      "card_type": "info_card",
+      "assigned_route": "cute_info_card_route",
+      "primary_reference": "cute_info_card_route_locked_20260501",
+      "secondary_reference": "card_visual_quality_clean_ui_texture_candidate_20260430",
+      "forbidden_references": [
+        "sassy_card_pr7_a_candidate_20260428",
+        "deep_blue_tech_saas_ui_info_card_rejected_direction"
+      ],
+      "renderer_function": "PIL_programmatic_cute_info_card",
+      "validation_gate": "not_dense_dashboard_no_fake_data_no_tool_tutorial",
+      "can_share_shell_with": "cute_info_card_route",
+      "must_not_share_shell_with": "sassy_reaction_card_route",
+      "asset_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/02_豆包到Trae_prompt_doubao_to_trae_prompt.png"
+    },
+    {
+      "segment_id": "trae_skeleton",
+      "card_type": "info_card",
+      "assigned_route": "cute_info_card_route",
+      "primary_reference": "cute_info_card_route_locked_20260501",
+      "secondary_reference": "card_visual_quality_clean_ui_texture_candidate_20260430",
+      "forbidden_references": [
+        "sassy_card_pr7_a_candidate_20260428",
+        "deep_blue_tech_saas_ui_info_card_rejected_direction"
+      ],
+      "renderer_function": "PIL_programmatic_cute_info_card",
+      "validation_gate": "not_dense_dashboard_no_fake_data_no_tool_tutorial",
+      "can_share_shell_with": "cute_info_card_route",
+      "must_not_share_shell_with": "sassy_reaction_card_route",
+      "asset_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/03_Trae骨架_trae_skeleton.png"
+    },
+    {
+      "segment_id": "api_explainer",
+      "card_type": "info_card",
+      "assigned_route": "cute_info_card_route",
+      "primary_reference": "cute_info_card_route_locked_20260501",
+      "secondary_reference": "card_visual_quality_clean_ui_texture_candidate_20260430",
+      "forbidden_references": [
+        "sassy_card_pr7_a_candidate_20260428",
+        "deep_blue_tech_saas_ui_info_card_rejected_direction"
+      ],
+      "renderer_function": "PIL_programmatic_cute_info_card",
+      "validation_gate": "not_dense_dashboard_no_fake_data_no_tool_tutorial",
+      "can_share_shell_with": "cute_info_card_route",
+      "must_not_share_shell_with": "sassy_reaction_card_route",
+      "asset_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/04_API解释_api_explainer.png"
+    },
+    {
+      "segment_id": "cloud_assembly",
+      "card_type": "info_card",
+      "assigned_route": "cute_info_card_route",
+      "primary_reference": "cute_info_card_route_locked_20260501",
+      "secondary_reference": "card_visual_quality_clean_ui_texture_candidate_20260430",
+      "forbidden_references": [
+        "sassy_card_pr7_a_candidate_20260428",
+        "deep_blue_tech_saas_ui_info_card_rejected_direction"
+      ],
+      "renderer_function": "PIL_programmatic_cute_info_card",
+      "validation_gate": "not_dense_dashboard_no_fake_data_no_tool_tutorial",
+      "can_share_shell_with": "cute_info_card_route",
+      "must_not_share_shell_with": "sassy_reaction_card_route",
+      "asset_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/05_云端总装_cloud_assembly.png"
+    },
+    {
+      "segment_id": "codex_check",
+      "card_type": "info_card",
+      "assigned_route": "cute_info_card_route",
+      "primary_reference": "cute_info_card_route_locked_20260501",
+      "secondary_reference": "card_visual_quality_clean_ui_texture_candidate_20260430",
+      "forbidden_references": [
+        "sassy_card_pr7_a_candidate_20260428",
+        "deep_blue_tech_saas_ui_info_card_rejected_direction"
+      ],
+      "renderer_function": "PIL_programmatic_cute_info_card",
+      "validation_gate": "not_dense_dashboard_no_fake_data_no_tool_tutorial",
+      "can_share_shell_with": "cute_info_card_route",
+      "must_not_share_shell_with": "sassy_reaction_card_route",
+      "asset_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/06_Codex检查_codex_check.png"
+    },
+    {
+      "segment_id": "jimeng_compare",
+      "card_type": "info_card",
+      "assigned_route": "cute_info_card_route",
+      "primary_reference": "cute_info_card_route_locked_20260501",
+      "secondary_reference": "card_visual_quality_clean_ui_texture_candidate_20260430",
+      "forbidden_references": [
+        "sassy_card_pr7_a_candidate_20260428",
+        "deep_blue_tech_saas_ui_info_card_rejected_direction"
+      ],
+      "renderer_function": "PIL_programmatic_cute_info_card",
+      "validation_gate": "not_dense_dashboard_no_fake_data_no_tool_tutorial",
+      "can_share_shell_with": "cute_info_card_route",
+      "must_not_share_shell_with": "sassy_reaction_card_route",
+      "asset_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/07_即梦对比_jimeng_compare.png"
+    },
+    {
+      "segment_id": "final_summary",
+      "card_type": "info_card",
+      "assigned_route": "cute_info_card_route",
+      "primary_reference": "cute_info_card_route_locked_20260501",
+      "secondary_reference": "card_visual_quality_clean_ui_texture_candidate_20260430",
+      "forbidden_references": [
+        "sassy_card_pr7_a_candidate_20260428",
+        "deep_blue_tech_saas_ui_info_card_rejected_direction"
+      ],
+      "renderer_function": "PIL_programmatic_cute_info_card",
+      "validation_gate": "not_dense_dashboard_no_fake_data_no_tool_tutorial",
+      "can_share_shell_with": "cute_info_card_route",
+      "must_not_share_shell_with": "sassy_reaction_card_route",
+      "asset_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/08_最后总结_final_summary.png"
+    }
+  ]
+}

@@ -1,0 +1,482 @@
+{
+  "report_id": "20260503_vNext素材采集汇报_vnext_material_intake",
+  "status": "partially_ready_for_vnext_min_cloud_assembly_validation",
+  "workspace": "/Users/fan/Documents/视频工厂",
+  "branch": "codex/vnext-recorded-material-intake-20260503",
+  "source_directory": "/Users/fan/Documents/视频工厂/素材录制/最新素材",
+  "discovery_scope": {
+    "only_scanned_source_directory": true,
+    "excluded_scopes": [
+      "/Users/fan/Documents/视频工厂/素材录制/ 下其他历史目录",
+      "/Users/fan/Documents/视频工厂/素材库_assets/",
+      "/Users/fan/Documents/视频工厂/复审包_review_packs/",
+      "/Users/fan/Desktop",
+      "/Users/fan/Downloads",
+      "/private/tmp"
+    ]
+  },
+  "generated_media_outputs": {
+    "video": false,
+    "audio": false,
+    "deliverable_image": false,
+    "notes": "仅做只读素材检查；临时抽帧用于人工画面识别，不作为交付物，不进入 Git。"
+  },
+  "summary": {
+    "total_files_in_directory": 7,
+    "candidate_material_files": 6,
+    "ignored_files": [
+      {
+        "file_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/.DS_Store",
+        "reason": "macOS 系统文件，不是候选素材。"
+      }
+    ],
+    "standalone_audio_files_found": 0,
+    "standalone_card_image_files_found": 0,
+    "standalone_subtitle_files_found": 0
+  },
+  "materials": [
+    {
+      "file_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/codex 素材.mp4",
+      "file_name": "codex 素材.mp4",
+      "file_type": "video/mp4",
+      "size_bytes": 505278382,
+      "size_human": "481.87 MiB",
+      "duration_seconds": 244.316667,
+      "duration_human": "04:04.32",
+      "resolution": "3420x2214",
+      "fps": 60.0,
+      "video_codec": "hevc",
+      "audio_codec": "aac",
+      "has_audio": true,
+      "can_decode": true,
+      "decode_scope": "full_ffmpeg_null_passed",
+      "modified_at": "2026-05-02 23:27:17 CST",
+      "classification": "user_recording_candidate",
+      "usable_for_user_recording_segment": true,
+      "usable_for_card_segment": false,
+      "usable_for_audio_segment": "embedded_audio_reference_only",
+      "usable_for_reference_only": false,
+      "unusable_reason": "",
+      "visible_privacy_risk": "low",
+      "privacy_notes": "可见项目名、分支详情、文件列表与工具输出；未在抽帧中发现明文 key/token。若正式使用，建议仍复核右侧变更列表是否暴露不想展示的内部路径。",
+      "timecode_segments": [
+        {
+          "range": "0.0-8.0",
+          "visual_summary": "Codex / ChatGPT 类执行界面，任务标题为录入 V001 24h 截图数据；正文提到 HyperFrames 透明层、MOV 导出和 alpha MOV。",
+          "operations": "页面基本静止，鼠标位移轻微；适合旁白解释，不适合做强操作动作。",
+          "evidence_can_prove": [
+            "Codex / ChatGPT 在处理视频工厂任务",
+            "HyperFrames 透明层与 alpha MOV 已进入执行讨论"
+          ],
+          "evidence_cannot_prove": [
+            "不能证明完整云端总装链路稳定",
+            "不能证明内容验证通过",
+            "不能证明正式成片可发"
+          ],
+          "recommended_use": "可作 Codex 执行证据 B-roll。"
+        },
+        {
+          "range": "8.0-16.0",
+          "visual_summary": "同一执行界面，文字提到预合成底片、透明层、只放呼吸框 / 箭头 / 小标签等。",
+          "operations": "无明显点击，主要是阅读状态。",
+          "evidence_can_prove": [
+            "工作流中存在卡片 / HyperFrames 相关检查"
+          ],
+          "evidence_cannot_prove": [
+            "不能证明 HyperFrames 动效成片已完成"
+          ],
+          "recommended_use": "适合配旁白说明“执行中正在拆技术边界”。"
+        },
+        {
+          "range": "16.0-24.0",
+          "visual_summary": "界面滚动到 MOV 透明层正在渲染、读取 render log 等内容。",
+          "operations": "可见滚动 / 读取状态。",
+          "evidence_can_prove": [
+            "Codex 在跟进 HyperFrames / MOV 导出相关任务"
+          ],
+          "evidence_cannot_prove": [
+            "不能证明云剪输出成功"
+          ],
+          "recommended_use": "比 0-16 秒更有过程感，可作为 4-6 秒补充。"
+        },
+        {
+          "range": "176.0-188.0",
+          "visual_summary": "右侧显示分支详情、Git 操作、生成文件列表；正文提到 ffprobe、透明层导出成功、prores / yuva444p12le / alpha 通道。",
+          "operations": "右侧 Git / 文件列表打开，能看到执行产物清单。",
+          "evidence_can_prove": [
+            "Codex 执行任务并产生文件变更",
+            "存在 Git / 分支 / 生成文件工作流"
+          ],
+          "evidence_cannot_prove": [
+            "不能证明内容最终过线"
+          ],
+          "recommended_use": "推荐作为 Codex 执行证据的候选片段，需控制内部文件名可见范围。"
+        }
+      ]
+    },
+    {
+      "file_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/trae 素材.mp4",
+      "file_name": "trae 素材.mp4",
+      "file_type": "video/mp4",
+      "size_bytes": 282064264,
+      "size_human": "269.00 MiB",
+      "duration_seconds": 160.566667,
+      "duration_human": "02:40.57",
+      "resolution": "3420x2214",
+      "fps": 60.0,
+      "video_codec": "hevc",
+      "audio_codec": "aac",
+      "has_audio": true,
+      "can_decode": true,
+      "decode_scope": "full_ffmpeg_null_passed",
+      "modified_at": "2026-05-02 23:38:41 CST",
+      "classification": "user_recording_candidate",
+      "usable_for_user_recording_segment": true,
+      "usable_for_card_segment": false,
+      "usable_for_audio_segment": "embedded_audio_reference_only",
+      "usable_for_reference_only": false,
+      "unusable_reason": "",
+      "visible_privacy_risk": "low",
+      "privacy_notes": "可见本机用户目录片段、Downloads 文件、项目文件树和代码；未在抽帧中发现明文 key/token。",
+      "timecode_segments": [
+        {
+          "range": "0.0-8.0",
+          "visual_summary": "Trae / SOLO Coder 界面打开，右侧 deep-research-report.md 文件缺失提示，按钮为“创建文件”。",
+          "operations": "打开编辑器并尝试查看 markdown 文件。",
+          "evidence_can_prove": [
+            "AI IDE / SOLO Coder 工具存在",
+            "用户在准备导入或编辑材料"
+          ],
+          "evidence_cannot_prove": [
+            "不能证明自动化已执行成功"
+          ],
+          "recommended_use": "开头不够强，适合作为前置铺垫。"
+        },
+        {
+          "range": "8.0-16.0",
+          "visual_summary": "Trae CN 菜单栏可见，右侧 Markdown 预览标签打开但内容为空。",
+          "operations": "切换预览 / 编辑视图。",
+          "evidence_can_prove": [
+            "用户正在 IDE 内整理文档"
+          ],
+          "evidence_cannot_prove": [
+            "不能证明生成结果"
+          ],
+          "recommended_use": "不建议作为核心片段。"
+        },
+        {
+          "range": "16.0-24.0",
+          "visual_summary": "Trae 侧栏与 Builder 协作入口可见，界面显示“与 Builder 协作”。",
+          "operations": "切换到 Builder 协作入口。",
+          "evidence_can_prove": [
+            "AI Builder / 协作入口存在"
+          ],
+          "evidence_cannot_prove": [
+            "不能证明后续代码已完成"
+          ],
+          "recommended_use": "可作为“从资料进入 AI Builder”的过渡镜头。"
+        },
+        {
+          "range": "120.0-136.0",
+          "visual_summary": "Trae 显示 AI 生成项目结构、settings.py / base_module.py 等文件；右侧资源管理器出现 vlog_automation_workflow 项目目录、modules、templates、workflows。",
+          "operations": "AI 生成代码与项目文件，界面出现“正在生成”与代码内容。",
+          "evidence_can_prove": [
+            "AI 编码工具正在执行任务",
+            "短视频自动化工作流项目骨架被生成",
+            "用户录制素材能提供真实执行过程证据"
+          ],
+          "evidence_cannot_prove": [
+            "不能证明生成的代码已经运行成功",
+            "不能证明最终视频自动化链路稳定"
+          ],
+          "recommended_use": "本轮最推荐用户录制素材段，建议截取 120.0-136.0 秒。"
+        }
+      ]
+    },
+    {
+      "file_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/创建文件夹.mp4",
+      "file_name": "创建文件夹.mp4",
+      "file_type": "video/mp4",
+      "size_bytes": 14302867,
+      "size_human": "13.64 MiB",
+      "duration_seconds": 39.2,
+      "duration_human": "00:39.20",
+      "resolution": "2830x1654",
+      "fps": 60.0,
+      "video_codec": "hevc",
+      "audio_codec": "aac",
+      "has_audio": true,
+      "can_decode": true,
+      "decode_scope": "full_ffmpeg_null_passed",
+      "modified_at": "2026-05-02 23:35:48 CST",
+      "classification": "user_recording_candidate_broll",
+      "usable_for_user_recording_segment": true,
+      "usable_for_card_segment": false,
+      "usable_for_audio_segment": "embedded_audio_reference_only",
+      "usable_for_reference_only": false,
+      "unusable_reason": "",
+      "visible_privacy_risk": "medium",
+      "privacy_notes": "Finder 里可见多个项目 / 工作区文件夹名称；没有发现 key/token，但正式使用时建议避开不想展示的历史目录名。",
+      "timecode_segments": [
+        {
+          "range": "0.0-8.0",
+          "visual_summary": "Finder 打开“文稿”，可见“视频工厂”“直播工厂”等文件夹，后台为 Trae 窗口。",
+          "operations": "浏览目录，准备选择工作文件夹。",
+          "evidence_can_prove": [
+            "用户在本机组织项目文件夹"
+          ],
+          "evidence_cannot_prove": [
+            "不能证明 AI 自动化执行",
+            "不能证明云端总装链路"
+          ],
+          "recommended_use": "只适合作为整理素材的过渡 B-roll。"
+        },
+        {
+          "range": "8.0-16.0",
+          "visual_summary": "Finder 中出现“未命名文件夹”，右侧信息栏显示文件夹信息。",
+          "operations": "新建文件夹。",
+          "evidence_can_prove": [
+            "创建工作目录动作存在"
+          ],
+          "evidence_cannot_prove": [
+            "不能证明工作流输出质量"
+          ],
+          "recommended_use": "可作为 1-2 秒“准备素材/目录”的动作镜头。"
+        },
+        {
+          "range": "16.0-24.0",
+          "visual_summary": "未命名文件夹被选中并开始重命名，名称接近“视频”。",
+          "operations": "重命名新文件夹。",
+          "evidence_can_prove": [
+            "用户在整理新项目目录"
+          ],
+          "evidence_cannot_prove": [
+            "不能证明总装成功"
+          ],
+          "recommended_use": "若需要目录组织镜头，可短用。"
+        }
+      ]
+    },
+    {
+      "file_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4",
+      "file_name": "豆包素材.mp4",
+      "file_type": "video/mp4",
+      "size_bytes": 699196120,
+      "size_human": "666.81 MiB",
+      "duration_seconds": 296.165416,
+      "duration_human": "04:56.17",
+      "resolution": "3420x2214",
+      "fps": 60.0,
+      "video_codec": "hevc",
+      "audio_codec": "aac",
+      "has_audio": true,
+      "can_decode": true,
+      "decode_scope": "full_ffmpeg_null_passed",
+      "modified_at": "2026-05-02 23:33:31 CST",
+      "classification": "user_recording_candidate",
+      "usable_for_user_recording_segment": true,
+      "usable_for_card_segment": false,
+      "usable_for_audio_segment": "embedded_audio_reference_only",
+      "usable_for_reference_only": false,
+      "unusable_reason": "",
+      "visible_privacy_risk": "low",
+      "privacy_notes": "可见豆包历史会话标题和昵称；未发现明文 key/token。120 秒附近文字提到 API Key 作为需求项，但没有显示实际 key。",
+      "timecode_segments": [
+        {
+          "range": "0.0-8.0",
+          "visual_summary": "豆包新对话首页，中心文案“有什么我能帮你的吗？”，下方有“PPT 生成”“图像生成”“帮我写作”“视频生成”等入口。",
+          "operations": "进入豆包，准备输入任务。",
+          "evidence_can_prove": [
+            "用户使用豆包作为前置规划工具"
+          ],
+          "evidence_cannot_prove": [
+            "不能证明任务已执行"
+          ],
+          "recommended_use": "可作为开场 1-2 秒。"
+        },
+        {
+          "range": "8.0-16.0",
+          "visual_summary": "输入框聚焦，“参考”模式被选中。",
+          "operations": "准备输入需求。",
+          "evidence_can_prove": [
+            "用户正在以参考模式组织提示词"
+          ],
+          "evidence_cannot_prove": [
+            "不能证明输出结果"
+          ],
+          "recommended_use": "过渡价值一般。"
+        },
+        {
+          "range": "16.0-24.0",
+          "visual_summary": "输入框中出现“我想用 trae 做一个短视频自动流...”并提交，随后显示“正在思考”。",
+          "operations": "输入并提交短视频自动流需求。",
+          "evidence_can_prove": [
+            "用户真实输入任务需求",
+            "vNext 方向中存在短视频工作流规划"
+          ],
+          "evidence_cannot_prove": [
+            "不能证明 Trae 已经完成执行"
+          ],
+          "recommended_use": "适合作为 4-6 秒“需求输入”片段。"
+        },
+        {
+          "range": "120.0-136.0",
+          "visual_summary": "豆包输出一套短视频全自动化智能体系统需求，包含总控智能体、选题 Agent、编剧 Agent、分镜 Agent、视频生成 Agent、后期 Agent、发布 Agent。",
+          "operations": "查看 AI 生成的工作流方案。",
+          "evidence_can_prove": [
+            "AI 生成了可拆分的短视频自动化工作流方案",
+            "素材能为 ChatGPT 提供具体页面和字段细节"
+          ],
+          "evidence_cannot_prove": [
+            "不能证明方案已工程跑通",
+            "不能证明商业转化成立"
+          ],
+          "recommended_use": "适合作为结果画面或旁白支撑。"
+        }
+      ]
+    },
+    {
+      "file_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/火山引擎素材.mp4",
+      "file_name": "火山引擎素材.mp4",
+      "file_type": "video/mp4",
+      "size_bytes": 224613759,
+      "size_human": "214.21 MiB",
+      "duration_seconds": 113.633333,
+      "duration_human": "01:53.63",
+      "resolution": "3420x2214",
+      "fps": 60.0,
+      "video_codec": "hevc",
+      "audio_codec": "aac",
+      "has_audio": true,
+      "can_decode": true,
+      "decode_scope": "full_ffmpeg_null_passed",
+      "modified_at": "2026-05-02 23:44:08 CST",
+      "classification": "reference_only_until_redacted",
+      "usable_for_user_recording_segment": false,
+      "usable_for_card_segment": false,
+      "usable_for_audio_segment": "embedded_audio_reference_only",
+      "usable_for_reference_only": true,
+      "unusable_reason": "0-32 秒出现手机号、短信验证码等隐私信息；60 秒附近出现 API Key 管理页和资源 ID，虽然 key 本身被星号遮挡，但不建议未打码进入样片。",
+      "visible_privacy_risk": "high",
+      "privacy_notes": "不要在报告中写出手机号、验证码或资源 ID 原文；后续若使用必须先打码。",
+      "timecode_segments": [
+        {
+          "range": "0.0-8.0",
+          "visual_summary": "火山引擎 ArkClaw 登录页，账号登录 tab、账号 / 密码输入框、登录按钮可见。",
+          "operations": "进入火山引擎登录页。",
+          "evidence_can_prove": [
+            "云平台入口存在"
+          ],
+          "evidence_cannot_prove": [
+            "不能证明阿里云剪辑链路",
+            "不能证明云端导出成功"
+          ],
+          "recommended_use": "不建议未打码使用。"
+        },
+        {
+          "range": "8.0-16.0",
+          "visual_summary": "账号输入框内出现手机号。",
+          "operations": "输入账号。",
+          "evidence_can_prove": [
+            "用户正在登录云平台"
+          ],
+          "evidence_cannot_prove": [
+            "不能证明链路稳定"
+          ],
+          "recommended_use": "禁止直接进入样片，必须打码。"
+        },
+        {
+          "range": "16.0-24.0",
+          "visual_summary": "切换到手机号登录，输入手机号。",
+          "operations": "切换登录方式并准备获取验证码。",
+          "evidence_can_prove": [
+            "手机号登录流程存在"
+          ],
+          "evidence_cannot_prove": [
+            "不能证明云剪能力"
+          ],
+          "recommended_use": "禁止直接进入样片，必须打码。"
+        },
+        {
+          "range": "60.0-72.0",
+          "visual_summary": "火山方舟 API Key 管理页面，可见左侧“API Key 管理”，表格内 key 以星号遮挡，右侧有“禁用 / 编辑权限 / 删除”。",
+          "operations": "查看 API Key 管理页。",
+          "evidence_can_prove": [
+            "云平台 API Key 管理页面存在",
+            "用户账号内已有云服务配置痕迹"
+          ],
+          "evidence_cannot_prove": [
+            "不能证明阿里云 OSS / ICE 链路",
+            "不能证明任何 key 可用",
+            "不能证明当前视频总装已稳定"
+          ],
+          "recommended_use": "只可作内部参考；若未来要入片，必须打码资源 ID 和账号痕迹。"
+        }
+      ]
+    },
+    {
+      "file_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/录屏2026-04-30 03.25.28.mov",
+      "file_name": "录屏2026-04-30 03.25.28.mov",
+      "file_type": "video/quicktime",
+      "size_bytes": 7356726874,
+      "size_human": "6.85 GiB",
+      "duration_seconds": 6360.28,
+      "duration_human": "106:00.28",
+      "resolution": "3420x2214",
+      "fps": 60.0,
+      "video_codec": "h264",
+      "audio_codec": "none",
+      "has_audio": false,
+      "can_decode": true,
+      "decode_scope": "sampled_decode_begin_mid_end_passed; full_decode_not_run_due_to_106_minute_raw_recording",
+      "modified_at": "2026-04-30 05:11:29 CST",
+      "classification": "historical_or_reference_candidate_needs_user_confirmation",
+      "usable_for_user_recording_segment": false,
+      "usable_for_card_segment": false,
+      "usable_for_audio_segment": false,
+      "usable_for_reference_only": true,
+      "unusable_reason": "文件修改时间为 2026-04-30，时长 106 分钟且无音轨；画面为旧 ChatGPT / QuickTime 复审场景，不应默认当成本轮 2026-05-02 新录制素材。",
+      "visible_privacy_risk": "medium",
+      "privacy_notes": "可见 ChatGPT 对话、文件名、浏览器标签和本机菜单栏；未作为推荐素材。",
+      "timecode_segments": [
+        {
+          "range": "0.0-8.0",
+          "visual_summary": "QuickTime 播放旧竖屏视频，旁边是 ChatGPT 页面，页面讨论 v2_full.mp4、contact sheet、round34 等历史复审信息。",
+          "operations": "查看历史视频和 ChatGPT 复审内容。",
+          "evidence_can_prove": [
+            "历史复审过程存在"
+          ],
+          "evidence_cannot_prove": [
+            "不能证明本轮新录制素材",
+            "不能证明 vNext 云端总装准备完成"
+          ],
+          "recommended_use": "不推荐进入本轮 vNext 最小样片。"
+        },
+        {
+          "range": "8.0-16.0",
+          "visual_summary": "同一历史复审界面，输入框中继续讨论剪辑双打上号、波放大位置等问题。",
+          "operations": "继续查看 / 输入复审意见。",
+          "evidence_can_prove": [
+            "历史审片沟通存在"
+          ],
+          "evidence_cannot_prove": [
+            "不能证明新素材价值"
+          ],
+          "recommended_use": "只作历史参考。"
+        },
+        {
+          "range": "16.0-24.0",
+          "visual_summary": "ChatGPT 5.5 Thinking 页面显示文件优先级、当前判断、下一目标等文字。",
+          "operations": "阅读历史复审判断。",
+          "evidence_can_prove": [
+            "ChatGPT 复审判断存在"
+          ],
+          "evidence_cannot_prove": [
+            "不能证明云端剪辑链路稳定"
+          ],
+          "recommended_use": "只作历史参考。"
+        }
+      ]
+    }
+  ]
+}

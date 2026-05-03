@@ -1,5 +1,20 @@
 # Latest
 
+## 20260503｜短视频自动流 V2 视频样片 V1
+
+- `已确认` 本轮从最新 `codex/user-readable-map` 创建分支：`codex/short-video-auto-flow-v2-video-sample-20260503`。
+- `已确认` 主读取分支缺 PR #38 / #39 / #40 的素材报告与文案包文件；本轮已读取 PR head 并回收到任务分支作为 reference source。
+- `已确认` 用户最终确认的 `FINAL_SCRIPT_V2（流程细节增强版）` 已保真写入文案包。
+- `已确认` 已同步更新分段承载表、卡片文案、执行注意事项、给 Codex 剪辑执行输入和 manifest。
+- `已确认` 已生成本地可观看样片：`/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/full_video.mp4`。
+- `已确认` 火山引擎 API 原画面本轮未入片，执行 `redaction_blocked_fallback_to_info_card`。
+- `已确认` 技术验证：`technical_validation = passed`；分辨率 `720x1280`；时长 `731.196s`；video codec `h264`；audio codec `aac`；可解码 `true`。
+- `已确认` 音频状态：`audio_validation = temporary_preview`；`voice_validation = pending_user_chatgpt_review`；`final_voice_validated = false`。
+- `已确认` 内容状态未提升：`content_validation = pending_user_chatgpt_review`；`send_ready = false`。
+- `已确认` 本轮未修改 v3.1 `dist/latest_review_pack/` 当前基线，不把新样片写成当前可发布对象。
+- `复审输出`：`/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample`
+- `下一个目标`：ChatGPT / 用户完成 V1 样片内容复审，确认流程叙事是否看得懂，以及下一轮只改一个变量。
+
 ## 20260503｜阿里云剪辑复接验证 after audit
 
 - `已确认` PR #34「接入 HyperFrames 三类卡片动效边界并审计阿里云剪辑」已合并到 `codex/user-readable-map`，合并提交：`edbe61e512c972d75c786a53f82c9e3db53ecfb2`。

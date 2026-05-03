@@ -1,0 +1,158 @@
+{
+  "schema": "short_video_auto_flow_v2_assembly_manifest/v1",
+  "created_at": "2026-05-03T18:49:30+08:00",
+  "workspace": "/Users/fan/Documents/视频工厂",
+  "output_dir": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample",
+  "content_validation": "pending_user_chatgpt_review",
+  "send_ready": false,
+  "volcengine_api_closeup_used": false,
+  "volcengine_redaction_decision": "redaction_blocked_fallback_to_info_card",
+  "cards": {
+    "flow_overview": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/01_流程总览_flow_overview.png",
+    "doubao_to_trae_prompt": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/02_豆包到Trae_prompt_doubao_to_trae_prompt.png",
+    "trae_skeleton": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/03_Trae骨架_trae_skeleton.png",
+    "api_explainer": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/04_API解释_api_explainer.png",
+    "cloud_assembly": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/05_云端总装_cloud_assembly.png",
+    "codex_check": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/06_Codex检查_codex_check.png",
+    "jimeng_compare": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/07_即梦对比_jimeng_compare.png",
+    "final_summary": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/08_最后总结_final_summary.png"
+  },
+  "segments": [
+    {
+      "type": "card",
+      "id": "flow_overview",
+      "image": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/01_流程总览_flow_overview.png",
+      "duration": 61.14438078651685,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/中间片段_segments/01_flow_overview.mp4"
+    },
+    {
+      "type": "clip",
+      "id": "doubao_simple_need",
+      "source": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4",
+      "start": 16.0,
+      "end": 24.0,
+      "kind": "doubao",
+      "duration": 8.0,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/中间片段_segments/02_doubao_simple_need.mp4"
+    },
+    {
+      "type": "clip",
+      "id": "doubao_short_video_plan",
+      "source": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4",
+      "start": 88.0,
+      "end": 120.0,
+      "kind": "doubao",
+      "duration": 32.0,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/中间片段_segments/03_doubao_short_video_plan.mp4"
+    },
+    {
+      "type": "card",
+      "id": "doubao_to_trae_prompt",
+      "image": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/02_豆包到Trae_prompt_doubao_to_trae_prompt.png",
+      "duration": 66.25881886516854,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/中间片段_segments/04_doubao_to_trae_prompt.mp4"
+    },
+    {
+      "type": "clip",
+      "id": "doubao_vlog_prompt_request",
+      "source": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4",
+      "start": 160.0,
+      "end": 176.0,
+      "kind": "doubao",
+      "duration": 16.0,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/中间片段_segments/05_doubao_vlog_prompt_request.mp4"
+    },
+    {
+      "type": "clip",
+      "id": "doubao_copyable_trae_prompt",
+      "source": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4",
+      "start": 232.0,
+      "end": 248.0,
+      "kind": "doubao",
+      "duration": 16.0,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/中间片段_segments/06_doubao_copyable_trae_prompt.mp4"
+    },
+    {
+      "type": "clip",
+      "id": "trae_solo_entry",
+      "source": "/Users/fan/Documents/视频工厂/素材录制/最新素材/trae 素材.mp4",
+      "start": 32.0,
+      "end": 64.0,
+      "kind": "trae",
+      "duration": 32.0,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/中间片段_segments/07_trae_solo_entry.mp4"
+    },
+    {
+      "type": "clip",
+      "id": "trae_prompt_and_plan",
+      "source": "/Users/fan/Documents/视频工厂/素材录制/最新素材/trae 素材.mp4",
+      "start": 80.0,
+      "end": 112.0,
+      "kind": "trae",
+      "duration": 32.0,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/中间片段_segments/08_trae_prompt_and_plan.mp4"
+    },
+    {
+      "type": "card",
+      "id": "trae_skeleton",
+      "image": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/03_Trae骨架_trae_skeleton.png",
+      "duration": 73.37325694382022,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/中间片段_segments/09_trae_skeleton.mp4"
+    },
+    {
+      "type": "clip",
+      "id": "trae_project_skeleton",
+      "source": "/Users/fan/Documents/视频工厂/素材录制/最新素材/trae 素材.mp4",
+      "start": 120.0,
+      "end": 160.0,
+      "kind": "trae",
+      "duration": 40.0,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/中间片段_segments/10_trae_project_skeleton.mp4"
+    },
+    {
+      "type": "card",
+      "id": "api_explainer",
+      "image": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/04_API解释_api_explainer.png",
+      "duration": 61.14438078651685,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/中间片段_segments/11_api_explainer.mp4"
+    },
+    {
+      "type": "card",
+      "id": "cloud_assembly",
+      "image": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/05_云端总装_cloud_assembly.png",
+      "duration": 61.14438078651685,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/中间片段_segments/12_cloud_assembly.mp4"
+    },
+    {
+      "type": "clip",
+      "id": "codex_execution_check",
+      "source": "/Users/fan/Documents/视频工厂/素材录制/最新素材/codex 素材.mp4",
+      "start": 176.0,
+      "end": 188.0,
+      "kind": "codex",
+      "duration": 12.0,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/中间片段_segments/13_codex_execution_check.mp4"
+    },
+    {
+      "type": "card",
+      "id": "codex_check",
+      "image": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/06_Codex检查_codex_check.png",
+      "duration": 61.14438078651685,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/中间片段_segments/14_codex_check.mp4"
+    },
+    {
+      "type": "card",
+      "id": "jimeng_compare",
+      "image": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/07_即梦对比_jimeng_compare.png",
+      "duration": 68.25881886516854,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/中间片段_segments/15_jimeng_compare.mp4"
+    },
+    {
+      "type": "card",
+      "id": "final_summary",
+      "image": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/卡片素材_cards/08_最后总结_final_summary.png",
+      "duration": 92.71657117977529,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/中间片段_segments/16_final_summary.mp4"
+    }
+  ]
+}

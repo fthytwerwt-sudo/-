@@ -1,0 +1,30 @@
+{
+  "technical_validation": "passed",
+  "metadata_validation": "passed",
+  "content_validation": "pending_user_chatgpt_review",
+  "send_ready": false,
+  "audio_validation": "temporary_preview",
+  "tts_validation": "temporary_system_tts_preview",
+  "voice_validation": "pending_user_chatgpt_review",
+  "final_voice_validated": false,
+  "video_meta": {
+    "file_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v2_sample/full_video.mp4",
+    "exists": true,
+    "file_size_bytes": 17201349,
+    "duration_seconds": 731.196009,
+    "width": 720,
+    "height": 1280,
+    "video_codec": "h264",
+    "audio_present": true,
+    "audio_codec": "aac",
+    "audio_channels": 1,
+    "decodable": true,
+    "technical_validation": "passed",
+    "metadata_validation": "passed"
+  },
+  "sensitive_text_scan": {
+    "status": "passed",
+    "matched_files": [],
+    "notes": "Scanned for actual exposed values: CN phone numbers, verification-code values, API-key assignments, AccessKey-like values, token/secret assignments, and signed URL patterns. Policy term mentions are not treated as exposed values."
+  }
+}
