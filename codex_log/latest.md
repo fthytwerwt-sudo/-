@@ -1,5 +1,17 @@
 # Latest
 
+## 20260503｜短视频自动流 V2.1 流程证明样片 render
+
+- `已确认` 本轮从已落地计划包执行 render-only 任务，未重写 `runtime_script.md`、`timeline_plan.md` 或 `timeline_manifest.json`。
+- `已确认` 输出本地样片：`/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v21_sample/full_video.mp4`。
+- `已确认` 视频技术验证：`technical_validation = passed`，`duration_seconds = 105.0`，`resolution = 720x1280`，`video_codec = h264`，`audio_codec = aac`。
+- `已确认` 字幕与临时 TTS 均来自 `runtime_script.md`；`reference_script.md` 仅作参考稿副本，未用于 TTS / 字幕 / 直接渲染。
+- `已确认` Segment 08 使用 API 信息卡 fallback，未使用火山引擎原画面。
+- `已确认` `content_validation = pending_user_chatgpt_review`，`send_ready = false`，`voice_validation = pending_user_chatgpt_review`，`final_voice_validated = false`。
+- `样片目录`：`/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v21_sample`
+- `下一个目标`：ChatGPT / 用户复审 V2.1 本地样片，判断是否进入内容修正或正式重剪。
+
+
 ## 20260503｜阿里云剪辑复接验证 after audit
 
 - `已确认` PR #34「接入 HyperFrames 三类卡片动效边界并审计阿里云剪辑」已合并到 `codex/user-readable-map`，合并提交：`edbe61e512c972d75c786a53f82c9e3db53ecfb2`。

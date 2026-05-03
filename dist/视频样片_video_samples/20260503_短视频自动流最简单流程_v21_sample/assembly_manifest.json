@@ -1,0 +1,312 @@
+{
+  "schema": "short_video_auto_flow_v21_assembly_manifest/v1",
+  "created_at": "2026-05-03T20:11:40+08:00",
+  "plan_dir": "/Users/fan/Documents/视频工厂/剪辑计划_video_edit_plans/20260503_短视频自动流最简单流程_v21_plan",
+  "output_dir": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v21_sample",
+  "source_manifest_sha256": "49dd59d1d1d1b1052eb065983f32004c9d0a0712e655cd1ce8b32718906b89a1",
+  "runtime_script_sha256": "a084e094d32c11a7bac298bc380fe315fde7ab9176b5868a88f42d9e9e48e254",
+  "reference_script_sha256": "540a497d147423bb327b92b7edd32a027234eee55523fa92318fef7c2f9af391",
+  "render_policy": {
+    "render_only": true,
+    "timeline_rewritten": false,
+    "runtime_script_rewritten": false,
+    "reference_script_used_for_tts": false,
+    "reference_script_used_for_captions": false,
+    "api_segment": "api_info_card_fallback",
+    "volcengine_original_used": false
+  },
+  "locked_metrics": {
+    "total_runtime_target_seconds": 105,
+    "total_real_footage_seconds": 86,
+    "total_card_seconds": 19,
+    "real_footage_ratio": 0.819,
+    "card_ratio": 0.181,
+    "longest_card_seconds": 4,
+    "segment_count": 12,
+    "plan_status": "review_ready_not_render_ready"
+  },
+  "actual_planned_totals": {
+    "total_duration_seconds": 105.0,
+    "total_real_footage_seconds": 86.0,
+    "total_card_seconds": 19.0,
+    "real_footage_ratio": 0.819,
+    "card_ratio": 0.181,
+    "longest_card_seconds": 4.0,
+    "segment_count": 12
+  },
+  "source_materials": [
+    {
+      "path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4",
+      "exists": true,
+      "duration_seconds": 296.165416,
+      "width": 3420,
+      "height": 2214,
+      "codec": "hevc"
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/trae 素材.mp4",
+      "exists": true,
+      "duration_seconds": 160.566667,
+      "width": 3420,
+      "height": 2214,
+      "codec": "hevc"
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/codex 素材.mp4",
+      "exists": true,
+      "duration_seconds": 244.316667,
+      "width": 3420,
+      "height": 2214,
+      "codec": "hevc"
+    }
+  ],
+  "segments": [
+    {
+      "index": 1,
+      "segment_id": "01_opening_judgement",
+      "label": "开头判断",
+      "type": "card",
+      "planned_duration_seconds": 3.0,
+      "timeline_start_seconds": 0.0,
+      "timeline_end_seconds": 3.0,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v21_sample/中间片段_segments/01_01_opening_judgement.mp4",
+      "source_path": "",
+      "source_clips": [],
+      "proof": "建立判断：自动流不是一键生成",
+      "cannot_prove": "不证明任何工具跑通"
+    },
+    {
+      "index": 2,
+      "segment_id": "02_doubao_simple_need",
+      "label": "一句需求",
+      "type": "real_footage",
+      "planned_duration_seconds": 7.0,
+      "timeline_start_seconds": 3.0,
+      "timeline_end_seconds": 10.0,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v21_sample/中间片段_segments/02_02_doubao_simple_need.mp4",
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4",
+      "source_clips": [
+        [
+          16.0,
+          23.0
+        ]
+      ],
+      "proof": "用户只给一句简单需求",
+      "cannot_prove": "不证明 Trae 已执行"
+    },
+    {
+      "index": 3,
+      "segment_id": "03_doubao_process_breakdown",
+      "label": "先拆成工位",
+      "type": "real_footage",
+      "planned_duration_seconds": 13.0,
+      "timeline_start_seconds": 10.0,
+      "timeline_end_seconds": 23.0,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v21_sample/中间片段_segments/03_03_doubao_process_breakdown.mp4",
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4",
+      "source_clips": [
+        [
+          88.0,
+          101.0
+        ]
+      ],
+      "proof": "豆包把需求拆成短视频生产流程",
+      "cannot_prove": "不证明工程跑通"
+    },
+    {
+      "index": 4,
+      "segment_id": "04_doubao_to_trae_prompt",
+      "label": "翻译成 Trae 能接的任务说明",
+      "type": "real_footage",
+      "planned_duration_seconds": 18.0,
+      "timeline_start_seconds": 23.0,
+      "timeline_end_seconds": 41.0,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v21_sample/中间片段_segments/04_04_doubao_to_trae_prompt.mp4",
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4",
+      "source_clips": [
+        [
+          160.0,
+          168.0
+        ],
+        [
+          232.0,
+          242.0
+        ]
+      ],
+      "proof": "豆包生成 Trae 能接的任务说明",
+      "cannot_prove": "不证明 prompt 已运行成功"
+    },
+    {
+      "index": 5,
+      "segment_id": "05_trae_solo_entry",
+      "label": "进入执行器",
+      "type": "real_footage",
+      "planned_duration_seconds": 8.0,
+      "timeline_start_seconds": 41.0,
+      "timeline_end_seconds": 49.0,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v21_sample/中间片段_segments/05_05_trae_solo_entry.mp4",
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/trae 素材.mp4",
+      "source_clips": [
+        [
+          32.0,
+          40.0
+        ]
+      ],
+      "proof": "用户进入 Trae SOLO",
+      "cannot_prove": "不证明执行完成"
+    },
+    {
+      "index": 6,
+      "segment_id": "06_trae_prompt_plan",
+      "label": "开始 plan",
+      "type": "real_footage",
+      "planned_duration_seconds": 14.0,
+      "timeline_start_seconds": 49.0,
+      "timeline_end_seconds": 63.0,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v21_sample/中间片段_segments/06_06_trae_prompt_plan.mp4",
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/trae 素材.mp4",
+      "source_clips": [
+        [
+          80.0,
+          87.0
+        ],
+        [
+          96.0,
+          103.0
+        ]
+      ],
+      "proof": "Trae 接住 prompt 并拆任务",
+      "cannot_prove": "不证明所有待办完成"
+    },
+    {
+      "index": 7,
+      "segment_id": "07_trae_project_skeleton",
+      "label": "项目骨架出现",
+      "type": "real_footage",
+      "planned_duration_seconds": 18.0,
+      "timeline_start_seconds": 63.0,
+      "timeline_end_seconds": 81.0,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v21_sample/中间片段_segments/07_07_trae_project_skeleton.mp4",
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/trae 素材.mp4",
+      "source_clips": [
+        [
+          120.0,
+          138.0
+        ]
+      ],
+      "proof": "从聊天方案变成项目骨架",
+      "cannot_prove": "不证明 app 已跑通"
+    },
+    {
+      "index": 8,
+      "segment_id": "08_api_station",
+      "label": "API = 外部能力入口",
+      "type": "card",
+      "planned_duration_seconds": 4.0,
+      "timeline_start_seconds": 81.0,
+      "timeline_end_seconds": 85.0,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v21_sample/中间片段_segments/08_08_api_station.mp4",
+      "source_path": "",
+      "source_clips": [],
+      "proof": "API 是流程工位",
+      "cannot_prove": "不证明 API 已接通"
+    },
+    {
+      "index": 9,
+      "segment_id": "09_cloud_editing_station",
+      "label": "云剪不是总控脑",
+      "type": "card",
+      "planned_duration_seconds": 4.0,
+      "timeline_start_seconds": 85.0,
+      "timeline_end_seconds": 89.0,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v21_sample/中间片段_segments/09_09_cloud_editing_station.mp4",
+      "source_path": "",
+      "source_clips": [],
+      "proof": "云剪是总装位置",
+      "cannot_prove": "不证明正式稳定链路"
+    },
+    {
+      "index": 10,
+      "segment_id": "10_codex_check",
+      "label": "执行检查员",
+      "type": "real_footage",
+      "planned_duration_seconds": 8.0,
+      "timeline_start_seconds": 89.0,
+      "timeline_end_seconds": 97.0,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v21_sample/中间片段_segments/10_10_codex_check.mp4",
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/codex 素材.mp4",
+      "source_clips": [
+        [
+          176.0,
+          184.0
+        ]
+      ],
+      "proof": "Codex 检查路径、文件、命令和报告",
+      "cannot_prove": "不证明内容过线"
+    },
+    {
+      "index": 11,
+      "segment_id": "11_jimeng_compare",
+      "label": "抽素材 vs 搭流程",
+      "type": "card",
+      "planned_duration_seconds": 4.0,
+      "timeline_start_seconds": 97.0,
+      "timeline_end_seconds": 101.0,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v21_sample/中间片段_segments/11_11_jimeng_compare.mp4",
+      "source_path": "",
+      "source_clips": [],
+      "proof": "说明工具定位差异",
+      "cannot_prove": "不证明即梦不可用"
+    },
+    {
+      "index": 12,
+      "segment_id": "12_final_summary",
+      "label": "顺序对了，自动化才有地方落脚",
+      "type": "card",
+      "planned_duration_seconds": 4.0,
+      "timeline_start_seconds": 101.0,
+      "timeline_end_seconds": 105.0,
+      "rendered_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v21_sample/中间片段_segments/12_12_final_summary.mp4",
+      "source_path": "",
+      "source_clips": [],
+      "proof": "收住主判断",
+      "cannot_prove": "不证明可发布"
+    }
+  ],
+  "captions": {
+    "source": "runtime_script.md",
+    "count": 27,
+    "path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v21_sample/captions.srt",
+    "json_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v21_sample/captions.json"
+  },
+  "audio": {
+    "audio_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v21_sample/temporary_tts_runtime_script_105s.m4a",
+    "raw_audio_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v21_sample/temporary_tts_runtime_script_raw.aiff",
+    "duration_seconds": 105.0,
+    "raw_duration_seconds": 129.398277,
+    "speed_factor": 1.232364542857143,
+    "audio_validation": "temporary_preview",
+    "tts_validation": "temporary_system_tts_preview_from_runtime_script",
+    "voice_validation": "pending_user_chatgpt_review",
+    "final_voice_validated": false,
+    "generation_method": "macOS say Tingting temporary preview; duration fit to 105s",
+    "source": "runtime_script.md"
+  },
+  "video": {
+    "file_path": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v21_sample/full_video.mp4",
+    "exists": true,
+    "file_size_bytes": 3774267,
+    "duration_seconds": 105.0,
+    "width": 720,
+    "height": 1280,
+    "video_codec": "h264",
+    "audio_present": true,
+    "audio_codec": "aac",
+    "audio_channels": 1,
+    "decodable": true,
+    "technical_validation": "passed",
+    "metadata_validation": "passed"
+  },
+  "content_validation": "pending_user_chatgpt_review",
+  "send_ready": false
+}

@@ -1,0 +1,153 @@
+{
+  "schema": "short_video_auto_flow_v21_timeline_manifest/v1",
+  "project": "视频工厂",
+  "topic": "短视频自动流的最简单流程",
+  "plan_id": "20260503_短视频自动流最简单流程_v21_plan",
+  "total_runtime_target_seconds": 105,
+  "total_real_footage_seconds": 86,
+  "total_card_seconds": 19,
+  "total_broll_seconds": 0,
+  "real_footage_ratio": 0.819,
+  "card_ratio": 0.181,
+  "longest_card_seconds": 4,
+  "segment_count": 12,
+  "content_validation": "pending_user_chatgpt_review",
+  "send_ready": false,
+  "render_allowed_now": false,
+  "source_branch_map": {
+    "main_reading_branch": "codex/user-readable-map",
+    "failure_reference_pr": "PR #41",
+    "failure_reference_branch": "codex/short-video-auto-flow-v2-video-sample-20260503",
+    "pr41_usage": [
+      "failure_sample",
+      "material_index",
+      "redaction_fallback_reference",
+      "partial_crop_mask_logic_reference"
+    ],
+    "pr41_not_usage": [
+      "qualified_video_sample",
+      "runtime_script_source",
+      "timeline_plan_template",
+      "complete_voiceover_template"
+    ]
+  },
+  "segments": [
+    {
+      "segment_id": "01_opening_judgement",
+      "type": "card",
+      "target_duration_seconds": 3,
+      "visual": "info_card",
+      "overlay_text": "自动流不是一键生成",
+      "proof": "establish_judgement",
+      "cannot_prove": "tool_execution"
+    },
+    {
+      "segment_id": "02_doubao_simple_need",
+      "type": "real_footage",
+      "target_duration_seconds": 7,
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4",
+      "timecode": "00:00:16-00:00:24",
+      "overlay_text": "一句需求",
+      "proof": "simple_need_entry",
+      "cannot_prove": "trae_execution"
+    },
+    {
+      "segment_id": "03_doubao_process_breakdown",
+      "type": "real_footage",
+      "target_duration_seconds": 13,
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4",
+      "timecode": "00:01:28-00:02:00",
+      "overlay_text": "先拆成工位",
+      "proof": "doubao_breaks_need_into_process",
+      "cannot_prove": "engineering_runtime_success"
+    },
+    {
+      "segment_id": "04_doubao_to_trae_prompt",
+      "type": "real_footage",
+      "target_duration_seconds": 18,
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4",
+      "timecode": "00:02:40-00:04:08",
+      "overlay_text": "翻译成 Trae 能接的任务说明",
+      "proof": "doubao_generates_trae_prompt",
+      "cannot_prove": "prompt_runtime_success"
+    },
+    {
+      "segment_id": "05_trae_solo_entry",
+      "type": "real_footage",
+      "target_duration_seconds": 8,
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/trae 素材.mp4",
+      "timecode": "00:00:32-00:01:04",
+      "overlay_text": "进入执行器",
+      "proof": "user_enters_trae_solo",
+      "cannot_prove": "execution_completed"
+    },
+    {
+      "segment_id": "06_trae_prompt_plan",
+      "type": "real_footage",
+      "target_duration_seconds": 14,
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/trae 素材.mp4",
+      "timecode": "00:01:20-00:01:52",
+      "overlay_text": "开始 plan",
+      "proof": "trae_receives_prompt_and_creates_tasks",
+      "cannot_prove": "all_tasks_done"
+    },
+    {
+      "segment_id": "07_trae_project_skeleton",
+      "type": "real_footage",
+      "target_duration_seconds": 18,
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/trae 素材.mp4",
+      "timecode": "00:02:00-00:02:40",
+      "overlay_text": "项目骨架出现",
+      "proof": "project_skeleton_generated",
+      "cannot_prove": "app_running"
+    },
+    {
+      "segment_id": "08_api_station",
+      "type": "card",
+      "target_duration_seconds": 4,
+      "visual": "api_info_card_fallback",
+      "overlay_text": "API = 外部能力入口",
+      "proof": "api_role_in_process",
+      "cannot_prove": "api_connected"
+    },
+    {
+      "segment_id": "09_cloud_editing_station",
+      "type": "card",
+      "target_duration_seconds": 4,
+      "visual": "cloud_editing_info_card",
+      "overlay_text": "云剪不是总控脑",
+      "proof": "cloud_editing_assembly_role",
+      "cannot_prove": "cloud_chain_stable"
+    },
+    {
+      "segment_id": "10_codex_check",
+      "type": "real_footage",
+      "target_duration_seconds": 8,
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/最新素材/codex 素材.mp4",
+      "timecode": "00:02:56-00:03:08",
+      "overlay_text": "执行检查员",
+      "proof": "codex_checks_paths_files_commands_reports",
+      "cannot_prove": "content_passed"
+    },
+    {
+      "segment_id": "11_jimeng_compare",
+      "type": "card",
+      "target_duration_seconds": 4,
+      "visual": "comparison_info_card",
+      "overlay_text": "抽素材 vs 搭流程",
+      "proof": "tool_role_difference",
+      "cannot_prove": "jimeng_unusable"
+    },
+    {
+      "segment_id": "12_final_summary",
+      "type": "card",
+      "target_duration_seconds": 4,
+      "visual": "summary_info_card",
+      "overlay_text": "顺序对了，自动化才有地方落脚",
+      "proof": "closing_judgement",
+      "cannot_prove": "send_ready"
+    }
+  ],
+  "blocked_items": [],
+  "plan_status": "review_ready_not_render_ready"
+}

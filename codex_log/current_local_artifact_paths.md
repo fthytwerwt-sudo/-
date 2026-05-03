@@ -41,6 +41,9 @@
 | `no_zoom_1x_review_frames` | 不放大完整可读 1x 默认视图复审图 | 历史 no_zoom_completeness 1x 默认视图复审图 | `/Users/fan/Documents/视频工厂/dist/20260424_不放大完整可读_no_zoom_completeness/1x默认视图_review_frames/01_1x默认视图_no_zoom.png` | `false` | 无 | `2026-05-03 CST` | `test -f` 未命中；单工作区治理重新验证 | `stale_pending_recheck`：当前唯一正式工作区内未找到该 PNG；不得作为用户可打开路径输出。 |
 | `no_zoom_layout_metrics` | 不放大完整可读布局指标 | 历史 no_zoom_completeness 布局指标 JSON | `/Users/fan/Documents/视频工厂/dist/20260424_不放大完整可读_no_zoom_completeness/布局指标_layout_metrics.json` | `false` | 无 | `2026-05-03 CST` | `test -f` 未命中；单工作区治理重新验证 | `stale_pending_recheck`：当前唯一正式工作区内未找到该 JSON；不得作为用户可打开路径输出。 |
 
+
+| `short_video_auto_flow_v21_sample_full_video` | 短视频自动流 V2.1 流程证明样片 | ChatGPT / 用户复审流程证明型技术样片 | `/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v21_sample/full_video.mp4` | `true` | 无 | `2026-05-03 CST` | `ffprobe` + `test -f` 已通过 | `content_validation = pending_user_chatgpt_review`，`send_ready = false`，大媒体仅保留本地，不计划提交 Git。 |
+
 ## 4. 本轮单工作区治理结果
 
 - `已确认` `/Users/fan/Documents` 顶层执行 `find /Users/fan/Documents -maxdepth 1 -name '*视频工厂*' -print` 后，只剩 `/Users/fan/Documents/视频工厂`。
