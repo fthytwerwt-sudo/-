@@ -1,0 +1,15 @@
+{
+  "provider": "aliyun_bailian",
+  "purpose": "use_re_enrolled_reference_voice_for_local_fix",
+  "source_reference_voice_masked": "qwen-t...ac19",
+  "re_enrolled_voice_masked": "qwen-t...af51",
+  "preferred_name": "vfauto77828387",
+  "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+  "resolved_by": "re_enrolled_from_voice_sample_2_after_existing_custom_voice_channel_failed",
+  "full_voice_value_written_to_git": false,
+  "existing_reference_voice_list_check": {
+    "voice_masked": "qwen-t...ac19",
+    "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+    "resolved_by": "list_existing_custom_voices_match_suffix_ac19"
+  }
+}

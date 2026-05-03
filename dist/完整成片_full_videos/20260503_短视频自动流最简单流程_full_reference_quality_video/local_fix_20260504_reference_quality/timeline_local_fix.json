@@ -1,0 +1,138 @@
+[
+  {
+    "segment_id": "seg01",
+    "start_seconds": 0.0,
+    "end_seconds": 31.36,
+    "duration_seconds": 31.36,
+    "visual_role": "element_doll_2s_then_sassy_and_info",
+    "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg01_local_fix.mp4"
+  },
+  {
+    "segment_id": "seg02",
+    "start_seconds": 31.36,
+    "end_seconds": 50.88,
+    "duration_seconds": 19.52,
+    "visual_role": "stable_user_footage_center",
+    "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg02_local_fix.mp4"
+  },
+  {
+    "segment_id": "seg03",
+    "start_seconds": 50.88,
+    "end_seconds": 75.04,
+    "duration_seconds": 24.16,
+    "visual_role": "cute_info_card_route",
+    "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg03_local_fix.mp4"
+  },
+  {
+    "segment_id": "seg04",
+    "start_seconds": 75.04,
+    "end_seconds": 129.92,
+    "duration_seconds": 54.88,
+    "visual_role": "stable_user_footage_center",
+    "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg04_local_fix.mp4"
+  },
+  {
+    "segment_id": "seg05",
+    "start_seconds": 129.92,
+    "end_seconds": 156.16,
+    "duration_seconds": 26.24,
+    "visual_role": "sassy_then_info_no_element_doll",
+    "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg05_local_fix.mp4"
+  },
+  {
+    "segment_id": "seg06",
+    "start_seconds": 156.16,
+    "end_seconds": 215.12,
+    "duration_seconds": 58.96,
+    "visual_role": "stable_user_footage_center",
+    "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg06_local_fix.mp4"
+  },
+  {
+    "segment_id": "seg07",
+    "start_seconds": 215.12,
+    "end_seconds": 258.24,
+    "duration_seconds": 43.12,
+    "visual_role": "stable_user_footage_right",
+    "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg07_local_fix.mp4"
+  },
+  {
+    "segment_id": "seg08",
+    "start_seconds": 258.24,
+    "end_seconds": 330.16,
+    "duration_seconds": 71.92,
+    "visual_role": "stable_user_footage_right",
+    "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg08_local_fix.mp4"
+  },
+  {
+    "segment_id": "seg09",
+    "start_seconds": 330.16,
+    "end_seconds": 377.28,
+    "duration_seconds": 47.12,
+    "visual_role": "cute_info_card_route",
+    "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg09_local_fix.mp4"
+  },
+  {
+    "segment_id": "seg10",
+    "start_seconds": 377.28,
+    "end_seconds": 397.76,
+    "duration_seconds": 20.48,
+    "visual_role": "cute_info_card_replaces_element_doll",
+    "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg10_local_fix.mp4"
+  },
+  {
+    "segment_id": "seg11",
+    "start_seconds": 397.76,
+    "end_seconds": 446.88,
+    "duration_seconds": 49.12,
+    "visual_role": "cute_info_card_route",
+    "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg11_local_fix.mp4"
+  },
+  {
+    "segment_id": "seg12",
+    "start_seconds": 446.88,
+    "end_seconds": 470.96,
+    "duration_seconds": 24.08,
+    "visual_role": "aliyun_editing_user_footage_replaces_element_doll",
+    "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg12_local_fix.mp4"
+  },
+  {
+    "segment_id": "seg13",
+    "start_seconds": 470.96,
+    "end_seconds": 505.92,
+    "duration_seconds": 34.96,
+    "visual_role": "cute_info_card_route",
+    "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg13_local_fix.mp4"
+  },
+  {
+    "segment_id": "seg14",
+    "start_seconds": 505.92,
+    "end_seconds": 566.48,
+    "duration_seconds": 60.56,
+    "visual_role": "stable_user_footage_left",
+    "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg14_local_fix.mp4"
+  },
+  {
+    "segment_id": "seg15",
+    "start_seconds": 566.48,
+    "end_seconds": 598.96,
+    "duration_seconds": 32.48,
+    "visual_role": "cute_info_card_route",
+    "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg15_local_fix.mp4"
+  },
+  {
+    "segment_id": "seg16",
+    "start_seconds": 598.96,
+    "end_seconds": 726.8,
+    "duration_seconds": 127.84,
+    "visual_role": "cute_info_card_route",
+    "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg16_local_fix.mp4"
+  },
+  {
+    "segment_id": "seg17",
+    "start_seconds": 726.8,
+    "end_seconds": 776.64,
+    "duration_seconds": 49.84,
+    "visual_role": "hyperframes_summary_card_replaces_element_doll",
+    "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg17_local_fix.mp4"
+  }
+]

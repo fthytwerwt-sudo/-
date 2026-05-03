@@ -1,0 +1,133 @@
+{
+  "schema_version": "local_fix_manifest/v1",
+  "result_status": "local_reference_fix_completed",
+  "assembly_mode": "local_reference_quality_fix",
+  "cloud_assembly_used": false,
+  "local_assembly_used": true,
+  "macos_say_used": false,
+  "voiceover_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/声音_v31_ac19_b_pacing_tts/tts/formal_voiceover.mp3",
+  "full_video_local_fix": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/full_video_local_fix.mp4",
+  "captions": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/captions_local_fix.srt",
+  "duration_seconds": 776.64,
+  "segments": [
+    {
+      "segment_id": "seg01",
+      "goal": "开头进入：纠正一键生成误区",
+      "duration_seconds": 31.36,
+      "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg01_local_fix.mp4",
+      "visual_role": "element_doll_2s_then_sassy_and_info"
+    },
+    {
+      "segment_id": "seg02",
+      "goal": "豆包一句需求输入",
+      "duration_seconds": 19.52,
+      "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg02_local_fix.mp4",
+      "visual_role": "stable_user_footage_center"
+    },
+    {
+      "segment_id": "seg03",
+      "goal": "为什么先拆流程",
+      "duration_seconds": 24.16,
+      "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg03_local_fix.mp4",
+      "visual_role": "cute_info_card_route"
+    },
+    {
+      "segment_id": "seg04",
+      "goal": "豆包拆方案与流程工位",
+      "duration_seconds": 54.88,
+      "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg04_local_fix.mp4",
+      "visual_role": "stable_user_footage_center"
+    },
+    {
+      "segment_id": "seg05",
+      "goal": "想法层转为可执行 prompt",
+      "duration_seconds": 26.24,
+      "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg05_local_fix.mp4",
+      "visual_role": "sassy_then_info_no_element_doll"
+    },
+    {
+      "segment_id": "seg06",
+      "goal": "豆包输出 Trae SOLO prompt",
+      "duration_seconds": 58.96,
+      "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg06_local_fix.mp4",
+      "visual_role": "stable_user_footage_center"
+    },
+    {
+      "segment_id": "seg07",
+      "goal": "Prompt 进入 Trae 并开始 plan",
+      "duration_seconds": 43.12,
+      "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg07_local_fix.mp4",
+      "visual_role": "stable_user_footage_right"
+    },
+    {
+      "segment_id": "seg08",
+      "goal": "Trae 生成项目骨架",
+      "duration_seconds": 71.92,
+      "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg08_local_fix.mp4",
+      "visual_role": "stable_user_footage_right"
+    },
+    {
+      "segment_id": "seg09",
+      "goal": "可执行 prompt 解释",
+      "duration_seconds": 47.12,
+      "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg09_local_fix.mp4",
+      "visual_role": "cute_info_card_route"
+    },
+    {
+      "segment_id": "seg10",
+      "goal": "API 工位转折",
+      "duration_seconds": 20.48,
+      "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg10_local_fix.mp4",
+      "visual_role": "cute_info_card_replaces_element_doll"
+    },
+    {
+      "segment_id": "seg11",
+      "goal": "API 能力入口边界",
+      "duration_seconds": 49.12,
+      "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg11_local_fix.mp4",
+      "visual_role": "cute_info_card_route"
+    },
+    {
+      "segment_id": "seg12",
+      "goal": "云剪装配台转折",
+      "duration_seconds": 24.08,
+      "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg12_local_fix.mp4",
+      "visual_role": "aliyun_editing_user_footage_replaces_element_doll"
+    },
+    {
+      "segment_id": "seg13",
+      "goal": "云剪边界说明",
+      "duration_seconds": 34.96,
+      "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg13_local_fix.mp4",
+      "visual_role": "cute_info_card_route"
+    },
+    {
+      "segment_id": "seg14",
+      "goal": "Codex 执行检查",
+      "duration_seconds": 60.56,
+      "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg14_local_fix.mp4",
+      "visual_role": "stable_user_footage_left"
+    },
+    {
+      "segment_id": "seg15",
+      "goal": "流程总览",
+      "duration_seconds": 32.48,
+      "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg15_local_fix.mp4",
+      "visual_role": "cute_info_card_route"
+    },
+    {
+      "segment_id": "seg16",
+      "goal": "即梦与自动流对比",
+      "duration_seconds": 127.84,
+      "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg16_local_fix.mp4",
+      "visual_role": "cute_info_card_route"
+    },
+    {
+      "segment_id": "seg17",
+      "goal": "结尾收束",
+      "duration_seconds": 49.84,
+      "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/clips/seg17_local_fix.mp4",
+      "visual_role": "hyperframes_summary_card_replaces_element_doll"
+    }
+  ]
+}

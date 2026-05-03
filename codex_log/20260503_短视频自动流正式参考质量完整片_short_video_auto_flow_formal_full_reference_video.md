@@ -51,6 +51,35 @@
 - 本轮技术完成不等于内容最终过线。
 - 大媒体文件、原始素材、TTS 音频和云剪导出 MP4 不提交进 Git。
 
+## 20260504 本地回炉修正版
+
+- `result_status`：`local_reference_fix_completed`
+- `video_type`：`local_reference_quality_fix`
+- `technical_validation`：`passed`
+- `content_validation`：`pending_user_chatgpt_review`
+- `send_ready`：`false`
+- `assembly_mode`：`local_reference_quality_fix`
+- `cloud_assembly_used`：`false`
+- `local_assembly_used`：`true`
+- `macos_say_used`：`false`
+
+`已确认` 用户指出云剪版存在中段左右晃、总结卡未用 HyperFrames、TTS 不符合 v3.1 参考等问题后，本轮按用户最新口径生成本地参考修正版，不继续走阿里云剪辑 / ICE / OSS。
+
+`已确认` 已重新尝试阿里 `qwen3-tts-vc-realtime-2026-01-15`。原参考声音 `qwen-t...ac19` 直连异常后，已从 `语音样本 2.MP4` 复刻出同一参考底子的可用声音 `qwen-t...af51`，并按 B 版停顿梗感策略生成完整音轨。声音最终听感仍待用户 / ChatGPT 复审。
+
+`已确认` 开头元素娃娃只保留约 2 秒“大家好”；后续元素娃娃画面已移除。原元素娃娃段按适配度改由骚萌卡、用户录制素材、稳定录屏或信息卡承载；骚萌卡已按 PR #7 B route 复核，不使用 PR #7 A，不硬塞不贴文案的卡。
+
+`已确认` 中段已移除周期性 `crop_x` 左右晃，改为固定证据窗口；总结卡已接入 HyperFrames `card_motion_layer`；新增素材 `阿里云剪辑.mp4` 已用于 `seg12` 本地装配说明段。
+
+- 本地修正版目录：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality`
+- `full_video_local_fix.mp4`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/full_video_local_fix.mp4`
+- `render_summary_local_fix.json`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/render_summary_local_fix.json`
+- `sassy_card_contact_sheet.jpg`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/sassy_card_contact_sheet.jpg`
+- `summary_card_hyperframes_contact_sheet.jpg`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/summary_card_hyperframes_contact_sheet.jpg`
+- `captions_local_fix.srt`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/captions_local_fix.srt`
+
+`部分成立` 字幕已生成并对齐为独立 SRT；本机 ffmpeg 缺少 `subtitles` filter，本轮未把字幕烧录进 MP4。
+
 ## 下一个目标
 
-用户 / ChatGPT 对 `full_video.mp4` 做内容复审，并决定是否进入下一轮只改一个变量的修改。
+用户 / ChatGPT 对 `full_video_local_fix.mp4` 做声音、节奏和画面适配复审，并决定是否作为新的内容候选继续只改一个变量。

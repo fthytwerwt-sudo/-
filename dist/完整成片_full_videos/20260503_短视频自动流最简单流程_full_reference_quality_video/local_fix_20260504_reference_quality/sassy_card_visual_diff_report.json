@@ -1,0 +1,24 @@
+{
+  "cards": [
+    "dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/cards/seg01_sassy_sassy_reaction_card_route.png",
+    "dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/cards/seg05_sassy_sassy_reaction_card_route.png",
+    "dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/assets_local_fix/cards/seg14_sassy_sassy_reaction_card_route.png"
+  ],
+  "pairwise": [
+    {
+      "pair": "1-2",
+      "mean_pixel_difference": 37.504,
+      "different": true
+    },
+    {
+      "pair": "1-3",
+      "mean_pixel_difference": 38.674,
+      "different": true
+    },
+    {
+      "pair": "2-3",
+      "mean_pixel_difference": 48.318,
+      "different": true
+    }
+  ]
+}

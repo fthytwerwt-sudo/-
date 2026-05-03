@@ -1,0 +1,79 @@
+$ npx hyperframes render --output /Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/summary_card_hyperframes.mp4 --fps 24 --quality draft
+
+STDOUT:
+
+◆  Rendering hyperframes_summary_card → /Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/summary_card_hyperframes.mp4
+   24fps · draft · auto workers (8 cores detected)
+   GPU: browser GPU (auto)
+
+[?25l│
+◇  Browser: system
+[?25h
+[2K  █░░░░░░░░░░░░░░░░░░░░░░░░  5%  Compiling composition[Compiler] Inlined CDN script: https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js
+[INFO] Compiled composition metadata {"entryFile":"index.html","staticDuration":49.84,"width":1080,"height":1920,"videoCount":0,"audioCount":0,"renderModeHints":{"recommendScreenshot":false,"reasons":[]}}
+
+[2K  ██░░░░░░░░░░░░░░░░░░░░░░░  10%  Extracting video frames[INFO] [Render] No HDR sources detected — rendering SDR
+
+[2K  █████░░░░░░░░░░░░░░░░░░░░  20%  Processing audio tracks
+[2K  ██████░░░░░░░░░░░░░░░░░░░  25%  Starting frame capture[non-blocking] Failed to load resource: the server responded with a status of 404 (Not Found)
+[INFO] streaming-encode gate {"enabled":false,"configFlag":true,"outputFormat":"mp4","workerCount":3,"durationSeconds":49.84,"maxDurationSeconds":240}
+[non-blocking] Failed to load resource: the server responded with a status of 404 (Not Found)
+[non-blocking] Failed to load resource: the server responded with a status of 404 (Not Found)
+[non-blocking] Failed to load resource: the server responded with a status of 404 (Not Found)
+
+[2K  ██████░░░░░░░░░░░░░░░░░░░  26%  Capturing frame 30/1197 (3 workers)
+[2K  ██████░░░░░░░░░░░░░░░░░░░  27%  Capturing frame 60/1197 (3 workers)
+[2K  ███████░░░░░░░░░░░░░░░░░░  28%  Capturing frame 90/1197 (3 workers)
+[2K  ███████░░░░░░░░░░░░░░░░░░  30%  Capturing frame 120/1197 (3 workers)
+[2K  ███████░░░░░░░░░░░░░░░░░░  31%  Capturing frame 150/1197 (3 workers)
+[2K  ████████░░░░░░░░░░░░░░░░░  32%  Capturing frame 180/1197 (3 workers)
+[2K  ████████░░░░░░░░░░░░░░░░░  33%  Capturing frame 210/1197 (3 workers)
+[2K  ████████░░░░░░░░░░░░░░░░░  34%  Capturing frame 240/1197 (3 workers)
+[2K  ████████░░░░░░░░░░░░░░░░░  35%  Capturing frame 270/1197 (3 workers)
+[2K  █████████░░░░░░░░░░░░░░░░  36%  Capturing frame 300/1197 (3 workers)
+[2K  █████████░░░░░░░░░░░░░░░░  37%  Capturing frame 330/1197 (3 workers)
+[2K  █████████░░░░░░░░░░░░░░░░  39%  Capturing frame 360/1197 (3 workers)
+[2K  ██████████░░░░░░░░░░░░░░░  40%  Capturing frame 390/1197 (3 workers)
+[2K  ██████████░░░░░░░░░░░░░░░  41%  Capturing frame 420/1197 (3 workers)
+[2K  ██████████░░░░░░░░░░░░░░░  42%  Capturing frame 450/1197 (3 workers)
+[2K  ██████████░░░░░░░░░░░░░░░  43%  Capturing frame 480/1197 (3 workers)
+[2K  ███████████░░░░░░░░░░░░░░  44%  Capturing frame 510/1197 (3 workers)
+[2K  ███████████░░░░░░░░░░░░░░  45%  Capturing frame 540/1197 (3 workers)
+[2K  ███████████░░░░░░░░░░░░░░  46%  Capturing frame 570/1197 (3 workers)
+[2K  ████████████░░░░░░░░░░░░░  48%  Capturing frame 600/1197 (3 workers)
+[2K  ████████████░░░░░░░░░░░░░  49%  Capturing frame 630/1197 (3 workers)
+[2K  ████████████░░░░░░░░░░░░░  50%  Capturing frame 660/1197 (3 workers)
+[2K  ████████████░░░░░░░░░░░░░  51%  Capturing frame 690/1197 (3 workers)
+[2K  █████████████░░░░░░░░░░░░  52%  Capturing frame 720/1197 (3 workers)
+[2K  █████████████░░░░░░░░░░░░  53%  Capturing frame 750/1197 (3 workers)
+[2K  █████████████░░░░░░░░░░░░  54%  Capturing frame 780/1197 (3 workers)
+[2K  █████████████░░░░░░░░░░░░  55%  Capturing frame 810/1197 (3 workers)
+[2K  ██████████████░░░░░░░░░░░  57%  Capturing frame 840/1197 (3 workers)
+[2K  ██████████████░░░░░░░░░░░  58%  Capturing frame 870/1197 (3 workers)
+[2K  ██████████████░░░░░░░░░░░  59%  Capturing frame 900/1197 (3 workers)
+[2K  ███████████████░░░░░░░░░░  60%  Capturing frame 930/1197 (3 workers)
+[2K  ███████████████░░░░░░░░░░  61%  Capturing frame 960/1197 (3 workers)
+[2K  ███████████████░░░░░░░░░░  62%  Capturing frame 990/1197 (3 workers)
+[2K  ███████████████░░░░░░░░░░  63%  Capturing frame 1020/1197 (3 workers)
+[2K  ████████████████░░░░░░░░░  64%  Capturing frame 1050/1197 (3 workers)
+[2K  ████████████████░░░░░░░░░  66%  Capturing frame 1080/1197 (3 workers)
+[2K  ████████████████░░░░░░░░░  67%  Capturing frame 1110/1197 (3 workers)
+[2K  █████████████████░░░░░░░░  68%  Capturing frame 1140/1197 (3 workers)
+[2K  █████████████████░░░░░░░░  69%  Capturing frame 1170/1197 (3 workers)
+[2K  █████████████████░░░░░░░░  70%  Capturing frame 1197/1197 (3 workers)
+[2K  ██████████████████░░░░░░░  75%  Encoding video
+[2K  ██████████████████████░░░  90%  Assembling final video
+[2K  █████████████████████████  100%  Render complete
+◇  /Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/summary_card_hyperframes.mp4
+   604.2 KB · 35.9s · completed
+
+
+STDERR:
+[Compiler] No deterministic font mapping for: Hiragino Sans GB, PingFang SC
+  Mapped fonts: archivo black → archivo-black, arial black → montserrat, arial → inter, bebas neue → league-gothic, courier new → jetbrains-mono, courier → jetbrains-mono, din alternate → montserrat, eb garamond → eb-garamond, futura → montserrat, garamond → eb-garamond, helvetica bold → inter, helvetica neue → inter, helvetica → inter, ibm plex mono → ibm-plex-mono, inter, jetbrains mono → jetbrains-mono, lato, league gothic → league-gothic, montserrat, noto sans japanese → noto-sans-jp, noto sans jp → noto-sans-jp, nunito, open sans → open-sans, oswald, outfit, playfair display → playfair-display, poppins, roboto, segoe ui → roboto, source code pro → source-code-pro, space mono → space-mono
+  To fix, pick one:
+    1. Use a mapped font name instead (see list above)
+    2. Add a @font-face block in your HTML with a local or hosted font file
+    3. Install the font locally on the render machine (Docker: add to Dockerfile)
+    4. Add an alias to FONT_ALIASES in deterministicFonts.ts (for contributors)
+  Docs: https://hyperframes.heygen.com/docs/fonts

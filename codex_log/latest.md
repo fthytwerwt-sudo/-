@@ -1,5 +1,25 @@
 # Latest
 
+## 20260504｜短视频自动流本地参考修正版
+
+- `已确认` PR #46 当前分支继续使用：`codex/short-video-auto-flow-formal-full-reference-video-20260503`。
+- `已确认` 本轮按用户最新口径改为本地参考修正版：不走阿里云剪辑 / ICE / OSS，不把本地装配写成云剪 fallback。
+- `已确认` 已重新尝试阿里 `qwen3-tts-vc-realtime-2026-01-15`。原参考声音 `qwen-t...ac19` 直连仍异常；已从 `语音样本 2.MP4` 复刻出同一参考底子的可用声音 `qwen-t...af51`，并生成完整音轨 776.640 秒。
+- `已确认` 新 TTS 继承 `tts_15s_b_pacing_locked_20260427` 的分句停顿和轻吐槽节奏策略；`voice_validation = pending_user_chatgpt_review`，`final_voice_validated = false`。
+- `已确认` 开头元素娃娃只保留约 2 秒“大家好”；后续不再出现元素娃娃主持壳。
+- `已确认` 原元素娃娃段按适配度改由骚萌卡、用户录制素材、稳定录屏或 `cute_info_card_route` 承载；骚萌卡已读取 PR #7 B 唯一参考，未使用 PR #7 A，未硬塞不贴文案的 punchline。
+- `已确认` 已生成并检查骚萌卡 contact sheet 与差异报告；三张候选骚萌卡属于同一角色体系但不是同图复用，最终只在适合“吐槽 / 反转 / 判断”的段落使用。
+- `已确认` 中段用户录制素材已从动态左右晃修为固定证据窗口；`豆包素材.mp4`、`trae 素材.mp4`、`codex 素材.mp4` 继续承担主体证据。
+- `已确认` 用户新增素材 `/Users/fan/Documents/视频工厂/素材录制/最新素材/阿里云剪辑.mp4` 已用于 `seg12` 本地装配说明段。
+- `已确认` 总结卡使用 HyperFrames `card_motion_layer`，核心句保留“顺序对了，自动化才有地方落脚。”；HyperFrames 未进入中段录屏，未替代真实素材证据。
+- `已确认` 已本地导出 `full_video_local_fix.mp4`：1080x1920，H.264，AAC，776.640 秒，可解码。
+- `已确认` 未使用 macOS `say`，未使用云剪，未修改 `dist/latest_review_pack/`，未修改当前 v3.1 publish target。
+- `部分成立` 字幕已生成并对齐为 `captions_local_fix.srt`；本机 ffmpeg 缺少 `subtitles` filter，本轮未把字幕烧录进 MP4。
+- `保留边界`：`content_validation = pending_user_chatgpt_review`，`send_ready = false`；技术修正版完成不等于内容最终过线。
+- `输出目录`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality`
+- `结果状态`：`local_reference_fix_completed`
+- `下一个目标`：用户 / ChatGPT 复审 `full_video_local_fix.mp4` 的声音、节奏和画面适配，决定是否作为新的内容候选继续只改一个变量。
+
 ## 20260503｜短视频自动流正式参考质量完整片 cloud export
 
 - `已确认` PR #46 当前分支：`codex/short-video-auto-flow-formal-full-reference-video-20260503`。

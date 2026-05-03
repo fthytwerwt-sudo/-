@@ -1,5 +1,38 @@
 # failure_and_blocker_report
 
+## 20260504 本地参考修正版状态
+
+- latest_user_requested_fix：`local_reference_quality_fix`
+- local_fix_result_status：`local_reference_fix_completed`
+- local_fix_blocked：`false`
+- true_blocker：`none`
+- blocked_stage：`none`
+- custom_voice_reference：`qwen-t...ac19`
+- re_enrolled_voice_used：`qwen-t...af51`
+- target_model：`qwen3-tts-vc-realtime-2026-01-15`
+- tts_15s_b_pacing_locked_20260427_read：`true`
+- reference_voice_or_pacing_used_for_tts：`true`
+- voice_validation：`pending_user_chatgpt_review`
+- final_voice_validated：`false`
+- cloud_assembly_used_this_round：`false`
+- local_assembly_started_this_round：`true`
+- macos_say_used：`false`
+- old_tts_fallback_used：`false`
+- full_video_local_fix_generated：`true`
+- full_video_local_fix_path：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality/full_video_local_fix.mp4`
+- element_doll_after_opening_present：`false`
+- sassy_cards_checked：`true`
+- summary_card_hyperframes_used：`true`
+- middle_dynamic_crop_x_removed：`true`
+- subtitle_burn_in：`false`
+- subtitle_burn_in_note：`本机 ffmpeg 缺少 subtitles filter，本轮生成并对齐 captions_local_fix.srt，未烧录进 MP4。`
+- content_validation：`pending_user_chatgpt_review`
+- send_ready：`false`
+
+`已确认` 用户本轮要求“声音硬门优先”。早前 `qwen-t...ac19` 直接合成曾出现 WebSocket 异常；随后已按用户确认的 `qwen3-tts-vc-realtime-2026-01-15` 路径重新尝试，并从 `语音样本 2.MP4` 复刻出同一参考底子的可用声音 `qwen-t...af51`。完整 TTS 已生成并进入本地装配；本轮没有使用旧 TTS、macOS `say`、阿里云剪辑 / ICE / OSS，也没有交残片冒充完成。
+
+## 20260503 云剪完整片历史状态
+
 - result_status：full_reference_quality_video_completed_cloud_exported
 - blocked：false
 - true_blockers：[]

@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>summary-card-hyperframes</title>
+  <style>
+    body { margin: 0; background: #fff6fb; overflow: hidden; }
+    #summary-card {
+      width: 1080px; height: 1920px; position: relative; overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", sans-serif;
+      background: linear-gradient(180deg, #fff7fb 0%, #fff0f6 100%);
+    }
+    .card { position: absolute; left: 84px; top: 240px; width: 912px; height: 1320px;
+      border-radius: 52px; background: #fff; border: 6px solid #ffc2db;
+      box-shadow: 0 34px 80px rgba(190, 90, 128, 0.18); box-sizing: border-box;
+      padding: 88px 68px; display: flex; flex-direction: column; gap: 54px; }
+    .eyebrow { color: #bc4d77; font-size: 38px; font-weight: 700; }
+    .main { color: #452d38; font-size: 78px; line-height: 1.18; font-weight: 900; }
+    .module { border-radius: 34px; padding: 42px; background: #fff1bd; color: #513842;
+      font-size: 42px; line-height: 1.35; font-weight: 700; }
+    .module.second { background: #e3fbff; }
+    .highlight { color: #e54983; }
+    .petal { position: absolute; width: 42px; height: 28px; border-radius: 50% 50% 50% 0;
+      background: #ffc2db; opacity: 0.65; }
+  </style>
+</head>
+<body>
+  <div id="summary-card" data-composition-id="summary-card" data-start="0" data-width="1080" data-height="1920" data-duration="49.840">
+    <div class="petal p1" style="left:90px; top:140px;"></div>
+    <div class="petal p2" style="left:920px; top:210px;"></div>
+    <div class="petal p3" style="left:150px; top:1660px;"></div>
+    <div class="card">
+      <div class="eyebrow">最后收束</div>
+      <div class="main">顺序对了，<br><span class="highlight">自动化</span>才有地方落脚。</div>
+      <div class="module">先把视频生产拆开。</div>
+      <div class="module second">再让每一步有人负责、有工具能做、有结果能检查。</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.from(".card", { y: 90, opacity: 0, scale: 0.96, duration: 0.8, ease: "power3.out" }, 0);
+      tl.from(".eyebrow", { y: 30, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.28);
+      tl.from(".main", { y: 38, opacity: 0, duration: 0.7, ease: "power2.out" }, 0.55);
+      tl.from(".module", { y: 34, opacity: 0, stagger: 0.18, duration: 0.55, ease: "power2.out" }, 1.15);
+      tl.to(".highlight", { color: "#ff7aa8", duration: 0.45, repeat: 4, yoyo: true, ease: "sine.inOut" }, 2.2);
+      tl.to(".petal", { y: 80, x: 22, rotation: 18, opacity: 0.15, stagger: 0.12, duration: 48.840, ease: "none" }, 0);
+      window.__timelines["summary-card"] = tl;
+    </script>
+  </div>
+</body>
+</html>
