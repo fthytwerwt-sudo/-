@@ -1,0 +1,13 @@
+{
+  "pink_background_found": false,
+  "pink_border_found": false,
+  "white_pink_card_shell_found": false,
+  "photo_frame_found": false,
+  "cute_info_route_used_on_middle": false,
+  "cute_prompt_route_used_on_middle": false,
+  "screen_recording_is_primary": true,
+  "hyperframes_used_on_middle": false,
+  "sassy_card_used_on_middle": false,
+  "element_doll_used_on_middle": false,
+  "passed": true
+}

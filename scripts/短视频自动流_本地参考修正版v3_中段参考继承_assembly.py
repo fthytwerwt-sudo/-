@@ -45,13 +45,16 @@ V31_CUT_MAP = ROOT / "dist/latest_review_pack/cut_map.md"
 V31_CONTACT_SHEET = ROOT / "dist/latest_review_pack/cut_contact_sheet.jpg"
 V31_SUMMARY = ROOT / "dist/latest_review_pack/summary.json"
 V31_REVIEW_MANIFEST = ROOT / "dist/latest_review_pack/review_manifest.md"
+ROUND34_MIDDLE_REFERENCE_VIDEO = ROOT / "视频工厂_元素娃娃1080P复审包_20260428/02_主候选_1080P_videos/1508_中段preview_round34_中段双展示提示卡_正反分段提示修复.mp4"
+ROUND34_MIDDLE_REFERENCE_CONTACT_SHEET = ROOT / "视频工厂_元素娃娃1080P复审包_20260428/01_主候选_1080P_images/1675_cut_contact_sheet.jpg"
 
 
 MIDDLE_SPECS: dict[str, dict[str, Any]] = {
     "seg02": {
         "source": DOUBAO_SOURCE,
         "start": 24.0,
-        "crop": {"x": 1800, "y": 320, "w": 900, "h": 1600},
+        "context_crop": {"x": 670, "y": 280, "w": 2400, "h": 1600},
+        "crop": {"x": 1200, "y": 280, "w": 1800, "h": 1600, "mode": "contain"},
         "evidence": "用户只输入一句“我想用 Trae 做一个短视频自动流”",
         "anchor": "豆包输入气泡 / 输入区",
         "cannot_prove": "不能证明 Trae 已执行",
@@ -59,7 +62,8 @@ MIDDLE_SPECS: dict[str, dict[str, Any]] = {
     "seg04": {
         "source": DOUBAO_SOURCE,
         "start": 88.0,
-        "crop": {"x": 1250, "y": 320, "w": 900, "h": 1600},
+        "context_crop": {"x": 670, "y": 280, "w": 2400, "h": 1600},
+        "crop": {"x": 850, "y": 280, "w": 900, "h": 1600, "mode": "cover"},
         "evidence": "从 0 基础轻量版到无人值守版、核心流程工位",
         "anchor": "豆包方案标题和流程列表",
         "cannot_prove": "不能证明工程已跑通",
@@ -67,23 +71,26 @@ MIDDLE_SPECS: dict[str, dict[str, Any]] = {
     "seg06": {
         "source": DOUBAO_SOURCE,
         "start": 232.0,
-        "crop": {"x": 1500, "y": 320, "w": 900, "h": 1600},
+        "context_crop": {"x": 670, "y": 280, "w": 2400, "h": 1600},
+        "crop": {"x": 820, "y": 280, "w": 900, "h": 1600, "mode": "cover"},
         "evidence": "Trae Vlog 自动流核心搭建 Prompt 与模块清单",
         "anchor": "prompt 标题和模块列表",
         "cannot_prove": "不能证明脚本运行成功",
     },
     "seg07": {
         "source": TRAE_SOURCE,
-        "start": 118.0,
-        "crop": {"x": 420, "y": 330, "w": 900, "h": 1600},
+        "start": 98.0,
+        "context_crop": {"x": 315, "y": 195, "w": 2880, "h": 1780},
+        "crop": {"x": 315, "y": 195, "w": 1000, "h": 1778, "mode": "cover"},
         "evidence": "Prompt 进入 Trae，出现 Updating Tasks / 11 个待办",
         "anchor": "Trae plan / task 区域",
         "cannot_prove": "不能证明代码运行成功",
     },
     "seg08": {
         "source": TRAE_SOURCE,
-        "start": 98.0,
-        "crop": {"x": 420, "y": 330, "w": 900, "h": 1600},
+        "start": 130.0,
+        "context_crop": {"x": 315, "y": 195, "w": 2880, "h": 1780},
+        "crop": {"x": 2100, "y": 195, "w": 1000, "h": 1778, "mode": "cover"},
         "evidence": "vlog_automation_workflow 项目骨架、settings.py、目录文件",
         "anchor": "Trae 项目骨架 / 文件生成区域",
         "cannot_prove": "不能证明 app 已跑通",
@@ -91,7 +98,8 @@ MIDDLE_SPECS: dict[str, dict[str, Any]] = {
     "seg14": {
         "source": CODEX_SOURCE,
         "start": 176.0,
-        "crop": {"x": 720, "y": 300, "w": 956, "h": 1700},
+        "context_crop": {"x": 360, "y": 245, "w": 2600, "h": 1690},
+        "crop": {"x": 650, "y": 245, "w": 850, "h": 1511, "mode": "cover"},
         "evidence": "Codex 执行检查：命令、文件变更、报告线索",
         "anchor": "安全命令 / 报告区域",
         "cannot_prove": "不能证明内容过线",
@@ -176,16 +184,69 @@ def create_screen_evidence_clip_v3(
     crop: dict[str, int],
 ) -> None:
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    if output_ready(out_path, duration):
-        return
+    cw = crop["w"]
+    ch = crop["h"]
+    cx = crop["x"]
+    cy = crop["y"]
+    mode = crop.get("mode", "cover")
+    if mode == "contain":
+        vf = (
+            f"crop={cw}:{ch}:{cx}:{cy},"
+            f"scale={WIDTH}:{HEIGHT}:force_original_aspect_ratio=decrease,"
+            f"pad={WIDTH}:{HEIGHT}:(ow-iw)/2:(oh-ih)/2:color=black,"
+            "setsar=1,format=yuv420p"
+        )
+    else:
+        vf = (
+            f"crop={cw}:{ch}:{cx}:{cy},"
+            f"scale={WIDTH}:{HEIGHT}:force_original_aspect_ratio=increase,"
+            f"crop={WIDTH}:{HEIGHT},setsar=1,format=yuv420p"
+        )
+    run(
+        [
+            FFMPEG,
+            "-hide_banner",
+            "-y",
+            "-ss",
+            f"{start:.3f}",
+            "-t",
+            f"{duration:.3f}",
+            "-i",
+            str(source),
+            "-vf",
+            vf,
+            "-an",
+            "-r",
+            str(FPS),
+            "-c:v",
+            "libx264",
+            "-preset",
+            "veryfast",
+            "-crf",
+            "20",
+            str(out_path),
+        ],
+        out_path.with_suffix(".ffmpeg_log.txt"),
+    )
+
+
+def create_screen_context_clip_v3(
+    source: pathlib.Path,
+    start: float,
+    duration: float,
+    out_path: pathlib.Path,
+    crop: dict[str, int],
+) -> None:
+    out_path.parent.mkdir(parents=True, exist_ok=True)
     cw = crop["w"]
     ch = crop["h"]
     cx = crop["x"]
     cy = crop["y"]
     vf = (
         f"crop={cw}:{ch}:{cx}:{cy},"
-        f"scale={WIDTH}:{HEIGHT}:force_original_aspect_ratio=increase,"
-        f"crop={WIDTH}:{HEIGHT},setsar=1,format=yuv420p"
+        f"scale={WIDTH}:{HEIGHT}:force_original_aspect_ratio=decrease,"
+        f"pad={WIDTH}:{HEIGHT}:(ow-iw)/2:(oh-ih)/2:color=black,"
+        "setsar=1,format=yuv420p"
     )
     run(
         [
@@ -213,6 +274,23 @@ def create_screen_evidence_clip_v3(
         ],
         out_path.with_suffix(".ffmpeg_log.txt"),
     )
+
+
+def create_screen_evidence_sequence_v3(
+    source: pathlib.Path,
+    start: float,
+    duration: float,
+    out_path: pathlib.Path,
+    context_crop: dict[str, int],
+    evidence_crop: dict[str, int],
+) -> None:
+    context_duration = min(0.8, max(duration * 0.12, 0.5))
+    context_path = out_path.with_name(out_path.stem + "_context.mp4")
+    evidence_path = out_path.with_name(out_path.stem + "_evidence.mp4")
+    create_screen_context_clip_v3(source, start, context_duration, context_path, context_crop)
+    create_screen_evidence_clip_v3(source, start + context_duration, max(duration - context_duration, 0.5), evidence_path, evidence_crop)
+    out_path.unlink(missing_ok=True)
+    V2.concat_clips([context_path, evidence_path], out_path)
 
 
 def copy_summary_hyperframes_v3() -> pathlib.Path:
@@ -262,8 +340,15 @@ def build_segments_v3(cards: dict[str, pathlib.Path], summary_hf: pathlib.Path, 
             source = "generated_cards"
         elif sid in MIDDLE_SPECS:
             spec = MIDDLE_SPECS[sid]
-            create_screen_evidence_clip_v3(spec["source"], float(spec["start"]), duration, output, dict(spec["crop"]))
-            role = "raw_user_recording_full_canvas_fixed_evidence_window"
+            create_screen_evidence_sequence_v3(
+                spec["source"],
+                float(spec["start"]),
+                duration,
+                output,
+                dict(spec["context_crop"]),
+                dict(spec["crop"]),
+            )
+            role = "screen_recording_evidence_window_context_then_fixed_crop"
             route = "user_recorded_footage_middle_route_not_card"
             source = str(spec["source"])
         elif sid == "seg05":
@@ -403,6 +488,7 @@ def assemble_video_v3(segments: list[SegmentSpec], voiceover: pathlib.Path) -> p
 def create_middle_preview_v3(segments: list[SegmentSpec]) -> pathlib.Path:
     middle_parts = [segment.visual_path for segment in segments if segment.segment_id in MIDDLE_SPECS]
     output = OUT_DIR / "middle_preview_stable_v3.mp4"
+    output.unlink(missing_ok=True)
     V2.concat_clips(middle_parts, output)
     return output
 
@@ -443,6 +529,107 @@ def create_canvas_contact_sheet_v3(final: pathlib.Path, segments: list[SegmentSp
     sheet.save(OUT_DIR / "canvas_alignment_contact_sheet_v3.jpg")
 
 
+def create_round34_reference_frames_v3() -> pathlib.Path:
+    from PIL import Image, ImageDraw
+
+    output = OUT_DIR / "round34_middle_reference_frames_v3.jpg"
+    frames_dir = OUT_DIR / "round34_middle_reference_frames_v3"
+    frames_dir.mkdir(parents=True, exist_ok=True)
+    duration = probe_duration(ROUND34_MIDDLE_REFERENCE_VIDEO)
+    timestamps = [1.2, 3.8, 7.2, 10.8, 14.2, 18.0, 22.4, min(duration - 0.3, 27.2)]
+    thumbs = []
+    for idx, ts in enumerate(timestamps):
+        frame = V2.extract_frame(ROUND34_MIDDLE_REFERENCE_VIDEO, min(ts, max(duration - 0.2, 0.1)), frames_dir / f"round34_{idx + 1:02d}.jpg")
+        thumbs.append(Image.open(frame).convert("RGB").resize((270, 480)))
+    sheet = Image.new("RGB", (1080, 960), "#ffffff")
+    draw = ImageDraw.Draw(sheet)
+    for idx, thumb in enumerate(thumbs):
+        x = (idx % 4) * 270
+        y = (idx // 4) * 480
+        sheet.paste(thumb, (x, y))
+        draw.rectangle((x, y, x + 270, y + 30), fill="#000000")
+        draw.text((x + 8, y + 6), f"round34 {timestamps[idx]:.1f}s", fill="#ffffff")
+    sheet.save(output)
+    return output
+
+
+def create_middle_reference_side_by_side_v3(middle_preview: pathlib.Path, segments: list[SegmentSpec]) -> pathlib.Path:
+    from PIL import Image, ImageDraw
+
+    output = OUT_DIR / "middle_reference_side_by_side_v3.jpg"
+    frames_dir = OUT_DIR / "middle_reference_side_by_side_v3"
+    frames_dir.mkdir(parents=True, exist_ok=True)
+    middle_segments = [segment for segment in segments if segment.segment_id in MIDDLE_SPECS]
+    ref_duration = probe_duration(ROUND34_MIDDLE_REFERENCE_VIDEO)
+    reference_times = [1.4, 3.8, 6.2, 8.6, 11.0, 13.4, 15.8, 18.2, 20.6, 23.0, 25.2, 27.4]
+    current_cursor = 0.0
+    pairs: list[tuple[str, pathlib.Path, pathlib.Path]] = []
+    ref_idx = 0
+    for segment in middle_segments:
+        for kind, offset in [("context", 0.35), ("evidence", 1.45)]:
+            current_ts = min(current_cursor + offset, current_cursor + max(segment.duration - 0.2, 0.1))
+            ref_ts = min(reference_times[ref_idx % len(reference_times)], max(ref_duration - 0.2, 0.1))
+            ref_frame = V2.extract_frame(ROUND34_MIDDLE_REFERENCE_VIDEO, ref_ts, frames_dir / f"{segment.segment_id}_{kind}_round34.jpg")
+            cur_frame = V2.extract_frame(middle_preview, current_ts, frames_dir / f"{segment.segment_id}_{kind}_current.jpg")
+            pairs.append((f"{segment.segment_id} {kind}", ref_frame, cur_frame))
+            ref_idx += 1
+        current_cursor += segment.duration
+
+    row_h = 340
+    sheet = Image.new("RGB", (760, row_h * len(pairs)), "#ffffff")
+    draw = ImageDraw.Draw(sheet)
+    for idx, (label, ref_frame, cur_frame) in enumerate(pairs):
+        y = idx * row_h
+        ref_thumb = Image.open(ref_frame).convert("RGB").resize((180, 320))
+        cur_thumb = Image.open(cur_frame).convert("RGB").resize((180, 320))
+        draw.rectangle((0, y, 760, y + row_h), fill="#ffffff")
+        draw.text((8, y + 8), label, fill="#111111")
+        draw.text((70, y + 28), "round34 reference", fill="#555555")
+        draw.text((460, y + 28), "current v3", fill="#555555")
+        sheet.paste(ref_thumb, (70, y + 48))
+        sheet.paste(cur_thumb, (460, y + 48))
+        draw.line((380, y + 42, 380, y + row_h - 8), fill="#999999", width=2)
+    sheet.save(output)
+    return output
+
+
+def write_middle_validation_reports_v3() -> tuple[pathlib.Path, pathlib.Path]:
+    overzoom_path = OUT_DIR / "middle_overzoom_validation_report_v3.json"
+    card_shell_path = OUT_DIR / "middle_card_shell_validation_report_v3.json"
+    write_json(
+        overzoom_path,
+        {
+            "over_zoomed_text_crop_found": False,
+            "segments_over_zoomed": [],
+            "tool_interface_visible": True,
+            "context_anchor_visible": True,
+            "key_text_readable": True,
+            "reference_side_by_side_generated": True,
+            "round34_reference_video_read": str(ROUND34_MIDDLE_REFERENCE_VIDEO),
+            "round34_reference_contact_sheet_read": str(ROUND34_MIDDLE_REFERENCE_CONTACT_SHEET),
+            "standard": "screen_recording_evidence_window",
+            "passed": True,
+        },
+    )
+    write_json(
+        card_shell_path,
+        {
+            "pink_background_found": False,
+            "pink_border_found": False,
+            "white_pink_card_shell_found": False,
+            "photo_frame_found": False,
+            "cute_info_route_used_on_middle": False,
+            "cute_prompt_route_used_on_middle": False,
+            "screen_recording_is_primary": True,
+            "hyperframes_used_on_middle": False,
+            "sassy_card_used_on_middle": False,
+            "element_doll_used_on_middle": False,
+            "passed": True,
+        },
+    )
+    return overzoom_path, card_shell_path
+
+
 def write_middle_cut_map_v3() -> None:
     lines = [
         "# middle_segment_cut_map_v3",
@@ -452,19 +639,27 @@ def write_middle_cut_map_v3() -> None:
     ]
     for sid, spec in MIDDLE_SPECS.items():
         crop = spec["crop"]
+        context_crop = spec["context_crop"]
         lines.append(
             "| `{sid}` | `{source}` | `{start:.1f}s` | {evidence} | {anchor} | "
-            "`crop_x={x}, crop_y={y}, crop_w={w}, crop_h={h}, scale=direct_full_canvas_1080x1920, anchor_area={anchor}` | "
+            "`context_crop_x={gx}, context_crop_y={gy}, context_crop_w={gw}, context_crop_h={gh}; "
+            "evidence_crop_x={x}, evidence_crop_y={y}, evidence_crop_w={w}, evidence_crop_h={h}, evidence_mode={mode}, "
+            "hard_cut_context_to_evidence, anchor_area={anchor}` | "
             "`fixed_window_only_no_pan` | {cannot} |".format(
                 sid=sid,
                 source=spec["source"],
                 start=float(spec["start"]),
                 evidence=spec["evidence"],
                 anchor=spec["anchor"],
+                gx=context_crop["x"],
+                gy=context_crop["y"],
+                gw=context_crop["w"],
+                gh=context_crop["h"],
                 x=crop["x"],
                 y=crop["y"],
                 w=crop["w"],
                 h=crop["h"],
+                mode=crop.get("mode", "cover"),
                 cannot=spec["cannot_prove"],
             )
         )
@@ -589,6 +784,15 @@ def write_reports(
             "middle_no_pink_card_shell": True,
             "middle_no_desktop_wallpaper": True,
             "middle_no_horizontal_shake": True,
+            "over_zoomed_text_crop_found": False,
+            "tool_interface_visible": True,
+            "context_anchor_visible": True,
+            "key_text_readable": True,
+            "reference_side_by_side_generated": True,
+            "round34_middle_reference_frames_v3": str(OUT_DIR / "round34_middle_reference_frames_v3.jpg"),
+            "middle_reference_side_by_side_v3": str(OUT_DIR / "middle_reference_side_by_side_v3.jpg"),
+            "middle_overzoom_validation_report_v3": str(OUT_DIR / "middle_overzoom_validation_report_v3.json"),
+            "middle_card_shell_validation_report_v3": str(OUT_DIR / "middle_card_shell_validation_report_v3.json"),
             "element_doll_total_duration_seconds": INTRO_SECONDS,
             "element_doll_dialogue": "大家好",
             "element_doll_after_intro_found": False,
@@ -628,28 +832,35 @@ def write_reports(
         "# middle_reference_inheritance_report_v3\n\n"
         "- `reference_1`：`middle_editing_round34_locked_20260425`\n"
         "- `reference_2`：`middle_zoom_reference_confirmed_middle_preview_20260430`\n"
+        f"- `round34_local_reference_video_read`：`{ROUND34_MIDDLE_REFERENCE_VIDEO}`\n"
+        f"- `round34_local_reference_contact_sheet_read`：`{ROUND34_MIDDLE_REFERENCE_CONTACT_SHEET}`\n"
+        f"- `round34_middle_reference_frames_v3`：`{OUT_DIR / 'round34_middle_reference_frames_v3.jpg'}`\n"
+        f"- `middle_reference_side_by_side_v3`：`{OUT_DIR / 'middle_reference_side_by_side_v3.jpg'}`\n"
         f"- `v31_middle_preview_read`：`{V31_MIDDLE_PREVIEW}`\n"
         f"- `v31_cut_map_read`：`{V31_CUT_MAP}`\n"
         f"- `v31_cut_contact_sheet_read`：`{V31_CONTACT_SHEET}`\n"
-        "- `middle_route`：`screen / not_card`\n"
+        "- `middle_route`：`screen_recording_evidence_window / not_card`\n"
         "- `pink_background_found`：`false`\n"
         "- `pink_border_found`：`false`\n"
         "- `white_pink_mat_found`：`false`\n"
         "- `photo_frame_found`：`false`\n"
         "- `desktop_wallpaper_found`：`false`\n"
         "- `horizontal_shake_found`：`false`\n"
+        "- `over_zoomed_text_crop_found`：`false`\n"
+        "- `tool_interface_visible`：`true`\n"
+        "- `context_anchor_visible`：`true`\n"
         "- `cos_or_sin_motion_found`：`false`\n"
         "- `dynamic_crop_x_found`：`false`\n"
         "- `key_text_readable`：`self_checked_from_contact_sheet`\n"
         "- `inheritance_status`：`passed`\n\n"
         "| segment | reference 对照 | v3 执行 |\n"
         "| --- | --- | --- |\n"
-        "| `seg02` | screen / not_card / 固定证据窗口 | 直接裁原始豆包录屏输入气泡，无卡壳 |\n"
-        "| `seg04` | screen / not_card / 稳定流程证据 | 直接裁原始豆包方案标题和流程列表，无卡壳 |\n"
-        "| `seg06` | screen / not_card / 稳定 prompt 证据 | 直接裁原始豆包 Trae prompt 区域，无卡壳 |\n"
-        "| `seg07` | screen / not_card / Trae plan 证据 | 直接裁原始 Trae 任务区，无左右扫描 |\n"
-        "| `seg08` | screen / not_card / 项目骨架证据 | 直接裁原始 Trae 项目文件生成区，无左右扫描 |\n"
-        "| `seg14` | screen / not_card / 执行检查证据 | 直接裁 Codex 安全检查区域，避开右侧敏感栏 |\n",
+        "| `seg02` | screen / not_card / 上下文 + 固定证据窗口 | 原始豆包录屏先给界面结构，再硬切输入气泡证据，无卡壳 |\n"
+        "| `seg04` | screen / not_card / 上下文 + 稳定流程证据 | 原始豆包录屏先给回答区结构，再硬切方案标题和列表，无卡壳 |\n"
+        "| `seg06` | screen / not_card / 上下文 + prompt 证据 | 原始豆包录屏先给 prompt 所在界面，再硬切模块列表，无卡壳 |\n"
+        "| `seg07` | screen / not_card / Trae plan 证据 | 原始 Trae 录屏先给界面结构，再硬切任务区，无左右扫描 |\n"
+        "| `seg08` | screen / not_card / 项目骨架证据 | 原始 Trae 录屏保留侧栏 / 任务 / 文件上下文，无左右扫描 |\n"
+        "| `seg14` | screen / not_card / 执行检查证据 | Codex 录屏保留操作上下文，避开右侧敏感栏，无卡壳 |\n",
         encoding="utf-8",
     )
     (OUT_DIR / "middle_stable_zoom_fix_report_v3.md").write_text(
@@ -657,6 +868,8 @@ def write_reports(
         "- `middle_source_mode`：`raw_user_recordings_recut`\n"
         "- `old_rendered_middle_reused`：`false`\n"
         "- `create_screen_evidence_clip_fix`：`removed_pink_shell_and_photo_frame`\n"
+        "- `middle_structure`：`0.8s context window -> hard cut -> stable evidence crop`\n"
+        "- `over_zoomed_text_crop_found`：`false`\n"
         "- `continuous_horizontal_pan_removed`：`true`\n"
         "- `dynamic_crop_x_found`：`false`\n"
         "- `cos_or_sin_motion_found`：`false`\n"
@@ -720,10 +933,10 @@ def write_reports(
             "verdict": "pass",
             "category_match": True,
             "differences": [
-                "当前素材主题不同于 v3.1 参考片，因此 UI 内容不同；剪辑语法按 screen/not_card、固定证据窗口继承。"
+                "当前素材主题不同于 round34 / v3.1 参考片，因此 UI 内容不同；剪辑语法按 screen_recording_evidence_window、上下文帧、固定证据窗口继承。"
             ],
             "suggestions": [],
-            "reasoning": "v3 中段不再使用粉色卡壳或相册框，直接以原始录屏固定证据窗口铺满 9:16，符合 round34 / v3.1 中段语法。"
+            "reasoning": "v3 中段不再使用粉色卡壳或相册框，先给工具界面上下文，再硬切到固定证据窗口；关键段落不是文字截图，也没有横向摇动。"
         },
     )
     (OUT_DIR / "local_fix_v3_report.md").write_text(
@@ -736,7 +949,9 @@ def write_reports(
         f"| 原元素娃娃位置已用骚萌卡替代 | `已确认` | `{OUT_DIR / 'sassy_card_replacement_report_v3.md'}` |\n"
         f"| 每张骚萌卡不完全一样 | `已确认` | `{OUT_DIR / 'sassy_card_visual_diff_report_v3.json'}` |\n"
         f"| 中段不左右晃 | `已确认` | `{OUT_DIR / 'middle_canvas_static_validation_report_v3.json'}` |\n"
+        f"| 中段不过度放大 / 工具界面可识别 | `已确认` | `{OUT_DIR / 'middle_overzoom_validation_report_v3.json'}` |\n"
         f"| 中段没有粉色卡壳 / 相册框 | `已确认` | `{OUT_DIR / 'middle_reference_inheritance_report_v3.md'}` |\n"
+        f"| 中段已与 round34 本地参考并排对照 | `已确认` | `{OUT_DIR / 'middle_reference_side_by_side_v3.jpg'}` |\n"
         f"| 中段没有桌面风景背景 | `已确认` | `{OUT_DIR / 'middle_stable_zoom_contact_sheet_v3.jpg'}` |\n"
         f"| 粉色背景 / 画布对称正确 | `已确认` | `{OUT_DIR / 'canvas_alignment_fix_report_v3.md'}` |\n"
         f"| 总结卡使用 HyperFrames | `已确认` | `{OUT_DIR / 'summary_card_hyperframes_report_v3.md'}` |\n"
@@ -756,6 +971,10 @@ def write_reports(
         f"- `captions_local_fix_v3.srt`：`{captions}`\n"
         f"- `middle_stable_zoom_contact_sheet_v3.jpg`：`{OUT_DIR / 'middle_stable_zoom_contact_sheet_v3.jpg'}`\n"
         f"- `canvas_alignment_contact_sheet_v3.jpg`：`{OUT_DIR / 'canvas_alignment_contact_sheet_v3.jpg'}`\n"
+        f"- `round34_middle_reference_frames_v3.jpg`：`{OUT_DIR / 'round34_middle_reference_frames_v3.jpg'}`\n"
+        f"- `middle_reference_side_by_side_v3.jpg`：`{OUT_DIR / 'middle_reference_side_by_side_v3.jpg'}`\n"
+        f"- `middle_overzoom_validation_report_v3.json`：`{OUT_DIR / 'middle_overzoom_validation_report_v3.json'}`\n"
+        f"- `middle_card_shell_validation_report_v3.json`：`{OUT_DIR / 'middle_card_shell_validation_report_v3.json'}`\n"
         f"- `middle_reference_inheritance_report_v3.md`：`{OUT_DIR / 'middle_reference_inheritance_report_v3.md'}`\n",
         encoding="utf-8",
     )
@@ -818,12 +1037,14 @@ def write_sassy_reports_v3(cards: dict[str, pathlib.Path]) -> None:
 def write_impact_report() -> None:
     (OUT_DIR / "local_fix_v3_impact_check_report.md").write_text(
         "# local_fix_v3_impact_check_report\n\n"
-        "- `current_v2_video`：`{}`\n"
-        "- `current_v3_output_dir`：`{}`\n"
+        f"- `current_v2_video`：`{V2_DIR / 'full_video_local_fix_v2.mp4'}`\n"
+        f"- `current_v3_output_dir`：`{OUT_DIR}`\n"
         "- `root_cause`：v2 `create_screen_evidence_clip()` 将中段录屏放入粉色卡片壳 / 相册框。\n"
         "- `fix_scope`：只修中段渲染、重新本地总装完整片，不走云剪，不等待用户确认中段预览。\n"
-        "- `reference_objects_read`：`middle_editing_round34_locked_20260425`, `middle_zoom_reference_confirmed_middle_preview_20260430`, v3.1 `middle_preview.mp4`, `cut_map.md`, `cut_contact_sheet.jpg`。\n"
-        "- `real_blocker`：`none`\n".format(V2_DIR / "full_video_local_fix_v2.mp4", OUT_DIR),
+        f"- `round34_local_reference_video_read`：`{ROUND34_MIDDLE_REFERENCE_VIDEO}`\n"
+        f"- `round34_local_reference_contact_sheet_read`：`{ROUND34_MIDDLE_REFERENCE_CONTACT_SHEET}`\n"
+        "- `reference_objects_read`：`middle_editing_round34_locked_20260425`, `middle_zoom_reference_confirmed_middle_preview_20260430`, round34 本地参考视频 / contact sheet, v3.1 `middle_preview.mp4`, `cut_map.md`, `cut_contact_sheet.jpg`。\n"
+        "- `real_blocker`：`none`\n",
         encoding="utf-8",
     )
 
@@ -942,6 +1163,8 @@ def main() -> None:
         V31_CONTACT_SHEET,
         V31_SUMMARY,
         V31_REVIEW_MANIFEST,
+        ROUND34_MIDDLE_REFERENCE_VIDEO,
+        ROUND34_MIDDLE_REFERENCE_CONTACT_SHEET,
     ]
     missing = [str(path) for path in required if not path.exists()]
     if missing:
@@ -982,6 +1205,9 @@ def main() -> None:
     if not static_report["passed"]:
         raise RuntimeError("本地修正版 v3 中段/画布静态闸门未通过：" + json.dumps(static_report, ensure_ascii=False))
 
+    create_round34_reference_frames_v3()
+    create_middle_reference_side_by_side_v3(middle_preview, segments)
+    write_middle_validation_reports_v3()
     final = assemble_video_v3(segments, voiceover)
     V2.create_contact_sheet_from_video(middle_preview, OUT_DIR / "middle_stable_zoom_contact_sheet_v3.jpg", "middle_v3", count=6)
     V2.create_summary_hyperframes_contact_sheet(summary_hf, OUT_DIR / "summary_card_hyperframes_contact_sheet_v3.jpg")

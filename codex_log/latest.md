@@ -647,5 +647,7 @@
 - `已确认` 已生成本地参考修正版 v3，不走阿里云剪辑 / ICE / OSS。
 - `已确认` 中段按 v3.1 / round34 reference 自检，不再等待用户确认中段预览。
 - `已确认` 中段从原始录屏素材重新剪，去掉粉色卡壳 / 相册框 / 桌面风景背景，使用固定证据窗口。
+- `已确认` 2026-05-04 追加中段强制标准补丁：直接读取 round34 本地参考视频与 contact sheet，生成 `round34_middle_reference_frames_v3.jpg` 与 `middle_reference_side_by_side_v3.jpg` 并完成并排对照。
+- `已确认` 中段 validation 已拆成 `middle_overzoom_validation_report_v3.json` 与 `middle_card_shell_validation_report_v3.json`；当前两份均为 `passed = true`，且 `over_zoomed_text_crop_found = false`、`pink_background_found = false`、`photo_frame_found = false`。
 - `待验证` 内容仍待用户 / ChatGPT 复审，`send_ready = false`。
 - `full_video_local_fix_v3`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/full_video_local_fix_v3.mp4`

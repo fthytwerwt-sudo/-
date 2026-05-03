@@ -13,7 +13,7 @@
   "full_video_local_fix_v3": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/full_video_local_fix_v3.mp4",
   "middle_preview_stable_v3": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/middle_preview_stable_v3.mp4",
   "captions": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/captions_local_fix_v3.srt",
-  "duration_seconds": 773.76,
+  "duration_seconds": 742.833,
   "canvas_width": 1080,
   "canvas_height": 1920,
   "segments": [
@@ -40,7 +40,7 @@
       "goal": "豆包一句需求输入",
       "duration_seconds": 20.64,
       "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/assets_local_fix_v3/clips/seg02_local_fix_v3.mp4",
-      "visual_role": "raw_user_recording_full_canvas_fixed_evidence_window",
+      "visual_role": "screen_recording_evidence_window_context_then_fixed_crop",
       "route": "user_recorded_footage_middle_route_not_card",
       "source": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4"
     },
@@ -58,7 +58,7 @@
       "goal": "豆包拆方案与流程工位",
       "duration_seconds": 56.96,
       "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/assets_local_fix_v3/clips/seg04_local_fix_v3.mp4",
-      "visual_role": "raw_user_recording_full_canvas_fixed_evidence_window",
+      "visual_role": "screen_recording_evidence_window_context_then_fixed_crop",
       "route": "user_recorded_footage_middle_route_not_card",
       "source": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4"
     },
@@ -76,7 +76,7 @@
       "goal": "豆包输出 Trae SOLO prompt",
       "duration_seconds": 57.92,
       "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/assets_local_fix_v3/clips/seg06_local_fix_v3.mp4",
-      "visual_role": "raw_user_recording_full_canvas_fixed_evidence_window",
+      "visual_role": "screen_recording_evidence_window_context_then_fixed_crop",
       "route": "user_recorded_footage_middle_route_not_card",
       "source": "/Users/fan/Documents/视频工厂/素材录制/最新素材/豆包素材.mp4"
     },
@@ -85,7 +85,7 @@
       "goal": "Prompt 进入 Trae 并开始 plan",
       "duration_seconds": 42.48,
       "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/assets_local_fix_v3/clips/seg07_local_fix_v3.mp4",
-      "visual_role": "raw_user_recording_full_canvas_fixed_evidence_window",
+      "visual_role": "screen_recording_evidence_window_context_then_fixed_crop",
       "route": "user_recorded_footage_middle_route_not_card",
       "source": "/Users/fan/Documents/视频工厂/素材录制/最新素材/trae 素材.mp4"
     },
@@ -94,7 +94,7 @@
       "goal": "Trae 生成项目骨架",
       "duration_seconds": 62.48,
       "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/assets_local_fix_v3/clips/seg08_local_fix_v3.mp4",
-      "visual_role": "raw_user_recording_full_canvas_fixed_evidence_window",
+      "visual_role": "screen_recording_evidence_window_context_then_fixed_crop",
       "route": "user_recorded_footage_middle_route_not_card",
       "source": "/Users/fan/Documents/视频工厂/素材录制/最新素材/trae 素材.mp4"
     },
@@ -148,7 +148,7 @@
       "goal": "Codex 执行检查",
       "duration_seconds": 62.72,
       "visual_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/assets_local_fix_v3/clips/seg14_local_fix_v3.mp4",
-      "visual_role": "raw_user_recording_full_canvas_fixed_evidence_window",
+      "visual_role": "screen_recording_evidence_window_context_then_fixed_crop",
       "route": "user_recorded_footage_middle_route_not_card",
       "source": "/Users/fan/Documents/视频工厂/素材录制/最新素材/codex 素材.mp4"
     },

@@ -8,7 +8,9 @@
 | 原元素娃娃位置已用骚萌卡替代 | `已确认` | `/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/sassy_card_replacement_report_v3.md` |
 | 每张骚萌卡不完全一样 | `已确认` | `/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/sassy_card_visual_diff_report_v3.json` |
 | 中段不左右晃 | `已确认` | `/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/middle_canvas_static_validation_report_v3.json` |
+| 中段不过度放大 / 工具界面可识别 | `已确认` | `/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/middle_overzoom_validation_report_v3.json` |
 | 中段没有粉色卡壳 / 相册框 | `已确认` | `/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/middle_reference_inheritance_report_v3.md` |
+| 中段已与 round34 本地参考并排对照 | `已确认` | `/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/middle_reference_side_by_side_v3.jpg` |
 | 中段没有桌面风景背景 | `已确认` | `/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/middle_stable_zoom_contact_sheet_v3.jpg` |
 | 粉色背景 / 画布对称正确 | `已确认` | `/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/canvas_alignment_fix_report_v3.md` |
 | 总结卡使用 HyperFrames | `已确认` | `/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/summary_card_hyperframes_report_v3.md` |

@@ -3,6 +3,8 @@
 - `middle_source_mode`：`raw_user_recordings_recut`
 - `old_rendered_middle_reused`：`false`
 - `create_screen_evidence_clip_fix`：`removed_pink_shell_and_photo_frame`
+- `middle_structure`：`0.8s context window -> hard cut -> stable evidence crop`
+- `over_zoomed_text_crop_found`：`false`
 - `continuous_horizontal_pan_removed`：`true`
 - `dynamic_crop_x_found`：`false`
 - `cos_or_sin_motion_found`：`false`

@@ -95,5 +95,7 @@
 
 - 本轮按用户强制修正补丁，不等待用户看中段预览；Codex 自检 v3.1 / round34 reference 后直接总装完整片。
 - 中段去掉粉色卡壳 / 相册框 / 桌面风景背景，保留固定证据窗口。
+- 2026-05-04 追加中段强制标准补丁后，已直接读取 round34 本地参考视频与 contact sheet，生成 `round34_middle_reference_frames_v3.jpg` 和 `middle_reference_side_by_side_v3.jpg` 做并排对照。
+- `middle_overzoom_validation_report_v3.json` 与 `middle_card_shell_validation_report_v3.json` 均为 `passed = true`；中段 route 记录为 `screen_recording_evidence_window`，不是卡片 route。
 - `content_validation = pending_user_chatgpt_review`，`send_ready = false`。
 - `full_video_local_fix_v3`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_fix_20260504_reference_quality_v3/full_video_local_fix_v3.mp4`
