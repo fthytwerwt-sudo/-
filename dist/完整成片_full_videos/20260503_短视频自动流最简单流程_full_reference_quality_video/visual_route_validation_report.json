@@ -1,12 +1,54 @@
 {
-  "schema_version": "formal_full_reference_visual_route_validation/v1",
-  "status": "blocked",
+  "schema_version": "formal_full_reference_visual_route_validation/v2",
+  "status": "passed",
   "route_map_read": true,
-  "visual_route_validation_passed": false,
+  "visual_route_validation_passed": true,
   "route_mixed": false,
-  "blocked_reason": "visual API generation failed before cards/API human could be rendered",
+  "blocked_reason": "",
+  "element_doll_host_route": "element_doll_host_reference_inheritance",
+  "element_doll_host_reference_id": "opening_reference_element_doll_no_text_locked_20260428",
   "prompt_card_route": "cute_prompt_card_route",
   "info_card_route": "cute_info_card_route",
   "sassy_reaction_card_route": "sassy_reaction_card_route",
-  "hyperframes_out_of_bounds": false
+  "used_routes": [
+    "element_doll_host_reference_inheritance",
+    "middle_editing_round34_locked_20260425",
+    "cute_info_card_route"
+  ],
+  "asset_sources": {
+    "element_doll_host_reference_inheritance": 5,
+    "user_media": 6,
+    "card_local_rendering_or_reference_inheritance": 6,
+    "new_pdf_or_image_api_generation": 0
+  },
+  "mechanism_checks": {
+    "middle_zoom_reference": {
+      "status": "passed",
+      "dynamic_crop_x_entered_final_video": true,
+      "contact_sheet": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/middle_zoom_contact_sheet.jpg"
+    },
+    "summary_cards": {
+      "status": "passed",
+      "segments": [
+        "seg15",
+        "seg16"
+      ],
+      "route": "cute_info_card_route",
+      "contact_sheet": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/card_route_contact_sheet.jpg"
+    },
+    "sassy_reaction_card_route": {
+      "status": "reference_read_not_used",
+      "reference": "PR7_B_骚萌反应页.png",
+      "pr7_a_used": false,
+      "false_claim_prevented": true
+    },
+    "hyperframes": {
+      "status": "not_used_checked",
+      "allowed_role": "card_motion_layer",
+      "entered_middle_screen_recording": false,
+      "replaced_cloud_assembly": false
+    }
+  },
+  "hyperframes_out_of_bounds": false,
+  "local_assembly_fallback_used": false
 }

@@ -2,51 +2,55 @@
 
 ## 任务结果
 
-- `result_status`：`blocked_full_reference_quality_video_not_completed`
+- `result_status`：`full_reference_quality_video_completed_cloud_exported`
 - `video_type`：`full_reference_quality_video`
-- `technical_validation`：`blocked`
-- `content_precheck_for_reference_quality`：`blocked`
+- `technical_validation`：`passed`
+- `content_precheck_for_reference_quality`：`passed`
 - `content_validation`：`pending_user_chatgpt_review`
 - `send_ready`：`false`
 
 ## 已确认
 
-- 已从 `codex/user-readable-map` 创建分支：`codex/short-video-auto-flow-formal-full-reference-video-20260503`。
-- 已创建正式 case：`cases/短视频自动流最简单流程_full_reference_quality_video.md`。
-- 已将用户确认的完整 `FINAL_SCRIPT_V2` 写入 case、文案库和本轮 `runtime_full_script.md`。
-- 已执行正式入口：`scripts/generate_formal_api_demo.py`，未使用 `--dry-run`。
-- 已做 formal pipeline 最小扩展：case-level 多段录屏时间码、录屏预处理、TTS 实际时长回写、云剪导出本地下载验证字段。
-- 已按时间码预处理用户录制素材：豆包、Trae、Codex 主素材进入 prepared visuals。
-- 按用户最新要求重新提取项目 TTS 后，独立完整 TTS 音轨已成功生成并可解码，时长 742.848 秒。
-- 已输出 blocked 报告包。
+- 已继续使用 PR #46 分支：`codex/short-video-auto-flow-formal-full-reference-video-20260503`。
+- 已复用完整 case：`cases/短视频自动流最简单流程_full_reference_quality_video.md`。
+- 已复用用户确认完整 `FINAL_SCRIPT_V2`，未压缩文案，未复用 PR #43 145 秒稿。
+- 已复用项目正式 TTS 重提音轨：`tts_retry_20260503_attempt2/tts/formal_voiceover.mp3`。
+- 已将本地正式 TTS 音轨接入正式 generation，跳过远程 voiceover 重复读取。
+- 已将 v3.1 元素娃娃主持壳按 `opening_reference_element_doll_no_text_locked_20260428` 做 locked reference inheritance。
+- 已确认 liveportrait / portrait quota 不再作为元素娃娃主持壳 blocker。
+- 已通过本地 renderer / reference inheritance 完成卡片和主持壳视觉资产；本轮未新增 PDF / 图片 API 生成需求。
+- 已将中段录屏从静态 `cover` 修正为 `middle_reference_zoom*` 动态 `crop_x` 证据窗口，并从云剪导出后的 `full_video.mp4` 重抽帧复核通过。
+- 已复核总结卡 / 即梦对比卡：`seg15`、`seg16` 均走 `cute_info_card_route`，只做边界说明和总结辅助。
+- 已读取骚萌卡唯一参考 `PR7_B_骚萌反应页.png`；本片未使用独立骚萌反应页，未回退 PR #7 A，未误写骚萌卡已入片。
+- 已复核 HyperFrames 边界：本片未启用，未进入中段录屏，未替代真实素材证据，未替代云剪。
+- 已执行 `scripts/generate_formal_api_demo.py`，generation 成功。
+- 已执行 `scripts/assemble_formal_api_demo.py`，OSS + ICE / 云剪 cloud-only assembly 成功。
+- 已生成并本地下载：`full_video.mp4`。
+- 已用 ffprobe / 解码检查验证：1080x1920，H.264，AAC，742.849 秒，可解码。
 - 未使用 macOS `say`。
 - 未使用 local assembly fallback。
-- 未用 host card / 信息卡冒充 API 真人。
 - 未修改 `dist/latest_review_pack/`。
 - 未修改当前 v3.1 publish target。
-
-## 阻断
-
-- `部分成立` 项目 TTS 已经可以独立生成完整音轨；但重新执行 `scripts/generate_formal_api_demo.py` 时，主 generation 的 voiceover 步骤仍返回 `The read operation timed out`，manifest 未形成可进入 assembly 的完整 voiceover 状态。
-- visual / API 生成仍被远端额度状态 `AllocationQuota.FreeTierOnly` 阻断，API 真人未能真实生成 / 入片。
-- 因 generation 未通过，未执行 `scripts/assemble_formal_api_demo.py`，未启动 OSS + ICE / 云剪总装。
 
 ## 产物路径
 
 - 输出目录：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video`
+- `full_video.mp4`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/full_video.mp4`
 - `manifest.json`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/manifest.json`
-- `standalone_tts_retry_audio`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/formal_voiceover.mp3`
+- `runtime_full_script.md`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/runtime_full_script.md`
+- `cloud_assembly_report.md`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/cloud_assembly_report.md`
 - `render_report.md`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/render_report.md`
-- `failure_and_blocker_report.md`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/failure_and_blocker_report.md`
 - `middle_zoom_contact_sheet.jpg`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/middle_zoom_contact_sheet.jpg`
+- `card_route_contact_sheet.jpg`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/card_route_contact_sheet.jpg`
+- `视觉机制完整复核报告_visual_mechanism_full_check_report.md`：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/视觉机制完整复核报告_visual_mechanism_full_check_report.md`
 
-## PR #43 继承检查
+## 保留边界
 
-- `已确认` PR #43 的 145 秒压缩稿未复用。
-- `已确认` PR #43 的 macOS `say` 临时音轨未复用。
-- `已确认` PR #43 的 local assembly fallback 未复用。
-- `已确认` PR #43 的 host card / 信息卡替代 API 真人错误未复用。
+- `content_validation` 仍为 `pending_user_chatgpt_review`。
+- `send_ready` 仍为 `false`。
+- 本轮技术完成不等于内容最终过线。
+- 大媒体文件、原始素材、TTS 音频和云剪导出 MP4 不提交进 Git。
 
 ## 下一个目标
 
-formal generation 的 voiceover 超时和 visual / API 额度阻断解除后，重新执行正式 generation，并在 API 真人、完整 TTS、用户素材、visual route 全部通过后再进入 cloud-only assembly。
+用户 / ChatGPT 对 `full_video.mp4` 做内容复审，并决定是否进入下一轮只改一个变量的修改。

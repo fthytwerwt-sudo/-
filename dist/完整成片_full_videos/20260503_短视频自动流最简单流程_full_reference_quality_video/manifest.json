@@ -1,7 +1,7 @@
 {
   "schema_version": "formal_api_demo_manifest/v1",
   "pipeline_kind": "formal_api_demo",
-  "current_status": "failed",
+  "current_status": "success",
   "input_snapshot": {
     "input_path": "cases/短视频自动流最简单流程_full_reference_quality_video.md",
     "theme": "《短视频自动流的最简单流程》正式参考质量完整片。",
@@ -11,36 +11,36 @@
   },
   "video_spec": {
     "theme": "《短视频自动流的最简单流程》正式参考质量完整片。",
-    "total_duration_seconds": 520.0,
+    "total_duration_seconds": 742.85,
     "aspect_ratio": "9:16",
     "target_scenario": "观众看完后能理解短视频自动流不是一键生成，而是把需求拆成流程，再让不同工具各自接一段，最后变成可检查、可继续迭代的生产流程。",
     "target_user": "正在尝试用豆包、Trae、Codex、API 和云剪搭建短视频生产流程，但容易把单点工具误当完整自动流的内容创作者。",
     "quality_requirements": [
       "full_reference_quality_video（正式参考质量完整片），不是样片、短片、技术样片或本地拼装演示。",
       "完整 FINAL_SCRIPT_V2 保真入片；不得使用 PR #43 压缩稿；不得限制时长。",
-      "API 生成真人、项目 TTS、用户录制素材、少量信息卡和 cloud-only assembly 必须各守其位。",
+      "API 生成真人主线在本轮落到 v3.1 元素娃娃主持壳继承，项目 TTS、用户录制素材、少量信息卡和 cloud-only assembly 必须各守其位。",
       "content_validation 只能保持 pending_user_chatgpt_review；send_ready 必须保持 false。"
     ],
     "route_profile": "api_human_local_footage_light_ppt_cloud_editing",
     "video_route_strategy": "hybrid",
-    "route_reason": "API 真人负责开头、关键判断、工位转折和结尾收束；用户录制素材承担中段真实流程证据；少量信息卡只做边界、关键词和总结辅助；正式总装固定走云端剪辑。"
+    "route_reason": "正式术语仍保留 API 生成真人主线，但本轮 v3.1 执行层的主持壳按 element_doll_host_reference_inheritance 继承元素娃娃无字开头锚点；用户录制素材承担中段真实流程证据；少量信息卡只做边界、关键词和总结辅助；正式总装固定走云端剪辑。"
   },
   "presentation_routing": {
     "schema_version": "formal_api_demo_route_plan/v1",
     "route_profile": "api_human_local_footage_light_ppt_cloud_editing",
     "video_route_strategy": "hybrid",
-    "route_reason": "API 真人负责开头、关键判断、工位转折和结尾收束；用户录制素材承担中段真实流程证据；少量信息卡只做边界、关键词和总结辅助；正式总装固定走云端剪辑。",
+    "route_reason": "正式术语仍保留 API 生成真人主线，但本轮 v3.1 执行层的主持壳按 element_doll_host_reference_inheritance 继承元素娃娃无字开头锚点；用户录制素材承担中段真实流程证据；少量信息卡只做边界、关键词和总结辅助；正式总装固定走云端剪辑。",
     "blocks": [
       {
         "block_id": "seg01",
         "block_goal": "开头进入：纠正一键生成误区",
-        "block_carrier": "human",
-        "asset_source": "api_generated",
+        "block_carrier": "element_doll_host",
+        "asset_source": "locked_reference_inheritance",
         "asset_key": "",
         "needs_image": false,
         "needs_video": true,
         "allow_real_desktop_footage": false,
-        "visual_intent": "开头进入：纠正一键生成误区；证明边界：开头 API 真人进入，直接点出误区与主判断。"
+        "visual_intent": "开头进入：纠正一键生成误区；证明边界：元素娃娃主持壳开头进入，直接点出误区与主判断。"
       },
       {
         "block_id": "seg02",
@@ -78,8 +78,8 @@
       {
         "block_id": "seg05",
         "block_goal": "想法层转为可执行 prompt",
-        "block_carrier": "human",
-        "asset_source": "api_generated",
+        "block_carrier": "element_doll_host",
+        "asset_source": "locked_reference_inheritance",
         "asset_key": "",
         "needs_image": false,
         "needs_video": true,
@@ -133,8 +133,8 @@
       {
         "block_id": "seg10",
         "block_goal": "API 工位转折",
-        "block_carrier": "human",
-        "asset_source": "api_generated",
+        "block_carrier": "element_doll_host",
+        "asset_source": "locked_reference_inheritance",
         "asset_key": "",
         "needs_image": false,
         "needs_video": true,
@@ -155,8 +155,8 @@
       {
         "block_id": "seg12",
         "block_goal": "云剪装配台转折",
-        "block_carrier": "human",
-        "asset_source": "api_generated",
+        "block_carrier": "element_doll_host",
+        "asset_source": "locked_reference_inheritance",
         "asset_key": "",
         "needs_image": false,
         "needs_video": true,
@@ -210,13 +210,13 @@
       {
         "block_id": "seg17",
         "block_goal": "结尾收束",
-        "block_carrier": "human",
-        "asset_source": "api_generated",
+        "block_carrier": "element_doll_host",
+        "asset_source": "locked_reference_inheritance",
         "asset_key": "",
         "needs_image": false,
         "needs_video": true,
         "allow_real_desktop_footage": false,
-        "visual_intent": "结尾收束；证明边界：结尾 API 真人收束到顺序对了，自动化才有地方落脚。"
+        "visual_intent": "结尾收束；证明边界：元素娃娃主持壳收束到顺序对了，自动化才有地方落脚。"
       }
     ]
   },
@@ -227,20 +227,20 @@
       "goal": "开头进入：纠正一键生成误区",
       "voiceover_text": "# 《短视频自动流的最简单流程》 短视频自动流，最简单的流程，真不是一上来就问： “用哪个 AI 帮我一键生成视频？” 这个问题一问，基本就跑偏了。 因为一键生成，更像是在抽一条素材。 这次画面可能不错，下次风格可能又变。 这次镜头刚好能用，下次人物、字幕、节奏可能又得重新来一遍。 所以我现在更关心的不是： 哪个工具最会生成视频。 而是： 一条短视频，能不能拆成一套能重复跑的流程。",
       "caption_text": "# 《短视频自动流的最简单流程》 短视频自动流，最简单的流程，真不是一上来就问： “用哪个 AI 帮我一键生成视频？” 这个问题一问，基本就跑偏了。 因为一键生成，更像是在抽一条素...",
-      "visual_intent": "开头进入：纠正一键生成误区；证明边界：开头 API 真人进入，直接点出误区与主判断。",
+      "visual_intent": "开头进入：纠正一键生成误区；证明边界：元素娃娃主持壳开头进入，直接点出误区与主判断。",
       "material_requirements": {
         "needs_image": false,
         "needs_video": true,
         "allow_real_desktop_footage": false,
-        "carrier": "human",
+        "carrier": "element_doll_host",
         "asset_key": "",
-        "asset_source": "api_generated"
+        "asset_source": "locked_reference_inheritance"
       },
       "presentation": {
-        "carrier": "human",
+        "carrier": "element_doll_host",
         "asset_key": "",
-        "asset_source": "api_generated",
-        "resolved_asset_origin": "api_generated"
+        "asset_source": "locked_reference_inheritance",
+        "resolved_asset_origin": "locked_reference_inheritance"
       },
       "provider_plan": {
         "tts_provider": "aliyun_bailian",
@@ -285,7 +285,7 @@
         "tts_baseline_profile": "aliyun_old_A"
       },
       "task_slots": {
-        "voice_task_id": "56f2e92e-e5fb-9844-b154-7842c967eb3d",
+        "voice_task_id": "302937e4-8868-9ec9-86e3-86208910873a",
         "image_task_id": null,
         "video_task_id": null
       },
@@ -295,17 +295,17 @@
         "video_resource_id": null
       },
       "output_slots": {
-        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg01.mp3",
+        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg01.mp3",
         "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
-        "visual_uri": null
+        "visual_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg01_prepared.mp4"
       },
       "timeline": {
         "planned_start_seconds": 0.0,
-        "planned_end_seconds": 34.6,
-        "planned_duration_seconds": 34.6
+        "planned_end_seconds": 31.25,
+        "planned_duration_seconds": 31.25
       },
       "known_issues": [],
-      "current_status": "failed"
+      "current_status": "success"
     },
     {
       "sequence": 2,
@@ -371,7 +371,7 @@
         "tts_baseline_profile": "aliyun_old_A"
       },
       "task_slots": {
-        "voice_task_id": "f634a981-17a6-94f8-8106-d3859dcf9e9a",
+        "voice_task_id": "ecca161f-5932-91ba-88da-21afcfdadb83",
         "image_task_id": null,
         "video_task_id": null
       },
@@ -381,14 +381,14 @@
         "video_resource_id": null
       },
       "output_slots": {
-        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg02.mp3",
+        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg02.mp3",
         "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
         "visual_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg02_prepared.mp4"
       },
       "timeline": {
-        "planned_start_seconds": 34.6,
-        "planned_end_seconds": 56.7,
-        "planned_duration_seconds": 22.1
+        "planned_start_seconds": 31.25,
+        "planned_end_seconds": 49.11,
+        "planned_duration_seconds": 17.86
       },
       "known_issues": [],
       "current_status": "success"
@@ -412,7 +412,7 @@
         "carrier": "light_ppt",
         "asset_key": "",
         "asset_source": "api_generated",
-        "resolved_asset_origin": "api_generated"
+        "resolved_asset_origin": "local_rendered"
       },
       "provider_plan": {
         "tts_provider": "aliyun_bailian",
@@ -457,7 +457,7 @@
         "tts_baseline_profile": "aliyun_old_A"
       },
       "task_slots": {
-        "voice_task_id": "18c5f7ef-8578-9000-a33f-58c63aeaa48f",
+        "voice_task_id": "eab7d62a-6be4-944e-bef0-9f2ea741562b",
         "image_task_id": null,
         "video_task_id": null
       },
@@ -467,17 +467,17 @@
         "video_resource_id": null
       },
       "output_slots": {
-        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg03.mp3",
+        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg03.mp3",
         "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
-        "visual_uri": null
+        "visual_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg03_cute_info_card_route.png"
       },
       "timeline": {
-        "planned_start_seconds": 56.7,
-        "planned_end_seconds": 82.8,
-        "planned_duration_seconds": 26.1
+        "planned_start_seconds": 49.11,
+        "planned_end_seconds": 73.21,
+        "planned_duration_seconds": 24.1
       },
       "known_issues": [],
-      "current_status": "not_started"
+      "current_status": "success"
     },
     {
       "sequence": 4,
@@ -543,7 +543,7 @@
         "tts_baseline_profile": "aliyun_old_A"
       },
       "task_slots": {
-        "voice_task_id": "f1a7afa1-9579-945f-a6dc-19575fcfe9b3",
+        "voice_task_id": "91a48e97-fda5-9ef5-966e-38ff55d3e31d",
         "image_task_id": null,
         "video_task_id": null
       },
@@ -553,14 +553,14 @@
         "video_resource_id": null
       },
       "output_slots": {
-        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg04.mp3",
+        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg04.mp3",
         "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
         "visual_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg04_prepared.mp4"
       },
       "timeline": {
-        "planned_start_seconds": 82.8,
-        "planned_end_seconds": 142.9,
-        "planned_duration_seconds": 60.1
+        "planned_start_seconds": 73.21,
+        "planned_end_seconds": 129.66,
+        "planned_duration_seconds": 56.45
       },
       "known_issues": [],
       "current_status": "success"
@@ -576,15 +576,15 @@
         "needs_image": false,
         "needs_video": true,
         "allow_real_desktop_footage": false,
-        "carrier": "human",
+        "carrier": "element_doll_host",
         "asset_key": "",
-        "asset_source": "api_generated"
+        "asset_source": "locked_reference_inheritance"
       },
       "presentation": {
-        "carrier": "human",
+        "carrier": "element_doll_host",
         "asset_key": "",
-        "asset_source": "api_generated",
-        "resolved_asset_origin": "api_generated"
+        "asset_source": "locked_reference_inheritance",
+        "resolved_asset_origin": "locked_reference_inheritance"
       },
       "provider_plan": {
         "tts_provider": "aliyun_bailian",
@@ -629,7 +629,7 @@
         "tts_baseline_profile": "aliyun_old_A"
       },
       "task_slots": {
-        "voice_task_id": null,
+        "voice_task_id": "fce7cf00-5d9b-9e10-8d57-678b0cc6cd47",
         "image_task_id": null,
         "video_task_id": null
       },
@@ -639,17 +639,17 @@
         "video_resource_id": null
       },
       "output_slots": {
-        "voice_uri": null,
+        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg05.mp3",
         "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
-        "visual_uri": null
+        "visual_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg05_prepared.mp4"
       },
       "timeline": {
-        "planned_start_seconds": 142.9,
-        "planned_end_seconds": 172.6,
-        "planned_duration_seconds": 29.7
+        "planned_start_seconds": 129.66,
+        "planned_end_seconds": 153.73,
+        "planned_duration_seconds": 24.07
       },
       "known_issues": [],
-      "current_status": "not_started"
+      "current_status": "success"
     },
     {
       "sequence": 6,
@@ -715,7 +715,7 @@
         "tts_baseline_profile": "aliyun_old_A"
       },
       "task_slots": {
-        "voice_task_id": null,
+        "voice_task_id": "1cb62852-bf1c-9e52-af11-fdbeec20e066",
         "image_task_id": null,
         "video_task_id": null
       },
@@ -725,14 +725,14 @@
         "video_resource_id": null
       },
       "output_slots": {
-        "voice_uri": null,
+        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg06.mp3",
         "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
         "visual_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg06_prepared.mp4"
       },
       "timeline": {
-        "planned_start_seconds": 172.6,
-        "planned_end_seconds": 240.6,
-        "planned_duration_seconds": 68.0
+        "planned_start_seconds": 153.73,
+        "planned_end_seconds": 213.15,
+        "planned_duration_seconds": 59.42
       },
       "known_issues": [],
       "current_status": "success"
@@ -801,7 +801,7 @@
         "tts_baseline_profile": "aliyun_old_A"
       },
       "task_slots": {
-        "voice_task_id": null,
+        "voice_task_id": "2f02c111-1a9b-9210-85b4-3efd2f2ddaff",
         "image_task_id": null,
         "video_task_id": null
       },
@@ -811,14 +811,14 @@
         "video_resource_id": null
       },
       "output_slots": {
-        "voice_uri": null,
+        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg07.mp3",
         "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
         "visual_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg07_prepared.mp4"
       },
       "timeline": {
-        "planned_start_seconds": 240.6,
-        "planned_end_seconds": 302.7,
-        "planned_duration_seconds": 62.1
+        "planned_start_seconds": 213.15,
+        "planned_end_seconds": 259.11,
+        "planned_duration_seconds": 45.96
       },
       "known_issues": [],
       "current_status": "success"
@@ -887,7 +887,7 @@
         "tts_baseline_profile": "aliyun_old_A"
       },
       "task_slots": {
-        "voice_task_id": null,
+        "voice_task_id": "964a5eec-9688-9889-a42e-bf18ce19b4a6",
         "image_task_id": null,
         "video_task_id": null
       },
@@ -897,14 +897,14 @@
         "video_resource_id": null
       },
       "output_slots": {
-        "voice_uri": null,
+        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg08.mp3",
         "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
         "visual_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg08_prepared.mp4"
       },
       "timeline": {
-        "planned_start_seconds": 302.7,
-        "planned_end_seconds": 372.7,
-        "planned_duration_seconds": 70.0
+        "planned_start_seconds": 259.11,
+        "planned_end_seconds": 325.47,
+        "planned_duration_seconds": 66.36
       },
       "known_issues": [],
       "current_status": "success"
@@ -928,7 +928,7 @@
         "carrier": "light_ppt",
         "asset_key": "",
         "asset_source": "api_generated",
-        "resolved_asset_origin": "api_generated"
+        "resolved_asset_origin": "local_rendered"
       },
       "provider_plan": {
         "tts_provider": "aliyun_bailian",
@@ -973,7 +973,7 @@
         "tts_baseline_profile": "aliyun_old_A"
       },
       "task_slots": {
-        "voice_task_id": null,
+        "voice_task_id": "5430cd0d-c4ae-957d-94d0-c61c5bcc15cf",
         "image_task_id": null,
         "video_task_id": null
       },
@@ -983,17 +983,17 @@
         "video_resource_id": null
       },
       "output_slots": {
-        "voice_uri": null,
+        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg09.mp3",
         "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
-        "visual_uri": null
+        "visual_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg09_cute_info_card_route.png"
       },
       "timeline": {
-        "planned_start_seconds": 372.7,
-        "planned_end_seconds": 422.4,
-        "planned_duration_seconds": 49.7
+        "planned_start_seconds": 325.47,
+        "planned_end_seconds": 365.55,
+        "planned_duration_seconds": 40.08
       },
       "known_issues": [],
-      "current_status": "not_started"
+      "current_status": "success"
     },
     {
       "sequence": 10,
@@ -1006,15 +1006,15 @@
         "needs_image": false,
         "needs_video": true,
         "allow_real_desktop_footage": false,
-        "carrier": "human",
+        "carrier": "element_doll_host",
         "asset_key": "",
-        "asset_source": "api_generated"
+        "asset_source": "locked_reference_inheritance"
       },
       "presentation": {
-        "carrier": "human",
+        "carrier": "element_doll_host",
         "asset_key": "",
-        "asset_source": "api_generated",
-        "resolved_asset_origin": "api_generated"
+        "asset_source": "locked_reference_inheritance",
+        "resolved_asset_origin": "locked_reference_inheritance"
       },
       "provider_plan": {
         "tts_provider": "aliyun_bailian",
@@ -1059,7 +1059,7 @@
         "tts_baseline_profile": "aliyun_old_A"
       },
       "task_slots": {
-        "voice_task_id": null,
+        "voice_task_id": "54a17359-b1ff-9cf8-8797-f046bed51103",
         "image_task_id": null,
         "video_task_id": null
       },
@@ -1069,17 +1069,17 @@
         "video_resource_id": null
       },
       "output_slots": {
-        "voice_uri": null,
+        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg10.mp3",
         "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
-        "visual_uri": null
+        "visual_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg10_prepared.mp4"
       },
       "timeline": {
-        "planned_start_seconds": 422.4,
-        "planned_end_seconds": 445.4,
-        "planned_duration_seconds": 23.0
+        "planned_start_seconds": 365.55,
+        "planned_end_seconds": 384.61,
+        "planned_duration_seconds": 19.06
       },
       "known_issues": [],
-      "current_status": "not_started"
+      "current_status": "success"
     },
     {
       "sequence": 11,
@@ -1100,7 +1100,7 @@
         "carrier": "light_ppt",
         "asset_key": "",
         "asset_source": "api_generated",
-        "resolved_asset_origin": "api_generated"
+        "resolved_asset_origin": "local_rendered"
       },
       "provider_plan": {
         "tts_provider": "aliyun_bailian",
@@ -1145,7 +1145,7 @@
         "tts_baseline_profile": "aliyun_old_A"
       },
       "task_slots": {
-        "voice_task_id": null,
+        "voice_task_id": "87362838-c924-9486-b791-2d2ed6865858",
         "image_task_id": null,
         "video_task_id": null
       },
@@ -1155,17 +1155,17 @@
         "video_resource_id": null
       },
       "output_slots": {
-        "voice_uri": null,
+        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg11.mp3",
         "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
-        "visual_uri": null
+        "visual_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg11_cute_info_card_route.png"
       },
       "timeline": {
-        "planned_start_seconds": 445.4,
-        "planned_end_seconds": 499.2,
-        "planned_duration_seconds": 53.8
+        "planned_start_seconds": 384.61,
+        "planned_end_seconds": 434.17,
+        "planned_duration_seconds": 49.56
       },
       "known_issues": [],
-      "current_status": "not_started"
+      "current_status": "success"
     },
     {
       "sequence": 12,
@@ -1178,15 +1178,15 @@
         "needs_image": false,
         "needs_video": true,
         "allow_real_desktop_footage": false,
-        "carrier": "human",
+        "carrier": "element_doll_host",
         "asset_key": "",
-        "asset_source": "api_generated"
+        "asset_source": "locked_reference_inheritance"
       },
       "presentation": {
-        "carrier": "human",
+        "carrier": "element_doll_host",
         "asset_key": "",
-        "asset_source": "api_generated",
-        "resolved_asset_origin": "api_generated"
+        "asset_source": "locked_reference_inheritance",
+        "resolved_asset_origin": "locked_reference_inheritance"
       },
       "provider_plan": {
         "tts_provider": "aliyun_bailian",
@@ -1231,7 +1231,7 @@
         "tts_baseline_profile": "aliyun_old_A"
       },
       "task_slots": {
-        "voice_task_id": null,
+        "voice_task_id": "e8b3a1e5-b171-99b6-9dbe-a7c99d02e02f",
         "image_task_id": null,
         "video_task_id": null
       },
@@ -1241,17 +1241,17 @@
         "video_resource_id": null
       },
       "output_slots": {
-        "voice_uri": null,
+        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg12.mp3",
         "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
-        "visual_uri": null
+        "visual_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg12_prepared.mp4"
       },
       "timeline": {
-        "planned_start_seconds": 499.2,
-        "planned_end_seconds": 522.1,
-        "planned_duration_seconds": 22.9
+        "planned_start_seconds": 434.17,
+        "planned_end_seconds": 455.07,
+        "planned_duration_seconds": 20.9
       },
       "known_issues": [],
-      "current_status": "not_started"
+      "current_status": "success"
     },
     {
       "sequence": 13,
@@ -1272,7 +1272,7 @@
         "carrier": "light_ppt",
         "asset_key": "",
         "asset_source": "api_generated",
-        "resolved_asset_origin": "api_generated"
+        "resolved_asset_origin": "local_rendered"
       },
       "provider_plan": {
         "tts_provider": "aliyun_bailian",
@@ -1317,7 +1317,7 @@
         "tts_baseline_profile": "aliyun_old_A"
       },
       "task_slots": {
-        "voice_task_id": null,
+        "voice_task_id": "bfb8e7cd-0c42-9a71-a209-d7b4f9acf6e8",
         "image_task_id": null,
         "video_task_id": null
       },
@@ -1327,17 +1327,17 @@
         "video_resource_id": null
       },
       "output_slots": {
-        "voice_uri": null,
+        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg13.mp3",
         "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
-        "visual_uri": null
+        "visual_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg13_cute_info_card_route.png"
       },
       "timeline": {
-        "planned_start_seconds": 522.1,
-        "planned_end_seconds": 556.7,
-        "planned_duration_seconds": 34.6
+        "planned_start_seconds": 455.07,
+        "planned_end_seconds": 487.52,
+        "planned_duration_seconds": 32.45
       },
       "known_issues": [],
-      "current_status": "not_started"
+      "current_status": "success"
     },
     {
       "sequence": 14,
@@ -1403,7 +1403,7 @@
         "tts_baseline_profile": "aliyun_old_A"
       },
       "task_slots": {
-        "voice_task_id": null,
+        "voice_task_id": "6899bb15-b242-9115-863a-6dab67f74f17",
         "image_task_id": null,
         "video_task_id": null
       },
@@ -1413,14 +1413,14 @@
         "video_resource_id": null
       },
       "output_slots": {
-        "voice_uri": null,
+        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg14.mp3",
         "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
         "visual_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg14_prepared.mp4"
       },
       "timeline": {
-        "planned_start_seconds": 556.7,
-        "planned_end_seconds": 621.7,
-        "planned_duration_seconds": 65.0
+        "planned_start_seconds": 487.52,
+        "planned_end_seconds": 544.47,
+        "planned_duration_seconds": 56.95
       },
       "known_issues": [],
       "current_status": "success"
@@ -1444,7 +1444,7 @@
         "carrier": "light_ppt",
         "asset_key": "",
         "asset_source": "api_generated",
-        "resolved_asset_origin": "api_generated"
+        "resolved_asset_origin": "local_rendered"
       },
       "provider_plan": {
         "tts_provider": "aliyun_bailian",
@@ -1489,7 +1489,7 @@
         "tts_baseline_profile": "aliyun_old_A"
       },
       "task_slots": {
-        "voice_task_id": null,
+        "voice_task_id": "bed8b815-bd34-9476-8bc0-623c747a7c4b",
         "image_task_id": null,
         "video_task_id": null
       },
@@ -1499,17 +1499,17 @@
         "video_resource_id": null
       },
       "output_slots": {
-        "voice_uri": null,
+        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg15.mp3",
         "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
-        "visual_uri": null
+        "visual_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg15_cute_info_card_route.png"
       },
       "timeline": {
-        "planned_start_seconds": 621.7,
-        "planned_end_seconds": 660.2,
-        "planned_duration_seconds": 38.5
+        "planned_start_seconds": 544.47,
+        "planned_end_seconds": 577.35,
+        "planned_duration_seconds": 32.88
       },
       "known_issues": [],
-      "current_status": "not_started"
+      "current_status": "success"
     },
     {
       "sequence": 16,
@@ -1530,7 +1530,7 @@
         "carrier": "light_ppt",
         "asset_key": "",
         "asset_source": "api_generated",
-        "resolved_asset_origin": "api_generated"
+        "resolved_asset_origin": "local_rendered"
       },
       "provider_plan": {
         "tts_provider": "aliyun_bailian",
@@ -1575,7 +1575,7 @@
         "tts_baseline_profile": "aliyun_old_A"
       },
       "task_slots": {
-        "voice_task_id": null,
+        "voice_task_id": "85973dc6-7380-96b7-a16c-3c2e923493cf",
         "image_task_id": null,
         "video_task_id": null
       },
@@ -1585,17 +1585,17 @@
         "video_resource_id": null
       },
       "output_slots": {
-        "voice_uri": null,
+        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg16.mp3",
         "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
-        "visual_uri": null
+        "visual_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg16_cute_info_card_route.png"
       },
       "timeline": {
-        "planned_start_seconds": 660.2,
-        "planned_end_seconds": 730.2,
-        "planned_duration_seconds": 70.0
+        "planned_start_seconds": 577.35,
+        "planned_end_seconds": 698.14,
+        "planned_duration_seconds": 120.79
       },
       "known_issues": [],
-      "current_status": "not_started"
+      "current_status": "success"
     },
     {
       "sequence": 17,
@@ -1603,20 +1603,20 @@
       "goal": "结尾收束",
       "voiceover_text": "而且出问题的时候，你知道卡在哪一步。 是需求没拆清楚？ 是项目结构没生成好？ 是 API 没接上？ 是卡片素材缺了？ 是云端剪辑没导出？ 还是 Codex 检查发现路径不对？ 这才是自动流真正有用的地方。 所以这条视频我想讲的不是： 某个工具有多厉害。 而是： 短视频自动流，最简单的流程，就是先把视频生产拆开，再让每一步都有人负责、有工具能做、有结果能检查。 即梦这类工具适合帮你出素材。 但短视频自动流，是让素材、脚本、剪辑、检查和复盘，变成一条可以重复跑的生产流程。 别一上来就追求一键生成。 先把顺序理出来。 顺序对了，自动化才有地方落脚。",
       "caption_text": "而且出问题的时候，你知道卡在哪一步。 是需求没拆清楚？ 是项目结构没生成好？ 是 API 没接上？ 是卡片素材缺了？ 是云端剪辑没导出？ 还是 Codex 检查发现路径不对？ 这才...",
-      "visual_intent": "结尾收束；证明边界：结尾 API 真人收束到顺序对了，自动化才有地方落脚。",
+      "visual_intent": "结尾收束；证明边界：元素娃娃主持壳收束到顺序对了，自动化才有地方落脚。",
       "material_requirements": {
         "needs_image": false,
         "needs_video": true,
         "allow_real_desktop_footage": false,
-        "carrier": "human",
+        "carrier": "element_doll_host",
         "asset_key": "",
-        "asset_source": "api_generated"
+        "asset_source": "locked_reference_inheritance"
       },
       "presentation": {
-        "carrier": "human",
+        "carrier": "element_doll_host",
         "asset_key": "",
-        "asset_source": "api_generated",
-        "resolved_asset_origin": "api_generated"
+        "asset_source": "locked_reference_inheritance",
+        "resolved_asset_origin": "locked_reference_inheritance"
       },
       "provider_plan": {
         "tts_provider": "aliyun_bailian",
@@ -1661,7 +1661,7 @@
         "tts_baseline_profile": "aliyun_old_A"
       },
       "task_slots": {
-        "voice_task_id": null,
+        "voice_task_id": "c4529527-1923-9a9d-85bc-98e41d9267fa",
         "image_task_id": null,
         "video_task_id": null
       },
@@ -1671,17 +1671,17 @@
         "video_resource_id": null
       },
       "output_slots": {
-        "voice_uri": null,
+        "voice_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg17.mp3",
         "subtitle_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
-        "visual_uri": null
+        "visual_uri": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg17_prepared.mp4"
       },
       "timeline": {
-        "planned_start_seconds": 730.2,
-        "planned_end_seconds": 779.5,
-        "planned_duration_seconds": 49.3
+        "planned_start_seconds": 698.14,
+        "planned_end_seconds": 742.85,
+        "planned_duration_seconds": 44.71
       },
       "known_issues": [],
-      "current_status": "not_started"
+      "current_status": "success"
     }
   ],
   "provider_summary": {
@@ -1751,17 +1751,18 @@
     }
   },
   "timeline": {
-    "planned_total_duration_seconds": 520.0,
+    "planned_total_duration_seconds": 742.85,
     "planned_segment_count": 17
   },
   "status_summary": {
-    "generation": "failed",
+    "generation": "success",
+    "assembly_delivery": "success",
     "local_assembly": "not_started",
-    "cloud_assembly": "not_started",
-    "overall_status": "failed"
+    "cloud_assembly": "success",
+    "overall_status": "success"
   },
   "generation": {
-    "status": "failed",
+    "status": "success",
     "task_id": null,
     "resource_id": null,
     "output_id": null,
@@ -1782,137 +1783,34 @@
       "http_status_code": null,
       "error_code": "",
       "error_message": "",
-      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/voice_probe.mp3",
-      "request_id": "ae27c77e-c5c0-93e5-8acd-908c336ad54f",
+      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/formal_voiceover.mp3",
+      "request_id": null,
       "provider": "aliyun_bailian",
       "api_route_family": "aliyun_bailian_cosyvoice",
       "model_identifier": "cosyvoice-v2",
       "probe_text": "# 《短视频自动流的最简单流程》 短视频自动流，最简单的流程，真不是一上来就问： “用哪个 AI 帮我一键生成视频？” 这个问题一问，基本就跑偏了。 因为一键生成，更像是在抽一条素材。 这次画面可能不错，下次风格可能又变。 这次镜头刚好能用，下次人物、字幕、节奏可能又得重新来一遍。 所以我现在更关心的不是： 哪个工具最会生成视频。 而是： 一条短视频，能不能拆成一套能重复跑的流程。",
-      "probe_text_source": "segment_1_voiceover",
-      "voice": "longxiaochun_v2",
-      "used_endpoint_id": "4429057155",
-      "used_model_id": "cosyvoice-v2",
-      "used_resource_id": "SET_IF_OPENSPEECH_REQUIRED",
-      "response_format": "mp3",
-      "request_debug": {
-        "provider": "aliyun_bailian",
-        "api_route_family": "aliyun_bailian_cosyvoice",
-        "provider_route_family": "aliyun_bailian_cosyvoice",
-        "request_method": "POST",
-        "base_url": "https://dashscope.aliyuncs.com/api/v1",
-        "relative_path": "/services/audio/tts/SpeechSynthesizer",
-        "sdk_call": "urllib.request.urlopen",
-        "model_identifier_source": "model",
-        "model_identifier_shape": {
-          "present": true,
-          "length": 12,
-          "has_digit": true,
-          "has_dash": true,
-          "prefix": "co",
-          "suffix": "v2"
-        },
-        "endpoint_id_shape": {
-          "present": true,
-          "length": 10,
-          "has_digit": true,
-          "has_dash": false,
-          "prefix": "44",
-          "suffix": "55"
-        },
-        "model_shape": {
-          "present": true,
-          "length": 12,
-          "has_digit": true,
-          "has_dash": true,
-          "prefix": "co",
-          "suffix": "v2"
-        },
-        "resource_id_shape": {
-          "present": true,
-          "length": 26,
-          "has_digit": false,
-          "has_dash": false,
-          "prefix": "SE",
-          "suffix": "ED"
-        },
-        "app_id_shape": {
-          "present": false,
-          "length": 0,
-          "has_digit": false,
-          "has_dash": false,
-          "prefix": "",
-          "suffix": ""
-        },
-        "voice_location": "payload.input.voice",
-        "voice_shape": {
-          "present": true,
-          "length": 15,
-          "has_digit": true,
-          "has_dash": false,
-          "prefix": "lo",
-          "suffix": "v2"
-        },
-        "style_shape": {
-          "present": true,
-          "length": 9,
-          "has_digit": false,
-          "has_dash": false,
-          "prefix": "kn",
-          "suffix": "ge"
-        },
-        "response_format": "mp3",
-        "instruction_location": "payload.input.instruction",
-        "instruction_shape": {
-          "present": false,
-          "length": 0,
-          "has_digit": false,
-          "has_dash": false,
-          "prefix": "",
-          "suffix": ""
-        },
-        "speech_rate": 1.0,
-        "pitch_rate": 0.92,
-        "volume": 46,
-        "request_input_keys": [
-          "text",
-          "voice",
-          "format",
-          "rate",
-          "pitch",
-          "volume"
-        ],
-        "style_draft_in_request": false
-      },
+      "probe_text_source": "local_voiceover_path",
+      "voice": null,
+      "used_endpoint_id": null,
+      "used_model_id": null,
+      "used_resource_id": null,
+      "response_format": null,
+      "request_debug": {},
       "current_missing_prerequisites": [],
-      "candidate_pool": {
-        "total_candidate_count": 1,
-        "available_candidate_count": 1,
-        "backup_candidate_count": 0,
-        "candidates": [
-          {
-            "candidate_id": "primary",
-            "label": "primary",
-            "provider": "aliyun_bailian",
-            "api_route_family": "aliyun_bailian_cosyvoice",
-            "voice": "longxiaochun_v2",
-            "model_identifier": "cosyvoice-v2",
-            "style_profile": "default",
-            "priority": 10,
-            "enabled": true,
-            "available": true,
-            "missing_prerequisites": []
-          }
-        ]
-      },
+      "candidate_pool": {},
       "fallback_events": [],
-      "selected_candidate_id": "primary",
-      "selected_candidate_label": "primary",
-      "selected_voice": "longxiaochun_v2",
+      "selected_candidate_id": "local_voiceover_path",
+      "selected_candidate_label": "本地正式 TTS 完整音轨",
+      "selected_voice": "",
       "failure_category": "",
-      "resource_pool_exhausted": false
+      "resource_pool_exhausted": false,
+      "duration_seconds": 742.848,
+      "local_voiceover_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/formal_voiceover.mp3",
+      "source_report_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts_retry_report.json",
+      "remote_probe_skipped": true
     },
     "voiceover": {
-      "status": "failed",
+      "status": "success",
       "baseline_profile": {
         "profile_id": "aliyun_old_A",
         "source_variant": "tts_style_probe_variant_A",
@@ -1923,98 +1821,245 @@
         "volume": 46,
         "note": "当前正式链路继续沿用旧 A 作为默认可用配音基线，不再继续扩声音实验分支。"
       },
-      "audio_path": null,
+      "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/formal_voiceover.mp3",
       "segment_audio_paths": [
-        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg01.mp3",
-        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg02.mp3",
-        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg03.mp3",
-        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg04.mp3"
+        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg01.mp3",
+        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg02.mp3",
+        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg03.mp3",
+        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg04.mp3",
+        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg05.mp3",
+        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg06.mp3",
+        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg07.mp3",
+        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg08.mp3",
+        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg09.mp3",
+        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg10.mp3",
+        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg11.mp3",
+        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg12.mp3",
+        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg13.mp3",
+        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg14.mp3",
+        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg15.mp3",
+        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg16.mp3",
+        "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg17.mp3"
       ],
       "segment_results": [
         {
           "segment_id": "seg01",
           "status": "success",
-          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg01.mp3",
-          "request_id": "56f2e92e-e5fb-9844-b154-7842c967eb3d",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg01.mp3",
+          "request_id": "302937e4-8868-9ec9-86e3-86208910873a",
           "failure_reason": "",
           "error_message": "",
           "selected_candidate_id": "primary",
           "fallback_events": [],
-          "duration_seconds": 31.248
+          "duration_seconds": 31.248,
+          "ingestion_mode": "local_project_tts_audio"
         },
         {
           "segment_id": "seg02",
           "status": "success",
-          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg02.mp3",
-          "request_id": "f634a981-17a6-94f8-8106-d3859dcf9e9a",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg02.mp3",
+          "request_id": "ecca161f-5932-91ba-88da-21afcfdadb83",
           "failure_reason": "",
           "error_message": "",
           "selected_candidate_id": "primary",
           "fallback_events": [],
-          "duration_seconds": 17.856
+          "duration_seconds": 17.856,
+          "ingestion_mode": "local_project_tts_audio"
         },
         {
           "segment_id": "seg03",
           "status": "success",
-          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg03.mp3",
-          "request_id": "18c5f7ef-8578-9000-a33f-58c63aeaa48f",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg03.mp3",
+          "request_id": "eab7d62a-6be4-944e-bef0-9f2ea741562b",
           "failure_reason": "",
           "error_message": "",
           "selected_candidate_id": "primary",
           "fallback_events": [],
-          "duration_seconds": 24.096
+          "duration_seconds": 24.096,
+          "ingestion_mode": "local_project_tts_audio"
         },
         {
           "segment_id": "seg04",
           "status": "success",
-          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/segment_seg04.mp3",
-          "request_id": "f1a7afa1-9579-945f-a6dc-19575fcfe9b3",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg04.mp3",
+          "request_id": "91a48e97-fda5-9ef5-966e-38ff55d3e31d",
           "failure_reason": "",
           "error_message": "",
           "selected_candidate_id": "primary",
           "fallback_events": [],
-          "duration_seconds": 56.448
+          "duration_seconds": 56.448,
+          "ingestion_mode": "local_project_tts_audio"
         },
         {
           "segment_id": "seg05",
-          "status": "failed",
-          "audio_path": null,
-          "request_id": null,
-          "failure_reason": "aliyun_bailian_tts_request_failed",
-          "error_message": "The read operation timed out",
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg05.mp3",
+          "request_id": "fce7cf00-5d9b-9e10-8d57-678b0cc6cd47",
+          "failure_reason": "",
+          "error_message": "",
           "selected_candidate_id": "primary",
-          "fallback_events": [
-            {
-              "resource_kind": "tts",
-              "from_candidate_id": "primary",
-              "from_provider": "aliyun_bailian",
-              "from_voice": "longxiaochun_v2",
-              "reason_category": "unknown",
-              "reason": "The read operation timed out",
-              "switch_to_candidate_id": "",
-              "remaining_candidate_count": 0
-            }
-          ],
-          "duration_seconds": null
-        }
-      ],
-      "blocked_reason": "The read operation timed out",
-      "failure_reason": "aliyun_bailian_tts_request_failed",
-      "error_message": "The read operation timed out",
-      "current_missing_prerequisites": [],
-      "fallback_events": [
+          "fallback_events": [],
+          "duration_seconds": 24.072,
+          "ingestion_mode": "local_project_tts_audio"
+        },
         {
-          "resource_kind": "tts",
-          "from_candidate_id": "primary",
-          "from_provider": "aliyun_bailian",
-          "from_voice": "longxiaochun_v2",
-          "reason_category": "unknown",
-          "reason": "The read operation timed out",
-          "switch_to_candidate_id": "",
-          "remaining_candidate_count": 0
+          "segment_id": "seg06",
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg06.mp3",
+          "request_id": "1cb62852-bf1c-9e52-af11-fdbeec20e066",
+          "failure_reason": "",
+          "error_message": "",
+          "selected_candidate_id": "primary",
+          "fallback_events": [],
+          "duration_seconds": 59.424,
+          "ingestion_mode": "local_project_tts_audio"
+        },
+        {
+          "segment_id": "seg07",
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg07.mp3",
+          "request_id": "2f02c111-1a9b-9210-85b4-3efd2f2ddaff",
+          "failure_reason": "",
+          "error_message": "",
+          "selected_candidate_id": "primary",
+          "fallback_events": [],
+          "duration_seconds": 45.96,
+          "ingestion_mode": "local_project_tts_audio"
+        },
+        {
+          "segment_id": "seg08",
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg08.mp3",
+          "request_id": "964a5eec-9688-9889-a42e-bf18ce19b4a6",
+          "failure_reason": "",
+          "error_message": "",
+          "selected_candidate_id": "primary",
+          "fallback_events": [],
+          "duration_seconds": 66.36,
+          "ingestion_mode": "local_project_tts_audio"
+        },
+        {
+          "segment_id": "seg09",
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg09.mp3",
+          "request_id": "5430cd0d-c4ae-957d-94d0-c61c5bcc15cf",
+          "failure_reason": "",
+          "error_message": "",
+          "selected_candidate_id": "primary",
+          "fallback_events": [],
+          "duration_seconds": 40.08,
+          "ingestion_mode": "local_project_tts_audio"
+        },
+        {
+          "segment_id": "seg10",
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg10.mp3",
+          "request_id": "54a17359-b1ff-9cf8-8797-f046bed51103",
+          "failure_reason": "",
+          "error_message": "",
+          "selected_candidate_id": "primary",
+          "fallback_events": [],
+          "duration_seconds": 19.056,
+          "ingestion_mode": "local_project_tts_audio"
+        },
+        {
+          "segment_id": "seg11",
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg11.mp3",
+          "request_id": "87362838-c924-9486-b791-2d2ed6865858",
+          "failure_reason": "",
+          "error_message": "",
+          "selected_candidate_id": "primary",
+          "fallback_events": [],
+          "duration_seconds": 49.56,
+          "ingestion_mode": "local_project_tts_audio"
+        },
+        {
+          "segment_id": "seg12",
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg12.mp3",
+          "request_id": "e8b3a1e5-b171-99b6-9dbe-a7c99d02e02f",
+          "failure_reason": "",
+          "error_message": "",
+          "selected_candidate_id": "primary",
+          "fallback_events": [],
+          "duration_seconds": 20.904,
+          "ingestion_mode": "local_project_tts_audio"
+        },
+        {
+          "segment_id": "seg13",
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg13.mp3",
+          "request_id": "bfb8e7cd-0c42-9a71-a209-d7b4f9acf6e8",
+          "failure_reason": "",
+          "error_message": "",
+          "selected_candidate_id": "primary",
+          "fallback_events": [],
+          "duration_seconds": 32.448,
+          "ingestion_mode": "local_project_tts_audio"
+        },
+        {
+          "segment_id": "seg14",
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg14.mp3",
+          "request_id": "6899bb15-b242-9115-863a-6dab67f74f17",
+          "failure_reason": "",
+          "error_message": "",
+          "selected_candidate_id": "primary",
+          "fallback_events": [],
+          "duration_seconds": 56.952,
+          "ingestion_mode": "local_project_tts_audio"
+        },
+        {
+          "segment_id": "seg15",
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg15.mp3",
+          "request_id": "bed8b815-bd34-9476-8bc0-623c747a7c4b",
+          "failure_reason": "",
+          "error_message": "",
+          "selected_candidate_id": "primary",
+          "fallback_events": [],
+          "duration_seconds": 32.88,
+          "ingestion_mode": "local_project_tts_audio"
+        },
+        {
+          "segment_id": "seg16",
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg16.mp3",
+          "request_id": "85973dc6-7380-96b7-a16c-3c2e923493cf",
+          "failure_reason": "",
+          "error_message": "",
+          "selected_candidate_id": "primary",
+          "fallback_events": [],
+          "duration_seconds": 120.792,
+          "ingestion_mode": "local_project_tts_audio"
+        },
+        {
+          "segment_id": "seg17",
+          "status": "success",
+          "audio_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/segment_seg17.mp3",
+          "request_id": "c4529527-1923-9a9d-85bc-98e41d9267fa",
+          "failure_reason": "",
+          "error_message": "",
+          "selected_candidate_id": "primary",
+          "fallback_events": [],
+          "duration_seconds": 44.712,
+          "ingestion_mode": "local_project_tts_audio"
         }
       ],
-      "last_success_candidate_id": ""
+      "blocked_reason": "",
+      "failure_reason": "",
+      "error_message": "",
+      "current_missing_prerequisites": [],
+      "fallback_events": [],
+      "last_success_candidate_id": "local_voiceover_path",
+      "duration_seconds": 742.848,
+      "provider": "aliyun_bailian",
+      "api_route_family": "aliyun_bailian_cosyvoice",
+      "model_identifier": "cosyvoice-v2",
+      "ingestion_mode": "local_project_tts_audio",
+      "remote_generation_skipped": true,
+      "source_report_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts_retry_report.json"
     },
     "captions": {
       "status": "success",
@@ -2024,8 +2069,8 @@
       "segment_count": 17
     },
     "visual_generation": {
-      "status": "failed",
-      "delivery_mode": "api_generated_local_assets",
+      "status": "success",
+      "delivery_mode": "local_reference_and_rendered_assets",
       "provider": "aliyun_bailian",
       "image_model": "wan2.6-image",
       "video_model": "wan2.7-i2v",
@@ -2040,7 +2085,7 @@
         "error_message": ""
       },
       "portrait_detect": {
-        "status": "not_started",
+        "status": "skipped",
         "enabled": true,
         "model": "liveportrait-detect",
         "role": "liveportrait 前置检测",
@@ -2052,7 +2097,7 @@
         "source_image_url": null
       },
       "portrait_video_generation": {
-        "status": "not_started",
+        "status": "skipped",
         "enabled": true,
         "model": "liveportrait",
         "role": "固定背景 / 人物开口分支",
@@ -2075,36 +2120,33 @@
         {
           "segment_id": "seg01",
           "sequence": 1,
-          "carrier": "human",
+          "carrier": "element_doll_host",
           "asset_key": "",
-          "asset_source": "api_generated",
-          "needs_image": true,
+          "asset_source": "locked_reference_inheritance",
+          "verified_role": "element_doll_host_opening_anchor",
+          "needs_image": false,
           "needs_video": true,
-          "seed_image_required": true,
-          "image_prompt": "9:16 竖版，单一角色，同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。，半身构图，固定背景，面对镜头，眼神稳定，语气克制但有判断感，像在直接点破常见误区。整体要可信、克制、可爱但不低幼，不要廉价卖萌，不要玩具广告感，不要大字，不要卡片感，不要课件感，不要夸张动作。",
-          "video_prompt": "同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。。9:16 竖版，单一角色半身面对镜头做简短口播，镜头固定，轻微嘴型、自然眨眼、极轻点头，表情认真但不凶，像在提醒用户别再走弯路。保持同一角色设定和哑光 3D 质感，不要夸张肢体，不要跳切，不要卖萌。",
+          "seed_image_required": false,
+          "image_prompt": "",
+          "video_prompt": "",
           "image_task_id": null,
           "video_task_id": null,
           "image_asset_path": null,
-          "video_asset_path": null,
-          "local_asset_path": null,
-          "asset_origin": "api_generated",
+          "video_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg01_prepared.mp4",
+          "local_asset_path": "/Users/fan/Documents/视频工厂/素材库_assets/元素娃娃开头锚点_opening_anchor_20260428/005_1496_seg01_no_text_inpaint_opening_anchor.mp4",
+          "prepared_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg01_prepared.mp4",
+          "source_timecode": "",
+          "source_start_seconds": null,
+          "source_end_seconds": null,
+          "zoom_policy": "cover",
+          "zoom_motion_profile": "",
+          "redaction_boxes": [],
+          "redaction_note": "",
+          "asset_origin": "locked_reference_inheritance",
           "preview_visual_ref": "preview_slide_1",
-          "failure_reason": "aliyun_image_task_create_failed",
-          "error_message": "{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"4404ee0a-6802-99dc-9f31-bf11567e427e\"}",
-          "status": "failed",
-          "image_candidate_id": "primary",
-          "image_fallback_events": [
-            {
-              "resource_kind": "image_generation",
-              "from_candidate_id": "primary",
-              "from_provider": "aliyun_bailian",
-              "reason_category": "auth_failed",
-              "reason": "{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"4404ee0a-6802-99dc-9f31-bf11567e427e\"}",
-              "switch_to_candidate_id": "",
-              "remaining_candidate_count": 0
-            }
-          ]
+          "failure_reason": "",
+          "error_message": "",
+          "status": "success"
         },
         {
           "segment_id": "seg02",
@@ -2127,7 +2169,8 @@
           "source_timecode": "00:00:16-00:00:24",
           "source_start_seconds": 16.0,
           "source_end_seconds": 24.0,
-          "zoom_policy": "cover",
+          "zoom_policy": "middle_reference_zoom_center",
+          "zoom_motion_profile": "middle_zoom_reference_confirmed_middle_preview_20260430: center evidence window, dynamic crop_x",
           "redaction_boxes": [],
           "redaction_note": "",
           "asset_origin": "user_media",
@@ -2145,18 +2188,21 @@
           "needs_image": true,
           "needs_video": false,
           "seed_image_required": false,
-          "image_prompt": "为什么先拆流程；证明边界：用信息卡显影选题、脚本、分镜、素材、后期、发布。。9:16 竖版，结构已经收束，SOP 看板旁边带样片缩略图和修正清单，像真实项目收口画面；不要 PPT 模板，不要广告感，不要人物正脸。",
+          "image_prompt": "",
           "video_prompt": "",
           "image_task_id": null,
           "video_task_id": null,
-          "image_asset_path": null,
+          "image_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg03_cute_info_card_route.png",
           "video_asset_path": null,
-          "local_asset_path": null,
-          "asset_origin": "api_generated",
+          "local_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg03_cute_info_card_route.png",
+          "prepared_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg03_cute_info_card_route.png",
+          "asset_origin": "local_rendered",
+          "visual_route": "cute_info_card_route",
+          "visual_asset_source": "card_local_rendering_or_reference_inheritance",
           "preview_visual_ref": "preview_slide_3",
           "failure_reason": "",
           "error_message": "",
-          "status": "not_started"
+          "status": "success"
         },
         {
           "segment_id": "seg04",
@@ -2179,7 +2225,8 @@
           "source_timecode": "00:01:28-00:02:00",
           "source_start_seconds": 88.0,
           "source_end_seconds": 120.0,
-          "zoom_policy": "cover",
+          "zoom_policy": "middle_reference_zoom",
+          "zoom_motion_profile": "middle_zoom_reference_confirmed_middle_preview_20260430: multi-window evidence scan, dynamic crop_x",
           "redaction_boxes": [],
           "redaction_note": "",
           "asset_origin": "user_media",
@@ -2191,24 +2238,33 @@
         {
           "segment_id": "seg05",
           "sequence": 5,
-          "carrier": "human",
+          "carrier": "element_doll_host",
           "asset_key": "",
-          "asset_source": "api_generated",
-          "needs_image": true,
+          "asset_source": "locked_reference_inheritance",
+          "verified_role": "element_doll_host_opening_anchor",
+          "needs_image": false,
           "needs_video": true,
-          "seed_image_required": true,
-          "image_prompt": "9:16 竖版，单一角色，同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。，半身构图，固定背景，面对镜头做结尾收束，表情稳定，有轻微点头和最小动作手势，像在给出今天就能执行的下一步。整体要可信、克制、可爱但不低幼，不要廉价卖萌，不要大字，不要卡片感，不要课件感。",
-          "video_prompt": "同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。。9:16 竖版，单一角色半身面对镜头做结尾口播，镜头固定，轻微嘴型、自然眨眼、收束型小点头和很轻的手势，语气像在压实最小行动。保持同一角色设定和哑光 3D 质感，不要夸张动作，不要卖萌，不要广告感。",
+          "seed_image_required": false,
+          "image_prompt": "",
+          "video_prompt": "",
           "image_task_id": null,
           "video_task_id": null,
           "image_asset_path": null,
-          "video_asset_path": null,
-          "local_asset_path": null,
-          "asset_origin": "api_generated",
+          "video_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg05_prepared.mp4",
+          "local_asset_path": "/Users/fan/Documents/视频工厂/素材库_assets/元素娃娃开头锚点_opening_anchor_20260428/005_1496_seg01_no_text_inpaint_opening_anchor.mp4",
+          "prepared_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg05_prepared.mp4",
+          "source_timecode": "",
+          "source_start_seconds": null,
+          "source_end_seconds": null,
+          "zoom_policy": "cover",
+          "zoom_motion_profile": "",
+          "redaction_boxes": [],
+          "redaction_note": "",
+          "asset_origin": "locked_reference_inheritance",
           "preview_visual_ref": "preview_slide_5",
           "failure_reason": "",
           "error_message": "",
-          "status": "not_started"
+          "status": "success"
         },
         {
           "segment_id": "seg06",
@@ -2231,7 +2287,8 @@
           "source_timecode": "00:02:40-00:04:08",
           "source_start_seconds": 160.0,
           "source_end_seconds": 248.0,
-          "zoom_policy": "cover",
+          "zoom_policy": "middle_reference_zoom",
+          "zoom_motion_profile": "middle_zoom_reference_confirmed_middle_preview_20260430: multi-window evidence scan, dynamic crop_x",
           "redaction_boxes": [],
           "redaction_note": "",
           "asset_origin": "user_media",
@@ -2261,7 +2318,8 @@
           "source_timecode": "00:00:32-00:01:52",
           "source_start_seconds": 32.0,
           "source_end_seconds": 112.0,
-          "zoom_policy": "cover",
+          "zoom_policy": "middle_reference_zoom_right",
+          "zoom_motion_profile": "middle_zoom_reference_confirmed_middle_preview_20260430: right evidence window, dynamic crop_x",
           "redaction_boxes": [
             {
               "x": 0.0,
@@ -2298,7 +2356,8 @@
           "source_timecode": "00:02:00-00:02:40",
           "source_start_seconds": 120.0,
           "source_end_seconds": 160.0,
-          "zoom_policy": "cover",
+          "zoom_policy": "middle_reference_zoom_right",
+          "zoom_motion_profile": "middle_zoom_reference_confirmed_middle_preview_20260430: right evidence window, dynamic crop_x",
           "redaction_boxes": [
             {
               "x": 0.0,
@@ -2323,40 +2382,52 @@
           "needs_image": true,
           "needs_video": false,
           "seed_image_required": false,
-          "image_prompt": "可执行 prompt 解释；证明边界：说明豆包负责拆流程，Trae 负责拆待办和生成项目骨架。。9:16 竖版，结构已经收束，SOP 看板旁边带样片缩略图和修正清单，像真实项目收口画面；不要 PPT 模板，不要广告感，不要人物正脸。",
+          "image_prompt": "",
           "video_prompt": "",
           "image_task_id": null,
           "video_task_id": null,
-          "image_asset_path": null,
+          "image_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg09_cute_info_card_route.png",
           "video_asset_path": null,
-          "local_asset_path": null,
-          "asset_origin": "api_generated",
+          "local_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg09_cute_info_card_route.png",
+          "prepared_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg09_cute_info_card_route.png",
+          "asset_origin": "local_rendered",
+          "visual_route": "cute_info_card_route",
+          "visual_asset_source": "card_local_rendering_or_reference_inheritance",
           "preview_visual_ref": "preview_slide_9",
           "failure_reason": "",
           "error_message": "",
-          "status": "not_started"
+          "status": "success"
         },
         {
           "segment_id": "seg10",
           "sequence": 10,
-          "carrier": "human",
+          "carrier": "element_doll_host",
           "asset_key": "",
-          "asset_source": "api_generated",
-          "needs_image": true,
+          "asset_source": "locked_reference_inheritance",
+          "verified_role": "element_doll_host_opening_anchor",
+          "needs_image": false,
           "needs_video": true,
-          "seed_image_required": true,
-          "image_prompt": "9:16 竖版，单一角色，同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。，半身构图，固定背景，面对镜头做结尾收束，表情稳定，有轻微点头和最小动作手势，像在给出今天就能执行的下一步。整体要可信、克制、可爱但不低幼，不要廉价卖萌，不要大字，不要卡片感，不要课件感。",
-          "video_prompt": "同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。。9:16 竖版，单一角色半身面对镜头做结尾口播，镜头固定，轻微嘴型、自然眨眼、收束型小点头和很轻的手势，语气像在压实最小行动。保持同一角色设定和哑光 3D 质感，不要夸张动作，不要卖萌，不要广告感。",
+          "seed_image_required": false,
+          "image_prompt": "",
+          "video_prompt": "",
           "image_task_id": null,
           "video_task_id": null,
           "image_asset_path": null,
-          "video_asset_path": null,
-          "local_asset_path": null,
-          "asset_origin": "api_generated",
+          "video_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg10_prepared.mp4",
+          "local_asset_path": "/Users/fan/Documents/视频工厂/素材库_assets/元素娃娃开头锚点_opening_anchor_20260428/005_1496_seg01_no_text_inpaint_opening_anchor.mp4",
+          "prepared_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg10_prepared.mp4",
+          "source_timecode": "",
+          "source_start_seconds": null,
+          "source_end_seconds": null,
+          "zoom_policy": "cover",
+          "zoom_motion_profile": "",
+          "redaction_boxes": [],
+          "redaction_note": "",
+          "asset_origin": "locked_reference_inheritance",
           "preview_visual_ref": "preview_slide_10",
           "failure_reason": "",
           "error_message": "",
-          "status": "not_started"
+          "status": "success"
         },
         {
           "segment_id": "seg11",
@@ -2367,40 +2438,52 @@
           "needs_image": true,
           "needs_video": false,
           "seed_image_required": false,
-          "image_prompt": "API 能力入口边界；证明边界：用信息卡替代火山引擎敏感页面特写，说明 API 是外部能力入口。。9:16 竖版，结构已经收束，SOP 看板旁边带样片缩略图和修正清单，像真实项目收口画面；不要 PPT 模板，不要广告感，不要人物正脸。",
+          "image_prompt": "",
           "video_prompt": "",
           "image_task_id": null,
           "video_task_id": null,
-          "image_asset_path": null,
+          "image_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg11_cute_info_card_route.png",
           "video_asset_path": null,
-          "local_asset_path": null,
-          "asset_origin": "api_generated",
+          "local_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg11_cute_info_card_route.png",
+          "prepared_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg11_cute_info_card_route.png",
+          "asset_origin": "local_rendered",
+          "visual_route": "cute_info_card_route",
+          "visual_asset_source": "card_local_rendering_or_reference_inheritance",
           "preview_visual_ref": "preview_slide_11",
           "failure_reason": "",
           "error_message": "",
-          "status": "not_started"
+          "status": "success"
         },
         {
           "segment_id": "seg12",
           "sequence": 12,
-          "carrier": "human",
+          "carrier": "element_doll_host",
           "asset_key": "",
-          "asset_source": "api_generated",
-          "needs_image": true,
+          "asset_source": "locked_reference_inheritance",
+          "verified_role": "element_doll_host_opening_anchor",
+          "needs_image": false,
           "needs_video": true,
-          "seed_image_required": true,
-          "image_prompt": "9:16 竖版，单一角色，同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。，半身构图，固定背景，面对镜头做结尾收束，表情稳定，有轻微点头和最小动作手势，像在给出今天就能执行的下一步。整体要可信、克制、可爱但不低幼，不要廉价卖萌，不要大字，不要卡片感，不要课件感。",
-          "video_prompt": "同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。。9:16 竖版，单一角色半身面对镜头做结尾口播，镜头固定，轻微嘴型、自然眨眼、收束型小点头和很轻的手势，语气像在压实最小行动。保持同一角色设定和哑光 3D 质感，不要夸张动作，不要卖萌，不要广告感。",
+          "seed_image_required": false,
+          "image_prompt": "",
+          "video_prompt": "",
           "image_task_id": null,
           "video_task_id": null,
           "image_asset_path": null,
-          "video_asset_path": null,
-          "local_asset_path": null,
-          "asset_origin": "api_generated",
+          "video_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg12_prepared.mp4",
+          "local_asset_path": "/Users/fan/Documents/视频工厂/素材库_assets/元素娃娃开头锚点_opening_anchor_20260428/005_1496_seg01_no_text_inpaint_opening_anchor.mp4",
+          "prepared_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg12_prepared.mp4",
+          "source_timecode": "",
+          "source_start_seconds": null,
+          "source_end_seconds": null,
+          "zoom_policy": "cover",
+          "zoom_motion_profile": "",
+          "redaction_boxes": [],
+          "redaction_note": "",
+          "asset_origin": "locked_reference_inheritance",
           "preview_visual_ref": "preview_slide_12",
           "failure_reason": "",
           "error_message": "",
-          "status": "not_started"
+          "status": "success"
         },
         {
           "segment_id": "seg13",
@@ -2411,18 +2494,21 @@
           "needs_image": true,
           "needs_video": false,
           "seed_image_required": false,
-          "image_prompt": "云剪边界说明；证明边界：说明阿里云剪辑不是总控脑，技术验证、内容过线、流程成熟必须分开。。9:16 竖版，结构已经收束，SOP 看板旁边带样片缩略图和修正清单，像真实项目收口画面；不要 PPT 模板，不要广告感，不要人物正脸。",
+          "image_prompt": "",
           "video_prompt": "",
           "image_task_id": null,
           "video_task_id": null,
-          "image_asset_path": null,
+          "image_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg13_cute_info_card_route.png",
           "video_asset_path": null,
-          "local_asset_path": null,
-          "asset_origin": "api_generated",
+          "local_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg13_cute_info_card_route.png",
+          "prepared_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg13_cute_info_card_route.png",
+          "asset_origin": "local_rendered",
+          "visual_route": "cute_info_card_route",
+          "visual_asset_source": "card_local_rendering_or_reference_inheritance",
           "preview_visual_ref": "preview_slide_13",
           "failure_reason": "",
           "error_message": "",
-          "status": "not_started"
+          "status": "success"
         },
         {
           "segment_id": "seg14",
@@ -2445,7 +2531,8 @@
           "source_timecode": "00:02:56-00:03:08",
           "source_start_seconds": 176.0,
           "source_end_seconds": 188.0,
-          "zoom_policy": "cover",
+          "zoom_policy": "middle_reference_zoom_left",
+          "zoom_motion_profile": "middle_zoom_reference_confirmed_middle_preview_20260430: left evidence window, dynamic crop_x",
           "redaction_boxes": [
             {
               "x": 0.7,
@@ -2476,18 +2563,21 @@
           "needs_image": true,
           "needs_video": false,
           "seed_image_required": false,
-          "image_prompt": "流程总览；证明边界：总结短视频自动流的六步流程。。9:16 竖版，结构已经收束，SOP 看板旁边带样片缩略图和修正清单，像真实项目收口画面；不要 PPT 模板，不要广告感，不要人物正脸。",
+          "image_prompt": "",
           "video_prompt": "",
           "image_task_id": null,
           "video_task_id": null,
-          "image_asset_path": null,
+          "image_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg15_cute_info_card_route.png",
           "video_asset_path": null,
-          "local_asset_path": null,
-          "asset_origin": "api_generated",
+          "local_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg15_cute_info_card_route.png",
+          "prepared_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg15_cute_info_card_route.png",
+          "asset_origin": "local_rendered",
+          "visual_route": "cute_info_card_route",
+          "visual_asset_source": "card_local_rendering_or_reference_inheritance",
           "preview_visual_ref": "preview_slide_15",
           "failure_reason": "",
           "error_message": "",
-          "status": "not_started"
+          "status": "success"
         },
         {
           "segment_id": "seg16",
@@ -2498,45 +2588,57 @@
           "needs_image": true,
           "needs_video": false,
           "seed_image_required": false,
-          "image_prompt": "即梦与自动流对比；证明边界：对比即梦单点素材生成和可复用流程，不做工具评测。。9:16 竖版，结构已经收束，SOP 看板旁边带样片缩略图和修正清单，像真实项目收口画面；不要 PPT 模板，不要广告感，不要人物正脸。",
+          "image_prompt": "",
           "video_prompt": "",
           "image_task_id": null,
           "video_task_id": null,
-          "image_asset_path": null,
+          "image_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg16_cute_info_card_route.png",
           "video_asset_path": null,
-          "local_asset_path": null,
-          "asset_origin": "api_generated",
+          "local_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg16_cute_info_card_route.png",
+          "prepared_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg16_cute_info_card_route.png",
+          "asset_origin": "local_rendered",
+          "visual_route": "cute_info_card_route",
+          "visual_asset_source": "card_local_rendering_or_reference_inheritance",
           "preview_visual_ref": "preview_slide_16",
           "failure_reason": "",
           "error_message": "",
-          "status": "not_started"
+          "status": "success"
         },
         {
           "segment_id": "seg17",
           "sequence": 17,
-          "carrier": "human",
+          "carrier": "element_doll_host",
           "asset_key": "",
-          "asset_source": "api_generated",
-          "needs_image": true,
+          "asset_source": "locked_reference_inheritance",
+          "verified_role": "element_doll_host_opening_anchor",
+          "needs_image": false,
           "needs_video": true,
-          "seed_image_required": true,
-          "image_prompt": "9:16 竖版，单一角色，同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。，半身构图，固定背景，面对镜头做结尾收束，表情稳定，有轻微点头和最小动作手势，像在给出今天就能执行的下一步。整体要可信、克制、可爱但不低幼，不要廉价卖萌，不要大字，不要卡片感，不要课件感。",
-          "video_prompt": "同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。。9:16 竖版，单一角色半身面对镜头做结尾口播，镜头固定，轻微嘴型、自然眨眼、收束型小点头和很轻的手势，语气像在压实最小行动。保持同一角色设定和哑光 3D 质感，不要夸张动作，不要卖萌，不要广告感。",
+          "seed_image_required": false,
+          "image_prompt": "",
+          "video_prompt": "",
           "image_task_id": null,
           "video_task_id": null,
           "image_asset_path": null,
-          "video_asset_path": null,
-          "local_asset_path": null,
-          "asset_origin": "api_generated",
+          "video_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg17_prepared.mp4",
+          "local_asset_path": "/Users/fan/Documents/视频工厂/素材库_assets/元素娃娃开头锚点_opening_anchor_20260428/005_1496_seg01_no_text_inpaint_opening_anchor.mp4",
+          "prepared_asset_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg17_prepared.mp4",
+          "source_timecode": "",
+          "source_start_seconds": null,
+          "source_end_seconds": null,
+          "zoom_policy": "cover",
+          "zoom_motion_profile": "",
+          "redaction_boxes": [],
+          "redaction_note": "",
+          "asset_origin": "locked_reference_inheritance",
           "preview_visual_ref": "preview_slide_17",
           "failure_reason": "",
           "error_message": "",
-          "status": "not_started"
+          "status": "success"
         }
       ],
       "blocked_reason": "",
-      "failure_reason": "aliyun_image_task_create_failed",
-      "error_message": "{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"4404ee0a-6802-99dc-9f31-bf11567e427e\"}",
+      "failure_reason": "",
+      "error_message": "",
       "current_missing_prerequisites": [],
       "missing_implementations": [],
       "candidate_pool": {
@@ -2578,22 +2680,22 @@
         }
       },
       "cloud": {
-        "status": "failed",
+        "status": "success",
         "blocked_reason": "",
-        "failure_reason": "aliyun_image_task_create_failed",
-        "error_message": "{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"4404ee0a-6802-99dc-9f31-bf11567e427e\"}",
+        "failure_reason": "",
+        "error_message": "",
         "missing_prerequisites": [],
         "missing_implementations": []
       }
     }
   },
   "assembly": {
-    "status": "not_started",
-    "task_id": null,
-    "resource_id": null,
-    "output_id": null,
+    "status": "success",
+    "task_id": "adf3189d285f476695cb5df2b3f6c923",
+    "resource_id": "a139456cf3334509b20192f3203d75bc",
+    "output_id": "ad3b0f50470a71f18d0be7f7d4496302",
     "delivery_mode": "oss_cloud_assembly",
-    "delivery_video_path": null,
+    "delivery_video_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/full_video.mp4",
     "local": {
       "status": "not_started",
       "video_path": null,
@@ -2606,11 +2708,167 @@
       "deprecated_reason": "正式默认主线已改为 cloud-only；local assembly 已移出主线，不再承担 fallback 或正常交付。"
     },
     "cloud": {
-      "status": "not_started",
+      "status": "success",
       "blocked_reason": "",
+      "failure_reason": "",
+      "error_message": "",
       "missing_prerequisites": [],
       "missing_implementations": [],
       "is_primary_path": true,
+      "project_id": "a139456cf3334509b20192f3203d75bc",
+      "project_title": "video-factory-ppt-master-v1",
+      "job_id": "adf3189d285f476695cb5df2b3f6c923",
+      "media_id": "ad3b0f50470a71f18d0be7f7d4496302",
+      "output_url": "oss://zvip1-video-beijing/video-factory/final/20260503T161030Z/formal_api_demo.mp4",
+      "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/final/20260503T161030Z/formal_api_demo.mp4",
+      "output_object_key": "video-factory/final/20260503T161030Z/formal_api_demo.mp4",
+      "local_download_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/full_video.mp4",
+      "timeline_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/assembly/cloud_timeline.json",
+      "request_ids": {
+        "list_projects": "B2C47F09-DBDA-573A-A27F-E26D9FB1244E",
+        "update_project": "53867399-D57E-509A-8D35-4A1DFAB62E00",
+        "submit_job": "2819635A-0A71-55FD-84F5-5873730CDBA4",
+        "get_job": "3A8A19B5-9F58-59F6-8143-6D1724E8EF70"
+      },
+      "uploaded_assets": [
+        {
+          "asset_kind": "voiceover_audio",
+          "local_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts_retry_20260503_attempt2/tts/formal_voiceover.mp3",
+          "object_key": "video-factory/raw/20260503T161030Z/audio/formal_voiceover.mp3",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260503T161030Z/audio/formal_voiceover.mp3?<redacted_signature>"
+        },
+        {
+          "asset_kind": "captions_srt",
+          "local_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
+          "object_key": "video-factory/raw/20260503T161030Z/captions/captions.srt",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260503T161030Z/captions/captions.srt?<redacted_signature>"
+        },
+        {
+          "asset_kind": "visual_seg01",
+          "local_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg01_prepared.mp4",
+          "object_key": "video-factory/raw/20260503T161030Z/visuals/seg01.mp4",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260503T161030Z/visuals/seg01.mp4?<redacted_signature>",
+          "clip_type": "Video"
+        },
+        {
+          "asset_kind": "visual_seg02",
+          "local_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg02_prepared.mp4",
+          "object_key": "video-factory/raw/20260503T161030Z/visuals/seg02.mp4",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260503T161030Z/visuals/seg02.mp4?<redacted_signature>",
+          "clip_type": "Video"
+        },
+        {
+          "asset_kind": "visual_seg03",
+          "local_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg03_cute_info_card_route.png",
+          "object_key": "video-factory/raw/20260503T161030Z/visuals/seg03.png",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260503T161030Z/visuals/seg03.png?<redacted_signature>",
+          "clip_type": "Image"
+        },
+        {
+          "asset_kind": "visual_seg04",
+          "local_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg04_prepared.mp4",
+          "object_key": "video-factory/raw/20260503T161030Z/visuals/seg04.mp4",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260503T161030Z/visuals/seg04.mp4?<redacted_signature>",
+          "clip_type": "Video"
+        },
+        {
+          "asset_kind": "visual_seg05",
+          "local_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg05_prepared.mp4",
+          "object_key": "video-factory/raw/20260503T161030Z/visuals/seg05.mp4",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260503T161030Z/visuals/seg05.mp4?<redacted_signature>",
+          "clip_type": "Video"
+        },
+        {
+          "asset_kind": "visual_seg06",
+          "local_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg06_prepared.mp4",
+          "object_key": "video-factory/raw/20260503T161030Z/visuals/seg06.mp4",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260503T161030Z/visuals/seg06.mp4?<redacted_signature>",
+          "clip_type": "Video"
+        },
+        {
+          "asset_kind": "visual_seg07",
+          "local_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg07_prepared.mp4",
+          "object_key": "video-factory/raw/20260503T161030Z/visuals/seg07.mp4",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260503T161030Z/visuals/seg07.mp4?<redacted_signature>",
+          "clip_type": "Video"
+        },
+        {
+          "asset_kind": "visual_seg08",
+          "local_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg08_prepared.mp4",
+          "object_key": "video-factory/raw/20260503T161030Z/visuals/seg08.mp4",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260503T161030Z/visuals/seg08.mp4?<redacted_signature>",
+          "clip_type": "Video"
+        },
+        {
+          "asset_kind": "visual_seg09",
+          "local_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg09_cute_info_card_route.png",
+          "object_key": "video-factory/raw/20260503T161030Z/visuals/seg09.png",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260503T161030Z/visuals/seg09.png?<redacted_signature>",
+          "clip_type": "Image"
+        },
+        {
+          "asset_kind": "visual_seg10",
+          "local_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg10_prepared.mp4",
+          "object_key": "video-factory/raw/20260503T161030Z/visuals/seg10.mp4",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260503T161030Z/visuals/seg10.mp4?<redacted_signature>",
+          "clip_type": "Video"
+        },
+        {
+          "asset_kind": "visual_seg11",
+          "local_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg11_cute_info_card_route.png",
+          "object_key": "video-factory/raw/20260503T161030Z/visuals/seg11.png",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260503T161030Z/visuals/seg11.png?<redacted_signature>",
+          "clip_type": "Image"
+        },
+        {
+          "asset_kind": "visual_seg12",
+          "local_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg12_prepared.mp4",
+          "object_key": "video-factory/raw/20260503T161030Z/visuals/seg12.mp4",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260503T161030Z/visuals/seg12.mp4?<redacted_signature>",
+          "clip_type": "Video"
+        },
+        {
+          "asset_kind": "visual_seg13",
+          "local_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg13_cute_info_card_route.png",
+          "object_key": "video-factory/raw/20260503T161030Z/visuals/seg13.png",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260503T161030Z/visuals/seg13.png?<redacted_signature>",
+          "clip_type": "Image"
+        },
+        {
+          "asset_kind": "visual_seg14",
+          "local_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg14_prepared.mp4",
+          "object_key": "video-factory/raw/20260503T161030Z/visuals/seg14.mp4",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260503T161030Z/visuals/seg14.mp4?<redacted_signature>",
+          "clip_type": "Video"
+        },
+        {
+          "asset_kind": "visual_seg15",
+          "local_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg15_cute_info_card_route.png",
+          "object_key": "video-factory/raw/20260503T161030Z/visuals/seg15.png",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260503T161030Z/visuals/seg15.png?<redacted_signature>",
+          "clip_type": "Image"
+        },
+        {
+          "asset_kind": "visual_seg16",
+          "local_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/local_rendered_cards/seg16_cute_info_card_route.png",
+          "object_key": "video-factory/raw/20260503T161030Z/visuals/seg16.png",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260503T161030Z/visuals/seg16.png?<redacted_signature>",
+          "clip_type": "Image"
+        },
+        {
+          "asset_kind": "visual_seg17",
+          "local_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg17_prepared.mp4",
+          "object_key": "video-factory/raw/20260503T161030Z/visuals/seg17.mp4",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/raw/20260503T161030Z/visuals/seg17.mp4?<redacted_signature>",
+          "clip_type": "Video"
+        },
+        {
+          "asset_kind": "timeline_debug",
+          "local_path": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/assembly/cloud_timeline.json",
+          "object_key": "video-factory/temp/20260503T161030Z/cloud_timeline.json",
+          "media_url": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/temp/20260503T161030Z/cloud_timeline.json"
+        }
+      ],
       "target": {
         "assembly_mode": "cloud_only",
         "subtitle_mode": "burn_in",
@@ -2641,9 +2899,7 @@
     }
   },
   "known_issues": [
-    "当前 TTS 调用已接通；正式主线下一步取决于用户真实素材注入或辅助图片资产准备，再进入北京区 OSS + 云剪主路径。",
-    "正式配音 failed：The read operation timed out",
-    "视觉生成 failed：{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"4404ee0a-6802-99dc-9f31-bf11567e427e\"}"
+    "当前 TTS 调用已接通；正式主线下一步取决于用户真实素材注入或辅助图片资产准备，再进入北京区 OSS + 云剪主路径。"
   ],
   "machine_gate": {
     "generation_gate": {
@@ -2861,7 +3117,7 @@
             },
             {
               "name": "required_user_footage_present",
-              "status": "fail",
+              "status": "pass",
               "detail": "默认正式主线要求的用户本地录制素材必须先在本地配置里注入真实文件路径。"
             },
             {
@@ -2961,7 +3217,7 @@
         },
         {
           "name": "required_user_footage_present",
-          "status": "fail",
+          "status": "pass",
           "detail": "默认正式主线要求的用户本地录制素材必须先在本地配置里注入真实文件路径。"
         },
         {
@@ -2994,13 +3250,93 @@
     },
     "assembly_gate": {
       "gate_name": "assembly_gate",
-      "status": "not_started",
-      "allow_execution": false,
+      "status": "success",
+      "allow_execution": true,
       "blocked_reason": "",
       "missing_prerequisites": [],
       "missing_implementations": [],
-      "checks": [],
-      "notes": []
+      "checks": [
+        {
+          "name": "manifest_schema_present",
+          "status": "pass",
+          "detail": "formal_api_demo_manifest/v1"
+        },
+        {
+          "name": "segments_present",
+          "status": "pass",
+          "detail": "segments=17"
+        },
+        {
+          "name": "cloud_only_route_locked",
+          "status": "pass",
+          "detail": "正式默认主线已锁定为北京区 OSS + 云剪唯一 assembly 主路径，不再接受 local assembly fallback。"
+        },
+        {
+          "name": "aliyun_oss_bucket",
+          "status": "pass",
+          "detail": "北京区 OSS bucket；当前已确认可写入仓库。"
+        },
+        {
+          "name": "aliyun_oss_region",
+          "status": "pass",
+          "detail": "北京区 OSS region；纯 PPT 主线固定为 cn-beijing。"
+        },
+        {
+          "name": "aliyun_oss_endpoint",
+          "status": "pass",
+          "detail": "北京区 OSS endpoint；云端上传必须显式配置。"
+        },
+        {
+          "name": "aliyun_oss_bucket_domain",
+          "status": "pass",
+          "detail": "北京区 OSS bucket domain；云端资源定位需要该字段。"
+        },
+        {
+          "name": "aliyun_oss_access_key_id",
+          "status": "pass",
+          "detail": "OSS AccessKey ID 仅允许在本地注入，仓库示例必须留占位。"
+        },
+        {
+          "name": "aliyun_oss_access_key_secret",
+          "status": "pass",
+          "detail": "OSS AccessKey Secret 仅允许在本地注入，仓库示例必须留占位。"
+        },
+        {
+          "name": "aliyun_oss_prefix_raw",
+          "status": "pass",
+          "detail": "raw 前缀用于云端组装原始素材上传路径。"
+        },
+        {
+          "name": "aliyun_oss_prefix_final",
+          "status": "pass",
+          "detail": "final 前缀用于云端导出成片路径。"
+        },
+        {
+          "name": "aliyun_oss_prefix_temp",
+          "status": "pass",
+          "detail": "temp 前缀用于云端临时文件路径。"
+        },
+        {
+          "name": "aliyun_ims_region",
+          "status": "pass",
+          "detail": "IMS / 云剪区域；当前主线固定为 cn-beijing。"
+        },
+        {
+          "name": "aliyun_ims_storage_address",
+          "status": "pass",
+          "detail": "IMS 存储地址；当前已确认为北京区 OSS domain。"
+        },
+        {
+          "name": "aliyun_ims_cloud_project_name",
+          "status": "pass",
+          "detail": "云剪工程名称；当前主线应指向 video-factory-ppt-master-v1。"
+        }
+      ],
+      "notes": [
+        "assembly Gate 负责标记正式默认主线的北京区 OSS + 云剪唯一主路径，不得再把本地 assembly 写成默认交付。",
+        "manifest 是修正循环和复审的事实锚点，assembly 不得绕开 manifest 自由猜测。",
+        "当前正式默认主线已经改为 cloud-only；缺密钥、缺云端参数、缺真实素材或缺 provider implementation 时必须如实 blocked，不得再用 local mp4 补位。"
+      ]
     }
   }
 }

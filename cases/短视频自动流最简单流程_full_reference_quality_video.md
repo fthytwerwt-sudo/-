@@ -10,7 +10,7 @@
 # 展示主线
 - 路由画像：api_human_local_footage_light_ppt_cloud_editing
 - 主策略：hybrid
-- 路由理由：API 真人负责开头、关键判断、工位转折和结尾收束；用户录制素材承担中段真实流程证据；少量信息卡只做边界、关键词和总结辅助；正式总装固定走云端剪辑。
+- 路由理由：正式术语仍保留 API 生成真人主线，但本轮 v3.1 执行层的主持壳按 element_doll_host_reference_inheritance 继承元素娃娃无字开头锚点；用户录制素材承担中段真实流程证据；少量信息卡只做边界、关键词和总结辅助；正式总装固定走云端剪辑。
 
 # 目标场景
 观众看完后能理解短视频自动流不是一键生成，而是把需求拆成流程，再让不同工具各自接一段，最后变成可检查、可继续迭代的生产流程。
@@ -21,7 +21,7 @@
 # 全局质量要求
 - full_reference_quality_video（正式参考质量完整片），不是样片、短片、技术样片或本地拼装演示。
 - 完整 FINAL_SCRIPT_V2 保真入片；不得使用 PR #43 压缩稿；不得限制时长。
-- API 生成真人、项目 TTS、用户录制素材、少量信息卡和 cloud-only assembly 必须各守其位。
+- API 生成真人主线在本轮落到 v3.1 元素娃娃主持壳继承，项目 TTS、用户录制素材、少量信息卡和 cloud-only assembly 必须各守其位。
 - content_validation 只能保持 pending_user_chatgpt_review；send_ready 必须保持 false。
 
 # Hook
@@ -571,18 +571,23 @@ Codex 不够顺，可以让 Claude Code 补一段。
 - 段目标：开头进入：纠正一键生成误区
 - 配音文案：# 《短视频自动流的最简单流程》 短视频自动流，最简单的流程，真不是一上来就问： “用哪个 AI 帮我一键生成视频？” 这个问题一问，基本就跑偏了。 因为一键生成，更像是在抽一条素材。 这次画面可能不错，下次风格可能又变。 这次镜头刚好能用，下次人物、字幕、节奏可能又得重新来一遍。 所以我现在更关心的不是： 哪个工具最会生成视频。 而是： 一条短视频，能不能拆成一套能重复跑的流程。
 - 字幕文案：# 《短视频自动流的最简单流程》 短视频自动流，最简单的流程，真不是一上来就问： “用哪个 AI 帮我一键生成视频？” 这个问题一问，基本就跑偏了。 因为一键生成，更像是在抽一条素...
-- 画面意图：开头进入：纠正一键生成误区；证明边界：开头 API 真人进入，直接点出误区与主判断。
+- 画面意图：开头进入：纠正一键生成误区；证明边界：元素娃娃主持壳开头进入，直接点出误区与主判断。
 - 需要图片：否
 - 需要视频：是
 - 允许真实桌面素材：否
-- 段载体：human
+- 段载体：element_doll_host
 - 素材键：
-- 素材来源：api_generated
-- 视觉路由：sassy_reaction_card_route
-- 风格提示：同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。
-- 证明什么：开头 API 真人进入，直接点出误区与主判断。
+- 素材来源：locked_reference_inheritance
+- 视觉路由：element_doll_host_reference_inheritance
+- 风格提示：继承 v3.1 Minecraft-inspired 原创体素方块风可爱元素主持娃娃 opening anchor；不走 liveportrait 真人口播。
+- 证明什么：元素娃娃主持壳开头进入，直接点出误区与主判断。
 - 不能证明：开头判断成立；不证明流程已经跑通。
-- 锁定参考：sassy_card_three_type_rule_locked_20260428
+- 锁定参考：opening_reference_element_doll_no_text_locked_20260428
+- 本地素材路径：/Users/fan/Documents/视频工厂/素材库_assets/元素娃娃开头锚点_opening_anchor_20260428/005_1496_seg01_no_text_inpaint_opening_anchor.mp4
+- 素材类型：locked_reference_video
+- 素材角色：element_doll_host_opening_anchor
+- 媒体类型：video
+- 缩放策略：cover
 
 ### 02_seg02_豆包一句需求输入
 - 段落ID：seg02
@@ -607,7 +612,7 @@ Codex 不够顺，可以让 Claude Code 补一段。
 - 素材角色：process_screen_evidence
 - 媒体类型：video
 - 素材时间码：00:00:16-00:00:24
-- 缩放策略：cover
+- 缩放策略：middle_reference_zoom_center
 
 ### 03_seg03_为什么先拆流程
 - 段落ID：seg03
@@ -651,7 +656,7 @@ Codex 不够顺，可以让 Claude Code 补一段。
 - 素材角色：process_screen_evidence
 - 媒体类型：video
 - 素材时间码：00:01:28-00:02:00
-- 缩放策略：cover
+- 缩放策略：middle_reference_zoom
 
 ### 05_seg05_想法层转为可执行 prompt
 - 段落ID：seg05
@@ -663,14 +668,19 @@ Codex 不够顺，可以让 Claude Code 补一段。
 - 需要图片：否
 - 需要视频：是
 - 允许真实桌面素材：否
-- 段载体：human
+- 段载体：element_doll_host
 - 素材键：
-- 素材来源：api_generated
-- 视觉路由：sassy_reaction_card_route
-- 风格提示：同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。
-- 证明什么：关键判断：方案还只是想法层，需要变成 Trae 能接住的任务说明。
+- 素材来源：locked_reference_inheritance
+- 视觉路由：element_doll_host_reference_inheritance
+- 风格提示：继承 v3.1 Minecraft-inspired 原创体素方块风可爱元素主持娃娃 opening anchor；不走 liveportrait 真人口播。
+- 证明什么：元素娃娃主持壳承担关键判断：方案还只是想法层，需要变成 Trae 能接住的任务说明。
 - 不能证明：不证明 prompt 已进入 Trae。
-- 锁定参考：sassy_card_three_type_rule_locked_20260428
+- 锁定参考：opening_reference_element_doll_no_text_locked_20260428
+- 本地素材路径：/Users/fan/Documents/视频工厂/素材库_assets/元素娃娃开头锚点_opening_anchor_20260428/005_1496_seg01_no_text_inpaint_opening_anchor.mp4
+- 素材类型：locked_reference_video
+- 素材角色：element_doll_host_opening_anchor
+- 媒体类型：video
+- 缩放策略：cover
 
 ### 06_seg06_豆包输出 Trae SOLO prompt
 - 段落ID：seg06
@@ -695,7 +705,7 @@ Codex 不够顺，可以让 Claude Code 补一段。
 - 素材角色：process_screen_evidence
 - 媒体类型：video
 - 素材时间码：00:02:40-00:04:08
-- 缩放策略：cover
+- 缩放策略：middle_reference_zoom
 
 ### 07_seg07_Prompt 进入 Trae 并开始 plan
 - 段落ID：seg07
@@ -720,7 +730,7 @@ Codex 不够顺，可以让 Claude Code 补一段。
 - 素材角色：process_screen_evidence
 - 媒体类型：video
 - 素材时间码：00:00:32-00:01:52
-- 缩放策略：cover
+- 缩放策略：middle_reference_zoom_right
 - 遮挡框：0,0.92,1,0.08
 - 遮挡说明：遮挡本地路径、分支详情、底部路径和可能泄露的任务信息。
 
@@ -747,7 +757,7 @@ Codex 不够顺，可以让 Claude Code 补一段。
 - 素材角色：process_screen_evidence
 - 媒体类型：video
 - 素材时间码：00:02:00-00:02:40
-- 缩放策略：cover
+- 缩放策略：middle_reference_zoom_right
 - 遮挡框：0,0.92,1,0.08
 - 遮挡说明：遮挡本地路径、分支详情、底部路径和可能泄露的任务信息。
 
@@ -780,14 +790,19 @@ Codex 不够顺，可以让 Claude Code 补一段。
 - 需要图片：否
 - 需要视频：是
 - 允许真实桌面素材：否
-- 段载体：human
+- 段载体：element_doll_host
 - 素材键：
-- 素材来源：api_generated
-- 视觉路由：sassy_reaction_card_route
-- 风格提示：同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。
-- 证明什么：API 转折：把外部工具接成系统可调用能力。
+- 素材来源：locked_reference_inheritance
+- 视觉路由：element_doll_host_reference_inheritance
+- 风格提示：继承 v3.1 Minecraft-inspired 原创体素方块风可爱元素主持娃娃 opening anchor；不走 liveportrait 真人口播。
+- 证明什么：元素娃娃主持壳承担 API 工位转折：把外部工具接成系统可调用能力。
 - 不能证明：不证明所有 API 已接通。
-- 锁定参考：sassy_card_three_type_rule_locked_20260428
+- 锁定参考：opening_reference_element_doll_no_text_locked_20260428
+- 本地素材路径：/Users/fan/Documents/视频工厂/素材库_assets/元素娃娃开头锚点_opening_anchor_20260428/005_1496_seg01_no_text_inpaint_opening_anchor.mp4
+- 素材类型：locked_reference_video
+- 素材角色：element_doll_host_opening_anchor
+- 媒体类型：video
+- 缩放策略：cover
 
 ### 11_seg11_API 能力入口边界
 - 段落ID：seg11
@@ -818,14 +833,19 @@ Codex 不够顺，可以让 Claude Code 补一段。
 - 需要图片：否
 - 需要视频：是
 - 允许真实桌面素材：否
-- 段载体：human
+- 段载体：element_doll_host
 - 素材键：
-- 素材来源：api_generated
-- 视觉路由：sassy_reaction_card_route
-- 风格提示：同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。
-- 证明什么：云剪工位转折：阿里云剪辑/ICE/云剪是最后装配台。
+- 素材来源：locked_reference_inheritance
+- 视觉路由：element_doll_host_reference_inheritance
+- 风格提示：继承 v3.1 Minecraft-inspired 原创体素方块风可爱元素主持娃娃 opening anchor；不走 liveportrait 真人口播。
+- 证明什么：元素娃娃主持壳承担云剪工位转折：阿里云剪辑/ICE/云剪是最后装配台。
 - 不能证明：不证明内容过线。
-- 锁定参考：sassy_card_three_type_rule_locked_20260428
+- 锁定参考：opening_reference_element_doll_no_text_locked_20260428
+- 本地素材路径：/Users/fan/Documents/视频工厂/素材库_assets/元素娃娃开头锚点_opening_anchor_20260428/005_1496_seg01_no_text_inpaint_opening_anchor.mp4
+- 素材类型：locked_reference_video
+- 素材角色：element_doll_host_opening_anchor
+- 媒体类型：video
+- 缩放策略：cover
 
 ### 13_seg13_云剪边界说明
 - 段落ID：seg13
@@ -869,7 +889,7 @@ Codex 不够顺，可以让 Claude Code 补一段。
 - 素材角色：process_screen_evidence
 - 媒体类型：video
 - 素材时间码：00:02:56-00:03:08
-- 缩放策略：cover
+- 缩放策略：middle_reference_zoom_left
 - 遮挡框：0.70,0,0.30,1;0,0.86,1,0.14
 - 遮挡说明：遮挡本地路径、分支详情、底部路径和可能泄露的任务信息。
 
@@ -917,15 +937,20 @@ Codex 不够顺，可以让 Claude Code 补一段。
 - 段目标：结尾收束
 - 配音文案：而且出问题的时候，你知道卡在哪一步。 是需求没拆清楚？ 是项目结构没生成好？ 是 API 没接上？ 是卡片素材缺了？ 是云端剪辑没导出？ 还是 Codex 检查发现路径不对？ 这才是自动流真正有用的地方。 所以这条视频我想讲的不是： 某个工具有多厉害。 而是： 短视频自动流，最简单的流程，就是先把视频生产拆开，再让每一步都有人负责、有工具能做、有结果能检查。 即梦这类工具适合帮你出素材。 但短视频自动流，是让素材、脚本、剪辑、检查和复盘，变成一条可以重复跑的生产流程。 别一上来就追求一键生成。 先把顺序理出来。 顺序对了，自动化才有地方落脚。
 - 字幕文案：而且出问题的时候，你知道卡在哪一步。 是需求没拆清楚？ 是项目结构没生成好？ 是 API 没接上？ 是卡片素材缺了？ 是云端剪辑没导出？ 还是 Codex 检查发现路径不对？ 这才...
-- 画面意图：结尾收束；证明边界：结尾 API 真人收束到顺序对了，自动化才有地方落脚。
+- 画面意图：结尾收束；证明边界：元素娃娃主持壳收束到顺序对了，自动化才有地方落脚。
 - 需要图片：否
 - 需要视频：是
 - 允许真实桌面素材：否
-- 段载体：human
+- 段载体：element_doll_host
 - 素材键：
-- 素材来源：api_generated
-- 视觉路由：sassy_reaction_card_route
-- 风格提示：同一位年轻东亚女性创作者，柔和但有判断感，9:16 真人口播，固定背景，轻微嘴型和自然眨眼，可信、克制、亲和，不要大字卡片感。
-- 证明什么：结尾 API 真人收束到顺序对了，自动化才有地方落脚。
+- 素材来源：locked_reference_inheritance
+- 视觉路由：element_doll_host_reference_inheritance
+- 风格提示：继承 v3.1 Minecraft-inspired 原创体素方块风可爱元素主持娃娃 opening anchor；不走 liveportrait 真人口播。
+- 证明什么：元素娃娃主持壳收束到顺序对了，自动化才有地方落脚。
 - 不能证明：不写 content_validation passed。
-- 锁定参考：sassy_card_three_type_rule_locked_20260428
+- 锁定参考：opening_reference_element_doll_no_text_locked_20260428
+- 本地素材路径：/Users/fan/Documents/视频工厂/素材库_assets/元素娃娃开头锚点_opening_anchor_20260428/005_1496_seg01_no_text_inpaint_opening_anchor.mp4
+- 素材类型：locked_reference_video
+- 素材角色：element_doll_host_opening_anchor
+- 媒体类型：video
+- 缩放策略：cover

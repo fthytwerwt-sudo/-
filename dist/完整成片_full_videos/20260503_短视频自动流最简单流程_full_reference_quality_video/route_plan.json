@@ -2,18 +2,18 @@
   "schema_version": "formal_api_demo_route_plan/v1",
   "route_profile": "api_human_local_footage_light_ppt_cloud_editing",
   "video_route_strategy": "hybrid",
-  "route_reason": "API 真人负责开头、关键判断、工位转折和结尾收束；用户录制素材承担中段真实流程证据；少量信息卡只做边界、关键词和总结辅助；正式总装固定走云端剪辑。",
+  "route_reason": "正式术语仍保留 API 生成真人主线，但本轮 v3.1 执行层的主持壳按 element_doll_host_reference_inheritance 继承元素娃娃无字开头锚点；用户录制素材承担中段真实流程证据；少量信息卡只做边界、关键词和总结辅助；正式总装固定走云端剪辑。",
   "blocks": [
     {
       "block_id": "seg01",
       "block_goal": "开头进入：纠正一键生成误区",
-      "block_carrier": "human",
-      "asset_source": "api_generated",
+      "block_carrier": "element_doll_host",
+      "asset_source": "locked_reference_inheritance",
       "asset_key": "",
       "needs_image": false,
       "needs_video": true,
       "allow_real_desktop_footage": false,
-      "visual_intent": "开头进入：纠正一键生成误区；证明边界：开头 API 真人进入，直接点出误区与主判断。"
+      "visual_intent": "开头进入：纠正一键生成误区；证明边界：元素娃娃主持壳开头进入，直接点出误区与主判断。"
     },
     {
       "block_id": "seg02",
@@ -51,8 +51,8 @@
     {
       "block_id": "seg05",
       "block_goal": "想法层转为可执行 prompt",
-      "block_carrier": "human",
-      "asset_source": "api_generated",
+      "block_carrier": "element_doll_host",
+      "asset_source": "locked_reference_inheritance",
       "asset_key": "",
       "needs_image": false,
       "needs_video": true,
@@ -106,8 +106,8 @@
     {
       "block_id": "seg10",
       "block_goal": "API 工位转折",
-      "block_carrier": "human",
-      "asset_source": "api_generated",
+      "block_carrier": "element_doll_host",
+      "asset_source": "locked_reference_inheritance",
       "asset_key": "",
       "needs_image": false,
       "needs_video": true,
@@ -128,8 +128,8 @@
     {
       "block_id": "seg12",
       "block_goal": "云剪装配台转折",
-      "block_carrier": "human",
-      "asset_source": "api_generated",
+      "block_carrier": "element_doll_host",
+      "asset_source": "locked_reference_inheritance",
       "asset_key": "",
       "needs_image": false,
       "needs_video": true,
@@ -183,13 +183,13 @@
     {
       "block_id": "seg17",
       "block_goal": "结尾收束",
-      "block_carrier": "human",
-      "asset_source": "api_generated",
+      "block_carrier": "element_doll_host",
+      "asset_source": "locked_reference_inheritance",
       "asset_key": "",
       "needs_image": false,
       "needs_video": true,
       "allow_real_desktop_footage": false,
-      "visual_intent": "结尾收束；证明边界：结尾 API 真人收束到顺序对了，自动化才有地方落脚。"
+      "visual_intent": "结尾收束；证明边界：元素娃娃主持壳收束到顺序对了，自动化才有地方落脚。"
     }
   ]
 }

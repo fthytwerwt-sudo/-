@@ -77,14 +77,27 @@ DEFAULT_PPT_ROUTE_PROFILE = "pure_ppt_cloud_only_secondary"
 DEFAULT_MAINLINE_ROUTE_PROFILE = "api_human_local_footage_light_ppt_cloud_editing"
 CARRIER_API_VISUAL = "api_visual"
 CARRIER_HUMAN = "human"
+CARRIER_ELEMENT_DOLL_HOST = "element_doll_host"
 CARRIER_SELF_FOOTAGE = "self_footage"
 CARRIER_LIGHT_PPT = "light_ppt"
 LOCAL_VIDEO_CARRIERS = {
     CARRIER_SELF_FOOTAGE,
+    CARRIER_ELEMENT_DOLL_HOST,
 }
 USER_MEDIA_SOURCE = "user_media"
+LOCKED_REFERENCE_SOURCE = "locked_reference_inheritance"
+LOCAL_RENDERED_SOURCE = "local_rendered"
 API_GENERATED_SOURCE = "api_generated"
 FOOTAGE_ROLE_HUMAN_ON_CAMERA = "human_on_camera"
+LOCAL_REFERENCE_MEDIA_SOURCES = {
+    USER_MEDIA_SOURCE,
+    LOCKED_REFERENCE_SOURCE,
+}
+LOCAL_CARD_ROUTES = {
+    "cute_prompt_card_route",
+    "cute_info_card_route",
+    "sassy_reaction_card_route",
+}
 RESOURCE_KIND_TTS = "tts"
 RESOURCE_KIND_IMAGE = "image_generation"
 RESOURCE_KIND_VIDEO = "video_generation"
@@ -432,10 +445,15 @@ def _resolve_visual_delivery_mode(segment_assets: list[dict[str, Any]]) -> str:
         asset.get("asset_origin") or API_GENERATED_SOURCE
         for asset in segment_assets
     }
+    local_asset_origins = set(LOCAL_REFERENCE_MEDIA_SOURCES) | {LOCAL_RENDERED_SOURCE}
+    if origins and origins.issubset(local_asset_origins):
+        return "local_reference_and_rendered_assets"
     if origins == {USER_MEDIA_SOURCE}:
         return "user_provided_local_assets"
     if USER_MEDIA_SOURCE in origins and API_GENERATED_SOURCE in origins:
         return "mixed_user_and_api_local_assets"
+    if origins & local_asset_origins and API_GENERATED_SOURCE in origins:
+        return "mixed_local_reference_rendered_and_api_assets"
     return "api_generated_local_assets"
 
 
@@ -444,6 +462,8 @@ def _visual_delivery_is_primary_asset_mode(delivery_mode: str) -> bool:
         "api_generated_local_assets",
         "user_provided_local_assets",
         "mixed_user_and_api_local_assets",
+        "local_reference_and_rendered_assets",
+        "mixed_local_reference_rendered_and_api_assets",
     }
 
 
@@ -474,6 +494,7 @@ def run_generation_pipeline(
     local_config_path: pathlib.Path | None,
     output_dir: pathlib.Path,
     dry_run: bool,
+    local_voiceover_path: pathlib.Path | None = None,
 ) -> dict[str, Any]:
     video_spec = parse_formal_case_markdown(input_path)
     config_bundle = load_formal_config(example_config_path, local_config_path)
@@ -559,45 +580,62 @@ def run_generation_pipeline(
                 rotation_state=rotation_state,
             )
             manifest = apply_visual_generation_to_manifest(manifest, visual_generation)
-        elif tts_gate["status"] == STATUS_SUCCESS:
-            tts_probe = execute_tts_probe(
+        else:
+            local_voiceover: dict[str, Any] | None = None
+            if local_voiceover_path is not None:
+                local_voiceover = execute_local_voiceover_ingestion(
+                    video_spec=video_spec,
+                    config=config,
+                    output_dir=output_dir,
+                    voiceover_path=local_voiceover_path,
+                )
+                tts_probe = build_local_tts_probe_from_voiceover(
+                    video_spec=video_spec,
+                    config=config,
+                    voiceover=local_voiceover,
+                )
+            elif tts_gate["status"] == STATUS_SUCCESS:
+                tts_probe = execute_tts_probe(
+                    video_spec=video_spec,
+                    config=config,
+                    output_dir=output_dir,
+                    rotation_state=rotation_state,
+                )
+            else:
+                tts_probe = build_blocked_tts_probe(video_spec, tts_gate)
+            manifest = apply_tts_probe_to_manifest(manifest, tts_probe, generation_gate)
+
+            if tts_probe["status"] == STATUS_SUCCESS:
+                if local_voiceover is not None:
+                    voiceover = local_voiceover
+                else:
+                    voiceover = execute_formal_voiceover_generation(
+                        video_spec=video_spec,
+                        config=config,
+                        output_dir=output_dir,
+                        rotation_state=rotation_state,
+                    )
+                if voiceover.get("status") == STATUS_SUCCESS:
+                    _apply_voiceover_durations_to_video_spec(video_spec, voiceover)
+                    manifest = _refresh_manifest_timeline_from_video_spec(manifest, video_spec)
+            else:
+                voiceover = build_blocked_voiceover_generation(video_spec, tts_probe, tts_gate)
+            manifest = apply_voiceover_to_manifest(manifest, voiceover)
+
+            caption_assets = write_formal_script_and_captions(
+                video_spec=video_spec,
+                output_dir=output_dir,
+            )
+            manifest = apply_caption_assets_to_manifest(manifest, caption_assets)
+
+            visual_generation = build_visual_generation_plan(
                 video_spec=video_spec,
                 config=config,
                 output_dir=output_dir,
+                visual_gate=visual_gate,
                 rotation_state=rotation_state,
             )
-        else:
-            tts_probe = build_blocked_tts_probe(video_spec, tts_gate)
-        manifest = apply_tts_probe_to_manifest(manifest, tts_probe, generation_gate)
-
-        if tts_probe["status"] == STATUS_SUCCESS:
-            voiceover = execute_formal_voiceover_generation(
-                video_spec=video_spec,
-                config=config,
-                output_dir=output_dir,
-                rotation_state=rotation_state,
-            )
-            if voiceover.get("status") == STATUS_SUCCESS:
-                _apply_voiceover_durations_to_video_spec(video_spec, voiceover)
-                manifest = _refresh_manifest_timeline_from_video_spec(manifest, video_spec)
-        else:
-            voiceover = build_blocked_voiceover_generation(video_spec, tts_probe, tts_gate)
-        manifest = apply_voiceover_to_manifest(manifest, voiceover)
-
-        caption_assets = write_formal_script_and_captions(
-            video_spec=video_spec,
-            output_dir=output_dir,
-        )
-        manifest = apply_caption_assets_to_manifest(manifest, caption_assets)
-
-        visual_generation = build_visual_generation_plan(
-            video_spec=video_spec,
-            config=config,
-            output_dir=output_dir,
-            visual_gate=visual_gate,
-            rotation_state=rotation_state,
-        )
-        manifest = apply_visual_generation_to_manifest(manifest, visual_generation)
+            manifest = apply_visual_generation_to_manifest(manifest, visual_generation)
 
     manifest["generation"]["status"] = _combine_stage_statuses(
         [
@@ -670,6 +708,157 @@ def build_blocked_voiceover_generation(
         }
     )
     return voiceover
+
+
+def execute_local_voiceover_ingestion(
+    video_spec: dict[str, Any],
+    config: dict[str, Any],
+    output_dir: pathlib.Path,
+    voiceover_path: pathlib.Path,
+) -> dict[str, Any]:
+    voiceover = build_default_voiceover_generation(video_spec, config)
+    resolved_path = voiceover_path.expanduser()
+    if not resolved_path.exists():
+        voiceover.update(
+            {
+                "status": STATUS_FAILED,
+                "failure_reason": "local_voiceover_missing",
+                "error_message": f"本地正式旁白音轨不存在：{resolved_path}",
+                "ingestion_mode": "local_project_tts_audio",
+                "remote_generation_skipped": True,
+            }
+        )
+        return voiceover
+
+    duration_seconds = _probe_media_duration_seconds(resolved_path)
+    if not duration_seconds:
+        voiceover.update(
+            {
+                "status": STATUS_FAILED,
+                "failure_reason": "local_voiceover_unreadable",
+                "error_message": f"本地正式旁白音轨不可解码：{resolved_path}",
+                "ingestion_mode": "local_project_tts_audio",
+                "remote_generation_skipped": True,
+            }
+        )
+        return voiceover
+
+    retry_report_path = _find_local_voiceover_retry_report(resolved_path, output_dir)
+    retry_report: dict[str, Any] = {}
+    if retry_report_path is not None:
+        retry_report = json.loads(retry_report_path.read_text(encoding="utf-8"))
+
+    segment_results = _build_local_voiceover_segment_results(
+        video_spec=video_spec,
+        retry_report=retry_report,
+        total_duration_seconds=duration_seconds,
+    )
+    segment_audio_paths = [
+        str(item["audio_path"])
+        for item in segment_results
+        if item.get("audio_path")
+    ]
+    voiceover.update(
+        {
+            "status": STATUS_SUCCESS,
+            "audio_path": str(resolved_path),
+            "segment_audio_paths": segment_audio_paths,
+            "segment_results": segment_results,
+            "duration_seconds": duration_seconds,
+            "provider": retry_report.get("provider") or _nested_get(config, "tts", "provider"),
+            "api_route_family": retry_report.get("api_route_family") or _get_tts_api_route_family(config),
+            "model_identifier": retry_report.get("model") or _nested_get(config, "tts", "model"),
+            "ingestion_mode": "local_project_tts_audio",
+            "remote_generation_skipped": True,
+            "source_report_path": str(retry_report_path) if retry_report_path else None,
+            "last_success_candidate_id": "local_voiceover_path",
+        }
+    )
+    return voiceover
+
+
+def build_local_tts_probe_from_voiceover(
+    video_spec: dict[str, Any],
+    config: dict[str, Any],
+    voiceover: dict[str, Any],
+) -> dict[str, Any]:
+    probe = build_default_tts_probe(video_spec)
+    status = voiceover.get("status", STATUS_FAILED)
+    probe.update(
+        {
+            "status": status,
+            "blocked_reason": voiceover.get("blocked_reason", ""),
+            "failure_reason": voiceover.get("failure_reason", ""),
+            "error_message": voiceover.get("error_message", ""),
+            "audio_path": voiceover.get("audio_path"),
+            "request_id": None,
+            "provider": voiceover.get("provider") or _nested_get(config, "tts", "provider"),
+            "api_route_family": voiceover.get("api_route_family") or _get_tts_api_route_family(config),
+            "model_identifier": voiceover.get("model_identifier") or _nested_get(config, "tts", "model"),
+            "probe_text_source": "local_voiceover_path",
+            "selected_candidate_id": "local_voiceover_path" if status == STATUS_SUCCESS else "",
+            "selected_candidate_label": "本地正式 TTS 完整音轨" if status == STATUS_SUCCESS else "",
+            "duration_seconds": voiceover.get("duration_seconds"),
+            "local_voiceover_path": voiceover.get("audio_path"),
+            "source_report_path": voiceover.get("source_report_path"),
+            "remote_probe_skipped": True,
+        }
+    )
+    return probe
+
+
+def _find_local_voiceover_retry_report(
+    voiceover_path: pathlib.Path,
+    output_dir: pathlib.Path,
+) -> pathlib.Path | None:
+    candidates = [
+        voiceover_path.parent.parent / "tts_retry_report.json",
+        output_dir / "tts_retry_20260503_attempt2" / "tts_retry_report.json",
+        output_dir / "tts_retry_report.json",
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    return None
+
+
+def _build_local_voiceover_segment_results(
+    *,
+    video_spec: dict[str, Any],
+    retry_report: dict[str, Any],
+    total_duration_seconds: float,
+) -> list[dict[str, Any]]:
+    report_results = {
+        item.get("segment_id"): item
+        for item in retry_report.get("segment_results", [])
+        if item.get("segment_id")
+    }
+    planned_total = sum(
+        max(0.0, float(segment.get("planned_duration_seconds") or 0.0))
+        for segment in video_spec.get("segments", [])
+    )
+    results: list[dict[str, Any]] = []
+    for segment in video_spec.get("segments", []):
+        report_item = report_results.get(segment["segment_id"], {})
+        duration = report_item.get("duration_seconds")
+        if not duration:
+            planned = max(0.0, float(segment.get("planned_duration_seconds") or 0.0))
+            duration = total_duration_seconds * (planned / planned_total) if planned_total else 0.0
+        results.append(
+            {
+                "segment_id": segment["segment_id"],
+                "status": report_item.get("status") or STATUS_SUCCESS,
+                "audio_path": report_item.get("audio_path"),
+                "request_id": report_item.get("request_id"),
+                "failure_reason": report_item.get("failure_reason", ""),
+                "error_message": report_item.get("error_message", ""),
+                "selected_candidate_id": report_item.get("selected_candidate_id", "local_voiceover_path"),
+                "fallback_events": report_item.get("fallback_events", []),
+                "duration_seconds": round(float(duration), 3),
+                "ingestion_mode": "local_project_tts_audio",
+            }
+        )
+    return results
 
 
 def run_aliyun_tts_style_probe_variants(
@@ -1209,7 +1398,17 @@ def evaluate_generation_gate(
 def _segment_requires_local_media(segment: dict[str, Any]) -> bool:
     return (
         bool(segment.get("asset_key") or segment.get("local_path"))
-        and segment.get("asset_source") == USER_MEDIA_SOURCE
+        and segment.get("asset_source") in LOCAL_REFERENCE_MEDIA_SOURCES
+    )
+
+
+def _segment_uses_local_card_render(segment: dict[str, Any]) -> bool:
+    if _segment_requires_local_media(segment):
+        return False
+    visual_route = _normalize_optional_text(segment.get("visual_route"))
+    return (
+        visual_route in LOCAL_CARD_ROUTES
+        or segment.get("asset_source") == LOCAL_RENDERED_SOURCE
     )
 
 
@@ -1222,12 +1421,16 @@ def _segment_uses_api_human(segment: dict[str, Any]) -> bool:
 
 
 def _segment_needs_api_image(segment: dict[str, Any]) -> bool:
+    if _segment_requires_local_media(segment) or _segment_uses_local_card_render(segment):
+        return False
     return _segment_uses_api_human(segment) or (
         bool(segment.get("needs_image")) and not _segment_requires_local_media(segment)
     )
 
 
 def _segment_needs_api_video(segment: dict[str, Any]) -> bool:
+    if _segment_requires_local_media(segment) or _segment_uses_local_card_render(segment):
+        return False
     return bool(segment.get("needs_video")) and not _segment_requires_local_media(segment)
 
 
@@ -1264,6 +1467,7 @@ def _resolve_segment_footage_input(
         "source_type": source_type,
         "verified_role": verified_role,
         "media_kind": media_kind,
+        "asset_source": segment.get("asset_source", USER_MEDIA_SOURCE),
         "source_start_seconds": segment.get("source_start_seconds"),
         "source_end_seconds": segment.get("source_end_seconds"),
         "redaction_boxes": segment.get("redaction_boxes", []),
@@ -1330,9 +1534,9 @@ def _evaluate_visual_generation_gate(
     )
     if not has_local_config:
         missing.append("local_config_file")
-    if not available_image_candidates and not available_video_candidates:
+    if (needs_image or needs_video) and not available_image_candidates and not available_video_candidates:
         missing.append("api_key")
-    if _is_missing_secret(_nested_get(config, "provider", "region")) and not (
+    if (needs_image or needs_video) and _is_missing_secret(_nested_get(config, "provider", "region")) and not (
         available_image_candidates or available_video_candidates
     ):
         missing.append("provider_region")
@@ -1406,9 +1610,9 @@ def _evaluate_visual_generation_gate(
             "status": "pass"
             if not required_local_media_inputs
             or all(
-                not _is_missing_secret(_resolve_footage_input(config, segment.get("asset_key") or segment["segment_id"])["local_path"])
+                not _is_missing_secret(_resolve_segment_footage_input(config, segment)["local_path"])
                 and pathlib.Path(
-                    _resolve_footage_input(config, segment.get("asset_key") or segment["segment_id"])["local_path"]
+                    _resolve_segment_footage_input(config, segment)["local_path"]
                 )
                 .expanduser()
                 .exists()
@@ -1992,7 +2196,9 @@ def build_assembly_result_summary(
             "preview_video": preview.get("video_path"),
             "preview_manifest": preview.get("preview_manifest_path"),
         },
-        "next_action_hint": _assembly_next_action_hint(assembly_gate, dry_run),
+        "next_action_hint": "北京区 OSS + 云剪 assembly 已真实完成，full_video.mp4 已下载到本地；下一步只保留内容复审，不写 send_ready。"
+        if overall_status == STATUS_SUCCESS
+        else _assembly_next_action_hint(assembly_gate, dry_run),
         "current_missing_prerequisites": []
         if overall_status == STATUS_SUCCESS
         else cloud.get("missing_prerequisites", assembly_gate["missing_prerequisites"]),
@@ -2000,7 +2206,7 @@ def build_assembly_result_summary(
         if overall_status == STATUS_SUCCESS
         else cloud.get("missing_implementations", assembly_gate["missing_implementations"]),
         "cloud_missing_prerequisites": cloud.get("missing_prerequisites", assembly_gate["missing_prerequisites"]),
-        "known_issues": manifest.get("known_issues", []),
+        "known_issues": [] if overall_status == STATUS_SUCCESS else manifest.get("known_issues", []),
     }
 
 
@@ -2924,9 +3130,60 @@ def build_visual_generation_plan(
                 "source_start_seconds": local_asset.get("source_start_seconds"),
                 "source_end_seconds": local_asset.get("source_end_seconds"),
                 "zoom_policy": local_asset.get("zoom_policy", ""),
+                "zoom_motion_profile": _describe_middle_reference_zoom_policy(
+                    local_asset.get("zoom_policy", "")
+                ),
                 "redaction_boxes": local_asset.get("redaction_boxes", []),
                 "redaction_note": segment.get("redaction_note", ""),
-                "asset_origin": USER_MEDIA_SOURCE,
+                "asset_origin": local_asset.get("asset_source") or USER_MEDIA_SOURCE,
+                "preview_visual_ref": f"preview_slide_{index}",
+                "failure_reason": "",
+                "error_message": "",
+                "status": STATUS_SUCCESS,
+            }
+            segment_assets.append(asset_record)
+            continue
+        if _segment_uses_local_card_render(segment):
+            try:
+                rendered_card_path = _render_local_card_asset(
+                    segment=segment,
+                    output_dir=output_dir,
+                )
+            except RuntimeError as exc:
+                visual_generation.update(
+                    {
+                        "status": STATUS_BLOCKED,
+                        "blocked_reason": str(exc),
+                        "error_message": str(exc),
+                    }
+                )
+                _write_visual_generation_files(
+                    visual_generation=visual_generation,
+                    video_spec=video_spec,
+                    plan_path=plan_path,
+                    preview_storyboard_path=preview_storyboard_path,
+                )
+                return visual_generation
+            asset_record = {
+                "segment_id": segment["segment_id"],
+                "sequence": index,
+                "carrier": segment.get("carrier", CARRIER_LIGHT_PPT),
+                "asset_key": segment.get("asset_key", ""),
+                "asset_source": segment.get("asset_source", LOCAL_RENDERED_SOURCE),
+                "needs_image": True,
+                "needs_video": False,
+                "seed_image_required": False,
+                "image_prompt": "",
+                "video_prompt": "",
+                "image_task_id": None,
+                "video_task_id": None,
+                "image_asset_path": str(rendered_card_path),
+                "video_asset_path": None,
+                "local_asset_path": str(rendered_card_path),
+                "prepared_asset_path": str(rendered_card_path),
+                "asset_origin": LOCAL_RENDERED_SOURCE,
+                "visual_route": segment.get("visual_route", ""),
+                "visual_asset_source": "card_local_rendering_or_reference_inheritance",
                 "preview_visual_ref": f"preview_slide_{index}",
                 "failure_reason": "",
                 "error_message": "",
@@ -3158,7 +3415,7 @@ def build_visual_generation_plan(
         visual_generation["portrait_video_generation"]["enabled"]
         and any(
             asset.get("carrier") == CARRIER_HUMAN
-            and asset.get("asset_origin") != USER_MEDIA_SOURCE
+            and asset.get("asset_origin") not in LOCAL_REFERENCE_MEDIA_SOURCES
             and asset.get("needs_video")
             for asset in segment_assets
         )
@@ -3168,7 +3425,8 @@ def build_visual_generation_plan(
             "status": STATUS_SKIPPED
             if not any(
                 asset.get("needs_video")
-                and asset.get("asset_origin") != USER_MEDIA_SOURCE
+                and asset.get("asset_origin") not in LOCAL_REFERENCE_MEDIA_SOURCES
+                and asset.get("asset_origin") != LOCAL_RENDERED_SOURCE
                 and asset.get("carrier") != CARRIER_HUMAN
                 for asset in segment_assets
             )
@@ -3204,7 +3462,7 @@ def build_visual_generation_plan(
     runtime_state = rotation_state or _build_default_rotation_state()
 
     for segment, asset in zip(video_spec.get("segments", []), segment_assets):
-        if asset.get("asset_origin") == USER_MEDIA_SOURCE:
+        if asset.get("asset_origin") in LOCAL_REFERENCE_MEDIA_SOURCES or asset.get("asset_origin") == LOCAL_RENDERED_SOURCE:
             continue
         image_result = {
             "status": STATUS_SKIPPED,
@@ -3246,7 +3504,7 @@ def build_visual_generation_plan(
             use_portrait_route = (
                 portrait_route_in_use
                 and asset.get("carrier") == CARRIER_HUMAN
-                and asset.get("asset_origin") != USER_MEDIA_SOURCE
+                and asset.get("asset_origin") not in LOCAL_REFERENCE_MEDIA_SOURCES
             )
             if use_portrait_route:
                 portrait_result = _execute_aliyun_liveportrait_video_generation(
@@ -3370,6 +3628,152 @@ def build_visual_generation_plan(
     return visual_generation
 
 
+def _render_local_card_asset(
+    *,
+    segment: dict[str, Any],
+    output_dir: pathlib.Path,
+) -> pathlib.Path:
+    try:
+        from PIL import Image, ImageDraw, ImageFont
+    except ImportError as exc:  # pragma: no cover - depends on local renderer env.
+        raise RuntimeError("缺少 Pillow，无法本地渲染正式信息卡。") from exc
+
+    route = _normalize_optional_text(segment.get("visual_route")) or "cute_info_card_route"
+    card_dir = output_dir / "local_rendered_cards"
+    card_dir.mkdir(parents=True, exist_ok=True)
+    output_path = card_dir / f"{segment['segment_id']}_{route}.png"
+
+    width, height = 1080, 1920
+    image = Image.new("RGB", (width, height), "#fff7fb")
+    draw = ImageDraw.Draw(image)
+    title_font = _load_card_font(ImageFont, 68, bold=True)
+    subtitle_font = _load_card_font(ImageFont, 38, bold=True)
+    body_font = _load_card_font(ImageFont, 34)
+    small_font = _load_card_font(ImageFont, 26)
+
+    if route == "sassy_reaction_card_route":
+        accent = "#ff5d8f"
+        panel = "#fff0f6"
+        shadow = "#ffd3e6"
+        punchline = _normalize_optional_text(segment.get("goal")) or segment["segment_id"]
+        subtitle = "先判断，再执行"
+    else:
+        accent = "#f284a8"
+        panel = "#ffffff"
+        shadow = "#f9d7e8"
+        punchline = _normalize_optional_text(segment.get("goal")) or segment["segment_id"]
+        subtitle = _card_subtitle_for_route(route)
+
+    draw.rounded_rectangle((92, 180, 988, 1660), radius=52, fill=shadow)
+    draw.rounded_rectangle((76, 158, 972, 1638), radius=52, fill=panel, outline="#f4b8d0", width=4)
+    draw.rounded_rectangle((120, 228, 354, 294), radius=32, fill=accent)
+    draw.text((150, 244), _card_route_label(route), fill="#ffffff", font=small_font)
+
+    title_lines = _wrap_text_by_width(draw, punchline, title_font, 800, max_lines=3)
+    y = 370
+    for line in title_lines:
+        draw.text((134, y), line, fill="#2e2b32", font=title_font)
+        y += 86
+
+    subtitle_lines = _wrap_text_by_width(draw, subtitle, subtitle_font, 790, max_lines=2)
+    y += 28
+    for line in subtitle_lines:
+        draw.text((138, y), line, fill="#7d4f63", font=subtitle_font)
+        y += 54
+
+    modules = _card_modules_from_segment(segment)
+    module_y = max(760, y + 70)
+    for module in modules[:3]:
+        draw.rounded_rectangle((132, module_y, 916, module_y + 194), radius=34, fill="#fff9fc", outline="#f5c7da", width=3)
+        draw.ellipse((164, module_y + 52, 214, module_y + 102), fill=accent)
+        draw.text((238, module_y + 38), module["title"], fill="#3a3138", font=subtitle_font)
+        body_lines = _wrap_text_by_width(draw, module["body"], body_font, 612, max_lines=2)
+        body_y = module_y + 96
+        for line in body_lines:
+            draw.text((238, body_y), line, fill="#6d5964", font=body_font)
+            body_y += 44
+        module_y += 234
+
+    draw.text((136, 1536), "reference route: " + route, fill="#b68799", font=small_font)
+    image.save(output_path)
+    return output_path
+
+
+def _load_card_font(image_font_module: Any, size: int, *, bold: bool = False) -> Any:
+    font_candidates = [
+        "/System/Library/Fonts/PingFang.ttc",
+        "/System/Library/Fonts/Hiragino Sans GB.ttc",
+        "/System/Library/Fonts/STHeiti Light.ttc",
+        "/System/Library/Fonts/Supplemental/Arial Unicode.ttf",
+    ]
+    for font_path in font_candidates:
+        if pathlib.Path(font_path).exists():
+            try:
+                return image_font_module.truetype(font_path, size=size, index=1 if bold else 0)
+            except Exception:
+                continue
+    return image_font_module.load_default()
+
+
+def _wrap_text_by_width(
+    draw: Any,
+    text: str,
+    font: Any,
+    max_width: int,
+    *,
+    max_lines: int,
+) -> list[str]:
+    normalized = " ".join(_normalize_optional_text(text).split())
+    if not normalized:
+        return [""]
+    lines: list[str] = []
+    current = ""
+    for char in normalized:
+        candidate = current + char
+        bbox = draw.textbbox((0, 0), candidate, font=font)
+        if bbox[2] - bbox[0] <= max_width or not current:
+            current = candidate
+            continue
+        lines.append(current)
+        current = char
+        if len(lines) >= max_lines:
+            break
+    if len(lines) < max_lines and current:
+        lines.append(current)
+    if len(lines) > max_lines:
+        lines = lines[:max_lines]
+    if lines and len(lines) == max_lines and len("".join(lines)) < len(normalized):
+        lines[-1] = lines[-1].rstrip(" ，。；、") + "..."
+    return lines
+
+
+def _card_route_label(route: str) -> str:
+    if route == "cute_prompt_card_route":
+        return "提示卡"
+    if route == "sassy_reaction_card_route":
+        return "反应卡"
+    return "信息卡"
+
+
+def _card_subtitle_for_route(route: str) -> str:
+    if route == "cute_prompt_card_route":
+        return "少信息量，只做段落进入提示"
+    if route == "sassy_reaction_card_route":
+        return "独立反应页，不替代录屏证据"
+    return "边界说清楚，主叙事交给真实素材"
+
+
+def _card_modules_from_segment(segment: dict[str, Any]) -> list[dict[str, str]]:
+    proof = _normalize_optional_text(segment.get("proof_statement")) or "辅助显影当前段落重点"
+    cannot = _normalize_optional_text(segment.get("cannot_prove")) or "不替代真实流程证据"
+    intent = _normalize_optional_text(segment.get("visual_intent")) or _normalize_optional_text(segment.get("goal"))
+    return [
+        {"title": "本段负责", "body": proof},
+        {"title": "边界", "body": cannot},
+        {"title": "画面任务", "body": intent},
+    ]
+
+
 def _prepare_segment_local_media_asset(
     *,
     source_path: pathlib.Path,
@@ -3387,6 +3791,8 @@ def _prepare_segment_local_media_asset(
         or end_seconds is not None
         or local_asset.get("redaction_boxes")
         or _normalize_optional_text(local_asset.get("zoom_policy"))
+        or segment.get("carrier") == CARRIER_ELEMENT_DOLL_HOST
+        or local_asset.get("asset_source") == LOCKED_REFERENCE_SOURCE
     )
     if not needs_preparation:
         return source_path
@@ -3478,7 +3884,9 @@ def _build_formal_local_media_filter(
     redaction_boxes: list[dict[str, float]],
 ) -> str:
     normalized_policy = _normalize_optional_text(zoom_policy)
-    if normalized_policy == "contain":
+    if normalized_policy.startswith("middle_reference_zoom"):
+        filters = _build_middle_reference_zoom_filters(normalized_policy)
+    elif normalized_policy == "contain":
         filters = [
             "scale=1080:1920:force_original_aspect_ratio=decrease",
             "pad=1080:1920:(ow-iw)/2:(oh-ih)/2:color=0xF8F0F5",
@@ -3493,6 +3901,46 @@ def _build_formal_local_media_filter(
     for box in redaction_boxes:
         filters.append(_build_drawbox_filter(box))
     return ",".join(filters)
+
+
+def _build_middle_reference_zoom_filters(normalized_policy: str) -> list[str]:
+    if normalized_policy.endswith("_right"):
+        focus = "0.64"
+        span = "0.20"
+        cycle = "10"
+    elif normalized_policy.endswith("_left"):
+        focus = "0.28"
+        span = "0.20"
+        cycle = "10"
+    elif normalized_policy.endswith("_center"):
+        focus = "0.48"
+        span = "0.18"
+        cycle = "12"
+    else:
+        focus = "0.48"
+        span = "0.34"
+        cycle = "14"
+    crop_x_expression = (
+        f"(iw-ow)*({focus}+{span}*(0.5-0.5*cos(2*PI*t/{cycle}))-{span}/2)"
+    )
+    return [
+        "scale=-2:1920",
+        f"crop=1080:1920:x='{crop_x_expression}':y=0",
+        "setsar=1",
+    ]
+
+
+def _describe_middle_reference_zoom_policy(zoom_policy: str) -> str:
+    normalized_policy = _normalize_optional_text(zoom_policy)
+    if not normalized_policy.startswith("middle_reference_zoom"):
+        return ""
+    if normalized_policy.endswith("_right"):
+        return "middle_zoom_reference_confirmed_middle_preview_20260430: right evidence window, dynamic crop_x"
+    if normalized_policy.endswith("_left"):
+        return "middle_zoom_reference_confirmed_middle_preview_20260430: left evidence window, dynamic crop_x"
+    if normalized_policy.endswith("_center"):
+        return "middle_zoom_reference_confirmed_middle_preview_20260430: center evidence window, dynamic crop_x"
+    return "middle_zoom_reference_confirmed_middle_preview_20260430: multi-window evidence scan, dynamic crop_x"
 
 
 def _build_drawbox_filter(box: dict[str, float]) -> str:

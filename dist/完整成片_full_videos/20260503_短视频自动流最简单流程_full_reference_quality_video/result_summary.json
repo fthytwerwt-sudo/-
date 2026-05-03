@@ -1,113 +1,31 @@
 {
   "schema_version": "formal_api_demo_result_summary/v1",
-  "stage": "generation",
-  "overall_status": "failed",
-  "generation_status": "failed",
-  "assembly_status": "not_started",
+  "stage": "assembly",
+  "overall_status": "success",
+  "generation_status": "success",
+  "assembly_status": "success",
   "local_assembly_status": "not_started",
-  "cloud_assembly_status": "not_started",
-  "tts_probe_status": "success",
-  "voiceover_status": "failed",
-  "captions_status": "success",
-  "visual_generation_status": "failed",
-  "cloud_visual_generation_status": "failed",
-  "failure_reason": "aliyun_bailian_tts_request_failed",
-  "error_message": "The read operation timed out",
+  "cloud_assembly_status": "success",
+  "assembly_preview_status": "not_started",
+  "delivery_mode": "oss_cloud_assembly",
   "machine_gate_result": {
     "generation_gate": "success",
-    "assembly_gate": "not_started"
+    "assembly_gate": "success"
   },
-  "blocked_reason": "The read operation timed out",
+  "blocked_reason": "",
   "artifact_paths": {
     "manifest": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/manifest.json",
-    "generation_gate": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/generation_gate.json",
+    "assembly_gate": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/assembly_gate.json",
+    "assembly_plan": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/assembly_plan.json",
     "result_summary": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/result_summary.json",
     "route_plan": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/route_plan.json",
-    "tts_audio": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/tts/voice_probe.mp3",
-    "voiceover_audio": null,
-    "script": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/script.txt",
-    "captions": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/captions.srt",
-    "visual_plan": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/visual_generation_plan.json",
-    "preview_storyboard": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/preview_storyboard.json",
-    "visual_assets": [
-      "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg02_prepared.mp4",
-      "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg04_prepared.mp4",
-      "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg06_prepared.mp4",
-      "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg07_prepared.mp4",
-      "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg08_prepared.mp4",
-      "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/prepared_visuals/seg14_prepared.mp4"
-    ]
+    "final_video": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/full_video.mp4",
+    "preview_video": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/assembly/formal_api_demo_preview.mp4",
+    "preview_manifest": "/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/assembly/preview_manifest.json"
   },
-  "rotation_summary": {
-    "tts_candidate_pool": {
-      "total_candidate_count": 1,
-      "available_candidate_count": 1,
-      "backup_candidate_count": 0,
-      "candidates": [
-        {
-          "candidate_id": "primary",
-          "label": "primary",
-          "provider": "aliyun_bailian",
-          "api_route_family": "aliyun_bailian_cosyvoice",
-          "voice": "longxiaochun_v2",
-          "model_identifier": "cosyvoice-v2",
-          "style_profile": "default",
-          "priority": 10,
-          "enabled": true,
-          "available": true,
-          "missing_prerequisites": []
-        }
-      ]
-    },
-    "tts_fallback_events": [],
-    "tts_selected_candidate_id": "primary",
-    "voiceover_last_success_candidate_id": "",
-    "visual_candidate_pool": {
-      "image_generation": {
-        "total_candidate_count": 1,
-        "available_candidate_count": 1,
-        "backup_candidate_count": 0,
-        "candidates": [
-          {
-            "candidate_id": "primary",
-            "label": "Aliyun Image Primary",
-            "provider": "aliyun_bailian",
-            "model": "wan2.6-image",
-            "style_profile": "report",
-            "priority": 10,
-            "enabled": true,
-            "available": true,
-            "missing_prerequisites": []
-          }
-        ]
-      },
-      "video_generation": {
-        "total_candidate_count": 1,
-        "available_candidate_count": 1,
-        "backup_candidate_count": 0,
-        "candidates": [
-          {
-            "candidate_id": "primary",
-            "label": "Aliyun Video Primary",
-            "provider": "aliyun_bailian",
-            "model": "wan2.7-i2v",
-            "style_profile": "report",
-            "priority": 10,
-            "enabled": true,
-            "available": true,
-            "missing_prerequisites": []
-          }
-        ]
-      }
-    }
-  },
-  "next_action_hint": "当前配音链路已通；下一步只要把真人口播、自录过程素材和结果卡准备齐，或补齐必要的辅助图片段资产，就可以继续推进北京区 OSS + 云剪 cloud-only 主路径。",
+  "next_action_hint": "北京区 OSS + 云剪 assembly 已真实完成，full_video.mp4 已下载到本地；下一步只保留内容复审，不写 send_ready。",
   "current_missing_prerequisites": [],
   "current_missing_implementations": [],
   "cloud_missing_prerequisites": [],
-  "known_issues": [
-    "当前 TTS 调用已接通；正式主线下一步取决于用户真实素材注入或辅助图片资产准备，再进入北京区 OSS + 云剪主路径。",
-    "正式配音 failed：The read operation timed out",
-    "视觉生成 failed：{\"code\":\"AllocationQuota.FreeTierOnly\",\"message\":\"The free tier of the model has been exhausted. If you wish to continue access the model on a paid basis, please disable the \\\"use free tier only\\\" mode in the management console.\",\"request_id\":\"4404ee0a-6802-99dc-9f31-bf11567e427e\"}"
-  ]
+  "known_issues": []
 }

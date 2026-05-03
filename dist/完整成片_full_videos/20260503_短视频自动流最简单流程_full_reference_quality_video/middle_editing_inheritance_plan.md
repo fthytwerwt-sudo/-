@@ -1,8 +1,11 @@
 # middle_editing_inheritance_plan
 
-- status：planned_and_partially_prepared
+- status：executed_and_final_video_checked
 - inherited_reference：middle_editing_round34_locked_20260425；middle_zoom_reference_confirmed_middle_preview_20260430
 - middle_subject：用户录制素材
+- zoom_execution：middle_reference_zoom* dynamic crop_x
+- final_video_contact_sheet：`/Users/fan/Documents/视频工厂/dist/完整成片_full_videos/20260503_短视频自动流最简单流程_full_reference_quality_video/middle_zoom_contact_sheet.jpg`
+- local_reference_assembly_used：false；云剪成片达标，未切本地总装版
 
 | 段落 | 素材 | 时间码 | 放大/裁切 | 遮挡 | 证明什么 | 不能证明 |
 | --- | --- | --- | --- | --- | --- | --- |

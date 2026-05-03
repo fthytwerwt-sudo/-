@@ -40,6 +40,12 @@ def build_parser() -> argparse.ArgumentParser:
         default=DEFAULT_FORMAL_LOCAL_CONFIG_PATH,
     )
     parser.add_argument("--out", type=pathlib.Path, default=DEFAULT_FORMAL_OUTPUT_DIR)
+    parser.add_argument(
+        "--voiceover-path",
+        type=pathlib.Path,
+        default=None,
+        help="复用已生成的项目正式 TTS 完整音轨，跳过远程 voiceover 重新生成。",
+    )
     parser.add_argument("--dry-run", action="store_true")
     return parser
 
@@ -52,6 +58,7 @@ def main() -> int:
         local_config_path=args.local_config,
         output_dir=args.out,
         dry_run=args.dry_run,
+        local_voiceover_path=args.voiceover_path,
     )
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0

@@ -213,7 +213,7 @@
         },
         {
           "name": "required_user_footage_present",
-          "status": "fail",
+          "status": "pass",
           "detail": "默认正式主线要求的用户本地录制素材必须先在本地配置里注入真实文件路径。"
         },
         {
@@ -313,7 +313,7 @@
     },
     {
       "name": "required_user_footage_present",
-      "status": "fail",
+      "status": "pass",
       "detail": "默认正式主线要求的用户本地录制素材必须先在本地配置里注入真实文件路径。"
     },
     {

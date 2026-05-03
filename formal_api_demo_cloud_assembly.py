@@ -72,7 +72,7 @@ def execute_cloud_only_assembly(
             manifest=manifest,
             upload_bundle=upload_bundle,
         )
-        _write_json(timeline_path, timeline)
+        _write_json(timeline_path, _sanitize_timeline_urls(timeline, config))
 
         timeline_object_key = _build_object_key(
             _nested_get(config, "aliyun_oss", "prefix_temp"),
@@ -611,6 +611,19 @@ def _sanitize_uploaded_assets(
             sanitized["media_url"] = _sanitize_media_url(media_url, config)
         sanitized_assets.append(sanitized)
     return sanitized_assets
+
+
+def _sanitize_timeline_urls(value: Any, config: dict[str, Any]) -> Any:
+    if isinstance(value, dict):
+        return {
+            key: _sanitize_media_url(item, config)
+            if key in {"MediaURL", "FileURL"} and isinstance(item, str)
+            else _sanitize_timeline_urls(item, config)
+            for key, item in value.items()
+        }
+    if isinstance(value, list):
+        return [_sanitize_timeline_urls(item, config) for item in value]
+    return value
 
 
 def _sanitize_media_url(media_url: str, config: dict[str, Any]) -> str:
