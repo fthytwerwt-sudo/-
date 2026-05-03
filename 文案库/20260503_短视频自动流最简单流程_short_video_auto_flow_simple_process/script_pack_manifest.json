@@ -1,0 +1,16 @@
+{
+  "title": "短视频自动流的最简单流程",
+  "sample_type": "full_flow_quality_sample",
+  "full_script_used": true,
+  "compressed_runtime_used": false,
+  "pr43_compressed_script_reused": false,
+  "material_root": "/Users/fan/Documents/视频工厂/素材录制/最新素材",
+  "updated_at": "2026-05-03T22:01:10",
+  "files": {
+    "full_script": "/Users/fan/Documents/视频工厂/文案库/20260503_短视频自动流最简单流程_short_video_auto_flow_simple_process/01_完整口播稿_full_script.md",
+    "block_segment_material_map": "/Users/fan/Documents/视频工厂/文案库/20260503_短视频自动流最简单流程_short_video_auto_flow_simple_process/02_分段承载表_block_segment_material_map.md",
+    "card_copy": "/Users/fan/Documents/视频工厂/文案库/20260503_短视频自动流最简单流程_short_video_auto_flow_simple_process/03_卡片文案_card_copy.md",
+    "execution_notes": "/Users/fan/Documents/视频工厂/文案库/20260503_短视频自动流最简单流程_short_video_auto_flow_simple_process/04_执行注意事项_execution_notes.md",
+    "codex_video_execution_input": "/Users/fan/Documents/视频工厂/文案库/20260503_短视频自动流最简单流程_short_video_auto_flow_simple_process/05_给Codex剪辑执行输入_codex_video_execution_input.md"
+  }
+}

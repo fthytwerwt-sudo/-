@@ -1,0 +1,69 @@
+{
+  "sample_type": "full_flow_quality_sample",
+  "routes": [
+    {
+      "segment_id": "host_opening_judgement",
+      "kind": "card",
+      "assigned_route": "cute_prompt_card_route",
+      "role": "主持壳 fallback｜开头判断"
+    },
+    {
+      "segment_id": "host_transition_shape",
+      "kind": "card",
+      "assigned_route": "cute_prompt_card_route",
+      "role": "主持壳 fallback｜关键判断"
+    },
+    {
+      "segment_id": "trae_skeleton_boundary_card",
+      "kind": "card",
+      "assigned_route": "cute_info_card_route",
+      "role": "状态边界信息卡"
+    },
+    {
+      "segment_id": "api_station_card",
+      "kind": "card",
+      "assigned_route": "cute_info_card_route",
+      "role": "API 工位信息卡"
+    },
+    {
+      "segment_id": "cloud_station_card",
+      "kind": "card",
+      "assigned_route": "cute_info_card_route",
+      "role": "云端总装边界卡"
+    },
+    {
+      "segment_id": "jimmeng_compare_card",
+      "kind": "card",
+      "assigned_route": "cute_info_card_route",
+      "role": "对比信息卡"
+    },
+    {
+      "segment_id": "sassy_reaction_process_card",
+      "kind": "card",
+      "assigned_route": "sassy_reaction_card_route",
+      "role": "骚萌反应卡｜转折"
+    },
+    {
+      "segment_id": "final_summary_card",
+      "kind": "card",
+      "assigned_route": "cute_info_card_route",
+      "role": "总结信息卡"
+    }
+  ],
+  "cute_prompt_card_route": [
+    "host_opening_judgement",
+    "host_transition_shape"
+  ],
+  "cute_info_card_route": [
+    "trae_skeleton_boundary_card",
+    "api_station_card",
+    "cloud_station_card",
+    "jimmeng_compare_card",
+    "final_summary_card"
+  ],
+  "sassy_reaction_card_route": [
+    "sassy_reaction_process_card"
+  ],
+  "passed": true,
+  "notes": "HyperFrames 未实际渲染；卡片视觉按三条 route 分配，未新增 route。"
+}

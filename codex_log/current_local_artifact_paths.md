@@ -70,3 +70,11 @@
 ## 6. 最后更新时间
 
 - `2026-05-03 CST`
+
+
+## 20260503｜短视频自动流完整流程质量样片
+
+| artifact_id（产物编号） | 中文名称 | purpose（用途） | canonical_local_path（首选本地路径） | path_exists（路径是否存在） | fallback_paths（备选路径） | verified_at（验证时间） | source_record（来源记录） | notes（备注） |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `short_video_auto_flow_full_flow_quality_sample_full_video` | 短视频自动流完整流程质量样片 | 用户复审完整流程片 | `/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_full_flow_quality_sample/full_video.mp4` | `true` | 无 | `2026-05-03 CST` | `ffprobe` 已通过；本轮生成后验证 | `sample_type=full_flow_quality_sample`; `send_ready=false`; 大 MP4 不提交 Git。 |
+| `short_video_auto_flow_full_flow_quality_sample_contact_sheet` | 短视频自动流完整流程质量样片联系表 | 用户快速复核画面结构 | `/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_full_flow_quality_sample/contact_sheet.jpg` | `true` | 无 | `2026-05-03 CST` | `test -f` 已通过；本轮生成后验证 | 大图不提交 Git，只记录本地路径。 |
