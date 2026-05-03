@@ -376,6 +376,48 @@ Codex 职责边界：
 - 完整片使用 candidate reference 却写成 locked reference。
 - 只有 technical_validation / content_validation，没有 reference inheritance validation。
 
+## 8E. Codex 视频样片默认等级规则
+
+`reference_quality_sample_rule（参考质量样片规则）`
+
+以后 Codex 接到《视频工厂》视频执行单时，只要用户要求：
+
+- 做样片
+- 出片
+- 完整片
+- 按参考做
+- 按仓库口径做
+- 按 locked reference 做
+- 按当前样片标准做
+
+默认样片等级必须是：
+
+`reference_quality_sample（参考质量样片）`
+
+Codex 不得默认把用户要的样片解释为：
+
+- `flow_proof_sample（流程证明降级片）`
+- `technical_flow_sample（技术流程样片）`
+- `review_sample（复审短样片）`
+- `short_preview（短预览片）`
+- `local_assembly_demo（本地拼装演示片）`
+
+执行硬规则：
+
+1. 视频执行单开头必须写：`本轮样片等级：reference_quality_sample（参考质量样片）`。
+2. 必须按当前正式主线执行：`API 生成真人 + 用户录制素材 + 少量 PPT + 云端剪辑`。
+3. 必须按 locked reference 继承，按 visual route 执行。
+4. 完整片 / 样片回炉 / 成品候选片必须读取：
+   - `codex_source/14_locked_reference_inheritance_rules.md`
+   - `codex_source/locked_reference_registry.md`
+   - `codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md`
+   - `dist/latest_review_pack/visual_route_map.json`
+   - `dist/latest_review_pack/visual_route_validation_report.json`
+5. 完整片 / 样片回炉 / 成品候选片必须输出 `locked_reference_inheritance_report.md（锁定参考继承报告）`；没有继承报告，不得写成参考质量样片完成。
+6. 如果 API 生成真人、项目 TTS / 声音节奏、云端剪辑、locked reference 继承、visual route、用户录制素材主体承载、完整文案保真入片或敏感信息脱敏任一关键项无法满足参考质量，默认先尝试补齐；补不齐则输出 `blocked_reference_quality_sample_not_completed`。
+7. 不允许用 flow proof、technical sample、review sample、2 分钟短样片、145 秒压缩片、本地 assembly demo 或“能播放但不是参考质量”的片子交差。
+8. 不得用普通信息卡冒充 API 生成真人，不得让卡片 / PPT 成为主叙事，不得把 `technical_validation` 写成 `content_validation`，不得把 `send_ready` 写成 `true`，不得把 TTS trial 写成声音通过，云剪未实跑时不得写成云剪稳定。
+
 ## 9. 主读取分支与状态分类
 
 当前仓库默认主读取分支固定为：

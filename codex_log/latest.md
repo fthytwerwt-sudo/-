@@ -1,5 +1,16 @@
 # Latest
 
+## 20260503｜样片参考质量规则写入
+
+- `已确认` 本轮只写入 `reference_quality_sample_rule（参考质量样片规则）`，不生成视频 / 音频 / 图片，不剪辑，不 render，不调用 TTS，不调用云剪，不修改 API 主持壳或素材。
+- `已确认` 后续《视频工厂》中用户说“做样片 / 出片 / 完整片 / 按参考做 / 按仓库口径做 / 按 locked reference 做 / 按当前样片标准做”，默认样片等级为 `reference_quality_sample（参考质量样片）`。
+- `已确认` 默认禁止降级为 `flow_proof_sample（流程证明降级片）`、`technical_flow_sample（技术流程样片）`、`review_sample（复审短样片）`、`short_preview（短预览片）` 或 `local_assembly_demo（本地拼装演示片）`。
+- `已确认` 若无法达到参考质量，必须先尝试补齐；补不齐则输出 `blocked_reference_quality_sample_not_completed`，不得交“能播放但不是参考质量”的片子冒充完成。
+- `已确认` 本轮未修改 v3.1 publish target，未修改 `dist/latest_review_pack/`，未修改视频 / 音频 / 图片 / 素材，未把 `content_validation` 写成通过，未把 `send_ready` 写成 `true`。
+- `已确认` 新增 GPT Project 同步文本：`GPT 数据源/10_样片参考质量规则_reference_quality_sample_rule.md`。
+- `dated log`：`codex_log/20260503_样片参考质量规则写入_reference_quality_sample_rule.md`
+- `下一个目标`：后续 Codex 视频样片执行单默认按参考质量样片口径启动，无法满足参考质量时明确 blocked。
+
 ## 20260503｜阿里云剪辑复接验证 after audit
 
 - `已确认` PR #34「接入 HyperFrames 三类卡片动效边界并审计阿里云剪辑」已合并到 `codex/user-readable-map`，合并提交：`edbe61e512c972d75c786a53f82c9e3db53ecfb2`。
