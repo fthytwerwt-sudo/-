@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-05-03T21:27:19",
+  "sample_type": "flow_proof_sample",
+  "technical_validation": "passed",
+  "content_validation": "pending_user_chatgpt_review",
+  "send_ready": false,
+  "duration_seconds": 145.008,
+  "width": 720,
+  "height": 1280,
+  "video_codec": "h264",
+  "audio_codec": "aac",
+  "audio_validation": "temporary_preview",
+  "cloud_assembly_runtime": "not_used_fallback_local_preview",
+  "large_media_committed_to_git": false
+}

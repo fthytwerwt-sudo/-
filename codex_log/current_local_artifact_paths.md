@@ -70,3 +70,12 @@
 ## 6. 最后更新时间
 
 - `2026-05-03 CST`
+
+## 2026-05-03 短视频自动流 V3 完整可复审样片
+
+| artifact | canonical_local_path | path_exists | note |
+| --- | --- | --- | --- |
+| full_video | `/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v3_complete_review_sample/full_video.mp4` | `true` | 大媒体文件，本地保留，不提交 Git |
+| contact_sheet | `/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v3_complete_review_sample/contact_sheet.jpg` | `true` | 本地复审 contact sheet，不提交 Git |
+| report_dir | `/Users/fan/Documents/视频工厂/样片报告_sample_reports/20260503_短视频自动流最简单流程_v3_complete_review_sample` | `true` | 文本报告目录 |
+| output_dir | `/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v3_complete_review_sample` | `true` | 本轮样片输出目录 |

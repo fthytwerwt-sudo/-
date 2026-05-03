@@ -1,0 +1,24 @@
+{
+  "full_video": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v3_complete_review_sample/full_video.mp4",
+  "contact_sheet": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v3_complete_review_sample/contact_sheet.jpg",
+  "captions_srt": "/Users/fan/Documents/视频工厂/dist/视频样片_video_samples/20260503_短视频自动流最简单流程_v3_complete_review_sample/captions.srt",
+  "render_report": "/Users/fan/Documents/视频工厂/样片报告_sample_reports/20260503_短视频自动流最简单流程_v3_complete_review_sample/render_report.md",
+  "local_open_path_report": "/Users/fan/Documents/视频工厂/样片报告_sample_reports/20260503_短视频自动流最简单流程_v3_complete_review_sample/local_open_path_report.md",
+  "sample_type": "flow_proof_sample",
+  "technical_validation": "passed",
+  "duration_seconds": 145.008,
+  "resolution": "720x1280",
+  "video_codec": "h264",
+  "audio_codec": "aac",
+  "audio_present": true,
+  "decodable": true,
+  "fallback": {
+    "sample_type": "flow_proof_sample",
+    "api_human": "missing_api_human_runtime_fallback_to_host_cards",
+    "project_tts": "project_tts_not_safely_executed_fallback_to_macos_say_temporary_preview",
+    "v3_cloud_assembly": "not_used_fallback_local_preview",
+    "locked_reference": "registry_read_plan_level_inheritance_only_mainline_blocked",
+    "material_redaction": "volcengine_not_used_info_card_fallback"
+  },
+  "sensitive_hits": []
+}

@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "sample_type": "flow_proof_sample",
+  "routes": [
+    {
+      "card_id": "opening_judgement",
+      "assigned_route": "cute_prompt_card_route",
+      "status": "planned_and_rendered_as_static_card"
+    },
+    {
+      "card_id": "api_station",
+      "assigned_route": "cute_info_card_route",
+      "status": "rendered_as_info_card"
+    },
+    {
+      "card_id": "cloud_station",
+      "assigned_route": "cute_info_card_route",
+      "status": "rendered_as_info_card"
+    },
+    {
+      "card_id": "tool_roles",
+      "assigned_route": "cute_info_card_route",
+      "status": "rendered_as_info_card"
+    },
+    {
+      "card_id": "closing",
+      "assigned_route": "cute_info_card_route",
+      "status": "rendered_as_info_card"
+    }
+  ],
+  "sassy_reaction_card_route": "not_used_no_forced_sassy_card",
+  "hyperframes": "not_rendered_this_round",
+  "blocked_for_mainline": [
+    "api_human_runtime_missing",
+    "project_tts_fallback",
+    "cloud_assembly_fallback"
+  ]
+}
