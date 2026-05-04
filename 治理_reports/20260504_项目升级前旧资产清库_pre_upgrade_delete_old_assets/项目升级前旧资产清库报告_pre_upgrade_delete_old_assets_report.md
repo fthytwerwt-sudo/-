@@ -8,7 +8,8 @@
 - `已确认` 当前唯一固定素材锚点：`v31_element_doll_opening_anchor`。
 - `已确认` v3.1 开头预览：`v31_element_doll_opening_preview`。
 - `已确认` PR #48 口径修正：元素娃娃开头是唯一 `fixed_material_anchor（固定素材锚点）`，不是唯一 reference。
-- `已确认` PR #7 B、cute card、round34 中段剪辑、TTS 节奏、visual route / registry 仍属于 `reference_whitelist（参考白名单）`。
+- `已确认` PR #7 B、cute card、round34 中段剪辑、TTS 节奏参考、TTS 语音 / 音色候选参考、visual route / registry 仍属于 `reference_whitelist（参考白名单）`。
+- `已确认` TTS voice reference 已补入：`voice_sample2_cute_guide_voice_candidate_20260426`、脱敏 custom voice `qwen-t...ac19`、`target_model = qwen3-tts-vc-realtime-2026-01-15`；该项仍为 candidate / pending，不是最终音色通过。
 - `已确认` PR #46 只保留为未来流程 / 教学 / 操作拆解升级方向资料，不作为当前 reference。
 - `已确认` `GPT 数据源/10_样片参考质量规则_reference_quality_sample_rule.md` 与整个 `GPT 数据源/` 本轮冻结不动。
 
@@ -148,11 +149,15 @@
 `已确认` 本次修正用于区分：
 
 - `fixed_material_anchor（固定素材锚点）`：当前只有 v3.1 元素娃娃开头锚点。
-- `reference_whitelist（参考白名单）`：PR #7 B 骚萌卡、cute card、round34 中段剪辑 / 证据窗口、TTS 节奏、`visual_route_map.json`、`locked_reference_registry.md` 仍需保留并按任务类型复核后使用。
+- `reference_whitelist（参考白名单）`：PR #7 B 骚萌卡、cute card、round34 中段剪辑 / 证据窗口、TTS 节奏参考、TTS 语音 / 音色候选参考、`visual_route_map.json`、`locked_reference_registry.md` 仍需保留并按任务类型复核后使用。
+- `tts_pacing_reference（TTS 节奏参考）`：`tts_15s_b_pacing_locked_20260427`，只管语速、停顿、轻吐槽、梗感和句间节奏。
+- `tts_voice_reference（TTS 语音 / 音色参考）`：`voice_sample2_cute_guide_voice_candidate_20260426`、脱敏 custom voice `qwen-t...ac19`、`target_model = qwen3-tts-vc-realtime-2026-01-15`，只管声音质感、可爱向导音方向和 custom voice 底子。
 
 `已确认` round34 旧 817M 本地大包未恢复；但 `dist/latest_review_pack/middle_preview.mp4`、`dist/latest_review_pack/cut_contact_sheet.jpg`、`dist/latest_review_pack/problem_windows/30_32s.mp4`、`dist/latest_review_pack/problem_windows/30_32s_frames.jpg` 均仍存在，并已在 `codex_log/current_local_artifact_paths.md` 改回 `path_exists = true`，作为中段剪辑 / 证据窗口 reference whitelist。
 
 `已确认` 元素娃娃开头不是唯一 reference；不得把 PR #7 B、cute card、round34 中段剪辑、TTS 节奏或 visual route / registry 因清库口径误判为废弃。
+
+`已确认` TTS 语音 / 音色候选参考必须保留进 reference whitelist；但 `voice_sample2_cute_guide_voice_candidate_20260426` 仍是 candidate，不是 locked final voice；custom voice found 不等于 `final_voice_validated`；不得暴露真实 voice id；不得把 `voice_validation` 写成 passed，不得把 `final_voice_validated` 写成 true。
 
 ## 7. 下一个目标
 

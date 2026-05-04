@@ -4,6 +4,7 @@
 
 - `已确认` PR #48 追加清库口径修正：`v31_element_doll_opening_anchor（v3.1 元素娃娃开头锚点）` 是当前唯一 `fixed_material_anchor（固定素材锚点）`，但元素娃娃不是唯一 reference。
 - `已确认` reference whitelist 仍保留：`PR7_B_骚萌反应页.png`、cute card、round34 中段剪辑 / 证据窗口、`tts_15s_b_pacing_locked_20260427`、`visual_route_map.json`、`locked_reference_registry.md`；后续按路径索引和 registry 复核后使用。
+- `已确认` PR #48 追加 TTS reference whitelist 修正：TTS reference 分为 `tts_pacing_reference（TTS 节奏参考）` 与 `tts_voice_reference（TTS 语音 / 音色参考）`；`voice_sample2_cute_guide_voice_candidate_20260426` 与脱敏 custom voice `qwen-t...ac19` 保留为语音 / 音色候选参考，`target_model = qwen3-tts-vc-realtime-2026-01-15`，但 `voice_validation` 仍为 `pending_user_chatgpt_review`，`final_voice_validated` 仍为 `false`。
 - `已确认` round34 旧 817M 本地大包未恢复；但 `dist/latest_review_pack/middle_preview.mp4`、`cut_contact_sheet.jpg`、`problem_windows/30_32s.mp4`、`problem_windows/30_32s_frames.jpg` 均仍存在，并已在路径索引恢复为 `path_exists = true`。
 - `已确认` PR #47 已先合并到 `codex/user-readable-map`，合并提交：`20d9419e0a9ad048075a2138c610472df93051be`。
 - `已确认` 本轮从合并后的主读取分支创建清库分支：`codex/pre-upgrade-delete-old-assets-20260504`。
