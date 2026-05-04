@@ -18,6 +18,14 @@
 - PR 自评、技术通过、候选片 `pass_for_candidate_review` 不等于用户 / ChatGPT 明确确认。
 - 写入本分支不等于 `codex/user-readable-map（主读取分支）` 正式同步；只有本 PR 合并 / 回流后，才算新聊天默认正式已知。
 
+2026-05-04 项目升级前清库覆盖口径：
+
+- `已确认` 当前唯一固定素材锚点收束为 `opening_reference_element_doll_no_text_locked_20260428` 对应的本地开头锚点文件。
+- `已确认` v3.1 开头预览只作为开头预览证据保留。
+- `已确认` 本文件中其他旧 reference 条目暂保留为历史机制记录或后续复核线索，不得在新任务中默认继承为当前固定素材锚点。
+- `已确认` round34 / v3 / PR #7 B / cute card / TTS 等旧 reference 若要重新启用，必须另轮读取路径索引、重新验证 `path_exists`、确认没有被清库删除，并获得用户 / ChatGPT 新确认。
+- `已确认` PR #46 不作为当前 reference，只作为未来流程 / 教学 / 操作拆解类视频升级方向资料。
+
 ## 2. 字段说明
 
 | 字段 | 中文备注 |

@@ -46,6 +46,14 @@
 7. `GPT数据源/08_当前正式事实.md`
 8. `GPT数据源/06_当前主线锚点_API生成真人_用户录制素材_少量PPT_云端剪辑.md`
 
+2026-05-04 项目升级前清库覆盖口径：
+
+- 当前唯一固定素材锚点是 `v31_element_doll_opening_anchor（v3.1 元素娃娃开头锚点）`。
+- `v31_element_doll_opening_preview（v3.1 元素娃娃开头预览）` 只保留为开头预览证据。
+- round34、v3、PR #7 B、cute card、TTS 等旧 reference 不得再被默认输出成当前固定素材锚点；需要重新启用时，必须另轮复核路径、证据价值和用户确认。
+- PR #46 只保留为未来流程 / 教学 / 操作拆解类视频升级方向资料，不作为当前 reference。
+- `GPT 数据源/10_样片参考质量规则_reference_quality_sample_rule.md` 与整个 `GPT 数据源/` 目录本轮冻结不动。
+
 当前正式来源优先级：
 1. `GPT数据源/` 当前 10 份执行包
 2. `dist/latest_review_pack/summary.json`
