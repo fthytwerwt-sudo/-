@@ -34,6 +34,8 @@
 | `round34_cut_contact_sheet` | round34 切点联系表 | 用户复审 cut points / 切点结构 | `/Users/fan/Documents/视频工厂/视频工厂_元素娃娃1080P复审包_20260428/01_主候选_1080P_images/1675_cut_contact_sheet.jpg` | `true` | `/Users/fan/Documents/视频工厂/dist/latest_review_pack/cut_contact_sheet.jpg` | `2026-05-03 CST` | `test -f` 已通过；单工作区治理重新验证 | 外部 clean worktree 旧路径已降级为 `historical_source_path`。 |
 | `round34_full_video` | round34 完整正片 | 历史 round34 完整片复审入口 | `/Users/fan/Documents/视频工厂/视频工厂_元素娃娃1080P复审包_20260428/02_主候选_1080P_videos/1521_主持壳正式正片_round34_中段双展示提示卡_正反分段提示修复.mp4` | `true` | `/Users/fan/Documents/视频工厂/dist/latest_review_pack/full.mp4` | `2026-05-03 CST` | `test -f` 已通过；单工作区治理重新验证 | `dist/latest_review_pack/full.mp4` 当前随 v3.1 指向变化，不再代表 round34 默认当前片；round34 内部稳定路径保留为历史复审入口。 |
 | `v31_full_video_current_baseline` | AI 做 PPT 踩坑 v3.1 当前基线片 | 当前最新视频基线；后续升级 / 修改 / 技术优化 / GPT 文案侧回炉默认基础 | `/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/AI做PPT踩坑_成品候选_v31_full.mp4` | `true` | `/Users/fan/Documents/视频工厂/dist/latest_review_pack/full.mp4` | `2026-05-03 CST` | `test -f` 已通过；单工作区治理重新验证 | `historical_source_path` 曾为 `/Users/fan/Documents/视频工厂_v31_current_baseline_sync_20260502/...` 与 `/Users/fan/Documents/视频工厂_v31_visual_route_fix/...`，外部 worktree 已安全移除；`send_ready = false`、`content_validation = gray_testing_not_final_passed` 保持不变。 |
+| `v31_element_doll_opening_anchor` | v3.1 元素娃娃开头锚点 | 当前唯一固定素材锚点；只承担 v3.1 开头入口 | `/Users/fan/Documents/视频工厂/素材库_assets/元素娃娃开头锚点_opening_anchor_20260428/005_1496_seg01_no_text_inpaint_opening_anchor.mp4` | `true` | 无 | `2026-05-04 CST` | `test -f` 已通过；`opening_reference_element_doll_no_text_locked_20260428` 路径补登记 | 只保留开头价值；不代表元素娃娃继续做全片主持；不代表元素娃娃替代录屏主体；不代表元素娃娃替代真人判断段。 |
+| `v31_element_doll_opening_preview` | v3.1 元素娃娃开头预览 | 当前 v3.1 复审包中的开头预览证据 | `/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/shot00_opening_hello_wave_preview.mp4` | `true` | 无 | `2026-05-04 CST` | `test -f` 已通过；`dist/latest_review_pack/summary.json` artifacts.opening_preview 线索本地复核 | 只保留开头预览价值；不代表元素娃娃继续做全片主持；不代表元素娃娃替代录屏主体；不代表元素娃娃替代真人判断段；不改变 `content_validation` 或 `send_ready`。 |
 | `v3_full_video_review_candidate` | AI 做 PPT 踩坑 v3 完整候选片 | v3 历史候选 / 对照 | `/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v3_ai_ppt_pitfall_finished_candidate_v3/AI做PPT踩坑_成品候选_v3_full.mp4` | `true` | 无 | `2026-05-03 CST` | `test -f` 已通过；单工作区治理重新验证 | `historical_source_path` 曾为 `/Users/fan/Documents/视频工厂_repo_cleanup_old_context_20260502/...` 与 `/Users/fan/Documents/视频工厂_v3_milestone_reference_locks_20260501/...`，外部 worktree 已安全移除。 |
 | `pr7_b_sassy_reference` | PR #7 B 骚萌卡视觉参考 | 后续骚萌卡执行参考 | `/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_骚萌卡历史样本复审_sassy_card_reference_review/PR7_B_骚萌反应页.png` | `true` | 无 | `2026-05-03 CST` | `test -f` 已通过；单工作区治理重新验证 | 读不到该文件必须 `blocked`，不得回退 PR #7 A；外部 worktree 旧路径已降级为历史来源。 |
 | `cute_prompt_card_negative_reference` | 可爱反面展示提示卡参考 | `cute_prompt_card_route` 证据 | `/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_可爱风格卡片页参考核查_cute_card_reference_audit/round34_反面展示提示卡.png` | `true` | 无 | `2026-05-03 CST` | `test -f` 已通过；单工作区治理重新验证 | 外部 worktree 旧路径已降级为历史来源。 |
@@ -67,6 +69,18 @@
 - `/private/tmp/视频工厂_scheme_b_v3_diagnostics`
 - `/private/tmp/视频工厂_user_readable_map_sync`
 
-## 6. 最后更新时间
+## 6. PR #46 降权说明
 
-- `2026-05-03 CST`
+- `已确认` PR #46：`Record blocked formal short-video auto-flow TTS retry` 当前仍为 `open / draft / not merged`。
+- `已确认` PR #46 暂时不作为当前 reference（参考资产），不进入当前主读取分支正式状态。
+- `已确认` PR #46 仅保留为 `parallel_future_flow_teaching_asset（未来流程 / 教学 / 操作拆解类视频升级方向资料）`。
+- `已确认` PR #46 local fix v3 不写成内容通过，不写成 `send_ready = true`。
+
+## 7. GPT Project 静态包冻结说明
+
+- `已确认` `GPT 数据源/10_样片参考质量规则_reference_quality_sample_rule.md` 是未追踪静态包文件，本轮冻结不动。
+- 本轮不纳入、不删除、不移动、不改名；后续另起 GPT Project 静态包整理任务。
+
+## 8. 最后更新时间
+
+- `2026-05-04 CST`
