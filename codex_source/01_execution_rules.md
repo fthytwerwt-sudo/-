@@ -60,6 +60,164 @@
 - 仓库本地 `skills/` 目录不存在
 - 相关 skills 需回退检查全局 `~/.codex/skills`
 
+## 2A. 执行前 route_decision 闸门
+
+每次任务必须先输出 `route_decision（路由判断）`，再执行默认读取顺序。
+
+`route_decision（路由判断）` 是执行许可，不是可选说明。
+
+如果没有 `route_decision（路由判断）`，或 `route_decision（路由判断）` 中任一关键字段缺失，Codex 必须停止，不得执行。
+
+`route_decision（路由判断）` 至少包含：
+
+1. `project_route（项目路由）`
+2. `task_type（任务类型）`
+3. `responsibility_layer（责任层级）`
+4. `must_read_files（本轮必读文件）`
+5. `read_status（读取状态）`
+6. `allowed_changes（允许修改范围）`
+7. `forbidden_changes（禁止修改范围）`
+8. `blocked_if（阻断条件）`
+9. `execution_permission（执行许可）`
+
+执行前输出格式必须为：
+
+```text
+route_decision:
+  project_route:
+  task_type:
+  responsibility_layer:
+  must_read_files:
+    - path:
+      reason:
+      read_status:
+  allowed_changes:
+  forbidden_changes:
+  blocked_if:
+  execution_permission:
+```
+
+若任何关键文件 `missing（文件不存在）` 或 `unreadable（无法读取）`，必须输出 blocked，不得继续执行。
+
+不得用聊天记忆、GPT Project 静态资料、旧 PR 印象或 Codex 自己的推测补齐当前事实。
+
+最终回报必须包含：
+
+1. 本轮 `route_decision（路由判断）`
+2. 实际读取文件清单
+3. 哪些文件 `read_ok（已读取）`
+4. 哪些文件 `missing（文件不存在）` / `unreadable（无法读取）` / `not_applicable（本轮不适用）`
+5. 本轮允许修改范围
+6. 本轮禁止修改范围
+7. 是否触发 blocked
+
+每次最终回报必须新增栏目：
+
+1. `route_decision（本轮路由判断）`
+2. `read_status（实际读取状态）`
+3. `execution_permission（执行许可是否成立）`
+
+不得只回报“已完成”。
+
+## 2B. 任务类型与必读文件映射
+
+### 项目文件修改 / 机制修补 / 路由修补
+
+必读：
+
+1. `AGENTS.md（仓库入口规则）`
+2. `codex_source/00_codex_readme.md（Codex 执行层总入口）`
+3. `codex_source/01_execution_rules.md（执行规则）`
+4. `codex_log/latest.md（最新摘要）`
+5. 本轮点名要修改的文件
+
+缺任一关键文件：blocked。
+
+### 视频样片 / 成片 / 样片回炉
+
+必读：
+
+1. `AGENTS.md（仓库入口规则）`
+2. `codex_source/00_codex_readme.md（Codex 执行层总入口）`
+3. `codex_source/01_execution_rules.md（执行规则）`
+4. `codex_log/latest.md（最新摘要）`
+5. `codex_log/current_publish_target.md（当前复审 / 发布目标）`
+6. `codex_log/current_publish_target_light_evidence.md（当前复审轻证据）`
+7. `dist/latest_review_pack/summary.json（状态摘要）`
+8. `dist/latest_review_pack/review_manifest.md（复审入口）`
+9. `codex_source/14_locked_reference_inheritance_rules.md（锁定参考继承规则）`
+10. `codex_source/locked_reference_registry.md（锁定参考登记表）`
+11. 如涉及 v3.1 / 卡片 / 视觉路由，再读 `codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md（v3.1 视觉路由规则）`
+12. 如涉及本地路径，再读 `codex_log/current_local_artifact_paths.md（当前本地产物路径索引）`
+
+缺 locked reference 或 visual route 关键文件：blocked。
+
+### 文案写作 / 改写
+
+必读：
+
+1. `AGENTS.md（仓库入口规则）`
+2. `GPT数据源/04_选题与文案规则.md（选题与文案规则）`
+3. `GPT数据源/05_文案路由规则.md（文案路由规则）`
+4. `GPT数据源/07_AI知识类视频价值规则.md（AI 知识类视频价值规则）`
+5. 本轮用户给出的文案 / reference / 素材说明
+
+若缺少用途、对象、目标动作、风格边界、长度边界或验收标准：不得直接出正式稿，必须 blocked 或输出待确认位。
+
+### 复盘 / 诊断 / 审核
+
+必读：
+
+1. `AGENTS.md（仓库入口规则）`
+2. `codex_log/latest.md（最新摘要）`
+3. 当前复盘对象对应的报告 / 产物 / 日志
+4. 若是发布后复盘，再读 `review_loop/` 对应文件
+5. 若是视频内容复审，再读当前 `summary.json（状态摘要）` 与 `review_manifest.md（复审入口）`
+
+缺复盘对象或当前结果状态：blocked。
+
+### 数据记录 / 灰度复盘
+
+必读：
+
+1. `AGENTS.md（仓库入口规则）`
+2. `codex_log/current_gray_test_target.md（当前灰度测试目标）`
+3. `review_loop/00_review_loop_readme.md（复盘循环入口）`
+4. `review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md（截图数据录入规则）`
+5. `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md（v3.1 灰度测试指标体系）`
+6. 当前视频记录目录
+
+缺 `video_id`、时间窗或数据类型：blocked。
+
+### 本地文件治理 / 工作区治理
+
+必读：
+
+1. `AGENTS.md（仓库入口规则）`
+2. `codex_source/00_codex_readme.md（Codex 执行层总入口）`
+3. `codex_source/01_execution_rules.md（执行规则）`
+4. `codex_log/latest.md（最新摘要）`
+5. `.gitignore（Git 忽略规则）`
+6. 与本轮治理对象相关的报告或路径索引
+
+需要新建外部工作区、删除原始素材、替换正式工作区或执行 Git 高风险操作时：blocked，等待用户明确确认。
+
+### execution lane / multi-agent / parallel 机制
+
+必读：
+
+1. `AGENTS.md（仓库入口规则）`
+2. `codex_source/00_codex_readme.md（Codex 执行层总入口）`
+3. `codex_source/01_execution_rules.md（执行规则）`
+4. `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md（多执行器路由说明）`
+5. `codex_source/13_execution_lane_and_parallel_rules.md（执行 lane 与并行规则）`
+
+默认单 Codex 执行器。
+
+只有任务天然拆成互不抢文件、输入输出清楚、验收独立的 lane，才允许建议 multi-agent。
+
+未明确 lane 边界时，不得开启 multi-agent。
+
 ## 3. skill 检查硬规则
 
 执行前必须：

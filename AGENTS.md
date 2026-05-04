@@ -238,6 +238,38 @@
 2. 再给一个最小路由判断
 3. 未完成路由前，不直接拍板进入任一项目
 
+## 2.6 Codex 执行前路由闸门 route_decision_gate
+
+每次执行任何任务前，Codex 必须先完成并输出 `route_decision（路由判断）`。
+
+没有完成 `route_decision（路由判断）`，不得修改文件、不得生成产物、不得删除文件、不得提交 commit、不得 push。
+
+`route_decision（路由判断）` 必须包含：
+
+1. `project_route（项目路由）`
+   - `video_factory（视频工厂）`
+   - `live_frontend（AI 直播前台验证项目）`
+   - `unrouted（待路由）`
+   - 若未命中任一项目，必须 blocked，不得继承任何项目事实。
+2. `task_type（任务类型）`
+   - 必须从 `project_file_change（项目文件修改）`、`copywriting（文案写作 / 改写）`、`video_sample_or_assembly（视频样片 / 成片）`、`review_diagnosis_audit（复盘 / 诊断 / 审核）`、`code_debug（代码执行 / 调试）`、`external_research_bridge（外部调研 / 收束）`、`mechanism_or_route_fix（机制修补 / 路由修补）`、`local_file_governance（本地文件治理 / 工作区治理）`、`data_review_loop（数据记录 / 灰度复盘）` 中选择一项或多项。
+3. `responsibility_layer（责任层级）`
+   - 必须从 `entry_routing_layer（入口路由层）`、`project_judgment_layer（项目判断层）`、`execution_layer（执行落地层）`、`validation_layer（验收复审层）`、`sync_layer（同步回写层）`、`mechanism_fix_layer（机制修补层）`、`multi_agent_lane_layer（多执行器 / 多 lane 层）` 中选择。
+4. `must_read_files（本轮必读文件）`
+   - 必须列出本轮执行前要读的文件，并说明为什么要读；不允许只读 `AGENTS.md` 就开始执行。
+5. `read_status（读取状态）`
+   - 每个必读文件必须标记 `read_ok（已读取）`、`missing（文件不存在）`、`unreadable（无法读取）` 或 `not_applicable（本轮不适用）`。
+6. `allowed_changes（允许修改范围）`
+   - 必须列出本轮允许修改的文件或目录；未列入允许范围的文件，默认不得修改。
+7. `forbidden_changes（禁止修改范围）`
+   - 必须列出本轮禁止修改的文件、目录、状态字段或高风险动作；任务涉及《视频工厂》时，默认禁止误改 `content_validation（内容验证）`、`send_ready（可发送状态）`、当前发布状态和 `dist/latest_review_pack/（最新复审包）`，除非用户本轮明确授权。
+8. `blocked_if（阻断条件）`
+   - 项目未路由清楚、任务类型未判断清楚、责任层级未判断清楚、关键必读文件 missing / unreadable、允许 / 禁止范围不清楚、需要新建外部工作区但未授权、需要删除 / 移动 / 替换高风险文件但未授权、需要把技术验证写成内容验证、需要把中间态写成完成态时，必须 blocked。
+9. `execution_permission（执行许可）`
+   - 只有项目路由、任务类型、责任层级、必读文件、关键读取状态、允许修改范围、禁止修改范围均明确，且未触发 `blocked_if（阻断条件）`，才允许执行。
+
+最终回报必须复述本轮实际 `route_decision（路由判断）` 和实际读取文件，不得只写“已完成”。
+
 ## 3. 文件与目录命名规则
 
 从现在开始，除工具链 / 系统强制要求的固定文件名外，之后所有新建业务文件和业务文件夹默认必须使用“中文 + 英文”命名。
@@ -307,6 +339,7 @@
 
 执行前默认动作：
 - 先读 `AGENTS.md`
+- 执行前必须先输出并通过 `route_decision（路由判断）`；未通过前不得修改任何文件。
 - 先判断当前任务命中哪个项目入口
 - 先判断当前任务属于账号层、项目层、执行层还是路由层
 - 未命中项目入口前，不得擅自继承任何项目业务事实

@@ -1,5 +1,17 @@
 # Latest
 
+## 20260505｜Codex 执行前路由闸门
+
+- `已确认` 本轮只把《视频工厂》的 Codex 执行机制升级为 `route_decision_gate（执行前路由闸门）`；未修改视频产物、未生成样片、未继续清理、未处理 `素材录制/`。
+- `已确认` `AGENTS.md` 已新增 `## 2.6 Codex 执行前路由闸门 route_decision_gate`，要求每次执行前先输出项目路由、任务类型、责任层级、必读文件、读取状态、允许 / 禁止修改范围、阻断条件和执行许可。
+- `已确认` `AGENTS.md` 的默认执行规则已补入：执行前必须先输出并通过 `route_decision（路由判断）`；未通过前不得修改任何文件。
+- `已确认` `codex_source/01_execution_rules.md` 已新增 `## 2A. 执行前 route_decision 闸门` 与 `## 2B. 任务类型与必读文件映射`。
+- `已确认` 任务类型映射已覆盖：项目文件修改 / 机制修补 / 路由修补、视频样片 / 成片 / 样片回炉、文案写作 / 改写、复盘 / 诊断 / 审核、数据记录 / 灰度复盘、本地文件治理 / 工作区治理、execution lane / multi-agent / parallel 机制。
+- `已确认` `codex_source/00_codex_readme.md` 已做最小同步：每次 Codex 执行前必须先通过 `route_decision（路由判断）`。
+- `已确认` 本轮未修改 `dist/latest_review_pack/`，未修改当前发布状态、`content_validation`、`send_ready`，未新建外部工作区，未执行 Git GC / prune / repack / LFS / history rewrite / force push。
+- `执行日志`：`codex_log/20260505_Codex执行前路由闸门_codex_route_decision_gate.md`
+- `下一个目标`：后续新会话在任何文件修改或执行前，先给出 `route_decision（路由判断）` 与 `read_status（读取状态）`，再判断是否允许执行。
+
 ## 20260505｜fresh clone 外部目录收回与工作区锁死
 
 - `已确认` 本轮只做 PR #50 fresh clone 审计目录收回与 `single_workspace_rule（单工作区硬规则）` 加固；未继续项目清理，未处理 `素材录制/`，未修改当前视频产物或发布状态。
