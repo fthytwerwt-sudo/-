@@ -89,10 +89,10 @@
 
 ## 8. Git 同步
 
-- commit SHA：`待提交后见最终回报`
-- 是否已 push：`待提交后见最终回报`
-- PR 链接：`待创建后见最终回报`
-- 是否已同步到 `codex/user-readable-map`：`否，本报告分支待 PR 复审`
+- commit SHA：`8510711f9eb4003a765757e250d3fcc903ecd48b`（PR #50 fresh clone 对照报告初始提交）
+- 是否已 push：已 push
+- PR 链接：`https://github.com/fthytwerwt-sudo/-/pull/50`
+- 是否已同步到 `codex/user-readable-map`：待本轮合并 PR #50 后同步；合并后以 merge commit 为准
 
 ## 9. 下一个目标
 
