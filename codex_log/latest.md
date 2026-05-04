@@ -1,5 +1,21 @@
 # Latest
 
+## 20260504｜元素娃娃开头保留与旧资产清理
+
+- `已确认` 本轮从最新 `codex/user-readable-map` 创建分支：`codex/keep-element-doll-clean-old-assets-20260504`。
+- `已确认` 已将 v3.1 元素娃娃开头锚点补入 `codex_log/current_local_artifact_paths.md`：`v31_element_doll_opening_anchor`。
+- `已确认` 已将 v3.1 开头预览补入 `codex_log/current_local_artifact_paths.md`：`v31_element_doll_opening_preview`。
+- `已确认` 两个路径均在唯一正式工作区 `/Users/fan/Documents/视频工厂` 内，本轮 `test -f` 验证存在。
+- `边界`：元素娃娃只保留开头价值，不代表继续做全片主持，不替代录屏主体，不替代真人判断段。
+- `已确认` PR #46 本轮降权为 `parallel_future_flow_teaching_asset（未来流程 / 教学 / 操作拆解类视频升级方向资料）`；本轮未合并、未关闭、未删除，不作为当前 reference，不写成主读取分支正式状态。
+- `已确认` `GPT 数据源/10_样片参考质量规则_reference_quality_sample_rule.md` 本轮冻结不动，不纳入、不删除、不移动、不改名。
+- `已确认` 已先输出 `cleanup_audit（清理审计）`，再删除 `.DS_Store` Finder 临时文件。
+- `部分成立` 删除前原计划排除冻结 / 保护范围，但 `find -delete` 的执行行为导致部分受保护目录内 `.DS_Store` 也被删除；被额外影响的对象仅为 Finder 临时元数据，不是业务文件。
+- `已确认` 本轮未生成视频、未修改 `dist/latest_review_pack/` 当前结构地图文件、未修改 `codex_log/current_publish_target.md` 状态字段、未删除任何核心 reference 或 blocked_unknown。
+- `已确认` `content_validation` 未写成 `passed`，`send_ready` 未写成 `true`，`voice_validation` 未写成 `final`，当前 v3.1 发布 / 灰度状态未修改。
+- `治理报告`：`治理_reports/20260504_元素娃娃开头保留与旧资产清理_keep_element_doll_cleanup_old_assets/元素娃娃开头保留与旧资产清理报告_keep_element_doll_cleanup_old_assets_report.md`
+- `下一个目标`：用户 / ChatGPT 复审本轮 PR，确认元素娃娃开头路径索引补充无误、旧资产清理未误删；通过后再进入项目升级前的机制收口。
+
 ## 20260503｜阿里云剪辑复接验证 after audit
 
 - `已确认` PR #34「接入 HyperFrames 三类卡片动效边界并审计阿里云剪辑」已合并到 `codex/user-readable-map`，合并提交：`edbe61e512c972d75c786a53f82c9e3db53ecfb2`。
