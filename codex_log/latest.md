@@ -1,5 +1,20 @@
 # Latest
 
+## 20260504｜Git 历史大文件只读审计
+
+- `已确认` 本轮从最新 `codex/user-readable-map` 创建只读审计分支：`codex/git-history-large-files-audit-20260504`。
+- `已确认` 本轮只审计 `.git` 历史大文件来源；未删除、未移动、未重命名任何文件。
+- `已确认` 未执行 `git gc`、`git prune`、`git repack`、`git lfs migrate`、`filter-repo`、`filter-branch`、BFG 或 force push。
+- `已确认` `.git` 当前约 `21G`，`.git/objects` 约 `21G`，`.git/objects/pack` 约 `19G`，`.git/lfs` 不存在。
+- `已确认` `git count-objects -vH` 报告 `size-garbage = 15.51 GiB`；`.git/objects/pack/tmp_pack_*` 临时包数量 `28`，合计约 `15.5 GiB`，是本地 `.git` 过大的最大直接来源。
+- `已确认` 正式 pack 约 `3.99 GiB`，reachable 历史对象仍包含旧视频、旧音频、旧图片、旧复审包、旧 `dist/` 产物和历史 `node_modules/ffmpeg-static/ffmpeg`。
+- `已确认` 当前工作树仍跟踪少量旧 `dist/` / `复审包_review_packs/` / `voice_trials` 媒体文件；本轮只记录，不做删除或迁移。
+- `已确认` Git LFS 当前未安装 / 未配置，`.gitattributes` 不存在，本轮未做 LFS 迁移。
+- `已确认` 已知冻结未追踪文件 `GPT 数据源/10_样片参考质量规则_reference_quality_sample_rule.md` 保持 `untracked / frozen / untouched`；本轮未纳入、未删除、未移动、未重命名、未修改。
+- `推荐路线`：下一轮先做 fresh clone / clean clone 对照验证；如果远端历史仍大，再另起 Git LFS / history rewrite 方案。
+- `治理报告`：`治理_reports/20260504_Git历史大文件只读审计_git_history_large_files_audit/Git历史大文件只读审计报告_git_history_large_files_audit_report.md`
+- `下一个目标`：用户 / ChatGPT 复审 `.git` 历史大文件审计报告，再决定是否执行 Git LFS / 历史瘦身或重新 clone / 新建干净仓库。
+
 ## 20260504｜项目升级前旧资产清库
 
 - `已确认` PR #48 追加清库口径修正：`v31_element_doll_opening_anchor（v3.1 元素娃娃开头锚点）` 是当前唯一 `fixed_material_anchor（固定素材锚点）`，但元素娃娃不是唯一 reference。
