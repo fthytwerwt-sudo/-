@@ -22,8 +22,9 @@
 
 - `已确认` 当前唯一固定素材锚点收束为 `opening_reference_element_doll_no_text_locked_20260428` 对应的本地开头锚点文件。
 - `已确认` v3.1 开头预览只作为开头预览证据保留。
-- `已确认` 本文件中其他旧 reference 条目暂保留为历史机制记录或后续复核线索，不得在新任务中默认继承为当前固定素材锚点。
-- `已确认` round34 / v3 / PR #7 B / cute card / TTS 等旧 reference 若要重新启用，必须另轮读取路径索引、重新验证 `path_exists`、确认没有被清库删除，并获得用户 / ChatGPT 新确认。
+- `已确认` `fixed_material_anchor（固定素材锚点）` 只有 v3.1 元素娃娃开头；但这不等于元素娃娃是唯一 reference。
+- `已确认` PR #7 B、cute card、round34 中段剪辑、TTS 节奏、`visual_route_map.json`、本 registry 仍属于 `reference_whitelist（参考白名单）`；后续按任务类型读取路径索引和本 registry 复核后可继续使用。
+- `已确认` round34 / v3 / PR #7 B / cute card / TTS 不得被默认输出成当前固定素材锚点；其中 v3 仍只作历史候选 / 对照，其他 reference whitelist 项不得因清库口径被误判为废弃。
 - `已确认` PR #46 不作为当前 reference，只作为未来流程 / 教学 / 操作拆解类视频升级方向资料。
 
 ## 2. 字段说明

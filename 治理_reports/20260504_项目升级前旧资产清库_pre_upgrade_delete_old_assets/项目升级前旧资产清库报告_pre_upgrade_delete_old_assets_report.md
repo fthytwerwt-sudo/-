@@ -7,6 +7,8 @@
 - `已确认` 本轮清库分支：`codex/pre-upgrade-delete-old-assets-20260504`。
 - `已确认` 当前唯一固定素材锚点：`v31_element_doll_opening_anchor`。
 - `已确认` v3.1 开头预览：`v31_element_doll_opening_preview`。
+- `已确认` PR #48 口径修正：元素娃娃开头是唯一 `fixed_material_anchor（固定素材锚点）`，不是唯一 reference。
+- `已确认` PR #7 B、cute card、round34 中段剪辑、TTS 节奏、visual route / registry 仍属于 `reference_whitelist（参考白名单）`。
 - `已确认` PR #46 只保留为未来流程 / 教学 / 操作拆解升级方向资料，不作为当前 reference。
 - `已确认` `GPT 数据源/10_样片参考质量规则_reference_quality_sample_rule.md` 与整个 `GPT 数据源/` 本轮冻结不动。
 
@@ -46,7 +48,7 @@
 
 | 路径 | 清理前体积 | 删除原因 | 二次引用检查结果 |
 | --- | ---: | --- | --- |
-| `视频工厂_元素娃娃1080P复审包_20260428/` | `817M` | 旧 round / 旧复审包；当前固定素材锚点已在 `素材库_assets/` 内 | 仅作为旧 round / 历史路径被引用；路径索引同步降权为已删除 |
+| `视频工厂_元素娃娃1080P复审包_20260428/` | `817M` | 旧 round / 旧复审包；当前固定素材锚点已在 `素材库_assets/` 内 | 旧 817M 大包路径已删除；round34 中段 / cut 最小参考证据仍在 `dist/latest_review_pack/`，路径索引已恢复为 `path_exists=true` |
 | `本地归档_local_archive/` | `217M` | 外部 worktree 回收物；本轮进入最终清库 | 旧治理报告引用保留为历史记录，不再作为可打开路径 |
 | `本地隔离区_local_quarantine/` | `194M` | 旧隔离区；用户本轮授权清理旧 worktree 回收物 | 旧治理报告引用保留为历史记录，不再作为可打开路径 |
 | `临时产物_staging/` | `41M` | 临时中间产物 | 未作为当前路径索引 / 当前复审包入口 |
@@ -79,9 +81,9 @@
 | PR #46 | 未合并、未关闭、未删除；保持 draft / open | 未来流程 / 教学 / 操作拆解升级方向资料 |
 | `dist/latest_review_pack/` | 保留 | 当前发布 / 灰度状态轻量证据，避免 `current_publish_target` 出现坏引用 |
 | `复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/` | 保留 | v3.1 开头预览所在包；非当前固定素材全集 |
-| `复审包_review_packs/20260430_骚萌卡历史样本复审_sassy_card_reference_review/` | 保留但降权 | 历史样本说明；不作为当前固定素材锚点 |
-| `复审包_review_packs/20260430_可爱风格卡片页参考核查_cute_card_reference_audit/` | 保留但降权 | 历史样本说明；不作为当前固定素材锚点 |
-| `codex_source/locked_reference_registry.md` | 保留但加清库后口径 | 旧 reference 仅作历史机制资料；当前固定锚点以元素娃娃开头为准 |
+| `复审包_review_packs/20260430_骚萌卡历史样本复审_sassy_card_reference_review/` | 保留为 reference whitelist | PR #7 B 仍是后续骚萌卡视觉执行参考；不作为当前固定素材锚点 |
+| `复审包_review_packs/20260430_可爱风格卡片页参考核查_cute_card_reference_audit/` | 保留为 reference whitelist | cute card 仍是后续卡片路由参考；不作为当前固定素材锚点 |
+| `codex_source/locked_reference_registry.md` | 保留为 reference whitelist registry | 后续 reference 继承必须读取；当前固定素材锚点以元素娃娃开头为准 |
 
 ### 3.5 blocked_unknown 不确定，禁止动
 
@@ -98,7 +100,7 @@
 
 | 路径 | 大小 | 类型 | 删除原因 | 引用检查结果 |
 | --- | ---: | --- | --- | --- |
-| `视频工厂_元素娃娃1080P复审包_20260428/` | `817M` | 本地旧复审包 | 旧 round / 旧元素娃娃大包，不是当前固定锚点所在目录 | `current_local_artifact_paths.md` 已将 round34 相关项改为 `path_exists=false` |
+| `视频工厂_元素娃娃1080P复审包_20260428/` | `817M` | 本地旧复审包 | 旧 round / 旧元素娃娃大包，不是当前固定锚点所在目录 | 旧大包路径已删除；`current_local_artifact_paths.md` 已将 round34 中段最小参考证据改指向 `dist/latest_review_pack/` 并恢复为 `path_exists=true` |
 | `本地归档_local_archive/` | `217M` | 本地旧归档 | 外部工作区回收物，本轮用户授权清理旧 worktree 回收物 | 旧治理报告保留文字记录，不作为可打开路径 |
 | `本地隔离区_local_quarantine/` | `194M` | 本地旧隔离区 | 旧散目录隔离区，本轮用户授权清理 | 旧治理报告保留文字记录，不作为可打开路径 |
 | `临时产物_staging/` | `41M` | 临时产物 | 中间缓存，无当前继承价值 | 未命中当前路径索引 |
@@ -141,6 +143,17 @@
 - `voice_validation`：不写成 `final`。
 - 当前发布 / 灰度状态：不改写为内容通过。
 
-## 6. 下一个目标
+## 6. PR #48 清库口径修正
 
-用户 / ChatGPT 复审清库 PR，确认没有误删保留内核；同时确认清理后仍为约 `33G` 的主要原因是 `.git/（Git 系统目录）约 21G` 与 `素材录制/（用户录制原始素材）约 11G` 本轮按安全规则未动。下一轮若继续瘦身，必须分成两条独立任务：`Git 历史 / LFS 瘦身` 和 `原始录屏素材外置 / 删除确认`。
+`已确认` 本次修正用于区分：
+
+- `fixed_material_anchor（固定素材锚点）`：当前只有 v3.1 元素娃娃开头锚点。
+- `reference_whitelist（参考白名单）`：PR #7 B 骚萌卡、cute card、round34 中段剪辑 / 证据窗口、TTS 节奏、`visual_route_map.json`、`locked_reference_registry.md` 仍需保留并按任务类型复核后使用。
+
+`已确认` round34 旧 817M 本地大包未恢复；但 `dist/latest_review_pack/middle_preview.mp4`、`dist/latest_review_pack/cut_contact_sheet.jpg`、`dist/latest_review_pack/problem_windows/30_32s.mp4`、`dist/latest_review_pack/problem_windows/30_32s_frames.jpg` 均仍存在，并已在 `codex_log/current_local_artifact_paths.md` 改回 `path_exists = true`，作为中段剪辑 / 证据窗口 reference whitelist。
+
+`已确认` 元素娃娃开头不是唯一 reference；不得把 PR #7 B、cute card、round34 中段剪辑、TTS 节奏或 visual route / registry 因清库口径误判为废弃。
+
+## 7. 下一个目标
+
+用户 / ChatGPT 复审清库 PR，先确认 `fixed_material_anchor（固定素材锚点）` 与 `reference_whitelist（参考白名单）` 已正确区分，再决定 PR #48 是否可合并；同时确认清理后仍为约 `33G` 的主要原因是 `.git/（Git 系统目录）约 21G` 与 `素材录制/（用户录制原始素材）约 11G` 本轮按安全规则未动。下一轮若继续瘦身，必须分成两条独立任务：`Git 历史 / LFS 瘦身` 和 `原始录屏素材外置 / 删除确认`。
