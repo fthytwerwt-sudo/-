@@ -1,5 +1,21 @@
 # Latest
 
+## 20260504｜PR 合并与 fresh clone 体积对照验证
+
+- `已确认` PR #48「Pre-upgrade delete old Video Factory assets」已合并到 `codex/user-readable-map`，merge commit：`d2df313920e1d7e4f720db279964d6a2324b06a1`。
+- `已确认` PR #49「Audit Git history large files without cleanup」已合并到 `codex/user-readable-map`，merge commit：`a1981935e404a78377e121b0643601cad01e483a`。
+- `已确认` PR #48 合并前已复核：`fixed_material_anchor（固定素材锚点）` 与 `reference_whitelist（参考白名单）` 已区分；TTS pacing / TTS voice 已区分；round34 中段最小参考、PR #7 B、cute card、TTS pacing、TTS voice candidate 均保留。
+- `已确认` PR #49 合并前已复核：它是 Git 历史大文件只读审计，不包含 Git 清理、LFS 迁移、history rewrite 或发布状态修改。
+- `已确认` fresh clone 已完成，目录为 `/Users/fan/Documents/视频工厂_fresh_clone_audit_20260504`，当前 checkout 分支为 `codex/user-readable-map`。
+- `已确认` 正式工作区 `/Users/fan/Documents/视频工厂` 当前总大小约 `33G`，`.git` 约 `21G`，`.git/objects/pack` 约 `19G`，`素材录制/` 约 `11G`。
+- `已确认` fresh clone 当前总大小约 `980M`，`.git` 约 `896M`，`.git/objects/pack` 约 `896M`。
+- `已确认` 正式工作区 `.git/objects/pack/tmp_pack_*` 为 `28` 个，约 `15.49 GiB`；fresh clone `tmp_pack_*` 为 `0`，`git count-objects -vH` 显示 `garbage = 0`、`size-garbage = 0 bytes`。
+- `结论`：正式工作区 `.git` 约 `21G` 主要来自当前本地 `tmp_pack_*` garbage；fresh clone 已显著变小，因此下一轮优先考虑 clean clone 迁移确认，不建议直接做 Git history rewrite。
+- `已确认` 本轮未替换正式工作区，未删除正式工作区，未执行 `git gc` / `git prune` / `git repack` / `git lfs migrate` / `filter-repo` / `filter-branch` / BFG，未 force push，未修改当前发布状态。
+- `已确认` `GPT 数据源/10_样片参考质量规则_reference_quality_sample_rule.md` 仍保持 `untracked / frozen / untouched`，本轮未纳入、未删除、未移动、未重命名、未修改。
+- `治理报告`：`治理_reports/20260504_fresh_clone体积对照验证_fresh_clone_size_comparison/fresh_clone体积对照验证报告_fresh_clone_size_comparison_report.md`
+- `下一个目标`：用户 / ChatGPT 复审 fresh clone 对照报告，再决定是否迁移到 fresh clone 工作区，或继续处理 `素材录制/` 原始素材。
+
 ## 20260504｜Git 历史大文件只读审计
 
 - `已确认` 本轮从最新 `codex/user-readable-map` 创建只读审计分支：`codex/git-history-large-files-audit-20260504`。
