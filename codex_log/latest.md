@@ -1,5 +1,17 @@
 # Latest
 
+## 20260505｜fresh clone 外部目录收回与工作区锁死
+
+- `已确认` 本轮只做 PR #50 fresh clone 审计目录收回与 `single_workspace_rule（单工作区硬规则）` 加固；未继续项目清理，未处理 `素材录制/`，未修改当前视频产物或发布状态。
+- `已确认` 外部散目录 `/Users/fan/Documents/视频工厂_fresh_clone_audit_20260504` 已收回到唯一正式工作区内部：`/Users/fan/Documents/视频工厂/本地归档_local_archive/外部工作区回收_external_workspace_recovery_20260504/视频工厂_fresh_clone_audit_20260504`。
+- `已确认` `/Users/fan/Documents/视频工厂_fresh_clone_audit_20260504` 已不再作为 `/Users/fan/Documents` 顶层散目录存在。
+- `已确认` 回收目录大小约 `975M`，文件数 `633`，目录数 `100`；内部包含嵌套 `.git/`，仅作为归档内容保留，不提交、不当子模块处理。
+- `已确认` `.gitignore` 既有规则已忽略 `本地归档_local_archive/`；`git status --short` 未出现 fresh clone 大目录待提交项，因此本轮未改 `.gitignore`。
+- `已确认` 已同步加固 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_source/01_execution_rules.md`：Codex 不得默认新建 fresh clone、audit clone、clean clone、临时 clone、外部对照 clone、临时 worktree 或任何外部工作区；确需外部目录必须先停止并等待用户明确确认。
+- `已确认` 本轮未替换正式工作区，未删除正式工作区，未执行 `git gc` / `git prune` / `git repack`，未执行 Git LFS / history rewrite，未 force push，未修改 `content_validation` 或 `send_ready`。
+- `执行日志`：`codex_log/20260505_fresh_clone外部目录收回与工作区锁死_workspace_lock_recovery.md`
+- `下一个目标`：新会话默认只在 `/Users/fan/Documents/视频工厂` 唯一正式工作区内执行；如未来确需外部对照，先由 Codex 停止回报并等待用户明确确认。
+
 ## 20260504｜PR 合并与 fresh clone 体积对照验证
 
 - `已确认` PR #48「Pre-upgrade delete old Video Factory assets」已合并到 `codex/user-readable-map`，merge commit：`d2df313920e1d7e4f720db279964d6a2324b06a1`。
