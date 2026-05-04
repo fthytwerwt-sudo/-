@@ -63,6 +63,22 @@
 
 ---
 
+## 3A. large_task_gate 触发入口
+
+本文件已有完整 lane / parallel 判断规则；当 `route_decision（路由判断）` 命中 `large_task_gate（大任务闸门）` 时，Codex 必须读取本文件。
+
+`large_task_gate（大任务闸门）` 的触发入口不只在本文件，也写入 `AGENTS.md（仓库入口规则）` 与 `codex_source/01_execution_rules.md（执行规则）`。本文件负责判断“怎么提速 / 怎么并发 / 何时降级”，不是判断“是否是大任务”的唯一入口。
+
+触发 `large_task_gate（大任务闸门）` 后仍必须先判 lane，再判 parallel：
+
+1. 视频 / 样片 / 成片 / 剪辑对象超过 `180 秒`，必须进入 lane / parallel 判断。
+2. 非视频任务变成多文件、多步骤、多验证、多模块，必须进入 lane / parallel 判断。
+3. 大任务也可能最后选择 `serial_only（串行执行）`。
+4. 写入范围重叠、输出路径重叠、对象 / blocker / 验收未锁定时，必须保持或降级为 `serial_only（串行执行）`。
+5. 触发大任务闸门不等于自动多 agent，不等于默认 `true_multi_task_parallel（真正多任务并发）`。
+
+---
+
 ## 4. Lane 定义总表
 
 | lane | 适用情况 | 默认动作 | 默认风险姿态 |

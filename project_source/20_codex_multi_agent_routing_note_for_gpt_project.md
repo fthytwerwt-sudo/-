@@ -41,6 +41,23 @@
 
 ---
 
+## 2A. GPT Project 侧 large_task_gate 触发提醒
+
+ChatGPT / GPT Project 发现以下任一情况时，应提醒 Codex 在 `route_decision（路由判断）` 阶段进入 `large_task_gate（大任务闸门）`：
+
+1. 视频、样片、成片、剪辑对象或复审对象超过 `3 分钟 / 180 秒`。
+2. 任务明显是长视频、大信息量、多文件、多步骤、多验证或多模块任务。
+3. 用户明确提到“长视频”“大任务”“多文件”“多步骤”“多 agent”“并发”“提速”“检查很多文件”。
+4. 任务需要先做大量只读审计、定位、结构化整理，再统一写入。
+
+ChatGPT 不必每次替 Codex 指定是否多 agent，但必须在 prompt 中提醒大任务触发 lane / parallel 判断。
+
+最终 lane / parallel 判断由 Codex 按 `codex_source/13_execution_lane_and_parallel_rules.md（执行车道与并发规则）` 执行。
+
+触发 `large_task_gate（大任务闸门）` 不等于默认并发；如果写入范围重叠、输出路径重叠、对象 / blocker / 验收未锁定，Codex 仍应保持或降级为 `serial_only（串行执行）`。
+
+---
+
 ## 3. 当前默认 3 条 lane
 
 ### 3.1 `fast_lane`

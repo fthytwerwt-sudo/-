@@ -48,6 +48,8 @@
 
 每次 Codex 执行前必须先通过 `route_decision（路由判断）`；未输出项目路由、任务类型、责任层级、必读文件与读取状态前，不得执行。
 
+若任务命中长视频、大信息量、多文件、多步骤、多验证，或用户明确提到多 agent / 并发 / 提速，Codex 必须在 `route_decision（路由判断）` 阶段触发 `large_task_gate（大任务闸门）`，并读取 `codex_source/13_execution_lane_and_parallel_rules.md` 与 `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md`。
+
 2026-05-04 项目升级前清库覆盖口径：
 
 - 当前唯一固定素材锚点是 `v31_element_doll_opening_anchor（v3.1 元素娃娃开头锚点）`。

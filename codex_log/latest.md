@@ -1,5 +1,18 @@
 # Latest
 
+## 20260505｜大任务闸门 large_task_gate
+
+- `已确认` 本轮只补 `large_task_gate（大任务闸门）` 机制；未修改视频产物、未生成样片、未继续项目清理、未调整剪辑风格、未开发真正 multi-agent 系统。
+- `已确认` `AGENTS.md` 已在 `route_decision_gate（执行前路由闸门）` 后补 `### 2.6A 大任务闸门 large_task_gate`。
+- `已确认` `codex_source/01_execution_rules.md` 已补 `## 2C. large_task_gate 大任务闸门`，并把 `large_task_gate` 加入 `route_decision（路由判断）` 输出字段。
+- `已确认` 规则已写入：任何视频 / 样片 / 成片 / 剪辑对象超过 `3 分钟 / 180 秒`，必须触发 `large_task_gate（大任务闸门）`。
+- `已确认` 规则已写入：多文件、多步骤、多验证、多模块，或“写文件 + 检查 + 日志 + push / 同步”等闭环任务，也必须触发 `large_task_gate（大任务闸门）`。
+- `已确认` 触发后必须读取 `codex_source/13_execution_lane_and_parallel_rules.md` 与 `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md`，并输出 `lane_recommendation` 与 `parallel_recommendation`。
+- `已确认` 规则已明确：触发大任务闸门不等于自动多 agent，不等于默认并发；写入范围重叠、输出路径重叠、对象 / blocker / 验收未锁定时，必须保持或降级为 `serial_only（串行执行）`。
+- `已确认` 本轮未修改 `dist/latest_review_pack/`、当前发布状态、`content_validation`、`send_ready`，未处理 `素材录制/`，未新建外部工作区，未执行 Git GC / prune / repack / LFS / history rewrite / force push。
+- `执行日志`：`codex_log/20260505_大任务闸门_large_task_gate.md`
+- `下一个目标`：后续 Codex 看到超过 3 分钟视频、多文件、多步骤、多验证任务时，先自动触发 `large_task_gate（大任务闸门）` 并完成 lane / parallel 判断。
+
 ## 20260505｜Codex 执行前路由闸门
 
 - `已确认` 本轮只把《视频工厂》的 Codex 执行机制升级为 `route_decision_gate（执行前路由闸门）`；未修改视频产物、未生成样片、未继续清理、未处理 `素材录制/`。

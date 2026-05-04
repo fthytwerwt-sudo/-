@@ -73,12 +73,13 @@
 1. `project_route（项目路由）`
 2. `task_type（任务类型）`
 3. `responsibility_layer（责任层级）`
-4. `must_read_files（本轮必读文件）`
-5. `read_status（读取状态）`
-6. `allowed_changes（允许修改范围）`
-7. `forbidden_changes（禁止修改范围）`
-8. `blocked_if（阻断条件）`
-9. `execution_permission（执行许可）`
+4. `large_task_gate（大任务闸门）`
+5. `must_read_files（本轮必读文件）`
+6. `read_status（读取状态）`
+7. `allowed_changes（允许修改范围）`
+8. `forbidden_changes（禁止修改范围）`
+9. `blocked_if（阻断条件）`
+10. `execution_permission（执行许可）`
 
 执行前输出格式必须为：
 
@@ -87,6 +88,18 @@ route_decision:
   project_route:
   task_type:
   responsibility_layer:
+  large_task_gate:
+    triggered:
+    reason:
+    lane_recommendation:
+    lane_reason:
+    lane_invalid_if:
+    parallel_recommendation:
+    parallel_reason:
+    parallel_invalid_if:
+    write_owner:
+    read_only_lanes:
+    integration_owner:
   must_read_files:
     - path:
       reason:
@@ -217,6 +230,60 @@ route_decision:
 只有任务天然拆成互不抢文件、输入输出清楚、验收独立的 lane，才允许建议 multi-agent。
 
 未明确 lane 边界时，不得开启 multi-agent。
+
+## 2C. large_task_gate 大任务闸门
+
+`large_task_gate（大任务闸门）` 是每次 `route_decision（路由判断）` 必须判断的字段。
+
+执行前输出格式必须补充：
+
+```text
+large_task_gate:
+  triggered:
+  reason:
+  lane_recommendation:
+  lane_reason:
+  lane_invalid_if:
+  parallel_recommendation:
+  parallel_reason:
+  parallel_invalid_if:
+  write_owner:
+  read_only_lanes:
+  integration_owner:
+```
+
+当任务命中以下任一条件时，`large_task_gate.triggered = true`：
+
+1. 视频 / 样片 / 成片 / 剪辑对象超过 `180 秒`。
+2. 本轮同时涉及脚本、素材、reference、时间线、TTS、字幕、验证、日志中的三项或以上。
+3. 本轮需要写入或检查 3 个以上仓库文件。
+4. 本轮同时涉及规则文件、执行文件、日志文件、报告文件中的两类或以上。
+5. 本轮需要大量只读审计、定位、结构化整理，再统一写入。
+6. 本轮任务包含“写文件 + 检查 + 日志 + push / 同步”等多步骤闭环。
+7. 用户明确提到“长视频”“大任务”“多文件”“多步骤”“多 agent”“并发”“提速”“检查很多文件”。
+
+触发后必须读取：
+
+1. `codex_source/13_execution_lane_and_parallel_rules.md（执行车道与并发规则）`
+2. `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md（给 GPT Project 用的多执行器路由说明）`
+
+触发后必须输出 lane / parallel 判断：
+
+- `lane_recommendation`
+- `lane_reason`
+- `lane_invalid_if`
+- `parallel_recommendation`
+- `parallel_reason`
+- `parallel_invalid_if`
+
+默认原则：
+
+- 大任务必须判断是否并发。
+- 判断并发不等于自动并发。
+- 多文件 / 多检查 / 多步骤任务也必须判断。
+- 写入范围不清楚时，默认 `serial_only（串行执行）`。
+- 只读工作可拆时，优先考虑 `read_parallel（只读并发）` 或 `explore_plus_integrate（探索 + 单点整合）`。
+- 多个写手只有在写入范围完全独立、验收独立、合并成本清楚时，才允许 `true_multi_task_parallel（真正多任务并发）`。
 
 ## 3. skill 检查硬规则
 

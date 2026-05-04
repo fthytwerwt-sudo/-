@@ -255,20 +255,64 @@
    - 必须从 `project_file_change（项目文件修改）`、`copywriting（文案写作 / 改写）`、`video_sample_or_assembly（视频样片 / 成片）`、`review_diagnosis_audit（复盘 / 诊断 / 审核）`、`code_debug（代码执行 / 调试）`、`external_research_bridge（外部调研 / 收束）`、`mechanism_or_route_fix（机制修补 / 路由修补）`、`local_file_governance（本地文件治理 / 工作区治理）`、`data_review_loop（数据记录 / 灰度复盘）` 中选择一项或多项。
 3. `responsibility_layer（责任层级）`
    - 必须从 `entry_routing_layer（入口路由层）`、`project_judgment_layer（项目判断层）`、`execution_layer（执行落地层）`、`validation_layer（验收复审层）`、`sync_layer（同步回写层）`、`mechanism_fix_layer（机制修补层）`、`multi_agent_lane_layer（多执行器 / 多 lane 层）` 中选择。
-4. `must_read_files（本轮必读文件）`
+4. `large_task_gate（大任务闸门）`
+   - 每次执行前必须判断是否触发；触发后必须读取 lane / parallel 规则并输出 lane / parallel 判断。
+5. `must_read_files（本轮必读文件）`
    - 必须列出本轮执行前要读的文件，并说明为什么要读；不允许只读 `AGENTS.md` 就开始执行。
-5. `read_status（读取状态）`
+6. `read_status（读取状态）`
    - 每个必读文件必须标记 `read_ok（已读取）`、`missing（文件不存在）`、`unreadable（无法读取）` 或 `not_applicable（本轮不适用）`。
-6. `allowed_changes（允许修改范围）`
+7. `allowed_changes（允许修改范围）`
    - 必须列出本轮允许修改的文件或目录；未列入允许范围的文件，默认不得修改。
-7. `forbidden_changes（禁止修改范围）`
+8. `forbidden_changes（禁止修改范围）`
    - 必须列出本轮禁止修改的文件、目录、状态字段或高风险动作；任务涉及《视频工厂》时，默认禁止误改 `content_validation（内容验证）`、`send_ready（可发送状态）`、当前发布状态和 `dist/latest_review_pack/（最新复审包）`，除非用户本轮明确授权。
-8. `blocked_if（阻断条件）`
+9. `blocked_if（阻断条件）`
    - 项目未路由清楚、任务类型未判断清楚、责任层级未判断清楚、关键必读文件 missing / unreadable、允许 / 禁止范围不清楚、需要新建外部工作区但未授权、需要删除 / 移动 / 替换高风险文件但未授权、需要把技术验证写成内容验证、需要把中间态写成完成态时，必须 blocked。
-9. `execution_permission（执行许可）`
+10. `execution_permission（执行许可）`
    - 只有项目路由、任务类型、责任层级、必读文件、关键读取状态、允许修改范围、禁止修改范围均明确，且未触发 `blocked_if（阻断条件）`，才允许执行。
 
 最终回报必须复述本轮实际 `route_decision（路由判断）` 和实际读取文件，不得只写“已完成”。
+
+### 2.6A 大任务闸门 large_task_gate
+
+`large_task_gate（大任务闸门）` 是 `route_decision（路由判断）` 的子闸门。
+
+Codex 每次执行前，除了判断项目路由、任务类型和责任层级，还必须判断本轮是否触发 `large_task_gate（大任务闸门）`。
+
+触发条件：
+
+1. 视频任务中，目标视频、样片、成片、剪辑对象或复审对象超过 `3 分钟 / 180 秒`。
+2. 本轮同时涉及脚本、素材、reference、时间线、TTS、字幕、验证、日志中的三项或以上。
+3. 本轮需要写入或检查 3 个以上仓库文件。
+4. 本轮同时涉及规则文件、执行文件、日志文件或报告文件。
+5. 本轮需要先做大量只读审计、定位、结构化整理，再统一写入。
+6. Codex 判断单执行器可能遗漏段落、漏读文件、混淆内容层与执行层。
+7. 用户明确提到“长视频”“大任务”“多文件”“多步骤”“多 agent”“并发”“提速”“检查很多文件”等。
+
+触发后必须读取：
+
+1. `codex_source/13_execution_lane_and_parallel_rules.md（执行车道与并发规则）`
+2. `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md（给 GPT Project 用的多执行器路由说明）`
+
+触发后必须输出：
+
+1. `large_task_gate.triggered`
+2. `large_task_gate.reason`
+3. `lane_recommendation`
+4. `lane_reason`
+5. `lane_invalid_if`
+6. `parallel_recommendation`
+7. `parallel_reason`
+8. `parallel_invalid_if`
+9. `write_owner`
+10. `read_only_lanes`
+11. `integration_owner`
+
+硬规则：
+
+- 触发 `large_task_gate（大任务闸门）` 不等于自动开启多 agent。
+- 触发后必须先判断 `serial_only（串行执行）`、`read_parallel（只读并发）`、`explore_plus_integrate（探索 + 单点整合）`、`true_multi_task_parallel（真正多任务并发）` 哪个更合适。
+- 若写入范围重叠、输出路径重叠、对象 / blocker / 验收未锁定，必须保持或降级为 `serial_only（串行执行）`。
+- 未完成 lane / parallel 判断前，不得直接进入长视频、大文件、多步骤、多验证任务执行。
 
 ## 3. 文件与目录命名规则
 
