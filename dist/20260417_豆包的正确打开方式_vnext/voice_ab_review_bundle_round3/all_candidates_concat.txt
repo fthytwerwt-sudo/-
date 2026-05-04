@@ -1,3 +1,0 @@
-file '/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle_round3/01_暂定第一名_C2.wav'
-file '/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle_round3/02_备选_C1.wav'
-file '/Users/fan/Documents/视频工厂/dist/20260417_豆包的正确打开方式_vnext/voice_ab_review_bundle_round3/03_淘汰_C3.wav'

@@ -1,5 +1,27 @@
 # Latest
 
+## 20260504｜项目升级前旧资产清库
+
+- `已确认` PR #48 追加清库口径修正：`v31_element_doll_opening_anchor（v3.1 元素娃娃开头锚点）` 是当前唯一 `fixed_material_anchor（固定素材锚点）`，但元素娃娃不是唯一 reference。
+- `已确认` reference whitelist 仍保留：`PR7_B_骚萌反应页.png`、cute card、round34 中段剪辑 / 证据窗口、`tts_15s_b_pacing_locked_20260427`、`visual_route_map.json`、`locked_reference_registry.md`；后续按路径索引和 registry 复核后使用。
+- `已确认` PR #48 追加 TTS reference whitelist 修正：TTS reference 分为 `tts_pacing_reference（TTS 节奏参考）` 与 `tts_voice_reference（TTS 语音 / 音色参考）`；`voice_sample2_cute_guide_voice_candidate_20260426` 与脱敏 custom voice `qwen-t...ac19` 保留为语音 / 音色候选参考，`target_model = qwen3-tts-vc-realtime-2026-01-15`，但 `voice_validation` 仍为 `pending_user_chatgpt_review`，`final_voice_validated` 仍为 `false`。
+- `已确认` round34 旧 817M 本地大包未恢复；但 `dist/latest_review_pack/middle_preview.mp4`、`cut_contact_sheet.jpg`、`problem_windows/30_32s.mp4`、`problem_windows/30_32s_frames.jpg` 均仍存在，并已在路径索引恢复为 `path_exists = true`。
+- `已确认` PR #47 已先合并到 `codex/user-readable-map`，合并提交：`20d9419e0a9ad048075a2138c610472df93051be`。
+- `已确认` 本轮从合并后的主读取分支创建清库分支：`codex/pre-upgrade-delete-old-assets-20260504`。
+- `已确认` 本轮不生成视频，不修改当前发布 / 灰度状态，不把 `content_validation` 写成 `passed`，不把 `send_ready` 写成 `true`。
+- `已确认` 当前唯一固定素材锚点收束为：`v31_element_doll_opening_anchor（v3.1 元素娃娃开头锚点）`。
+- `已确认` `v31_element_doll_opening_preview（v3.1 元素娃娃开头预览）` 只保留开头预览证据，不代表元素娃娃继续做全片主持。
+- `已确认` PR #46 未合并、未关闭、未删除；当前只作为未来流程 / 教学 / 操作拆解类视频升级方向资料，不作为当前 reference。
+- `已确认` `GPT 数据源/10_样片参考质量规则_reference_quality_sample_rule.md` 与整个 `GPT 数据源/` 目录本轮冻结不动。
+- `已确认` 清理前工作区体积约 `36G`；清理后约 `33G`；释放约 `3G`。其中 `.git/` 约 `21G` 和 `素材录制/` 约 `11G` 本轮按禁止 / 不确定规则未动。
+- `已确认` 清理后仍为约 `33G` 的主要原因是 `.git/（Git 系统目录）约 21G` 与 `素材录制/（用户录制原始素材）约 11G` 本轮按安全规则未动；下一轮若继续瘦身，必须分成两条独立任务：`Git 历史 / LFS 瘦身` 和 `原始录屏素材外置 / 删除确认`。
+- `已确认` 已从 Git 当前树移除旧 `dist` 噪音目录，包括 20260414 / 20260417 旧视频产物、旧 demo、旧 latest 指针和 v3 dist 产物。
+- `已确认` 已删除本地旧大目录 / 缓存：旧元素娃娃 1080P 复审包、旧本地归档、旧本地隔离区、旧 v1/v2/v3 复审包、旧视频样片缓存、临时产物、HyperFrames 测试输出、`node_modules`。
+- `已确认` 已更新 `codex_log/current_local_artifact_paths.md`；v3 已删除路径不再保留 `path_exists = true`，round34 中段最小参考证据改用 `dist/latest_review_pack/` 现存文件并恢复为 `path_exists = true`。
+- `待验证` `素材录制/` 仍为 blocked_unknown；如需进一步瘦身，需要用户另轮确认哪些原始录制素材可外置 / 删除。
+- `治理报告`：`治理_reports/20260504_项目升级前旧资产清库_pre_upgrade_delete_old_assets/项目升级前旧资产清库报告_pre_upgrade_delete_old_assets_report.md`
+- `下一个目标`：用户 / ChatGPT 复审清库 PR，确认没有误删保留内核；通过后再进入项目升级机制收口。
+
 ## 20260504｜元素娃娃开头保留与旧资产清理
 
 - `已确认` 本轮从最新 `codex/user-readable-map` 创建分支：`codex/keep-element-doll-clean-old-assets-20260504`。
