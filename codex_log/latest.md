@@ -1,5 +1,14 @@
 # Latest
 
+## 20260505｜发布前平台风险检查规则
+
+- `已确认` 已基于 V002《自动流的最简单流程》新增发布前平台风险检查规则：`review_loop/08_发布前平台风险检查_pre_publish_platform_risk_check.md`。
+- `已确认` V002 不再只作为单条数据记录，也作为第一条发布前平台风险样本；其身份仍是 `policy_distribution_limited（平台审核减推 / 分发受限）` 与 `abnormal_distribution_sample（异常分发样本）`，不是内容失败样本。
+- `已确认` 后续 AI 工作流 / AI 教程 / 自动化流程 / 工具操作演示 / 命令行或 IDE 画面展示类视频，发布前必须先检查标题、封面、字幕、画面文字、工具界面、命令行、结尾动作、简介和评论区引导中的平台风险表达。
+- `已确认` 已在 `review_loop/00_review_loop_readme.md` 与 `codex_source/00_codex_readme.md` 增加最小入口引用；未修改当前 v3.1 视频状态、`content_validation`、`send_ready`、`dist/latest_review_pack/`、`GPT 数据源/` 或 `GPT数据源/`。
+- `执行日志`：`codex_log/20260505_发布前平台风险检查规则_pre_publish_platform_risk_check.md`
+- `下一个目标`：后续发布类似 AI 工作流 / 自动化流程类视频前，先输出平台风险检查结果，再决定是否允许发布、必须改写或阻断。
+
 ## 20260505｜《自动流的最简单流程》抖音审核减推记录
 
 - `已确认` 已为《自动流的最简单流程》建立独立 `video_id = V002` 发布后复盘记录，未混入 V001 v3.1 灰度测试记录。

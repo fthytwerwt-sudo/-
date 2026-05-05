@@ -63,6 +63,8 @@
 5. 用 `05_dual_review_handoff_template.md` 交给“Codex 初检 → ChatGPT 质量判断”。
 6. 用 `06_next_round_task_template.md` 生成下一轮执行单草稿。
 
+发布前若涉及 AI 工作流 / AI 教程 / 自动化流程 / 工具操作演示 / 命令行或 IDE 画面展示类内容，必须先读 `08_发布前平台风险检查_pre_publish_platform_risk_check.md`，检查标题、封面、字幕、画面文字、工具界面、命令行、结尾动作、简介和评论区引导中的平台风险表达。
+
 ## 4A. 当前 v3.1 灰度测试使用方式
 
 `已确认` 《我用 AI 做 PPT 踩过的坑》v3.1 已发片，当前进入 `post_publish_gray_test（发布后灰度测试阶段）`。

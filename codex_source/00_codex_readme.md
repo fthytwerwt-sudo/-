@@ -127,6 +127,8 @@
 19. `review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
 20. `project_source/14_content_review_and_loop_governance_rules.md`
 
+若任务涉及发布前检查，且内容属于 AI 工作流 / AI 教程 / 自动化流程 / 工具操作演示 / 命令行或 IDE 画面展示类视频，则还必须读 `review_loop/08_发布前平台风险检查_pre_publish_platform_risk_check.md`，先输出平台风险检查结果，再进入发布。
+
 发布后复盘规则：
 - 灰度测试只是当前阶段名称，不另起独立灰度系统
 - 单条记录、结果看板、诊断初检、双层交接和下轮草稿均走 `review_loop/`
