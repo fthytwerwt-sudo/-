@@ -1,5 +1,15 @@
 # Latest
 
+## 20260505｜《自动流的最简单流程》抖音审核减推记录
+
+- `已确认` 已为《自动流的最简单流程》建立独立 `video_id = V002` 发布后复盘记录，未混入 V001 v3.1 灰度测试记录。
+- `已确认` 已记录抖音审核通知：`review_result = 减少作品推荐`，`violation_reason = 引导至风险不可控渠道`，`reason_surface = 画面`。
+- `已确认` 已记录用户确认数据：播放量 39、点赞 5、收藏 8；计算字段为点赞率 12.82%、收藏率 20.51%、点赞 + 收藏动作率 33.33%。
+- `已确认` V002 已标记为 `policy_distribution_limited（平台审核减推 / 分发受限）` 与 `abnormal_distribution_sample（异常分发样本）`；不得作为正常自然流量样本或内容失败结论。
+- `已确认` 本轮未修改当前 v3.1 视频状态、`content_validation`、`send_ready`、`dist/latest_review_pack/`、`GPT 数据源/` 或 `GPT数据源/`。
+- `执行日志`：`codex_log/20260505_抖音减少推荐审核记录_douyin_reduce_recommendation_notice.md`
+- `下一个目标`：ChatGPT / 用户基于 V002 复盘输入判断该样本最终归为排除样本还是可参考异常样本，并拍板下一轮唯一优先改点是否锁定为发布包装 / 风险表达 / 画面触发点。
+
 ## 20260505｜大任务闸门 large_task_gate
 
 - `已确认` 本轮只补 `large_task_gate（大任务闸门）` 机制；未修改视频产物、未生成样片、未继续项目清理、未调整剪辑风格、未开发真正 multi-agent 系统。
