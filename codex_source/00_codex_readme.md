@@ -127,6 +127,8 @@
 19. `review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
 20. `project_source/14_content_review_and_loop_governance_rules.md`
 
+若任务命中“复盘后重写 / 文案结构调整 / 下一版文案 / 发布包装调整 / 风险表达改写 / 录屏承载修正”，必须读取 `review_loop/09_复盘到文案调整桥接_review_to_copy_revision_bridge.md` 和 `review_loop/10_文案结构改版包模板_copy_revision_package_template.md`；不得从复盘数据直接跳到最终脚本或视频生成。
+
 若任务涉及发布前检查，且内容属于 AI 工作流 / AI 教程 / 自动化流程 / 工具操作演示 / 命令行或 IDE 画面展示类视频，则还必须读 `review_loop/08_发布前平台风险检查_pre_publish_platform_risk_check.md`，先输出平台风险检查结果，再进入发布。
 
 发布后复盘规则：
