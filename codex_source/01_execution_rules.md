@@ -2,446 +2,663 @@
 
 ## 1. 文件定位
 
-本文件用于规定 Codex 在当前仓库中的默认执行方式。
+本文件规定 Codex 在《视频工厂》仓库中的默认执行方式。
 
-它解决的是：
+它负责：
 
-- 每次任务的默认读取顺序
-- 哪些情况可以直接执行，哪些必须先审计
-- 默认允许改什么，不允许改什么
-- skill 检查如何作为硬规则落地
-- 未找到 AGENTS、skill、关键文件时如何汇报
-- 最终汇报必须包含哪些栏目
-- 哪些话不能说，哪些验证不能跳
+- 默认读取顺序
+- 什么时候必须先审计
+- 什么范围可以改
+- GPT 数据源与仓库不同步时如何处理
+- 仓库型任务的日志、提交、推送与回流规则
+- 完成前最小验证要求
 
-它不负责：
+## 2. 默认读取顺序
 
-- 定义项目身份与阶段
-- 编写场景模板正文
-- 取代代码实现说明
-
-## 2. EXEC-001 默认读取顺序
-
-Codex 每次接到任务，默认按以下顺序读取：
+每次任务默认按以下顺序读取：
 
 1. `AGENTS.md`
-2. 当前仓库内是否存在本地 `skills/`
-3. 若本地无相关 skill，则检查全局 `~/.codex/skills`
-4. `project_source/06_project_index.md`
-5. `codex_source/00_codex_readme.md`
-6. 与当前任务直接相关的 `project_source/*`
-7. `codex_source/01_execution_rules.md`
-8. 与当前任务直接相关的 `codex_source/*`
-9. 若需要执行层内部补充导航，再读 `codex_source/02_codex_index.md`
-10. 若任务涉及真实运行链路，再读相关代码、测试与现有产物
+2. 当前仓库本地 `skills/` 是否存在
+3. 若本地无相关 skill，再检查全局 `~/.codex/skills`
+4. `codex_source/00_codex_readme.md`
+5. `codex_log/latest.md`
+6. 若任务命中“execution lane / parallel gate / 是否适合提速 / 是否适合并发 / lane recommendation / parallel recommendation”，在 `codex_log/latest.md` 之后优先读：
+   - `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md`
+   - `codex_source/13_execution_lane_and_parallel_rules.md`
+7. 若任务命中“当前待发对象 / 当前最新样片 / 发布线复核 / 当前唯一 blocker / 只改这一条内容”，在 `codex_log/latest.md` 之后优先读：
+   - `codex_log/current_publish_target.md`
+   - 若需要快速复核当前样片的 Git 可追踪轻量证据，再读 `codex_log/current_publish_target_light_evidence.md`
+8. 若任务命中“截图 / 数据截图 / 截图数据录入 / 灰度测试 / 发片 / 发布后 / 复盘 / 数据记录 / 24h / 72h / 7 天 / 播放量 / 完播率 / 留存 / 私信 / 咨询 / 下一轮只改一个变量”，在 `current_publish_target` 之后优先读：
+   - `codex_log/current_gray_test_target.md`
+   - `review_loop/00_review_loop_readme.md`
+   - `review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`
+   - `review_loop/02_video_record_template.md`
+   - `review_loop/03_result_dashboard_template.md`
+   - `review_loop/04_diagnosis_template.md`
+   - `review_loop/05_dual_review_handoff_template.md`
+   - `review_loop/06_next_round_task_template.md`
+   - `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
+   - `review_loop/records/V001_v31_AI做PPT踩坑_gray_test/`
+   - `review_loop/screenshots/V001_v31_AI做PPT踩坑/screenshot_manifest.md`
+   - `review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
+   - `project_source/14_content_review_and_loop_governance_rules.md`
+9. `codex_source/01_execution_rules.md`
+10. `codex_source/02_current_execution_context.md`
+11. `codex_source/03_research_findings_bridge.md`
+12. 当前任务直接相关的 `project_source/*`
+13. 命中价值 / 文案 / 结尾卡时，读 `codex_source/11_ai_knowledge_video_value_bridge.md`
+14. 命中“什么算已知”时，读 `codex_source/12_codex_known_state_three_layer_rules.md`
+15. 命中“完整成片 / 成品候选片 / 技术预览升级成候选片 / 样片回炉 / 开头重做 / 中段剪辑 / 字幕修正 / TTS 修正 / 功能卡修正 / 结果差卡修正 / 骚萌卡修正 / 录屏放大修正 / 视觉母版修正”时，读：
+   - `codex_source/14_locked_reference_inheritance_rules.md`
+   - `codex_source/locked_reference_registry.md`
+16. 命中 v3.1 / 卡片视觉路由 / 段落提示卡 / 信息卡 / 骚萌卡三路拆分时，再读：
+   - `codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md`
+17. 命中 commit / push / reading branch 回流时，再读 `codex_source/08_branch_sync_and_reading_branch_rules.md`
 
-当前仓库已确认事实：
+当前仓库现实 `已确认`：
 
-- 仓库内无本地 `skills/` 目录
+- 仓库本地 `skills/` 目录不存在
+- 相关 skills 需回退检查全局 `~/.codex/skills`
 
-因此当前项目的实际默认流程是：
+## 2A. 执行前 route_decision 闸门
 
-`AGENTS.md` → 本地 skill 检查 → 全局 skill 检查 → `project_source/06_project_index.md` → `codex_source/00_codex_readme.md` → 相关 `project_source/*` → 相关 `codex_source/*` → 代码 / 产物
+每次任务必须先输出 `route_decision（路由判断）`，再执行默认读取顺序。
 
-补充说明：
+`route_decision（路由判断）` 是执行许可，不是可选说明。
 
-- `codex_source/02_codex_index.md` 仍可作为执行层内部补充索引使用
-- 但它不属于顶层默认入口的一部分
+如果没有 `route_decision（路由判断）`，或 `route_decision（路由判断）` 中任一关键字段缺失，Codex 必须停止，不得执行。
 
-## 3. EXEC-002 层级判断
+`route_decision（路由判断）` 至少包含：
 
-Codex 在动手前必须先判断任务属于哪一层。
+1. `project_route（项目路由）`
+2. `task_type（任务类型）`
+3. `responsibility_layer（责任层级）`
+4. `large_task_gate（大任务闸门）`
+5. `must_read_files（本轮必读文件）`
+6. `read_status（读取状态）`
+7. `allowed_changes（允许修改范围）`
+8. `forbidden_changes（禁止修改范围）`
+9. `blocked_if（阻断条件）`
+10. `execution_permission（执行许可）`
 
-### 属于项目脑层
+执行前输出格式必须为：
 
-包括：
+```text
+route_decision:
+  project_route:
+  task_type:
+  responsibility_layer:
+  large_task_gate:
+    triggered:
+    reason:
+    lane_recommendation:
+    lane_reason:
+    lane_invalid_if:
+    parallel_recommendation:
+    parallel_reason:
+    parallel_invalid_if:
+    write_owner:
+    read_only_lanes:
+    integration_owner:
+  must_read_files:
+    - path:
+      reason:
+      read_status:
+  allowed_changes:
+  forbidden_changes:
+  blocked_if:
+  execution_permission:
+```
 
-- 项目身份
-- 当前阶段
-- 内容边界
-- 场景模式
-- 结构原则
-- Perplexity 接入原则
-- 回审模板
-- 心理机制层规则
+若任何关键文件 `missing（文件不存在）` 或 `unreadable（无法读取）`，必须输出 blocked，不得继续执行。
 
-这类问题优先看 `project_source/`。
+不得用聊天记忆、GPT Project 静态资料、旧 PR 印象或 Codex 自己的推测补齐当前事实。
 
-### 属于执行层
+最终回报必须包含：
 
-包括：
+1. 本轮 `route_decision（路由判断）`
+2. 实际读取文件清单
+3. 哪些文件 `read_ok（已读取）`
+4. 哪些文件 `missing（文件不存在）` / `unreadable（无法读取）` / `not_applicable（本轮不适用）`
+5. 本轮允许修改范围
+6. 本轮禁止修改范围
+7. 是否触发 blocked
 
-- 读取顺序
-- 修改边界
-- 运行契约
-- 产物规则
-- skill 接入要求
-- 汇报格式
+每次最终回报必须新增栏目：
 
-这类问题优先看 `codex_source/`。
+1. `route_decision（本轮路由判断）`
+2. `read_status（实际读取状态）`
+3. `execution_permission（执行许可是否成立）`
 
-### 属于代码层
+不得只回报“已完成”。
 
-包括：
+## 2B. 任务类型与必读文件映射
 
-- Python 解析与生成逻辑
-- 配音链路
-- 字幕链路
-- Swift 合成链路
-- 测试与真实错误
+### 项目文件修改 / 机制修补 / 路由修补
 
-这类问题优先看代码、测试与产物。
+必读：
 
-层级未判清前，不允许直接进入改动。
+1. `AGENTS.md（仓库入口规则）`
+2. `codex_source/00_codex_readme.md（Codex 执行层总入口）`
+3. `codex_source/01_execution_rules.md（执行规则）`
+4. `codex_log/latest.md（最新摘要）`
+5. 本轮点名要修改的文件
 
-## 4. EXEC-003 可以直接执行的条件
+缺任一关键文件：blocked。
 
-只有同时满足以下条件，才可直接执行而不先做完整审计：
+### 视频样片 / 成片 / 样片回炉
 
-1. 用户任务边界明确
-2. 目标文件或目标动作明确
-3. 所需规则文件可读取
-4. 所需 skill 已检查
-5. 当前任务不会改变项目边界或运行契约
-6. 真实仓库事实与文档描述没有影响动作选择的冲突
+必读：
 
-典型可直接执行的任务包括：
+1. `AGENTS.md（仓库入口规则）`
+2. `codex_source/00_codex_readme.md（Codex 执行层总入口）`
+3. `codex_source/01_execution_rules.md（执行规则）`
+4. `codex_log/latest.md（最新摘要）`
+5. `codex_log/current_publish_target.md（当前复审 / 发布目标）`
+6. `codex_log/current_publish_target_light_evidence.md（当前复审轻证据）`
+7. `dist/latest_review_pack/summary.json（状态摘要）`
+8. `dist/latest_review_pack/review_manifest.md（复审入口）`
+9. `codex_source/14_locked_reference_inheritance_rules.md（锁定参考继承规则）`
+10. `codex_source/locked_reference_registry.md（锁定参考登记表）`
+11. 如涉及 v3.1 / 卡片 / 视觉路由，再读 `codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md（v3.1 视觉路由规则）`
+12. 如涉及本地路径，再读 `codex_log/current_local_artifact_paths.md（当前本地产物路径索引）`
 
-- 在明确范围内补文档
-- 在明确目标下修改某个已定位的文件
-- 在已知链路内做小范围、低风险修正
+缺 locked reference 或 visual route 关键文件：blocked。
 
-## 5. EXEC-004 必须先审计的条件
+### 文案写作 / 改写
 
-出现以下任一情况，必须先审计再执行：
+必读：
 
-1. 用户明确要求“先读清楚现状”
-2. 任务涉及陌生目录或陌生链路
-3. 任务涉及真实运行链路、输入输出约定或产物判断
-4. 任务可能改变项目阶段、项目边界或默认工作流
-5. 任务可能把当前 demo 推向复杂平台
-6. 当前文档描述与真实仓库事实疑似不一致
+1. `AGENTS.md（仓库入口规则）`
+2. `GPT数据源/04_选题与文案规则.md（选题与文案规则）`
+3. `GPT数据源/05_文案路由规则.md（文案路由规则）`
+4. `GPT数据源/07_AI知识类视频价值规则.md（AI 知识类视频价值规则）`
+5. 本轮用户给出的文案 / reference / 素材说明
 
-简化判断：
+若缺少用途、对象、目标动作、风格边界、长度边界或验收标准：不得直接出正式稿，必须 blocked 或输出待确认位。
 
-只要较大不确定性足以影响动作选择，就先审计。
+### 复盘 / 诊断 / 审核
 
-## 6. EXEC-005 默认允许修改什么，不允许修改什么
+必读：
 
-### 默认允许修改
+1. `AGENTS.md（仓库入口规则）`
+2. `codex_log/latest.md（最新摘要）`
+3. 当前复盘对象对应的报告 / 产物 / 日志
+4. 若是发布后复盘，再读 `review_loop/` 对应文件
+5. 若是视频内容复审，再读当前 `summary.json（状态摘要）` 与 `review_manifest.md（复审入口）`
 
-仅在用户明确要求且范围清楚时，允许修改：
+缺复盘对象或当前结果状态：blocked。
 
-- 当前任务点名的 `codex_source/*`
-- 当前任务点名的 `project_source/*`
-- 当前任务明确授权进入的代码文件
+### 数据记录 / 灰度复盘
 
-### 默认不允许修改
+必读：
 
-在没有明确授权时，默认不修改：
+1. `AGENTS.md（仓库入口规则）`
+2. `codex_log/current_gray_test_target.md（当前灰度测试目标）`
+3. `review_loop/00_review_loop_readme.md（复盘循环入口）`
+4. `review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md（截图数据录入规则）`
+5. `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md（v3.1 灰度测试指标体系）`
+6. 当前视频记录目录
 
-- 不在本轮范围内的 `project_source/*`
-- 不在本轮范围内的 `codex_source/*`
-- 任何代码文件
-- `AGENTS.md`
-- `README.md`
-- 现有产物
+缺 `video_id`、时间窗或数据类型：blocked。
 
-补充规则：
+### 本地文件治理 / 工作区治理
 
-- 未被当前任务授权的层，默认不动
-- 不能因为“顺手优化”就跨层扩改
-- 不能把 demo 自动升级成复杂平台
+必读：
 
-## 7. EXEC-006 skill 检查是硬规则，不是建议
+1. `AGENTS.md（仓库入口规则）`
+2. `codex_source/00_codex_readme.md（Codex 执行层总入口）`
+3. `codex_source/01_execution_rules.md（执行规则）`
+4. `codex_log/latest.md（最新摘要）`
+5. `.gitignore（Git 忽略规则）`
+6. 与本轮治理对象相关的报告或路径索引
 
-skill 检查在当前仓库中是硬规则。
+需要新建外部工作区、删除原始素材、替换正式工作区或执行 Git 高风险操作时：blocked，等待用户明确确认。
+`已确认` 用户已单独授权的 `/Users/fan/Documents/视频工厂归档+删除` 只作为 archive-only 外部目录例外存在；不得把它当执行工作区或默认读取入口。
 
-执行动作前必须：
+### execution lane / multi-agent / parallel 机制
 
-1. 先检查当前仓库内是否存在本地 `skills/`
-2. 若无本地相关 skill，再检查全局 `~/.codex/skills`
-3. 只要发现与任务直接相关的 skill，就必须纳入执行
-4. 若未找到、无法读取或不适用，必须在最终汇报中如实说明
+必读：
 
-当前项目至少要优先检查：
+1. `AGENTS.md（仓库入口规则）`
+2. `codex_source/00_codex_readme.md（Codex 执行层总入口）`
+3. `codex_source/01_execution_rules.md（执行规则）`
+4. `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md（多执行器路由说明）`
+5. `codex_source/13_execution_lane_and_parallel_rules.md（执行 lane 与并行规则）`
 
+默认单 Codex 执行器。
+
+只有任务天然拆成互不抢文件、输入输出清楚、验收独立的 lane，才允许建议 multi-agent。
+
+未明确 lane 边界时，不得开启 multi-agent。
+
+## 2C. large_task_gate 大任务闸门
+
+`large_task_gate（大任务闸门）` 是每次 `route_decision（路由判断）` 必须判断的字段。
+
+执行前输出格式必须补充：
+
+```text
+large_task_gate:
+  triggered:
+  reason:
+  lane_recommendation:
+  lane_reason:
+  lane_invalid_if:
+  parallel_recommendation:
+  parallel_reason:
+  parallel_invalid_if:
+  write_owner:
+  read_only_lanes:
+  integration_owner:
+```
+
+当任务命中以下任一条件时，`large_task_gate.triggered = true`：
+
+1. 视频 / 样片 / 成片 / 剪辑对象超过 `180 秒`。
+2. 本轮同时涉及脚本、素材、reference、时间线、TTS、字幕、验证、日志中的三项或以上。
+3. 本轮需要写入或检查 3 个以上仓库文件。
+4. 本轮同时涉及规则文件、执行文件、日志文件、报告文件中的两类或以上。
+5. 本轮需要大量只读审计、定位、结构化整理，再统一写入。
+6. 本轮任务包含“写文件 + 检查 + 日志 + push / 同步”等多步骤闭环。
+7. 用户明确提到“长视频”“大任务”“多文件”“多步骤”“多 agent”“并发”“提速”“检查很多文件”。
+
+触发后必须读取：
+
+1. `codex_source/13_execution_lane_and_parallel_rules.md（执行车道与并发规则）`
+2. `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md（给 GPT Project 用的多执行器路由说明）`
+
+触发后必须输出 lane / parallel 判断：
+
+- `lane_recommendation`
+- `lane_reason`
+- `lane_invalid_if`
+- `parallel_recommendation`
+- `parallel_reason`
+- `parallel_invalid_if`
+
+默认原则：
+
+- 大任务必须判断是否并发。
+- 判断并发不等于自动并发。
+- 多文件 / 多检查 / 多步骤任务也必须判断。
+- 写入范围不清楚时，默认 `serial_only（串行执行）`。
+- 只读工作可拆时，优先考虑 `read_parallel（只读并发）` 或 `explore_plus_integrate（探索 + 单点整合）`。
+- 多个写手只有在写入范围完全独立、验收独立、合并成本清楚时，才允许 `true_multi_task_parallel（真正多任务并发）`。
+
+## 3. skill 检查硬规则
+
+执行前必须：
+
+1. 先检查当前仓库本地 `skills/`
+2. 若无，再检查全局 `~/.codex/skills`
+3. 命中相关 skill 时必须使用
+4. 若未找到或不适用，必须如实说明
+
+当前这类“项目口径 / 接手口径 / 文档维护”任务，至少要优先检查：
+
+- `using-superpowers`
 - `context-driven-development`
 - `verification-before-completion`
-- 其他与项目文档维护、执行规则整理、运行规则归档直接相关的 skill
 
-## 8. EXEC-006A 仓库型任务默认走 GitHub / PR 线路
+当前这类“execution lane / parallel mechanism”任务，额外必须检查：
 
-凡是命中以下任一条件的任务，默认按仓库型任务处理：
+- `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md`
+- `codex_source/13_execution_lane_and_parallel_rules.md`
 
-- 需要真实修改仓库文件
-- 需要提交分支或 PR
-- 需要走 checks、AI 复审、用户拍板这条审核线
+## 4. 哪些情况必须先审计
 
-默认执行线路是：
+出现以下任一情况，必须先审计再改：
 
-先看现状 → 开分支改 → 提 PR → 跑 checks → AI 复审 → 用户拍板
+1. 用户明确要求先看仓库现实
+2. 任务目标是“同步源事实 / 修复接手口径 / 改默认主线”
+3. 任务涉及 `project_source` 与 `codex_source` 的交叉修改
+4. 任务涉及主读取分支 `codex/user-readable-map`
+5. 当前仓库文件与聊天里的说法可能不一致
 
-具体要求：
+## 5. 默认允许修改范围
 
-1. 先检查当前仓库真实状态
-   - 是否已初始化 git
-   - 当前分支是什么
-   - working tree 是否干净
-   - 是否存在 `origin`
-   - 远程是否已是 GitHub 仓库
-2. 若当前仓库已完成 GitHub 基线同步：
-   - 后续仓库改动默认不得直接 push `main`
-   - 必须走新分支 + PR
-3. 若当前仓库尚未完成第一次 GitHub 基线同步：
-   - 允许把“当前仓库基线 + 本轮必要改动”作为首次 baseline 同步
-   - 首次 baseline 同步允许 push 到 `main`
-   - 但必须明确说明“本轮是 baseline push，不是 PR 改动”
-4. PR 合并前，不得把未确认内容写成已确认
-5. 若无远程仓库信息、无 GitHub 认证、无 push 权限、无创建 PR 权限，必须如实汇报，不得假装完成
+只有在用户明确授权时，才允许修改：
 
-边界说明：
+- 当前任务点名的 `project_source/*`
+- 当前任务点名的 `codex_source/*`
+- `codex_log/*`
 
-- 这条线路只适用于仓库型任务
-- 不适用于纯聊天判断
-- 不适用于 Perplexity prompt
-- 不适用于单次小文本成品
+没有明确授权时，默认不改：
 
-当前执行口径：
+- 代码文件
+- 测试文件
+- 配置 / 密钥文件
+- `dist/*`
+- 不在本轮范围内的文档
 
-- “先看现状”至少包括 `git status`、当前分支、remote、GitHub 认证 / 权限状态
-- “跑 checks”指当前仓库可用的测试、构建、lint 或其他最贴近本轮改动的验证
-- “AI 复审”指在 checks 之后再做一次机器复核，不得用来替代 checks
-- “用户拍板”前，不得把分支改动表述成最终定稿
+## 6. GPT 数据源不会自动同步到 Codex 仓库
 
-## 8A. EXEC-006B 执行日志必须落到 `codex_log/`
+这是执行层硬规则：
 
-`codex_log/` 是当前仓库的执行日志目录，不属于 `project_source/` 项目脑。
+- GPT Project 数据源不会自动同步到 Codex 仓库
+- 聊天里说过，不等于 Codex 已知
+- GPT 数据源里有，不等于 Codex 已知
+- 外部资料、Perplexity 结论、ChatGPT 收束结果，若会影响执行，必须先回写仓库或显式带入执行单
 
-每次执行完成后，只要命中以下任一条件，就必须落日志：
+未回写前，它们最多只能算：
+
+- `GPT 已知`
+- 或 `Codex 条件已知`
+
+不能直接写成：
+
+- `Codex 正式已知`
+
+## 6A. 本地审片路径读取规则
+
+凡涉及本地审片路径、视频路径、音频路径、图片路径、复审包路径，必须先查：
+
+- `codex_log/current_local_artifact_paths.md（当前本地产物路径索引）`
+
+硬规则：
+
+- 没有被 Codex 本地验证过的路径，不得当作用户可打开路径输出。
+- 只有 `current_local_artifact_paths.md（当前本地产物路径索引）` 中 `path_exists = true（路径存在）` 的路径，才能作为用户可打开路径输出。
+- `summary.json（状态摘要）` 和 `review_manifest.md（审片入口）` 中的路径只能作为线索，不能直接当成真实可打开路径。
+- 如果本地路径索引不存在、超过 24 小时未验证，或相关记录没有 `path_exists = true（路径存在）`，必须写成“路径待本地复核”。
+- `/private/tmp（系统临时目录）` 路径默认不稳定，除非本轮重新验证存在，否则不得作为首选路径。
+- 旧脏 worktree（旧脏工作区）路径不得作为默认执行路径；如确实存在，只能作为历史 / 备选打开路径并明确标注。
+
+## 6B. 单工作区硬规则 single_workspace_rule
+
+《视频工厂》本地执行只能围绕唯一正式工作区：
+
+- `/Users/fan/Documents/视频工厂`
+
+硬规则：
+
+1. Codex 后续不得默认新建 `/Users/fan/Documents/视频工厂_*`、`/Users/fan/Documents/视频工厂-*` 或 `/Users/fan/Documents/视频工厂-worktrees` 作为外部散工作区。
+2. 如果需要新分支，必须在 `/Users/fan/Documents/视频工厂` 内执行 `git switch -c <branch>` 或切换既有分支。
+3. 不得默认使用 `git worktree add` 创建外部 Git 工作区；除非用户当轮明确授权。
+4. 不得默认新建 fresh clone、audit clone、clean clone、临时 clone、外部对照 clone、临时 worktree 或任何外部工作区。
+5. 如果 Codex 判断确实需要 fresh clone / 外部对照 / 外部 worktree / 任何外部目录，必须先停止，回报 `reason（原因）`、`target_path（目标路径）`、`risk（风险）`、`internal_alternative（唯一正式工作区内替代方案）`，等待用户本轮明确确认后才能继续。
+6. 所有最终产物、样片、复审包、截图归档、治理报告、路径索引、执行日志和清理记录，都必须落在唯一正式工作区内部。
+7. `/Users/fan/Desktop`、`/Users/fan/Downloads`、`/private/tmp`、`/Users/fan/Documents/视频工厂_*`、`/Users/fan/Documents/视频工厂-*` 不得作为最终交付路径。
+8. 必须临时读取外部路径时，只能作为 `source（来源）` 只读读取；必须回收到唯一正式工作区后，才能写入路径索引或默认执行口径。
+9. 已经产生的外部工作区必须收回到唯一正式工作区内部的 `本地归档_local_archive/` 或 `本地隔离区_local_quarantine/`；不得继续散落在 `/Users/fan/Documents` 顶层。
+10. `codex_log/current_local_artifact_paths.md` 的 `canonical_local_path（首选本地路径）` 只能指向唯一正式工作区内部。
+11. 旧外部路径最多只能作为 `historical_source_path（历史来源路径）` 或 `fallback_path（备选路径）`，不得作为默认执行路径。
+12. 后续清理、归档、迁移任务也必须从唯一正式工作区发起、记录、提交和推送。
+
+## 7. 仓库型任务默认线路
+
+命中以下任一条件，默认按仓库型任务处理：
+
+- 改仓库文件
+- 修项目口径 / 执行口径 / 路由口径 / 接手口径
+- 需要 commit / push / 回流主读取分支
+
+默认线路：
+
+先审计现状 -> 改文件 -> 更新日志 -> 验证 -> commit -> push 当前分支 -> 同步回 `codex/user-readable-map`
+
+## 8. 执行日志硬规则
+
+只要本轮出现以下任一事实，就必须写 `codex_log/`：
 
 - 改了仓库文件
 - 跑了命令
-- 生成了产物
-- 完成了 commit / push / PR
-- 形成了新的阻塞点或下一步交接点
+- 完成了 commit / push / 同步
+- 形成了新的阻塞点 / 交接点
 
-以下情况可以不写：
-
-- 只有纯读取，且没有修改、没有执行、没有新结论
-- 只有纯聊天判断，未进入执行层
-
-命中写日志条件时，必须同时完成两件事：
-
-1. 新增一条独立日志到 `codex_log/YYYYMMDD_任务名.md`
-2. 刷新 `codex_log/latest.md`
-
-日志文件硬要求：
-
-- 文件名使用英文和下划线，不用空格
-- 每条日志至少包含以下栏目：
-  - 本轮目标
-  - 执行前已确认事实
-  - 实际读取
-  - 实际改动
-  - 实际执行
-  - 当前结果
-  - 下一步建议
-- 只允许写已验证的仓库事实、执行结果和阻塞点
-- 不得把聊天汇报当成仓库日志的替代品
-
-`codex_log/latest.md` 只保留最小交接摘要，至少包括：
-
-- 当前项目执行状态
-- 最近一次完成了什么
-- 当前最关键的下一步
-- 新会话接手时建议先读哪些文件
-
-接手规则补充：
-
-- 若仓库内已存在 `codex_log/`，新聊天框 / 新 Codex 会话进入执行层前，默认补读 `codex_log/latest.md`
-- 若当前任务与最近一次执行强相关，再继续读取对应的最近一条完整日志
-
-## 8B. EXEC-006C 可判断小闭环后默认 commit 并 push 当前分支
-
-命中仓库型任务时，只要本轮已经形成“可判断的小闭环”，默认执行以下动作：
+至少要做两件事：
 
 1. 刷新 `codex_log/latest.md`
-2. 命中写日志条件时，补完整日志
-3. commit 当前分支改动
-4. push 到当前工作分支 / 当前 PR
+2. 新增一条 `codex_log/YYYYMMDD_任务名.md`
 
-这条规则的目的必须明确为：
+若本轮结果会改变以下任一项，还必须同步刷新：
 
-- 让 ChatGPT 每轮都能直接通过 GitHub 查看当前分支 / 当前 PR 的最新状态并复审
-- 减少用户手动搬运背景
+- `codex_log/current_publish_target.md`
+  - 当前待发对象
+  - 当前审核对象
+  - 当前正式状态
+  - 当前唯一最高优先级 blocker
+  - 现在最该改的唯一一点
+  - `lane_recommendation`
+  - `lane_reason`
+  - `lane_invalid_if`
+  - `parallel_recommendation`
+  - `parallel_reason`
+  - `parallel_invalid_if`
+- 若当前样片的 Git 可追踪轻量证据有变化，再同步刷新：
+  - `codex_log/current_publish_target_light_evidence.md`
 
-“可判断的小闭环”至少包括以下任一类：
+## 8A. 视频修改必须同步口径规则
 
-- 文档、规则、提示词或执行单已经形成明确可验收版本
-- 仓库文件修改已形成清晰结果，值得复审
-- 命令执行已有明确成功 / 失败结果
-- PR 级别改动已经达到“可以让 ChatGPT 看这一轮”的程度
+以后凡是修改《视频工厂》的任何视频产物、样片轮次、`round`、`latest_review_pack`、`current_publish_target`、审片状态、`technical_validation`、`content_validation`、`send_ready`、`remaining_blockers`，都必须同步更新相关口径文件。
 
-可以暂不 commit / 暂不 push 的情况：
+默认必须同步检查：
+1. `codex_log/latest.md`
+2. `codex_log/current_publish_target.md`
+3. `codex_log/current_publish_target_light_evidence.md`
+4. `GPT数据源/08_当前正式事实.md`
+5. `dist/latest_review_pack/summary.json`
+6. `dist/latest_review_pack/review_manifest.md`
+7. 如改变入口 / 分支 / 读取顺序，还必须同步 `AGENTS.md` 和 `codex_source/00_codex_readme.md`
 
-- 只有纯读取、无改动、无新结论
-- 当前改动仍是半成品，还不构成可判断的小闭环
-- 改动范围还在摇摆
-- `codex_log/latest.md` 还没更新
-- 当前任务根本未进入仓库型任务
+硬规则：
+- 不允许只改视频、不改口径
+- 不允许只在工作分支改口径、不同步默认主读取分支
+- 不允许把历史样片写成当前最新样片
+- 不允许把 `technical_validation` 写成 `content_validation`
+- 不允许用户未最终确认前把当前片子写成可发送状态
+- 不允许旧 `round` 状态继续覆盖最新 `latest_review_pack`
+- 只要改动会影响新会话默认接手判断，就必须同步到 `codex/user-readable-map`
 
-明确禁止：
+## 8A-1. 发布后灰度测试与复盘接入规则
 
-- 不得把“默认 push 当前分支 / 当前 PR”写成“默认 push `main`”
-- 不得跳过日志更新直接 push
-- 不得在未形成可判断小闭环时强行 push 噪音改动
+当前 v3.1 已进入 `post_publish_gray_test（发布后灰度测试阶段）`。
 
-## 9. EXEC-007 未找到 AGENTS / skill / 关键文件时如何处理
+状态硬规则：
 
-### 未找到 `AGENTS.md`
+- `publish_status = gray_test_published（已发片，进入灰度测试）`
+- `gray_test_status = active（灰度测试中）`
+- `post_publish_review_required = true（需要发布后复盘）`
+- `content_validation = gray_testing_not_final_passed（灰度测试中，不等于内容最终通过）`
+- `send_ready = false`
+- `visual_master_locked = false`
+- `voice_validation = pending_user_chatgpt_review`
+- `final_voice_validated = false`
 
-必须明确汇报：
+执行硬规则：
 
-- 根规则文件缺失或不可读取
-- 因此哪些动作无法安全继续
+1. 发布后复盘默认接入 `review_loop/`，不新建独立灰度系统。
+2. 单条记录走 `review_loop/02_video_record_template.md`。
+3. 结果看板走 `review_loop/03_result_dashboard_template.md`。
+4. 诊断初检走 `review_loop/04_diagnosis_template.md`。
+5. Codex 初检 / ChatGPT 判断交接走 `review_loop/05_dual_review_handoff_template.md`。
+6. 下一轮只改一个变量走 `review_loop/06_next_round_task_template.md`。
+7. 灰度测试指标体系 V1 走 `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`。
+8. 24h / 72h 数据窗口、一次只改一个变量、小样本状态升级 / 降级、异常样本处理、规律沉淀门槛沿用 `project_source/14_content_review_and_loop_governance_rules.md`。
+9. 7 天播放量 6000 是当前小样本阶段基础测试流量门槛，不是最终商业目标。
+10. 指标体系不是运营数据大表，而是下一轮改动定位器。
+11. 后续复盘默认收成四个问题：
+   - 这条有没有达到 6000 播放基础门槛？
+   - 当前最短板在哪一层：流量 / 内容 / 账号 / 转化？
+   - 下一轮只改哪一个变量？
+   - 为什么先改它，改完看哪个指标？
 
-如果缺失会影响动作边界判断，应先停下汇报。
+截图数据录入硬规则：
 
-### 未找到相关 skill
+1. 截图录入前必须先确认 `video_id`；未确认视频归属时不得入表。
+2. 截图录入前必须先确认时间窗：`24h / 72h / 7d`；未确认时间窗时不得入表。
+3. 截图录入前必须先确认数据类型：`platform_metrics / audience_retention / interaction / account_growth / comments / dm / consult / other`。
+4. 不同视频、不同时间窗、不同数据类型不得混写。
+5. `24h` 数据不得被 `72h` 或 `7d` 覆盖；`72h` 数据不得被 `7d` 覆盖。
+6. 截图字段识别不清必须标记 `uncertain_need_human_check`。
+7. 截图没有提供的字段必须标记 `missing`，不得硬猜。
+8. 评论截图不得当成私信截图；私信数不得自动等于有效咨询数。
+9. Codex 只做截图归档、字段提取、缺失标记、初检和交接，不做最终内容判断。
 
-必须明确汇报：
+Codex 职责边界：
 
-- 已检查本地 skill
-- 已检查全局 skill
-- 未命中哪些相关 skill
-- 本轮采用什么回退方式继续
+- Codex 可以记录、初检、归档、标缺失、生成下轮草稿。
+- Codex 不得把灰度测试写成内容通过。
+- Codex 不得把已发片写成最终成功。
+- Codex 不得跳过 24h / 72h / 7 天数据直接设定下一条文案。
+- Codex 不得把所有字段都升级成硬必填；字段必须分为核心必填、辅助观察、商业线索出现时才填。
+- 最终问题层、是否继续、下一轮唯一改点由 ChatGPT / 用户拍板。
 
-“未找到 skill”不能被省略成“无”或“略过”。
+## 8B. 仓库清理与旧口径归档规则
 
-### 未找到关键文件
+命中“仓库清理 / 旧口径归档 / 未提交文件处理 / 执行噪音删除”时，必须先输出 `cleanup_audit（清理审计）`，再动手。
 
-必须明确汇报：
+清理审计必须分为：
 
-- 缺失的是哪个路径
-- 该缺失会影响哪个判断
-- 哪些结论因此只能保守给出
+1. `safe_delete（可安全删除）`：确认无引用、无证据价值、可重新生成或明显临时的文件。
+2. `archive_only（只归档不删除）`：旧判断、旧入口、旧 PR 报告、仍有复盘价值但不应作为默认入口的文件。
+3. `rewrite_needed（需要改清楚）`：仍会被 Codex 默认读取、且可能误导当前状态的入口 / 状态 / registry / summary。
+4. `keep_as_evidence（作为证据保留）`：素材、复审包、registry 引用证据、summary / manifest / timeline / cut_map 引用产物。
+5. `blocked_unknown（不确定，先不动）`：无法判断是否可删的未追踪文件或目录。
 
-如果缺失已经影响能否继续修改或验证，应先停下汇报。
+未提交 / 未追踪文件处理规则：
 
-## 10. EXEC-008 最小必要背景包
+- 不允许直接运行全仓清理命令。
+- 不允许不分类就删除 `untracked` 文件。
+- 不允许删除 `素材录制/`、`素材库_assets/`、当前 v3 / v3.1 可能用到的复审包、PR #7 B、可爱卡片参考图、registry 已引用 artifact / evidence。
+- 只删除 `safe_delete`，且必须在 dated log 中列出相对路径和原因。
+- `blocked_unknown` 一律不删，只记录后续专项清理建议。
 
-任何会进入执行动作的任务，默认都必须带上以下背景：
+旧口径归档规则：
 
-- 项目名：视频工厂：AI 垂类场景化视频内核
-- 当前阶段：从可行性验证进入内容质量、结构稳定、工作流复用阶段
-- 当前聚焦：只做视频，不扩到直播、商业化、增长
-- 当前 demo 输入锚点：`cases/demo.md`
-- 当前 demo 约束：
-  - 中文
-  - 15 秒
-  - PPT 演示风格
-  - 9:16
-  - 3 页以内
-  - AI 配音
-  - 简体中文字幕
-- 当前默认结构：问题 → 动作 → 结果
-- 当前最小闭环已跑通
+- PR #22 / PR #23 / 旧 round 报告中的历史判断不得原样覆盖用户最新确认。
+- 可将旧判断摘录或副本放入 `归档_archive/旧口径_old_context_YYYYMMDD/`。
+- 归档目录必须有 README，说明默认不再读取哪些旧口径。
+- 归档内容只作复盘证据，不作为当前事实、不作为后续执行参考。
 
-如果任务缺少这些背景且又需要执行落地，Codex 应先补齐理解，不要直接硬做。
+## 8C. locked reference 继承硬规则
 
-## 11. EXEC-009 禁止事项
+以后凡任务命中以下任一类型，必须先读 locked reference 机制：
 
-Codex 在当前仓库中不得擅自：
+- 完整成片
+- 成品候选片
+- 技术预览升级成候选片
+- 样片回炉
+- 开头重做
+- 中段剪辑
+- 字幕修正
+- TTS 修正
+- 功能卡修正
+- 结果差卡修正
+- 骚萌卡修正
+- 录屏放大修正
+- 视觉母版修正
 
-- 扩系统
-- 改项目目标
-- 把 demo 自动升级成复杂平台
-- 把三页 demo 写死成未来唯一结构
-- 把项目主动扩展到直播、售卖、获客、增长、商业包装
-- 把 `project_source/` 当执行单正文
-- 把未确认内容写成已确认事实
-- 只给方案或建议却不落到用户明确要求的文件
+强制读取：
 
-补充停止线：
+1. `codex_source/14_locked_reference_inheritance_rules.md`
+2. `codex_source/locked_reference_registry.md`
 
-如果用户要的是落文件，不允许只停在计划、建议或“可考虑”阶段。
+硬规则：
 
-新增与仓库型任务直接相关的禁止事项：
+- 任一文件读不到，必须 `blocked`，不得直接生成完整片。
+- `candidate_reference` 只能写成候选参考，不得写成 `locked_reference`。
+- `failed_reference` 只能作为反例或复盘材料，不得默认继承。
+- 用户 / ChatGPT 未明确确认前，不得把 PR 自评 pass 写成用户已确认。
+- 完整成片 / 成品候选片 / 样片回炉完成时，必须输出 `locked_reference_inheritance_report.md`。
+- summary 必须写 `locked_reference_registry_read`、`locked_reference_inheritance_validation`、`locked_reference_inheritance_report`、`unapproved_reference_changes`、`reference_deviation_blockers`、`candidate_references_used`、`locked_references_used`。
 
-- 未建立 GitHub 基线后却声称“以后默认走 PR 线路”
-- 基线已建立后仍直接 push `main`
-- 未核实 remote / 认证 / 权限就声称“已接入 GitHub”
-- 无 PR 就假装“已完成 PR 回审流程”
+## 8D. v3.1 视觉路由前置硬规则
 
-## 12. EXEC-010 最终汇报必须包含的栏目
+当前状态：
 
-每次任务完成后，最终汇报至少要包含：
+- `已确认` v3.1 已成为《我用 AI 做 PPT 踩过的坑》当前视频基线。
+- `已确认` 后续升级 / 修改 / 技术优化 / GPT 文案侧回炉默认基于 v3.1，不再基于 v3 或 round34。
+- `已确认` v3 只保留为历史候选 / 对照，不作为后续默认修改基础。
+- `已确认` v3.1 已有 `dist/latest_review_pack/visual_route_map.json（视觉路由表）` 和 `dist/latest_review_pack/visual_route_validation_report.json（视觉路由验证报告）`；后续修改必须先复核并保持三条视觉路由不混。
 
-1. 读取结果
-2. 规范 / skill 使用情况
-3. 改动结果
-4. 验证结果
-5. 失败点或待确认项
-6. 明确未做内容
+后续任何 v3.1 生成 / 样片回炉 / 卡片视觉修正任务，若涉及段落提示卡、信息卡、骚萌卡，必须先读：
 
-如果本轮是只读任务，也必须明确写出：
+- `codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md`
 
-- 读取了什么
-- 没改什么
-- 哪些事实未确认
+硬规则：
 
-如果本轮属于仓库型任务，还必须明确写出：
+- 生成或修改 v3.1 全片前必须先读取 / 输出并验证 `visual_route_map.json（视觉路由表）`。
+- `cute_prompt_card_route（可爱段落提示卡路由）` 只给反面 / 正面展示提示卡。
+- `cute_info_card_route（可爱信息卡路由）` 只给结果差、归因转折、Prompt 架构、Prompt 尾卡等信息卡。
+- `sassy_reaction_card_route（骚萌反应卡路由）` 只给三张骚萌反应卡。
+- v3 技术状态只能写成当前阶段里程碑达成，必须保持 `technical_line_locked = false（技术线未锁定）`。
+- PR #7 B 是后续骚萌卡唯一执行参考。
+- PR #7 A 只能作为历史 / candidate 对照，不能作为任何后续骚萌卡执行参考。
+- 读不到 `PR7_B_骚萌反应页.png` 必须 `blocked`，不得回退 PR #7 A。
+- 任意骚萌卡走信息卡路由、任意信息卡走骚萌路由、任意段落提示卡走复杂信息卡路由且未重审，必须 `blocked`。
 
-- 本轮属于 baseline push、分支改动，还是未完成
-- 当前仓库是否已具备后续走 GitHub 审核线的条件
-- 当前缺的是 remote、认证、权限，还是别的条件
+旧 PR 降噪规则：
 
-## 13. EXEC-011 禁止假装成功，禁止跳过验证
+- PR #22：v3 历史候选，不再直接合并，不再作为后续默认基础。
+- PR #23：历史样本包，PR #7 A 优先判断已被 PR #7 B 覆盖，不再直接合并。
+- PR #24：v3.1 有效产物已回流到最新主读取分支，PR #24 本身不得再直接合并，避免回退 PR #25 清理口径。
 
-以下表达在没有新鲜验证证据时都不能使用：
+以下情况必须 `blocked`：
 
-- 已完成
-- 已成功
-- 已通过
-- 已跑通
-- 没问题
+- 找不到已锁定 reference。
+- 没有读取 locked reference registry。
+- 继承失败或只写“类似”但没有对照证据。
+- 字幕、TTS、放大、卡片、剪辑语法与 locked reference 不一致。
+- 用户没有授权但 Codex 自行换风格、重做或替换。
+- 完整片使用 candidate reference 却写成 locked reference。
+- 只有 technical_validation / content_validation，没有 reference inheritance validation。
 
-验证要求：
+## 9. 主读取分支与状态分类
 
-- 有验证，就写验证命令或验证依据
-- 没验证，就明确写“未验证”
-- 有冲突，就写冲突点
-- 无法确认，就写“未确认”或“待后续确认”
+当前仓库默认主读取分支固定为：
 
-当前项目还要特别注意：
+- `codex/user-readable-map`
 
-- 不得只因为脚本退出了就判定视频链路成功
-- 不得只因为测试通过就判定整条出片链路成功
+状态分类必须显式标记为：
 
-仓库型任务还要特别注意：
+- `formal_synced`
+- `task_branch_only`
+- `pr_open_not_merged_to_reading_branch`
+- `local_only`
+- `no_repo_change`
 
-- 不得把“本地已写规则文件”表述成“已完成 GitHub 接入”
-- 不得把“能访问 GitHub 账号”表述成“已具备 push / PR 权限”
-- 不得把“已有 remote”表述成“远程已可正常推送”
+硬规则：
 
-## 14. EXEC-012 与 `project_source/` 的关系
+- “任务分支已 push”不等于“主读取分支已更新”
+- “已开 PR”不等于“仓库正式状态已同步”
+- 只有同步回 `codex/user-readable-map`，才算主读取分支正式已知
 
-执行前必须读取 `project_source/`，因为它定义了：
+## 10. 这类任务的最小验证
 
-- 项目身份
-- 当前阶段
-- 内容边界
-- 场景模式
-- 结构与心理机制原则
+这类文档 / 规则 / 接手口径修复任务，完成前至少要做：
 
-但同时必须明确：
+1. `git diff --check`
+2. 重新读取关键目标文件，确认口径一致
+3. 重新读取 `codex_log/current_publish_target.md`，确认只靠稳定入口就能知道当前对象、状态、blocker 与下一步
+4. 若本轮补了轻量证据包，再读取 `codex_log/current_publish_target_light_evidence.md`
+5. 若本轮补的是 lane / parallel 机制，再读取：
+   - `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md`
+   - `codex_source/13_execution_lane_and_parallel_rules.md`
+6. 若声称已同步回主读取分支，使用 `git show codex/user-readable-map:路径` 做实际读取验证
 
-- `project_source/` 不是执行单正文
-- 输入输出契约、运行事实、验证口径，仍应落在 `codex_source/`
+## 11. 完成口径硬规则
 
-## 15. 当前一句话规则
+不得把以下两件事写成同一件事：
 
-当前仓库里，Codex 的默认姿势不是“先动手”，而是：
+- 仓库口径已同步
+- 新主线样片已验证成立
 
-**先读 `AGENTS.md` 和相关 skill，再读项目脑与执行层，判断层级与边界；命中仓库型任务就先查 git / GitHub 现状并默认走 GitHub / PR 线路，不能安全推进就先停下汇报。**
+本轮如果只完成了文档 / 规则 / 桥接 / latest / reading branch 回流，只能写：
+
+- 仓库口径已同步
+
+不能写：
+
+- 样片验证通过
+- 新主线已被质量验证成立
+
+## 12. 收尾时必须回报的 4 个同步锚点
+
+每轮仓库型任务收尾时，必须明确回报：
+
+1. 当前工作分支
+2. 最新提交 SHA
+3. 是否已 push
+4. 是否已同步回 `codex/user-readable-map`

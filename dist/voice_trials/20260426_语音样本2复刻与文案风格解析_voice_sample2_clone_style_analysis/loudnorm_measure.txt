@@ -1,0 +1,35 @@
+$ /Users/fan/Documents/视频工厂/node_modules/ffmpeg-static/ffmpeg -hide_banner -i /private/tmp/视频工厂_user_readable_map_sync/dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav -af loudnorm=I=-16:TP=-1.5:LRA=11:print_format=json -f null -
+
+STDOUT:
+
+
+STDERR:
+Guessed Channel Layout for Input Stream #0.0 : mono
+Input #0, wav, from '/private/tmp/视频工厂_user_readable_map_sync/dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav':
+  Duration: 00:00:13.60, bitrate: 384 kb/s
+  Stream #0:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 24000 Hz, 1 channels, s16, 384 kb/s
+Stream mapping:
+  Stream #0:0 -> #0:0 (pcm_s16le (native) -> pcm_s16le (native))
+Press [q] to stop, [?] for help
+Output #0, null, to 'pipe:':
+  Metadata:
+    encoder         : Lavf60.3.100
+  Stream #0:0: Audio: pcm_s16le, 192000 Hz, mono, s16, 3072 kb/s
+    Metadata:
+      encoder         : Lavc60.3.100 pcm_s16le
+size=       0kB time=-577014:32:22.77 bitrate=  -0.0kbits/s speed=N/A
+size=N/A time=00:00:10.70 bitrate=N/A speed=60.6x
+video:0kB audio:5100kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: unknown
+[Parsed_loudnorm_0 @ 0x15571ded0]
+{
+	"input_i" : "-23.72",
+	"input_tp" : "-5.00",
+	"input_lra" : "1.80",
+	"input_thresh" : "-34.40",
+	"output_i" : "-16.42",
+	"output_tp" : "-1.50",
+	"output_lra" : "1.90",
+	"output_thresh" : "-27.19",
+	"normalization_type" : "dynamic",
+	"target_offset" : "0.42"
+}

@@ -1,0 +1,23 @@
+path	action	code	target	final_exists	reason	stderr
+/Users/fan/.config/superpowers/worktrees/视频工厂/codex-v001-24h-screenshot-intake-20260502	git_worktree_remove	0		False
+/Users/fan/.config/superpowers/worktrees/视频工厂/material-faithful-check-20260429	git_worktree_remove	0		False
+/Users/fan/.config/superpowers/worktrees/视频工厂/v31-gray-test-metrics-v1-20260502	git_worktree_remove	0		False
+/Users/fan/.config/superpowers/worktrees/视频工厂/v31-gray-test-review-loop-20260502	git_worktree_remove	0		False
+/Users/fan/.config/superpowers/worktrees/视频工厂/v31-screenshot-data-buckets-20260502	git_worktree_remove	0		False
+/Users/fan/Documents/视频工厂-worktrees/copy-sample-rhythm-extract-20260429	git_worktree_remove	0		False
+/Users/fan/Documents/视频工厂/临时产物_staging/worktrees/ai_ppt_pitfall_preview_v1_20260429	git_worktree_remove	0		False
+/Users/fan/Documents/视频工厂/临时产物_staging/worktrees/gpt_project_source_path_rule_20260428	git_worktree_remove	0		False
+/Users/fan/Documents/视频工厂_clean_user_readable_map_20260430	git_worktree_remove	0		False
+/Users/fan/Documents/视频工厂_locked_reference_inheritance_20260430	git_worktree_remove	0		False
+/Users/fan/Documents/视频工厂_repo_cleanup_old_context_20260502	git_worktree_remove	0		False
+/Users/fan/Documents/视频工厂_sassy-card-structure-budget-20260428	git_worktree_remove	0		False
+/Users/fan/Documents/视频工厂_v2_candidate_worktree	git_worktree_remove	0		False
+/Users/fan/Documents/视频工厂_v31_current_baseline_sync_20260502	git_worktree_remove	0		False
+/Users/fan/Documents/视频工厂_v31_visual_route_fix	git_worktree_remove	0		False
+/Users/fan/Documents/视频工厂_v3_milestone_reference_locks_20260501	git_worktree_remove	0		False
+/private/tmp/视频工厂_opening_anchor_20260428	git_worktree_remove	0		False
+/private/tmp/视频工厂_real_ai_experience_mainline_20260428	git_worktree_remove	0		False
+(git worktree prune)	git_worktree_prune	0
+/Users/fan/Documents/视频工厂-worktrees	move_to_quarantine		/Users/fan/Documents/视频工厂/本地隔离区_local_quarantine/外部散目录待确认_external_dirs_pending_delete_20260502/视频工厂-worktrees	False	非 Git 散目录；可在回收唯一文件后整体移入唯一工作区隔离区
+/private/tmp/视频工厂_scheme_b_v3_diagnostics	move_to_quarantine		/Users/fan/Documents/视频工厂/本地隔离区_local_quarantine/外部散目录待确认_external_dirs_pending_delete_20260502/视频工厂_scheme_b_v3_diagnostics__private_tmp	False	prunable damaged worktree leftover after prune
+/private/tmp/视频工厂_user_readable_map_sync	move_to_quarantine		/Users/fan/Documents/视频工厂/本地隔离区_local_quarantine/外部散目录待确认_external_dirs_pending_delete_20260502/视频工厂_user_readable_map_sync__private_tmp	False	prunable damaged worktree leftover after prune

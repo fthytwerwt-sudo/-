@@ -1,0 +1,168 @@
+{
+  "round": "20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix",
+  "preview_type": "finished_quality_candidate_v31",
+  "visual_master_candidate": true,
+  "visual_master_locked": false,
+  "technical_validation": "passed",
+  "metadata_validation": "passed",
+  "audio_validation": "passed_non_silent_tts_track",
+  "subtitle_enabled": false,
+  "content_validation": "gray_testing_not_final_passed",
+  "previous_content_validation": "pending_user_chatgpt_review_or_not_passed_copywriting_side",
+  "current_phase": "post_publish_gray_test",
+  "publish_status": "gray_test_published",
+  "gray_test_status": "active",
+  "post_publish_review_required": true,
+  "send_ready": false,
+  "locked_reference_registry_read": true,
+  "locked_reference_inheritance_validation": "passed_for_candidate_v31_visual_route_fix",
+  "locked_reference_inheritance_report": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/locked_reference_inheritance_report.md",
+  "unapproved_reference_changes": [],
+  "reference_deviation_blockers": [],
+  "locked_references_used": [
+    "cute_info_card_route_locked_20260501",
+    "cute_prompt_card_route_locked_20260501",
+    "middle_editing_round34_locked_20260425",
+    "middle_zoom_reference_confirmed_middle_preview_20260430",
+    "opening_reference_element_doll_no_text_locked_20260428",
+    "sassy_card_pr7_b_visual_locked_20260501",
+    "sassy_card_three_type_rule_locked_20260428",
+    "tts_15s_b_pacing_locked_20260427"
+  ],
+  "candidate_references_used": [
+    "card_visual_quality_clean_ui_texture_candidate_20260430",
+    "prompt_card_pink_sakura_round34_candidate_20260430",
+    "voice_sample2_cute_guide_voice_candidate_20260426"
+  ],
+  "failed_references_avoided": [
+    "pr15_v2_subtitle_failed_reference",
+    "pr15_v2_layout_background_failed_reference",
+    "pr15_v2_tts_missing_failed_reference",
+    "zoom_pr15_v2_failed_20260430",
+    "v3_sassy_cards_mixed_info_card_shell_failed_implementation",
+    "deep_blue_tech_saas_ui_info_card_rejected_direction"
+  ],
+  "modified_latest_review_pack": true,
+  "voice_validation": "pending_user_chatgpt_review",
+  "final_voice_validated": false,
+  "visual_route_map": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/visual_route_map.json",
+  "visual_route_validation": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/visual_route_validation_report.json",
+  "sassy_card_execution_reference": "PR7_B_骚萌反应页.png",
+  "sassy_card_reference_status": "locked_reference_formal_synced_for_future_execution",
+  "sassy_card_reference_locked": true,
+  "negative_display_prompt_card": "present",
+  "positive_display_prompt_card": "present",
+  "visual_quality_validation": "pass_for_candidate_review_pending_user_chatgpt_review",
+  "visual_quality_verdict": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/visual_quality_verdict.json",
+  "source_from_prompt_loaded": true,
+  "recording_reports_read": {
+    "material_faithful_report": "read_from_origin/codex/material-faithful-check-20260429",
+    "copy_sample_rhythm_report": "read_from_origin/codex/copy-sample-rhythm-extract-20260429"
+  },
+  "custom_voice": {
+    "found": true,
+    "voice_masked": "qwen-t...ac19",
+    "actual_voice_id_not_written_to_report": true,
+    "target_model": "qwen3-tts-vc-realtime-2026-01-15"
+  },
+  "duration_seconds": 149.993,
+  "resolution": "720x1280",
+  "fps": 25.0,
+  "video_codec": "h264",
+  "audio_codec": "aac",
+  "audio_channels": 1,
+  "decodable": true,
+  "audio_non_silent": true,
+  "subtitle_stream_count": 0,
+  "artifacts": {
+    "full": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/AI做PPT踩坑_成品候选_v31_full.mp4",
+    "contact_sheet": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/AI做PPT踩坑_成品候选_v31_contact_sheet.jpg",
+    "timeline": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/AI做PPT踩坑_成品候选_v31_timeline.json",
+    "cut_map": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/AI做PPT踩坑_成品候选_v31_cut_map.md",
+    "review_manifest": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/AI做PPT踩坑_成品候选_v31_review_manifest.md",
+    "summary": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/AI做PPT踩坑_成品候选_v31_summary.json",
+    "run_summary": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/AI做PPT踩坑_成品候选_v31_run_summary.json",
+    "locked_reference_inheritance_report": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/locked_reference_inheritance_report.md",
+    "opening_preview": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/shot00_opening_hello_wave_preview.mp4",
+    "video_metadata_probe_report": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/video_metadata_probe_report.json",
+    "visual_route_map": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/visual_route_map.json",
+    "visual_route_validation_report": "/Users/fan/Documents/视频工厂/复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/visual_route_validation_report.json"
+  },
+  "current_round": "20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix",
+  "current_video_baseline": "v3.1",
+  "future_iteration_base": "v3.1",
+  "base_for_next_upgrade": "v3.1",
+  "previous_video_baseline": "v3",
+  "previous_video_baseline_status": "historical_candidate_only_not_future_iteration_base",
+  "technical_line_locked": false,
+  "technical_baseline_locked": false,
+  "technical_upgrade_next": true,
+  "content_validation_note": "v3.1 has been published for gray testing, but this is not content-passed or send-ready; 24h/72h/7d post-publish review and user/ChatGPT judgment are still required.",
+  "gray_test_target": "codex_log/current_gray_test_target.md",
+  "current_gray_test_target": "codex_log/current_gray_test_target.md",
+  "gray_test_metrics_v1": "review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md",
+  "screenshot_data_intake_rules": "review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md",
+  "screenshot_data_intake_policy": "screenshot_first_bucket_by_video_time_window_and_data_type_no_guessing",
+  "post_publish_record": "review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md",
+  "legacy_video_record": "review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md",
+  "current_video_record_dir": "review_loop/records/V001_v31_AI做PPT踩坑_gray_test/",
+  "current_video_record": "review_loop/records/V001_v31_AI做PPT踩坑_gray_test/V001_gray_test_record.md",
+  "current_screenshot_root": "review_loop/screenshots/V001_v31_AI做PPT踩坑/",
+  "current_screenshot_manifest": "review_loop/screenshots/V001_v31_AI做PPT踩坑/screenshot_manifest.md",
+  "review_loop_connected": true,
+  "review_loop_policy": "use_existing_review_loop_templates_do_not_create_parallel_gray_system",
+  "screenshot_bucket_layers": [
+    "video_id",
+    "time_window_24h_72h_7d",
+    "data_type_platform_metrics_audience_retention_interaction_account_growth_comments_dm_consult_other"
+  ],
+  "gray_test_metrics_positioning": "not_an_operations_dashboard_next_iteration_change_locator",
+  "gray_test_base_flow_threshold": {
+    "metric": "7d_play_count",
+    "target": 6000,
+    "meaning": "small_sample_basic_test_traffic_threshold_not_final_business_goal"
+  },
+  "gray_test_metric_layers": [
+    "traffic",
+    "content",
+    "account_growth",
+    "private_domain_customer_conversion"
+  ],
+  "gray_test_field_groups": [
+    "core_required_fields",
+    "auxiliary_observation_fields",
+    "commercial_lead_only_fields"
+  ],
+  "gray_test_review_questions": [
+    "did_this_video_reach_the_6000_play_basic_threshold",
+    "which_layer_is_the_shortest_board_traffic_content_account_conversion",
+    "which_single_variable_should_next_round_change",
+    "why_change_it_first_and_which_metric_to_watch_afterward"
+  ],
+  "gray_test_observation_windows": [
+    "24h_initial_check",
+    "72h_recheck",
+    "7d_review"
+  ],
+  "sassy_card_execution_reference_id": "sassy_card_pr7_b_visual_locked_20260501",
+  "sassy_card_execution_reference_policy": "only_future_sassy_card_execution_reference",
+  "generation_time_sassy_card_reference_status": "candidate_in_pr24_before_pr25_registry_lock",
+  "pr7_a_status_after_baseline_switch": "historical_candidate_only_not_future_execution",
+  "pr7_b_missing_policy": "blocked_do_not_fallback_to_PR7_A",
+  "v31_visual_route_map_present": true,
+  "v31_visual_route_validation_passed": true,
+  "v31_visual_route_map_required_for_future_changes": true,
+  "old_pr_status": {
+    "pr22": "v3_historical_candidate_not_future_base_do_not_merge_directly",
+    "pr23": "historical_sassy_sample_pack_a_preference_superseded_by_pr7_b_do_not_merge_directly",
+    "pr24": "v31_artifacts_safely_backported_into_current_baseline_pr_not_direct_merge"
+  },
+  "legacy_generation_candidate_references_used": [
+    {
+      "reference_id": "sassy_card_pr7_b_visual_locked_20260501",
+      "status_after_user_review": "promoted_to_locked_reference_formal_synced_for_future_execution",
+      "current_reference": "sassy_card_pr7_b_visual_locked_20260501",
+      "not_for_future_candidate_use": true
+    }
+  ]
+}

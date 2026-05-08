@@ -1,213 +1,96 @@
-# project_source 导航
+# 项目脑索引
 
-## 1. 这套 project_source 的用途
+## 1. 文件定位
+本文件是 `project_source/` 的总索引。
 
-`project_source/` 是当前仓库的项目脑目录。
+当前必须写死：
+- `GPT 数据源/` 当前基础主规则 + vNext 规则补充 + 文案知识库补充，共同构成上游源事实
+- `project_source/` 是同步后的仓库项目脑镜像
+- 若 `project_source/` 与 `GPT 数据源/` 冲突，以 `GPT 数据源/` 当前中文文件集为准
 
-它服务的对象是：
+## 2. 项目脑核心文件
 
-- ChatGPT
-- 第二大脑层
-- 项目总控层
+### A. 总述、术语、事实、计划
+- `project_source/00_project_brief.md`
+- `project_source/01_project_system_prompt.md`
+- `project_source/02_term_definitions_and_state_boundaries.md`
+- `project_source/06_project_index.md`
+- `GPT数据源/08_当前正式事实.md（当前动态事实入口）`
+- `project_source/09_target_state_plan.md`
 
-它负责解决的是：
+### B. 内容前置与主线锚点
+- `project_source/21_topic_selection_and_copywriting_rules.md`
+- `project_source/22_copy_mode_routing_rules.md`
+- `project_source/24_human_self_footage_light_ppt_routing_rules.md`
+- `project_source/25_ai_knowledge_video_value_rules.md`
+- `project_source/16_presentation_routing_rules.md`
+- `project_source/28_minecraft_inspired_visual_and_audio_rules.md`
+- `project_source/29_docker_workbench_and_recording_optimization_rules.md`
+- `project_source/31_prompt_pack_and_tail_card_rules.md`
 
-- 这个项目到底是什么
-- 当前阶段该优先做什么
-- 内容边界在哪里
-- 场景怎么分
-- Perplexity 怎么高频接入
-- 回审怎么做
-- 心理机制层怎么用
+### C. 搜索、回审、复盘
+- `project_source/03_perplexity_prompt_library.md`
+- `project_source/04_review_templates.md`
+- `project_source/10_video_review_record_template.md`
+- `project_source/11_result_diagnosis_map.md`
+- `project_source/12_review_role_split_and_workflow.md`
+- `project_source/13_stage_and_acceptance_gates.md`
+- `project_source/14_content_review_and_loop_governance_rules.md`
 
-它不负责：
-
-- 代码运行说明
-- Codex 执行边界
-- 文件修改权限
-- 命令级操作说明
-- 交付格式或执行单模板
-
-这些内容后续属于 `codex_source/` 的执行层。
-
-## 2. 每个文件解决什么问题
-
-### `project_source/00_project_brief.md`
-
-- 解决什么问题：
-  - 项目定义是什么
-  - 当前阶段是什么
-  - 现在明确做什么、不做什么
-  - 当前最小技术闭环事实是什么
-
-### `project_source/01_project_system_prompt.md`
-
-- 解决什么问题：
-  - ChatGPT 接手项目时应如何理解项目身份、边界、分工、默认工作流和停止线
-
-### `project_source/02_scene_mode_templates.md`
-
-- 解决什么问题：
-  - 不同视频场景分别适合讲什么、用什么结构、用什么表现方式
-
-### `project_source/03_perplexity_prompt_library.md`
-
-- 解决什么问题：
-  - 什么时候优先走 Perplexity
-  - 走 Perplexity 时具体怎么问
-  - 查回来之后怎么接回 ChatGPT
-
-### `project_source/04_review_templates.md`
-
-- 解决什么问题：
-  - 内容、结构、画面、节奏、心理机制等各层如何回审
-
-### `project_source/05_psychology_execution_rules.md`
-
-- 解决什么问题：
-  - 心理机制层为什么正式接入
-  - 哪些机制适合常用、哪些需要谨慎
-  - 怎么把机制落到标题、开头、结构、字幕、配音、画面和结尾
-
-### `project_source/06_project_index.md`
-
-- 解决什么问题：
-  - 整套项目脑文件如何阅读、如何使用、如何与后续执行层分工
+### D. 外层治理与补充层
+- `project_source/15_distribution_and_commercialization_rules.md`
+- `project_source/18_visual_motion_and_information_density_rules.md`
+- `project_source/19_ai_capability_boundary_rules.md`
+- `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md`
+- `project_source/02_scene_mode_templates.md`
+- `project_source/23_scene_and_failure_experience_material_bank.md`
+- `project_source/05_psychology_execution_rules.md`
+- `project_source/08_quality_baseline_and_90_score_rules.md`
 
 ## 3. 建议阅读顺序
 
-建议的标准阅读顺序：
-
-1. `project_source/06_project_index.md`
-2. `project_source/00_project_brief.md`
-3. `project_source/01_project_system_prompt.md`
-4. `project_source/02_scene_mode_templates.md`
-5. `project_source/03_perplexity_prompt_library.md`
-6. `project_source/05_psychology_execution_rules.md`
-7. `project_source/04_review_templates.md`
-
-原因：
-
-- 先看导航
-- 再看项目定义与阶段
-- 再看系统理解框架
-- 再看场景与外部扩展
-- 再看心理机制层
-- 最后看回审模板
-
-## 4. ChatGPT 接手项目时应先读什么、再读什么
-
-### 如果是第一次接手本项目
-
-先读：
-
-1. `project_source/06_project_index.md`
-2. `project_source/00_project_brief.md`
-3. `project_source/01_project_system_prompt.md`
-
-再读：
-
-4. `project_source/02_scene_mode_templates.md`
-5. `project_source/03_perplexity_prompt_library.md`
-6. `project_source/05_psychology_execution_rules.md`
-7. `project_source/04_review_templates.md`
-
-### 如果当前任务是“判断一条视频该怎么讲”
-
-优先读：
-
+### 最小接手顺序
 1. `project_source/00_project_brief.md`
-2. `project_source/02_scene_mode_templates.md`
-3. `project_source/05_psychology_execution_rules.md`
+2. `project_source/02_term_definitions_and_state_boundaries.md`
+3. `GPT数据源/08_当前正式事实.md`
+4. `project_source/09_target_state_plan.md`
+5. `project_source/24_human_self_footage_light_ppt_routing_rules.md`
+6. `project_source/06_project_index.md`
 
-### 如果当前任务是“先做外部调研”
+### 内容前置顺序
+7. `project_source/21_topic_selection_and_copywriting_rules.md`
+8. `project_source/22_copy_mode_routing_rules.md`
+9. `project_source/25_ai_knowledge_video_value_rules.md`
+10. `project_source/28_minecraft_inspired_visual_and_audio_rules.md`
+11. `project_source/29_docker_workbench_and_recording_optimization_rules.md`
+12. `project_source/31_prompt_pack_and_tail_card_rules.md`
+13. `project_source/16_presentation_routing_rules.md`
+14. `project_source/02_scene_mode_templates.md`
+15. `project_source/23_scene_and_failure_experience_material_bank.md`
+16. `project_source/05_psychology_execution_rules.md`
+17. `project_source/08_quality_baseline_and_90_score_rules.md`
 
-优先读：
+### 搜索、回审、复盘顺序
+15. `project_source/03_perplexity_prompt_library.md`
+16. `project_source/04_review_templates.md`
+17. `project_source/10_video_review_record_template.md`
+18. `project_source/11_result_diagnosis_map.md`
+19. `project_source/12_review_role_split_and_workflow.md`
+20. `project_source/13_stage_and_acceptance_gates.md`
+21. `project_source/14_content_review_and_loop_governance_rules.md`
 
-1. `project_source/01_project_system_prompt.md`
-2. `project_source/03_perplexity_prompt_library.md`
+### 外层治理与协作顺序
+22. `project_source/15_distribution_and_commercialization_rules.md`
+23. `project_source/18_visual_motion_and_information_density_rules.md`
+24. `project_source/19_ai_capability_boundary_rules.md`
+25. `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md`
 
-### 如果当前任务是“成片回审或脚本回审”
+## 4. 当前硬规则
+- `project_source/` 只保留当前有效项目脑
+- 当前正式事实与目标态计划必须分开写
+- 已隔离的历史镜像旧事实文件 `project_source/07_current_formal_facts.md` 不得再作为默认入口读取
+- `云端剪辑 / cloud-only` 在项目脑里只能写成当前正式方向或目标态组成部分，不能冒充 runtime 已稳定跑通
+- `API 生成真人` 不能偷换成某条 provider 已验证成立
 
-优先读：
-
-1. `project_source/01_project_system_prompt.md`
-2. `project_source/04_review_templates.md`
-3. `project_source/05_psychology_execution_rules.md`
-
-## 5. 用户什么时候该看哪个文件
-
-### 想快速确认项目现在到底是什么
-
-看：
-
-- `project_source/00_project_brief.md`
-
-### 想确认 ChatGPT 应该怎么理解这个项目
-
-看：
-
-- `project_source/01_project_system_prompt.md`
-
-### 想判断某条内容属于哪个场景、该用什么结构
-
-看：
-
-- `project_source/02_scene_mode_templates.md`
-
-### 想去 Perplexity 查资料、拿首稿、找表达参考
-
-看：
-
-- `project_source/03_perplexity_prompt_library.md`
-
-### 想做脚本或成片回审
-
-看：
-
-- `project_source/04_review_templates.md`
-
-### 想看心理机制层到底怎么用、有哪些边界
-
-看：
-
-- `project_source/05_psychology_execution_rules.md`
-
-### 想知道整套项目脑文件怎么配合
-
-看：
-
-- `project_source/06_project_index.md`
-
-## 6. 哪些内容属于项目脑，哪些内容后续会在执行层另建
-
-### 属于项目脑的内容
-
-- 项目身份
-- 当前阶段
-- 内容边界
-- 场景模式
-- 结构原则
-- Perplexity 接入原则
-- 回审模板
-- 心理机制规则
-- 四方协作分工
-
-### 后续会在执行层另建的内容
-
-这些内容不在 `project_source/` 里展开，而应后续在 `codex_source/` 里处理：
-
-- Codex 读取顺序
-- Codex 执行边界
-- 任务单模板
-- skill 接入规则的执行面
-- 运行依赖与产物规则
-- 交付与汇报规则
-
-## 7. 当前一句话导航
-
-如果你只记一句话：
-
-`project_source/` 负责“这个项目是什么、为什么这样做、内容怎么判断”，而 `codex_source/` 未来负责“具体怎么执行、怎么落地、怎么交付”。
-
-这两层必须分开，不能混写。
+## 5. 一句话规则
+**以后 `project_source/` 默认按当前同步后的项目脑读取；若任务命中 vNext 外壳 / Docker 工作台 / 三层 prompt，则补读 `28 / 29 / 31`；若与 `GPT 数据源/` 当前中文文件集冲突，以后者为准，并重新同步回仓库。**

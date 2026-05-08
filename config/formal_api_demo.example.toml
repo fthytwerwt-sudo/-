@@ -1,0 +1,347 @@
+[provider]
+# 当前正式链路默认继续沿用阿里 TTS 基线。
+# 实际 TTS provider 由 tts.api_route_family 决定：
+# - ark_openai_compatible / edge_gateway_openai_compatible / doubao_openspeech_v3 => volcengine
+# - aliyun_bailian_cosyvoice => aliyun_bailian
+name = "aliyun_bailian"
+region = "cn-beijing"
+
+[auth]
+# Ark / Edge Gateway / 阿里百炼 CosyVoice 使用 api_key。
+# Doubao OpenSpeech v3 使用 app_id + api_key(access key)。
+api_key = "SET_IN_LOCAL_FILE"
+access_key_id = "SET_IN_LOCAL_FILE"
+secret_access_key = "SET_IN_LOCAL_FILE"
+session_token = ""
+app_id = "SET_IF_REQUIRED"
+
+[tts]
+# route family:
+# - ark_openai_compatible: 走 ark.<region>.volces.com/api/v3 + endpoint_id/model + voice
+# - edge_gateway_openai_compatible: 走 ai-gateway.vei.volces.com/v1 + model + voice
+# - aliyun_bailian_cosyvoice: 走 dashscope.aliyuncs.com/api/v1/services/audio/tts/SpeechSynthesizer + model + voice
+# - doubao_openspeech_v3: 走 openspeech.bytedance.com/api/v3/tts/... + app_id/api_key/resource_id/voice
+api_route_family = "aliyun_bailian_cosyvoice"
+model = "cosyvoice-v3-flash"
+endpoint_id = "SET_IF_ENDPOINT_REQUIRED"
+resource_id = "SET_IF_OPENSPEECH_REQUIRED"
+voice = "SET_IN_LOCAL_FILE"
+baseline_profile = "aliyun_old_A"
+style = "knowledge"
+# 当前正式链路冻结旧 A 为默认可用基线，不再继续扩声音实验分支。
+instruction = "你说话的情感是neutral。"
+speech_rate = 1.18
+pitch_rate = 0.92
+volume = 46
+response_format = "mp3"
+
+# 可选：TTS 资源池
+# - 运行时仍只认 formal_api_demo.local.toml 这一份正式配置源
+# - 若定义 [tts_pool.<candidate_id>]，系统会把 base [tts]/[auth]/[provider] 视为 primary，
+#   再把这些候选作为 backup 链
+# - 当前已实现的自动切换触发条件包括：
+#   - 429 / quota exhausted
+#   - 401 / 403 / invalid key
+#   - voice unavailable / unsupported
+#   - timeout / upstream unavailable
+# - 没有候补时，系统只会如实报资源池已耗尽，不会伪造新 key
+#
+# [tts_pool.backup_edge]
+# label = "Edge 备选"
+# priority = 20
+# enabled = true
+# api_route_family = "edge_gateway_openai_compatible"
+# api_key = "SET_IN_LOCAL_FILE"
+# model = "SET_IN_LOCAL_FILE"
+# voice = "SET_IN_LOCAL_FILE"
+# style_profile = "report"
+#
+# [tts_pool.backup_aliyun_voice_b]
+# label = "阿里同 provider 备声线"
+# priority = 30
+# enabled = true
+# api_route_family = "aliyun_bailian_cosyvoice"
+# voice = "SET_IN_LOCAL_FILE"
+# style_profile = "report"
+
+[tts_style_probe]
+# 固定测试文案：当前声音目标稿 v1 的所有 probe 轮次共用同一段文案，不推进 assembly。
+text = "这套方案表面上堆满了参数，真正决定上限的其实只有供电、火控和协同链路。前两项还能补，第三项一旦掉队，再新的壳子也只是好看。说得更直白一点，它不是没亮点，是关键战力根本没站住。"
+
+[tts_style_probe_variant_A]
+label = "稳定版"
+intent = "冷静利落，优先保住稳定判断感。"
+instruction = "你说话的情感是neutral。"
+speech_rate = 1.18
+pitch_rate = 0.92
+volume = 46
+recommended = true
+
+[tts_style_probe_variant_B]
+label = "判断感更强版"
+intent = "保留克制底色，同时把锋利感再往前推一点。"
+instruction = "你说话的情感是disgusted。"
+speech_rate = 1.24
+pitch_rate = 0.9
+volume = 48
+recommended = false
+
+[tts_style_probe_variant_C]
+label = "更克制版"
+intent = "进一步压低情绪起伏，保住冷静和收束。"
+instruction = "你说话的情感是neutral。"
+speech_rate = 1.08
+pitch_rate = 0.9
+volume = 44
+recommended = false
+
+[tts_style_probe_round2]
+goal = "围绕旧 A 做第二轮更窄的微调，不重新切模型族，也不推进 assembly。"
+recommended_variant_id = "A2"
+recommendation_reason = "基于用户反馈“旧 A 更对，但还不完全对”，A2 保留旧 A 的冷静底座，同时把句尾压得更短、更干、更利落，偏移最小，最适合作为 round2 首推候选。"
+
+[tts_style_probe_round2_variant_A1]
+label = "更稳、更冷静"
+intent = "在旧 A 的方向上进一步压住情绪起伏，让句尾更稳、更冷。"
+instruction = "你说话的角色是军事装备分析员，你说话的情感是neutral。"
+speech_rate = 1.14
+pitch_rate = 0.9
+volume = 45
+recommended = false
+
+[tts_style_probe_round2_variant_A2]
+label = "更干、更利落"
+intent = "保住旧 A 的冷静基础，把声线再压干一点，句尾更短更利落。"
+instruction = "你说话的角色是军事装备拆解解说员，你说话的情感是neutral。"
+speech_rate = 1.22
+pitch_rate = 0.9
+volume = 45
+recommended = true
+why_recommended = "基于用户反馈“旧 A 更对，但还不完全对”，A2 保留旧 A 的冷静底座，同时把句尾压得更短、更干、更利落，偏移最小，最适合作为 round2 首推候选。"
+
+[tts_style_probe_round2_variant_A3]
+label = "判断感更强一点"
+intent = "在克制前提下把判断感略往前推一点，但不演讲、不煽动。"
+instruction = "你说话的角色是军事鉴定解说员，你说话的情感是disgusted。"
+speech_rate = 1.19
+pitch_rate = 0.91
+volume = 46
+recommended = false
+
+[tts_style_probe_round2_variant_A4]
+label = "进一步去掉客服感/播音感"
+intent = "进一步清掉客服播报感和新闻播音感，保持专业判断型口气。"
+instruction = "你说话的场景是内部评估解说，你说话的情感是neutral。"
+speech_rate = 1.16
+pitch_rate = 0.89
+volume = 44
+recommended = false
+
+[image_generation]
+enabled = true
+# 当前正式 generation 主链仍包含图片生成 API：
+# - 建议继续接入，不要把 image_generation.model 当成可删除摆设
+# - 缺失该字段时，generation 不应写成 success
+# - 当前仓库默认先落视觉计划，再进入北京区 OSS + 云剪 cloud-only assembly；这不等于图片 API 已被取消
+# 免费优先主线默认模型：
+# - wan2.6-image 用于首帧 / 背景 / 人像底图生成
+# - 若只是修图 / 改图，不要回到 facechain-generation，改走 qwen-image-edit-plus
+model = "wan2.6-image"
+
+# 可选：图片资源池
+# [image_generation_pool.backup_image]
+# label = "图片备选"
+# priority = 20
+# enabled = true
+# provider = "aliyun_bailian"
+# api_key = "SET_IN_LOCAL_FILE"
+# model = "wan2.6-image"
+# style_profile = "report"
+
+[video_generation]
+enabled = true
+# 当前正式 generation 主链仍包含视频生成 API：
+# - 建议继续接入，不要把 video_generation.model 当成可删除摆设
+# - 缺失该字段时，generation 不应写成 success
+# - 当前纯 PPT / 信息卡主线默认走 OSS + 云剪组装，不代表视频 API 暂时不接
+# 免费优先主线默认模型：
+# - 普通视频主线改为 wan2.6-image -> wan2.7-i2v
+# - wan2.7-videoedit 只用于后期修补 / 编辑增强，不是主生成模型
+model = "wan2.7-i2v"
+
+# 可选：视频资源池
+# [video_generation_pool.backup_video]
+# label = "视频备选"
+# priority = 20
+# enabled = true
+# provider = "aliyun_bailian"
+# api_key = "SET_IN_LOCAL_FILE"
+# model = "wan2.7-i2v"
+# style_profile = "report"
+
+# 默认正式主线的本地素材输入：
+# - hook_human / close_human 默认改走 API 真人，不再要求本地人物视频
+# - process_self_footage：用户本地真实录屏 / 真实工作片段
+# - 若需要自带结果卡，也可以通过 result_card 注入
+# - 这些字段只允许写在本地正式配置里，不要提交真实路径
+# - verified_role 是人工确认过的素材角色，不是文件类型自动推断：
+#   - screen_recording：屏幕录制 / 工作流过程，适合 self_footage
+#   - ppt_image：结果卡 / 信息卡图片
+#   - human_on_camera：仅当你显式把 human carrier 改回本地真人素材时才需要
+#
+# [footage_inputs.process_self_footage]
+# local_path = "SET_IN_LOCAL_FILE"
+# source_type = "user_screen_recording"
+# verified_role = "screen_recording"
+#
+# [footage_inputs.result_card]
+# local_path = "SET_IN_LOCAL_FILE"
+# source_type = "user_ppt_image"
+# verified_role = "ppt_image"
+#
+[portrait_detect]
+enabled = true
+# 真人开口分支前置检测：
+# - liveportrait-detect 先做人像 / 面部检测
+# - 当前在 provider=aliyun_bailian 且 enabled=true 时，已支持真实 detect 请求
+# - 当前唯一正式主线要求 API 真人承担 hook / close，因此默认启用
+model = "liveportrait-detect"
+
+[portrait_video_generation]
+enabled = true
+# 真人开口分支生成模型：
+# - liveportrait 用于固定背景 / 人物开口视频
+# - 必须先过 liveportrait-detect
+# - 当前在 provider=aliyun_bailian 且 enabled=true 时，已支持真实 create / poll / download
+# - 当前唯一正式主线要求 API 真人承担 hook / close，因此默认启用
+model = "liveportrait"
+
+[assembly]
+# mode：当前正式默认主线的组装模式。
+# 用途：把主线路由显式锁定为 cloud-only。
+# 是否必填：是。
+# 当前是否已确认：是。
+mode = "cloud_only"
+# subtitle_mode：云端组装后的字幕处理方式。
+# 用途：控制字幕是否直接烧录到导出成片。
+# 是否必填：是。
+# 当前是否已确认：是。
+subtitle_mode = "burn_in"
+# resolution：云端导出的默认分辨率。
+# 用途：统一纯 PPT / 信息卡主线的成片尺寸。
+# 是否必填：是。
+# 当前是否已确认：是。
+resolution = "1080x1920"
+# fps：云端导出的默认帧率。
+# 用途：统一纯 PPT / 信息卡主线的时间线采样率。
+# 是否必填：是。
+# 当前是否已确认：是。
+fps = 25
+
+[aliyun_oss]
+# bucket：北京区 OSS bucket 名称。
+# 用途：云端组装上传源素材与导出成片的归属 bucket。
+# 是否必填：是。
+# 当前是否已确认：是。
+bucket = "zvip1-video-beijing"
+# region：北京区 OSS 区域。
+# 用途：拼接 endpoint、签名与上传请求时使用。
+# 是否必填：是。
+# 当前是否已确认：是。
+region = "cn-beijing"
+# endpoint：北京区 OSS endpoint。
+# 用途：本地上传到 OSS 与后续云端回写时使用。
+# 是否必填：是。
+# 当前是否已确认：是。
+endpoint = "oss-cn-beijing.aliyuncs.com"
+# bucket_domain：bucket 对应的访问域名。
+# 用途：让 IMS / 云剪工程定位同一套 OSS 资源。
+# 是否必填：是。
+# 当前是否已确认：是。
+bucket_domain = "zvip1-video-beijing.oss-cn-beijing.aliyuncs.com"
+# access_key_id：RAM 项目专用用户的 AccessKey ID。
+# 用途：本地发起 OSS 上传与云端请求签名。
+# 是否必填：是。
+# 当前是否已确认：待本地注入，不可写入仓库。
+access_key_id = "SET_IN_LOCAL_FILE"
+# access_key_secret：RAM 项目专用用户的 AccessKey Secret。
+# 用途：本地发起 OSS 上传与云端请求签名。
+# 是否必填：是。
+# 当前是否已确认：待本地注入，不可写入仓库。
+access_key_secret = "SET_IN_LOCAL_FILE"
+# prefix_raw：原始素材上传前缀。
+# 用途：统一纯 PPT / 信息卡主线的 raw 素材路径。
+# 是否必填：是。
+# 当前是否已确认：是。
+prefix_raw = "video-factory/raw/"
+# prefix_final：成片导出前缀。
+# 用途：统一云端导出成片在 OSS 中的 final 路径。
+# 是否必填：是。
+# 当前是否已确认：是。
+prefix_final = "video-factory/final/"
+# prefix_temp：临时文件前缀。
+# 用途：统一云端组装过程中的 temp 路径。
+# 是否必填：是。
+# 当前是否已确认：是。
+prefix_temp = "video-factory/temp/"
+
+[aliyun_ims]
+# region：智能媒体服务 / 云剪所在区域。
+# 用途：确保 IMS、OSS、云剪工程都指向北京区。
+# 是否必填：是。
+# 当前是否已确认：是。
+region = "cn-beijing"
+# storage_address：IMS 已绑定的存储地址。
+# 用途：让云剪工程直接使用北京区 OSS 存储。
+# 是否必填：是。
+# 当前是否已确认：是。
+storage_address = "zvip1-video-beijing.oss-cn-beijing.aliyuncs.com"
+# cloud_project_name：当前正式主线继续复用的北京区云剪工程名。
+# 用途：把 human + self_footage + light_ppt 主线统一路由到北京区云剪工程。
+# 说明：项目名里保留 `ppt` 属于历史命名，不代表当前正式主线仍是 pure PPT。
+# 是否必填：是。
+# 当前是否已确认：是。
+cloud_project_name = "video-factory-ppt-master-v1"
+
+[output]
+dist_dir = "dist/formal_api_demo"
+
+[footage_inputs]
+# 正式默认主线的真人 / 自录素材从本地配置注入，不直接写死进 case。
+# 若当前段落的素材来源是 user_media，则 generation 会优先读取这里的 local_path：
+# - 有真实文件 => 直接进入 manifest / cloud assembly
+# - 缺真实文件 => 诚实 blocked
+
+[footage_inputs.hook_human]
+local_path = "SET_IN_LOCAL_FILE"
+source_type = "user_recorded_video"
+verified_role = "human_on_camera"
+
+[footage_inputs.process_self_footage]
+local_path = "SET_IN_LOCAL_FILE"
+source_type = "user_screen_recording"
+verified_role = "screen_recording"
+
+[footage_inputs.result_card]
+local_path = "SET_IN_LOCAL_FILE"
+source_type = "user_ppt_image"
+verified_role = "ppt_image"
+
+[footage_inputs.close_human]
+local_path = "SET_IN_LOCAL_FILE"
+source_type = "user_recorded_video"
+verified_role = "human_on_camera"
+
+[polling]
+interval_seconds = 5
+timeout_seconds = 600
+
+[quality_gate]
+# 当前正式默认主线已切到：
+# - human + user self footage + light_ppt/image
+# - 正式 assembly 继续固定走北京区 OSS + 云剪 cloud-only
+# - AI talking avatar / 数字人口播默认不再承担主承载
+# - 若缺真实素材、缺密钥、缺云端参数或缺 provider implementation，必须如实 blocked
+require_hook = true
+min_segments = 3
+require_manifest_schema = true

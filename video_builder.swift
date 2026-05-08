@@ -13,13 +13,37 @@ struct Manifest: Decodable {
 }
 
 struct Slide: Decodable {
-    let title: String
-    let body: String
+    let sequence: Int
+    let total: Int
+    let segmentId: String?
+    let role: String
+    let eyebrow: String
+    let headline: String
+    let support: String
+    let detail: String
+    let chips: [String]
     let accent: String
     let background: String
-    let badge: String
-    let footer: String
     let duration: Double
+    let backgroundImagePath: String?
+    let backgroundVideoPath: String?
+
+    enum CodingKeys: String, CodingKey {
+        case sequence
+        case total
+        case segmentId = "segment_id"
+        case role
+        case eyebrow
+        case headline
+        case support
+        case detail
+        case chips
+        case accent
+        case background
+        case duration
+        case backgroundImagePath = "background_image_path"
+        case backgroundVideoPath = "background_video_path"
+    }
 }
 
 enum VideoBuilderError: Error {
@@ -29,6 +53,23 @@ enum VideoBuilderError: Error {
     case exportFailed(String)
     case missingTrack(String)
 }
+
+final class VideoFrameSource {
+    let durationSeconds: Double
+    let generator: AVAssetImageGenerator
+
+    init(path: String) {
+        let asset = AVURLAsset(url: URL(fileURLWithPath: path))
+        durationSeconds = CMTimeGetSeconds(asset.duration)
+        generator = AVAssetImageGenerator(asset: asset)
+        generator.appliesPreferredTrackTransform = true
+        generator.requestedTimeToleranceBefore = .zero
+        generator.requestedTimeToleranceAfter = .zero
+    }
+}
+
+var cachedImages: [String: NSImage] = [:]
+var cachedVideoSources: [String: VideoFrameSource] = [:]
 
 func loadManifest() throws -> Manifest {
     guard CommandLine.arguments.count >= 2 else {
@@ -55,9 +96,127 @@ func drawRoundedRect(_ rect: NSRect, radius: CGFloat, fill: NSColor) {
     path.fill()
 }
 
-func textAttributes(size: CGFloat, weight: NSFont.Weight, color: NSColor) -> [NSAttributedString.Key: Any] {
+func drawRoundedStroke(_ rect: NSRect, radius: CGFloat, stroke: NSColor, lineWidth: CGFloat = 2.0) {
+    stroke.setStroke()
+    let path = NSBezierPath(roundedRect: rect, xRadius: radius, yRadius: radius)
+    path.lineWidth = lineWidth
+    path.stroke()
+}
+
+func drawCircle(_ rect: NSRect, fill: NSColor) {
+    fill.setFill()
+    let path = NSBezierPath(ovalIn: rect)
+    path.fill()
+}
+
+func imageCoverRect(imageSize: CGSize, container: NSRect, zoom: CGFloat, panX: CGFloat, panY: CGFloat) -> NSRect {
+    let imageAspect = imageSize.width / max(imageSize.height, 1)
+    let containerAspect = container.width / max(container.height, 1)
+    let scale: CGFloat
+
+    if imageAspect > containerAspect {
+        scale = container.height / max(imageSize.height, 1)
+    } else {
+        scale = container.width / max(imageSize.width, 1)
+    }
+
+    let drawWidth = imageSize.width * scale * zoom
+    let drawHeight = imageSize.height * scale * zoom
+    return NSRect(
+        x: container.midX - drawWidth / 2 + panX,
+        y: container.midY - drawHeight / 2 + panY,
+        width: drawWidth,
+        height: drawHeight
+    )
+}
+
+func drawCGImageCover(_ image: CGImage, in rect: NSRect, zoom: CGFloat = 1.0, panX: CGFloat = 0, panY: CGFloat = 0) {
+    guard let context = NSGraphicsContext.current?.cgContext else { return }
+    let drawRect = imageCoverRect(
+        imageSize: CGSize(width: image.width, height: image.height),
+        container: rect,
+        zoom: zoom,
+        panX: panX,
+        panY: panY
+    )
+    context.draw(image, in: drawRect)
+}
+
+func cachedImage(at path: String) -> NSImage? {
+    if let existing = cachedImages[path] {
+        return existing
+    }
+    guard let image = NSImage(contentsOfFile: path) else {
+        return nil
+    }
+    cachedImages[path] = image
+    return image
+}
+
+func cachedVideoFrameSource(at path: String) -> VideoFrameSource? {
+    if let existing = cachedVideoSources[path] {
+        return existing
+    }
+    guard FileManager.default.fileExists(atPath: path) else {
+        return nil
+    }
+    let source = VideoFrameSource(path: path)
+    cachedVideoSources[path] = source
+    return source
+}
+
+func drawBackgroundMedia(_ slide: Slide, in rect: NSRect, progress: CGFloat) -> Bool {
+    if let path = slide.backgroundVideoPath,
+       !path.isEmpty,
+       let source = cachedVideoFrameSource(at: path),
+       source.durationSeconds > 0.0
+    {
+        let clampedProgress = max(0.0, min(0.98, Double(progress)))
+        let second = min(
+            max(0.0, clampedProgress * source.durationSeconds),
+            max(0.0, source.durationSeconds - 0.04)
+        )
+        if let frame = try? source.generator.copyCGImage(
+            at: CMTime(seconds: second, preferredTimescale: 600),
+            actualTime: nil
+        ) {
+            drawCGImageCover(
+                frame,
+                in: rect,
+                zoom: 1.08,
+                panX: (progress - 0.5) * 24,
+                panY: progress * 10
+            )
+            return true
+        }
+    }
+
+    if let path = slide.backgroundImagePath,
+       !path.isEmpty,
+       let image = cachedImage(at: path),
+       let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil)
+    {
+        drawCGImageCover(
+            cgImage,
+            in: rect,
+            zoom: 1.05 + progress * 0.04,
+            panX: (0.5 - progress) * 18,
+            panY: progress * 12
+        )
+        return true
+    }
+
+    return false
+}
+
+func textAttributes(
+    size: CGFloat,
+    weight: NSFont.Weight,
+    color: NSColor,
+    alignment: NSTextAlignment = .left
+) -> [NSAttributedString.Key: Any] {
     let paragraph = NSMutableParagraphStyle()
-    paragraph.alignment = .left
+    paragraph.alignment = alignment
     paragraph.lineBreakMode = .byWordWrapping
     return [
         .font: NSFont.systemFont(ofSize: size, weight: weight),
@@ -66,59 +225,588 @@ func textAttributes(size: CGFloat, weight: NSFont.Weight, color: NSColor) -> [NS
     ]
 }
 
-func renderSlide(_ slide: Slide, width: Int, height: Int) -> CGImage {
+func drawPill(
+    _ text: String,
+    rect: NSRect,
+    fill: NSColor,
+    textColor: NSColor,
+    size: CGFloat = 24,
+    weight: NSFont.Weight = .semibold
+) {
+    drawRoundedRect(rect, radius: rect.height / 2, fill: fill)
+    (text as NSString).draw(
+        in: rect.insetBy(dx: 18, dy: 10),
+        withAttributes: textAttributes(
+            size: size,
+            weight: weight,
+            color: textColor,
+            alignment: .center
+        )
+    )
+}
+
+func drawProgress(_ slide: Slide, accentColor: NSColor, width: Int, progress: CGFloat) {
+    let totalCount = max(slide.total, 1)
+    let capsuleGap: CGFloat = 18
+    let capsuleWidth =
+        (CGFloat(width) - 160 - CGFloat(totalCount - 1) * capsuleGap) / CGFloat(totalCount)
+    let baseY: CGFloat = 124
+
+    for index in 0..<totalCount {
+        let rect = NSRect(
+            x: 80 + CGFloat(index) * (capsuleWidth + capsuleGap),
+            y: baseY,
+            width: capsuleWidth,
+            height: 18
+        )
+        drawRoundedRect(rect, radius: 9, fill: NSColor.black.withAlphaComponent(0.08))
+        if index < slide.sequence - 1 {
+            drawRoundedRect(rect, radius: 9, fill: accentColor.withAlphaComponent(0.30))
+        } else if index == slide.sequence - 1 {
+            let fillWidth = max(24, rect.width * max(0.16, min(progress, 1.0)))
+            drawRoundedRect(
+                NSRect(x: rect.minX, y: rect.minY, width: fillWidth, height: rect.height),
+                radius: 9,
+                fill: accentColor
+            )
+        }
+    }
+
+    (slide.eyebrow as NSString).draw(
+        in: NSRect(x: 80, y: 82, width: 300, height: 28),
+        withAttributes: textAttributes(size: 24, weight: .medium, color: NSColor.black.withAlphaComponent(0.54))
+    )
+}
+
+func drawHookLayout(_ slide: Slide, in cardRect: NSRect, accentColor: NSColor) {
+    drawPill(
+        "问题不是没想法",
+        rect: NSRect(x: cardRect.minX + 32, y: cardRect.maxY - 76, width: 196, height: 40),
+        fill: accentColor.withAlphaComponent(0.10),
+        textColor: accentColor,
+        size: 18
+    )
+
+    let columnWidth = (cardRect.width - 92) / 2
+    let leftRect = NSRect(x: cardRect.minX + 32, y: cardRect.maxY - 228, width: columnWidth, height: 138)
+    let rightRect = NSRect(x: leftRect.maxX + 28, y: leftRect.minY, width: columnWidth, height: 138)
+
+    drawRoundedRect(leftRect, radius: 26, fill: NSColor.white.withAlphaComponent(0.70))
+    drawRoundedStroke(leftRect, radius: 26, stroke: accentColor.withAlphaComponent(0.16))
+    drawRoundedRect(rightRect, radius: 26, fill: NSColor.black.withAlphaComponent(0.76))
+
+    if slide.chips.count > 0 {
+        drawPill(
+            "表面上",
+            rect: NSRect(x: leftRect.minX + 18, y: leftRect.maxY - 46, width: 96, height: 28),
+            fill: NSColor.white.withAlphaComponent(0.80),
+            textColor: NSColor.black.withAlphaComponent(0.72),
+            size: 14
+        )
+        (slide.chips[0] as NSString).draw(
+            in: NSRect(x: leftRect.minX + 20, y: leftRect.minY + 36, width: leftRect.width - 40, height: 52),
+            withAttributes: textAttributes(size: 30, weight: .bold, color: NSColor.black.withAlphaComponent(0.82))
+        )
+    }
+
+    if slide.chips.count > 1 {
+        drawPill(
+            "真正卡点",
+            rect: NSRect(x: rightRect.minX + 18, y: rightRect.maxY - 46, width: 104, height: 28),
+            fill: NSColor.white.withAlphaComponent(0.18),
+            textColor: .white,
+            size: 14
+        )
+        (slide.chips[1] as NSString).draw(
+            in: NSRect(x: rightRect.minX + 20, y: rightRect.minY + 36, width: rightRect.width - 40, height: 52),
+            withAttributes: textAttributes(size: 30, weight: .bold, color: .white)
+        )
+    }
+
+    ("→" as NSString).draw(
+        in: NSRect(x: leftRect.maxX + 2, y: leftRect.minY + 38, width: 24, height: 42),
+        withAttributes: textAttributes(size: 30, weight: .bold, color: accentColor, alignment: .center)
+    )
+
+    let detailRect = NSRect(x: cardRect.minX + 24, y: cardRect.minY + 22, width: cardRect.width - 48, height: 50)
+    drawRoundedRect(detailRect, radius: 18, fill: NSColor.black.withAlphaComponent(0.54))
+    (slide.detail as NSString).draw(
+        in: detailRect.insetBy(dx: 16, dy: 10),
+        withAttributes: textAttributes(size: 18, weight: .medium, color: .white)
+    )
+}
+
+func drawHookOverlay(_ slide: Slide, width: Int, height: Int, accentColor: NSColor) {
+    let panelRect = NSRect(x: 72, y: 124, width: CGFloat(width) - 144, height: 474)
+    drawRoundedRect(
+        NSRect(x: panelRect.minX, y: panelRect.minY - 16, width: panelRect.width, height: panelRect.height),
+        radius: 34,
+        fill: NSColor.black.withAlphaComponent(0.12)
+    )
+    drawRoundedRect(panelRect, radius: 34, fill: NSColor.white.withAlphaComponent(0.86))
+    drawRoundedStroke(panelRect, radius: 34, stroke: accentColor.withAlphaComponent(0.12))
+    drawRoundedRect(
+        NSRect(x: panelRect.minX + 24, y: panelRect.maxY - 10, width: 116, height: 6),
+        radius: 3,
+        fill: accentColor.withAlphaComponent(0.74)
+    )
+
+    drawPill(
+        "当前卡点",
+        rect: NSRect(x: panelRect.minX + 24, y: panelRect.maxY - 68, width: 102, height: 30),
+        fill: accentColor.withAlphaComponent(0.10),
+        textColor: accentColor,
+        size: 14
+    )
+
+    (slide.headline as NSString).draw(
+        in: NSRect(x: panelRect.minX + 24, y: panelRect.maxY - 214, width: panelRect.width - 48, height: 126),
+        withAttributes: textAttributes(size: 52, weight: .black, color: NSColor.black.withAlphaComponent(0.84))
+    )
+    (slide.support as NSString).draw(
+        in: NSRect(x: panelRect.minX + 24, y: panelRect.maxY - 272, width: panelRect.width - 48, height: 48),
+        withAttributes: textAttributes(size: 22, weight: .medium, color: NSColor.black.withAlphaComponent(0.52))
+    )
+
+    if slide.chips.count > 0 {
+        drawPill(
+            slide.chips[0],
+            rect: NSRect(x: panelRect.minX + 24, y: panelRect.minY + 118, width: 174, height: 42),
+            fill: NSColor(calibratedWhite: 0.97, alpha: 0.96),
+            textColor: NSColor.black.withAlphaComponent(0.76),
+            size: 18
+        )
+    }
+    if slide.chips.count > 1 {
+        drawPill(
+            slide.chips[1],
+            rect: NSRect(x: panelRect.minX + 214, y: panelRect.minY + 118, width: 202, height: 42),
+            fill: accentColor.withAlphaComponent(0.12),
+            textColor: accentColor,
+            size: 18
+        )
+    }
+
+    let detailRect = NSRect(x: panelRect.minX + 24, y: panelRect.minY + 32, width: panelRect.width - 48, height: 64)
+    drawRoundedRect(detailRect, radius: 18, fill: NSColor.black.withAlphaComponent(0.06))
+    (slide.detail as NSString).draw(
+        in: detailRect.insetBy(dx: 16, dy: 16),
+        withAttributes: textAttributes(size: 18, weight: .medium, color: NSColor.black.withAlphaComponent(0.56))
+    )
+}
+
+func drawProcessLayout(_ slide: Slide, in cardRect: NSRect, accentColor: NSColor) {
+    drawPill(
+        "把散乱动作压成一条流程",
+        rect: NSRect(x: cardRect.minX + 44, y: cardRect.maxY - 96, width: 310, height: 48),
+        fill: accentColor.withAlphaComponent(0.10),
+        textColor: accentColor,
+        size: 22
+    )
+
+    let stepHeight: CGFloat = 132
+    let gap: CGFloat = 24
+    let baseY = cardRect.maxY - 248
+
+    for (index, chip) in slide.chips.enumerated() {
+        let rect = NSRect(
+            x: cardRect.minX + 44,
+            y: baseY - CGFloat(index) * (stepHeight + gap),
+            width: cardRect.width - 88,
+            height: stepHeight
+        )
+        let fillColor =
+            index == 1
+            ? accentColor.withAlphaComponent(0.12)
+            : NSColor.white.withAlphaComponent(0.94)
+        drawRoundedRect(rect, radius: 30, fill: fillColor)
+        drawRoundedStroke(rect, radius: 30, stroke: accentColor.withAlphaComponent(0.18))
+
+        let numberRect = NSRect(x: rect.minX + 24, y: rect.minY + 32, width: 68, height: 68)
+        drawRoundedRect(numberRect, radius: 20, fill: accentColor)
+        (String(format: "%02d", index + 1) as NSString).draw(
+            in: numberRect.insetBy(dx: 8, dy: 14),
+            withAttributes: textAttributes(size: 24, weight: .bold, color: .white, alignment: .center)
+        )
+
+        (chip as NSString).draw(
+            in: NSRect(x: rect.minX + 120, y: rect.minY + 42, width: rect.width - 150, height: 48),
+            withAttributes: textAttributes(size: 40, weight: .bold, color: NSColor.black.withAlphaComponent(0.82))
+        )
+
+        if index < slide.chips.count - 1 {
+            let line = NSBezierPath()
+            line.move(to: NSPoint(x: rect.midX, y: rect.minY - 8))
+            line.line(to: NSPoint(x: rect.midX, y: rect.minY - 16))
+            accentColor.withAlphaComponent(0.30).setStroke()
+            line.lineWidth = 4
+            line.stroke()
+        }
+    }
+
+    let detailRect = NSRect(x: cardRect.minX + 44, y: cardRect.minY + 64, width: cardRect.width - 88, height: 90)
+    drawRoundedRect(detailRect, radius: 24, fill: NSColor.black.withAlphaComponent(0.84))
+    (slide.detail as NSString).draw(
+        in: detailRect.insetBy(dx: 28, dy: 20),
+        withAttributes: textAttributes(size: 28, weight: .medium, color: .white)
+    )
+}
+
+func drawTransitionLayout(_ slide: Slide, width: Int, height: Int, accentColor: NSColor) {
+    let gradientRect = NSRect(x: 0, y: 0, width: width, height: 520)
+    if let gradient = NSGradient(
+        starting: NSColor.black.withAlphaComponent(0.58),
+        ending: NSColor.black.withAlphaComponent(0.0)
+    ) {
+        gradient.draw(in: gradientRect, angle: 90)
+    }
+
+    let panelRect = NSRect(x: CGFloat(width) - 428, y: 132, width: 356, height: 540)
+    drawRoundedRect(
+        NSRect(x: panelRect.minX, y: panelRect.minY - 14, width: panelRect.width, height: panelRect.height),
+        radius: 36,
+        fill: NSColor.black.withAlphaComponent(0.10)
+    )
+    drawRoundedRect(panelRect, radius: 36, fill: NSColor.white.withAlphaComponent(0.88))
+    drawRoundedStroke(panelRect, radius: 36, stroke: accentColor.withAlphaComponent(0.10))
+    drawRoundedRect(
+        NSRect(x: panelRect.minX + 26, y: panelRect.maxY - 12, width: 112, height: 6),
+        radius: 3,
+        fill: accentColor.withAlphaComponent(0.72)
+    )
+
+    drawPill(
+        "结构收束",
+        rect: NSRect(x: panelRect.minX + 28, y: panelRect.maxY - 72, width: 118, height: 30),
+        fill: accentColor.withAlphaComponent(0.10),
+        textColor: accentColor,
+        size: 14
+    )
+
+    (slide.headline as NSString).draw(
+        in: NSRect(x: panelRect.minX + 28, y: panelRect.maxY - 214, width: panelRect.width - 56, height: 128),
+        withAttributes: textAttributes(size: 44, weight: .black, color: NSColor.black.withAlphaComponent(0.84))
+    )
+    (slide.support as NSString).draw(
+        in: NSRect(x: panelRect.minX + 28, y: panelRect.maxY - 268, width: panelRect.width - 56, height: 54),
+        withAttributes: textAttributes(size: 22, weight: .medium, color: NSColor.black.withAlphaComponent(0.52))
+    )
+
+    let rowHeight: CGFloat = 62
+    let rowGap: CGFloat = 14
+    let rowBaseY = panelRect.maxY - 360
+    for (index, chip) in slide.chips.enumerated() {
+        let rowRect = NSRect(
+            x: panelRect.minX + 28,
+            y: rowBaseY - CGFloat(index) * (rowHeight + rowGap),
+            width: panelRect.width - 56,
+            height: rowHeight
+        )
+        drawRoundedRect(
+            rowRect,
+            radius: 20,
+            fill: index == 0
+                ? accentColor.withAlphaComponent(0.12)
+                : NSColor(calibratedWhite: 0.97, alpha: 0.96)
+        )
+        drawRoundedStroke(rowRect, radius: 20, stroke: accentColor.withAlphaComponent(0.10), lineWidth: 1.6)
+        drawPill(
+            String(format: "%02d", index + 1),
+            rect: NSRect(x: rowRect.minX + 14, y: rowRect.minY + 14, width: 38, height: 34),
+            fill: accentColor.withAlphaComponent(0.86),
+            textColor: .white,
+            size: 14
+        )
+        (chip as NSString).draw(
+            in: NSRect(x: rowRect.minX + 66, y: rowRect.minY + 14, width: rowRect.width - 84, height: 34),
+            withAttributes: textAttributes(size: 24, weight: .bold, color: NSColor.black.withAlphaComponent(0.82))
+        )
+    }
+
+    let detailRect = NSRect(x: panelRect.minX + 28, y: panelRect.minY + 28, width: panelRect.width - 56, height: 70)
+    drawRoundedRect(detailRect, radius: 18, fill: NSColor.black.withAlphaComponent(0.06))
+    (slide.detail as NSString).draw(
+        in: detailRect.insetBy(dx: 16, dy: 16),
+        withAttributes: textAttributes(size: 18, weight: .medium, color: NSColor.black.withAlphaComponent(0.56))
+    )
+}
+
+func drawOutcomeLayout(_ slide: Slide, in cardRect: NSRect, accentColor: NSColor) {
+    let bannerRect = NSRect(x: cardRect.minX + 28, y: cardRect.maxY - 116, width: cardRect.width - 56, height: 82)
+    drawRoundedRect(bannerRect, radius: 26, fill: accentColor.withAlphaComponent(0.92))
+    (slide.support as NSString).draw(
+        in: NSRect(x: bannerRect.minX + 24, y: bannerRect.minY + 24, width: bannerRect.width - 48, height: 34),
+        withAttributes: textAttributes(size: 26, weight: .bold, color: .white)
+    )
+
+    let boxWidth = (cardRect.width - 84) / 2
+    let leftRect = NSRect(x: cardRect.minX + 28, y: cardRect.minY + 110, width: boxWidth, height: 122)
+    let rightRect = NSRect(x: leftRect.maxX + 28, y: leftRect.minY, width: boxWidth, height: 122)
+
+    drawRoundedRect(leftRect, radius: 24, fill: NSColor.white.withAlphaComponent(0.76))
+    drawRoundedRect(rightRect, radius: 24, fill: accentColor.withAlphaComponent(0.16))
+    drawRoundedStroke(leftRect, radius: 24, stroke: accentColor.withAlphaComponent(0.14))
+    drawRoundedStroke(rightRect, radius: 24, stroke: accentColor.withAlphaComponent(0.14))
+
+    if slide.chips.count > 0 {
+        drawPill(
+            "先做什么",
+            rect: NSRect(x: leftRect.minX + 16, y: leftRect.maxY - 42, width: 94, height: 26),
+            fill: accentColor.withAlphaComponent(0.10),
+            textColor: accentColor,
+            size: 14
+        )
+        (slide.chips[0] as NSString).draw(
+            in: NSRect(x: leftRect.minX + 18, y: leftRect.minY + 32, width: leftRect.width - 36, height: 44),
+            withAttributes: textAttributes(size: 26, weight: .bold, color: NSColor.black.withAlphaComponent(0.82))
+        )
+    }
+
+    if slide.chips.count > 1 {
+        drawPill(
+            "再做什么",
+            rect: NSRect(x: rightRect.minX + 16, y: rightRect.maxY - 42, width: 94, height: 26),
+            fill: NSColor.white.withAlphaComponent(0.72),
+            textColor: accentColor,
+            size: 14
+        )
+        (slide.chips[1] as NSString).draw(
+            in: NSRect(x: rightRect.minX + 18, y: rightRect.minY + 32, width: rightRect.width - 36, height: 44),
+            withAttributes: textAttributes(size: 26, weight: .bold, color: NSColor.black.withAlphaComponent(0.82))
+        )
+    }
+
+    let detailRect = NSRect(x: cardRect.minX + 24, y: cardRect.minY + 24, width: cardRect.width - 48, height: 52)
+    drawRoundedRect(detailRect, radius: 18, fill: NSColor.black.withAlphaComponent(0.54))
+    (slide.detail as NSString).draw(
+        in: detailRect.insetBy(dx: 16, dy: 10),
+        withAttributes: textAttributes(size: 18, weight: .medium, color: .white)
+    )
+}
+
+func drawOutcomeOverlay(_ slide: Slide, width: Int, height: Int, accentColor: NSColor) {
+    let panelRect = NSRect(x: 72, y: 116, width: CGFloat(width) - 144, height: 360)
+    drawRoundedRect(
+        NSRect(x: panelRect.minX, y: panelRect.minY - 14, width: panelRect.width, height: panelRect.height),
+        radius: 32,
+        fill: NSColor.black.withAlphaComponent(0.10)
+    )
+    drawRoundedRect(panelRect, radius: 32, fill: NSColor.white.withAlphaComponent(0.84))
+    drawRoundedStroke(panelRect, radius: 32, stroke: accentColor.withAlphaComponent(0.12))
+    drawRoundedRect(
+        NSRect(x: panelRect.minX + 24, y: panelRect.maxY - 10, width: 104, height: 6),
+        radius: 3,
+        fill: accentColor.withAlphaComponent(0.70)
+    )
+
+    drawPill(
+        "结果落点",
+        rect: NSRect(x: panelRect.minX + 24, y: panelRect.maxY - 68, width: 104, height: 30),
+        fill: accentColor.withAlphaComponent(0.10),
+        textColor: accentColor,
+        size: 14
+    )
+
+    (slide.headline as NSString).draw(
+        in: NSRect(x: panelRect.minX + 24, y: panelRect.maxY - 180, width: panelRect.width - 48, height: 98),
+        withAttributes: textAttributes(size: 46, weight: .black, color: NSColor.black.withAlphaComponent(0.84))
+    )
+    (slide.support as NSString).draw(
+        in: NSRect(x: panelRect.minX + 24, y: panelRect.maxY - 228, width: panelRect.width - 48, height: 40),
+        withAttributes: textAttributes(size: 21, weight: .medium, color: NSColor.black.withAlphaComponent(0.52))
+    )
+
+    let boxWidth = (panelRect.width - 72) / 2
+    let leftRect = NSRect(x: panelRect.minX + 24, y: panelRect.minY + 94, width: boxWidth, height: 92)
+    let rightRect = NSRect(x: leftRect.maxX + 24, y: leftRect.minY, width: boxWidth, height: 92)
+    drawRoundedRect(leftRect, radius: 22, fill: NSColor(calibratedWhite: 0.97, alpha: 0.96))
+    drawRoundedRect(rightRect, radius: 22, fill: accentColor.withAlphaComponent(0.12))
+    drawRoundedStroke(leftRect, radius: 22, stroke: accentColor.withAlphaComponent(0.10), lineWidth: 1.6)
+    drawRoundedStroke(rightRect, radius: 22, stroke: accentColor.withAlphaComponent(0.10), lineWidth: 1.6)
+
+    if slide.chips.count > 0 {
+        drawPill(
+            "先做什么",
+            rect: NSRect(x: leftRect.minX + 14, y: leftRect.maxY - 34, width: 88, height: 24),
+            fill: accentColor.withAlphaComponent(0.10),
+            textColor: accentColor,
+            size: 13
+        )
+        (slide.chips[0] as NSString).draw(
+            in: NSRect(x: leftRect.minX + 16, y: leftRect.minY + 24, width: leftRect.width - 32, height: 30),
+            withAttributes: textAttributes(size: 22, weight: .bold, color: NSColor.black.withAlphaComponent(0.82))
+        )
+    }
+
+    if slide.chips.count > 1 {
+        drawPill(
+            "再做什么",
+            rect: NSRect(x: rightRect.minX + 14, y: rightRect.maxY - 34, width: 88, height: 24),
+            fill: NSColor.white.withAlphaComponent(0.70),
+            textColor: accentColor,
+            size: 13
+        )
+        (slide.chips[1] as NSString).draw(
+            in: NSRect(x: rightRect.minX + 16, y: rightRect.minY + 24, width: rightRect.width - 32, height: 30),
+            withAttributes: textAttributes(size: 22, weight: .bold, color: NSColor.black.withAlphaComponent(0.82))
+        )
+    }
+
+    let detailRect = NSRect(x: panelRect.minX + 24, y: panelRect.minY + 28, width: panelRect.width - 48, height: 44)
+    drawRoundedRect(detailRect, radius: 18, fill: NSColor.black.withAlphaComponent(0.06))
+    (slide.detail as NSString).draw(
+        in: detailRect.insetBy(dx: 16, dy: 10),
+        withAttributes: textAttributes(size: 18, weight: .medium, color: NSColor.black.withAlphaComponent(0.56))
+    )
+}
+
+func renderSlide(_ slide: Slide, width: Int, height: Int, progress: CGFloat) -> CGImage {
     let size = NSSize(width: width, height: height)
     let image = NSImage(size: size)
     image.lockFocus()
 
     let backgroundRect = NSRect(x: 0, y: 0, width: width, height: height)
-    color(hex: slide.background).setFill()
-    backgroundRect.fill()
-
-    let topBand = NSRect(x: 0, y: height - 220, width: width, height: 220)
-    drawRoundedRect(topBand, radius: 0, fill: color(hex: slide.accent))
-
-    let cardRect = NSRect(x: 96, y: 320, width: width - 192, height: height - 760)
-    drawRoundedRect(cardRect, radius: 42, fill: NSColor.white)
-
-    let badgeRect = NSRect(x: 96, y: height - 154, width: 190, height: 56)
-    drawRoundedRect(badgeRect, radius: 28, fill: NSColor.white.withAlphaComponent(0.20))
-    (slide.badge as NSString).draw(
-        in: NSRect(x: 126, y: height - 140, width: 150, height: 30),
-        withAttributes: textAttributes(size: 24, weight: .semibold, color: .white)
-    )
-
-    (slide.title as NSString).draw(
-        in: NSRect(x: 96, y: height - 460, width: width - 192, height: 180),
-        withAttributes: textAttributes(size: 72, weight: .bold, color: .white)
-    )
-
-    let bodyLines = slide.body
-        .split(separator: "\n", omittingEmptySubsequences: false)
-        .map { String($0) }
-    var currentY = cardRect.maxY - 160
-    for (index, line) in bodyLines.enumerated() {
-        let drawLine = index == 0 ? line : "• " + line
-        (drawLine as NSString).draw(
-            in: NSRect(x: cardRect.minX + 64, y: currentY, width: cardRect.width - 128, height: 110),
-            withAttributes: textAttributes(size: index == 0 ? 42 : 38, weight: index == 0 ? .bold : .regular, color: .black)
+    let accentColor = color(hex: slide.accent)
+    let backgroundColor = color(hex: slide.background)
+    let hasMediaBackground = drawBackgroundMedia(slide, in: backgroundRect, progress: progress)
+    if hasMediaBackground {
+        if let gradient = NSGradient(
+            starting: NSColor.black.withAlphaComponent(slide.role == "process" ? 0.18 : 0.10),
+            ending: backgroundColor.withAlphaComponent(0.24)
+        ) {
+            gradient.draw(in: backgroundRect, angle: 90)
+        }
+        drawCircle(
+            NSRect(
+                x: CGFloat(width) - 300 + progress * 16,
+                y: CGFloat(height) - 380 + progress * 10,
+                width: 300,
+                height: 300
+            ),
+            fill: accentColor.withAlphaComponent(0.08)
         )
-        currentY -= index == 0 ? 120 : 96
+    } else {
+        backgroundColor.setFill()
+        backgroundRect.fill()
+        if let gradient = NSGradient(
+            starting: accentColor.withAlphaComponent(0.14),
+            ending: backgroundColor
+        ) {
+            gradient.draw(in: backgroundRect, angle: 90)
+        }
+
+        drawCircle(
+            NSRect(
+                x: CGFloat(width) - 340 + progress * 18,
+                y: CGFloat(height) - 420 + progress * 12,
+                width: 360,
+                height: 360
+            ),
+            fill: accentColor.withAlphaComponent(0.12)
+        )
+        drawCircle(
+            NSRect(
+                x: -100 - progress * 14,
+                y: 220 - progress * 10,
+                width: 260,
+                height: 260
+            ),
+            fill: accentColor.withAlphaComponent(0.08)
+        )
     }
 
-    let footerRect = NSRect(x: 96, y: 150, width: width - 192, height: 86)
-    drawRoundedRect(footerRect, radius: 28, fill: NSColor.black.withAlphaComponent(0.88))
-    (slide.footer as NSString).draw(
-        in: NSRect(x: 132, y: 175, width: width - 264, height: 30),
-        withAttributes: textAttributes(size: 28, weight: .medium, color: .white)
+    drawPill(
+        slide.eyebrow,
+        rect: NSRect(x: 72, y: CGFloat(height) - 156, width: 180, height: 48),
+        fill: accentColor.withAlphaComponent(0.12),
+        textColor: accentColor,
+        size: 22
+    )
+    drawPill(
+        "\(slide.sequence)/\(slide.total)",
+        rect: NSRect(x: CGFloat(width) - 186, y: CGFloat(height) - 156, width: 114, height: 48),
+        fill: NSColor.black.withAlphaComponent(0.08),
+        textColor: NSColor.black.withAlphaComponent(0.62),
+        size: 22
     )
 
-    let pageRect = NSRect(x: width - 250, y: 150, width: 154, height: 86)
-    drawRoundedRect(pageRect, radius: 28, fill: color(hex: slide.accent))
-    ("PPT Demo" as NSString).draw(
-        in: NSRect(x: width - 222, y: 175, width: 120, height: 28),
-        withAttributes: textAttributes(size: 24, weight: .semibold, color: .white)
-    )
+    if hasMediaBackground && slide.role == "process" {
+        drawTransitionLayout(slide, width: width, height: height, accentColor: accentColor)
+    } else if slide.role == "hook" {
+        drawHookOverlay(slide, width: width, height: height, accentColor: accentColor)
+    } else if slide.role == "outcome" {
+        drawOutcomeOverlay(slide, width: width, height: height, accentColor: accentColor)
+    } else {
+        let headingColor =
+            hasMediaBackground
+            ? NSColor.white.withAlphaComponent(0.95)
+            : NSColor.black.withAlphaComponent(0.86)
+        let supportColor =
+            hasMediaBackground
+            ? NSColor.white.withAlphaComponent(0.82)
+            : NSColor.black.withAlphaComponent(0.56)
+
+        let headlineSize: CGFloat = slide.role == "hook" || slide.role == "outcome" ? 62 : 72
+        let supportSize: CGFloat = slide.role == "hook" || slide.role == "outcome" ? 28 : 32
+        let headlineRect = NSRect(
+            x: 72,
+            y: slide.role == "hook" || slide.role == "outcome" ? CGFloat(height) - 438 : CGFloat(height) - 484,
+            width: CGFloat(width) - 144,
+            height: slide.role == "hook" || slide.role == "outcome" ? 170 : 210
+        )
+        let supportRect = NSRect(
+            x: 72,
+            y: slide.role == "hook" || slide.role == "outcome" ? CGFloat(height) - 504 : CGFloat(height) - 570,
+            width: CGFloat(width) - 144,
+            height: 54
+        )
+        (slide.headline as NSString).draw(
+            in: headlineRect,
+            withAttributes: textAttributes(size: headlineSize, weight: .black, color: headingColor)
+        )
+        (slide.support as NSString).draw(
+            in: supportRect,
+            withAttributes: textAttributes(size: supportSize, weight: .medium, color: supportColor)
+        )
+
+        let cardRect: NSRect
+        if slide.role == "hook" {
+            cardRect = NSRect(x: 92, y: 268, width: CGFloat(width) - 184, height: 312)
+        } else if slide.role == "outcome" {
+            cardRect = NSRect(x: 92, y: 224, width: CGFloat(width) - 184, height: 348)
+        } else {
+            cardRect = NSRect(x: 72, y: 286, width: CGFloat(width) - 144, height: 840)
+        }
+        drawRoundedRect(
+            cardRect,
+            radius: 48,
+            fill: hasMediaBackground
+                ? NSColor.white.withAlphaComponent(slide.role == "hook" || slide.role == "outcome" ? 0.74 : 0.88)
+                : NSColor.white.withAlphaComponent(slide.role == "hook" || slide.role == "outcome" ? 0.82 : 0.94)
+        )
+        drawRoundedStroke(
+            cardRect,
+            radius: 48,
+            stroke: accentColor.withAlphaComponent(hasMediaBackground ? 0.20 : 0.14)
+        )
+        let accentBarWidth = max(slide.role == "hook" || slide.role == "outcome" ? 96 : 140, (cardRect.width - 120) * (slide.role == "hook" || slide.role == "outcome" ? 0.18 + 0.10 * progress : 0.24 + 0.16 * progress))
+        drawRoundedRect(
+            NSRect(x: cardRect.minX + 28, y: cardRect.maxY - 18, width: accentBarWidth, height: slide.role == "hook" || slide.role == "outcome" ? 8 : 12),
+            radius: 6,
+            fill: accentColor
+        )
+
+        switch slide.role {
+        case "hook":
+            drawHookLayout(slide, in: cardRect, accentColor: accentColor)
+        case "process":
+            drawProcessLayout(slide, in: cardRect, accentColor: accentColor)
+        default:
+            drawOutcomeLayout(slide, in: cardRect, accentColor: accentColor)
+        }
+    }
+
+    drawProgress(slide, accentColor: accentColor, width: width, progress: progress)
 
     image.unlockFocus()
     return image.cgImage(forProposedRect: nil, context: nil, hints: nil)!
@@ -203,11 +891,19 @@ func buildVideoOnly(_ manifest: Manifest, outputURL: URL) throws {
 
     for slide in manifest.slides {
         let frameCount = max(1, Int(round(slide.duration * Double(fps))))
-        let image = renderSlide(slide, width: manifest.width, height: manifest.height)
-
-        for _ in 0 ..< frameCount {
+        for frame in 0 ..< frameCount {
             waitUntilReady(input)
             let timestamp = CMTime(value: frameIndex, timescale: CMTimeScale(fps))
+            let progress =
+                frameCount == 1
+                ? CGFloat(1.0)
+                : CGFloat(frame + 1) / CGFloat(frameCount)
+            let image = renderSlide(
+                slide,
+                width: manifest.width,
+                height: manifest.height,
+                progress: progress
+            )
             let buffer = try makePixelBuffer(from: image, width: manifest.width, height: manifest.height)
             adaptor.append(buffer, withPresentationTime: timestamp)
             frameIndex += 1
