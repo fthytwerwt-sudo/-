@@ -43,30 +43,43 @@
 
 命中《视频工厂》后，默认先读：
 1. `GPT数据源/00_项目总述.md`
-2. `GPT数据源/01_项目系统提示词.md`
-3. `GPT数据源/03_总索引与阅读顺序.md`
-4. `GPT数据源/08_当前正式事实.md`
-5. `GPT数据源/06_当前主线锚点_API生成真人_用户录制素材_少量PPT_云端剪辑.md`
-6. `codex_source/00_codex_readme.md`
-7. `codex_log/latest.md`
+2. `GPT数据源/10_OPC一人公司闭环与多AI协作机制.md`
+3. `GPT数据源/01_项目系统提示词.md`
+4. `GPT数据源/03_总索引与阅读顺序.md`
+5. `GPT数据源/08_当前正式事实.md`
+6. `GPT数据源/06_当前主线锚点_API生成真人_用户录制素材_少量PPT_云端剪辑.md`
+7. `codex_source/00_codex_readme.md`
+8. `codex_log/latest.md`
 
 当前《视频工厂》正式来源顺序：
-1. `GPT数据源/` 当前 10 份执行包
+1. `GPT数据源/` 当前 10 份基础执行包 + `10_OPC一人公司闭环与多AI协作机制.md`
 2. `codex_log/latest.md`
 3. `dist/latest_review_pack/summary.json`
 4. `dist/latest_review_pack/review_manifest.md`
 5. `codex_source/00_codex_readme.md`
 
-`project_source/` 只作为历史 / 辅助主题化镜像，不得默认高于 `GPT数据源/` 当前 10 份执行包、`codex_log/latest.md` 或 `dist/latest_review_pack/`。
+`project_source/` 只作为历史 / 辅助主题化镜像，不得默认高于 `GPT数据源/` 当前 10 份基础执行包 + `10_OPC一人公司闭环与多AI协作机制.md`、`codex_log/latest.md` 或 `dist/latest_review_pack/`。
 
-`归档删除区_archive_delete_zone/` 只作为旧口径隔离、旧入口隔离、旧产物候选和清单区使用，不得作为默认读取入口，不得高于 `GPT数据源/`、`codex_log/latest.md`、`dist/latest_review_pack/` 或当前执行规则层。
+`归档删除区_archive_delete_zone/` 只作为旧口径隔离、旧入口隔离、旧产物候选和清单区使用，不得作为默认读取入口，不得高于 `GPT数据源/` 当前 10 份基础执行包 + `10_OPC一人公司闭环与多AI协作机制.md`、`codex_log/latest.md`、`dist/latest_review_pack/` 或当前执行规则层。
 
 当前已确认：
 - `current_reading_branch = main（当前唯一远端主线 / 默认主读取分支）`
+- `current_project_upper_identity = OPC 一人公司 AI 闭环验证系统（当前项目上位身份）`
 - `latest_review_pack` 当前指向 `20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix`
 - `current_video_baseline = v3.1（当前视频基线）`
 - `future_iteration_base = v3.1（后续升级 / 修改 / 技术优化 / GPT 文案侧回炉的默认基础）`
 - `current_project_core_value = 真实 AI 使用经验 + 工作提效实录`
+- 当前视频是内容化与反馈出口，不是项目全部目标。
+- 当前视频四件套主线 `API 生成真人 + 用户录制素材 + 少量 PPT + 云端剪辑` 是内容化输出默认执行载体，不是每条内容不可变死流程。
+- 当前多 AI 协作默认架构为：
+  - `ChatGPT（总控脑 / 判断层）`
+  - `Codex（唯一写入执行层 / Integrator）`
+  - `DeepSeek（只读供料层 / Explorer）`
+  - `Perplexity（外部研究层）`
+- `DeepSeek（只读供料层 / Explorer）` 默认只做预读、上下文压缩、必读文件地图和风险冲突报告，不写文件、不拍板项目事实。
+- `Codex（唯一写入执行层 / Integrator）` 默认负责复核原文件、修改仓库、验证、日志和 Git 收尾。
+- `reference（参考）`、`reference_quality_sample（参考质量样片）`、`locked reference（锁定参考）`、`visual route（视觉路由）` 当前默认锁的是质量机制，不锁死每条内容的固定流程。
+- reference 仍用于防止质量漂移，locked reference 仍用于质量继承，visual route 仍用于防止卡片外壳混用；但不能把它们理解为每条内容都必须机械照搬同一流程。
 - `场景化专业输出工作包` 当前降级为：`可选沉淀单元 / 产品化承接单元`
 - 当前视频默认优先服务：真实 AI 使用经验、工作提效实录、真实录屏证据、前后变化、小样本平台反馈与发布后复盘
 - v3 只保留为历史候选 / 对照，不再作为后续默认修改基础。
