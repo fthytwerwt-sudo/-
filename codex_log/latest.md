@@ -1,5 +1,19 @@
 # Latest
 
+## 20260508｜新老文件分区与旧口径污染源审计
+
+- `已确认` 已完成《视频工厂》唯一正式工作区 `/Users/fan/Documents/视频工厂` 的“新老文件分区与旧口径污染源审计”。
+- `已确认` 本轮只做只读审计 + 报告落库；未删除、未移动、未重命名任何文件，未修改 `dist/latest_review_pack/`、`current_publish_target`、`content_validation`、`send_ready`、`GPT 数据源/` 或 `GPT数据源/` 当前 10 份执行包。
+- `已确认` 当前正式核心区已收束到：`AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_source/01_execution_rules.md`、`codex_log/latest.md`、`codex_log/current_*`、`GPT数据源/`、`review_loop/`、`dist/latest_review_pack/` 与当前代码 / 工作台执行层。
+- `已确认` 已发现高风险污染源：
+  - `执行日志_codex_log/最新摘要_latest.md` 仍是直播项目旧摘要，但 `AGENTS.md` 默认执行规则仍提到它。
+  - `project_source/07_current_formal_facts.md` 仍保留历史“通过 / 可直接发送”样片口径，且仍被 `project_source` 多个入口文件引用。
+  - `codex_source/02_codex_index.md`、`00_current_repo_audit.md`、`07_formal_api_demo_target_plan.md` 仍保留启动期 / demo 导航语义。
+  - `dist/latest_review_pack/` 内同目录并存当前灰测口径文件与旧 v3 / 旧 v3.1 副本文件。
+- `治理报告`：`治理_reports/20260508_新老文件分区与旧口径污染源审计_file_partition_and_stale_context_audit/新老文件分区与旧口径污染源审计报告_file_partition_and_stale_context_audit_report.md`
+- `执行日志`：`codex_log/20260508_新老文件分区与旧口径污染源审计_file_partition_and_stale_context_audit.md`
+- `下一个目标`：先做入口级旧口径降权与引用修正，再决定哪些历史产物进入归档候选、哪些纯缓存对象进入删除候选。
+
 ## 20260505｜复盘到文案调整桥接
 
 - `已确认` 已新增复盘到文案调整桥接规则：`review_loop/09_复盘到文案调整桥接_review_to_copy_revision_bridge.md`。
