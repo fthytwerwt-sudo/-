@@ -208,16 +208,30 @@
 - `local preview` / `local mp4` 只能算辅助
 - demo 只是链路锚点，不是质量样片
 
+## 4A. 当前项目中心价值
+
+当前项目中心价值 `已确认` 为：
+
+- `真实 AI 使用经验 + 工作提效实录`
+
+必须同时默认理解：
+
+- 视频默认是：`真实经验证明壳 / 提效证据入口壳`
+- `场景化专业输出工作包` 当前是：`可选沉淀单元 / 产品化承接单元`
+- 不是每条视频默认都必须生成完整工作包
+- 只有出现明确可复用流程、强结果差、用户需求信号或稳定产品化承接空间时，才继续沉淀工作包
+
 ## 5. 当前主读取分支
 
 当前仓库默认主读取分支固定为：
 
-- `codex/user-readable-map`
+- `main`
 
 只有同步回这个分支，才算：
 
 - 新聊天默认正式已知
 - 仓库正式状态已更新
+- 历史文件里若仍出现 `codex/user-readable-map`，只能按 `historical_branch_reference（历史分支引用）` 理解，不得再当成当前主线
 
 ## 5A. 执行层默认同步补丁
 
@@ -228,7 +242,7 @@
 2. 若有真实执行结果，补 `codex_log/YYYYMMDD_任务名.md`
 3. commit
 4. push
-5. 同步回 `codex/user-readable-map`
+5. 同步回 `main`
 
 注意：
 - `content_validation` 未通过，不等于不能同步
@@ -257,7 +271,7 @@
 - 不允许把 `technical_validation` 写成 `content_validation`
 - 不允许用户未最终确认前把当前片子写成可发送状态
 - 不允许旧 `round` 状态继续覆盖最新 `latest_review_pack`
-- 只要改动会影响新会话默认接手判断，就必须同步到 `codex/user-readable-map`
+- 只要改动会影响新会话默认接手判断，就必须同步到 `main`
 
 ## 5C. 旧口径与归档读取规则
 
@@ -275,7 +289,7 @@
 
 当前事实裁决顺序仍为：
 
-1. 用户最新执行单中明确写入并已同步到 `codex/user-readable-map` 的口径。
+1. 用户最新执行单中明确写入并已同步到 `main` 的口径。
 2. `GPT数据源/08_当前正式事实.md`、`dist/latest_review_pack/summary.json`、`codex_log/current_publish_target.md`。
 3. registry、v3.1 视觉路由规则、`dist/latest_review_pack/visual_route_map.json` 与 `dist/latest_review_pack/visual_route_validation_report.json`。
 4. 归档目录和旧 PR 报告，仅作历史证据。
@@ -293,7 +307,7 @@
 - 有空格 `GPT 数据源/` 是 GPT Project 静态协作包，不承载当前 v3 / v3.1 动态状态；除非用户明确要求，不得在仓库清理或视频执行任务中修改它
 - 若两者内容冲突，当前动态事实以无空格 `GPT数据源/`、`dist/latest_review_pack/`、`codex_log/current_publish_target.md` 和用户最新同步口径为准
 - `project_source/` 是历史 / 辅助主题化镜像，不是当前正式事实源
-- 只有写进仓库文件，并同步到 `codex/user-readable-map`，才算新聊天默认正式已知
+- 只有写进仓库文件，并同步到 `main`，才算新聊天默认正式已知
 
 执行层里对“什么算已知”的正式分层，统一看：
 

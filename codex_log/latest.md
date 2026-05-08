@@ -1,5 +1,16 @@
 # Latest
 
+## 20260509｜main主线与项目中心价值口径统一
+
+- `已确认` 当前唯一远端主线 / 默认主读取分支已统一为：`main`。
+- `已确认` 当前项目中心价值已统一为：`真实 AI 使用经验 + 工作提效实录`。
+- `已确认` `场景化专业输出工作包` 已降级为：`可选沉淀单元 / 产品化承接单元`，不再要求每条视频默认生成工作包。
+- `已确认` 当前内容优先验证：真实经验、工作提效证据、真实录屏、前后变化、小样本平台反馈与发布后复盘。
+- `已确认` 本轮未修改视频产物、`dist/latest_review_pack/`、`content_validation`、`send_ready` 或当前发布状态。
+- `治理报告`：`治理_reports/20260509_main主线与项目中心价值口径统一_main_branch_and_value_alignment/main主线与项目中心价值口径统一报告_main_branch_and_value_alignment_report.md`
+- `执行日志`：`codex_log/20260509_main主线与项目中心价值口径统一_main_branch_and_value_alignment.md`
+- `下一个目标`：清理线结束后，回到当前视频工厂主线，继续围绕真实 AI 使用经验、工作提效实录与发布后复盘推进内容验证。
+
 ## 20260509｜最终收尾与 GitHub 分支清理
 
 - `已确认` 本地收尾已完成：`GPT 数据源/10_样片参考质量规则_reference_quality_sample_rule.md` 已入库，工作树不再残留未跟踪规则文件。

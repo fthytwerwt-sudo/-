@@ -82,7 +82,7 @@ registry 中必须区分以下状态：
 | `candidate_reference_pending_confirmation` | 候选参考，待确认 | 有产物或证据，但没有明确锁定确认。 |
 | `locked_reference_confirmed_by_user` | 用户确认的锁定参考 | 用户明确说后续按此继承。 |
 | `locked_reference_confirmed_by_chatgpt` | ChatGPT 复审确认的锁定参考 | ChatGPT 明确复审通过并建议后续默认继承。 |
-| `locked_reference_formal_synced` | 已同步主读取分支的锁定参考 | locked reference 已进入 `codex/user-readable-map`。 |
+| `locked_reference_formal_synced` | 已同步主读取分支的锁定参考 | locked reference 已进入 `main`。 |
 | `failed_or_pending_reference` | 失败或待复盘参考 | 用户指出不符合，或关键口径仍待复盘。 |
 | `candidate_or_rule_reference` | 候选规则参考 | 规则草案、PR 草案或当前任务条件已知。 |
 
@@ -106,7 +106,7 @@ registry 中必须区分以下状态：
 7. 有 `allowed_changes（允许修改范围）`。
 8. 有 `blocked_if（阻断条件）`。
 9. 已写入 `codex_source/locked_reference_registry.md`。
-10. 如需成为新聊天默认正式已知，必须同步回 `codex/user-readable-map`。
+10. 如需成为新聊天默认正式已知，必须同步回 `main`。
 
 如果任何字段无法确认：
 
@@ -123,7 +123,7 @@ registry 中必须区分以下状态：
 - 聊天里说过，最多先算 `GPT 已知`。
 - 当前执行单带入，最多先算 `Codex 条件已知`。
 - 写入当前工作分支并 commit / push，才算 `当前分支正式已知`。
-- 合并或同步回 `codex/user-readable-map`，才算 `主读取分支正式已知`。
+- 合并或同步回 `main`，才算 `主读取分支正式已知`。
 
 禁止混淆：
 
@@ -249,7 +249,7 @@ registry 中必须区分以下状态：
 - 把失败 reference 写成默认继承样板。
 - 把 PR 自评 pass 写成用户确认。
 - 把局部样板的“可参考”写成“全片必须复刻”。
-- 把当前分支新增 registry 写成主读取分支已同步，除非已经同步回 `codex/user-readable-map`。
+- 把当前分支新增 registry 写成主读取分支已同步，除非已经同步回 `main`。
 - 在没有用户授权时重做已锁定位置。
 
 ## 13. 继承报告最低验收

@@ -62,9 +62,13 @@
 `归档删除区_archive_delete_zone/` 只作为旧口径隔离、旧入口隔离、旧产物候选和清单区使用，不得作为默认读取入口，不得高于 `GPT数据源/`、`codex_log/latest.md`、`dist/latest_review_pack/` 或当前执行规则层。
 
 当前已确认：
+- `current_reading_branch = main（当前唯一远端主线 / 默认主读取分支）`
 - `latest_review_pack` 当前指向 `20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix`
 - `current_video_baseline = v3.1（当前视频基线）`
 - `future_iteration_base = v3.1（后续升级 / 修改 / 技术优化 / GPT 文案侧回炉的默认基础）`
+- `current_project_core_value = 真实 AI 使用经验 + 工作提效实录`
+- `场景化专业输出工作包` 当前降级为：`可选沉淀单元 / 产品化承接单元`
+- 当前视频默认优先服务：真实 AI 使用经验、工作提效实录、真实录屏证据、前后变化、小样本平台反馈与发布后复盘
 - v3 只保留为历史候选 / 对照，不再作为后续默认修改基础。
 - `technical_validation = passed（v3.1 技术验证通过）`，但 `technical_line_locked = false（技术线未锁定）`
 - `technical_upgrade_next = true（下一步仍需技术升级）`
@@ -109,7 +113,7 @@
 - 不允许把 `technical_validation` 写成 `content_validation`
 - 不允许用户未最终确认前把当前片子写成可发送状态
 - 不允许旧 `round` 状态继续覆盖最新 `latest_review_pack`
-- 只要改动会影响新会话默认接手判断，就必须同步到 `codex/user-readable-map`
+- 只要改动会影响新会话默认接手判断，就必须同步到 `main`
 
 ### 2.2B 《视频工厂》旧口径降权规则
 

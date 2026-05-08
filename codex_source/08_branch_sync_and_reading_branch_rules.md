@@ -19,13 +19,13 @@
 
 当前仓库默认主读取分支固定为：
 
-- `codex/user-readable-map`
+- `main`
 
 新聊天 / 新 Codex 会话按仓库接手时，默认以该分支为准。
 
 ## 3. 正式状态判定
 
-只有同步回 `codex/user-readable-map` 的结果，才默认算仓库正式状态。
+只有同步回 `main` 的结果，才默认算仓库正式状态。
 
 以下情况都不等于仓库正式状态：
 
@@ -55,7 +55,7 @@
 
 凡本轮形成了新的仓库正式事实，且该结果应成为新聊天默认接手口径，除 `commit + push` 外，还必须：
 
-4. 同步回 `codex/user-readable-map`
+4. 同步回 `main`
 
 这里的“新的仓库正式事实”必须按下面这条补丁理解，不得再偷换成“只有成功达标才算”：
 
@@ -64,7 +64,7 @@
 2. 若有真实执行结果，补 `codex_log/YYYYMMDD_任务名.md`
 3. commit
 4. push
-5. 同步回 `codex/user-readable-map`
+5. 同步回 `main`
 
 注意：
 - `content_validation` 未通过，不等于不能同步
@@ -119,7 +119,7 @@
 
 - lane / parallel 建议属于接手口径
 - 不是只在聊天里说过就算完成
-- 只有回流到 `codex/user-readable-map` 才算正式已知
+- 只有回流到 `main` 才算正式已知
 
 ### 4.3 不得误报
 
@@ -136,7 +136,7 @@
 1. 当前工作分支
 2. 最新提交 SHA
 3. 是否已 push
-4. 是否已同步回 `codex/user-readable-map`
+4. 是否已同步回 `main`
 
 ## 6. 状态分类必须显式标记
 
@@ -157,7 +157,7 @@
 - 已更新 `codex_log/latest.md`
 - 已 commit
 - 已 push
-- 已同步回 `codex/user-readable-map`
+- 已同步回 `main`
 
 补充解释：
 
@@ -182,7 +182,7 @@
 同时满足：
 
 - 已有 PR
-- PR 尚未回流 `codex/user-readable-map`
+- PR 尚未回流 `main`
 
 ### `local_only`
 
@@ -226,7 +226,7 @@
 5. 命中写日志条件时补完整日志
 6. commit
 7. push 当前任务分支
-8. 只要本轮结果改变了下个聊天框默认应该知道的当前状态，就同步回 `codex/user-readable-map`
+8. 只要本轮结果改变了下个聊天框默认应该知道的当前状态，就同步回 `main`
 9. 回报 4 个同步锚点
 
 ## 9. 允许例外
@@ -247,4 +247,4 @@
 
 ## 10. 当前一句话规则
 
-凡本轮存在 Git 跟踪的仓库改动，且不是 `local_only` / `no_repo_change`，必须完成 `latest.md + commit + push`；只要本轮结果改变了下个聊天框默认应该知道的当前状态，无论成功、失败、半成功还是 `blocked`，都还必须同步回 `codex/user-readable-map`；当前待发对象指针里的 `lane_recommendation / parallel_recommendation` 也属于这种必须回流的接手口径；未满足这些条件时，不得写“已完成上传”或“已同步”。
+凡本轮存在 Git 跟踪的仓库改动，且不是 `local_only` / `no_repo_change`，必须完成 `latest.md + commit + push`；只要本轮结果改变了下个聊天框默认应该知道的当前状态，无论成功、失败、半成功还是 `blocked`，都还必须同步回 `main`；当前待发对象指针里的 `lane_recommendation / parallel_recommendation` 也属于这种必须回流的接手口径；未满足这些条件时，不得写“已完成上传”或“已同步”。

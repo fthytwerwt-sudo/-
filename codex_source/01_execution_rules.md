@@ -313,7 +313,7 @@ large_task_gate:
 1. 用户明确要求先看仓库现实
 2. 任务目标是“同步源事实 / 修复接手口径 / 改默认主线”
 3. 任务涉及 `project_source` 与 `codex_source` 的交叉修改
-4. 任务涉及主读取分支 `codex/user-readable-map`
+4. 任务涉及主读取分支 `main`
 5. 当前仓库文件与聊天里的说法可能不一致
 
 ## 5. 默认允许修改范围
@@ -396,7 +396,7 @@ large_task_gate:
 
 默认线路：
 
-先审计现状 -> 改文件 -> 更新日志 -> 验证 -> commit -> push 当前分支 -> 同步回 `codex/user-readable-map`
+先审计现状 -> 改文件 -> 更新日志 -> 验证 -> commit -> push 当前分支 -> 同步回 `main`
 
 ## 8. 执行日志硬规则
 
@@ -449,7 +449,7 @@ large_task_gate:
 - 不允许把 `technical_validation` 写成 `content_validation`
 - 不允许用户未最终确认前把当前片子写成可发送状态
 - 不允许旧 `round` 状态继续覆盖最新 `latest_review_pack`
-- 只要改动会影响新会话默认接手判断，就必须同步到 `codex/user-readable-map`
+- 只要改动会影响新会话默认接手判断，就必须同步到 `main`
 
 ## 8A-1. 发布后灰度测试与复盘接入规则
 
@@ -609,7 +609,7 @@ Codex 职责边界：
 
 当前仓库默认主读取分支固定为：
 
-- `codex/user-readable-map`
+- `main`
 
 状态分类必须显式标记为：
 
@@ -623,7 +623,7 @@ Codex 职责边界：
 
 - “任务分支已 push”不等于“主读取分支已更新”
 - “已开 PR”不等于“仓库正式状态已同步”
-- 只有同步回 `codex/user-readable-map`，才算主读取分支正式已知
+- 只有同步回 `main`，才算主读取分支正式已知
 
 ## 10. 这类任务的最小验证
 
@@ -636,7 +636,7 @@ Codex 职责边界：
 5. 若本轮补的是 lane / parallel 机制，再读取：
    - `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md`
    - `codex_source/13_execution_lane_and_parallel_rules.md`
-6. 若声称已同步回主读取分支，使用 `git show codex/user-readable-map:路径` 做实际读取验证
+6. 若声称已同步回主读取分支，使用 `git show origin/main:路径` 做实际读取验证
 
 ## 11. 完成口径硬规则
 
@@ -661,4 +661,4 @@ Codex 职责边界：
 1. 当前工作分支
 2. 最新提交 SHA
 3. 是否已 push
-4. 是否已同步回 `codex/user-readable-map`
+4. 是否已同步回 `main`
