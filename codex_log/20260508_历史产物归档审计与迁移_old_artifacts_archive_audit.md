@@ -26,6 +26,10 @@
 - 已明确迁移 1 组 tracked 历史产物：
   - `验证_reports/20260503_阿里云剪辑复接验证_after_audit_aliyun_editing_reconnect_validation/`
   - 新路径：`归档删除区_archive_delete_zone/旧产物候选_old_artifact_candidates/验证报告_legacy_validation_reports/...`
+- 已迁移 3 组本地未跟踪旧媒体输出到：
+  - `归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/local_untracked_media/dist/_guardrail_probe_20260408/`
+  - `归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/local_untracked_media/dist/_provider_rotation_probe/`
+  - `归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/local_untracked_media/dist/_provider_rotation_realcheck/`
 - 已确认保留：
   - `dist/latest_review_pack/` 当前正式入口
   - `dist/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/`
@@ -42,17 +46,10 @@
   - `dist/20260424_不放大完整可读_no_zoom_completeness/`
   - `dist/.DS_Store`
 
-## 本轮未迁移但已识别的旧本地输出
-
-- `dist/_guardrail_probe_20260408/`
-- `dist/_provider_rotation_probe/`
-- `dist/_provider_rotation_realcheck/`
-
-说明：它们是本地未跟踪历史输出；本轮不强行迁入 Git 归档轨迹。
-
 ## 报告路径
 
 - `治理报告`：`治理_reports/20260508_历史产物归档审计与迁移_old_artifacts_archive_audit/历史产物归档审计与迁移报告_old_artifacts_archive_audit_report.md`
+- `旧媒体迁移清单`：`归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/manifests/旧图片视频迁移清单_old_media_move_manifest.md`
 
 ## 下一个目标
 

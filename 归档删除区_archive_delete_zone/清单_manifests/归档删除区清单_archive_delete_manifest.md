@@ -16,6 +16,9 @@
 - `归档删除区_archive_delete_zone/旧产物候选_old_artifact_candidates/dist_latest_review_pack_legacy_snapshots/AI做PPT踩坑_成品候选_v31_review_manifest.md`
 - `归档删除区_archive_delete_zone/旧产物候选_old_artifact_candidates/dist_latest_review_pack_legacy_snapshots/AI做PPT踩坑_成品候选_v31_summary.json`
 - `归档删除区_archive_delete_zone/旧产物候选_old_artifact_candidates/验证报告_legacy_validation_reports/20260503_阿里云剪辑复接验证_after_audit_aliyun_editing_reconnect_validation/`
+- `归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/local_untracked_media/dist/_guardrail_probe_20260408/`
+- `归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/local_untracked_media/dist/_provider_rotation_probe/`
+- `归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/local_untracked_media/dist/_provider_rotation_realcheck/`
 
 ## 待归档_archive_candidates
 
@@ -38,6 +41,9 @@
 - `dist/_provider_rotation_realcheck/`
   - 标记：`local_only_untracked_provider_realcheck_archive_candidate`
   - 本轮状态：已扫描；因本地未跟踪且无法用 `git mv` 保留历史，本轮不迁移
+- `归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/tracked_git_media/`
+  - 标记：`tracked_media_archive_lane_ready`
+  - 本轮状态：已建目录，本轮无新增可安全迁入的 tracked 媒体
 
 ## 待删除_delete_candidates
 
@@ -83,3 +89,4 @@
 - `复审包_review_packs/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/`
 - `复审包_review_packs/20260430_可爱风格卡片页参考核查_cute_card_reference_audit/`
 - `复审包_review_packs/20260430_骚萌卡历史样本复审_sassy_card_reference_review/`
+- `归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/local_untracked_media/.gitignore`

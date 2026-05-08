@@ -55,9 +55,20 @@
 
 ## 5. 已移动归档候选
 
+### tracked 历史产物包
+
 - `验证_reports/20260503_阿里云剪辑复接验证_after_audit_aliyun_editing_reconnect_validation/`
   - 新路径：`归档删除区_archive_delete_zone/旧产物候选_old_artifact_candidates/验证报告_legacy_validation_reports/20260503_阿里云剪辑复接验证_after_audit_aliyun_editing_reconnect_validation/`
   - 原因：历史技术验证报告包，不再属于当前默认工作区入口
+
+### local untracked 旧媒体输出
+
+- `dist/_guardrail_probe_20260408/`
+  - 新路径：`归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/local_untracked_media/dist/_guardrail_probe_20260408/`
+- `dist/_provider_rotation_probe/`
+  - 新路径：`归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/local_untracked_media/dist/_provider_rotation_probe/`
+- `dist/_provider_rotation_realcheck/`
+  - 新路径：`归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/local_untracked_media/dist/_provider_rotation_realcheck/`
 
 ## 6. 未移动但已标记
 
@@ -68,14 +79,6 @@
 - `dist/完整成片_full_videos/`
 - `本地归档_local_archive/`
 - `素材检查_reports/20260429_文案样本节奏提取_copy_sample_rhythm_extract/`
-
-### 归档候选但本轮不迁移
-
-- `dist/_guardrail_probe_20260408/`
-- `dist/_provider_rotation_probe/`
-- `dist/_provider_rotation_realcheck/`
-
-原因：这些目录是本地未跟踪历史输出；本轮不强行迁入 Git 归档轨迹。
 
 ### 确认后可删候选
 
@@ -89,6 +92,7 @@
 - `归档删除区_archive_delete_zone/清单_manifests/归档删除区清单_archive_delete_manifest.md`
 - `归档删除区_archive_delete_zone/清单_manifests/本轮移动记录_move_log_20260508.md`
 - `归档删除区_archive_delete_zone/清单_manifests/回滚说明_rollback_guide.md`
+- `归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/manifests/旧图片视频迁移清单_old_media_move_manifest.md`
 
 ## 8. 禁止项检查
 

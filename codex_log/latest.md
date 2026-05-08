@@ -4,6 +4,7 @@
 
 - `已确认` 已完成第二轮历史产物扫描：`dist/`、`复审包_review_packs/`、`验证_reports/`、`样片报告_sample_reports/`、`素材检查_reports/`、`本地归档_local_archive/`。
 - `已确认` 已迁移 1 组明确旧产物候选：`验证_reports/20260503_阿里云剪辑复接验证_after_audit_aliyun_editing_reconnect_validation/` -> `归档删除区_archive_delete_zone/旧产物候选_old_artifact_candidates/验证报告_legacy_validation_reports/...`
+- `已确认` 已迁移 3 组本地未跟踪旧媒体输出到：`归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/local_untracked_media/dist/`
 - `已确认` 当前继续保留不动：
   - `dist/latest_review_pack/` 当前正式入口
   - `dist/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/`

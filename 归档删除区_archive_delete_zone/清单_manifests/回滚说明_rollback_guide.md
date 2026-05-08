@@ -10,6 +10,9 @@
 - `codex_source/07_formal_api_demo_target_plan.md`
 - `归档删除区_archive_delete_zone/旧产物候选_old_artifact_candidates/dist_latest_review_pack_legacy_snapshots/` 下的全部旧 `v3` / 旧 `v31` 副本
 - `归档删除区_archive_delete_zone/旧产物候选_old_artifact_candidates/验证报告_legacy_validation_reports/20260503_阿里云剪辑复接验证_after_audit_aliyun_editing_reconnect_validation/`
+- `归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/local_untracked_media/dist/_guardrail_probe_20260408/`
+- `归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/local_untracked_media/dist/_provider_rotation_probe/`
+- `归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/local_untracked_media/dist/_provider_rotation_realcheck/`
 
 示例：
 
@@ -31,6 +34,14 @@ git mv '归档删除区_archive_delete_zone/旧产物候选_old_artifact_candida
 git mv '归档删除区_archive_delete_zone/旧产物候选_old_artifact_candidates/dist_latest_review_pack_legacy_snapshots/AI做PPT踩坑_成品候选_v31_review_manifest.md' 'dist/latest_review_pack/AI做PPT踩坑_成品候选_v31_review_manifest.md'
 git mv '归档删除区_archive_delete_zone/旧产物候选_old_artifact_candidates/dist_latest_review_pack_legacy_snapshots/AI做PPT踩坑_成品候选_v31_summary.json' 'dist/latest_review_pack/AI做PPT踩坑_成品候选_v31_summary.json'
 git mv '归档删除区_archive_delete_zone/旧产物候选_old_artifact_candidates/验证报告_legacy_validation_reports/20260503_阿里云剪辑复接验证_after_audit_aliyun_editing_reconnect_validation' '验证_reports/20260503_阿里云剪辑复接验证_after_audit_aliyun_editing_reconnect_validation'
+```
+
+## 2A. 本地未跟踪旧媒体回滚
+
+```bash
+mv '归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/local_untracked_media/dist/_guardrail_probe_20260408' 'dist/_guardrail_probe_20260408'
+mv '归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/local_untracked_media/dist/_provider_rotation_probe' 'dist/_provider_rotation_probe'
+mv '归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/local_untracked_media/dist/_provider_rotation_realcheck' 'dist/_provider_rotation_realcheck'
 ```
 
 ## 3. 整个 commit 回滚
