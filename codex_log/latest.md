@@ -1,5 +1,18 @@
 # Latest
 
+## 20260509｜DeepSeek readonly explorer API 复测
+
+- `已确认` 本轮只重跑 DeepSeek readonly explorer 最小 API 验证。
+- `已确认` `.env` 存在，且 `DEEPSEEK_API_KEY = present_nonempty`；本轮未打印 API key。
+- `已确认` 当前模型配置为：`deepseek-v4-pro`。
+- `api_validation`: `passed`
+- `context_pack_validation`: `failed_unexpected_output`
+- `说明`：DeepSeek API 调用链已真实返回成功，但本轮生成的 `latest_prefetch_context_pack.md` 缺少 `risk_and_conflict_report` 与 `candidate_summary` 两个要求字段，因此还不能写成“有效上下文包已通过”。
+- `已确认` 这只证明 DeepSeek readonly explorer 最小 API 调用通过，不代表多 agent runtime 已跑通。
+- `已确认` 本轮未修改视频产物、`dist/latest_review_pack/`、`content_validation`、`send_ready`、`publish_status`、声音状态。
+- `执行日志`：`codex_log/20260509_DeepSeek只读探索器API复测.md`
+- `下一个目标`：修正 readonly explorer 输出结构约束后，再用 DeepSeek 为一次真实 Codex 任务生成完整上下文包。
+
 ## 20260509｜DeepSeek readonly explorer 模型锁定与最小验证
 
 - `已确认` 已把 DeepSeek readonly explorer 默认模型锁定为：`deepseek-v4-pro`。
