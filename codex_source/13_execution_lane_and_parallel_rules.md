@@ -79,6 +79,35 @@
 
 ---
 
+## 3B. DeepSeek 只读供料层边界
+
+`已确认` DeepSeek 在《视频工厂》中的默认定位是：
+
+`readonly explorer（只读探索器） / 供料层`
+
+适用结构：
+- `read_parallel（只读并发）`
+- `explore_plus_integrate（探索 + 单点整合）`
+
+DeepSeek 可以输出：
+- `prefetch_context_pack（预读取上下文包）`
+- `must_read_file_map（必读文件地图）`
+- `risk_and_conflict_report（风险与冲突报告）`
+- `candidate_summary（候选摘要）`
+
+DeepSeek 不得：
+- 修改仓库文件
+- 参与写入并发
+- 直接拍板项目事实
+- 把外部资料升级成 `已确认`
+- 替代 Codex 的原文件复核、验证、日志和 Git 收尾
+
+任何写入仍由 Codex `integrator（统一执行者）` 执行。
+
+若 DeepSeek 输出与仓库原文件冲突，Codex 必须以仓库原文件为准，并在最终回报中标记冲突。
+
+---
+
 ## 4. Lane 定义总表
 
 | lane | 适用情况 | 默认动作 | 默认风险姿态 |
@@ -299,6 +328,7 @@
 - 多条读取线互不阻塞
 - 最终由单点整合
 - 并发只为了压缩读取和定位时间
+- DeepSeek 可作为外部只读供料层，预先整理上下文包、必读文件地图和风险冲突报告
 
 #### 禁用场景
 
@@ -325,6 +355,7 @@
 - 当前项目里最常见的提速结构
 - 2 条探索线只读并行
 - 1 条整合线独占写权
+- DeepSeek 可以承担其中一条外部只读探索线，但最终写入仍必须由 Codex integrator 完成
 
 #### 禁用场景
 

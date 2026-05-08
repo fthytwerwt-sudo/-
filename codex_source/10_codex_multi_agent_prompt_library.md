@@ -20,7 +20,7 @@
 
 一句话：
 
-本文件是《视频工厂》当前执行层的多 agent 模板库，核心模式固定为 `2 个 explorers 并行只读 + 1 个 integrator 统一落地`。
+本文件是《视频工厂》当前执行层的多 agent 模板库，核心模式固定为 `2 个 explorers 并行只读 + 1 个 integrator 统一落地`；在 OPC 新口径下，DeepSeek 可以作为外部只读 explorer / 供料层，Codex 仍然是唯一写入 integrator。
 
 ## 2. 适用场景
 
@@ -115,6 +115,23 @@
   - 只有 integrator 可以决定最终提交哪些文件
   - 只有 integrator 可以汇总最终对用户的真实结果
 
+### DeepSeek readonly explorer（外部只读探索器）
+
+- 默认职责：
+  - 预读分散上下文
+  - 压缩长文件信息
+  - 输出 `prefetch_context_pack（预读取上下文包）`
+  - 输出 `must_read_file_map（必读文件地图）`
+  - 输出 `risk_and_conflict_report（风险与冲突报告）`
+- 默认只读：
+  - 不改文件
+  - 不写仓库事实
+  - 不替项目拍板
+  - 不替 Codex 做 Git 收尾
+- 复核要求：
+  - Codex 必须复核关键原文件
+  - DeepSeek 摘要与仓库原文件冲突时，以仓库原文件为准
+
 ## 5. 每个角色的职责边界
 
 ### Explorer 的硬边界
@@ -131,6 +148,7 @@
 - 不允许把 explorer 的总结直接当成已验证事实
 - 必须自己做最终 diff / 验证 / 日志 / Git 收尾
 - 若 explorer 之间有冲突，必须在落地前显式化，而不是静默选边
+- 若 explorer 是 DeepSeek，仍必须按只读供料处理，不得把 DeepSeek 输出直接写成当前正式事实
 
 ## 6. 什么时候适合用多 Agent
 
@@ -408,6 +426,85 @@
 4. 验收结果
 5. 剩余待验证点
 6. Git 状态与同步锚点
+```
+
+### 8.5 DeepSeek readonly explorer（DeepSeek 只读探索器）
+
+```text
+【任务目标】
+请作为 DeepSeek readonly explorer（只读探索器）为《视频工厂》当前任务做只读供料。
+
+【角色边界】
+- 你只读，不写文件。
+- 你不拍板项目事实。
+- 你不替代 ChatGPT / 用户的判断。
+- 你不替代 Codex 的原文件复核、修改、验证、日志和 Git 收尾。
+
+【输出目标】
+1. `prefetch_context_pack（预读取上下文包）`
+2. `must_read_file_map（必读文件地图）`
+3. `risk_and_conflict_report（风险与冲突报告）`
+4. `candidate_summary（候选摘要）`
+
+【必须标记】
+- `已确认`：仅限你从原文件直接读到的内容。
+- `待验证`：需要 Codex 回读原文件或执行验证的内容。
+- `冲突`：你的摘要与原文件、用户任务或仓库规则可能冲突的内容。
+
+【禁止】
+- 不得输出最终修改稿。
+- 不得要求写文件。
+- 不得把外部资料直接写成项目正式事实。
+- 不得把 `content_validation`、`send_ready`、`publish_status`、`voice_validation`、`final_voice_validated` 推进。
+
+【交给 Codex 的格式】
+1. 本轮必读文件地图
+2. 每个文件的核心事实
+3. 允许修改范围
+4. 禁止修改范围
+5. 风险与冲突报告
+6. 建议 Codex 复核的原文位置
+```
+
+### 8.6 Codex integrator（Codex 统一执行者）
+
+```text
+【任务目标】
+请作为 Codex integrator（统一执行者 / 唯一写入层）执行《视频工厂》当前任务。
+
+【角色边界】
+- 你是唯一写入者。
+- 你必须复核关键原文件。
+- 你可以吸收 DeepSeek / explorer 的只读供料，但不能把它们直接当成已验证事实。
+- 你负责最终修改、验证、日志、Git 收尾。
+
+【执行顺序】
+1. 输出 `route_decision（路由判断）`。
+2. 回读必读文件并标记 `read_status（读取状态）`。
+3. 复核 DeepSeek / explorer 输出与仓库原文件是否冲突。
+4. 只在允许范围内修改文件。
+5. 更新 `codex_log/latest.md`，命中条件时新增 dated log。
+6. 执行 `git diff --check`。
+7. 检查禁止项没有被误改。
+8. commit / push / PR 收尾。
+
+【硬边界】
+- 不改视频产物。
+- 不改 `dist/latest_review_pack/`。
+- 不把 `technical_validation` 写成 `content_validation`。
+- 不把 `send_ready` 写成 true。
+- 不把 DeepSeek API 未接入写成已接入。
+- 不把多 agent runtime 未跑通写成已跑通。
+
+【最终输出】
+1. `route_decision（路由判断）`
+2. `read_status（读取状态）`
+3. `actual_changes（实际改动）`
+4. `protected_items_check（保护项检查）`
+5. `validation（验证）`
+6. `git_status（Git 状态）`
+7. `remaining_risks（剩余风险）`
+8. `下一个目标`
 ```
 
 ## 9. 使用注意事项

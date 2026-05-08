@@ -13,7 +13,7 @@
 - 当前正式默认主线是什么
 - 当前主读取分支是什么
 - GPT 数据源与仓库不同步时，谁算源事实
-- 当前 10 份执行包默认该怎么读
+- 当前 10 份基础执行包 + 1 份 OPC 总纲机制文件默认该怎么读
 
 ## 2. `codex_source/` 负责什么
 
@@ -31,7 +31,7 @@
 - 单条脚本内容
 - 代码实现细节
 
-当前项目正式事实正文属于 `GPT数据源/` 当前 10 份执行包；`project_source/` 只作为历史 / 辅助主题化镜像，不再作为当前主事实源。代码实现细节仍归代码层。
+当前项目正式事实正文属于 `GPT数据源/` 当前 10 份基础执行包 + 1 份 OPC 总纲机制文件；`project_source/` 只作为历史 / 辅助主题化镜像，不再作为当前主事实源。代码实现细节仍归代码层。
 
 `归档删除区_archive_delete_zone/` 只用于隔离旧口径、旧入口、旧产物候选与清单；默认不得读取，不得作为当前事实、当前执行入口或当前复审入口。
 
@@ -43,14 +43,38 @@
 2. `codex_source/00_codex_readme.md`
 3. `codex_log/latest.md`
 4. `GPT数据源/00_项目总述.md`
-5. `GPT数据源/01_项目系统提示词.md`
-6. `GPT数据源/03_总索引与阅读顺序.md`
-7. `GPT数据源/08_当前正式事实.md`
-8. `GPT数据源/06_当前主线锚点_API生成真人_用户录制素材_少量PPT_云端剪辑.md`
+5. `GPT数据源/10_OPC一人公司闭环与多AI协作机制.md`
+6. `GPT数据源/01_项目系统提示词.md`
+7. `GPT数据源/03_总索引与阅读顺序.md`
+8. `GPT数据源/08_当前正式事实.md`
+9. `GPT数据源/06_当前主线锚点_API生成真人_用户录制素材_少量PPT_云端剪辑.md`
 
 每次 Codex 执行前必须先通过 `route_decision（路由判断）`；未输出项目路由、任务类型、责任层级、必读文件与读取状态前，不得执行。
 
 若任务命中长视频、大信息量、多文件、多步骤、多验证，或用户明确提到多 agent / 并发 / 提速，Codex 必须在 `route_decision（路由判断）` 阶段触发 `large_task_gate（大任务闸门）`，并读取 `codex_source/13_execution_lane_and_parallel_rules.md` 与 `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md`。
+
+## 3A. OPC 上位身份与多 AI 协作入口
+
+`已确认` 当前《视频工厂》上位身份已升级为：
+
+`OPC 一人公司 AI 闭环验证系统`
+
+命中《视频工厂》后，除原入口外，应补读：
+
+- `GPT数据源/10_OPC一人公司闭环与多AI协作机制.md`
+
+当前多 AI 协作默认边界：
+- `ChatGPT` = 总控脑 / 判断层
+- `Codex` = 唯一写入执行层 / `Integrator`
+- `DeepSeek` = 只读供料层 / `Explorer`
+- `Perplexity` = 外部研究层
+- 其他 AI / 工具 = 按任务补位
+
+硬规则：
+- DeepSeek 可作为只读 `Explorer（探索器）` / 供料层，输出上下文包、必读文件地图和风险冲突报告。
+- DeepSeek 不得写文件，不得拍板项目事实，不得替代 Codex 验证。
+- Codex 仍是唯一写入 `Integrator（统一执行者）`，负责修改、验证、日志、Git 收尾。
+- `reference（参考）`、`reference_quality_sample（参考质量样片）`、`locked reference（锁定参考）`、`visual route（视觉路由）` 默认锁质量机制，不锁死每条内容的固定流程。
 
 2026-05-04 项目升级前清库覆盖口径：
 
@@ -65,7 +89,7 @@
 - `GPT 数据源/10_样片参考质量规则_reference_quality_sample_rule.md` 与整个 `GPT 数据源/` 目录本轮冻结不动。
 
 当前正式来源优先级：
-1. `GPT数据源/` 当前 10 份执行包
+1. `GPT数据源/` 当前 10 份基础执行包 + `10_OPC一人公司闭环与多AI协作机制.md`
 2. `dist/latest_review_pack/summary.json`
 3. `dist/latest_review_pack/review_manifest.md`
 4. `codex_log/latest.md`
@@ -200,6 +224,7 @@
 
 必须同时默认理解：
 
+- 这条主线在 OPC 口径下是内容化输出的默认执行载体，不是项目总目标
 - 结构跟着文案走
 - `API生成真人段` 出现 1 次还是 2 次，是 block 路由结果
 - pure PPT / 信息卡，不再是默认主线
@@ -327,4 +352,4 @@
 
 ## 8. 入口一句话
 
-命中《视频工厂》后，新会话默认先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md`，再按 10 份执行包最小顺序补读 `GPT数据源/00`、`GPT数据源/01`、`GPT数据源/03`、`GPT数据源/08`、`GPT数据源/06`；当前正式事实以 `GPT数据源/` 当前 10 份执行包、`dist/latest_review_pack/summary.json`、`dist/latest_review_pack/review_manifest.md` 和 `codex_log/latest.md` 为准，`project_source/` 只作历史 / 辅助镜像；当前 `latest_review_pack` 指向 v3.1，`current_video_baseline = v3.1`，`future_iteration_base = v3.1`，`publish_status = gray_test_published`，`gray_test_status = active`，`current_phase = post_publish_gray_test`，`content_validation = gray_testing_not_final_passed`，`send_ready = false`；若任务命中完整成片 / 成品候选片 / 技术预览升级 / 样片回炉 / 字幕 / TTS / 卡片 / 放大 / 剪辑 / 视觉母版修正，必须先读 `codex_source/14_locked_reference_inheritance_rules.md` 和 `codex_source/locked_reference_registry.md`，读不到即 blocked；若任务命中 v3.1 / 段落提示卡 / 信息卡 / 骚萌卡 / visual_route_map，还必须先读 `codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md`，并先验证 `visual_route_map.json`；PR #7 B 是后续骚萌卡唯一执行参考，读不到必须 blocked，不得回退 PR #7 A；若任务命中截图 / 数据截图 / 灰度测试 / 发片 / 发布后 / 复盘 / 数据记录 / 24h / 72h / 7 天 / 播放量 / 私信 / 咨询，必须读取 `codex_log/current_gray_test_target.md`、`review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`、`review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md` 与当前 V001 记录目录；`7d_play_count = 6000` 是当前小样本基础测试流量门槛，指标体系不是运营数据大表而是下一轮改动定位器；用户可以直接给截图，Codex 按视频 / 时间窗 / 数据类型归档并提取字段，先记录 24h / 72h / 7 天数据，再回答四个复盘问题并做 Codex 初检和 ChatGPT 判断，不得跳过数据直接设定下一条文案；当前正式默认主线按“API 生成真人 + 用户录制素材 + 少量 PPT + 云端剪辑”理解，结构跟着文案走，`API生成真人段` 次数由 block 路由决定，`云端剪辑 / cloud-only` 只能写成正式方向，不能写成 runtime 已稳定跑通。
+命中《视频工厂》后，新会话默认先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md`，再按 `10 份基础执行包 + 1 份 OPC 总纲机制文件` 最小顺序补读 `GPT数据源/00`、`GPT数据源/10_OPC`、`GPT数据源/01`、`GPT数据源/03`、`GPT数据源/08`、`GPT数据源/06`；当前正式事实以 `GPT数据源/` 当前 `10 + 1` 文件、`dist/latest_review_pack/summary.json`、`dist/latest_review_pack/review_manifest.md` 和 `codex_log/latest.md` 为准，`project_source/` 只作历史 / 辅助镜像；当前上位身份是 `OPC 一人公司 AI 闭环验证系统`，视频是内容化与反馈出口，四件套主线是内容化输出默认执行载体；当前 `latest_review_pack` 指向 v3.1，`current_video_baseline = v3.1`，`future_iteration_base = v3.1`，`publish_status = gray_test_published`，`gray_test_status = active`，`current_phase = post_publish_gray_test`，`content_validation = gray_testing_not_final_passed`，`send_ready = false`；若任务命中完整成片 / 成品候选片 / 技术预览升级 / 样片回炉 / 字幕 / TTS / 卡片 / 放大 / 剪辑 / 视觉母版修正，必须先读 `codex_source/14_locked_reference_inheritance_rules.md` 和 `codex_source/locked_reference_registry.md`，读不到即 blocked；若任务命中 v3.1 / 段落提示卡 / 信息卡 / 骚萌卡 / visual_route_map，还必须先读 `codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md`，并先验证 `visual_route_map.json`；PR #7 B 是后续骚萌卡唯一执行参考，读不到必须 blocked，不得回退 PR #7 A；若任务命中截图 / 数据截图 / 灰度测试 / 发片 / 发布后 / 复盘 / 数据记录 / 24h / 72h / 7 天 / 播放量 / 私信 / 咨询，必须读取 `codex_log/current_gray_test_target.md`、`review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`、`review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md` 与当前 V001 记录目录；`7d_play_count = 6000` 是当前小样本基础测试流量门槛，指标体系不是运营数据大表而是下一轮改动定位器；用户可以直接给截图，Codex 按视频 / 时间窗 / 数据类型归档并提取字段，先记录 24h / 72h / 7 天数据，再回答四个复盘问题并做 Codex 初检和 ChatGPT 判断，不得跳过数据直接设定下一条文案；当前正式默认主线按“API 生成真人 + 用户录制素材 + 少量 PPT + 云端剪辑”理解，结构跟着文案走，`API生成真人段` 次数由 block 路由决定，`云端剪辑 / cloud-only` 只能写成正式方向，不能写成 runtime 已稳定跑通。

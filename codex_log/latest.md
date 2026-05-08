@@ -1,5 +1,18 @@
 # Latest
 
+## 20260509｜OPC 一人公司闭环与多 AI 协作机制升级
+
+- `已确认` 本轮只修改项目口径 / 机制 / 路由文件，未执行视频产物、代码、DeepSeek API 或多 agent runtime。
+- `已确认` 已新增 OPC 总纲机制文件：`GPT数据源/10_OPC一人公司闭环与多AI协作机制.md`。
+- `已确认` 已把项目身份升级为：`OPC 一人公司 AI 闭环验证系统`。
+- `已确认` 已把多 AI 协作写成默认架构：`ChatGPT（总控脑 / 判断层）`、`Codex（唯一写入执行层 / Integrator）`、`DeepSeek（只读供料层 / Explorer）`、`Perplexity（外部研究层）`。
+- `已确认` 已把 DeepSeek 定义为只读供料层，不写文件、不拍板项目事实、不替代 Codex 验证。
+- `已确认` 已保持 Codex 为唯一写入 `Integrator（统一执行者）`。
+- `已确认` 已把 `reference（参考）`、`reference_quality_sample（参考质量样片）`、`locked reference（锁定参考）`、`visual route（视觉路由）` 从流程锁升级为机制判断锁：锁质量机制，不锁死固定流程。
+- `已确认` 本轮未修改视频产物、声音 / TTS 产物、图片 / 卡片 / 素材产物、`dist/latest_review_pack/`、`content_validation`、`send_ready`、`publish_status`、`voice_validation`、`final_voice_validated`。
+- `执行日志`：`codex_log/20260509_OPC一人公司闭环与多AI协作机制升级.md`
+- `下一个目标`：基于 OPC 新口径，重新设计内容选题与展示层，并决定是否进入 DeepSeek 只读供料层 API 接入验证。
+
 ## 20260509｜口径一致性修复
 
 - `已确认` 已把 `latest.md` 中的新口径继续收口到当前动态事实执行包核心文件里。
