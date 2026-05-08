@@ -1,5 +1,28 @@
 # Latest
 
+## 20260508｜主工作区与外部归档删除区分离
+
+- `已确认` 已创建 archive-only 外部目录：`/Users/fan/Documents/视频工厂归档+删除`。
+- `已确认` 已把以下旧媒体 / 旧产物 / 待确认大目录外移出主工作区：
+  - `dist/reference_packs/20260427_中段吐槽插入风格_faithful_extract/`
+  - `dist/voice_trials/20260425_round28_10s_voice_trial/`
+  - `dist/voice_trials/20260426_台湾口语开心降噪试配_taiwan_happy_denoise_trial/`
+  - `dist/完整成片_full_videos/`
+  - `本地归档_local_archive/`
+  - `素材检查_reports/20260429_文案样本节奏提取_copy_sample_rhythm_extract/`
+  - `样片报告_sample_reports/`
+  - `dist/prototypes/`
+  - `dist/20260424_不放大完整可读_no_zoom_completeness/`
+  - 内部 archive zone 中已归档的旧媒体 payload
+- `已确认` 当前主工作区继续保留：
+  - `dist/latest_review_pack/` 当前正式入口
+  - `dist/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/`
+  - `复审包_review_packs/` 当前 v31 基线包与当前 reference 包
+  - `素材录制/`
+  - `素材库_assets/`
+- `已确认` `/Users/fan/Documents/视频工厂归档+删除` 只作为 archive-only 外部目录，不是执行工作区，不是 fresh clone，不是 worktree。
+- `下一个目标`：清理并重写内部 archive 指针清单，让后续会话只把外部目录当归档池，不再把内部旧路径当真实存放位置。
+
 ## 20260508｜历史产物归档审计与迁移
 
 - `已确认` 已完成第二轮历史产物扫描：`dist/`、`复审包_review_packs/`、`验证_reports/`、`样片报告_sample_reports/`、`素材检查_reports/`、`本地归档_local_archive/`。

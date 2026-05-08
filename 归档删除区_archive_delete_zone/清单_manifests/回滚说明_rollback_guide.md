@@ -44,6 +44,23 @@ mv '归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifact
 mv '归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/local_untracked_media/dist/_provider_rotation_realcheck' 'dist/_provider_rotation_realcheck'
 ```
 
+## 2B. 外部 archive-only 目录回滚
+
+```bash
+mv '/Users/fan/Documents/视频工厂归档+删除/旧图片视频产物_old_media_artifacts/tracked_git_media/归档删除区_archive_delete_zone/旧产物候选_old_artifact_candidates/dist_latest_review_pack_legacy_snapshots' '归档删除区_archive_delete_zone/旧产物候选_old_artifact_candidates/dist_latest_review_pack_legacy_snapshots'
+mv '/Users/fan/Documents/视频工厂归档+删除/旧图片视频产物_old_media_artifacts/tracked_git_media/归档删除区_archive_delete_zone/旧产物候选_old_artifact_candidates/验证报告_legacy_validation_reports' '归档删除区_archive_delete_zone/旧产物候选_old_artifact_candidates/验证报告_legacy_validation_reports'
+mv '/Users/fan/Documents/视频工厂归档+删除/旧图片视频产物_old_media_artifacts/local_untracked_media/归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/local_untracked_media/dist' '归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/local_untracked_media/dist'
+mv '/Users/fan/Documents/视频工厂归档+删除/待用户确认_user_confirmation_required/dist/reference_packs/20260427_中段吐槽插入风格_faithful_extract' 'dist/reference_packs/20260427_中段吐槽插入风格_faithful_extract'
+mv '/Users/fan/Documents/视频工厂归档+删除/旧图片视频产物_old_media_artifacts/tracked_git_media/dist/voice_trials/20260425_round28_10s_voice_trial' 'dist/voice_trials/20260425_round28_10s_voice_trial'
+mv '/Users/fan/Documents/视频工厂归档+删除/旧图片视频产物_old_media_artifacts/tracked_git_media/dist/voice_trials/20260426_台湾口语开心降噪试配_taiwan_happy_denoise_trial' 'dist/voice_trials/20260426_台湾口语开心降噪试配_taiwan_happy_denoise_trial'
+mv '/Users/fan/Documents/视频工厂归档+删除/待用户确认_user_confirmation_required/dist/完整成片_full_videos' 'dist/完整成片_full_videos'
+mv '/Users/fan/Documents/视频工厂归档+删除/待用户确认_user_confirmation_required/本地归档_local_archive' '本地归档_local_archive'
+mv '/Users/fan/Documents/视频工厂归档+删除/待用户确认_user_confirmation_required/素材检查_reports/20260429_文案样本节奏提取_copy_sample_rhythm_extract' '素材检查_reports/20260429_文案样本节奏提取_copy_sample_rhythm_extract'
+mv '/Users/fan/Documents/视频工厂归档+删除/旧图片视频产物_old_media_artifacts/local_untracked_media/样片报告_sample_reports' '样片报告_sample_reports'
+mv '/Users/fan/Documents/视频工厂归档+删除/旧图片视频产物_old_media_artifacts/local_untracked_media/dist/prototypes' 'dist/prototypes'
+mv '/Users/fan/Documents/视频工厂归档+删除/旧图片视频产物_old_media_artifacts/local_untracked_media/dist/20260424_不放大完整可读_no_zoom_completeness' 'dist/20260424_不放大完整可读_no_zoom_completeness'
+```
+
 ## 3. 整个 commit 回滚
 
 若要整轮回滚，优先使用：

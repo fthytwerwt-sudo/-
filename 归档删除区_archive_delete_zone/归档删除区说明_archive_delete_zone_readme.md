@@ -23,3 +23,9 @@
 - 不得把本目录中的任何文件重新写成当前正式事实。
 - 不得在本目录内直接执行删除动作。
 - 如需回滚，优先按 `清单_manifests/回滚说明_rollback_guide.md` 执行。
+
+## 2026-05-08 外部归档说明
+
+- `已确认` `/Users/fan/Documents/视频工厂归档+删除` 是用户明确授权的 archive-only 外部目录。
+- `已确认` 本仓库内保留本目录的主要作用是：清单、指针、回滚说明和最小 discoverability，而不是继续承载大体积 archive payload。
+- `已确认` `/Users/fan/Documents/视频工厂` 仍是唯一正式执行工作区；`/Users/fan/Documents/视频工厂归档+删除` 只能读、不能默认执行。

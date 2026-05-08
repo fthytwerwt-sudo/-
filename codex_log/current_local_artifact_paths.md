@@ -62,7 +62,8 @@
 ## 5. 本轮单工作区治理结果
 
 - `已确认` `/Users/fan/Documents` 顶层执行 `find /Users/fan/Documents -maxdepth 1 -name '*视频工厂*' -print` 后，只剩 `/Users/fan/Documents/视频工厂`。
-- `已确认` 已回收外部目录唯一文件到：`/Users/fan/Documents/视频工厂/本地归档_local_archive/外部工作区回收_external_workspace_recovery_20260502/`。
+- `已确认` 2026-05-02 的外部目录回收曾先落到：`/Users/fan/Documents/视频工厂/本地归档_local_archive/外部工作区回收_external_workspace_recovery_20260502/`。
+- `已确认` 2026-05-08 起，archive/delete payload 已按用户授权进一步外移到 archive-only 外部目录：`/Users/fan/Documents/视频工厂归档+删除/待用户确认_user_confirmation_required/本地归档_local_archive/`；该路径不是执行工作区，不作为默认读取入口。
 - `已确认` 已将非 Git 散目录 / 损坏临时 worktree 残留移入：`/Users/fan/Documents/视频工厂/本地隔离区_local_quarantine/外部散目录待确认_external_dirs_pending_delete_20260502/`。
 - `已确认` 本轮未永久删除任何未回收文件；干净 Git worktree 只在无未提交、无未跟踪、无未推送且回收校验通过后执行 `git worktree remove`。
 - `待验证` `git worktree list` 仍保留两个 `/Users/fan/.config/superpowers/worktrees/视频工厂/...` 历史 worktree，因为它们有未跟踪文件，按安全规则保留并等待用户下一轮确认。
@@ -79,6 +80,7 @@
 - `/Users/fan/Documents/视频工厂_v2_candidate_worktree`
 - `/Users/fan/Documents/视频工厂_sassy-card-structure-budget-20260428`
 - `/Users/fan/Documents/视频工厂_locked_reference_inheritance_20260430`
+- `/Users/fan/Documents/视频工厂归档+删除`
 - `/Users/fan/Documents/视频工厂-worktrees`
 - `/private/tmp/视频工厂_opening_anchor_20260428`
 - `/private/tmp/视频工厂_real_ai_experience_mainline_20260428`

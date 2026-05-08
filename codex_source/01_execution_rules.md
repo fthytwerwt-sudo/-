@@ -214,6 +214,7 @@ route_decision:
 6. 与本轮治理对象相关的报告或路径索引
 
 需要新建外部工作区、删除原始素材、替换正式工作区或执行 Git 高风险操作时：blocked，等待用户明确确认。
+`已确认` 用户已单独授权的 `/Users/fan/Documents/视频工厂归档+删除` 只作为 archive-only 外部目录例外存在；不得把它当执行工作区或默认读取入口。
 
 ### execution lane / multi-agent / parallel 机制
 

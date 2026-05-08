@@ -153,6 +153,7 @@
 - `/Users/fan/Desktop`、`/Users/fan/Downloads`、`/private/tmp`、`/Users/fan/Documents/视频工厂_*`、`/Users/fan/Documents/视频工厂-*` 不得作为最终交付路径。
 - 如果必须临时读取外部路径，只能作为 `source（来源）` 只读读取；必须回收到唯一正式工作区后，才能写入路径索引或默认执行口径。
 - 已经产生的外部工作区必须收回到唯一正式工作区内部的 `本地归档_local_archive/` 或 `本地隔离区_local_quarantine/`；不得继续散落在 `/Users/fan/Documents` 顶层。
+- `已确认` 用户已明确授权 archive-only 外部目录：`/Users/fan/Documents/视频工厂归档+删除`。该路径只用于归档 / 删除候选池，不是执行工作区，不是 fresh clone，不是 worktree，不得作为默认读取入口。
 - `codex_log/current_local_artifact_paths.md` 的 `canonical_local_path（首选本地路径）` 只能指向 `/Users/fan/Documents/视频工厂` 内部。
 - 旧外部路径最多只能写为 `historical_source_path（历史来源路径）` 或 `fallback_path（备选路径）`，不得作为默认执行路径。
 - 后续清理、归档、迁移任务也必须从 `/Users/fan/Documents/视频工厂` 发起、记录和提交。

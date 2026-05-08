@@ -86,6 +86,7 @@
 - 所有最终产物、复审包、截图归档、报告、路径索引、执行日志、清理记录都必须落在唯一正式工作区内部。
 - `/Users/fan/Desktop`、`/Users/fan/Downloads`、`/private/tmp` 和外部 `/Users/fan/Documents/视频工厂*` 目录只能作为历史来源读取，不得作为最终交付路径。
 - 已经产生的外部工作区必须收回到唯一正式工作区内部的 `本地归档_local_archive/` 或 `本地隔离区_local_quarantine/`；不得继续散落在 `/Users/fan/Documents` 顶层。
+- `已确认` 用户已明确授权 archive-only 外部目录：`/Users/fan/Documents/视频工厂归档+删除`。该路径只用于归档 / 删除候选池，不是执行工作区，不是 fresh clone，不是 worktree，不得作为默认读取入口。
 - `codex_log/current_local_artifact_paths.md` 的 `canonical_local_path` 只能指向 `/Users/fan/Documents/视频工厂` 内部；旧外部路径最多保留为 `historical_source_path` 或 `fallback_path`。
 - 后续清理 / 归档 / 迁移任务也必须从唯一正式工作区发起和记录。
 
