@@ -9,6 +9,7 @@
 - `codex_source/02_codex_index.md`
 - `codex_source/07_formal_api_demo_target_plan.md`
 - `归档删除区_archive_delete_zone/旧产物候选_old_artifact_candidates/dist_latest_review_pack_legacy_snapshots/` 下的全部旧 `v3` / 旧 `v31` 副本
+- `归档删除区_archive_delete_zone/旧产物候选_old_artifact_candidates/验证报告_legacy_validation_reports/20260503_阿里云剪辑复接验证_after_audit_aliyun_editing_reconnect_validation/`
 
 示例：
 
@@ -29,6 +30,7 @@ git mv '归档删除区_archive_delete_zone/旧产物候选_old_artifact_candida
 git mv '归档删除区_archive_delete_zone/旧产物候选_old_artifact_candidates/dist_latest_review_pack_legacy_snapshots/AI做PPT踩坑_成品候选_v3_timeline.json' 'dist/latest_review_pack/AI做PPT踩坑_成品候选_v3_timeline.json'
 git mv '归档删除区_archive_delete_zone/旧产物候选_old_artifact_candidates/dist_latest_review_pack_legacy_snapshots/AI做PPT踩坑_成品候选_v31_review_manifest.md' 'dist/latest_review_pack/AI做PPT踩坑_成品候选_v31_review_manifest.md'
 git mv '归档删除区_archive_delete_zone/旧产物候选_old_artifact_candidates/dist_latest_review_pack_legacy_snapshots/AI做PPT踩坑_成品候选_v31_summary.json' 'dist/latest_review_pack/AI做PPT踩坑_成品候选_v31_summary.json'
+git mv '归档删除区_archive_delete_zone/旧产物候选_old_artifact_candidates/验证报告_legacy_validation_reports/20260503_阿里云剪辑复接验证_after_audit_aliyun_editing_reconnect_validation' '验证_reports/20260503_阿里云剪辑复接验证_after_audit_aliyun_editing_reconnect_validation'
 ```
 
 ## 3. 整个 commit 回滚

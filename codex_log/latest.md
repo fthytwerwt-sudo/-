@@ -1,5 +1,20 @@
 # Latest
 
+## 20260508｜历史产物归档审计与迁移
+
+- `已确认` 已完成第二轮历史产物扫描：`dist/`、`复审包_review_packs/`、`验证_reports/`、`样片报告_sample_reports/`、`素材检查_reports/`、`本地归档_local_archive/`。
+- `已确认` 已迁移 1 组明确旧产物候选：`验证_reports/20260503_阿里云剪辑复接验证_after_audit_aliyun_editing_reconnect_validation/` -> `归档删除区_archive_delete_zone/旧产物候选_old_artifact_candidates/验证报告_legacy_validation_reports/...`
+- `已确认` 当前继续保留不动：
+  - `dist/latest_review_pack/` 当前正式入口
+  - `dist/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/`
+  - `复审包_review_packs/` 当前 v31 基线包与 reference 包
+  - `素材录制/`
+  - `素材库_assets/`
+- `已确认` 本轮未删除任何文件。
+- `治理报告`：`治理_reports/20260508_历史产物归档审计与迁移_old_artifacts_archive_audit/历史产物归档审计与迁移报告_old_artifacts_archive_audit_report.md`
+- `执行日志`：`codex_log/20260508_历史产物归档审计与迁移_old_artifacts_archive_audit.md`
+- `下一个目标`：先拆 `voice_trials/` 与 `reference_packs/` 的 current reference / pure history 边界，再做下一轮更细的历史产物迁移。
+
 ## 20260508｜主工作区与归档删除区分离
 
 - `已确认` 已在唯一正式工作区 `/Users/fan/Documents/视频工厂` 内创建 `归档删除区_archive_delete_zone/`。
