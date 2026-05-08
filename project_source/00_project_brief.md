@@ -54,7 +54,8 @@
 
 1. `当前正式事实`
    - 只写用户已拍板、当前资料包已经统一采用的正式口径
-   - 统一看：`project_source/07_current_formal_facts.md`
+   - 统一看：`GPT数据源/08_当前正式事实.md`
+   - 历史镜像旧事实已隔离到：`归档删除区_archive_delete_zone/旧口径隔离_stale_context_quarantine/project_source/07_current_formal_facts.md`
 
 2. `目标态计划`
    - 只写未来要达到、但不能冒充已成立的方向
@@ -72,7 +73,7 @@
 新会话若只读最小集合，固定先读：
 1. `project_source/00_project_brief.md`
 2. `project_source/02_term_definitions_and_state_boundaries.md`
-3. `project_source/07_current_formal_facts.md`
+3. `GPT数据源/08_当前正式事实.md`
 4. `project_source/24_human_self_footage_light_ppt_routing_rules.md`
 5. `project_source/06_project_index.md`
 

@@ -1,5 +1,20 @@
 # Latest
 
+## 20260508｜主工作区与归档删除区分离
+
+- `已确认` 已在唯一正式工作区 `/Users/fan/Documents/视频工厂` 内创建 `归档删除区_archive_delete_zone/`。
+- `已确认` 已隔离旧口径：`project_source/07_current_formal_facts.md`。
+- `已确认` 已隔离旧入口：`codex_source/00_current_repo_audit.md`、`codex_source/02_codex_index.md`、`codex_source/07_formal_api_demo_target_plan.md`。
+- `已确认` 已隔离 `dist/latest_review_pack/` 中明确旧副本：
+  - 全部 `AI做PPT踩坑_成品候选_v3_*`
+  - `AI做PPT踩坑_成品候选_v31_review_manifest.md`
+  - `AI做PPT踩坑_成品候选_v31_summary.json`
+- `已确认` 当前 P0 / P1 保留不动：`GPT数据源/`、`review_loop/`、`dist/latest_review_pack/` 当前正式入口、当前代码 / 工作台执行层、`素材库_assets/`、`素材录制/`。
+- `已确认` 本轮未删除任何文件。
+- `治理报告`：`治理_reports/20260508_主工作区与归档删除区分离_main_vs_archive_delete_split/主工作区与归档删除区分离报告_main_vs_archive_delete_split_report.md`
+- `执行日志`：`codex_log/20260508_主工作区与归档删除区分离_main_vs_archive_delete_split.md`
+- `下一个目标`：先处理 `执行日志_codex_log/` 与 root demo 入口降权，再决定下一轮待归档 / 待删除候选。
+
 ## 20260508｜新老文件分区与旧口径污染源审计
 
 - `已确认` 已完成《视频工厂》唯一正式工作区 `/Users/fan/Documents/视频工厂` 的“新老文件分区与旧口径污染源审计”。

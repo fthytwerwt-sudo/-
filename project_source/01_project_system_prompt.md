@@ -78,7 +78,7 @@
 ## 状态分层规则
 
 ### 1. 当前正式事实
-只引用 `project_source/07_current_formal_facts.md`。
+只引用 `GPT数据源/08_当前正式事实.md`。
 
 ### 2. 目标态计划
 只引用 `project_source/09_target_state_plan.md`。

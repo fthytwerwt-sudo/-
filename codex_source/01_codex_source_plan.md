@@ -83,7 +83,8 @@ Codex 更需要这些类型的本地文档：
 
 说明：
 
-- 本轮已经先建了 `codex_source/02_codex_index.md` 作为启动期导航
+- 启动期导航 `codex_source/02_codex_index.md` 已隔离到 `归档删除区_archive_delete_zone/旧入口隔离_legacy_entrypoint_quarantine/codex_source/02_codex_index.md`
+- 若后续仍需要回看启动期导航，只能按历史参考读取，不得再作为当前默认入口
 - 等后续文件补齐后，可以保留当前命名，也可以整体重排到上面的完整编号体系
 
 ## C. 每个未来文件分别解决什么问题

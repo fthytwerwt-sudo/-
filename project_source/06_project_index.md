@@ -15,7 +15,7 @@
 - `project_source/01_project_system_prompt.md`
 - `project_source/02_term_definitions_and_state_boundaries.md`
 - `project_source/06_project_index.md`
-- `project_source/07_current_formal_facts.md`
+- `GPT数据源/08_当前正式事实.md（当前动态事实入口）`
 - `project_source/09_target_state_plan.md`
 
 ### B. 内容前置与主线锚点
@@ -52,7 +52,7 @@
 ### 最小接手顺序
 1. `project_source/00_project_brief.md`
 2. `project_source/02_term_definitions_and_state_boundaries.md`
-3. `project_source/07_current_formal_facts.md`
+3. `GPT数据源/08_当前正式事实.md`
 4. `project_source/09_target_state_plan.md`
 5. `project_source/24_human_self_footage_light_ppt_routing_rules.md`
 6. `project_source/06_project_index.md`
@@ -88,6 +88,7 @@
 ## 4. 当前硬规则
 - `project_source/` 只保留当前有效项目脑
 - 当前正式事实与目标态计划必须分开写
+- 已隔离的历史镜像旧事实文件 `project_source/07_current_formal_facts.md` 不得再作为默认入口读取
 - `云端剪辑 / cloud-only` 在项目脑里只能写成当前正式方向或目标态组成部分，不能冒充 runtime 已稳定跑通
 - `API 生成真人` 不能偷换成某条 provider 已验证成立
 

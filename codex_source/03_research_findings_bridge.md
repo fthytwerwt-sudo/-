@@ -39,7 +39,7 @@
 - 结论摘要：当前必须显式区分“当前正式事实”与“目标态计划”。
 - 对项目的影响：仓库信息层必须同时保留这两层，但不能混写。
 - 本轮执行必须遵守项：
-  - `project_source/07_current_formal_facts.md` 只写正式事实
+  - `GPT数据源/08_当前正式事实.md` 只写当前正式事实
   - `project_source/09_target_state_plan.md` 只写目标态计划
   - `codex_source/02_current_execution_context.md` 与 `codex_log/latest.md` 必须写清哪些 runtime 仍待验证
 

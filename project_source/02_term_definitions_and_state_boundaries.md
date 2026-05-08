@@ -55,7 +55,7 @@
 - 不依赖聊天补解释
 
 统一看：
-- `project_source/07_current_formal_facts.md`
+- `GPT数据源/08_当前正式事实.md`
 
 ### `目标态计划`
 定义：

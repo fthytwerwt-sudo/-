@@ -33,6 +33,8 @@
 
 当前项目正式事实正文属于 `GPT数据源/` 当前 10 份执行包；`project_source/` 只作为历史 / 辅助主题化镜像，不再作为当前主事实源。代码实现细节仍归代码层。
 
+`归档删除区_archive_delete_zone/` 只用于隔离旧口径、旧入口、旧产物候选与清单；默认不得读取，不得作为当前事实、当前执行入口或当前复审入口。
+
 ## 3. 新会话最小接手入口
 
 新 Codex 会话默认最少先读：
@@ -178,12 +180,13 @@
 若任务命中“当前正式事实 / 目标态计划 / 术语边界”，再补读：
 
 21. `project_source/02_term_definitions_and_state_boundaries.md`
-22. `project_source/07_current_formal_facts.md`
+22. `GPT数据源/08_当前正式事实.md`
 23. `project_source/09_target_state_plan.md`
+24. 若需要历史镜像对照，再读 `归档删除区_archive_delete_zone/旧口径隔离_stale_context_quarantine/project_source/07_current_formal_facts.md`，但只能作为历史归档参考，不作为当前事实
 
 若任务命中“什么算已知”，再补读：
 
-24. `codex_source/12_codex_known_state_three_layer_rules.md`
+25. `codex_source/12_codex_known_state_three_layer_rules.md`
 
 ## 4. 当前正式默认主线
 
