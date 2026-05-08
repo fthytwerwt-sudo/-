@@ -1,5 +1,16 @@
 # Latest
 
+## 20260509｜口径一致性修复
+
+- `已确认` 已把 `latest.md` 中的新口径继续收口到当前动态事实执行包核心文件里。
+- `已确认` 当前唯一远端主线 / 默认主读取分支仍统一为：`main`；`codex/user-readable-map` 只保留在历史日志正文或显式历史分支引用说明里。
+- `已确认` 当前项目中心价值仍统一为：`真实 AI 使用经验 + 工作提效实录`。
+- `已确认` `场景化专业输出工作包` 仍只作为：`可选沉淀单元 / 产品化承接单元`，不是每条视频默认主目标。
+- `已确认` 本轮未修改视频产物、`dist/latest_review_pack/`、`current_publish_target`、`content_validation`、`send_ready`、归档区或任何媒体文件。
+- `治理报告`：`治理_reports/20260509_口径一致性修复_branch_and_value_consistency_fix/口径一致性修复报告_branch_and_value_consistency_fix_report.md`
+- `执行日志`：`codex_log/20260509_口径一致性修复_branch_and_value_consistency_fix.md`
+- `下一个目标`：结束口径修补，回到当前视频工厂主线内容验证与发布后复盘执行。
+
 ## 20260509｜main主线与项目中心价值口径统一
 
 - `已确认` 当前唯一远端主线 / 默认主读取分支已统一为：`main`。
