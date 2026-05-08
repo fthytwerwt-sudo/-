@@ -17,3 +17,4 @@ dist/formal_api_demo_30s_hybrid/
 # Local-only recovery/quarantine areas for external workspace cleanup.
 本地归档_local_archive/
 本地隔离区_local_quarantine/
+.env

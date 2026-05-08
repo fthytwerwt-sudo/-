@@ -1,5 +1,19 @@
 # Latest
 
+## 20260509｜DeepSeek readonly explorer 模型锁定与最小验证
+
+- `已确认` 已把 DeepSeek readonly explorer 默认模型锁定为：`deepseek-v4-pro`。
+- `已确认` 已把 `.env.example` 示例变量更新为：`DEEPSEEK_BASE_URL=https://api.deepseek.com`、`DEEPSEEK_MODEL=deepseek-v4-pro`。
+- `已确认` 已新增：
+  - `codex_source/16_deepseek_readonly_explorer_rules.md`
+  - `scripts/deepseek_readonly_explorer.py`
+- `部分成立` 最小只读验证脚本已执行，并已生成本地验证输出：
+  `dist/deepseek_readonly_explorer/latest_prefetch_context_pack.md`
+- `待验证` 当前真实 API 调用未通过，因为本地 `.env` 中未检测到 `DEEPSEEK_API_KEY`；因此本轮不能写成 `DeepSeek readonly explorer API validation passed`。
+- `已确认` 本轮未修改视频产物、`dist/latest_review_pack/`、代码逻辑、`content_validation`、`send_ready`、`publish_status`、声音状态。
+- `执行日志`：`codex_log/20260509_DeepSeek只读探索器模型锁定与最小验证.md`
+- `下一个目标`：用户先在 `.env` 中补齐 `DEEPSEEK_API_KEY`，再重跑 readonly explorer 最小 API 验证。
+
 ## 20260509｜GPT Project 上传包地址修复
 
 - `已确认` 已审计 ChatGPT 之前给出的旧地址与 Codex 新上传包地址不一致问题。
