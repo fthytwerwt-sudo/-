@@ -54,13 +54,13 @@
   - 本轮状态：仅列清单，不移动
 - `dist/_guardrail_probe_20260408/`
   - 标记：`local_only_untracked_guardrail_probe_archive_candidate`
-  - 本轮状态：已扫描；因本地未跟踪且无法用 `git mv` 保留历史，本轮不迁移
+  - 本轮状态：已于 `2026-05-09` 外移到外部 archive-only 目录
 - `dist/_provider_rotation_probe/`
   - 标记：`local_only_untracked_provider_probe_archive_candidate`
-  - 本轮状态：已扫描；因本地未跟踪且无法用 `git mv` 保留历史，本轮不迁移
+  - 本轮状态：已于 `2026-05-09` 外移到外部 archive-only 目录
 - `dist/_provider_rotation_realcheck/`
   - 标记：`local_only_untracked_provider_realcheck_archive_candidate`
-  - 本轮状态：已扫描；因本地未跟踪且无法用 `git mv` 保留历史，本轮不迁移
+  - 本轮状态：已于 `2026-05-09` 外移到外部 archive-only 目录
 - `归档删除区_archive_delete_zone/旧图片视频产物_old_media_artifacts/tracked_git_media/`
   - 标记：`tracked_media_archive_lane_ready`
   - 本轮状态：已建目录，本轮无新增可安全迁入的 tracked 媒体

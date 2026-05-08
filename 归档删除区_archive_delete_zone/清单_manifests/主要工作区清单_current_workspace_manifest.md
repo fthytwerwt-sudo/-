@@ -11,6 +11,7 @@
 - `codex_log/current_publish_target.md`
 - `codex_log/current_publish_target_light_evidence.md`
 - `codex_log/current_local_artifact_paths.md`
+- `外部归档删除区指针_external_archive_delete_pointer.md`
 - `GPT数据源/`
 - `review_loop/`
 - `dist/latest_review_pack/review_manifest.md`
@@ -45,3 +46,4 @@
 - `本地归档_local_archive/`
 - `执行日志_codex_log/`
 - 已隔离旧口径 / 旧入口 / 旧产物候选
+- `/Users/fan/Documents/视频工厂归档+删除`（只作 archive-only 外部归档池）

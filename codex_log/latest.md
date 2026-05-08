@@ -1,5 +1,30 @@
 # Latest
 
+## 20260509｜一步瘦身
+
+- `已确认` 已完成《视频工厂》主工作区一步瘦身。
+- `已确认` 主工作区体积：`32G -> 1.1G`。
+- `已确认` `.git` 体积：`21G -> 927M`。
+- `已确认` `素材录制/`：`11G -> 55M`，仅保留当前语音样本锚点。
+- `已确认` 已外移的大类：
+  - `原始素材归档_raw_recordings_archive/`
+  - `旧声音试配_voice_trials_archive/`
+  - `旧参考包_reference_packs_archive/`
+  - `旧媒体产物_old_media_outputs/`
+  - `Git临时包归档_git_tmp_pack_archive/`
+- `已确认` 当前仍保留在主工作区的核心对象：
+  - `dist/latest_review_pack/` 当前正式入口
+  - `dist/20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix/`
+  - `复审包_review_packs/` 当前 v31 基线包与 reference 包
+  - `素材录制/语音样本_04-25-2026 22-19-11_1.MP4`
+  - `dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/`
+  - `dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/`
+- `已确认` 外部 archive-only 目录：`/Users/fan/Documents/视频工厂归档+删除`
+- `已确认` 本轮未删除任何业务文件，未做 history rewrite，未 force push。
+- `治理报告`：`治理_reports/20260509_一步瘦身_one_pass_workspace_slimming/一步瘦身报告_one_pass_workspace_slimming_report.md`
+- `执行日志`：`codex_log/20260509_一步瘦身_one_pass_workspace_slimming.md`
+- `下一个目标`：清理并改写仍残留在正式资料中的历史路径引用，再决定是否继续外移最后 1 组历史 voice clone trial。
+
 ## 20260508｜主工作区与外部归档删除区分离
 
 - `已确认` 已创建 archive-only 外部目录：`/Users/fan/Documents/视频工厂归档+删除`。
