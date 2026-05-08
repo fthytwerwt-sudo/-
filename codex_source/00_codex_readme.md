@@ -100,6 +100,9 @@
 - 当 ChatGPT / Codex 需要给用户本地可打开路径时，必须优先读取 `codex_log/current_local_artifact_paths.md（当前本地产物路径索引）`。
 - 如果该索引中没有 `path_exists = true（路径存在）` 的记录，只能说“路径待本地复核”，不能直接把 `summary.json（状态摘要）` / `review_manifest.md（审片入口）` 中的路径当成真实可打开路径。
 - `summary.json（状态摘要）` / `review_manifest.md（审片入口）` 中的路径只能作为线索，必须经 Codex 本地复核后才能输出给用户。
+- 当需要给 GPT Project 上传包地址时，也必须优先读取 `codex_log/current_local_artifact_paths.md`。
+- ChatGPT 不得凭聊天记忆直接给本地上传地址；必须以 Codex 本地审计结果或 `gpt_project_upload_package_canonical_path` 为准。
+- GPT Project 规范上传包目录必须自带：`上传说明_UPLOAD_MANIFEST.md`。
 
 单工作区硬规则 `single_workspace_rule`：
 - 《视频工厂》唯一正式工作区是 `/Users/fan/Documents/视频工厂`。

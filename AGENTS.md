@@ -58,6 +58,13 @@
 4. `dist/latest_review_pack/review_manifest.md`
 5. `codex_source/00_codex_readme.md`
 
+GPT Project 上传包地址规则：
+- ChatGPT 不得凭聊天记忆给 GPT Project 本地上传地址。
+- 需要 GPT Project 上传包地址时，必须先读取 `codex_log/current_local_artifact_paths.md` 或由 Codex 本地审计后给出。
+- 用户上传时只使用 `gpt_project_upload_package_canonical_path（GPT Project 上传包规范路径）`。
+- 规范上传包目录必须包含：`上传说明_UPLOAD_MANIFEST.md`。
+- 旧 `GPT 数据源/` 只按历史静态包理解；`GPT数据源/` 只按 GitHub 动态事实目录理解；两者都不等于默认上传包目录。
+
 `project_source/` 只作为历史 / 辅助主题化镜像，不得默认高于 `GPT数据源/` 当前 10 份基础执行包 + `10_OPC一人公司闭环与多AI协作机制.md`、`codex_log/latest.md` 或 `dist/latest_review_pack/`。
 
 `归档删除区_archive_delete_zone/` 只作为旧口径隔离、旧入口隔离、旧产物候选和清单区使用，不得作为默认读取入口，不得高于 `GPT数据源/` 当前 10 份基础执行包 + `10_OPC一人公司闭环与多AI协作机制.md`、`codex_log/latest.md`、`dist/latest_review_pack/` 或当前执行规则层。

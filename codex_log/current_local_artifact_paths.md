@@ -99,6 +99,23 @@
 - `已确认` `GPT 数据源/10_样片参考质量规则_reference_quality_sample_rule.md` 是未追踪静态包文件，本轮冻结不动。
 - 本轮不纳入、不删除、不移动、不改名；后续另起 GPT Project 静态包整理任务。
 
-## 9. 最后更新时间
+## 9. GPT Project 上传包路径
 
-- `2026-05-04 CST`
+- `gpt_project_upload_package_canonical_path（GPT Project 上传包规范路径）`：
+  `/Users/fan/Documents/视频工厂/GPT_Project_上传包_OPC_20260509/`
+- `gpt_project_upload_package_path_exists（路径是否存在）`：`true`
+- `gpt_project_upload_package_verified_at（验证时间）`：`2026-05-09 CST`
+- `old_static_package_path（旧静态包路径）`：
+  `/Users/fan/Documents/视频工厂/GPT 数据源/`
+- `old_static_package_path_exists（旧静态包路径是否存在）`：`true`
+- `dynamic_repo_fact_package_path（GitHub 动态事实目录）`：
+  `/Users/fan/Documents/视频工厂/GPT数据源/`
+- `dynamic_repo_fact_package_path_exists（动态事实目录是否存在）`：`true`
+- `upload_policy（上传策略）`：
+  旧静态包不是本轮推荐上传目录；动态事实目录不是 GPT Project 上传目录；用户上传时只使用 `gpt_project_upload_package_canonical_path`。
+- `address_rule（地址规则）`：
+  以后 GPT Project 上传包地址必须由 Codex 本地审计或 `current_local_artifact_paths.md` 给出，ChatGPT 不得凭记忆口头给本地地址。
+
+## 10. 最后更新时间
+
+- `2026-05-09 CST`

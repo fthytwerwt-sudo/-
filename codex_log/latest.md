@@ -1,5 +1,15 @@
 # Latest
 
+## 20260509｜GPT Project 上传包地址修复
+
+- `已确认` 已审计 ChatGPT 之前给出的旧地址与 Codex 新上传包地址不一致问题。
+- `已确认` 已生成唯一 GPT Project 上传包目录：
+  `/Users/fan/Documents/视频工厂/GPT_Project_上传包_OPC_20260509/`
+- `已确认` 以后 GPT Project 上传地址必须由 Codex 本地审计或 `current_local_artifact_paths.md` 给出，ChatGPT 不得凭记忆口头给地址。
+- `已确认` 本轮未修改视频产物、代码、当前发布状态、`content_validation`、`send_ready`、声音产物。
+- `执行日志`：`codex_log/20260509_GPT_Project上传包地址修复.md`
+- `下一个目标`：用户使用 canonical upload package path 上传新版 GPT Project 资料包；上传后 ChatGPT 再按该包检查是否生效。
+
 ## 20260509｜OPC 入口读取口径收尾
 
 - `已确认` 已把 `GPT数据源/10_OPC一人公司闭环与多AI协作机制.md` 加入 `AGENTS.md` 的《视频工厂》最小读取顺序。
