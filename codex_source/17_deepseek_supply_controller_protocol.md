@@ -212,6 +212,20 @@ DeepSeek / fallback 参与机制升级时，默认允许至少两次供料观察
 
 供料结果不能替代原文件复核。Codex 改文件前仍必须回读允许修改的原文件；改完后仍必须执行 diff、状态字段、forbidden path 和日志检查。
 
+## 7B. model routing（模型路由）
+
+当前 DeepSeek 供料模型策略：
+
+- `default_supply_model（默认供料模型） = deepseek-v4-flash`
+- `escalation_model（升级模型） = deepseek-v4-pro`
+
+使用边界：
+
+- `deepseek-v4-flash` 默认用于常规小步供料：`file_map（文件地图）`、`missing_files（缺失文件）`、`context_summary（上下文摘要）`、普通 `risk_report（风险报告）`、复盘文件地图和标准提取。
+- `deepseek-v4-pro` 只作为复杂任务升级模型：多文件冲突、复杂机制判断、长任务审计、多轮供料包合并、Flash 多次失败后升级、或 Codex 明确标记 `after_read_gap（读完仍有缺口）` 且 fallback 不足。
+- 本轮只落地默认模型口径；自动模型升级机制尚未实现，后续如要启用必须另行开发和验证。
+- controller 输出必须保留底层 explorer 写出的实际 `model（模型）` 状态；如果输出来源为 `fallback_local_only（本地兜底）`，仍不得写成 DeepSeek 结论。
+
 ## 8. 一句话规则
 
 `DeepSeek supply controller` 是 Codex 可按需触发的只读供料入口：它把缺上下文、规则冲突、旧口径风险和大上下文压缩成小型供料任务，并把结果回流到固定供料包；DeepSeek 失败时可以使用 `fallback_local_only`，但 fallback 必须明确标记为本地兜底，不得写成 DeepSeek 结论。

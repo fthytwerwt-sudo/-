@@ -1,5 +1,18 @@
 # Latest
 
+## 20260510｜DeepSeek 默认供料模型切换为 v4-flash
+
+- `已确认` 本轮将 DeepSeek readonly explorer 默认供料模型从 `deepseek-v4-pro` 切换为 `deepseek-v4-flash`。
+- `已确认` `deepseek-v4-pro` 保留为复杂任务升级模型 / 备用模型。
+- `已确认` `.env.example` 已同步为 `DEEPSEEK_MODEL=deepseek-v4-flash`，并新增 `DEEPSEEK_ESCALATION_MODEL=deepseek-v4-pro`。
+- `已确认` 本地 `.env` 存在且 `DEEPSEEK_API_KEY = present_nonempty`；本轮只把 `.env` 中 `DEEPSEEK_MODEL` 本地改为 `deepseek-v4-flash`，未打印 API key，未提交 `.env`。
+- `smoke_test`: `passed`
+- `smoke_test_model`: `deepseek-v4-flash`
+- `已确认` 本轮只证明默认模型配置与最小 readonly explorer 链路通过，不代表 DeepSeek 已稳定供料，也不代表 `multi-agent runtime（多 agent 运行时）` 已跑通。
+- `已确认` 本轮未修改视频产物、`dist/latest_review_pack/`、`content_validation`、`send_ready`、`publish_status`、声音状态。
+- `执行日志`：`codex_log/20260510_DeepSeek默认模型切换为v4flash.md`
+- `下一个目标`：用 `deepseek-v4-flash` 跑一次真实小步供料任务，观察是否比 Pro 更稳定或更快。
+
 ## 20260510｜视频质量与反馈总控机制 V1
 
 - `已确认` 本轮落地 `视频质量与反馈总控机制 V1`，目标是把《视频工厂》从固定 SOP 倾向收束为“质量机制 + 文案路由 + 复盘反馈”的执行前判断机制。

@@ -23,7 +23,23 @@
 当前默认配置：
 
 - `DEEPSEEK_BASE_URL=https://api.deepseek.com`
-- `DEEPSEEK_MODEL=deepseek-v4-pro`
+- `DEEPSEEK_MODEL=deepseek-v4-flash`
+- `DEEPSEEK_ESCALATION_MODEL=deepseek-v4-pro`
+
+模型分工：
+
+- `deepseek-v4-flash` 是默认供料模型，用于常规只读供料：
+  - `file_map（文件地图）`
+  - `missing_files（缺失文件）`
+  - `context_summary（上下文摘要）`
+  - 普通 `risk_report（风险报告）`
+- `deepseek-v4-pro` 保留为升级模型 / 复杂任务备用模型，用于：
+  - 多文件口径冲突
+  - 复杂机制判断
+  - 长任务审计
+  - 多轮供料包合并
+  - Flash 多次失败或 fallback 过多
+  - Codex 明确标记 `after_read_gap（读完仍有缺口）` 且 fallback 不足
 
 硬规则：
 
@@ -87,6 +103,7 @@ DeepSeek 不得：
 - 默认最多重试 `3` 次，且每次都要继续缩小输入与输出体量。
 - 三次失败后，必须生成 `local fallback（本地兜底资料包）`。
 - fallback 只能给 Codex 最小资料，不等于 DeepSeek 结论。
+- 切换默认模型到 `deepseek-v4-flash` 不代表 DeepSeek 已稳定供料，也不代表 fallback 问题已彻底解决。
 - 只有 DeepSeek 真正输出有效四字段，才允许写 `deepseek_generation_status = passed` 或 `passed_with_retries`。
 - 若 DeepSeek 失败但 fallback 成功，必须写：
   - `deepseek_generation_status = failed`
@@ -103,7 +120,7 @@ DeepSeek 不得：
 
 ## 5. 一句话规则
 
-**DeepSeek 在《视频工厂》里默认只做只读供料层，模型默认锁为 `deepseek-v4-pro`；真实任务要先控输入体量，再做 JSON Output、schema 校验和受控重试，三次失败后回退到 local fallback；即使 `context_pack_validation = passed`，也只证明 readonly explorer 上下文包结构通过，不证明多 agent runtime 已跑通。**
+**DeepSeek 在《视频工厂》里默认只做只读供料层，默认供料模型为 `deepseek-v4-flash`，`deepseek-v4-pro` 保留为复杂任务升级模型；真实任务要先控输入体量，再做 JSON Output、schema 校验和受控重试，三次失败后回退到 local fallback；即使 `context_pack_validation = passed`，也只证明 readonly explorer 上下文包结构通过，不证明多 agent runtime 已跑通。**
 
 ## 6. 与 supply controller 的关系
 
