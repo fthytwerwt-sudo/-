@@ -58,13 +58,29 @@ DeepSeek 不得：
 
 - `DeepSeek readonly explorer API validation passed`
 - `DeepSeek readonly explorer API validation blocked`
+- `context_pack_validation = passed`
+- `context_pack_validation = failed_unexpected_output`
+
+结构规则：
+
+- DeepSeek readonly explorer 默认使用 `JSON Output`。
+- 请求体必须使用 `response_format={"type":"json_object"}`。
+- prompt 必须明确要求 JSON，不允许 Markdown 或 JSON 外解释文字。
+- 脚本必须检查四个顶层 key：
+  - `prefetch_context_pack`
+  - `must_read_file_map`
+  - `risk_and_conflict_report`
+  - `candidate_summary`
+- 缺任一 key，必须写：`context_pack_validation = failed_unexpected_output`。
+- 只有四个 key 都存在，才允许写：`context_pack_validation = passed`。
 
 不得写：
 
 - `DeepSeek 已进入生产执行`
 - `多 agent runtime 已跑通`
 - `DeepSeek 已具备写入权限`
+- `context_pack_validation = passed` 等于项目事实已验证
 
 ## 5. 一句话规则
 
-**DeepSeek 在《视频工厂》里默认只做只读供料层，模型默认锁为 `deepseek-v4-pro`，API 验证只证明 readonly explorer 最小调用可用或 blocked，不证明多 agent runtime 已跑通。**
+**DeepSeek 在《视频工厂》里默认只做只读供料层，模型默认锁为 `deepseek-v4-pro`，输出默认走 JSON Output 并校验四个顶层 key；即使 `context_pack_validation = passed`，也只证明 readonly explorer 上下文包结构通过，不证明多 agent runtime 已跑通。**

@@ -1,5 +1,17 @@
 # Latest
 
+## 20260509｜DeepSeek readonly explorer 输出结构修复
+
+- `已确认` 本轮修复 `scripts/deepseek_readonly_explorer.py` 的输出结构约束。
+- `已确认` DeepSeek API 仍使用 `deepseek-v4-pro`。
+- `已确认` 已启用 JSON Output，并要求四个顶层字段：`prefetch_context_pack`、`must_read_file_map`、`risk_and_conflict_report`、`candidate_summary`。
+- `已确认` 脚本已对四个顶层字段做本地校验，缺任一字段即写 `context_pack_validation = failed_unexpected_output` 并返回非 0。
+- `api_validation`: `passed`
+- `context_pack_validation`: `passed`
+- `已确认` 本轮未修改视频产物、`dist/latest_review_pack/`、`content_validation`、`send_ready`、`publish_status`、声音状态。
+- `执行日志`：`codex_log/20260509_DeepSeek只读探索器输出结构修复.md`
+- `下一个目标`：用 DeepSeek readonly explorer 为一次真实 Codex 任务生成上下文包。
+
 ## 20260509｜DeepSeek readonly explorer API 复测
 
 - `已确认` 本轮只重跑 DeepSeek readonly explorer 最小 API 验证。
