@@ -1,5 +1,22 @@
 # Latest
 
+## 20260509｜DeepSeek 供料请求任务卡机制
+
+- `已确认` 本轮新增 `codex_source/18_deepseek_supply_request_schema.md（DeepSeek 供料请求结构说明）`，定义 DeepSeek 每次供料前必须读取的 `supply_request（供料请求任务卡）`。
+- `已确认` 已新增 JSON Schema：`codex_source/schemas/deepseek_supply_request.schema.json`。
+- `已确认` 已新增样例任务卡：`codex_source/fixtures/deepseek_supply_request_file_map_example.json`、`codex_source/fixtures/deepseek_supply_request_risk_report_example.json`。
+- `已确认` `scripts/deepseek_supply_controller.py` 已支持 `--request-file`，并保持旧 CLI 参数兼容。
+- `已确认` request validation 可阻断缺字段 / 非法 action / 非法 trigger / forbidden path；负向 `.env` 请求已 blocked，未读取 `.env`。
+- `test_legacy_cli`: `fallback_local_only`
+- `test_request_file_map`: `fallback_local_only`
+- `test_request_file_risk_report`: `fallback_local_only`
+- `negative_test_forbidden_env`: `blocked`
+- `已确认` 供料包与 manifest 已写入 `request_id`、`request_validation_status`、`current_goal`、`current_step`、`known_context`、`missing_context`、`decision_needed`。
+- `已确认` 本轮未修改业务机制正文、未修改视频产物、`dist/latest_review_pack/`、`content_validation`、`send_ready`、`publish_status`、声音状态。
+- `已确认` 本轮不代表 DeepSeek 已稳定供料，也不代表 `multi-agent runtime（多 agent 运行时）` 已跑通。
+- `执行日志`：`codex_log/20260509_DeepSeek供料请求任务卡机制.md`
+- `下一个目标`：用标准 supply request 参与一次真实 Codex 机制修正任务。
+
 ## 20260509｜DeepSeek 供料中控最小机制
 
 - `已确认` 本轮新增 `scripts/deepseek_supply_controller.py（DeepSeek 供料中控脚本）`，把 DeepSeek 从单次供料脚本升级为可触发、可回流、可兜底的最小中控入口。

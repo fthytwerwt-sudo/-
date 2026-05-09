@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "deepseek_supply_request.schema.json",
+  "title": "DeepSeek Supply Request",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "request_id",
+    "project_route",
+    "task_type",
+    "trigger_reason",
+    "action",
+    "current_goal",
+    "current_step",
+    "known_context",
+    "missing_context",
+    "candidate_files",
+    "forbidden_paths",
+    "expected_output",
+    "not_allowed",
+    "blocked_if",
+    "return_to_codex"
+  ],
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "project_route": {
+      "const": "video_factory"
+    },
+    "task_id": {
+      "type": "string"
+    },
+    "task_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "trigger_reason": {
+      "enum": [
+        "missing_context",
+        "rule_conflict",
+        "stale_context_risk",
+        "large_context",
+        "before_write_gate",
+        "after_read_gap",
+        "user_explicit_deepseek"
+      ]
+    },
+    "action": {
+      "enum": [
+        "file_map",
+        "risk_report",
+        "context_summary",
+        "missing_files",
+        "auto"
+      ]
+    },
+    "current_goal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "current_step": {
+      "type": "string",
+      "minLength": 1
+    },
+    "known_context": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "missing_context": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "decision_needed": {
+      "type": "string"
+    },
+    "candidate_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "must_read_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "optional_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "forbidden_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "max_context_files": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "max_context_chars": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "expected_output": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "output_format": {
+      "type": "string"
+    },
+    "codex_next_input": {
+      "type": "string"
+    },
+    "return_to_codex": {
+      "type": "object"
+    },
+    "not_allowed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 4
+    },
+    "stop_condition": {
+      "type": "string"
+    },
+    "blocked_if": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "fallback_allowed": {
+      "type": "boolean"
+    },
+    "fallback_policy": {
+      "type": "string"
+    }
+  }
+}

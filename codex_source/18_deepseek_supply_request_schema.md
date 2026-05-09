@@ -1,0 +1,163 @@
+# DeepSeek supply request schema
+
+## 1. 文件定位
+
+本文件定义《视频工厂》里 `DeepSeek supply request（DeepSeek 供料请求任务卡）` 的标准结构。
+
+它解决的问题是：
+
+- DeepSeek 每次供料前必须知道当前任务
+- 这个“知道”来自 Codex / controller 显式传入的任务卡
+- 不靠长期记忆
+- 不靠猜测
+- 不靠读取全仓库
+
+本文件不代表：
+
+- `multi-agent runtime（多 agent 运行时）` 已跑通
+- DeepSeek 已稳定供料
+- DeepSeek 可以写文件
+- DeepSeek 可以拍板项目事实
+
+## 2. 使用规则
+
+Codex 触发 `scripts/deepseek_supply_controller.py（DeepSeek 供料中控脚本）` 前，应优先生成或选择一张 `supply_request（供料请求任务卡）`。
+
+推荐运行方式：
+
+```bash
+python3 scripts/deepseek_supply_controller.py \
+  --request-file codex_source/fixtures/deepseek_supply_request_file_map_example.json
+```
+
+旧 CLI 参数仍可用于兼容测试和临时低风险任务，但后续正式供料优先使用 `--request-file`。
+
+## 3. request identity（请求身份）
+
+任务卡必须包含：
+
+- `request_id（请求编号）`
+- `created_at（创建时间）`
+- `project_route（项目路由）`
+  - 当前固定支持：`video_factory`
+- `task_id（任务编号）`
+- `task_type（任务类型）`
+- `trigger_reason（触发原因）`
+- `action（供料动作）`
+
+`trigger_reason` 只允许：
+
+- `missing_context`
+- `rule_conflict`
+- `stale_context_risk`
+- `large_context`
+- `before_write_gate`
+- `after_read_gap`
+- `user_explicit_deepseek`
+
+`action` 只允许：
+
+- `file_map`
+- `risk_report`
+- `context_summary`
+- `missing_files`
+- `auto`
+
+## 4. task state（任务状态）
+
+任务卡必须包含：
+
+- `current_goal（当前目标）`
+- `current_step（当前步骤）`
+- `known_context（已知上下文）`
+- `missing_context（缺失上下文）`
+- `decision_needed（需要判断什么）`
+
+要求：
+
+- `known_context` 可以为空数组，但字段必须存在。
+- `missing_context` 可以为空数组，但字段必须存在。
+- `decision_needed` 可以为空字符串，但字段必须存在。
+- 不允许让 DeepSeek 自己猜当前任务阶段。
+
+## 5. reading scope（读取范围）
+
+任务卡必须包含：
+
+- `candidate_files（候选读取文件）`
+- `must_read_files（必须读取文件）`
+- `optional_files（可选读取文件）`
+- `forbidden_paths（禁止读取路径）`
+- `max_context_files（最大上下文文件数）`
+- `max_context_chars（最大上下文字数）`
+
+默认禁止路径必须至少覆盖：
+
+- `.env`
+- `.env.*`
+- `.env.swp`
+- `.git/`
+- `dist/latest_review_pack/`
+- 视频 / 音频 / 图片等媒体文件
+- archive-only 外部目录
+
+controller 必须在读取前做路径安全检查。候选文件、必读文件、可选文件里只要命中禁止路径，就必须 blocked。
+
+## 6. output contract（输出契约）
+
+任务卡必须包含：
+
+- `expected_output（期望输出）`
+- `output_format（输出格式）`
+- `codex_next_input（给 Codex 的下一步输入）`
+- `return_to_codex（如何交回 Codex）`
+
+`return_to_codex` 应说明输出目录和固定文件：
+
+- `dist/deepseek_supply_controller/latest_supply_pack.md`
+- `dist/deepseek_supply_controller/latest_supply_pack.json`
+- `dist/deepseek_supply_controller/latest_supply_manifest.json`
+
+Codex 后续执行必须读取供料包后再继续。
+
+## 7. safety and stop（安全与停止线）
+
+任务卡必须包含：
+
+- `not_allowed（禁止事项）`
+- `stop_condition（停止条件）`
+- `blocked_if（阻断条件）`
+- `fallback_allowed（是否允许本地兜底）`
+- `fallback_policy（本地兜底策略）`
+
+`not_allowed` 必须包含以下语义：
+
+- 不让 DeepSeek 写文件
+- 不让 DeepSeek 拍板项目事实
+- 不把 `fallback_local_only（本地兜底）` 写成 DeepSeek 结论
+- 不写 `multi-agent runtime（多 agent 运行时）` 已跑通
+
+## 8. 最小校验规则
+
+controller 必须检查：
+
+- 顶层必须是 object
+- 必填字段必须存在
+- `project_route = video_factory`
+- `trigger_reason` 必须合法
+- `action` 必须合法
+- `candidate_files / must_read_files / optional_files` 不得命中 `forbidden_paths`
+- `.env`、`.git`、媒体文件、`dist/latest_review_pack/` 必须 blocked
+- `known_context` 和 `missing_context` 字段必须存在
+- `not_allowed` 必须包含四条安全语义
+
+校验失败时：
+
+- `supply_source = blocked`
+- `request_validation_status = blocked`
+- 必须写 `latest_supply_manifest.json`
+- 不得读取 forbidden path
+
+## 9. 一句话规则
+
+`DeepSeek supply request` 是每次供料前的任务卡：Codex 用它把当前目标、已知上下文、缺口、候选文件、禁止路径、输出契约和停止线传给 controller；DeepSeek 只按这张卡供料，不靠记忆猜项目状态。

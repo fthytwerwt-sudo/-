@@ -1,0 +1,73 @@
+{
+  "request_id": "ds_supply_req_risk_report_20260509",
+  "created_at": "2026-05-09T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "deepseek_supply_boundary_risk_report",
+  "task_type": "mechanism_or_route_fix",
+  "trigger_reason": "rule_conflict",
+  "action": "risk_report",
+  "current_goal": "检查 DeepSeek 供料参与机制修改时的风险",
+  "current_step": "写入前风险检查",
+  "known_context": [
+    "已确认 DeepSeek 只读。",
+    "已确认 Codex 是唯一写入执行层。",
+    "已确认 fallback_local_only 不是 DeepSeek 真实生成通过。"
+  ],
+  "missing_context": [
+    "不确定哪些文件可能把 fallback 写成 DeepSeek 结论。",
+    "不确定哪些日志可能让后续会话误写 multi-agent runtime 已跑通。"
+  ],
+  "decision_needed": "Codex 写入供料机制时应避开哪些越权和误写风险。",
+  "candidate_files": [
+    "codex_log/latest.md",
+    "codex_log/20260509_reference质量机制锁最小测试.md",
+    "codex_source/16_deepseek_readonly_explorer_rules.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md"
+  ],
+  "must_read_files": [
+    "codex_source/16_deepseek_readonly_explorer_rules.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md"
+  ],
+  "optional_files": [
+    "codex_log/latest.md",
+    "codex_log/20260509_DeepSeek供料中控最小机制.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "/Users/fan/Documents/视频工厂归档+删除"
+  ],
+  "max_context_files": 6,
+  "max_context_chars": 18000,
+  "expected_output": [
+    "overreach_risks",
+    "misstatement_risks",
+    "blocked_if",
+    "codex_next_input"
+  ],
+  "output_format": "supply_pack_json_and_markdown",
+  "codex_next_input": "给 Codex 一份写入前风险清单，避免把 fallback 或供料任务卡写成完整 agent runtime。",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_supply_controller",
+    "pack_md": "dist/deepseek_supply_controller/latest_supply_pack.md",
+    "pack_json": "dist/deepseek_supply_controller/latest_supply_pack.json",
+    "manifest": "dist/deepseek_supply_controller/latest_supply_manifest.json"
+  },
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback_local_only 本地兜底写成 DeepSeek 结论。",
+    "不得写 multi-agent runtime 多 agent 运行时已跑通。"
+  ],
+  "stop_condition": "已经列出越权风险、误写风险和 blocked_if，或确认请求 blocked。",
+  "blocked_if": [
+    "需要读取 .env。",
+    "需要修改业务机制正文。",
+    "需要把 DeepSeek 写成稳定生产供料。"
+  ],
+  "fallback_allowed": true,
+  "fallback_policy": "DeepSeek 失败时允许生成 fallback_local_only 风险包，但必须标记 not_deepseek_conclusion = true。"
+}

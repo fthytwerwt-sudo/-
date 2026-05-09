@@ -1,0 +1,73 @@
+{
+  "request_id": "ds_supply_req_reference_file_map_20260509",
+  "created_at": "2026-05-09T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "reference_quality_mechanism_lock_file_map",
+  "task_type": "mechanism_or_route_fix",
+  "trigger_reason": "stale_context_risk",
+  "action": "file_map",
+  "current_goal": "检查 reference 是否可能被误读成固定 SOP",
+  "current_step": "执行前预读",
+  "known_context": [
+    "已确认 reference 锁质量，不锁流程。",
+    "已确认 locked reference 不等于每条内容必须照搬。",
+    "已确认 visual route 是展示结构区分，不是死流程。"
+  ],
+  "missing_context": [
+    "还不确定哪些执行入口有旧强约束。",
+    "还不确定哪些文件可能继续把 fixed_material_anchor 误读成固定 SOP。"
+  ],
+  "decision_needed": "Codex 下一步应优先读取哪些文件，才能避免被旧 reference 口径带偏。",
+  "candidate_files": [
+    "codex_log/latest.md",
+    "codex_source/00_codex_readme.md",
+    "GPT数据源/10_OPC一人公司闭环与多AI协作机制.md",
+    "GPT数据源/06_当前主线锚点_API生成真人_用户录制素材_少量PPT_云端剪辑.md"
+  ],
+  "must_read_files": [
+    "codex_log/latest.md",
+    "GPT数据源/10_OPC一人公司闭环与多AI协作机制.md"
+  ],
+  "optional_files": [
+    "GPT数据源/05_文案路由规则.md",
+    "codex_source/16_deepseek_readonly_explorer_rules.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "/Users/fan/Documents/视频工厂归档+删除"
+  ],
+  "max_context_files": 6,
+  "max_context_chars": 18000,
+  "expected_output": [
+    "files_recommended",
+    "why_each_file_matters",
+    "old_sop_risk_notes",
+    "codex_next_input"
+  ],
+  "output_format": "supply_pack_json_and_markdown",
+  "codex_next_input": "给 Codex 一份下一轮必读文件地图，优先用于 reference 质量机制锁修正。",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_supply_controller",
+    "pack_md": "dist/deepseek_supply_controller/latest_supply_pack.md",
+    "pack_json": "dist/deepseek_supply_controller/latest_supply_pack.json",
+    "manifest": "dist/deepseek_supply_controller/latest_supply_manifest.json"
+  },
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback_local_only 本地兜底写成 DeepSeek 结论。",
+    "不得写 multi-agent runtime 多 agent 运行时已跑通。"
+  ],
+  "stop_condition": "已经给出 Codex 下一步应读文件地图，或确认请求 blocked。",
+  "blocked_if": [
+    "候选文件命中 forbidden_paths。",
+    "需要读取 .env 或媒体文件。",
+    "需要把 fallback 写成 DeepSeek 结论。"
+  ],
+  "fallback_allowed": true,
+  "fallback_policy": "DeepSeek 失败时允许生成 fallback_local_only，但必须标记 not_deepseek_conclusion = true。"
+}

@@ -150,6 +150,37 @@ Codex 后续执行必须读取：
 - `multi-agent runtime` 已跑通
 - 完整 agent 协作闭环已完成
 
-## 7. 一句话规则
+## 7. supply request schema（供料请求任务卡）
+
+controller 支持两种运行方式：
+
+1. 旧 CLI 参数方式
+   - 用于兼容测试和临时低风险任务。
+2. `--request-file（供料请求文件）` 方式
+   - 推荐作为后续默认方式。
+   - 示例：
+
+```bash
+python3 scripts/deepseek_supply_controller.py \
+  --request-file codex_source/fixtures/deepseek_supply_request_file_map_example.json
+```
+
+`supply_request（供料请求任务卡）` 是 DeepSeek 每次“知道当前任务”的唯一正式输入。
+
+硬规则：
+
+- DeepSeek 不靠长期记忆理解当前任务。
+- DeepSeek 不靠猜测理解当前任务。
+- DeepSeek 不默认读取全仓库。
+- Codex / controller 必须每次显式传入任务卡。
+- 任务卡必须写清当前目标、当前步骤、已知上下文、缺失上下文、候选文件、禁止路径、期望输出、停止条件和回流路径。
+- request validation 失败时必须 `blocked`，并写 `latest_supply_manifest.json`。
+
+任务卡结构说明见：
+
+- `codex_source/18_deepseek_supply_request_schema.md`
+- `codex_source/schemas/deepseek_supply_request.schema.json`
+
+## 8. 一句话规则
 
 `DeepSeek supply controller` 是 Codex 可按需触发的只读供料入口：它把缺上下文、规则冲突、旧口径风险和大上下文压缩成小型供料任务，并把结果回流到固定供料包；DeepSeek 失败时可以使用 `fallback_local_only`，但 fallback 必须明确标记为本地兜底，不得写成 DeepSeek 结论。
