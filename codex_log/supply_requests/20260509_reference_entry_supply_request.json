@@ -1,0 +1,76 @@
+{
+  "request_id": "20260509_reference_entry_supply_request",
+  "created_at": "2026-05-10T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "reference_entry_supply_request_real_mechanism_fix",
+  "task_type": "mechanism_or_route_fix",
+  "trigger_reason": "stale_context_risk",
+  "action": "risk_report",
+  "current_goal": "检查 codex_source/00_codex_readme.md 中 reference / locked reference / visual route 相关入口是否仍可能被误读成固定 SOP，并给出最小入口修正建议",
+  "current_step": "写入前风险检查",
+  "known_context": [
+    "reference 锁质量，不锁流程",
+    "DeepSeek 只读供料，Codex 唯一写入",
+    "supply_request 是 DeepSeek 每次知道当前任务的正式输入"
+  ],
+  "missing_context": [
+    "当前 Codex 执行入口是否已经足够明确要求 reference 类任务先走 supply request",
+    "是否仍有旧 SOP / fixed_material_anchor 强约束误读风险"
+  ],
+  "decision_needed": "Codex 是否需要在 codex_source/00_codex_readme.md 中补充 reference 类任务的 supply request 入口说明。",
+  "candidate_files": [
+    "codex_source/00_codex_readme.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md",
+    "codex_log/latest.md"
+  ],
+  "must_read_files": [
+    "codex_source/00_codex_readme.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md"
+  ],
+  "optional_files": [
+    "codex_log/latest.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "GPT数据源/",
+    "*.mp4",
+    "*.wav",
+    "*.png"
+  ],
+  "max_context_files": 4,
+  "max_context_chars": 18000,
+  "expected_output": [
+    "指出 codex_source/00_codex_readme.md 中是否需要补入口说明",
+    "指出 reference 相关任务触发 supply request 的风险点",
+    "给出 Codex 最小修改建议"
+  ],
+  "output_format": "supply_pack_json_and_markdown",
+  "codex_next_input": "给 Codex 一份写入前风险检查，决定是否补强 00_codex_readme 的 reference 类任务供料入口。",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_supply_controller",
+    "pack_md": "dist/deepseek_supply_controller/latest_supply_pack.md",
+    "pack_json": "dist/deepseek_supply_controller/latest_supply_pack.json",
+    "manifest_json": "dist/deepseek_supply_controller/latest_supply_manifest.json"
+  },
+  "not_allowed": [
+    "不要让 DeepSeek 写文件",
+    "不要让 DeepSeek 拍板项目事实",
+    "不要把 fallback_local_only 写成 DeepSeek 结论",
+    "不要写 multi-agent runtime 已跑通"
+  ],
+  "stop_condition": "已经指出入口风险和 Codex 最小修改建议，或供料请求 blocked。",
+  "blocked_if": [
+    "供料包生成失败且没有 fallback",
+    "必须修改 GPT数据源/* 才能继续",
+    "必须修改 DeepSeek 脚本才继续",
+    "必须触碰视频 / 发布状态才继续"
+  ],
+  "fallback_allowed": true,
+  "fallback_policy": "DeepSeek 失败时允许生成 fallback_local_only，但必须标记 not_deepseek_conclusion = true，Codex 必须复核原文件后再执行。"
+}

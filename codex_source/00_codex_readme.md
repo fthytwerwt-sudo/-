@@ -80,8 +80,9 @@ DeepSeek 供料中控最小入口：
 - 当任务命中规则冲突、文件缺口、旧口径风险、上下文过大，或用户明确要求 DeepSeek 参与时，Codex 应优先运行 `scripts/deepseek_supply_controller.py（DeepSeek 供料中控脚本）`。
 - Codex 触发 controller 时，优先生成或使用 `supply_request（供料请求任务卡）`，并通过 `--request-file` 传入，例如：`python3 scripts/deepseek_supply_controller.py --request-file codex_source/fixtures/deepseek_supply_request_file_map_example.json`。
 - 任务卡是 DeepSeek 获取当前任务上下文的正式输入；不得让 DeepSeek 自己猜任务、猜当前阶段或默认读取全仓库。
+- 当任务涉及 `reference（参考）`、`locked reference（锁定参考）`、`visual route（视觉路由）`、`fixed_material_anchor（固定素材锚点）`、旧 SOP 风险或质量机制锁时，Codex 必须先生成或使用对应 `supply_request（供料请求任务卡）`，再运行 `scripts/deepseek_supply_controller.py --request-file <request_path>`。
 - controller 结果必须回流到 `dist/deepseek_supply_controller/latest_supply_pack.md` 与 `dist/deepseek_supply_controller/latest_supply_pack.json`。
-- Codex 后续执行必须读取供料包后再继续；若供料来源是 `fallback_local_only（本地兜底）`，只能把它当作本地资料包，不得写成 DeepSeek 真实生成通过。
+- Codex 后续执行必须读取供料包后再复核原文件；若供料来源是 `fallback_local_only（本地兜底）`，只能把它当作本地资料包，不得写成 DeepSeek 真实生成通过或 DeepSeek 结论。
 - controller 通过不代表 `multi-agent runtime（多 agent 运行时）` 已跑通。
 
 2026-05-04 项目升级前清库覆盖口径：

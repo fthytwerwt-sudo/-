@@ -1,5 +1,19 @@
 # Latest
 
+## 20260509｜DeepSeek 任务卡参与真实机制修正
+
+- `已确认` 本轮新增真实 `supply_request（供料请求任务卡）`：`codex_log/supply_requests/20260509_reference_entry_supply_request.json`。
+- `已确认` 已通过 `--request-file` 运行 `scripts/deepseek_supply_controller.py（DeepSeek 供料中控脚本）`，并读取 `dist/deepseek_supply_controller/latest_supply_pack.md`、`latest_supply_pack.json` 和 `latest_supply_manifest.json`。
+- `supply_source`: `fallback_local_only`
+- `request_validation_status`: `passed`
+- `fallback_status`: `used`
+- `not_deepseek_conclusion`: `true`
+- `已确认` 已基于供料包和原文件复核，只在 `codex_source/00_codex_readme.md` 补强 `reference / locked reference / visual route / fixed_material_anchor / 旧 SOP 风险` 类任务优先走 `supply_request + controller` 的入口说明。
+- `已确认` 本轮未修改 `GPT数据源/*`、DeepSeek 脚本、视频产物、`dist/latest_review_pack/`、`content_validation`、`send_ready`、`publish_status`、声音状态。
+- `已确认` 本轮不代表 DeepSeek 已稳定供料，也不代表 `multi-agent runtime（多 agent 运行时）` 已跑通。
+- `执行日志`：`codex_log/20260509_DeepSeek任务卡参与真实机制修正.md`
+- `下一个目标`：下一轮可以用任务卡机制参与一个更真实的 Codex 执行任务。
+
 ## 20260509｜DeepSeek 供料请求任务卡机制
 
 - `已确认` 本轮新增 `codex_source/18_deepseek_supply_request_schema.md（DeepSeek 供料请求结构说明）`，定义 DeepSeek 每次供料前必须读取的 `supply_request（供料请求任务卡）`。
