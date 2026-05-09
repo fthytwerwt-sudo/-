@@ -1,5 +1,14 @@
 # Latest
 
+## 20260509｜reference 质量机制锁最小测试
+
+- `已确认` 本轮用 `DeepSeek readonly explorer` 先为 `reference` 质量机制锁修正生成资料包，再由 `Codex` 做最小范围机制修正。
+- `已确认` 本轮供料来源是：`fallback_local_only`，不是 DeepSeek 真实任务稳定生成通过。
+- `已确认` 已在 `GPT数据源/10_OPC一人公司闭环与多AI协作机制.md`、`GPT数据源/06_当前主线锚点_API生成真人_用户录制素材_少量PPT_云端剪辑.md`、`GPT数据源/05_文案路由规则.md` 进一步写清：锁质量，不锁流程；文案驱动实时路由；`reference`、`locked reference`、`visual route` 不等于固定镜头 SOP。
+- `已确认` 本轮未修改机制文件以外的项目正文，未修改视频产物、`dist/latest_review_pack/`、`content_validation`、`send_ready`、`publish_status`、声音状态。
+- `执行日志`：`codex_log/20260509_reference质量机制锁最小测试.md`
+- `下一个目标`：基于这次最小测试结果，继续推进 `reference` 质量机制锁修正的下一轮收口。
+
 ## 20260509｜DeepSeek 只读供料管线稳定性修复
 
 - `已确认` 本轮把 `scripts/deepseek_readonly_explorer.py` 从单次最小调用扩展为稳定供料管线：加入输入压缩、三次受控重试、schema 校验和 local fallback。

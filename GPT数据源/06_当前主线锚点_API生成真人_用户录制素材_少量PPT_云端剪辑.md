@@ -27,6 +27,8 @@
 - 卡片类型、信息卡数量、`visual route（视觉路由）` 和结尾承接方式，应跟着文案机制与素材证据走。
 - 如果固定流程与当前文案目标冲突，应先触发机制判断，而不是强套旧流程。
 - `reference（参考）`、`reference_quality_sample（参考质量样片）`、`locked reference（锁定参考）`、`visual route（视觉路由）` 继续约束质量机制，但不锁死每条内容的镜头流程。
+- 历史 `fixed_material_anchor（固定素材锚点）`、`locked reference（锁定参考）` 或 `visual route（视觉路由）` 不得直接预先写死人物段次数、卡片数量、PPT 比例和尾卡是否出现。
+- 如果历史 reference 口径和当前文案目标冲突，默认先保留文案驱动的实时路由判断，只继承质量与边界，不继承旧镜头流程。
 
 ## 3. 四个组成部分的默认职责
 
@@ -77,6 +79,7 @@
 当前不允许预设：
 - 所有视频都只要 1 次
 - 所有视频都必须 2 次
+- 不允许把历史 `reference（参考）`、`locked reference（锁定参考）` 或 `fixed_material_anchor（固定素材锚点）` 理解成“所有视频都必须沿用同一人物段次数与尾卡结构”。
 
 ## 6. 当前 vNext 外壳
 
