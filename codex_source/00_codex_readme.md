@@ -76,6 +76,12 @@
 - Codex 仍是唯一写入 `Integrator（统一执行者）`，负责修改、验证、日志、Git 收尾。
 - `reference（参考）`、`reference_quality_sample（参考质量样片）`、`locked reference（锁定参考）`、`visual route（视觉路由）` 默认锁质量机制，不锁死每条内容的固定流程。
 
+DeepSeek 供料中控最小入口：
+- 当任务命中规则冲突、文件缺口、旧口径风险、上下文过大，或用户明确要求 DeepSeek 参与时，Codex 应优先运行 `scripts/deepseek_supply_controller.py（DeepSeek 供料中控脚本）`。
+- controller 结果必须回流到 `dist/deepseek_supply_controller/latest_supply_pack.md` 与 `dist/deepseek_supply_controller/latest_supply_pack.json`。
+- Codex 后续执行必须读取供料包后再继续；若供料来源是 `fallback_local_only（本地兜底）`，只能把它当作本地资料包，不得写成 DeepSeek 真实生成通过。
+- controller 通过不代表 `multi-agent runtime（多 agent 运行时）` 已跑通。
+
 2026-05-04 项目升级前清库覆盖口径：
 
 - 当前唯一固定素材锚点是 `v31_element_doll_opening_anchor（v3.1 元素娃娃开头锚点）`。

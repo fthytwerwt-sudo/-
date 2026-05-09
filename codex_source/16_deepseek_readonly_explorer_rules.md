@@ -104,3 +104,23 @@ DeepSeek 不得：
 ## 5. 一句话规则
 
 **DeepSeek 在《视频工厂》里默认只做只读供料层，模型默认锁为 `deepseek-v4-pro`；真实任务要先控输入体量，再做 JSON Output、schema 校验和受控重试，三次失败后回退到 local fallback；即使 `context_pack_validation = passed`，也只证明 readonly explorer 上下文包结构通过，不证明多 agent runtime 已跑通。**
+
+## 6. 与 supply controller 的关系
+
+`已确认` `scripts/deepseek_readonly_explorer.py（DeepSeek 只读探索器脚本）` 是底层单次只读供料器。
+
+`已确认` `scripts/deepseek_supply_controller.py（DeepSeek 供料中控脚本）` 是上层中控入口，负责：
+
+- 判断 `trigger_reason（触发原因）`
+- 选择 `action（供料动作）`
+- 检查只读路径范围
+- 调用 readonly explorer 生成单次上下文包
+- 把结果回流到 `dist/deepseek_supply_controller/`
+- 写出 `latest_supply_manifest.json（最新供料清单）`
+
+边界：
+
+- explorer 只负责生成单次 `prefetch_context_pack（预读取上下文包）`。
+- controller 只负责中控、转换、清单和回流，不负责修改业务规则文件。
+- 若 explorer 输出 `fallback_local_only（本地兜底）`，controller 也必须写 `supply_source = fallback_local_only`，不得写成 `deepseek_passed`。
+- controller 通过不代表 DeepSeek 已稳定供料，也不代表 `multi-agent runtime（多 agent 运行时）` 已跑通。

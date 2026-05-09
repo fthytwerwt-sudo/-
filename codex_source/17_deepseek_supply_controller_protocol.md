@@ -1,0 +1,155 @@
+# DeepSeek supply controller 协议
+
+## 1. 文件定位
+
+本文件定义《视频工厂》的 `DeepSeek supply controller（DeepSeek 供料中控）` 最小机制。
+
+它负责：
+- 规定 Codex 什么时候触发 DeepSeek 供料
+- 规定每次供料只能做什么小动作
+- 规定 DeepSeek 允许读取和禁止读取的范围
+- 规定供料包如何回流给 Codex
+
+它不负责：
+- 启动后台常驻服务
+- 证明 `multi-agent runtime（多 agent 运行时）` 已跑通
+- 让 DeepSeek 写文件
+- 让 DeepSeek 拍板项目事实
+- 修改视频、声音、发布状态
+
+## 2. trigger mechanism（触发机制）
+
+Codex 在以下情况必须优先触发 `DeepSeek supply controller`：
+
+1. `missing_context（缺上下文）`
+   - 任务涉及多个规则文件，但 Codex 不确定该读哪些。
+2. `rule_conflict（规则冲突）`
+   - `latest.md（最新摘要）`、`08_当前正式事实.md（当前正式事实）`、机制文件之间说法可能冲突。
+3. `stale_context_risk（旧口径污染风险）`
+   - 任务可能被旧 SOP、旧 reference、旧日志带偏。
+4. `large_context（上下文过大）`
+   - 文件太多或太长，Codex 需要压缩包。
+5. `before_write_gate（写入前依据不足）`
+   - Codex 准备修改机制文件、执行规则、视频状态相关文件前，依据不足。
+6. `after_read_gap（读完仍有缺口）`
+   - Codex 读完首批文件后，仍不知道该信哪个文件或还缺关键文件。
+7. `user_explicit_deepseek（用户明确要求 DeepSeek 参与）`
+   - 用户明确说让 DeepSeek 供料、预读、补读或参与 agent 配合。
+
+触发 controller 不等于自动通过 DeepSeek 生成；controller 必须如实记录供料来源。
+
+## 3. action mechanism（行动机制）
+
+DeepSeek 每次只做一个小动作，不能一次吞掉完整项目任务。
+
+controller 当前支持 5 个 action：
+
+1. `file_map（文件地图）`
+   - 输出本轮应该读哪些文件，为什么读。
+2. `risk_report（风险报告）`
+   - 输出旧口径、冲突、误写、越权风险。
+3. `context_summary（上下文摘要）`
+   - 把已读文件压缩成 Codex 可用摘要。
+4. `missing_files（缺失文件）`
+   - 判断还缺哪些文件，下一轮应该补读什么。
+5. `auto（自动）`
+   - 只能在上述 4 个 action 中选择，不允许生成自由任务。
+
+Codex 后续执行仍必须复核原文件；供料包只是输入，不是最终判断。
+
+## 4. scope mechanism（范围机制）
+
+DeepSeek / controller 只读范围默认允许：
+
+- `AGENTS.md（仓库入口规则）`
+- `codex_source/*.md（Codex 执行规则）`
+- `codex_log/latest.md（最新摘要）`
+- `codex_log/current_*.md（当前状态日志）`
+- `GPT数据源/*.md（GPT 数据源规则包）`
+- `review_loop/*.md（复盘闭环规则）`
+- `scripts/*.py（脚本）`
+- 用户显式指定的文本类文件
+
+默认禁止读取：
+
+- `.env（真实环境变量文件）`
+- `.env.*（环境变量衍生文件）`
+- `.env.swp（本地交换文件）`
+- 密钥文件
+- token 文件
+- 任何二进制媒体文件
+- 视频文件
+- 音频文件
+- 图片文件
+- `dist/latest_review_pack/（最新审片包）` 中的大媒体文件
+- archive-only 外部目录
+- Git 内部文件
+- `.git/`
+
+DeepSeek 禁止：
+
+- 写文件
+- 改文件
+- 删除文件
+- commit
+- push
+- 修改项目事实
+- 修改 `content_validation`
+- 修改 `send_ready`
+- 拍板最终判断
+
+## 5. return mechanism（回流机制）
+
+供料结果固定写入：
+
+- `dist/deepseek_supply_controller/latest_supply_pack.md`
+- `dist/deepseek_supply_controller/latest_supply_pack.json`
+- `dist/deepseek_supply_controller/latest_supply_manifest.json`
+
+输出必须包含：
+
+- `supply_id（供料编号）`
+- `task_type（任务类型）`
+- `trigger_reason（触发原因）`
+- `action（供料动作）`
+- `supply_source（供料来源）`
+  - `deepseek_passed`
+  - `fallback_local_only`
+  - `blocked`
+- `context_pack_validation（上下文包验证）`
+- `files_considered（已考虑文件）`
+- `files_recommended（建议读取文件）`
+- `risks（风险）`
+- `missing_files（缺失文件）`
+- `codex_next_input（给 Codex 的下一步输入）`
+- `not_allowed（禁止事项）`
+
+Codex 后续执行必须读取：
+
+- `dist/deepseek_supply_controller/latest_supply_pack.md`
+- 或 `dist/deepseek_supply_controller/latest_supply_pack.json`
+
+供料结果不能只躺在日志里。
+
+## 6. 状态表达规则
+
+允许写：
+
+- `DeepSeek supply controller 最小机制已落地`
+- `supply_source = deepseek_passed`
+- `supply_source = fallback_local_only`
+- `supply_source = blocked`
+- `pipeline_status = usable_with_fallback`
+
+禁止写：
+
+- DeepSeek 已稳定供料
+- DeepSeek 已替代 Codex
+- DeepSeek 已能拍板项目事实
+- `fallback_local_only` 等于 DeepSeek 结论
+- `multi-agent runtime` 已跑通
+- 完整 agent 协作闭环已完成
+
+## 7. 一句话规则
+
+`DeepSeek supply controller` 是 Codex 可按需触发的只读供料入口：它把缺上下文、规则冲突、旧口径风险和大上下文压缩成小型供料任务，并把结果回流到固定供料包；DeepSeek 失败时可以使用 `fallback_local_only`，但 fallback 必须明确标记为本地兜底，不得写成 DeepSeek 结论。

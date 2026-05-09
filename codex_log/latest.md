@@ -1,5 +1,19 @@
 # Latest
 
+## 20260509｜DeepSeek 供料中控最小机制
+
+- `已确认` 本轮新增 `scripts/deepseek_supply_controller.py（DeepSeek 供料中控脚本）`，把 DeepSeek 从单次供料脚本升级为可触发、可回流、可兜底的最小中控入口。
+- `已确认` 已新增 `codex_source/17_deepseek_supply_controller_protocol.md（DeepSeek 供料中控协议）`，写清触发机制、行动机制、范围机制和回流机制。
+- `已确认` controller 支持 `file_map`、`risk_report`、`context_summary`、`missing_files`、`auto` 五类 action。
+- `已确认` 输出回流路径为 `dist/deepseek_supply_controller/latest_supply_pack.md`、`latest_supply_pack.json`、`latest_supply_manifest.json`。
+- `test_file_map`: `deepseek_passed`
+- `test_risk_report`: `fallback_local_only`
+- `pipeline_status`: `usable_with_fallback`
+- `已确认` 本轮未修改业务机制正文、未修改视频产物、`dist/latest_review_pack/`、`content_validation`、`send_ready`、`publish_status`、声音状态。
+- `已确认` 本轮不代表 DeepSeek 已稳定供料，也不代表 `multi-agent runtime（多 agent 运行时）` 已跑通。
+- `执行日志`：`codex_log/20260509_DeepSeek供料中控最小机制.md`
+- `下一个目标`：用 supply controller 参与一次真实 Codex 机制修正任务。
+
 ## 20260509｜reference 质量机制锁最小测试
 
 - `已确认` 本轮用 `DeepSeek readonly explorer` 先为 `reference` 质量机制锁修正生成资料包，再由 `Codex` 做最小范围机制修正。
