@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 import urllib.error
@@ -14,6 +15,7 @@ ENV_PATH = ROOT / ".env"
 OUTPUT_PATH = ROOT / "dist" / "deepseek_readonly_explorer" / "latest_prefetch_context_pack.md"
 DEFAULT_BASE_URL = "https://api.deepseek.com"
 DEFAULT_MODEL = "deepseek-v4-pro"
+REQUEST_TIMEOUT_SECONDS = 60
 REQUIRED_TOP_LEVEL_KEYS = [
     "prefetch_context_pack",
     "must_read_file_map",
@@ -46,6 +48,23 @@ JSON_OUTPUT_EXAMPLE = {
 }
 
 
+def parse_args(argv: list[str]) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Run the DeepSeek readonly explorer validation or a minimal real-task test."
+    )
+    parser.add_argument(
+        "--task",
+        help="Optional readonly analysis task to replace the default smoke-test prompt.",
+    )
+    parser.add_argument(
+        "--context-file",
+        action="append",
+        default=[],
+        help="Optional file path to include as readonly analysis context. Repeatable.",
+    )
+    return parser.parse_args(argv)
+
+
 def load_env(path: Path) -> dict[str, str]:
     data: dict[str, str] = {}
     if not path.exists():
@@ -62,6 +81,33 @@ def load_env(path: Path) -> dict[str, str]:
 def write_report(lines: list[str]) -> None:
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def resolve_context_paths(raw_paths: list[str]) -> list[Path]:
+    resolved_paths: list[Path] = []
+    for raw_path in raw_paths:
+        path = Path(raw_path)
+        if not path.is_absolute():
+            path = ROOT / path
+        resolved_paths.append(path.resolve())
+    return resolved_paths
+
+
+def load_context_bundle(paths: list[Path]) -> str:
+    context_sections: list[str] = []
+    for path in paths:
+        try:
+            relative_label = str(path.relative_to(ROOT))
+        except ValueError:
+            relative_label = str(path)
+        text = path.read_text(encoding="utf-8")
+        context_sections.append(
+            f"FILE: {relative_label}\n"
+            "BEGIN_CONTENT\n"
+            f"{text}\n"
+            "END_CONTENT"
+        )
+    return "\n\n".join(context_sections)
 
 
 def json_block(value: object) -> list[str]:
@@ -136,6 +182,7 @@ def render_context_pack(
 
 
 def main() -> int:
+    args = parse_args(sys.argv[1:])
     env = load_env(ENV_PATH)
     api_key = env.get("DEEPSEEK_API_KEY", "")
     base_url = env.get("DEEPSEEK_BASE_URL", DEFAULT_BASE_URL)
@@ -160,8 +207,45 @@ def main() -> int:
         )
         return 2
 
+    try:
+        context_paths = resolve_context_paths(args.context_file)
+        context_bundle = load_context_bundle(context_paths) if context_paths else ""
+    except Exception as exc:  # noqa: BLE001
+        write_failed_report(
+            timestamp=timestamp,
+            base_url=base_url,
+            model=model,
+            error_category="context_load_error",
+            detail_lines=[
+                "## error_detail",
+                "",
+                f"- `error_type`: `{type(exc).__name__}`",
+                f"- `error_message`: `{exc}`",
+            ],
+        )
+        return 11
+
     url = f"{base_url.rstrip('/')}/chat/completions"
     json_example = json.dumps(JSON_OUTPUT_EXAMPLE, ensure_ascii=False, indent=2)
+    task_prompt = args.task or (
+        "Provide a tiny readonly smoke-test response for the 视频工厂 project. "
+        "Keep it brief and avoid inventing unverified project facts."
+    )
+    user_prompt_parts = [
+        "Return JSON only. Do not include Markdown fences or prose.",
+        "Use the provided repository context when it exists.",
+        "Do not claim write access. Do not say you changed files.",
+        "Do not upgrade project facts to confirmed unless they are explicitly stated in the provided context.",
+        task_prompt,
+        "Use this exact JSON shape:\n" + json_example,
+    ]
+    if context_bundle:
+        user_prompt_parts.extend(
+            [
+                "Analyze only the following provided file contents and name the relevant files explicitly in your output where useful.",
+                context_bundle,
+            ]
+        )
     payload = {
         "model": model,
         "temperature": 0,
@@ -185,13 +269,7 @@ def main() -> int:
             },
             {
                 "role": "user",
-                "content": (
-                    "Return JSON only. Do not include Markdown fences or prose. "
-                    "Provide a tiny readonly smoke-test response for the 视频工厂 project. "
-                    "Keep it brief and avoid inventing unverified project facts. "
-                    "Use this exact JSON shape:\n"
-                    f"{json_example}"
-                ),
+                "content": "\n\n".join(user_prompt_parts),
             },
         ],
     }
@@ -206,7 +284,7 @@ def main() -> int:
     )
 
     try:
-        with urllib.request.urlopen(request, timeout=30) as response:
+        with urllib.request.urlopen(request, timeout=REQUEST_TIMEOUT_SECONDS) as response:
             body = json.loads(response.read().decode("utf-8"))
     except urllib.error.HTTPError as exc:
         detail = exc.read().decode("utf-8", errors="replace")

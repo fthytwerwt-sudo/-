@@ -1,5 +1,17 @@
 # Latest
 
+## 20260509｜DeepSeek 只读探索器最小真实任务测试
+
+- `已确认` 本轮只做 DeepSeek readonly explorer 最小真实任务测试，不修改机制文件正文。
+- `已确认` 为承载真实任务测试，`scripts/deepseek_readonly_explorer.py` 仅做了最小可逆扩展：支持 `--task`、`--context-file`，并把请求超时提高到 `60s`。
+- `部分成立` DeepSeek 已进入真实低风险任务调用阶段，但本轮未产出有效上下文包。
+- `deepseek_test_result`: `blocked`
+- `原因`：真实任务测试中先后出现 `timeout`、`truncated_json`、`empty_content`；最终输出未能稳定形成四字段上下文包。
+- `已确认` 本轮没有出现写文件越权、拍板项目事实或把多 agent runtime 写成已跑通的内容。
+- `已确认` 本轮未修改机制文件正文、未修改视频产物、`dist/latest_review_pack/`、`content_validation`、`send_ready`、`publish_status`、声音状态。
+- `执行日志`：`codex_log/20260509_DeepSeek只读探索器最小真实任务测试.md`
+- `下一个目标`：根据这次 blocked 结果，决定是否进入“reference 质量机制锁”规则修正，或先继续收紧 readonly explorer 的任务输入与输出约束。
+
 ## 20260509｜DeepSeek 正式事实口径同步
 
 - `已确认` 本轮只同步 `GPT数据源/08_当前正式事实.md` 的 DeepSeek 正式事实口径。
