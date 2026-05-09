@@ -1,5 +1,14 @@
 # Latest
 
+## 20260509｜DeepSeek 正式事实口径同步
+
+- `已确认` 本轮只同步 `GPT数据源/08_当前正式事实.md` 的 DeepSeek 正式事实口径。
+- `已确认` 已把旧口径 `DeepSeek API 尚未接入` 改写为当前已验证口径：`api_validation = passed`、`context_pack_validation = passed`、`model = deepseek-v4-pro`。
+- `已确认` 已同步写清：这只代表 readonly explorer 最小 API 调用链和四字段上下文包结构验证通过，不代表多 agent runtime 已跑通。
+- `已确认` 本轮没有重新修改脚本，没有重新推进视频、声音、发布状态，也没有把 `context_pack_validation = passed` 写成生产执行通过。
+- `执行日志`：`codex_log/20260509_DeepSeek正式事实口径同步.md`
+- `下一个目标`：用 DeepSeek readonly explorer 为一次真实 Codex 任务生成上下文包。
+
 ## 20260509｜DeepSeek readonly explorer 输出结构修复
 
 - `已确认` 本轮修复 `scripts/deepseek_readonly_explorer.py` 的输出结构约束。
