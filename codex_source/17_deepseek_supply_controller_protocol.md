@@ -42,7 +42,7 @@ Codex 在以下情况必须优先触发 `DeepSeek supply controller`：
 
 DeepSeek 每次只做一个小动作，不能一次吞掉完整项目任务。
 
-controller 当前支持 5 个 action：
+controller 当前支持 6 个 action：
 
 1. `file_map（文件地图）`
    - 输出本轮应该读哪些文件，为什么读。
@@ -52,10 +52,81 @@ controller 当前支持 5 个 action：
    - 把已读文件压缩成 Codex 可用摘要。
 4. `missing_files（缺失文件）`
    - 判断还缺哪些文件，下一轮应该补读什么。
-5. `auto（自动）`
-   - 只能在上述 4 个 action 中选择，不允许生成自由任务。
+5. `editing_decision_pack（剪辑决策包）`
+   - 用于视频剪辑、录屏放大、卡片插入、中段承载、画面证据链保护等任务。
+   - 只基于 Codex 提供的文字化素材样料生成建议，不直接读取视频 / 音频 / 图片等媒体文件。
+6. `auto（自动）`
+   - 只能在上述非 `auto` action 中选择，不允许生成自由任务。
 
 Codex 后续执行仍必须复核原文件；供料包只是输入，不是最终判断。
+
+### 3A. `editing_decision_pack（剪辑决策包）`
+
+`editing_decision_pack（剪辑决策包）` 专门回答视频执行现场的剪辑判断问题：
+
+- 哪些片段要放大。
+- 哪些片段保持原画面。
+- 哪些片段需要局部框选 / 高亮。
+- 哪些地方适合插提示卡。
+- 哪些地方不该动，避免破坏真实证据。
+- 哪些 reference 只继承质量，不照搬流程。
+- 哪些剪辑动作会让视频像 demo / 说明书 / 硬拼接。
+
+边界：
+
+- DeepSeek 不直接剪视频。
+- DeepSeek 不直接看视频或媒体文件。
+- DeepSeek 不拍板最终画面好不好。
+- DeepSeek / fallback 只基于文本样料生成决策建议。
+- Codex 执行前必须复核素材证据和原文件。
+- 最终内容判断仍由 ChatGPT / 用户完成。
+
+Codex 触发该 action 前，必须尽量提供以下文字化样料：
+
+- `source_segments（素材片段）`
+- `narration_lines（口播句子）`
+- `contact_sheet_description（联系表描述）`
+- `ocr_text（OCR 文字）`
+- `frame_descriptions（抽帧描述）`
+- `reference_quality_points（参考质量点）`
+- `editing_question（剪辑问题）`
+
+若上述样料不足，controller 不必默认 blocked，但供料包必须显式标记：
+
+- `missing_context（缺失上下文）`
+- `blocked_if_insufficient_editing_sample（文字化剪辑样料不足时阻断）`
+
+`editing_decision_pack（剪辑决策包）` 最小输出字段：
+
+```text
+editing_decision_pack:
+  source_segment:
+    file_reference:
+    time_range:
+    visible_content:
+    evidence_role:
+  narration_intent:
+    line:
+    function:
+    viewer_should_understand:
+  visual_action:
+    action_type:
+      - full_frame
+      - zoom_in
+      - crop_focus
+      - highlight_box
+      - freeze_frame
+      - insert_card
+      - split_compare
+      - do_not_touch
+    target_area:
+    timing:
+  reason:
+  reference_quality_point:
+  risk:
+  blocked_if:
+  codex_execution_note:
+```
 
 ## 4. scope mechanism（范围机制）
 
@@ -221,10 +292,38 @@ DeepSeek / fallback 参与机制升级时，默认允许至少两次供料观察
 
 使用边界：
 
-- `deepseek-v4-flash` 默认用于常规小步供料：`file_map（文件地图）`、`missing_files（缺失文件）`、`context_summary（上下文摘要）`、普通 `risk_report（风险报告）`、复盘文件地图和标准提取。
+- `deepseek-v4-flash` 默认用于常规小步供料：`file_map（文件地图）`、`missing_files（缺失文件）`、`context_summary（上下文摘要）`、普通 `risk_report（风险报告）`、基于文字样料的 `editing_decision_pack（剪辑决策包）`、复盘文件地图和标准提取。
 - `deepseek-v4-pro` 只作为复杂任务升级模型：多文件冲突、复杂机制判断、长任务审计、多轮供料包合并、Flash 多次失败后升级、或 Codex 明确标记 `after_read_gap（读完仍有缺口）` 且 fallback 不足。
 - 本轮只落地默认模型口径；自动模型升级机制尚未实现，后续如要启用必须另行开发和验证。
 - controller 输出必须保留底层 explorer 写出的实际 `model（模型）` 状态；如果输出来源为 `fallback_local_only（本地兜底）`，仍不得写成 DeepSeek 结论。
+
+## 7C. DeepSeek deep collaboration flow（DeepSeek 深度配合流程）
+
+DeepSeek 深度配合不是让 DeepSeek 替代 Codex，也不是证明 `multi-agent runtime（多 agent 运行时）` 已跑通。它只是把只读供料从单次文件地图升级为执行前、执行中、执行后的可回流流程。
+
+标准链路：
+
+```text
+Codex route_decision（路由判断）
+-> Auto-completion gate（自动补全闸门）
+-> 判断 supply_required（三卡 / DeepSeek 供料）
+-> 生成 supply_request（供料请求任务卡）
+-> controller 运行 DeepSeek / fallback
+-> 输出 supply_pack（供料包）
+-> Codex 读取 supply_pack
+-> Codex 复核原文件
+-> Codex 执行
+-> 执行后 risk_report / after_read_gap 复核
+-> latest / dated log 回流
+```
+
+硬边界：
+
+- 供料包不能替代原文件。
+- `fallback_local_only（本地兜底）` 不能替代 DeepSeek 结论。
+- DeepSeek 不能替代 Codex 执行判断。
+- Codex 不能替代 ChatGPT / 用户做内容最终判断。
+- 本流程只表示机制落地和最小验证方向，不表示真实任务已多轮稳定验证。
 
 ## 8. 一句话规则
 

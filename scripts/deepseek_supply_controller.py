@@ -15,7 +15,14 @@ ROOT = Path(__file__).resolve().parent.parent
 EXPLORER_SCRIPT = ROOT / "scripts" / "deepseek_readonly_explorer.py"
 EXPLORER_OUTPUT = ROOT / "dist" / "deepseek_readonly_explorer" / "latest_prefetch_context_pack.md"
 DEFAULT_OUTPUT_DIR = ROOT / "dist" / "deepseek_supply_controller"
-ALLOWED_ACTIONS = {"file_map", "risk_report", "context_summary", "missing_files", "auto"}
+ALLOWED_ACTIONS = {
+    "file_map",
+    "risk_report",
+    "context_summary",
+    "missing_files",
+    "editing_decision_pack",
+    "auto",
+}
 ALLOWED_TRIGGER_REASONS = {
     "missing_context",
     "rule_conflict",
@@ -90,6 +97,12 @@ REQUIRED_NOT_ALLOWED_PATTERNS = {
     "fallback_not_conclusion": ("fallback", "本地兜底"),
     "no_multi_agent_runtime_claim": ("multi-agent runtime", "多 agent"),
 }
+EDITING_DECISION_SAMPLE_FIELDS = (
+    "source_segments",
+    "narration_lines",
+    "frame_descriptions",
+    "editing_question",
+)
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
@@ -304,6 +317,17 @@ def task_from_request(card: dict[str, Any]) -> str:
         "blocked_if": card.get("blocked_if"),
         "not_allowed": card.get("not_allowed"),
     }
+    for field_name in (
+        "source_segments",
+        "narration_lines",
+        "contact_sheet_description",
+        "ocr_text",
+        "frame_descriptions",
+        "reference_quality_points",
+        "editing_question",
+    ):
+        if field_name in card:
+            payload[field_name] = card.get(field_name)
     return (
         "Use this supply_request task card as the only current task context. "
         "Do not infer missing project state from memory.\n"
@@ -379,6 +403,14 @@ def build_controller_task(
         "risk_report": "Output a compact risk report: stale context, rule conflicts, overreach, and blocked-if items.",
         "context_summary": "Compress the provided context into a compact Codex-ready summary.",
         "missing_files": "Identify missing files or evidence Codex should request or read next.",
+        "editing_decision_pack": (
+            "Output an editing_decision_pack based only on text samples supplied by Codex. "
+            "DeepSeek must not read media files, cut video, or decide final visual quality. "
+            "Help Codex decide where to use full_frame, zoom_in, crop_focus, highlight_box, "
+            "freeze_frame, insert_card, split_compare, or do_not_touch while protecting the "
+            "real evidence chain. Mark missing_context and blocked_if_insufficient_editing_sample "
+            "when source_segments, narration_lines, frame_descriptions, or editing_question are insufficient."
+        ),
     }
     return "\n".join(
         [
@@ -519,6 +551,81 @@ def collect_missing_files(sections: dict[str, Any]) -> list[Any]:
     return [item for item in missing if item]
 
 
+def request_has_sample_value(card: dict[str, Any], field_name: str) -> bool:
+    value = card.get(field_name)
+    if isinstance(value, str):
+        return bool(value.strip())
+    if isinstance(value, list):
+        return bool(value)
+    return value is not None
+
+
+def first_list_item(value: Any) -> Any:
+    if isinstance(value, list) and value:
+        return value[0]
+    return None
+
+
+def build_editing_decision_support(
+    *,
+    request_card: dict[str, Any] | None,
+    action: str,
+) -> dict[str, Any] | None:
+    if action != "editing_decision_pack":
+        return None
+    card = request_card if isinstance(request_card, dict) else {}
+    missing_context = [
+        field_name
+        for field_name in EDITING_DECISION_SAMPLE_FIELDS
+        if not request_has_sample_value(card, field_name)
+    ]
+    source_segment = first_list_item(card.get("source_segments"))
+    frame_description = first_list_item(card.get("frame_descriptions"))
+    narration_line = first_list_item(card.get("narration_lines"))
+    reference_quality_point = first_list_item(card.get("reference_quality_points"))
+    if not isinstance(source_segment, dict):
+        source_segment = {}
+    if not isinstance(frame_description, dict):
+        frame_description = {}
+    return {
+        "sample_source": "supply_request_text_fields_only",
+        "missing_context": missing_context,
+        "blocked_if_insufficient_editing_sample": bool(missing_context),
+        "source_segment": {
+            "file_reference": source_segment.get("file_reference", ""),
+            "time_range": source_segment.get("time_range", ""),
+            "visible_content": source_segment.get("visible_content")
+            or frame_description.get("visible_content", ""),
+            "evidence_role": source_segment.get("evidence_role", ""),
+        },
+        "narration_intent": {
+            "line": narration_line or "",
+            "function": "待 DeepSeek / fallback 基于文字样料补充",
+            "viewer_should_understand": "待 Codex 复核原文件后确认",
+        },
+        "visual_action": {
+            "action_type": "do_not_touch" if missing_context else "full_frame",
+            "target_area": "待 Codex 复核原素材后确认",
+            "timing": source_segment.get("time_range", ""),
+        },
+        "reason": "供料只能基于文字样料生成剪辑建议，不能替代 Codex 原文件复核。",
+        "reference_quality_point": reference_quality_point or "",
+        "risk": [
+            "DeepSeek 不直接读取或判断媒体文件。",
+            "fallback_local_only 不是 DeepSeek 结论。",
+            "文字化样料不足时不得进入真实剪辑执行。",
+        ],
+        "blocked_if": [
+            "缺少 source_segments / narration_lines / frame_descriptions / editing_question 中的关键样料。",
+            "需要 DeepSeek 直接读取视频、音频、图片或 dist/latest_review_pack/。",
+            "需要把剪辑建议写成最终内容判断。",
+        ],
+        "codex_execution_note": (
+            "Codex 必须先复核素材证据、原文件和当前规则，再决定是否执行剪辑动作。"
+        ),
+    }
+
+
 def decide_supply_source(status: dict[str, str], explorer_run: dict[str, Any]) -> str:
     if (
         status.get("validation_status") == "passed"
@@ -558,6 +665,16 @@ def build_supply_pack(
     )
     risks = collect_risks(sections.get("risk_and_conflict_report"))
     missing_files = collect_missing_files(sections)
+    editing_decision_pack = build_editing_decision_support(
+        request_card=request_card,
+        action=actual_action,
+    )
+    request_missing_context = request_card.get("missing_context", []) if request_card else []
+    if editing_decision_pack:
+        request_missing_context = list(request_missing_context) + [
+            f"editing_decision_pack_missing:{field_name}"
+            for field_name in editing_decision_pack["missing_context"]
+        ]
     not_deepseek_conclusion = supply_source != "deepseek_passed"
     codex_next_input = {
         "read_first": files_recommended[:8],
@@ -568,6 +685,16 @@ def build_supply_pack(
             else "DeepSeek generated the pack, but Codex must still verify original files."
         ),
     }
+    if editing_decision_pack:
+        codex_next_input.update(
+            {
+                "editing_decision_pack_review_required": True,
+                "blocked_if_insufficient_editing_sample": editing_decision_pack[
+                    "blocked_if_insufficient_editing_sample"
+                ],
+                "codex_original_file_review_required": True,
+            }
+        )
     return {
         "supply_id": supply_id,
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
@@ -577,7 +704,7 @@ def build_supply_pack(
         "current_goal": request_card.get("current_goal", "") if request_card else "",
         "current_step": request_card.get("current_step", "") if request_card else "",
         "known_context": request_card.get("known_context", []) if request_card else [],
-        "missing_context": request_card.get("missing_context", []) if request_card else [],
+        "missing_context": request_missing_context,
         "decision_needed": request_card.get("decision_needed", "") if request_card else "",
         "task": args.task,
         "task_type": args.task_type,
@@ -602,6 +729,7 @@ def build_supply_pack(
         "files_recommended": files_recommended,
         "risks": risks,
         "missing_files": missing_files,
+        "editing_decision_pack": editing_decision_pack,
         "codex_next_input": codex_next_input,
         "not_allowed": [
             "Do not treat fallback_local_only as a DeepSeek conclusion.",
@@ -644,6 +772,7 @@ def write_supply_outputs(pack: dict[str, Any], output_dir: Path) -> None:
         "multi_agent_runtime_validation": pack["multi_agent_runtime_validation"],
         "not_deepseek_conclusion": pack["not_deepseek_conclusion"],
         "codex_next_input": pack["codex_next_input"],
+        "editing_decision_pack": pack.get("editing_decision_pack"),
         "not_allowed": pack["not_allowed"],
         "files": {
             "latest_supply_pack_md": relative_label(pack_md_path),
@@ -715,6 +844,12 @@ def write_supply_outputs(pack: dict[str, Any], output_dir: Path) -> None:
         json.dumps(pack["missing_files"], ensure_ascii=False, indent=2),
         "```",
         "",
+        "## editing_decision_pack（剪辑决策包）",
+        "",
+        "```json",
+        json.dumps(pack.get("editing_decision_pack"), ensure_ascii=False, indent=2),
+        "```",
+        "",
         "## codex_next_input（给 Codex 的下一步输入）",
         "",
         "```json",
@@ -762,6 +897,11 @@ def write_blocked_manifest(
         "pipeline_status": "blocked",
         "multi_agent_runtime_validation": "not_started",
         "not_deepseek_conclusion": True,
+        "codex_next_input": {
+            "read_first": [],
+            "use_as": "blocked_request_validation_manifest",
+            "warning": "Request validation blocked before any context file was read.",
+        },
         "error": error,
     }
     (output_dir / "latest_supply_manifest.json").write_text(

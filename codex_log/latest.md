@@ -1,5 +1,36 @@
 # Latest
 
+## 20260510｜DeepSeek 深度配合与自动补全闸门
+
+- `已确认` 本轮落地 `Auto-completion gate（自动补全闸门）`，用于阻断 Codex 只完成用户点名任务、遗漏上游判断、供料、三卡、执行中补缺口、执行后风险复核、日志回流或事实同步。
+- `已确认` 自动补全闸门已写入 `codex_source/01_execution_rules.md（Codex 执行规则）`，后续触发任务必须输出 `auto_completion_gate` 字段，并检查 `goal_layer / judgment_layer / route_layer / trigger_layer / supply_layer / execution_layer / feedback_layer / validation_layer / sync_layer`。
+- `已确认` 本轮新增 DeepSeek action：`editing_decision_pack（剪辑决策包）`，已同步进入：
+  - `codex_source/17_deepseek_supply_controller_protocol.md`
+  - `codex_source/18_deepseek_supply_request_schema.md`
+  - `codex_source/schemas/deepseek_supply_request.schema.json`
+  - `scripts/deepseek_supply_controller.py`
+- `已确认` 新增可运行样例任务卡：`codex_source/fixtures/deepseek_supply_request_editing_decision_pack_example.json`。
+- `已确认` `editing_decision_pack（剪辑决策包）` 只允许基于 Codex 提供的文字化素材样料供料，不直接读取视频、音频、图片或媒体文件，不剪视频，不拍板最终画面质量。
+- `已确认` DeepSeek 深度配合流程已写入 `codex_source/17_deepseek_supply_controller_protocol.md`：`route_decision -> Auto-completion gate -> supply_request -> controller -> supply_pack -> Codex 读包 -> Codex 复核原文件 -> 执行 -> after_read_gap / risk_report 复核 -> latest / dated log 回流`。
+- `已确认` OPC 上位机制已轻量同步：DeepSeek 仍是只读供料层，供料扩展到执行前文件地图、执行中缺口补读、执行后风险复核和视频执行现场 `editing_decision_pack（剪辑决策包）`；最终执行判断仍在 Codex，方向 / 内容 / 人感 / 下一轮变量仍由 ChatGPT / 用户拍板。
+- `py_compile`: `passed`
+- `schema_json_parse`: `passed`
+- `fixture_json_parse`: `passed`
+- `old_action_file_map_compatibility`: `passed`
+- `editing_decision_pack_fixture_validation`: `passed`
+- `editing_decision_pack_supply_source`: `deepseek_passed`
+- `editing_decision_pack_context_pack_validation`: `passed`
+- `editing_decision_pack_fallback_status`: `not_used`
+- `forbidden_env_check`: `blocked_before_read`
+- `forbidden_media_check`: `blocked_before_read`
+- `forbidden_latest_review_pack_check`: `blocked_before_read`
+- `已确认` 供料输出三件套存在：`dist/deepseek_supply_controller/latest_supply_pack.md`、`latest_supply_pack.json`、`latest_supply_manifest.json`。
+- `已确认` manifest 已包含 `action = editing_decision_pack`、`request_validation_status = passed`、`supply_source = deepseek_passed`、`not_deepseek_conclusion = false`、`codex_next_input`。
+- `已确认` 本轮只代表机制落地与最小样例验证；不代表 DeepSeek 已稳定真实供料，不代表 `multi-agent runtime（多 agent 运行时）` 已跑通，不代表真实视频剪辑任务已经验证通过。
+- `已确认` 本轮未修改视频 / 音频 / 图片等媒体文件，未修改 `dist/latest_review_pack/`，未修改 `codex_log/current_publish_target.md`，未推进 `content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）` 或声音状态。
+- `执行日志`：`codex_log/20260510_DeepSeek深度配合与自动补全闸门.md`
+- `下一个目标`：用一个真实小范围视频剪辑 / 录屏放大 / 卡片插入任务验证 `editing_decision_pack（剪辑决策包）` 是否真的能减少 Codex 漏读、误剪和硬套旧 SOP。
+
 ## 20260510｜DeepSeek 默认供料模型切换为 v4-flash
 
 - `已确认` 本轮将 DeepSeek readonly explorer 默认供料模型从 `deepseek-v4-pro` 切换为 `deepseek-v4-flash`。

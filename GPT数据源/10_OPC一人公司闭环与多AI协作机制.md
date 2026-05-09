@@ -82,6 +82,18 @@
 - `must_read_file_map（必读文件地图）`
 - `risk_and_conflict_report（风险与冲突报告）`
 - `candidate_summary（候选摘要）`
+- `editing_decision_pack（剪辑决策包）`
+
+DeepSeek 供料范围从“文件地图 / 风险冲突”扩展为：
+
+1. 执行前文件地图。
+2. 执行中缺口补读。
+3. 执行后风险复核。
+4. 视频执行现场的 `editing_decision_pack（剪辑决策包）`。
+
+`editing_decision_pack（剪辑决策包）` 只能基于 Codex 提供的文字化素材样料工作，例如 `source_segments（素材片段）`、`narration_lines（口播句子）`、`frame_descriptions（抽帧描述）`、`ocr_text（OCR 文字）` 和 `editing_question（剪辑问题）`。它不直接读取视频、音频、图片或媒体文件。
+
+最终执行判断仍在 Codex。方向、内容、人感、下一轮变量仍由 ChatGPT / 用户拍板。该机制不代表 `multi-agent runtime（多 agent 运行时）` 已跑通，也不代表 DeepSeek 已稳定真实供料。
 
 禁止：
 - 修改仓库文件

@@ -56,6 +56,7 @@
         "risk_report",
         "context_summary",
         "missing_files",
+        "editing_decision_pack",
         "auto"
       ]
     },
@@ -149,6 +150,44 @@
       "type": "boolean"
     },
     "fallback_policy": {
+      "type": "string"
+    },
+    "source_segments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "narration_lines": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "contact_sheet_description": {
+      "type": "string"
+    },
+    "ocr_text": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "frame_descriptions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "reference_quality_points": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "editing_question": {
       "type": "string"
     }
   }

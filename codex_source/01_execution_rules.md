@@ -334,6 +334,73 @@ large_task_gate:
 - `review_variable_card（复盘变量卡）` 锁单变量反馈，不替代最终判断。
 - 若执行中发现已读文件不足以判断，必须触发 `after_read_gap（读完仍有缺口）` 供料或补读；若补读仍无法排除 forbidden 修改风险，必须 blocked。
 
+## 2E. Auto-completion gate 自动补全闸门
+
+`Auto-completion gate（自动补全闸门）` 用来阻断 Codex 只完成用户点名动作、却漏掉上游判断、供料、三卡、风险复核、日志回流或事实同步的情况。
+
+它不是让 Codex 自行扩写业务目标；它只允许 Codex 在已确认边界内补齐完成本轮任务必须存在的机制链。
+
+凡任务命中以下任一情况，必须触发自动补全闸门：
+
+- 机制修补
+- 路由修补
+- 项目文件修改
+- DeepSeek / 多 AI 协作
+- 视频样片 / 成片
+- 文案生产
+- 发布复盘
+- `reference（参考）` / `locked reference（锁定参考）` / `visual route（视觉路由）`
+- 多文件任务
+- 用户要求“完整流程 / 深度配合 / 自动补全 / 不要只做点名任务”
+
+触发后，Codex 执行前必须自动检查 9 个层级：
+
+1. `goal_layer（目标层）`：本轮目标是否只是显性动作，还是包含必须补齐的机制链。
+2. `judgment_layer（判断层）`：是否需要先判断项目状态、内容边界、reference 继承或风险归属。
+3. `route_layer（路由层）`：是否已完成 `route_decision（路由判断）`、lane / parallel 判断和责任层级划分。
+4. `trigger_layer（触发层）`：是否触发 DeepSeek 供料、三卡机制、发布前风险检查、review_loop 或路径索引。
+5. `supply_layer（供料层）`：是否需要 `supply_request（供料请求任务卡）`、供料包读取、执行中补读或执行后风险复核。
+6. `execution_layer（执行层）`：是否只允许 Codex 单点写入，是否已有允许修改范围和禁止修改范围。
+7. `feedback_layer（反馈层）`：执行结果是否需要进入 `review_loop/`、供料包、risk_report 或下一轮变量说明。
+8. `validation_layer（验收层）`：是否有能证明本轮技术 / 机制变更成立的验证命令与输出。
+9. `sync_layer（同步层）`：是否需要同步 `codex_log/latest.md`、dated log、当前事实、执行规则、schema 或入口文件。
+
+后续触发本闸门的任务必须输出以下字段：
+
+```text
+auto_completion_gate:
+  triggered:
+  reason:
+  explicit_user_task:
+  implicit_mechanism_chain:
+    goal_layer:
+    judgment_layer:
+    route_layer:
+    trigger_layer:
+    supply_layer:
+    execution_layer:
+    feedback_layer:
+    validation_layer:
+    sync_layer:
+  missing_links:
+  must_complete_now:
+  blocked_if_not_completed:
+  auto_completion_plan:
+  auto_completion_result:
+```
+
+完成判断硬规则：
+
+- 只完成用户点名任务，不等于完成。
+- 若隐性机制链有缺口，必须补齐或 `blocked（阻断）`。
+- 若需要 DeepSeek 供料而未触发，不能写完整完成。
+- 若需要三张机制卡而未生成，不能进入执行。
+- 若供料包生成但 Codex 没读，不能写完整完成。
+- 若读供料包但没复核原文件，不能写完整完成。
+- 若执行后没有风险复核，不能写完整完成。
+- 若没更新日志，不能写完整完成。
+- 若本轮只能完成显性任务、无法补齐上游或下游机制，必须把状态写成 `部分成立` 或 `blocked`，不得写成 `已确认完成`。
+
 ## 3. skill 检查硬规则
 
 执行前必须：

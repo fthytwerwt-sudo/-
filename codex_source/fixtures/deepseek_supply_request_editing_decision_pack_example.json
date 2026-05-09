@@ -1,0 +1,130 @@
+{
+  "request_id": "ds_supply_req_editing_decision_pack_20260510",
+  "created_at": "2026-05-10T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "video_editing_decision_pack_text_sample",
+  "task_type": "mechanism_or_route_fix",
+  "trigger_reason": "before_write_gate",
+  "action": "editing_decision_pack",
+  "current_goal": "用文字化素材样料测试剪辑决策包供料，不让 DeepSeek 直接读取媒体文件。",
+  "current_step": "执行前剪辑判断供料样例",
+  "known_context": [
+    "已确认 DeepSeek 是只读供料层，不写文件、不拍板项目事实。",
+    "已确认 reference / locked reference / visual route 锁质量机制，不锁死每条内容固定流程。",
+    "已确认 Codex 执行前必须复核原文件和素材证据。"
+  ],
+  "missing_context": [
+    "真实视频任务尚未使用 editing_decision_pack 验证。",
+    "当前样例只包含文字化素材描述，不包含真实媒体读取。"
+  ],
+  "decision_needed": "基于文字化样料，给 Codex 一份剪辑动作建议清单，重点判断放大、保留原画面、插卡、高亮、定格、左右对比和不动的边界。",
+  "candidate_files": [
+    "codex_source/01_execution_rules.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "review_loop/11_内容路由质量复盘三卡模板_content_quality_review_cards.md"
+  ],
+  "must_read_files": [
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md"
+  ],
+  "optional_files": [
+    "GPT数据源/10_OPC一人公司闭环与多AI协作机制.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "*.mp4",
+    "*.mov",
+    "*.m4v",
+    "*.mp3",
+    "*.wav",
+    "*.m4a",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.webp",
+    "/Users/fan/Documents/视频工厂归档+删除"
+  ],
+  "max_context_files": 6,
+  "max_context_chars": 18000,
+  "source_segments": [
+    {
+      "file_reference": "text_sample:screen_recording_segment_a",
+      "time_range": "00:12-00:18",
+      "visible_content": "用户在工具页面输入一句模糊需求，生成结果只出现泛泛建议。",
+      "evidence_role": "negative_example_before_improvement"
+    },
+    {
+      "file_reference": "text_sample:screen_recording_segment_b",
+      "time_range": "00:31-00:39",
+      "visible_content": "用户套用结构化 prompt 后，结果出现可直接改写的提纲和行动项。",
+      "evidence_role": "positive_result_after_prompt"
+    }
+  ],
+  "narration_lines": [
+    "旧做法不是不能生成，是生成出来根本不能交。",
+    "换成场景化 prompt 后，结果开始像能交付的初稿。"
+  ],
+  "contact_sheet_description": "两段录屏均为文字说明样料：反面段页面变化少但关键文字可读；正面段有明显结果差，适合保留真实页面证据。",
+  "ocr_text": [
+    "普通问法：帮我做一个汇报页。",
+    "结构化输出：目标、受众、约束、交付格式、下一步动作。"
+  ],
+  "frame_descriptions": [
+    {
+      "time_range": "00:12-00:18",
+      "visible_content": "页面主体是输入框和一段泛泛回答，底部按钮不承担证据作用。",
+      "suggested_focus": "保留原画面或轻微放大回答区，不要剪掉输入框。"
+    },
+    {
+      "time_range": "00:31-00:39",
+      "visible_content": "页面右侧出现结构化结果列表，关键词可读。",
+      "suggested_focus": "可局部框选结果列表并短暂停留。"
+    }
+  ],
+  "reference_quality_points": [
+    "继承中段放大参考的可读尺度，不照搬固定秒级时间码。",
+    "继承 visual route 的展示边界，不把真实录屏做成纯 PPT 说明书。",
+    "保护真实证据链，能不动的原始操作画面不要过度包装。"
+  ],
+  "editing_question": "哪些片段应该放大、保留原画面、插提示卡或高亮，哪些地方必须 do_not_touch 以保护证据链？",
+  "expected_output": [
+    "editing_decision_pack",
+    "visual_action_suggestions",
+    "evidence_chain_protection_notes",
+    "reference_quality_inheritance_notes",
+    "demo_or_manual_style_risks",
+    "codex_next_input"
+  ],
+  "output_format": "supply_pack_json_and_markdown",
+  "codex_next_input": "给 Codex 一份只读剪辑决策包；Codex 后续必须复核原文件和素材证据后才能执行。",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_supply_controller",
+    "pack_md": "dist/deepseek_supply_controller/latest_supply_pack.md",
+    "pack_json": "dist/deepseek_supply_controller/latest_supply_pack.json",
+    "manifest": "dist/deepseek_supply_controller/latest_supply_manifest.json"
+  },
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback_local_only 本地兜底写成 DeepSeek 结论。",
+    "不得写 multi-agent runtime 多 agent 运行时已跑通。",
+    "DeepSeek 不得直接读取或判断视频、音频、图片等媒体文件。",
+    "DeepSeek 不得剪辑视频或替代 Codex 原文件复核。"
+  ],
+  "stop_condition": "已输出剪辑动作建议、证据链保护提醒和 Codex 下一步复核输入，或请求被安全规则 blocked。",
+  "blocked_if": [
+    "候选文件命中 forbidden_paths。",
+    "需要读取 .env、.git、媒体文件或 dist/latest_review_pack/。",
+    "需要把 fallback 写成 DeepSeek 结论。",
+    "需要 DeepSeek 拍板最终内容质量。"
+  ],
+  "fallback_allowed": true,
+  "fallback_policy": "DeepSeek 失败时允许生成 fallback_local_only，但必须标记 not_deepseek_conclusion = true。"
+}
