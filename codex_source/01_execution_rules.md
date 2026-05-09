@@ -286,6 +286,54 @@ large_task_gate:
 - 只读工作可拆时，优先考虑 `read_parallel（只读并发）` 或 `explore_plus_integrate（探索 + 单点整合）`。
 - 多个写手只有在写入范围完全独立、验收独立、合并成本清楚时，才允许 `true_multi_task_parallel（真正多任务并发）`。
 
+## 2D. DeepSeek + 三卡机制执行闸门
+
+凡任务命中以下任一类型，Codex 必须在 `route_decision（路由判断）` 中判断 DeepSeek 供料和三张机制卡是否必需：
+
+- 视频样片
+- 成片
+- 内容表达文案
+- 视频机制修改
+- 发布前检查
+- 发布后复盘
+- `reference（参考）` / `visual route（视觉路由）` / `locked reference（锁定参考）`
+- 大任务 / 多文件任务
+
+`route_decision（路由判断）` 必须补充以下字段：
+
+1. `supply_required（是否需要 DeepSeek 供料）`
+2. `supply_trigger_reason（供料触发原因）`
+3. `supply_request_path（供料请求路径）`
+4. `supply_source（供料来源）`
+5. `supply_pack_read（是否读取供料包）`
+6. `original_files_reviewed（是否复核原文件）`
+7. `content_route_card_required（是否需要内容路由卡）`
+8. `quality_lock_card_required（是否需要质量锁卡）`
+9. `review_variable_card_required（是否需要复盘变量卡）`
+10. `after_read_gap_triggered（是否触发二次补读）`
+11. `not_deepseek_conclusion（是否明确不是 DeepSeek 结论）`
+
+三张机制卡的触发规则：
+
+| 场景 | 必须生成 |
+| --- | --- |
+| 内容表达文案、文案结构调整、素材承载判断 | `content_route_card（内容路由卡）` |
+| 视频样片、成片、质量复审、reference 继承、visual route 继承 | `quality_lock_card（质量锁卡）` |
+| 发布前变量确认、发布后复盘、下一轮只改一个变量 | `review_variable_card（复盘变量卡）` |
+| 同时命中文案 + 成片 + 复盘链路 | 三张卡都必须判断，按适用范围生成 |
+
+硬规则：
+
+- 命中三卡场景但未生成相应卡片，不得进入执行。
+- 命中 DeepSeek 供料场景但未生成 `supply_request（供料请求任务卡）`，不得写完整执行。
+- 供料包为 `fallback_local_only（本地兜底）` 时，不得写 `deepseek_passed`，必须写 `not_deepseek_conclusion = true`。
+- Codex 必须读取供料包，再复核原文件；供料包不能替代原文件证据。
+- 三张卡是判断机制，不是固定 SOP。不得把它们写成所有视频都沿用同一镜头流程、同一卡片数量、同一人物段次数。
+- `content_route_card（内容路由卡）` 解释流程为什么可变。
+- `quality_lock_card（质量锁卡）` 锁质量底线，不证明内容通过。
+- `review_variable_card（复盘变量卡）` 锁单变量反馈，不替代最终判断。
+- 若执行中发现已读文件不足以判断，必须触发 `after_read_gap（读完仍有缺口）` 供料或补读；若补读仍无法排除 forbidden 修改风险，必须 blocked。
+
 ## 3. skill 检查硬规则
 
 执行前必须：

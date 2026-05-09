@@ -56,12 +56,14 @@
 
 一条视频发布后，默认按这个顺序使用：
 
-1. 若用户给截图，先按 `01_截图数据录入规则_screenshot_data_intake_rules.md` 判断视频、时间窗和数据类型。
-2. 用 `02_video_record_template.md` 或当前视频记录目录建单条记录。
-3. 用 `03_result_dashboard_template.md` 把结果并到看板。
-4. 用 `04_diagnosis_template.md` 做初步诊断动作。
-5. 用 `05_dual_review_handoff_template.md` 交给“Codex 初检 → ChatGPT 质量判断”。
-6. 用 `06_next_round_task_template.md` 生成下一轮执行单草稿。
+1. 发布前或复盘前，先补 `review_variable_card（复盘变量卡）`，明确本轮主变量和观察窗口。
+2. 若用户给截图，先按 `01_截图数据录入规则_screenshot_data_intake_rules.md` 判断视频、时间窗和数据类型。
+3. 用 `02_video_record_template.md` 或当前视频记录目录建单条记录。
+4. 用 `03_result_dashboard_template.md` 把结果并到看板。
+5. 用 `04_diagnosis_template.md` 做初步诊断动作。
+6. 用 `05_dual_review_handoff_template.md` 交给“Codex 初检 → ChatGPT 质量判断”。
+7. 用 `06_next_round_task_template.md` 生成下一轮执行单草稿，并把主变量带入下轮任务。
+8. 需要统一填写三张机制卡时，使用 `11_内容路由质量复盘三卡模板_content_quality_review_cards.md`。
 
 发布前若涉及 AI 工作流 / AI 教程 / 自动化流程 / 工具操作演示 / 命令行或 IDE 画面展示类内容，必须先读 `08_发布前平台风险检查_pre_publish_platform_risk_check.md`，检查标题、封面、字幕、画面文字、工具界面、命令行、结尾动作、简介和评论区引导中的平台风险表达。
 
@@ -127,6 +129,32 @@
 - 不得跳过数据直接设定下一条文案
 - 不得把 PR #7 A 写成后续执行参考
 - 不得把所有字段都升级成硬必填；字段必须分为核心必填、辅助观察、商业线索出现时才填
+
+## 4B. review_variable_card（复盘变量卡）
+
+`review_variable_card（复盘变量卡）` 是发布前和复盘前的变量闸门。
+
+它的作用不是做运营大表，而是把“这条视频这次到底验证什么”收束成一个可观察变量，并在复盘后反推下一轮只改哪一个变量。
+
+复盘变量卡至少包含：
+
+| 字段 | 填写要求 |
+| --- | --- |
+| `video_id（视频编号）` | 每条视频单独建档，不同视频不得混写。 |
+| `publish_window（观察窗口）` | `24h / 72h / 7d`，不同窗口不得互相覆盖。 |
+| `main_variable（本轮主变量）` | 从选题、开头、文案结构、中段证据、声音、卡片、标题封面、平台包装中选一个主变量。 |
+| `controlled_variables（尽量保持不变的变量）` | 写本轮尽量不改的项，避免多变量混动。 |
+| `target_signal（目标信号）` | 播放、完播、收藏、评论、私信、咨询等。 |
+| `failure_interpretation（失败说明什么）` | 只解释与主变量相关的风险，不泛化。 |
+| `success_interpretation（成功说明什么）` | 只说明本轮主变量的可能正向信号。 |
+| `next_round_rule（下一轮怎么只改一个变量）` | 写下一轮优先变量和不能顺手多改的边界。 |
+
+硬规则：
+
+- 多个变量同时变动时，只能记录观察，不得过度解释结果。
+- 异常样本可以记录、可以参考，但不得当正常样本下结论。
+- 如果没有明确主变量，不得生成“下一轮只改一个变量”的执行单草稿。
+- Codex 只做记录、初检和草稿；最终主变量仍由 ChatGPT / 用户拍板。
 
 ## 5. 当前归档口径
 

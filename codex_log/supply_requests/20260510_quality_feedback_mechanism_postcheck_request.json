@@ -1,0 +1,105 @@
+{
+  "request_id": "20260510_quality_feedback_mechanism_postcheck",
+  "created_at": "2026-05-10T03:34:06+0800",
+  "project_route": "video_factory",
+  "task_id": "quality_feedback_mechanism_v1",
+  "task_type": "mechanism_or_route_fix",
+  "trigger_reason": "after_read_gap",
+  "action": "risk_report",
+  "current_goal": "复核本轮质量与反馈总控机制 V1 修改是否存在越权、死 SOP 化、fallback 误写、状态误写风险",
+  "current_step": "执行后风险复核",
+  "known_context": [
+    "本轮已按允许范围修改质量与反馈总控机制 V1 相关文档",
+    "三张机制卡应作为执行前判断机制，不是固定流程",
+    "执行前供料来源为 fallback_local_only",
+    "fallback_local_only 必须标记 not_deepseek_conclusion = true",
+    "本轮不得修改视频、声音、发布状态或正式事实状态字段"
+  ],
+  "missing_context": [
+    "是否误写 DeepSeek 稳定",
+    "是否把三张机制卡写成死 SOP",
+    "是否误改状态字段",
+    "是否遗漏 supply source 记录",
+    "是否需要修改禁止文件才能闭环"
+  ],
+  "decision_needed": "检查本轮机制文件是否存在越权、死 SOP 化、fallback 误写、状态误写或供料来源遗漏风险",
+  "candidate_files": [
+    "GPT数据源/10_OPC一人公司闭环与多AI协作机制.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "review_loop/00_review_loop_readme.md",
+    "review_loop/04_diagnosis_template.md",
+    "review_loop/06_next_round_task_template.md",
+    "review_loop/11_内容路由质量复盘三卡模板_content_quality_review_cards.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md",
+    "codex_log/latest.md",
+    "codex_log/20260510_视频质量与反馈总控机制V1.md",
+    "codex_log/supply_requests/20260510_quality_feedback_mechanism_preflight_request.json",
+    "codex_log/supply_requests/20260510_quality_feedback_mechanism_postcheck_request.json"
+  ],
+  "must_read_files": [
+    "GPT数据源/10_OPC一人公司闭环与多AI协作机制.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "review_loop/00_review_loop_readme.md",
+    "codex_source/01_execution_rules.md"
+  ],
+  "optional_files": [
+    "review_loop/04_diagnosis_template.md",
+    "review_loop/06_next_round_task_template.md",
+    "review_loop/11_内容路由质量复盘三卡模板_content_quality_review_cards.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md",
+    "codex_log/latest.md",
+    "codex_log/20260510_视频质量与反馈总控机制V1.md",
+    "codex_log/supply_requests/20260510_quality_feedback_mechanism_preflight_request.json",
+    "codex_log/supply_requests/20260510_quality_feedback_mechanism_postcheck_request.json"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "GPT数据源/08_当前正式事实.md",
+    "GPT数据源/06_当前主线锚点_API生成真人_用户录制素材_少量PPT_云端剪辑.md",
+    "*.mp4",
+    "*.wav",
+    "*.png"
+  ],
+  "max_context_files": 16,
+  "max_context_chars": 60000,
+  "expected_output": [
+    "检查是否误写 DeepSeek 稳定",
+    "检查是否把三张卡写成死 SOP",
+    "检查是否误改状态字段",
+    "检查是否遗漏 supply source 记录"
+  ],
+  "output_format": "markdown_and_json_pack",
+  "codex_next_input": "读取复核供料包后，执行本地风险锁死检查、日志更新、验证、commit 和 push。",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_supply_controller",
+    "pack_md": "dist/deepseek_supply_controller/latest_supply_pack.md",
+    "pack_json": "dist/deepseek_supply_controller/latest_supply_pack.json",
+    "manifest_json": "dist/deepseek_supply_controller/latest_supply_manifest.json"
+  },
+  "not_allowed": [
+    "不要让 DeepSeek 写文件",
+    "不要让 DeepSeek 拍板项目事实",
+    "不要把 fallback_local_only 写成 DeepSeek 结论",
+    "不要把 multi-agent runtime 写成已完成或已运行"
+  ],
+  "stop_condition": "供料包为 blocked、发现必须修改禁止文件、或发现状态字段已被推进且无法修正时停止。",
+  "blocked_if": [
+    "执行后供料包为 blocked",
+    "必须修改禁止文件才能继续",
+    "必须修改视频 / 声音 / 发布状态才能继续",
+    "风险锁死检查发现危险表达无法消除"
+  ],
+  "fallback_allowed": true,
+  "fallback_policy": "如果 DeepSeek 失败，允许 fallback_local_only 继续，但必须标记 not_deepseek_conclusion = true，并由 Codex 复核原文件"
+}

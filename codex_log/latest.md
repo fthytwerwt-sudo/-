@@ -1,5 +1,26 @@
 # Latest
 
+## 20260510｜视频质量与反馈总控机制 V1
+
+- `已确认` 本轮落地 `视频质量与反馈总控机制 V1`，目标是把《视频工厂》从固定 SOP 倾向收束为“质量机制 + 文案路由 + 复盘反馈”的执行前判断机制。
+- `已确认` 三张机制卡已进入执行前机制：
+  - `content_route_card（内容路由卡）`
+  - `quality_lock_card（质量锁卡）`
+  - `review_variable_card（复盘变量卡）`
+- `已确认` 已在 `codex_source/01_execution_rules.md（Codex 执行规则）` 写入 `DeepSeek + 三卡机制执行闸门`，后续视频 / 文案 / 复盘 / reference 相关任务必须在 `route_decision（路由判断）` 中判断供料与三卡需求。
+- `已确认` DeepSeek / fallback 参与了执行前和执行后两次供料观察：
+  - `preflight_request`: `codex_log/supply_requests/20260510_quality_feedback_mechanism_preflight_request.json`
+  - `postcheck_request`: `codex_log/supply_requests/20260510_quality_feedback_mechanism_postcheck_request.json`
+- `preflight_supply_source`: `fallback_local_only`
+- `postcheck_supply_source`: `fallback_local_only`
+- `fallback_status`: `used`
+- `not_deepseek_conclusion`: `true`
+- `deepseek_generation_unstable`: `true`
+- `已确认` 本轮未修改视频 / 声音 / 发布状态，未推进 `content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）` 或声音状态。
+- `已确认` 本轮不代表完整 `multi-agent runtime（多 agent 运行时）` 已完成，不代表机制已经被真实发布数据验证，也不代表 DeepSeek 已能稳定完成真实供料。
+- `执行日志`：`codex_log/20260510_视频质量与反馈总控机制V1.md`
+- `下一个目标`：用三卡机制跑一次真实内容 / 视频任务，不生成大视频，先做内容路由和复盘变量测试。
+
 ## 20260509｜DeepSeek 任务卡参与真实机制修正
 
 - `已确认` 本轮新增真实 `supply_request（供料请求任务卡）`：`codex_log/supply_requests/20260509_reference_entry_supply_request.json`。

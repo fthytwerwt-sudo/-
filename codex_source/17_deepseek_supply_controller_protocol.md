@@ -181,6 +181,37 @@ python3 scripts/deepseek_supply_controller.py \
 - `codex_source/18_deepseek_supply_request_schema.md`
 - `codex_source/schemas/deepseek_supply_request.schema.json`
 
+## 7A. execution observation loop（执行观察循环）
+
+DeepSeek / fallback 参与机制升级时，默认允许至少两次供料观察：
+
+1. 执行前：`trigger_reason = before_write_gate`
+   - 用于检查旧口径、规则冲突、文件缺口、固定 SOP 化风险和 forbidden 修改风险。
+2. 执行后：`trigger_reason = after_read_gap`
+   - 用于复核本轮改动是否存在越权、状态误写、fallback 误写、死 SOP 化或遗漏供料来源记录。
+
+如果 Codex 执行中发现读完首批文件后仍有缺口，也可以生成第二张或 follow-up `supply_request（供料请求任务卡）`：
+
+- `trigger_reason = after_read_gap`
+- `action = risk_report` / `missing_files` / `context_summary`
+- `current_step` 必须写清是执行中补读还是执行后风险复核
+
+每次供料必须记录：
+
+- `supply_source（供料来源）`
+- `request_validation_status（请求校验状态）`
+- `fallback_status（兜底状态）`
+- `not_deepseek_conclusion（是否不是 DeepSeek 结论）`
+- `codex_next_input（给 Codex 的下一步输入）`
+
+如果连续两次都是 `fallback_local_only（本地兜底）`，仍可继续低风险文档机制任务，但必须记录：
+
+- `deepseek_generation_unstable = true`
+- 本轮结论来自 Codex 原文件复核，不来自 DeepSeek 拍板
+- 下轮应继续收紧 request 输入范围、上下文长度或输出约束
+
+供料结果不能替代原文件复核。Codex 改文件前仍必须回读允许修改的原文件；改完后仍必须执行 diff、状态字段、forbidden path 和日志检查。
+
 ## 8. 一句话规则
 
 `DeepSeek supply controller` 是 Codex 可按需触发的只读供料入口：它把缺上下文、规则冲突、旧口径风险和大上下文压缩成小型供料任务，并把结果回流到固定供料包；DeepSeek 失败时可以使用 `fallback_local_only`，但 fallback 必须明确标记为本地兜底，不得写成 DeepSeek 结论。

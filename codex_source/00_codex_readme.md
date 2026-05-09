@@ -85,6 +85,13 @@ DeepSeek 供料中控最小入口：
 - Codex 后续执行必须读取供料包后再复核原文件；若供料来源是 `fallback_local_only（本地兜底）`，只能把它当作本地资料包，不得写成 DeepSeek 真实生成通过或 DeepSeek 结论。
 - controller 通过不代表 `multi-agent runtime（多 agent 运行时）` 已跑通。
 
+质量与反馈三卡执行闸门：
+- 命中内容表达文案、视频样片 / 成片、发布前检查、发布后复盘、`reference / locked reference / visual route` 继承或大任务 / 多文件任务时，Codex 必须在 `route_decision（路由判断）` 中判断三张机制卡是否必需。
+- `content_route_card（内容路由卡）` 负责解释这条内容为什么这样承载，防止先锁死人物段次数、卡片数量或 PPT 数量。
+- `quality_lock_card（质量锁卡）` 负责锁执行前质量底线，不等于 `content_validation（内容验证）` 已通过。
+- `review_variable_card（复盘变量卡）` 负责把发布前 / 发布后复盘收束到单变量观察，不等于最终内容判断。
+- 三张卡是判断机制，不是固定 SOP；若供料来源为 `fallback_local_only（本地兜底）`，仍必须写 `not_deepseek_conclusion = true` 并复核原文件。
+
 2026-05-04 项目升级前清库覆盖口径：
 
 - 当前唯一固定素材锚点是 `v31_element_doll_opening_anchor（v3.1 元素娃娃开头锚点）`。

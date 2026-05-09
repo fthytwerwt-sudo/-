@@ -158,6 +158,38 @@ controller 必须检查：
 - 必须写 `latest_supply_manifest.json`
 - 不得读取 forbidden path
 
+## 8A. real execution usage（真实执行用法）
+
+Codex 每次执行复杂任务前，应先生成或选择一张 `supply_request（供料请求任务卡）`，再运行 controller。
+
+真实执行时的用法：
+
+1. `current_goal（当前目标）`
+   - 写本轮要解决的机制、路由、复盘或执行缺口。
+   - 不写泛泛“优化项目”。
+2. `current_step（当前步骤）`
+   - 写执行前供料、执行中补读、执行后风险复核等具体步骤。
+3. `known_context（已知上下文）`
+   - 只能写 Codex 已读取或用户本轮明确给出的事实。
+   - 不把聊天记忆、旧 PR 印象或 fallback 摘要写成仓库已确认事实。
+4. `missing_context（缺失上下文）`
+   - 写当前卡住 Codex 判断的缺口，例如旧口径冲突、三卡是否接入、状态字段是否会误写。
+5. `decision_needed（需要判断什么）`
+   - 写供料要帮助 Codex 判断的问题，不让 DeepSeek 自己猜任务。
+6. `candidate_files / must_read_files / optional_files`
+   - 只放文本类候选文件。
+   - 不放 `.env`、媒体文件、`dist/latest_review_pack/` 或 Git 内部目录。
+7. `expected_output（期望输出）`
+   - 写成文件地图、风险报告、上下文摘要或缺失文件报告，不要求 DeepSeek 写最终结论。
+
+如果执行中出现缺口，可以生成 follow-up request：
+
+- `trigger_reason = after_read_gap`
+- `current_step = 执行中补读` 或 `执行后风险复核`
+- `missing_context` 写本轮读完后仍无法判断的具体点
+
+DeepSeek 不靠长期记忆、不靠猜测、不靠读全仓库。controller 输出若为 `fallback_local_only（本地兜底）`，Codex 可以继续低风险机制任务，但必须写 `not_deepseek_conclusion = true`，并以原文件复核和验证结果为准。
+
 ## 9. 一句话规则
 
 `DeepSeek supply request` 是每次供料前的任务卡：Codex 用它把当前目标、已知上下文、缺口、候选文件、禁止路径、输出契约和停止线传给 controller；DeepSeek 只按这张卡供料，不靠记忆猜项目状态。
