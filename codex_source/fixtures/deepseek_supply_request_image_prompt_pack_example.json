@@ -1,0 +1,110 @@
+{
+  "request_id": "ds_supply_req_image_prompt_pack_20260510",
+  "created_at": "2026-05-10T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "execution_supply_image_prompt_pack_sample",
+  "task_type": "mechanism_or_route_fix",
+  "trigger_reason": "after_read_gap",
+  "action": "image_prompt_pack",
+  "current_goal": "测试图片 prompt 包供料，只写 prompt 与验收标准，不生成真实图片。",
+  "current_step": "执行中图片 prompt 供料样例",
+  "known_context": [
+    "图片 prompt 只服务辅助素材。",
+    "中文可读文字默认由后期卡片层处理。",
+    "不得复用官方 Minecraft 资产。"
+  ],
+  "missing_context": [
+    "真实图片模型未调用。",
+    "真实视觉资产尚未生成。"
+  ],
+  "decision_needed": "为候选 API 辅助图写出可执行 prompt、negative prompt、text_policy 和验收标准。",
+  "candidate_files": [
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "codex_source/18_deepseek_supply_request_schema.md"
+  ],
+  "must_read_files": [
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md"
+  ],
+  "optional_files": [
+    "codex_source/17_deepseek_supply_controller_protocol.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "*.mp4",
+    "*.mov",
+    "*.m4v",
+    "*.mp3",
+    "*.wav",
+    "*.m4a",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.webp",
+    "/Users/fan/Documents/视频工厂归档+删除"
+  ],
+  "max_context_files": 5,
+  "max_context_chars": 14000,
+  "api_generation_targets": [
+    {
+      "asset_id": "api_aux_character_01",
+      "segment_id": "seg_intro",
+      "purpose": "辅助主持壳，不替代真实证据。",
+      "style": "Minecraft-inspired 原创体素方块风"
+    }
+  ],
+  "image_prompt_specs": [
+    {
+      "asset_id": "api_aux_character_01",
+      "segment": "seg_intro",
+      "purpose": "开头辅助角色图",
+      "style_anchor": "Minecraft-inspired 原创体素方块风",
+      "composition": "friendly voxel host at a clean desk, empty speech-card space reserved for post-production",
+      "text_policy": "no_readable_text"
+    }
+  ],
+  "fallback_plan": "prompt 不可用时降级为 PPT 信息卡或 no_extra_asset。",
+  "api_call_policy": "mechanism_only_no_real_api_call",
+  "secret_policy": "do_not_read_env_or_api_keys",
+  "expected_output": [
+    "image_prompt_pack",
+    "positive_prompt",
+    "negative_prompt",
+    "text_policy",
+    "acceptance_criteria",
+    "rejected_if",
+    "codex_next_input"
+  ],
+  "output_format": "supply_pack_json_and_markdown",
+  "codex_next_input": "给 Codex 图片 prompt 包；本轮不得生成真实图片。",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_supply_controller",
+    "pack_md": "dist/deepseek_supply_controller/latest_supply_pack.md",
+    "pack_json": "dist/deepseek_supply_controller/latest_supply_pack.json",
+    "manifest": "dist/deepseek_supply_controller/latest_supply_manifest.json"
+  },
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback_local_only 本地兜底写成 DeepSeek 结论。",
+    "不得写 multi-agent runtime 多 agent 运行时已跑通。",
+    "DeepSeek 不得读取 .env、API key、token 或密钥文件。",
+    "DeepSeek 不得调用真实图片生成 API。",
+    "不得复用官方 Minecraft 资产、logo、字体、texture、model、sound。"
+  ],
+  "stop_condition": "已输出 prompt、negative prompt、text_policy 与验收标准，或请求被安全规则 blocked。",
+  "blocked_if": [
+    "候选文件命中 forbidden_paths。",
+    "需要真实生成图片。",
+    "需要读取 API key。",
+    "需要让图片模型生成中文可读正文。",
+    "需要把 fallback 写成 DeepSeek 结论。"
+  ],
+  "fallback_allowed": true,
+  "fallback_policy": "DeepSeek 不可用或因 .env / secret 禁止策略跳过时，允许生成 fallback_local_only，但必须标记 not_deepseek_conclusion = true。"
+}

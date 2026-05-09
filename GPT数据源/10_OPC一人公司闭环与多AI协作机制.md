@@ -82,6 +82,15 @@
 - `must_read_file_map（必读文件地图）`
 - `risk_and_conflict_report（风险与冲突报告）`
 - `candidate_summary（候选摘要）`
+- `file_map（文件地图）`
+- `risk_report（风险报告）`
+- `context_summary（上下文摘要）`
+- `missing_files（缺失文件）`
+- `visual_asset_requirement_pack（视觉素材需求包）`
+- `api_asset_generation_pack（API 素材生成包）`
+- `image_prompt_pack（图片 prompt 包）`
+- `asset_validation_pack（素材验收包）`
+- `assembly_decision_pack（装配决策包）`
 - `editing_decision_pack（剪辑决策包）`
 
 DeepSeek 供料范围从“文件地图 / 风险冲突”扩展为：
@@ -90,8 +99,13 @@ DeepSeek 供料范围从“文件地图 / 风险冲突”扩展为：
 2. 执行中缺口补读。
 3. 执行后风险复核。
 4. 视频执行现场的 `editing_decision_pack（剪辑决策包）`。
+5. 文案进入执行后的完整 `execution_supply_pack family（执行供料包族）`，包括视觉素材需求、API 素材生成计划、图片 prompt、素材验收和装配决策。
 
 `editing_decision_pack（剪辑决策包）` 只能基于 Codex 提供的文字化素材样料工作，例如 `source_segments（素材片段）`、`narration_lines（口播句子）`、`frame_descriptions（抽帧描述）`、`ocr_text（OCR 文字）` 和 `editing_question（剪辑问题）`。它不直接读取视频、音频、图片或媒体文件。
+
+`execution_supply_pack family（执行供料包族）` 也只能基于 Codex 提供的文字化任务样料工作，例如 `script_blocks（脚本块）`、`segments（段落）`、`content_route_card（内容路由卡）`、`visual_asset_requirements（视觉素材需求）`、`api_generation_targets（API 生成目标）`、`image_prompt_specs（图片 prompt 规格）`、`asset_validation_criteria（素材验收标准）` 和 `assembly_slots（装配槽位）`。
+
+API 调用不由 DeepSeek 决定。真实 API 调用必须由用户明确授权；DeepSeek 不读取 `.env`、API key、token 或密钥文件，不调用阿里 API，不生成真实图片。DeepSeek 可以帮助 Codex 判断“需不需要图、图怎么生成、素材怎么验收、怎么装配”，但最终执行判断在 Codex，内容质量判断在 ChatGPT / 用户。
 
 最终执行判断仍在 Codex。方向、内容、人感、下一轮变量仍由 ChatGPT / 用户拍板。该机制不代表 `multi-agent runtime（多 agent 运行时）` 已跑通，也不代表 DeepSeek 已稳定真实供料。
 

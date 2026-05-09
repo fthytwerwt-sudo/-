@@ -1,0 +1,48 @@
+{
+  "request_id": "ds_supply_req_bad_forbidden_latest_review_pack_20260510",
+  "created_at": "2026-05-10T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "bad_forbidden_latest_review_pack_negative_test",
+  "task_type": "mechanism_or_route_fix",
+  "trigger_reason": "missing_context",
+  "action": "file_map",
+  "current_goal": "负向测试：禁止读取 dist/latest_review_pack/。",
+  "current_step": "request validation negative test",
+  "known_context": [],
+  "missing_context": [],
+  "decision_needed": "确认 controller 会阻断 latest_review_pack 路径。",
+  "candidate_files": [
+    "dist/latest_review_pack/summary.json"
+  ],
+  "must_read_files": [],
+  "optional_files": [],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/"
+  ],
+  "max_context_files": 1,
+  "max_context_chars": 1000,
+  "expected_output": [
+    "blocked_manifest"
+  ],
+  "output_format": "manifest_only",
+  "codex_next_input": "不应继续读取。",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_supply_controller"
+  },
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback_local_only 本地兜底写成 DeepSeek 结论。",
+    "不得写 multi-agent runtime 多 agent 运行时已跑通。"
+  ],
+  "stop_condition": "命中 dist/latest_review_pack/ 后立即 blocked。",
+  "blocked_if": [
+    "候选文件命中 forbidden_paths。"
+  ],
+  "fallback_allowed": false,
+  "fallback_policy": "负向测试不允许 fallback。"
+}

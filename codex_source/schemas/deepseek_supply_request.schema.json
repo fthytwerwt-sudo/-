@@ -56,6 +56,11 @@
         "risk_report",
         "context_summary",
         "missing_files",
+        "visual_asset_requirement_pack",
+        "api_asset_generation_pack",
+        "image_prompt_pack",
+        "asset_validation_pack",
+        "assembly_decision_pack",
         "editing_decision_pack",
         "auto"
       ]
@@ -188,6 +193,72 @@
       }
     },
     "editing_question": {
+      "type": "string"
+    },
+    "script_blocks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "segments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "content_route_card": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "visual_asset_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "api_generation_targets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "image_prompt_specs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "asset_validation_criteria": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "assembly_slots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "fallback_plan": {
+      "type": "string"
+    },
+    "vendor_constraints": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "api_call_policy": {
+      "type": "string"
+    },
+    "secret_policy": {
       "type": "string"
     }
   }

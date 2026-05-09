@@ -1,0 +1,139 @@
+{
+  "request_id": "ds_supply_req_api_asset_generation_pack_20260510",
+  "created_at": "2026-05-10T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "execution_supply_api_asset_generation_pack_sample",
+  "task_type": "mechanism_or_route_fix",
+  "trigger_reason": "before_write_gate",
+  "action": "api_asset_generation_pack",
+  "current_goal": "测试 API 素材生成包供料，只生成计划、prompt 需求、验收和降级方案，不调用真实 API。",
+  "current_step": "执行前 API 素材生成计划供料样例",
+  "known_context": [
+    "本轮只建设机制，不调用阿里 API。",
+    "真实 API 调用必须由用户明确授权。",
+    "Codex 不得读取 .env、API key、token 或密钥文件。",
+    "API 生成图不能替代真实录屏证据。"
+  ],
+  "missing_context": [
+    "真实最终文案尚未进入执行测试。",
+    "没有真实 API 授权，也不需要真实 API 授权。"
+  ],
+  "decision_needed": "判断哪些辅助素材未来可以用 API 生成、生成几张、服务哪个 segment、失败时怎么降级。",
+  "candidate_files": [
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md"
+  ],
+  "must_read_files": [
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md"
+  ],
+  "optional_files": [
+    "GPT数据源/10_OPC一人公司闭环与多AI协作机制.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "*.mp4",
+    "*.mov",
+    "*.m4v",
+    "*.mp3",
+    "*.wav",
+    "*.m4a",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.webp",
+    "/Users/fan/Documents/视频工厂归档+删除"
+  ],
+  "max_context_files": 6,
+  "max_context_chars": 18000,
+  "visual_asset_requirements": [
+    {
+      "segment_id": "seg_intro",
+      "required_asset_type": "character_host",
+      "evidence_role": "auxiliary_expression",
+      "can_be_api_generated": true,
+      "must_be_real_evidence": false
+    },
+    {
+      "segment_id": "seg_proof",
+      "required_asset_type": "user_recording",
+      "evidence_role": "primary_evidence",
+      "can_be_api_generated": false,
+      "must_be_real_evidence": true
+    }
+  ],
+  "api_generation_targets": [
+    {
+      "asset_id": "api_aux_character_01",
+      "segment_id": "seg_intro",
+      "purpose": "开头辅助主持壳，不替代真实证据。",
+      "vendor_candidate": "aliyun",
+      "asset_count": 1,
+      "aspect_ratio": "16:9",
+      "style": "Minecraft-inspired 原创体素方块风"
+    },
+    {
+      "asset_id": "api_icon_marker_01",
+      "segment_id": "seg_transition",
+      "purpose": "提示普通问法到场景化 prompt 的转折。",
+      "vendor_candidate": "aliyun",
+      "asset_count": 1,
+      "aspect_ratio": "1:1",
+      "style": "simple voxel icon"
+    }
+  ],
+  "vendor_constraints": {
+    "allowed_candidates": ["aliyun", "doubao", "other", "not_needed"],
+    "style_anchor": "Minecraft-inspired 原创体素方块风",
+    "no_official_minecraft_assets": true,
+    "no_readable_chinese_text_in_image_model_by_default": true
+  },
+  "fallback_plan": "API 失败时降级为少量 PPT、信息卡、真实截图、no_extra_asset 或 blocked。",
+  "api_call_policy": "no_real_api_call_this_round_future_call_requires_user_authorization",
+  "secret_policy": "do_not_read_env_or_api_keys",
+  "expected_output": [
+    "api_asset_generation_pack",
+    "generation_needed",
+    "vendor_candidate",
+    "asset_count",
+    "prompt_needed",
+    "api_call_allowed_this_round",
+    "fallback_plan",
+    "blocked_if",
+    "codex_next_input"
+  ],
+  "output_format": "supply_pack_json_and_markdown",
+  "codex_next_input": "给 Codex 一份 API 素材生成计划；本轮不得读取密钥、不得调用 API、不得生成图片。",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_supply_controller",
+    "pack_md": "dist/deepseek_supply_controller/latest_supply_pack.md",
+    "pack_json": "dist/deepseek_supply_controller/latest_supply_pack.json",
+    "manifest": "dist/deepseek_supply_controller/latest_supply_manifest.json"
+  },
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback_local_only 本地兜底写成 DeepSeek 结论。",
+    "不得写 multi-agent runtime 多 agent 运行时已跑通。",
+    "DeepSeek 不得直接读取或判断视频、音频、图片等媒体文件。",
+    "DeepSeek 不得读取 .env、API key、token 或密钥文件。",
+    "DeepSeek 不得调用阿里 API、豆包 API 或任何真实生成 API。",
+    "不得把 API 生成图片当成真实录屏证据。"
+  ],
+  "stop_condition": "已输出 API 生成计划、禁止调用边界、降级方案和 Codex 下一步输入，或请求被安全规则 blocked。",
+  "blocked_if": [
+    "候选文件命中 forbidden_paths。",
+    "需要读取 .env、API key、token 或密钥文件。",
+    "需要真实调用阿里 API 或生成图片。",
+    "需要把 API 生成图当真实录屏证据。",
+    "需要把 fallback 写成 DeepSeek 结论。"
+  ],
+  "fallback_allowed": true,
+  "fallback_policy": "DeepSeek 不可用或因 .env / secret 禁止策略跳过时，允许生成 fallback_local_only，但必须标记 not_deepseek_conclusion = true。"
+}

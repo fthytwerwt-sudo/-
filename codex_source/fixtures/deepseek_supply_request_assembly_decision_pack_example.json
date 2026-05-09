@@ -1,0 +1,146 @@
+{
+  "request_id": "ds_supply_req_assembly_decision_pack_20260510",
+  "created_at": "2026-05-10T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "execution_supply_assembly_decision_pack_sample",
+  "task_type": "mechanism_or_route_fix",
+  "trigger_reason": "after_read_gap",
+  "action": "assembly_decision_pack",
+  "current_goal": "测试装配决策包供料，把文案、真实录屏、API 辅助图、PPT 卡、TTS 和字幕放进时间线前先做职责判断。",
+  "current_step": "执行中装配决策供料样例",
+  "known_context": [
+    "中段核心证据默认由用户录制素材承担。",
+    "API 生成图只做辅助表达。",
+    "需要具体剪辑动作时回到 editing_decision_pack。"
+  ],
+  "missing_context": [
+    "真实时间线尚未生成。",
+    "真实素材路径尚未进入本轮测试。"
+  ],
+  "decision_needed": "决定哪个素材是主证据，哪个素材是辅助，API 图插在哪里，哪些段落必须保护证据链不插图。",
+  "candidate_files": [
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "review_loop/11_内容路由质量复盘三卡模板_content_quality_review_cards.md"
+  ],
+  "must_read_files": [
+    "GPT数据源/05_文案路由规则.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md"
+  ],
+  "optional_files": [
+    "GPT数据源/10_OPC一人公司闭环与多AI协作机制.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "*.mp4",
+    "*.mov",
+    "*.m4v",
+    "*.mp3",
+    "*.wav",
+    "*.m4a",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.webp",
+    "/Users/fan/Documents/视频工厂归档+删除"
+  ],
+  "max_context_files": 6,
+  "max_context_chars": 18000,
+  "segments": [
+    {
+      "segment_id": "seg_a",
+      "function": "negative_example",
+      "primary_carrier_candidate": "user_recording"
+    },
+    {
+      "segment_id": "seg_b",
+      "function": "transition",
+      "primary_carrier_candidate": "info_card"
+    },
+    {
+      "segment_id": "seg_c",
+      "function": "positive_result",
+      "primary_carrier_candidate": "user_recording"
+    }
+  ],
+  "visual_asset_requirements": [
+    {
+      "segment_id": "seg_a",
+      "required_asset_type": "user_recording",
+      "evidence_role": "primary_evidence"
+    },
+    {
+      "segment_id": "seg_b",
+      "required_asset_type": "icon_or_marker",
+      "evidence_role": "auxiliary_expression"
+    },
+    {
+      "segment_id": "seg_c",
+      "required_asset_type": "user_recording",
+      "evidence_role": "primary_evidence"
+    }
+  ],
+  "assembly_slots": [
+    {
+      "segment_id": "seg_a",
+      "primary_carrier": "user_recording",
+      "secondary_carrier": "subtitle",
+      "transition": "keep_evidence_continuity"
+    },
+    {
+      "segment_id": "seg_b",
+      "primary_carrier": "info_card",
+      "secondary_carrier": "api_icon_marker",
+      "transition": "short_bridge"
+    },
+    {
+      "segment_id": "seg_c",
+      "primary_carrier": "user_recording",
+      "secondary_carrier": "highlight_box",
+      "transition": "return_to_screen_evidence"
+    }
+  ],
+  "fallback_plan": "无法确认主证据时，不装配；先回到素材需求或剪辑决策包。",
+  "api_call_policy": "mechanism_only_no_real_api_call",
+  "secret_policy": "do_not_read_env_or_api_keys",
+  "expected_output": [
+    "assembly_decision_pack",
+    "primary_carrier",
+    "secondary_carrier",
+    "evidence_chain_note",
+    "needs_editing_decision_pack",
+    "blocked_if",
+    "codex_next_input"
+  ],
+  "output_format": "supply_pack_json_and_markdown",
+  "codex_next_input": "给 Codex 装配决策包；Codex 复核原文件后再决定是否进入剪辑决策包。",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_supply_controller",
+    "pack_md": "dist/deepseek_supply_controller/latest_supply_pack.md",
+    "pack_json": "dist/deepseek_supply_controller/latest_supply_pack.json",
+    "manifest": "dist/deepseek_supply_controller/latest_supply_manifest.json"
+  },
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback_local_only 本地兜底写成 DeepSeek 结论。",
+    "不得写 multi-agent runtime 多 agent 运行时已跑通。",
+    "DeepSeek 不得读取媒体文件或 dist/latest_review_pack/。",
+    "DeepSeek 不得读取 .env、API key、token 或密钥文件。",
+    "不得让 API 生成图抢中段真实录屏主体。"
+  ],
+  "stop_condition": "已输出装配职责、证据链保护和剪辑决策 follow-up，或请求被安全规则 blocked。",
+  "blocked_if": [
+    "候选文件命中 forbidden_paths。",
+    "无法判断主证据与辅助素材职责。",
+    "需要读取媒体文件或 dist/latest_review_pack/。",
+    "需要把 fallback 写成 DeepSeek 结论。"
+  ],
+  "fallback_allowed": true,
+  "fallback_policy": "DeepSeek 不可用或因 .env / secret 禁止策略跳过时，允许生成 fallback_local_only，但必须标记 not_deepseek_conclusion = true。"
+}

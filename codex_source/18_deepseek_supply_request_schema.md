@@ -61,6 +61,11 @@ python3 scripts/deepseek_supply_controller.py \
 - `risk_report`
 - `context_summary`
 - `missing_files`
+- `visual_asset_requirement_pack`
+- `api_asset_generation_pack`
+- `image_prompt_pack`
+- `asset_validation_pack`
+- `assembly_decision_pack`
 - `editing_decision_pack`
 - `auto`
 
@@ -267,7 +272,69 @@ editing_decision_pack:
   codex_execution_note:
 ```
 
-## 8C. model preference（模型偏好）
+## 8C. execution_supply_pack family（执行供料包族）任务卡扩展
+
+当 `action` 属于以下任一值时，任务卡用于把“最终文案进入执行后”的素材、API、prompt、验收、装配和剪辑判断转成 DeepSeek / fallback 可处理的文字供料：
+
+- `visual_asset_requirement_pack（视觉素材需求包）`
+- `api_asset_generation_pack（API 素材生成包）`
+- `image_prompt_pack（图片 prompt 包）`
+- `asset_validation_pack（素材验收包）`
+- `assembly_decision_pack（装配决策包）`
+- `editing_decision_pack（剪辑决策包）`
+
+标准链路：
+
+```text
+content_route_card
+-> visual_asset_requirement_pack
+-> api_asset_generation_pack
+-> image_prompt_pack
+-> asset_validation_pack
+-> assembly_decision_pack
+-> editing_decision_pack
+-> review_pack
+```
+
+任务卡可选字段：
+
+```json
+{
+  "script_blocks": [],
+  "segments": [],
+  "content_route_card": {},
+  "visual_asset_requirements": [],
+  "api_generation_targets": [],
+  "image_prompt_specs": [],
+  "asset_validation_criteria": [],
+  "assembly_slots": [],
+  "fallback_plan": "",
+  "vendor_constraints": {},
+  "api_call_policy": "",
+  "secret_policy": ""
+}
+```
+
+这些字段不能设为所有 action 的必填字段，以保持旧 fixture 向后兼容。只有命中对应 action 时，文档规则要求尽量提供相关字段。
+
+边界：
+
+- DeepSeek / fallback 只基于文字样料供料，不读取媒体文件。
+- DeepSeek / fallback 不读取 `.env`、API key、token 或密钥文件。
+- 本轮机制测试不调用阿里 API 或其他真实生成 API。
+- `api_asset_generation_pack（API 素材生成包）` 只能生成计划、prompt、验收和降级方案；未来真实 API 调用必须用户明确授权。
+- `image_prompt_pack（图片 prompt 包）` 默认不让图片模型生成中文可读文字；如需文字，应由后期卡片层处理。
+- 不得复用官方 Minecraft 资产、logo、字体、texture、model、sound。
+- `asset_validation_pack（素材验收包）` 必须把 AI 图片不能替代真实录屏证据写进判断。
+- `assembly_decision_pack（装配决策包）` 必须区分主证据与辅助素材；需要剪辑细化时回到 `editing_decision_pack（剪辑决策包）`。
+
+如果任务卡禁止 `.env / secret`，controller 可以直接使用 `fallback_local_only（本地兜底）`，但必须写：
+
+- `not_deepseek_conclusion = true`
+- `deepseek_generation_status = skipped_for_forbidden_env_or_secret_policy`
+- `context_pack_validation = fallback_local_only`
+
+## 8D. model preference（模型偏好）
 
 当前默认不要求每张 `supply_request（供料请求任务卡）` 指定模型。
 
@@ -283,7 +350,7 @@ editing_decision_pack:
 
 使用规则：
 
-- 常规 `file_map（文件地图）`、`missing_files（缺失文件）`、`context_summary（上下文摘要）`、普通 `risk_report（风险报告）` 和基于文字样料的 `editing_decision_pack（剪辑决策包）` 默认使用 `deepseek-v4-flash`。
+- 常规 `file_map（文件地图）`、`missing_files（缺失文件）`、`context_summary（上下文摘要）`、普通 `risk_report（风险报告）` 和基于文字样料的执行供料包族默认使用 `deepseek-v4-flash`。
 - 多文件冲突、复杂机制判断、长任务审计、多轮供料包合并、Flash 多次失败或 `after_read_gap（读完仍有缺口）` 且 fallback 不足时，才考虑升级到 `deepseek-v4-pro`。
 - 本轮不强制修改 JSON Schema；自动模型升级仍是待后续开发与验证项。
 

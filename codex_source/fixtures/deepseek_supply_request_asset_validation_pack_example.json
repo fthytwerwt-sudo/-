@@ -1,0 +1,108 @@
+{
+  "request_id": "ds_supply_req_asset_validation_pack_20260510",
+  "created_at": "2026-05-10T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "execution_supply_asset_validation_pack_sample",
+  "task_type": "mechanism_or_route_fix",
+  "trigger_reason": "after_read_gap",
+  "action": "asset_validation_pack",
+  "current_goal": "测试素材验收包供料，判断候选素材是否能进入装配。",
+  "current_step": "执行中素材验收供料样例",
+  "known_context": [
+    "AI 图片不能替代真实录屏证据。",
+    "素材不合格时必须 revise / reject / pending_human_review。",
+    "本轮不读取媒体，只使用文字化素材描述。"
+  ],
+  "missing_context": [
+    "真实图片和真实卡片尚未生成。",
+    "当前验收只基于文字样例。"
+  ],
+  "decision_needed": "判断候选素材是否会抢真实证据位、AI 感是否过强、是否有官方资产复用风险，以及应 revise / reject / pending_human_review。",
+  "candidate_files": [
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md"
+  ],
+  "must_read_files": [
+    "GPT数据源/07_AI知识类视频价值规则.md"
+  ],
+  "optional_files": [
+    "GPT数据源/05_文案路由规则.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "*.mp4",
+    "*.mov",
+    "*.m4v",
+    "*.mp3",
+    "*.wav",
+    "*.m4a",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.webp",
+    "/Users/fan/Documents/视频工厂归档+删除"
+  ],
+  "max_context_files": 5,
+  "max_context_chars": 14000,
+  "visual_asset_requirements": [
+    {
+      "asset_id": "api_aux_character_01",
+      "intended_use": "开头辅助主持壳",
+      "evidence_role": "auxiliary_expression",
+      "must_be_real_evidence": false
+    }
+  ],
+  "asset_validation_criteria": [
+    {
+      "asset_id": "api_aux_character_01",
+      "style_fit_required": true,
+      "evidence_fit_required": "must_not_replace_real_evidence",
+      "copyright_or_official_asset_risk": "reject_if_official_minecraft_asset_reused",
+      "human_feel": "not_AI_slop_not_stock"
+    }
+  ],
+  "fallback_plan": "不合格素材降级为信息卡、PPT、真实截图或 no_extra_asset。",
+  "api_call_policy": "mechanism_only_no_real_api_call",
+  "secret_policy": "do_not_read_env_or_api_keys",
+  "expected_output": [
+    "asset_validation_pack",
+    "validation_result",
+    "style_fit",
+    "evidence_fit",
+    "copyright_or_official_asset_risk",
+    "required_fix",
+    "blocked_if",
+    "codex_next_input"
+  ],
+  "output_format": "supply_pack_json_and_markdown",
+  "codex_next_input": "给 Codex 素材验收包；不合格素材不得进入装配。",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_supply_controller",
+    "pack_md": "dist/deepseek_supply_controller/latest_supply_pack.md",
+    "pack_json": "dist/deepseek_supply_controller/latest_supply_pack.json",
+    "manifest": "dist/deepseek_supply_controller/latest_supply_manifest.json"
+  },
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback_local_only 本地兜底写成 DeepSeek 结论。",
+    "不得写 multi-agent runtime 多 agent 运行时已跑通。",
+    "DeepSeek 不得读取媒体文件或 dist/latest_review_pack/。",
+    "DeepSeek 不得读取 .env、API key、token 或密钥文件。",
+    "不得把 AI 图片当成真实录屏证据。"
+  ],
+  "stop_condition": "已输出素材验收结果、修正要求和阻断条件，或请求被安全规则 blocked。",
+  "blocked_if": [
+    "候选文件命中 forbidden_paths。",
+    "需要读取媒体文件。",
+    "需要把 AI 图片当真实证据。",
+    "需要把 fallback 写成 DeepSeek 结论。"
+  ],
+  "fallback_allowed": true,
+  "fallback_policy": "DeepSeek 不可用或因 .env / secret 禁止策略跳过时，允许生成 fallback_local_only，但必须标记 not_deepseek_conclusion = true。"
+}

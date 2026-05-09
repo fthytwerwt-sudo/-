@@ -1,5 +1,48 @@
 # Latest
 
+## 20260510｜全执行供料包族与 DeepSeek 双重补全测试
+
+- `已确认` 本轮把 DeepSeek + Codex 配合从 `editing_decision_pack（剪辑决策包）` 扩展为 `execution_supply_pack family（执行供料包族）`。
+- `已确认` 新增并接入以下供料 action：
+  - `visual_asset_requirement_pack（视觉素材需求包）`
+  - `api_asset_generation_pack（API 素材生成包）`
+  - `image_prompt_pack（图片 prompt 包）`
+  - `asset_validation_pack（素材验收包）`
+  - `assembly_decision_pack（装配决策包）`
+  - 保留并接入 `editing_decision_pack（剪辑决策包）`
+- `已确认` action 已同步进入 `codex_source/17_deepseek_supply_controller_protocol.md`、`codex_source/18_deepseek_supply_request_schema.md`、`codex_source/schemas/deepseek_supply_request.schema.json` 和 `scripts/deepseek_supply_controller.py`。
+- `已确认` `GPT数据源/05_文案路由规则.md` 已补全：`文案 -> 内容路由 -> 视觉素材需求 -> API 素材生成计划 -> 图片 prompt -> 素材验收 -> 装配决策 -> 剪辑决策 -> 审片回流`。
+- `已确认` `GPT数据源/10_OPC一人公司闭环与多AI协作机制.md` 已同步 DeepSeek 只读供料范围；最终执行判断仍在 Codex，内容质量判断仍在 ChatGPT / 用户。
+- `已确认` `GPT数据源/07_AI知识类视频价值规则.md` 已补充 AI / API 生成图片与真实证据边界：API 图只能辅助表达，不能冒充真实录屏证据。
+- `已确认` Codex 第二层自动补全发现用户点名 fixture 未覆盖 `asset_validation_pack（素材验收包）`，本轮已补增对应 fixture。
+- `已确认` 新增 fixtures：
+  - `codex_source/fixtures/deepseek_supply_request_visual_asset_requirement_pack_example.json`
+  - `codex_source/fixtures/deepseek_supply_request_api_asset_generation_pack_example.json`
+  - `codex_source/fixtures/deepseek_supply_request_image_prompt_pack_example.json`
+  - `codex_source/fixtures/deepseek_supply_request_asset_validation_pack_example.json`
+  - `codex_source/fixtures/deepseek_supply_request_assembly_decision_pack_example.json`
+  - `codex_source/fixtures/deepseek_supply_request_bad_forbidden_media_example.json`
+  - `codex_source/fixtures/deepseek_supply_request_bad_forbidden_latest_review_pack_example.json`
+- `py_compile`: `passed`
+- `schema_json_parse`: `passed`
+- `fixture_json_parse`: `passed`
+- `controller_runs`: `file_map / editing_decision_pack / visual_asset_requirement_pack / api_asset_generation_pack / image_prompt_pack / asset_validation_pack / assembly_decision_pack = passed_with_fallback_local_only`
+- `forbidden_env_check`: `blocked_before_read`
+- `forbidden_media_check`: `blocked_before_read`
+- `forbidden_latest_review_pack_check`: `blocked_before_read`
+- `supply_source`: `fallback_local_only`
+- `fallback_status`: `used`
+- `not_deepseek_conclusion`: `true`
+- `deepseek_actual_participation`: `false`
+- `原因`：本轮禁止读取 `.env / secret`；controller 因此跳过会读取 `.env` 的 DeepSeek explorer，使用本地兜底供料。
+- `dist 输出口径`：`dist/deepseek_supply_controller/*` 是本地运行产物，不作为 GitHub 主事实提交；GitHub 可追溯证据以 `codex_log/20260510_execution_supply_pack_test_evidence.md` 为准。
+- `已确认` 本轮未调用阿里 API，未读取 API key，未生成真实图片 / 视频 / 音频。
+- `已确认` 本轮未修改视频 / 声音 / 发布状态，未推进 `content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）`、`voice_validation（声音验证状态）` 或 `final_voice_validated（最终声音验证状态）`。
+- `边界`：本轮只是机制与供料样例测试，不代表阿里 API 图片生成链路已跑通，不代表 DeepSeek 稳定真实供料，不代表 `multi-agent runtime（多 agent 运行时）` 已跑通，不代表真实视频内容通过。
+- `执行日志`：`codex_log/20260510_全执行供料包族与DeepSeek双重补全测试.md`
+- `供料证据日志`：`codex_log/20260510_execution_supply_pack_test_evidence.md`
+- `下一个目标`：用一条真实最终文案做小范围执行测试：让 Codex 基于文案先生成视觉素材需求、API 素材生成计划、图片 prompt、素材验收、装配决策和剪辑决策，但仍不直接生成完整大视频，先验证全执行供料链是否能减少漏项和误用素材。
+
 ## 20260510｜DeepSeek 深度配合与自动补全闸门
 
 - `已确认` 本轮落地 `Auto-completion gate（自动补全闸门）`，用于阻断 Codex 只完成用户点名任务、遗漏上游判断、供料、三卡、执行中补缺口、执行后风险复核、日志回流或事实同步。

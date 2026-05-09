@@ -42,7 +42,7 @@ Codex 在以下情况必须优先触发 `DeepSeek supply controller`：
 
 DeepSeek 每次只做一个小动作，不能一次吞掉完整项目任务。
 
-controller 当前支持 6 个 action：
+controller 当前支持完整 `execution_supply_pack family（执行供料包族）`：
 
 1. `file_map（文件地图）`
    - 输出本轮应该读哪些文件，为什么读。
@@ -52,15 +52,132 @@ controller 当前支持 6 个 action：
    - 把已读文件压缩成 Codex 可用摘要。
 4. `missing_files（缺失文件）`
    - 判断还缺哪些文件，下一轮应该补读什么。
-5. `editing_decision_pack（剪辑决策包）`
+5. `visual_asset_requirement_pack（视觉素材需求包）`
+   - 判断一条最终文案进入执行后，需要哪些视觉素材，哪些必须是真实证据，哪些只能做辅助表达。
+6. `api_asset_generation_pack（API 素材生成包）`
+   - 判断哪些素材可以由阿里 API / 豆包 / 其他供应商生成，以及生成计划、降级路线和禁止调用边界。
+7. `image_prompt_pack（图片 prompt 包）`
+   - 为每张候选生成图片写 prompt、negative prompt、构图、风格锚点和验收标准，不生成真实图片。
+8. `asset_validation_pack（素材验收包）`
+   - 判断 API 生成图、卡片或素材是否可进入装配，必要时要求 revise / reject / pending_human_review。
+9. `assembly_decision_pack（装配决策包）`
+   - 决定文案、真实录屏、API 生成图、PPT 卡片、人物段、TTS、字幕如何进入时间线。
+10. `editing_decision_pack（剪辑决策包）`
    - 用于视频剪辑、录屏放大、卡片插入、中段承载、画面证据链保护等任务。
    - 只基于 Codex 提供的文字化素材样料生成建议，不直接读取视频 / 音频 / 图片等媒体文件。
-6. `auto（自动）`
+11. `auto（自动）`
    - 只能在上述非 `auto` action 中选择，不允许生成自由任务。
 
 Codex 后续执行仍必须复核原文件；供料包只是输入，不是最终判断。
 
-### 3A. `editing_decision_pack（剪辑决策包）`
+### 3A. `execution_supply_pack family（执行供料包族）`
+
+`execution_supply_pack family（执行供料包族）` 用来承接“最终文案进入执行后”的全链路供料。标准链路是：
+
+```text
+content_route_card（内容路由卡）
+-> visual_asset_requirement_pack（视觉素材需求包）
+-> api_asset_generation_pack（API 素材生成包）
+-> image_prompt_pack（图片 prompt 包）
+-> asset_validation_pack（素材验收包）
+-> assembly_decision_pack（装配决策包）
+-> editing_decision_pack（剪辑决策包）
+-> review_pack（审片包回流）
+```
+
+凡任务命中以下任一情况，Codex 必须判断是否触发本供料包族：
+
+- Codex 收到最终文案。
+- 需要生成视频。
+- 需要卡片 / 图片 / 背景 / 角色 / 图标。
+- 需要调用阿里 API 或其他图片 API。
+- 需要判断素材是否足够。
+- 需要装配时间线。
+- 需要剪辑录屏。
+- 需要判断素材是否会抢真实证据。
+
+硬边界：
+
+- 不读取 `.env`、`.env.*`、API key、token 或密钥文件。
+- 不调用阿里、豆包或任何真实生成 API。
+- 不读取视频、音频、图片或 `dist/latest_review_pack/` 媒体产物。
+- 不把 API 生成图片当真实录屏证据。
+- 不把 DeepSeek / fallback 供料当最终内容判断。
+- 若任务卡禁止 `.env / secret`，controller 应走 `fallback_local_only（本地兜底）`，并写 `not_deepseek_conclusion = true`，不得为了调用 DeepSeek 读取真实 `.env`。
+
+各包最小输出字段：
+
+```text
+visual_asset_requirement_pack:
+  script_block:
+  segment:
+  viewer_task:
+  required_asset_type:
+  evidence_role:
+  why_needed:
+  can_be_api_generated:
+  must_be_real_evidence:
+  fallback_if_missing:
+  blocked_if:
+
+api_asset_generation_pack:
+  generation_needed:
+  vendor_candidate:
+  model_or_service:
+  asset_count:
+  aspect_ratio:
+  resolution:
+  style_constraints:
+  segment_usage:
+  prompt_needed:
+  negative_prompt_needed:
+  api_call_allowed_this_round:
+  secret_required:
+  fallback_plan:
+  blocked_if:
+
+image_prompt_pack:
+  asset_id:
+  segment:
+  purpose:
+  positive_prompt:
+  negative_prompt:
+  style_anchor:
+  composition:
+  text_policy:
+  must_not_include:
+  acceptance_criteria:
+  rejected_if:
+
+asset_validation_pack:
+  asset_id:
+  source:
+  intended_use:
+  validation_result:
+  style_fit:
+  evidence_fit:
+  readability:
+  platform_risk:
+  copyright_or_official_asset_risk:
+  human_feel:
+  required_fix:
+  blocked_if:
+
+assembly_decision_pack:
+  segment:
+  primary_carrier:
+  secondary_carrier:
+  asset_to_use:
+  timing:
+  transition:
+  tts_relation:
+  subtitle_relation:
+  evidence_chain_note:
+  needs_editing_decision_pack:
+  blocked_if:
+```
+
+### 3B. `editing_decision_pack（剪辑决策包）`
 
 `editing_decision_pack（剪辑决策包）` 专门回答视频执行现场的剪辑判断问题：
 
@@ -192,6 +309,7 @@ DeepSeek 禁止：
 - `files_recommended（建议读取文件）`
 - `risks（风险）`
 - `missing_files（缺失文件）`
+- `execution_supply_pack（执行供料包）`，当 action 属于执行供料包族时必须出现
 - `codex_next_input（给 Codex 的下一步输入）`
 - `not_allowed（禁止事项）`
 
@@ -292,7 +410,7 @@ DeepSeek / fallback 参与机制升级时，默认允许至少两次供料观察
 
 使用边界：
 
-- `deepseek-v4-flash` 默认用于常规小步供料：`file_map（文件地图）`、`missing_files（缺失文件）`、`context_summary（上下文摘要）`、普通 `risk_report（风险报告）`、基于文字样料的 `editing_decision_pack（剪辑决策包）`、复盘文件地图和标准提取。
+- `deepseek-v4-flash` 默认用于常规小步供料：`file_map（文件地图）`、`missing_files（缺失文件）`、`context_summary（上下文摘要）`、普通 `risk_report（风险报告）`、基于文字样料的 `visual_asset_requirement_pack（视觉素材需求包）`、`api_asset_generation_pack（API 素材生成包）`、`image_prompt_pack（图片 prompt 包）`、`asset_validation_pack（素材验收包）`、`assembly_decision_pack（装配决策包）`、`editing_decision_pack（剪辑决策包）`、复盘文件地图和标准提取。
 - `deepseek-v4-pro` 只作为复杂任务升级模型：多文件冲突、复杂机制判断、长任务审计、多轮供料包合并、Flash 多次失败后升级、或 Codex 明确标记 `after_read_gap（读完仍有缺口）` 且 fallback 不足。
 - 本轮只落地默认模型口径；自动模型升级机制尚未实现，后续如要启用必须另行开发和验证。
 - controller 输出必须保留底层 explorer 写出的实际 `model（模型）` 状态；如果输出来源为 `fallback_local_only（本地兜底）`，仍不得写成 DeepSeek 结论。

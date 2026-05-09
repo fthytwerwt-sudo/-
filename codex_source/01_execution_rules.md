@@ -401,6 +401,45 @@ auto_completion_gate:
 - 若没更新日志，不能写完整完成。
 - 若本轮只能完成显性任务、无法补齐上游或下游机制，必须把状态写成 `部分成立` 或 `blocked`，不得写成 `已确认完成`。
 
+### 2E-1. 文案进入执行后的执行供料包族闸门
+
+当最终文案、内容路由卡或用户明确执行单进入 Codex 执行层时，Codex 不得直接跳到“生成视频 / 生成图片 / 装配时间线”。
+
+必须先通过 `Auto-completion gate（自动补全闸门）` 判断是否需要以下 `execution_supply_pack family（执行供料包族）`：
+
+```text
+content_route_card（内容路由卡）
+-> visual_asset_requirement_pack（视觉素材需求包）
+-> api_asset_generation_pack（API 素材生成包）
+-> image_prompt_pack（图片 prompt 包）
+-> asset_validation_pack（素材验收包）
+-> assembly_decision_pack（装配决策包）
+-> editing_decision_pack（剪辑决策包）
+-> review_pack / 审片包回流
+```
+
+触发条件：
+
+- Codex 收到最终文案并准备执行。
+- 需要生成视频、卡片、图片、背景、角色或图标。
+- 需要判断是否调用阿里 API / 豆包 / 其他图片 API。
+- 需要写图片 prompt 或素材验收标准。
+- 需要把真实录屏、API 图、PPT 卡片、人物段、TTS、字幕装配到时间线。
+- 需要判断某个素材会不会抢走真实证据位。
+
+硬规则：
+
+- 没有先判断 `visual_asset_requirement_pack（视觉素材需求包）`，不得直接列图片生成清单。
+- 没有先判断 `api_asset_generation_pack（API 素材生成包）`，不得调用真实 API。
+- 真实 API 调用必须由用户本轮明确授权；默认机制测试不得调用阿里 API。
+- Codex 不得读取 `.env`、API key、token 或密钥文件来完成供料包测试。
+- API 生成图只能做辅助表达、视觉壳、信息卡、氛围、角色或图标，不能冒充真实录屏证据。
+- `image_prompt_pack（图片 prompt 包）` 默认不让图片模型生成中文可读文字；需要文字时由后期卡片层处理。
+- `asset_validation_pack（素材验收包）` 未通过时，素材不得进入装配；必须 revise / reject / pending_human_review / 降级。
+- `assembly_decision_pack（装配决策包）` 必须区分主证据与辅助素材；中段真实录屏主体不得被 API 图抢走。
+- 需要具体剪辑动作时，必须回到 `editing_decision_pack（剪辑决策包）`。
+- dist 供料输出若不提交 GitHub，必须另写可追溯 `codex_log/*evidence*.md`，不得只说本地文件存在。
+
 ## 3. skill 检查硬规则
 
 执行前必须：
