@@ -66,13 +66,32 @@ DeepSeek 不得：
 - DeepSeek readonly explorer 默认使用 `JSON Output`。
 - 请求体必须使用 `response_format={"type":"json_object"}`。
 - prompt 必须明确要求 JSON，不允许 Markdown 或 JSON 外解释文字。
+- 真实任务必须先控制输入体量；不得默认整文件直塞。
+- 默认输入压缩边界：
+  - `MAX_CHARS_PER_CONTEXT_FILE = 6000`
+  - `MAX_TOTAL_CONTEXT_CHARS = 18000`
+- 多文件 / 长文件真实任务默认先走输入裁剪，再走 DeepSeek 调用。
 - 脚本必须检查四个顶层 key：
   - `prefetch_context_pack`
   - `must_read_file_map`
   - `risk_and_conflict_report`
   - `candidate_summary`
+- JSON Output 返回成功，不等于业务 schema 验证通过。
+- 顶层必须是 object。
+- 四个顶层 key 的值必须是 object 或 array，不允许是空字符串。
+- `must_read_file_map` 在文件型任务里必须能列出文件。
+- `candidate_summary` 必须给出 `summary`。
 - 缺任一 key，必须写：`context_pack_validation = failed_unexpected_output`。
 - 只有四个 key 都存在，才允许写：`context_pack_validation = passed`。
+- `timeout`、`empty_content`、`finish_reason = length`、`json_parse_error`、`missing_required_keys`、`schema_validation_failed` 必须进入受控重试。
+- 默认最多重试 `3` 次，且每次都要继续缩小输入与输出体量。
+- 三次失败后，必须生成 `local fallback（本地兜底资料包）`。
+- fallback 只能给 Codex 最小资料，不等于 DeepSeek 结论。
+- 只有 DeepSeek 真正输出有效四字段，才允许写 `deepseek_generation_status = passed` 或 `passed_with_retries`。
+- 若 DeepSeek 失败但 fallback 成功，必须写：
+  - `deepseek_generation_status = failed`
+  - `context_pack_validation = fallback_local_only`
+  - `fallback_status = used`
 
 不得写：
 
@@ -80,7 +99,8 @@ DeepSeek 不得：
 - `多 agent runtime 已跑通`
 - `DeepSeek 已具备写入权限`
 - `context_pack_validation = passed` 等于项目事实已验证
+- `fallback_local_only` 等于 DeepSeek 已稳定供料
 
 ## 5. 一句话规则
 
-**DeepSeek 在《视频工厂》里默认只做只读供料层，模型默认锁为 `deepseek-v4-pro`，输出默认走 JSON Output 并校验四个顶层 key；即使 `context_pack_validation = passed`，也只证明 readonly explorer 上下文包结构通过，不证明多 agent runtime 已跑通。**
+**DeepSeek 在《视频工厂》里默认只做只读供料层，模型默认锁为 `deepseek-v4-pro`；真实任务要先控输入体量，再做 JSON Output、schema 校验和受控重试，三次失败后回退到 local fallback；即使 `context_pack_validation = passed`，也只证明 readonly explorer 上下文包结构通过，不证明多 agent runtime 已跑通。**

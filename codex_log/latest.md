@@ -1,5 +1,18 @@
 # Latest
 
+## 20260509｜DeepSeek 只读供料管线稳定性修复
+
+- `已确认` 本轮把 `scripts/deepseek_readonly_explorer.py` 从单次最小调用扩展为稳定供料管线：加入输入压缩、三次受控重试、schema 校验和 local fallback。
+- `已确认` smoke test 通过：`api_validation = passed`、`deepseek_generation_status = passed`、`context_pack_validation = passed`、`fallback_status = not_used`。
+- `部分成立` 真实任务测试未拿到稳定 DeepSeek JSON，但 fallback 成功生成了 Codex 可读资料包。
+- `real_task_pipeline_status`: `usable_with_fallback`
+- `real_task_generation_status`: `failed`
+- `real_task_context_pack_validation`: `fallback_local_only`
+- `已确认` 当前可稳定给 Codex 提供资料，但这份真实任务资料包来自 local fallback，不是 DeepSeek passed。
+- `已确认` 本轮未修改机制文件正文、未修改视频产物、`dist/latest_review_pack/`、`content_validation`、`send_ready`、`publish_status`、声音状态。
+- `执行日志`：`codex_log/20260509_DeepSeek只读供料管线稳定性修复.md`
+- `下一个目标`：再让 DeepSeek 供料，Codex 执行 `reference` 质量机制锁修正。
+
 ## 20260509｜DeepSeek 只读探索器最小真实任务测试
 
 - `已确认` 本轮只做 DeepSeek readonly explorer 最小真实任务测试，不修改机制文件正文。
