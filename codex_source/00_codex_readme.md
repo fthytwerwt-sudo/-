@@ -84,6 +84,7 @@ DeepSeek 供料中控最小入口：
 - controller 结果必须回流到 `dist/deepseek_supply_controller/latest_supply_pack.md` 与 `dist/deepseek_supply_controller/latest_supply_pack.json`。
 - Codex 后续执行必须读取供料包后再复核原文件；若供料来源是 `fallback_local_only（本地兜底）`，只能把它当作本地资料包，不得写成 DeepSeek 真实生成通过或 DeepSeek 结论。
 - controller 通过不代表 `multi-agent runtime（多 agent 运行时）` 已跑通。
+- 后续任何 DeepSeek 相关任务必须先输出 `deepseek_readiness_check（DeepSeek 就绪检查）`：`deepseek_passed` 才能写真实参与；`fallback_local_only` 必须写 `not_deepseek_conclusion = true`；缺少 process environment 中的 `DEEPSEEK_API_KEY` 时必须写 `blocked_missing_process_env_api_key` 或 `not_tested_missing_process_env_key`，不得读取 `.env` 补救。
 
 质量与反馈三卡执行闸门：
 - 命中内容表达文案、视频样片 / 成片、发布前检查、发布后复盘、`reference / locked reference / visual route` 继承或大任务 / 多文件任务时，Codex 必须在 `route_decision（路由判断）` 中判断三张机制卡是否必需。

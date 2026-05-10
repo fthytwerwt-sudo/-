@@ -340,10 +340,37 @@ content_route_card
 如果本轮明确要测试 DeepSeek 安全真实参与，允许在不读取 `.env` 文件的前提下使用 process environment 中已经存在的 `DEEPSEEK_API_KEY`：
 
 - request 可写 `safe_deepseek_process_env_test = true` 和 `disable_env_file = true`。
+- request 可写 `deepseek_readiness_check_required = true`，要求 controller 输出 `deepseek_readiness_check（DeepSeek 就绪检查）`。
 - controller 必须通过 `--allow-process-env-api-key` 或 `DEEPSEEK_ALLOW_PROCESS_ENV_KEY=1` 显式开启。
 - explorer 必须通过 `--no-env-file` 或 `DEEPSEEK_DISABLE_ENV_FILE=1` 禁止读取 `.env`。
 - key 只用于 HTTP Authorization，不得写入 prompt、supply pack、manifest、stdout、stderr 或日志。
 - 如果 process environment 中没有 `DEEPSEEK_API_KEY`，必须记录 `deepseek_actual_participation = not_tested_missing_process_env_key`，不得读取 `.env` 补救，也不得写成 DeepSeek passed。
+
+controller 输出必须稳定包含以下状态字段：
+
+```text
+deepseek_readiness_check:
+  env_file_read:
+  process_env_key_allowed:
+  process_env_key_present:
+  safe_call_mode:
+  request_validation_status:
+  supply_source:
+  fallback_status:
+  not_deepseek_conclusion:
+  context_pack_validation:
+  deepseek_actual_participation:
+  blocked_reason:
+```
+
+允许的关键状态语义：
+
+- `deepseek_passed`
+- `fallback_local_only`
+- `blocked_missing_process_env_api_key`
+- `blocked_invalid_api_key`
+- `blocked_network_or_timeout`
+- `blocked_invalid_context_pack`
 
 ## 8D. model preference（模型偏好）
 

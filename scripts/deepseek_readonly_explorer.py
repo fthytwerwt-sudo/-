@@ -99,6 +99,21 @@ RETRYABLE_FAILURES = {
     "schema_validation_failed",
     "runtime_error",
 }
+NETWORK_OR_TIMEOUT_FAILURES = {
+    "timeout",
+    "http_retryable_error",
+    "rate_limited",
+    "runtime_error",
+}
+INVALID_CONTEXT_PACK_FAILURES = {
+    "empty_content",
+    "finish_reason_length",
+    "json_parse_error",
+    "missing_required_keys",
+    "schema_validation_failed",
+    "unexpected_response_shape",
+    "model_not_found",
+}
 
 
 JSON_OUTPUT_EXAMPLE = {
@@ -619,6 +634,39 @@ def write_terminal_failure_report(
     )
 
 
+def stable_blocked_status_for_failure(
+    failure_reason: str,
+    api_validation: str,
+) -> dict[str, str]:
+    if failure_reason == "invalid_api_key":
+        return {
+            "api_validation": "blocked_invalid_api_key",
+            "deepseek_generation_status": "blocked_invalid_api_key",
+            "context_pack_validation": "blocked_invalid_api_key",
+            "error_category": "invalid_api_key",
+        }
+    if failure_reason in NETWORK_OR_TIMEOUT_FAILURES:
+        return {
+            "api_validation": "blocked_network_or_timeout",
+            "deepseek_generation_status": "blocked_network_or_timeout",
+            "context_pack_validation": "blocked_network_or_timeout",
+            "error_category": failure_reason,
+        }
+    if failure_reason in INVALID_CONTEXT_PACK_FAILURES:
+        return {
+            "api_validation": api_validation,
+            "deepseek_generation_status": "blocked_invalid_context_pack",
+            "context_pack_validation": "blocked_invalid_context_pack",
+            "error_category": failure_reason,
+        }
+    return {
+        "api_validation": api_validation,
+        "deepseek_generation_status": "failed",
+        "context_pack_validation": "failed_unexpected_output",
+        "error_category": failure_reason,
+    }
+
+
 def build_request_payload(
     *,
     model: str,
@@ -911,12 +959,16 @@ def main() -> int:
         if log["failure_reason"] not in RETRYABLE_FAILURES and log["failure_reason"] != "none"
     }
     if non_retryable_failures:
+        failure_reason = sorted(non_retryable_failures)[0]
+        stable_status = stable_blocked_status_for_failure(failure_reason, api_validation)
         write_terminal_failure_report(
             timestamp=timestamp,
             base_url=base_url,
             model=model,
-            api_validation=api_validation,
-            error_category=sorted(non_retryable_failures)[0],
+            api_validation=stable_status["api_validation"],
+            error_category=stable_status["error_category"],
+            deepseek_generation_status=stable_status["deepseek_generation_status"],
+            context_pack_validation=stable_status["context_pack_validation"],
             env_file_read=env_file_read,
             process_env_key_allowed=process_env_key_allowed,
             process_env_key_present=process_env_key_present,
@@ -929,6 +981,26 @@ def main() -> int:
         return 12
 
     final_reason = attempt_logs[-1]["failure_reason"] if attempt_logs else "unknown_failure"
+    stable_status = stable_blocked_status_for_failure(final_reason, api_validation)
+    if stable_status["context_pack_validation"].startswith("blocked_"):
+        write_terminal_failure_report(
+            timestamp=timestamp,
+            base_url=base_url,
+            model=model,
+            api_validation=stable_status["api_validation"],
+            error_category=stable_status["error_category"],
+            deepseek_generation_status=stable_status["deepseek_generation_status"],
+            context_pack_validation=stable_status["context_pack_validation"],
+            env_file_read=env_file_read,
+            process_env_key_allowed=process_env_key_allowed,
+            process_env_key_present=process_env_key_present,
+            detail_lines=[
+                "## attempt_log（尝试日志）",
+                "",
+                *json_block(attempt_logs),
+            ],
+        )
+        return 12
     fallback_pack = build_local_fallback_pack(
         task_prompt=task_prompt,
         context_metadata=context_metadata,

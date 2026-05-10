@@ -435,6 +435,43 @@ DeepSeek / fallback 参与机制升级时，默认允许至少两次供料观察
 - controller / explorer 不得把 key 打印到 stdout、stderr、manifest、supply pack 或日志。
 - 即使本轮 `deepseek_passed`，也只能写成本轮样例供料通过，不代表 DeepSeek 稳定真实供料。
 
+## 7B-1. deepseek_readiness_check（DeepSeek 就绪检查）
+
+controller 每次输出 supply pack 和 manifest 时，必须同步写 `deepseek_readiness_check（DeepSeek 就绪检查）`，让 Codex 后续任务先判断 DeepSeek 是否真的参与、是否只是本地兜底、是否必须阻断。
+
+字段固定为：
+
+```text
+deepseek_readiness_check:
+  env_file_read:
+  process_env_key_allowed:
+  process_env_key_present:
+  safe_call_mode:
+  request_validation_status:
+  supply_source:
+  fallback_status:
+  not_deepseek_conclusion:
+  context_pack_validation:
+  deepseek_actual_participation:
+  blocked_reason:
+```
+
+稳定状态必须能区分：
+
+- `deepseek_passed（DeepSeek 真实供料通过）`
+- `fallback_local_only（本地兜底）`
+- `blocked_missing_process_env_api_key（缺少进程环境 key）`
+- `blocked_invalid_api_key（key 无效或权限不足）`
+- `blocked_network_or_timeout（网络或超时阻断）`
+- `blocked_invalid_context_pack（输出结构不合格）`
+
+规则：
+
+- 只有 `deepseek_passed` 才能写 DeepSeek 真实参与。
+- `fallback_local_only` 必须写 `not_deepseek_conclusion = true`。
+- blocked 必须写 `blocked_reason`，不得继续包装成 DeepSeek 成功。
+- 不允许通过读取 `.env` 把 `blocked_missing_process_env_api_key` 补救成通过。
+
 ## 7C. model routing（模型路由）
 
 当前 DeepSeek 供料模型策略：

@@ -1,0 +1,120 @@
+{
+  "request_id": "20260510_deepseek_stability_check_request",
+  "created_at": "2026-05-10T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "deepseek_stability_check",
+  "task_type": "mechanism_or_route_fix",
+  "trigger_reason": "before_write_gate",
+  "action": "file_map",
+  "current_goal": "Stabilize DeepSeek participation state for video_factory without reading .env or changing publish state.",
+  "current_step": "Pre-write readiness and safety check before updating DeepSeek controller rules, schema, and logs.",
+  "known_context": [
+    "DeepSeek is readonly explorer / supply layer only.",
+    "Codex is the only write integrator.",
+    "Previous safe test did not read .env and did not print or write API key.",
+    "Previous safe process env test was not_tested_missing_process_env_key because current process environment had no DEEPSEEK_API_KEY.",
+    "fallback_local_only is not a DeepSeek conclusion."
+  ],
+  "missing_context": [
+    "Whether controller output now includes a stable deepseek_readiness_check.",
+    "Whether blocked states are distinguishable from fallback_local_only.",
+    "Whether current process environment contains DEEPSEEK_API_KEY."
+  ],
+  "decision_needed": "Identify the smallest files and state fields Codex must verify to keep DeepSeek passed / fallback / blocked semantics stable.",
+  "candidate_files": [
+    "codex_source/01_execution_rules.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md",
+    "codex_source/schemas/deepseek_supply_request.schema.json",
+    "scripts/deepseek_readonly_explorer.py",
+    "scripts/deepseek_supply_controller.py",
+    "codex_log/latest.md",
+    "codex_log/20260510_safe_deepseek_participation_test.md"
+  ],
+  "must_read_files": [
+    "codex_source/01_execution_rules.md",
+    "scripts/deepseek_readonly_explorer.py",
+    "scripts/deepseek_supply_controller.py",
+    "codex_source/17_deepseek_supply_controller_protocol.md"
+  ],
+  "optional_files": [
+    "codex_source/18_deepseek_supply_request_schema.md",
+    "codex_source/schemas/deepseek_supply_request.schema.json",
+    "GPT数据源/10_OPC一人公司闭环与多AI协作机制.md",
+    "codex_log/latest.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "*.mp4",
+    "*.mov",
+    "*.m4v",
+    "*.mp3",
+    "*.wav",
+    "*.m4a",
+    "*.aac",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.gif",
+    "*.webp",
+    "视频工厂归档+删除"
+  ],
+  "max_context_files": 8,
+  "max_context_chars": 18000,
+  "expected_output": [
+    "file_map for DeepSeek stability check",
+    "risk list for fallback / blocked mislabeling",
+    "readiness fields Codex must preserve",
+    "forbidden path reminders"
+  ],
+  "output_format": "json_object_supply_pack",
+  "codex_next_input": "Codex must read supply output, verify original files, then update only allowed DeepSeek mechanism files and logs.",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_supply_controller",
+    "latest_supply_pack_md": "dist/deepseek_supply_controller/latest_supply_pack.md",
+    "latest_supply_pack_json": "dist/deepseek_supply_controller/latest_supply_pack.json",
+    "latest_supply_manifest_json": "dist/deepseek_supply_controller/latest_supply_manifest.json"
+  },
+  "not_allowed": [
+    "DeepSeek 不写文件 / does not write files.",
+    "DeepSeek 不拍板项目事实 / does not decide project facts.",
+    "fallback_local_only 不是 DeepSeek 结论 / fallback is not a DeepSeek conclusion.",
+    "multi-agent runtime 未跑通 / do not claim multi-agent runtime is running.",
+    "不读取 .env / secret / API key / token files.",
+    "不调用阿里 API，不生成图片，不生成视频。"
+  ],
+  "stop_condition": "Stop if .env, secret, media, dist/latest_review_pack, invalid request, missing process env key in process-env mode, invalid key, network timeout, or invalid context pack is encountered.",
+  "blocked_if": [
+    "Need to read .env or .env.*",
+    "Need to print or write API key",
+    "Need to call Aliyun or any generation API",
+    "Need to modify publish, voice, content validation, or media state",
+    "Request output cannot distinguish deepseek_passed, fallback_local_only, and blocked"
+  ],
+  "fallback_allowed": true,
+  "fallback_policy": "Default mode may use fallback_local_only only when DeepSeek is not safely allowed. It must set not_deepseek_conclusion = true.",
+  "api_call_policy": "DeepSeek API call is allowed only via process environment key in Test B; Aliyun API call is forbidden.",
+  "secret_policy": "Do not read .env. Process environment DEEPSEEK_API_KEY may be used only as HTTP Authorization and must never enter prompt, pack, manifest, or logs.",
+  "allow_process_env_api_key": false,
+  "disable_env_file": true,
+  "safe_deepseek_process_env_test": true,
+  "deepseek_readiness_check_required": true,
+  "safe_call_mode": "process_env_only_when_explicitly_allowed",
+  "readiness_expected_fields": [
+    "env_file_read",
+    "process_env_key_allowed",
+    "process_env_key_present",
+    "safe_call_mode",
+    "request_validation_status",
+    "supply_source",
+    "fallback_status",
+    "not_deepseek_conclusion",
+    "context_pack_validation",
+    "deepseek_actual_participation",
+    "blocked_reason"
+  ]
+}

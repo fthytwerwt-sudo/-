@@ -1,5 +1,51 @@
 # Latest
 
+## 20260510｜DeepSeek 稳定化检查与 readiness 前置闸门
+
+- `已确认` 本轮目标是稳定 DeepSeek 三态语义，不是强行证明 DeepSeek 每次成功。
+- `已确认` 已新增稳定化 request：`codex_log/supply_requests/20260510_deepseek_stability_check_request.json`。
+- `已确认` 已新增稳定化日志：`codex_log/20260510_deepseek_stability_check.md`。
+- `已确认` 已补齐 `deepseek_readiness_check（DeepSeek 就绪检查）`：后续任何 DeepSeek 相关任务、`execution_supply_pack family（执行供料包族）`、reference / visual route / 多文件机制任务，都必须先输出该检查。
+- `已确认` controller 现在稳定输出：
+  - `deepseek_readiness_check`
+  - `blocked_reason`
+  - `env_file_read`
+  - `process_env_key_allowed`
+  - `process_env_key_present`
+  - `not_deepseek_conclusion`
+  - `deepseek_actual_participation`
+- `已确认` explorer 已补齐 blocked 语义映射：
+  - `blocked_missing_process_env_api_key`
+  - `blocked_invalid_api_key`
+  - `blocked_network_or_timeout`
+  - `blocked_invalid_context_pack`
+- `test_a_default_mode_supply_source`: `fallback_local_only`
+- `test_a_default_mode_not_deepseek_conclusion`: `true`
+- `test_b_process_env_key_present`: `false`
+- `test_b_process_env_mode_supply_source`: `blocked`
+- `test_b_context_pack_validation`: `blocked_missing_process_env_api_key`
+- `test_b_deepseek_actual_participation`: `not_tested_missing_process_env_key`
+- `blocked_reason`: `missing_process_env_api_key`
+- `deepseek_real_supply_status`: `not_passed`
+- `fallback_status`: `usable_with_fallback`
+- `blocked_status`: `blocked_missing_process_env_key`
+- `current_truth`: 当前进程环境没有 `DEEPSEEK_API_KEY`；本轮没有真实 DeepSeek passed，不能写成 DeepSeek 稳定供料。
+- `py_compile`: `passed`
+- `request_json_parse`: `passed`
+- `schema_json_parse`: `passed`
+- `forbidden_env_check`: `blocked_before_read`
+- `forbidden_media_check`: `blocked_before_read`
+- `forbidden_latest_review_pack_check`: `blocked_before_read`
+- `env_file_read`: `false`
+- `api_key_printed`: `false`
+- `api_key_written`: `false`
+- `ali_api_called`: `false`
+- `image_generated`: `false`
+- `video_generated`: `false`
+- `已确认` 本轮未修改视频 / 声音 / 发布状态，未推进 `content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）`、`voice_validation（声音验证状态）` 或 `final_voice_validated（最终声音验证状态）`。
+- `边界`：`technical_validation（技术验证）` 只代表脚本、request 和禁止项回归通过；`mechanism_validation（机制验证）` 代表 readiness 与三态语义补齐；`deepseek_supply_validation（DeepSeek 供料验证）` 当前仍是 `blocked_missing_process_env_key`；`content_validation（内容验证）` 未验证且未改变。
+- `下一个目标`：用户先把 `DEEPSEEK_API_KEY` 安全注入 process environment，再重跑本稳定化测试；若 DeepSeek passed，再进入一条真实文案的小范围素材计划执行，不调用阿里 API。
+
 ## 20260510｜真实文案全执行供料链测试与 DeepSeek 安全参与路径
 
 - `已确认` 本轮找到仓库内真实口播文本入口：`dist/latest_review_pack/timeline.json` 的 `voice_text` 字段；本轮只读文本，不读取媒体文件。

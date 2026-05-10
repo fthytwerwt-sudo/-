@@ -336,6 +336,36 @@ large_task_gate:
 - `review_variable_card（复盘变量卡）` 锁单变量反馈，不替代最终判断。
 - 若执行中发现已读文件不足以判断，必须触发 `after_read_gap（读完仍有缺口）` 供料或补读；若补读仍无法排除 forbidden 修改风险，必须 blocked。
 
+### 2D-1. deepseek_readiness_check（DeepSeek 就绪检查）
+
+凡任务需要 DeepSeek 供料、触发 `execution_supply_pack family（执行供料包族）`、涉及 `reference（参考）` / `visual route（视觉路由）` / 多文件机制判断，Codex 必须先输出 `deepseek_readiness_check（DeepSeek 就绪检查）`。
+
+最小字段：
+
+```text
+deepseek_readiness_check:
+  env_file_read:
+  process_env_key_allowed:
+  process_env_key_present:
+  safe_call_mode:
+  request_validation_status:
+  supply_source:
+  fallback_status:
+  not_deepseek_conclusion:
+  context_pack_validation:
+  deepseek_actual_participation:
+  blocked_reason:
+```
+
+完成规则：
+
+- 只有 `supply_source = deepseek_passed` 且 `context_pack_validation = passed` 时，才能写 DeepSeek 真实参与。
+- `supply_source = fallback_local_only（本地兜底）` 时，必须写 `not_deepseek_conclusion = true`，不得写成 DeepSeek 结论、稳定供料或 `multi-agent runtime（多 agent 运行时）` 已跑通。
+- process environment 中没有 `DEEPSEEK_API_KEY` 时，必须写 `deepseek_actual_participation = not_tested_missing_process_env_key`，并把 `blocked_reason` 或说明写成 `missing_process_env_api_key`。
+- 如果出现权限不足、key 无效、网络 / timeout、输出不合格，必须分别写成 `blocked_invalid_api_key`、`blocked_network_or_timeout`、`blocked_invalid_context_pack` 等可复核状态，不得伪装成 fallback 成功。
+- 如果 request 或任务卡禁止 `.env / secret（真实环境变量 / 密钥）`，Codex / controller 不得读取 `.env` 补救。
+- 后续日志、供料包和最终回报必须保留 `deepseek_readiness_check`，供下一轮先读。
+
 ## 2E. Auto-completion gate 自动补全闸门
 
 `Auto-completion gate（自动补全闸门）` 用来阻断 Codex 只完成用户点名动作、却漏掉上游判断、供料、三卡、风险复核、日志回流或事实同步的情况。

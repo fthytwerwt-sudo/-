@@ -269,6 +269,18 @@
     },
     "safe_deepseek_process_env_test": {
       "type": "boolean"
+    },
+    "deepseek_readiness_check_required": {
+      "type": "boolean"
+    },
+    "safe_call_mode": {
+      "type": "string"
+    },
+    "readiness_expected_fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     }
   }
 }

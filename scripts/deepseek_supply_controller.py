@@ -402,6 +402,9 @@ def task_from_request(card: dict[str, Any]) -> str:
         "allow_process_env_api_key",
         "disable_env_file",
         "safe_deepseek_process_env_test",
+        "deepseek_readiness_check_required",
+        "safe_call_mode",
+        "readiness_expected_fields",
     ):
         if field_name in card:
             payload[field_name] = card.get(field_name)
@@ -986,6 +989,74 @@ def infer_deepseek_actual_participation(
     return "false"
 
 
+def infer_blocked_reason(
+    *,
+    status: dict[str, str],
+    supply_source: str,
+    explorer_run: dict[str, Any],
+) -> str:
+    if supply_source != "blocked":
+        return "none"
+    joined_status = "\n".join(str(value) for value in status.values())
+    joined_status = f"{joined_status}\n{explorer_run.get('stderr_tail', '')}\n{explorer_run.get('stdout_tail', '')}"
+    if "blocked_missing_process_env_api_key" in joined_status or "missing_process_env_api_key" in joined_status:
+        return "missing_process_env_api_key"
+    if "blocked_invalid_api_key" in joined_status or "invalid_api_key" in joined_status:
+        return "invalid_api_key"
+    if "blocked_network_or_timeout" in joined_status or "timeout" in joined_status:
+        return "network_or_timeout"
+    if "blocked_invalid_context_pack" in joined_status:
+        return "invalid_context_pack"
+    if explorer_run.get("returncode") not in {0, None}:
+        return "explorer_failed"
+    return "unknown_blocked"
+
+
+def infer_safe_call_mode(status: dict[str, str], supply_source: str) -> str:
+    env_file_read = status.get("env_file_read", "unknown")
+    process_env_key_allowed = status.get("process_env_key_allowed", "unknown")
+    if env_file_read == "true":
+        return "legacy_env_file_mode"
+    if process_env_key_allowed == "true":
+        return "process_env_only"
+    if supply_source == "fallback_local_only":
+        return "local_fallback_no_deepseek_call"
+    return "safe_no_env_file_default"
+
+
+def build_deepseek_readiness_check(
+    *,
+    request_validation_status: str,
+    supply_source: str,
+    fallback_status: str,
+    not_deepseek_conclusion: bool,
+    deepseek_actual_participation: str,
+    context_pack_validation: str,
+    status: dict[str, str],
+    blocked_reason: str,
+) -> dict[str, Any]:
+    return {
+        "required": True,
+        "env_file_read": status.get("env_file_read", "unknown"),
+        "process_env_key_allowed": status.get("process_env_key_allowed", "unknown"),
+        "process_env_key_present": status.get("process_env_key_present", "unknown"),
+        "safe_call_mode": infer_safe_call_mode(status, supply_source),
+        "request_validation_status": request_validation_status,
+        "supply_source": supply_source,
+        "fallback_status": fallback_status,
+        "not_deepseek_conclusion": not_deepseek_conclusion,
+        "context_pack_validation": context_pack_validation,
+        "deepseek_actual_participation": deepseek_actual_participation,
+        "blocked_reason": blocked_reason,
+        "completion_rule": [
+            "deepseek_passed 才能写 DeepSeek 真实参与。",
+            "fallback_local_only 必须写 not_deepseek_conclusion = true。",
+            "missing_process_env_key 必须写 blocked 或 not_tested_missing_process_env_key。",
+            "不得把 fallback 写成 DeepSeek 稳定供料。",
+        ],
+    }
+
+
 def build_supply_pack(
     *,
     args: argparse.Namespace,
@@ -1002,6 +1073,11 @@ def build_supply_pack(
     deepseek_actual_participation = infer_deepseek_actual_participation(
         status=status,
         supply_source=supply_source,
+    )
+    blocked_reason = infer_blocked_reason(
+        status=status,
+        supply_source=supply_source,
+        explorer_run=explorer_run,
     )
     actual_action = choose_auto_action(args.trigger_reason) if args.action == "auto" else args.action
     files_considered = [relative_label(path) for path in context_files]
@@ -1031,6 +1107,19 @@ def build_supply_pack(
             for field_name in execution_supply_pack["missing_context"]
         ]
     not_deepseek_conclusion = supply_source != "deepseek_passed"
+    request_validation_status = getattr(args, "request_validation_status", "unknown")
+    context_pack_validation = status.get("context_pack_validation", "unknown")
+    fallback_status = status.get("fallback_status", "unknown")
+    deepseek_readiness_check = build_deepseek_readiness_check(
+        request_validation_status=request_validation_status,
+        supply_source=supply_source,
+        fallback_status=fallback_status,
+        not_deepseek_conclusion=not_deepseek_conclusion,
+        deepseek_actual_participation=deepseek_actual_participation,
+        context_pack_validation=context_pack_validation,
+        status=status,
+        blocked_reason=blocked_reason,
+    )
     codex_next_input = {
         "read_first": files_recommended[:8],
         "use_as": "readonly_supply_pack",
@@ -1069,7 +1158,7 @@ def build_supply_pack(
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "request_id": request_card.get("request_id") if request_card else supply_id,
         "request_file": getattr(args, "request_file", None),
-        "request_validation_status": getattr(args, "request_validation_status", "unknown"),
+        "request_validation_status": request_validation_status,
         "current_goal": request_card.get("current_goal", "") if request_card else "",
         "current_step": request_card.get("current_step", "") if request_card else "",
         "known_context": request_card.get("known_context", []) if request_card else [],
@@ -1084,14 +1173,16 @@ def build_supply_pack(
         "supply_source": supply_source,
         "not_deepseek_conclusion": not_deepseek_conclusion,
         "deepseek_actual_participation": deepseek_actual_participation,
+        "blocked_reason": blocked_reason,
+        "deepseek_readiness_check": deepseek_readiness_check,
         "env_file_read": status.get("env_file_read", "unknown"),
         "process_env_key_allowed": status.get("process_env_key_allowed", "unknown"),
         "process_env_key_present": status.get("process_env_key_present", "unknown"),
         "api_key_printed": status.get("api_key_printed", "false"),
         "api_key_written": status.get("api_key_written", "false"),
-        "context_pack_validation": status.get("context_pack_validation", "unknown"),
+        "context_pack_validation": context_pack_validation,
         "deepseek_generation_status": status.get("deepseek_generation_status", "unknown"),
-        "fallback_status": status.get("fallback_status", "unknown"),
+        "fallback_status": fallback_status,
         "pipeline_status": (
             "usable"
             if supply_source == "deepseek_passed"
@@ -1150,6 +1241,8 @@ def write_supply_outputs(pack: dict[str, Any], output_dir: Path) -> None:
         "multi_agent_runtime_validation": pack["multi_agent_runtime_validation"],
         "not_deepseek_conclusion": pack["not_deepseek_conclusion"],
         "deepseek_actual_participation": pack["deepseek_actual_participation"],
+        "blocked_reason": pack["blocked_reason"],
+        "deepseek_readiness_check": pack["deepseek_readiness_check"],
         "env_file_read": pack["env_file_read"],
         "process_env_key_allowed": pack["process_env_key_allowed"],
         "process_env_key_present": pack["process_env_key_present"],
@@ -1184,6 +1277,7 @@ def write_supply_outputs(pack: dict[str, Any], output_dir: Path) -> None:
         "- `multi_agent_runtime_validation`: `not_started`",
         f"- `not_deepseek_conclusion`: `{str(pack['not_deepseek_conclusion']).lower()}`",
         f"- `deepseek_actual_participation`: `{pack['deepseek_actual_participation']}`",
+        f"- `blocked_reason`: `{pack['blocked_reason']}`",
         f"- `env_file_read`: `{pack['env_file_read']}`",
         f"- `process_env_key_allowed`: `{pack['process_env_key_allowed']}`",
         f"- `process_env_key_present`: `{pack['process_env_key_present']}`",
@@ -1205,6 +1299,12 @@ def write_supply_outputs(pack: dict[str, Any], output_dir: Path) -> None:
             ensure_ascii=False,
             indent=2,
         ),
+        "```",
+        "",
+        "## deepseek_readiness_check（DeepSeek 就绪检查）",
+        "",
+        "```json",
+        json.dumps(pack["deepseek_readiness_check"], ensure_ascii=False, indent=2),
         "```",
         "",
         "## task（任务）",
@@ -1294,6 +1394,21 @@ def write_blocked_manifest(
         "pipeline_status": "blocked",
         "multi_agent_runtime_validation": "not_started",
         "not_deepseek_conclusion": True,
+        "blocked_reason": error,
+        "deepseek_readiness_check": {
+            "required": True,
+            "env_file_read": "false",
+            "process_env_key_allowed": "unknown",
+            "process_env_key_present": "unknown",
+            "safe_call_mode": "blocked_before_context_read",
+            "request_validation_status": "blocked",
+            "supply_source": "blocked",
+            "fallback_status": "not_used",
+            "not_deepseek_conclusion": True,
+            "context_pack_validation": "blocked",
+            "deepseek_actual_participation": "false",
+            "blocked_reason": error,
+        },
         "codex_next_input": {
             "read_first": [],
             "use_as": "blocked_request_validation_manifest",
@@ -1383,6 +1498,8 @@ def main() -> int:
                 "context_pack_validation": pack["context_pack_validation"],
                 "fallback_status": pack["fallback_status"],
                 "deepseek_actual_participation": pack["deepseek_actual_participation"],
+                "blocked_reason": pack["blocked_reason"],
+                "deepseek_readiness_check": pack["deepseek_readiness_check"],
                 "env_file_read": pack["env_file_read"],
                 "api_key_printed": pack["api_key_printed"],
                 "api_key_written": pack["api_key_written"],
