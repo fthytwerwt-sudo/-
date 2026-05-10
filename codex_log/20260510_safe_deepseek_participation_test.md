@@ -1,5 +1,27 @@
 # 20260510｜DeepSeek 安全真实参与测试
 
+## 0. process_env_rerun_20260510（进程环境 key 安全重跑）
+
+```yaml
+safe_process_env_rerun:
+  terminal_opened: true
+  user_key_entered: true
+  env_file_read: false
+  process_env_key_allowed: true
+  process_env_key_present: true
+  api_key_printed: false
+  api_key_written: false
+  key_written_to_env_file: false
+  request_file: codex_log/supply_requests/20260510_deepseek_stability_check_request.json
+  supply_source: deepseek_passed
+  fallback_status: not_used
+  context_pack_validation: passed
+  deepseek_generation_status: passed_with_retries
+  deepseek_actual_participation: true
+  blocked_reason: none
+  result_boundary: 本轮 request 样例供料通过；不得写成 DeepSeek 长期稳定真实供料，也不得写成内容验证通过。
+```
+
 ## 1. 测试口径
 
 本文件记录 controller 在“不读取 `.env` 文件”的前提下，是否可以安全测试 DeepSeek 实际参与。

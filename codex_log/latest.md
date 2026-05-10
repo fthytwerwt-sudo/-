@@ -1,5 +1,30 @@
 # Latest
 
+## 20260510｜DeepSeek process env key 安全重跑通过
+
+- `已确认` 已创建本地安全输入脚本：`scripts/run_safe_deepseek_stability_prompt.sh`。
+- `已确认` 已通过 macOS Terminal 弹窗运行脚本，用户在 Terminal 内隐藏输入 `DEEPSEEK_API_KEY（DeepSeek API 密钥）`；Codex 对话框未接收 key。
+- `已确认` 脚本只在当前进程临时 export key，测试结束后执行 `unset DEEPSEEK_API_KEY`。
+- `request_file`: `codex_log/supply_requests/20260510_deepseek_stability_check_request.json`
+- `supply_source`: `deepseek_passed`
+- `fallback_status`: `not_used`
+- `context_pack_validation`: `passed`
+- `deepseek_generation_status`: `passed_with_retries`
+- `deepseek_actual_participation`: `true`
+- `blocked_reason`: `none`
+- `env_file_read`: `false`
+- `process_env_key_allowed`: `true`
+- `process_env_key_present`: `true`
+- `api_key_printed`: `false`
+- `api_key_written`: `false`
+- `key_written_to_env_file`: `false`
+- `key_found_in_git_diff`: `false`
+- `结果边界`：本轮只证明 DeepSeek 对这个稳定化 request 样例真实供料通过；不代表 DeepSeek 长期稳定真实供料，不代表 `multi-agent runtime（多 agent 运行时）` 已跑通，也不代表内容验证通过。
+- `已确认` 本轮未调用阿里 API，未生成图片 / 视频 / 音频。
+- `已确认` 本轮未修改发布状态、声音状态或内容验证状态，未推进 `content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）`、`voice_validation（声音验证状态）` 或 `final_voice_validated（最终声音验证状态）`。
+- `日志`：`codex_log/20260510_deepseek_process_env_rerun.md`
+- `下一个目标`：进入一条真实文案的小范围素材计划执行，只做计划与供料验证，不调用阿里 API。
+
 ## 20260510｜DeepSeek 稳定化检查与 readiness 前置闸门
 
 - `已确认` 本轮目标是稳定 DeepSeek 三态语义，不是强行证明 DeepSeek 每次成功。
