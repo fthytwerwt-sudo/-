@@ -107,6 +107,8 @@ DeepSeek 供料范围从“文件地图 / 风险冲突”扩展为：
 
 API 调用不由 DeepSeek 决定。真实 API 调用必须由用户明确授权；DeepSeek 不读取 `.env`、API key、token 或密钥文件，不调用阿里 API，不生成真实图片。DeepSeek 可以帮助 Codex 判断“需不需要图、图怎么生成、素材怎么验收、怎么装配”，但最终执行判断在 Codex，内容质量判断在 ChatGPT / 用户。
 
+DeepSeek 安全真实参与的唯一允许方式是：Codex / controller 不读取 `.env` 文件，只在用户或运行环境已把 `DEEPSEEK_API_KEY` 注入为 process environment（进程环境变量）时，用它做 HTTP Authorization。该 key 不得打印、不得写入日志、不得进入 prompt、不得传给 DeepSeek 上下文。如果 process environment 中没有 key，只能记录 `deepseek_actual_participation = not_tested_missing_process_env_key`，不得读取 `.env` 补救，也不得写成 DeepSeek passed。
+
 最终执行判断仍在 Codex。方向、内容、人感、下一轮变量仍由 ChatGPT / 用户拍板。该机制不代表 `multi-agent runtime（多 agent 运行时）` 已跑通，也不代表 DeepSeek 已稳定真实供料。
 
 禁止：

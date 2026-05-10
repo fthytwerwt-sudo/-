@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import socket
 import sys
@@ -137,6 +138,11 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         action="append",
         default=[],
         help="Optional file path to include as readonly analysis context. Repeatable.",
+    )
+    parser.add_argument(
+        "--no-env-file",
+        action="store_true",
+        help="Do not read .env; use process environment only for DeepSeek settings.",
     )
     return parser.parse_args(argv)
 
@@ -510,6 +516,11 @@ def render_context_pack(
     fallback_status: str,
     validation_status: str,
     fallback_reason: str | None = None,
+    env_file_read: bool = False,
+    process_env_key_allowed: bool = False,
+    process_env_key_present: bool = False,
+    api_key_printed: bool = False,
+    api_key_written: bool = False,
 ) -> None:
     pipeline_status = "passed"
     if fallback_status == "used":
@@ -528,6 +539,11 @@ def render_context_pack(
         f"- `base_url`: `{base_url}`",
         f"- `model`: `{model}`",
         "- `scope`: `readonly_explorer_minimal_api_validation`",
+        f"- `env_file_read`: `{str(env_file_read).lower()}`",
+        f"- `process_env_key_allowed`: `{str(process_env_key_allowed).lower()}`",
+        f"- `process_env_key_present`: `{str(process_env_key_present).lower()}`",
+        f"- `api_key_printed`: `{str(api_key_printed).lower()}`",
+        f"- `api_key_written`: `{str(api_key_written).lower()}`",
         f"- `context_truncated`: `{'true' if context_metadata['context_truncated'] else 'false'}`",
         f"- `truncated_files`: `{json.dumps(context_metadata['truncated_files'], ensure_ascii=False)}`",
     ]
@@ -568,6 +584,13 @@ def write_terminal_failure_report(
     api_validation: str,
     error_category: str,
     detail_lines: list[str],
+    deepseek_generation_status: str = "failed",
+    context_pack_validation: str = "failed_unexpected_output",
+    env_file_read: bool = False,
+    process_env_key_allowed: bool = False,
+    process_env_key_present: bool = False,
+    api_key_printed: bool = False,
+    api_key_written: bool = False,
 ) -> None:
     write_report(
         [
@@ -575,8 +598,8 @@ def write_terminal_failure_report(
             "",
             "- `validation_status`: `blocked`",
             f"- `api_validation`: `{api_validation}`",
-            "- `deepseek_generation_status`: `failed`",
-            "- `context_pack_validation`: `failed_unexpected_output`",
+            f"- `deepseek_generation_status`: `{deepseek_generation_status}`",
+            f"- `context_pack_validation`: `{context_pack_validation}`",
             "- `fallback_status`: `not_used`",
             "- `pipeline_status`: `blocked`",
             "- `multi_agent_runtime_validation`: `not_started`",
@@ -584,6 +607,11 @@ def write_terminal_failure_report(
             f"- `base_url`: `{base_url}`",
             f"- `model`: `{model}`",
             "- `scope`: `readonly_explorer_minimal_api_validation`",
+            f"- `env_file_read`: `{str(env_file_read).lower()}`",
+            f"- `process_env_key_allowed`: `{str(process_env_key_allowed).lower()}`",
+            f"- `process_env_key_present`: `{str(process_env_key_present).lower()}`",
+            f"- `api_key_printed`: `{str(api_key_printed).lower()}`",
+            f"- `api_key_written`: `{str(api_key_written).lower()}`",
             f"- `error_category`: `{error_category}`",
             "",
             *detail_lines,
@@ -776,19 +804,46 @@ def try_generate_context_pack(
 
 def main() -> int:
     args = parse_args(sys.argv[1:])
-    env = load_env(ENV_PATH)
-    api_key = env.get("DEEPSEEK_API_KEY", "")
-    base_url = env.get("DEEPSEEK_BASE_URL", DEFAULT_BASE_URL)
-    model = env.get("DEEPSEEK_MODEL", DEFAULT_MODEL)
+    disable_env_file = args.no_env_file or os.environ.get("DEEPSEEK_DISABLE_ENV_FILE") == "1"
+    process_env_key_allowed = disable_env_file or os.environ.get("DEEPSEEK_ALLOW_PROCESS_ENV_KEY") == "1"
+    env = {} if disable_env_file else load_env(ENV_PATH)
+    process_api_key = os.environ.get("DEEPSEEK_API_KEY", "")
+    api_key = process_api_key or env.get("DEEPSEEK_API_KEY", "")
+    base_url = os.environ.get("DEEPSEEK_BASE_URL") or env.get("DEEPSEEK_BASE_URL", DEFAULT_BASE_URL)
+    model = os.environ.get("DEEPSEEK_MODEL") or env.get("DEEPSEEK_MODEL", DEFAULT_MODEL)
+    env_file_read = bool(not disable_env_file and ENV_PATH.exists())
+    process_env_key_present = bool(process_api_key)
     timestamp = datetime.now(timezone.utc).isoformat()
 
     if not api_key:
+        if disable_env_file:
+            write_terminal_failure_report(
+                timestamp=timestamp,
+                base_url=base_url,
+                model=model,
+                api_validation="blocked_missing_process_env_api_key",
+                error_category="missing_process_env_api_key",
+                deepseek_generation_status="not_tested_missing_process_env_key",
+                context_pack_validation="blocked_missing_process_env_api_key",
+                env_file_read=env_file_read,
+                process_env_key_allowed=process_env_key_allowed,
+                process_env_key_present=process_env_key_present,
+                detail_lines=[
+                    "## error_detail",
+                    "",
+                    "process environment 中未检测到 `DEEPSEEK_API_KEY`；安全模式禁止读取 `.env` 补救。",
+                ],
+            )
+            return 2
         write_terminal_failure_report(
             timestamp=timestamp,
             base_url=base_url,
             model=model,
             api_validation="blocked_missing_api_key",
             error_category="missing_api_key",
+            env_file_read=env_file_read,
+            process_env_key_allowed=process_env_key_allowed,
+            process_env_key_present=process_env_key_present,
             detail_lines=[
                 "## error_detail",
                 "",
@@ -807,6 +862,9 @@ def main() -> int:
             model=model,
             api_validation="failed",
             error_category="context_load_error",
+            env_file_read=env_file_read,
+            process_env_key_allowed=process_env_key_allowed,
+            process_env_key_present=process_env_key_present,
             detail_lines=[
                 "## error_detail",
                 "",
@@ -841,6 +899,9 @@ def main() -> int:
             context_pack_validation="passed",
             fallback_status="not_used",
             validation_status="passed",
+            env_file_read=env_file_read,
+            process_env_key_allowed=process_env_key_allowed,
+            process_env_key_present=process_env_key_present,
         )
         return 0
 
@@ -856,6 +917,9 @@ def main() -> int:
             model=model,
             api_validation=api_validation,
             error_category=sorted(non_retryable_failures)[0],
+            env_file_read=env_file_read,
+            process_env_key_allowed=process_env_key_allowed,
+            process_env_key_present=process_env_key_present,
             detail_lines=[
                 "## attempt_log（尝试日志）",
                 "",
@@ -885,6 +949,9 @@ def main() -> int:
         fallback_status="used",
         validation_status="fallback",
         fallback_reason=final_reason,
+        env_file_read=env_file_read,
+        process_env_key_allowed=process_env_key_allowed,
+        process_env_key_present=process_env_key_present,
     )
     return 0
 

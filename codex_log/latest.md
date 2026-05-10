@@ -1,5 +1,47 @@
 # Latest
 
+## 20260510｜真实文案全执行供料链测试与 DeepSeek 安全参与路径
+
+- `已确认` 本轮找到仓库内真实口播文本入口：`dist/latest_review_pack/timeline.json` 的 `voice_text` 字段；本轮只读文本，不读取媒体文件。
+- `已确认` 真实文案选择状态为 `closest_available_repo_copy`：它是当前 v3.1 基线时间线中最接近当前真实口播脚本的仓库文本入口。
+- `已确认` 已新增真实文案全执行供料链测试日志：`codex_log/20260510_real_copy_execution_supply_chain_test.md`。
+- `已确认` 测试包包含：
+  - `content_route_card（内容路由卡）`
+  - `visual_asset_requirement_pack（视觉素材需求包）`
+  - `api_asset_generation_pack（API 素材生成包）`
+  - `image_prompt_pack（图片 prompt 包）`
+  - `asset_validation_pack（素材验收包）`
+  - `assembly_decision_pack（装配决策包）`
+  - `editing_decision_pack（剪辑决策包）`
+  - `review_pack_test_summary（测试审片回流摘要）`
+- `已确认` 已新增 request：
+  - `codex_log/supply_requests/20260510_real_copy_execution_supply_chain_request.json`
+  - `codex_log/supply_requests/20260510_safe_deepseek_process_env_request.json`
+- `已确认` 已建立 DeepSeek 安全真实参与路径：controller 可在显式 `--allow-process-env-api-key` / `DEEPSEEK_ALLOW_PROCESS_ENV_KEY=1` 下，让 explorer 使用 process environment 中已有的 `DEEPSEEK_API_KEY`；同时 `DEEPSEEK_DISABLE_ENV_FILE=1` / `--no-env-file` 禁止读取 `.env`。
+- `已确认` 安全路径边界：不读取 `.env`，不打印 key，不写 key，不把 key 放进 prompt / supply pack / manifest / log，只把 key 用作 HTTP Authorization。
+- `real_copy_request_validation`: `passed`
+- `real_copy_supply_source`: `fallback_local_only`
+- `real_copy_not_deepseek_conclusion`: `true`
+- `safe_test_A_default_supply_source`: `fallback_local_only`
+- `safe_test_B_allow_process_env_supply_source`: `blocked`
+- `safe_test_B_context_pack_validation`: `blocked_missing_process_env_api_key`
+- `deepseek_actual_participation`: `not_tested_missing_process_env_key`
+- `原因`：当前 shell 进程环境没有 `DEEPSEEK_API_KEY`；按本轮安全规则不得读取 `.env` 补救。
+- `env_file_read`: `false`
+- `api_key_printed`: `false`
+- `api_key_written`: `false`
+- `py_compile`: `passed`
+- `schema_json_parse`: `passed`
+- `request_json_parse`: `passed`
+- `forbidden_env_check`: `blocked_before_read`
+- `forbidden_media_check`: `blocked_before_read`
+- `forbidden_latest_review_pack_check`: `blocked_before_read`
+- `已确认` 本轮未调用阿里 API，未读取 API key，未生成真实图片 / 视频 / 音频。
+- `已确认` 本轮未修改视频 / 声音 / 发布状态，未推进 `content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）`、`voice_validation（声音验证状态）` 或 `final_voice_validated（最终声音验证状态）`。
+- `边界`：本轮只是机制与真实文案小范围供料链测试，不代表阿里 API 图片生成链路已跑通，不代表 DeepSeek 稳定真实供料，不代表 `multi-agent runtime（多 agent 运行时）` 已跑通，不代表真实视频内容通过。
+- `安全参与测试日志`：`codex_log/20260510_safe_deepseek_participation_test.md`
+- `下一个目标`：如果需要验证真实 DeepSeek API 参与，先把 `DEEPSEEK_API_KEY` 安全注入为 process environment 后，重跑 `safe_deepseek_participation_test`；如果已完成安全注入，再进入一条真实文案的小范围素材计划执行，不调用阿里 API。
+
 ## 20260510｜全执行供料包族与 DeepSeek 双重补全测试
 
 - `已确认` 本轮把 DeepSeek + Codex 配合从 `editing_decision_pack（剪辑决策包）` 扩展为 `execution_supply_pack family（执行供料包族）`。

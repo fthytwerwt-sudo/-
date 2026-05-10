@@ -328,6 +328,8 @@ large_task_gate:
 - 命中 DeepSeek 供料场景但未生成 `supply_request（供料请求任务卡）`，不得写完整执行。
 - 供料包为 `fallback_local_only（本地兜底）` 时，不得写 `deepseek_passed`，必须写 `not_deepseek_conclusion = true`。
 - Codex 必须读取供料包，再复核原文件；供料包不能替代原文件证据。
+- 当任务卡禁止 `.env / secret（真实环境变量 / 密钥）` 时，Codex / controller 不得读取 `.env` 补救；只有显式开启 `--allow-process-env-api-key` 或 `DEEPSEEK_ALLOW_PROCESS_ENV_KEY=1` 时，才允许使用 process environment 中已存在的 `DEEPSEEK_API_KEY` 做 HTTP Authorization。
+- 安全 process env key 调用必须同时保证 `env_file_read = false`、`api_key_printed = false`、`api_key_written = false`；若 process environment 没有 key，必须写 `deepseek_actual_participation = not_tested_missing_process_env_key`，不得写成 DeepSeek passed。
 - 三张卡是判断机制，不是固定 SOP。不得把它们写成所有视频都沿用同一镜头流程、同一卡片数量、同一人物段次数。
 - `content_route_card（内容路由卡）` 解释流程为什么可变。
 - `quality_lock_card（质量锁卡）` 锁质量底线，不证明内容通过。

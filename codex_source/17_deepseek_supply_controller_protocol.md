@@ -401,7 +401,41 @@ DeepSeek / fallback 参与机制升级时，默认允许至少两次供料观察
 
 供料结果不能替代原文件复核。Codex 改文件前仍必须回读允许修改的原文件；改完后仍必须执行 diff、状态字段、forbidden path 和日志检查。
 
-## 7B. model routing（模型路由）
+## 7B. safe DeepSeek participation（DeepSeek 安全真实参与）
+
+当 `supply_request（供料请求任务卡）` 禁止读取 `.env / secret（真实环境变量 / 密钥）` 时，controller 不得为了调用 DeepSeek 去读取 `.env` 文件。
+
+允许的安全真实参与方式只有一种：
+
+```text
+禁止读取 .env 文件
+允许读取 process environment 中已经存在的 DEEPSEEK_API_KEY
+不打印 key
+不写 key
+不把 key 放进 prompt / supply_pack / log
+不把 .env 加入 context-file
+只用 key 做 HTTP Authorization
+```
+
+实现入口：
+
+- explorer 支持 `--no-env-file` 或 `DEEPSEEK_DISABLE_ENV_FILE=1`，启用后不读取 `.env`。
+- controller 支持 `--allow-process-env-api-key` 或 `DEEPSEEK_ALLOW_PROCESS_ENV_KEY=1`，启用后只允许通过 process environment 调用 DeepSeek。
+- 如果 process environment 中没有 `DEEPSEEK_API_KEY`，必须写：
+  - `deepseek_actual_participation = not_tested_missing_process_env_key`
+  - `env_file_read = false`
+  - `api_key_printed = false`
+  - `api_key_written = false`
+- 该状态不得写成 `deepseek_passed`。
+
+安全边界：
+
+- 进程环境变量只用于本地 HTTP Authorization，不属于 DeepSeek 上下文。
+- DeepSeek 仍不得读取 `.env`、API key、token、密钥文件或媒体文件。
+- controller / explorer 不得把 key 打印到 stdout、stderr、manifest、supply pack 或日志。
+- 即使本轮 `deepseek_passed`，也只能写成本轮样例供料通过，不代表 DeepSeek 稳定真实供料。
+
+## 7C. model routing（模型路由）
 
 当前 DeepSeek 供料模型策略：
 
@@ -415,7 +449,7 @@ DeepSeek / fallback 参与机制升级时，默认允许至少两次供料观察
 - 本轮只落地默认模型口径；自动模型升级机制尚未实现，后续如要启用必须另行开发和验证。
 - controller 输出必须保留底层 explorer 写出的实际 `model（模型）` 状态；如果输出来源为 `fallback_local_only（本地兜底）`，仍不得写成 DeepSeek 结论。
 
-## 7C. DeepSeek deep collaboration flow（DeepSeek 深度配合流程）
+## 7D. DeepSeek deep collaboration flow（DeepSeek 深度配合流程）
 
 DeepSeek 深度配合不是让 DeepSeek 替代 Codex，也不是证明 `multi-agent runtime（多 agent 运行时）` 已跑通。它只是把只读供料从单次文件地图升级为执行前、执行中、执行后的可回流流程。
 

@@ -1,0 +1,100 @@
+{
+  "request_id": "ds_supply_req_safe_deepseek_process_env_20260510",
+  "created_at": "2026-05-10T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "safe_deepseek_process_env_participation_test",
+  "task_type": "code_debug",
+  "trigger_reason": "before_write_gate",
+  "action": "file_map",
+  "current_goal": "测试 controller 在不读取 .env 文件的前提下，是否能通过 process environment 中已有的 DEEPSEEK_API_KEY 安全调用 DeepSeek。",
+  "current_step": "DeepSeek 安全真实参与路径测试",
+  "known_context": [
+    "上一轮 execution_supply_pack 正向测试均为 fallback_local_only。",
+    "原因是任务卡禁止读取 .env / secret，controller 因此跳过 DeepSeek API。",
+    "本轮只允许使用 process environment 中已存在的 key，不允许读取 .env 补救。"
+  ],
+  "missing_context": [
+    "当前 shell 进程环境是否存在 DEEPSEEK_API_KEY 需要运行时判断。",
+    "若没有 process env key，本轮只能记录 not_tested_missing_process_env_key。"
+  ],
+  "decision_needed": "确认安全模式下 controller 是否读取 .env、是否打印或写入 key、是否能区分 deepseek_passed / fallback_local_only / blocked。",
+  "candidate_files": [
+    "scripts/deepseek_supply_controller.py",
+    "scripts/deepseek_readonly_explorer.py",
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md",
+    "codex_log/latest.md"
+  ],
+  "must_read_files": [
+    "scripts/deepseek_supply_controller.py",
+    "scripts/deepseek_readonly_explorer.py",
+    "codex_source/17_deepseek_supply_controller_protocol.md"
+  ],
+  "optional_files": [
+    "codex_source/01_execution_rules.md",
+    "GPT数据源/10_OPC一人公司闭环与多AI协作机制.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "*.mp4",
+    "*.mov",
+    "*.m4v",
+    "*.mp3",
+    "*.wav",
+    "*.m4a",
+    "*.aac",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.webp",
+    "/Users/fan/Documents/视频工厂归档+删除"
+  ],
+  "max_context_files": 5,
+  "max_context_chars": 12000,
+  "allow_process_env_api_key": false,
+  "disable_env_file": true,
+  "safe_deepseek_process_env_test": true,
+  "api_call_policy": "deepseek_api_only_when_process_env_key_is_explicitly_allowed_no_aliyun_api",
+  "secret_policy": "do_not_read_env_file_do_not_print_or_write_api_key",
+  "expected_output": [
+    "files_recommended",
+    "safe_process_env_key_policy_check",
+    "env_file_read_false",
+    "api_key_printed_false",
+    "api_key_written_false",
+    "deepseek_actual_participation_status",
+    "codex_next_input"
+  ],
+  "output_format": "supply_pack_json_and_markdown",
+  "codex_next_input": "给 Codex 一份安全 DeepSeek 参与测试供料结果；Codex 必须记录 supply_source、fallback_status、env_file_read 和 deepseek_actual_participation。",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_supply_controller",
+    "pack_md": "dist/deepseek_supply_controller/latest_supply_pack.md",
+    "pack_json": "dist/deepseek_supply_controller/latest_supply_pack.json",
+    "manifest": "dist/deepseek_supply_controller/latest_supply_manifest.json"
+  },
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback_local_only 本地兜底写成 DeepSeek 结论。",
+    "不得写 multi-agent runtime 多 agent 运行时已跑通。",
+    "不得读取 .env、.env.*、.env.swp、API key、token 或密钥文件。",
+    "不得打印、写入或传递 API key 到模型上下文。",
+    "不得调用阿里 API 或生成真实图片、视频、音频。",
+    "不得读取或判断媒体文件。"
+  ],
+  "stop_condition": "已输出安全参与状态、供料来源和 Codex 下一步输入，或明确 blocked / not_tested_missing_process_env_key。",
+  "blocked_if": [
+    "候选文件命中 forbidden_paths。",
+    "需要读取 .env 或密钥文件。",
+    "需要打印或写入 API key。",
+    "需要调用阿里 API 或生成真实素材。",
+    "无法区分 deepseek_passed 与 fallback_local_only。"
+  ],
+  "fallback_allowed": true,
+  "fallback_policy": "默认未显式允许 process env key 时使用 fallback_local_only；显式允许但没有 process env key 时记录 not_tested_missing_process_env_key，不读取 .env。"
+}

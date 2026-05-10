@@ -311,7 +311,10 @@ content_route_card
   "fallback_plan": "",
   "vendor_constraints": {},
   "api_call_policy": "",
-  "secret_policy": ""
+  "secret_policy": "",
+  "allow_process_env_api_key": false,
+  "disable_env_file": true,
+  "safe_deepseek_process_env_test": false
 }
 ```
 
@@ -333,6 +336,14 @@ content_route_card
 - `not_deepseek_conclusion = true`
 - `deepseek_generation_status = skipped_for_forbidden_env_or_secret_policy`
 - `context_pack_validation = fallback_local_only`
+
+如果本轮明确要测试 DeepSeek 安全真实参与，允许在不读取 `.env` 文件的前提下使用 process environment 中已经存在的 `DEEPSEEK_API_KEY`：
+
+- request 可写 `safe_deepseek_process_env_test = true` 和 `disable_env_file = true`。
+- controller 必须通过 `--allow-process-env-api-key` 或 `DEEPSEEK_ALLOW_PROCESS_ENV_KEY=1` 显式开启。
+- explorer 必须通过 `--no-env-file` 或 `DEEPSEEK_DISABLE_ENV_FILE=1` 禁止读取 `.env`。
+- key 只用于 HTTP Authorization，不得写入 prompt、supply pack、manifest、stdout、stderr 或日志。
+- 如果 process environment 中没有 `DEEPSEEK_API_KEY`，必须记录 `deepseek_actual_participation = not_tested_missing_process_env_key`，不得读取 `.env` 补救，也不得写成 DeepSeek passed。
 
 ## 8D. model preference（模型偏好）
 

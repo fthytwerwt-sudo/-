@@ -1,0 +1,172 @@
+{
+  "request_id": "ds_supply_req_real_copy_execution_supply_chain_20260510",
+  "created_at": "2026-05-10T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "real_copy_execution_supply_chain_test_v31_ai_ppt",
+  "task_type": "review_diagnosis_audit",
+  "trigger_reason": "before_write_gate",
+  "action": "visual_asset_requirement_pack",
+  "current_goal": "基于仓库当前 v3.1 时间线中的真实口播文案，测试文案进入执行后的全执行供料链，不生成视频、不调用 API、不读取媒体。",
+  "current_step": "真实文案小范围全执行供料链测试",
+  "known_context": [
+    "真实文案来源为 dist/latest_review_pack/timeline.json 的 voice_text 字段，Codex 已只读提取为文字样料。",
+    "当前主题为《我用 AI 做 PPT 踩过的坑》，v3.1 已发片进入灰度测试，但不代表内容通过。",
+    "本轮只测试供料链结构，不生成完整视频、不生成真实图片、不调用阿里 API。"
+  ],
+  "missing_context": [
+    "未读取任何媒体文件。",
+    "未做 ChatGPT / 用户内容最终验收。",
+    "未调用 DeepSeek 对真实媒体做视觉判断。"
+  ],
+  "decision_needed": "判断真实口播文案进入执行后，每段需要什么视觉素材、哪些必须是真实录屏证据、哪些只能做 API 辅助图、以及后续需要哪些装配和剪辑决策。",
+  "candidate_files": [
+    "codex_log/20260510_real_copy_execution_supply_chain_test.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md"
+  ],
+  "must_read_files": [
+    "codex_log/20260510_real_copy_execution_supply_chain_test.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md"
+  ],
+  "optional_files": [
+    "GPT数据源/10_OPC一人公司闭环与多AI协作机制.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "*.mp4",
+    "*.mov",
+    "*.m4v",
+    "*.mp3",
+    "*.wav",
+    "*.m4a",
+    "*.aac",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.webp",
+    "/Users/fan/Documents/视频工厂归档+删除"
+  ],
+  "max_context_files": 5,
+  "max_context_chars": 18000,
+  "script_blocks": [
+    {
+      "block_id": "block_01_result_diff_opening",
+      "text": "先看这两个结果。左边，是我第一次让 AI 帮我做 PPT。右边，是我改完问法以后。我先说结论：差的不是工具，是我第一句话。",
+      "function": "开头结果差与主判断"
+    },
+    {
+      "block_id": "block_02_negative_example",
+      "text": "第一次，我把最新方案 PDF 丢进豆包，只写了一句：帮我把这个方案整理一下。然后它真的很认真，但输出像整理过的文字方案，不是 PPT 初稿。",
+      "function": "反面录屏证据"
+    },
+    {
+      "block_id": "block_03_cause",
+      "text": "这次翻车，不是 AI 没做事。问题是，我没有说清楚给谁看、要达成什么、要不要变成 PPT、什么叫能交。",
+      "function": "原因判断"
+    },
+    {
+      "block_id": "block_04_positive_method",
+      "text": "第二次，我先让它判断这份内容能不能变成一版可交付初稿，再用交付物验收表拆对象、目标、动作、节奏、事实和假设。",
+      "function": "正面方法与结构"
+    },
+    {
+      "block_id": "block_05_result_proof",
+      "text": "它开始写 PPT 页面设计指令，进入 PPT 生成界面，最后显示已完成 PPT 生成，用了六分三十一秒，共十六页；预览不等于最终成品。",
+      "function": "正面结果证据与边界"
+    },
+    {
+      "block_id": "block_06_closing",
+      "text": "先问最后给谁看、要推动什么结果、下一步动作是什么、哪些是真实信息，先定义交付，再让 AI 生成。",
+      "function": "低压收束与最小动作"
+    }
+  ],
+  "segments": [
+    {
+      "segment_id": "shot01_result_diff_opening",
+      "block_id": "block_01_result_diff_opening",
+      "viewer_task": "看懂普通问法和改写问法的结果差。",
+      "available_evidence": "v3.1 时间线文字：结果差开头卡。"
+    },
+    {
+      "segment_id": "shot02_negative_input",
+      "block_id": "block_02_negative_example",
+      "viewer_task": "看懂旧做法只给了 AI 一个整理动作。",
+      "available_evidence": "v3.1 时间线文字：反面录屏，PDF 与宽泛口令可见。"
+    },
+    {
+      "segment_id": "shot07_deliverable_draft_keyword",
+      "block_id": "block_04_positive_method",
+      "viewer_task": "看懂先定义可交付初稿的意义。",
+      "available_evidence": "v3.1 时间线文字：正面录屏，可交付初稿方法词出现。"
+    },
+    {
+      "segment_id": "shot13_ppt_completed_preview",
+      "block_id": "block_05_result_proof",
+      "viewer_task": "看懂结果推进到 PPT 初稿状态，但不是最终成品。",
+      "available_evidence": "v3.1 时间线文字：已完成 PPT 生成、16 页预览。"
+    },
+    {
+      "segment_id": "shot16_low_pressure_ending",
+      "block_id": "block_06_closing",
+      "viewer_task": "带走最小动作：先定义交付，再让 AI 生成。",
+      "available_evidence": "v3.1 时间线文字：低压尾卡 / Prompt 引用尾卡。"
+    }
+  ],
+  "content_route_card": {
+    "content_type": "AI 职场任务现场拆解",
+    "validation_goal": "测试观众能否理解普通整理问法与可交付初稿问法的结果差。",
+    "core_evidence": "反面录屏、正面录屏、PPT 生成完成状态和结果差卡。",
+    "middle_carrier": "user_recording",
+    "api_human_usage": "不在本轮判断真实调用",
+    "ppt_usage": "少量 PPT / 信息卡用于结构整理、结果差、低压收束。",
+    "prompt_tail_card_usage": "使用低压尾卡，但不承担主证据。",
+    "reference_inheritance": "继承质量、可读性和视觉路由边界，不照搬固定流程。",
+    "flow_flex_reason": "本轮是供料链测试，只从真实时间线文字提取小范围执行判断。",
+    "platform_risk_note": "不推进发布状态，不跳过灰度测试数据。"
+  },
+  "fallback_plan": "真实录屏证据不足时，优先补录；无法补录则降级为少量 PPT / 信息卡 / 不使用额外图片 / blocked。",
+  "api_call_policy": "no_real_api_call_this_round_future_call_requires_user_authorization",
+  "secret_policy": "do_not_read_env_or_api_keys",
+  "expected_output": [
+    "visual_asset_requirement_pack",
+    "must_be_real_evidence_notes",
+    "api_auxiliary_only_notes",
+    "fallback_if_missing",
+    "codex_next_input"
+  ],
+  "output_format": "supply_pack_json_and_markdown",
+  "codex_next_input": "给 Codex 一份真实文案视觉素材需求供料；Codex 必须复核原文件与任务边界后才能进入 API 计划、装配或剪辑。",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_supply_controller",
+    "pack_md": "dist/deepseek_supply_controller/latest_supply_pack.md",
+    "pack_json": "dist/deepseek_supply_controller/latest_supply_pack.json",
+    "manifest": "dist/deepseek_supply_controller/latest_supply_manifest.json"
+  },
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback_local_only 本地兜底写成 DeepSeek 结论。",
+    "不得写 multi-agent runtime 多 agent 运行时已跑通。",
+    "DeepSeek 不得直接读取或判断视频、音频、图片等媒体文件。",
+    "DeepSeek 不得读取 .env、API key、token 或密钥文件。",
+    "DeepSeek 不得调用阿里 API 或生成真实图片。",
+    "不得把 API 生成图片当成真实录屏证据。"
+  ],
+  "stop_condition": "已输出真实文案视觉素材需求、证据角色、降级路线和 Codex 下一步输入，或请求被安全规则 blocked。",
+  "blocked_if": [
+    "候选文件命中 forbidden_paths。",
+    "需要读取 .env、API key、媒体文件或 dist/latest_review_pack/。",
+    "需要把 API 生成图当真实录屏证据。",
+    "需要把 fallback 写成 DeepSeek 结论。",
+    "需要生成真实视频、图片或修改发布状态。"
+  ],
+  "fallback_allowed": true,
+  "fallback_policy": "DeepSeek 不可用或未显式允许 process env key 时，允许生成 fallback_local_only，但必须标记 not_deepseek_conclusion = true。"
+}

@@ -260,6 +260,15 @@
     },
     "secret_policy": {
       "type": "string"
+    },
+    "allow_process_env_api_key": {
+      "type": "boolean"
+    },
+    "disable_env_file": {
+      "type": "boolean"
+    },
+    "safe_deepseek_process_env_test": {
+      "type": "boolean"
     }
   }
 }

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import subprocess
 import sys
@@ -183,6 +184,11 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         "--output-dir",
         default=str(DEFAULT_OUTPUT_DIR.relative_to(ROOT)),
         help="Output directory for supply pack files.",
+    )
+    parser.add_argument(
+        "--allow-process-env-api-key",
+        action="store_true",
+        help="When a request forbids .env, allow DeepSeek API via process environment only.",
     )
     return parser.parse_args(argv)
 
@@ -393,6 +399,9 @@ def task_from_request(card: dict[str, Any]) -> str:
         "vendor_constraints",
         "api_call_policy",
         "secret_policy",
+        "allow_process_env_api_key",
+        "disable_env_file",
+        "safe_deepseek_process_env_test",
     ):
         if field_name in card:
             payload[field_name] = card.get(field_name)
@@ -422,6 +431,7 @@ def namespace_from_request(
         context_file=context_files_from_request(card),
         max_rounds=args.max_rounds,
         output_dir=output_dir,
+        allow_process_env_api_key=args.allow_process_env_api_key,
         request_card=card,
         request_validation_status="passed",
     )
@@ -545,13 +555,24 @@ def build_controller_task(
     )
 
 
-def run_explorer(controller_task: str, context_files: list[Path]) -> dict[str, Any]:
+def run_explorer(
+    controller_task: str,
+    context_files: list[Path],
+    *,
+    allow_process_env_api_key: bool = False,
+) -> dict[str, Any]:
     command = [sys.executable, str(EXPLORER_SCRIPT), "--task", controller_task]
+    env = os.environ.copy()
+    if allow_process_env_api_key:
+        command.append("--no-env-file")
+        env["DEEPSEEK_DISABLE_ENV_FILE"] = "1"
+        env["DEEPSEEK_ALLOW_PROCESS_ENV_KEY"] = "1"
     for path in context_files:
         command.extend(["--context-file", relative_label(path)])
     result = subprocess.run(
         command,
         cwd=ROOT,
+        env=env,
         text=True,
         capture_output=True,
         check=False,
@@ -576,6 +597,14 @@ def request_forbids_env_or_secret(card: dict[str, Any] | None) -> bool:
     return any(marker in joined for marker in (".env", "api key", "secret", "密钥", "token"))
 
 
+def allow_process_env_api_key_enabled(args: argparse.Namespace, card: dict[str, Any] | None) -> bool:
+    if getattr(args, "allow_process_env_api_key", False):
+        return True
+    if os.environ.get("DEEPSEEK_ALLOW_PROCESS_ENV_KEY") == "1":
+        return True
+    return isinstance(card, dict) and card.get("allow_process_env_api_key") is True
+
+
 def build_local_fallback_explorer_pack(
     *,
     controller_task: str,
@@ -593,6 +622,12 @@ def build_local_fallback_explorer_pack(
             "deepseek_generation_status": reason,
             "fallback_status": "used",
             "pipeline_status": "usable_with_fallback",
+            "env_file_read": "false",
+            "process_env_key_allowed": "false",
+            "process_env_key_present": "false",
+            "api_key_printed": "false",
+            "api_key_written": "false",
+            "deepseek_actual_participation": "false",
         },
         "sections": {
             "prefetch_context_pack": {
@@ -938,6 +973,19 @@ def decide_supply_source(status: dict[str, str], explorer_run: dict[str, Any]) -
     return "blocked"
 
 
+def infer_deepseek_actual_participation(
+    *,
+    status: dict[str, str],
+    supply_source: str,
+) -> str:
+    joined_status = "\n".join(status.values())
+    if supply_source == "deepseek_passed":
+        return "true"
+    if "not_tested_missing_process_env_key" in joined_status or "missing_process_env_api_key" in joined_status:
+        return "not_tested_missing_process_env_key"
+    return "false"
+
+
 def build_supply_pack(
     *,
     args: argparse.Namespace,
@@ -951,6 +999,10 @@ def build_supply_pack(
     sections = explorer_pack["sections"]
     request_card = getattr(args, "request_card", None)
     supply_source = decide_supply_source(status, explorer_run)
+    deepseek_actual_participation = infer_deepseek_actual_participation(
+        status=status,
+        supply_source=supply_source,
+    )
     actual_action = choose_auto_action(args.trigger_reason) if args.action == "auto" else args.action
     files_considered = [relative_label(path) for path in context_files]
     files_recommended = collect_recommended_files(
@@ -1031,6 +1083,12 @@ def build_supply_pack(
         "max_rounds": args.max_rounds,
         "supply_source": supply_source,
         "not_deepseek_conclusion": not_deepseek_conclusion,
+        "deepseek_actual_participation": deepseek_actual_participation,
+        "env_file_read": status.get("env_file_read", "unknown"),
+        "process_env_key_allowed": status.get("process_env_key_allowed", "unknown"),
+        "process_env_key_present": status.get("process_env_key_present", "unknown"),
+        "api_key_printed": status.get("api_key_printed", "false"),
+        "api_key_written": status.get("api_key_written", "false"),
         "context_pack_validation": status.get("context_pack_validation", "unknown"),
         "deepseek_generation_status": status.get("deepseek_generation_status", "unknown"),
         "fallback_status": status.get("fallback_status", "unknown"),
@@ -1091,6 +1149,12 @@ def write_supply_outputs(pack: dict[str, Any], output_dir: Path) -> None:
         "pipeline_status": pack["pipeline_status"],
         "multi_agent_runtime_validation": pack["multi_agent_runtime_validation"],
         "not_deepseek_conclusion": pack["not_deepseek_conclusion"],
+        "deepseek_actual_participation": pack["deepseek_actual_participation"],
+        "env_file_read": pack["env_file_read"],
+        "process_env_key_allowed": pack["process_env_key_allowed"],
+        "process_env_key_present": pack["process_env_key_present"],
+        "api_key_printed": pack["api_key_printed"],
+        "api_key_written": pack["api_key_written"],
         "codex_next_input": pack["codex_next_input"],
         "editing_decision_pack": pack.get("editing_decision_pack"),
         "execution_supply_pack": pack.get("execution_supply_pack"),
@@ -1119,6 +1183,12 @@ def write_supply_outputs(pack: dict[str, Any], output_dir: Path) -> None:
         f"- `pipeline_status`: `{pack['pipeline_status']}`",
         "- `multi_agent_runtime_validation`: `not_started`",
         f"- `not_deepseek_conclusion`: `{str(pack['not_deepseek_conclusion']).lower()}`",
+        f"- `deepseek_actual_participation`: `{pack['deepseek_actual_participation']}`",
+        f"- `env_file_read`: `{pack['env_file_read']}`",
+        f"- `process_env_key_allowed`: `{pack['process_env_key_allowed']}`",
+        f"- `process_env_key_present`: `{pack['process_env_key_present']}`",
+        f"- `api_key_printed`: `{pack['api_key_printed']}`",
+        f"- `api_key_written`: `{pack['api_key_written']}`",
         "",
         "## request_state（请求状态）",
         "",
@@ -1277,20 +1347,25 @@ def main() -> int:
         request_card=getattr(args, "request_card", None),
     )
     request_card = getattr(args, "request_card", None)
-    if request_forbids_env_or_secret(request_card):
+    allow_process_env_api_key = allow_process_env_api_key_enabled(args, request_card)
+    if request_forbids_env_or_secret(request_card) and not allow_process_env_api_key:
         explorer_run = {
             "returncode": 0,
-            "stdout_tail": "local fallback used because request forbids .env / secrets",
+            "stdout_tail": "local fallback used because request forbids .env / secrets and process env key was not allowed",
             "stderr_tail": "",
         }
         explorer_pack = build_local_fallback_explorer_pack(
             controller_task=controller_task,
             context_labels=context_labels,
             request_card=request_card,
-            reason="skipped_for_forbidden_env_or_secret_policy",
+            reason="skipped_for_forbidden_env_or_secret_policy_process_env_not_allowed",
         )
     else:
-        explorer_run = run_explorer(controller_task, context_files)
+        explorer_run = run_explorer(
+            controller_task,
+            context_files,
+            allow_process_env_api_key=allow_process_env_api_key,
+        )
         explorer_pack = read_explorer_pack()
     pack = build_supply_pack(
         args=args,
@@ -1307,6 +1382,10 @@ def main() -> int:
                 "supply_source": pack["supply_source"],
                 "context_pack_validation": pack["context_pack_validation"],
                 "fallback_status": pack["fallback_status"],
+                "deepseek_actual_participation": pack["deepseek_actual_participation"],
+                "env_file_read": pack["env_file_read"],
+                "api_key_printed": pack["api_key_printed"],
+                "api_key_written": pack["api_key_written"],
                 "pipeline_status": pack["pipeline_status"],
                 "latest_supply_pack": relative_label(output_dir / "latest_supply_pack.md"),
             },
