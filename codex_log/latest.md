@@ -1,5 +1,27 @@
 # Latest
 
+## 20260512｜Completion Relay Gate 补全接力闸门机制修补
+
+- `已确认` 本轮是机制修补，不是视频执行、样片修改、内容验证推进或 DeepSeek / 阿里 / TTS API 调用。
+- `已确认` 已新增 / 补强 `Completion Relay Gate（补全接力闸门）`，用于连接 `ChatGPT 横向补全`、`Codex 纵向细化`、`执行后剩余工作反查` 与 `日志 / 当前事实 / 入口规则同步`。
+- `已确认` `codex_source/01_execution_rules.md（Codex 执行规则）` 已新增 `2E-2. Completion Relay Gate（补全接力闸门）`，强制输出 `completion_relay_gate`、`required_output_inventory`、`child_task_graph`、`remaining_work_check`、`sync_back_check`。
+- `已确认` `codex_source/00_codex_readme.md（Codex 执行层总入口）` 已补入口规则：Codex 收到 ChatGPT 完整执行单 / 横向补全包时，必须先转成任务树和交付清单，执行后反查剩余工作与同步回写。
+- `已确认` `GPT数据源/01_项目系统提示词.md（项目系统提示词）` 已补 `GPT -> Codex 补全接力规则`，明确 ChatGPT 横向补全、Codex 纵向拆解与执行到底。
+- `已确认` `GPT数据源/10_OPC一人公司闭环与多AI协作机制.md（OPC 多 AI 协作机制）` 已补 `GPT -> Codex 补全接力机制`，明确 DeepSeek 只读供料，不替代 Codex 原文件复核与执行后反查。
+- `已确认` `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md（GPT Project 短路由说明）` 仍承担 GPT Project 侧短路由说明，本轮已补 Completion Relay Gate 触发提醒。
+- `已确认` `AGENTS.md（仓库入口规则）` 已做轻量入口同步，只补机制入口引用，不改视频动态状态。
+- `manual_structure_check`: `passed`
+- `keyword_check`: `passed`
+- `diff_scope_check`: `passed`
+- `forbidden_status_check`: `passed_no_dynamic_status_promotion`
+- `api_call_check`: `not_called`
+- `secret_read_check`: `not_read`
+- `media_generation_check`: `not_generated`
+- `未修改`：`dist/latest_review_pack/`、视频 / 图片 / 音频 / 时间线产物、`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）`、`voice_validation（声音验证状态）`、`final_voice_validated（最终声音验证状态）`、`visual_master_locked（视觉母版锁定）`。
+- `状态边界`：规则写入与结构检查为 `已确认`；长期执行效果仍是 `待验证`，不得写成机制长期稳定。
+- `日志`：`codex_log/20260512_补全接力闸门机制修补.md`
+- `下一个目标`：用下一次真实多文件执行单验证 `Completion Relay Gate（补全接力闸门）` 能否让 Codex 按任务树执行到底并在收尾前反查剩余工作。
+
 ## 20260510｜DeepSeek process env key 安全重跑通过
 
 - `已确认` 已创建本地安全输入脚本：`scripts/run_safe_deepseek_stability_prompt.sh`。

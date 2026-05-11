@@ -58,6 +58,35 @@ ChatGPT 不必每次替 Codex 指定是否多 agent，但必须在 prompt 中提
 
 ---
 
+## 2B. GPT Project 侧 Completion Relay Gate 触发提醒
+
+ChatGPT / GPT Project 发现以下任一情况时，应提醒 Codex 触发 `Completion Relay Gate（补全接力闸门）`：
+
+1. 用户要求“自动补全 / 补全接力 / 不要只做一半 / 执行到底”。
+2. 任务明确包含 `GPT 横向补全`、`Codex 纵向细化`、`剩余工作检查` 或 `日志同步`。
+3. ChatGPT prompt 已经包含 `Goal` / `Context` / `Constraints` / `Impact check` / `Must read` / `Execution steps` / `Done when` / `Blocked if` / `Output` 等完整执行单栏目。
+4. 本轮涉及机制修补、路由修补、多文件同步、DeepSeek / 多 AI 协作或会影响新聊天默认接手事实。
+
+默认 lane：
+
+- 机制修补类先走 `audit_lane`。
+- 影响面、允许范围、禁止范围和验收项清楚后，进入 `standard_lane`。
+
+默认 parallel：
+
+- 修改核心机制文件时保持 `serial_only（串行执行）`。
+- 不得因为出现“多 AI”字样就自动建议并发。
+
+GPT Project 下发给 Codex 时，必须提醒 Codex 输出：
+
+- `completion_relay_gate`
+- `required_output_inventory`
+- `child_task_graph`
+- `remaining_work_check`
+- `sync_back_check`
+
+---
+
 ## 3. 当前默认 3 条 lane
 
 ### 3.1 `fast_lane`

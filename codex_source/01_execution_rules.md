@@ -472,6 +472,114 @@ content_route_card（内容路由卡）
 - 需要具体剪辑动作时，必须回到 `editing_decision_pack（剪辑决策包）`。
 - dist 供料输出若不提交 GitHub，必须另写可追溯 `codex_log/*evidence*.md`，不得只说本地文件存在。
 
+### 2E-2. Completion Relay Gate（补全接力闸门）
+
+`Completion Relay Gate（补全接力闸门）` 用来连接：
+
+- `ChatGPT 横向补全`
+- `Codex 纵向细化`
+- `执行后剩余工作反查`
+- `日志 / 当前事实 / 入口规则同步`
+
+它解决的问题是：
+
+- Codex 只完成用户点名动作。
+- Codex 完成一个局部文件就提前收工。
+- Codex 没把 ChatGPT 的横向补全拆成任务树。
+- Codex 没有执行后反查剩余工作。
+- Codex 把 `部分完成` 写成 `已完成`。
+
+凡出现以下任一情况，必须触发本闸门：
+
+- ChatGPT prompt 中包含多个执行层，如 `Goal` / `Context` / `Constraints` / `Impact check` / `Must read` / `Execution steps` / `Done when` / `Blocked if` / `Output`。
+- 用户明确要求“自动补全 / 补全机制 / 不要只做一半 / 深度细化 / 执行到底”。
+- 任务类型为机制修补、路由修补、项目文件修改、多文件同步、视频执行、文案执行、复盘执行、DeepSeek / 多 AI 协作。
+- 本轮存在 `must_complete_now（本轮必须完成项）`。
+- 本轮存在多个受影响文件或多个交付物。
+- 本轮会影响新聊天默认接手事实。
+
+触发后，Codex 必须在执行前输出并维护以下字段：
+
+```text
+completion_relay_gate:
+  triggered:
+  reason:
+  chatgpt_horizontal_context_loaded:
+  completion_map:
+    user_goal:
+    explicit_task:
+    implicit_required_work:
+    affected_layers:
+    required_outputs:
+    forbidden_outputs:
+  required_output_inventory:
+    - item:
+      required:
+      target_path:
+      done_status:
+      validation:
+      blocker:
+  child_task_graph:
+    - id:
+      task:
+      depends_on:
+      target_files:
+      validation:
+      done_status:
+  continuation_rule:
+    continue_unless_blocked:
+    stop_only_if:
+  remaining_work_check:
+    unchecked_items:
+    incomplete_items:
+    blocked_items:
+    unnecessary_items:
+  sync_back_check:
+    latest_updated:
+    dated_log_created:
+    current_facts_updated_if_needed:
+    entry_files_updated_if_needed:
+  final_completion_status:
+```
+
+硬规则：
+
+1. 完成一个文件 ≠ 完成本轮任务。
+2. 完成显性用户点名动作 ≠ 完成隐性机制链。
+3. 通过测试 ≠ 完成日志回流。
+4. 写入规则 ≠ 长期机制稳定。
+5. 没有 `child_task_graph（子任务树）`，不得执行。
+6. 没有 `required_output_inventory（必须交付清单）`，不得写完成。
+7. 没有 `remaining_work_check（剩余工作检查）`，不得写完成。
+8. 只要 `required_output_inventory（必须交付清单）` 中有未完成项，最终状态只能是 `partial_completed（部分完成）` 或 `blocked（阻断）`，不得写 `completed（已完成）`。
+9. 除非触发 `blocked_if（阻断条件）`，否则 Codex 不得停在建议、计划、审计或局部修改。
+10. 如果执行中发现新的必要同步文件，必须加入 `required_output_inventory（必须交付清单）` 并继续处理。
+11. 如果不能继续处理，必须明确写阻断原因、未完成项、为什么不能继续、需要用户确认什么。
+
+完成状态定义：
+
+```text
+completed（已完成）:
+  所有 required_output_inventory 必填项完成
+  所有验证通过
+  latest 已更新
+  dated log 已创建
+  没有禁止状态偷换
+  没有剩余 must-fix 项
+
+partial_completed（部分完成）:
+  部分 required_output_inventory 完成
+  但仍有未完成项或待验证项
+  不得写成 completed
+
+blocked（阻断）:
+  缺关键文件
+  缺权限
+  允许 / 禁止范围不清
+  会触发高风险状态修改
+  需要用户确认
+```
+
 ## 3. skill 检查硬规则
 
 执行前必须：

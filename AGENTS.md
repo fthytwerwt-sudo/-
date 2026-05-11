@@ -85,6 +85,7 @@ GPT Project 上传包地址规则：
   - `Perplexity（外部研究层）`
 - `DeepSeek（只读供料层 / Explorer）` 默认只做预读、上下文压缩、必读文件地图和风险冲突报告，不写文件、不拍板项目事实。
 - `Codex（唯一写入执行层 / Integrator）` 默认负责复核原文件、修改仓库、验证、日志和 Git 收尾。
+- Codex 收到 ChatGPT 完整执行单、横向补全包、多文件机制修补或“不要只做一半 / 执行到底”类任务时，必须触发 `Completion Relay Gate（补全接力闸门）`，先生成 `required_output_inventory（必须交付清单）` 与 `child_task_graph（子任务树）`，再执行并做 `remaining_work_check（剩余工作检查）`。
 - `reference（参考）`、`reference_quality_sample（参考质量样片）`、`locked reference（锁定参考）`、`visual route（视觉路由）` 当前默认锁的是质量机制，不锁死每条内容的固定流程。
 - reference 仍用于防止质量漂移，locked reference 仍用于质量继承，visual route 仍用于防止卡片外壳混用；但不能把它们理解为每条内容都必须机械照搬同一流程。
 - `场景化专业输出工作包` 当前降级为：`可选沉淀单元 / 产品化承接单元`

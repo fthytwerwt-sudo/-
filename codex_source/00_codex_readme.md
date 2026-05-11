@@ -93,6 +93,25 @@ DeepSeek 供料中控最小入口：
 - `review_variable_card（复盘变量卡）` 负责把发布前 / 发布后复盘收束到单变量观察，不等于最终内容判断。
 - 三张卡是判断机制，不是固定 SOP；若供料来源为 `fallback_local_only（本地兜底）`，仍必须写 `not_deepseek_conclusion = true` 并复核原文件。
 
+## 3B. ChatGPT -> Codex 补全接力入口
+
+当 Codex 收到 ChatGPT 的完整执行单、横向补全包或包含 `Goal` / `Context` / `Constraints` / `Impact check` / `Must read` / `Execution steps` / `Done when` / `Blocked if` / `Output` 的任务时，不得只按显性用户点名动作执行。
+
+Codex 必须先触发 `Completion Relay Gate（补全接力闸门）`，把上游栏目转成：
+
+- `completion_map（补全地图）`
+- `required_output_inventory（必须交付清单）`
+- `child_task_graph（子任务树）`
+
+执行后必须反查：
+
+- `remaining_work_check（剩余工作检查）`
+- `sync_back_check（同步回写检查）`
+
+最终回报不得只写“已完成”。如果 `required_output_inventory（必须交付清单）` 中仍有未完成项，只能写 `partial_completed（部分完成）` 或 `blocked（阻断）`。
+
+Codex 的纵向补全不能替 ChatGPT 偷懒；ChatGPT 仍必须在上游提供足够完整的目标、上下文、边界、验收和阻断条件。但 Codex 不能因为 ChatGPT prompt 已经完整，就省略自己的任务树拆解和执行后反查。
+
 2026-05-04 项目升级前清库覆盖口径：
 
 - 当前唯一固定素材锚点是 `v31_element_doll_opening_anchor（v3.1 元素娃娃开头锚点）`。
