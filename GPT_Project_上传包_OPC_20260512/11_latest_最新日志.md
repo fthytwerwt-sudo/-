@@ -9,7 +9,7 @@
 - `状态边界`：本轮只生成静态上传包，不代表用户已上传到 GPT Project UI，不代表 GPT Project UI 已同步成功，不代表当前视频内容已通过，不代表 DeepSeek 长期稳定，不代表多 agent runtime 已跑通，不代表 v3.1 灰度测试完成。
 - `未修改`：`dist/latest_review_pack/`、视频 / 图片 / 音频 / 时间线产物、`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）`、`voice_validation（声音验证状态）`、`final_voice_validated（最终声音验证状态）`、`visual_master_locked（视觉母版锁定）`。
 - `未调用`：DeepSeek / 阿里 / TTS / voice cloning / 图片生成 / 视频生成 API。
-- `未读取`：`.env`、API key、token、secret。
+- `未读取`：`环境配置文件`、凭据、凭据、凭据。
 - `日志`：`codex_log/20260512_GPT_Project最新版上传包生成.md`
 - `下一个目标`：用户将 20260512 新包上传到 GPT Project 后，GPT Project 静态资料与 GitHub `main` 当前机制、补全接力规则和项目残缺审计结果保持一致。
 
@@ -25,7 +25,7 @@
 - `P1`：DeepSeek / `execution_supply_pack family` 仍不能写成稳定真实供料链路。
 - `未修改`：`dist/latest_review_pack/`、视频 / 图片 / 音频 / 时间线产物、`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）`、`voice_validation（声音验证状态）`、`final_voice_validated（最终声音验证状态）`、`visual_master_locked（视觉母版锁定）`。
 - `未调用`：DeepSeek / 阿里 / TTS / voice cloning / 图片生成 / 视频生成 API。
-- `未读取`：`.env`、API key、token、secret。
+- `未读取`：`环境配置文件`、凭据、凭据、凭据。
 - `当前机制状态`：审计报告写入与缺口分级为 `已确认`；`Completion Relay Gate（补全接力闸门）` 长期防止 Codex 做一半提前收工的效果仍是 `待验证`。
 - `下一个目标`：先把 `current_publish_target.md` 的旧分支残留和 v3.1 `review_loop` 缺失字段显示修到不会误导新会话，再用这一轮修补反向验证 `Completion Relay Gate（补全接力闸门）` 是否能真正执行到底。
 
@@ -44,7 +44,7 @@
 - `diff_scope_check`: `passed`
 - `forbidden_status_check`: `passed_no_dynamic_status_promotion`
 - `api_call_check`: `not_called`
-- `secret_read_check`: `not_read`
+- `凭据_read_check`: `not_read`
 - `media_generation_check`: `not_generated`
 - `未修改`：`dist/latest_review_pack/`、视频 / 图片 / 音频 / 时间线产物、`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）`、`voice_validation（声音验证状态）`、`final_voice_validated（最终声音验证状态）`、`visual_master_locked（视觉母版锁定）`。
 - `状态边界`：规则写入与结构检查为 `已确认`；长期执行效果仍是 `待验证`，不得写成机制长期稳定。
@@ -54,8 +54,8 @@
 ## 20260510｜DeepSeek process env key 安全重跑通过
 
 - `已确认` 已创建本地安全输入脚本：`scripts/run_safe_deepseek_stability_prompt.sh`。
-- `已确认` 已通过 macOS Terminal 弹窗运行脚本，用户在 Terminal 内隐藏输入 `DEEPSEEK_API_KEY（DeepSeek API 密钥）`；Codex 对话框未接收 key。
-- `已确认` 脚本只在当前进程临时 export key，测试结束后执行 `unset DEEPSEEK_API_KEY`。
+- `已确认` 已通过 macOS Terminal 弹窗运行脚本，用户在 Terminal 内隐藏输入 `DeepSeek 凭据变量（DeepSeek 凭据）`；Codex 对话框未接收 key。
+- `已确认` 脚本只在当前进程临时 export key，测试结束后执行 `unset DeepSeek 凭据变量`。
 - `request_file`: `codex_log/supply_requests/20260510_deepseek_stability_check_request.json`
 - `supply_source`: `deepseek_passed`
 - `fallback_status`: `not_used`
@@ -105,7 +105,7 @@
 - `deepseek_real_supply_status`: `not_passed`
 - `fallback_status`: `usable_with_fallback`
 - `blocked_status`: `blocked_missing_process_env_key`
-- `current_truth`: 当前进程环境没有 `DEEPSEEK_API_KEY`；本轮没有真实 DeepSeek passed，不能写成 DeepSeek 稳定供料。
+- `current_truth`: 当前进程环境没有 `DeepSeek 凭据变量`；本轮没有真实 DeepSeek passed，不能写成 DeepSeek 稳定供料。
 - `py_compile`: `passed`
 - `request_json_parse`: `passed`
 - `schema_json_parse`: `passed`
@@ -120,7 +120,7 @@
 - `video_generated`: `false`
 - `已确认` 本轮未修改视频 / 声音 / 发布状态，未推进 `content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）`、`voice_validation（声音验证状态）` 或 `final_voice_validated（最终声音验证状态）`。
 - `边界`：`technical_validation（技术验证）` 只代表脚本、request 和禁止项回归通过；`mechanism_validation（机制验证）` 代表 readiness 与三态语义补齐；`deepseek_supply_validation（DeepSeek 供料验证）` 当前仍是 `blocked_missing_process_env_key`；`content_validation（内容验证）` 未验证且未改变。
-- `下一个目标`：用户先把 `DEEPSEEK_API_KEY` 安全注入 process environment，再重跑本稳定化测试；若 DeepSeek passed，再进入一条真实文案的小范围素材计划执行，不调用阿里 API。
+- `下一个目标`：用户先把 `DeepSeek 凭据变量` 安全注入 process environment，再重跑本稳定化测试；若 DeepSeek passed，再进入一条真实文案的小范围素材计划执行，不调用阿里 API。
 
 ## 20260510｜真实文案全执行供料链测试与 DeepSeek 安全参与路径
 
@@ -139,8 +139,8 @@
 - `已确认` 已新增 request：
   - `codex_log/supply_requests/20260510_real_copy_execution_supply_chain_request.json`
   - `codex_log/supply_requests/20260510_safe_deepseek_process_env_request.json`
-- `已确认` 已建立 DeepSeek 安全真实参与路径：controller 可在显式 `--allow-process-env-api-key` / `DEEPSEEK_ALLOW_PROCESS_ENV_KEY=1` 下，让 explorer 使用 process environment 中已有的 `DEEPSEEK_API_KEY`；同时 `DEEPSEEK_DISABLE_ENV_FILE=1` / `--no-env-file` 禁止读取 `.env`。
-- `已确认` 安全路径边界：不读取 `.env`，不打印 key，不写 key，不把 key 放进 prompt / supply pack / manifest / log，只把 key 用作 HTTP Authorization。
+- `已确认` 已建立 DeepSeek 安全真实参与路径：controller 可在显式 `--allow-process-env-api-key` / `DEEPSEEK_ALLOW_PROCESS_ENV_KEY=1` 下，让 explorer 使用 process environment 中已有的 `DeepSeek 凭据变量`；同时 `DEEPSEEK_DISABLE_ENV_FILE=1` / `--no-env-file` 禁止读取 `环境配置文件`。
+- `已确认` 安全路径边界：不读取 `环境配置文件`，不打印 key，不写 key，不把 key 放进 prompt / supply pack / manifest / log，只把 key 用作 HTTP Authorization。
 - `real_copy_request_validation`: `passed`
 - `real_copy_supply_source`: `fallback_local_only`
 - `real_copy_not_deepseek_conclusion`: `true`
@@ -148,7 +148,7 @@
 - `safe_test_B_allow_process_env_supply_source`: `blocked`
 - `safe_test_B_context_pack_validation`: `blocked_missing_process_env_api_key`
 - `deepseek_actual_participation`: `not_tested_missing_process_env_key`
-- `原因`：当前 shell 进程环境没有 `DEEPSEEK_API_KEY`；按本轮安全规则不得读取 `.env` 补救。
+- `原因`：当前 shell 进程环境没有 `DeepSeek 凭据变量`；按本轮安全规则不得读取 `环境配置文件` 补救。
 - `env_file_read`: `false`
 - `api_key_printed`: `false`
 - `api_key_written`: `false`
@@ -158,11 +158,11 @@
 - `forbidden_env_check`: `blocked_before_read`
 - `forbidden_media_check`: `blocked_before_read`
 - `forbidden_latest_review_pack_check`: `blocked_before_read`
-- `已确认` 本轮未调用阿里 API，未读取 API key，未生成真实图片 / 视频 / 音频。
+- `已确认` 本轮未调用阿里 API，未读取 凭据，未生成真实图片 / 视频 / 音频。
 - `已确认` 本轮未修改视频 / 声音 / 发布状态，未推进 `content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）`、`voice_validation（声音验证状态）` 或 `final_voice_validated（最终声音验证状态）`。
 - `边界`：本轮只是机制与真实文案小范围供料链测试，不代表阿里 API 图片生成链路已跑通，不代表 DeepSeek 稳定真实供料，不代表 `multi-agent runtime（多 agent 运行时）` 已跑通，不代表真实视频内容通过。
 - `安全参与测试日志`：`codex_log/20260510_safe_deepseek_participation_test.md`
-- `下一个目标`：如果需要验证真实 DeepSeek API 参与，先把 `DEEPSEEK_API_KEY` 安全注入为 process environment 后，重跑 `safe_deepseek_participation_test`；如果已完成安全注入，再进入一条真实文案的小范围素材计划执行，不调用阿里 API。
+- `下一个目标`：如果需要验证真实 DeepSeek API 参与，先把 `DeepSeek 凭据变量` 安全注入为 process environment 后，重跑 `safe_deepseek_participation_test`；如果已完成安全注入，再进入一条真实文案的小范围素材计划执行，不调用阿里 API。
 
 ## 20260510｜全执行供料包族与 DeepSeek 双重补全测试
 
@@ -198,9 +198,9 @@
 - `fallback_status`: `used`
 - `not_deepseek_conclusion`: `true`
 - `deepseek_actual_participation`: `false`
-- `原因`：本轮禁止读取 `.env / secret`；controller 因此跳过会读取 `.env` 的 DeepSeek explorer，使用本地兜底供料。
+- `原因`：本轮禁止读取 `环境配置文件 / 凭据`；controller 因此跳过会读取 `环境配置文件` 的 DeepSeek explorer，使用本地兜底供料。
 - `dist 输出口径`：`dist/deepseek_supply_controller/*` 是本地运行产物，不作为 GitHub 主事实提交；GitHub 可追溯证据以 `codex_log/20260510_execution_supply_pack_test_evidence.md` 为准。
-- `已确认` 本轮未调用阿里 API，未读取 API key，未生成真实图片 / 视频 / 音频。
+- `已确认` 本轮未调用阿里 API，未读取 凭据，未生成真实图片 / 视频 / 音频。
 - `已确认` 本轮未修改视频 / 声音 / 发布状态，未推进 `content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）`、`voice_validation（声音验证状态）` 或 `final_voice_validated（最终声音验证状态）`。
 - `边界`：本轮只是机制与供料样例测试，不代表阿里 API 图片生成链路已跑通，不代表 DeepSeek 稳定真实供料，不代表 `multi-agent runtime（多 agent 运行时）` 已跑通，不代表真实视频内容通过。
 - `执行日志`：`codex_log/20260510_全执行供料包族与DeepSeek双重补全测试.md`
@@ -242,8 +242,8 @@
 
 - `已确认` 本轮将 DeepSeek readonly explorer 默认供料模型从 `deepseek-v4-pro` 切换为 `deepseek-v4-flash`。
 - `已确认` `deepseek-v4-pro` 保留为复杂任务升级模型 / 备用模型。
-- `已确认` `.env.example` 已同步为 `DEEPSEEK_MODEL=deepseek-v4-flash`，并新增 `DEEPSEEK_ESCALATION_MODEL=deepseek-v4-pro`。
-- `已确认` 本地 `.env` 存在且 `DEEPSEEK_API_KEY = present_nonempty`；本轮只把 `.env` 中 `DEEPSEEK_MODEL` 本地改为 `deepseek-v4-flash`，未打印 API key，未提交 `.env`。
+- `已确认` `环境配置文件.example` 已同步为 `DEEPSEEK_MODEL=deepseek-v4-flash`，并新增 `DEEPSEEK_ESCALATION_MODEL=deepseek-v4-pro`。
+- `已确认` 本地 `环境配置文件` 存在且 `DeepSeek 凭据变量 = present_nonempty`；本轮只把 `环境配置文件` 中 `DEEPSEEK_MODEL` 本地改为 `deepseek-v4-flash`，未打印 凭据，未提交 `环境配置文件`。
 - `smoke_test`: `passed`
 - `smoke_test_model`: `deepseek-v4-flash`
 - `已确认` 本轮只证明默认模型配置与最小 readonly explorer 链路通过，不代表 DeepSeek 已稳定供料，也不代表 `multi-agent runtime（多 agent 运行时）` 已跑通。
@@ -292,7 +292,7 @@
 - `已确认` 已新增 JSON Schema：`codex_source/schemas/deepseek_supply_request.schema.json`。
 - `已确认` 已新增样例任务卡：`codex_source/fixtures/deepseek_supply_request_file_map_example.json`、`codex_source/fixtures/deepseek_supply_request_risk_report_example.json`。
 - `已确认` `scripts/deepseek_supply_controller.py` 已支持 `--request-file`，并保持旧 CLI 参数兼容。
-- `已确认` request validation 可阻断缺字段 / 非法 action / 非法 trigger / forbidden path；负向 `.env` 请求已 blocked，未读取 `.env`。
+- `已确认` request validation 可阻断缺字段 / 非法 action / 非法 trigger / forbidden path；负向 `环境配置文件` 请求已 blocked，未读取 `环境配置文件`。
 - `test_legacy_cli`: `fallback_local_only`
 - `test_request_file_map`: `fallback_local_only`
 - `test_request_file_risk_report`: `fallback_local_only`
@@ -375,7 +375,7 @@
 ## 20260509｜DeepSeek readonly explorer API 复测
 
 - `已确认` 本轮只重跑 DeepSeek readonly explorer 最小 API 验证。
-- `已确认` `.env` 存在，且 `DEEPSEEK_API_KEY = present_nonempty`；本轮未打印 API key。
+- `已确认` `环境配置文件` 存在，且 `DeepSeek 凭据变量 = present_nonempty`；本轮未打印 凭据。
 - `已确认` 当前模型配置为：`deepseek-v4-pro`。
 - `api_validation`: `passed`
 - `context_pack_validation`: `failed_unexpected_output`
@@ -388,16 +388,16 @@
 ## 20260509｜DeepSeek readonly explorer 模型锁定与最小验证
 
 - `已确认` 已把 DeepSeek readonly explorer 默认模型锁定为：`deepseek-v4-pro`。
-- `已确认` 已把 `.env.example` 示例变量更新为：`DEEPSEEK_BASE_URL=https://api.deepseek.com`、`DEEPSEEK_MODEL=deepseek-v4-pro`。
+- `已确认` 已把 `环境配置文件.example` 示例变量更新为：`DEEPSEEK_BASE_URL=https://api.deepseek.com`、`DEEPSEEK_MODEL=deepseek-v4-pro`。
 - `已确认` 已新增：
   - `codex_source/16_deepseek_readonly_explorer_rules.md`
   - `scripts/deepseek_readonly_explorer.py`
 - `部分成立` 最小只读验证脚本已执行，并已生成本地验证输出：
   `dist/deepseek_readonly_explorer/latest_prefetch_context_pack.md`
-- `待验证` 当前真实 API 调用未通过，因为本地 `.env` 中未检测到 `DEEPSEEK_API_KEY`；因此本轮不能写成 `DeepSeek readonly explorer API validation passed`。
+- `待验证` 当前真实 API 调用未通过，因为本地 `环境配置文件` 中未检测到 `DeepSeek 凭据变量`；因此本轮不能写成 `DeepSeek readonly explorer API validation passed`。
 - `已确认` 本轮未修改视频产物、`dist/latest_review_pack/`、代码逻辑、`content_validation`、`send_ready`、`publish_status`、声音状态。
 - `执行日志`：`codex_log/20260509_DeepSeek只读探索器模型锁定与最小验证.md`
-- `下一个目标`：用户先在 `.env` 中补齐 `DEEPSEEK_API_KEY`，再重跑 readonly explorer 最小 API 验证。
+- `下一个目标`：用户先在 `环境配置文件` 中补齐 `DeepSeek 凭据变量`，再重跑 readonly explorer 最小 API 验证。
 
 ## 20260509｜GPT Project 上传包地址修复
 

@@ -1,0 +1,159 @@
+# 20260512｜Completion Relay Gate 补全接力闸门机制修补
+
+## 1. 本轮定位
+
+`已确认` 本轮只做机制修补：
+
+- 修补 `GPT 横向补全 -> Codex 纵向细化 -> 执行后剩余工作反查 -> 日志同步` 的接力机制。
+- 不生成视频、图片、音频。
+- 不修改 v3.1 样片、时间线或 `dist/latest_review_pack/` 产物。
+- 不推进 `content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）`、`voice_validation（声音验证状态）`、`final_voice_validated（最终声音验证状态）`、`visual_master_locked（视觉母版锁定）`。
+- 不调用 DeepSeek / 阿里 / TTS API。
+- 不读取 `环境配置文件`、凭据、凭据 或 凭据。
+
+## 2. route_decision（路由判断）
+
+```text
+route_decision:
+  project_route: video_factory
+  task_type:
+    - mechanism_or_route_fix
+    - project_file_change
+  responsibility_layer:
+    - mechanism_fix_layer
+    - sync_layer
+  large_task_gate:
+    triggered: true
+    reason: 本轮涉及 GPT 配合机制、Codex 执行规则、OPC 多 AI 协作机制、入口与日志同步，多文件多步骤机制修补
+    lane_recommendation: audit_lane -> standard_lane after impact check passed
+    parallel_recommendation: serial_only
+  execution_permission: allowed_after_must_read_passed
+```
+
+## 3. 本轮新增 / 补强内容
+
+### 3.1 `codex_source/01_execution_rules.md`
+
+`已确认` 已新增 `2E-2. Completion Relay Gate（补全接力闸门）`。
+
+新增强制字段：
+
+- `completion_relay_gate`
+- `completion_map`
+- `required_output_inventory`
+- `child_task_graph`
+- `continuation_rule`
+- `remaining_work_check`
+- `sync_back_check`
+- `final_completion_status`
+
+新增硬规则重点：
+
+- 完成一个文件 ≠ 完成本轮任务。
+- 完成显性用户点名动作 ≠ 完成隐性机制链。
+- 通过测试 ≠ 完成日志回流。
+- 写入规则 ≠ 长期机制稳定。
+- 没有 `child_task_graph（子任务树）`，不得执行。
+- 没有 `required_output_inventory（必须交付清单）`，不得写完成。
+- 没有 `remaining_work_check（剩余工作检查）`，不得写完成。
+- 除非 blocked，否则 Codex 不得停在建议、计划、审计或局部修改。
+
+### 3.2 `codex_source/00_codex_readme.md`
+
+`已确认` 已补 `ChatGPT -> Codex 补全接力入口`。
+
+Codex 收到 ChatGPT 完整执行单 / 横向补全包时，必须把上游栏目转成：
+
+- `completion_map（补全地图）`
+- `required_output_inventory（必须交付清单）`
+- `child_task_graph（子任务树）`
+
+执行后必须跑：
+
+- `remaining_work_check（剩余工作检查）`
+- `sync_back_check（同步回写检查）`
+
+### 3.3 `GPT数据源/01_项目系统提示词.md`
+
+`已确认` 已补 `GPT -> Codex 补全接力规则`。
+
+规则明确：
+
+- ChatGPT 负责横向补全，不只翻译用户表面需求。
+- Codex 负责纵向拆解、读取仓库事实、逐项执行、剩余工作检查和日志回流。
+- ChatGPT 给 Codex 的 prompt 默认要求输出 `completion_relay_gate`、`required_output_inventory`、`child_task_graph`、`remaining_work_check`、`sync_back_check`。
+- Codex 只完成局部任务时，ChatGPT / 用户回审不得判成完成。
+
+### 3.4 `GPT数据源/10_OPC一人公司闭环与多AI协作机制.md`
+
+`已确认` 已补 `GPT -> Codex 补全接力机制`。
+
+规则明确：
+
+- ChatGPT 把用户需求横向补全成可执行任务地图。
+- Codex 把任务地图纵向拆成子任务并执行到底。
+- DeepSeek 只读供料，不替代 Codex 的原文件复核和执行后反查。
+- 接力完成必须同时满足任务树已拆、必改文件已改、禁止状态未偷换、验证已做、日志已回流、新聊天能按新事实接手。
+
+### 3.5 `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md`
+
+`已确认` 读取后判断：该文件仍承担 GPT Project 侧短路由说明，因此本轮需要同步。
+
+本轮已补：
+
+- 命中“自动补全 / 补全接力 / Codex 做一半 / GPT 横向补全 / Codex 纵向细化”时，GPT Project 侧提醒 Codex 触发 `Completion Relay Gate（补全接力闸门）`。
+- 机制修补类默认 `audit_lane -> standard_lane`。
+- 核心机制文件修改默认 `serial_only（串行执行）`。
+- 不得因为“多 AI”字样自动建议并发。
+
+### 3.6 `AGENTS.md`
+
+`已确认` 已做轻量入口同步。
+
+原因：本轮规则会影响新会话默认接手判断；只在《视频工厂》入口段补机制引用，不改视频动态状态。
+
+## 4. 验证结果
+
+```text
+manual_structure_check: passed
+keyword_check: passed
+diff_scope_check: passed
+forbidden_status_check: passed_no_dynamic_status_promotion
+api_call_check: not_called
+凭据_read_check: not_read
+media_generation_check: not_generated
+markdownlint: not_available
+```
+
+关键词已确认出现在正确文件：
+
+- `Completion Relay Gate`
+- `补全接力闸门`
+- `completion_relay_gate`
+- `required_output_inventory`
+- `child_task_graph`
+- `remaining_work_check`
+- `sync_back_check`
+
+## 5. 未修改内容
+
+`已确认` 本轮未修改：
+
+- 视频、图片、音频、时间线产物。
+- `dist/latest_review_pack/` 下任何媒体或复审包产物。
+- 当前 v3.1 发布状态。
+- `content_validation（内容验证）` 推进状态。
+- `send_ready（可发送状态）`。
+- `voice_validation（声音验证状态）`。
+- `final_voice_validated（最终声音验证状态）`。
+- `visual_master_locked（视觉母版锁定）`。
+- `环境配置文件`、凭据、凭据、凭据。
+
+## 6. 状态边界
+
+- `已确认`：`Completion Relay Gate（补全接力闸门）` 规则已写入，入口与 GPT Project 侧短路由已同步，结构检查和关键词检查通过。
+- `待验证`：该机制在后续真实多文件执行单中是否能长期防止 Codex 提前收工，仍需真实任务验证。
+
+## 7. 下一个目标
+
+下一次真实多文件执行单能够触发 `Completion Relay Gate（补全接力闸门）`，并让 Codex 在最终回报前用 `remaining_work_check（剩余工作检查）` 证明没有剩余 must-fix 项。

@@ -1,0 +1,268 @@
+# OPC 一人公司闭环与多 AI 协作机制
+
+## 1. 文件定位
+
+本文件是《视频工厂》的上位机制文件。
+
+它负责把项目从单一“视频生产流程项目”升级为：
+
+`OPC 一人公司 AI 闭环验证系统`
+
+它不负责：
+- 当前视频发布状态推进
+- `content_validation（内容验证）` 通过判断
+- `send_ready（可发送状态）` 修改
+- DeepSeek API 接入证明
+- 多 agent runtime 跑通证明
+- 任一条视频的最终内容复审
+
+## 2. OPC 一人公司 AI 闭环定义
+
+`OPC 一人公司 AI 闭环验证系统` 指的是：用一个人主导、多 AI 分工协作、真实业务问题驱动、内容发布反馈验证、再沉淀产品 / 服务 / 工作包的循环系统。
+
+一句话：
+
+**《视频工厂》不是只为了做视频，而是用视频作为内容化出口和反馈入口，验证一人公司如何借助 AI 完成“问题 -> 表达 -> 发布 -> 复盘 -> 产品化沉淀”的闭环。**
+
+## 3. 当前闭环结构
+
+当前闭环默认按 7 层理解：
+
+1. `真实问题输入`
+   - 来自用户真实工作、创业、内容生产、工具使用、AI 提效或平台反馈中的具体问题。
+2. `AI 协作处理`
+   - 多 AI 按角色分工，完成判断、研究、读取、执行、验证、复盘。
+3. `内容化表达`
+   - 把真实问题和 AI 处理结果转成视频、文案、提示词、工作包或展示层。
+4. `平台发布验证`
+   - 把内容放进真实平台环境，观察小样本流量、互动、留存、评论、私信和咨询信号。
+5. `发布后复盘`
+   - 通过 `review_loop/（复盘闭环）` 记录数据、判断短板、只选一个下一轮变量。
+6. `产品 / 服务 / 工作包沉淀`
+   - 只有当真实需求、可复用流程、强结果差或咨询线索出现时，才沉淀为产品化单元。
+7. `下一轮内容与产品验证`
+   - 基于复盘继续选题、表达、发布或产品化试验。
+
+## 4. 视频在闭环中的位置
+
+视频在新口径下是：
+- `内容化出口`
+- `真实经验展示载体`
+- `提效证据入口`
+- `分发验证样本`
+- `发布后复盘对象`
+- `产品化线索观察入口`
+
+视频不是：
+- 项目的全部目标
+- 每轮闭环的唯一产物
+- 当前商业模式已经成立的证明
+- `content_validation（内容验证）` 已通过的自动证据
+
+## 5. 多 AI 协作默认架构
+
+当前多 AI 协作默认架构：
+
+| 角色 | 默认定位 | 权限边界 |
+| --- | --- | --- |
+| `ChatGPT` | 总控脑 / 判断层 | 负责方向判断、内容复审、下一轮唯一变量拍板 |
+| `Codex` | 唯一写入执行层 / `Integrator` | 负责读仓库、改文件、验证、日志、Git 收尾 |
+| `DeepSeek` | 只读供料层 / `Explorer` | 负责预读、压缩上下文、输出文件地图和风险冲突报告，不写文件 |
+| `Perplexity` | 外部研究层 | 负责外部资料检索、事实线索、竞品 / 技术参考，不直接写成项目事实 |
+| 其他 AI / 工具 | 按任务补位 | 只在明确任务、权限和验证边界后接入 |
+
+## 5A. GPT -> Codex 补全接力机制
+
+`ChatGPT` 的职责不是只写 prompt，而是把用户需求横向补全成可执行任务地图，至少包含目标、边界、范围、产物、风险、验收、失败判定、必须读取、禁止修改和同步要求。
+
+`Codex` 的职责不是只按第一眼任务改文件，而是把任务地图纵向拆成 `child_task_graph（子任务树）`，建立 `required_output_inventory（必须交付清单）`，逐项执行到底，并在结束前完成 `remaining_work_check（剩余工作检查）` 与 `sync_back_check（同步回写检查）`。
+
+`DeepSeek` 只读供料，不替代 Codex 的原文件复核和执行后反查。`Perplexity` 只做外部研究线索，不直接成为项目正式事实。
+
+Codex 不得把“写入某个机制文件”当成“多 AI 协作机制已经长期稳定”。接力完成必须同时满足：
+
+1. 任务树已拆。
+2. 必改文件已改。
+3. 禁止状态未偷换。
+4. 验证已做。
+5. 日志已回流。
+6. 新聊天能按新事实接手。
+
+## 6. DeepSeek 只读供料层规则
+
+`DeepSeek` 在本项目中的默认身份是：
+
+`readonly explorer（只读探索器）`
+
+允许输出：
+- `prefetch_context_pack（预读取上下文包）`
+- `must_read_file_map（必读文件地图）`
+- `risk_and_conflict_report（风险与冲突报告）`
+- `candidate_summary（候选摘要）`
+- `file_map（文件地图）`
+- `risk_report（风险报告）`
+- `context_summary（上下文摘要）`
+- `missing_files（缺失文件）`
+- `visual_asset_requirement_pack（视觉素材需求包）`
+- `api_asset_generation_pack（API 素材生成包）`
+- `image_prompt_pack（图片 prompt 包）`
+- `asset_validation_pack（素材验收包）`
+- `assembly_decision_pack（装配决策包）`
+- `editing_decision_pack（剪辑决策包）`
+
+DeepSeek 供料范围从“文件地图 / 风险冲突”扩展为：
+
+1. 执行前文件地图。
+2. 执行中缺口补读。
+3. 执行后风险复核。
+4. 视频执行现场的 `editing_decision_pack（剪辑决策包）`。
+5. 文案进入执行后的完整 `execution_supply_pack family（执行供料包族）`，包括视觉素材需求、API 素材生成计划、图片 prompt、素材验收和装配决策。
+
+`editing_decision_pack（剪辑决策包）` 只能基于 Codex 提供的文字化素材样料工作，例如 `source_segments（素材片段）`、`narration_lines（口播句子）`、`frame_descriptions（抽帧描述）`、`ocr_text（OCR 文字）` 和 `editing_question（剪辑问题）`。它不直接读取视频、音频、图片或媒体文件。
+
+`execution_supply_pack family（执行供料包族）` 也只能基于 Codex 提供的文字化任务样料工作，例如 `script_blocks（脚本块）`、`segments（段落）`、`content_route_card（内容路由卡）`、`visual_asset_requirements（视觉素材需求）`、`api_generation_targets（API 生成目标）`、`image_prompt_specs（图片 prompt 规格）`、`asset_validation_criteria（素材验收标准）` 和 `assembly_slots（装配槽位）`。
+
+API 调用不由 DeepSeek 决定。真实 API 调用必须由用户明确授权；DeepSeek 不读取 `环境配置文件`、凭据、凭据 或密钥文件，不调用阿里 API，不生成真实图片。DeepSeek 可以帮助 Codex 判断“需不需要图、图怎么生成、素材怎么验收、怎么装配”，但最终执行判断在 Codex，内容质量判断在 ChatGPT / 用户。
+
+DeepSeek 安全真实参与的唯一允许方式是：Codex / controller 不读取 `环境配置文件` 文件，只在用户或运行环境已把 `DeepSeek 凭据变量` 注入为 process environment（进程环境变量）时，用它做 HTTP Authorization。该 key 不得打印、不得写入日志、不得进入 prompt、不得传给 DeepSeek 上下文。如果 process environment 中没有 key，只能记录 `deepseek_actual_participation = not_tested_missing_process_env_key`，不得读取 `环境配置文件` 补救，也不得写成 DeepSeek passed。
+
+后续任何 DeepSeek 相关任务必须先做 `deepseek_readiness_check（DeepSeek 就绪检查）`：区分 `deepseek_passed（真实供料通过）`、`fallback_local_only（本地兜底）` 和 `blocked（阻断）`。其中 `fallback_local_only` 必须写 `not_deepseek_conclusion = true`；blocked 必须写缺 key、无权限、网络 / timeout、禁止路径或输出不合格等具体原因。
+
+最终执行判断仍在 Codex。方向、内容、人感、下一轮变量仍由 ChatGPT / 用户拍板。该机制不代表 `multi-agent runtime（多 agent 运行时）` 已跑通，也不代表 DeepSeek 已稳定真实供料。
+
+禁止：
+- 修改仓库文件
+- 生成最终事实判断
+- 替 ChatGPT / 用户拍板项目方向
+- 替 Codex 做 Git 收尾
+- 把外部资料直接升级成 `已确认`
+- 把只读摘要当作仓库原文件证据
+
+若 DeepSeek 输出与仓库原文件冲突，默认以仓库原文件为准，并由 Codex 标记冲突。
+
+## 7. Codex 唯一写入 Integrator 规则
+
+`Codex` 在本项目中的默认身份是：
+
+`Integrator（统一执行者 / 唯一写入层）`
+
+Codex 负责：
+- 复核关键原文件
+- 修改允许范围内的仓库文件
+- 更新 `codex_log/latest.md（最新日志）`
+- 命中条件时新增 dated log
+- 做 diff / 状态字段 / 禁止项检查
+- commit / push / PR 收尾
+
+Codex 不得：
+- 把 DeepSeek、Perplexity 或任何 explorer 的摘要直接当成当前正式事实
+- 未复核原文件就写入状态推进
+- 多写手并发修改核心入口文件
+- 把技术跑通写成内容通过
+
+## 8. Perplexity 外部研究层规则
+
+`Perplexity` 在本项目中的默认身份是：
+
+`external research layer（外部研究层）`
+
+允许：
+- 做外部事实检索
+- 整理技术方案、平台规则、竞品信息、工具能力
+- 形成 `reference pack（参考包）`
+- 形成 `raw feeling draft（原感初稿）`
+
+禁止：
+- 直接成为项目正式事实源
+- 替代仓库正式状态
+- 替代用户 / ChatGPT 的内容判断
+- 把外部建议写成已验证项目能力
+
+## 9. reference / 样片质量从流程锁升级为机制锁
+
+当前新口径：
+
+`reference（参考）`、`reference_quality_sample（参考质量样片）`、`locked reference（锁定参考）`、`visual route（视觉路由）` 的核心价值是：
+
+**锁定质量判断机制，不锁死每条内容的固定流程。**
+
+具体含义：
+- `reference_quality_sample（参考质量样片）` 仍然要求达到可作为后续参考的质量，不允许降级成 flow proof。
+- `locked reference（锁定参考）` 仍然用于防止质量漂移、风格漂移、状态误写。
+- `visual route（视觉路由）` 仍然用于拆清不同展示结构，避免提示卡、信息卡、反应卡混用外壳。
+- 但它们不等于每条内容都必须机械套同一条镜头流程、同一张卡片结构、同一次数的 `API 生成真人`。
+- 如果仓库其他文件仍出现 `fixed_material_anchor（固定素材锚点）`、`locked reference（锁定参考）`、`visual route（视觉路由）` 的强约束写法，默认先按本节解释：它们锁的是质量、风格、展示边界，不直接锁定镜头流程。
+- `Codex（唯一写入执行层 / Integrator）` 在后续修正规则时，若发现旧口径和本节冲突，必须优先保留“质量机制锁”解释，不得把历史强约束直接升级成新的固定 SOP。
+
+当文案目标、素材证据、平台风险或结果差结构改变时，应先做机制判断：
+- 当前目标需要什么展示结构？
+- 哪些 reference 仍适用？
+- 哪些 locked reference 只约束质量，不约束流程？
+- 原 `visual route` 是否需要新路由或局部变体？
+- 是否存在强套旧流程导致内容表达变差的风险？
+
+## 9A. 质量与反馈总控机制
+
+本机制 V1 的作用是把《视频工厂》后续视频 / 文案 / 复盘任务，统一接入“先判断目标，再选择承载，再用反馈反推变量”的项目机制。
+
+每条视频允许随文案、素材、平台风险和结果差变化结构，但质量底线不能变化。后续任务开始前，默认先回答：
+
+1. `validation_goal（本轮验证目标）`
+   - 这条内容到底在验证选题、开头、文案结构、中段证据、声音、卡片、发布包装，还是产品化信号。
+2. `content_route_card（内容路由卡）`
+   - 解释这条内容为什么这样承载，为什么不直接沿用旧镜头流程。
+3. `quality_lock_card（质量锁卡）`
+   - 锁住用户能拿走什么、用什么证据证明、哪些质量点一票否决。
+4. `review_variable_card（复盘变量卡）`
+   - 发布前和复盘前都要锁定本轮主变量，避免下一轮同时改太多导致无法解释结果。
+
+质量不靠固定模板保证，而靠质量底线和状态边界保证：
+
+- `reference（参考）` 锁质量点、风格边界、证明强度和防漂移要求，不锁镜头流程。
+- `locked reference（锁定参考）` 锁继承条件和不可降级项，不锁每条内容的 API 人物段次数、PPT 数量或尾卡出现方式。
+- `visual route（视觉路由）` 锁展示类型和外壳职责，不锁每条内容的固定结构。
+- `content_route_card（内容路由卡）` 用来说明流程为什么可变，不是新的固定模板。
+- `quality_lock_card（质量锁卡）` 用来约束执行前质量，不证明内容已经通过。
+- `review_variable_card（复盘变量卡）` 用来把数据反馈收束到下一轮唯一主变量，不是运营大表。
+
+发布后复盘必须反推下一轮唯一优先变量。若多个变量同时改变，只能记录观察，不得过度解释结果，也不得把异常样本当作正常规律沉淀。
+
+DeepSeek 供料只提供资料压缩和风险提醒。Codex 必须读取供料包并复核原文件；若 `supply_source = fallback_local_only（本地兜底）`，只能写 `not_deepseek_conclusion = true`，不得写成 DeepSeek 真实结论、稳定供料或完整 `multi-agent runtime（多 agent 运行时）` 已跑通。
+
+## 10. 与原视频四件套主线的关系
+
+原视频四件套继续保留：
+
+`API 生成真人 + 用户录制素材 + 少量 PPT + 云端剪辑`
+
+但在 OPC 口径下，它的位置降级为：
+
+`内容化输出的默认执行载体`
+
+它不是：
+- 项目总目标
+- 每条内容不可变死流程
+- 商业闭环已经成立的证明
+- 当前云端剪辑稳定跑通的证明
+
+`API 生成真人` 次数、卡片类型、信息密度、`visual route（视觉路由）` 和结尾承接方式，应由文案机制、素材证据、平台风险、结果差结构和发布后复盘共同决定。
+- 上述决定默认逐条内容实时判断，不接受“因为已有 reference / locked reference / visual route，所以人物段次数、卡片数量、尾卡结构必须照搬”的写法。
+
+## 11. 禁止误写
+
+本轮及后续默认禁止把以下内容写成事实：
+
+- DeepSeek API 已接入
+- 多 agent runtime 已跑通
+- 当前视频内容已通过
+- 当前声音已验证通过
+- 云端剪辑已稳定跑通
+- V002b 已成为最终稿
+- 当前项目商业模式已验证成立
+- `send_ready（可发送状态） = true`
+- `reference（参考）` 等于固定流程不可改
+- `locked reference（锁定参考）` 等于每条内容必须用同一套卡片流程
+
+## 12. 一句话规则
+
+**《视频工厂》当前上位身份是 `OPC 一人公司 AI 闭环验证系统`：ChatGPT 做总控判断，Codex 做唯一写入整合，DeepSeek 做只读供料，Perplexity 做外部研究；视频是内容化与反馈出口，reference 锁质量机制，不锁死每条内容的固定流程。**

@@ -92,7 +92,7 @@
 - `已确认` PR #46：`Record blocked formal short-video auto-flow TTS retry` 当前仍为 `open / draft / not merged`。
 - `已确认` PR #46 暂时不作为当前 reference（参考资产），不进入当前主读取分支正式状态。
 - `已确认` PR #46 仅保留为 `parallel_future_flow_teaching_asset（未来流程 / 教学 / 操作拆解类视频升级方向资料）`。
-- `已确认` PR #46 local fix v3 不写成内容通过，不写成 `send_ready = true`。
+- `已确认` PR #46 local fix v3 不写成内容通过，不写成 `send_ready 变成 true`。
 
 ## 8. GPT Project 静态包冻结说明
 
