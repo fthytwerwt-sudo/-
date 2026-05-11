@@ -100,13 +100,13 @@ if state = reference_contract_needed:
   action = create or require Reference-to-Execution Contract before concrete execution
 
 if state = editing_inference_needed:
-  action = create or use editing_inference_function before editing
+  action = run editing_inference_function, then generate editing_decision_pack if evidence is sufficient
 
 if state = content_route_needed:
-  action = create content_route_card before video execution
+  action = run content_route_inference_function, then generate content_route_card before video execution
 
 if state = quality_review_needed:
-  action = classify quality issue before changing assets
+  action = run quality_issue_classifier before changing assets or status wording
 
 if state = gpt_project_sync_needed:
   action = regenerate static upload package, do not treat as UI uploaded
@@ -122,6 +122,102 @@ if state = blocked_need_user_input:
 - `material_audit_needed`：先判断素材用途、证据强度和缺口，不直接生成或改动媒体。
 - `voice_review_needed`：只做声音问题归因和候选复审，不写最终声音通过，不调用 TTS / voice cloning API。
 - `reference_contract_needed`：只把 reference / 样片 / 目标效果转换为 `reference_anchor`、`effect_targets`、`function_fields`、`deviation_check`、`done_when`，不得直接执行媒体、文案终稿或状态推进。
+
+## 4A. 三大机制推理函数执行侧调用规则
+
+Codex 进入具体执行前，凡命中剪辑、内容承载或质量复审信号，必须先输出对应推理函数结果。没有对应函数结果，不得生成卡片 / 决策包，不得进入视频执行，不得写 `completed（已完成）`。
+
+### 4A.1 editing_inference_function（剪辑推理函数）
+
+触发信号：
+
+- 任务涉及中段剪辑、录屏放大、裁切、定格、插卡、左右对比、证据窗口或 `editing_decision_pack（剪辑决策包）`。
+- 用户反馈中段不顺、看不清、硬拼接、上下文断裂。
+- reference / visual route 要求保留某个证据窗口或剪辑节奏。
+
+执行侧输出必须包含：
+
+```text
+editing_inference_function:
+  input_signal:
+  observed_evidence:
+  state_inference:
+  action_policy:
+  validation_rule:
+  blocked_if:
+  feedback_update:
+```
+
+完成判断：
+
+- `editing_decision_pack（剪辑决策包）` 必须引用本函数的 `state_inference` 和 `action_policy`。
+- 如果素材不可读、时间码不清、证据点不可见、放大会切断必要上下文，必须 `blocked` 或 `keep_full_frame`，不得凭感觉剪。
+- 卡片、放大、裁切、定格只能服务真实证据清晰，不得替代真实录屏证据。
+
+### 4A.2 content_route_inference_function（内容路由推理函数）
+
+触发信号：
+
+- 任务涉及 `content_route_card（内容路由卡）`、内容表达文案进入执行、主体承载、API 生成真人次数、PPT / 信息卡 / Prompt 引用尾卡是否出现。
+- 需要判断本轮是只做内容验证，还是值得沉淀三层 prompt 包 / 工作包。
+- reference 质量点可能和当前文案目标冲突。
+
+执行侧输出必须包含：
+
+```text
+content_route_inference_function:
+  input_signal:
+  observed_evidence:
+  state_inference:
+  action_policy:
+  validation_rule:
+  blocked_if:
+  feedback_update:
+```
+
+完成判断：
+
+- `content_route_card（内容路由卡）` 必须由本函数生成或引用本函数判断。
+- 缺 `validation_goal / core_evidence / middle_carrier / flow_flex_reason` 时，不得进入视频执行。
+- 不得先定人物次数、PPT 数量或尾卡数量，再把文案硬塞进去。
+
+### 4A.3 quality_issue_classifier（质量短板分类器）
+
+触发信号：
+
+- 用户反馈“不对 / 怪 / 不顺 / demo 感”。
+- 技术通过但内容、人感、证据、声音、卡片密度或剪辑节奏不舒服。
+- 需要生成或复核 `quality_lock_card（质量锁卡）`。
+
+执行侧输出必须包含：
+
+```text
+quality_issue_classifier:
+  input_signal:
+  observed_evidence:
+  issue_categories:
+  state_inference:
+  action_policy:
+  validation_rule:
+  blocked_if:
+  feedback_update:
+```
+
+完成判断：
+
+- 必须先定位唯一最高优先级短板；若观察到多个问题，也只能选一个 primary issue 进入下一轮修改。
+- 必须区分 `technical_validation（技术验证）` 与 `content_validation（内容验证）`。
+- 缺复审对象、用户反馈对象、灰度数据或需要用户审美判断时，必须 blocked / human_review_required，不得硬写事实。
+
+### 4A.4 与 Completion Relay Gate 的关系
+
+本轮或后续任务一旦触发三个函数之一，`Completion Relay Gate（补全接力闸门）` 的 `required_output_inventory（必须交付清单）` 必须纳入：
+
+1. 对应推理函数输出。
+2. 对应卡片 / 决策包是否引用该函数。
+3. 入口规则是否要求先输出该函数。
+4. fixture / 最小样例是否覆盖正常判断与 blocked 判断。
+5. `remaining_work_check（剩余工作检查）` 是否确认没有剩余 must-fix。
 
 ## 5. 事实源裁决规则
 

@@ -1,0 +1,246 @@
+{
+  "schema": "mechanism_inference_function_cases_v1",
+  "description": "Minimum fixture cases for editing_inference_function, content_route_inference_function, and quality_issue_classifier in 视频工厂 OPC project.",
+  "created_at": "2026-05-12T00:00:00+08:00",
+  "project_route": "video_factory",
+  "status_boundary": {
+    "content_validation": "not_changed",
+    "send_ready": "not_changed",
+    "publish_status": "not_changed",
+    "voice_validation": "not_changed",
+    "final_voice_validated": "not_changed",
+    "visual_master_locked": "not_changed"
+  },
+  "cases": [
+    {
+      "case_id": "editing_zoom_needed_button_too_small",
+      "function_name": "editing_inference_function",
+      "case_type": "normal_judgment",
+      "input_signal": [
+        "关键按钮太小，观众看不清用户点击了哪里。",
+        "录屏中页面变化前后差异出现。"
+      ],
+      "observed_evidence": {
+        "timecode": "00:18-00:22",
+        "page_name": "AI tool workspace",
+        "visible_element": "右侧 Generate 按钮和结果区域",
+        "evidence_point": "点击后结果列表出现结构化输出",
+        "context_risk": "按钮和结果区在同一画面内，局部放大不会切断必要上下文。"
+      },
+      "expected_state_inference": [
+        "evidence_window_clear",
+        "zoom_needed"
+      ],
+      "expected_action_policy": [
+        "zoom_in",
+        "crop_focus"
+      ],
+      "validation_rule": [
+        "观众能更快看清触发按钮和结果区域。",
+        "放大后仍保留输入区与结果区的上下文关系。",
+        "没有用卡片替代真实录屏证据。"
+      ],
+      "blocked_if": [],
+      "expected_feedback_update": [
+        "写入 editing_decision_pack",
+        "在 review_pack / log 标记 zoom reason"
+      ]
+    },
+    {
+      "case_id": "editing_zoom_breaks_context_keep_full_frame",
+      "function_name": "editing_inference_function",
+      "case_type": "blocked_or_safe_fallback",
+      "input_signal": [
+        "页面信息很密，局部放大可能切掉输入、按钮和结果之间的因果关系。",
+        "reference 说明需要保留完整证据窗口。"
+      ],
+      "observed_evidence": {
+        "timecode": "00:34-00:42",
+        "page_name": "Prompt result comparison page",
+        "visible_element": "左侧输入、右侧结果、顶部状态提示",
+        "evidence_point": "前后对比必须同时看输入和结果。",
+        "context_risk": "只放大结果列表会切断用户输入与生成结果的关系。"
+      },
+      "expected_state_inference": [
+        "zoom_not_allowed",
+        "keep_original_needed"
+      ],
+      "expected_action_policy": [
+        "keep_full_frame",
+        "no_extra_edit"
+      ],
+      "validation_rule": [
+        "完整画面保留证据上下文。",
+        "没有因放大切断输入 -> 结果的因果链。",
+        "如仍看不清，只能请求补录或降级为 blocked。"
+      ],
+      "blocked_if": [
+        "完整画面仍无法看清关键输入或结果文字。",
+        "必须靠猜测判断用户操作。"
+      ],
+      "expected_feedback_update": [
+        "写入 editing_decision_pack",
+        "若证据仍不可见，回写 blocked_material_unclear"
+      ]
+    },
+    {
+      "case_id": "content_route_user_recording_middle_api_once",
+      "function_name": "content_route_inference_function",
+      "case_type": "normal_judgment",
+      "input_signal": [
+        "内容类型为 AI 职场任务现场拆解。",
+        "用户录制素材能完整展示中段操作过程。",
+        "结果差可通过前后对比截图和录屏证明。"
+      ],
+      "observed_evidence": {
+        "validation_goal": "验证场景化 prompt 是否让结果更像可交付初稿。",
+        "core_evidence": [
+          "真实录屏",
+          "前后对比",
+          "结果截图"
+        ],
+        "middle_carrier": "用户录制素材",
+        "productization_signal": "not_enough_yet"
+      },
+      "expected_state_inference": [
+        "user_recording_as_middle_carrier",
+        "api_human_once_enough",
+        "ppt_summary_needed",
+        "prompt_tail_card_optional",
+        "work_package_not_needed_yet"
+      ],
+      "expected_action_policy": [
+        "生成 content_route_card",
+        "API 生成真人 1 次用于开头进入或结尾收束",
+        "少量 PPT 用于总结卡",
+        "只做内容验证，不默认沉淀工作包"
+      ],
+      "validation_rule": [
+        "中段主体由真实录屏承担。",
+        "结果差由真实证据支撑。",
+        "没有先定人物次数再硬塞文案。",
+        "Prompt 尾卡不承担主叙事。"
+      ],
+      "blocked_if": [],
+      "expected_feedback_update": [
+        "写入 content_route_card",
+        "若后续出现产品化信号，再触发三层 prompt 包 / 工作包"
+      ]
+    },
+    {
+      "case_id": "content_route_missing_validation_goal_blocked",
+      "function_name": "content_route_inference_function",
+      "case_type": "blocked",
+      "input_signal": [
+        "用户只说做一条视频，但没有说明本轮 validation_goal。",
+        "素材说明没有给出 core_evidence。"
+      ],
+      "observed_evidence": {
+        "validation_goal": null,
+        "core_evidence": [],
+        "middle_carrier": "unclear",
+        "platform_risk": "unknown"
+      },
+      "expected_state_inference": [
+        "blocked_evidence_missing"
+      ],
+      "expected_action_policy": [
+        "blocked"
+      ],
+      "validation_rule": [
+        "没有 validation_goal 不得进入视频执行。",
+        "没有 core_evidence 不得判断中段承载。",
+        "不得强套旧 reference 流程。"
+      ],
+      "blocked_if": [
+        "validation_goal 缺失",
+        "core_evidence 缺失",
+        "middle_carrier 无法判断"
+      ],
+      "expected_feedback_update": [
+        "回写缺 validation_goal / core_evidence",
+        "请求用户或 ChatGPT 补齐目标和素材证据"
+      ]
+    },
+    {
+      "case_id": "quality_demo_feeling_editing_issue_primary",
+      "function_name": "quality_issue_classifier",
+      "case_type": "normal_judgment",
+      "input_signal": [
+        "用户说这版有 demo 感、不顺。",
+        "技术检查通过，但中段转场像硬拼接。"
+      ],
+      "observed_evidence": {
+        "user_feedback": "demo 感，不顺",
+        "review_pack": "current_review_pack_available",
+        "timecode": "00:26-00:33",
+        "evidence": "前一段结尾和后一段开头缺过渡，录屏上下文断裂。",
+        "technical_validation": "passed",
+        "content_validation": "not_promoted"
+      },
+      "expected_issue_categories": [
+        "editing_issue",
+        "structure_issue"
+      ],
+      "expected_state_inference": [
+        "multiple_issue_observed_but_one_primary",
+        "highest_priority_issue_identified"
+      ],
+      "expected_action_policy": [
+        "只修一个最高优先级问题",
+        "先改剪辑推理再重新组装"
+      ],
+      "validation_rule": [
+        "最高优先级短板定位为 editing_issue。",
+        "未把技术通过写成内容通过。",
+        "下一轮只改转场 / 证据窗口一个变量。"
+      ],
+      "blocked_if": [],
+      "expected_feedback_update": [
+        "写入 quality_lock_card 或 review_pack",
+        "必要时写入 remaining_blockers"
+      ]
+    },
+    {
+      "case_id": "quality_voice_weird_missing_audio_blocked",
+      "function_name": "quality_issue_classifier",
+      "case_type": "blocked_need_user_input",
+      "input_signal": [
+        "用户说声音怪。",
+        "本轮禁止读取媒体和调用 TTS / voice cloning API。"
+      ],
+      "observed_evidence": {
+        "user_feedback": "声音怪",
+        "audio_review_target": null,
+        "voice_candidate": "missing",
+        "human_listening_review": "not_provided"
+      },
+      "expected_issue_categories": [
+        "voice_issue"
+      ],
+      "expected_state_inference": [
+        "evidence_missing",
+        "human_review_required",
+        "blocked_need_user_input"
+      ],
+      "expected_action_policy": [
+        "blocked_need_user_input",
+        "先做声音复审，不直接换全片音轨"
+      ],
+      "validation_rule": [
+        "不得在缺试听对象时判断声音短板事实。",
+        "不得调用 TTS / voice cloning API 补救。",
+        "不得推进 voice_validation 或 final_voice_validated。"
+      ],
+      "blocked_if": [
+        "缺声音复审对象",
+        "需要用户听感判断但用户未确认",
+        "需要 API / secret / 媒体操作而本轮禁止"
+      ],
+      "expected_feedback_update": [
+        "写入 blocked_need_user_input",
+        "请求提供具体声音候选或片段"
+      ]
+    }
+  ]
+}

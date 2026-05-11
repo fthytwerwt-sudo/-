@@ -289,6 +289,34 @@ Codex 不得：
 
 DeepSeek 供料只提供资料压缩和风险提醒。Codex 必须读取供料包并复核原文件；若 `supply_source = fallback_local_only（本地兜底）`，只能写 `not_deepseek_conclusion = true`，不得写成 DeepSeek 真实结论、稳定供料或完整 `multi-agent runtime（多 agent 运行时）` 已跑通。
 
+## 9B. 三大机制推理函数在 OPC 闭环中的位置
+
+OPC 闭环不是固定视频 SOP，必须用三大机制推理函数把“问题 -> 表达 -> 发布 -> 复盘 -> 产品化沉淀”落成可判断链路。
+
+| 函数 | 所在环节 | 输出 | 禁止误写 |
+| --- | --- | --- | --- |
+| `content_route_inference_function（内容路由推理函数）` | 内容化表达前 | `content_route_card（内容路由卡）`、承载结构、API 人物次数、PPT / Prompt 尾卡是否使用、是否沉淀工作包 | 不得先定固定流程，不得把 reference 流程照搬成每条内容 SOP |
+| `editing_inference_function（剪辑推理函数）` | 云端剪辑 / 装配前 | `editing_decision_pack（剪辑决策包）`、证据窗口、放大 / 保留 / 插卡 / 定格 / 左右对比决策 | 不得用卡片或装饰抢走真实录屏证据，不得素材不清还继续剪 |
+| `quality_issue_classifier（质量短板分类器）` | 发布前 / 发布后 / 用户复审 | 唯一最高优先级短板、下一轮只改一个变量、blocked / human_review_required | 不得把技术通过写成内容通过，不得同时改多个核心变量后再解释结果 |
+
+统一结构：
+
+```text
+input_signal（输入信号）
+-> observed_evidence（现场证据）
+-> state_inference（状态判断）
+-> action_policy（动作策略）
+-> validation_rule（验证规则）
+-> blocked_if（阻断条件）
+-> feedback_update（反馈回写）
+```
+
+边界：
+
+- 三个函数只让机制可执行、可验证、可阻断、可回写。
+- 三个函数不代表机制长期稳定验证通过；仍需后续真实视频 / 文案 / 复盘任务继续验证。
+- 三个函数不推进 `content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked`。
+
 ## 10. 与原视频四件套主线的关系
 
 原视频四件套继续保留：

@@ -588,6 +588,70 @@ content_route_card（内容路由卡）
 - 需要具体剪辑动作时，必须回到 `editing_decision_pack（剪辑决策包）`。
 - dist 供料输出若不提交 GitHub，必须另写可追溯 `codex_log/*evidence*.md`，不得只说本地文件存在。
 
+### 2E-1A. 三大机制推理函数前置闸门
+
+凡任务命中剪辑判断、内容承载判断或质量复审判断，Codex 必须先输出对应推理函数，再进入卡片、决策包、视频执行或完成态判断。
+
+统一输出结构：
+
+```text
+input_signal（输入信号）
+-> observed_evidence（现场证据）
+-> state_inference（状态判断）
+-> action_policy（动作策略）
+-> validation_rule（验证规则）
+-> blocked_if（阻断条件）
+-> feedback_update（反馈回写）
+```
+
+#### editing_inference_function（剪辑推理函数）
+
+触发条件：
+
+- 任务涉及中段剪辑、录屏放大、裁切、定格、插卡、左右对比、证据窗口、`editing_decision_pack（剪辑决策包）`。
+- 用户反馈看不清、不顺、硬拼接、上下文断裂。
+- reference / visual route / locked reference 要求保留证据窗口或剪辑节奏。
+
+执行要求：
+
+- 必须先输出 `editing_inference_function`，再生成 `editing_decision_pack（剪辑决策包）`。
+- `editing_decision_pack` 必须写明每个动作对应的 `state_inference`、`action_policy`、`validation_rule` 和 `blocked_if`。
+- 如果素材不可读、时间码不清、证据点不可见、放大会切断必要上下文，必须 blocked 或 keep_full_frame；不得凭感觉剪。
+
+#### content_route_inference_function（内容路由推理函数）
+
+触发条件：
+
+- 任务涉及内容表达文案进入执行、`content_route_card（内容路由卡）`、主体承载、API 生成人物 1 次 / 2 次、PPT / 信息卡 / Prompt 引用尾卡、是否沉淀工作包。
+
+执行要求：
+
+- 必须先输出 `content_route_inference_function`，再生成 `content_route_card（内容路由卡）`。
+- `content_route_card` 必须引用本函数的判断，解释为什么这条内容这样承载。
+- 缺 `validation_goal（验证目标）`、`core_evidence（核心证据）`、`middle_carrier（中段承载）` 或 `flow_flex_reason（流程变化原因）`，不得进入视频执行。
+
+#### quality_issue_classifier（质量短板分类器）
+
+触发条件：
+
+- 用户反馈“不对 / 怪 / 不顺 / demo 感”。
+- 技术通过但内容、人感、声音、剪辑、证据、画面、卡片密度、主持壳职责或 reference 偏离不舒服。
+- 任务涉及 `quality_lock_card（质量锁卡）` 或质量复审。
+
+执行要求：
+
+- 必须先输出 `quality_issue_classifier`，再决定改文案、改剪辑、做声音复审、做 reference deviation check 或 blocked。
+- 必须定位唯一最高优先级短板；不能同时改多个核心变量后再解释结果。
+- 必须区分 `technical_validation（技术验证）` 和 `content_validation（内容验证）`。
+- 缺复审对象、用户反馈对象、灰度数据或需要用户听感 / 审美判断时，必须 blocked 或 human_review_required。
+
+完成判断硬规则：
+
+1. 命中任一函数触发条件但未输出对应函数，不得写 `completed（已完成）`。
+2. 三个函数任一 required 字段缺失，不得写 `completed（已完成）`。
+3. 只写卡片名、动作名或问题列表，不算推理函数落地。
+4. 若本轮是机制修补，fixture / 最小样例必须覆盖三个函数的正常判断与 blocked 判断。
+
 ### 2E-2. Completion Relay Gate（补全接力闸门）
 
 `Completion Relay Gate（补全接力闸门）` 用来连接：

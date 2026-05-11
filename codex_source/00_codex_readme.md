@@ -152,6 +152,12 @@ DeepSeek 供料中控最小入口：
 - `review_variable_card（复盘变量卡）` 负责把发布前 / 发布后复盘收束到单变量观察，不等于最终内容判断。
 - 三张卡是判断机制，不是固定 SOP；若供料来源为 `fallback_local_only（本地兜底）`，仍必须写 `not_deepseek_conclusion = true` 并复核原文件。
 
+三大机制推理函数执行入口：
+- `content_route_card（内容路由卡）` 必须由 `content_route_inference_function（内容路由推理函数）` 生成或引用其判断；缺 `validation_goal / core_evidence / flow_flex_reason` 时不得进入视频执行。
+- `editing_decision_pack（剪辑决策包）` 必须由 `editing_inference_function（剪辑推理函数）` 生成或引用其判断；缺素材证据、时间码或上下文保护判断时不得写完成。
+- `quality_lock_card（质量锁卡）` 必须调用 `quality_issue_classifier（质量短板分类器）`；用户反馈“不对 / 怪 / 不顺 / demo 感”时先分类最高优先级短板，再决定下一轮只改一个变量。
+- 三个函数统一使用 `input_signal -> observed_evidence -> state_inference -> action_policy -> validation_rule -> blocked_if -> feedback_update`，不是固定 SOP，不推进动态状态。
+
 ## 3B. ChatGPT -> Codex 补全接力入口
 
 当 Codex 收到 ChatGPT 的完整执行单、横向补全包或包含 `Goal` / `Context` / `Constraints` / `Impact check` / `Must read` / `Execution steps` / `Done when` / `Blocked if` / `Output` 的任务时，不得只按显性用户点名动作执行。

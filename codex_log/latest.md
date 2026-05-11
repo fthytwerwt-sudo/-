@@ -1,5 +1,24 @@
 # Latest
 
+## 20260512｜三大机制推理函数落地
+
+- `已确认` 本轮在《视频工厂｜OPC 一人公司 AI 闭环验证系统》中一次性落地三大机制推理函数：`editing_inference_function（剪辑推理函数）`、`content_route_inference_function（内容路由推理函数）`、`quality_issue_classifier（质量短板分类器）`。
+- `已更新` GPT Project / ChatGPT 侧最高机制入口：`GPT数据源/11_项目状态动作总控器_机制推理层.md`，三大函数均补齐 `input_signal -> observed_evidence -> state_inference -> action_policy -> validation_rule -> blocked_if -> feedback_update` 结构。
+- `已更新` Codex 执行侧入口：`codex_source/19_project_state_action_router.md`，明确命中剪辑、内容承载、质量复审时，必须先输出对应推理函数；缺函数结果不得生成卡片 / 决策包，不得进入视频执行，不得写 `completed（已完成）`。
+- `已更新` Codex 执行规则：`codex_source/01_execution_rules.md`，新增三大机制推理函数前置闸门，要求命中相关任务时先输出函数结果，并把 fixture / 最小样例纳入机制修补完成条件。
+- `已同步` `GPT数据源/05_文案路由规则.md`：`content_route_card（内容路由卡）` 明确为 `content_route_inference_function（内容路由推理函数）` 的输出卡；`editing_decision_pack（剪辑决策包）` 明确由 `editing_inference_function（剪辑推理函数）` 推理后生成。
+- `已同步` `GPT数据源/07_AI知识类视频价值规则.md`：`quality_lock_card（质量锁卡）` 必须调用 `quality_issue_classifier（质量短板分类器）`，先定位唯一最高优先级短板，再决定下一轮只改一个变量。
+- `已同步` `codex_source/00_codex_readme.md`、`GPT数据源/10_OPC一人公司闭环与多AI协作机制.md`、`GPT数据源/01_项目系统提示词.md`、`GPT数据源/03_总索引与阅读顺序.md`，把三函数纳入默认接手、OPC 闭环、GPT Project 系统提示和总索引。
+- `已新增` 最小测试样例：`codex_source/fixtures/mechanism_inference_function_cases.json`，覆盖三个函数各 2 个 case：正常判断 + blocked / human_review_required 判断。
+- `已确认` 本轮是机制口径、路由口径、执行口径、验收口径补全；不是视频内容口径、发布状态口径、声音最终方案口径或商业化成立口径。
+- `边界`：三大函数已写入并通过结构 / 关键词 / fixture 可解析检查后可作为后续任务前置机制；但长期真实任务稳定性仍是 `待验证`，不得写成机制长期稳定验证通过。
+- `未修改`：`dist/latest_review_pack/`、视频 / 图片 / 音频 / 时间线 / 字幕 / TTS / 媒体产物、`GPT 数据源/` 历史静态目录。
+- `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）`、`voice_validation（声音验证状态）`、`final_voice_validated（最终声音验证状态）`、`visual_master_locked（视觉母版锁定）`。
+- `未调用`：DeepSeek / 阿里 / TTS / voice cloning / 图片生成 / 视频生成 API。
+- `未读取`：`.env`、`.env.swp`、API key、token、secret。
+- `日志`：`codex_log/20260512_三大机制推理函数落地_core_inference_functions_landing.md`
+- `下一个目标`：用下一条真实内容执行或复审任务验证三大函数能否稳定阻断“只写动作名 / 只写卡片 / 技术通过当内容通过”的旧问题。
+
 ## 20260512｜参考到执行落地契约落地
 
 - `已确认` 本轮在《视频工厂｜OPC 一人公司 AI 闭环验证系统》中正式落地 `Reference-to-Execution Contract（参考到执行落地契约）`。
