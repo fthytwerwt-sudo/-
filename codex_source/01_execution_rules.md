@@ -25,13 +25,16 @@
 6. 若任务命中复杂任务、机制修补、文案执行、视频执行、复盘、数据回填、GPT Project 静态包同步或 Codex 执行结果回审，在 `codex_log/latest.md` 之后优先读：
    - `codex_source/19_project_state_action_router.md`
    - `GPT数据源/11_项目状态动作总控器_机制推理层.md`
-7. 若任务命中“execution lane / parallel gate / 是否适合提速 / 是否适合并发 / lane recommendation / parallel recommendation”，在 `codex_log/latest.md` 之后优先读：
+7. 若任务命中 `reference（参考）`、样片、参考图、参考视频、参考声音、参考效果、“按这个做”、原感稿或外部资料并要求落地，在 `state_action_router（项目状态动作总控器）` 之后、具体执行前必须读：
+   - `GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md`
+   - `codex_source/20_reference_to_execution_contract.md`
+8. 若任务命中“execution lane / parallel gate / 是否适合提速 / 是否适合并发 / lane recommendation / parallel recommendation”，在 `codex_log/latest.md` 之后优先读：
    - `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md`
    - `codex_source/13_execution_lane_and_parallel_rules.md`
-8. 若任务命中“当前待发对象 / 当前最新样片 / 发布线复核 / 当前唯一 blocker / 只改这一条内容”，在 `codex_log/latest.md` 之后优先读：
+9. 若任务命中“当前待发对象 / 当前最新样片 / 发布线复核 / 当前唯一 blocker / 只改这一条内容”，在 `codex_log/latest.md` 之后优先读：
    - `codex_log/current_publish_target.md`
    - 若需要快速复核当前样片的 Git 可追踪轻量证据，再读 `codex_log/current_publish_target_light_evidence.md`
-9. 若任务命中“截图 / 数据截图 / 截图数据录入 / 灰度测试 / 发片 / 发布后 / 复盘 / 数据记录 / 24h / 72h / 7 天 / 播放量 / 完播率 / 留存 / 私信 / 咨询 / 下一轮只改一个变量”，在 `current_publish_target` 之后优先读：
+10. 若任务命中“截图 / 数据截图 / 截图数据录入 / 灰度测试 / 发片 / 发布后 / 复盘 / 数据记录 / 24h / 72h / 7 天 / 播放量 / 完播率 / 留存 / 私信 / 咨询 / 下一轮只改一个变量”，在 `current_publish_target` 之后优先读：
    - `codex_log/current_gray_test_target.md`
    - `review_loop/00_review_loop_readme.md`
    - `review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`
@@ -45,18 +48,18 @@
    - `review_loop/screenshots/V001_v31_AI做PPT踩坑/screenshot_manifest.md`
    - `review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
    - `project_source/14_content_review_and_loop_governance_rules.md`
-10. `codex_source/01_execution_rules.md`
-11. `codex_source/02_current_execution_context.md`
-12. `codex_source/03_research_findings_bridge.md`
-13. 当前任务直接相关的 `project_source/*`
-14. 命中价值 / 文案 / 结尾卡时，读 `codex_source/11_ai_knowledge_video_value_bridge.md`
-15. 命中“什么算已知”时，读 `codex_source/12_codex_known_state_three_layer_rules.md`
-16. 命中“完整成片 / 成品候选片 / 技术预览升级成候选片 / 样片回炉 / 开头重做 / 中段剪辑 / 字幕修正 / TTS 修正 / 功能卡修正 / 结果差卡修正 / 骚萌卡修正 / 录屏放大修正 / 视觉母版修正”时，读：
+11. `codex_source/01_execution_rules.md`
+12. `codex_source/02_current_execution_context.md`
+13. `codex_source/03_research_findings_bridge.md`
+14. 当前任务直接相关的 `project_source/*`
+15. 命中价值 / 文案 / 结尾卡时，读 `codex_source/11_ai_knowledge_video_value_bridge.md`
+16. 命中“什么算已知”时，读 `codex_source/12_codex_known_state_three_layer_rules.md`
+17. 命中“完整成片 / 成品候选片 / 技术预览升级成候选片 / 样片回炉 / 开头重做 / 中段剪辑 / 字幕修正 / TTS 修正 / 功能卡修正 / 结果差卡修正 / 骚萌卡修正 / 录屏放大修正 / 视觉母版修正”时，读：
    - `codex_source/14_locked_reference_inheritance_rules.md`
    - `codex_source/locked_reference_registry.md`
-17. 命中 v3.1 / 卡片视觉路由 / 段落提示卡 / 信息卡 / 骚萌卡三路拆分时，再读：
+18. 命中 v3.1 / 卡片视觉路由 / 段落提示卡 / 信息卡 / 骚萌卡三路拆分时，再读：
    - `codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md`
-18. 命中 commit / push / reading branch 回流时，再读 `codex_source/08_branch_sync_and_reading_branch_rules.md`
+19. 命中 commit / push / reading branch 回流时，再读 `codex_source/08_branch_sync_and_reading_branch_rules.md`
 
 当前仓库现实 `已确认`：
 
@@ -157,6 +160,7 @@ route_decision:
 - 发布复盘 / 数据回填
 - GPT Project 静态包同步
 - Codex 执行结果回审
+- reference / 样片 / 参考效果落地
 - 用户反馈“不对 / 怪 / 不顺”
 - 发现旧口径残留、事实源冲突、灰度数据缺失、供料不足
 
@@ -190,6 +194,59 @@ state_action_router:
 4. 如果本轮改变下一轮默认判断，必须更新 `codex_log/latest.md`、dated log 或相关机制入口。
 5. `state_action_router` 先判断该做什么；`Completion Relay Gate（补全接力闸门）` 再保证做到底。两者缺一不可。
 6. 如果 `Completion Relay Gate（补全接力闸门）` 没输出，Codex 不得写 `completed`。
+
+## 2A-2. Reference-to-Execution Contract Gate 参考到执行落地契约闸门
+
+`Reference-to-Execution Contract Gate（参考到执行落地契约闸门）` 必须放在 `Project State Action Router Gate（项目状态动作总控闸门）` 之后、具体执行之前。
+
+命中以下任一信号时，必须触发本闸门：
+
+- 用户给 `reference（参考）`。
+- 用户给样片、参考图、参考视频、参考声音、原感稿或外部资料。
+- 用户说“按这个做”“像这个效果”“不要偏离 reference”。
+- 任务涉及 `locked reference（锁定参考）`、`visual route（视觉路由）`、`quality sample（质量样片）`、文案风格、剪辑效果、声音感觉、视觉外壳、卡片结构、节奏和人感。
+
+执行前必须输出：
+
+```text
+reference_to_execution_contract:
+  reference_anchor:
+  effect_targets:
+  function_fields:
+  execution_mapping:
+  deviation_check:
+  done_when:
+  blocked_if:
+```
+
+判断规则：
+
+```text
+if task_contains_reference = true:
+  require reference_to_execution_contract
+
+if reference_missing = true:
+  blocked unless user explicitly allows no-reference mode
+
+if effect_targets_missing = true:
+  do not execute, ask ChatGPT/user to fill
+
+if function_fields_missing = true:
+  do not execute, create contract first
+
+if deviation_check_missing = true:
+  do not claim completed
+```
+
+硬规则：
+
+1. 没有 `reference_to_execution_contract（参考到执行契约）`，不得执行带 reference 的任务。
+2. 只写“参考某图 / 参考某视频 / 参考某样片”不算契约。
+3. 只写“风格类似”不算 `effect_targets（效果目标）`。
+4. 如果 reference 缺失，不能说“已按参考执行”。
+5. 如果执行结果与 reference 关键效果偏离，不能写 `completed（已完成）`。
+6. DeepSeek / Perplexity 摘要只能辅助供料，不得替代原 reference contract。
+7. 本闸门不推进 `content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）`、`voice_validation（声音验证）`、`final_voice_validated（最终声音验证）` 或 `visual_master_locked（视觉母版锁定）`。
 
 ## 2B. 任务类型与必读文件映射
 

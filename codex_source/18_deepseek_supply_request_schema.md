@@ -300,12 +300,17 @@ content_route_card
 
 ```json
 {
-  "script_blocks": [],
-  "segments": [],
-  "content_route_card": {},
-  "visual_asset_requirements": [],
-  "api_generation_targets": [],
-  "image_prompt_specs": [],
+	  "script_blocks": [],
+	  "segments": [],
+	  "content_route_card": {},
+	  "reference_anchor": {},
+	  "effect_targets": {},
+	  "function_fields": {},
+	  "deviation_check": {},
+	  "done_when_contract": {},
+	  "visual_asset_requirements": [],
+	  "api_generation_targets": [],
+	  "image_prompt_specs": [],
   "asset_validation_criteria": [],
   "assembly_slots": [],
   "fallback_plan": "",
@@ -324,6 +329,7 @@ content_route_card
 
 - DeepSeek / fallback 只基于文字样料供料，不读取媒体文件。
 - DeepSeek / fallback 不读取 `.env`、API key、token 或密钥文件。
+- DeepSeek / fallback 可辅助携带 `reference_anchor`、`effect_targets`、`function_fields`、`deviation_check`、`done_when_contract`，但这些字段只能作为供料样料，不替代 ChatGPT / Codex 正式生成的 `Reference-to-Execution Contract（参考到执行落地契约）`。
 - 本轮机制测试不调用阿里 API 或其他真实生成 API。
 - `api_asset_generation_pack（API 素材生成包）` 只能生成计划、prompt、验收和降级方案；未来真实 API 调用必须用户明确授权。
 - `image_prompt_pack（图片 prompt 包）` 默认不让图片模型生成中文可读文字；如需文字，应由后期卡片层处理。

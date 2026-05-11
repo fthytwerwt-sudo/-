@@ -1,0 +1,273 @@
+# 参考到执行落地契约 Reference-to-Execution Contract
+
+## 1. 文件定位
+
+本文件负责把用户目标、`reference（参考）`、样片、原感稿、外部资料、视觉 / 声音 / 文案 / 剪辑参考，转换成 Codex 可执行函数字段和可验证标准。
+
+它不是 reference 仓库，不替代当前事实，不直接推进内容验证。
+
+`Reference-to-Execution Contract（参考到执行落地契约）` 是一层中间机制：
+
+```text
+reference / 样片 / 用户目标
+-> reference_anchor
+-> effect_targets
+-> function_fields
+-> deviation_check
+-> done_when
+-> feedback_update
+```
+
+它解决的问题是：用户和 ChatGPT 已经给了 reference、样片或目标效果，但执行层只抓到表面风格，缺少可执行、可验证、可纠偏的字段。
+
+## 2. 触发条件
+
+出现以下任一情况，必须触发 `Reference-to-Execution Contract（参考到执行落地契约）`：
+
+- 用户说“按这个参考做”。
+- 用户给参考视频 / 参考图 / 参考声音 / 样片 / 原感稿 / 外部资料。
+- 用户说“像这个效果”。
+- 用户说“这次不要和 reference 偏离”。
+- 任务涉及 `reference / locked reference / visual route / quality sample`。
+- 任务涉及文案风格、剪辑效果、声音感觉、视觉外壳、卡片结构、节奏和人感。
+- Codex 需要根据 reference 生成或修改产物。
+
+如果触发条件成立，ChatGPT 不得把 reference 原样平移给 Codex，必须先生成本契约字段。
+
+## 3. Reference Anchor（参考锚点）
+
+`reference_anchor（参考锚点）` 用来锁住 reference 的来源、类型、可用性和继承边界。
+
+```text
+reference_anchor:
+  reference_id:
+  reference_type:
+    - visual_reference
+    - editing_reference
+    - copywriting_reference
+    - voice_reference
+    - quality_reference
+    - raw_feeling_reference
+    - external_research_reference
+  source_layer:
+    - user_provided
+    - repo_locked_reference
+    - perplexity_reference_pack
+    - previous_output_sample
+  exact_reference_available:
+  reference_path_or_description:
+  must_preserve:
+  can_vary:
+  must_not_copy:
+  fail_if_missing:
+  blocked_if_reference_missing:
+```
+
+字段要求：
+
+- `reference_id`：能复核的参考编号、文件名、路径、用户描述或外部资料标题。
+- `reference_type`：必须选出 reference 的实际用途，不得只写“参考一下”。
+- `source_layer`：必须说明它来自用户、仓库锁定 reference、Perplexity 外部资料包，还是上一轮样片。
+- `exact_reference_available`：必须写 true / false；看不到原 reference 时不得写已按参考执行。
+- `must_preserve`：必须保留的效果、功能或质量点。
+- `can_vary`：允许变化的表达、尺寸、素材、段落、镜头或话术。
+- `must_not_copy`：不能照抄、不能侵权、不能机械复刻、不能迁移的点。
+- `fail_if_missing`：缺了就不算完成的 reference 要点。
+- `blocked_if_reference_missing`：reference 缺失时是否阻断。
+
+## 4. Effect Targets（效果目标）
+
+`effect_targets（效果目标）` 用来把 reference 的“感觉像”拆成可验收目标。
+
+```text
+effect_targets:
+  viewer_feeling:
+  information_hierarchy:
+  pacing:
+  visual_weight:
+  evidence_clarity:
+  human_like_comfort:
+  reference_quality_points:
+  emotional_tone:
+  not_allowed_effects:
+```
+
+字段要求：
+
+- `viewer_feeling`：观众看完应该产生什么感受，例如清楚、轻松、有真实感、有结果差、有陪伴感。
+- `information_hierarchy`：主信息、辅助信息、证据、情绪点的层级。
+- `pacing`：节奏、停顿、镜头切换或文案推进速度。
+- `visual_weight`：画面重心、卡片密度、人物 / 录屏 / 信息卡权重。
+- `evidence_clarity`：真实证据是否清楚可见，是否被装饰素材抢走。
+- `human_like_comfort`：声音、文案、节奏和画面是否让人舒服，不像硬播报或硬拼接。
+- `reference_quality_points`：reference 真正有价值的质量点，不只写颜色或形状。
+- `emotional_tone`：情绪口径，例如低压、轻吐槽、平静、可爱但不幼稚。
+- `not_allowed_effects`：不允许出现的效果，例如 AI 感、水印感、说明书感、过度 PPT 感、假证据感。
+
+## 5. Function Fields（执行函数字段）
+
+`function_fields（执行函数字段）` 用来让 Codex 在执行前知道：输入信号是什么、该做什么、为什么做、怎么验收、失败时怎么回退。
+
+```text
+function_fields:
+  input_signal:
+  evidence_role:
+  importance_type:
+  target_area:
+  selected_action:
+  action_reason:
+  validation_rule:
+  blocked_if:
+  fallback_action:
+  feedback_update:
+```
+
+字段要求：
+
+- `input_signal`：触发本契约的用户表达、reference、样片、素材或外部资料。
+- `evidence_role`：reference 在本轮是质量锚点、执行样式、反例、语气锚点、节奏锚点还是研究线索。
+- `importance_type`：必须继承、可选继承、只作反例、只作外部参考。
+- `target_area`：作用到视觉、文案、声音、剪辑、质量复审、素材验收、装配或复盘。
+- `selected_action`：执行侧要采取的具体动作。
+- `action_reason`：为什么这个动作能保护 reference 的关键效果。
+- `validation_rule`：执行后如何检查是否达到效果目标。
+- `blocked_if`：什么情况必须停。
+- `fallback_action`：reference 缺失、冲突或不可比时的降级动作。
+- `feedback_update`：结果如何写回 latest、dated log、review pack 或下一轮任务。
+
+## 6. Execution Mapping（执行映射）
+
+不同任务类型必须先生成对应 contract，再进入具体执行：
+
+```text
+editing_task:
+  must produce editing_reference_contract before editing
+
+copywriting_task:
+  must produce copy_reference_contract before final draft
+
+visual_task:
+  must produce visual_reference_contract before image / card / layout generation
+
+voice_task:
+  must produce voice_reference_contract before TTS / voice validation
+
+quality_review_task:
+  must produce quality_reference_contract before pass / fail judgment
+```
+
+执行映射要求：
+
+- `editing_task（剪辑任务）`：先说明 reference 的节奏、切点、证据窗口、不能偏离的观感，再决定放大、裁切、定格、插卡或不动。
+- `copywriting_task（文案任务）`：先提取原感、句式、情绪、信息层级和不可丢失的用户目标，再写成稿。
+- `visual_task（视觉任务）`：先锁视觉外壳职责、密度、角色权重、卡片层级和禁用效果，再生成图片 / 卡片 / layout。
+- `voice_task（声音任务）`：先拆 `tts_pacing_reference（TTS 节奏参考）` 与 `tts_voice_reference（TTS 音色参考）`，不得把候选音色写成最终通过。
+- `quality_review_task（质量复审任务）`：先用 reference contract 定义 pass / fail 的对照点，再做质量判断。
+
+## 7. Deviation Check（偏离检查）
+
+`deviation_check（偏离检查）` 用来判断执行结果是否偏离 reference 的关键效果。
+
+```text
+deviation_check:
+  differs_from_reference_where:
+  acceptable_variation:
+  unacceptable_deviation:
+  repair_required:
+  cannot_compare_reason:
+  human_review_required:
+```
+
+硬规则：
+
+- 如果 reference 缺失，不能说“已按参考执行”。
+- 如果 reference 只是外部资料，不得写成 repo 已确认事实。
+- 如果执行结果与 reference 关键效果偏离，不能写 `completed`。
+- 如果只是颜色 / 形状像，但效果目标不一致，必须写 `deviation（偏离）`。
+- 如果 reference 与当前项目状态冲突，以当前项目事实和 `Project State Action Router（项目状态动作总控器）` 裁决为准。
+- 如果无法比较，必须写 `cannot_compare_reason（无法比较原因）`，不得把无法比较写成符合 reference。
+- 如果偏离需要用户审美判断，必须写 `human_review_required = true`。
+
+## 8. Done When（完成验收）
+
+带 reference 的任务只有满足以下条件，才能写完成：
+
+```text
+done_when:
+  reference_anchor_locked:
+  effect_targets_filled:
+  function_fields_filled:
+  deviation_check_done:
+  user_goal_preserved:
+  no_forbidden_status_promotion:
+  remaining_deviation_list_empty_or_explained:
+```
+
+验收解释：
+
+- `reference_anchor_locked`：reference 的来源、类型、可用性和保留边界已经写清。
+- `effect_targets_filled`：效果目标不空，不只写“风格类似”。
+- `function_fields_filled`：Codex 已知道执行动作、理由、验证规则和阻断条件。
+- `deviation_check_done`：执行后已经检查偏离。
+- `user_goal_preserved`：用户真正想要的效果没有被表面风格覆盖。
+- `no_forbidden_status_promotion`：没有推进 `content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked`。
+- `remaining_deviation_list_empty_or_explained`：剩余偏离为空，或已解释为什么暂时接受 / 待用户复审。
+
+## 9. 与现有机制的关系
+
+`Reference-to-Execution Contract（参考到执行落地契约）` 与现有机制分工如下：
+
+- `Project State Action Router（项目状态动作总控器）`：判断当前是否进入 `reference_contract_needed（需要参考到执行契约）` 状态。
+- `Reference-to-Execution Contract`：把 reference 拆成可执行字段和可验收标准。
+- `Completion Relay Gate（补全接力闸门）`：保证契约相关交付项被做完、被验证、被回写。
+- `DeepSeek（只读供料层）`：可帮助压缩文字化资料、列风险和文件地图，但不替代 contract。
+- `Perplexity（外部研究层）`：可形成外部 reference pack 或 raw feeling draft，但不得直接升级成项目已确认事实。
+- `Codex（唯一写入执行层 / Integrator）`：按 contract 执行、偏离检查、验证、日志和 Git 收尾。
+
+## 10. 最小输出模板
+
+每次用户给 reference 后，ChatGPT / GPT Project 至少输出：
+
+```text
+reference_to_execution_contract:
+  reference_anchor:
+    reference_id:
+    reference_type:
+    source_layer:
+    exact_reference_available:
+    reference_path_or_description:
+    must_preserve:
+    can_vary:
+    must_not_copy:
+    fail_if_missing:
+    blocked_if_reference_missing:
+  effect_targets:
+    viewer_feeling:
+    information_hierarchy:
+    pacing:
+    visual_weight:
+    evidence_clarity:
+    human_like_comfort:
+    reference_quality_points:
+    emotional_tone:
+    not_allowed_effects:
+  function_fields:
+    input_signal:
+    evidence_role:
+    importance_type:
+    target_area:
+    selected_action:
+    action_reason:
+    validation_rule:
+    blocked_if:
+    fallback_action:
+    feedback_update:
+  execution_mapping:
+  deviation_check:
+  done_when:
+  blocked_if:
+```
+
+## 11. 一句话规则
+
+**凡是用户给 reference / 样片 / 原感稿 / 外部资料并要求 Codex 落地，必须先生成 `Reference-to-Execution Contract（参考到执行落地契约）`；没有契约，不进入执行。**

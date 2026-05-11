@@ -13,7 +13,7 @@
 - 当前正式默认主线是什么
 - 当前主读取分支是什么
 - GPT 数据源与仓库不同步时，谁算源事实
-- 当前 10 份基础执行包 + OPC 总纲 + 状态动作总控器默认该怎么读
+- 当前 10 份基础执行包 + OPC 总纲 + 状态动作总控器 + 参考到执行落地契约默认该怎么读
 
 ## 2. `codex_source/` 负责什么
 
@@ -31,7 +31,7 @@
 - 单条脚本内容
 - 代码实现细节
 
-当前项目正式事实正文属于 `GPT数据源/` 当前 10 份基础执行包 + OPC 总纲 + 状态动作总控器；`project_source/` 只作为历史 / 辅助主题化镜像，不再作为当前主事实源。代码实现细节仍归代码层。
+当前项目正式事实正文属于 `GPT数据源/` 当前 10 份基础执行包 + OPC 总纲 + 状态动作总控器 + 参考到执行落地契约；`project_source/` 只作为历史 / 辅助主题化镜像，不再作为当前主事实源。代码实现细节仍归代码层。
 
 `归档删除区_archive_delete_zone/` 只用于隔离旧口径、旧入口、旧产物候选与清单；默认不得读取，不得作为当前事实、当前执行入口或当前复审入口。
 
@@ -46,10 +46,12 @@
 5. `GPT数据源/10_OPC一人公司闭环与多AI协作机制.md`
 6. `GPT数据源/11_项目状态动作总控器_机制推理层.md`
 7. `codex_source/19_project_state_action_router.md`
-8. `GPT数据源/01_项目系统提示词.md`
-9. `GPT数据源/03_总索引与阅读顺序.md`
-10. `GPT数据源/08_当前正式事实.md`
-11. `GPT数据源/06_当前主线锚点_API生成真人_用户录制素材_少量PPT_云端剪辑.md`
+8. `GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md`
+9. `codex_source/20_reference_to_execution_contract.md`
+10. `GPT数据源/01_项目系统提示词.md`
+11. `GPT数据源/03_总索引与阅读顺序.md`
+12. `GPT数据源/08_当前正式事实.md`
+13. `GPT数据源/06_当前主线锚点_API生成真人_用户录制素材_少量PPT_云端剪辑.md`
 
 每次 Codex 执行前必须先通过 `route_decision（路由判断）`；未输出项目路由、任务类型、责任层级、必读文件与读取状态前，不得执行。
 
@@ -82,6 +84,33 @@ input_signal
 `state_action_router` 不替代 `route_decision（路由判断）`；它只补充“当前状态 -> 下一动作”。
 
 `state_action_router` 也不替代 `Completion Relay Gate（补全接力闸门）`；前者判断该做什么，后者保证做到底并反查剩余工作。
+
+## 3A-1. Reference-to-Execution Contract 执行入口
+
+命中 `reference（参考）`、样片、参考图、参考视频、参考声音、参考效果、“按这个做”、“像这个效果”、原感稿或外部资料并要求落地时，Codex 必须先读：
+
+- `GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md`
+- `codex_source/20_reference_to_execution_contract.md`
+
+并在具体执行前输出：
+
+```text
+reference_to_execution_contract:
+  reference_anchor:
+  effect_targets:
+  function_fields:
+  execution_mapping:
+  deviation_check:
+  done_when:
+  blocked_if:
+```
+
+硬规则：
+
+- 没有契约，不得执行带 reference 的任务。
+- 没有 `deviation_check（偏离检查）`，不得写 `completed（已完成）`。
+- DeepSeek / Perplexity 摘要只能辅助供料，不得替代 reference contract。
+- reference 与当前项目事实冲突时，以 `Project State Action Router（项目状态动作总控器）` 和当前仓库正式事实裁决。
 
 ## 3A. OPC 上位身份与多 AI 协作入口
 
@@ -156,7 +185,7 @@ Codex 的纵向补全不能替 ChatGPT 偷懒；ChatGPT 仍必须在上游提供
 
 当前正式来源优先级：
 1. GitHub / 本地 `main` 上的当前仓库文件
-2. `GPT数据源/` 当前 10 份基础执行包 + `10_OPC一人公司闭环与多AI协作机制.md` + `11_项目状态动作总控器_机制推理层.md`
+2. `GPT数据源/` 当前 10 份基础执行包 + `10_OPC一人公司闭环与多AI协作机制.md` + `11_项目状态动作总控器_机制推理层.md` + `12_参考到执行落地契约_reference_to_execution_contract.md`
 3. `codex_log/latest.md`，重要结论仍需回查直接源文件
 4. `dist/latest_review_pack/summary.json`
 5. `dist/latest_review_pack/review_manifest.md`

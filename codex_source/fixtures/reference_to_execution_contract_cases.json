@@ -1,0 +1,178 @@
+{
+  "schema_name": "reference_to_execution_contract_cases",
+  "schema_version": "1.0",
+  "cases": [
+    {
+      "case_id": "visual_reference_given",
+      "input_signal": "用户给参考图并说按这个卡片效果做",
+      "reference_type": "visual_reference",
+      "reference_available": true,
+      "expected_state": "reference_contract_needed",
+      "expected_contract_required": true,
+      "expected_function_fields": [
+        "reference_anchor",
+        "effect_targets",
+        "function_fields",
+        "deviation_check",
+        "done_when"
+      ],
+      "expected_deviation_check": "compare layout role, visual weight, card density, evidence clarity, forbidden copy risk",
+      "forbidden_action": "generate visual asset or claim style matched before visual_reference_contract exists",
+      "done_when": "visual_reference_contract completed and deviation_check explains acceptable and unacceptable variation",
+      "blocked_if": "reference image missing or effect_targets only say style similar"
+    },
+    {
+      "case_id": "editing_reference_given",
+      "input_signal": "用户给样片并要求按这个剪辑节奏做",
+      "reference_type": "editing_reference",
+      "reference_available": true,
+      "expected_state": "reference_contract_needed",
+      "expected_contract_required": true,
+      "expected_function_fields": [
+        "input_signal",
+        "evidence_role",
+        "target_area",
+        "selected_action",
+        "validation_rule",
+        "fallback_action"
+      ],
+      "expected_deviation_check": "compare pacing, cut points, zoom/crop decisions, evidence windows, context preservation",
+      "forbidden_action": "edit timeline directly from surface style or write completed without deviation_check",
+      "done_when": "editing_reference_contract maps reference pacing to concrete cut/hold/zoom/do-not-touch decisions",
+      "blocked_if": "source segments or reference timing cannot be compared"
+    },
+    {
+      "case_id": "copywriting_raw_feeling_reference_given",
+      "input_signal": "用户给原感稿并要求保留味道后再改文案",
+      "reference_type": "raw_feeling_reference",
+      "reference_available": true,
+      "expected_state": "reference_contract_needed",
+      "expected_contract_required": true,
+      "expected_function_fields": [
+        "viewer_feeling",
+        "emotional_tone",
+        "information_hierarchy",
+        "must_preserve",
+        "must_not_copy"
+      ],
+      "expected_deviation_check": "compare preserved user intent, tone, rhythm, loss of raw feeling, over-polished AI wording",
+      "forbidden_action": "rewrite directly into generic polished copy",
+      "done_when": "copy_reference_contract locks raw feeling and separates preserved intent from editable wording",
+      "blocked_if": "raw feeling cannot be identified or user goal is unclear"
+    },
+    {
+      "case_id": "voice_reference_given",
+      "input_signal": "用户给参考声音并要求声音像游戏向导但不要 AI 播报",
+      "reference_type": "voice_reference",
+      "reference_available": true,
+      "expected_state": "reference_contract_needed",
+      "expected_contract_required": true,
+      "expected_function_fields": [
+        "tts_pacing_reference",
+        "tts_voice_reference",
+        "human_like_comfort",
+        "not_allowed_effects",
+        "human_review_required"
+      ],
+      "expected_deviation_check": "separate pacing reference from voice candidate and compare comfort, pauses, tone, AI broadcast risk",
+      "forbidden_action": "write voice_validation passed or final_voice_validated true from candidate reference",
+      "done_when": "voice_reference_contract separates pacing and timbre, keeps final voice status pending unless user validates",
+      "blocked_if": "reference audio unavailable or true listening comparison is required but absent"
+    },
+    {
+      "case_id": "quality_sample_reference_given",
+      "input_signal": "用户给质量样片并要求后续不要偏离这个质量",
+      "reference_type": "quality_reference",
+      "reference_available": true,
+      "expected_state": "reference_contract_needed",
+      "expected_contract_required": true,
+      "expected_function_fields": [
+        "reference_quality_points",
+        "fail_if_missing",
+        "validation_rule",
+        "unacceptable_deviation",
+        "repair_required"
+      ],
+      "expected_deviation_check": "compare quality points, evidence strength, human comfort, visual polish, demo-feeling risk",
+      "forbidden_action": "treat quality sample as a fixed flow or claim content_validation passed",
+      "done_when": "quality_reference_contract defines pass/fail points without promoting content status",
+      "blocked_if": "quality points are not extracted or sample is only loosely described"
+    },
+    {
+      "case_id": "reference_missing_but_user_says_match_it",
+      "input_signal": "用户说按之前那个参考做，但本轮找不到 reference",
+      "reference_type": "unknown_reference",
+      "reference_available": false,
+      "expected_state": "reference_contract_needed",
+      "expected_contract_required": true,
+      "expected_function_fields": [
+        "reference_missing",
+        "cannot_compare_reason",
+        "blocked_if_reference_missing",
+        "fallback_action",
+        "human_review_required"
+      ],
+      "expected_deviation_check": "cannot compare until exact reference is provided or user explicitly allows no-reference mode",
+      "forbidden_action": "claim matched reference or execute from memory",
+      "done_when": "blocked or no-reference fallback is explicitly authorized and recorded",
+      "blocked_if": "exact_reference_available is false and no user waiver exists"
+    },
+    {
+      "case_id": "reference_conflicts_with_current_project_state",
+      "input_signal": "用户给外部参考，但它要求把当前灰度状态写成内容通过",
+      "reference_type": "external_research_reference",
+      "reference_available": true,
+      "expected_state": "reference_contract_needed_with_state_conflict",
+      "expected_contract_required": true,
+      "expected_function_fields": [
+        "fact_source_arbitration",
+        "must_not_copy",
+        "not_allowed_effects",
+        "blocked_if",
+        "feedback_update"
+      ],
+      "expected_deviation_check": "state conflict must be resolved by Project State Action Router before execution",
+      "forbidden_action": "promote content_validation, send_ready, publish_status, voice_validation, final_voice_validated, or visual_master_locked",
+      "done_when": "contract records conflict and current repo facts win unless user explicitly changes scope and repo is updated",
+      "blocked_if": "execution requires forbidden status promotion"
+    },
+    {
+      "case_id": "codex_output_without_deviation_check",
+      "input_signal": "Codex 已做出产物但没有对照 reference 做偏离检查",
+      "reference_type": "quality_reference",
+      "reference_available": true,
+      "expected_state": "reference_contract_incomplete",
+      "expected_contract_required": true,
+      "expected_function_fields": [
+        "deviation_check",
+        "repair_required",
+        "remaining_deviation_list_empty_or_explained",
+        "completion_state_inference"
+      ],
+      "expected_deviation_check": "must be added before completed can be claimed",
+      "forbidden_action": "write completed from technical execution only",
+      "done_when": "deviation_check is completed and completion_state_inference permits completed",
+      "blocked_if": "result cannot be compared to reference or human review is required"
+    },
+    {
+      "case_id": "perplexity_reference_pack_to_codex_execution",
+      "input_signal": "Perplexity 形成外部资料参考包，ChatGPT 要交给 Codex 执行",
+      "reference_type": "external_research_reference",
+      "reference_available": true,
+      "expected_state": "reference_contract_needed",
+      "expected_contract_required": true,
+      "expected_function_fields": [
+        "source_layer",
+        "evidence_role",
+        "importance_type",
+        "selected_action",
+        "validation_rule",
+        "feedback_update"
+      ],
+      "expected_deviation_check": "external research can supply targets but cannot become confirmed repo fact without repo sync",
+      "forbidden_action": "treat Perplexity summary as repo-confirmed fact or skip contract",
+      "done_when": "ChatGPT converts reference pack into contract and Codex verifies repo facts before execution",
+      "blocked_if": "external claim conflicts with current formal repo facts"
+    }
+  ]
+}

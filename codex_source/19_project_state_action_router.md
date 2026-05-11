@@ -11,6 +11,7 @@
 - `AGENTS.md` 的 `route_decision（路由判断）`
 - `codex_source/01_execution_rules.md` 的执行规则
 - `Completion Relay Gate（补全接力闸门）`
+- `Reference-to-Execution Contract（参考到执行落地契约）`
 - `GPT数据源/08_当前正式事实.md`
 - `dist/latest_review_pack/summary.json`
 
@@ -47,7 +48,7 @@ state_action_router:
 - `fact_source_arbitration`：说明以哪个事实源为准；若冲突，写裁决结果。
 - `inferred_state`：对当前状态的判断，不是动作名。
 - `confidence`：只能写 `high / medium / low`。
-- `trigger_mechanism`：触发的下层机制，例如 `review_loop`、`content_route_card`、`editing_inference_function`、`quality_issue_classifier`、`Completion Relay Gate`。
+- `trigger_mechanism`：触发的下层机制，例如 `review_loop`、`content_route_card`、`editing_inference_function`、`quality_issue_classifier`、`Reference-to-Execution Contract`、`Completion Relay Gate`。
 - `selected_action`：本轮最小可执行动作。
 - `forbidden_action`：本轮明确禁止动作，尤其是状态推进、API、secret、媒体产物修改。
 - `done_when`：本轮动作完成标准。
@@ -68,6 +69,7 @@ P0:
 P1:
   - mechanism_written_but_unverified
   - Codex partial completion risk
+  - reference_contract_needed
   - missing inference function
   - GPT Project package stale
 
@@ -94,6 +96,9 @@ if state = gray_test_waiting_data:
 if state = mechanism_repair_needed:
   action = repair specified mechanism only, do not touch video status
 
+if state = reference_contract_needed:
+  action = create or require Reference-to-Execution Contract before concrete execution
+
 if state = editing_inference_needed:
   action = create or use editing_inference_function before editing
 
@@ -116,6 +121,7 @@ if state = blocked_need_user_input:
 - `post_publish_review`：必须有足够数据再判断 6000 门槛、短板层和下一轮唯一变量。
 - `material_audit_needed`：先判断素材用途、证据强度和缺口，不直接生成或改动媒体。
 - `voice_review_needed`：只做声音问题归因和候选复审，不写最终声音通过，不调用 TTS / voice cloning API。
+- `reference_contract_needed`：只把 reference / 样片 / 目标效果转换为 `reference_anchor`、`effect_targets`、`function_fields`、`deviation_check`、`done_when`，不得直接执行媒体、文案终稿或状态推进。
 
 ## 5. 事实源裁决规则
 
@@ -137,6 +143,7 @@ if state = blocked_need_user_input:
 | User current explicit instruction vs repo old fact | current instruction guides this round; sync to repo to become durable fact |
 | DeepSeek supply vs original repo files | original repo files win |
 | Perplexity reference vs repo formal facts | repo formal facts win |
+| Reference-to-Execution Contract vs repo formal facts | repo formal facts win |
 | technical_validation vs content_validation | content_validation cannot be upgraded by technical_validation |
 | target_state_plan vs current_formal_fact | current_formal_fact wins |
 | latest.md vs older dated logs | latest.md wins, then verify direct source files |
@@ -152,11 +159,24 @@ if state = blocked_need_user_input:
 4. 如果 `state_action_router` 没输出，Codex 不得进入执行。
 5. 如果 `Completion Relay Gate` 没输出，Codex 不得写 `completed`。
 
+`Reference-to-Execution Contract（参考到执行落地契约）` 插入在 `state_action_router` 和具体执行之间：
+
+```text
+input_signal = reference_provided / sample_reference_given / target_effect_given
+-> current_project_state = reference_contract_needed
+-> trigger_mechanism = Reference-to-Execution Contract
+-> selected_action = create reference_to_execution_contract before concrete execution
+-> Codex execution only after reference_anchor / effect_targets / function_fields / deviation_check / done_when are complete
+```
+
+如果任务带 reference，但没有 reference contract，Codex 必须 `blocked` 或先要求补齐 contract，不得直接执行。
+
 推荐执行链：
 
 ```text
 route_decision
 -> state_action_router
+-> reference_to_execution_contract if reference_contract_needed
 -> required_output_inventory
 -> child_task_graph
 -> execution
