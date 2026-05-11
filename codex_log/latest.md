@@ -1,5 +1,21 @@
 # Latest
 
+## 20260512｜机制落地化审计与推理层蓝图
+
+- `已确认` 本轮是《视频工厂｜OPC 一人公司 AI 闭环验证系统》机制落地化审计，不是视频执行、样片修改、内容验证推进或 DeepSeek / 阿里 / TTS API 调用。
+- `已确认` 已生成审计报告：`codex_log/20260512_机制落地化审计与推理层蓝图.md`。
+- `已确认` 本轮 Must read 文件全部 `read_ok`，当前分支为 `main`；未跟踪 `.env.swp` 未读取、未触碰、未纳入本轮改动。
+- `机制落地性结论`：当前项目已有 14 个核心机制；约 4 个具备较完整或局部可执行推理链，约 10 个仍缺统一 `机制推理函数`。
+- `P0`：`editing_decision_pack（剪辑决策包）` 已有动作枚举和字段，但缺“什么点该放大 / 不该放大 / 放大会不会切断上下文 / 素材不清时是否 blocked”的推理函数。
+- `P0`：`content_route_card（内容路由卡）` 缺从内容类型、素材证据、结果差、平台风险推断承载结构、API 人物次数、PPT / 尾卡使用方式的函数。
+- `P0`：`quality_lock_card（质量锁卡）` 缺质量短板归因函数，尚不能稳定判断问题在声音、节奏、剪辑、证据、画面、卡片密度还是人感。
+- `部分成立`：`review_loop（复盘闭环）` 是当前最接近推理函数的机制，已有“数据 -> 短板层 -> 单变量动作 -> 指标验证”链条；但 V001 真实数据和缺失字段仍待回填。
+- `蓝图`：建议新增 `Mechanism Inference Layer（机制推理层）`，包含 `trigger_router`、`signal_taxonomy`、`state_inference`、`action_policy`、`validation_rule`、`feedback_update` 六个模块。
+- `未修改`：`dist/latest_review_pack/`、视频 / 图片 / 音频 / 时间线产物、`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）`、`voice_validation（声音验证状态）`、`final_voice_validated（最终声音验证状态）`、`visual_master_locked（视觉母版锁定）`。
+- `未调用`：DeepSeek / 阿里 / TTS / voice cloning / 图片生成 / 视频生成 API。
+- `未读取`：`.env`、API key、token、secret。
+- `下一个目标`：先把 `editing_decision_pack（剪辑决策包）` 补成可执行的 `editing_inference_function（剪辑推理函数）`，让 Codex 能按“信号 -> 状态推测 -> 动作选择 -> 验证 -> 反馈更新”判断中段该放大什么、该保留什么、什么时候必须 blocked。
+
 ## 20260512｜GPT Project 最新版上传包生成
 
 - `已确认` 已生成最新版 GPT Project 静态上传包：`/Users/fan/Documents/视频工厂/GPT_Project_上传包_OPC_20260512/`。
