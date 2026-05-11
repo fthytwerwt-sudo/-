@@ -1,5 +1,21 @@
 # Latest
 
+## 20260512｜项目残缺审计 project_gap_audit
+
+- `已确认` 本轮是《视频工厂｜OPC 一人公司 AI 闭环验证系统》项目残缺审计，不是视频执行、样片修改、内容验证推进或 DeepSeek / 阿里 / TTS API 调用。
+- `已确认` 已生成审计报告：`codex_log/20260512_项目残缺审计_project_gap_audit.md`。
+- `已确认` 本轮 Must read 文件全部 `read_ok`，未发现 missing / unreadable。
+- `P0`：`codex_log/current_publish_target.md` 仍残留旧分支 / 旧同步口径，和当前 `main` 主读取分支规则不一致。
+- `P0`：v3.1 灰度测试 24h / 72h / 7d 数据仍未回填，无法判断 6000 播放基础门槛、短板层和下一轮唯一变量。
+- `P1`：`V001_missing_fields.md` 未真实列出缺失字段，容易把“没有数据”误读成“没有缺失”。
+- `P1`：`Completion Relay Gate（补全接力闸门）` 已写入，但长期执行效果仍需真实修补任务验证。
+- `P1`：DeepSeek / `execution_supply_pack family` 仍不能写成稳定真实供料链路。
+- `未修改`：`dist/latest_review_pack/`、视频 / 图片 / 音频 / 时间线产物、`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）`、`voice_validation（声音验证状态）`、`final_voice_validated（最终声音验证状态）`、`visual_master_locked（视觉母版锁定）`。
+- `未调用`：DeepSeek / 阿里 / TTS / voice cloning / 图片生成 / 视频生成 API。
+- `未读取`：`.env`、API key、token、secret。
+- `当前机制状态`：审计报告写入与缺口分级为 `已确认`；`Completion Relay Gate（补全接力闸门）` 长期防止 Codex 做一半提前收工的效果仍是 `待验证`。
+- `下一个目标`：先把 `current_publish_target.md` 的旧分支残留和 v3.1 `review_loop` 缺失字段显示修到不会误导新会话，再用这一轮修补反向验证 `Completion Relay Gate（补全接力闸门）` 是否能真正执行到底。
+
 ## 20260512｜Completion Relay Gate 补全接力闸门机制修补
 
 - `已确认` 本轮是机制修补，不是视频执行、样片修改、内容验证推进或 DeepSeek / 阿里 / TTS API 调用。
