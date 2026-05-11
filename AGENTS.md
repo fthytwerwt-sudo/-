@@ -44,15 +44,17 @@
 命中《视频工厂》后，默认先读：
 1. `GPT数据源/00_项目总述.md`
 2. `GPT数据源/10_OPC一人公司闭环与多AI协作机制.md`
-3. `GPT数据源/01_项目系统提示词.md`
-4. `GPT数据源/03_总索引与阅读顺序.md`
-5. `GPT数据源/08_当前正式事实.md`
-6. `GPT数据源/06_当前主线锚点_API生成真人_用户录制素材_少量PPT_云端剪辑.md`
-7. `codex_source/00_codex_readme.md`
-8. `codex_log/latest.md`
+3. `GPT数据源/11_项目状态动作总控器_机制推理层.md`
+4. `GPT数据源/01_项目系统提示词.md`
+5. `GPT数据源/03_总索引与阅读顺序.md`
+6. `GPT数据源/08_当前正式事实.md`
+7. `GPT数据源/06_当前主线锚点_API生成真人_用户录制素材_少量PPT_云端剪辑.md`
+8. `codex_source/00_codex_readme.md`
+9. `codex_source/19_project_state_action_router.md`
+10. `codex_log/latest.md`
 
 当前《视频工厂》正式来源顺序：
-1. `GPT数据源/` 当前 10 份基础执行包 + `10_OPC一人公司闭环与多AI协作机制.md`
+1. `GPT数据源/` 当前 10 份基础执行包 + `10_OPC一人公司闭环与多AI协作机制.md` + `11_项目状态动作总控器_机制推理层.md`
 2. `codex_log/latest.md`
 3. `dist/latest_review_pack/summary.json`
 4. `dist/latest_review_pack/review_manifest.md`
@@ -65,9 +67,9 @@ GPT Project 上传包地址规则：
 - 规范上传包目录必须包含：`上传说明_UPLOAD_MANIFEST.md`。
 - 旧 `GPT 数据源/` 只按历史静态包理解；`GPT数据源/` 只按 GitHub 动态事实目录理解；两者都不等于默认上传包目录。
 
-`project_source/` 只作为历史 / 辅助主题化镜像，不得默认高于 `GPT数据源/` 当前 10 份基础执行包 + `10_OPC一人公司闭环与多AI协作机制.md`、`codex_log/latest.md` 或 `dist/latest_review_pack/`。
+`project_source/` 只作为历史 / 辅助主题化镜像，不得默认高于 `GPT数据源/` 当前 10 份基础执行包 + `10_OPC一人公司闭环与多AI协作机制.md` + `11_项目状态动作总控器_机制推理层.md`、`codex_log/latest.md` 或 `dist/latest_review_pack/`。
 
-`归档删除区_archive_delete_zone/` 只作为旧口径隔离、旧入口隔离、旧产物候选和清单区使用，不得作为默认读取入口，不得高于 `GPT数据源/` 当前 10 份基础执行包 + `10_OPC一人公司闭环与多AI协作机制.md`、`codex_log/latest.md`、`dist/latest_review_pack/` 或当前执行规则层。
+`归档删除区_archive_delete_zone/` 只作为旧口径隔离、旧入口隔离、旧产物候选和清单区使用，不得作为默认读取入口，不得高于 `GPT数据源/` 当前 10 份基础执行包 + `10_OPC一人公司闭环与多AI协作机制.md` + `11_项目状态动作总控器_机制推理层.md`、`codex_log/latest.md`、`dist/latest_review_pack/` 或当前执行规则层。
 
 当前已确认：
 - `current_reading_branch = main（当前唯一远端主线 / 默认主读取分支）`
@@ -83,6 +85,7 @@ GPT Project 上传包地址规则：
   - `Codex（唯一写入执行层 / Integrator）`
   - `DeepSeek（只读供料层 / Explorer）`
   - `Perplexity（外部研究层）`
+- 当前最高机制入口已包含 `Project State Action Router（项目状态动作总控器）`：命中复杂任务、机制修补、文案执行、视频执行、复盘、数据回填、GPT Project 静态包同步或 Codex 执行结果回审时，先读 `GPT数据源/11_项目状态动作总控器_机制推理层.md` 与 `codex_source/19_project_state_action_router.md`，输出 `state_action_router（项目状态动作总控器）` 后再执行。
 - `DeepSeek（只读供料层 / Explorer）` 默认只做预读、上下文压缩、必读文件地图和风险冲突报告，不写文件、不拍板项目事实。
 - `Codex（唯一写入执行层 / Integrator）` 默认负责复核原文件、修改仓库、验证、日志和 Git 收尾。
 - Codex 收到 ChatGPT 完整执行单、横向补全包、多文件机制修补或“不要只做一半 / 执行到底”类任务时，必须触发 `Completion Relay Gate（补全接力闸门）`，先生成 `required_output_inventory（必须交付清单）` 与 `child_task_graph（子任务树）`，再执行并做 `remaining_work_check（剩余工作检查）`。

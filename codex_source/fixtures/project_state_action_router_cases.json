@@ -1,0 +1,134 @@
+{
+  "schema": "project_state_action_router_cases_v1",
+  "description": "Minimum router fixtures for Project State Action Router in 视频工厂 OPC project.",
+  "cases": [
+    {
+      "case_id": "user_uploads_gray_test_screenshot",
+      "input_signal": "用户上传 v3.1 灰度测试截图或平台数据。",
+      "repo_state": {
+        "publish_status": "gray_test_published",
+        "gray_test_status": "active",
+        "gray_test_data_missing": true
+      },
+      "expected_state": "gray_test_data_intake",
+      "expected_trigger_mechanism": "review_loop / data intake",
+      "expected_action": "按 video_id、时间窗和数据类型录入字段，更新缺失字段记录。",
+      "forbidden_action": "不得把截图直接写成内容通过或下一轮唯一变量已确定。",
+      "done_when": "数据字段、证据路径和 missing fields 已更新。",
+      "blocked_if": "缺 video_id、时间窗或数据类型。"
+    },
+    {
+      "case_id": "user_gives_final_script",
+      "input_signal": "用户给最终文案或要求按文案进入执行。",
+      "repo_state": {
+        "current_project_core_value": "真实 AI 使用经验 + 工作提效实录",
+        "content_route_card_exists": false
+      },
+      "expected_state": "content_route_needed",
+      "expected_trigger_mechanism": "content_route_card + execution_supply_pack family",
+      "expected_action": "先生成 content_route_card，判断主体承载、API 人物次数、PPT 和尾卡是否出现。",
+      "forbidden_action": "不得绕过内容路由直接生成视频执行单。",
+      "done_when": "内容承载结构、证据来源、禁用项和执行供料需求清楚。",
+      "blocked_if": "文案目标、受众、素材证据或状态边界不清。"
+    },
+    {
+      "case_id": "user_gives_raw_material",
+      "input_signal": "用户给录屏、图片、音频或素材说明。",
+      "repo_state": {
+        "material_audit_exists": false,
+        "media_modification_allowed": false
+      },
+      "expected_state": "material_audit_needed",
+      "expected_trigger_mechanism": "material_audit / evidence detail report",
+      "expected_action": "只读审计素材用途、证据强度、缺口和 blocked 条件。",
+      "forbidden_action": "不得直接修改素材、生成视频或推进内容状态。",
+      "done_when": "素材可用 / 待补 / blocked 边界和下一步机制清楚。",
+      "blocked_if": "素材不可读、来源不明或用户未授权使用。"
+    },
+    {
+      "case_id": "codex_reports_done",
+      "input_signal": "Codex 声称执行完成。",
+      "repo_state": {
+        "required_output_inventory_has_open_items": true,
+        "completion_relay_gate_required": true
+      },
+      "expected_state": "mechanism_repair_needed",
+      "expected_trigger_mechanism": "Completion Relay Gate + completion_state_inference",
+      "expected_action": "反查 required_output_inventory、验证、日志、禁止状态和同步回写后再判定完成态。",
+      "forbidden_action": "不得只按局部文件已写就声明 completed。",
+      "done_when": "剩余工作检查完成，所有必交付项关闭且验证通过。",
+      "blocked_if": "任一必交付项未完成或验证失败。"
+    },
+    {
+      "case_id": "user_says_not_right",
+      "input_signal": "用户反馈“不对 / 怪 / 不顺”。",
+      "repo_state": {
+        "quality_issue_classifier_exists": false,
+        "target_artifact_identified": true
+      },
+      "expected_state": "quality_review_needed",
+      "expected_trigger_mechanism": "quality_issue_classifier",
+      "expected_action": "先归类为方向、结构、证据、剪辑、声音、质量、路由或状态冲突，再选择动作。",
+      "forbidden_action": "不得直接重做、乱改素材或推进通过状态。",
+      "done_when": "问题类别、证据、下一动作和验证标准清楚。",
+      "blocked_if": "用户反馈没有对应对象、片段或可复核证据。"
+    },
+    {
+      "case_id": "old_branch_residue_found",
+      "input_signal": "发现旧分支、旧 PR、旧 GPT 数据源或历史镜像口径残留。",
+      "repo_state": {
+        "current_reading_branch": "main",
+        "old_source_residue_detected": true
+      },
+      "expected_state": "mechanism_repair_needed",
+      "expected_trigger_mechanism": "old_source_residue_repair",
+      "expected_action": "按事实源裁决机制降权旧口径，更新入口或日志。",
+      "forbidden_action": "不得让旧口径覆盖 GitHub main 当前事实。",
+      "done_when": "入口不再误导新会话，冲突来源和裁决依据写清。",
+      "blocked_if": "无法判断旧口径影响范围或需要修改禁止状态。"
+    },
+    {
+      "case_id": "gray_test_data_missing",
+      "input_signal": "灰度 24h / 72h / 7d 数据未完整回填。",
+      "repo_state": {
+        "gray_test_status": "active",
+        "missing_fields_exist": true,
+        "content_validation": "gray_testing_not_final_passed"
+      },
+      "expected_state": "gray_test_waiting_data",
+      "expected_trigger_mechanism": "missing_fields explicit + wait for data",
+      "expected_action": "写明缺哪些字段，只做等待、补字段或观察。",
+      "forbidden_action": "不得判断 6000 播放门槛、短板层或下一轮唯一变量。",
+      "done_when": "缺失字段列表和用户需补数据清楚。",
+      "blocked_if": "用户要求结论但数据仍不足。"
+    },
+    {
+      "case_id": "gpt_project_package_stale",
+      "input_signal": "GPT Project 静态包落后于 GitHub main 或新增最高机制入口。",
+      "repo_state": {
+        "github_main_is_primary_source": true,
+        "static_package_stale": true
+      },
+      "expected_state": "gpt_project_sync_needed",
+      "expected_trigger_mechanism": "static_package_regeneration",
+      "expected_action": "重新生成 GPT Project 静态上传包、上传说明清单，并更新 current_local_artifact_paths.md。",
+      "forbidden_action": "不得写成 GPT Project UI 已上传成功或内容验证通过。",
+      "done_when": "新包目录、manifest 和路径索引均存在并通过检查。",
+      "blocked_if": "无法创建包目录、缺关键文件或 manifest 缺失。"
+    },
+    {
+      "case_id": "deepseek_fallback_only",
+      "input_signal": "发现 DeepSeek fallback_local_only、供料不足或缺上下文。",
+      "repo_state": {
+        "supply_source": "fallback_local_only",
+        "original_files_reviewed": false
+      },
+      "expected_state": "mechanism_repair_needed",
+      "expected_trigger_mechanism": "supply_need_inference or local-only route",
+      "expected_action": "标记 not_deepseek_conclusion，复核原文件，判断 local-only 是否足够；不足则 blocked。",
+      "forbidden_action": "不得写 DeepSeek 真实参与或用供料包替代原文件。",
+      "done_when": "供料来源、原文件复核、是否 blocked 和下一安全动作清楚。",
+      "blocked_if": "必须调用外部 API、读取 secret 或缺关键原文件才能继续。"
+    }
+  ]
+}
