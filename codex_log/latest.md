@@ -1,5 +1,23 @@
 # Latest
 
+## 20260514｜《AI 到底赚不赚钱》4:3 带 TTS 完整正片候选生成
+
+- `已确认` 本轮生成《今天就说一个事：AI 到底能不能赚钱？》的 `4:3 带 TTS 完整正片候选`，不是字幕版技术样片，也不是纯技术预览。
+- `输出目录`：`dist/20260514_AI到底赚不赚钱_4_3_final_candidate/`
+- `full.mp4`：`dist/20260514_AI到底赚不赚钱_4_3_final_candidate/full.mp4`，`1440x1080`，时长 `243.85s`，`audio_present = true`，`decode_ok = true`，`technical_validation = passed`。
+- `TTS / narration`：已生成 `dist/20260514_AI到底赚不赚钱_4_3_final_candidate/narration.wav`，共 `81` 个 TTS 分段，时长 `243.85s`，`pcm_s16le / 48000Hz / mono`，可被 `ffmpeg` 解码。
+- `声音路线`：本轮使用项目既有安全 TTS 路线，目标模型 `qwen3-tts-vc-realtime-2026-01-15`，声音底子为脱敏 `qwen-t...ac19`；`voice_generation_validation = passed_for_generation_needs_human_review`。不得写成 `voice_validation = passed`，不得写成 `final_voice_validated = true`。
+- `素材进入时间线`：三段用户真实录屏素材均已读取并进入时间线；`material_02` 承载粽子 / 婚纱样片，`material_01` 承载电商成本倒推，`material_03` 承载 Codex 本地项目执行系统。FocuSee 原始运镜按 `direct_cut_by_script` 保留，不做默认二次 zoom / crop / 重新运镜。
+- `内容边界`：`10 分钟 / 22 元 / 半小时 / 20 多` 仍写为用户经验陈述，不写成素材画面直接证明；`material_03` 不写成 Codex 并发执行两个任务；不写 AI 自动赚钱，不写保证收益。
+- `已生成` `content_route_card V2（内容路由卡 V2）`：`dist/20260514_AI到底赚不赚钱_4_3_final_candidate/content_route_card_v2.json`，包含开头路线、三段素材证据计划、FocuSee 中段策略、总结卡、TTS 计划和平台风险说明。
+- `字幕 / 卡片`：已生成 `captions.srt`、原创梗图感开头、结尾 `judgment_card（判断卡）`；抽帧与安全区检查未发现字幕 / 卡片遮挡核心证据的 must-fix。
+- `平台风险初查`：`risk_level = caution`；未命中 `hard_block` 或 `rewrite_required`。本轮已把高风险表达 `自动赚钱` 改写为安全否定表达；发布前仍需人工复审标题、描述和平台 AI 标识。
+- `未读取 / 未写出`：未读取 `.env` / `.env.swp`，未打印或写出 API key、token、secret。
+- `未修改`：用户原始三段素材、`dist/latest_review_pack/`、当前复审包状态文件、当前发布目标。
+- `未推进`：`content_validation = pending_user_chatgpt_review`，`send_ready = false`，`publish_status = not_advanced`，`visual_master_locked`、`voice_validation`、`final_voice_validated` 均不推进。
+- `日志`：`codex_log/20260514_ai_money_4_3_final_candidate_assembly.md`
+- `下一个目标`：用户 / ChatGPT 对 `full.mp4` 做内容、声音和发布文案复审，决定是否只改一个变量进入下一轮。
+
 ## 20260514｜4:3 画面比例技术装配修正
 
 - `已确认` 本轮只做《视频工厂｜OPC 一人公司 AI 闭环验证系统》的 4:3 画面比例技术装配修正，不做内容验证，不推进发布状态，不改原始素材，不调用外部 API。
