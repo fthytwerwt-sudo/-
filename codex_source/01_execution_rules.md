@@ -617,6 +617,9 @@ input_signal（输入信号）
 - 必须先输出 `editing_inference_function`，再生成 `editing_decision_pack（剪辑决策包）`。
 - `editing_decision_pack` 必须写明每个动作对应的 `state_inference`、`action_policy`、`validation_rule` 和 `blocked_if`。
 - 如果素材不可读、时间码不清、证据点不可见、放大会切断必要上下文，必须 blocked 或 keep_full_frame；不得凭感觉剪。
+- 当素材被标记为 `focusee_3d_motion_recording（FocuSee 3D 运镜录屏）` 或 `recording_layer_motion_baked_in（录制层运镜已内置）` 时，Codex 不得默认二次放大，不得默认裁切重构视角，不得把“自动放大”当成中段剪辑完成标准。
+- FocuSee 自带运镜素材的默认执行动作是：按最终文案识别时间码、切分段落、删除等待 / 重复 / 空白 / 失败操作、衔接口播 / 字幕 / 卡片，并保留原始 `3D Motion（3D 运镜）` 节奏。
+- 若 FocuSee 运镜后的关键证据仍看不清，必须写 `blocked_or_needs_rerecording（阻断或需补录）`，不得用猜测继续剪；只有关键证据未覆盖、关键文字不可读、结果差未展示清楚或用户明确要求二次增强时，才允许判断辅助放大 / 定格 / 卡片。
 
 #### content_route_inference_function（内容路由推理函数）
 

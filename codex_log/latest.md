@@ -1,5 +1,22 @@
 # Latest
 
+## 20260513｜FocuSee 中段剪辑职责机制修补
+
+- `已确认` 本轮只做《视频工厂｜OPC 一人公司 AI 闭环验证系统》的 FocuSee 中段剪辑职责机制修补，不生成视频，不修改媒体，不推进内容状态。
+- `已更新` `GPT数据源/05_文案路由规则.md（文案路由规则）`：新增 `3D-2. FocuSee 自带运镜录屏素材的中段剪辑边界`，明确 FocuSee 自带 `3D Motion（3D 运镜）` / 自动跟随 / 自动观看引导时，默认视为 `recording_layer_motion_baked_in（录制层运镜已内置）`。
+- `已更新` `GPT数据源/11_项目状态动作总控器_机制推理层.md（状态动作总控器与机制推理层）`：`editing_inference_function（剪辑推理函数）` 新增 `direct_cut_required`、`keep_original_motion`、`no_secondary_zoom_by_default`、`secondary_zoom_allowed_only_if_evidence_unclear` 等状态与动作策略。
+- `已更新` `codex_source/19_project_state_action_router.md（Codex 状态动作路由）`：Codex 执行侧同步 FocuSee 自带运镜素材的 `state_inference / action_policy / not_allowed` 规则。
+- `已更新` `codex_source/01_execution_rules.md（Codex 执行规则）`：当素材标记为 `focusee_3d_motion_recording（FocuSee 3D 运镜录屏）` 或 `recording_layer_motion_baked_in（录制层运镜已内置）` 时，Codex 不得默认二次放大、裁切重构视角或把自动放大当成中段剪辑完成标准。
+- `新规则`：FocuSee 自带运镜素材默认不再由 Codex 二次 zoom / crop / 重新运镜；Codex 改为按最终文案识别时间码、切分段落、删冗余、保留原始运镜、衔接口播 / 字幕 / 卡片。
+- `允许例外`：只有 FocuSee 运镜未覆盖关键证据点、关键文字仍不可读、结果差未展示清楚，或用户明确要求二次剪辑增强时，才允许判断辅助放大 / 定格 / 卡片；仍不得破坏 FocuSee 原有运镜节奏或抢走真实录屏证据。
+- `未修改`：`dist/latest_review_pack/`、视频 / 图片 / 音频 / 字幕 / 时间线 / 任何媒体产物、`GPT 数据源/` 历史静态目录。
+- `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）`、`voice_validation（声音验证状态）`、`final_voice_validated（最终声音验证状态）`、`visual_master_locked（视觉母版锁定）`。
+- `未调用`：DeepSeek / 阿里 / TTS / voice cloning / 图片生成 / 视频生成 API。
+- `未读取`：`.env`、`.env.swp`、API key、token、secret。
+- `状态边界`：FocuSee 录制层运镜职责边界写入为 `已确认`；真实视频任务长期效果仍是 `待验证`，不得写成已在真实 FocuSee 成片中长期验证通过。
+- `日志`：`codex_log/20260513_focusee_middle_editing_route_fix.md`
+- `下一个目标`：下一条使用 FocuSee 录屏素材的真实执行任务中，验证 Codex 是否能按文案直接剪辑并保留原始 3D 运镜，而不是默认二次放大。
+
 ## 20260512｜三大机制推理函数落地
 
 - `已确认` 本轮在《视频工厂｜OPC 一人公司 AI 闭环验证系统》中一次性落地三大机制推理函数：`editing_inference_function（剪辑推理函数）`、`content_route_inference_function（内容路由推理函数）`、`quality_issue_classifier（质量短板分类器）`。
