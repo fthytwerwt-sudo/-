@@ -1,5 +1,22 @@
 # Latest
 
+## 20260514｜content_route_card V2 与机制推理测试样例补全
+
+- `已确认` 本轮只做《视频工厂｜OPC 一人公司 AI 闭环验证系统》的机制推理测试样例与 `content_route_card V2（内容路由卡 V2）` 输出模板补全，不生成视频，不修改媒体，不推进内容状态。
+- `已更新` `codex_source/fixtures/mechanism_inference_function_cases.json（机制推理函数测试样例）`：在保留旧 6 个 case 的基础上新增 7 个 case，覆盖 FocuSee 直接剪辑、FocuSee 证据不清 blocked、梗图 GIF 开头、元素娃娃开头、反转卡位置、总结卡位置、卡片打断 FocuSee 证据窗口 blocked。
+- `已更新` `GPT数据源/05_文案路由规则.md（文案路由规则）`：新增 `content_route_card V2（内容路由卡 V2）` 标准输出模板，一次性判断 `validation_goal / opening_route_decision / core_evidence / middle_carrier_decision / focusee_middle_editing_decision / card_placement_decision / api_human_usage / ppt_usage / prompt_tail_card_usage / flow_flex_reason / blocked_if`。
+- `已轻量同步` `GPT数据源/11_项目状态动作总控器_机制推理层.md（项目状态动作总控器与机制推理层）`：明确 `content_route_card V2` 是 `content_route_inference_function（内容路由推理函数）` 的标准输出模板之一，fixture cases 是新增机制的最小验证样例。
+- `已轻量同步` `codex_source/19_project_state_action_router.md（Codex 状态动作路由）`：命中内容执行、视频执行、开头路由、中段剪辑或卡片位置时，Codex 必须输出 `content_route_card V2` 或等效完整字段；缺关键判断不得直接生成视频。
+- `已轻量同步` `codex_source/01_execution_rules.md（Codex 执行规则）`：涉及内容执行 / 视频执行 / 文案进入执行时，必须先生成 `content_route_card V2`；缺 `validation_goal / opening_route_decision / core_evidence / middle_carrier_decision / card_placement_decision / flow_flex_reason` 不得进入视频执行；素材来自 FocuSee 时必须额外填写 `focusee_middle_editing_decision`。
+- `已轻量同步` `GPT数据源/03_总索引与阅读顺序.md（总索引与阅读顺序）`：补充 `content_route_card V2` 模板位置和覆盖范围，方便新会话从索引定位。
+- `未修改`：`dist/latest_review_pack/`、视频 / 图片 / 音频 / 字幕 / 时间线 / TTS / 任何媒体产物、`GPT 数据源/` 历史静态目录。
+- `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）`、`voice_validation（声音验证状态）`、`final_voice_validated（最终声音验证状态）`、`visual_master_locked（视觉母版锁定）`。
+- `未调用`：DeepSeek / 阿里 / TTS / voice cloning / 图片生成 / 视频生成 API。
+- `未读取`：`.env`、`.env.swp`、API key、token、secret。
+- `状态边界`：fixture 样例写入和 V2 模板写入为 `已确认`；真实视频执行效果仍是 `待验证`，不得写成真实视频任务已验证通过。
+- `日志`：`codex_log/20260514_content_route_card_v2_and_fixture_cases.md`
+- `下一个目标`：下一条真实视频执行前，用 `content_route_card V2（内容路由卡 V2）` 验证 Codex / ChatGPT 能否一次性判断开头、中段、卡片、证据、API 人物、PPT、Prompt 尾卡和 blocked 条件。
+
 ## 20260514｜卡片位置路由机制补全
 
 - `已确认` 本轮只做《视频工厂｜OPC 一人公司 AI 闭环验证系统》的卡片位置路由机制补全，不生成视频，不修改媒体，不推进内容状态。

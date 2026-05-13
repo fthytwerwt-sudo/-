@@ -2,6 +2,7 @@
   "schema": "mechanism_inference_function_cases_v1",
   "description": "Minimum fixture cases for editing_inference_function, content_route_inference_function, and quality_issue_classifier in 视频工厂 OPC project.",
   "created_at": "2026-05-12T00:00:00+08:00",
+  "updated_at": "2026-05-14T00:00:00+08:00",
   "project_route": "video_factory",
   "status_boundary": {
     "content_validation": "not_changed",
@@ -240,6 +241,279 @@
       "expected_feedback_update": [
         "写入 blocked_need_user_input",
         "请求提供具体声音候选或片段"
+      ]
+    },
+    {
+      "case_id": "editing_focusee_direct_cut_keep_motion",
+      "function_name": "editing_inference_function",
+      "case_type": "normal_judgment",
+      "input_signal": [
+        "素材来自 FocuSee，且已自带 3D Motion / 自动跟随 / 自动观看引导。",
+        "最终文案已经标出中段对应段落和时间码。",
+        "录屏里存在等待、空白或重复操作，需要按文案直接剪掉。"
+      ],
+      "observed_evidence": {
+        "recording_source": "FocuSee",
+        "recording_layer_motion": "3D Motion + auto follow baked in",
+        "evidence_window": "clear",
+        "script_alignment": "timecode and segment mapping available",
+        "dead_time": "waiting / blank / repeated operations observed"
+      },
+      "expected_state_inference": [
+        "recording_layer_motion_baked_in",
+        "direct_cut_required",
+        "keep_original_motion",
+        "no_secondary_zoom_by_default"
+      ],
+      "expected_action_policy": [
+        "direct_cut_by_script",
+        "keep_original_focusee_motion",
+        "trim_dead_time",
+        "align_to_narration",
+        "preserve_evidence_window"
+      ],
+      "validation_rule": [
+        "保留 FocuSee 原始 3D 运镜。",
+        "按最终文案切分时间码。",
+        "删除等待 / 空白 / 重复操作。",
+        "不做默认二次 zoom / crop / 重新运镜。"
+      ],
+      "blocked_if": [],
+      "expected_feedback_update": [
+        "写入 editing_decision_pack",
+        "写入 focusee_middle_editing_decision",
+        "在 review_pack / log 标记 keep_original_focusee_motion"
+      ]
+    },
+    {
+      "case_id": "editing_focusee_evidence_unclear_blocked",
+      "function_name": "editing_inference_function",
+      "case_type": "blocked_or_safe_fallback",
+      "input_signal": [
+        "素材来自 FocuSee，且录制层已经自带运镜。",
+        "关键证据点在 FocuSee 运镜后仍不可读。",
+        "结果差需要观众看清，但素材无法确认。"
+      ],
+      "observed_evidence": {
+        "recording_source": "FocuSee",
+        "recording_layer_motion": "3D Motion baked in",
+        "evidence_window": "unclear",
+        "key_text_readability": "not readable",
+        "result_diff_confirmation": "not confirmed from source material"
+      },
+      "expected_state_inference": [
+        "recording_layer_motion_baked_in",
+        "evidence_window_unclear",
+        "secondary_zoom_allowed_only_if_evidence_unclear"
+      ],
+      "expected_action_policy": [
+        "blocked_if_key_evidence_unclear"
+      ],
+      "validation_rule": [
+        "如果关键证据仍不可读，不得靠猜测继续剪。",
+        "不得用默认二次 zoom 冒充解决。",
+        "必须标记 blocked_or_needs_rerecording 或等待用户授权二次增强。"
+      ],
+      "blocked_if": [
+        "FocuSee 运镜后关键文字仍不可读。",
+        "结果差无法从素材中确认。",
+        "用户未授权二次增强或补录。"
+      ],
+      "expected_feedback_update": [
+        "写入 blocked_or_needs_rerecording",
+        "写明关键证据不可读原因",
+        "不得推进 editing_decision_pack 为完成态"
+      ]
+    },
+    {
+      "case_id": "content_route_opening_meme_gif_ai_money",
+      "function_name": "content_route_inference_function",
+      "case_type": "normal_judgment",
+      "input_signal": [
+        "主题是“AI 到底能不能赚钱”。",
+        "opening_duration > 3s。",
+        "topic_emotion_level = high。",
+        "controversy_level = high。"
+      ],
+      "observed_evidence": {
+        "core_question": "AI 到底能不能赚钱？",
+        "opening_duration": ">3s",
+        "topic_emotion_level": "high",
+        "controversy_level": "high",
+        "opening_reference_type": "mechanism_only",
+        "middle_proof_source": "user_recording"
+      },
+      "expected_state_inference": [
+        "opening_route_needed",
+        "meme_gif_opening_hook_suitable"
+      ],
+      "expected_action_policy": [
+        "choose_meme_gif_opening_hook"
+      ],
+      "validation_rule": [
+        "梗图 GIF 只负责抓眼和抛问题。",
+        "不承担 proof。",
+        "不复刻参考图可识别资产。",
+        "中段真实录屏仍负责证明。"
+      ],
+      "blocked_if": [
+        "用户要求精确复刻参考图。",
+        "缺少可授权资产却要照搬人物 / 字体 / 构图。"
+      ],
+      "expected_feedback_update": [
+        "写入 content_route_card_v2",
+        "写入 opening_route_decision",
+        "保留 reference contract 的 must_not_copy 边界"
+      ]
+    },
+    {
+      "case_id": "content_route_opening_element_doll_low_pressure",
+      "function_name": "content_route_inference_function",
+      "case_type": "normal_judgment",
+      "input_signal": [
+        "普通 AI 工具讲解 / 复盘。",
+        "opening_duration <= 3s。",
+        "brand_consistency_need = high。",
+        "topic_emotion_level = low。"
+      ],
+      "observed_evidence": {
+        "content_type": "AI tool explanation / recap",
+        "opening_duration": "<=3s",
+        "brand_consistency_need": "high",
+        "topic_emotion_level": "low",
+        "controversy_level": "low",
+        "middle_proof_source": "user_recording"
+      },
+      "expected_state_inference": [
+        "opening_route_needed",
+        "element_doll_opening_suitable"
+      ],
+      "expected_action_policy": [
+        "choose_element_doll_opening"
+      ],
+      "validation_rule": [
+        "元素娃娃保留为合法路线。",
+        "不写成所有内容唯一默认。",
+        "不抢中段真实录屏证据。"
+      ],
+      "blocked_if": [],
+      "expected_feedback_update": [
+        "写入 content_route_card_v2",
+        "写入 opening_route_decision",
+        "说明品牌一致性 / 轻陪伴进入理由"
+      ]
+    },
+    {
+      "case_id": "content_route_card_reversal_between_negative_positive",
+      "function_name": "content_route_inference_function",
+      "case_type": "normal_judgment",
+      "input_signal": [
+        "文案有 negative_example。",
+        "文案有 reversal_point。",
+        "后面紧跟 positive_example。"
+      ],
+      "observed_evidence": {
+        "copy_function": "reversal_point",
+        "negative_example_exists": true,
+        "positive_example_follows": true,
+        "evidence_window_active": false,
+        "old_shot_position": "not used as placement rule"
+      },
+      "expected_state_inference": [
+        "card_placement_route_needed",
+        "reversal_card_needed"
+      ],
+      "expected_action_policy": [
+        "place_reversal_card_between_negative_and_positive"
+      ],
+      "validation_rule": [
+        "反转卡解释认知翻转。",
+        "不替代前后对比证据。",
+        "不固定旧 shot。"
+      ],
+      "blocked_if": [],
+      "expected_feedback_update": [
+        "写入 content_route_card_v2",
+        "写入 card_placement_decision",
+        "标记 reversal_card 的 copy_function 和 selected_position"
+      ]
+    },
+    {
+      "case_id": "content_route_card_summary_final_closure",
+      "function_name": "content_route_inference_function",
+      "case_type": "normal_judgment",
+      "input_signal": [
+        "文案有 conclusion_point。",
+        "文案有 next_action。",
+        "result_diff 已展示。"
+      ],
+      "observed_evidence": {
+        "copy_function": "conclusion / next_action",
+        "conclusion_point": "available",
+        "next_action": "available",
+        "result_diff": "already shown",
+        "evidence_window_active": false
+      },
+      "expected_state_inference": [
+        "card_placement_route_needed",
+        "summary_card_needed"
+      ],
+      "expected_action_policy": [
+        "place_summary_card_after_result_diff",
+        "place_summary_card_at_final_closure"
+      ],
+      "validation_rule": [
+        "总结卡用于压缩结论和最小行动。",
+        "不替代强证据。",
+        "不做密集 PPT。"
+      ],
+      "blocked_if": [],
+      "expected_feedback_update": [
+        "写入 content_route_card_v2",
+        "写入 card_placement_decision",
+        "标记 summary_card 的 selected_position 和 fallback_action"
+      ]
+    },
+    {
+      "case_id": "editing_card_interrupts_focusee_evidence_blocked",
+      "function_name": "editing_inference_function",
+      "case_type": "blocked_or_safe_fallback",
+      "input_signal": [
+        "FocuSee 录屏正在展示关键证据窗口。",
+        "文案建议插反转卡 / 总结卡。",
+        "插卡会打断证据连续性。"
+      ],
+      "observed_evidence": {
+        "recording_source": "FocuSee",
+        "recording_layer_motion": "3D Motion baked in",
+        "evidence_window": "clear",
+        "evidence_window_active": true,
+        "card_request": "summary_card / reversal_card",
+        "interrupt_risk": "high"
+      },
+      "expected_state_inference": [
+        "recording_layer_motion_baked_in",
+        "evidence_window_clear",
+        "card_insertion_interrupts_evidence",
+        "keep_evidence_window_uninterrupted"
+      ],
+      "expected_action_policy": [
+        "preserve_focusee_motion_when_card_not_required",
+        "blocked_if_card_breaks_evidence_window"
+      ],
+      "validation_rule": [
+        "卡片不得抢真实录屏证据。",
+        "若卡片打断证据窗口，应跳过、改位置或 blocked。",
+        "保留 FocuSee 原始运镜和输入 -> 结果因果链。"
+      ],
+      "blocked_if": [
+        "卡片会切断输入 -> 结果的因果链。",
+        "无替代插入位置。"
+      ],
+      "expected_feedback_update": [
+        "写入 editing_decision_pack",
+        "写入 card_placement_decision 的 interrupt_risk",
+        "如无安全插入点则回写 blocked_if_card_breaks_evidence_window"
       ]
     }
   ]

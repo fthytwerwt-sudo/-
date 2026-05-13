@@ -210,6 +210,7 @@ not_allowed:
 触发信号：
 
 - 任务涉及 `content_route_card（内容路由卡）`、内容表达文案进入执行、主体承载、API 生成真人次数、PPT / 信息卡 / Prompt 引用尾卡是否出现。
+- 任务涉及真实视频执行前的统一判断卡、`content_route_card V2（内容路由卡 V2）` 或等效完整字段。
 - 任务涉及 `opening_route_decision（开头路由判断）`、元素娃娃开头、梗图 GIF 开场、直接问题标题卡、录屏现场先行开头或开头参考图。
 - 任务涉及 `card_placement_decision（卡片位置判断）`、总结卡、反转卡、结果差卡、Prompt 尾卡或卡片位置路由。
 - 需要判断本轮是只做内容验证，还是值得沉淀三层 prompt 包 / 工作包。
@@ -231,7 +232,9 @@ content_route_inference_function:
 完成判断：
 
 - `content_route_card（内容路由卡）` 必须由本函数生成或引用本函数判断。
-- 缺 `validation_goal / opening_route_decision / core_evidence / middle_carrier / flow_flex_reason` 时，不得进入视频执行。
+- 涉及内容执行 / 视频执行 / 文案进入执行时，必须输出 `content_route_card V2（内容路由卡 V2）` 或等效完整字段，不得只输出零散开头、卡片或素材判断。
+- 缺 `validation_goal / opening_route_decision / core_evidence / middle_carrier_decision / card_placement_decision / flow_flex_reason` 时，不得进入视频执行。
+- 若素材来自 FocuSee，缺 `focusee_middle_editing_decision（FocuSee 中段剪辑判断）` 时，不得进入中段剪辑或视频执行。
 - 涉及总结卡、反转卡、结果差卡或 Prompt 尾卡时，缺 `card_placement_decision（卡片位置判断）` 不得进入视频执行。
 - 不得先定人物次数、PPT 数量或尾卡数量，再把文案硬塞进去。
 - 涉及开头时，不得绕过 `opening_route_decision（开头路由判断）` 直接生成开头。
