@@ -609,6 +609,7 @@ input_signal（输入信号）
 触发条件：
 
 - 任务涉及中段剪辑、录屏放大、裁切、定格、插卡、左右对比、证据窗口、`editing_decision_pack（剪辑决策包）`。
+- 任务涉及总结卡、反转卡、结果差卡、Prompt 尾卡的插入位置，或需要判断卡片是否会打断真实证据窗口。
 - 用户反馈看不清、不顺、硬拼接、上下文断裂。
 - reference / visual route / locked reference 要求保留证据窗口或剪辑节奏。
 
@@ -620,6 +621,8 @@ input_signal（输入信号）
 - 当素材被标记为 `focusee_3d_motion_recording（FocuSee 3D 运镜录屏）` 或 `recording_layer_motion_baked_in（录制层运镜已内置）` 时，Codex 不得默认二次放大，不得默认裁切重构视角，不得把“自动放大”当成中段剪辑完成标准。
 - FocuSee 自带运镜素材的默认执行动作是：按最终文案识别时间码、切分段落、删除等待 / 重复 / 空白 / 失败操作、衔接口播 / 字幕 / 卡片，并保留原始 `3D Motion（3D 运镜）` 节奏。
 - 若 FocuSee 运镜后的关键证据仍看不清，必须写 `blocked_or_needs_rerecording（阻断或需补录）`，不得用猜测继续剪；只有关键证据未覆盖、关键文字不可读、结果差未展示清楚或用户明确要求二次增强时，才允许判断辅助放大 / 定格 / 卡片。
+- 如果卡片会打断真实证据窗口，必须跳过、改位置或 blocked，不得为了固定旧 shot 强插。
+- 卡片插入只能服务明确 `copy_function（文案功能）`，不得让总结卡 / 反转卡替代真实录屏证据。
 
 #### content_route_inference_function（内容路由推理函数）
 
@@ -627,17 +630,23 @@ input_signal（输入信号）
 
 - 任务涉及内容表达文案进入执行、`content_route_card（内容路由卡）`、主体承载、API 生成人物 1 次 / 2 次、PPT / 信息卡 / Prompt 引用尾卡、是否沉淀工作包。
 - 任务涉及开头生成、开头重做、`opening_route_decision（开头路由判断）`、元素娃娃开头、梗图 GIF 开场、直接问题标题卡、录屏现场先行开头或开头 reference。
+- 任务涉及 `card_placement_decision（卡片位置判断）`、总结卡、反转卡、结果差卡、Prompt 尾卡或卡片位置路由。
 
 执行要求：
 
 - 必须先输出 `content_route_inference_function`，再生成 `content_route_card（内容路由卡）`。
 - `content_route_card` 必须引用本函数的判断，解释为什么这条内容这样承载。
 - 涉及开头时，必须先输出 `opening_route_decision（开头路由判断）` 或等效字段；缺开头路线判断，不得直接生成视频或生成开头。
+- 涉及总结卡、反转卡、结果差卡或 Prompt 尾卡时，必须先输出 `card_placement_decision（卡片位置判断）` 或等效字段；缺卡片位置判断，不得直接生成视频。
 - 缺 `validation_goal（验证目标）`、`opening_route_decision（开头路由判断）`、`core_evidence（核心证据）`、`middle_carrier（中段承载）` 或 `flow_flex_reason（流程变化原因）`，不得进入视频执行。
 - 如果选择 `meme_gif_opening_hook（梗图 GIF 开场钩子）`，必须保留 `Reference-to-Execution Contract（参考到执行落地契约）`、`effect_targets（效果目标）` 和 `must_not_copy（禁止复刻）` 边界。
 - 如果选择 `element_doll_opening（元素娃娃开头）`，必须说明本条内容为什么需要品牌一致性 / 轻陪伴进入。
 - 不得把开头路线选择写成 `content_validation（内容验证）` 通过或 `visual_master_locked（视觉母版锁定）`。
 - 不得把元素娃娃或梗图 GIF 写成所有内容唯一默认开头。
+- 不得把总结卡 / 反转卡固定为旧 shot 或旧 reference 位置。
+- 如果文案没有明确反转点，不得强行插反转卡。
+- 如果文案没有明确结论 / 下一步，不得强行插总结卡。
+- 不得把卡片位置选择写成 `content_validation（内容验证）` 通过或 `visual_master_locked（视觉母版锁定）`。
 
 #### quality_issue_classifier（质量短板分类器）
 

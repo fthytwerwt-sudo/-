@@ -1,5 +1,24 @@
 # Latest
 
+## 20260514｜卡片位置路由机制补全
+
+- `已确认` 本轮只做《视频工厂｜OPC 一人公司 AI 闭环验证系统》的卡片位置路由机制补全，不生成视频，不修改媒体，不推进内容状态。
+- `已更新` `GPT数据源/05_文案路由规则.md（文案路由规则）`：新增 `card_placement_decision（卡片位置判断）`，明确总结卡、反转卡、结果差卡和 Prompt 尾卡是文案功能卡，不是固定 shot 模板。
+- `已更新` `GPT数据源/07_AI知识类视频价值规则.md（AI 知识类视频价值规则）`：补充卡片只服务观众理解路径，不等于强证据；强证据仍来自用户录制素材、前后对比、步骤截图、结果截图或平台数据。
+- `已更新` `GPT数据源/11_项目状态动作总控器_机制推理层.md（项目状态动作总控器与机制推理层）`：`content_route_inference_function（内容路由推理函数）` 接入 `copy_function / reversal_point / conclusion_point / result_diff_point / evidence_window_active / prompt_handoff_needed`，`editing_inference_function（剪辑推理函数）` 接入卡片是否打断证据窗口的判断。
+- `已更新` `codex_source/19_project_state_action_router.md（Codex 状态动作路由）`：命中总结卡、反转卡、结果差卡或 Prompt 尾卡位置判断时，必须先输出 `card_placement_decision（卡片位置判断）`，不得固定旧 shot。
+- `已更新` `codex_source/01_execution_rules.md（Codex 执行规则）`：视频执行前若涉及卡片位置，缺 `card_placement_decision` 不得直接生成视频；文案没有明确反转点不得强插反转卡，文案没有明确结论 / 下一步不得强插总结卡。
+- `已轻量同步` `GPT数据源/06_当前主线锚点_API生成真人_用户录制素材_少量PPT_云端剪辑.md（当前主线锚点）`：修正 `Prompt 引用尾卡` 和结尾总结壳的固定位置误读，改为由 `card_placement_decision` 判断。
+- `新规则`：总结卡位置跟随文案收束点、判断结论和下一步动作；反转卡位置跟随认知反转、错误示范、新旧对比和结果差转折；卡片不得抢中段真实录屏证据。
+- `保留边界`：v3.1 / round34 / PR #7 B / cute_info_card_route / sassy_reaction_card_route 等历史 reference 只作为参考白名单或历史基线保留，不误删、不废弃、不升级成所有内容固定位置。
+- `未修改`：`dist/latest_review_pack/`、视频 / 图片 / 音频 / 字幕 / 时间线 / TTS / 任何媒体产物、`GPT 数据源/` 历史静态目录。
+- `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）`、`voice_validation（声音验证状态）`、`final_voice_validated（最终声音验证状态）`、`visual_master_locked（视觉母版锁定）`。
+- `未调用`：DeepSeek / 阿里 / TTS / voice cloning / 图片生成 / 视频生成 API。
+- `未读取`：`.env`、`.env.swp`、API key、token、secret。
+- `状态边界`：卡片位置路由机制写入为 `已确认`；真实视频卡片位置长期效果仍是 `待验证`，不得写成已在真实视频任务中长期验证通过。
+- `日志`：`codex_log/20260514_card_placement_route_fix.md`
+- `下一个目标`：下一条真实内容执行前，用 `card_placement_decision（卡片位置判断）` 验证 Codex / ChatGPT 能否按最终文案、证据窗口和观众理解路径选择卡片类型与位置。
+
 ## 20260514｜开头路由机制补全
 
 - `已确认` 本轮只做《视频工厂｜OPC 一人公司 AI 闭环验证系统》的开头路由机制补全，不生成视频，不修改媒体，不推进内容状态。
