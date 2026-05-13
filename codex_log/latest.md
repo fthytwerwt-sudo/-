@@ -1,5 +1,27 @@
 # Latest
 
+## 20260514｜开头路由机制补全
+
+- `已确认` 本轮只做《视频工厂｜OPC 一人公司 AI 闭环验证系统》的开头路由机制补全，不生成视频，不修改媒体，不推进内容状态。
+- `已更新` `GPT数据源/05_文案路由规则.md（文案路由规则）`：在 `content_route_card（内容路由卡）` 中新增 `opening_route_decision（开头路由判断）`，明确先判断开头路线，再执行开头。
+- `已更新` `GPT数据源/04_选题与文案规则.md（选题与文案规则）`：选题进入主流程前必须判断开头路线；普通讲解 / 复盘 / 低压陪伴型选题可继续使用元素娃娃开头，争议 / 情绪 / 商业焦虑型且开头超过 `3s` 可优先考虑梗图 GIF 开场。
+- `已更新` `GPT数据源/06_当前主线锚点_API生成真人_用户录制素材_少量PPT_云端剪辑.md（当前主线锚点）`：元素娃娃 / 可爱元素主持娃娃保留为合法 opening route，但不得理解成所有内容唯一默认开头。
+- `已更新` `GPT数据源/07_AI知识类视频价值规则.md（AI 知识类视频价值规则）`：补充梗图 GIF 开头只负责抓眼、起情绪、抛问题，不算强证据；强证据仍来自用户录制素材、前后对比、步骤截图、结果截图或平台数据。
+- `已同步` `GPT数据源/00_项目总述.md（项目总述）` 与 `GPT数据源/08_当前正式事实.md（当前正式事实）`：修正旧“开头人物壳默认统一”事实入口，避免新会话继续误判元素娃娃为所有内容默认开头。
+- `已更新` `GPT数据源/11_项目状态动作总控器_机制推理层.md（项目状态动作总控器与机制推理层）`：`content_route_inference_function（内容路由推理函数）` 新增 `opening_duration`、`topic_emotion_level`、`controversy_level`、`evidence_start_strength`、`brand_consistency_need` 等输入信号，并新增四种 opening route 的状态与动作策略。
+- `已更新` `codex_source/19_project_state_action_router.md（Codex 状态动作路由）`：Codex 执行侧命中开头路线、元素娃娃开头、梗图 GIF 开场或开头参考图时，必须先输出 `opening_route_decision`，不得绕过判断直接生成开头。
+- `已更新` `codex_source/01_execution_rules.md（Codex 执行规则）`：涉及开头时，缺 `opening_route_decision` 不得直接生成视频；选择梗图 GIF 开头必须保留 reference contract / effect target / must_not_copy 边界；选择元素娃娃开头必须说明品牌一致性或轻陪伴理由。
+- `已同步` `GPT数据源/01_项目系统提示词.md（项目系统提示词）`：修正系统提示入口中“开头人物壳默认统一”的旧句，避免新会话继续把元素娃娃误判为所有内容默认开头。
+- `新规则`：元素娃娃开头保留为合法路线之一，不废弃；梗图 GIF 开场是条件优先路线，不是新唯一默认；开头 GIF 只负责 hook / ask，不负责 proof，不替代中段真实录屏证据。
+- `reference 边界`：用户本轮上传抖音截图只继承“漫画冲击线 / 反应姿态 / 大字压屏 / GIF 感 / 快速抛问题”的开头机制，不复刻具体人物、头像、字体、构图或第三方可识别资产。
+- `未修改`：`dist/latest_review_pack/`、视频 / 图片 / 音频 / 字幕 / 时间线 / TTS / 任何媒体产物、`GPT 数据源/` 历史静态目录。
+- `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）`、`voice_validation（声音验证状态）`、`final_voice_validated（最终声音验证状态）`、`visual_master_locked（视觉母版锁定）`。
+- `未调用`：DeepSeek / 阿里 / TTS / voice cloning / 图片生成 / 视频生成 API。
+- `未读取`：`.env`、`.env.swp`、API key、token、secret。
+- `状态边界`：开头路由机制写入为 `已确认`；真实视频开头效果长期稳定性仍是 `待验证`，不得写成已在真实视频任务中验证通过。
+- `日志`：`codex_log/20260514_opening_route_mechanism_fix.md`
+- `下一个目标`：下一条真实内容执行前，用 `opening_route_decision（开头路由判断）` 验证 Codex / ChatGPT 能否根据内容目标、时长、情绪、争议、证据强度和品牌一致性选择开头路线。
+
 ## 20260513｜FocuSee 中段剪辑职责机制修补
 
 - `已确认` 本轮只做《视频工厂｜OPC 一人公司 AI 闭环验证系统》的 FocuSee 中段剪辑职责机制修补，不生成视频，不修改媒体，不推进内容状态。

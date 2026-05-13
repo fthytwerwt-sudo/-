@@ -105,6 +105,9 @@ if state = editing_inference_needed:
 if state = content_route_needed:
   action = run content_route_inference_function, then generate content_route_card before video execution
 
+if input_signal includes opening_route / 开头路线 / 元素娃娃开头 / 梗图 GIF 开场 / 开头参考图:
+  action = run content_route_inference_function, produce opening_route_decision, then generate opening
+
 if state = quality_review_needed:
   action = run quality_issue_classifier before changing assets or status wording
 
@@ -185,6 +188,7 @@ not_allowed:
 触发信号：
 
 - 任务涉及 `content_route_card（内容路由卡）`、内容表达文案进入执行、主体承载、API 生成真人次数、PPT / 信息卡 / Prompt 引用尾卡是否出现。
+- 任务涉及 `opening_route_decision（开头路由判断）`、元素娃娃开头、梗图 GIF 开场、直接问题标题卡、录屏现场先行开头或开头参考图。
 - 需要判断本轮是只做内容验证，还是值得沉淀三层 prompt 包 / 工作包。
 - reference 质量点可能和当前文案目标冲突。
 
@@ -204,8 +208,42 @@ content_route_inference_function:
 完成判断：
 
 - `content_route_card（内容路由卡）` 必须由本函数生成或引用本函数判断。
-- 缺 `validation_goal / core_evidence / middle_carrier / flow_flex_reason` 时，不得进入视频执行。
+- 缺 `validation_goal / opening_route_decision / core_evidence / middle_carrier / flow_flex_reason` 时，不得进入视频执行。
 - 不得先定人物次数、PPT 数量或尾卡数量，再把文案硬塞进去。
+- 涉及开头时，不得绕过 `opening_route_decision（开头路由判断）` 直接生成开头。
+- 不得把 `element_doll_opening（元素娃娃开头）` 或 `meme_gif_opening_hook（梗图 GIF 开场钩子）` 写成所有内容唯一默认。
+- 若开头 reference 不完整，只能继承 `effect_targets（效果目标）` 和机制字段，不得复刻人物、头像、字体、构图或第三方可识别资产。
+
+开头路线执行侧补充：
+
+```text
+opening_route_decision:
+  input_signal:
+    - opening_duration
+    - topic_emotion_level
+    - controversy_level
+    - evidence_start_strength
+    - brand_consistency_need
+    - core_question_can_be_stated_in_one_sentence
+  state_inference:
+    - opening_route_needed
+    - element_doll_opening_suitable
+    - meme_gif_opening_hook_suitable
+    - direct_question_title_card_suitable
+    - screen_first_opening_suitable
+    - opening_route_pending_judgment
+  action_policy:
+    - choose_element_doll_opening
+    - choose_meme_gif_opening_hook
+    - choose_direct_question_title_card
+    - choose_screen_first_opening
+    - blocked_if_opening_route_unclear
+  not_allowed:
+    - element_doll_as_only_default
+    - meme_gif_as_new_only_default
+    - copy_user_reference_asset
+    - opening_hook_as_proof
+```
 
 ### 4A.3 quality_issue_classifier（质量短板分类器）
 
