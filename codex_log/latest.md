@@ -1,5 +1,20 @@
 # Latest
 
+## 20260514｜4:3 画面比例技术装配修正
+
+- `已确认` 本轮只做《视频工厂｜OPC 一人公司 AI 闭环验证系统》的 4:3 画面比例技术装配修正，不做内容验证，不推进发布状态，不改原始素材，不调用外部 API。
+- `当前目标对象`：仍以 `codex_log/current_publish_target.md` 指向的《我用 AI 做 PPT 踩过的坑》v3.1 / `dist/latest_review_pack/` 为当前复审对象；本轮不覆盖 `dist/latest_review_pack/`，只生成 4:3 技术验证输出。
+- `素材验证`：锁定正式工作区内最新可读 FocuSee 4:3 素材 `/Users/fan/Documents/视频工厂/素材录制/内建视网膜显示器 2026-05-14 03-06-26.mp4`；`ffprobe` 结果为 `2498x1874`，比例 `1.332978`，判定接近 `4:3`。
+- `已新增` `scripts/四比三装配验证_4_3_assembly_validation.py（4:3 装配验证脚本）`：本地读取素材宽高、阻断非 4:3 素材、以 `scale + pad` 输出 `1440x1080`，不做默认二次 zoom / crop / 重新运镜。
+- `已生成` 本地技术验证输出：`dist/20260514_4_3_aspect_ratio_assembly_fix/4_3_assembly_validation_preview.mp4`，`ffprobe` 结果为 `1440x1080`，比例 `1.333333`，`technical_validation = passed_for_4_3_assembly`。
+- `已生成` `content_route_card V2（内容路由卡 V2）`：`dist/20260514_4_3_aspect_ratio_assembly_fix/content_route_card_v2.json`，包含 `target_aspect_ratio = 4:3`、素材宽高、`screen_first_opening`、FocuSee 中段直接剪辑策略、字幕安全区和卡片不插入策略。
+- `字幕 / 卡片安全区`：本轮技术验证输出未烧字幕、未插总结卡 / 反转卡 / 结果差卡 / Prompt 尾卡；V2 卡中记录后续 4:3 安全区建议，避免字幕或卡片压住中段真实证据。
+- `未修改`：用户原始 FocuSee 素材、`dist/latest_review_pack/`、当前复审包状态文件、`.env`、`.env.swp`、API key、token、secret。
+- `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）`、`voice_validation（声音验证状态）`、`final_voice_validated（最终声音验证状态）`、`visual_master_locked（视觉母版锁定）`。
+- `状态边界`：本轮只可写成 `technical_validation = passed_for_4_3_assembly`；`content_validation = not_evaluated`，`send_ready = false`，不得写成内容过线或可发布。
+- `日志`：`codex_log/20260514_4_3_aspect_ratio_assembly_fix.md`
+- `下一个目标`：在下一轮真实内容执行中，用最终文案时间码把 4:3 FocuSee 素材切成正式段落，并按 4:3 安全区重新判断开头、字幕、卡片和证据窗口。
+
 ## 20260514｜content_route_card V2 与机制推理测试样例补全
 
 - `已确认` 本轮只做《视频工厂｜OPC 一人公司 AI 闭环验证系统》的机制推理测试样例与 `content_route_card V2（内容路由卡 V2）` 输出模板补全，不生成视频，不修改媒体，不推进内容状态。
