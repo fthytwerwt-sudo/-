@@ -1,5 +1,25 @@
 # Latest
 
+## 20260514｜script anchor / TTS / opening / timeline 机制修补
+
+- `已确认` 本轮只做《视频工厂｜OPC 一人公司 AI 闭环验证系统》的执行前机制修补，不生成视频、不生成音频、不生成图片、不 mux、不重做 `full.mp4`、不修当前候选片。
+- `已新增` `script_anchor_extraction_function（文案锚点提取函数）`：最终文案进入视频执行前，必须自动提取句子级 `script_function_map / evidence_anchor_map / visual_anchor_map / tts_prosody_anchor_map / card_anchor_map / forbidden_visual_map / script_to_timeline_map`。
+- `已补强` `content_route_card V2（内容路由卡 V2）`：新增 `script_anchor_extraction_required / script_function_map_required / evidence_anchor_map_required / visual_anchor_map_required / tts_prosody_anchor_map_required / script_to_timeline_map_required / opening_visual_hook_spec_required / forbidden_visual_map_required`。
+- `已补强` TTS 前置机制：`tts_prosody_anchor_map（TTS 韵律锚点表）` 成为 TTS 生成前置字段；用户反馈“某个字突然上扬”时，优先诊断 `prosody / pause_timing / sentence_segmentation / emphasis / pitch_contour`，不默认换音色。
+- `已补强` 开头视觉机制：高情绪 / 抖音抓眼 / 梗图 GIF / 抽象动效开头必须先输出 `opening_visual_hook_spec（开头视觉钩子规格）`；静态两行标题页不能默认通过高情绪开头验收。
+- `已补强` 文案到画面机制：`script_to_timeline_map（文案到时间线映射表）` 成为视频执行前置字段；只有 `material_01 / material_02 / material_03` 段落级分配时必须 blocked 为 `paragraph_level_mapping_insufficient`。
+- `已补强` `editing_inference_function（剪辑推理函数）`：剪辑动作必须读取 `line_id / line_group_id` 和 `script_to_timeline_map`，不得只看段落级素材用途；文案句子与素材证据冲突时必须 blocked 或回到 ChatGPT 复审。
+- `已补强` `quality_issue_classifier（质量短板分类器）`：新增 `voice_prosody_issue（声音韵律问题）`、`opening_visual_hook_issue（开头视觉钩子问题）`、`script_visual_mismatch_issue（文案画面错位问题）`。
+- `已新增` 执行前阻断条件：`missing_script_anchor_extraction_function`、`missing_script_to_timeline_map`、`missing_tts_prosody_anchor_map`、`missing_opening_visual_hook_spec_when_high_emotion_hook`、`paragraph_level_mapping_only`。
+- `已更新` fixture：`codex_source/fixtures/mechanism_inference_function_cases.json` 新增 5 个 case：`tts_pitch_rise_ai_feel_case`、`static_two_line_opening_failed_case`、`script_visual_mismatch_partial_case`、`paragraph_level_mapping_insufficient_case`、`ai_money_script_anchor_case`；JSON 可解析，当前共 `18` 个 case。
+- `已同步` GPT Project 侧入口：`GPT数据源/01_项目系统提示词.md`、`GPT数据源/03_总索引与阅读顺序.md`、`GPT数据源/05_文案路由规则.md`、`GPT数据源/06_当前主线锚点_API生成真人_用户录制素材_少量PPT_云端剪辑.md`、`GPT数据源/07_AI知识类视频价值规则.md`、`GPT数据源/11_项目状态动作总控器_机制推理层.md`。
+- `已同步` Codex 执行侧入口：`codex_source/01_execution_rules.md`、`codex_source/19_project_state_action_router.md`。
+- `未修改`：`dist/latest_review_pack/`、任何视频 / 音频 / 图片 / 字幕 / 时间线成品、`GPT 数据源/` 历史静态目录、`.env` / `.env.swp` / API key / token / secret。
+- `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）`、`voice_validation（声音验证状态）`、`final_voice_validated（最终声音验证状态）`、`visual_master_locked（视觉母版锁定）`。
+- `状态边界`：字段、函数、fixture 和 blocked 条件写入为 `已确认`；真实新片效果、声音自然度、开头抓眼程度和句子级映射长期稳定性仍是 `待验证`。
+- `日志`：`codex_log/20260514_script_anchor_tts_opening_timeline_mechanism_fix.md`
+- `下一个目标`：下一条新片进入执行前，用 `script_anchor_extraction_function（文案锚点提取函数）` 自动生成句子级时间线、TTS 韵律和开头视觉 hook 规格，缺字段则自动 blocked。
+
 ## 20260514｜《AI 到底赚不赚钱》4:3 带 TTS 完整正片候选生成
 
 - `已确认` 本轮生成《今天就说一个事：AI 到底能不能赚钱？》的 `4:3 带 TTS 完整正片候选`，不是字幕版技术样片，也不是纯技术预览。

@@ -2,7 +2,7 @@
   "schema": "mechanism_inference_function_cases_v1",
   "description": "Minimum fixture cases for editing_inference_function, content_route_inference_function, and quality_issue_classifier in 视频工厂 OPC project.",
   "created_at": "2026-05-12T00:00:00+08:00",
-  "updated_at": "2026-05-14T00:00:00+08:00",
+  "updated_at": "2026-05-14T23:00:00+08:00",
   "project_route": "video_factory",
   "status_boundary": {
     "content_validation": "not_changed",
@@ -514,6 +514,242 @@
         "写入 editing_decision_pack",
         "写入 card_placement_decision 的 interrupt_risk",
         "如无安全插入点则回写 blocked_if_card_breaks_evidence_window"
+      ]
+    },
+    {
+      "case_id": "tts_pitch_rise_ai_feel_case",
+      "function_name": "quality_issue_classifier",
+      "case_type": "blocked_preflight",
+      "input_signal": [
+        "某些字突然上扬，听起来不像真人。",
+        "用户明确这不是音色问题，主要是 prosody / pause timing / sentence segmentation / emphasis / pitch contour 问题。",
+        "本轮不允许调用 TTS API，也不生成音频。"
+      ],
+      "observed_evidence": {
+        "user_feedback": "某些字突然上扬，不是音色问题。",
+        "tts_generation_requested": true,
+        "tts_prosody_anchor_map": null,
+        "voice_timbre_change_requested": false
+      },
+      "expected_issue_categories": [
+        "voice_prosody_issue"
+      ],
+      "expected_state_inference": [
+        "highest_priority_issue_identified",
+        "tts_prosody_anchor_needed"
+      ],
+      "expected_output": [
+        "tts_prosody_anchor_map"
+      ],
+      "expected_action_policy": [
+        "generate_tts_prosody_anchor_map",
+        "rewrite_sentence_segmentation",
+        "do_not_default_to_voice_change"
+      ],
+      "validation_rule": [
+        "优先诊断 prosody / pause_timing / sentence_segmentation / emphasis / pitch_contour。",
+        "普通句优先合并为自然语流，判断句和反转句保留语义停顿。",
+        "禁止轻词、尾字、连接词突然上扬。",
+        "不得把 voice_validation 或 final_voice_validated 写成 passed。"
+      ],
+      "blocked_if": [
+        "tts_generation_requested but tts_prosody_anchor_map missing"
+      ],
+      "expected_feedback_update": [
+        "写入 quality_lock_card 或 review_pack",
+        "写入 video_execution_preflight blocked_tts_generation",
+        "不推进 voice_validation / final_voice_validated"
+      ]
+    },
+    {
+      "case_id": "static_two_line_opening_failed_case",
+      "function_name": "content_route_inference_function",
+      "case_type": "blocked_preflight",
+      "input_signal": [
+        "开头只有两行简单字。",
+        "内容需要抖音抓眼、高情绪或梗图 GIF 感。",
+        "opening_route_decision 已选择高情绪 / 抖音抓眼路线，但缺 opening_visual_hook_spec。"
+      ],
+      "observed_evidence": {
+        "opening_route": "high_emotion_hook",
+        "opening_visual": "static_two_line_title",
+        "douyin_visual_appeal_required": true,
+        "opening_visual_hook_spec": null
+      },
+      "expected_issue_categories": [
+        "opening_visual_hook_issue"
+      ],
+      "expected_state_inference": [
+        "opening_visual_hook_spec_needed",
+        "static_title_card_failed"
+      ],
+      "expected_output": [
+        "opening_visual_hook_spec"
+      ],
+      "expected_validation": [
+        "failed_static_title_card"
+      ],
+      "expected_action_policy": [
+        "generate_opening_visual_hook_spec",
+        "block_static_title_if_high_emotion_hook_needed"
+      ],
+      "validation_rule": [
+        "开头路线判断不等于开头视觉通过。",
+        "静态两行标题页不能默认通过高情绪开头验收。",
+        "不得复刻第三方参考图人物、字体、构图或可识别资产。"
+      ],
+      "blocked_if": [
+        "opening_route in [meme_gif_opening_hook, high_emotion_hook] and opening_visual_hook_spec missing"
+      ],
+      "expected_feedback_update": [
+        "写入 content_route_card_v2",
+        "写入 opening_visual_hook_spec",
+        "写入 video_execution_preflight blocked_opening_generation"
+      ]
+    },
+    {
+      "case_id": "script_visual_mismatch_partial_case",
+      "function_name": "script_anchor_extraction_function",
+      "case_type": "blocked_or_must_fix",
+      "input_signal": [
+        "文案和画面不是全部错，但关键句局部错位。",
+        "关键证据句没有绑定到正确素材或时间码。",
+        "用户明确根因是缺句子级映射，不是新聊天框失忆。"
+      ],
+      "observed_evidence": {
+        "final_script": "available",
+        "paragraph_level_mapping": "available",
+        "line_level_mapping": null,
+        "mismatch_scope": "partial_key_lines",
+        "material_detail_report": "available"
+      },
+      "expected_state_inference": [
+        "script_visual_mismatch_issue",
+        "sentence_level_mapping_missing",
+        "paragraph_level_mapping_insufficient"
+      ],
+      "expected_output": [
+        "script_to_timeline_map",
+        "forbidden_visual_map"
+      ],
+      "expected_report": [
+        "matched",
+        "mismatched",
+        "acceptable",
+        "must_fix"
+      ],
+      "expected_action_policy": [
+        "generate_script_to_timeline_map",
+        "block_video_execution_until_line_level_mapping_exists"
+      ],
+      "validation_rule": [
+        "每 1-2 句必须绑定素材、时间码、画面职责、字幕职责、卡片职责和禁用画面。",
+        "证据句必须追溯素材或标记为用户经验陈述。",
+        "边界声明不得配误导性证明画面。"
+      ],
+      "blocked_if": [
+        "script_to_timeline_map missing before video execution",
+        "paragraph_level_mapping_only"
+      ],
+      "expected_feedback_update": [
+        "写入 content_route_card_v2",
+        "写入 video_execution_preflight blocked_video_execution",
+        "写入 dated log"
+      ]
+    },
+    {
+      "case_id": "paragraph_level_mapping_insufficient_case",
+      "function_name": "script_anchor_extraction_function",
+      "case_type": "blocked",
+      "input_signal": [
+        "只知道 material_01 / material_02 / material_03 的大段用途。",
+        "没有 line_id / line_group_id。",
+        "没有每 1-2 句对应素材、时间码和禁用画面。"
+      ],
+      "observed_evidence": {
+        "material_01": "电商成本倒推段落",
+        "material_02": "样片结果段落",
+        "material_03": "Codex 本地项目执行系统段落",
+        "line_group_id": null,
+        "script_to_timeline_map": null
+      },
+      "expected_state_inference": [
+        "paragraph_level_mapping_insufficient"
+      ],
+      "expected_action_policy": [
+        "blocked_video_execution"
+      ],
+      "reason": "缺少句子级文案锚点。",
+      "validation_rule": [
+        "段落级素材用途不等于时间线执行供料。",
+        "缺 line_group_id 不得进入成片装配。",
+        "必须先生成 script_to_timeline_map。"
+      ],
+      "blocked_if": [
+        "mapping only contains material_01 / material_02 / material_03 paragraph-level assignment"
+      ],
+      "expected_feedback_update": [
+        "写入 video_execution_preflight paragraph_level_mapping_only",
+        "不生成视频、不生成 TTS、不生成字幕"
+      ]
+    },
+    {
+      "case_id": "ai_money_script_anchor_case",
+      "function_name": "script_anchor_extraction_function",
+      "case_type": "normal_judgment_with_forbidden_claims",
+      "input_signal": [
+        "《AI 到底能不能赚钱》类文案进入执行前。",
+        "文案包含 AI 本身不赚钱、降低试错成本、10 分钟 / 22 元 / 半小时 / 20 多、Codex 本地项目执行系统等句子。",
+        "用户要求不能说 Codex 并发执行两个任务。"
+      ],
+      "observed_evidence": {
+        "final_script_topic": "AI 到底能不能赚钱",
+        "available_materials": [
+          "user_recording_cost_table",
+          "sample_result",
+          "workflow_screen"
+        ],
+        "risk_phrases": [
+          "AI 自动赚钱",
+          "保证收益",
+          "Codex 并发执行两个任务"
+        ]
+      },
+      "expected_anchor_types": {
+        "AI 本身不赚钱": "boundary_statement",
+        "AI 降低试错成本": "core_claim",
+        "10 分钟 / 22 元 / 半小时 / 20 多": [
+          "user_experience_statement",
+          "not_direct_visual_proof"
+        ],
+        "Codex 本地项目执行系统": "workflow_screen evidence",
+        "不能说 Codex 并发执行两个任务": [
+          "forbidden_claim",
+          "forbidden_visual_map"
+        ]
+      },
+      "expected_output": [
+        "script_function_map",
+        "evidence_anchor_map",
+        "visual_anchor_map",
+        "tts_prosody_anchor_map",
+        "forbidden_visual_map",
+        "script_to_timeline_map"
+      ],
+      "validation_rule": [
+        "经验数字只能写为用户经验陈述，不得冒充素材直接证明。",
+        "Codex 本地项目执行系统只能绑定 workflow_screen evidence。",
+        "禁止把 material_03 画面解释成 Codex 并发执行两个任务。",
+        "边界声明不得配误导性收益证明画面。"
+      ],
+      "blocked_if": [
+        "forbidden_claim appears in narration or visual proof mapping",
+        "experience numbers mapped as direct visual proof"
+      ],
+      "expected_feedback_update": [
+        "写入 content_route_card_v2",
+        "写入 forbidden_visual_map",
+        "写入 script_to_timeline_map"
       ]
     }
   ]

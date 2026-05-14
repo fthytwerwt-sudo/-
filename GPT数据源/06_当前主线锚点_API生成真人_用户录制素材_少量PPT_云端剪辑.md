@@ -95,6 +95,7 @@
   - `screen_first_opening（录屏现场先行开头）`
 - 选择依据包括：开头时长、内容目标、话题情绪、争议程度、开头证据强度、品牌一致性需求。
 - 梗图 GIF 开场只在开头超过 `3s` 且需要抓眼 / 起情绪 / 抛争议问题时优先，不是新的唯一默认。
+- 开头路线判断不等于开头视觉通过；高情绪 / 抖音抓眼 / 梗图 GIF / 抽象动效开头必须进一步输出 `opening_visual_hook_spec（开头视觉钩子规格）`，静态两行标题页不得默认通过。
 - 录屏现场先行只在开头真实证据足够强、画面清楚且能直接建立可信度时使用。
 
 ### 结尾总结壳
@@ -185,6 +186,24 @@
 必须明确：
 - 这不代表最终 TTS 已选定
 - 这不代表已经完成内容验证
+- TTS 生成前必须先有 `tts_prosody_anchor_map（TTS 韵律锚点表）`；用户反馈某些字突然上扬、停顿不自然、分句断裂或机器式重音时，优先修 `prosody / pause_timing / sentence_segmentation / emphasis / pitch_contour（韵律 / 停顿 / 分句 / 重音 / 音高走势）`，不默认换音色。
+
+### 8A-0. 文案到时间线句子级锚点
+
+当前四件套主线进入正式视频执行前，必须先把最终文案补成句子级执行供料：
+
+- `script_anchor_extraction_function（文案锚点提取函数）`
+- `script_to_timeline_map（文案到时间线映射表）`
+- `forbidden_visual_map（禁用画面表）`
+- `tts_prosody_anchor_map（TTS 韵律锚点表）`
+- 条件触发的 `opening_visual_hook_spec（开头视觉钩子规格）`
+
+硬规则：
+
+- 只有 `material_01 / material_02 / material_03` 段落级用途分配，不足以进入成片装配。
+- 每 1-2 句文案必须绑定素材、时间码、画面职责、字幕职责、卡片职责、禁用画面和验证规则。
+- 经验陈述、边界声明、平台安全句和成本数字不得被误配成素材直接证明画面。
+- 本机制只作为执行前自动补全与阻断，不推进 `content_validation / send_ready / publish_status / voice_validation / final_voice_validated`。
 
 ### 8A. 用户语音样本参考锚点
 

@@ -577,6 +577,11 @@ content_route_card（内容路由卡）
 
 硬规则：
 
+- 最终文案进入视频执行前，必须先运行 `script_anchor_extraction_function（文案锚点提取函数）`。
+- 缺 `script_to_timeline_map（文案到时间线映射表）`，不得进入视频执行、时间线装配或成片生成。
+- 缺 `tts_prosody_anchor_map（TTS 韵律锚点表）`，不得生成 TTS；不得只按标点机械切句。
+- 高情绪 / 抖音抓眼 / 梗图 GIF / 抽象动效开头生成前，必须先有 `opening_visual_hook_spec（开头视觉钩子规格）`；静态两行标题页不得默认通过高情绪开头验收。
+- 只有 `material_01 / material_02 / material_03` 段落级素材分配时，必须写 `paragraph_level_mapping_insufficient（段落级映射不足）` 并阻断视频执行。
 - 没有先判断 `visual_asset_requirement_pack（视觉素材需求包）`，不得直接列图片生成清单。
 - 没有先判断 `api_asset_generation_pack（API 素材生成包）`，不得调用真实 API。
 - 真实 API 调用必须由用户本轮明确授权；默认机制测试不得调用阿里 API。
@@ -604,6 +609,44 @@ input_signal（输入信号）
 -> feedback_update（反馈回写）
 ```
 
+#### script_anchor_extraction_function（文案锚点提取函数）
+
+触发条件：
+
+- 最终文案、`content_route_card V2（内容路由卡 V2）` 或用户明确执行单准备进入视频执行。
+- 需要生成 TTS、字幕、卡片、时间线、剪辑决策包或审片包。
+- 现有映射只有 `material_01 / material_02 / material_03` 段落级用途。
+- 用户反馈 TTS 某些字突然上扬、停顿不自然、分句断裂或重音机器感。
+- 用户反馈文案和画面局部错位，关键句配错画面。
+
+执行要求：
+
+- 必须先输出 `script_anchor_extraction_function（文案锚点提取函数）`，再进入视频执行。
+- 必须输出 `script_function_map / evidence_anchor_map / visual_anchor_map / tts_prosody_anchor_map / card_anchor_map / forbidden_visual_map / script_to_timeline_map` 或等效完整字段。
+- 每 1-2 句必须有 `line_group_id（句组编号）`，并绑定素材、时间码、画面职责、字幕职责、卡片职责、禁用画面和验证规则。
+- `evidence_sentence（证据句）` 必须能追溯素材或标记为 `user_experience_statement / no_direct_evidence（用户经验陈述 / 无直接画面证据）`。
+- `boundary_statement（边界声明）` 不得配误导性证明画面。
+
+执行前阻断条件：
+
+```text
+video_execution_preflight_blockers:
+  missing_script_anchor_extraction_function:
+    blocked: true
+
+  missing_script_to_timeline_map:
+    blocked_video_execution: true
+
+  missing_tts_prosody_anchor_map:
+    blocked_tts_generation: true
+
+  missing_opening_visual_hook_spec_when_high_emotion_hook:
+    blocked_opening_generation: true
+
+  paragraph_level_mapping_only:
+    blocked_video_execution: true
+```
+
 #### editing_inference_function（剪辑推理函数）
 
 触发条件：
@@ -612,6 +655,7 @@ input_signal（输入信号）
 - 任务涉及总结卡、反转卡、结果差卡、Prompt 尾卡的插入位置，或需要判断卡片是否会打断真实证据窗口。
 - 用户反馈看不清、不顺、硬拼接、上下文断裂。
 - reference / visual route / locked reference 要求保留证据窗口或剪辑节奏。
+- 最终文案准备装配，但缺 `script_to_timeline_map（文案到时间线映射表）` 或只有段落级素材分配。
 
 执行要求：
 
@@ -623,6 +667,9 @@ input_signal（输入信号）
 - 若 FocuSee 运镜后的关键证据仍看不清，必须写 `blocked_or_needs_rerecording（阻断或需补录）`，不得用猜测继续剪；只有关键证据未覆盖、关键文字不可读、结果差未展示清楚或用户明确要求二次增强时，才允许判断辅助放大 / 定格 / 卡片。
 - 如果卡片会打断真实证据窗口，必须跳过、改位置或 blocked，不得为了固定旧 shot 强插。
 - 卡片插入只能服务明确 `copy_function（文案功能）`，不得让总结卡 / 反转卡替代真实录屏证据。
+- 剪辑动作不能只看 `material_01 / material_02 / material_03` 段落级用途，必须看 `line_id / line_group_id（句子编号 / 句组编号）`。
+- 每 1-2 句必须知道当前句子在证明什么、必须出现什么画面、不能出现什么画面、是否需要卡片辅助、是否是反转点 / 证据点 / 总结点。
+- 如果只有段落级映射，不允许进入视频装配；如果文案句子与素材证据冲突，必须 blocked 或回到 ChatGPT 复审，不得硬剪。
 
 #### content_route_inference_function（内容路由推理函数）
 
@@ -632,6 +679,7 @@ input_signal（输入信号）
 - 任务涉及内容执行、视频执行、文案进入执行或 `content_route_card V2（内容路由卡 V2）` 输出。
 - 任务涉及开头生成、开头重做、`opening_route_decision（开头路由判断）`、元素娃娃开头、梗图 GIF 开场、直接问题标题卡、录屏现场先行开头或开头 reference。
 - 任务涉及 `card_placement_decision（卡片位置判断）`、总结卡、反转卡、结果差卡、Prompt 尾卡或卡片位置路由。
+- 任务涉及 `script_anchor_map / tts_prosody_anchor_map / opening_visual_hook_spec / script_to_timeline_map / forbidden_visual_map` 的执行前补全。
 
 执行要求：
 
@@ -639,8 +687,12 @@ input_signal（输入信号）
 - `content_route_card` 必须引用本函数的判断，解释为什么这条内容这样承载。
 - 涉及内容执行 / 视频执行 / 文案进入执行时，必须先生成 `content_route_card V2（内容路由卡 V2）` 或等效完整字段，不得只输出零散字段。
 - 涉及开头时，必须先输出 `opening_route_decision（开头路由判断）` 或等效字段；缺开头路线判断，不得直接生成视频或生成开头。
+- 涉及高情绪 / 抖音抓眼 / 梗图 GIF / 抽象动效开头时，必须先输出 `opening_visual_hook_spec（开头视觉钩子规格）`；缺规格不得生成开头。
 - 涉及总结卡、反转卡、结果差卡或 Prompt 尾卡时，必须先输出 `card_placement_decision（卡片位置判断）` 或等效字段；缺卡片位置判断，不得直接生成视频。
 - 缺 `validation_goal（验证目标）`、`opening_route_decision（开头路由判断）`、`core_evidence（核心证据）`、`middle_carrier_decision（中段承载判断）`、`card_placement_decision（卡片位置判断）` 或 `flow_flex_reason（流程变化原因）`，不得进入视频执行。
+- 缺 `script_to_timeline_map（文案到时间线映射表）`，不得进入视频执行。
+- 缺 `tts_prosody_anchor_map（TTS 韵律锚点表）`，不得生成 TTS。
+- 只有段落级素材分配，必须阻断为 `paragraph_level_mapping_insufficient（段落级映射不足）`。
 - 若素材来自 FocuSee，必须额外填写 `focusee_middle_editing_decision（FocuSee 中段剪辑判断）`；缺该判断不得进入中段剪辑。
 - 如果选择 `meme_gif_opening_hook（梗图 GIF 开场钩子）`，必须保留 `Reference-to-Execution Contract（参考到执行落地契约）`、`effect_targets（效果目标）` 和 `must_not_copy（禁止复刻）` 边界。
 - 如果选择 `element_doll_opening（元素娃娃开头）`，必须说明本条内容为什么需要品牌一致性 / 轻陪伴进入。
@@ -658,20 +710,26 @@ input_signal（输入信号）
 - 用户反馈“不对 / 怪 / 不顺 / demo 感”。
 - 技术通过但内容、人感、声音、剪辑、证据、画面、卡片密度、主持壳职责或 reference 偏离不舒服。
 - 任务涉及 `quality_lock_card（质量锁卡）` 或质量复审。
+- 用户反馈某些字突然上扬、停顿不自然、分句断裂或重音机器感。
+- 用户反馈开头两行静态字、不抓人或不符合抖音审美。
+- 用户反馈文案和画面局部错位、关键句配错画面。
 
 执行要求：
 
 - 必须先输出 `quality_issue_classifier`，再决定改文案、改剪辑、做声音复审、做 reference deviation check 或 blocked。
 - 必须定位唯一最高优先级短板；不能同时改多个核心变量后再解释结果。
 - 必须区分 `technical_validation（技术验证）` 和 `content_validation（内容验证）`。
+- `voice_prosody_issue（声音韵律问题）` 优先动作是生成 `tts_prosody_anchor_map（TTS 韵律锚点表）`、重写分句和韵律，不默认换音色。
+- `opening_visual_hook_issue（开头视觉钩子问题）` 优先动作是生成 `opening_visual_hook_spec（开头视觉钩子规格）`，并阻断静态标题页通过高情绪开头验收。
+- `script_visual_mismatch_issue（文案画面错位问题）` 优先动作是生成 `script_to_timeline_map（文案到时间线映射表）`，并在句子级映射缺失前阻断视频执行。
 - 缺复审对象、用户反馈对象、灰度数据或需要用户听感 / 审美判断时，必须 blocked 或 human_review_required。
 
 完成判断硬规则：
 
 1. 命中任一函数触发条件但未输出对应函数，不得写 `completed（已完成）`。
-2. 三个函数任一 required 字段缺失，不得写 `completed（已完成）`。
+2. 三个函数或 `script_anchor_extraction_function（文案锚点提取函数）` 任一 required 字段缺失，不得写 `completed（已完成）`。
 3. 只写卡片名、动作名或问题列表，不算推理函数落地。
-4. 若本轮是机制修补，fixture / 最小样例必须覆盖三个函数的正常判断与 blocked 判断。
+4. 若本轮是机制修补，fixture / 最小样例必须覆盖相关函数的正常判断与 blocked 判断。
 
 ### 2E-2. Completion Relay Gate（补全接力闸门）
 
