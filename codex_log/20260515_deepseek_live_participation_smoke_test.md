@@ -1,6 +1,126 @@
 # 20260515｜DeepSeek 真实参与活体测试
 
-## 1. 测试结论
+## 0. 最新复测结论（2026-05-15 02:27 CST）
+
+- `deepseek_live_test_status`: `passed`
+- `deepseek_actual_participation`: `deepseek_passed`
+- `supply_source`: `deepseek_passed`
+- `fallback_status`: `not_used`
+- `not_deepseek_conclusion`: `false`
+- `api_call_verified`: `true`
+- `context_pack_validation`: `passed`
+- `api_validation`: `passed`
+- `token_usage_expected`: `true`
+- `token_usage_should_decrease`: `true`
+- `token_usage_dashboard_check_required`: `true`
+
+本轮已在用户授权的限定范围内发现 `DEEPSEEK_API_KEY` 声明，来源只记录为 `.env`，没有打印、写出或提交 key 值。runner 只把 key 注入当前测试子进程环境，并设置 `DEEPSEEK_ALLOW_PROCESS_ENV_KEY=1` 与 `DEEPSEEK_DISABLE_ENV_FILE=1`；controller / explorer 侧仍显示 `env_file_read = false`。
+
+## 1. 本轮安全 key 查找
+
+- `process_env_key_present_before_loader`: `false`
+- `key_declaration_found`: `true`
+- `key_source`: `.env`
+- `allowed_lookup_locations_checked`: `.env`, `.env.local`, `~/.zshrc`, `~/.zprofile`, `~/.bashrc`, `~/.bash_profile`
+- `forbidden_lookup_locations_used`: `false`
+- `full_disk_search_used`: `false`
+- `key_value_printed`: `false`
+- `key_value_written`: `false`
+- `key_committed`: `false`
+
+## 2. 本轮 live runner 结果
+
+- `runner`: `dist/deepseek_supply_controller/run_live_smoke_with_safe_env_loader.py`
+- `request_file`: `dist/deepseek_supply_controller/deepseek_live_participation_smoke_test_request.json`
+- `output_dir`: `dist/deepseek_supply_controller/live_smoke_test_20260515/`
+- `controller_return_code`: `0`
+- `controller_flag`: `--allow-process-env-api-key`
+- `explorer_safe_mode`: `--no-env-file`
+- `process_env_key_present_after_loader`: `true`
+- `safe_call_mode`: `process_env_only`
+
+## 3. deepseek_supply_gate（DeepSeek 供料闸门）
+
+```json
+{
+  "mandatory_for_every_task": true,
+  "supply_request_created": true,
+  "deepseek_call_required": true,
+  "deepseek_call_attempted": true,
+  "deepseek_actual_participation": "deepseek_passed",
+  "supply_source": "deepseek_passed",
+  "fallback_status": "not_used",
+  "not_deepseek_conclusion": false,
+  "blocked_reason": "none",
+  "token_usage_expected": "token_should_decrease_if_real_call",
+  "token_usage_observed_or_user_check_required": "token_decrement_expected"
+}
+```
+
+## 4. deepseek_participation_report（DeepSeek 参与报告）
+
+```json
+{
+  "deepseek_call_real": true,
+  "deepseek_actual_participation": "deepseek_passed",
+  "supply_source": "deepseek_passed",
+  "fallback_status": "not_used",
+  "not_deepseek_conclusion": false,
+  "blocked_reason": "none",
+  "api_call_verified": true,
+  "codex_original_file_review_required": true,
+  "deepseek_may_write_files": false,
+  "deepseek_may_decide_project_facts": false,
+  "multi_agent_runtime_validation": "not_started"
+}
+```
+
+## 5. token_usage_expectation_check（token 使用预期检查）
+
+```json
+{
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "expected_to_decrease": true,
+  "token_usage_should_decrease": true,
+  "observed_token_usage": "not_available_user_check_required",
+  "token_usage_observed_or_user_check_required": "token_decrement_expected",
+  "token_usage_dashboard_check_required": true,
+  "reason": "DeepSeek API call was verified by api_validation=passed and context_pack_validation=passed, but controller output does not expose token delta."
+}
+```
+
+## 6. 供料输出文件
+
+- `latest_supply_pack_md`: `dist/deepseek_supply_controller/live_smoke_test_20260515/latest_supply_pack.md`
+- `latest_supply_pack_json`: `dist/deepseek_supply_controller/live_smoke_test_20260515/latest_supply_pack.json`
+- `latest_supply_manifest_json`: `dist/deepseek_supply_controller/live_smoke_test_20260515/latest_supply_manifest.json`
+- `explorer_context_pack`: `dist/deepseek_readonly_explorer/latest_prefetch_context_pack.md`
+
+## 7. 安全结果
+
+- `env_file_read_by_controller_or_explorer`: `false`
+- `allowed_key_loader_read`: `.env`
+- `api_key_printed`: `false`
+- `api_key_written`: `false`
+- `supply_pack_contains_key_plaintext`: `false`
+- `manifest_contains_key_plaintext`: `false`
+- `.env_staged`: `false`
+- `.env.local_staged`: `false`
+- `shell_profile_staged`: `false`
+
+## 8. 状态边界
+
+- `content_validation`: `not_modified`
+- `send_ready`: `not_modified`
+- `publish_status`: `not_modified`
+- `voice_validation`: `not_modified`
+- `final_voice_validated`: `not_modified`
+- `visual_master_locked`: `not_modified`
+- `dist_latest_review_pack_modified`: `false`
+
+本轮只验证 DeepSeek API 真实供料链路，不生成视频、音频、图片、字幕或时间线，不修改 `dist/latest_review_pack/`，不推进任何视频 / 发布 / 声音 / 内容状态，也不代表 `multi-agent runtime（多 agent 运行时）` 已稳定跑通。
+
+## 9. 上一轮阻断记录（2026-05-15 02:13 CST，保留）
 
 - `deepseek_live_test_status`: `blocked_missing_process_env_api_key`
 - `deepseek_actual_participation`: `blocked_missing_process_env_api_key`
@@ -100,6 +220,6 @@
 
 本轮不生成视频、音频、图片、字幕或时间线，不修改 `dist/latest_review_pack/`，不推进任何视频 / 发布 / 声音 / 内容状态。
 
-## 8. 下一个目标
+## 16. 上一轮下一个目标（已在本轮完成）
 
 下一轮如需完成 `DeepSeek live participation smoke test passed（DeepSeek 真实参与冒烟测试通过）`，必须先让当前 Codex 进程的 process environment 中存在 `DEEPSEEK_API_KEY`，再重新运行 controller 的 process-env-only 活体测试；仍不得通过读取 `.env` 补救。

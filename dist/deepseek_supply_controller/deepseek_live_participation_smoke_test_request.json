@@ -1,0 +1,107 @@
+{
+  "request_id": "deepseek_live_participation_smoke_test_20260515",
+  "created_at": "2026-05-15T02:25:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "deepseek_live_participation_smoke_test_20260515",
+  "task_type": "deepseek_live_participation_smoke_test",
+  "trigger_reason": "user_explicit_deepseek",
+  "action": "file_map",
+  "current_goal": "Verify whether DeepSeek can be called through a safely loaded process environment API key without leaking the key, and whether the supply source becomes deepseek_passed instead of fallback_local_only.",
+  "current_step": "Run a minimal readonly DeepSeek supply smoke test for Codex after limited key discovery.",
+  "known_context": [
+    "Mandatory DeepSeek supply loop has been landed.",
+    "Previous live smoke test was blocked_missing_process_env_api_key and did not consume DeepSeek token.",
+    "The user authorized limited key discovery from the project .env, .env.local, and selected shell profile files.",
+    "This test must verify real DeepSeek API participation without writing or printing the key."
+  ],
+  "missing_context": [
+    "Whether the safely loaded key can authenticate.",
+    "Whether controller can produce deepseek_passed.",
+    "Whether token usage should decrease."
+  ],
+  "decision_needed": "Determine whether this run is deepseek_passed, fallback_local_only, or blocked.",
+  "candidate_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_log/latest.md"
+  ],
+  "must_read_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_log/latest.md"
+  ],
+  "optional_files": [
+    "codex_log/20260515_deepseek_live_participation_smoke_test.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".env.swp",
+    "*.mp4",
+    "*.mov",
+    "*.m4v",
+    "*.mp3",
+    "*.wav",
+    "*.m4a",
+    "*.aac",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.gif",
+    "*.webp",
+    "dist/latest_review_pack",
+    ".git"
+  ],
+  "max_context_files": 5,
+  "max_context_chars": 20000,
+  "expected_output": [
+    "deepseek_supply_gate",
+    "deepseek_participation_report",
+    "token_usage_expectation_check",
+    "file_map",
+    "codex_next_input"
+  ],
+  "output_format": "markdown_and_json_supply_pack",
+  "codex_next_input": "Use the live smoke test output only to decide whether DeepSeek actually participated; do not make project content decisions from this supply pack.",
+  "not_allowed": [
+    "Do not write files based on DeepSeek output.",
+    "Do not decide project facts.",
+    "Do not treat fallback_local_only as DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is stable.",
+    "Do not include, print, or write API keys.",
+    "不要写文件。",
+    "不要拍板项目事实。",
+    "本地兜底 fallback 不能写成 DeepSeek 结论。",
+    "不能写多 agent runtime 已跑通。",
+    "不能打印或写入 API key。"
+  ],
+  "stop_condition": "Stop after writing a readonly supply pack for the live smoke test.",
+  "blocked_if": [
+    "DEEPSEEK_API_KEY missing from process environment after safe loader.",
+    "Any attempt requires full-disk search or unrelated secret files.",
+    "Controller returns fallback_local_only.",
+    "Explorer output lacks deepseek_actual_participation.",
+    "API key would be printed or written."
+  ],
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_supply_controller/live_smoke_test_20260515",
+    "must_write_manifest": true
+  },
+  "allow_process_env_api_key": true,
+  "disable_env_file": true,
+  "safe_deepseek_process_env_test": true,
+  "deepseek_readiness_check_required": true,
+  "mandatory_for_every_task": true,
+  "participation_level": "user_explicit_required",
+  "pre_supply_required": true,
+  "post_review_required": false,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_allowed": false,
+  "fallback_not_completion": true,
+  "fallback_policy": "fallback_local_only_is_failed_for_this_live_smoke_test",
+  "user_explicit_deepseek_required": true,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true
+}

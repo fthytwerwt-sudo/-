@@ -2,17 +2,19 @@
 
 ## 20260515｜DeepSeek 真实参与活体测试
 
-- `测试结果`：`blocked_missing_process_env_api_key`。本轮没有进入真实 DeepSeek API 调用，不能写 `DeepSeek live participation smoke test passed（DeepSeek 真实参与冒烟测试通过）`。
-- `env_key_check（进程环境 key 检查）`：`DEEPSEEK_API_KEY_PRESENT = false`；只检查 process environment 是否存在 key，没有读取 `.env`、`.env.*`、`.env.swp`、API key、token 或 secret 文件。
-- `安全结果`：`env_file_read = false`、`api_key_printed = false`、`api_key_written = false`。
-- `deepseek_actual_participation`：`blocked_missing_process_env_api_key`。
-- `supply_source`：`blocked`；不是 `deepseek_passed`，也不是可冒充成功的 `fallback_local_only`。
-- `token_usage_expectation_check`：`token_usage_expected = false`、`token_usage_should_decrease = false`，因为没有真实 API 调用，不应期待 DeepSeek token 减少。
-- `controller 检查`：`scripts/deepseek_supply_controller.py` 已确认存在 `--allow-process-env-api-key`；`scripts/deepseek_readonly_explorer.py` 已确认支持 `--no-env-file` 安全路径。但由于 process environment key 缺失，本轮按阻断条件停止。
-- `未生成`：未生成本轮 `latest_supply_pack.*` 供料输出，未创建 GPT Project 上传包，未把本轮写成 multi-agent runtime 已跑通。
+- `测试结果`：`passed`。本轮已从上一轮 `blocked_missing_process_env_api_key` 升级验证为 `deepseek_passed`。
+- `allowed_key_lookup_result（允许范围 key 查找结果）`：当前 Codex 进程初始 `PROCESS_ENV_KEY_PRESENT = false`；用户授权范围内发现 key 声明，`key_source = .env`。本轮没有全盘搜索，没有搜索 Desktop / Downloads / 浏览器缓存 / keychain / Git 历史 / 无关项目目录。
+- `安全加载结果`：runner 只把 key 加载到当前测试子进程环境；`key_value_printed = false`、`key_value_written = false`、`.env_staged = false`、`.env.local_staged = false`、shell 配置未 staged。
+- `controller / explorer 安全结果`：`env_file_read = false`、`process_env_key_present = true`、`safe_call_mode = process_env_only`、`api_key_printed = false`、`api_key_written = false`。
+- `deepseek_actual_participation`：`deepseek_passed`。
+- `supply_source`：`deepseek_passed`；`fallback_status = not_used`；`not_deepseek_conclusion = false`。
+- `api_validation / context_pack_validation`：DeepSeek readonly explorer 输出 `api_validation = passed`、`context_pack_validation = passed`。
+- `token_usage_expectation_check`：`token_usage_expected = true`、`token_usage_should_decrease = true`、`token_usage_observed_or_user_check_required = token_decrement_expected`。controller 输出未暴露 token delta，因此仍建议用户去 DeepSeek 控制台核对 token 是否减少。
+- `供料输出`：`dist/deepseek_supply_controller/live_smoke_test_20260515/latest_supply_pack.md`、`latest_supply_pack.json`、`latest_supply_manifest.json` 已生成；`dist/deepseek_readonly_explorer/latest_prefetch_context_pack.md` 记录 explorer 侧 `api_validation = passed`。
+- `未生成`：未创建 GPT Project 上传包，未把本轮写成 multi-agent runtime 已跑通。
 - `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status（发布状态）`、`voice_validation（声音验证）`、`final_voice_validated（最终声音验证）`、`visual_master_locked（视觉母版锁定）`。
 - `日志`：`codex_log/20260515_deepseek_live_participation_smoke_test.md`
-- `下一个目标`：让当前 Codex 进程的 process environment 具备 `DEEPSEEK_API_KEY` 后，重新运行 process-env-only DeepSeek 活体测试，验证 `deepseek_actual_participation = deepseek_passed` 与 token 预期消耗。
+- `下一个目标`：用户到 DeepSeek 控制台核对本次调用后的 token / usage 是否减少；后续真实 Codex 任务继续默认进入 `deepseek_supply_gate（DeepSeek 供料闸门）`，并仍由 Codex 负责整合、验证和回写。
 
 ## 20260515｜强制 DeepSeek 供料循环与 Codex 二次补全机制落地
 

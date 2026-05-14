@@ -164,4 +164,36 @@
 
 ## 10. 最后更新时间
 
-- `2026-05-15 01:38 CST`
+## 10. DeepSeek 真实参与活体测试产物
+
+- `artifact_id（产物编号）`: `deepseek_live_participation_smoke_test`
+- `中文名称`: `DeepSeek 真实参与活体测试供料输出`
+- `purpose（用途）`: `验证 DeepSeek API 是否真实调用、是否 deepseek_passed、是否不是 fallback_local_only`
+- `canonical_local_path（首选本地路径）`:
+  `/Users/fan/Documents/视频工厂/dist/deepseek_supply_controller/live_smoke_test_20260515/`
+- `path_exists（路径是否存在）`: `true`
+- `latest_supply_pack_md（供料包 Markdown）`:
+  `/Users/fan/Documents/视频工厂/dist/deepseek_supply_controller/live_smoke_test_20260515/latest_supply_pack.md`
+- `latest_supply_pack_json（供料包 JSON）`:
+  `/Users/fan/Documents/视频工厂/dist/deepseek_supply_controller/live_smoke_test_20260515/latest_supply_pack.json`
+- `latest_supply_manifest_json（供料清单 JSON）`:
+  `/Users/fan/Documents/视频工厂/dist/deepseek_supply_controller/live_smoke_test_20260515/latest_supply_manifest.json`
+- `request_file（测试请求文件）`:
+  `/Users/fan/Documents/视频工厂/dist/deepseek_supply_controller/deepseek_live_participation_smoke_test_request.json`
+- `runner_file（安全加载 runner）`:
+  `/Users/fan/Documents/视频工厂/dist/deepseek_supply_controller/run_live_smoke_with_safe_env_loader.py`
+- `verified_at（验证时间）`: `2026-05-15 02:27 CST`
+- `deepseek_actual_participation`: `deepseek_passed`
+- `supply_source`: `deepseek_passed`
+- `fallback_status`: `not_used`
+- `api_validation`: `passed`
+- `context_pack_validation`: `passed`
+- `token_usage_expected`: `true`
+- `token_usage_should_decrease`: `true`
+- `status（状态）`: `local_validation_artifact_not_gpt_project_package`
+- `boundary（边界）`: 本路径只是本地 DeepSeek 活体测试产物，不是 GPT Project 上传包；不代表 `multi-agent runtime（多 agent 运行时）` 已稳定跑通，不代表当前视频内容验证通过，不代表可发送状态已通过，不代表发布状态推进。
+- `secret_policy（密钥策略）`: key 来源仅记录为 `.env` 文件名；key 值未打印、未写入、未提交；controller / explorer 侧 `env_file_read = false`。
+
+## 11. 最后更新时间
+
+- `2026-05-15 02:27 CST`
