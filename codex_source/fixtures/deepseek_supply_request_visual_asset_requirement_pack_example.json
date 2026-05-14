@@ -111,15 +111,28 @@
     "不得写 multi-agent runtime 多 agent 运行时已跑通。",
     "DeepSeek 不得直接读取或判断视频、音频、图片等媒体文件。",
     "DeepSeek 不得读取 .env、API key、token 或密钥文件。",
-    "DeepSeek 不得调用阿里 API 或生成真实图片。"
+    "DeepSeek 不得调用阿里 API 或生成真实图片。",
+    "DeepSeek token 未观察到减少时不得写 DeepSeek 已深度参与。",
+    "Codex 不得凭主观判断跳过 DeepSeek 供料闸门。"
   ],
   "stop_condition": "已输出视觉素材需求、证据角色、降级路线和 Codex 下一步输入，或请求被安全规则 blocked。",
   "blocked_if": [
     "候选文件命中 forbidden_paths。",
     "需要读取 .env、API key、媒体文件或 dist/latest_review_pack/。",
     "需要把 API 生成图当真实录屏证据。",
-    "需要把 fallback 写成 DeepSeek 结论。"
+    "需要把 fallback 写成 DeepSeek 结论。",
+    "DeepSeek 被 Codex 主观跳过且没有 blocked 原因。",
+    "token 未观察到减少却声称 DeepSeek 已深度参与。"
   ],
   "fallback_allowed": true,
-  "fallback_policy": "DeepSeek 不可用或因 .env / secret 禁止策略跳过时，允许生成 fallback_local_only，但必须标记 not_deepseek_conclusion = true。"
+  "fallback_policy": "DeepSeek 不可用或因 .env / secret 禁止策略跳过时，允许生成 fallback_local_only，但必须标记 not_deepseek_conclusion = true。",
+  "mandatory_for_every_task": true,
+  "participation_level": "mandatory_by_default",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true
 }

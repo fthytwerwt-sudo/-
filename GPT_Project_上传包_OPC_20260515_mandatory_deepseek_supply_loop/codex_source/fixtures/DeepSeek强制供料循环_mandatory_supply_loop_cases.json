@@ -1,0 +1,121 @@
+{
+  "fixture_id": "mandatory_deepseek_supply_loop_cases_20260515",
+  "scope": "mechanism_only_fixture_cases",
+  "cases": [
+    {
+      "case_id": "deepseek_required_every_task_case",
+      "input": {
+        "route_decision_done": true,
+        "task_type": "mechanism_or_route_fix"
+      },
+      "expected": {
+        "mandatory_for_every_task": true,
+        "supply_request_created": true,
+        "deepseek_call_required": true,
+        "codex_may_skip_by_discretion": false
+      }
+    },
+    {
+      "case_id": "deepseek_missing_token_no_participation_case",
+      "input": {
+        "process_env_key_present": false,
+        "env_file_read_allowed": false
+      },
+      "expected": {
+        "deepseek_actual_participation": "blocked_missing_process_env_api_key",
+        "not_deepseek_conclusion": true,
+        "may_claim_deepseek_deep_participation": false
+      }
+    },
+    {
+      "case_id": "deepseek_fallback_not_conclusion_case",
+      "input": {
+        "supply_source": "fallback_local_only",
+        "fallback_status": "used"
+      },
+      "expected": {
+        "not_deepseek_conclusion": true,
+        "deepseek_call_real": false,
+        "completion_claim_allowed": false
+      }
+    },
+    {
+      "case_id": "deepseek_pre_supply_then_codex_execute_case",
+      "input": {
+        "route_decision_done": true,
+        "pre_supply_required": true,
+        "supply_pack_read": true
+      },
+      "expected": {
+        "codex_may_execute": true,
+        "codex_original_file_review_required": true,
+        "codex_next_input_required": true
+      }
+    },
+    {
+      "case_id": "deepseek_post_review_blocks_status_promotion_case",
+      "input": {
+        "codex_diff_exists": true,
+        "post_review_required": true,
+        "status_promotion_risk": true
+      },
+      "expected": {
+        "completion_state": "blocked",
+        "blocked_reason": "status_promotion_risk",
+        "forbidden_status_must_remain": [
+          "content_validation",
+          "send_ready",
+          "publish_status",
+          "voice_validation",
+          "final_voice_validated",
+          "visual_master_locked"
+        ]
+      }
+    },
+    {
+      "case_id": "codex_skips_deepseek_without_blocker_failed_case",
+      "input": {
+        "deepseek_supply_gate_exists": false,
+        "blocked_reason": ""
+      },
+      "expected": {
+        "completion_state": "failed",
+        "reason": "Codex skipped mandatory DeepSeek supply gate without blocker"
+      }
+    },
+    {
+      "case_id": "codex_vertical_completion_required_case",
+      "input": {
+        "docs_updated": true,
+        "scripts_updated": false,
+        "schema_updated": false,
+        "fixture_updated": false,
+        "logs_synced": false,
+        "package_synced": false
+      },
+      "expected": {
+        "completion_state": "partial_completed",
+        "codex_vertical_completion_required": true,
+        "remaining_work": [
+          "scripts",
+          "schema",
+          "fixture",
+          "logs",
+          "gpt_project_package"
+        ]
+      }
+    },
+    {
+      "case_id": "deepseek_token_not_decreased_requires_user_check_case",
+      "input": {
+        "deepseek_call_claimed": true,
+        "token_usage_observed": "not_decreased"
+      },
+      "expected": {
+        "token_usage_observed_or_user_check_required": "user_check_required",
+        "may_claim_deepseek_deep_participation": false,
+        "deepseek_participation_report_required": true
+      }
+    }
+  ]
+}

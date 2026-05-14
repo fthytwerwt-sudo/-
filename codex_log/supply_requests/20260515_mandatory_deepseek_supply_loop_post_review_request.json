@@ -1,0 +1,109 @@
+{
+  "request_id": "ds_supply_req_mandatory_loop_post_review_20260515",
+  "created_at": "2026-05-15T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "mandatory_deepseek_supply_loop_mechanism_patch_post_review",
+  "task_type": "mechanism_or_route_fix",
+  "trigger_reason": "mandatory_post_risk_review",
+  "action": "risk_report",
+  "mandatory_for_every_task": true,
+  "participation_level": "mandatory_by_default",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": true,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "执行后复核本轮 DeepSeek 强制供料循环机制修补是否有状态偷换、遗漏同步或 fallback 误写。",
+  "current_step": "执行后风险复核。",
+  "known_context": [
+    "本轮禁止推进 content_validation、send_ready、publish_status、voice_validation、final_voice_validated、visual_master_locked。",
+    "本轮禁止读取 .env、API key、token、secret 和媒体产物。",
+    "本轮机制写入不代表 multi-agent runtime 已稳定跑通。"
+  ],
+  "missing_context": [
+    "需要检查是否有旧 optional / trigger-only 口径残留为默认规则。",
+    "需要检查是否有脚本 / schema / fixture / 日志 / 上传包遗漏。"
+  ],
+  "decision_needed": "Codex 是否可以写机制修补闭环完成；若不能，剩余 work 是什么。",
+  "candidate_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md",
+    "codex_source/schemas/deepseek_supply_request.schema.json",
+    "scripts/deepseek_supply_controller.py",
+    "scripts/deepseek_readonly_explorer.py",
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/03_总索引与阅读顺序.md",
+    "GPT数据源/08_当前正式事实.md",
+    "GPT数据源/10_OPC一人公司闭环与多AI协作机制.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "codex_source/19_project_state_action_router.md",
+    "project_source/20_codex_multi_agent_routing_note_for_gpt_project.md",
+    "codex_log/latest.md",
+    "codex_log/current_local_artifact_paths.md"
+  ],
+  "must_read_files": [
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "scripts/deepseek_supply_controller.py",
+    "codex_source/schemas/deepseek_supply_request.schema.json",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md"
+  ],
+  "optional_files": [
+    "codex_source/fixtures/DeepSeek强制供料循环_mandatory_supply_loop_cases.json",
+    "codex_log/20260515_mandatory_deepseek_supply_loop.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "*.mp4",
+    "*.mov",
+    "*.mp3",
+    "*.wav",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "/Users/fan/Documents/视频工厂归档+删除"
+  ],
+  "max_context_files": 8,
+  "max_context_chars": 18000,
+  "expected_output": [
+    "status_promotion_risk",
+    "forbidden_change_risk",
+    "missed_sync_files",
+    "fallback_mislabel_risk",
+    "remaining_work"
+  ],
+  "output_format": "supply_pack_json_and_markdown",
+  "codex_next_input": "给 Codex 最终验收前风险复核和剩余工作列表。",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_supply_controller",
+    "pack_md": "dist/deepseek_supply_controller/latest_supply_pack.md",
+    "pack_json": "dist/deepseek_supply_controller/latest_supply_pack.json",
+    "manifest": "dist/deepseek_supply_controller/latest_supply_manifest.json"
+  },
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback_local_only 本地兜底写成 DeepSeek 结论。",
+    "不得写 multi-agent runtime 多 agent 运行时已跑通。",
+    "DeepSeek token 未观察到减少时不得写 DeepSeek 已深度参与。",
+    "Codex 不得凭主观判断跳过 DeepSeek 供料闸门。"
+  ],
+  "stop_condition": "执行后风险复核输出状态推进风险、禁止修改风险、遗漏同步、fallback 误写和剩余工作，或明确 blocked。",
+  "blocked_if": [
+    "候选文件命中 forbidden_paths。",
+    "需要读取 .env、API key、token、secret 或媒体文件。",
+    "需要推进 forbidden status。",
+    "需要把 fallback 写成 DeepSeek 结论。",
+    "只写文档但未接脚本 / schema / fixture / 日志 / 上传包。"
+  ],
+  "fallback_policy": "DeepSeek 无法安全真实调用时允许生成 fallback_local_only，但必须标记 not_deepseek_conclusion = true，且不得写 DeepSeek 深度参与完成。"
+}

@@ -47,12 +47,25 @@
     "DeepSeek 不得写文件。",
     "DeepSeek 不得拍板项目事实。",
     "不得把 fallback_local_only 本地兜底写成 DeepSeek 结论。",
-    "不得写 multi-agent runtime 多 agent 运行时已跑通。"
+    "不得写 multi-agent runtime 多 agent 运行时已跑通。",
+    "DeepSeek token 未观察到减少时不得写 DeepSeek 已深度参与。",
+    "Codex 不得凭主观判断跳过 DeepSeek 供料闸门。"
   ],
   "stop_condition": "命中 forbidden media 后立即 blocked。",
   "blocked_if": [
-    "候选文件命中 forbidden_paths。"
+    "候选文件命中 forbidden_paths。",
+    "DeepSeek 被 Codex 主观跳过且没有 blocked 原因。",
+    "token 未观察到减少却声称 DeepSeek 已深度参与。"
   ],
   "fallback_allowed": false,
-  "fallback_policy": "负向测试不允许 fallback。"
+  "fallback_policy": "负向测试不允许 fallback。",
+  "mandatory_for_every_task": true,
+  "participation_level": "mandatory_by_default",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true
 }
