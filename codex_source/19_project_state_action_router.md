@@ -126,6 +126,15 @@ if state = quality_review_needed:
 if state = gpt_project_sync_needed:
   action = regenerate static upload package, do not treat as UI uploaded
 
+if input_signal includes 文案修改 / 下一条视频 / 根据数据改 / 播放低 / 收藏低 / 客资弱 / 复盘后重写:
+  action = read goal-driven data flywheel, check threshold_config_v1, diagnose main_bottleneck, lock primary_variable before copy revision
+
+if input_signal includes 根据数据推算下一段放什么 / 内容结构反馈 / 留存下滑 / 收藏低 / 评论弱 / 私信弱:
+  action = generate content_structure_feedback_card and next_video_structure_plan before revised script
+
+if input_signal includes Codex 执行下一条视频 / 根据数据执行 / 动态 prompt:
+  action = require next_video_execution_prompt before video execution
+
 if state = blocked_need_user_input:
   action = stop and report exact missing user input
 ```
@@ -137,6 +146,73 @@ if state = blocked_need_user_input:
 - `material_audit_needed`：先判断素材用途、证据强度和缺口，不直接生成或改动媒体。
 - `voice_review_needed`：只做声音问题归因和候选复审，不写最终声音通过，不调用 TTS / voice cloning API。
 - `reference_contract_needed`：只把 reference / 样片 / 目标效果转换为 `reference_anchor`、`effect_targets`、`function_fields`、`deviation_check`、`done_when`，不得直接执行媒体、文案终稿或状态推进。
+
+### 4-1. 目标驱动数据飞轮执行侧规则
+
+命中以下任一信号时，Codex 必须先读 `GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md`：
+
+- 文案修改
+- 下一条视频
+- 根据数据改
+- 播放低 / 收藏低 / 客资弱
+- 复盘后重写
+- 数据飞轮
+- 目标驱动
+- 单主变量
+- 内容结构反馈
+- GPT Project 静态包同步
+
+```text
+data_goal_copy_revision_needed:
+  trigger:
+    - 用户要求修改文案
+    - 用户要求根据数据调整文案
+    - 用户要求写下一条视频
+    - 用户要求复盘后重写
+  must_read:
+    - threshold_config_v1
+    - video_goal_card
+    - post_publish_review_card
+    - data_flywheel_memory
+    - content_structure_feedback_card
+  selected_action:
+    - 先检查阈值
+    - 先诊断主短板
+    - 锁定 primary_variable
+    - 写 supporting_variables / forbidden_variables
+    - 再进入文案修改
+  blocked_if:
+    - 缺目标
+    - 缺阈值配置
+    - 缺数据且声称数据驱动
+    - 缺主短板
+    - 缺 primary_variable
+
+content_structure_feedback_needed:
+  trigger:
+    - 用户要求根据数据推算下一段放什么
+    - 发布后留存 / 收藏 / 评论 / 私信出现短板
+  selected_action:
+    - 生成 content_structure_feedback_card
+    - 生成 next_video_structure_plan
+  blocked_if:
+    - 缺阈值配置
+    - 缺分段数据
+    - 缺复盘窗口
+    - 数据不足却强行下结论
+```
+
+执行侧硬规则：
+
+- 没有 `threshold_config_v1（阈值配置 V1）`，不得做数据驱动判断。
+- 没有 `video_goal_card（视频目标卡）`，不得进入正式文案修改。
+- 没有 `post_publish_review_card（发布后复盘卡）`，不得声称“根据数据修改文案”。
+- 没有 `main_bottleneck（主短板）`，不得重写正式文案。
+- 没有 `primary_variable（主验证变量）`，不得生成 Codex 执行 prompt。
+- 没有 `next_video_execution_prompt（下一条视频执行 prompt）`，不得进入视频执行。
+- 超过 3 个变量且未标 `major_revision（大改版）`，不得进入执行。
+- 超过 4 个变量不得写成单变量实验，只能写方向重做观察。
+- 本机制不推进 `content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked`。
 
 ## 4A. 三大机制推理函数执行侧调用规则
 

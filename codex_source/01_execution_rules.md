@@ -48,18 +48,25 @@
    - `review_loop/screenshots/V001_v31_AI做PPT踩坑/screenshot_manifest.md`
    - `review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
    - `project_source/14_content_review_and_loop_governance_rules.md`
-11. `codex_source/01_execution_rules.md`
-12. `codex_source/02_current_execution_context.md`
-13. `codex_source/03_research_findings_bridge.md`
-14. 当前任务直接相关的 `project_source/*`
-15. 命中价值 / 文案 / 结尾卡时，读 `codex_source/11_ai_knowledge_video_value_bridge.md`
-16. 命中“什么算已知”时，读 `codex_source/12_codex_known_state_three_layer_rules.md`
-17. 命中“完整成片 / 成品候选片 / 技术预览升级成候选片 / 样片回炉 / 开头重做 / 中段剪辑 / 字幕修正 / TTS 修正 / 功能卡修正 / 结果差卡修正 / 骚萌卡修正 / 录屏放大修正 / 视觉母版修正”时，读：
+11. 若任务命中“文案修改 / 下一条视频 / 根据数据改 / 播放低 / 收藏低 / 客资弱 / 复盘后重写 / 数据飞轮 / 目标驱动 / 单主变量 / 内容结构反馈 / GPT Project 静态包同步”，在 `state_action_router` 后优先读：
+   - `GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md`
+   - `review_loop/` 当前视频复盘记录
+   - 当前 `video_goal_card（视频目标卡）`
+   - 当前 `post_publish_review_card（发布后复盘卡）`
+   - 当前 `data_flywheel_memory（数据飞轮记忆）`
+   - 当前 `content_structure_feedback_card（内容结构反馈卡）`
+12. `codex_source/01_execution_rules.md`
+13. `codex_source/02_current_execution_context.md`
+14. `codex_source/03_research_findings_bridge.md`
+15. 当前任务直接相关的 `project_source/*`
+16. 命中价值 / 文案 / 结尾卡时，读 `codex_source/11_ai_knowledge_video_value_bridge.md`
+17. 命中“什么算已知”时，读 `codex_source/12_codex_known_state_three_layer_rules.md`
+18. 命中“完整成片 / 成品候选片 / 技术预览升级成候选片 / 样片回炉 / 开头重做 / 中段剪辑 / 字幕修正 / TTS 修正 / 功能卡修正 / 结果差卡修正 / 骚萌卡修正 / 录屏放大修正 / 视觉母版修正”时，读：
    - `codex_source/14_locked_reference_inheritance_rules.md`
    - `codex_source/locked_reference_registry.md`
-18. 命中 v3.1 / 卡片视觉路由 / 段落提示卡 / 信息卡 / 骚萌卡三路拆分时，再读：
+19. 命中 v3.1 / 卡片视觉路由 / 段落提示卡 / 信息卡 / 骚萌卡三路拆分时，再读：
    - `codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md`
-19. 命中 commit / push / reading branch 回流时，再读 `codex_source/08_branch_sync_and_reading_branch_rules.md`
+20. 命中 commit / push / reading branch 回流时，再读 `codex_source/08_branch_sync_and_reading_branch_rules.md`
 
 当前仓库现实 `已确认`：
 
@@ -645,7 +652,44 @@ video_execution_preflight_blockers:
 
   paragraph_level_mapping_only:
     blocked_video_execution: true
+
+copy_revision_preflight_blockers:
+  missing_threshold_config_v1:
+    blocked_data_driven_judgment: true
+
+  missing_video_goal_card:
+    blocked_formal_copy_revision: true
+
+  missing_post_publish_review_card_when_claiming_data_driven:
+    blocked_data_driven_copy_revision: true
+
+  missing_main_bottleneck:
+    blocked_copy_revision: true
+
+  missing_primary_variable:
+    blocked_copy_revision: true
+
+  too_many_variables_without_major_revision:
+    blocked_execution: true
+
+  missing_next_video_execution_prompt:
+    blocked_video_execution: true
+
+  missing_content_structure_feedback_card_when_using_data_to_change_structure:
+    blocked_structure_revision: true
 ```
+
+目标驱动数据飞轮执行前置：
+
+- 命中文案修改、下一条视频、根据数据改、播放低 / 收藏低 / 客资弱、复盘后重写、数据飞轮、目标驱动、单主变量、内容结构反馈或 GPT Project 静态包同步时，必须读取 `GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md`。
+- 没有 `threshold_config_v1（阈值配置 V1）`，不得做数据驱动判断。
+- 没有 `video_goal_card（视频目标卡）`，不得进入正式文案修改。
+- 没有 `post_publish_review_card（发布后复盘卡）`，不得声称“根据数据修改文案”。
+- 没有 `main_bottleneck（主短板）`，不得重写正式文案。
+- 没有 `primary_variable（主验证变量）`，不得生成 Codex 执行 prompt。
+- 没有 `next_video_execution_prompt（下一条视频执行 prompt）`，不得进入视频执行。
+- 超过 3 个变量且未标 `major_revision（大改版）`，不得进入执行。
+- 超过 4 个变量，不得写成数据实验，只能写成方向重做观察。
 
 #### editing_inference_function（剪辑推理函数）
 

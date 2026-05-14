@@ -2,7 +2,7 @@
   "schema": "mechanism_inference_function_cases_v1",
   "description": "Minimum fixture cases for editing_inference_function, content_route_inference_function, and quality_issue_classifier in 视频工厂 OPC project.",
   "created_at": "2026-05-12T00:00:00+08:00",
-  "updated_at": "2026-05-14T23:00:00+08:00",
+  "updated_at": "2026-05-15T00:00:00+08:00",
   "project_route": "video_factory",
   "status_boundary": {
     "content_validation": "not_changed",
@@ -750,6 +750,314 @@
         "写入 content_route_card_v2",
         "写入 forbidden_visual_map",
         "写入 script_to_timeline_map"
+      ]
+    },
+    {
+      "case_id": "threshold_config_missing_blocked_case",
+      "function_name": "data_goal_copy_revision_gate",
+      "case_type": "blocked",
+      "input_signal": [
+        "用户要求根据数据判断下一条视频怎么改。",
+        "当前上下文缺 threshold_config_v1。"
+      ],
+      "observed_evidence": {
+        "threshold_config_v1": null,
+        "video_goal_card": "available",
+        "post_publish_review_card": "available",
+        "claiming_data_driven_judgment": true
+      },
+      "expected_state_inference": [
+        "threshold_config_missing"
+      ],
+      "expected_action_policy": [
+        "blocked_data_driven_judgment"
+      ],
+      "validation_rule": [
+        "没有 threshold_config_v1 不得做数据驱动判断。",
+        "不得用感觉替代阈值裁决。"
+      ],
+      "blocked_if": [
+        "missing_threshold_config_v1"
+      ],
+      "expected_feedback_update": [
+        "标记 missing_threshold_config_v1",
+        "要求先读取 13_目标驱动数据飞轮与文案执行闭环"
+      ]
+    },
+    {
+      "case_id": "play_under_1000_opening_or_topic_fail_case",
+      "function_name": "threshold_config_v1",
+      "case_type": "metric_decision",
+      "input_signal": [
+        "play_count < 1000。",
+        "three_second_retention weak。"
+      ],
+      "observed_evidence": {
+        "play_count": 850,
+        "three_second_retention": "weak",
+        "threshold_config_v1": "available"
+      },
+      "expected_state_inference": [
+        "single_video_play_threshold.fail",
+        "opening_or_topic_fail"
+      ],
+      "expected_action_policy": [
+        "rework_or_retest",
+        "优先改 opening_0_3s 或选题表达"
+      ],
+      "validation_rule": [
+        "触达不及格时先检查选题、标题、开头、封面 / 首屏。",
+        "不得直接判断整条内容方向失败。"
+      ],
+      "blocked_if": [],
+      "expected_feedback_update": [
+        "写入 threshold_check",
+        "写入 main_bottleneck = opening_0_3s_or_topic_expression"
+      ]
+    },
+    {
+      "case_id": "play_1000_3000_save_rate_strong_case",
+      "function_name": "threshold_config_v1",
+      "case_type": "metric_decision",
+      "input_signal": [
+        "play_count 在 1000-3000。",
+        "save_rate > 2%。"
+      ],
+      "observed_evidence": {
+        "play_count": 2200,
+        "save_rate": 0.026,
+        "threshold_config_v1": "available"
+      },
+      "expected_state_inference": [
+        "baseline_observe",
+        "small_traffic_high_value"
+      ],
+      "expected_action_policy": [
+        "continue_same_direction_test",
+        "优化标题 / 开头，不急着换方向"
+      ],
+      "validation_rule": [
+        "小流量高收藏不能下最终结论，但可以继续同方向测试。",
+        "不得因播放不高就立即否定选题。"
+      ],
+      "blocked_if": [],
+      "expected_feedback_update": [
+        "写入 threshold_check",
+        "写入 reusable_value_signal"
+      ]
+    },
+    {
+      "case_id": "play_8000_no_value_signal_case",
+      "function_name": "threshold_config_v1",
+      "case_type": "metric_decision",
+      "input_signal": [
+        "play_count >= 8000。",
+        "save_rate weak、comments weak、dm weak。"
+      ],
+      "observed_evidence": {
+        "play_count": 9800,
+        "save_rate": 0.006,
+        "effective_comments": 1,
+        "valid_leads": 0,
+        "threshold_config_v1": "available"
+      },
+      "expected_state_inference": [
+        "breakout_observe",
+        "suspected_generic_traffic"
+      ],
+      "expected_action_policy": [
+        "diagnose_quality_before_scale",
+        "不得直接 scale"
+      ],
+      "validation_rule": [
+        "播放高但价值 / 互动 / 需求弱时，不得把方向写成成立。",
+        "优先提高目标用户门槛或需求场景。"
+      ],
+      "blocked_if": [
+        "single_high_play_claimed_as_direction_validated"
+      ],
+      "expected_feedback_update": [
+        "写入泛流量风险",
+        "禁止把一次播放高写成方向成立"
+      ]
+    },
+    {
+      "case_id": "copy_revision_without_data_blocked_case",
+      "function_name": "data_goal_copy_revision_gate",
+      "case_type": "blocked",
+      "input_signal": [
+        "用户要求根据数据改文案。",
+        "缺 post_publish_review_card。"
+      ],
+      "observed_evidence": {
+        "threshold_config_v1": "available",
+        "video_goal_card": "available",
+        "post_publish_review_card": null,
+        "claiming_data_driven_copy_revision": true
+      },
+      "expected_state_inference": [
+        "post_publish_review_card_missing"
+      ],
+      "expected_action_policy": [
+        "blocked_data_driven_copy_revision"
+      ],
+      "validation_rule": [
+        "没有 post_publish_review_card 不得声称根据数据修改文案。",
+        "只能输出假设版文案并标注缺失数据。"
+      ],
+      "blocked_if": [
+        "missing_post_publish_review_card_when_claiming_data_driven"
+      ],
+      "expected_feedback_update": [
+        "标记缺 post_publish_review_card",
+        "输出假设版而非正式数据驱动改稿"
+      ]
+    },
+    {
+      "case_id": "content_structure_feedback_bridge_drop_case",
+      "function_name": "content_structure_feedback_engine",
+      "case_type": "normal_judgment",
+      "input_signal": [
+        "three_second_retention 尚可。",
+        "five_to_ten_second_retention 明显下滑。"
+      ],
+      "observed_evidence": {
+        "three_second_retention": "observable",
+        "five_second_retention": "weak",
+        "segment": "bridge_3_8s",
+        "threshold_config_v1": "available"
+      },
+      "expected_state_inference": [
+        "hook_exists_but_no_relevance",
+        "bridge_3_8s_bottleneck"
+      ],
+      "expected_action_policy": [
+        "下一条 bridge_3_8s 放具体场景",
+        "下一条 bridge_3_8s 放结果差预告",
+        "connect_to_user_pain"
+      ],
+      "validation_rule": [
+        "内容结构反馈必须指出下一段放什么和为什么。",
+        "不得只写泛泛优化中段。"
+      ],
+      "blocked_if": [
+        "missing_content_structure_feedback_card_when_using_data_to_change_structure"
+      ],
+      "expected_feedback_update": [
+        "生成 content_structure_feedback_card",
+        "生成 next_video_structure_plan"
+      ]
+    },
+    {
+      "case_id": "single_primary_variable_three_total_ok_case",
+      "function_name": "single_primary_variable_rule",
+      "case_type": "allowed",
+      "input_signal": [
+        "1 个 primary_variable。",
+        "2 个 supporting_variables。"
+      ],
+      "observed_evidence": {
+        "primary_variable": "opening_hook",
+        "supporting_variables": [
+          "first_sentence",
+          "first_screen_visual"
+        ],
+        "total_change_variables": 3,
+        "major_revision": false
+      },
+      "expected_state_inference": [
+        "single_primary_variable_valid",
+        "supporting_variables_within_limit"
+      ],
+      "expected_action_policy": [
+        "allowed"
+      ],
+      "validation_rule": [
+        "1 主变量 + 2 协同变量允许进入日常实验。",
+        "必须明确 forbidden_variables 防止归因混乱。"
+      ],
+      "blocked_if": [],
+      "expected_feedback_update": [
+        "写入 variable_plan",
+        "写入 forbidden_variables"
+      ]
+    },
+    {
+      "case_id": "too_many_variables_major_revision_case",
+      "function_name": "single_primary_variable_rule",
+      "case_type": "allowed_with_boundary",
+      "input_signal": [
+        "本轮共 4 个变量。",
+        "已标 major_revision。"
+      ],
+      "observed_evidence": {
+        "primary_variable": "content_structure",
+        "supporting_variables": [
+          "opening_scene_expression",
+          "middle_step_structure",
+          "ending_handoff"
+        ],
+        "total_change_variables": 4,
+        "major_revision": true
+      },
+      "expected_state_inference": [
+        "major_revision_allowed",
+        "single_variable_attribution_not_allowed"
+      ],
+      "expected_action_policy": [
+        "allowed_only_if_major_revision",
+        "不得单变量归因"
+      ],
+      "validation_rule": [
+        "4 个变量只能观察方向，不得归因到单一变量。",
+        "必须写明 attribution_boundary。"
+      ],
+      "blocked_if": [
+        "major_revision_missing",
+        "claiming_single_variable_attribution"
+      ],
+      "expected_feedback_update": [
+        "写入 major_revision",
+        "写入 attribution_boundary = direction_observation_only"
+      ]
+    },
+    {
+      "case_id": "too_many_variables_blocked_case",
+      "function_name": "single_primary_variable_rule",
+      "case_type": "blocked",
+      "input_signal": [
+        "本轮变量数 >= 5。",
+        "仍声称是单变量实验。"
+      ],
+      "observed_evidence": {
+        "primary_variable": "mixed_revision",
+        "supporting_variables": [
+          "opening_hook",
+          "title",
+          "target_user",
+          "middle_evidence_structure"
+        ],
+        "total_change_variables": 5,
+        "major_revision": true,
+        "claiming_single_variable_experiment": true
+      },
+      "expected_state_inference": [
+        "too_many_variables_for_experiment"
+      ],
+      "expected_action_policy": [
+        "blocked_execution",
+        "direction_rebuild_observation_only"
+      ],
+      "validation_rule": [
+        "超过 4 个变量不得写成数据实验。",
+        "只能写成方向重做观察。"
+      ],
+      "blocked_if": [
+        "more_than_four_variables_claimed_as_single_variable_experiment"
+      ],
+      "expected_feedback_update": [
+        "标记 blocked_execution",
+        "要求重新收束变量或改为方向重做观察"
       ]
     }
   ]

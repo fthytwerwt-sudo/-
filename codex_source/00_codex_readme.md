@@ -13,7 +13,7 @@
 - 当前正式默认主线是什么
 - 当前主读取分支是什么
 - GPT 数据源与仓库不同步时，谁算源事实
-- 当前 10 份基础执行包 + OPC 总纲 + 状态动作总控器 + 参考到执行落地契约默认该怎么读
+- 当前 10 份基础执行包 + OPC 总纲 + 状态动作总控器 + 参考到执行落地契约 + 目标驱动数据飞轮与文案执行闭环默认该怎么读
 
 ## 2. `codex_source/` 负责什么
 
@@ -31,7 +31,7 @@
 - 单条脚本内容
 - 代码实现细节
 
-当前项目正式事实正文属于 `GPT数据源/` 当前 10 份基础执行包 + OPC 总纲 + 状态动作总控器 + 参考到执行落地契约；`project_source/` 只作为历史 / 辅助主题化镜像，不再作为当前主事实源。代码实现细节仍归代码层。
+当前项目正式事实正文属于 `GPT数据源/` 当前 10 份基础执行包 + OPC 总纲 + 状态动作总控器 + 参考到执行落地契约 + 目标驱动数据飞轮与文案执行闭环；`project_source/` 只作为历史 / 辅助主题化镜像，不再作为当前主事实源。代码实现细节仍归代码层。
 
 `归档删除区_archive_delete_zone/` 只用于隔离旧口径、旧入口、旧产物候选与清单；默认不得读取，不得作为当前事实、当前执行入口或当前复审入口。
 
@@ -58,6 +58,17 @@
 `route_decision（路由判断）` 通过后、进入具体执行前，必须再读取 `codex_source/19_project_state_action_router.md` 并输出 `state_action_router（项目状态动作总控器）`，判断当前状态、事实源裁决、触发机制、选择动作、完成标准和阻断条件。
 
 若任务命中长视频、大信息量、多文件、多步骤、多验证，或用户明确提到多 agent / 并发 / 提速，Codex 必须在 `route_decision（路由判断）` 阶段触发 `large_task_gate（大任务闸门）`，并读取 `codex_source/13_execution_lane_and_parallel_rules.md` 与 `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md`。
+
+若任务命中文案修改、下一条视频、根据数据改、播放低 / 收藏低 / 客资弱、复盘后重写、数据飞轮、目标驱动、单主变量、内容结构反馈或 GPT Project 静态包同步，Codex 必须补读：
+
+- `GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md`
+- `review_loop/` 当前视频复盘记录
+- 当前 `video_goal_card（视频目标卡）`
+- 当前 `post_publish_review_card（发布后复盘卡）`
+- 当前 `data_flywheel_memory（数据飞轮记忆）`
+- 当前 `content_structure_feedback_card（内容结构反馈卡）`
+
+缺 `threshold_config_v1（阈值配置 V1）`、`video_goal_card（视频目标卡）`、`post_publish_review_card（发布后复盘卡）`、`main_bottleneck（主短板）`、`primary_variable（主验证变量）` 或 `next_video_execution_prompt（下一条视频执行 prompt）` 时，不得声称“根据数据正式改文案”，也不得进入视频执行。
 
 ## 3A-0. Project State Action Router 执行入口
 
@@ -111,6 +122,43 @@ reference_to_execution_contract:
 - 没有 `deviation_check（偏离检查）`，不得写 `completed（已完成）`。
 - DeepSeek / Perplexity 摘要只能辅助供料，不得替代 reference contract。
 - reference 与当前项目事实冲突时，以 `Project State Action Router（项目状态动作总控器）` 和当前仓库正式事实裁决。
+
+## 3A-2. 目标驱动数据飞轮与文案执行闭环入口
+
+命中以下任一信号时，Codex 必须先读取 `GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md`：
+
+- 文案修改
+- 下一条视频
+- 根据数据改
+- 播放低 / 收藏低 / 客资弱
+- 复盘后重写
+- 数据飞轮
+- 目标驱动
+- 单主变量
+- 内容结构反馈
+- GPT Project 静态包同步
+
+执行链：
+
+```text
+current_goal / threshold_config_v1 / previous_video_data
+-> data_goal_copy_revision_gate
+-> content_structure_feedback_card
+-> single_primary_variable_rule
+-> next_video_execution_prompt
+-> Codex video execution preflight
+```
+
+硬规则：
+
+- 没有 `threshold_config_v1（阈值配置 V1）`，不得做数据驱动判断。
+- 没有 `video_goal_card（视频目标卡）`，不得进入正式文案修改。
+- 没有 `post_publish_review_card（发布后复盘卡）`，不得声称“根据数据修改文案”。
+- 没有 `main_bottleneck（主短板）`，不得重写正式文案。
+- 没有 `primary_variable（主验证变量）`，不得生成 Codex 执行 prompt。
+- 没有 `next_video_execution_prompt（下一条视频执行 prompt）`，不得进入视频执行。
+- 4 个变量必须标记 `major_revision（大改版）`；超过 4 个变量不得写成单变量实验。
+- 本机制写入不推进 `content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked`。
 
 ## 3A. OPC 上位身份与多 AI 协作入口
 
