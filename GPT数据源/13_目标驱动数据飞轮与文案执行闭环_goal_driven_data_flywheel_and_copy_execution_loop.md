@@ -22,6 +22,16 @@
 
 降级方案只允许作为 `blocked` 后待用户授权的修复建议。Codex 可以提出 fallback，但不能用 fallback、技术预览、无声视频、比例错误视频、局部结果或只读报告完成数据目标。
 
+## 0D. locked copy and visual alignment in data-goal execution
+
+数据目标只能约束文案和执行方向，不能授权 Codex 改写已锁定文案。视频执行前必须有 `locked_copy_contract（锁定文案契约）`，包含 `locked_topic / locked_title / locked_final_script / locked_opening_line / allowed_copy_changes / forbidden_copy_changes / copy_change_request_required_if_needed`。
+
+Codex 可以围绕数据目标调整素材映射、剪辑节奏、字幕分句、卡片位置、音轨和证据窗口，但不得为了服务数据目标擅自改标题、选题、核心判断、人味表达或视觉标题卡。若数据目标与文案可执行性冲突，必须输出 `copy_change_request（文案修改请求）` 或 blocked。
+
+`script_to_timeline_map` 必须按 `line_level_script_visual_alignment_gate（逐句文案画面对齐闸门）` 输出；每个 `line_group` 都要绑定数据目标、口播、画面证据、字幕、卡片和禁用画面。导出前还必须完成 `subtitle_card_overlap_check（字幕卡片重叠检查）`，避免字幕 / 卡片遮挡证据。
+
+用户明确说视频已经发了 / 已发布时，当前视频不再默认进入回炉，改走 `operation_data_intake / operation_review`；机制暴露问题时修机制和下一轮执行规则，不修已发布片。
+
 ## 1. goal_driven_data_flywheel_spec_v1（目标驱动数据飞轮规格 V1）
 
 本文件解决的问题是：把《视频工厂》从“记录规则 / 做单条视频”推进到“目标 -> 数据 -> 文案修改 -> 内容结构反推 -> Codex 动态执行 -> 发布复盘 -> 下一轮更新”的可执行闭环。

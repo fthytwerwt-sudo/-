@@ -1,5 +1,17 @@
 # Latest
 
+## 20260516｜锁定文案契约与逐句画面对齐闸门修补
+
+- `已确认` 本轮根据用户反馈修正视频执行机制，不修改已发布视频，不重新生成视频，不回炉当前片子。
+- `已新增` `locked_copy_contract（锁定文案契约）`：视频执行前必须锁定 `locked_topic / locked_title / locked_final_script / locked_opening_line / allowed_copy_changes / forbidden_copy_changes / copy_change_request_required_if_needed`。
+- `已新增` `codex_copy_authority_boundary（Codex 文案权限边界）`：Codex 是执行层，不得擅自改标题、选题、开头句、核心判断、人味表达或视觉标题卡标题；如需改文案必须输出 `copy_change_request（文案修改请求）` 或 blocked。
+- `已补强` `line_level_script_visual_alignment_gate（逐句文案画面对齐闸门）`：`script_to_timeline_map` 必须按 `line_group` 逐句绑定口播、素材时间码、预期画面、禁用画面、字幕、卡片和证据强度；只有段落级映射不得进入视频导出。
+- `已新增` `subtitle_card_overlap_check（字幕卡片重叠检查）`：导出前必须检查口播字幕、标题卡、解释卡、总结卡、画面 OCR 和关键证据区域；high severity overlap 未修复必须 blocked。
+- `已新增` `post_publish_no_rework_boundary（已发布视频不默认回炉边界）`：用户明确说视频已经发了 / 已发布时，当前视频只作为运营样本继续等待数据反馈；机制问题修机制和下一轮执行规则，不默认修已发布片。
+- `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status_success（发布成功口径）`、`voice_validation（声音验证）`、`final_voice_validated（最终声音验证）`、`visual_master_locked（视觉母版锁定）`。
+- `日志`：`codex_log/20260516_copy_lock_and_visual_alignment_gate_repair.md`
+- `下一个目标`：已发布视频继续等待数据反馈；以后新视频执行前必须先锁定文案契约，并完成逐句文案画面对齐与字幕卡片重叠检查。
+
 ## 20260516｜正式运营用户反馈边界与禁止降级完成
 
 - `已确认` 本轮根据用户反馈修正正式运营协作分工：用户只负责目标修正、页面 / 美观 / 观感对标和结果是否合格反馈。

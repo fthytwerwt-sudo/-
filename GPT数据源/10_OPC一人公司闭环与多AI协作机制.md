@@ -26,6 +26,16 @@ GPT 是判断和复盘入口，负责把用户的“不合格 / 不对 / 不顺 
 
 正式运营交付不得降级完成。fallback、技术预览、局部结果、内部诊断、本地未同步产物、无声视频、比例错误视频或只读报告，只能作为 `blocked` 后的修复建议或内部诊断，不能作为用户交付物或 `completed`。
 
+## 0C. 文案锁定与已发布视频边界
+
+ChatGPT / 用户是最终落稿和文案锁定入口；Codex 是执行落地层，不是重新定稿层。凡进入视频执行，必须先建立 `locked_copy_contract（锁定文案契约）`，包含 `locked_topic / locked_title / locked_final_script / locked_opening_line / allowed_copy_changes / forbidden_copy_changes / copy_change_request_required_if_needed`。
+
+Codex 可执行素材映射、剪辑节奏、字幕断句、卡片布局、音轨生成、比例与导出、证据窗口处理和数据目标对齐检查，但不得擅自改标题、选题、开头句、核心判断、人味表达或视觉标题卡标题。若认为文案不适合剪辑、画面无法支撑或 TTS 不适配，必须输出 `copy_change_request（文案修改请求）` 或 blocked。
+
+文案到视频必须有逐句 `script_to_timeline_map`；每个 `line_group` 都要有预期画面、允许画面、禁用画面、字幕、卡片和证据强度。字幕 / 标题卡 / 解释卡 / 总结卡 / 画面 OCR 必须通过 `subtitle_card_overlap_check（字幕卡片重叠检查）`。
+
+如果用户明确说视频已经发了 / 已发布，当前视频默认进入数据反馈和运营复盘，不默认回炉修改。此时允许记录反馈、生成复盘、修机制和修下一轮规则，不允许把已发布视频重新当待修片。
+
 ## 1. 文件定位
 
 本文件是《视频工厂》的上位机制文件。

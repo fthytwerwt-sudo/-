@@ -65,6 +65,28 @@ Codex 后续默认先读：
 - 输出降级建议时必须写清原目标为什么做不到、缺少哪一层能力、降级会损失什么、是否需要用户授权。
 - 用户明确授权前，任务状态必须是 `blocked`，不是 `completed`。
 
+## 0A-3. locked copy and line-level visual alignment gate
+
+正式运营视频执行前必须先建立 `locked_copy_contract（锁定文案契约）`。它是 ChatGPT / 用户确认后的文案源头，至少包含：
+
+- `locked_topic（锁定选题）`
+- `locked_title（锁定标题）`
+- `locked_final_script（锁定最终口播稿）`
+- `locked_opening_line（锁定开头句）`
+- `allowed_copy_changes（允许改动）`
+- `forbidden_copy_changes（禁止改动）`
+- `copy_change_request_required_if_needed（如需改文案必须请求变更）`
+
+Codex 在视频执行中负责素材映射、剪辑节奏、字幕断句、卡片布局、音轨生成、比例与导出、证据窗口处理和数据目标对齐检查，不负责重新定稿。Codex 可以改标点、换行、字幕分句和 TTS 停顿，但不得改变语义、人味、标题语气、核心判断、前台表达角度，不能用视觉标题卡替换 `locked_title`。
+
+如果 Codex 判断标题太长、文案太长、句子不适合画面、TTS 不适配或素材无法支撑，必须输出 `copy_change_request（文案修改请求）` 或 `blocked`，等待 ChatGPT / 用户确认，不得自行改稿。
+
+`script_to_timeline_map（文案到时间线映射表）` 必须做到 `line_group` 级别，通常每 1-2 句一个 `line_group`，每组至少包含 `line_group_id / narration_text / source_timecode / expected_visual / allowed_visuals / forbidden_visuals / subtitle_text / card_text_if_any / evidence_strength / alignment_status / blocked_if_visual_mismatch`。只有段落级映射、没有逐句证据支撑、或出现“口播说 A，画面显示 B”时，必须修复、请求改稿或 blocked，不得进入视频导出。
+
+导出前必须做 `subtitle_card_overlap_check（字幕卡片重叠检查）`，检查口播字幕、标题卡、解释卡、总结卡、画面 OCR 和关键证据区域。出现 high severity overlap、字幕压住关键 prompt / 表格 / 按钮、标题卡和口播字幕抢同一位置或三层以上文字同时挤压时，必须修复后再导出；修不了则 blocked。
+
+用户明确说视频已经发了 / 已发布时，当前视频触发 `post_publish_no_rework_boundary（已发布视频不默认回炉边界）`：进入 `operation_data_intake / operation_review` 数据回流，只允许记录反馈、生成复盘报告、修补机制或修补下一轮执行规则；不得默认重新生成、回炉或修改已发布视频。
+
 ## 1. 这份文件是什么
 
 本文件是《视频工厂》当前 Codex 执行层入口。

@@ -256,6 +256,13 @@ GPT Project 上传包地址规则：
 - 降级方案只能作为 `blocked` 后待用户确认的修复建议；必须写清原目标为什么做不到、缺哪层能力、降级会损失什么、是否需要用户授权。未经用户明确授权，不得把降级方案当成交付。
 - `completed` 只能用于仓库写明的目标、产物、验证、同步和回报全部完成；`partial_completed` 只允许用于用户明确接受的分阶段任务；`internal_diagnostic_only` 只用于内部诊断产物，不能作为用户交付物。
 - 进入做视频 / 产视频 / 发片候选 / 运营内容 / 下一条视频任务时，必须先判断是否具备 `publish_candidate` 条件；不具备则写 `blocked_publish_candidate_unavailable`，不得继续生成低标准产物冒充交付
+- 视频执行前必须建立 `locked_copy_contract（锁定文案契约）`，至少包含 `locked_topic / locked_title / locked_final_script / locked_opening_line / allowed_copy_changes / forbidden_copy_changes / copy_change_request_required_if_needed`。
+- `Codex` 是视频执行层，不是重新定稿层；可以调整标点、换行、字幕分句、TTS 停顿、素材映射、剪辑节奏、卡片位置、比例和导出，但不得擅自改 `locked_topic`、`locked_title`、`locked_opening_line`、核心判断、人味表达、文案语义或视觉标题卡标题。
+- 如果 `Codex` 判断标题太长、文案太长、句子不适合画面、TTS 不适配或素材无法支撑，必须输出 `copy_change_request（文案修改请求）` 或 `blocked`，不得自行改稿。
+- 视频执行不得只做段落级映射；`script_to_timeline_map（文案到时间线映射表）` 必须做到 `line_group` 级别，通常每 1-2 句一个 `line_group`，并包含 `line_group_id / narration_text / source_timecode / expected_visual / allowed_visuals / forbidden_visuals / subtitle_text / card_text_if_any / evidence_strength / alignment_status / blocked_if_visual_mismatch`。
+- 缺 `line_level_script_visual_alignment_gate（逐句文案画面对齐闸门）`、只有段落级素材分配、或出现“口播说 A，画面显示 B”且未修复时，不得生成视频或写完成；必须改映射、请求文案变更或 blocked。
+- 导出前必须做 `subtitle_card_overlap_check（字幕卡片重叠检查）`；口播字幕、标题卡、解释卡、总结卡、画面 OCR 和关键证据区域不得出现 high severity overlap。修不了则 blocked，不得完成。
+- 用户明确说“视频已经发了 / 已发布”时，触发 `post_publish_no_rework_boundary（已发布视频不默认回炉边界）`：当前视频进入 `operation_data_intake / operation_review` 数据回流，只允许记录反馈、复盘诊断、修补机制或下一轮规则；不得默认重做、回炉或修改已发布视频。
 - `send_ready` 仍保持 `false`
 - `visual_master_locked` 仍保持 `false`
 - PR #7 B 仍是后续骚萌卡唯一执行参考，PR #7 A 仍只作历史 / candidate 对照

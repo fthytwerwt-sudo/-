@@ -29,6 +29,18 @@
 - `data_goal_alignment_check（数据目标对齐检查）` 只能证明“执行结构没有偏离数据目标”，不能替代真实交付结果。
 - fallback / degradation plan 只能作为 `blocked` 后待用户授权的修复建议；未经授权不得成为交付。
 
+## 0D. locked_copy_contract in execution bus
+
+数据目标执行总线进入视频执行前，必须同时检查：
+
+1. `locked_copy_contract（锁定文案契约）` 已存在，且包含 `locked_topic / locked_title / locked_final_script / locked_opening_line / allowed_copy_changes / forbidden_copy_changes / copy_change_request_required_if_needed`。
+2. Codex 没有擅自改标题、选题、开头句、核心判断、人味表达、文案语义或视觉标题卡标题。
+3. 如需改文案，已输出 `copy_change_request（文案修改请求）`，等待 ChatGPT / 用户确认。
+4. `script_to_timeline_map` 已按 `line_level_script_visual_alignment_gate（逐句文案画面对齐闸门）` 做到 `line_group` 级别，不是段落级素材分配。
+5. `subtitle_card_overlap_check（字幕卡片重叠检查）` 已完成，且无 high severity overlap。
+
+若用户明确说视频已经发了 / 已发布，总线不得把当前视频重新路由到默认回炉；应进入 `operation_data_intake / operation_review`，并把机制问题写入下一轮执行规则。
+
 ## 1. 文件定位
 
 本文件定义 `data_goal_execution_bus（数据目标执行总线）`。

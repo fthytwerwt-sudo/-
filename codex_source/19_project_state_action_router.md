@@ -216,6 +216,18 @@ if state = no_degrade_completion_required:
 if state = self_repair_audit_required:
   action = audit locked goal, title, final script, script_to_timeline_map, subtitles, cards, audio, ratio, final media probe, data_goal_alignment_check, publish_candidate checklist, git sync, and no-degrade rule; repair or blocked
 
+if state = locked_copy_contract_required:
+  action = check locked_topic, locked_title, locked_final_script, locked_opening_line, allowed_copy_changes, forbidden_copy_changes, and copy_change_request_required_if_needed; block if missing or if Codex changed locked copy without approval
+
+if state = script_visual_alignment_required:
+  action = require line_level_script_visual_alignment_gate and line-level script_to_timeline_map with line_group_id, narration_text, source_timecode, expected_visual, allowed_visuals, forbidden_visuals, subtitle_text, card_text_if_any, evidence_strength, alignment_status, and blocked_if_visual_mismatch; block if only segment-level mapping exists or visual mismatch remains
+
+if state = subtitle_card_overlap_check_required:
+  action = run subtitle_card_overlap_check across narration subtitles, title cards, explanation cards, summary cards, screen OCR, and key evidence areas; fix high severity overlap or blocked
+
+if state = post_publish_no_rework:
+  action = stop video modification route, record feedback, repair mechanism if needed, and wait for operation data; do not regenerate or rework a sent video by default
+
 if state = fallback_requires_user_authorization:
   action = report fallback proposal, mark task blocked, and wait for explicit user authorization before using fallback as deliverable
 
@@ -246,6 +258,10 @@ if state = blocked_need_user_input:
 - `formal_operation_delivery_blocked`：无法生成可发布候选片时必须停止当前视频执行线，写 `blocked_publish_candidate_unavailable` 和缺失能力。
 - `no_degrade_completion_required`：正式运营、用户可见交付、项目文件落库、GPT Project 同步、数据录入、复盘记录、素材审计、TTS / 字幕 / 卡片 / 比例 / 导出、commit / push 等任务，都必须检查目标、产物、验证、同步和回报是否真实完成；缺任一必交付项时不得写 `completed`。
 - `self_repair_audit_required`：用户反馈“不合格 / 不对 / 不顺 / 不美观 / 不是我要的 / 文案画面对不上 / 标题被改 / 比例错 / 声音不行 / 字幕不对”时触发；Codex 必须自行审计内部执行问题，修复或 blocked，不得要求用户诊断内部原因。
+- `locked_copy_contract_required`：视频执行、发布候选片生成或最终文案转视频时触发；缺 `locked_topic / locked_title / locked_final_script / locked_opening_line` 或 Codex 未授权改写时 blocked。
+- `script_visual_alignment_required`：最终文案进入视频、剪辑、装配或发布候选片生成时触发；必须执行 `line_level_script_visual_alignment_gate（逐句文案画面对齐闸门）` 并逐句映射到画面证据，只有段落级映射或文案画面错位时 blocked。
+- `subtitle_card_overlap_check_required`：生成字幕、标题卡、解释卡或总结卡时触发；high severity overlap 未修复时 blocked。
+- `post_publish_no_rework`：用户说视频已经发了 / 已发布时触发；当前视频只进入反馈记录和数据回流，不默认回炉或重做。
 - `fallback_requires_user_authorization`：原目标做不到且 Codex 想使用 fallback / 降级方案时触发；降级只能作为 blocked 后的修复建议，用户明确授权前不能作为完成结果。
 
 ### 4-1. 目标驱动数据飞轮执行侧规则
