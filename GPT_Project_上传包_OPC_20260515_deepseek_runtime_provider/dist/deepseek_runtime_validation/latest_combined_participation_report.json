@@ -1,0 +1,139 @@
+{
+  "generated_at_utc": "2026-05-15T12:30:25.215050+00:00",
+  "execution_mode": "serial",
+  "total_requests": 3,
+  "deepseek_passed_count": 3,
+  "blocked_count": 0,
+  "fallback_count": 0,
+  "all_outputs_exist": true,
+  "per_task_report": [
+    {
+      "request_file": "codex_log/supply_requests/deepseek_runtime_validation_task_A_file_map.json",
+      "request_id": "deepseek_runtime_validation_task_A_file_map",
+      "runner_returncode": 0,
+      "output_dir": "dist/deepseek_runtime_validation/deepseek_runtime_validation_task_A_file_map",
+      "deepseek_actual_participation": "deepseek_passed",
+      "deepseek_actual_participation_bool": true,
+      "supply_source": "deepseek_passed",
+      "fallback_status": "not_used",
+      "blocked_reason": "none",
+      "supply_pack_exists": true,
+      "manifest_exists": true,
+      "participation_report": {
+        "deepseek_call_real": true,
+        "deepseek_actual_participation": "deepseek_passed",
+        "supply_source": "deepseek_passed",
+        "fallback_status": "not_used",
+        "not_deepseek_conclusion": false,
+        "blocked_reason": "none",
+        "token_usage_expectation_check": {
+          "token_usage_expectation": "token_should_decrease_if_real_call",
+          "expected_to_decrease": true,
+          "observed_token_usage": "not_available_user_check_required",
+          "token_usage_observed_or_user_check_required": "token_decrement_expected",
+          "cannot_claim_deepseek_deep_participation_if_token_not_decreased": true,
+          "fallback_local_only_token_rule": "fallback_local_only 不应减少 DeepSeek token，也不能写 DeepSeek 已深度参与。"
+        },
+        "codex_original_file_review_required": true,
+        "deepseek_may_write_files": false,
+        "deepseek_may_decide_project_facts": false,
+        "multi_agent_runtime_validation": "not_started"
+      },
+      "stdout_tail": "ompletion_rule\\\": [\\\"deepseek_passed 才能写 DeepSeek 真实参与。\\\", \\\"fallback_local_only 必须写 not_deepseek_conclusion = true。\\\", \\\"missing_process_env_key 必须写 blocked_missing_process_env_api_key。\\\", \\\"token 未观察到减少时，不得写 DeepSeek 已深度参与。\\\", \\\"不得把 fallback 写成 DeepSeek 稳定供料。\\\"]}, \\\"runtime_provider\\\": {\\\"runtime_provider_status\\\": \\\"ready\\\", \\\"runtime_provider_auto_load_enabled\\\": true, \\\"runtime_provider_key_source\\\": \\\"project_env\\\", \\\"runtime_provider_key_source_path\\\": \\\".env\\\", \\\"runtime_provider_version\\\": \\\"20260515\\\"}, \\\"env_file_read\\\": \\\"false\\\", \\\"api_key_printed\\\": \\\"false\\\", \\\"api_key_written\\\": \\\"false\\\", \\\"pipeline_status\\\": \\\"usable\\\", \\\"latest_supply_pack\\\": \\\"dist/deepseek_runtime_validation/deepseek_runtime_validation_task_A_file_map/latest_supply_pack.md\\\"}\\n\",\n  \"stderr_tail\": \"\"\n}\n",
+      "stderr_tail": "",
+      "files": {
+        "latest_supply_pack_md": "dist/deepseek_runtime_validation/deepseek_runtime_validation_task_A_file_map/latest_supply_pack.md",
+        "latest_supply_pack_json": "dist/deepseek_runtime_validation/deepseek_runtime_validation_task_A_file_map/latest_supply_pack.json",
+        "latest_supply_manifest_json": "dist/deepseek_runtime_validation/deepseek_runtime_validation_task_A_file_map/latest_supply_manifest.json",
+        "participation_report_json": "dist/deepseek_runtime_validation/deepseek_runtime_validation_task_A_file_map/participation_report.json"
+      }
+    },
+    {
+      "request_file": "codex_log/supply_requests/deepseek_runtime_validation_task_B_data_goal_anchor.json",
+      "request_id": "deepseek_runtime_validation_task_B_data_goal_anchor",
+      "runner_returncode": 0,
+      "output_dir": "dist/deepseek_runtime_validation/deepseek_runtime_validation_task_B_data_goal_anchor",
+      "deepseek_actual_participation": "deepseek_passed",
+      "deepseek_actual_participation_bool": true,
+      "supply_source": "deepseek_passed",
+      "fallback_status": "not_used",
+      "blocked_reason": "none",
+      "supply_pack_exists": true,
+      "manifest_exists": true,
+      "participation_report": {
+        "deepseek_call_real": true,
+        "deepseek_actual_participation": "deepseek_passed",
+        "supply_source": "deepseek_passed",
+        "fallback_status": "not_used",
+        "not_deepseek_conclusion": false,
+        "blocked_reason": "none",
+        "token_usage_expectation_check": {
+          "token_usage_expectation": "token_should_decrease_if_real_call",
+          "expected_to_decrease": true,
+          "observed_token_usage": "not_available_user_check_required",
+          "token_usage_observed_or_user_check_required": "token_decrement_expected",
+          "cannot_claim_deepseek_deep_participation_if_token_not_decreased": true,
+          "fallback_local_only_token_rule": "fallback_local_only 不应减少 DeepSeek token，也不能写 DeepSeek 已深度参与。"
+        },
+        "codex_original_file_review_required": true,
+        "deepseek_may_write_files": false,
+        "deepseek_may_decide_project_facts": false,
+        "multi_agent_runtime_validation": "not_started"
+      },
+      "stdout_tail": "n_rule\\\": [\\\"deepseek_passed 才能写 DeepSeek 真实参与。\\\", \\\"fallback_local_only 必须写 not_deepseek_conclusion = true。\\\", \\\"missing_process_env_key 必须写 blocked_missing_process_env_api_key。\\\", \\\"token 未观察到减少时，不得写 DeepSeek 已深度参与。\\\", \\\"不得把 fallback 写成 DeepSeek 稳定供料。\\\"]}, \\\"runtime_provider\\\": {\\\"runtime_provider_status\\\": \\\"ready\\\", \\\"runtime_provider_auto_load_enabled\\\": true, \\\"runtime_provider_key_source\\\": \\\"project_env\\\", \\\"runtime_provider_key_source_path\\\": \\\".env\\\", \\\"runtime_provider_version\\\": \\\"20260515\\\"}, \\\"env_file_read\\\": \\\"false\\\", \\\"api_key_printed\\\": \\\"false\\\", \\\"api_key_written\\\": \\\"false\\\", \\\"pipeline_status\\\": \\\"usable\\\", \\\"latest_supply_pack\\\": \\\"dist/deepseek_runtime_validation/deepseek_runtime_validation_task_B_data_goal_anchor/latest_supply_pack.md\\\"}\\n\",\n  \"stderr_tail\": \"\"\n}\n",
+      "stderr_tail": "",
+      "files": {
+        "latest_supply_pack_md": "dist/deepseek_runtime_validation/deepseek_runtime_validation_task_B_data_goal_anchor/latest_supply_pack.md",
+        "latest_supply_pack_json": "dist/deepseek_runtime_validation/deepseek_runtime_validation_task_B_data_goal_anchor/latest_supply_pack.json",
+        "latest_supply_manifest_json": "dist/deepseek_runtime_validation/deepseek_runtime_validation_task_B_data_goal_anchor/latest_supply_manifest.json",
+        "participation_report_json": "dist/deepseek_runtime_validation/deepseek_runtime_validation_task_B_data_goal_anchor/participation_report.json"
+      }
+    },
+    {
+      "request_file": "codex_log/supply_requests/deepseek_runtime_validation_task_C_risk_review.json",
+      "request_id": "deepseek_runtime_validation_task_C_risk_review",
+      "runner_returncode": 0,
+      "output_dir": "dist/deepseek_runtime_validation/deepseek_runtime_validation_task_C_risk_review",
+      "deepseek_actual_participation": "deepseek_passed",
+      "deepseek_actual_participation_bool": true,
+      "supply_source": "deepseek_passed",
+      "fallback_status": "not_used",
+      "blocked_reason": "none",
+      "supply_pack_exists": true,
+      "manifest_exists": true,
+      "participation_report": {
+        "deepseek_call_real": true,
+        "deepseek_actual_participation": "deepseek_passed",
+        "supply_source": "deepseek_passed",
+        "fallback_status": "not_used",
+        "not_deepseek_conclusion": false,
+        "blocked_reason": "none",
+        "token_usage_expectation_check": {
+          "token_usage_expectation": "token_should_decrease_if_real_call",
+          "expected_to_decrease": true,
+          "observed_token_usage": "not_available_user_check_required",
+          "token_usage_observed_or_user_check_required": "token_decrement_expected",
+          "cannot_claim_deepseek_deep_participation_if_token_not_decreased": true,
+          "fallback_local_only_token_rule": "fallback_local_only 不应减少 DeepSeek token，也不能写 DeepSeek 已深度参与。"
+        },
+        "codex_original_file_review_required": true,
+        "deepseek_may_write_files": false,
+        "deepseek_may_decide_project_facts": false,
+        "multi_agent_runtime_validation": "not_started"
+      },
+      "stdout_tail": "letion_rule\\\": [\\\"deepseek_passed 才能写 DeepSeek 真实参与。\\\", \\\"fallback_local_only 必须写 not_deepseek_conclusion = true。\\\", \\\"missing_process_env_key 必须写 blocked_missing_process_env_api_key。\\\", \\\"token 未观察到减少时，不得写 DeepSeek 已深度参与。\\\", \\\"不得把 fallback 写成 DeepSeek 稳定供料。\\\"]}, \\\"runtime_provider\\\": {\\\"runtime_provider_status\\\": \\\"ready\\\", \\\"runtime_provider_auto_load_enabled\\\": true, \\\"runtime_provider_key_source\\\": \\\"project_env\\\", \\\"runtime_provider_key_source_path\\\": \\\".env\\\", \\\"runtime_provider_version\\\": \\\"20260515\\\"}, \\\"env_file_read\\\": \\\"false\\\", \\\"api_key_printed\\\": \\\"false\\\", \\\"api_key_written\\\": \\\"false\\\", \\\"pipeline_status\\\": \\\"usable\\\", \\\"latest_supply_pack\\\": \\\"dist/deepseek_runtime_validation/deepseek_runtime_validation_task_C_risk_review/latest_supply_pack.md\\\"}\\n\",\n  \"stderr_tail\": \"\"\n}\n",
+      "stderr_tail": "",
+      "files": {
+        "latest_supply_pack_md": "dist/deepseek_runtime_validation/deepseek_runtime_validation_task_C_risk_review/latest_supply_pack.md",
+        "latest_supply_pack_json": "dist/deepseek_runtime_validation/deepseek_runtime_validation_task_C_risk_review/latest_supply_pack.json",
+        "latest_supply_manifest_json": "dist/deepseek_runtime_validation/deepseek_runtime_validation_task_C_risk_review/latest_supply_manifest.json",
+        "participation_report_json": "dist/deepseek_runtime_validation/deepseek_runtime_validation_task_C_risk_review/participation_report.json"
+      }
+    }
+  ],
+  "completion_rule": {
+    "deepseek_passed_count_gte_2": true,
+    "fallback_count_eq_0": true,
+    "blocked_count_eq_0": true
+  }
+}

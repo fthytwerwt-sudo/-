@@ -1,0 +1,146 @@
+{
+  "request_id": "deepseek_runtime_validation_task_B_data_goal_anchor",
+  "created_at": "2026-05-15T20:20:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "20260515_deepseek_runtime_provider_validation",
+  "task_type": "provider_runtime_integration",
+  "trigger_reason": "user_explicit_deepseek",
+  "action": "context_summary",
+  "mandatory_for_every_task": true,
+  "participation_level": "user_explicit_required",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_allowed": false,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": true,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "requires_real_deepseek_participation": true,
+  "allow_process_env_api_key": true,
+  "disable_env_file": true,
+  "safe_deepseek_process_env_test": true,
+  "safe_call_mode": "project_runtime_provider",
+  "runtime_provider": {
+    "provider_name": "deepseek_runtime_provider",
+    "auto_load_enabled": true,
+    "inject_to_child_process_only": true,
+    "never_print_key": true,
+    "never_write_key": true,
+    "blocked_if_provider_not_ready": true
+  },
+  "safe_loader_policy": {
+    "mode": "project_runtime_provider",
+    "runtime_provider_required": true,
+    "runtime_provider_load_order": [
+      "process_env",
+      "project_env_local",
+      "project_env",
+      "local_runtime_authorization"
+    ],
+    "controller_or_explorer_may_read_env_file": false,
+    "allow_env_file_loader": false,
+    "require_user_authorization_for_env_loader": false,
+    "blocked_if_process_env_missing": false,
+    "api_key_printed": false,
+    "api_key_written": false
+  },
+  "current_goal": "验证 DeepSeek runtime provider 能围绕 current_data_goal_anchor 输出只读上下文摘要。",
+  "current_step": "runtime_provider_data_goal_anchor_supply_validation",
+  "current_data_goal_anchor_path": "codex_log/current_data_goal_anchor.md",
+  "current_data_goal_anchor_status": "waiting_data",
+  "current_north_star_goal": "3-6 个月内，验证《视频工厂》能否通过真实 AI 使用内容，稳定产生高质量需求信号。",
+  "current_stage_goal": "等待 v3.1 灰度测试数据回填后，判断下一轮唯一主变量。",
+  "main_bottleneck": "待验证_waiting_gray_test_data",
+  "primary_variable": "待填_waiting_post_publish_review",
+  "supporting_variables": [],
+  "forbidden_variables": [
+    "不得推进内容状态",
+    "不得改变发布状态",
+    "不得把等待数据写成 ready"
+  ],
+  "success_metric": "待填_waiting_post_publish_review",
+  "failure_metric": "待填_waiting_post_publish_review",
+  "post_publish_validation_metric": "待填_waiting_post_publish_review",
+  "next_video_execution_prompt": "待填_waiting_post_publish_review",
+  "data_goal_anchor": {
+    "current_north_star_goal": "3-6 个月内，验证《视频工厂》能否通过真实 AI 使用内容，稳定产生高质量需求信号。",
+    "current_stage_goal": "等待 v3.1 灰度测试数据回填后，判断下一轮唯一主变量。",
+    "main_bottleneck": "待验证_waiting_gray_test_data",
+    "primary_variable": "待填_waiting_post_publish_review",
+    "supporting_variables": [],
+    "forbidden_variables": [
+      "不得推进内容状态",
+      "不得改变发布状态",
+      "不得把等待数据写成 ready"
+    ],
+    "success_metric": "待填_waiting_post_publish_review",
+    "failure_metric": "待填_waiting_post_publish_review",
+    "post_publish_validation_metric": "待填_waiting_post_publish_review",
+    "next_video_execution_prompt": "待填_waiting_post_publish_review"
+  },
+  "known_context": [
+    "current_data_goal_anchor 状态是 waiting_data，不得用于正式数据驱动视频执行 ready。",
+    "本轮只验证 DeepSeek runtime provider，不做内容复审。"
+  ],
+  "missing_context": [],
+  "decision_needed": "DeepSeek 供料应如何提醒 Codex 保持 data_goal_anchor 的状态边界。",
+  "candidate_files": [
+    "codex_log/current_data_goal_anchor.md",
+    "GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md",
+    "GPT数据源/14_数据目标执行总线_data_goal_execution_bus.md"
+  ],
+  "must_read_files": [
+    "codex_log/current_data_goal_anchor.md",
+    "GPT数据源/14_数据目标执行总线_data_goal_execution_bus.md"
+  ],
+  "optional_files": [
+    "GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "*.mp4",
+    "*.mov",
+    "*.mp3",
+    "*.wav",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "视频工厂归档+删除"
+  ],
+  "max_context_files": 3,
+  "max_context_chars": 12000,
+  "expected_output": [
+    "context_summary",
+    "data_goal_anchor_boundary",
+    "codex_next_input"
+  ],
+  "output_format": "json_object",
+  "codex_next_input": "Codex must keep data_goal_anchor waiting_data and avoid forbidden status promotion.",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_runtime_validation/task_B_data_goal_anchor",
+    "latest_supply_pack_md": "latest_supply_pack.md",
+    "latest_supply_pack_json": "latest_supply_pack.json",
+    "latest_supply_manifest_json": "latest_supply_manifest.json"
+  },
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback 本地兜底写成 DeepSeek 结论。",
+    "不得写 multi-agent runtime 已跑通。",
+    "不得读取、输出或复述 API key / secret / token。"
+  ],
+  "stop_condition": "DeepSeek 真实调用返回 deepseek_passed，或 runtime provider blocked。",
+  "blocked_if": [
+    "runtime_provider_not_ready",
+    "deepseek_actual_participation_not_deepseek_passed",
+    "fallback_local_only",
+    "api_key_printed_or_written",
+    "forbidden_status_promotion"
+  ],
+  "fallback_policy": "fallback 不得视为完成。"
+}

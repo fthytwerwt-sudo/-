@@ -2,12 +2,12 @@
 
 - `validation_status`: `passed`
 - `api_validation`: `passed`
-- `deepseek_generation_status`: `passed_with_retries`
+- `deepseek_generation_status`: `passed`
 - `context_pack_validation`: `passed`
 - `fallback_status`: `not_used`
 - `pipeline_status`: `passed`
 - `multi_agent_runtime_validation`: `not_started`
-- `validated_at_utc`: `2026-05-14T18:25:47.252028+00:00`
+- `validated_at_utc`: `2026-05-15T12:38:08.270600+00:00`
 - `base_url`: `https://api.deepseek.com`
 - `model`: `deepseek-v4-flash`
 - `scope`: `readonly_explorer_minimal_api_validation`
@@ -18,20 +18,17 @@
 - `deepseek_actual_participation`: `deepseek_passed`
 - `api_key_printed`: `false`
 - `api_key_written`: `false`
-- `context_truncated`: `true`
-- `truncated_files`: `["AGENTS.md", "codex_source/00_codex_readme.md", "codex_source/01_execution_rules.md", "codex_log/latest.md"]`
+- `context_truncated`: `false`
+- `truncated_files`: `[]`
 
 ## prefetch_context_pack（预读取上下文包）
 
 ```json
 {
   "confirmed": [],
-  "pending_verification": [
-    "DEEPSEEK_API_KEY presence in process environment",
-    "Controller ability to return deepseek_passed"
-  ],
+  "pending_verification": [],
   "source_summary": [
-    "Previous live smoke test blocked_missing_process_env_api_key"
+    "No repository context provided."
   ]
 }
 ```
@@ -40,12 +37,9 @@
 
 ```json
 {
-  "required_files": [
-    "codex_source/19_project_state_action_router.md",
-    "codex_log/20260515_deepseek_live_participation_smoke_test.md"
-  ],
+  "required_files": [],
   "optional_files": [],
-  "reason": "Verify state_action_router for smoke test gate and check latest test output"
+  "reason": "No repository context provided."
 }
 ```
 
@@ -53,15 +47,9 @@
 
 ```json
 {
-  "risks": [
-    "API key may be missing from process environment",
-    "Controller may return fallback_local_only"
-  ],
+  "risks": [],
   "conflicts": [],
-  "blocked_if": [
-    "DEEPSEEK_API_KEY missing after safe loader",
-    "Controller returns fallback_local_only"
-  ]
+  "blocked_if": []
 }
 ```
 
@@ -69,12 +57,9 @@
 
 ```json
 {
-  "summary": "DeepSeek smoke test supply pack for Codex",
-  "recommended_next_step": "Use smoke test output to decide participation",
-  "not_allowed": [
-    "Do not write files based on DeepSeek output",
-    "Do not decide project facts"
-  ]
+  "summary": "DeepSeek runtime doctor smoke test. Confirmed readonly supply-layer call.",
+  "recommended_next_step": "Await explicit user task.",
+  "not_allowed": []
 }
 ```
 
@@ -85,24 +70,8 @@
   {
     "attempt_index": 1,
     "mode": "single_call_safe",
-    "prompt_size_chars": 29081,
-    "context_size_chars": 18129,
-    "failure_reason": "finish_reason_length",
-    "finish_reason": "length"
-  },
-  {
-    "attempt_index": 2,
-    "mode": "compressed_retry",
-    "prompt_size_chars": 19976,
-    "context_size_chars": 9141,
-    "failure_reason": "finish_reason_length",
-    "finish_reason": "length"
-  },
-  {
-    "attempt_index": 3,
-    "mode": "minimal_retry",
-    "prompt_size_chars": 14530,
-    "context_size_chars": 3728,
+    "prompt_size_chars": 1692,
+    "context_size_chars": 0,
     "failure_reason": "none",
     "finish_reason": "stop"
   }

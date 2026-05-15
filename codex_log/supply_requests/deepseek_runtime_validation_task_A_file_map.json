@@ -1,0 +1,117 @@
+{
+  "request_id": "deepseek_runtime_validation_task_A_file_map",
+  "created_at": "2026-05-15T20:20:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "20260515_deepseek_runtime_provider_validation",
+  "task_type": "provider_runtime_integration",
+  "trigger_reason": "user_explicit_deepseek",
+  "action": "file_map",
+  "mandatory_for_every_task": true,
+  "participation_level": "user_explicit_required",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_allowed": false,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": true,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "requires_real_deepseek_participation": true,
+  "allow_process_env_api_key": true,
+  "disable_env_file": true,
+  "safe_deepseek_process_env_test": true,
+  "safe_call_mode": "project_runtime_provider",
+  "runtime_provider": {
+    "provider_name": "deepseek_runtime_provider",
+    "auto_load_enabled": true,
+    "inject_to_child_process_only": true,
+    "never_print_key": true,
+    "never_write_key": true,
+    "blocked_if_provider_not_ready": true
+  },
+  "safe_loader_policy": {
+    "mode": "project_runtime_provider",
+    "runtime_provider_required": true,
+    "runtime_provider_load_order": [
+      "process_env",
+      "project_env_local",
+      "project_env",
+      "local_runtime_authorization"
+    ],
+    "controller_or_explorer_may_read_env_file": false,
+    "allow_env_file_loader": false,
+    "require_user_authorization_for_env_loader": false,
+    "blocked_if_process_env_missing": false,
+    "api_key_printed": false,
+    "api_key_written": false
+  },
+  "current_goal": "验证 DeepSeek runtime provider 能为 Codex 提供真实文件地图供料。",
+  "current_step": "runtime_provider_single_task_file_map_validation",
+  "known_context": [
+    "DeepSeek 仍是只读供料层，不写文件、不拍板项目事实。",
+    "本轮用户授权 provider 自动读取项目 runtime key source，但 key 不得进入 prompt、日志、manifest 或 Git。"
+  ],
+  "missing_context": [],
+  "decision_needed": "哪些文件是本轮 DeepSeek runtime provider 接线后最应该继续读取和验证的文件。",
+  "candidate_files": [
+    "codex_source/00_codex_readme.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md",
+    "scripts/DeepSeek运行时供应商_deepseek_runtime_provider.py"
+  ],
+  "must_read_files": [
+    "codex_source/00_codex_readme.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "scripts/DeepSeek运行时供应商_deepseek_runtime_provider.py"
+  ],
+  "optional_files": [
+    "scripts/deepseek_supply_controller.py",
+    "scripts/deepseek_readonly_explorer.py"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "*.mp4",
+    "*.mov",
+    "*.mp3",
+    "*.wav",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "视频工厂归档+删除"
+  ],
+  "max_context_files": 4,
+  "max_context_chars": 12000,
+  "expected_output": [
+    "file_map",
+    "runtime_provider_readiness_risks",
+    "codex_next_input"
+  ],
+  "output_format": "json_object",
+  "codex_next_input": "Codex must verify runtime provider, doctor, multi-task runner, no-key-leak, and docs sync.",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_runtime_validation/task_A_file_map",
+    "latest_supply_pack_md": "latest_supply_pack.md",
+    "latest_supply_pack_json": "latest_supply_pack.json",
+    "latest_supply_manifest_json": "latest_supply_manifest.json"
+  },
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback 本地兜底写成 DeepSeek 结论。",
+    "不得写 multi-agent runtime 已跑通。",
+    "不得读取、输出或复述 API key / secret / token。"
+  ],
+  "stop_condition": "DeepSeek 真实调用返回 deepseek_passed，或 runtime provider blocked。",
+  "blocked_if": [
+    "runtime_provider_not_ready",
+    "deepseek_actual_participation_not_deepseek_passed",
+    "fallback_local_only",
+    "api_key_printed_or_written",
+    "forbidden_path_required"
+  ],
+  "fallback_policy": "fallback 不得视为完成。"
+}
