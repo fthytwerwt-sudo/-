@@ -103,22 +103,28 @@ GPT Project 上传包地址规则：
 - `场景化专业输出工作包` 当前降级为：`可选沉淀单元 / 产品化承接单元`
 - 当前视频默认优先服务：真实 AI 使用经验、工作提效实录、真实录屏证据、前后变化、小样本平台反馈与发布后复盘
 - v3 只保留为历史候选 / 对照，不再作为后续默认修改基础。
+- `已确认` 2026-05-15 起，《视频工厂》当前项目阶段迁移为 `formal_operation_active（正式运营中）`。
+- `已确认` 当前运营方式为 `data_driven_operation_iteration（数据驱动运营迭代）`，三期内容数据统一纳入 `operation_records（运营记录）`。
+- 当前 canonical 运营入口看 `codex_log/current_operation_target.md`；正式运营记录索引看 `review_loop/operation_records_index.md`。
+- `codex_log/current_gray_test_target.md` 仅作为 `legacy_compatibility_pointer（历史兼容指针）`；旧 `gray_test` 不再作为当前默认项目阶段。
 - `technical_validation = passed（v3.1 技术验证通过）`，但 `technical_line_locked = false（技术线未锁定）`
 - `technical_upgrade_next = true（下一步仍需技术升级）`
-- `content_validation = gray_testing_not_final_passed（灰度测试中，不等于内容最终通过；不得写成内容通过）`
+- `content_validation = not_advanced_by_formal_operation（正式运营不等于内容最终通过；不得写成内容通过）`
 - `send_ready = false`
 - `visual_master_locked = false`
 - `voice_validation = pending_user_chatgpt_review`
 - `final_voice_validated = false`
 - `visual_route_map.json（视觉路由表）` 与 `visual_route_validation_report.json（视觉路由验证报告）` 已随 v3.1 基线进入 `dist/latest_review_pack/`
-- `publish_status = gray_test_published（v3.1 已发片，进入灰度测试）`
-- `gray_test_status = active（灰度测试中）`
+- `publish_status = published_in_formal_operation（已发布，进入正式运营数据回流；不是发布成功口径升级）`
+- `operation_status = active（正式运营观察中）`
 - `post_publish_review_required = true（需要发布后复盘）`
-- `current_phase = post_publish_gray_test（发布后灰度测试阶段）`
+- `current_phase = formal_operation_active（正式运营中）`
 - 上述 `content_validation` 是当前发布后阶段口径；不得把它写成 `passed`
-- 发布后复盘默认走 `review_loop/`，不另起独立灰度系统
-- 当前灰度测试目标看 `codex_log/current_gray_test_target.md`
-- 当前灰度测试指标体系 V1 看 `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
+- 发布后复盘默认走 `review_loop/`，当前不另起独立灰度系统
+- 当前运营目标看 `codex_log/current_operation_target.md`
+- 当前运营记录索引看 `review_loop/operation_records_index.md`
+- 旧灰度测试目标看 `codex_log/current_gray_test_target.md（legacy compatibility pointer）`
+- 旧灰度测试指标体系 V1 看 `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md（legacy metrics / historical reference）`
 - 当前 7 天播放量 6000 是小样本阶段基础测试流量门槛，不是最终商业目标
 - 当前指标体系不是运营数据大表，而是下一轮改动定位器
 - 当前截图优先录入规则看 `review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`
@@ -203,22 +209,22 @@ GPT Project 上传包地址规则：
 若任务继续命中《视频工厂》的阶段 / 复盘 / 商业化，再补读：
 11. `GPT数据源/09_目标态计划.md`
 
-若任务命中《视频工厂》的截图 / 数据截图 / 24h / 72h / 7 天 / 灰度测试 / 发片复盘 / 发片 / 发布后 / 复盘 / 数据记录 / 私信 / 咨询，再补读：
-12. `codex_log/current_gray_test_target.md`
-13. `review_loop/00_review_loop_readme.md`
-14. `review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`
-15. `review_loop/02_video_record_template.md`
-16. `review_loop/03_result_dashboard_template.md`
-17. `review_loop/04_diagnosis_template.md`
-18. `review_loop/05_dual_review_handoff_template.md`
-19. `review_loop/06_next_round_task_template.md`
-20. `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
-21. `review_loop/records/V001_v31_AI做PPT踩坑_gray_test/`
-22. `review_loop/screenshots/V001_v31_AI做PPT踩坑/screenshot_manifest.md`
-23. `review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`
+若任务命中《视频工厂》的截图 / 数据截图 / 24h / 72h / 7 天 / 运营数据 / 发片复盘 / 发片 / 发布后 / 复盘 / 数据记录 / 私信 / 咨询，再补读：
+12. `codex_log/current_operation_target.md`
+13. `review_loop/operation_records_index.md`
+14. `codex_log/current_data_goal_anchor.md`
+15. `codex_log/current_gray_test_target.md（legacy compatibility pointer）`
+16. `review_loop/00_review_loop_readme.md`
+17. `review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`
+18. `review_loop/02_video_record_template.md`
+19. `review_loop/03_result_dashboard_template.md`
+20. `review_loop/04_diagnosis_template.md`
+21. `review_loop/05_dual_review_handoff_template.md`
+22. `review_loop/06_next_round_task_template.md`
+23. `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md（legacy metrics）`
 
 截图优先录入机制硬规则：
-- 命中“截图 / 数据截图 / 24h / 72h / 7 天 / 灰度测试 / 发片复盘 / 私信 / 咨询”时，默认进入 `review_loop/` 截图优先录入机制。
+- 命中“截图 / 数据截图 / 24h / 72h / 7 天 / 运营数据 / 发片复盘 / 私信 / 咨询”时，默认进入 `operation_data_intake（运营数据录入）`。
 - 必须按 `video_id` 分开记录；不同视频不得混写。
 - 必须按 `24h / 72h / 7d` 分开记录；不同时间窗不得互相覆盖。
 - 必须按数据类型分开归档；平台数据、留存完播、互动、账号增长、评论、私信、咨询不得混写。
@@ -230,13 +236,15 @@ GPT Project 上传包地址规则：
 3. 下一轮只改哪一个变量？
 4. 为什么先改它，改完看哪个指标？
 
-当前灰度测试硬边界：
+当前正式运营硬边界：
 - 发片不等于内容过线
-- 灰度测试不等于验证成功
+- 正式运营不等于验证成功
+- 正式运营不等于商业验证成立
+- 正式运营不等于数据飞轮跑通
 - `send_ready` 仍保持 `false`
 - `visual_master_locked` 仍保持 `false`
 - PR #7 B 仍是后续骚萌卡唯一执行参考，PR #7 A 仍只作历史 / candidate 对照
-- 下一轮文案前必须先看 v3.1 灰度测试记录和四个复盘问题
+- 下一轮文案前必须先看当前运营目标、运营记录索引、当前数据目标锚点和正式运营复盘四问
 
 ### 2.3 `AI 直播前台验证项目` 命中规则
 若任务命中以下任一关键词，默认按 `AI 直播前台验证项目` 接手：

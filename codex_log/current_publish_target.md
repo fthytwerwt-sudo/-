@@ -1,6 +1,14 @@
 # Current Publish Target
 
-## 当前口径
+## 0A. formal_operation override
+
+`已确认` 2026-05-15 起，当前项目阶段已迁移为 `formal_operation_active（正式运营中）`。
+
+本文件中关于 V001 / v3.1 `gray_test` 的旧字段只作为 `legacy_previous_term（历史兼容术语）` 保留。当前运营目标以 `codex_log/current_operation_target.md` 为准；三期运营记录以 `review_loop/operation_records_index.md` 为准。
+
+正式运营不等于内容通过、商业验证成立、数据飞轮跑通或 `send_ready = true`。
+
+## legacy_previous_publish_target 旧发布目标口径
 
 - `已确认` 本文件记录《视频工厂》当前复审 / publish target 入口。
 - `已确认` 当前主题为《我用 AI 做 PPT 踩过的坑》v3.1。
@@ -10,12 +18,12 @@
 - `已确认` 后续升级 / 修改 / 技术优化 / GPT 文案侧回炉默认基础：`future_iteration_base = v3.1`。
 - `已确认` v3 只保留为历史候选 / 对照，不再作为后续默认修改基础。
 - `已确认` 用户最终人工确认前，`send_ready` 必须保持 `false` / `no`。
-- `已确认` 用户最新确认：v3.1 已发片，当前进入灰度测试。
-- `已确认` 当前阶段：`current_phase = post_publish_gray_test（发布后灰度测试阶段）`。
-- `已确认` 发布状态：`publish_status = gray_test_published（已发片，进入灰度测试）`。
-- `已确认` 灰度状态：`gray_test_status = active（灰度测试中）`。
+- `legacy` 用户曾确认：v3.1 已发片，旧阶段进入灰度测试。
+- `legacy_previous_phase`：`post_publish_gray_test（发布后灰度测试阶段）`。
+- `legacy_previous_publish_status`：`gray_test_published（已发片，进入灰度测试）`。
+- `legacy_previous_gray_test_status`：`active（灰度测试中）`。
 - `已确认` 发布后复盘：`post_publish_review_required = true（需要发布后复盘）`。
-- `已确认` 当前内容状态：`content_validation = gray_testing_not_final_passed（灰度测试中，不等于内容最终通过）`。
+- `legacy_previous_content_validation`：`gray_testing_not_final_passed（灰度测试中，不等于内容最终通过）`。
 
 ## 当前复审 target
 
@@ -34,9 +42,9 @@
 - `current_video_baseline`：`v3.1`
 - `future_iteration_base`：`v3.1`
 - `base_for_next_upgrade`：`v3.1`
-- `current_phase`：`post_publish_gray_test`
-- `publish_status`：`gray_test_published`
-- `gray_test_status`：`active`
+- `legacy_previous_phase`：`post_publish_gray_test`
+- `legacy_previous_publish_status`：`gray_test_published`
+- `legacy_previous_gray_test_status`：`active`
 - `post_publish_review_required`：`true`
 - `gray_test_metrics_v1`：`review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
 - `current_gray_test_target`：`codex_log/current_gray_test_target.md`
@@ -52,7 +60,7 @@
 - `metadata_validation`：`passed`
 - `audio_validation`：`passed_non_silent_tts_track`
 - `subtitle_enabled`：`false`
-- `content_validation`：`gray_testing_not_final_passed（灰度测试中，不等于内容最终通过）`
+- `legacy_previous_content_validation`：`gray_testing_not_final_passed（灰度测试中，不等于内容最终通过）`
 - `send_ready`：`false`
 - `visual_master_candidate`：`true`
 - `visual_master_locked`：`false`
@@ -62,14 +70,14 @@
 ## 当前唯一最高优先级 blocker
 
 - `已确认` v3.1 是当前迭代基线，但不是可发送版本。
-- `已确认` v3.1 已发片进入灰度测试，但灰度测试不等于内容通过。
+- `legacy` v3.1 已发片进入灰度测试，但该旧阶段不等于内容通过。
 - `已确认` v3.1 需要跑完 24h / 72h 灰度观察，再进入 Codex 初检与 ChatGPT / 用户判断。
 - `已确认` 下一步仍需要技术升级。
 - `已确认` 后续修改必须保持三条视觉路由不混。
 
-## 当前灰度测试目标
+## legacy_previous_gray_test_target
 
-- 当前目标文件：`codex_log/current_gray_test_target.md`
+- legacy 目标文件：`codex_log/current_gray_test_target.md`
 - 截图录入规则：`review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`
 - 当前视频记录目录：`review_loop/records/V001_v31_AI做PPT踩坑_gray_test/`
 - 当前单条主记录：`review_loop/records/V001_v31_AI做PPT踩坑_gray_test/V001_gray_test_record.md`

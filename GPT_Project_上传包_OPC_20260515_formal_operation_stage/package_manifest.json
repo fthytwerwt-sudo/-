@@ -1,0 +1,43 @@
+{
+  "package_name": "GPT_Project_上传包_OPC_20260515_formal_operation_stage",
+  "created_at": "2026-05-15T22:50:00+08:00",
+  "project_stage": "formal_operation_active",
+  "operation_mode": "data_driven_operation_iteration",
+  "current_operation_target": "V003",
+  "operation_records_count": 3,
+  "current_data_goal_anchor_status": "partial_data_recorded",
+  "contains": [
+    "GPT数据源/",
+    "codex_log/current_operation_target.md",
+    "codex_log/current_gray_test_target.md",
+    "codex_log/current_data_goal_anchor.md",
+    "codex_log/latest.md",
+    "codex_log/20260515_formal_operation_stage_migration.md",
+    "codex_log/current_local_artifact_paths.md",
+    "codex_log/supply_requests/",
+    "review_loop/operation_records_index.md",
+    "review_loop/operation_stage_readme.md",
+    "review_loop/records/",
+    "deepseek_reports/pre_supply/",
+    "deepseek_reports/post_risk_review/",
+    "上传说明_UPLOAD_MANIFEST.md"
+  ],
+  "deepseek_participation": {
+    "pre_supply": "deepseek_passed",
+    "post_risk_review": "deepseek_passed",
+    "fallback_count": 0,
+    "blocked_count": 0,
+    "env_file_read": false,
+    "api_key_printed": false,
+    "api_key_written": false
+  },
+  "status_boundary": {
+    "content_validation": "not_advanced",
+    "send_ready": "not_advanced",
+    "publish_status_success": "not_advanced",
+    "voice_validation": "not_advanced",
+    "final_voice_validated": "not_advanced",
+    "visual_master_locked": "not_advanced",
+    "gpt_project_ui_uploaded": false
+  }
+}

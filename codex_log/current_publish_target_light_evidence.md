@@ -1,5 +1,11 @@
 # Current Publish Target Light Evidence
 
+## 0A. formal_operation override
+
+`已确认` 当前 canonical 运营入口已迁移到 `codex_log/current_operation_target.md`。
+
+本文件保留 V001 / v3.1 旧发布目标轻量证据；其中 `gray_test` 字段均按 `legacy_previous_term` 读取，不再作为当前默认项目阶段。
+
 ## 对应对象
 
 - 当前最新复审对象：`dist/latest_review_pack/`
@@ -9,10 +15,10 @@
 - 当前完整片：`dist/latest_review_pack/full.mp4`
 - 当前审片入口：`dist/latest_review_pack/review_manifest.md`
 - 当前状态摘要：`dist/latest_review_pack/summary.json`
-- 当前阶段：`post_publish_gray_test`
-- 当前发布状态：`gray_test_published`
-- 当前灰度状态：`active`
-- 当前灰度目标：`codex_log/current_gray_test_target.md`
+- legacy_previous_phase：`post_publish_gray_test`
+- legacy_previous_publish_status：`gray_test_published`
+- legacy_previous_gray_test_status：`active`
+- legacy_previous_gray_test_target：`codex_log/current_gray_test_target.md`
 - 当前截图录入规则：`review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`
 - 当前单条主记录：`review_loop/records/V001_v31_AI做PPT踩坑_gray_test/V001_gray_test_record.md`
 - 当前记录目录：`review_loop/records/V001_v31_AI做PPT踩坑_gray_test/`
@@ -24,11 +30,11 @@
 1. `dist/latest_review_pack/summary.json`
    - `current_video_baseline = v3.1`
    - `future_iteration_base = v3.1`
-   - `current_phase = post_publish_gray_test`
-   - `publish_status = gray_test_published`
-   - `gray_test_status = active`
+   - `legacy_previous_phase = post_publish_gray_test`
+   - `legacy_previous_publish_status = gray_test_published`
+   - `legacy_previous_gray_test_status = active`
    - `post_publish_review_required = true`
-   - `content_validation = gray_testing_not_final_passed`
+   - `legacy_previous_content_validation = gray_testing_not_final_passed`
    - `send_ready = false`
    - `visual_master_locked = false`
    - `voice_validation = pending_user_chatgpt_review`
@@ -37,8 +43,8 @@
 2. `dist/latest_review_pack/review_manifest.md`
    - 明确 v3.1 是当前基线。
    - 明确 v3.1 不是可发送状态。
-   - 明确 v3.1 已发片进入灰度测试。
-   - 明确灰度测试不等于内容通过。
+   - 明确 v3.1 旧阶段曾发片进入灰度测试。
+   - 明确旧灰度测试不等于内容通过。
 3. `dist/latest_review_pack/visual_route_map.json`
    - 三张骚萌卡走 `sassy_reaction_card_route`。
    - 信息卡走 `cute_info_card_route`。

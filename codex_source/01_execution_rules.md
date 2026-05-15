@@ -1,5 +1,19 @@
 # Codex 执行规则
 
+## 0A. formal_operation execution override
+
+`已确认` 当前项目阶段为 `formal_operation_active（正式运营中）`。
+
+命中截图、平台数据、评论、私信、咨询、复盘或下一轮变量判断时，Codex 必须优先读取：
+
+1. `codex_log/current_operation_target.md`
+2. `review_loop/operation_records_index.md`
+3. `codex_log/current_data_goal_anchor.md`
+
+旧 `codex_log/current_gray_test_target.md` 只作 legacy compatibility pointer；不得把 `gray_test_data_intake` 作为新数据默认路由。当前默认路由为 `operation_data_intake / operation_review / operation_next_variable_decision`。
+
+本覆盖口径不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`。
+
 ## 1. 文件定位
 
 本文件规定 Codex 在《视频工厂》仓库中的默认执行方式。
@@ -382,16 +396,18 @@ if deviation_check_missing = true:
 
 缺复盘对象或当前结果状态：blocked。
 
-### 数据记录 / 灰度复盘
+### 数据记录 / 正式运营复盘
 
 必读：
 
 1. `AGENTS.md（仓库入口规则）`
-2. `codex_log/current_gray_test_target.md（当前灰度测试目标）`
-3. `review_loop/00_review_loop_readme.md（复盘循环入口）`
-4. `review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md（截图数据录入规则）`
-5. `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md（v3.1 灰度测试指标体系）`
-6. 当前视频记录目录
+2. `codex_log/current_operation_target.md（当前运营目标）`
+3. `review_loop/operation_records_index.md（正式运营记录索引）`
+4. `codex_log/current_data_goal_anchor.md（当前数据目标锚点）`
+5. `review_loop/00_review_loop_readme.md（复盘循环入口）`
+6. `review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md（截图数据录入规则）`
+7. `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md（legacy metrics / historical reference）`
+8. 当前视频记录目录
 
 缺 `video_id`、时间窗或数据类型：blocked。
 
@@ -1173,16 +1189,17 @@ blocked（阻断）:
 - 不允许旧 `round` 状态继续覆盖最新 `latest_review_pack`
 - 只要改动会影响新会话默认接手判断，就必须同步到 `main`
 
-## 8A-1. 发布后灰度测试与复盘接入规则
+## 8A-1. 正式运营数据回流与复盘接入规则
 
-当前 v3.1 已进入 `post_publish_gray_test（发布后灰度测试阶段）`。
+当前项目已进入 `formal_operation_active（正式运营中）`，后续数据录入走 `operation_data_intake`。
 
 状态硬规则：
 
-- `publish_status = gray_test_published（已发片，进入灰度测试）`
-- `gray_test_status = active（灰度测试中）`
+- `current_project_stage = formal_operation_active（正式运营中）`
+- `operation_status = active（正式运营观察中）`
+- `legacy_previous_stage = post_publish_gray_test（历史兼容字段）`
 - `post_publish_review_required = true（需要发布后复盘）`
-- `content_validation = gray_testing_not_final_passed（灰度测试中，不等于内容最终通过）`
+- `content_validation = not_advanced_by_formal_operation（正式运营不等于内容最终通过）`
 - `send_ready = false`
 - `visual_master_locked = false`
 - `voice_validation = pending_user_chatgpt_review`

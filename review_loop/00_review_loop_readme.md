@@ -1,5 +1,19 @@
 # review_loop 总说明
 
+## 0A. 2026-05-15 正式运营阶段口径
+
+`已确认` 《视频工厂》当前项目阶段已迁移为 `formal_operation_active（正式运营中）`。
+
+后续数据截图、评论、私信、咨询与平台数据默认走：
+
+- `operation_data_intake（运营数据录入）`
+- `operation_review（运营复盘）`
+- `operation_next_variable_decision（运营下一变量判断）`
+
+正式运营记录索引看 `review_loop/operation_records_index.md`；当前运营目标看 `codex_log/current_operation_target.md`。
+
+旧 `gray_test（灰度测试）` 只作为 2026-05-15 以前历史记录、旧路径和 legacy alias 保留，不再作为当前默认项目阶段。
+
 ## 1. 这套文件是干什么的
 
 `review_loop/` 用来承接视频发出之后的复盘执行工作。
@@ -69,11 +83,11 @@
 
 若诊断后问题层命中文案结构、发布包装、画面表达、录屏承载或平台风险，必须先读 `09_复盘到文案调整桥接_review_to_copy_revision_bridge.md` 和 `10_文案结构改版包模板_copy_revision_package_template.md`，再生成下一轮执行单草稿；不得从数据记录直接跳到“写新文案 / 生成视频”。
 
-## 4A. 当前 v3.1 灰度测试使用方式
+## 4A. legacy_previous_term：v3.1 灰度测试使用方式
 
-`已确认` 《我用 AI 做 PPT 踩过的坑》v3.1 已发片，当前进入 `post_publish_gray_test（发布后灰度测试阶段）`。
+`legacy` 《我用 AI 做 PPT 踩过的坑》v3.1 曾作为 `post_publish_gray_test（发布后灰度测试阶段）` 的历史观察对象。
 
-当前灰度测试不是一套新系统，只是 `review_loop/` 在 v3.1 发布后的当前阶段名称。
+当前 canonical 阶段已迁移为 `formal_operation_active`；本节只保留历史兼容说明。
 
 本阶段固定使用方式：
 
@@ -88,7 +102,7 @@
 9. 双层交接：`review_loop/05_dual_review_handoff_template.md`
 10. 下一轮草稿：`review_loop/06_next_round_task_template.md`
 11. 灰度测试指标体系 V1：`review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`
-12. 当前灰度目标：`codex_log/current_gray_test_target.md`
+12. legacy 灰度目标：`codex_log/current_gray_test_target.md`
 
 截图优先录入规则：
 

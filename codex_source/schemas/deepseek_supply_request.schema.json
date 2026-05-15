@@ -49,6 +49,27 @@
       "type": "string",
       "minLength": 1
     },
+    "project_stage": {
+      "enum": [
+        "formal_operation_active",
+        "legacy_gray_test",
+        "draft",
+        "blocked"
+      ]
+    },
+    "operation_stage": {
+      "type": "string",
+      "description": "Current formal operation stage, e.g. operation_data_intake, operation_review, operation_next_variable_decision, operation_stage_migration."
+    },
+    "current_operation_target_path": {
+      "type": "string"
+    },
+    "operation_records_index_path": {
+      "type": "string"
+    },
+    "legacy_previous_stage": {
+      "type": "string"
+    },
     "trigger_reason": {
       "enum": [
         "mandatory_pre_supply",
@@ -125,7 +146,9 @@
         "draft",
         "ready",
         "blocked",
-        "waiting_data"
+        "waiting_data",
+        "partial_data_recorded",
+        "draft_with_interim_data"
       ]
     },
     "data_goal_anchor": {

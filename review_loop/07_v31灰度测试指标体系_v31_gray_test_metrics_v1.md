@@ -1,8 +1,17 @@
 # v3.1 灰度测试指标体系 V1
 
+## legacy compatibility note
+
+`已确认` 2026-05-15 起，《视频工厂》当前项目阶段已迁移为 `formal_operation_active（正式运营中）`。
+
+本文件保留为 V001 / v3.1 历史指标体系与运营复盘阈值参考，不再作为当前默认项目阶段名称。后续正式运营目标看：
+
+- `codex_log/current_operation_target.md`
+- `review_loop/operation_records_index.md`
+
 ## 1. 文件定位
 
-本文件是《我用 AI 做 PPT 踩过的坑》v3.1 发布后灰度测试的指标体系 V1。
+本文件是《我用 AI 做 PPT 踩过的坑》v3.1 历史发布后观察指标体系 V1；在正式运营阶段中只作为 legacy metrics / historical reference 使用。
 
 这套指标体系不是运营数据大表。
 
@@ -12,7 +21,7 @@
 
 当前硬边界：
 
-- v3.1 已发片，进入灰度测试。
+- v3.1 已发片，旧阶段曾进入灰度测试；当前 canonical 阶段为 `formal_operation_active`。
 - 发片不等于内容过线。
 - 灰度测试不等于验证成功。
 - `content_validation` 仍是 `gray_testing_not_final_passed`。

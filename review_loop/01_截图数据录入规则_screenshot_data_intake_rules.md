@@ -2,7 +2,11 @@
 
 ## 1. 文件定位
 
-本文件负责《视频工厂》发布后灰度测试阶段的截图数据录入规则。
+本文件负责《视频工厂》发布后运营数据截图录入规则。
+
+`已确认` 2026-05-15 起，当前默认路由从 `gray_test_data_intake（灰度数据录入）` 迁移为 `operation_data_intake（运营数据录入）`。
+
+旧 `gray_test_data_intake` 只作为历史兼容别名保留；新截图、平台数据、评论、私信或咨询默认先读取 `codex_log/current_operation_target.md` 和 `review_loop/operation_records_index.md`。
 
 它解决的问题是：
 

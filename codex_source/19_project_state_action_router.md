@@ -1,5 +1,15 @@
 # Project State Action Router 项目状态动作总控器
 
+## 0A. formal_operation current route
+
+当前状态默认识别为 `formal_operation_active（正式运营中）`。
+
+运营数据链路：
+
+`operation_data_intake -> operation_review -> operation_next_variable_decision`
+
+旧 `gray_test_data_intake / post_publish_gray_test` 只作为历史兼容别名。缺 `codex_log/current_operation_target.md` 或 `review_loop/operation_records_index.md` 时，运营数据任务必须 blocked。
+
 ## 1. 文件定位
 
 本文件是 Codex 执行层的 `Project State Action Router（项目状态动作总控器）`。
@@ -188,8 +198,10 @@ if state = blocked_need_user_input:
 
 补充策略：
 
-- `gray_test_data_intake`：只做截图 / 数据录入、缺失字段标记和证据归档，不做最终内容判断。
-- `post_publish_review`：必须有足够数据再判断 6000 门槛、短板层和下一轮唯一变量。
+- `operation_data_intake`：只做截图 / 数据录入、缺失字段标记和证据归档，不做最终内容判断。
+- `operation_review`：必须有足够数据再判断阶段门槛、短板层和下一轮唯一运营变量。
+- `operation_next_variable_decision`：只在运营复盘完成后选择下一轮唯一变量；缺 72h / 7d 或人审时只能保留 draft。
+- `legacy_gray_test_data_intake`：只作为历史兼容别名，不得作为新数据默认路由。
 - `material_audit_needed`：先判断素材用途、证据强度和缺口，不直接生成或改动媒体。
 - `voice_review_needed`：只做声音问题归因和候选复审，不写最终声音通过，不调用 TTS / voice cloning API。
 - `reference_contract_needed`：只把 reference / 样片 / 目标效果转换为 `reference_anchor`、`effect_targets`、`function_fields`、`deviation_check`、`done_when`，不得直接执行媒体、文案终稿或状态推进。

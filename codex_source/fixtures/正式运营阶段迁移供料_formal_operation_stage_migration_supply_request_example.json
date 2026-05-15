@@ -1,0 +1,94 @@
+{
+  "request_id": "fixture_formal_operation_stage_migration_supply_request",
+  "created_at": "2026-05-15T22:10:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "formal_operation_stage_migration_fixture",
+  "task_type": "operation_stage_migration_pre_supply",
+  "trigger_reason": "user_explicit_deepseek",
+  "action": "file_map",
+  "mandatory_for_every_task": true,
+  "participation_level": "user_explicit_required",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_allowed": false,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": true,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "project_stage": "formal_operation_active",
+  "operation_stage": "operation_stage_migration",
+  "current_operation_target_path": "codex_log/current_operation_target.md",
+  "operation_records_index_path": "review_loop/operation_records_index.md",
+  "current_data_goal_anchor_path": "codex_log/current_data_goal_anchor.md",
+  "current_data_goal_anchor_status": "partial_data_recorded",
+  "legacy_previous_stage": "gray_test",
+  "current_goal": "将 gray_test 当前口径迁移为 formal_operation_active，并保留 legacy alias。",
+  "current_step": "执行前供料 fixture。",
+  "known_context": [
+    "V001 historical_operation_record",
+    "V002 policy_limited_abnormal_operation_sample",
+    "V003 current_operation_target"
+  ],
+  "missing_context": [],
+  "decision_needed": "哪些文件改为 operation 当前口径，哪些 gray_test 引用保留为 legacy。",
+  "candidate_files": [
+    "codex_log/current_operation_target.md",
+    "review_loop/operation_records_index.md",
+    "codex_log/current_data_goal_anchor.md"
+  ],
+  "must_read_files": [
+    "codex_log/current_operation_target.md",
+    "review_loop/operation_records_index.md",
+    "codex_log/current_data_goal_anchor.md"
+  ],
+  "optional_files": [
+    "codex_log/current_gray_test_target.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    ".env.*",
+    ".git/",
+    "dist/latest_review_pack/",
+    "*.mp4",
+    "*.mov",
+    "*.mp3",
+    "*.wav",
+    "*.png",
+    "*.jpg",
+    "*.jpeg"
+  ],
+  "max_context_files": 3,
+  "max_context_chars": 5000,
+  "expected_output": [
+    "operation_current_entries",
+    "legacy_alias_entries",
+    "forbidden_status_promotion_risks"
+  ],
+  "output_format": "compact_markdown",
+  "codex_next_input": "Codex must keep formal_operation boundaries and run post-risk review.",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_runtime_validation/fixtures_formal_operation_stage_migration",
+    "read_first": [
+      "latest_supply_pack.md",
+      "latest_supply_pack.json",
+      "latest_supply_manifest.json"
+    ]
+  },
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback_local_only 写成 DeepSeek 结论。",
+    "不得声称 multi-agent runtime（多 agent 运行时）已经长期稳定跑通。",
+    "不得把 formal_operation 写成内容验证通过。"
+  ],
+  "stop_condition": "输出只读供料包后停止。",
+  "blocked_if": [
+    "runtime_provider_not_ready",
+    "deepseek_actual_participation_not_deepseek_passed",
+    "fallback_local_only",
+    "requires_content_validation_promotion"
+  ],
+  "fallback_policy": "fallback 不得视为完成。"
+}

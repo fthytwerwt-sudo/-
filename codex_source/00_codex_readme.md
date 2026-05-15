@@ -1,5 +1,17 @@
 # codex_source 总入口
 
+## 0A. 2026-05-15 formal_operation current entry
+
+`已确认` 《视频工厂》当前阶段已迁移为 `formal_operation_active（正式运营中）`。
+
+Codex 后续默认先读：
+
+- `codex_log/current_operation_target.md`
+- `review_loop/operation_records_index.md`
+- `codex_log/current_data_goal_anchor.md`
+
+`codex_log/current_gray_test_target.md` 只作为 `legacy_compatibility_pointer（历史兼容指针）`；旧 `gray_test_*` 状态不得继续作为当前默认路由。新数据录入走 `operation_data_intake`，复盘走 `operation_review`，下一轮变量判断走 `operation_next_variable_decision`。
+
 ## 1. 这份文件是什么
 
 本文件是《视频工厂》当前 Codex 执行层入口。
@@ -288,7 +300,7 @@ Codex 的纵向补全不能替 ChatGPT 偷懒；ChatGPT 仍必须在上游提供
 - `codex_log/current_local_artifact_paths.md` 的 `canonical_local_path` 只能指向 `/Users/fan/Documents/视频工厂` 内部；旧外部路径最多保留为 `historical_source_path` 或 `fallback_path`。
 - 后续清理 / 归档 / 迁移任务也必须从唯一正式工作区发起和记录。
 
-当前 `latest_review_pack` 已确认指向 `20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix`；`current_video_baseline = v3.1`，后续升级 / 修改 / 技术优化 / GPT 文案侧回炉默认基于 v3.1；v3 只保留为历史候选 / 对照，不再作为后续默认修改基础。v3.1 技术验证已通过，但 `technical_line_locked = false（技术线未锁定）`，下一步仍需技术升级；v3.1 已发片并进入 `post_publish_gray_test（发布后灰度测试阶段）`，`publish_status = gray_test_published`，`gray_test_status = active`，`post_publish_review_required = true`；当前发布后内容状态写为 `content_validation = gray_testing_not_final_passed（灰度测试中，不等于内容最终通过）`，`send_ready = false`，`visual_master_locked = false`；当前灰度测试指标体系 V1 为 `review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`，7 天播放量 6000 是小样本阶段基础测试流量门槛。
+当前 `latest_review_pack` 已确认指向 `20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix`；`current_video_baseline = v3.1`，后续升级 / 修改 / 技术优化 / GPT 文案侧回炉默认基于 v3.1；v3 只保留为历史候选 / 对照，不再作为后续默认修改基础。v3.1 技术验证已通过，但 `technical_line_locked = false（技术线未锁定）`，下一步仍需技术升级。2026-05-15 起，当前项目阶段为 `formal_operation_active（正式运营中）`，当前运营入口为 `codex_log/current_operation_target.md`，三期数据索引为 `review_loop/operation_records_index.md`；旧 `post_publish_gray_test / gray_test_published / gray_test_status` 仅保留为 legacy_previous_term，不再作为当前默认项目阶段。正式运营不推进 `content_validation`、`send_ready`、`visual_master_locked`，也不代表商业验证成立。
 
 若任务命中“完整成片 / 成品候选片 / 技术预览升级成候选片 / 样片回炉 / 开头重做 / 中段剪辑 / 字幕修正 / TTS 修正 / 功能卡修正 / 结果差卡修正 / 骚萌卡修正 / 录屏放大修正 / 视觉母版修正”，则在 `codex_log/latest.md` 之后必须先补读：
 
@@ -526,4 +538,4 @@ Codex 的纵向补全不能替 ChatGPT 偷懒；ChatGPT 仍必须在上游提供
 
 ## 8. 入口一句话
 
-命中《视频工厂》后，新会话默认先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md`，再按 `10 份基础执行包 + OPC 总纲 + 状态动作总控器` 最小顺序补读 `GPT数据源/00`、`GPT数据源/10_OPC`、`GPT数据源/11_项目状态动作总控器`、`codex_source/19_project_state_action_router.md`、`GPT数据源/01`、`GPT数据源/03`、`GPT数据源/08`、`GPT数据源/06`；每轮先输出 `state_action_router（项目状态动作总控器）` 判断当前状态、事实源裁决、触发机制和下一动作；命中目标 / 数据 / 文案修改 / 下一条视频 / 视频执行 / 剪辑 / 编排 / DeepSeek 供料 / GPT Project 静态包同步时，必须补读 `GPT数据源/13`、`GPT数据源/14` 与 `codex_log/current_data_goal_anchor.md`，缺 `current_data_goal_anchor` 或 `data_goal_anchor` 不得进入视频执行，缺 `data_goal_alignment_check` 不得写执行完成；当前正式事实以 GitHub / 本地 `main` 上的当前仓库文件、`GPT数据源/` 当前机制包、`codex_log/latest.md` 和直接源文件复核为准，GPT Project 静态包只作协作包，`project_source/` 只作历史 / 辅助镜像；当前上位身份是 `OPC 一人公司 AI 闭环验证系统`，视频是内容化与反馈出口，四件套主线是内容化输出默认执行载体；当前 `latest_review_pack` 指向 v3.1，`current_video_baseline = v3.1`，`future_iteration_base = v3.1`，`publish_status = gray_test_published`，`gray_test_status = active`，`current_phase = post_publish_gray_test`，`content_validation = gray_testing_not_final_passed`，`send_ready = false`；若任务命中完整成片 / 成品候选片 / 技术预览升级 / 样片回炉 / 字幕 / TTS / 卡片 / 放大 / 剪辑 / 视觉母版修正，必须先读 `codex_source/14_locked_reference_inheritance_rules.md` 和 `codex_source/locked_reference_registry.md`，读不到即 blocked；若任务命中 v3.1 / 段落提示卡 / 信息卡 / 骚萌卡 / visual_route_map，还必须先读 `codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md`，并先验证 `visual_route_map.json`；PR #7 B 是后续骚萌卡唯一执行参考，读不到必须 blocked，不得回退 PR #7 A；若任务命中截图 / 数据截图 / 灰度测试 / 发片 / 发布后 / 复盘 / 数据记录 / 24h / 72h / 7 天 / 播放量 / 私信 / 咨询，必须读取 `codex_log/current_gray_test_target.md`、`review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md`、`review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md` 与当前 V001 记录目录；`7d_play_count = 6000` 是当前小样本基础测试流量门槛，指标体系不是运营数据大表而是下一轮改动定位器；用户可以直接给截图，Codex 按视频 / 时间窗 / 数据类型归档并提取字段，先记录 24h / 72h / 7 天数据，再回答四个复盘问题并做 Codex 初检和 ChatGPT 判断，不得跳过数据直接设定下一条文案；当前正式默认主线按“API 生成真人 + 用户录制素材 + 少量 PPT + 云端剪辑”理解，结构跟着文案走，`API生成真人段` 次数由 block 路由决定，`云端剪辑 / cloud-only` 只能写成正式方向，不能写成 runtime 已稳定跑通。
+命中《视频工厂》后，新会话默认先读 `AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_log/latest.md`，再按 `10 份基础执行包 + OPC 总纲 + 状态动作总控器` 最小顺序补读 `GPT数据源/00`、`GPT数据源/10_OPC`、`GPT数据源/11_项目状态动作总控器`、`codex_source/19_project_state_action_router.md`、`GPT数据源/01`、`GPT数据源/03`、`GPT数据源/08`、`GPT数据源/06`；每轮先输出 `state_action_router（项目状态动作总控器）` 判断当前状态、事实源裁决、触发机制和下一动作。当前阶段为 `formal_operation_active`，运营数据任务必须读取 `codex_log/current_operation_target.md`、`review_loop/operation_records_index.md` 与 `codex_log/current_data_goal_anchor.md`；旧 `current_gray_test_target.md` 只作 legacy pointer。命中目标 / 数据 / 文案修改 / 下一条视频 / 视频执行 / 剪辑 / 编排 / DeepSeek 供料 / GPT Project 静态包同步时，必须补读 `GPT数据源/13`、`GPT数据源/14` 与 `codex_log/current_data_goal_anchor.md`；缺 `current_data_goal_anchor` 或 `data_goal_anchor` 不得进入视频执行，缺 `data_goal_alignment_check` 不得写执行完成。正式运营不等于内容通过、商业验证成立、数据飞轮跑通或 runtime 稳定；若任务命中完整成片 / 成品候选片 / 技术预览升级 / 样片回炉 / 字幕 / TTS / 卡片 / 放大 / 剪辑 / 视觉母版修正，仍必须先读 locked reference 与 visual route 规则。当前正式默认主线按“API 生成真人 + 用户录制素材 + 少量 PPT + 云端剪辑”理解，结构跟着文案走，`云端剪辑 / cloud-only` 只能写成正式方向，不能写成 runtime 已稳定跑通。

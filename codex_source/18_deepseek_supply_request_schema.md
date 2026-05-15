@@ -1,5 +1,20 @@
 # DeepSeek supply request schema
 
+## 0A. formal_operation fields
+
+正式运营阶段供料 request 应包含：
+
+```yaml
+project_stage: "formal_operation_active"
+operation_stage: "operation_data_intake / operation_review / operation_next_variable_decision / operation_stage_migration"
+current_operation_target_path: "codex_log/current_operation_target.md"
+operation_records_index_path: "review_loop/operation_records_index.md"
+current_data_goal_anchor_path: "codex_log/current_data_goal_anchor.md"
+legacy_previous_stage: "gray_test"
+```
+
+这些字段只说明当前运营上下文，不代表内容验证通过、商业验证成立或数据飞轮跑通。
+
 ## 1. 文件定位
 
 本文件定义《视频工厂》里 `DeepSeek supply request（DeepSeek 供料请求任务卡）` 的标准结构。

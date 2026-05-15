@@ -3,19 +3,34 @@
   "description": "Minimum router fixtures for Project State Action Router in 视频工厂 OPC project.",
   "cases": [
     {
-      "case_id": "user_uploads_gray_test_screenshot",
-      "input_signal": "用户上传 v3.1 灰度测试截图或平台数据。",
+      "case_id": "user_uploads_operation_data_screenshot",
+      "input_signal": "用户上传正式运营阶段截图或平台数据。",
       "repo_state": {
-        "publish_status": "gray_test_published",
-        "gray_test_status": "active",
-        "gray_test_data_missing": true
+        "project_stage": "formal_operation_active",
+        "operation_records_index_exists": true,
+        "operation_data_missing": true
       },
-      "expected_state": "gray_test_data_intake",
-      "expected_trigger_mechanism": "review_loop / data intake",
+      "expected_state": "operation_data_intake",
+      "expected_trigger_mechanism": "review_loop / operation data intake",
       "expected_action": "按 video_id、时间窗和数据类型录入字段，更新缺失字段记录。",
       "forbidden_action": "不得把截图直接写成内容通过或下一轮唯一变量已确定。",
       "done_when": "数据字段、证据路径和 missing fields 已更新。",
       "blocked_if": "缺 video_id、时间窗或数据类型。"
+    },
+    {
+      "case_id": "formal_operation_stage_migration",
+      "input_signal": "用户要求从 gray_test 当前口径迁移到 formal_operation_active。",
+      "repo_state": {
+        "current_gray_test_target_exists": true,
+        "current_operation_target_exists": false,
+        "current_data_goal_anchor_status": "partial_data_recorded"
+      },
+      "expected_state": "operation_stage_migration_required",
+      "expected_trigger_mechanism": "formal_operation_route_migration",
+      "expected_action": "新增 current_operation_target 和 operation_records_index，将 current_gray_test_target 降级为 legacy pointer，并同步 GPT / Codex 入口。",
+      "forbidden_action": "不得把 formal_operation 写成内容验证通过、商业验证成立或 current_data_goal_anchor ready。",
+      "done_when": "新入口存在，旧 gray_test 只作为 legacy alias，三期记录均纳入 operation_records。",
+      "blocked_if": "DeepSeek 未真实参与或任一 V001 / V002 / V003 记录缺失。"
     },
     {
       "case_id": "user_gives_final_script",
@@ -88,19 +103,36 @@
       "blocked_if": "无法判断旧口径影响范围或需要修改禁止状态。"
     },
     {
-      "case_id": "gray_test_data_missing",
-      "input_signal": "灰度 24h / 72h / 7d 数据未完整回填。",
+      "case_id": "legacy_gray_test_data_missing",
+      "input_signal": "历史灰度 24h / 72h / 7d 数据未完整回填。",
       "repo_state": {
-        "gray_test_status": "active",
+        "legacy_previous_stage": "gray_test",
+        "legacy_gray_test_status": "active",
         "missing_fields_exist": true,
-        "content_validation": "gray_testing_not_final_passed"
+        "legacy_previous_content_validation": "gray_testing_not_final_passed"
       },
-      "expected_state": "gray_test_waiting_data",
-      "expected_trigger_mechanism": "missing_fields explicit + wait for data",
-      "expected_action": "写明缺哪些字段，只做等待、补字段或观察。",
-      "forbidden_action": "不得判断 6000 播放门槛、短板层或下一轮唯一变量。",
-      "done_when": "缺失字段列表和用户需补数据清楚。",
-      "blocked_if": "用户要求结论但数据仍不足。"
+      "expected_state": "legacy_gray_test_waiting_data",
+      "expected_trigger_mechanism": "legacy missing_fields explicit + wait for data",
+      "expected_action": "仅作为历史兼容样例读取；当前新数据录入不得路由回 gray_test。",
+      "forbidden_action": "不得让历史 gray_test 样例覆盖当前 formal_operation_active。",
+      "done_when": "历史缺失字段列表清楚，且当前入口仍指向 operation_data_intake。",
+      "blocked_if": "用户要求把历史灰度状态恢复为当前默认状态。"
+    },
+    {
+      "case_id": "operation_data_missing",
+      "input_signal": "正式运营样本的 72h / 7d 数据未完整回填。",
+      "repo_state": {
+        "current_project_stage": "formal_operation_active",
+        "current_operation_target": "V003",
+        "missing_fields_exist": true,
+        "anchor_instance_status": "partial_data_recorded"
+      },
+      "expected_state": "operation_data_intake_waiting_more_data",
+      "expected_trigger_mechanism": "operation missing_fields explicit + wait for 72h / 7d data",
+      "expected_action": "写明缺哪些字段，只做正式运营数据录入、等待补字段或早期观察。",
+      "forbidden_action": "不得判断内容成功、商业验证成立、数据飞轮跑通或下一条正式文案。",
+      "done_when": "缺失字段列表和用户需补运营数据清楚，current_data_goal_anchor 不升级 ready。",
+      "blocked_if": "用户要求结论但 72h / 7d 数据仍不足。"
     },
     {
       "case_id": "gpt_project_package_stale",

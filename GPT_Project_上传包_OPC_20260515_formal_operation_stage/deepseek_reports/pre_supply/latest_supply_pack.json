@@ -1,0 +1,257 @@
+{
+  "supply_id": "supply_20260515T143040Z",
+  "generated_at_utc": "2026-05-15T14:30:51.194548+00:00",
+  "request_id": "20260515_formal_operation_stage_migration_pre_supply",
+  "request_file": "/Users/fan/Documents/视频工厂/codex_log/supply_requests/20260515_正式运营阶段迁移_DeepSeek执行前供料_formal_operation_stage_migration_pre_supply_request.json",
+  "request_validation_status": "passed",
+  "current_goal": "将当前默认阶段从 gray_test 迁移为 formal_operation_active。",
+  "requires_real_deepseek_participation": true,
+  "safe_loader_policy": {},
+  "runtime_provider": {
+    "runtime_provider_status": "ready",
+    "runtime_provider_auto_load_enabled": true,
+    "runtime_provider_key_source": "project_env",
+    "runtime_provider_key_source_path": ".env",
+    "runtime_provider_version": "20260515"
+  },
+  "data_goal_anchor": {},
+  "current_stage_goal": "建立 operation 当前入口；gray_test 只作 legacy alias。",
+  "main_bottleneck": "opening_retention_and_initial_distribution_weak",
+  "primary_variable": "opening_route_or_first_5s_packaging",
+  "forbidden_variables": [
+    "不要把 formal_operation 写成内容验证通过",
+    "不要把 formal_operation 写成商业验证成立",
+    "不要把 V003 早期数据写成 72h / 7d final",
+    "不要混写 V001 / V002 / V003",
+    "不要推进 content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked"
+  ],
+  "success_metric": "仓库默认入口和三期记录均指向 formal_operation_active / operation_data_intake，旧 gray_test 当前态已降级为 legacy alias。",
+  "failure_metric": "仍存在未标 legacy 的当前态 gray_test 默认入口，或三期记录被混写，或 DeepSeek fallback 被冒充为参与。",
+  "post_publish_validation_metric": "V003 72h / 7d 数据补齐后再进入 operation_review，不在本轮做最终复盘。",
+  "current_step": "执行前供料：请只读检查当前 gray_test 引用和正式运营迁移风险。",
+  "known_context": [
+    "V001 historical_operation_record；V002 policy_limited_abnormal_operation_sample；V003 current_operation_target。",
+    "current_data_goal_anchor = partial_data_recorded，不能升级 ready。",
+    "本轮只迁移阶段口径，不做内容复盘。"
+  ],
+  "missing_context": [],
+  "decision_needed": "输出少于 500 个汉字，只回答 migrate / legacy / records / risks 四项。",
+  "task": "Use this supply_request task card as the only current task context. Do not infer missing project state from memory.\n{\n  \"request_id\": \"20260515_formal_operation_stage_migration_pre_supply\",\n  \"task_id\": \"formal_operation_stage_migration\",\n  \"mandatory_for_every_task\": true,\n  \"participation_level\": \"user_explicit_required\",\n  \"pre_supply_required\": true,\n  \"post_review_required\": true,\n  \"codex_vertical_completion_required\": true,\n  \"token_usage_expectation\": \"token_should_decrease_if_real_call\",\n  \"fallback_allowed\": false,\n  \"fallback_not_completion\": true,\n  \"user_explicit_deepseek_required\": true,\n  \"deepseek_must_not_be_skipped_by_codex_discretion\": true,\n  \"current_goal\": \"将当前默认阶段从 gray_test 迁移为 formal_operation_active。\",\n  \"current_step\": \"执行前供料：请只读检查当前 gray_test 引用和正式运营迁移风险。\",\n  \"known_context\": [\n    \"V001 historical_operation_record；V002 policy_limited_abnormal_operation_sample；V003 current_operation_target。\",\n    \"current_data_goal_anchor = partial_data_recorded，不能升级 ready。\",\n    \"本轮只迁移阶段口径，不做内容复盘。\"\n  ],\n  \"missing_context\": [],\n  \"decision_needed\": \"输出少于 500 个汉字，只回答 migrate / legacy / records / risks 四项。\",\n  \"expected_output\": [\n    \"migrate: current_operation_target / operation_data_intake / operation_review\",\n    \"legacy: current_gray_test_target / old gray_test paths\",\n    \"records: V001 historical, V002 abnormal, V003 current\",\n    \"risks: no content success, no ready, no 72h/7d final\"\n  ],\n  \"codex_next_input\": \"Codex must migrate current default route to formal_operation_active / operation_data_intake, keep old gray_test as legacy alias, update logs/package, and run post-risk review before completion.\",\n  \"return_to_codex\": {\n    \"output_dir\": \"dist/deepseek_runtime_validation/20260515_formal_operation_stage_migration/pre_supply\",\n    \"read_first\": [\n      \"latest_supply_pack.md\",\n      \"latest_supply_pack.json\",\n      \"latest_supply_manifest.json\"\n    ]\n  },\n  \"stop_condition\": \"输出只读供料包并返回给 Codex；如果不能真实 DeepSeek 参与则 blocked。\",\n  \"blocked_if\": [\n    \"runtime_provider_not_ready\",\n    \"deepseek_actual_participation_not_deepseek_passed\",\n    \"fallback_local_only\",\n    \"api_key_printed_or_written\",\n    \"forbidden_path_required\",\n    \"requires_content_validation_promotion\"\n  ],\n  \"not_allowed\": [\n    \"DeepSeek 不得写文件。\",\n    \"DeepSeek 不得拍板项目事实。\",\n    \"不得把 formal_operation 写成内容验证通过。\",\n    \"不得把 fallback_local_only 写成 DeepSeek 结论。\",\n    \"不得声称 multi-agent runtime（多 agent 运行时）已经长期稳定跑通。\",\n    \"不得读取、输出或复述 API key / secret / token。\",\n    \"不得要求生成视频、音频、图片。\"\n  ],\n  \"current_stage_goal\": \"建立 operation 当前入口；gray_test 只作 legacy alias。\",\n  \"main_bottleneck\": \"opening_retention_and_initial_distribution_weak\",\n  \"primary_variable\": \"opening_route_or_first_5s_packaging\",\n  \"supporting_variables\": [\n    \"interim_36h_snapshot\",\n    \"operation_records_unification\"\n  ],\n  \"forbidden_variables\": [\n    \"不要把 formal_operation 写成内容验证通过\",\n    \"不要把 formal_operation 写成商业验证成立\",\n    \"不要把 V003 早期数据写成 72h / 7d final\",\n    \"不要混写 V001 / V002 / V003\",\n    \"不要推进 content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked\"\n  ],\n  \"success_metric\": \"仓库默认入口和三期记录均指向 formal_operation_active / operation_data_intake，旧 gray_test 当前态已降级为 legacy alias。\",\n  \"failure_metric\": \"仍存在未标 legacy 的当前态 gray_test 默认入口，或三期记录被混写，或 DeepSeek fallback 被冒充为参与。\",\n  \"post_publish_validation_metric\": \"V003 72h / 7d 数据补齐后再进入 operation_review，不在本轮做最终复盘。\",\n  \"allow_process_env_api_key\": true,\n  \"disable_env_file\": true,\n  \"safe_deepseek_process_env_test\": true,\n  \"requires_real_deepseek_participation\": true,\n  \"safe_call_mode\": \"project_runtime_provider\"\n}",
+  "task_type": "operation_stage_migration_pre_supply",
+  "trigger_reason": "user_explicit_deepseek",
+  "requested_action": "file_map",
+  "action": "file_map",
+  "max_rounds": 1,
+  "supply_source": "deepseek_passed",
+  "not_deepseek_conclusion": false,
+  "deepseek_actual_participation": "deepseek_passed",
+  "blocked_reason": "none",
+  "deepseek_supply_gate": {
+    "mandatory_for_every_task": true,
+    "supply_request_created": true,
+    "deepseek_call_required": true,
+    "deepseek_call_attempted": true,
+    "deepseek_actual_participation": "deepseek_passed",
+    "supply_source": "deepseek_passed",
+    "fallback_status": "not_used",
+    "not_deepseek_conclusion": false,
+    "blocked_reason": "none",
+    "token_usage_expected": "token_should_decrease_if_real_call",
+    "token_usage_observed_or_user_check_required": "token_decrement_expected",
+    "fallback_not_completion": true,
+    "deepseek_must_not_be_skipped_by_codex_discretion": true
+  },
+  "deepseek_readiness_check": {
+    "required": true,
+    "runtime_provider": {
+      "runtime_provider_status": "ready",
+      "runtime_provider_auto_load_enabled": true,
+      "runtime_provider_key_source": "project_env",
+      "runtime_provider_key_source_path": ".env",
+      "runtime_provider_version": "20260515"
+    },
+    "env_file_read": "false",
+    "process_env_key_allowed": "true",
+    "process_env_key_present": "true",
+    "safe_call_mode": "process_env_only",
+    "request_validation_status": "passed",
+    "supply_source": "deepseek_passed",
+    "fallback_status": "not_used",
+    "not_deepseek_conclusion": false,
+    "context_pack_validation": "passed",
+    "deepseek_actual_participation": "deepseek_passed",
+    "blocked_reason": "none",
+    "completion_rule": [
+      "deepseek_passed 才能写 DeepSeek 真实参与。",
+      "fallback_local_only 必须写 not_deepseek_conclusion = true。",
+      "missing_process_env_key 必须写 blocked_missing_process_env_api_key。",
+      "token 未观察到减少时，不得写 DeepSeek 已深度参与。",
+      "不得把 fallback 写成 DeepSeek 稳定供料。"
+    ]
+  },
+  "deepseek_participation_report": {
+    "deepseek_call_real": true,
+    "deepseek_actual_participation": "deepseek_passed",
+    "supply_source": "deepseek_passed",
+    "fallback_status": "not_used",
+    "not_deepseek_conclusion": false,
+    "blocked_reason": "none",
+    "token_usage_expectation_check": {
+      "token_usage_expectation": "token_should_decrease_if_real_call",
+      "expected_to_decrease": true,
+      "observed_token_usage": "not_available_user_check_required",
+      "token_usage_observed_or_user_check_required": "token_decrement_expected",
+      "cannot_claim_deepseek_deep_participation_if_token_not_decreased": true,
+      "fallback_local_only_token_rule": "fallback_local_only 不应减少 DeepSeek token，也不能写 DeepSeek 已深度参与。"
+    },
+    "codex_original_file_review_required": true,
+    "deepseek_may_write_files": false,
+    "deepseek_may_decide_project_facts": false,
+    "multi_agent_runtime_validation": "not_started"
+  },
+  "token_usage_expectation_check": {
+    "token_usage_expectation": "token_should_decrease_if_real_call",
+    "expected_to_decrease": true,
+    "observed_token_usage": "not_available_user_check_required",
+    "token_usage_observed_or_user_check_required": "token_decrement_expected",
+    "cannot_claim_deepseek_deep_participation_if_token_not_decreased": true,
+    "fallback_local_only_token_rule": "fallback_local_only 不应减少 DeepSeek token，也不能写 DeepSeek 已深度参与。"
+  },
+  "post_risk_review": null,
+  "env_file_read": "false",
+  "process_env_key_allowed": "true",
+  "process_env_key_present": "true",
+  "api_key_printed": "false",
+  "api_key_written": "false",
+  "context_pack_validation": "passed",
+  "deepseek_generation_status": "passed",
+  "fallback_status": "not_used",
+  "pipeline_status": "usable",
+  "multi_agent_runtime_validation": "not_started",
+  "files_considered": [
+    "codex_log/current_gray_test_target.md",
+    "codex_log/current_data_goal_anchor.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md"
+  ],
+  "files_recommended": [
+    "codex_log/current_gray_test_target.md",
+    "codex_log/current_data_goal_anchor.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "review_loop/records/V003_*/V003_发布后灰度数据记录_post_publish_gray_test_record.md",
+    "review_loop/screenshots/V003_*/V003_截图清单_screenshot_manifest.md"
+  ],
+  "risks": [
+    "V003 数据为早期，不足 72h/7d，不可用作操作复盘",
+    "current_data_goal_anchor.md 未 ready，若迁移后误升级则冲突",
+    "gray_test 路径可能仍被其他文件引用，未标 legacy 前有残留风险",
+    "current_gray_test_target.md 当前为默认入口，与 formal_operation_active 目标冲突",
+    "若 V003 数据被误读为最终复盘数据，将违反 forbidden_variables",
+    "runtime_provider_not_ready",
+    "deepseek_actual_participation_not_deepseek_passed",
+    "fallback_local_only",
+    "requires_content_validation_promotion"
+  ],
+  "missing_files": [],
+  "editing_decision_pack": null,
+  "execution_supply_pack": null,
+  "codex_next_input": {
+    "read_first": [
+      "codex_log/current_gray_test_target.md",
+      "codex_log/current_data_goal_anchor.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "review_loop/records/V003_*/V003_发布后灰度数据记录_post_publish_gray_test_record.md",
+      "review_loop/screenshots/V003_*/V003_截图清单_screenshot_manifest.md"
+    ],
+    "use_as": "readonly_supply_pack",
+    "warning": "DeepSeek generated the pack, but Codex must still verify original files."
+  },
+  "not_allowed": [
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim DeepSeek is stable production supply.",
+    "Do not claim multi-agent runtime is running.",
+    "Do not let DeepSeek write files or decide project facts.",
+    "Do not read .env, API keys, media files, or dist/latest_review_pack/.",
+    "Do not call Aliyun or other real generation APIs in mechanism-only tests."
+  ],
+  "explorer_status": {
+    "validation_status": "passed",
+    "api_validation": "passed",
+    "deepseek_generation_status": "passed",
+    "context_pack_validation": "passed",
+    "fallback_status": "not_used",
+    "pipeline_status": "passed",
+    "multi_agent_runtime_validation": "not_started",
+    "validated_at_utc": "2026-05-15T14:30:40.316476+00:00",
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-v4-flash",
+    "scope": "readonly_explorer_minimal_api_validation",
+    "env_file_read": "false",
+    "process_env_key_allowed": "true",
+    "process_env_key_present": "true",
+    "safe_call_mode": "process_env_only",
+    "deepseek_actual_participation": "deepseek_passed",
+    "api_key_printed": "false",
+    "api_key_written": "false",
+    "context_truncated": "true",
+    "truncated_files": "[\"codex_log/current_gray_test_target.md\", \"codex_log/current_data_goal_anchor.md\", \"GPT数据源/11_项目状态动作总控器_机制推理层.md\"]"
+  },
+  "explorer_returncode": 0,
+  "explorer_pack_path": "dist/deepseek_readonly_explorer/latest_prefetch_context_pack.md",
+  "output_dir": "dist/deepseek_runtime_validation/20260515_formal_operation_stage_migration/pre_supply",
+  "sections": {
+    "prefetch_context_pack": {
+      "confirmed": [
+        "current_gray_test_target.md 明确 V003 为当前灰度对象",
+        "current_data_goal_anchor.md 状态为 partial_data_recorded，不可升级 ready"
+      ],
+      "pending_verification": [
+        "current_gray_test_target.md 中 gray_test 引用路径是否仍为默认入口",
+        "是否存在其他未标记 legacy 的 gray_test 当前态路径"
+      ],
+      "source_summary": [
+        "current_gray_test_target.md: 当前灰度目标指向 V003，包含发布后灰度数据记录",
+        "current_data_goal_anchor.md: 数据目标锚点状态 partial_data_recorded，禁止内容验证通过",
+        "GPT数据源/11.md: 定义了 mandatory_deepseek_supply_loop 等机制，不涉及具体迁移入口"
+      ]
+    },
+    "must_read_file_map": {
+      "required_files": [
+        "codex_log/current_gray_test_target.md",
+        "codex_log/current_data_goal_anchor.md",
+        "GPT数据源/11_项目状态动作总控器_机制推理层.md"
+      ],
+      "optional_files": [
+        "review_loop/records/V003_*/V003_发布后灰度数据记录_post_publish_gray_test_record.md",
+        "review_loop/screenshots/V003_*/V003_截图清单_screenshot_manifest.md"
+      ],
+      "reason": "当前 gray_test 入口和禁止变量已确认；正式运营迁移需检查 V003 数据记录和截图清单是否包含任何内容验证通过信号。"
+    },
+    "risk_and_conflict_report": {
+      "risks": [
+        "V003 数据为早期，不足 72h/7d，不可用作操作复盘",
+        "current_data_goal_anchor.md 未 ready，若迁移后误升级则冲突",
+        "gray_test 路径可能仍被其他文件引用，未标 legacy 前有残留风险"
+      ],
+      "conflicts": [
+        "current_gray_test_target.md 当前为默认入口，与 formal_operation_active 目标冲突",
+        "若 V003 数据被误读为最终复盘数据，将违反 forbidden_variables"
+      ],
+      "blocked_if": [
+        "runtime_provider_not_ready",
+        "deepseek_actual_participation_not_deepseek_passed",
+        "fallback_local_only",
+        "requires_content_validation_promotion"
+      ]
+    },
+    "candidate_summary": {
+      "summary": "当前 gray_test 默认入口为 V003，数据锚点 partial_data_recorded，不可升级。迁移需要将 gray_test 降级为 legacy alias，建立 formal_operation_active 新入口，仅迁移阶段口径，不做内容复盘。风险在于 V003 数据早期、禁止变量未检查、以及残留引用。",
+      "recommended_next_step": "Codex 应读取 V003 发布后灰度记录，确认无内容验证通过信号，然后迁移当前默认路由至 formal_operation_active/operation_data_intake，将 current_gray_test_target.md 标记为 legacy，更新日志并执行 post-risk review。",
+      "not_allowed": [
+        "不得把 formal_operation 写成内容验证通过",
+        "不得把 fallback_local_only 写成 DeepSeek 结论",
+        "不得声称 multi-agent runtime 已长期跑通",
+        "不得读取/输出/复述 API key"
+      ]
+    }
+  }
+}

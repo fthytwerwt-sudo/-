@@ -1,5 +1,13 @@
 # DeepSeek supply controller 协议
 
+## 0A. formal_operation supply context
+
+DeepSeek 供料任务卡必须知道当前阶段为 `formal_operation_active（正式运营中）`，旧 `gray_test` 只作为 legacy alias。
+
+命中运营数据、复盘或阶段迁移时，供料 request 应包含 `project_stage = formal_operation_active`、`operation_stage`、`current_operation_target_path`、`operation_records_index_path` 和 `current_data_goal_anchor_path`。
+
+DeepSeek 只读供料，不写文件、不拍板正式运营结论；不得把正式运营写成内容成功、商业验证成立、数据飞轮跑通或 multi-agent runtime 长期稳定。
+
 ## 1. 文件定位
 
 本文件定义《视频工厂》的 `DeepSeek supply controller（DeepSeek 供料中控）` 最小机制。
