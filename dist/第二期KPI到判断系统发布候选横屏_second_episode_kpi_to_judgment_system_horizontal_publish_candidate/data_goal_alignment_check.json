@@ -1,0 +1,18 @@
+{
+  "current_data_goal_anchor_path": "codex_log/current_data_goal_anchor.md",
+  "current_data_goal_anchor_status": "partial_data_recorded",
+  "formal_data_driven_execution_ready": false,
+  "user_override_for_this_candidate": "用户本轮明确锁定 opening_route_or_first_5s_packaging 并要求生成横屏发布候选片",
+  "every_segment_maps_to_goal": true,
+  "every_edit_supports_primary_variable": true,
+  "no_forbidden_variable_introduced": true,
+  "post_publish_validation_metric_defined": [
+    "2s_bounce",
+    "5s_completion",
+    "3s_retention_if_available",
+    "average_watch_time"
+  ],
+  "material_evidence_supports_claims": true,
+  "human_quality_review_not_replaced_by_data_goal": true,
+  "data_goal_not_claimed_as_real_flywheel_passed": true
+}

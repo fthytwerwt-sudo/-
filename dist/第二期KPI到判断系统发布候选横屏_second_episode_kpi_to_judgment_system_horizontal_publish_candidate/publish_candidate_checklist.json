@@ -1,0 +1,26 @@
+{
+  "status": "publish_candidate_ready_for_human_review",
+  "video_exists": true,
+  "can_decode": true,
+  "duration": 81.92,
+  "resolution": "1920x1080",
+  "aspect_ratio": "16:9",
+  "audio_present": true,
+  "audio_decodable": true,
+  "subtitles_present": true,
+  "subtitle_stream": {
+    "codec_name": "mov_text",
+    "tags": {
+      "language": "chi"
+    }
+  },
+  "subtitles_readable": true,
+  "opening_0_5s_direct": true,
+  "middle_evidence_clear": true,
+  "result_diff_clear": true,
+  "ending_closure_present": true,
+  "no_forbidden_claims": true,
+  "no_status_promotion": true,
+  "source_media_unchanged": true,
+  "ready_for_human_review": true
+}

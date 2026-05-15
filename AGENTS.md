@@ -122,7 +122,9 @@ GPT Project 上传包地址规则：
 - 上述 `content_validation` 是当前发布后阶段口径；不得把它写成 `passed`
 - `formal_operation_delivery_baseline = publish_candidate_or_blocked（正式运营视频交付基线 = 可发布候选片或阻断）`
 - `technical_preview_not_delivery = true（技术预览不是用户交付物）`
-- `blocked_publish_candidate_unavailable（可发布候选片不可交付阻断）` 是正式运营阶段的合法停止结果；如果缺声音、字幕、竖屏构图、剪辑节奏、素材证据、TTS、卡片、人感质量、平台风险、API 授权或装配能力，必须 blocked，不得降级交技术预览。
+- `formal_operation_delivery_ratio = horizontal_16_9（正式运营默认出片比例 = 横屏 16:9）`
+- `formal_operation_default_resolution = 1920x1080（正式运营默认交付分辨率）`
+- `blocked_publish_candidate_unavailable（可发布候选片不可交付阻断）` 是正式运营阶段的合法停止结果；如果缺声音、字幕、横屏 16:9 构图、1920x1080 装配、剪辑节奏、素材证据、TTS、卡片、人感质量、平台风险、API 授权或装配能力，必须 blocked，不得降级交技术预览。
 - 发布后复盘默认走 `review_loop/`，当前不另起独立灰度系统
 - 当前运营目标看 `codex_log/current_operation_target.md`
 - 当前运营记录索引看 `review_loop/operation_records_index.md`
@@ -244,6 +246,8 @@ GPT Project 上传包地址规则：
 - 正式运营不等于验证成功
 - 正式运营不等于商业验证成立
 - 正式运营不等于数据飞轮跑通
+- 正式运营默认出片比例为 `horizontal_16_9（横屏 16:9）`，默认交付分辨率为 `1920x1080`；这是用户为后续发布体验明确拍板的新口径。
+- 旧 `vertical_9_16（竖屏 9:16）`、`1080x1920` 只保留为历史样片 / 历史提示卡 / 历史平台适配记录，不再作为当前正式运营视频交付默认比例。
 - 正式运营视频交付任务默认只接受 `publish_candidate（可发布候选片）` 或 `blocked（阻断）`
 - `technical_preview（技术预览）`、`technical_preview_candidate（技术预览候选）`、`preflight package（执行前补全包）`、`silent preview（无声预览）`、无音轨视频、横屏技术包、只交 JSON / Markdown / route card，只能作为 `internal_diagnostic_only（内部诊断产物）`，不能写 `completed`、不能写内容推进、不能写视频执行完成
 - 进入做视频 / 产视频 / 发片候选 / 运营内容 / 下一条视频任务时，必须先判断是否具备 `publish_candidate` 条件；不具备则写 `blocked_publish_candidate_unavailable`，不得继续生成低标准产物冒充交付

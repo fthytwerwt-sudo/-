@@ -1,0 +1,25 @@
+{
+  "status": "publish_candidate_route",
+  "topic": "别再让 AI 给你 KPI 了，它真正该帮你判断下一步改哪。",
+  "opening_route_decision": "direct_problem_hook_with_screen_evidence",
+  "primary_variable": "opening_route_or_first_5s_packaging",
+  "supporting_variables": [
+    "evidence_compression",
+    "result_diff_display"
+  ],
+  "forbidden_variables": [
+    "target_user_change",
+    "core_topic_direction_change",
+    "offer_or_monetization_change",
+    "claim_real_data_flywheel_passed",
+    "claim_v003_review_completed"
+  ],
+  "middle_carrier_decision": "user_recorded_screen_evidence_with_reconstructed_cards",
+  "publish_candidate_target": "horizontal_16_9_1920x1080",
+  "not_delivery": [
+    "technical_preview",
+    "silent_preview",
+    "json_only",
+    "markdown_only"
+  ]
+}

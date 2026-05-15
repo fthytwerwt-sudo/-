@@ -1,0 +1,23 @@
+{
+  "status": "publish_candidate_assembly_pack",
+  "final_resolution": "1920x1080",
+  "final_aspect_ratio": "16:9",
+  "source_ratio_handling": "source is near 2:1; scaled to 1080 height and center-cropped to 1920 width; no stretching",
+  "source_segments_used": [
+    "video_1 00:00-00:05",
+    "video_1 00:00-00:08",
+    "video_1 00:36-00:44",
+    "video_1 00:44-01:22",
+    "video_2 00:22-00:46",
+    "video_2 00:46-01:04"
+  ],
+  "evidence_windows": [
+    "raw KPI goal input",
+    "first version not enough",
+    "second data-flywheel prompt",
+    "metric layer table",
+    "lead scoring table"
+  ],
+  "crop_or_zoom_policy": "center crop plus card reconstruction for dense tables",
+  "readability_check": "basic pass for human review; dense source tables are supported by large cards"
+}

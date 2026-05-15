@@ -1,0 +1,16 @@
+{
+  "status": "publish_candidate_editing_pack",
+  "opening_0_5s": "AI 给 KPI 没用，真正要判断下一步改哪",
+  "evidence_middle": [
+    "video_1 00:36-01:22",
+    "video_2 00:22-01:04"
+  ],
+  "result_diff": "from KPI table to decision system",
+  "ending_closure": "播放是入口 / 收藏是认可 / 私信要评分 / 每条只改一个主变量",
+  "removed_dead_time": true,
+  "readability_actions": [
+    "screen evidence cropped to 16:9 without stretching",
+    "large subtitle track burned in",
+    "metric and lead tables reconstructed as short cards"
+  ]
+}

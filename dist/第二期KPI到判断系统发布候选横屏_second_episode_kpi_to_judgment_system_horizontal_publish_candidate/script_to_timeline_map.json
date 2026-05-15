@@ -1,0 +1,71 @@
+{
+  "status": "complete_for_publish_candidate",
+  "audio_duration": 81.981,
+  "segments": [
+    {
+      "segment_id": "opening_hook",
+      "start": 0.0,
+      "end": 5.0,
+      "duration": 5.0,
+      "source": "video_1 00:00-00:05",
+      "role": "opening_0_5s_direct_conflict",
+      "readability_action": "screen_background_with_large_hook_card"
+    },
+    {
+      "segment_id": "raw_goal_input",
+      "start": 5.0,
+      "end": 15.641,
+      "duration": 10.641,
+      "source": "video_1 00:00-00:08",
+      "role": "raw_problem_input",
+      "readability_action": "center crop, subtitle explains original fuzzy KPI request"
+    },
+    {
+      "segment_id": "first_version_not_enough",
+      "start": 15.641,
+      "end": 24.643,
+      "duration": 9.002,
+      "source": "video_1 00:36-00:44",
+      "role": "first_prompt_gap",
+      "readability_action": "center crop, card marks first version as KPI-like"
+    },
+    {
+      "segment_id": "second_prompt_process",
+      "start": 24.643,
+      "end": 45.122,
+      "duration": 20.479,
+      "source": "video_1 00:44-01:22",
+      "role": "second_data_flywheel_prompt",
+      "readability_action": "compressed scroll evidence with key subtitle anchors"
+    },
+    {
+      "segment_id": "metric_layers",
+      "start": 45.122,
+      "end": 61.502,
+      "duration": 16.38,
+      "source": "video_2 00:22-00:46",
+      "role": "middle_evidence_metric_layer_table",
+      "readability_action": "16:9 crop plus reconstructed metric-layer card"
+    },
+    {
+      "segment_id": "lead_score_table",
+      "start": 61.502,
+      "end": 74.602,
+      "duration": 13.101,
+      "source": "video_2 00:46-01:04",
+      "role": "lead_quality_score_table",
+      "readability_action": "16:9 crop plus lead-scoring card"
+    },
+    {
+      "segment_id": "summary_card",
+      "start": 74.602,
+      "end": 81.981,
+      "duration": 7.378,
+      "source": "generated summary card",
+      "role": "ending_closure_summary_card",
+      "readability_action": "large four-line judgment card"
+    }
+  ],
+  "subtitle_path": "dist/第二期KPI到判断系统发布候选横屏_second_episode_kpi_to_judgment_system_horizontal_publish_candidate/subtitle.ass",
+  "subtitle_srt_path": "dist/第二期KPI到判断系统发布候选横屏_second_episode_kpi_to_judgment_system_horizontal_publish_candidate/subtitle.srt"
+}

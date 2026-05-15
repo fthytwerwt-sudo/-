@@ -1,5 +1,19 @@
 # Latest
 
+## 20260516｜第二期横屏 16:9 可发布候选片生成
+
+- `已确认` 用户最新拍板后，本轮把正式运营默认出片比例修正为 `horizontal_16_9（横屏 16:9）` / `1920x1080`；旧 `vertical_9_16（竖屏 9:16）` 只保留为历史或用户明确指定的特殊策略，不再作为默认发布候选片比例。
+- `已生成` 第二期横屏可发布候选片：`dist/第二期KPI到判断系统发布候选横屏_second_episode_kpi_to_judgment_system_horizontal_publish_candidate/第二期_KPI到判断系统_horizontal_publish_candidate_v1.mp4`。
+- `publish_candidate_status`：`publish_candidate_ready_for_human_review（可发布候选片，待人工复审）`。
+- `媒体硬核验`：`1920x1080`、`display_aspect_ratio = 16:9`、`sample_aspect_ratio = 1:1`、`rotation = none`、`fps = 30/1`、`audio_codec = aac`、`audio_duration = 81.920000s`、`subtitle_stream = mov_text / chi`、`can_decode = true`。
+- `TTS`：使用项目正式阿里 / 百炼链路，`provider = aliyun_bailian`、`api_route_family = aliyun_qwen_realtime_websocket_voice_clone`、`model = qwen3-tts-vc-realtime-2026-01-15`、`voice = qwen-t...ac19（脱敏）`；`local_say_fallback_used = false`、`api_key_printed = false`、`api_key_written = false`。
+- `字幕`：已生成并嵌入 `mov_text` 字幕轨，同时保留 `subtitle.ass` 与 `subtitle.srt` sidecar。
+- `卡片`：开头冲突卡与结尾判断卡已作为主视频片段写入；结尾判断卡保留“播放是入口 / 收藏是认可 / 私信要评分 / 每条只改一个变量”。
+- `数据目标对齐`：服务当前候选主变量 `opening_route_or_first_5s_packaging`；协同变量仅限 `evidence_compression` 与 `result_diff_display`；`formal_data_driven_execution_ready = false`，未声称数据飞轮真实跑通。
+- `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status_success（发布成功口径）`、`voice_validation（声音验证）`、`final_voice_validated（最终声音验证）`、`visual_master_locked（视觉母版锁定）`。
+- `日志`：`codex_log/20260516_second_episode_horizontal_publish_candidate.md`
+- `下一个目标`：ChatGPT / 用户复审 horizontal 16:9 publish candidate，判断是否能进入 `send_ready` 或需要局部回炉。
+
 ## 20260516｜正式运营交付基线修正：禁止技术预览冒充交付
 
 - `已确认` 本轮根据用户反馈修正《视频工厂》正式运营交付口径：进入 `formal_operation_active（正式运营中）` 后，视频交付任务默认只接受 `publish_candidate（可发布候选片）` 或 `blocked（阻断）`。

@@ -1,0 +1,206 @@
+{
+  "provider": "aliyun_bailian",
+  "api_route_family": "aliyun_qwen_realtime_websocket_voice_clone",
+  "model": "qwen3-tts-vc-realtime-2026-01-15",
+  "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+  "voice_masked": "qwen-t...ac19",
+  "uses_custom_voice": true,
+  "create_custom_voice_called": false,
+  "local_say_fallback_used": false,
+  "api_key_printed": false,
+  "api_key_written": false,
+  "runtime_config_path": "/Users/fan/.config/video-factory/formal_api_demo.local.toml",
+  "runtime_config_secret_committed": false,
+  "tts_segment_count": 17,
+  "raw_audio": {
+    "path": "dist/第二期KPI到判断系统发布候选横屏_second_episode_kpi_to_judgment_system_horizontal_publish_candidate/voice_track_raw.wav",
+    "duration_seconds": 86.44,
+    "format": "wav",
+    "codec": "pcm_s16le",
+    "sample_rate": 24000,
+    "channels": 1,
+    "sample_width_bytes": 2,
+    "frames": 2074560,
+    "file_size_bytes": 4149164
+  },
+  "normalized_audio": {
+    "path": "dist/第二期KPI到判断系统发布候选横屏_second_episode_kpi_to_judgment_system_horizontal_publish_candidate/voice_track_loudnorm.wav",
+    "duration_seconds": 86.44,
+    "format": "wav",
+    "codec": "pcm_s16le",
+    "sample_rate": 48000,
+    "channels": 1,
+    "sample_width_bytes": 2,
+    "frames": 4149120,
+    "file_size_bytes": 8298318
+  },
+  "final_audio": {
+    "path": "dist/第二期KPI到判断系统发布候选横屏_second_episode_kpi_to_judgment_system_horizontal_publish_candidate/voice_track.wav",
+    "duration_seconds": 81.981,
+    "format": "wav",
+    "codec": "pcm_s16le",
+    "sample_rate": 48000,
+    "channels": 1,
+    "sample_width_bytes": 2,
+    "frames": 3935074,
+    "file_size_bytes": 7870226
+  },
+  "target_audio_seconds": 82.0,
+  "atempo_factor": 1.054146,
+  "tempo_filter": "atempo=1.054146",
+  "timeline": [
+    {
+      "segment_index": 1,
+      "text": "别再让 AI 给你定 KPI 了。",
+      "audio_path": "dist/第二期KPI到判断系统发布候选横屏_second_episode_kpi_to_judgment_system_horizontal_publish_candidate/tts_segments/seg_001.wav",
+      "start": 0.0,
+      "end": 2.0,
+      "duration": 2.0,
+      "pause_after": 0.38
+    },
+    {
+      "segment_index": 2,
+      "text": "播放多少，点赞多少，客资多少，看着很完整，但大多数时候没用。",
+      "audio_path": "dist/第二期KPI到判断系统发布候选横屏_second_episode_kpi_to_judgment_system_horizontal_publish_candidate/tts_segments/seg_002.wav",
+      "start": 2.38,
+      "end": 7.5,
+      "duration": 5.12,
+      "pause_after": 0.38
+    },
+    {
+      "segment_index": 3,
+      "text": "因为这些数字不会告诉你：下一条到底该改标题，还是改开头，还是改中段结构。",
+      "audio_path": "dist/第二期KPI到判断系统发布候选横屏_second_episode_kpi_to_judgment_system_horizontal_publish_candidate/tts_segments/seg_003.wav",
+      "start": 7.88,
+      "end": 13.88,
+      "duration": 6.0,
+      "pause_after": 0.38
+    },
+    {
+      "segment_index": 4,
+      "text": "我一开始也这样问：帮视频工厂定个目标，最好有播放、点赞和客资。",
+      "audio_path": "dist/第二期KPI到判断系统发布候选横屏_second_episode_kpi_to_judgment_system_horizontal_publish_candidate/tts_segments/seg_004.wav",
+      "start": 14.26,
+      "end": 19.38,
+      "duration": 5.12,
+      "pause_after": 0.38
+    },
+    {
+      "segment_index": 5,
+      "text": "第一版确实很全，北极星目标、阶段目标、指标树、客资定义都有。",
+      "audio_path": "dist/第二期KPI到判断系统发布候选横屏_second_episode_kpi_to_judgment_system_horizontal_publish_candidate/tts_segments/seg_005.wav",
+      "start": 19.76,
+      "end": 24.88,
+      "duration": 5.12,
+      "pause_after": 0.38
+    },
+    {
+      "segment_index": 6,
+      "text": "但我看完觉得不对。它还是在回答：我要追哪些数字。",
+      "audio_path": "dist/第二期KPI到判断系统发布候选横屏_second_episode_kpi_to_judgment_system_horizontal_publish_candidate/tts_segments/seg_006.wav",
+      "start": 25.26,
+      "end": 28.94,
+      "duration": 3.68,
+      "pause_after": 0.38
+    },
+    {
+      "segment_index": 7,
+      "text": "我真正需要的是：数据回来以后，下一轮该改哪里。",
+      "audio_path": "dist/第二期KPI到判断系统发布候选横屏_second_episode_kpi_to_judgment_system_horizontal_publish_candidate/tts_segments/seg_007.wav",
+      "start": 29.32,
+      "end": 33.56,
+      "duration": 4.24,
+      "pause_after": 0.38
+    },
+    {
+      "segment_index": 8,
+      "text": "所以我又追问：让 AI 设计一套目标驱动的数据飞轮。",
+      "audio_path": "dist/第二期KPI到判断系统发布候选横屏_second_episode_kpi_to_judgment_system_horizontal_publish_candidate/tts_segments/seg_008.wav",
+      "start": 33.94,
+      "end": 37.62,
+      "duration": 3.68,
+      "pause_after": 0.38
+    },
+    {
+      "segment_index": 9,
+      "text": "每期发布后，根据播放、留存、收藏、评论、私信和客资，判断下一期只改哪个变量。",
+      "audio_path": "dist/第二期KPI到判断系统发布候选横屏_second_episode_kpi_to_judgment_system_horizontal_publish_candidate/tts_segments/seg_009.wav",
+      "start": 38.0,
+      "end": 45.44,
+      "duration": 7.44,
+      "pause_after": 0.38
+    },
+    {
+      "segment_index": 10,
+      "text": "这次结果才像个判断系统。",
+      "audio_path": "dist/第二期KPI到判断系统发布候选横屏_second_episode_kpi_to_judgment_system_horizontal_publish_candidate/tts_segments/seg_010.wav",
+      "start": 45.82,
+      "end": 47.58,
+      "duration": 1.76,
+      "pause_after": 0.38
+    },
+    {
+      "segment_index": 11,
+      "text": "播放和留存，是触达。点赞和收藏，是认可。评论和追问，是互动。",
+      "audio_path": "dist/第二期KPI到判断系统发布候选横屏_second_episode_kpi_to_judgment_system_horizontal_publish_candidate/tts_segments/seg_011.wav",
+      "start": 47.96,
+      "end": 54.84,
+      "duration": 6.88,
+      "pause_after": 0.38
+    },
+    {
+      "segment_index": 12,
+      "text": "但私信也不能全算客资，要看他有没有说清楚任务、场景和想要的结果。",
+      "audio_path": "dist/第二期KPI到判断系统发布候选横屏_second_episode_kpi_to_judgment_system_horizontal_publish_candidate/tts_segments/seg_012.wav",
+      "start": 55.22,
+      "end": 60.82,
+      "duration": 5.6,
+      "pause_after": 0.38
+    },
+    {
+      "segment_index": 13,
+      "text": "所以目标不是 KPI 表。",
+      "audio_path": "dist/第二期KPI到判断系统发布候选横屏_second_episode_kpi_to_judgment_system_horizontal_publish_candidate/tts_segments/seg_013.wav",
+      "start": 61.2,
+      "end": 62.96,
+      "duration": 1.76,
+      "pause_after": 0.38
+    },
+    {
+      "segment_index": 14,
+      "text": "真正有用的目标，是逼你回答三件事：哪一层出了问题，下一条只改哪个变量，改完看哪个指标。",
+      "audio_path": "dist/第二期KPI到判断系统发布候选横屏_second_episode_kpi_to_judgment_system_horizontal_publish_candidate/tts_segments/seg_014.wav",
+      "start": 63.34,
+      "end": 70.54,
+      "duration": 7.2,
+      "pause_after": 0.38
+    },
+    {
+      "segment_index": 15,
+      "text": "没有这套判断，你每轮都在动，却不知道哪一步起作用。",
+      "audio_path": "dist/第二期KPI到判断系统发布候选横屏_second_episode_kpi_to_judgment_system_horizontal_publish_candidate/tts_segments/seg_015.wav",
+      "start": 70.92,
+      "end": 74.76,
+      "duration": 3.84,
+      "pause_after": 0.38
+    },
+    {
+      "segment_index": 16,
+      "text": "播放是入口。收藏是认可。私信要评分。每条只改一个主变量。",
+      "audio_path": "dist/第二期KPI到判断系统发布候选横屏_second_episode_kpi_to_judgment_system_horizontal_publish_candidate/tts_segments/seg_016.wav",
+      "start": 75.14,
+      "end": 81.38,
+      "duration": 6.24,
+      "pause_after": 0.38
+    },
+    {
+      "segment_index": 17,
+      "text": "目标清楚了，动作才不会乱。复盘清楚了，下一步才会浮出来。",
+      "audio_path": "dist/第二期KPI到判断系统发布候选横屏_second_episode_kpi_to_judgment_system_horizontal_publish_candidate/tts_segments/seg_017.wav",
+      "start": 81.76,
+      "end": 86.24,
+      "duration": 4.48,
+      "pause_after": 0.2
+    }
+  ]
+}

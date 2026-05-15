@@ -12,6 +12,8 @@
 
 当下一条视频进入 Codex 执行链时，交付结果必须是 `publish_candidate_ready_for_human_review（可发布候选片，待人工复审）` 或 `blocked_publish_candidate_unavailable（可发布候选片不可交付阻断）`。如果只能输出技术预览、无声预览、横屏技术包、JSON / Markdown route card 或 preflight package，必须 blocked，不得写数据飞轮内容推进。
 
+当前正式运营默认出片比例为 `horizontal_16_9（横屏 16:9）`、默认分辨率为 `1920x1080`。旧 `vertical_9_16（竖屏 9:16）` 只保留为历史样片、历史提示卡或用户另行指定竖屏策略时的特殊口径；不得把旧竖屏默认带入屏幕录制、文档、表格和指标分层类内容。
+
 ## 1. goal_driven_data_flywheel_spec_v1（目标驱动数据飞轮规格 V1）
 
 本文件解决的问题是：把《视频工厂》从“记录规则 / 做单条视频”推进到“目标 -> 数据 -> 文案修改 -> 内容结构反推 -> Codex 动态执行 -> 发布复盘 -> 下一轮更新”的可执行闭环。

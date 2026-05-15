@@ -22,7 +22,9 @@ Codex 后续默认先读：
 
 `technical_preview（技术预览）`、`technical_preview_candidate（技术预览候选）`、`preflight package（执行前补全包）`、`silent preview（无声预览）`、无音轨视频、横屏技术包、只交 JSON / Markdown / route card，只能写为 `internal_diagnostic_only（内部诊断产物）` 或 `historical_internal_diagnostic_only（历史内部诊断产物）`，不得写成用户交付物、阶段完成、内容推进或视频执行完成。
 
-若缺音轨、字幕、竖屏 9:16、清楚开头、中段证据、结尾收束、基础人感质量、平台风险检查、API 授权或装配能力，Codex 必须 blocked 或修到满足 `publish_candidate`，不得把“技术能跑”偷换成“项目能交付”。`publish_candidate` 仍需 ChatGPT / 用户按发布标准复审，不能自动推进 `send_ready（可发送状态）`。
+`已确认` 从 2026-05-16 起，正式运营默认出片比例改为 `horizontal_16_9（横屏 16:9）`，默认交付分辨率为 `1920x1080`。原因是用户明确拍板“以后发横屏视频”，且屏幕录制、文档、表格、指标分层和客资评分内容更适合横屏观看。
+
+若缺音轨、字幕、横屏 16:9 / 1920x1080 装配、清楚开头、中段证据、结尾收束、基础人感质量、平台风险检查、API 授权或装配能力，Codex 必须 blocked 或修到满足 `publish_candidate`，不得把“技术能跑”偷换成“项目能交付”。`publish_candidate` 仍需 ChatGPT / 用户按发布标准复审，不能自动推进 `send_ready（可发送状态）`。
 
 ## 1. 这份文件是什么
 

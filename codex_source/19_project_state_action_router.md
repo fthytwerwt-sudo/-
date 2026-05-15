@@ -232,7 +232,7 @@ if state = blocked_need_user_input:
 - `data_goal_execution_bus_needed`：13 已定义目标但未接到全执行链时，必须补 14 总线或同步执行规则；不得只扩写说明。
 - `codex_execution_structure_drift_risk`：Codex 可以改结构，不能改目标、主短板、主变量、禁止变量和验证指标。
 - `editing_or_assembly_without_data_goal_anchor`：缺 `data_goal_anchor_used` 时，不得生成 `editing_decision_pack` 或 `assembly_decision_pack`。
-- `publish_candidate_required`：正式运营视频交付任务必须先检查竖屏、音轨、字幕、开头、中段证据、结尾、人感质量、平台风险和装配能力。
+- `publish_candidate_required`：正式运营视频交付任务必须先检查横屏 16:9 / 1920x1080、音轨、字幕、开头、中段证据、结尾、人感质量、平台风险和装配能力。
 - `technical_preview_not_delivery`：技术预览、无声预览、横屏技术包或只交 JSON / Markdown route card 只能作为内部诊断，不得写完成或内容推进。
 - `formal_operation_delivery_blocked`：无法生成可发布候选片时必须停止当前视频执行线，写 `blocked_publish_candidate_unavailable` 和缺失能力。
 

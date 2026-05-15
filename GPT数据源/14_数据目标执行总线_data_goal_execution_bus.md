@@ -16,7 +16,7 @@
 2. `delivery_baseline_gate（交付基线闸门）` 已输出。
 3. 结果是 `publish_candidate_ready_for_human_review（可发布候选片，待人工复审）` 或 `blocked_publish_candidate_unavailable（可发布候选片不可交付阻断）`。
 
-缺音轨、字幕、竖屏 9:16、中段证据、结尾收束、TTS、卡片、人感质量、平台风险、API 授权或装配能力时，必须 blocked，不得用 `technical_preview（技术预览）`、无声预览、横屏技术包或 JSON / Markdown route card 写完成。
+当前默认出片比例为 `horizontal_16_9（横屏 16:9）`，默认交付分辨率为 `1920x1080`。缺音轨、字幕、横屏 16:9 / 1920x1080 装配、中段证据、结尾收束、TTS、卡片、人感质量、平台风险、API 授权或装配能力时，必须 blocked，不得用 `technical_preview（技术预览）`、无声预览、横屏技术包或 JSON / Markdown route card 写完成。
 
 ## 1. 文件定位
 

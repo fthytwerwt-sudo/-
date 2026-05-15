@@ -1,0 +1,39 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1920
+PlayResY: 1080
+WrapStyle: 0
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,PingFang SC,54,&H00FFFFFF,&H000000FF,&H00111111,&HAA000000,0,0,0,0,100,100,0,0,1,3,0,2,120,120,58,1
+Style: Hook,PingFang SC,96,&H00FFFFFF,&H000000FF,&H00050505,&H88000000,1,0,0,0,100,100,0,0,1,4,0,5,100,100,80,1
+Style: SideCard,PingFang SC,58,&H00FFFFFF,&H000000FF,&H00353A40,&H990D1B2A,1,0,0,0,100,100,0,0,3,3,0,7,80,1060,130,1
+Style: Summary,PingFang SC,82,&H00FFFFFF,&H000000FF,&H00111111,&H99000000,1,0,0,0,100,100,0,0,3,4,0,5,140,140,90,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.25,0:00:03.21,Sub,,0,0,0,,别再让 AI 给你定 KPI 了。
+Dialogue: 0,0:00:03.21,0:00:08.44,Sub,,0,0,0,,播放多少，点赞多少，客资多少，看着很完整，但大多数时候没用。
+Dialogue: 0,0:00:08.44,0:00:14.71,Sub,,0,0,0,,因为这些数字不会告诉你：下一条到底该改标题，还是改开头，还是改中段结构。
+Dialogue: 0,0:00:14.71,0:00:20.11,Sub,,0,0,0,,我一开始也这样问：帮视频工厂定个目标，最好有播放、点赞和客资。
+Dialogue: 0,0:00:20.11,0:00:25.34,Sub,,0,0,0,,第一版确实很全，北极星目标、阶段目标、指标树、客资定义都有。
+Dialogue: 0,0:00:25.34,0:00:29.52,Sub,,0,0,0,,但我看完觉得不对。它还是在回答：我要追哪些数字。
+Dialogue: 0,0:00:29.52,0:00:33.52,Sub,,0,0,0,,我真正需要的是：数据回来以后，下一轮该改哪里。
+Dialogue: 0,0:00:33.52,0:00:38.05,Sub,,0,0,0,,所以我又追问：让 AI 设计一套目标驱动的数据飞轮。
+Dialogue: 0,0:00:38.05,0:00:44.67,Sub,,0,0,0,,每期发布后，根据播放、留存、收藏、评论、私信和客资，判断下一期只改哪个变量。
+Dialogue: 0,0:00:44.67,0:00:47.07,Sub,,0,0,0,,这次结果才像个判断系统。
+Dialogue: 0,0:00:47.07,0:00:52.30,Sub,,0,0,0,,播放和留存，是触达。点赞和收藏，是认可。评论和追问，是互动。
+Dialogue: 0,0:00:52.30,0:00:57.87,Sub,,0,0,0,,但私信也不能全算客资，要看他有没有说清楚任务、场景和想要的结果。
+Dialogue: 0,0:00:57.87,0:01:00.27,Sub,,0,0,0,,所以目标不是 KPI 表。
+Dialogue: 0,0:01:00.27,0:01:07.76,Sub,,0,0,0,,真正有用的目标，是逼你回答三件事：哪一层出了问题，下一条只改哪个变量，改完看哪个指标。
+Dialogue: 0,0:01:07.76,0:01:12.12,Sub,,0,0,0,,没有这套判断，你每轮都在动，却不知道哪一步起作用。
+Dialogue: 0,0:01:12.12,0:01:17.00,Sub,,0,0,0,,播放是入口。收藏是认可。私信要评分。每条只改一个主变量。
+Dialogue: 0,0:01:17.00,0:01:21.78,Sub,,0,0,0,,目标清楚了，动作才不会乱。复盘清楚了，下一步才会浮出来。
+Dialogue: 0,0:00:00.00,0:00:05.00,Hook,,0,0,0,,AI 给 KPI 没用\N真正要判断下一步改哪
+Dialogue: 0,0:00:12.00,0:00:22.00,SideCard,,0,0,0,,第一版问题\N数字很全\N但不告诉你改哪里
+Dialogue: 0,0:00:33.00,0:00:48.00,SideCard,,0,0,0,,第二版变化\N发布后看数据\N下一期只改一个变量
+Dialogue: 0,0:00:50.00,0:01:06.00,SideCard,,0,0,0,,指标分层\N播放/留存 = 触达\N点赞/收藏 = 认可\N评论/追问 = 互动
+Dialogue: 0,0:01:05.00,0:01:16.00,SideCard,,0,0,0,,私信要评分\N任务清楚\N场景清楚\N结果请求清楚
+Dialogue: 0,0:01:13.48,0:01:21.98,Summary,,0,0,0,,播放是入口\N收藏是认可\N私信要评分\N每条只改一个变量
