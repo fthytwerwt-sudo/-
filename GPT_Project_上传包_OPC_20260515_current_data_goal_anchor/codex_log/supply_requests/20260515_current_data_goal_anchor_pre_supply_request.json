@@ -1,0 +1,181 @@
+{
+  "request_id": "20260515_current_data_goal_anchor_pre_supply_request",
+  "created_at": "2026-05-15T19:50:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "current_data_goal_anchor_instance_dual_completion",
+  "task_type": "mechanism_or_route_fix",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "auto",
+  "mandatory_for_every_task": true,
+  "participation_level": "mandatory_by_default",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "补齐当前实例数据目标锚点入口，让 Codex、DeepSeek、文案路由、剪辑、编排、装配和 data_goal_alignment_check 都能回指 codex_log/current_data_goal_anchor.md。",
+  "current_step": "执行前供料：检查哪些入口、schema、fixture 和包清单必须接入当前锚点路径。",
+  "known_context": [
+    "GPT数据源/13 负责目标飞轮、阈值、文案闸门和 next_video_execution_prompt。",
+    "GPT数据源/14 负责执行总线和 data_goal_anchor 的链路使用方式。",
+    "本轮新增 codex_log/current_data_goal_anchor.md，作为当前这一条 / 下一条视频实际使用的锚点实例。",
+    "当前没有完整 24h / 72h / 7d 发布后数据，当前锚点实例不得写 ready。"
+  ],
+  "missing_context": [
+    "当前 v3.1 24h / 72h / 7d 完整复盘数据",
+    "下一条视频正式 video_goal_card",
+    "下一条视频正式 post_publish_review_card",
+    "下一条视频正式 next_video_execution_prompt"
+  ],
+  "decision_needed": "哪些旧入口可能仍只读抽象 data_goal_anchor，哪些执行对象必须补 current_data_goal_anchor_path / current_data_goal_anchor_status。",
+  "current_data_goal_anchor_path": "codex_log/current_data_goal_anchor.md",
+  "current_data_goal_anchor_status": "waiting_data",
+  "current_north_star_goal": "验证真实 AI 使用经验和工作提效实录能否产生高质量需求信号。",
+  "current_stage_goal": "等待 v3.1 灰度复盘数据后，再确定下一条视频的主短板、主变量和成功指标。",
+  "main_bottleneck": "待验证_waiting_gray_test_data",
+  "primary_variable": "待填_waiting_post_publish_review",
+  "supporting_variables": [
+    "待填_waiting_post_publish_review"
+  ],
+  "forbidden_variables": [
+    "change_target_user_without_user_chatgpt_lock",
+    "change_offer_or_monetization_without_goal_update",
+    "claim_ready_without_required_review_data",
+    "promote_content_validation_or_publish_status"
+  ],
+  "success_metric": "待填_waiting_post_publish_review",
+  "failure_metric": "待填_waiting_post_publish_review",
+  "post_publish_validation_metric": "待填_waiting_post_publish_review",
+  "next_video_execution_prompt": "待填_waiting_post_publish_review",
+  "data_goal_alignment_check_required": true,
+  "data_goal_anchor": {
+    "current_data_goal_anchor_path": "codex_log/current_data_goal_anchor.md",
+    "current_data_goal_anchor_status": "waiting_data",
+    "current_north_star_goal": "验证真实 AI 使用经验和工作提效实录能否产生高质量需求信号。",
+    "current_stage_goal": "等待 v3.1 灰度复盘数据后，再确定下一条视频的主短板、主变量和成功指标。",
+    "main_bottleneck": "待验证_waiting_gray_test_data",
+    "primary_variable": "待填_waiting_post_publish_review",
+    "supporting_variables": [
+      "待填_waiting_post_publish_review"
+    ],
+    "forbidden_variables": [
+      "change_target_user_without_user_chatgpt_lock",
+      "change_offer_or_monetization_without_goal_update",
+      "claim_ready_without_required_review_data",
+      "promote_content_validation_or_publish_status"
+    ],
+    "success_metric": "待填_waiting_post_publish_review",
+    "failure_metric": "待填_waiting_post_publish_review",
+    "post_publish_validation_metric": "待填_waiting_post_publish_review"
+  },
+  "data_goal_supply_questions": [
+    "这轮目标要求读哪些文件？",
+    "哪些旧口径会破坏当前实例锚点入口？",
+    "哪些执行选择支持当前锚点的 waiting_data 边界？",
+    "哪些执行选择会把 waiting_data 误写成 ready？",
+    "哪些剪辑 / 编排对象必须回指 current_data_goal_anchor_path？"
+  ],
+  "candidate_files": [
+    "codex_log/current_data_goal_anchor.md",
+    "GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md",
+    "GPT数据源/14_数据目标执行总线_data_goal_execution_bus.md",
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/03_总索引与阅读顺序.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/10_OPC一人公司闭环与多AI协作机制.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/schemas/deepseek_supply_request.schema.json",
+    "codex_source/fixtures/mechanism_inference_function_cases.json",
+    "codex_source/fixtures/数据目标锚点供料_data_goal_anchor_supply_request_example.json"
+  ],
+  "must_read_files": [
+    "codex_log/current_data_goal_anchor.md",
+    "GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md",
+    "GPT数据源/14_数据目标执行总线_data_goal_execution_bus.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md",
+    "codex_source/schemas/deepseek_supply_request.schema.json",
+    "codex_source/fixtures/mechanism_inference_function_cases.json"
+  ],
+  "optional_files": [
+    "GPT数据源/08_当前正式事实.md",
+    "GPT数据源/09_目标态计划.md",
+    "codex_log/latest.md",
+    "codex_log/current_local_artifact_paths.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "*.mp4",
+    "*.mov",
+    "*.wav",
+    "*.mp3",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.srt",
+    "*.ass"
+  ],
+  "expected_output": [
+    "current_anchor_gap_risks",
+    "files_that_must_reference_current_data_goal_anchor_path",
+    "schema_fixture_fields_needed",
+    "ready_vs_waiting_data_boundary_risks",
+    "codex_next_input"
+  ],
+  "not_allowed": [
+    "write files",
+    "decide project facts",
+    "read_secrets",
+    "generate_media",
+    "promote_content_validation",
+    "promote_send_ready",
+    "promote_publish_status",
+    "promote_voice_validation",
+    "promote_final_voice_validated",
+    "promote_visual_master_locked",
+    "claim_data_flywheel_real_effect_passed",
+    "fallback_local_only_is_not_conclusion",
+    "claim_multi-agent runtime_stable"
+  ],
+  "blocked_if": [
+    "current_data_goal_anchor_missing",
+    "current_data_goal_anchor_ready_claimed_without_review_data",
+    "schema_parse_failed",
+    "fixture_parse_failed",
+    "secret_required",
+    "media_generation_required"
+  ],
+  "return_to_codex": {
+    "format": "markdown_summary",
+    "must_include": [
+      "deepseek_participation_report",
+      "current_anchor_gap_risks",
+      "schema_fixture_sync_notes",
+      "not_deepseek_conclusion_when_fallback"
+    ]
+  },
+  "safe_call_mode": "process_env_only",
+  "disable_env_file": true,
+  "allow_process_env_api_key": true,
+  "requires_real_deepseek_participation": false,
+  "safe_deepseek_process_env_test": {
+    "env_file_read": false,
+    "api_key_written": false,
+    "api_key_printed": false,
+    "expected_if_missing_process_env_key": "blocked_missing_process_env_api_key"
+  }
+}
