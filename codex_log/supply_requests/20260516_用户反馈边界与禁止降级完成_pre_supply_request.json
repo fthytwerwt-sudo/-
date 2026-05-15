@@ -1,0 +1,56 @@
+{
+  "task_id": "20260516_user_feedback_boundary_and_no_degrade_completion",
+  "task": "Mechanism repair for formal-operation user feedback boundary and no-degrade completion gate.",
+  "project_route": "video_factory",
+  "task_type": [
+    "mechanism_or_route_fix",
+    "project_file_change",
+    "user_feedback_boundary_repair",
+    "no_degrade_completion_gate",
+    "formal_operation_execution_accountability_repair"
+  ],
+  "current_stage": "formal_operation_active",
+  "operation_mode": "data_driven_operation_iteration",
+  "current_goal": "Write the user feedback responsibility boundary, self_repair_audit, fallback authorization, completion_truth_check, and no_degrade_completion rules into repository mechanisms without changing media or advancing status.",
+  "must_read_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_log/latest.md",
+    "codex_log/current_operation_target.md",
+    "codex_log/current_data_goal_anchor.md",
+    "codex_log/20260516_formal_operation_delivery_baseline_repair.md",
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/03_总索引与阅读顺序.md",
+    "GPT数据源/08_当前正式事实.md",
+    "GPT数据源/10_OPC一人公司闭环与多AI协作机制.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md",
+    "GPT数据源/14_数据目标执行总线_data_goal_execution_bus.md"
+  ],
+  "risk_questions": [
+    "Which current mechanism files could still allow fallback, technical_preview, partial result, or internal_diagnostic_only to be treated as completed?",
+    "Which files need self_repair_audit triggers when the user only reports an unqualified result?",
+    "Which status fields must not be promoted in this mechanism-only repair?",
+    "Which wording could confuse fallback suggestion with completed result?"
+  ],
+  "expected_supply_output": [
+    "file_map",
+    "risk_report",
+    "candidate_summary",
+    "blocked_or_fallback_boundary"
+  ],
+  "requires_real_deepseek_participation": false,
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "fallback_policy": "fallback_local_only may support this low-risk mechanism repair because this turn forbids extra API calls; it is not a DeepSeek conclusion and cannot be used as completed evidence.",
+  "safe_call_mode": "local_fallback_only",
+  "forbidden_actions": [
+    "Do not read or print .env, .env.local, API key, token, or secret values.",
+    "Do not call media generation, TTS, voice cloning, or external APIs in this turn.",
+    "Do not edit source materials or media outputs.",
+    "Do not promote content_validation, send_ready, publish_status_success, voice_validation, final_voice_validated, visual_master_locked, data_flywheel_passed, or commercial_validation_passed."
+  ],
+  "stop_condition": "Stop after local-only risk framing; Codex must verify original files directly and report not_deepseek_conclusion=true."
+}

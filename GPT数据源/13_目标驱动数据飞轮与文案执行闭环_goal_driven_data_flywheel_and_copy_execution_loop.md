@@ -14,6 +14,14 @@
 
 当前正式运营默认出片比例为 `horizontal_16_9（横屏 16:9）`、默认分辨率为 `1920x1080`。旧 `vertical_9_16（竖屏 9:16）` 只保留为历史样片、历史提示卡或用户另行指定竖屏策略时的特殊口径；不得把旧竖屏默认带入屏幕录制、文档、表格和指标分层类内容。
 
+## 0C. 数据目标不得通过降级产物完成
+
+数据目标执行不能通过降级产物完成。如果当前变量要求发布候选片，实际产物必须满足正式运营 `publish_candidate（可发布候选片）` 基线；缺声音、字幕、横屏 16:9 / 1920x1080、文案画面逐句对应、关键素材证据、时间线、TTS、卡片或导出验证时，必须 `blocked`。
+
+`content_route_card（内容路由卡）`、`next_video_execution_prompt（下一条视频执行 prompt）`、`script_to_timeline_map（文案到时间线映射表）`、`editing_decision_pack（剪辑决策包）`、`assembly_decision_pack（装配决策包）`、`data_goal_alignment_check（数据目标对齐检查）`、路由卡、时间线、决策包和对齐检查都只是中间层，不是完成结果。
+
+降级方案只允许作为 `blocked` 后待用户授权的修复建议。Codex 可以提出 fallback，但不能用 fallback、技术预览、无声视频、比例错误视频、局部结果或只读报告完成数据目标。
+
 ## 1. goal_driven_data_flywheel_spec_v1（目标驱动数据飞轮规格 V1）
 
 本文件解决的问题是：把《视频工厂》从“记录规则 / 做单条视频”推进到“目标 -> 数据 -> 文案修改 -> 内容结构反推 -> Codex 动态执行 -> 发布复盘 -> 下一轮更新”的可执行闭环。
@@ -118,7 +126,7 @@ goal_driven_data_flywheel_spec_v1:
   - 缺 `data_goal_alignment_check（数据目标对齐检查）` 时，不得写执行完成。
   - 缺 `delivery_baseline_gate（交付基线闸门）` 时，不得写正式运营视频交付完成。
   - `next_video_execution_prompt / content_route_card / script_to_timeline_map / tts_prosody_anchor_map / editing_decision_pack / assembly_decision_pack / data_goal_alignment_check` 只是执行前必备条件，不是用户最终视频交付物。
-  - Codex 可以调整 segment 拆分、画面顺序、卡片位置、剪辑节奏、TTS 分句、装配顺序和降级方案。
+  - Codex 可以调整 segment 拆分、画面顺序、卡片位置、剪辑节奏、TTS 分句、装配顺序；降级方案只能作为 blocked 后待用户授权的修复建议，不能作为完成结果。
 - Codex 不得调整 `current_stage_goal（当前阶段目标）`、`main_bottleneck（主短板）`、`primary_variable（主验证变量）`、`forbidden_variables（禁止变量）`、`success_metric（成功指标）`、`failure_metric（失败指标）`、`post_publish_validation_metric（发布后验证指标）`。
 
 最小交接字段：

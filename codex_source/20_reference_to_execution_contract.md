@@ -199,7 +199,8 @@ reference_contract_validation:
 
 如果任一必填项缺失：
 
-- 写 `partial_completed（部分完成）` 或 `blocked（阻断）`。
+- Codex 必须继续补齐；若无法补齐，则写 `blocked（阻断）`。
+- `partial_completed（部分完成）` 只允许用于用户明确接受的分阶段 reference contract，不得替代完整落地任务里的 `blocked`。
 - 不得写 `completed（已完成）`。
 - 必须在 `remaining_work_check（剩余工作检查）` 里列出缺口。
 

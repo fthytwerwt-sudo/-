@@ -18,6 +18,17 @@
 
 当前默认出片比例为 `horizontal_16_9（横屏 16:9）`，默认交付分辨率为 `1920x1080`。缺音轨、字幕、横屏 16:9 / 1920x1080 装配、中段证据、结尾收束、TTS、卡片、人感质量、平台风险、API 授权或装配能力时，必须 blocked，不得用 `technical_preview（技术预览）`、无声预览、横屏技术包或 JSON / Markdown route card 写完成。
 
+## 0C. no_degrade_completion in data_goal_execution_bus
+
+数据目标执行总线不得把对齐检查、中间包或降级产物升级成完成结果。
+
+硬规则：
+
+- 如果当前变量要求 `publish_candidate（可发布候选片）`，最终产物必须满足可发布候选片基线。
+- 如果任何执行条件缺失，必须 `blocked`，不得用 route card、时间线、决策包、对齐检查或技术预览写完成。
+- `data_goal_alignment_check（数据目标对齐检查）` 只能证明“执行结构没有偏离数据目标”，不能替代真实交付结果。
+- fallback / degradation plan 只能作为 `blocked` 后待用户授权的修复建议；未经授权不得成为交付。
+
 ## 1. 文件定位
 
 本文件定义 `data_goal_execution_bus（数据目标执行总线）`。
@@ -220,7 +231,7 @@ bridge_to_codex_execution:
     - fallback_visuals
     - api_image_needed_or_not
     - ppt_density
-    - degradation_plan
+        - degradation_plan（只能作为 blocked 后待用户授权的修复建议，不能作为完成结果）
 
   codex_must_not_adapt:
     - target_user_if_locked
@@ -297,7 +308,7 @@ forbidden_goal_field_alias_map:
 - 缺 `data_goal_anchor_used（使用的数据目标锚点）`，不得生成 `editing_decision_pack（剪辑决策包）`。
 - 缺 `primary_variable_support（服务的主变量）`，不得把剪辑动作写成完成。
 - 缺 `metric_supported（支持的指标）`，不得把装配动作写成完成。
-- 引入 `forbidden_variables（禁止变量）` 的卡片、剪辑、素材或降级方案必须 blocked。
+- 引入 `forbidden_variables（禁止变量）` 的卡片、剪辑、素材或降级方案必须 blocked；任何降级方案都只能作为 blocked 后待用户授权的修复建议，不能作为完成结果。
 - `forbidden_goal_field_alias_map` 无法追溯到同一个上游 `forbidden_variables` 时，必须 blocked。
 
 ## 8. validation（验收）

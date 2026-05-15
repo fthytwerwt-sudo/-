@@ -31,6 +31,55 @@
 
 如果缺声音、字幕、横屏 16:9 构图、1920x1080 装配、剪辑节奏、素材证据、TTS、卡片、人感质量、平台风险、API 授权或装配能力，必须 blocked 或修到满足 `publish_candidate`；不得用技术验证消耗正式运营阶段的内容迭代机会。
 
+## 0A-2. no_degrade_completion_gate 禁止降级完成闸门
+
+Codex 后续不得降级处理正式运营任务。凡任务目标指向做视频、产视频、发片候选、运营内容、下一条视频、发布候选、项目机制落库、GPT Project 同步、数据录入、复盘记录、素材审计、文案到执行映射、TTS、字幕、卡片、比例、导出、commit / push 等，必须实实在在完成仓库写明的目标。
+
+以下情况不得写 `completed（已完成）`：
+
+- 只完成技术预览、局部文件、JSON / Markdown / route card 或审计报告，但任务目标要求完整交付。
+- 只完成本地文件但任务要求 push。
+- 生成无声视频、比例错误视频、缺字幕视频、缺音轨视频或缺关键素材证据的视频。
+- TTS 失败后使用未授权 fallback 冒充完成。
+- 用户要求阿里 / 百炼 / 项目定义 TTS，却改用本地兜底。
+- 用户要求 `publish_candidate`，却交 `technical_preview`。
+- 用户要求仓库落库，却只在本地生成。
+- 用户要求 main push，却只 commit 或只改文件。
+- DeepSeek 需要真实参与但只有 `fallback_local_only`。
+- 文案和画面对不上，或任何“能跑但不能交付”的结果。
+
+做不到原目标时必须写 `blocked（阻断）`，不能降级完成。降级方案只能作为 `blocked` 后待用户确认的修复建议；必须说明原目标为什么做不到、缺少哪层能力、降级损失什么、是否需要用户授权。用户明确授权前，不得把降级方案当成交付。
+
+`completion_truth_check（完成真实性检查）` 必须在收尾前执行：对照用户原目标、仓库交付基线、`required_output_inventory（必须交付清单）`、验证命令、日志、commit / push / sync 逐项核验。任何“目标未达成但产物存在”“验证未跑但看起来能用”“本地有文件但未同步”“中间层完整但交付物缺失”的结果，都不能写 `completed`。
+
+完成状态只允许：
+
+- `completed`：仓库写明的目标、产物、验证、同步、回报全部完成。
+- `blocked`：缺权限、缺素材、缺 API、缺声音、缺字幕、缺比例、缺证据、缺同步或缺验证。
+- `partial_completed`：只允许用于用户明确接受的分阶段任务；完整交付任务不得用它替代 `blocked`。
+- `internal_diagnostic_only`：只用于内部诊断产物，不能作为用户交付物。
+
+禁止新增“差不多完成 / 基本完成 / 技术完成 / 先这样 / 可后续优化”来包装未完成任务。
+
+## 0A-3. self_repair_audit 自修审计
+
+正式运营阶段，用户只负责目标修正、页面 / 美观 / 观感对标，以及如实反馈结果是否合格；用户不负责替 GPT / Codex 诊断内部原因。
+
+当用户只反馈“不合格 / 不对 / 不顺 / 不美观 / 不是我要的 / 文案画面对不上 / 标题被改 / 比例错 / 声音不行 / 字幕不对”时，Codex 必须触发 `self_repair_audit（自修审计）`，至少检查：
+
+- locked_goal / locked_title 是否被改变。
+- final_script 是否被 Codex 越权改写。
+- script_to_timeline_map 是否逐句成立。
+- subtitle / card 是否冲突。
+- audio / TTS 是否达标。
+- aspect_ratio 与 final_media_probe 是否达标。
+- data_goal_alignment_check 是否真实检查。
+- publish_candidate_checklist 是否真实通过。
+- Git commit / push / sync 是否按任务完成。
+- 是否存在降级冒充完成。
+
+发现任一内部问题，Codex 必须修复或 `blocked`，不得把诊断责任转给用户。
+
 ## 1. 文件定位
 
 本文件规定 Codex 在《视频工厂》仓库中的默认执行方式。
@@ -287,7 +336,7 @@ data_goal_anchor_gate:
     - ppt_density
     - tts_segmentation
     - assembly_sequence
-    - fallback_plan
+    - fallback_plan（只能作为 blocked 后待用户授权的修复建议，不能作为完成结果）
   codex_must_not_adapt:
     - current_stage_goal
     - main_bottleneck
@@ -1021,7 +1070,7 @@ completion_relay_gate:
 5. 没有 `child_task_graph（子任务树）`，不得执行。
 6. 没有 `required_output_inventory（必须交付清单）`，不得写完成。
 7. 没有 `remaining_work_check（剩余工作检查）`，不得写完成。
-8. 只要 `required_output_inventory（必须交付清单）` 中有未完成项，最终状态只能是 `partial_completed（部分完成）` 或 `blocked（阻断）`，不得写 `completed（已完成）`。
+8. 只要 `required_output_inventory（必须交付清单）` 中有未完成项，Codex 必须继续执行；若命中阻断条件则写 `blocked（阻断）`，不得写 `completed（已完成）`。`partial_completed（部分完成）` 只允许用于用户明确接受的分阶段任务，完整交付任务不得用它替代 `blocked`。
 9. 除非触发 `blocked_if（阻断条件）`，否则 Codex 不得停在建议、计划、审计或局部修改。
 10. 如果执行中发现新的必要同步文件，必须加入 `required_output_inventory（必须交付清单）` 并继续处理。
 11. 如果不能继续处理，必须明确写阻断原因、未完成项、为什么不能继续、需要用户确认什么。
@@ -1041,6 +1090,8 @@ partial_completed（部分完成）:
   部分 required_output_inventory 完成
   但仍有未完成项或待验证项
   不得写成 completed
+  只允许用于用户明确接受的分阶段任务
+  如果本轮目标是完整交付，不能用 partial_completed 代替 blocked
 
 blocked（阻断）:
   缺关键文件

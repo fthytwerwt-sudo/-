@@ -1,5 +1,17 @@
 # Latest
 
+## 20260516｜正式运营用户反馈边界与禁止降级完成
+
+- `已确认` 本轮根据用户反馈修正正式运营协作分工：用户只负责目标修正、页面 / 美观 / 观感对标和结果是否合格反馈。
+- `已确认` GPT / Codex 负责内部执行问题自查与修复；当用户反馈“不合格 / 不对 / 不顺 / 不美观 / 不是我要的 / 文案画面对不上 / 标题被改 / 比例错 / 声音不行 / 字幕不对”时，必须触发 `self_repair_audit（自修审计）`，不得要求用户诊断内部原因。
+- `已确认` Codex 不得降级完成正式运营任务。fallback、技术预览、局部结果、内部诊断、本地未同步产物、无声视频、比例错误视频、只读报告或 route card 不能冒充 `completed`。
+- `已确认` 降级方案只能作为 `blocked` 后待用户确认的修复建议；用户明确授权前，任务状态必须是 `blocked`，不是 `completed`。
+- `已同步` `no_degrade_completion_gate（禁止降级完成闸门）`、`fallback_requires_user_authorization（降级需要用户授权）`、`self_repair_audit（自修审计）` 与 `completion_truth_check（完成真实性检查）` 到 AGENTS、Codex 执行规则、状态动作总控器、当前正式事实、OPC 协作机制和数据目标执行总线。
+- `DeepSeek`：已创建供料任务卡 `codex_log/supply_requests/20260516_用户反馈边界与禁止降级完成_pre_supply_request.json`；本轮未调用外部 API，因本轮是机制修补且禁止额外 API 调用，供料口径为 `fallback_local_only`，`not_deepseek_conclusion = true`，不得写成 DeepSeek 结论。
+- `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status_success（发布成功口径）`、`voice_validation（声音验证）`、`final_voice_validated（最终声音验证）`、`visual_master_locked（视觉母版锁定）`。
+- `日志`：`codex_log/20260516_user_feedback_boundary_and_no_degrade_completion.md`
+- `下一个目标`：后续用户只反馈目标、美观和结果是否合格；GPT / Codex 必须自行复盘内部执行问题，实打实完成仓库基线，做不到就 blocked，不得降级完成。
+
 ## 20260516｜第二期横屏 16:9 可发布候选片生成
 
 - `已确认` 用户最新拍板后，本轮把正式运营默认出片比例修正为 `horizontal_16_9（横屏 16:9）` / `1920x1080`；旧 `vertical_9_16（竖屏 9:16）` 只保留为历史或用户明确指定的特殊策略，不再作为默认发布候选片比例。
@@ -159,7 +171,7 @@
 - `已确认` 本轮只做《视频工厂｜OPC 一人公司 AI 闭环验证系统》的机制修补、执行架构重接线、DeepSeek 供料字段、schema、fixture、日志和 GPT Project 静态包同步，不生成视频、不生成音频、不生成图片，不调用 TTS / 阿里 / 豆包生成 API，不读取 `.env` / `.env.swp` / API key / token / secret，不修改 `dist/latest_review_pack/`。
 - `审计结论`：`13_目标驱动数据飞轮与文案执行闭环` 已定义目标飞轮、阈值、文案闸门、内容结构反馈、单主变量和 `next_video_execution_prompt`，但未承担全执行链总线职责；本轮采用 `both`：补强 13，同时新增 14。
 - `已新增` `GPT数据源/14_数据目标执行总线_data_goal_execution_bus.md`，定义 `data_goal_anchor`、`data_goal_execution_bus`、`bridge_to_copy`、`bridge_to_deepseek`、`bridge_to_codex_execution`、`bridge_to_editing_and_assembly` 和 `data_goal_alignment_check`。
-- `核心原则`：`目标锁死，结构可变`。Codex 可调整 segment 拆分、剪辑节奏、画面顺序、卡片位置、API 图是否需要、PPT 密度、TTS 分句、装配顺序和降级方案；不得调整当前阶段目标、主短板、主变量、禁止变量、成功 / 失败 / 发布后验证指标。
+- `核心原则`：`目标锁死，结构可变`。Codex 可调整 segment 拆分、剪辑节奏、画面顺序、卡片位置、API 图是否需要、PPT 密度、TTS 分句和装配顺序；降级方案只能作为 blocked 后待用户授权的修复建议，不能作为完成结果。不得调整当前阶段目标、主短板、主变量、禁止变量、成功 / 失败 / 发布后验证指标。
 - `已同步` GPT Project / ChatGPT 侧入口：`GPT数据源/01_项目系统提示词.md`、`03_总索引与阅读顺序.md`、`05_文案路由规则.md`、`07_AI知识类视频价值规则.md`、`08_当前正式事实.md`、`09_目标态计划.md`、`10_OPC一人公司闭环与多AI协作机制.md`、`11_项目状态动作总控器_机制推理层.md`、`13_目标驱动数据飞轮与文案执行闭环...md`。
 - `已同步` Codex 执行侧入口：`codex_source/00_codex_readme.md`、`01_execution_rules.md`、`17_deepseek_supply_controller_protocol.md`、`18_deepseek_supply_request_schema.md`、`19_project_state_action_router.md`、`scripts/deepseek_supply_controller.py`。
 - `已更新` schema / fixture：`codex_source/schemas/deepseek_supply_request.schema.json` 增加数据目标字段；`codex_source/fixtures/mechanism_inference_function_cases.json` 新增 5 个数据目标锚点 case；新增 `codex_source/fixtures/数据目标锚点供料_data_goal_anchor_supply_request_example.json`。

@@ -250,6 +250,11 @@ GPT Project 上传包地址规则：
 - 旧 `vertical_9_16（竖屏 9:16）`、`1080x1920` 只保留为历史样片 / 历史提示卡 / 历史平台适配记录，不再作为当前正式运营视频交付默认比例。
 - 正式运营视频交付任务默认只接受 `publish_candidate（可发布候选片）` 或 `blocked（阻断）`
 - `technical_preview（技术预览）`、`technical_preview_candidate（技术预览候选）`、`preflight package（执行前补全包）`、`silent preview（无声预览）`、无音轨视频、横屏技术包、只交 JSON / Markdown / route card，只能作为 `internal_diagnostic_only（内部诊断产物）`，不能写 `completed`、不能写内容推进、不能写视频执行完成
+- `已确认` 正式运营阶段用户只负责目标修正、页面 / 美观 / 观感对标，以及如实反馈结果是否合格；用户不负责替 GPT / Codex 排查内部执行原因。
+- 当用户反馈“不合格 / 不对 / 不顺 / 不美观 / 不是我要的 / 文案画面对不上 / 标题被改 / 比例错 / 声音不行 / 字幕不对”时，GPT / Codex 必须触发 `self_repair_audit（自修审计）`，自行回查 locked goal、locked title、final script、文案到画面映射、字幕 / 卡片、音轨 / TTS、比例、时间线、导出参数、数据目标锚点、交付基线、Git 同步和是否存在降级冒充完成；不得要求用户诊断内部原因。
+- `Codex` 后续不得降级完成任何正式运营交付任务。凡仓库写明的目标、产物、验证、同步、回报未全部完成，必须 `blocked` 或继续修到满足基线，不得用 fallback、技术预览、局部结果、内部诊断、无声视频、比例错误视频、本地未同步产物或只读报告冒充 `completed`。
+- 降级方案只能作为 `blocked` 后待用户确认的修复建议；必须写清原目标为什么做不到、缺哪层能力、降级会损失什么、是否需要用户授权。未经用户明确授权，不得把降级方案当成交付。
+- `completed` 只能用于仓库写明的目标、产物、验证、同步和回报全部完成；`partial_completed` 只允许用于用户明确接受的分阶段任务；`internal_diagnostic_only` 只用于内部诊断产物，不能作为用户交付物。
 - 进入做视频 / 产视频 / 发片候选 / 运营内容 / 下一条视频任务时，必须先判断是否具备 `publish_candidate` 条件；不具备则写 `blocked_publish_candidate_unavailable`，不得继续生成低标准产物冒充交付
 - `send_ready` 仍保持 `false`
 - `visual_master_locked` 仍保持 `false`
