@@ -1,0 +1,27 @@
+{
+  "opening_visual_hook_spec": {
+    "opening_route": "screen_first_opening + direct_question_title_card overlay",
+    "hook_goal": "0-3 秒直接让观众明白冲突：AI 给 KPI 看似完整但没法指导下一步。",
+    "viewer_feeling": "被一句判断拍醒，然后立刻看到真实录屏不是空讲。",
+    "main_question": "这些指标回来以后，下一条到底改哪里？",
+    "visual_motion": [
+      "0-1s: video_1 原始输入局部推近",
+      "1-3s: 大字叠加“AI 给 KPI 没用”",
+      "3-8s: 保留屏录并高亮播放/点赞/客资"
+    ],
+    "text_density": "opening max 1 big line + 1 subtitle line",
+    "duration": "0-8s",
+    "must_not_be": [
+      "static_two_line_title_only",
+      "OPC mechanism explanation",
+      "V003 data review opening",
+      "API human monologue replacing screen evidence"
+    ],
+    "validation_rule": "5 秒内必须同时出现冲突判断和真实录屏证据；若只剩标题卡则 opening failed。",
+    "blocked_if": [
+      "source crop unreadable",
+      "hook text becomes data_flywheel jargon first",
+      "claims platform data"
+    ]
+  }
+}

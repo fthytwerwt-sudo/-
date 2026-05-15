@@ -1,5 +1,21 @@
 # Latest
 
+## 20260516｜第二期候选视频《从 KPI 到判断系统》执行前补全
+
+- `已确认` 本轮基于第二期素材审计报告和用户锁定选题，生成候选执行包与本地技术预览 / 审片包。
+- `content_id`：`second_episode_kpi_to_judgment_system`。
+- `选题`：别再让 AI 给你 KPI 了，它真正该帮你判断下一步改哪。
+- `审片包目录`：`dist/第二期KPI到判断系统预览_second_episode_kpi_to_judgment_system_preview/`。
+- `已生成`：`content_route_card V2`、候选口播稿 v1、`script_anchor_extraction_function` 输出、`script_to_timeline_map`、`tts_prosody_anchor_map`、`opening_visual_hook_spec`、`editing_decision_pack`、`assembly_decision_pack`、`data_goal_alignment_check`、`review_manifest.md` 和本地 `技术预览_preview.mp4`。
+- `技术预览`：82 秒，1280x720，15fps，H.264，无音轨，可解码；只用于 ChatGPT / 用户复审，不是发布成片。
+- `素材复核`：两个源视频均存在、可解码、无音轨；素材不包含真实平台后台数据，不包含真实有效客资 / 成交；video_2 的 `video_goal_card` 只录到模板开头。
+- `数据目标对齐`：服务当前候选主变量 `opening_route_or_first_5s_packaging`，协同变量仅限 `evidence_compression` 和 `result_diff_display`；`formal_data_driven_execution_ready = false`。
+- `DeepSeek`：本轮未调用 DeepSeek；因未授权外部 API，供料口径为 `fallback_local_only`，不得写成 DeepSeek 结论。
+- `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status_success（发布成功口径）`、`voice_validation（声音验证）`、`final_voice_validated（最终声音验证）`、`visual_master_locked（视觉母版锁定）`。
+- `状态边界`：本轮不是正式下一条视频执行完成，不是数据飞轮已跑通，不是 V003 72h / 7d 复盘完成，不是可发送状态。
+- `日志`：`codex_log/20260516_second_episode_kpi_to_judgment_system_preflight.md`
+- `下一个目标`：ChatGPT / 用户复审候选脚本、开头路线、剪辑节奏和技术预览；通过后再决定是否进入正式视频执行或继续局部修正。
+
 ## 20260515｜第二期素材审计报告回流
 
 - `已确认` 本轮只补交上一轮已生成的第二期素材审计报告到 GitHub `main`，不重新审计素材，不重新分析视频。

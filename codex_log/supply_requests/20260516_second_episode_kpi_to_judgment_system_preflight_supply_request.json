@@ -1,0 +1,28 @@
+{
+  "supply_request_id": "20260516_second_episode_kpi_to_judgment_system_preflight",
+  "task": "Generate local-only execution preflight package for second episode KPI-to-judgment-system candidate.",
+  "project_route": "video_factory",
+  "deepseek_supply_gate": {
+    "deepseek_call_required": false,
+    "deepseek_call_attempted": false,
+    "deepseek_actual_participation": "not_called",
+    "supply_source": "fallback_local_only",
+    "fallback_status": "used_by_constraint",
+    "not_deepseek_conclusion": true,
+    "reason": "This round forbids unauthorized external API calls. The output is based on repository files, local material audit report, and local video probes only."
+  },
+  "must_not_claim": [
+    "DeepSeek participated in this material judgment",
+    "data flywheel has already worked",
+    "V003 72h or 7d review is complete",
+    "content_validation passed",
+    "send_ready is true"
+  ],
+  "source_files": [
+    "codex_log/current_operation_target.md",
+    "review_loop/operation_records_index.md",
+    "codex_log/current_data_goal_anchor.md",
+    "codex_log/material_audit/20260515_second_episode_material_detail_report.md"
+  ],
+  "output_directory": "dist/第二期KPI到判断系统预览_second_episode_kpi_to_judgment_system_preview/"
+}

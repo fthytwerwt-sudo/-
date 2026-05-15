@@ -1,0 +1,68 @@
+{
+  "editing_decision_pack": {
+    "current_data_goal_anchor_source": "codex_log/current_data_goal_anchor.md",
+    "data_goal_anchor_used": "partial_data_recorded / technical_preview_only",
+    "line_group_goal": "每个剪辑动作服务 opening_route_or_first_5s_packaging，并辅以 evidence_compression/result_diff_display。",
+    "selected_source_segments": [
+      {
+        "source": "video_1",
+        "timecode": "00:00-00:08",
+        "role": "raw_problem_input",
+        "edit_action": "opening crop + highlight keywords"
+      },
+      {
+        "source": "video_1",
+        "timecode": "00:36-00:44",
+        "role": "first_prompt_not_enough",
+        "edit_action": "hold enough to read user追问"
+      },
+      {
+        "source": "video_1",
+        "timecode": "00:44-01:22",
+        "role": "structured_prompt_process",
+        "edit_action": "compress with 2-3 readable windows"
+      },
+      {
+        "source": "video_2",
+        "timecode": "00:22-00:46",
+        "role": "metric_layer_result",
+        "edit_action": "local zoom; do not show whole table too long"
+      },
+      {
+        "source": "video_2",
+        "timecode": "00:46-01:04",
+        "role": "lead_score_result",
+        "edit_action": "local zoom on 0-5 table; subtitle explains private message scoring"
+      }
+    ],
+    "edit_action": [
+      "crop/scale wide screen to 1280x720 preview",
+      "use burned subtitles for review",
+      "insert judgment cards only where evidence has already appeared",
+      "fast cut dense table sections"
+    ],
+    "edit_action_reason_against_data_goal": "缩短观众理解路径，让前 5 秒冲突更直接，中段证据只展示能证明“判断系统”的窗口。",
+    "evidence_role_for_metric": {
+      "2s_bounce": "opening conflict clarity",
+      "5s_completion": "bridge explains why KPI is insufficient",
+      "average_watch_time": "middle evidence compression avoids long table fatigue"
+    },
+    "forbidden_visuals_by_goal": [
+      "真实平台后台数据",
+      "V003 72h/7d 复盘画面",
+      "完整 goal card 画面",
+      "API 真人替代中段录屏"
+    ],
+    "post_publish_validation_metric": [
+      "2s_bounce",
+      "5s_completion",
+      "3s_retention_if_available",
+      "average_watch_time"
+    ],
+    "blocked_if": [
+      "paragraph_level_mapping_only",
+      "any_line_claim_without_source_or_no_direct_evidence",
+      "source_media_modified"
+    ]
+  }
+}

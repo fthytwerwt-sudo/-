@@ -1,0 +1,42 @@
+{
+  "assembly_decision_pack": {
+    "current_data_goal_anchor_source": "codex_log/current_data_goal_anchor.md",
+    "data_goal_anchor_used": "partial_data_recorded; formal_data_driven_execution_ready=false",
+    "target_duration": "70-85s",
+    "segment_plan": {
+      "opening_0_3s": "video_1 原始输入 + 大字“AI 给 KPI 没用”",
+      "bridge_3_8s": "继续保留屏录，字幕解释 KPI 看着完整但不能决策",
+      "problem_expand_8_15s": "改标题/开头/中段结构的问题抛出",
+      "evidence_middle": "video_1 first prompt not enough -> second prompt; video_2 metric layer + lead score",
+      "judgment_turn": "目标不是 KPI 表",
+      "result_diff": "KPI 表 -> 判断系统",
+      "ending_handoff": "四句 judgment card + ChatGPT / 用户复审"
+    },
+    "carrier_reason": "用户录制素材承担过程和结果证据，卡片只做压缩与收束。",
+    "metric_supported": [
+      "2s_bounce",
+      "5s_completion",
+      "3s_retention_if_available",
+      "average_watch_time"
+    ],
+    "variable_preserved": {
+      "primary": "opening_route_or_first_5s_packaging",
+      "supporting": [
+        "evidence_compression",
+        "result_diff_display"
+      ]
+    },
+    "forbidden_variable_avoided": [
+      "target_user",
+      "core_topic_direction",
+      "offer_or_monetization",
+      "V003_final_review"
+    ],
+    "post_publish_validation_metric": "2s_bounce_5s_completion_3s_retention_if_available_average_watch_time",
+    "degradation_plan": {
+      "if_api_human_unavailable": "no impact; use screen first",
+      "if_table_unreadable": "replace long table with summary card + contact sheet reference",
+      "if_preview_video_too_large_for_git": "commit manifest and local path only"
+    }
+  }
+}

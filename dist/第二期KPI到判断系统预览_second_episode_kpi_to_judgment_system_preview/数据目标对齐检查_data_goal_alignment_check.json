@@ -1,0 +1,31 @@
+{
+  "data_goal_alignment_check": {
+    "current_data_goal_anchor_path": "codex_log/current_data_goal_anchor.md",
+    "current_data_goal_anchor_status": "partial_data_recorded",
+    "formal_data_driven_execution_ready": false,
+    "every_segment_maps_to_goal": true,
+    "every_edit_supports_primary_variable": true,
+    "no_forbidden_variable_introduced": true,
+    "success_metric_visible_in_execution_plan": [
+      "2s_bounce improvement candidate",
+      "5s_completion improvement candidate",
+      "average_watch_time candidate"
+    ],
+    "failure_metric_visible_in_risk_boundary": [
+      "opening still unclear by 5s",
+      "table too dense causing drop-off",
+      "claim unsupported by source material"
+    ],
+    "post_publish_validation_metric_defined": true,
+    "material_evidence_supports_claims": true,
+    "human_quality_review_not_replaced_by_data_goal": true,
+    "data_goal_not_claimed_as_real_flywheel_passed": true,
+    "content_validation_status": "not_advanced",
+    "blocked_if": [
+      "any line claims real platform data",
+      "any line claims V003 72h/7d review complete",
+      "any line claims valid lead or transaction exists",
+      "goal card completeness is claimed"
+    ]
+  }
+}

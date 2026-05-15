@@ -1,0 +1,32 @@
+[Script Info]
+Title: second_episode_kpi_to_judgment_system_preview
+ScriptType: v4.00+
+PlayResX: 1280
+PlayResY: 720
+WrapStyle: 0
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,PingFang SC,38,&H00FFFFFF,&H000000FF,&HAA000000,&H99000000,0,0,0,0,100,100,0,0,1,2,0,2,70,70,42,1
+Style: Hook,PingFang SC,58,&H00FFFFFF,&H000000FF,&HAA1010D0,&HBB000000,-1,0,0,0,100,100,0,0,1,4,1,5,60,60,40,1
+Style: Card,PingFang SC,50,&H00FFFFFF,&H000000FF,&HAA000000,&HBB111111,-1,0,0,0,100,100,0,0,1,3,1,5,70,70,40,1
+Style: Small,PingFang SC,28,&H00FFFFFF,&H000000FF,&HAA000000,&H88000000,0,0,0,0,100,100,0,0,1,2,0,8,50,50,28,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:03.00,Hook,,0,0,0,,AI 给 KPI 没用
+Dialogue: 0,0:00:03.00,0:00:08.00,Default,,0,0,0,,看着完整，但不能告诉你下一条改哪里
+Dialogue: 0,0:00:08.00,0:00:14.00,Default,,0,0,0,,到底改标题、改开头，还是改中段结构？
+Dialogue: 0,0:00:14.00,0:00:20.00,Default,,0,0,0,,我一开始也只是问：播放、点赞、客资目标怎么定
+Dialogue: 0,0:00:20.00,0:00:27.00,Default,,0,0,0,,第一版很全：目标、指标树、客资定义都有\N但我看完觉得不对
+Dialogue: 0,0:00:27.00,0:00:33.00,Default,,0,0,0,,它还是在回答：我要追哪些数字\N不是回答：下一轮该改哪里
+Dialogue: 0,0:00:33.00,0:00:41.00,Default,,0,0,0,,所以我追问：每期发布后\N根据反馈判断下一期只改哪个变量
+Dialogue: 0,0:00:41.00,0:00:47.00,Card,,0,0,0,,KPI 表 → 判断系统
+Dialogue: 0,0:00:47.00,0:00:54.00,Default,,0,0,0,,播放和留存，是触达\N点赞和收藏，是认可\N评论和追问，是互动
+Dialogue: 0,0:00:54.00,0:01:01.00,Default,,0,0,0,,私信也不能全算客资\N要看任务、场景和结果说没说清楚
+Dialogue: 0,0:01:01.00,0:01:06.00,Card,,0,0,0,,目标不是 KPI 表
+Dialogue: 0,0:01:06.00,0:01:12.00,Default,,0,0,0,,有用的目标，要逼你回答：\N哪层出问题，下一条改哪个变量，改完看哪个指标
+Dialogue: 0,0:01:12.00,0:01:16.00,Default,,0,0,0,,没有这套判断，每轮都在动\N但不知道哪一步起作用
+Dialogue: 0,0:01:16.00,0:01:22.00,Card,,0,0,0,,播放是入口\N收藏是认可\N私信要评分\N每条只改一个变量
+Dialogue: 0,0:00:00.00,0:01:22.00,Small,,0,0,0,,TECHNICAL PREVIEW / not send_ready / content_validation not advanced

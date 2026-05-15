@@ -1,0 +1,126 @@
+{
+  "content_route_card_v2": {
+    "meta": {
+      "content_id": "second_episode_kpi_to_judgment_system",
+      "content_type": "AI 问题点破 + AI 职场任务现场拆解",
+      "validation_goal": "验证“从 KPI 到判断系统”的开头冲突、证据压缩和结果差展示是否能支撑候选技术预览。",
+      "current_phase": "formal_operation_active",
+      "route_confidence": "medium_high_material_supported_but_not_content_validated"
+    },
+    "data_goal_alignment": {
+      "current_data_goal_anchor_source": {
+        "path": "codex_log/current_data_goal_anchor.md",
+        "anchor_instance_status": "partial_data_recorded",
+        "data_confidence": "low"
+      },
+      "data_goal_anchor_used": true,
+      "main_bottleneck_supported": "opening_retention_and_initial_distribution_weak / draft_low_confidence",
+      "primary_variable_supported": "opening_route_or_first_5s_packaging",
+      "supporting_variables_allowed": [
+        "evidence_compression",
+        "result_diff_display"
+      ],
+      "forbidden_variables_avoided": [
+        "target_user",
+        "core_topic_direction",
+        "offer_or_monetization",
+        "V003_final_review",
+        "publish_status",
+        "voice_status",
+        "visual_master_status"
+      ],
+      "post_publish_validation_metric": [
+        "2s_bounce",
+        "5s_completion",
+        "3s_retention_if_available",
+        "average_watch_time"
+      ]
+    },
+    "copy_inputs": {
+      "selected_topic": "别再让 AI 给你 KPI 了，它真正该帮你判断下一步改哪。",
+      "core_question": "AI 给出的目标到底是 KPI 数字，还是能指导下一轮怎么改的判断系统？",
+      "final_script_source": "user_base_script_candidate + material_audit_report + current_data_goal_anchor",
+      "copy_function_map": {
+        "hook": "别再让 AI 给你定 KPI 了。",
+        "problem_setup": "KPI 看着完整，但不能告诉你下一条改哪里。",
+        "negative_example": "第一版 prompt 很全但仍停在追数字。",
+        "reversal_point": "真正要问的是数据回来后下一轮改哪里。",
+        "positive_example": "第二版 prompt 生成目标驱动的数据飞轮与指标分层。",
+        "evidence_explanation": "播放/留存/收藏/评论/私信/客资分层解释。",
+        "result_diff": "KPI 表 -> 判断系统。",
+        "conclusion": "播放是入口，收藏是认可，私信要评分，每条只改一个主变量。",
+        "next_action": "交给 ChatGPT / 用户复审候选脚本和技术预览。"
+      }
+    },
+    "opening_route_decision": {
+      "selected_opening_route": "screen_first_opening + direct_question_title_card overlay",
+      "route_reason": "素材开头就有原始模糊目标输入，可直接制造“AI 给 KPI 没用”的冲突；服务当前主变量 first 5s packaging。",
+      "fallback_route": "direct_question_title_card if source crop readability fails",
+      "not_allowed": [
+        "static_two_line_title_only",
+        "OPC/V003 机制解释开头",
+        "API human replacing screen evidence"
+      ]
+    },
+    "evidence_plan": {
+      "core_evidence": [
+        "video_1 00:00-00:08 原始糊目标输入",
+        "video_1 00:36-00:44 用户指出第一版不够",
+        "video_1 00:44-01:22 第二版数据飞轮 prompt",
+        "video_2 00:22-00:46 指标分层表",
+        "video_2 00:46-01:04 有效客资评分表"
+      ],
+      "evidence_type": "screen_recording_process_and_result_diff",
+      "evidence_dependency": "video_2 depends_on video_1 second prompt context",
+      "blocked_if_evidence_missing": [
+        "source videos missing",
+        "metadata decode failed",
+        "sentence-level mapping not possible"
+      ]
+    },
+    "middle_carrier_decision": {
+      "middle_carrier": "user_recording_first",
+      "user_recording_role": {
+        "video_1": "process evidence",
+        "video_2": "result evidence"
+      },
+      "selected_segments": [
+        "video_1 00:00-00:08",
+        "video_1 00:36-01:04",
+        "video_2 00:22-01:04"
+      ]
+    },
+    "card_placement_decision": {
+      "judgment_card": "01:01-01:06 目标不是 KPI 表",
+      "result_diff_card": "00:41-00:47 KPI 表 -> 判断系统",
+      "summary_card": "01:16-01:22 four short lines",
+      "prompt_tail_card": "optional after main story, not used in preview video main cut"
+    },
+    "api_human_usage": {
+      "usage_count": 0,
+      "usage_role": "not_required_for_technical_preview",
+      "degradation_if_unavailable": "screen_first_opening remains valid"
+    },
+    "ppt_usage": {
+      "usage_type": "judgment_card + summary_card only",
+      "density_line": "max 4 short lines per screen"
+    },
+    "flow_flex_reason": {
+      "why_not_fixed_template": "当前验证主变量是前 5 秒包装，且证据来自屏录前后差，不适合先套固定人物/PPT流程。",
+      "real_time_route_reason": "先用真实录屏打冲突，再用卡片压缩判断。"
+    },
+    "blocked_if": [
+      "content_validation_promoted",
+      "source_media_modified",
+      "platform_data_claim_added",
+      "full_goal_card_claim_added"
+    ],
+    "done_when": [
+      "route_card_written",
+      "script_written",
+      "line_group_mapping_written",
+      "preview_or_manifest_generated",
+      "statuses_not_promoted"
+    ]
+  }
+}

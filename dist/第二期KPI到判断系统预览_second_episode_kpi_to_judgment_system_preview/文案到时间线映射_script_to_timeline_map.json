@@ -1,0 +1,516 @@
+{
+  "script_to_timeline_map": [
+    {
+      "line_group_id": "LG01",
+      "timeline_start": "00:00",
+      "timeline_end": "00:03",
+      "script_text": "别再让 AI 给你定 KPI 了。",
+      "script_function": "hook / conflict_label",
+      "evidence_anchor": {
+        "source": "video_1",
+        "timecode": "00:00-00:03",
+        "evidence_strength": "strong",
+        "claim_supported": "素材有原始目标输入现场，可作为“AI 给 KPI”冲突入口"
+      },
+      "allowed_visuals": [
+        "screen_first_opening",
+        "video_1 原始输入局部放大",
+        "大字问题叠字"
+      ],
+      "forbidden_visuals": [
+        "真人实拍伪装",
+        "真实平台后台数据",
+        "DeepSeek 参与画面"
+      ],
+      "data_goal_service": "primary_variable: opening_route_or_first_5s_packaging",
+      "tts": {
+        "tone": "直接判断",
+        "pace": "fast",
+        "pause_after": "0.25s",
+        "emphasis": [
+          "别再",
+          "KPI"
+        ],
+        "pitch": "low_start_then_firm"
+      },
+      "card": {
+        "type": "opening_hook_text",
+        "text": "AI 给 KPI 没用",
+        "max_density": "1 short line"
+      }
+    },
+    {
+      "line_group_id": "LG02",
+      "timeline_start": "00:03",
+      "timeline_end": "00:08",
+      "script_text": "它写“播放多少、点赞多少、客资多少”，看着很完整，但大多数时候没用。",
+      "script_function": "pain_point_expand",
+      "evidence_anchor": {
+        "source": "video_1",
+        "timecode": "00:00-00:08",
+        "evidence_strength": "strong",
+        "claim_supported": "原始输入可见播放、点赞、客资等泛目标"
+      },
+      "allowed_visuals": [
+        "video_1 用户输入黄色框",
+        "局部高亮播放/点赞/客资",
+        "轻微推近"
+      ],
+      "forbidden_visuals": [
+        "把这些 KPI 写成项目已验证目标",
+        "真实成交数据"
+      ],
+      "data_goal_service": "opening_route_or_first_5s_packaging + evidence_compression",
+      "tts": {
+        "tone": "轻吐槽",
+        "pace": "medium_fast",
+        "pause_after": "0.35s",
+        "emphasis": [
+          "看着很完整",
+          "没用"
+        ],
+        "pitch": "slight_down_on_没用"
+      },
+      "card": {
+        "type": "subtitle",
+        "text": "看着完整，但不能决策",
+        "max_density": "1 line"
+      }
+    },
+    {
+      "line_group_id": "LG03",
+      "timeline_start": "00:08",
+      "timeline_end": "00:14",
+      "script_text": "因为这些数字不会告诉你：下一条到底改标题、改开头，还是改中段结构。",
+      "script_function": "core_problem_definition",
+      "evidence_anchor": {
+        "source": "video_1 + video_2",
+        "timecode": "video_1 00:36-00:44 / video_2 00:22-00:46",
+        "evidence_strength": "medium",
+        "claim_supported": "用户追问和指标分层共同支持“数字要服务下一步判断”"
+      },
+      "allowed_visuals": [
+        "快速切 video_1 用户追问",
+        "切到 video_2 指标层级表预告"
+      ],
+      "forbidden_visuals": [
+        "V003 72h/7d 数据",
+        "真实后台图",
+        "完整 goal card"
+      ],
+      "data_goal_service": "opening_route_or_first_5s_packaging",
+      "tts": {
+        "tone": "追问推进",
+        "pace": "medium",
+        "pause_after": "0.35s",
+        "emphasis": [
+          "下一条",
+          "改开头"
+        ],
+        "pitch": "question_lift_then_drop"
+      },
+      "card": {
+        "type": "none",
+        "text": ""
+      }
+    },
+    {
+      "line_group_id": "LG04",
+      "timeline_start": "00:14",
+      "timeline_end": "00:20",
+      "script_text": "我一开始也这样问：帮视频工厂定个目标，最好有播放、点赞、客资。",
+      "script_function": "human_process_anchor",
+      "evidence_anchor": {
+        "source": "video_1",
+        "timecode": "00:00-00:08",
+        "evidence_strength": "strong",
+        "claim_supported": "原始糊目标输入"
+      },
+      "allowed_visuals": [
+        "video_1 00:00-00:08 hold",
+        "输入框局部放大"
+      ],
+      "forbidden_visuals": [
+        "素材之外的输入 prompt",
+        "平台数据"
+      ],
+      "data_goal_service": "evidence_compression",
+      "tts": {
+        "tone": "口语自证",
+        "pace": "medium",
+        "pause_after": "0.2s",
+        "emphasis": [
+          "我一开始",
+          "播放、点赞、客资"
+        ],
+        "pitch": "natural"
+      },
+      "card": {
+        "type": "none",
+        "text": ""
+      }
+    },
+    {
+      "line_group_id": "LG05",
+      "timeline_start": "00:20",
+      "timeline_end": "00:27",
+      "script_text": "第一版确实很全，北极星目标、阶段目标、指标树、客资定义都有。但我看完觉得不对。",
+      "script_function": "ordinary_ai_output_then_rejection",
+      "evidence_anchor": {
+        "source": "video_1",
+        "timecode": "00:22-00:44",
+        "evidence_strength": "strong",
+        "claim_supported": "第一版 prompt 清单完整，用户指出有问题"
+      },
+      "allowed_visuals": [
+        "video_1 00:22-00:36 快切",
+        "video_1 00:36-00:44 用户追问局部放大"
+      ],
+      "forbidden_visuals": [
+        "把第一版写成坏到不可用",
+        "把第一版写成最终结果"
+      ],
+      "data_goal_service": "result_diff_display",
+      "tts": {
+        "tone": "先让步后转折",
+        "pace": "medium",
+        "pause_after": "0.45s",
+        "emphasis": [
+          "确实很全",
+          "不对"
+        ],
+        "pitch": "drop_on_不对"
+      },
+      "card": {
+        "type": "result_diff_card",
+        "text": "很全 != 有用"
+      }
+    },
+    {
+      "line_group_id": "LG06",
+      "timeline_start": "00:27",
+      "timeline_end": "00:33",
+      "script_text": "它还是在回答：我要追哪些数字。我真正需要的是：数据回来以后，下一轮该改哪里。",
+      "script_function": "reversal_point",
+      "evidence_anchor": {
+        "source": "video_1",
+        "timecode": "00:36-00:44",
+        "evidence_strength": "strong",
+        "claim_supported": "用户明确要求目标驱动和复盘后加速数据飞轮"
+      },
+      "allowed_visuals": [
+        "video_1 00:36-00:44 慢一点保留",
+        "字幕强调“下一轮该改哪里”"
+      ],
+      "forbidden_visuals": [
+        "写成已经完成下一轮复盘",
+        "写成 V003 ready"
+      ],
+      "data_goal_service": "opening_route_or_first_5s_packaging + result_diff_display",
+      "tts": {
+        "tone": "关键判断",
+        "pace": "medium_slow",
+        "pause_after": "0.45s",
+        "emphasis": [
+          "追哪些数字",
+          "改哪里"
+        ],
+        "pitch": "firm"
+      },
+      "card": {
+        "type": "subtitle",
+        "text": "不是追数字，是判断改哪里"
+      }
+    },
+    {
+      "line_group_id": "LG07",
+      "timeline_start": "00:33",
+      "timeline_end": "00:41",
+      "script_text": "所以我又追问：让 AI 设计一套目标驱动的数据飞轮。每期发布后，根据播放、留存、收藏、评论、私信、客资，判断下一期只改哪个变量。",
+      "script_function": "structured_prompt_process",
+      "evidence_anchor": {
+        "source": "video_1",
+        "timecode": "00:44-01:22",
+        "evidence_strength": "strong",
+        "claim_supported": "第二版 prompt 包含目标驱动、数据反馈、单变量"
+      },
+      "allowed_visuals": [
+        "video_1 00:44-01:04",
+        "video_1 01:04-01:22 局部放大“只改一个变量”"
+      ],
+      "forbidden_visuals": [
+        "数据飞轮已跑通",
+        "真实客资已产生"
+      ],
+      "data_goal_service": "evidence_compression + result_diff_display",
+      "tts": {
+        "tone": "说明但不概念堆叠",
+        "pace": "medium_fast",
+        "pause_after": "0.35s",
+        "emphasis": [
+          "只改哪个变量"
+        ],
+        "pitch": "steady"
+      },
+      "card": {
+        "type": "prompt_tail_candidate",
+        "text": "每期发布后，判断下一期只改哪个变量"
+      }
+    },
+    {
+      "line_group_id": "LG08",
+      "timeline_start": "00:41",
+      "timeline_end": "00:47",
+      "script_text": "这次结果才像个判断系统。",
+      "script_function": "result_turn",
+      "evidence_anchor": {
+        "source": "video_2",
+        "timecode": "00:00-00:22",
+        "evidence_strength": "strong",
+        "claim_supported": "改后结果出现北极星目标和四圈飞轮"
+      },
+      "allowed_visuals": [
+        "video_2 00:00-00:22",
+        "标题/北极星目标局部推近"
+      ],
+      "forbidden_visuals": [
+        "写成项目正式采纳",
+        "写成内容验证通过"
+      ],
+      "data_goal_service": "result_diff_display",
+      "tts": {
+        "tone": "结果出现",
+        "pace": "medium",
+        "pause_after": "0.35s",
+        "emphasis": [
+          "判断系统"
+        ],
+        "pitch": "slight_lift"
+      },
+      "card": {
+        "type": "result_diff_card",
+        "text": "KPI 表 -> 判断系统"
+      }
+    },
+    {
+      "line_group_id": "LG09",
+      "timeline_start": "00:47",
+      "timeline_end": "00:54",
+      "script_text": "播放和留存，是触达。点赞和收藏，是认可。评论和追问，是互动。",
+      "script_function": "evidence_explanation_metric_layers",
+      "evidence_anchor": {
+        "source": "video_2",
+        "timecode": "00:22-00:46",
+        "evidence_strength": "strong",
+        "claim_supported": "指标分层表"
+      },
+      "allowed_visuals": [
+        "video_2 指标分层表局部放大",
+        "逐层字幕"
+      ],
+      "forbidden_visuals": [
+        "整屏塞满长表",
+        "真实后台指标冒充"
+      ],
+      "data_goal_service": "evidence_compression",
+      "tts": {
+        "tone": "分层列举",
+        "pace": "medium",
+        "pause_after": "0.3s",
+        "emphasis": [
+          "触达",
+          "认可",
+          "互动"
+        ],
+        "pitch": "even_steps"
+      },
+      "card": {
+        "type": "mini_layer_card",
+        "text": "触达 / 认可 / 互动"
+      }
+    },
+    {
+      "line_group_id": "LG10",
+      "timeline_start": "00:54",
+      "timeline_end": "01:01",
+      "script_text": "私信也不能全算客资，要看他是不是说清楚任务、场景和结果。",
+      "script_function": "lead_quality_boundary",
+      "evidence_anchor": {
+        "source": "video_2",
+        "timecode": "00:46-01:04",
+        "evidence_strength": "strong",
+        "claim_supported": "有效客资 0-5 分表"
+      },
+      "allowed_visuals": [
+        "video_2 客资评分表局部放大",
+        "0-5 分表只截 3/4/5 分重点"
+      ],
+      "forbidden_visuals": [
+        "写当前已有 3-5 分客资",
+        "写成交"
+      ],
+      "data_goal_service": "evidence_compression",
+      "tts": {
+        "tone": "纠偏",
+        "pace": "medium",
+        "pause_after": "0.35s",
+        "emphasis": [
+          "不能全算",
+          "任务、场景和结果"
+        ],
+        "pitch": "firm"
+      },
+      "card": {
+        "type": "subtitle",
+        "text": "私信要评分"
+      }
+    },
+    {
+      "line_group_id": "LG11",
+      "timeline_start": "01:01",
+      "timeline_end": "01:06",
+      "script_text": "所以目标不是 KPI 表。",
+      "script_function": "judgment_card_turn",
+      "evidence_anchor": {
+        "source": "no_direct_evidence",
+        "timecode": "summary_card",
+        "evidence_strength": "medium",
+        "claim_supported": "由 video_1/video_2 前后差归纳"
+      },
+      "allowed_visuals": [
+        "judgment_card",
+        "黑底或浅底大字卡"
+      ],
+      "forbidden_visuals": [
+        "dashboard 风格",
+        "密集 PPT"
+      ],
+      "data_goal_service": "opening_route_or_first_5s_packaging + result_diff_display",
+      "tts": {
+        "tone": "定性收束",
+        "pace": "slow",
+        "pause_after": "0.45s",
+        "emphasis": [
+          "不是 KPI 表"
+        ],
+        "pitch": "low_firm"
+      },
+      "card": {
+        "type": "judgment_card",
+        "text": "目标不是 KPI 表"
+      }
+    },
+    {
+      "line_group_id": "LG12",
+      "timeline_start": "01:06",
+      "timeline_end": "01:12",
+      "script_text": "真正有用的目标，是逼你回答三件事：哪一层出了问题，下一条只改哪个变量，改完看哪个指标。",
+      "script_function": "core_framework_summary",
+      "evidence_anchor": {
+        "source": "video_2",
+        "timecode": "01:04-01:24",
+        "evidence_strength": "medium",
+        "claim_supported": "阶段判断路径和目标状态阶梯"
+      },
+      "allowed_visuals": [
+        "video_2 阶段目标局部",
+        "三问题字幕卡"
+      ],
+      "forbidden_visuals": [
+        "完整 goal card 已录全",
+        "V003 已复盘完成"
+      ],
+      "data_goal_service": "opening_route_or_first_5s_packaging + evidence_compression",
+      "tts": {
+        "tone": "方法框架",
+        "pace": "medium_slow",
+        "pause_after": "0.35s",
+        "emphasis": [
+          "哪一层",
+          "只改哪个变量",
+          "看哪个指标"
+        ],
+        "pitch": "structured"
+      },
+      "card": {
+        "type": "three_question_card",
+        "text": "哪层出问题 / 改哪个变量 / 看哪个指标"
+      }
+    },
+    {
+      "line_group_id": "LG13",
+      "timeline_start": "01:12",
+      "timeline_end": "01:16",
+      "script_text": "没有这套判断，你每轮都在动，却不知道哪一步起作用。",
+      "script_function": "risk_if_no_system",
+      "evidence_anchor": {
+        "source": "no_direct_evidence",
+        "timecode": "narration_card",
+        "evidence_strength": "medium",
+        "claim_supported": "基于素材中第一版不足和第二版补强的执行归纳"
+      },
+      "allowed_visuals": [
+        "短句卡",
+        "轻微快速切回 video_1 第一版 prompt"
+      ],
+      "forbidden_visuals": [
+        "夸大为项目失败",
+        "写成当前方向错误"
+      ],
+      "data_goal_service": "opening_route_or_first_5s_packaging",
+      "tts": {
+        "tone": "轻警示",
+        "pace": "medium",
+        "pause_after": "0.3s",
+        "emphasis": [
+          "每轮都在动",
+          "哪一步起作用"
+        ],
+        "pitch": "downward"
+      },
+      "card": {
+        "type": "subtitle",
+        "text": "乱改，无法归因"
+      }
+    },
+    {
+      "line_group_id": "LG14",
+      "timeline_start": "01:16",
+      "timeline_end": "01:22",
+      "script_text": "播放是入口。收藏是认可。私信要评分。每条只改一个主变量。目标清楚了，动作才不会乱；复盘清楚了，下一步才会浮出来。",
+      "script_function": "summary_card_and_closing",
+      "evidence_anchor": {
+        "source": "video_2",
+        "timecode": "00:22-01:04 + summary_card",
+        "evidence_strength": "strong",
+        "claim_supported": "指标分层与客资评分支撑四句总结"
+      },
+      "allowed_visuals": [
+        "judgment_card",
+        "一屏最多四句",
+        "可选低压 prompt tail"
+      ],
+      "forbidden_visuals": [
+        "密集指标体系整屏",
+        "发布成功口径",
+        "send_ready"
+      ],
+      "data_goal_service": "primary_variable: opening_route_or_first_5s_packaging, supporting: evidence_compression/result_diff_display",
+      "tts": {
+        "tone": "收束",
+        "pace": "medium_slow",
+        "pause_after": "end",
+        "emphasis": [
+          "播放是入口",
+          "私信要评分",
+          "一个主变量"
+        ],
+        "pitch": "stable_end"
+      },
+      "card": {
+        "type": "summary_judgment_card",
+        "text": "播放是入口\n收藏是认可\n私信要评分\n每条只改一个变量"
+      }
+    }
+  ]
+}

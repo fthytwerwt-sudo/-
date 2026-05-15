@@ -1,0 +1,160 @@
+{
+  "tts_prosody_anchor_map": [
+    {
+      "line_group_id": "LG01",
+      "tone": "直接判断",
+      "pace": "fast",
+      "pause_after": "0.25s",
+      "emphasis": [
+        "别再",
+        "KPI"
+      ],
+      "pitch": "low_start_then_firm"
+    },
+    {
+      "line_group_id": "LG02",
+      "tone": "轻吐槽",
+      "pace": "medium_fast",
+      "pause_after": "0.35s",
+      "emphasis": [
+        "看着很完整",
+        "没用"
+      ],
+      "pitch": "slight_down_on_没用"
+    },
+    {
+      "line_group_id": "LG03",
+      "tone": "追问推进",
+      "pace": "medium",
+      "pause_after": "0.35s",
+      "emphasis": [
+        "下一条",
+        "改开头"
+      ],
+      "pitch": "question_lift_then_drop"
+    },
+    {
+      "line_group_id": "LG04",
+      "tone": "口语自证",
+      "pace": "medium",
+      "pause_after": "0.2s",
+      "emphasis": [
+        "我一开始",
+        "播放、点赞、客资"
+      ],
+      "pitch": "natural"
+    },
+    {
+      "line_group_id": "LG05",
+      "tone": "先让步后转折",
+      "pace": "medium",
+      "pause_after": "0.45s",
+      "emphasis": [
+        "确实很全",
+        "不对"
+      ],
+      "pitch": "drop_on_不对"
+    },
+    {
+      "line_group_id": "LG06",
+      "tone": "关键判断",
+      "pace": "medium_slow",
+      "pause_after": "0.45s",
+      "emphasis": [
+        "追哪些数字",
+        "改哪里"
+      ],
+      "pitch": "firm"
+    },
+    {
+      "line_group_id": "LG07",
+      "tone": "说明但不概念堆叠",
+      "pace": "medium_fast",
+      "pause_after": "0.35s",
+      "emphasis": [
+        "只改哪个变量"
+      ],
+      "pitch": "steady"
+    },
+    {
+      "line_group_id": "LG08",
+      "tone": "结果出现",
+      "pace": "medium",
+      "pause_after": "0.35s",
+      "emphasis": [
+        "判断系统"
+      ],
+      "pitch": "slight_lift"
+    },
+    {
+      "line_group_id": "LG09",
+      "tone": "分层列举",
+      "pace": "medium",
+      "pause_after": "0.3s",
+      "emphasis": [
+        "触达",
+        "认可",
+        "互动"
+      ],
+      "pitch": "even_steps"
+    },
+    {
+      "line_group_id": "LG10",
+      "tone": "纠偏",
+      "pace": "medium",
+      "pause_after": "0.35s",
+      "emphasis": [
+        "不能全算",
+        "任务、场景和结果"
+      ],
+      "pitch": "firm"
+    },
+    {
+      "line_group_id": "LG11",
+      "tone": "定性收束",
+      "pace": "slow",
+      "pause_after": "0.45s",
+      "emphasis": [
+        "不是 KPI 表"
+      ],
+      "pitch": "low_firm"
+    },
+    {
+      "line_group_id": "LG12",
+      "tone": "方法框架",
+      "pace": "medium_slow",
+      "pause_after": "0.35s",
+      "emphasis": [
+        "哪一层",
+        "只改哪个变量",
+        "看哪个指标"
+      ],
+      "pitch": "structured"
+    },
+    {
+      "line_group_id": "LG13",
+      "tone": "轻警示",
+      "pace": "medium",
+      "pause_after": "0.3s",
+      "emphasis": [
+        "每轮都在动",
+        "哪一步起作用"
+      ],
+      "pitch": "downward"
+    },
+    {
+      "line_group_id": "LG14",
+      "tone": "收束",
+      "pace": "medium_slow",
+      "pause_after": "end",
+      "emphasis": [
+        "播放是入口",
+        "私信要评分",
+        "一个主变量"
+      ],
+      "pitch": "stable_end"
+    }
+  ],
+  "tts_generated": false,
+  "note": "本轮只生成韵律锚点，不生成 TTS。"
+}
