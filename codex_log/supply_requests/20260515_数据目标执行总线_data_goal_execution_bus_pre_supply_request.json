@@ -1,0 +1,180 @@
+{
+  "request_id": "20260515_data_goal_execution_bus_pre_supply",
+  "created_at": "2026-05-15T02:45:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "data_goal_execution_bus_rewire",
+  "task_type": "mechanism_or_route_fix/project_file_change/execution_architecture_rewire/gpt_project_static_package_sync",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "risk_report",
+  "mandatory_for_every_task": true,
+  "participation_level": "mandatory_by_default",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "审计并补齐 data_goal_anchor 到项目架构、Codex 执行、DeepSeek 供料、fixture、日志和 GPT Project 静态上传包的接线。",
+  "current_step": "执行前只读供料：判断旧口径冲突、缺失连接和禁止推进状态风险。",
+  "known_context": [
+    "13 文件已定义目标驱动数据飞轮、阈值配置、数据目标文案修改闸门和 next_video_execution_prompt。",
+    "本轮不生成视频、音频、图片，不调用 TTS，不调用生成 API。",
+    "Codex 可以调整执行结构，但不能改写数据目标、主短板、主变量、禁止变量和验证指标。"
+  ],
+  "missing_context": [
+    "哪些旧入口仍可能把视频流程写成主轴。",
+    "哪些执行链仍未默认读取 data_goal_anchor。",
+    "哪些 DeepSeek 供料字段需要补齐。"
+  ],
+  "decision_needed": "是否需要新增 14 数据目标执行总线，以及哪些文件必须同步以避免 Codex 自由发挥。",
+  "data_goal_anchor": {
+    "current_north_star_goal": "验证《视频工厂》能否通过真实 AI 使用内容稳定产生高质量需求信号。",
+    "current_stage_goal": "把视频执行、剪辑、编排、供料和复盘锚定到数据目标。",
+    "threshold_config_v1": {
+      "status": "stage_hypothesis"
+    },
+    "video_goal_card": {
+      "status": "mechanism_anchor_only"
+    },
+    "post_publish_review_card": {
+      "status": "mechanism_anchor_only"
+    },
+    "data_flywheel_memory": {
+      "status": "mechanism_written_not_real_flywheel_passed"
+    },
+    "main_bottleneck": "execution_chain_not_anchored_to_data_goal",
+    "primary_variable": "data_goal_anchor_wiring",
+    "supporting_variables": [
+      "deepseek_supply_fields",
+      "codex_alignment_check"
+    ],
+    "forbidden_variables": [
+      "promote_content_validation",
+      "generate_media",
+      "read_secret",
+      "claim_real_flywheel_passed"
+    ],
+    "content_structure_feedback_card": {
+      "status": "not_applicable_mechanism_rewire"
+    },
+    "next_video_structure_plan": {
+      "status": "not_applicable_mechanism_rewire"
+    },
+    "next_video_execution_prompt": "Future Codex execution must preserve data goal fields and may only adjust execution structure.",
+    "success_metric": "all_required_execution_surfaces_reference_data_goal_anchor",
+    "failure_metric": "any_execution_surface_allows_goal_free_editing_or_assembly",
+    "post_publish_validation_metric": "future_video_execution_reports_data_goal_alignment_check"
+  },
+  "current_stage_goal": "把视频执行、剪辑、编排、供料和复盘锚定到数据目标。",
+  "main_bottleneck": "execution_chain_not_anchored_to_data_goal",
+  "primary_variable": "data_goal_anchor_wiring",
+  "supporting_variables": [
+    "deepseek_supply_fields",
+    "codex_alignment_check"
+  ],
+  "forbidden_variables": [
+    "promote_content_validation",
+    "generate_media",
+    "read_secret",
+    "claim_real_flywheel_passed"
+  ],
+  "success_metric": "all_required_execution_surfaces_reference_data_goal_anchor",
+  "failure_metric": "any_execution_surface_allows_goal_free_editing_or_assembly",
+  "post_publish_validation_metric": "future_video_execution_reports_data_goal_alignment_check",
+  "next_video_execution_prompt": "Future Codex execution must preserve data goal fields and may only adjust execution structure.",
+  "data_goal_alignment_check_required": true,
+  "data_goal_supply_questions": [
+    "这轮目标要求读哪些文件？",
+    "哪些旧口径会破坏目标？",
+    "哪些执行选择支持主变量？",
+    "哪些执行选择会引入禁止变量？",
+    "哪些剪辑 / 编排风险会影响发布后验证指标？"
+  ],
+  "candidate_files": [
+    "GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/10_OPC一人公司闭环与多AI协作机制.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md",
+    "codex_source/19_project_state_action_router.md"
+  ],
+  "must_read_files": [
+    "GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md",
+    "GPT数据源/05_文案路由规则.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md",
+    "codex_source/19_project_state_action_router.md"
+  ],
+  "optional_files": [
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/03_总索引与阅读顺序.md",
+    "GPT数据源/08_当前正式事实.md",
+    "codex_source/01_execution_rules.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "*.mp4",
+    "*.mov",
+    "*.wav",
+    "*.mp3",
+    "*.png",
+    "*.jpg",
+    "*.jpeg"
+  ],
+  "max_context_files": 8,
+  "max_context_chars": 48000,
+  "expected_output": [
+    "which_files_to_read_for_this_goal",
+    "what_risks_may_break_this_goal",
+    "what_old_context_may_conflict_with_this_goal",
+    "what_execution_choices_support_this_goal",
+    "what_execution_choices_violate_this_goal"
+  ],
+  "output_format": "json_and_markdown",
+  "codex_next_input": "Codex must verify original files and complete only allowed mechanism rewiring.",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_supply_controller/20260515_data_goal_execution_bus_pre_supply",
+    "read_first": [
+      "latest_supply_pack.md",
+      "latest_supply_pack.json",
+      "latest_supply_manifest.json"
+    ]
+  },
+  "not_allowed": [
+    "Do not write files.",
+    "Do not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is running.",
+    "Do not read .env or API keys.",
+    "Do not generate media."
+  ],
+  "stop_condition": "Stop after readonly risk supply or explicit blocked/fallback status.",
+  "blocked_if": [
+    "Any forbidden path is requested.",
+    "Any media generation is requested.",
+    "Any secret read is required.",
+    "DeepSeek changes data goal fields.",
+    "The output claims real data flywheel has already run."
+  ],
+  "fallback_policy": "fallback_local_only may support low-risk mechanism work but is not a DeepSeek conclusion.",
+  "allow_process_env_api_key": true,
+  "disable_env_file": true,
+  "safe_deepseek_process_env_test": true,
+  "deepseek_readiness_check_required": true,
+  "safe_call_mode": "process_env_only",
+  "readiness_expected_fields": [
+    "env_file_read",
+    "process_env_key_allowed",
+    "process_env_key_present",
+    "api_key_printed",
+    "api_key_written"
+  ]
+}

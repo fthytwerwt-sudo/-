@@ -1,0 +1,191 @@
+{
+  "request_id": "fixture_data_goal_anchor_supply_request_example",
+  "created_at": "2026-05-15T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "data_goal_anchor_supply_fixture",
+  "task_type": "video_execution_preflight",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "assembly_decision_pack",
+  "mandatory_for_every_task": true,
+  "participation_level": "mandatory_by_default",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "测试 DeepSeek 供料是否围绕 data_goal_anchor 输出装配风险。",
+  "current_step": "执行前供料 fixture。",
+  "known_context": [
+    "本 fixture 不生成视频、不读取媒体、不读取 secret。",
+    "Codex 可以调整装配顺序，但不能改写主变量。"
+  ],
+  "missing_context": [],
+  "decision_needed": "哪些装配选择支持主变量，哪些会引入禁止变量。",
+  "data_goal_anchor": {
+    "current_north_star_goal": "验证真实 AI 使用内容能否产生高质量需求信号。",
+    "current_stage_goal": "提升下一条视频开头 0-3 秒理解和留存信号。",
+    "threshold_config_v1": {
+      "status": "stage_hypothesis"
+    },
+    "video_goal_card": {
+      "video_id": "fixture_next_video",
+      "experiment_type": "single_primary_variable"
+    },
+    "post_publish_review_card": {
+      "review_window": [
+        "24h",
+        "72h",
+        "7d"
+      ]
+    },
+    "data_flywheel_memory": {
+      "last_main_bottleneck": "opening_retention_drop"
+    },
+    "main_bottleneck": "opening_retention_drop",
+    "primary_variable": "opening_route",
+    "supporting_variables": [
+      "first_screen_visual",
+      "first_sentence"
+    ],
+    "forbidden_variables": [
+      "change_target_user",
+      "change_offer",
+      "change_core_topic"
+    ],
+    "content_structure_feedback_card": {
+      "opening_goal": "让观众立即知道这条视频解决什么问题。"
+    },
+    "next_video_structure_plan": {
+      "opening": "先抛问题，再进入真实证据。"
+    },
+    "next_video_execution_prompt": "围绕 opening_route 验证，保留核心目标，只允许调整执行结构。",
+    "success_metric": "3s_retention_improves",
+    "failure_metric": "3s_retention_drops_or_comments_confused",
+    "post_publish_validation_metric": "3s_retention_and_effective_comments"
+  },
+  "current_stage_goal": "提升下一条视频开头 0-3 秒理解和留存信号。",
+  "main_bottleneck": "opening_retention_drop",
+  "primary_variable": "opening_route",
+  "supporting_variables": [
+    "first_screen_visual",
+    "first_sentence"
+  ],
+  "forbidden_variables": [
+    "change_target_user",
+    "change_offer",
+    "change_core_topic"
+  ],
+  "success_metric": "3s_retention_improves",
+  "failure_metric": "3s_retention_drops_or_comments_confused",
+  "post_publish_validation_metric": "3s_retention_and_effective_comments",
+  "next_video_execution_prompt": "围绕 opening_route 验证，保留核心目标，只允许调整执行结构。",
+  "data_goal_alignment_check_required": true,
+  "data_goal_supply_questions": [
+    "这轮目标要求读哪些文件？",
+    "哪些旧口径会破坏目标？",
+    "哪些执行选择支持主变量？",
+    "哪些执行选择会引入禁止变量？",
+    "哪些剪辑 / 编排风险会影响发布后验证指标？"
+  ],
+  "candidate_files": [
+    "GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md",
+    "GPT数据源/14_数据目标执行总线_data_goal_execution_bus.md",
+    "GPT数据源/05_文案路由规则.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md"
+  ],
+  "must_read_files": [
+    "GPT数据源/14_数据目标执行总线_data_goal_execution_bus.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md"
+  ],
+  "optional_files": [
+    "GPT数据源/05_文案路由规则.md",
+    "codex_source/19_project_state_action_router.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "*.mp4",
+    "*.mov",
+    "*.wav",
+    "*.mp3",
+    "*.png",
+    "*.jpg",
+    "*.jpeg"
+  ],
+  "max_context_files": 6,
+  "max_context_chars": 24000,
+  "expected_output": [
+    "goal_based_file_map",
+    "goal_breaking_risks",
+    "execution_choices_supporting_primary_variable",
+    "execution_choices_introducing_forbidden_variables",
+    "assembly_decision_pack"
+  ],
+  "output_format": "json_and_markdown",
+  "codex_next_input": "Codex must verify source files and run data_goal_alignment_check before claiming execution complete.",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_supply_controller/fixtures_data_goal_anchor",
+    "read_first": [
+      "latest_supply_pack.md",
+      "latest_supply_pack.json",
+      "latest_supply_manifest.json"
+    ]
+  },
+  "not_allowed": [
+    "Do not write files.",
+    "Do not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is running.",
+    "Do not read .env or API keys.",
+    "Do not change data_goal_anchor fields."
+  ],
+  "stop_condition": "Stop after readonly supply or local fallback pack.",
+  "blocked_if": [
+    "data_goal_anchor missing",
+    "forbidden path requested",
+    "media file requested",
+    "secret requested",
+    "DeepSeek tries to change primary_variable"
+  ],
+  "fallback_policy": "fallback_local_only is allowed for fixture validation but is not a DeepSeek conclusion.",
+  "segments": [
+    {
+      "segment_id": "opening_0_3s",
+      "goal": "support opening_route primary variable"
+    }
+  ],
+  "visual_asset_requirements": [
+    {
+      "segment_id": "opening_0_3s",
+      "required_asset_type": "user_recording_or_title_card",
+      "must_not_replace_evidence": true
+    }
+  ],
+  "assembly_slots": [
+    {
+      "slot_id": "opening",
+      "candidate_carrier": "screen_first_opening"
+    }
+  ],
+  "fallback_plan": "If evidence is unclear, use title card or blocked; do not invent data.",
+  "api_call_policy": "no_api_call_this_fixture",
+  "secret_policy": "do_not_read_secret_files",
+  "allow_process_env_api_key": false,
+  "disable_env_file": true,
+  "safe_deepseek_process_env_test": false,
+  "deepseek_readiness_check_required": true,
+  "safe_call_mode": "local_fallback_no_deepseek_call",
+  "readiness_expected_fields": [
+    "env_file_read",
+    "process_env_key_allowed",
+    "api_key_printed",
+    "api_key_written"
+  ]
+}

@@ -414,6 +414,26 @@ def task_from_request(card: dict[str, Any]) -> str:
         "script_blocks",
         "segments",
         "content_route_card",
+        "data_goal_anchor",
+        "current_north_star_goal",
+        "current_stage_goal",
+        "main_bottleneck",
+        "primary_variable",
+        "supporting_variables",
+        "forbidden_variables",
+        "success_metric",
+        "failure_metric",
+        "post_publish_validation_metric",
+        "next_video_execution_prompt",
+        "threshold_config_v1",
+        "video_goal_card",
+        "post_publish_review_card",
+        "data_flywheel_memory",
+        "content_structure_feedback_card",
+        "next_video_structure_plan",
+        "data_goal_alignment_check_required",
+        "data_goal_alignment_check",
+        "data_goal_supply_questions",
         "visual_asset_requirements",
         "api_generation_targets",
         "image_prompt_specs",
@@ -818,6 +838,25 @@ def first_list_item(value: Any) -> Any:
     return None
 
 
+def data_goal_fields_from_request(card: dict[str, Any]) -> dict[str, Any]:
+    anchor = card.get("data_goal_anchor") if isinstance(card.get("data_goal_anchor"), dict) else {}
+    return {
+        "data_goal_anchor_used": anchor or card.get("data_goal_anchor", {}),
+        "main_bottleneck": anchor.get("main_bottleneck", card.get("main_bottleneck", "")),
+        "primary_variable": anchor.get("primary_variable", card.get("primary_variable", "")),
+        "forbidden_variables": anchor.get(
+            "forbidden_variables",
+            card.get("forbidden_variables", []),
+        ),
+        "success_metric": anchor.get("success_metric", card.get("success_metric", "")),
+        "failure_metric": anchor.get("failure_metric", card.get("failure_metric", "")),
+        "post_publish_validation_metric": anchor.get(
+            "post_publish_validation_metric",
+            card.get("post_publish_validation_metric", ""),
+        ),
+    }
+
+
 def build_editing_decision_support(
     *,
     request_card: dict[str, Any] | None,
@@ -839,8 +878,18 @@ def build_editing_decision_support(
         source_segment = {}
     if not isinstance(frame_description, dict):
         frame_description = {}
+    data_goal_fields = data_goal_fields_from_request(card)
     return {
         "sample_source": "supply_request_text_fields_only",
+        "data_goal_anchor_used": data_goal_fields["data_goal_anchor_used"],
+        "line_group_goal": "待 Codex 基于 script_to_timeline_map 复核",
+        "primary_variable_support": data_goal_fields["primary_variable"],
+        "evidence_role_for_metric": data_goal_fields["success_metric"],
+        "forbidden_visuals_by_goal": data_goal_fields["forbidden_variables"],
+        "edit_action_reason_against_data_goal": (
+            "剪辑建议必须服务主变量，并避免引入 forbidden_variables；具体动作需 Codex 复核原素材。"
+        ),
+        "post_publish_validation_metric": data_goal_fields["post_publish_validation_metric"],
         "missing_context": missing_context,
         "blocked_if_insufficient_editing_sample": bool(missing_context),
         "source_segment": {
@@ -892,9 +941,17 @@ def build_execution_supply_support(
         for field_name in sample_fields
         if not request_has_sample_value(card, field_name)
     ]
+    data_goal_fields = data_goal_fields_from_request(card)
     base: dict[str, Any] = {
         "action": action,
         "sample_source": "supply_request_text_fields_only",
+        "data_goal_anchor_used": data_goal_fields["data_goal_anchor_used"],
+        "main_bottleneck": data_goal_fields["main_bottleneck"],
+        "primary_variable": data_goal_fields["primary_variable"],
+        "forbidden_variables": data_goal_fields["forbidden_variables"],
+        "success_metric": data_goal_fields["success_metric"],
+        "failure_metric": data_goal_fields["failure_metric"],
+        "post_publish_validation_metric": data_goal_fields["post_publish_validation_metric"],
         "missing_context": missing_context,
         "blocked_if_insufficient_execution_sample": bool(missing_context),
         "codex_original_file_review_required": True,
@@ -975,6 +1032,13 @@ def build_execution_supply_support(
         }
     elif action == "assembly_decision_pack":
         base[EXECUTION_SUPPLY_OUTPUT_KEYS[action]] = {
+            "data_goal_anchor_used": data_goal_fields["data_goal_anchor_used"],
+            "segment_goal": "待 Codex 基于 content_route_card 和 script_to_timeline_map 复核",
+            "carrier_reason": "主证据优先使用真实录屏 / 截图，辅助素材不得替代证据。",
+            "metric_supported": data_goal_fields["success_metric"],
+            "variable_preserved": data_goal_fields["primary_variable"],
+            "forbidden_variable_avoided": data_goal_fields["forbidden_variables"],
+            "post_publish_validation_metric": data_goal_fields["post_publish_validation_metric"],
             "segment": first_list_item(card.get("segments")) or "",
             "primary_carrier": "user_recording_or_screenshot_for_core_evidence",
             "secondary_carrier": "api_generated_image_or_info_card_only_when_auxiliary",
@@ -1359,6 +1423,14 @@ def build_supply_pack(
         "request_file": getattr(args, "request_file", None),
         "request_validation_status": request_validation_status,
         "current_goal": request_card.get("current_goal", "") if request_card else "",
+        "data_goal_anchor": request_card.get("data_goal_anchor", {}) if request_card else {},
+        "current_stage_goal": request_card.get("current_stage_goal", "") if request_card else "",
+        "main_bottleneck": request_card.get("main_bottleneck", "") if request_card else "",
+        "primary_variable": request_card.get("primary_variable", "") if request_card else "",
+        "forbidden_variables": request_card.get("forbidden_variables", []) if request_card else [],
+        "success_metric": request_card.get("success_metric", "") if request_card else "",
+        "failure_metric": request_card.get("failure_metric", "") if request_card else "",
+        "post_publish_validation_metric": request_card.get("post_publish_validation_metric", "") if request_card else "",
         "current_step": request_card.get("current_step", "") if request_card else "",
         "known_context": request_card.get("known_context", []) if request_card else [],
         "missing_context": request_missing_context,
@@ -1430,6 +1502,14 @@ def write_supply_outputs(pack: dict[str, Any], output_dir: Path) -> None:
         "request_file": pack["request_file"],
         "request_validation_status": pack["request_validation_status"],
         "current_goal": pack["current_goal"],
+        "data_goal_anchor": pack.get("data_goal_anchor", {}),
+        "current_stage_goal": pack.get("current_stage_goal", ""),
+        "main_bottleneck": pack.get("main_bottleneck", ""),
+        "primary_variable": pack.get("primary_variable", ""),
+        "forbidden_variables": pack.get("forbidden_variables", []),
+        "success_metric": pack.get("success_metric", ""),
+        "failure_metric": pack.get("failure_metric", ""),
+        "post_publish_validation_metric": pack.get("post_publish_validation_metric", ""),
         "current_step": pack["current_step"],
         "known_context": pack["known_context"],
         "missing_context": pack["missing_context"],
@@ -1500,6 +1580,14 @@ def write_supply_outputs(pack: dict[str, Any], output_dir: Path) -> None:
             {
                 "request_file": pack["request_file"],
                 "current_goal": pack["current_goal"],
+                "data_goal_anchor": pack.get("data_goal_anchor", {}),
+                "current_stage_goal": pack.get("current_stage_goal", ""),
+                "main_bottleneck": pack.get("main_bottleneck", ""),
+                "primary_variable": pack.get("primary_variable", ""),
+                "forbidden_variables": pack.get("forbidden_variables", []),
+                "success_metric": pack.get("success_metric", ""),
+                "failure_metric": pack.get("failure_metric", ""),
+                "post_publish_validation_metric": pack.get("post_publish_validation_metric", ""),
                 "current_step": pack["current_step"],
                 "known_context": pack["known_context"],
                 "missing_context": pack["missing_context"],
