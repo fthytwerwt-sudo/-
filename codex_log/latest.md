@@ -1,5 +1,19 @@
 # Latest
 
+## 20260515｜第二期素材审计报告回流
+
+- `已确认` 本轮只补交上一轮已生成的第二期素材审计报告到 GitHub `main`，不重新审计素材，不重新分析视频。
+- `报告路径`：`codex_log/material_audit/20260515_second_episode_material_detail_report.md`。
+- `素材目录`：`/Users/fan/Documents/视频工厂/素材录制/第二期`。
+- `视频数量`：2。
+- `轻量副产物`：`dist/material_audit/second_episode/` 中的 OCR 原始表、contact sheet 与轻量副产物清单；原始视频和逐帧截图不纳入 Git。
+- `报告用途`：给 ChatGPT 做选题方向、开头路线、是否补录、是否进入正式文案准备的判断依据。
+- `DeepSeek`：本轮未调用 DeepSeek，报告不写 DeepSeek 结论。
+- `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status_success（发布成功口径）`、`voice_validation（声音验证）`、`final_voice_validated（最终声音验证）`、`visual_master_locked（视觉母版锁定）`。
+- `状态边界`：素材审计报告回流不等于内容通过，不等于数据飞轮已跑通，不等于下一条正式视频执行 prompt 已生成。
+- `日志`：`codex_log/20260515_second_episode_material_audit.md`
+- `下一个目标`：ChatGPT 读取 GitHub 上的第二期素材审计报告，判断素材是否足够支撑下一条候选内容、应走哪种开头路线、是否需要补录，以及是否可以进入正式文案准备。
+
 ## 20260515｜正式运营阶段迁移与三期运营记录统一
 
 - `已确认` 本轮把《视频工厂》当前项目阶段从 `gray_test（灰度测试）` 当前口径迁移为 `formal_operation_active（正式运营中）`，运营方式写为 `data_driven_operation_iteration（数据驱动运营迭代）`。
