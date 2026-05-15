@@ -1,15 +1,26 @@
 # 20260516｜第二期候选视频《从 KPI 到判断系统》执行前补全
 
+## 0A. 20260516 正式运营交付基线修正后的历史边界
+
+- `current_record_status`: `historical_internal_diagnostic_only`
+- `previous_status`: `technical_preview_candidate`
+- `not_delivery`: true
+- `not_publish_candidate`: true
+- `not_future_delivery_template`: true
+
+本记录只保留为历史内部诊断证据，用来说明当时仓库允许技术预览错进正式运营内容链路。它不是当前交付物，不是正式运营视频交付完成，不得作为以后视频交付样板。
+
 ## 1. 本轮定位
 
 - `content_id`: `second_episode_kpi_to_judgment_system`
 - `selected_topic`: 别再让 AI 给你 KPI 了，它真正该帮你判断下一步改哪。
 - `task_type`: `content_route_needed + material_based_copy_preparation + video_execution_preflight + technical_preview_candidate`
+- `delivery_boundary_after_repair`: `historical_internal_diagnostic_only / technical_preview_not_delivery`
 - `current_stage`: `formal_operation_active`
 - `current_data_goal_anchor_status`: `partial_data_recorded`
 - `formal_data_driven_execution_ready`: `false`
 
-本轮只生成候选执行包和本地技术预览 / 审片包，用于 ChatGPT / 用户复审。它不是正式发布成片，不是 `send_ready`，不是 `content_validation passed`，也不是正式下一条视频执行完成。
+本轮只生成候选执行包和本地技术预览 / 审片包；按 20260516 正式运营交付基线修正后的口径，它只能作为 `historical_internal_diagnostic_only（历史内部诊断产物）` 保留。它不是正式发布成片，不是 `publish_candidate`，不是 `send_ready`，不是 `content_validation（内容验证）通过`，也不是正式下一条视频执行完成。
 
 ## 2. 输入依据
 
@@ -50,7 +61,7 @@
 - `技术预览字幕_preview_subtitles.ass`
 - `技术预览_preview.mp4`
 
-技术预览验证：
+历史内部诊断技术预览验证：
 
 - `duration_seconds`: 82.00
 - `resolution`: 1280x720
@@ -78,7 +89,8 @@
 - 主变量：`opening_route_or_first_5s_packaging`
 - 协同变量：`evidence_compression`、`result_diff_display`
 - 发布后观察指标：`2s_bounce`、`5s_completion`、`3s_retention_if_available`、`average_watch_time`
-- 当前状态：只允许作为候选技术预览，不得写正式数据驱动执行 ready。
+- 当前状态：按修正后口径只允许作为 `historical_internal_diagnostic_only`，不得写正式数据驱动执行 ready。
+- 修正后边界：只允许作为历史内部诊断，不得写 `publish_candidate` 或正式运营交付完成。
 
 ## 5. 禁止状态检查
 
@@ -98,7 +110,8 @@
 - 不得写完整 `video_goal_card` 已录全。
 - 不得写本轮 DeepSeek 真实参与。
 - 不得把技术预览写成可发布成片。
+- 不得把本记录作为以后视频交付样板。
 
 ## 7. 下一个目标
 
-ChatGPT / 用户复审候选脚本、开头路线、剪辑节奏和技术预览；通过后再决定是否进入正式视频执行或继续局部修正。
+重新判断第二期视频链路是否具备真正 `publish_candidate（可发布候选片）` 能力；若不具备，必须返回 `blocked_publish_candidate_unavailable（可发布候选片不可交付阻断）`，不得继续生成技术预览。

@@ -14,6 +14,23 @@
 
 本覆盖口径不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`。
 
+## 0A-1. delivery_baseline_gate 正式运营交付基线闸门
+
+当前进入 `formal_operation_active（正式运营中）` 后，Codex 在 `route_decision（路由判断）` 阶段必须判断本轮是否是视频交付任务。
+
+触发词包括：做视频、产视频、发片候选、运营内容、下一条视频、发布候选、完整成片、成品候选片、视频执行、剪辑、编排或装配。
+
+若触发，默认交付目标必须是：
+
+- `publish_candidate_ready_for_human_review（可发布候选片，待人工复审）`
+- 或 `blocked_publish_candidate_unavailable（可发布候选片不可交付阻断）`
+
+不得把以下产物写成交付完成：`technical_preview（技术预览）`、`technical_preview_candidate（技术预览候选）`、`preflight package（执行前补全包）`、`silent preview（无声预览）`、无音轨视频、横屏技术包、只交 JSON / Markdown / route card。
+
+`publish_candidate` 基础线至少包含：竖屏 9:16、有口播或明确可发布音轨、有字幕、清楚开头、中段证据、结尾收束、基础人感质量、不误写数据 / 客资 / 状态、可由 ChatGPT / 用户按发布标准复审。无声视频不能作为发布候选片；横屏 1280x720 不能作为当前抖音发布候选片，除非用户本轮明确指定横屏发布策略。
+
+如果缺声音、字幕、竖屏构图、剪辑节奏、素材证据、TTS、卡片、人感质量、平台风险、API 授权或装配能力，必须 blocked 或修到满足 `publish_candidate`；不得用技术验证消耗正式运营阶段的内容迭代机会。
+
 ## 1. 文件定位
 
 本文件规定 Codex 在《视频工厂》仓库中的默认执行方式。
@@ -77,7 +94,7 @@
 15. 当前任务直接相关的 `project_source/*`
 16. 命中价值 / 文案 / 结尾卡时，读 `codex_source/11_ai_knowledge_video_value_bridge.md`
 17. 命中“什么算已知”时，读 `codex_source/12_codex_known_state_three_layer_rules.md`
-18. 命中“完整成片 / 成品候选片 / 技术预览升级成候选片 / 样片回炉 / 开头重做 / 中段剪辑 / 字幕修正 / TTS 修正 / 功能卡修正 / 结果差卡修正 / 骚萌卡修正 / 录屏放大修正 / 视觉母版修正”时，读：
+18. 命中“完整成片 / 成品候选片 / 技术预览升级成候选片（只允许升级到 `publish_candidate`，不能保持 `technical_preview` 交付） / 样片回炉 / 开头重做 / 中段剪辑 / 字幕修正 / TTS 修正 / 功能卡修正 / 结果差卡修正 / 骚萌卡修正 / 录屏放大修正 / 视觉母版修正”时，读：
    - `codex_source/14_locked_reference_inheritance_rules.md`
    - `codex_source/locked_reference_registry.md`
 19. 命中 v3.1 / 卡片视觉路由 / 段落提示卡 / 信息卡 / 骚萌卡三路拆分时，再读：
@@ -148,6 +165,13 @@ route_decision:
     data_goal_alignment_check_required:
     codex_may_adapt:
     codex_must_not_adapt:
+  delivery_baseline_gate:
+    required:
+    target_result:
+    publish_candidate_requirements:
+    missing_capabilities:
+    blocked_status:
+    technical_preview_allowed_only_as:
 ```
 
 若任何关键文件 `missing（文件不存在）` 或 `unreadable（无法读取）`，必须输出 blocked，不得继续执行。
@@ -877,6 +901,8 @@ copy_revision_preflight_blockers:
 - 缺 `data_goal_anchor_used（使用的数据目标锚点）`，不得进入视频执行。
 - 缺 `script_to_timeline_map（文案到时间线映射表）`，不得进入视频执行。
 - 缺 `tts_prosody_anchor_map（TTS 韵律锚点表）`，不得生成 TTS。
+- `content_route_card（内容路由卡）`、`script_to_timeline_map（文案到时间线映射表）`、`tts_prosody_anchor_map（TTS 韵律锚点表）`、`editing_decision_pack（剪辑决策包）`、`assembly_decision_pack（装配决策包）` 与 `data_goal_alignment_check（数据目标对齐检查）` 是执行前必备条件，不是用户最终视频交付物。
+- 命中正式运营视频交付时，缺任一发布候选片基础线，必须进入 `blocked_publish_candidate_unavailable`，不得用上述中间层或技术预览写 `completed（已完成）`。
 - 只有段落级素材分配，必须阻断为 `paragraph_level_mapping_insufficient（段落级映射不足）`。
 - 若素材来自 FocuSee，必须额外填写 `focusee_middle_editing_decision（FocuSee 中段剪辑判断）`；缺该判断不得进入中段剪辑。
 - 如果选择 `meme_gif_opening_hook（梗图 GIF 开场钩子）`，必须保留 `Reference-to-Execution Contract（参考到执行落地契约）`、`effect_targets（效果目标）` 和 `must_not_copy（禁止复刻）` 边界。
@@ -1277,7 +1303,7 @@ Codex 职责边界：
 
 - 完整成片
 - 成品候选片
-- 技术预览升级成候选片
+- 技术预览升级成候选片（只允许升级到 `publish_candidate`，不能保持 `technical_preview` 交付）
 - 样片回炉
 - 开头重做
 - 中段剪辑
@@ -1301,6 +1327,7 @@ Codex 职责边界：
 - `failed_reference` 只能作为反例或复盘材料，不得默认继承。
 - 用户 / ChatGPT 未明确确认前，不得把 PR 自评 pass 写成用户已确认。
 - 完整成片 / 成品候选片 / 样片回炉完成时，必须输出 `locked_reference_inheritance_report.md`。
+- 正式运营阶段的完整成片 / 成品候选片 / 样片回炉完成，还必须通过 `delivery_baseline_gate（交付基线闸门）`；若只能生成技术预览、无声预览、横屏技术包或 JSON / Markdown 执行包，必须写 `blocked_publish_candidate_unavailable`。
 - summary 必须写 `locked_reference_registry_read`、`locked_reference_inheritance_validation`、`locked_reference_inheritance_report`、`unapproved_reference_changes`、`reference_deviation_blockers`、`candidate_references_used`、`locked_references_used`。
 
 ## 8D. v3.1 视觉路由前置硬规则

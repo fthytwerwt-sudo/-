@@ -1,20 +1,31 @@
 # Latest
 
-## 20260516｜第二期候选视频《从 KPI 到判断系统》执行前补全
+## 20260516｜正式运营交付基线修正：禁止技术预览冒充交付
 
-- `已确认` 本轮基于第二期素材审计报告和用户锁定选题，生成候选执行包与本地技术预览 / 审片包。
+- `已确认` 本轮根据用户反馈修正《视频工厂》正式运营交付口径：进入 `formal_operation_active（正式运营中）` 后，视频交付任务默认只接受 `publish_candidate（可发布候选片）` 或 `blocked（阻断）`。
+- `已确认` `technical_preview（技术预览）`、`technical_preview_candidate（技术预览候选）`、`preflight package（执行前补全包）`、`silent preview（无声预览）`、无音轨视频、横屏技术包、只交 JSON / Markdown / route card，均只能作为 `internal_diagnostic_only（内部诊断产物）` 或 `historical_internal_diagnostic_only（历史内部诊断产物）`，不得写成用户交付物、阶段完成、内容推进或视频执行完成。
+- `已确认` 已补强 `delivery_baseline_gate（交付基线闸门）`、`publish_candidate_required（可发布候选片必需）`、`technical_preview_not_delivery（技术预览不是交付）`、`blocked_publish_candidate_unavailable（可发布候选片不可交付阻断）` 和 `formal_operation_delivery_blocked（正式运营交付阻断）`。
+- `已确认` `content_route_card / script_to_timeline_map / tts_prosody_anchor_map / editing_decision_pack / assembly_decision_pack / data_goal_alignment_check` 只属于执行前必备条件，不是正式运营视频交付物。
+- `historical_internal_diagnostic_only`：上一轮第二期 82 秒、1280x720、15fps、无音轨本地技术预览只保留为历史内部诊断证据；它不是当前交付物，不能作为以后视频交付样板。
+- `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status_success（发布成功口径）`、`voice_validation（声音验证）`、`final_voice_validated（最终声音验证）`、`visual_master_locked（视觉母版锁定）`。
+- `日志`：`codex_log/20260516_formal_operation_delivery_baseline_repair.md`
+- `下一个目标`：重新判断第二期视频链路是否能生成真正 `publish_candidate（可发布候选片）`；若不能，必须返回 `blocked_publish_candidate_unavailable`，而不是再生成 `technical_preview（技术预览）`。
+
+## 20260516｜第二期候选视频《从 KPI 到判断系统》执行前补全（historical_internal_diagnostic_only）
+
+- `historical_internal_diagnostic_only` 本轮基于第二期素材审计报告和用户锁定选题，生成候选执行包与本地技术预览 / 审片包；该记录只保留历史内部诊断价值。
 - `content_id`：`second_episode_kpi_to_judgment_system`。
 - `选题`：别再让 AI 给你 KPI 了，它真正该帮你判断下一步改哪。
 - `审片包目录`：`dist/第二期KPI到判断系统预览_second_episode_kpi_to_judgment_system_preview/`。
-- `已生成`：`content_route_card V2`、候选口播稿 v1、`script_anchor_extraction_function` 输出、`script_to_timeline_map`、`tts_prosody_anchor_map`、`opening_visual_hook_spec`、`editing_decision_pack`、`assembly_decision_pack`、`data_goal_alignment_check`、`review_manifest.md` 和本地 `技术预览_preview.mp4`。
-- `技术预览`：82 秒，1280x720，15fps，H.264，无音轨，可解码；只用于 ChatGPT / 用户复审，不是发布成片。
+- `已生成但不作为交付`：`content_route_card V2`、候选口播稿 v1、`script_anchor_extraction_function` 输出、`script_to_timeline_map`、`tts_prosody_anchor_map`、`opening_visual_hook_spec`、`editing_decision_pack`、`assembly_decision_pack`、`data_goal_alignment_check`、`review_manifest.md` 和本地 `技术预览_preview.mp4`。这些只属于历史执行前补全 / 内部诊断证据，不是正式运营视频交付物。
+- `技术预览_not_delivery`：82 秒，1280x720，15fps，H.264，无音轨，可解码；只用于历史内部诊断，不是发布成片，不是 `publish_candidate`。
 - `素材复核`：两个源视频均存在、可解码、无音轨；素材不包含真实平台后台数据，不包含真实有效客资 / 成交；video_2 的 `video_goal_card` 只录到模板开头。
 - `数据目标对齐`：服务当前候选主变量 `opening_route_or_first_5s_packaging`，协同变量仅限 `evidence_compression` 和 `result_diff_display`；`formal_data_driven_execution_ready = false`。
 - `DeepSeek`：本轮未调用 DeepSeek；因未授权外部 API，供料口径为 `fallback_local_only`，不得写成 DeepSeek 结论。
 - `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status_success（发布成功口径）`、`voice_validation（声音验证）`、`final_voice_validated（最终声音验证）`、`visual_master_locked（视觉母版锁定）`。
-- `状态边界`：本轮不是正式下一条视频执行完成，不是数据飞轮已跑通，不是 V003 72h / 7d 复盘完成，不是可发送状态。
+- `状态边界`：本轮不是正式下一条视频执行完成，不是数据飞轮已跑通，不是 V003 72h / 7d 复盘完成，不是可发送状态，不是当前正式运营交付物。
 - `日志`：`codex_log/20260516_second_episode_kpi_to_judgment_system_preflight.md`
-- `下一个目标`：ChatGPT / 用户复审候选脚本、开头路线、剪辑节奏和技术预览；通过后再决定是否进入正式视频执行或继续局部修正。
+- `下一个目标`：本条历史诊断记录不再作为交付路线；后续必须先判断能否生成真正 `publish_candidate`，不能则 blocked。
 
 ## 20260515｜第二期素材审计报告回流
 

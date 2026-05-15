@@ -6,6 +6,12 @@
 
 发布数据不再作为“灰度测试项目”数据理解，而作为 `operation_records（运营记录）` 和 `operation_review（运营复盘）` 的输入。`data_goal_anchor（数据目标锚点）` 继续服务正式运营变量判断，但当前实例仍为 `partial_data_recorded`，不到 72h / 7d 和人审前不得写 `ready`。
 
+## 0B. 正式运营交付停止线
+
+目标驱动文案、`next_video_execution_prompt（下一条视频执行 prompt）`、`content_structure_feedback_card（内容结构反馈卡）` 和执行前补全包，只能作为进入视频执行的前置条件。它们不能替代正式运营视频交付。
+
+当下一条视频进入 Codex 执行链时，交付结果必须是 `publish_candidate_ready_for_human_review（可发布候选片，待人工复审）` 或 `blocked_publish_candidate_unavailable（可发布候选片不可交付阻断）`。如果只能输出技术预览、无声预览、横屏技术包、JSON / Markdown route card 或 preflight package，必须 blocked，不得写数据飞轮内容推进。
+
 ## 1. goal_driven_data_flywheel_spec_v1（目标驱动数据飞轮规格 V1）
 
 本文件解决的问题是：把《视频工厂》从“记录规则 / 做单条视频”推进到“目标 -> 数据 -> 文案修改 -> 内容结构反推 -> Codex 动态执行 -> 发布复盘 -> 下一轮更新”的可执行闭环。
@@ -105,10 +111,12 @@ goal_driven_data_flywheel_spec_v1:
 - `next_video_execution_prompt（下一条视频执行 prompt）` 不只是给文案执行使用。
 - 它也是 `content_route_card（内容路由卡）`、`script_to_timeline_map（文案到时间线映射表）`、`editing_decision_pack（剪辑决策包）`、`assembly_decision_pack（装配决策包）`、DeepSeek 供料和发布后复盘的统一锚点。
 - 正式文案修改后，必须生成或更新 `codex_log/current_data_goal_anchor.md（当前数据目标锚点）`，再进入 Codex 执行。
-- 缺 `data_goal_anchor（数据目标锚点）` 时，不得进入 Codex 视频执行。
-- 缺 `codex_log/current_data_goal_anchor.md（当前数据目标锚点）` 当前实例入口时，不得进入正式视频执行；如果状态为 `draft / waiting_data`，只能写假设版或 blocked。
-- 缺 `data_goal_alignment_check（数据目标对齐检查）` 时，不得写执行完成。
-- Codex 可以调整 segment 拆分、画面顺序、卡片位置、剪辑节奏、TTS 分句、装配顺序和降级方案。
+  - 缺 `data_goal_anchor（数据目标锚点）` 时，不得进入 Codex 视频执行。
+  - 缺 `codex_log/current_data_goal_anchor.md（当前数据目标锚点）` 当前实例入口时，不得进入正式视频执行；如果状态为 `draft / waiting_data`，只能写假设版或 blocked。
+  - 缺 `data_goal_alignment_check（数据目标对齐检查）` 时，不得写执行完成。
+  - 缺 `delivery_baseline_gate（交付基线闸门）` 时，不得写正式运营视频交付完成。
+  - `next_video_execution_prompt / content_route_card / script_to_timeline_map / tts_prosody_anchor_map / editing_decision_pack / assembly_decision_pack / data_goal_alignment_check` 只是执行前必备条件，不是用户最终视频交付物。
+  - Codex 可以调整 segment 拆分、画面顺序、卡片位置、剪辑节奏、TTS 分句、装配顺序和降级方案。
 - Codex 不得调整 `current_stage_goal（当前阶段目标）`、`main_bottleneck（主短板）`、`primary_variable（主验证变量）`、`forbidden_variables（禁止变量）`、`success_metric（成功指标）`、`failure_metric（失败指标）`、`post_publish_validation_metric（发布后验证指标）`。
 
 最小交接字段：
@@ -894,6 +902,8 @@ blocked_if:
   - missing_primary_variable
   - missing_content_structure_feedback_card_when_using_data_to_change_structure
   - missing_next_video_execution_prompt_before_video_execution
+  - missing_delivery_baseline_gate_before_formal_operation_video_delivery
+  - publish_candidate_unavailable_but_preview_generated_as_delivery
   - too_many_variables_without_major_revision
   - more_than_four_variables_claimed_as_single_variable_experiment
   - data_insufficient_but_claiming_direction_validated
@@ -920,6 +930,7 @@ done_when:
   - fixture_cases_cover_normal_and_blocked_paths
   - latest_and_dated_log_updated
   - gpt_project_static_package_generated_with_manifest
+  - if_video_delivery_task_then_publish_candidate_or_blocked
 ```
 
 状态边界：

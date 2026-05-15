@@ -1,10 +1,17 @@
 # 第二期候选技术预览审片清单 review_manifest
 
+## 0A. historical_internal_diagnostic_only
+
+本审片清单按 20260516 正式运营交付基线修正后，仅作为 `historical_internal_diagnostic_only（历史内部诊断产物）` 保留。它不是 `publish_candidate（可发布候选片）`，不是正式运营视频交付物，不得作为以后视频交付样板。
+
 ## 定位
 
 - `content_id`: `second_episode_kpi_to_judgment_system`
 - `selected_topic`: 别再让 AI 给你 KPI 了，它真正该帮你判断下一步改哪。
-- `status`: `technical_preview_candidate`
+- `status`: `historical_internal_diagnostic_only`
+- `previous_status`: `technical_preview_candidate`
+- `not_delivery`: `true`
+- `not_publish_candidate`: `true`
 - `content_validation`: `not_advanced`
 - `send_ready`: `false`
 - `formal_data_driven_execution_ready`: `false`

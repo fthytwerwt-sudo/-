@@ -1,6 +1,7 @@
 {
   "supply_request_id": "20260516_second_episode_kpi_to_judgment_system_preflight",
-  "task": "Generate local-only execution preflight package for second episode KPI-to-judgment-system candidate.",
+  "task": "Historical local-only execution preflight package for second episode KPI-to-judgment-system candidate; historical_internal_diagnostic_only / not_delivery.",
+  "delivery_boundary_after_repair": "historical_internal_diagnostic_only_not_delivery",
   "project_route": "video_factory",
   "deepseek_supply_gate": {
     "deepseek_call_required": false,

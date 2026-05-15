@@ -6,6 +6,18 @@
 
 旧 `gray_test` 只作为历史兼容别名；新数据默认进入 `operation_data_intake`。当前锚点仍是 `partial_data_recorded`，不能写 `ready`。
 
+## 0B. publish_candidate delivery gate
+
+数据目标执行总线只负责把目标接到文案、供料、剪辑、编排、装配和验收。它不能把执行前补全包、路由卡、时间线、TTS 韵律锚点、剪辑 / 装配决策包或技术预览升级成用户交付物。
+
+正式运营视频执行完成前必须同时满足：
+
+1. `data_goal_alignment_check（数据目标对齐检查）` 已输出。
+2. `delivery_baseline_gate（交付基线闸门）` 已输出。
+3. 结果是 `publish_candidate_ready_for_human_review（可发布候选片，待人工复审）` 或 `blocked_publish_candidate_unavailable（可发布候选片不可交付阻断）`。
+
+缺音轨、字幕、竖屏 9:16、中段证据、结尾收束、TTS、卡片、人感质量、平台风险、API 授权或装配能力时，必须 blocked，不得用 `technical_preview（技术预览）`、无声预览、横屏技术包或 JSON / Markdown route card 写完成。
+
 ## 1. 文件定位
 
 本文件定义 `data_goal_execution_bus（数据目标执行总线）`。
@@ -56,7 +68,7 @@ data_goal_execution_bus:
       rule: "素材里没有的页面、动作、结果、数据、时间码，不得被文案、剪辑或卡片编造。"
     human_quality_sets_publishability:
       meaning: "人感质量定能不能发。"
-      rule: "画面顺、卡片好看、TTS 自然，只能进入发布前人感验收，不能替代数据目标验证。"
+      rule: "画面顺、卡片好看、TTS 自然，只能进入发布前人感验收，不能替代数据目标验证；技术预览不能替代可发布候选片。"
     codex_controls_execution_structure:
       meaning: "Codex 负责编排和执行。"
       may_adapt:
@@ -305,6 +317,11 @@ data_goal_alignment_check:
   material_evidence_supports_claims:
   human_quality_review_not_replaced_by_data_goal:
   data_goal_not_claimed_as_real_flywheel_passed:
+  delivery_baseline_gate:
+    target_result:
+    publish_candidate_requirements_checked:
+    missing_capabilities:
+    blocked_publish_candidate_unavailable:
 ```
 
 完成判定：
@@ -313,4 +330,6 @@ data_goal_alignment_check:
 - `data_goal_alignment_check` 必须检查 `codex_log/current_data_goal_anchor.md` 当前实例，而不只是抽象规则。
 - `material_evidence_supports_claims` 未确认时，不得进入成片生成。
 - `human_quality_review_not_replaced_by_data_goal` 未确认时，不得写 `send_ready = true`。
+- `delivery_baseline_gate` 缺失时，不得写正式运营视频交付完成。
+- `publish_candidate_requirements_checked` 未确认且本轮是视频交付任务时，只能写 `blocked_publish_candidate_unavailable` 或继续修，不能写技术预览完成。
 - 本机制写入只能标记为 `已确认：机制已写入`，真实任务稳定运行必须继续标记为 `待验证`。
