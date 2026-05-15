@@ -1,0 +1,118 @@
+{
+  "video_id": "V003",
+  "video_slug": "V003_本地文件优化实用分享_latest_practical_video_20260514",
+  "video_title": "以后会分享实用的，每天会给大家看我是怎么优化的，这个视频只用3个小时写出来的本地文件",
+  "publish_platform": "抖音",
+  "publish_time_visible": "2026-05-14 04:50",
+  "video_duration": "04:03",
+  "work_status": "作品状态正常",
+  "current_phase": "post_publish_gray_test",
+  "publish_status": "gray_test_published",
+  "gray_test_status": "active",
+  "review_window": "between_24h_and_72h",
+  "snapshot_label": "interim_36h_snapshot",
+  "capture_time_if_known": "2026-05-15 18:19-18:21",
+  "data_confidence": "low",
+  "human_review_required": true,
+  "source_screenshots": {
+    "overview": "review_loop/screenshots/V003_本地文件优化实用分享_latest_practical_video_20260514/interim_36h_snapshot/platform_metrics/V003_interim_36h_总览_overview_20260515_182106.png",
+    "retention_traffic": "review_loop/screenshots/V003_本地文件优化实用分享_latest_practical_video_20260514/interim_36h_snapshot/audience_retention/V003_interim_36h_流量分析_retention_traffic_20260515_181946.png",
+    "audience_profile": "review_loop/screenshots/V003_本地文件优化实用分享_latest_practical_video_20260514/interim_36h_snapshot/audience_profile/V003_interim_36h_观众分析_audience_profile_20260515_182041.png"
+  },
+  "core_metrics": {
+    "play_count": 141,
+    "average_watch_time": "21秒",
+    "cover_click_rate": "0.00%",
+    "completion_rate": "4.17%",
+    "two_second_bounce_rate": "50.00%",
+    "average_play_ratio": "8.51%",
+    "five_second_completion_rate": "28.13%",
+    "like_count": 2,
+    "like_rate": "1.42%",
+    "favorite_count": 3,
+    "favorite_rate": "2.13%",
+    "comment_count": 0,
+    "comment_rate": "0.00%",
+    "share_count": 0,
+    "share_rate": "0.00%",
+    "danmu_count": 0,
+    "not_interested_count": 0,
+    "not_interested_rate": "0.00%",
+    "new_follow_count": 1,
+    "follow_rate_or_fan_rate_visible": "0.71%",
+    "unfollow_count": 0,
+    "unfollow_rate": "0.00%",
+    "fan_play_ratio": "4.3%"
+  },
+  "traffic_sources": {
+    "recommendation_page": "97.2%",
+    "profile_page": "1.4%",
+    "friend_page": "1.4%"
+  },
+  "audience_metrics": {
+    "gender_distribution": {
+      "male": "77%",
+      "female": "23%"
+    },
+    "age_distribution_estimated": {
+      "under_18": "约2%",
+      "age_18_23": "约20%",
+      "age_24_30": "约32%",
+      "age_31_40": "约34%",
+      "age_41_50": "约9%",
+      "age_50_plus": "约2%"
+    },
+    "region_top_visible": {
+      "广东": "17.27%",
+      "北京": "13.64%",
+      "江苏": "9.09%",
+      "湖北": "5.45%",
+      "四川": "5.45%",
+      "河北": "4.55%",
+      "河南": "4.55%",
+      "上海": "4.55%"
+    },
+    "active_distribution": {
+      "heavy": "72%",
+      "medium": "18%",
+      "light": "6%",
+      "unknown": "4%"
+    }
+  },
+  "missing_fields": [
+    "3s_retention",
+    "profile_visit_count",
+    "dm_count",
+    "effective_dm_count",
+    "effective_consult_count",
+    "clear_need_customer_count",
+    "effective_comment_quality",
+    "72h_final_data",
+    "7d_final_data"
+  ],
+  "uncertain_fields": [
+    "exact_observation_window_from_platform",
+    "age_distribution_estimated_from_bar_chart",
+    "trend_curve_point_values"
+  ],
+  "early_diagnosis_draft": {
+    "status": "draft_low_confidence",
+    "traffic_layer": "weak",
+    "opening_retention": "weak",
+    "content_value_signal": "small_positive_signal",
+    "interaction_signal": "weak",
+    "lead_signal": "missing",
+    "preliminary_main_bottleneck": "opening_and_distribution",
+    "candidate_primary_variable": "opening_route_or_first_5s_packaging"
+  },
+  "not_final_review": {
+    "is_final_review": false,
+    "does_not_decide_direction_failure": true,
+    "does_not_decide_next_formal_script": true,
+    "wait_for": [
+      "72h data",
+      "7d data",
+      "human review"
+    ]
+  }
+}

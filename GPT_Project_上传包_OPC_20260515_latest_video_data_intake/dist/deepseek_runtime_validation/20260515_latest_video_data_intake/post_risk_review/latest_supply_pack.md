@@ -1,0 +1,455 @@
+# DeepSeek supply controller latest_supply_pack
+
+- `supply_id`: `supply_20260515T131609Z`
+- `request_id`: `20260515_latest_video_data_intake_post_risk_review`
+- `request_validation_status`: `passed`
+- `task_type`: `screenshot_metric_extraction_risk_review`
+- `trigger_reason`: `user_explicit_deepseek`
+- `action`: `risk_report`
+- `supply_source`: `deepseek_passed`
+- `context_pack_validation`: `passed`
+- `deepseek_generation_status`: `passed_with_retries`
+- `fallback_status`: `not_used`
+- `pipeline_status`: `usable`
+- `multi_agent_runtime_validation`: `not_started`
+- `not_deepseek_conclusion`: `false`
+- `deepseek_actual_participation`: `deepseek_passed`
+- `blocked_reason`: `none`
+- `token_usage_observed_or_user_check_required`: `token_decrement_expected`
+- `env_file_read`: `false`
+- `process_env_key_allowed`: `true`
+- `process_env_key_present`: `true`
+- `api_key_printed`: `false`
+- `api_key_written`: `false`
+
+## request_state（请求状态）
+
+```json
+{
+  "request_file": "/Users/fan/Documents/视频工厂/codex_log/supply_requests/20260515_最新视频数据录入_DeepSeek后置风险复核_latest_video_data_intake_post_risk_review_request.json",
+  "current_goal": "对 V003 最新一期视频数据录入结果做后置只读风险复核：检查是否覆盖旧视频、时间窗是否误写、字段置信度是否合规、是否误推进 forbidden status。",
+  "requires_real_deepseek_participation": true,
+  "safe_loader_policy": {
+    "mode": "project_runtime_provider",
+    "runtime_provider_required": true,
+    "runtime_provider_load_order": [
+      "process_env",
+      "project_env_local",
+      "project_env",
+      "local_runtime_authorization"
+    ],
+    "controller_or_explorer_may_read_env_file": false,
+    "allow_env_file_loader": false,
+    "require_user_authorization_for_env_loader": false,
+    "blocked_if_process_env_missing": false,
+    "api_key_printed": false,
+    "api_key_written": false
+  },
+  "runtime_provider": {
+    "runtime_provider_status": "ready",
+    "runtime_provider_auto_load_enabled": true,
+    "runtime_provider_key_source": "project_env",
+    "runtime_provider_key_source_path": ".env",
+    "runtime_provider_version": "20260515"
+  },
+  "data_goal_anchor": {
+    "current_stage_goal": "基于 V003 最新视频早期数据判断是否继续进入 72h / 7d 观察；本轮只做数据回填和早期诊断。",
+    "video_goal_card": {
+      "video_id": "V003",
+      "review_window": "between_24h_and_72h",
+      "experiment_type": "early_interim_snapshot"
+    },
+    "post_publish_review_card": {
+      "review_window": [
+        "interim_36h_snapshot",
+        "72h_pending",
+        "7d_pending"
+      ],
+      "data_confidence": "low",
+      "human_review_required": true
+    },
+    "main_bottleneck": "opening_retention_and_initial_distribution_weak",
+    "main_bottleneck_status": "draft_low_confidence",
+    "primary_variable": "opening_route_or_first_5s_packaging",
+    "primary_variable_status": "draft_low_confidence",
+    "forbidden_variables": [
+      "不要改目标用户",
+      "不要改核心选题方向",
+      "不要改承接 / 变现口径",
+      "不要同时改多个变量"
+    ],
+    "next_video_execution_prompt": "not_generated_this_round",
+    "success_metric": "pending_72h_7d_completion",
+    "failure_metric": "pending_72h_7d_completion",
+    "post_publish_validation_metric": "2s_bounce_5s_completion_3s_retention_if_available_average_watch_time"
+  },
+  "current_stage_goal": "基于 V003 最新视频早期数据判断是否继续进入 72h / 7d 观察；本轮只做数据回填和早期诊断。",
+  "main_bottleneck": "opening_retention_and_initial_distribution_weak",
+  "primary_variable": "opening_route_or_first_5s_packaging",
+  "forbidden_variables": [
+    "不要改目标用户",
+    "不要改核心选题方向",
+    "不要改承接 / 变现口径",
+    "不要同时改多个变量"
+  ],
+  "success_metric": "pending_72h_7d_completion",
+  "failure_metric": "pending_72h_7d_completion",
+  "post_publish_validation_metric": "2s_bounce_5s_completion_3s_retention_if_available_average_watch_time",
+  "current_step": "执行后风险复核：Codex 已创建 V003 记录、截图 manifest、current_gray_test_target、current_data_goal_anchor、dated log 和 latest 草稿。",
+  "known_context": [
+    "V001 标题为：我用 AI 做 PPT 踩过的坑；本轮截图标题不同，V001 已保留为 previous / historical。",
+    "V002 已存在，标题为：自动流的最简单流程；它是平台审核减推异常样本，本轮未复用 V002。",
+    "本轮新建 V003：以后会分享实用的，每天会给大家看我是怎么优化的，这个视频只用3个小时写出来的本地文件。",
+    "V003 记录路径：review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_发布后灰度数据记录_post_publish_gray_test_record.md。",
+    "V003 截图清单：review_loop/screenshots/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_截图清单_screenshot_manifest.md。",
+    "截图归档 3 张：overview / traffic_analysis / audience_analysis。",
+    "截图可见发布时间 2026-05-14 04:50；截图文件时间约 2026-05-15 18:19-18:21；Codex 标注 review_window=between_24h_and_72h / interim_36h_snapshot。",
+    "回填字段包括 play_count=141, average_watch_time=21秒, cover_click_rate=0.00%, two_second_bounce_rate=50.00%, average_play_ratio=8.51%, completion_rate=4.17%, five_second_completion_rate=28.13%, like_count=2, favorite_count=3, comment_count=0, share_count=0, danmu_count=0, new_follow_count=1。",
+    "traffic_sources: recommendation_page=97.2%, profile_page=1.4%, friend_page=1.4%。",
+    "audience metrics: male=77%, female=23%, active heavy=72%, medium=18%, light=6%, unknown=4%；age distribution 为柱状图估读，标 medium / uncertain。",
+    "missing fields: 3s_retention, profile_visit_count, dm_count, effective_dm_count, effective_consult_count, clear_need_customer_count, effective_comment_quality, 72h_final_data, 7d_final_data。",
+    "uncertain fields: exact_observation_window_from_platform, age_distribution_estimated_from_bar_chart, trend_curve_point_values。",
+    "current_data_goal_anchor.md 已从 waiting_data 更新为 partial_data_recorded，data_confidence=low；main_bottleneck_draft=opening_retention_and_initial_distribution_weak；primary_variable_draft=opening_route_or_first_5s_packaging；没有写 ready。",
+    "Codex latest 和 dated log 均明确 not_final_review、不决定方向失败、不决定下一条正式执行。"
+  ],
+  "missing_context": [
+    "72h / 7d 数据仍缺失。",
+    "3s_retention / profile_visit_count / dm_count / effective_dm_count / effective_consult_count 缺失。",
+    "用户或 ChatGPT 最终复盘判断尚未产生。"
+  ],
+  "decision_needed": "请只读复核：V003 创建是否合理；是否存在误覆盖 V001 / V002 风险；时间窗标注是否合理；字段 missing / uncertain 是否合规；current_data_goal_anchor 是否仍不能 ready；是否有 forbidden status 被误推进；哪些风险需要 Codex 在最终报告说明。"
+}
+```
+
+## deepseek_supply_gate（DeepSeek 供料闸门）
+
+```json
+{
+  "mandatory_for_every_task": true,
+  "supply_request_created": true,
+  "deepseek_call_required": true,
+  "deepseek_call_attempted": true,
+  "deepseek_actual_participation": "deepseek_passed",
+  "supply_source": "deepseek_passed",
+  "fallback_status": "not_used",
+  "not_deepseek_conclusion": false,
+  "blocked_reason": "none",
+  "token_usage_expected": "token_should_decrease_if_real_call",
+  "token_usage_observed_or_user_check_required": "token_decrement_expected",
+  "fallback_not_completion": true,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true
+}
+```
+
+## deepseek_readiness_check（DeepSeek 就绪检查）
+
+```json
+{
+  "required": true,
+  "runtime_provider": {
+    "runtime_provider_status": "ready",
+    "runtime_provider_auto_load_enabled": true,
+    "runtime_provider_key_source": "project_env",
+    "runtime_provider_key_source_path": ".env",
+    "runtime_provider_version": "20260515"
+  },
+  "env_file_read": "false",
+  "process_env_key_allowed": "true",
+  "process_env_key_present": "true",
+  "safe_call_mode": "process_env_only",
+  "request_validation_status": "passed",
+  "supply_source": "deepseek_passed",
+  "fallback_status": "not_used",
+  "not_deepseek_conclusion": false,
+  "context_pack_validation": "passed",
+  "deepseek_actual_participation": "deepseek_passed",
+  "blocked_reason": "none",
+  "completion_rule": [
+    "deepseek_passed 才能写 DeepSeek 真实参与。",
+    "fallback_local_only 必须写 not_deepseek_conclusion = true。",
+    "missing_process_env_key 必须写 blocked_missing_process_env_api_key。",
+    "token 未观察到减少时，不得写 DeepSeek 已深度参与。",
+    "不得把 fallback 写成 DeepSeek 稳定供料。"
+  ]
+}
+```
+
+## deepseek_participation_report（DeepSeek 参与报告）
+
+```json
+{
+  "deepseek_call_real": true,
+  "deepseek_actual_participation": "deepseek_passed",
+  "supply_source": "deepseek_passed",
+  "fallback_status": "not_used",
+  "not_deepseek_conclusion": false,
+  "blocked_reason": "none",
+  "token_usage_expectation_check": {
+    "token_usage_expectation": "token_should_decrease_if_real_call",
+    "expected_to_decrease": true,
+    "observed_token_usage": "not_available_user_check_required",
+    "token_usage_observed_or_user_check_required": "token_decrement_expected",
+    "cannot_claim_deepseek_deep_participation_if_token_not_decreased": true,
+    "fallback_local_only_token_rule": "fallback_local_only 不应减少 DeepSeek token，也不能写 DeepSeek 已深度参与。"
+  },
+  "codex_original_file_review_required": true,
+  "deepseek_may_write_files": false,
+  "deepseek_may_decide_project_facts": false,
+  "multi_agent_runtime_validation": "not_started"
+}
+```
+
+## token_usage_expectation_check（token 使用预期检查）
+
+```json
+{
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "expected_to_decrease": true,
+  "observed_token_usage": "not_available_user_check_required",
+  "token_usage_observed_or_user_check_required": "token_decrement_expected",
+  "cannot_claim_deepseek_deep_participation_if_token_not_decreased": true,
+  "fallback_local_only_token_rule": "fallback_local_only 不应减少 DeepSeek token，也不能写 DeepSeek 已深度参与。"
+}
+```
+
+## task（任务）
+
+Use this supply_request task card as the only current task context. Do not infer missing project state from memory.
+{
+  "request_id": "20260515_latest_video_data_intake_post_risk_review",
+  "task_id": "latest_video_data_intake_v003_post_risk_review",
+  "mandatory_for_every_task": true,
+  "participation_level": "user_explicit_required",
+  "pre_supply_required": false,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_allowed": false,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": true,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "对 V003 最新一期视频数据录入结果做后置只读风险复核：检查是否覆盖旧视频、时间窗是否误写、字段置信度是否合规、是否误推进 forbidden status。",
+  "current_step": "执行后风险复核：Codex 已创建 V003 记录、截图 manifest、current_gray_test_target、current_data_goal_anchor、dated log 和 latest 草稿。",
+  "known_context": [
+    "V001 标题为：我用 AI 做 PPT 踩过的坑；本轮截图标题不同，V001 已保留为 previous / historical。",
+    "V002 已存在，标题为：自动流的最简单流程；它是平台审核减推异常样本，本轮未复用 V002。",
+    "本轮新建 V003：以后会分享实用的，每天会给大家看我是怎么优化的，这个视频只用3个小时写出来的本地文件。",
+    "V003 记录路径：review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_发布后灰度数据记录_post_publish_gray_test_record.md。",
+    "V003 截图清单：review_loop/screenshots/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_截图清单_screenshot_manifest.md。",
+    "截图归档 3 张：overview / traffic_analysis / audience_analysis。",
+    "截图可见发布时间 2026-05-14 04:50；截图文件时间约 2026-05-15 18:19-18:21；Codex 标注 review_window=between_24h_and_72h / interim_36h_snapshot。",
+    "回填字段包括 play_count=141, average_watch_time=21秒, cover_click_rate=0.00%, two_second_bounce_rate=50.00%, average_play_ratio=8.51%, completion_rate=4.17%, five_second_completion_rate=28.13%, like_count=2, favorite_count=3, comment_count=0, share_count=0, danmu_count=0, new_follow_count=1。",
+    "traffic_sources: recommendation_page=97.2%, profile_page=1.4%, friend_page=1.4%。",
+    "audience metrics: male=77%, female=23%, active heavy=72%, medium=18%, light=6%, unknown=4%；age distribution 为柱状图估读，标 medium / uncertain。",
+    "missing fields: 3s_retention, profile_visit_count, dm_count, effective_dm_count, effective_consult_count, clear_need_customer_count, effective_comment_quality, 72h_final_data, 7d_final_data。",
+    "uncertain fields: exact_observation_window_from_platform, age_distribution_estimated_from_bar_chart, trend_curve_point_values。",
+    "current_data_goal_anchor.md 已从 waiting_data 更新为 partial_data_recorded，data_confidence=low；main_bottleneck_draft=opening_retention_and_initial_distribution_weak；primary_variable_draft=opening_route_or_first_5s_packaging；没有写 ready。",
+    "Codex latest 和 dated log 均明确 not_final_review、不决定方向失败、不决定下一条正式执行。"
+  ],
+  "missing_context": [
+    "72h / 7d 数据仍缺失。",
+    "3s_retention / profile_visit_count / dm_count / effective_dm_count / effective_consult_count 缺失。",
+    "用户或 ChatGPT 最终复盘判断尚未产生。"
+  ],
+  "decision_needed": "请只读复核：V003 创建是否合理；是否存在误覆盖 V001 / V002 风险；时间窗标注是否合理；字段 missing / uncertain 是否合规；current_data_goal_anchor 是否仍不能 ready；是否有 forbidden status 被误推进；哪些风险需要 Codex 在最终报告说明。",
+  "expected_output": [
+    "post_risk_review_result",
+    "video_identity_risk",
+    "review_window_risk",
+    "field_confidence_risk",
+    "forbidden_status_risk",
+    "anchor_readiness_risk",
+    "remaining_human_check_items"
+  ],
+  "codex_next_input": "Codex must use this only as a readonly risk review; Codex remains the writer and final integrator.",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_runtime_validation/20260515_latest_video_data_intake/post_risk_review",
+    "latest_supply_pack_md": "latest_supply_pack.md",
+    "latest_supply_pack_json": "latest_supply_pack.json",
+    "latest_supply_manifest_json": "latest_supply_manifest.json"
+  },
+  "stop_condition": "DeepSeek 真实调用返回 deepseek_passed，或 runtime provider 输出 setup_required / blocked。",
+  "blocked_if": [
+    "runtime_provider_not_ready",
+    "deepseek_actual_participation_not_deepseek_passed",
+    "fallback_local_only",
+    "api_key_printed_or_written",
+    "forbidden_path_required",
+    "需要把 current_data_goal_anchor 写成 ready",
+    "需要生成正式下一条视频执行 prompt"
+  ],
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback_local_only 写成 DeepSeek 结论。",
+    "不得声称 multi-agent runtime 已跑通。",
+    "不得读取、输出或复述 API key / secret / token。",
+    "不得把 141 播放写成最终失败。",
+    "不得把收藏率 2.13% 写成方向成立。",
+    "不得推进 content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked。"
+  ],
+  "data_goal_anchor": {
+    "current_stage_goal": "基于 V003 最新视频早期数据判断是否继续进入 72h / 7d 观察；本轮只做数据回填和早期诊断。",
+    "video_goal_card": {
+      "video_id": "V003",
+      "review_window": "between_24h_and_72h",
+      "experiment_type": "early_interim_snapshot"
+    },
+    "post_publish_review_card": {
+      "review_window": [
+        "interim_36h_snapshot",
+        "72h_pending",
+        "7d_pending"
+      ],
+      "data_confidence": "low",
+      "human_review_required": true
+    },
+    "main_bottleneck": "opening_retention_and_initial_distribution_weak",
+    "main_bottleneck_status": "draft_low_confidence",
+    "primary_variable": "opening_route_or_first_5s_packaging",
+    "primary_variable_status": "draft_low_confidence",
+    "forbidden_variables": [
+      "不要改目标用户",
+      "不要改核心选题方向",
+      "不要改承接 / 变现口径",
+      "不要同时改多个变量"
+    ],
+    "next_video_execution_prompt": "not_generated_this_round",
+    "success_metric": "pending_72h_7d_completion",
+    "failure_metric": "pending_72h_7d_completion",
+    "post_publish_validation_metric": "2s_bounce_5s_completion_3s_retention_if_available_average_watch_time"
+  },
+  "current_stage_goal": "基于 V003 最新视频早期数据判断是否继续进入 72h / 7d 观察；本轮只做数据回填和早期诊断。",
+  "main_bottleneck": "opening_retention_and_initial_distribution_weak",
+  "primary_variable": "opening_route_or_first_5s_packaging",
+  "supporting_variables": [],
+  "forbidden_variables": [
+    "不要改目标用户",
+    "不要改核心选题方向",
+    "不要改承接 / 变现口径",
+    "不要同时改多个变量"
+  ],
+  "success_metric": "pending_72h_7d_completion",
+  "failure_metric": "pending_72h_7d_completion",
+  "post_publish_validation_metric": "2s_bounce_5s_completion_3s_retention_if_available_average_watch_time",
+  "next_video_execution_prompt": "not_generated_this_round",
+  "data_goal_alignment_check_required": true,
+  "allow_process_env_api_key": true,
+  "disable_env_file": true,
+  "safe_deepseek_process_env_test": true,
+  "requires_real_deepseek_participation": true,
+  "safe_loader_policy": {
+    "mode": "project_runtime_provider",
+    "runtime_provider_required": true,
+    "runtime_provider_load_order": [
+      "process_env",
+      "project_env_local",
+      "project_env",
+      "local_runtime_authorization"
+    ],
+    "controller_or_explorer_may_read_env_file": false,
+    "allow_env_file_loader": false,
+    "require_user_authorization_for_env_loader": false,
+    "blocked_if_process_env_missing": false,
+    "api_key_printed": false,
+    "api_key_written": false
+  },
+  "safe_call_mode": "project_runtime_provider"
+}
+
+## files_considered（已考虑文件）
+
+```json
+[
+  "codex_log/current_gray_test_target.md",
+  "codex_log/current_data_goal_anchor.md",
+  "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_发布后灰度数据记录_post_publish_gray_test_record.md",
+  "review_loop/screenshots/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_截图清单_screenshot_manifest.md",
+  "codex_log/20260515_latest_video_data_intake.md",
+  "codex_log/latest.md",
+  "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_早期数据快照_early_interim_snapshot.json"
+]
+```
+
+## files_recommended（建议读取文件）
+
+```json
+[
+  "codex_log/current_data_goal_anchor.md",
+  "review_loop/records/V003_*/V003_发布后灰度数据记录*.md",
+  "codex_log/20260515_latest_video_data_intake.md",
+  "review_loop/screenshots/V003_*/V003_截图清单*.md",
+  "codex_log/current_gray_test_target.md",
+  "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_发布后灰度数据记录_post_publish_gray_test_record.md",
+  "review_loop/screenshots/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_截图清单_screenshot_manifest.md",
+  "codex_log/latest.md",
+  "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_早期数据快照_early_interim_snapshot.json"
+]
+```
+
+## risks（风险）
+
+```json
+[
+  "时间窗exact_observation_window_from_platform未确认，需人工核实",
+  "年龄分布为估读，可能影响受众画像置信度",
+  "未发现V001/V002被覆盖或误用",
+  "无，当前未触发任何blocked条件"
+]
+```
+
+## missing_files（缺失文件）
+
+```json
+[]
+```
+
+## editing_decision_pack（剪辑决策包）
+
+```json
+null
+```
+
+## execution_supply_pack（执行供料包）
+
+```json
+null
+```
+
+## post_risk_review（执行后风险复核）
+
+```json
+null
+```
+
+## codex_next_input（给 Codex 的下一步输入）
+
+```json
+{
+  "read_first": [
+    "codex_log/current_data_goal_anchor.md",
+    "review_loop/records/V003_*/V003_发布后灰度数据记录*.md",
+    "codex_log/20260515_latest_video_data_intake.md",
+    "review_loop/screenshots/V003_*/V003_截图清单*.md",
+    "codex_log/current_gray_test_target.md",
+    "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_发布后灰度数据记录_post_publish_gray_test_record.md",
+    "review_loop/screenshots/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_截图清单_screenshot_manifest.md",
+    "codex_log/latest.md"
+  ],
+  "use_as": "readonly_supply_pack",
+  "warning": "DeepSeek generated the pack, but Codex must still verify original files."
+}
+```
+
+## not_allowed（禁止事项）
+
+```json
+[
+  "Do not treat fallback_local_only as a DeepSeek conclusion.",
+  "Do not claim DeepSeek is stable production supply.",
+  "Do not claim multi-agent runtime is running.",
+  "Do not let DeepSeek write files or decide project facts.",
+  "Do not read .env, API keys, media files, or dist/latest_review_pack/.",
+  "Do not call Aliyun or other real generation APIs in mechanism-only tests."
+]
+```

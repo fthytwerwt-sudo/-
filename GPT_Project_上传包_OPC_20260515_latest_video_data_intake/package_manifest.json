@@ -1,0 +1,36 @@
+{
+  "package_name": "GPT_Project_上传包_OPC_20260515_latest_video_data_intake",
+  "canonical_local_path": "/Users/fan/Documents/视频工厂/GPT_Project_上传包_OPC_20260515_latest_video_data_intake/",
+  "created_at": "2026-05-15 21:18 CST",
+  "package_status": "current_latest_static_upload_package",
+  "project": "视频工厂｜OPC 一人公司 AI 闭环验证系统",
+  "current_video_record": "V003",
+  "review_window": "between_24h_and_72h / interim_36h_snapshot",
+  "current_data_goal_anchor_status": "partial_data_recorded",
+  "data_confidence": "low",
+  "official_review_status": "not_started_waiting_72h_7d",
+  "deepseek_participation": {
+    "pre_supply": "deepseek_passed",
+    "post_risk_review": "deepseek_passed",
+    "fallback_count": 0,
+    "blocked_count": 0
+  },
+  "forbidden_status_check": {
+    "content_validation": "not_advanced",
+    "send_ready": "not_advanced",
+    "publish_status_success_claim": "not_advanced",
+    "voice_validation": "not_advanced",
+    "final_voice_validated": "not_advanced",
+    "visual_master_locked": "not_advanced"
+  },
+  "not_final_review": true,
+  "next_required_data": [
+    "72h_final_data",
+    "7d_final_data",
+    "3s_retention",
+    "profile_visit_count",
+    "dm_count",
+    "effective_dm_count",
+    "effective_consult_count"
+  ]
+}
