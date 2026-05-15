@@ -1,0 +1,190 @@
+{
+  "request_id": "20260515_deepseek_safe_loader_data_goal_anchor_pre_supply",
+  "created_at": "2026-05-15T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "deepseek_safe_loader_data_goal_anchor_dual_completion",
+  "task_type": "mechanism_or_route_fix",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "risk_report",
+  "mandatory_for_every_task": true,
+  "participation_level": "mandatory_by_default",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_allowed": false,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": true,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "同时补强 DeepSeek 每轮安全供料入口与 data_goal_anchor 执行链前置验收，不生成媒体、不推进内容状态。",
+  "current_step": "执行前 DeepSeek 供料 / 安全加载检查。",
+  "known_context": [
+    "本轮禁止读取 .env、.env.*、.env.swp、API key、token 或 secret 文件。",
+    "DeepSeek 真实参与只能使用 process environment 中已经存在的 DEEPSEEK_API_KEY。",
+    "如果 process environment 缺 key，必须 blocked_missing_process_env_api_key，不得写 DeepSeek passed。",
+    "data_goal_anchor 必须进入 content_route_card V2、script_to_timeline_map、editing_decision_pack、assembly_decision_pack 和 data_goal_alignment_check。"
+  ],
+  "missing_context": [
+    "当前 Codex 进程是否带有 DEEPSEEK_API_KEY 只能检查 presence，不能打印值。"
+  ],
+  "decision_needed": "检查本轮修改前哪些文件最可能出现 fallback 误写、safe loader 漂移或 data_goal_anchor 字段口径分裂。",
+  "data_goal_anchor": {
+    "current_north_star_goal": "让 OPC 一人公司 AI 闭环验证系统在真实视频执行前先锁定数据目标，再允许结构变化。",
+    "current_stage_goal": "让下一条真实视频执行前置验收强制包含数据目标锚点和 DeepSeek 供料状态。",
+    "threshold_config_v1": {
+      "status": "mechanism_gate_only"
+    },
+    "video_goal_card": {
+      "video_id": "next_real_video_preflight",
+      "experiment_type": "single_primary_variable_required"
+    },
+    "post_publish_review_card": {
+      "review_window": [
+        "24h",
+        "72h",
+        "7d"
+      ]
+    },
+    "data_flywheel_memory": {
+      "status": "mechanism_written_real_effect_pending"
+    },
+    "main_bottleneck": "execution_preflight_drift",
+    "primary_variable": "data_goal_anchor_wiring",
+    "supporting_variables": [
+      "deepseek_safe_loader_readiness",
+      "forbidden_field_alias_consistency"
+    ],
+    "forbidden_variables": [
+      "advance_content_validation",
+      "advance_send_ready",
+      "read_secret_files",
+      "modify_media_or_latest_review_pack"
+    ],
+    "content_structure_feedback_card": {
+      "execution_goal": "目标锁死，结构可变；机制任务不生成媒体。"
+    },
+    "next_video_structure_plan": {
+      "preflight": "先验证供料状态、锚点字段和完成前对齐检查。"
+    },
+    "next_video_execution_prompt": "下一条真实视频执行前必须读取 data_goal_anchor，并输出 data_goal_alignment_check。",
+    "success_metric": "future_execution_reports_include_alignment_check",
+    "failure_metric": "future_execution_enters_video_without_anchor_or_safe_supply_status",
+    "post_publish_validation_metric": "future_post_publish_review_can_trace_primary_variable"
+  },
+  "current_stage_goal": "让下一条真实视频执行前置验收强制包含数据目标锚点和 DeepSeek 供料状态。",
+  "main_bottleneck": "execution_preflight_drift",
+  "primary_variable": "data_goal_anchor_wiring",
+  "supporting_variables": [
+    "deepseek_safe_loader_readiness",
+    "forbidden_field_alias_consistency"
+  ],
+  "forbidden_variables": [
+    "advance_content_validation",
+    "advance_send_ready",
+    "read_secret_files",
+    "modify_media_or_latest_review_pack"
+  ],
+  "success_metric": "future_execution_reports_include_alignment_check",
+  "failure_metric": "future_execution_enters_video_without_anchor_or_safe_supply_status",
+  "post_publish_validation_metric": "future_post_publish_review_can_trace_primary_variable",
+  "next_video_execution_prompt": "下一条真实视频执行前必须读取 data_goal_anchor，并输出 data_goal_alignment_check。",
+  "data_goal_alignment_check_required": true,
+  "data_goal_supply_questions": [
+    "哪些文件最容易把 fallback_local_only 写成 DeepSeek 结论？",
+    "哪些脚本字段最容易让 process_env_only 与授权 safe loader 混淆？",
+    "哪些 data_goal_anchor 执行字段存在同义命名分裂？",
+    "哪些状态字段必须保持不推进？"
+  ],
+  "candidate_files": [
+    "scripts/deepseek_supply_controller.py",
+    "scripts/deepseek_readonly_explorer.py",
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md",
+    "codex_source/schemas/deepseek_supply_request.schema.json",
+    "GPT数据源/14_数据目标执行总线_data_goal_execution_bus.md",
+    "GPT数据源/05_文案路由规则.md",
+    "codex_source/01_execution_rules.md"
+  ],
+  "must_read_files": [
+    "scripts/deepseek_supply_controller.py",
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "GPT数据源/14_数据目标执行总线_data_goal_execution_bus.md"
+  ],
+  "optional_files": [
+    "codex_source/19_project_state_action_router.md",
+    "codex_log/latest.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "*.mp4",
+    "*.mov",
+    "*.wav",
+    "*.mp3",
+    "*.png",
+    "*.jpg",
+    "*.jpeg"
+  ],
+  "max_context_files": 8,
+  "max_context_chars": 32000,
+  "expected_output": [
+    "safe_loader_risk_report",
+    "data_goal_anchor_field_risk_report",
+    "deepseek_readiness_check",
+    "token_usage_expectation_check"
+  ],
+  "output_format": "json_and_markdown",
+  "codex_next_input": "Codex must integrate only after original file review, and must keep content / publish / voice / visual states unchanged.",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_supply_controller/20260515_deepseek_safe_loader_data_goal_anchor_pre_supply",
+    "read_first": [
+      "latest_supply_pack.md",
+      "latest_supply_pack.json",
+      "latest_supply_manifest.json"
+    ]
+  },
+  "not_allowed": [
+    "Do not write files.",
+    "Do not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is running.",
+    "Do not read .env or API keys.",
+    "Do not modify dist/latest_review_pack or media files."
+  ],
+  "stop_condition": "Stop after readonly supply, blocked manifest, or risk report.",
+  "blocked_if": [
+    "process environment missing DEEPSEEK_API_KEY",
+    "controller or explorer needs to read .env",
+    "forbidden path requested",
+    "fallback_local_only is mislabeled as DeepSeek passed",
+    "status promotion required"
+  ],
+  "fallback_policy": "fallback_local_only is not allowed for this pre-supply because the user explicitly asked to verify DeepSeek participation stability; missing process env key must be blocked.",
+  "requires_real_deepseek_participation": true,
+  "safe_loader_policy": {
+    "mode": "process_env_only",
+    "controller_or_explorer_may_read_env_file": false,
+    "allow_env_file_loader": false,
+    "require_user_authorization_for_env_loader": true,
+    "blocked_if_process_env_missing": true,
+    "api_key_printed": false,
+    "api_key_written": false
+  },
+  "allow_process_env_api_key": true,
+  "disable_env_file": true,
+  "safe_deepseek_process_env_test": true,
+  "deepseek_readiness_check_required": true,
+  "safe_call_mode": "process_env_only",
+  "readiness_expected_fields": [
+    "env_file_read",
+    "process_env_key_allowed",
+    "process_env_key_present",
+    "safe_call_mode",
+    "deepseek_actual_participation",
+    "api_key_printed",
+    "api_key_written"
+  ]
+}

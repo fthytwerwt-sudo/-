@@ -1,0 +1,112 @@
+{
+  "request_id": "fixture_deepseek_safe_loader_blocked_missing_process_env",
+  "created_at": "2026-05-15T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "deepseek_safe_loader_blocked_fixture",
+  "task_type": "mechanism_or_route_fix",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "file_map",
+  "mandatory_for_every_task": true,
+  "participation_level": "mandatory_by_default",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_allowed": false,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": true,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "验证每轮 DeepSeek 供料在 process env 缺 key 时稳定阻断，而不是误写成 DeepSeek 已参与。",
+  "current_step": "安全加载阻断 fixture。",
+  "known_context": [
+    "controller / explorer 不得读取 .env、.env.*、.env.swp、API key、token 或 secret 文件。",
+    "如果 process environment 中没有 DEEPSEEK_API_KEY，必须输出 blocked_missing_process_env_api_key。"
+  ],
+  "missing_context": [],
+  "decision_needed": "确认供料链是否能区分 process_env_only、blocked_missing_process_env_api_key 与 fallback_local_only。",
+  "candidate_files": [
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md",
+    "scripts/deepseek_supply_controller.py",
+    "scripts/deepseek_readonly_explorer.py"
+  ],
+  "must_read_files": [
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md"
+  ],
+  "optional_files": [
+    "codex_log/20260515_deepseek_live_participation_smoke_test.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "*.mp4",
+    "*.mov",
+    "*.wav",
+    "*.mp3",
+    "*.png",
+    "*.jpg",
+    "*.jpeg"
+  ],
+  "max_context_files": 6,
+  "max_context_chars": 24000,
+  "expected_output": [
+    "deepseek_readiness_check",
+    "deepseek_participation_report",
+    "token_usage_expectation_check",
+    "blocked_missing_process_env_api_key_when_key_absent"
+  ],
+  "output_format": "json_and_markdown",
+  "codex_next_input": "Codex must report blocked_missing_process_env_api_key when process env key is absent.",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_supply_controller/fixtures_safe_loader_blocked_missing_process_env",
+    "read_first": [
+      "latest_supply_pack.md",
+      "latest_supply_pack.json",
+      "latest_supply_manifest.json"
+    ]
+  },
+  "not_allowed": [
+    "Do not write files.",
+    "Do not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is running.",
+    "Do not read .env or API keys.",
+    "Do not print or write DEEPSEEK_API_KEY."
+  ],
+  "stop_condition": "Stop after readonly supply or blocked manifest.",
+  "blocked_if": [
+    "process environment missing DEEPSEEK_API_KEY",
+    "controller or explorer needs to read .env",
+    "API key would be printed or written",
+    "fallback_local_only is mislabeled as DeepSeek passed"
+  ],
+  "fallback_policy": "fallback_local_only is not allowed for this fixture because real DeepSeek participation is being tested.",
+  "requires_real_deepseek_participation": true,
+  "safe_loader_policy": {
+    "mode": "process_env_only",
+    "controller_or_explorer_may_read_env_file": false,
+    "allow_env_file_loader": false,
+    "require_user_authorization_for_env_loader": true,
+    "blocked_if_process_env_missing": true,
+    "api_key_printed": false,
+    "api_key_written": false
+  },
+  "allow_process_env_api_key": true,
+  "disable_env_file": true,
+  "safe_deepseek_process_env_test": true,
+  "deepseek_readiness_check_required": true,
+  "safe_call_mode": "process_env_only",
+  "readiness_expected_fields": [
+    "env_file_read",
+    "process_env_key_allowed",
+    "process_env_key_present",
+    "safe_call_mode",
+    "deepseek_actual_participation",
+    "api_key_printed",
+    "api_key_written"
+  ]
+}
