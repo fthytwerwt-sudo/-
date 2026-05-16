@@ -2,7 +2,7 @@
 
 ## 当前结论
 - 当前文案版本：`V003_copy_v1 / v1_raw`
-- 当前数据窗口：`interim_36h_snapshot`
+- 当前数据窗口：`interim_65h_snapshot`
 - 当前问题层级：`opening_packaging`
 - 置信度：`low`
 - 本轮只允许改：`opening_0_3s + bridge_3_8s`

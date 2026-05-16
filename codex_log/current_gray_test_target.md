@@ -45,7 +45,7 @@ legacy_current_gray_test_target:
 | --- | --- | --- |
 | V001 | `historical_operation_record` | 原 v3.1 灰度观察对象，历史字段保留 |
 | V002 | `policy_limited_abnormal_operation_sample` | 平台审核减推异常样本，不作为正常分发样本 |
-| V003 | `current_operation_target` | 当前最新运营样本，已录入 `interim_36h_snapshot` |
+| V003 | `current_operation_target` | 当前最新运营样本，已录入 `interim_36h_snapshot` 与 `interim_65h_snapshot`；仍非 72h final |
 
 ## forbidden status boundary
 

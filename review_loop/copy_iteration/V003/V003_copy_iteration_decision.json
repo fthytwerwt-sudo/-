@@ -2,7 +2,7 @@
   "video_id": "V003",
   "copy_id": "V003_copy_v1",
   "decision_version": "copy_iteration_decision_v1",
-  "generated_at_utc": "2026-05-16T15:58:40.623710+00:00",
+  "generated_at_utc": "2026-05-16T18:31:40.110889+00:00",
   "input_paths": {
     "operation_report": "review_loop/decision_engine/latest_operation_decision_report.json",
     "final_user_operation_result": "review_loop/decision_engine/final_user_operation_result.md",
@@ -10,7 +10,7 @@
     "copy_record": "review_loop/copy_iteration/V003/V003_copy_v1_record.json",
     "structure_map": "review_loop/copy_iteration/V003/V003_copy_structure_map.json"
   },
-  "data_window": "interim_36h_snapshot",
+  "data_window": "interim_65h_snapshot",
   "data_confidence": "low",
   "operation_decision_status": "blocked_for_formal_next_episode_execution",
   "problem_layer": "opening_packaging",
@@ -53,10 +53,10 @@
   "require_7_to_10_failed_samples_for_target_audience_change": true,
   "data_triggers": {
     "play_count": 141,
-    "recommendation_page": "97.2%",
-    "two_second_bounce_rate": "50.00%",
-    "five_second_completion_rate": "28.13%",
-    "completion_rate": "4.17%",
+    "recommendation_page": "96.6%",
+    "two_second_bounce_rate": "49.69%",
+    "five_second_completion_rate": "27.95%",
+    "completion_rate": "4.14%",
     "average_watch_time": "21秒",
     "favorite_count": 3,
     "favorite_rate": "2.13%",
@@ -72,9 +72,9 @@
     ]
   },
   "numeric_trace": {
-    "recommendation_page_percent": 97.2,
-    "two_second_bounce_percent": 50.0,
-    "five_second_completion_percent": 28.13,
+    "recommendation_page_percent": 96.6,
+    "two_second_bounce_percent": 49.69,
+    "five_second_completion_percent": 27.95,
     "favorite_rate_percent": 2.13
   },
   "rule_trace": [

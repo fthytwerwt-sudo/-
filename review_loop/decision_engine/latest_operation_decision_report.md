@@ -1,7 +1,7 @@
 # 最新运营决策系统报告
 
 ## 系统结论
-当前系统已能自动读三期记录并给出判断：V003 只能继续补数据和低置信度准备，不能进入下一期正式执行。
+当前系统已能自动读三期记录并给出判断：V003 最新为 interim_65h_snapshot（约 65 小时中间数据，非 final），只能继续补数据和低置信度准备，不能进入下一期正式执行。
 
 ## records_processed
 - V001: `historical_operation_record` / `historical_incomplete`
@@ -12,7 +12,7 @@
 - decision_status: `blocked_for_formal_next_episode_execution`
 - can_enter_next_episode_execution: `false`
 - confidence: `low`
-- blocked_reason: V003 仍是 interim_36h_snapshot，缺 72h / 7d 和需求侧字段，不能生成正式下一条视频执行 prompt。
+- blocked_reason: V003 仍是 interim_65h_snapshot，缺 72h / 7d 和需求侧字段，不能生成正式下一条视频执行 prompt。
 
 ## status_boundary
 - content_validation_advanced: `False`

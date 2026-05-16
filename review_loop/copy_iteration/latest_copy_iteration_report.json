@@ -1,10 +1,12 @@
 {
   "system_name": "copy_iteration_decision_system",
-  "generated_at_utc": "2026-05-16T15:58:40.623982+00:00",
+  "generated_at_utc": "2026-05-16T18:31:40.111512+00:00",
   "current_copy_version": "V003_copy_v1 / v1_raw",
-  "current_data_window": "interim_36h_snapshot",
+  "current_data_window": "interim_65h_snapshot",
   "current_problem_layer": "opening_packaging",
   "confidence": "low",
+  "formal_copy_revision_allowed": false,
+  "low_confidence_prepare_allowed": true,
   "revision_scope_allowed": [
     "opening_0_3s",
     "bridge_3_8s"

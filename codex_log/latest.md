@@ -1,5 +1,23 @@
 # Latest
 
+## 20260516｜V003 interim_65h 数据录入与系统重跑
+
+- `已确认` 本轮只做 V003 运营数据录入、项目文件修改和复盘前置数据更新；不生成新视频，不修改已发布视频，不生成正式下一条视频执行 prompt。
+- `route_decision（路由判断）`：`project_route = video_factory`；`task_type = operation_data_intake + project_file_change + operation_decision_rerun + copy_iteration_rerun`；`large_task_gate = triggered`；`lane = standard_lane`；`parallel = serial_only`；`write_owner = Codex Integrator only`。
+- `state_action_router（状态动作总控器）`：`inferred_state = operation_data_intake + operation_decision_system_required + copy_iteration_system_required`；`selected_action = archive_screenshots + update_V003_interim_65h_snapshot + rerun_decision_systems`；`forbidden_action = next_formal_video_execution_prompt / content_validation / send_ready / ready_status_promotion`。
+- `DeepSeek`：已创建供料任务卡 `codex_log/supply_requests/20260516_V003_interim_65h_data_intake_pre_supply_request.json`；真实供料通过，`deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`api_key_printed = false`、`api_key_written = false`。
+- `已归档` 本轮 3 张截图到 `review_loop/screenshots/V003_本地文件优化实用分享_latest_practical_video_20260514/interim_65h_snapshot/`，分别为总览、流量分析 / 留存、观众分析。
+- `已新增` 结构化快照：`review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_interim_65h_snapshot.json`。
+- `数据窗口`：`review_window = between_48h_and_72h`，`snapshot_label = interim_65h_snapshot`，`snapshot_alias = near_72h_pre_final_snapshot`；明确不是 `72h_final_data`，不是 `7d_final_data`。
+- `核心数据`：播放 141、平均播放 21 秒、2s 跳出 49.69%、5s 完播 27.95%、完播率 4.14%、收藏 3 / 2.13%、涨粉 1、推荐页 96.6%、个人主页 2.1%、朋友页 1.4%。
+- `对比 36h`：播放、平均观看、收藏、涨粉基本未增长；可记录为“未出现二次增长 / 分发未扩散”，但不得写项目失败、方向失败、方向成立或账号增长成立。
+- `已更新` V003 记录、截图 manifest、缺失 / 不确定字段、ChatGPT 复盘输入、`current_operation_target`、`current_data_goal_anchor`、`operation_records_index`、legacy pointer 与当前正式事实。
+- `运营决策系统`：已重跑 `scripts/运营决策系统_operation_decision_system.py`；最新报告读取 `interim_65h_snapshot`，仍输出 `blocked_for_formal_next_episode_execution`。
+- `文案迭代决策系统`：已重跑 `scripts/文案迭代决策系统_copy_iteration_decision_system.py`；`current_data_window = interim_65h_snapshot`，`problem_layer = opening_packaging`，`confidence = low`，`formal_copy_revision_allowed = false`，仅允许低置信度准备 `opening_0_3s + bridge_3_8s`。
+- `缺失字段`：`72h_final_data`、`7d_final_data`、`3s_retention`、`profile_visit_count`、`dm_count`、`effective_dm_count`、`effective_consult_count`、`clear_need_customer_count` 仍为 missing。
+- `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status_success（发布成功口径）`、`voice_validation（声音验证）`、`final_voice_validated（最终声音验证）`、`visual_master_locked（视觉母版锁定）`；`current_data_goal_anchor` 未写 ready；未生成正式下一条视频执行 prompt。
+- `日志`：`codex_log/20260516_V003_interim_65h_data_intake.md`
+
 ## 20260516｜文案迭代决策系统
 
 - `已确认` 本轮只做机制修补 / 路由修补、项目文件修改和代码执行 / 调试；不生成新视频，不修改已发布视频，不生成正式下一条视频执行 prompt，不直接重写 V003 文案。

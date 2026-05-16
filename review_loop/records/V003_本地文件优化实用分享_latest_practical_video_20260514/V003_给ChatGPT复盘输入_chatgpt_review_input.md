@@ -2,19 +2,21 @@
 
 ## 当前输入性质
 
-- status：early_interim_snapshot / draft_low_confidence
-- review_window：between_24h_and_72h / interim_36h_snapshot
+- status：interim_snapshot / draft_low_confidence
+- review_window：between_48h_and_72h / interim_65h_snapshot / near_72h_pre_final_snapshot
 - final_review：false
+- 72h_final：false
+- 7d_final：false
 - human_review_required：true
 
 ## 可用数据摘要
 
 - 播放量：141
 - 平均播放时长：21秒
-- 2s 跳出率：50.00%
-- 平均播放占比：8.51%
-- 完播率：4.17%
-- 5s 完播率：28.13%
+- 2s 跳出率：49.69%
+- 平均播放占比：8.46%
+- 完播率：4.14%
+- 5s 完播率：27.95%
 - 封面点击率：0.00%
 - 点赞：2 / 点赞率 1.42%
 - 收藏：3 / 收藏率 2.13%
@@ -22,9 +24,10 @@
 - 分享：0
 - 弹幕：0
 - 涨粉：1 / 涨粉率可见 0.71%
-- 推荐页来源：97.2%
-- 个人主页来源：1.4%
+- 推荐页来源：96.6%
+- 个人主页来源：2.1%
 - 朋友页来源：1.4%
+- 65h 对比 36h：播放、平均播放时长、收藏、涨粉基本未增长；可记录为“未出现二次增长 / 分发未扩散”，但不能写最终失败。
 
 ## 初步诊断草稿
 
@@ -42,7 +45,7 @@
 - 7d 封账数据
 - 3s_retention 如平台后续可见
 - profile_visit_count
-- 私信 / 有效咨询 / 客户线索
+- 私信 / 有效私信 / 有效咨询 / 清晰需求客户
 - 用户 / ChatGPT 最终内容判断
 
 ## 禁止输出

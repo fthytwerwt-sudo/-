@@ -1,0 +1,192 @@
+{
+  "video_id": "V003",
+  "video_slug": "V003_本地文件优化实用分享_latest_practical_video_20260514",
+  "video_title": "以后会分享实用的，每天会给大家看我是怎么优化的，这个视频只用3个小时写出来的本地文件",
+  "publish_platform": "抖音",
+  "publish_time_visible": "2026-05-14 04:50",
+  "video_duration": "04:03",
+  "work_status": "作品状态正常",
+  "current_project_stage": "formal_operation_active",
+  "current_operation_mode": "data_driven_operation_iteration",
+  "operation_record_status": "current_operation_target",
+  "current_phase": "formal_operation_active",
+  "publish_status": "published_in_formal_operation",
+  "operation_status": "active",
+  "legacy_previous_term": "gray_test",
+  "legacy_previous_phase": "post_publish_gray_test",
+  "legacy_previous_publish_status": "gray_test_published",
+  "legacy_previous_gray_test_status": "active",
+  "review_window": "between_48h_and_72h",
+  "snapshot_label": "interim_65h_snapshot",
+  "snapshot_alias": "near_72h_pre_final_snapshot",
+  "capture_time_if_known": "2026-05-16 21:44-21:45",
+  "capture_time_source": "local_screenshot_filename_and_user_prompt",
+  "inferred_hours_after_publish": "约65小时",
+  "data_confidence": "low_to_medium",
+  "human_review_required": true,
+  "screenshot_archive_status": "archived_to_repo",
+  "source_status": "archived_source_screenshot_with_user_chatgpt_visual_read_cross_check",
+  "source_screenshots": {
+    "overview": {
+      "internal_path": "review_loop/screenshots/V003_本地文件优化实用分享_latest_practical_video_20260514/interim_65h_snapshot/platform_metrics/V003_interim_65h_总览_overview_20260516_214439.png",
+      "source_user_upload": "/Users/fan/Desktop/素材截图/ScreenShot_2026-05-16_214439_644.png",
+      "tab_type": "overview / platform_metrics / account_growth",
+      "source_status": "archived_source_screenshot",
+      "capture_time_if_known": "2026-05-16 21:44:39"
+    },
+    "retention_traffic": {
+      "internal_path": "review_loop/screenshots/V003_本地文件优化实用分享_latest_practical_video_20260514/interim_65h_snapshot/audience_retention/V003_interim_65h_流量分析_retention_traffic_20260516_214508.png",
+      "source_user_upload": "/Users/fan/Desktop/素材截图/wechat_longscreenshot_2026-05-16_214508_738.png",
+      "tab_type": "traffic_analysis / audience_retention / interaction",
+      "source_status": "archived_source_screenshot",
+      "capture_time_if_known": "2026-05-16 21:45:08"
+    },
+    "audience_profile": {
+      "internal_path": "review_loop/screenshots/V003_本地文件优化实用分享_latest_practical_video_20260514/interim_65h_snapshot/audience_profile/V003_interim_65h_观众分析_audience_profile_20260516_214548.png",
+      "source_user_upload": "/Users/fan/Desktop/素材截图/wechat_longscreenshot_2026-05-16_214548_797.png",
+      "tab_type": "audience_analysis / audience_profile / account_growth",
+      "source_status": "archived_source_screenshot",
+      "capture_time_if_known": "2026-05-16 21:45:48"
+    }
+  },
+  "core_metrics": {
+    "play_count": 141,
+    "average_watch_time": "21秒",
+    "cover_click_rate": "0.00%",
+    "completion_rate": "4.14%",
+    "two_second_bounce_rate": "49.69%",
+    "average_play_ratio": "8.46%",
+    "five_second_completion_rate": "27.95%",
+    "like_count": 2,
+    "like_rate": "1.42%",
+    "favorite_count": 3,
+    "favorite_rate": "2.13%",
+    "comment_count": 0,
+    "comment_rate": "0.00%",
+    "share_count": 0,
+    "share_rate": "0.00%",
+    "danmu_count": 0,
+    "not_interested_count": 0,
+    "not_interested_rate": "0.00%",
+    "new_follow_count": 1,
+    "follow_rate_or_fan_rate_visible": "0.71%",
+    "unfollow_count": 0,
+    "unfollow_rate": "0.00%",
+    "fan_play_ratio": "4.3%"
+  },
+  "traffic_sources": {
+    "recommendation_page": "96.6%",
+    "profile_page": "2.1%",
+    "friend_page": "1.4%"
+  },
+  "audience_metrics": {
+    "gender_distribution": {
+      "male": "约78%",
+      "female": "约22%"
+    },
+    "age_distribution_estimated": {
+      "under_18": "约2%",
+      "age_18_23": "约19%-20%",
+      "age_24_30": "约32%",
+      "age_31_40": "约34%-35%",
+      "age_41_50": "约9%-10%",
+      "age_50_plus": "约2%"
+    },
+    "region_top_visible": {
+      "广东": "15.83%",
+      "北京": "15.83%",
+      "江苏": "8.33%",
+      "四川": "6.67%",
+      "湖北": "5.00%",
+      "上海": "5.00%",
+      "河北": "4.17%"
+    },
+    "region_visibility_note": "partial_visible_only",
+    "active_distribution": {
+      "source_status": "not_visible_in_65h_audience_profile_screenshot",
+      "value": null
+    }
+  },
+  "metric_source_status": {
+    "platform_overview_metrics": "extracted_from_archived_screenshot_and_user_chatgpt_visual_read",
+    "traffic_analysis_metrics": "extracted_from_archived_screenshot_and_user_chatgpt_visual_read",
+    "audience_profile_metrics": "extracted_from_archived_screenshot_and_user_chatgpt_visual_read",
+    "age_distribution_estimated": "uncertain_need_human_check",
+    "region_distribution": "partial_visible_only",
+    "profile_visit_count": "missing",
+    "dm_count": "missing",
+    "effective_dm_count": "missing",
+    "effective_consult_count": "missing",
+    "clear_need_customer_count": "missing"
+  },
+  "comparison_with_previous_snapshot": {
+    "previous_snapshot_label": "interim_36h_snapshot",
+    "previous_snapshot_path": "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_早期数据快照_early_interim_snapshot.json",
+    "play_count_change": "141 -> 141",
+    "average_watch_time_change": "21秒 -> 21秒",
+    "favorite_count_change": "3 -> 3",
+    "new_follow_count_change": "1 -> 1",
+    "traffic_source_change": "recommendation_page 97.2% -> 96.6%; profile_page 1.4% -> 2.1%; friend_page 1.4% -> 1.4%",
+    "early_observation": "约65小时仍基本未增长，说明前端承接弱 / 分发未扩散的判断更清楚，但仍不是最终失败结论。"
+  },
+  "missing_fields": [
+    "3s_retention",
+    "profile_visit_count",
+    "dm_count",
+    "effective_dm_count",
+    "effective_consult_count",
+    "clear_need_customer_count",
+    "effective_comment_quality",
+    "72h_final_data",
+    "7d_final_data"
+  ],
+  "uncertain_fields": [
+    "exact_observation_window_from_platform",
+    "age_distribution_estimated_from_bar_chart",
+    "trend_curve_point_values",
+    "partial_region_list_visible_only",
+    "whether_platform_will_update_again_before_72h_final"
+  ],
+  "early_diagnosis_draft": {
+    "status": "draft_low_confidence",
+    "traffic_layer": "weak",
+    "opening_retention": "weak",
+    "content_value_signal": "small_positive_signal_but_not_direction_validated",
+    "interaction_signal": "weak",
+    "lead_signal": "missing",
+    "preliminary_main_bottleneck": "opening_retention_and_initial_distribution_weak",
+    "candidate_primary_variable": "opening_route_or_first_5s_packaging",
+    "confidence_boundary": "low_to_medium_for_data_recording_only; low_for_operational_diagnosis"
+  },
+  "not_final_review": {
+    "is_final_review": false,
+    "is_72h_final_data": false,
+    "is_7d_final_data": false,
+    "does_not_decide_project_failure": true,
+    "does_not_decide_direction_failure": true,
+    "does_not_decide_direction_success": true,
+    "does_not_decide_account_growth_success": true,
+    "does_not_decide_next_formal_script": true,
+    "wait_for": [
+      "72h final data",
+      "7d data",
+      "3s_retention",
+      "profile_visit_count",
+      "dm_count",
+      "effective_dm_count",
+      "effective_consult_count",
+      "clear_need_customer_count",
+      "human review"
+    ]
+  },
+  "status_boundary": {
+    "current_data_goal_anchor_ready": false,
+    "content_validation_advanced": false,
+    "send_ready_advanced": false,
+    "publish_status_success_advanced": false,
+    "voice_validation_advanced": false,
+    "final_voice_validated_advanced": false,
+    "visual_master_locked_advanced": false,
+    "next_formal_video_execution_prompt_generated": false
+  }
+}

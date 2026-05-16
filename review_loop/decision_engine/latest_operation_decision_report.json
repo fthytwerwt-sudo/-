@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-16T15:58:43.937189+00:00",
+  "generated_at": "2026-05-16T18:31:46.444534+00:00",
   "system_name": "operation_decision_system",
   "source_of_truth": {
     "operation_records_index": "review_loop/operation_records_index.md",
@@ -418,11 +418,11 @@
         "formal_next_video_execution_prompt_before_required_data",
         "commercial_validation_proof"
       ],
-      "data_completeness": "已录入约 37 小时早期数据；72h / 7d 未完成",
-      "data_confidence": "low",
-      "review_window": "between_24h_and_72h",
-      "snapshot_label": "interim_36h_snapshot",
-      "structured_snapshot_path": "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_早期数据快照_early_interim_snapshot.json",
+      "data_completeness": "已录入约 37 小时和约 65 小时中间数据；72h / 7d 未完成",
+      "data_confidence": "low_to_medium",
+      "review_window": "between_48h_and_72h",
+      "snapshot_label": "interim_65h_snapshot",
+      "structured_snapshot_path": "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_interim_65h_snapshot.json",
       "structured_snapshot_read": true,
       "normalized_metrics": {
         "play_count": {
@@ -447,30 +447,30 @@
           "confidence": "high"
         },
         "completion_rate": {
-          "value": "4.17%",
-          "numeric_value": 4.17,
-          "percent_value": 4.17,
+          "value": "4.14%",
+          "numeric_value": 4.14,
+          "percent_value": 4.14,
           "source_status": "extracted_from_screenshot",
           "confidence": "high"
         },
         "two_second_bounce_rate": {
-          "value": "50.00%",
-          "numeric_value": 50.0,
-          "percent_value": 50.0,
+          "value": "49.69%",
+          "numeric_value": 49.69,
+          "percent_value": 49.69,
           "source_status": "extracted_from_screenshot",
           "confidence": "high"
         },
         "average_play_ratio": {
-          "value": "8.51%",
-          "numeric_value": 8.51,
-          "percent_value": 8.51,
+          "value": "8.46%",
+          "numeric_value": 8.46,
+          "percent_value": 8.46,
           "source_status": "extracted_from_screenshot",
           "confidence": "high"
         },
         "five_second_completion_rate": {
-          "value": "28.13%",
-          "numeric_value": 28.13,
-          "percent_value": 28.13,
+          "value": "27.95%",
+          "numeric_value": 27.95,
+          "percent_value": 27.95,
           "source_status": "extracted_from_screenshot",
           "confidence": "high"
         },
@@ -587,16 +587,16 @@
           "confidence": "high"
         },
         "traffic_source_recommendation_page": {
-          "value": "97.2%",
-          "numeric_value": 97.2,
-          "percent_value": 97.2,
+          "value": "96.6%",
+          "numeric_value": 96.6,
+          "percent_value": 96.6,
           "source_status": "extracted_from_screenshot",
           "confidence": "high"
         },
         "traffic_source_profile_page": {
-          "value": "1.4%",
-          "numeric_value": 1.4,
-          "percent_value": 1.4,
+          "value": "2.1%",
+          "numeric_value": 2.1,
+          "percent_value": 2.1,
           "source_status": "extracted_from_screenshot",
           "confidence": "high"
         },
@@ -685,29 +685,31 @@
       "uncertain_fields": [
         "age_distribution_estimated_from_bar_chart",
         "exact_observation_window_from_platform",
-        "trend_curve_point_values"
+        "partial_region_list_visible_only",
+        "trend_curve_point_values",
+        "whether_platform_will_update_again_before_72h_final"
       ],
       "data_quality": {
         "quality_label": "partial_interim_low_confidence",
         "quality_score_0_to_1": 0.55,
         "missing_field_count": 9,
-        "uncertain_field_count": 3,
+        "uncertain_field_count": 5,
         "usable_for_normal_distribution_attribution": false,
-        "quality_note": "当前目标样本，只有 interim_36h_snapshot，不能做 72h / 7d final 复盘。"
+        "quality_note": "当前目标样本，最新为 interim_65h_snapshot（约 65 小时中间数据，非 final），不能做 72h / 7d final 复盘。"
       },
       "threshold_check": {
         "play_signal": {
-          "status": "checked",
-          "bucket": "fail",
+          "status": "draft_low_confidence",
+          "bucket": "early_interim_under_1000",
           "observed_value": 141.0,
-          "meaning": "触达不及格。优先检查选题、标题、开头、封面 / 首屏。"
+          "reason": "interim_65h_snapshot_not_final_72h_or_7d"
         },
         "retention_signal": {
           "status": "draft_low_confidence",
           "bucket": "weak",
-          "completion_rate": 4.17,
-          "five_second_completion_rate": 28.13,
-          "two_second_bounce_rate": 50.0
+          "completion_rate": 4.14,
+          "five_second_completion_rate": 27.95,
+          "two_second_bounce_rate": 49.69
         },
         "value_signal": {
           "status": "draft_low_confidence",
@@ -738,11 +740,12 @@
         "status": "draft_low_confidence",
         "candidate_bottleneck": "opening_retention_and_initial_distribution_weak",
         "evidence": [
+          "snapshot_label=interim_65h_snapshot",
           "play_count=141",
-          "two_second_bounce_rate=50.00%",
-          "five_second_completion_rate=28.13%",
-          "completion_rate=4.17%",
-          "recommendation_page=97.2%"
+          "two_second_bounce_rate=49.69%",
+          "five_second_completion_rate=27.95%",
+          "completion_rate=4.14%",
+          "recommendation_page=96.6%"
         ],
         "blocked_for_formal_conclusion_by": [
           "3s_retention",
@@ -755,7 +758,7 @@
         ]
       },
       "summary": {
-        "can_explain": "它能说明当前目标已有 36h 早期信号：低播放、开头承接弱、小收藏信号、需求侧缺失。",
+        "can_explain": "它能说明当前目标已有 interim_65h_snapshot（约 65 小时中间数据，非 final）：低播放、开头承接弱、小收藏信号、需求侧缺失。",
         "cannot_explain": "不能说明 72h / 7d 结果，不能决定方向失败，不能生成正式下一期执行。",
         "next_value": "补齐关键字段后可作为下一轮唯一变量判断的主样本。"
       }
@@ -770,7 +773,7 @@
     "what_is_observed": [
       "V001 提供旧阶段历史样本入口，但核心数据不完整。",
       "V002 提供平台审核减推异常样本，可用于平台风险表达参考，不能用于正常自然流量归因。",
-      "V003 提供当前目标的 36h 早期信号：触达很小、前 5 秒承接弱、收藏有小正信号、需求侧字段缺失。"
+      "V003 提供当前目标的 interim_65h_snapshot（约 65 小时中间数据，非 final）：触达很小、前 5 秒承接弱、收藏有小正信号、需求侧字段缺失。"
     ],
     "what_is_not_proven": [
       "未证明内容方向成立。",
@@ -820,15 +823,15 @@
         "next_value": "用于下一轮规避平台风险表达，但不进入正常归因统计。"
       },
       "V003": {
-        "can_explain": "它能说明当前目标已有 36h 早期信号：低播放、开头承接弱、小收藏信号、需求侧缺失。",
+        "can_explain": "它能说明当前目标已有 interim_65h_snapshot（约 65 小时中间数据，非 final）：低播放、开头承接弱、小收藏信号、需求侧缺失。",
         "cannot_explain": "不能说明 72h / 7d 结果，不能决定方向失败，不能生成正式下一期执行。",
         "data_quality": {
           "quality_label": "partial_interim_low_confidence",
           "quality_score_0_to_1": 0.55,
           "missing_field_count": 9,
-          "uncertain_field_count": 3,
+          "uncertain_field_count": 5,
           "usable_for_normal_distribution_attribution": false,
-          "quality_note": "当前目标样本，只有 interim_36h_snapshot，不能做 72h / 7d final 复盘。"
+          "quality_note": "当前目标样本，最新为 interim_65h_snapshot（约 65 小时中间数据，非 final），不能做 72h / 7d final 复盘。"
         },
         "next_value": "补齐关键字段后可作为下一轮唯一变量判断的主样本。"
       }
@@ -838,7 +841,7 @@
     "decision_status": "blocked_for_formal_next_episode_execution",
     "can_enter_next_episode_execution": false,
     "confidence": "low",
-    "blocked_reason": "V003 仍是 interim_36h_snapshot，缺 72h / 7d 和需求侧字段，不能生成正式下一条视频执行 prompt。",
+    "blocked_reason": "V003 仍是 interim_65h_snapshot，缺 72h / 7d 和需求侧字段，不能生成正式下一条视频执行 prompt。",
     "missing_data": [
       "3s_retention",
       "72h_final_data",
@@ -878,7 +881,7 @@
     "next_copy_revision_brief_path": "review_loop/copy_iteration/V003/V003_next_copy_revision_brief.md",
     "script_path": "scripts/文案迭代决策系统_copy_iteration_decision_system.py",
     "current_copy_version": "V003_copy_v1 / v1_raw",
-    "current_data_window": "interim_36h_snapshot",
+    "current_data_window": "interim_65h_snapshot",
     "current_problem_layer": "opening_packaging",
     "confidence": "low",
     "revision_scope_allowed": [
@@ -898,10 +901,10 @@
     "decision_boundary": "当前只允许 ChatGPT 读取 brief 后低置信度准备开头和 3-8 秒承接，不生成正式下一条视频执行 prompt。"
   },
   "final_user_result": {
-    "one_sentence_conclusion": "当前系统已能自动读三期记录并给出判断：V003 只能继续补数据和低置信度准备，不能进入下一期正式执行。",
+    "one_sentence_conclusion": "当前系统已能自动读三期记录并给出判断：V003 最新为 interim_65h_snapshot（约 65 小时中间数据，非 final），只能继续补数据和低置信度准备，不能进入下一期正式执行。",
     "current_primary_bottleneck": "opening_retention_and_initial_distribution_weak / draft_low_confidence",
     "can_enter_next_episode_execution": false,
-    "blocked_reason_if_not": "V003 仍是 interim_36h_snapshot，缺 72h / 7d 和需求侧字段，不能生成正式下一条视频执行 prompt。",
+    "blocked_reason_if_not": "V003 仍是 interim_65h_snapshot，缺 72h / 7d 和需求侧字段，不能生成正式下一条视频执行 prompt。",
     "recommended_next_route": "先补 V003 72h / 7d、3s_retention、主页访问、私信、有效私信、有效咨询和清晰需求客户；补齐后重跑本系统，再决定唯一主变量。",
     "copy_iteration_entry": {
       "status": "available",
@@ -910,7 +913,7 @@
       "next_copy_revision_brief_path": "review_loop/copy_iteration/V003/V003_next_copy_revision_brief.md",
       "script_path": "scripts/文案迭代决策系统_copy_iteration_decision_system.py",
       "current_copy_version": "V003_copy_v1 / v1_raw",
-      "current_data_window": "interim_36h_snapshot",
+      "current_data_window": "interim_65h_snapshot",
       "current_problem_layer": "opening_packaging",
       "confidence": "low",
       "revision_scope_allowed": [

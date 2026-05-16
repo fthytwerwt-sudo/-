@@ -33,7 +33,7 @@ V003_OPERATION_RECORD_PATH = Path(
 )
 V003_DATA_SNAPSHOT_PATH = Path(
     "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/"
-    "V003_早期数据快照_early_interim_snapshot.json"
+    "V003_interim_65h_snapshot.json"
 )
 V003_OPERATION_DECISION_PATH = Path(
     "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/"
@@ -41,6 +41,7 @@ V003_OPERATION_DECISION_PATH = Path(
 )
 
 SCRIPT_PATH = Path("scripts/文案迭代决策系统_copy_iteration_decision_system.py")
+CURRENT_DATA_WINDOW = "interim_65h_snapshot"
 
 RAW_COPY = """第三期
 别再让ai给你定kpi了。播放多少、点赞多少、克资多少，看着很完整，但大多数时候没用，因为这些数字不会告诉你下一条到底该改标题，还是改开头，还是改中段结构。我一开始也这样问，帮视频工厂定个目标，最好有播放、点赞和克资。第一版确实很全，北极星目标、阶段目标、指标数、刻字定义都有，但我看完觉得不对，他还是在回答我要追哪些数字。我真正需要的是数据回来以后，下一轮该改哪里。所以我又追问，让ai设计一套目标驱动的数据飞轮，每期发布后，根据播放、留存、收藏、评论、私信和克兹，判断下一期只改哪个变量，这次结果才像个判断系统。播放和留存是触达，点赞和收藏是认可，评论和追问是互动。但私信也不能全算克资，要看他有没有说清楚任务场景和想要的结果。所以，目标不是kpi表，真正有用的目标是逼你回答三件事哪一层出了问题，下一条只改哪个变量，改完看哪个指标。没有这套判断，你每轮都在动，却不知道哪一步起作用。播放是入口，收藏是认可，私信要评分，每条只改一个主变量，目标清楚了，动作才不会乱，复盘清楚了，下一步才会浮出来。
@@ -171,7 +172,7 @@ def build_copy_record() -> dict[str, Any]:
             "客资相关词只在备注中规范化；raw 文案不改。",
             "下一版只允许低置信度准备 opening_0_3s 和 bridge_3_8s。",
         ],
-        "current_data_window": "interim_36h_snapshot",
+        "current_data_window": CURRENT_DATA_WINDOW,
         "data_confidence": "low",
         "formal_revision_allowed": False,
         "formal_copy_revision_allowed": False,
@@ -203,7 +204,7 @@ def build_copy_registry() -> dict[str, Any]:
         "linked_data_snapshot": rel(V003_DATA_SNAPSHOT_PATH),
         "linked_decision_report": rel(V003_OPERATION_DECISION_PATH),
         "publish_status": "published_in_formal_operation",
-        "data_window": "interim_36h_snapshot",
+        "data_window": CURRENT_DATA_WINDOW,
         "current_revision_status": "low_confidence_prepare_only",
     }
     return {
@@ -430,7 +431,7 @@ def infer_copy_decision(operation_report: dict[str, Any]) -> dict[str, Any]:
             "copy_record": rel(V003_RECORD_PATH),
             "structure_map": rel(V003_STRUCTURE_PATH),
         },
-        "data_window": "interim_36h_snapshot",
+        "data_window": CURRENT_DATA_WINDOW,
         "data_confidence": "low",
         "operation_decision_status": next_decision.get("decision_status"),
         "problem_layer": problem_layer,
@@ -540,7 +541,7 @@ def render_next_brief(decision: dict[str, Any]) -> str:
             "- 不做全文重写。",
             "",
             "## 7. 给 ChatGPT 的改稿指令",
-            "下一版先把开头从“别再让 AI 给你定 KPI”改成真实数据冲突切入，优先用 V003 的 141 播放、2s 跳出 50%、收藏 3 作为开场证据，再转入“AI 真正有用的是判断下一条先改哪”。不要重写全片，只重写开头和 3-8 秒承接。",
+            f"下一版先把开头从“别再让 AI 给你定 KPI”改成真实数据冲突切入，优先用 V003 的 {triggers.get('play_count')} 播放、2s 跳出 {triggers.get('two_second_bounce_rate')}、收藏 {triggers.get('favorite_count')} 作为开场证据，再转入“AI 真正有用的是判断下一条先改哪”。不要重写全片，只重写开头和 3-8 秒承接。",
             "",
             "## 8. 改完看什么指标",
             "- 2s bounce",
@@ -557,9 +558,11 @@ def build_latest_report(decision: dict[str, Any]) -> dict[str, Any]:
         "system_name": "copy_iteration_decision_system",
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "current_copy_version": "V003_copy_v1 / v1_raw",
-        "current_data_window": "interim_36h_snapshot",
+        "current_data_window": CURRENT_DATA_WINDOW,
         "current_problem_layer": decision["problem_layer"],
         "confidence": decision["confidence"],
+        "formal_copy_revision_allowed": decision["formal_copy_revision_allowed"],
+        "low_confidence_prepare_allowed": decision["low_confidence_prepare_allowed"],
         "revision_scope_allowed": decision["revision_scope"],
         "keep_items": [
             "核心观点：目标不是 KPI 表，而是下一步动作判断系统。",
