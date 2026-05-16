@@ -1,5 +1,22 @@
 # Latest
 
+## 20260517｜第三期素材内容审计
+
+- `已确认` 本轮只做第三期录制素材内容审计、复盘 / 诊断 / 审核和项目文件修改；不生成新视频，不修改已发布视频，不写下一期正式文案，不生成正式下一条视频执行 prompt。
+- `route_decision（路由判断）`：`project_route = video_factory`；`task_type = material_audit + review_diagnosis_audit + project_file_change`；`current_project_state = formal_operation_active + material_audit_needed + copy_iteration_prepare`；`execution_permission = audit_only`；`large_task_gate = triggered`；`lane = audit_lane -> standard_lane`；`parallel = serial_only`。
+- `state_action_router（状态动作总控器）`：`input_signal = 用户录制第三期 3 个素材完成，要求解析并输出给 ChatGPT 的素材内容报告`；`inferred_state = material_audit_needed`；`trigger_mechanism = material_detail_report_for_copy_iteration`；`selected_action = 审计第三期素材并生成 ChatGPT 可用报告`。
+- `DeepSeek`：已创建供料任务卡 `codex_log/supply_requests/20260517_third_episode_material_audit_pre_supply_request.json`；真实调用通过，`deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`api_key_printed = false`、`api_key_written = false`、`env_file_read = false`。
+- `素材目录`：`/Users/fan/Documents/视频工厂/素材录制/第三期`；已识别 3 个视频素材：`第二期 2026-05-15 23-15-27.mp4`、`内建视网膜显示器 2026-05-17 02-14-27.mp4`、`v004 2026-05-16 23-22-13.mp4`。
+- `媒体检查`：3 个素材均为 h264、30fps、可解码、无音轨；`blackdetect` 未发现 2 秒以上明显黑屏；`freezedetect` 发现静态阅读停顿，结合画面判断主要是页面阅读停留，不等同于录屏中断。
+- `内容审计结论`：`material_03` 是最强素材，支持“真实数据冲突开头”和“AI 真正有用的是判断下一条先改哪”；`material_01` 支持“一句糊话怎么变成可执行任务单”的候选方向但缺真实前后对比；`material_02` 支持 V003 65h 数据回填边界但含本地路径 / 桌面 / 侧栏暴露风险，需裁切或打码。
+- `已新增` Markdown 报告：`codex_log/material_audit/third_episode/20260517_third_episode_material_detail_report.md`。
+- `已新增` JSON 索引：`codex_log/material_audit/third_episode/20260517_third_episode_material_index.json`。
+- `已新增` dated log：`codex_log/20260517_third_episode_material_audit.md`。
+- `本地辅助抽帧`：`dist/material_audit/third_episode/`，仅作审计辅助，不纳入本轮 commit；源视频不提交 Git。
+- `与 V003 文案迭代关系`：支持 `opening_packaging` 与 `bridge_3_8s` 的低置信度准备；`formal_copy_revision_allowed = false`；不支持全文重写、换方向、换人群或生成正式下一条视频执行 prompt。
+- `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`current_data_goal_anchor ready`、`publish_status_success（发布成功口径）`、`voice_validation（声音验证）`、`final_voice_validated（最终声音验证）`、`visual_master_locked（视觉母版锁定）`。
+- `下一个安全用法`：ChatGPT 读取本报告后，只做低置信度开头 / 3-8 秒承接备选；若要进入正式执行，先补录干净证据窗口或等待 V003 72h / 7d 与需求侧字段补齐。
+
 ## 20260516｜V003 interim_65h 数据录入与系统重跑
 
 - `已确认` 本轮只做 V003 运营数据录入、项目文件修改和复盘前置数据更新；不生成新视频，不修改已发布视频，不生成正式下一条视频执行 prompt。

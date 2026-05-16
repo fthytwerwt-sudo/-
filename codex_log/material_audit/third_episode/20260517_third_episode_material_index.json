@@ -1,0 +1,450 @@
+{
+  "report_title": "第三期素材内容审计报告",
+  "report_date": "2026-05-17",
+  "project_route": "video_factory",
+  "task_type": [
+    "material_audit",
+    "review_diagnosis_audit",
+    "project_file_change"
+  ],
+  "execution_permission": "audit_only",
+  "current_project_state": [
+    "formal_operation_active",
+    "material_audit_needed",
+    "copy_iteration_prepare"
+  ],
+  "material_directory": "/Users/fan/Documents/视频工厂/素材录制/第三期",
+  "materials_found_count": 3,
+  "source_media_committed": false,
+  "source_media_policy": "read_only_source; do not stage or commit",
+  "generated_new_video": false,
+  "modified_published_video": false,
+  "generated_formal_next_video_prompt": false,
+  "deepseek_supply_gate": {
+    "supply_request": "codex_log/supply_requests/20260517_third_episode_material_audit_pre_supply_request.json",
+    "supply_pack": "dist/deepseek_runtime_validation/20260517_third_episode_material_audit_pre_supply/latest_supply_pack.md",
+    "deepseek_actual_participation": "deepseek_passed",
+    "fallback_status": "not_used",
+    "not_deepseek_conclusion": false,
+    "api_key_printed": false,
+    "api_key_written": false,
+    "env_file_read": false,
+    "token_usage_observed_or_user_check_required": "token_decrement_expected"
+  },
+  "skills_check": {
+    "repo_local_skills_found": false,
+    "global_skills_used": [
+      "video-metadata-probe"
+    ],
+    "global_skills_checked_not_used": [
+      {
+        "name": "visual-verdict",
+        "reason": "本轮不是截图到参考图的视觉还原对比任务。"
+      }
+    ]
+  },
+  "materials": [
+    {
+      "material_id": "material_01",
+      "file_name": "第二期 2026-05-15 23-15-27.mp4",
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/第三期/第二期 2026-05-15 23-15-27.mp4",
+      "file_size_bytes": 198797139,
+      "duration_seconds": 96.333333,
+      "resolution": {
+        "width": 3148,
+        "height": 1676
+      },
+      "aspect_ratio": "1.88:1",
+      "fps": 30.0,
+      "video_codec": "h264",
+      "audio_present": false,
+      "decodable": true,
+      "technical_status": "metadata_validation_passed",
+      "role_guess": "选题 / 素材规划录屏：ChatGPT 判断第三期可优先录制什么素材",
+      "contact_sheet": "dist/material_audit/third_episode/material_01_contact_sheet.jpg",
+      "quality_notes": {
+        "black_screen_detected": false,
+        "freeze_detected": true,
+        "freeze_interpretation": "少量静态阅读停顿；未观察到录屏中断。",
+        "readability": "medium_to_high",
+        "privacy_risk": false
+      },
+      "timecoded_content": [
+        {
+          "start": "00:00",
+          "end": "00:12",
+          "visible_content": "ChatGPT 对话，用户要求不等 72h 先准备录制素材和选题。",
+          "user_action": "停留阅读。",
+          "readable_text": "不用等待 72h；先准备不锁死方向、服务下一轮变量判断的素材池。",
+          "possible_copy_value": "可做正式复盘前先准备素材池的背景。",
+          "evidence_strength": "medium",
+          "uncertainty": "不是正式文案，只是对话判断。"
+        },
+        {
+          "start": "00:12",
+          "end": "00:30",
+          "visible_content": "ChatGPT 给出素材准备原则。",
+          "user_action": "向下滚动。",
+          "readable_text": "先录能测试开头承接 + 真实提效证据的素材；不要录 AI 未来趋势、纯工具介绍、纯抽象方法论。",
+          "possible_copy_value": "支撑素材必须服务前 5 秒和真实证据。",
+          "evidence_strength": "high",
+          "uncertainty": "部分小字需人工复核。"
+        },
+        {
+          "start": "00:30",
+          "end": "00:48",
+          "visible_content": "ChatGPT 基于 V003 数据做低置信度方向判断。",
+          "user_action": "滚动阅读。",
+          "readable_text": "播放 141、2s 跳出 50%、5s 完播 28.13%、完播率 4.17%、收藏率 2.13%；候选变量 opening_route_or_first_5s_packaging。",
+          "possible_copy_value": "支撑开头承接弱，但不是方向失败。",
+          "evidence_strength": "high",
+          "uncertainty": "数据最终事实仍以仓库记录为准。"
+        },
+        {
+          "start": "00:48",
+          "end": "01:06",
+          "visible_content": "ChatGPT 输出 3 个候选素材，第一优先为一句糊话怎么变成可执行任务单。",
+          "user_action": "滚动 / 局部放大。",
+          "readable_text": "普通人用 AI 没效果，不是因为 AI 不行，而是因为任务没拆清楚；录制原始需求、空泛结果、结构化拆解、结果对比。",
+          "possible_copy_value": "中段证据候选：模糊需求到可执行任务单。",
+          "evidence_strength": "medium_high",
+          "uncertainty": "当前只看到规划，未看到真实前后对比素材。"
+        },
+        {
+          "start": "01:06",
+          "end": "01:18",
+          "visible_content": "第二 / 第三优先候选。",
+          "user_action": "滚动阅读。",
+          "readable_text": "普通 prompt vs 结构化 prompt；会议纪要 / 聊天记录变成下一步任务。",
+          "possible_copy_value": "可作为备选选题池。",
+          "evidence_strength": "medium",
+          "uncertainty": "不等于已经录制实际案例。"
+        },
+        {
+          "start": "01:18",
+          "end": "01:36",
+          "visible_content": "ChatGPT 建议先录第一条，并给最小录制清单。",
+          "user_action": "停留阅读。",
+          "readable_text": "先录第一条：一句糊话怎么变成可执行任务单；原因包括最贴真正差异化能力、不需要等 72h 数据。",
+          "possible_copy_value": "若补录，应优先补糊话到任务单的真实操作链。",
+          "evidence_strength": "high",
+          "uncertainty": "仍非正式下一条执行 prompt。"
+        }
+      ],
+      "supports": [
+        "候选素材池准备",
+        "一句糊话怎么变成可执行任务单",
+        "任务没拆清导致 AI 输出不可用"
+      ],
+      "does_not_support": [
+        "真实前后对比已经完成",
+        "下一期正式文案已定稿",
+        "V003 72h / 7d 数据已完成"
+      ],
+      "needed_followup": [
+        "补录模糊输入、空泛输出、结构化拆解、新输出、前后差异。"
+      ]
+    },
+    {
+      "material_id": "material_02",
+      "file_name": "内建视网膜显示器 2026-05-17 02-14-27.mp4",
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/第三期/内建视网膜显示器 2026-05-17 02-14-27.mp4",
+      "file_size_bytes": 137458460,
+      "duration_seconds": 111.366667,
+      "resolution": {
+        "width": 2936,
+        "height": 1630
+      },
+      "aspect_ratio": "1.80:1",
+      "fps": 30.0,
+      "video_codec": "h264",
+      "audio_present": false,
+      "decodable": true,
+      "technical_status": "metadata_validation_passed",
+      "role_guess": "V003 65h 数据回填执行单 / 数据录入路径录屏",
+      "contact_sheet": "dist/material_audit/third_episode/material_02_contact_sheet.jpg",
+      "quality_notes": {
+        "black_screen_detected": false,
+        "freeze_detected": true,
+        "freeze_interpretation": "静态阅读和窗口切换停顿；未观察到录屏中断。",
+        "readability": "medium",
+        "privacy_risk": true,
+        "privacy_risk_notes": [
+          "00:14-00:35 可见本地路径和用户名。",
+          "01:17 左右可见桌面、文件夹、截图缩略图和侧栏。"
+        ],
+        "must_blur_or_crop": true,
+        "not_allowed_in_publish_candidate": true
+      },
+      "timecoded_content": [
+        {
+          "start": "00:00",
+          "end": "00:14",
+          "visible_content": "ChatGPT 页面显示数据截图和用户要求记录本期数据。",
+          "user_action": "停留阅读。",
+          "readable_text": "这是 V003 的新一轮数据录入，约发布后 65 小时，不能写成 72h final。",
+          "possible_copy_value": "支撑数据回填是正式运营链路的一部分。",
+          "evidence_strength": "high",
+          "uncertainty": "缩略图数据不可完全读数。"
+        },
+        {
+          "start": "00:14",
+          "end": "00:35",
+          "visible_content": "Markdown 代码块列截图文件名和本地查找路径。",
+          "user_action": "滚动阅读。",
+          "readable_text": "ScreenShot_2026-05-16_214439_644.png、wechat_longscreenshot...；/Users/fan/Desktop/...、/Users/fan/Downloads/。",
+          "possible_copy_value": "证明数据素材来自截图并需入库为 V003 65h snapshot。",
+          "evidence_strength": "medium",
+          "uncertainty": "privacy_risk；发布前必须打码或裁切。"
+        },
+        {
+          "start": "00:35",
+          "end": "00:49",
+          "visible_content": "数据回填字段模板和 Done when。",
+          "user_action": "停留阅读。",
+          "readable_text": "review_window = between_48h_and_72h；snapshot_label = interim_65h_snapshot；Done when 包含 JSON、Markdown、manifest、current_data_goal_anchor 但不得 ready。",
+          "possible_copy_value": "支撑不要把 65h 写成 72h final。",
+          "evidence_strength": "high",
+          "uncertainty": "只证明执行单存在，不能替代最终字段准确性。"
+        },
+        {
+          "start": "00:49",
+          "end": "00:56",
+          "visible_content": "commit / push 完成标准。",
+          "user_action": "停留阅读。",
+          "readable_text": "git push origin main；Done when 列出 V003 记录、时间窗、JSON、Markdown、manifest、锚点更新。",
+          "possible_copy_value": "支撑 Codex 执行闭环需要落库和 push。",
+          "evidence_strength": "medium",
+          "uncertainty": "不证明已经 push 成功。"
+        },
+        {
+          "start": "00:56",
+          "end": "01:17",
+          "visible_content": "ChatGPT / Codex 工作区切换，左侧会话列表和编辑输入框可见。",
+          "user_action": "切换窗口 / 可能复制 prompt。",
+          "readable_text": "要在视频工厂中构建什么；next formal video prompt generated? no；content_validation / send_ready advanced? no。",
+          "possible_copy_value": "支撑执行边界：不生成正式 prompt，不推进状态。",
+          "evidence_strength": "medium",
+          "uncertainty": "侧栏会话名不适合直接发布。"
+        },
+        {
+          "start": "01:17",
+          "end": "01:45",
+          "visible_content": "Mission Control / 桌面缩略图 / ChatGPT 回答片段。",
+          "user_action": "切换窗口，返回页面。",
+          "readable_text": "把用户本轮提供的 V003 最新数据截图录入《视频工厂》仓库；归档 3 张截图、记录 V003 新时间窗、更新数据记录、保持 partial_data_recorded。",
+          "possible_copy_value": "支撑数据回填流程证据。",
+          "evidence_strength": "medium_high",
+          "uncertainty": "privacy_risk；桌面、缩略图、侧栏需裁切或打码。"
+        }
+      ],
+      "supports": [
+        "V003 65h 数据回填流程",
+        "interim_65h_snapshot 不是 72h final",
+        "缺失字段和不确定字段应标记",
+        "current_data_goal_anchor 保持 partial_data_recorded"
+      ],
+      "does_not_support": [
+        "72h / 7d 已完成",
+        "数据录入最终字段完全准确",
+        "内容方向成立",
+        "下一期正式 prompt 已生成"
+      ],
+      "needed_followup": [
+        "如果发布使用，必须裁切或打码本地路径、桌面、侧栏和缩略图。"
+      ]
+    },
+    {
+      "material_id": "material_03",
+      "file_name": "v004 2026-05-16 23-22-13.mp4",
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/第三期/v004 2026-05-16 23-22-13.mp4",
+      "file_size_bytes": 291023435,
+      "duration_seconds": 205.933333,
+      "resolution": {
+        "width": 2912,
+        "height": 1650
+      },
+      "aspect_ratio": "1.76:1",
+      "fps": 30.0,
+      "video_codec": "h264",
+      "audio_present": false,
+      "decodable": true,
+      "technical_status": "metadata_validation_passed",
+      "role_guess": "三期数据复盘与文案迭代判断录屏",
+      "contact_sheet": "dist/material_audit/third_episode/material_03_contact_sheet.jpg",
+      "quality_notes": {
+        "black_screen_detected": false,
+        "freeze_detected": true,
+        "freeze_interpretation": "多段静态阅读停顿；未观察到录屏中断。",
+        "readability": "medium_to_high",
+        "privacy_risk": false
+      },
+      "timecoded_content": [
+        {
+          "start": "00:00",
+          "end": "00:24",
+          "visible_content": "ChatGPT 回答三期数据方向判断。",
+          "user_action": "停留 / 滚动阅读。",
+          "readable_text": "三期数据不能证明方向已经成立，但能证明内容不是没人要，而是前端分发 / 开头承接和需求承接链还没打穿。",
+          "possible_copy_value": "下一期判断基底：不是换方向，而是修开头/承接。",
+          "evidence_strength": "high",
+          "uncertainty": "低置信度判断，不是最终复盘结论。"
+        },
+        {
+          "start": "00:24",
+          "end": "00:48",
+          "visible_content": "展示不好的地方和 V003 数据。",
+          "user_action": "滚动阅读。",
+          "readable_text": "播放 141、2s 跳出 50%、5s 完播 28.13%、完播率 4.17%、收藏率约 2.13%；用户还没进入你的内容，就先掉走了；V002 平台风险表达更硬伤。",
+          "possible_copy_value": "支撑真实数据冲突开头和平台风险边界。",
+          "evidence_strength": "high",
+          "uncertainty": "数据最终准确性以仓库 V003 记录为准。"
+        },
+        {
+          "start": "00:48",
+          "end": "01:12",
+          "visible_content": "下一期主变量和内容结构建议。",
+          "user_action": "滚动阅读。",
+          "readable_text": "下一期主变量：只改一个变量：开头 0-5 秒；不要同时改选题、目标用户、承接方式、视频结构、视觉风格。",
+          "possible_copy_value": "直接支撑 V003 brief 的开头 0-3s / 3-8s 承接。",
+          "evidence_strength": "high",
+          "uncertainty": "建议，不是正式文案。"
+        },
+        {
+          "start": "01:12",
+          "end": "01:36",
+          "visible_content": "数据不能直接改文案，而是反馈哪段出了问题。",
+          "user_action": "停留阅读。",
+          "readable_text": "数据不能直接改文案，数据只能告诉你文案哪一段出了问题；前 0-5 秒优先改，保留实用 / 可复用 / 判断下一步。",
+          "possible_copy_value": "支撑 AI 有用的是判断下一步改哪。",
+          "evidence_strength": "high",
+          "uncertainty": "需要 ChatGPT 后续落成人话表达。"
+        },
+        {
+          "start": "01:36",
+          "end": "02:00",
+          "visible_content": "文案改法：播放低、2s 跳出高、5s 弱、收藏率。",
+          "user_action": "滚动阅读。",
+          "readable_text": "播放低先判断是不是选题/标题/首屏；推荐页来源高说明平台给过一点初始流量，只是承接弱；2s 跳出高改第一句话；5s 弱改 3-8 秒桥接。",
+          "possible_copy_value": "可作为 ChatGPT 文案诊断规则。",
+          "evidence_strength": "high",
+          "uncertainty": "不等于阈值最终稳定。"
+        },
+        {
+          "start": "02:00",
+          "end": "02:36",
+          "visible_content": "真实数据冲突和文案候选开头。",
+          "user_action": "滚动 / 停留。",
+          "readable_text": "这条视频只有 141 播放，但它反而告诉我下一条先改哪里；我现在不怕视频数据差，我怕的是数据差了以后，你还不知道该改哪。",
+          "possible_copy_value": "最强开头素材，适合低置信度改稿备选。",
+          "evidence_strength": "high",
+          "uncertainty": "不得直接写成最终稿。"
+        },
+        {
+          "start": "02:36",
+          "end": "03:00",
+          "visible_content": "对比文案表达和需求承接缺失。",
+          "user_action": "滚动阅读。",
+          "readable_text": "私信 / 咨询缺失，改结尾承接；缺主页访问、私信、有效私信、有效咨询、清晰需求客户。",
+          "possible_copy_value": "支撑结尾/承接风险边界。",
+          "evidence_strength": "medium_high",
+          "uncertainty": "不能写成已有私信或咨询。"
+        },
+        {
+          "start": "03:00",
+          "end": "03:24",
+          "visible_content": "文案反馈规则表和下一期框架。",
+          "user_action": "停留阅读。",
+          "readable_text": "播放低 + 推荐页低看选题/标题/封面；推荐页高 + 2s 跳出高改首屏/第一句话；2s 尚可 + 5s 弱改 3-8 秒桥接；平均观看短 + 完播低改中段；收藏率高保留方向强化步骤和模板。下一期框架含 0-3s、3-8s、8-20s、20-40s、40-60s、60-80s。",
+          "possible_copy_value": "可支撑结构建议，但不是正式执行 prompt。",
+          "evidence_strength": "high",
+          "uncertainty": "框架只是候选。"
+        },
+        {
+          "start": "03:24",
+          "end": "03:26",
+          "visible_content": "下一步目标。",
+          "user_action": "停留阅读。",
+          "readable_text": "next_copy_revision_brief；数据真正反馈到文案上，而不是看完数据后重新写一版。",
+          "possible_copy_value": "支撑本轮只输出素材报告，不直接写最终文案。",
+          "evidence_strength": "high",
+          "uncertainty": "none"
+        }
+      ],
+      "supports": [
+        "真实数据冲突开头",
+        "opening_packaging",
+        "bridge_3_8s",
+        "AI 真正有用的是判断下一条先改哪",
+        "数据反馈到文案改点而不是重写全文"
+      ],
+      "does_not_support": [
+        "方向成立",
+        "商业验证成立",
+        "完整下一期结构定稿",
+        "已有私信、咨询、客资或成交",
+        "72h / 7d final 已完成"
+      ],
+      "needed_followup": [
+        "ChatGPT 后续只可作为低置信度开头/承接备选输入。",
+        "正式执行前仍需等待数据或用户明确授权。"
+      ]
+    }
+  ],
+  "material_to_copy_bridge": {
+    "overall_story": "这 3 个素材整体记录了第三期内容准备从候选素材池、V003 数据回填，到三期数据如何反馈到下一版文案开头/承接的判断过程。",
+    "strongest_evidence": "material_03 02:00-02:36：用 141 播放和先改哪里作为真实数据冲突开头。",
+    "best_next_topic": "数据怎么反馈到文案改点 / AI 真正有用的是判断下一条先改哪。",
+    "supports_real_data_conflict_opening": [
+      "material_03 可见 141 播放、2s 跳出约 50%、收藏 3 / 收藏率约 2.13%。",
+      "material_03 明确说不是全片推翻，而是前 0-5 秒优先改。"
+    ],
+    "supports_ai_judgment_next_variable": [
+      "material_03 明确说数据不能直接改文案，只能告诉哪一段出了问题。",
+      "material_01 支持任务拆解和判断差，而不是让 AI 泛泛输出。"
+    ],
+    "does_not_support": [
+      "72h / 7d final",
+      "有效咨询 / 私信 / 客资",
+      "商业结果",
+      "完整闭环",
+      "下一期正式视频执行 prompt",
+      "内容通过或可发送"
+    ],
+    "suggested_next_use": "先给 ChatGPT 写低置信度开头和 3-8 秒承接备选，同时补录干净证据窗口；正式执行等待 72h/7d 或用户明确授权。"
+  },
+  "copy_iteration_relevance": {
+    "linked_copy_version": "V003_copy_v1",
+    "linked_brief": "review_loop/copy_iteration/V003/V003_next_copy_revision_brief.md",
+    "supports_problem_layer": [
+      "opening_packaging",
+      "bridge_3_8s"
+    ],
+    "possible_new_problem_layer": [
+      "middle_structure_candidate_if_material_01_is_later_backed_by_real_before_after_recording"
+    ],
+    "formal_copy_revision_allowed": false
+  },
+  "not_allowed_claims": [
+    "素材里没有出现的真实数据",
+    "素材里没有出现的用户反馈",
+    "素材里没有出现的咨询 / 客资",
+    "素材里没有证明的商业结果",
+    "素材里没有展示的完整闭环",
+    "V003 72h / 7d final 已完成",
+    "content_validation passed",
+    "send_ready true",
+    "formal next video execution prompt generated"
+  ],
+  "status_boundary": {
+    "new_video_generated": false,
+    "published_video_modified": false,
+    "content_validation_advanced": false,
+    "send_ready_advanced": false,
+    "current_data_goal_anchor_ready_advanced": false,
+    "publish_status_success_advanced": false,
+    "voice_validation_advanced": false,
+    "final_voice_validated_advanced": false,
+    "visual_master_locked_advanced": false
+  }
+}
