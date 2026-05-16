@@ -1,0 +1,65 @@
+{
+  "schema_name": "operation_decision_schema",
+  "version": "2026-05-16",
+  "status": "stage_hypothesis",
+  "required_top_level_keys": [
+    "generated_at",
+    "system_name",
+    "source_of_truth",
+    "current_project_state",
+    "records_processed",
+    "cross_record_synthesis",
+    "next_episode_decision",
+    "final_user_result",
+    "status_boundary"
+  ],
+  "record_required_keys": [
+    "video_id",
+    "title",
+    "record_path",
+    "record_read",
+    "record_status_rule",
+    "sample_role",
+    "normal_attribution_candidate",
+    "normal_attribution_eligible",
+    "normal_attribution_blocked_reason",
+    "normalized_metrics",
+    "missing_fields",
+    "uncertain_fields",
+    "data_quality",
+    "threshold_check",
+    "bottleneck_inference",
+    "summary"
+  ],
+  "sample_classes": [
+    "historical_operation_record",
+    "policy_limited_abnormal_operation_sample",
+    "current_operation_target"
+  ],
+  "decision_status_values": [
+    "blocked_for_formal_next_episode_execution",
+    "low_confidence_draft_only",
+    "formal_recommendation_allowed"
+  ],
+  "status_boundary_must_remain_false": [
+    "content_validation_advanced",
+    "send_ready_advanced",
+    "publish_status_success_advanced",
+    "voice_validation_advanced",
+    "final_voice_validated_advanced",
+    "visual_master_locked_advanced",
+    "next_formal_video_execution_prompt_generated"
+  ],
+  "current_data_goal_anchor_ready_must_be_false_until": [
+    "72h_final_data",
+    "7d_final_data",
+    "3s_retention",
+    "profile_visit_count",
+    "dm_count",
+    "effective_dm_count",
+    "effective_consult_count",
+    "clear_need_customer_count",
+    "human_reviewed_main_bottleneck",
+    "human_reviewed_primary_variable"
+  ]
+}

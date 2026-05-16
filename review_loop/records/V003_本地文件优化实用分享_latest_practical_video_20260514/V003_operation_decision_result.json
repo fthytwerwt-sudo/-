@@ -1,0 +1,415 @@
+{
+  "video_id": "V003",
+  "record": {
+    "video_id": "V003",
+    "title": "以后会分享实用的，每天会给大家看我是怎么优化的，这个视频只用3个小时写出来的本地文件",
+    "record_path": "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_发布后灰度数据记录_post_publish_gray_test_record.md",
+    "record_read": true,
+    "record_status_from_index": "current_operation_target",
+    "record_status_rule": "current_operation_target",
+    "sample_role": "current_target_partial_interim",
+    "normal_attribution_candidate": true,
+    "normal_attribution_eligible": false,
+    "normal_attribution_blocked_reason": "current_target_partial_data_waiting_72h_7d_and_required_lead_fields",
+    "allowed_uses": [
+      "current_operation_observation",
+      "low_confidence_bottleneck_draft",
+      "missing_data_blocker",
+      "future_formal_review_after_72h_7d"
+    ],
+    "forbidden_uses": [
+      "72h_final_review_before_72h_data",
+      "7d_final_review_before_7d_data",
+      "formal_next_video_execution_prompt_before_required_data",
+      "commercial_validation_proof"
+    ],
+    "data_completeness": "已录入约 37 小时早期数据；72h / 7d 未完成",
+    "data_confidence": "low",
+    "review_window": "between_24h_and_72h",
+    "snapshot_label": "interim_36h_snapshot",
+    "structured_snapshot_path": "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_早期数据快照_early_interim_snapshot.json",
+    "structured_snapshot_read": true,
+    "normalized_metrics": {
+      "play_count": {
+        "value": 141,
+        "numeric_value": 141.0,
+        "percent_value": null,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "average_watch_time": {
+        "value": "21秒",
+        "numeric_value": 21.0,
+        "percent_value": null,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "cover_click_rate": {
+        "value": "0.00%",
+        "numeric_value": 0.0,
+        "percent_value": 0.0,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "completion_rate": {
+        "value": "4.17%",
+        "numeric_value": 4.17,
+        "percent_value": 4.17,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "two_second_bounce_rate": {
+        "value": "50.00%",
+        "numeric_value": 50.0,
+        "percent_value": 50.0,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "average_play_ratio": {
+        "value": "8.51%",
+        "numeric_value": 8.51,
+        "percent_value": 8.51,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "five_second_completion_rate": {
+        "value": "28.13%",
+        "numeric_value": 28.13,
+        "percent_value": 28.13,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "like_count": {
+        "value": 2,
+        "numeric_value": 2.0,
+        "percent_value": null,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "like_rate": {
+        "value": "1.42%",
+        "numeric_value": 1.42,
+        "percent_value": 1.42,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "favorite_count": {
+        "value": 3,
+        "numeric_value": 3.0,
+        "percent_value": null,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "favorite_rate": {
+        "value": "2.13%",
+        "numeric_value": 2.13,
+        "percent_value": 2.13,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "comment_count": {
+        "value": 0,
+        "numeric_value": 0.0,
+        "percent_value": null,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "comment_rate": {
+        "value": "0.00%",
+        "numeric_value": 0.0,
+        "percent_value": 0.0,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "share_count": {
+        "value": 0,
+        "numeric_value": 0.0,
+        "percent_value": null,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "share_rate": {
+        "value": "0.00%",
+        "numeric_value": 0.0,
+        "percent_value": 0.0,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "danmu_count": {
+        "value": 0,
+        "numeric_value": 0.0,
+        "percent_value": null,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "not_interested_count": {
+        "value": 0,
+        "numeric_value": 0.0,
+        "percent_value": null,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "not_interested_rate": {
+        "value": "0.00%",
+        "numeric_value": 0.0,
+        "percent_value": 0.0,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "new_follow_count": {
+        "value": 1,
+        "numeric_value": 1.0,
+        "percent_value": null,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "follow_rate_or_fan_rate_visible": {
+        "value": "0.71%",
+        "numeric_value": 0.71,
+        "percent_value": 0.71,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "unfollow_count": {
+        "value": 0,
+        "numeric_value": 0.0,
+        "percent_value": null,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "unfollow_rate": {
+        "value": "0.00%",
+        "numeric_value": 0.0,
+        "percent_value": 0.0,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "fan_play_ratio": {
+        "value": "4.3%",
+        "numeric_value": 4.3,
+        "percent_value": 4.3,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "traffic_source_recommendation_page": {
+        "value": "97.2%",
+        "numeric_value": 97.2,
+        "percent_value": 97.2,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "traffic_source_profile_page": {
+        "value": "1.4%",
+        "numeric_value": 1.4,
+        "percent_value": 1.4,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "traffic_source_friend_page": {
+        "value": "1.4%",
+        "numeric_value": 1.4,
+        "percent_value": 1.4,
+        "source_status": "extracted_from_screenshot",
+        "confidence": "high"
+      },
+      "3s_retention": {
+        "value": null,
+        "numeric_value": null,
+        "percent_value": null,
+        "source_status": "missing",
+        "confidence": "none"
+      },
+      "profile_visit_count": {
+        "value": null,
+        "numeric_value": null,
+        "percent_value": null,
+        "source_status": "missing",
+        "confidence": "none"
+      },
+      "dm_count": {
+        "value": null,
+        "numeric_value": null,
+        "percent_value": null,
+        "source_status": "missing",
+        "confidence": "none"
+      },
+      "effective_dm_count": {
+        "value": null,
+        "numeric_value": null,
+        "percent_value": null,
+        "source_status": "missing",
+        "confidence": "none"
+      },
+      "effective_consult_count": {
+        "value": null,
+        "numeric_value": null,
+        "percent_value": null,
+        "source_status": "missing",
+        "confidence": "none"
+      },
+      "clear_need_customer_count": {
+        "value": null,
+        "numeric_value": null,
+        "percent_value": null,
+        "source_status": "missing",
+        "confidence": "none"
+      },
+      "effective_comment_quality": {
+        "value": null,
+        "numeric_value": null,
+        "percent_value": null,
+        "source_status": "missing",
+        "confidence": "none"
+      },
+      "72h_final_data": {
+        "value": null,
+        "numeric_value": null,
+        "percent_value": null,
+        "source_status": "missing",
+        "confidence": "none"
+      },
+      "7d_final_data": {
+        "value": null,
+        "numeric_value": null,
+        "percent_value": null,
+        "source_status": "missing",
+        "confidence": "none"
+      }
+    },
+    "missing_fields": [
+      "3s_retention",
+      "72h_final_data",
+      "7d_final_data",
+      "clear_need_customer_count",
+      "dm_count",
+      "effective_comment_quality",
+      "effective_consult_count",
+      "effective_dm_count",
+      "profile_visit_count"
+    ],
+    "uncertain_fields": [
+      "age_distribution_estimated_from_bar_chart",
+      "exact_observation_window_from_platform",
+      "trend_curve_point_values"
+    ],
+    "data_quality": {
+      "quality_label": "partial_interim_low_confidence",
+      "quality_score_0_to_1": 0.55,
+      "missing_field_count": 9,
+      "uncertain_field_count": 3,
+      "usable_for_normal_distribution_attribution": false,
+      "quality_note": "当前目标样本，只有 interim_36h_snapshot，不能做 72h / 7d final 复盘。"
+    },
+    "threshold_check": {
+      "play_signal": {
+        "status": "checked",
+        "bucket": "fail",
+        "observed_value": 141.0,
+        "meaning": "触达不及格。优先检查选题、标题、开头、封面 / 首屏。"
+      },
+      "retention_signal": {
+        "status": "draft_low_confidence",
+        "bucket": "weak",
+        "completion_rate": 4.17,
+        "five_second_completion_rate": 28.13,
+        "two_second_bounce_rate": 50.0
+      },
+      "value_signal": {
+        "status": "draft_low_confidence",
+        "bucket": "positive_value_signal",
+        "favorite_rate": 2.13
+      },
+      "interaction_signal": {
+        "status": "checked",
+        "like_rate": 1.42,
+        "comment_count": 0.0,
+        "bucket": "weak_public_feedback"
+      },
+      "lead_signal": {
+        "status": "blocked_by_missing_data",
+        "missing_fields": [
+          "dm_count",
+          "effective_dm_count",
+          "effective_consult_count",
+          "clear_need_customer_count"
+        ]
+      },
+      "commercial_signal": {
+        "status": "blocked_by_missing_data",
+        "reason": "no_effective_consult_or_paid_signal_recorded"
+      }
+    },
+    "bottleneck_inference": {
+      "status": "draft_low_confidence",
+      "candidate_bottleneck": "opening_retention_and_initial_distribution_weak",
+      "evidence": [
+        "play_count=141",
+        "two_second_bounce_rate=50.00%",
+        "five_second_completion_rate=28.13%",
+        "completion_rate=4.17%",
+        "recommendation_page=97.2%"
+      ],
+      "blocked_for_formal_conclusion_by": [
+        "3s_retention",
+        "72h_final_data",
+        "7d_final_data",
+        "dm_count",
+        "effective_consult_count",
+        "effective_dm_count",
+        "profile_visit_count"
+      ]
+    },
+    "summary": {
+      "can_explain": "它能说明当前目标已有 36h 早期信号：低播放、开头承接弱、小收藏信号、需求侧缺失。",
+      "cannot_explain": "不能说明 72h / 7d 结果，不能决定方向失败，不能生成正式下一期执行。",
+      "next_value": "补齐关键字段后可作为下一轮唯一变量判断的主样本。"
+    }
+  },
+  "next_episode_decision": {
+    "decision_status": "blocked_for_formal_next_episode_execution",
+    "can_enter_next_episode_execution": false,
+    "confidence": "low",
+    "blocked_reason": "V003 仍是 interim_36h_snapshot，缺 72h / 7d 和需求侧字段，不能生成正式下一条视频执行 prompt。",
+    "missing_data": [
+      "3s_retention",
+      "72h_final_data",
+      "7d_final_data",
+      "clear_need_customer_count",
+      "dm_count",
+      "effective_consult_count",
+      "effective_dm_count",
+      "profile_visit_count"
+    ],
+    "low_confidence_draft": {
+      "next_primary_variable": "opening_route_or_first_5s_packaging",
+      "supporting_variables": [
+        "evidence_compression",
+        "result_diff_display"
+      ],
+      "forbidden_variables": [
+        "target_user",
+        "core_topic_direction",
+        "offer_or_monetization",
+        "multi_variable_rewrite"
+      ],
+      "next_content_direction": "只允许准备开头/前 5 秒包装的对照假设，不进入正式制作。",
+      "next_video_structure_direction": "准备 opening_0_3s 与 bridge_3_8s 的候选结构草稿，等待 72h / 7d 后再裁决。",
+      "post_publish_validation_metric": [
+        "2s_bounce",
+        "5s_completion",
+        "3s_retention_if_available",
+        "average_watch_time"
+      ]
+    }
+  },
+  "status_boundary": {
+    "content_validation_advanced": false,
+    "send_ready_advanced": false,
+    "publish_status_success_advanced": false,
+    "voice_validation_advanced": false,
+    "final_voice_validated_advanced": false,
+    "visual_master_locked_advanced": false,
+    "current_data_goal_anchor_ready": false,
+    "next_formal_video_execution_prompt_generated": false
+  }
+}

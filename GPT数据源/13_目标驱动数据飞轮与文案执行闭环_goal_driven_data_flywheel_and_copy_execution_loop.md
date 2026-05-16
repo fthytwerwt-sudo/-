@@ -6,6 +6,15 @@
 
 发布数据不再作为“灰度测试项目”数据理解，而作为 `operation_records（运营记录）` 和 `operation_review（运营复盘）` 的输入。`data_goal_anchor（数据目标锚点）` 继续服务正式运营变量判断，但当前实例仍为 `partial_data_recorded`，不到 72h / 7d 和人审前不得写 `ready`。
 
+`已确认` 运营判断层必须由 `operation_decision_system（运营决策系统）` 输出报告后才算进入。当前可运行入口为 `scripts/运营决策系统_operation_decision_system.py`；系统输出统一写入 `review_loop/decision_engine/latest_operation_decision_report.json`、`review_loop/decision_engine/latest_operation_decision_report.md` 和 `review_loop/decision_engine/final_user_operation_result.md`。
+
+硬规则：
+
+- 只有机制文字、复盘卡或人工聊天判断，不等于数据飞轮进入运营判断层。
+- 缺 `operation_decision_system` 最终报告时，不得生成正式下一条视频执行 prompt。
+- 系统判断 `blocked_for_formal_next_episode_execution` 时，只允许低置信度准备，不允许进入正式视频执行。
+- `operation_decision_system` 落地只代表决策系统可运行，不代表内容成功、方向成立、商业验证成立或数据飞轮真实跑通。
+
 ## 0B. 正式运营交付停止线
 
 目标驱动文案、`next_video_execution_prompt（下一条视频执行 prompt）`、`content_structure_feedback_card（内容结构反馈卡）` 和执行前补全包，只能作为进入视频执行的前置条件。它们不能替代正式运营视频交付。

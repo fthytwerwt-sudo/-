@@ -141,6 +141,15 @@ if state = current_data_goal_anchor_missing:
 if state = current_data_goal_anchor_waiting_data:
   action = allow hypothesis-only wiring or blocked; do not claim data-driven ready execution
 
+if state = operation_decision_system_required:
+  action = run scripts/运营决策系统_operation_decision_system.py and read latest_operation_decision_report before operation judgment, next-variable decision, or data_goal_alignment_check
+
+if state = operation_decision_system_missing:
+  action = build or repair operation_decision_system with schema/config/report outputs; do not stop at concept docs
+
+if state = operation_decision_report_required:
+  action = read review_loop/decision_engine/latest_operation_decision_report.json; if missing or invalid, generate it before deciding next execution
+
 if state = publish_candidate_required:
   action = check publish_candidate requirements before any formal-operation video delivery claim
 
@@ -238,6 +247,9 @@ if state = blocked_need_user_input:
 补充策略：
 
 - `operation_data_intake`：只做截图 / 数据录入、缺失字段标记和证据归档，不做最终内容判断。
+- `operation_decision_system_required`：运营判断层、下一期变量判断或 data_goal_alignment_check 前，必须先有 `operation_decision_system` 最新报告。
+- `operation_decision_system_missing`：只有规则 / 卡片 / 锚点，不算系统完成；必须有可运行脚本、schema/config、三期归纳和最终用户报告。
+- `operation_decision_report_required`：缺 `review_loop/decision_engine/latest_operation_decision_report.json` 或 JSON 不可解析时，不得直接拍板下一期执行。
 - `operation_review`：必须有足够数据再判断阶段门槛、短板层和下一轮唯一运营变量。
 - `operation_next_variable_decision`：只在运营复盘完成后选择下一轮唯一变量；缺 72h / 7d 或人审时只能保留 draft。
 - `legacy_gray_test_data_intake`：只作为历史兼容别名，不得作为新数据默认路由。

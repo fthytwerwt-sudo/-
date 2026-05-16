@@ -1,5 +1,24 @@
 # Latest
 
+## 20260516｜运营决策系统完整修补
+
+- `已确认` 本轮把《视频工厂》的数据目标锚点 / 数据飞轮 / 运营复盘修成可运行 `operation_decision_system（运营决策系统）`，不是只写概念。
+- `已新增` 可运行脚本：`scripts/运营决策系统_operation_decision_system.py`。
+- `已新增` schema / config：`review_loop/decision_engine/operation_decision_schema.json`、`threshold_config_stage_hypothesis.json`、`sample_classification_rules.json`。
+- `已生成` 三期归纳报告：`review_loop/decision_engine/V001_V002_V003_operation_synthesis_report.json` 与 `.md`。
+- `已生成` 最新运营决策报告：`review_loop/decision_engine/latest_operation_decision_report.json` 与 `.md`。
+- `已生成` 用户最终只读报告：`review_loop/decision_engine/final_user_operation_result.md`。
+- `已生成` V003 单条判断：`review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_operation_decision_result.json` 与 `.md`。
+- `records_processed`: V001 = `historical_operation_record`；V002 = `policy_limited_abnormal_operation_sample`；V003 = `current_operation_target`。
+- `已回审修正`：V003 仍是当前目标样本，但在 `interim_36h_snapshot` 和关键字段缺失阶段，`normal_attribution_eligible = false`；必须等 72h / 7d 与需求侧字段补齐后才能进入正式归因。
+- `current_decision`: V003 仍缺 72h / 7d、3s 留存、主页访问、私信、有效私信、有效咨询和清晰需求客户，下一期正式执行为 `blocked_for_formal_next_episode_execution`；只允许低置信度准备开头 / 前 5 秒方向草稿。
+- `DeepSeek`: 已通过 `review_loop/decision_engine/operation_decision_system_supply_request.json` 执行只读供料；`deepseek_actual_participation = deepseek_passed`，`api_key_printed = false`，`api_key_written = false`。
+- `已同步` `GPT数据源/13`、`14`、`11`、`08` 与 `codex_source/19`：运营判断层必须先有 `operation_decision_system` 最终报告。
+- `提交前验证`：`py_compile`、脚本重跑、`--validate-only`、JSON parse、三期分类断言、forbidden status scan 均通过。
+- `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status_success（发布成功口径）`、`voice_validation（声音验证）`、`final_voice_validated（最终声音验证）`、`visual_master_locked（视觉母版锁定）`；`current_data_goal_anchor` 未写 ready；未生成正式下一条视频执行 prompt。
+- `日志`：`codex_log/20260516_operation_decision_system_full_repair.md`
+- `下一个目标`：补齐 V003 72h / 7d 与需求侧字段后，重跑运营决策系统，再决定唯一主变量和下一期是否可进入正式执行。
+
 ## 20260516｜锁定文案契约与逐句画面对齐闸门修补
 
 - `已确认` 本轮根据用户反馈修正视频执行机制，不修改已发布视频，不重新生成视频，不回炉当前片子。
@@ -288,7 +307,7 @@
 - `输出目录`：`dist/20260514_AI到底赚不赚钱_4_3_final_candidate/`
 - `full.mp4`：`dist/20260514_AI到底赚不赚钱_4_3_final_candidate/full.mp4`，`1440x1080`，时长 `243.85s`，`audio_present = true`，`decode_ok = true`，`technical_validation = passed`。
 - `TTS / narration`：已生成 `dist/20260514_AI到底赚不赚钱_4_3_final_candidate/narration.wav`，共 `81` 个 TTS 分段，时长 `243.85s`，`pcm_s16le / 48000Hz / mono`，可被 `ffmpeg` 解码。
-- `声音路线`：本轮使用项目既有安全 TTS 路线，目标模型 `qwen3-tts-vc-realtime-2026-01-15`，声音底子为脱敏 `qwen-t...ac19`；`voice_generation_validation = passed_for_generation_needs_human_review`。不得写成 `voice_validation = passed`，不得写成 `final_voice_validated = true`。
+- `声音路线`：本轮使用项目既有安全 TTS 路线，目标模型 `qwen3-tts-vc-realtime-2026-01-15`，声音底子为脱敏 `qwen-t...ac19`；`voice_generation_validation = passed_for_generation_needs_human_review`。不得推进 `voice_validation` 或 `final_voice_validated`。
 - `素材进入时间线`：三段用户真实录屏素材均已读取并进入时间线；`material_02` 承载粽子 / 婚纱样片，`material_01` 承载电商成本倒推，`material_03` 承载 Codex 本地项目执行系统。FocuSee 原始运镜按 `direct_cut_by_script` 保留，不做默认二次 zoom / crop / 重新运镜。
 - `内容边界`：`10 分钟 / 22 元 / 半小时 / 20 多` 仍写为用户经验陈述，不写成素材画面直接证明；`material_03` 不写成 Codex 并发执行两个任务；不写 AI 自动赚钱，不写保证收益。
 - `已生成` `content_route_card V2（内容路由卡 V2）`：`dist/20260514_AI到底赚不赚钱_4_3_final_candidate/content_route_card_v2.json`，包含开头路线、三段素材证据计划、FocuSee 中段策略、总结卡、TTS 计划和平台风险说明。

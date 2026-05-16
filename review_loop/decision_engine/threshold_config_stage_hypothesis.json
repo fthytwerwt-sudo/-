@@ -1,0 +1,68 @@
+{
+  "config_name": "threshold_config_stage_hypothesis",
+  "version": "2026-05-16",
+  "status": "stage_hypothesis",
+  "source_note": "Derived from GPT数据源/13 threshold_config_v1 and current operation rules. These are decision thresholds, not industry truths.",
+  "single_video_play_thresholds": {
+    "fail": {
+      "max_exclusive": 1000,
+      "meaning": "触达不及格。优先检查选题、标题、开头、封面 / 首屏。",
+      "route_decision": "rework_or_retest"
+    },
+    "baseline_observe": {
+      "min_inclusive": 1000,
+      "max_exclusive": 3000,
+      "meaning": "基础观察区。不能下最终结论，只能结合留存、收藏、评论、私信看局部信号。",
+      "route_decision": "observe_more"
+    },
+    "positive_signal": {
+      "min_inclusive": 3000,
+      "max_exclusive": 8000,
+      "meaning": "有一定分发信号。可以结合收藏、评论、私信判断内容价值。",
+      "route_decision": "continue_or_rework"
+    },
+    "breakout_observe": {
+      "min_inclusive": 8000,
+      "meaning": "小爆观察。重点判断是不是泛流量，不能只因播放高就放大。",
+      "route_decision": "diagnose_quality_before_scale"
+    }
+  },
+  "retention_thresholds": {
+    "completion_rate_weak_max_percent": 10,
+    "five_second_completion_weak_max_percent": 35,
+    "two_second_bounce_weak_min_percent": 45
+  },
+  "value_signal_thresholds": {
+    "favorite_rate_weak_min_percent": 1,
+    "favorite_rate_strong_min_percent": 2
+  },
+  "interaction_thresholds": {
+    "comment_count_min_for_public_feedback": 1,
+    "share_count_min_for_public_feedback": 1
+  },
+  "required_for_formal_next_episode_decision": {
+    "minimum_fields": [
+      "72h_final_data",
+      "7d_final_data",
+      "3s_retention",
+      "profile_visit_count",
+      "dm_count",
+      "effective_dm_count",
+      "effective_consult_count",
+      "clear_need_customer_count"
+    ],
+    "lead_fields": [
+      "dm_count",
+      "effective_dm_count",
+      "effective_consult_count",
+      "clear_need_customer_count"
+    ]
+  },
+  "blocked_if": [
+    "sample_is_policy_limited_abnormal_but_used_for_normal_distribution_attribution",
+    "sample_is_historical_but_used_as_current_target",
+    "current_target_only_has_interim_36h_snapshot_but_formal_next_execution_requested",
+    "missing_required_lead_fields_but_commercial_signal_claimed",
+    "missing_72h_or_7d_but_direction_success_or_failure_claimed"
+  ]
+}

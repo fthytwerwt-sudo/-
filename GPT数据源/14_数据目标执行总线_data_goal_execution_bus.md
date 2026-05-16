@@ -6,6 +6,23 @@
 
 旧 `gray_test` 只作为历史兼容别名；新数据默认进入 `operation_data_intake`。当前锚点仍是 `partial_data_recorded`，不能写 `ready`。
 
+## 0A-1. operation_decision_system gate
+
+`data_goal_alignment_check（数据目标对齐检查）` 之前必须先有 `operation_decision_system（运营决策系统）` 的最终判断报告。
+
+当前入口：
+
+- `scripts/运营决策系统_operation_decision_system.py`
+- `review_loop/decision_engine/latest_operation_decision_report.json`
+- `review_loop/decision_engine/final_user_operation_result.md`
+
+硬规则：
+
+- 若最终报告为 `blocked_for_formal_next_episode_execution`，不得继续生成正式下一条视频执行 prompt。
+- 若 V002 被识别为 `policy_limited_abnormal_operation_sample`，不得把它纳入正常自然分发归因。
+- 若 V003 仍缺 72h / 7d、3s 留存、主页访问、私信、有效私信、有效咨询或清晰需求客户，不得把当前锚点写成 `ready`。
+- 本闸门只负责运营决策，不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`。
+
 ## 0B. publish_candidate delivery gate
 
 数据目标执行总线只负责把目标接到文案、供料、剪辑、编排、装配和验收。它不能把执行前补全包、路由卡、时间线、TTS 韵律锚点、剪辑 / 装配决策包或技术预览升级成用户交付物。

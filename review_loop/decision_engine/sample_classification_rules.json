@@ -1,0 +1,55 @@
+{
+  "rules_name": "sample_classification_rules",
+  "version": "2026-05-16",
+  "sample_classes": {
+    "V001": {
+      "classification": "historical_operation_record",
+      "sample_role": "historical_reference_only",
+      "normal_attribution_eligible": false,
+      "allowed_uses": [
+        "historical_boundary",
+        "legacy_gray_test_context",
+        "old_process_reference"
+      ],
+      "forbidden_uses": [
+        "current_operation_target",
+        "normal_distribution_attribution",
+        "next_episode_primary_variable_source",
+        "content_success_or_failure_proof"
+      ]
+    },
+    "V002": {
+      "classification": "policy_limited_abnormal_operation_sample",
+      "sample_role": "abnormal_policy_limited_reference",
+      "normal_attribution_eligible": false,
+      "allowed_uses": [
+        "platform_policy_risk_reference",
+        "small_sample_interest_signal_reference"
+      ],
+      "forbidden_uses": [
+        "normal_distribution_attribution",
+        "natural_traffic_failure_proof",
+        "content_success_or_failure_proof",
+        "current_operation_target"
+      ]
+    },
+    "V003": {
+      "classification": "current_operation_target",
+      "sample_role": "current_target_partial_interim",
+      "normal_attribution_eligible": true,
+      "normal_attribution_rule": "candidate_only_until_72h_7d_and_required_lead_fields_exist",
+      "allowed_uses": [
+        "current_operation_observation",
+        "low_confidence_bottleneck_draft",
+        "missing_data_blocker",
+        "future_formal_review_after_72h_7d"
+      ],
+      "forbidden_uses": [
+        "72h_final_review_before_72h_data",
+        "7d_final_review_before_7d_data",
+        "formal_next_video_execution_prompt_before_required_data",
+        "commercial_validation_proof"
+      ]
+    }
+  }
+}

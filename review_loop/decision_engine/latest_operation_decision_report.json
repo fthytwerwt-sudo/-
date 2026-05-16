@@ -1,0 +1,891 @@
+{
+  "generated_at": "2026-05-16T08:47:00.502070+00:00",
+  "system_name": "operation_decision_system",
+  "source_of_truth": {
+    "operation_records_index": "review_loop/operation_records_index.md",
+    "current_operation_target": "codex_log/current_operation_target.md",
+    "current_data_goal_anchor": "codex_log/current_data_goal_anchor.md"
+  },
+  "current_project_state": {
+    "formal_operation_active": true,
+    "data_driven_operation_iteration": true,
+    "current_data_goal_anchor_status": "partial_data_recorded"
+  },
+  "records_processed": [
+    {
+      "video_id": "V001",
+      "title": "我用 AI 做 PPT 踩过的坑",
+      "record_path": "review_loop/records/V001_v31_AI做PPT踩坑_gray_test/V001_gray_test_record.md",
+      "record_read": true,
+      "record_status_from_index": "historical_operation_record",
+      "record_status_rule": "historical_operation_record",
+      "sample_role": "historical_reference_only",
+      "normal_attribution_candidate": false,
+      "normal_attribution_eligible": false,
+      "normal_attribution_blocked_reason": null,
+      "allowed_uses": [
+        "historical_boundary",
+        "legacy_gray_test_context",
+        "old_process_reference"
+      ],
+      "forbidden_uses": [
+        "current_operation_target",
+        "normal_distribution_attribution",
+        "next_episode_primary_variable_source",
+        "content_success_or_failure_proof"
+      ],
+      "data_completeness": "24h / 72h / 7d 核心数据仍多为空；作为历史运营样本保留",
+      "data_confidence": "low",
+      "review_window": "unknown_or_missing",
+      "snapshot_label": "markdown_record_only",
+      "structured_snapshot_path": null,
+      "structured_snapshot_read": false,
+      "normalized_metrics": {
+        "play_count": {
+          "value": "- 3s_retention：",
+          "numeric_value": 3.0,
+          "percent_value": null,
+          "source_status": "user_provided_or_markdown_extract",
+          "confidence": "medium"
+        },
+        "like_count": {
+          "value": null,
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "missing",
+          "confidence": "none"
+        },
+        "favorite_count": {
+          "value": null,
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "missing",
+          "confidence": "none"
+        },
+        "like_rate": {
+          "value": null,
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "missing",
+          "confidence": "none"
+        },
+        "favorite_rate": {
+          "value": null,
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "missing",
+          "confidence": "none"
+        },
+        "completion_rate": {
+          "value": "- average_watch_time：",
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "user_provided_or_markdown_extract",
+          "confidence": "medium"
+        },
+        "average_watch_time": {
+          "value": "- favorite_count：",
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "user_provided_or_markdown_extract",
+          "confidence": "medium"
+        },
+        "profile_visit_count": {
+          "value": "- new_follow_count：",
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "user_provided_or_markdown_extract",
+          "confidence": "medium"
+        },
+        "dm_count": {
+          "value": "- effective_dm_count：",
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "user_provided_or_markdown_extract",
+          "confidence": "medium"
+        },
+        "effective_dm_count": {
+          "value": "- effective_consult_count：",
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "user_provided_or_markdown_extract",
+          "confidence": "medium"
+        },
+        "effective_consult_count": {
+          "value": "### 识别状态",
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "user_provided_or_markdown_extract",
+          "confidence": "medium"
+        },
+        "3s_retention": {
+          "value": "- completion_rate：",
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "user_provided_or_markdown_extract",
+          "confidence": "medium"
+        },
+        "comment_count": {
+          "value": "- main_drop_off_point：",
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "user_provided_or_markdown_extract",
+          "confidence": "medium"
+        },
+        "new_follow_count": {
+          "value": "- dm_count：",
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "user_provided_or_markdown_extract",
+          "confidence": "medium"
+        }
+      },
+      "missing_fields": [
+        "favorite_count",
+        "favorite_rate",
+        "like_count",
+        "like_rate"
+      ],
+      "uncertain_fields": [
+        "uncertain_fields",
+        "待回填",
+        "待用户回填",
+        "待验证"
+      ],
+      "data_quality": {
+        "quality_label": "historical_incomplete",
+        "quality_score_0_to_1": 0.15,
+        "missing_field_count": 4,
+        "uncertain_field_count": 4,
+        "usable_for_normal_distribution_attribution": false,
+        "quality_note": "历史样本，核心窗口数据多为空，只能作为旧阶段参考。"
+      },
+      "threshold_check": {
+        "play_signal": {
+          "status": "checked",
+          "bucket": "fail",
+          "observed_value": 3.0,
+          "meaning": "触达不及格。优先检查选题、标题、开头、封面 / 首屏。"
+        },
+        "retention_signal": {
+          "status": "blocked_by_missing_data",
+          "reason": "missing_retention_fields"
+        },
+        "value_signal": {
+          "status": "blocked_by_missing_data",
+          "reason": "missing_favorite_rate"
+        },
+        "interaction_signal": {
+          "status": "blocked_by_missing_data",
+          "like_rate": null,
+          "comment_count": null,
+          "bucket": "weak_public_feedback"
+        },
+        "lead_signal": {
+          "status": "checked",
+          "missing_fields": []
+        },
+        "commercial_signal": {
+          "status": "blocked_by_missing_data",
+          "reason": "no_effective_consult_or_paid_signal_recorded"
+        }
+      },
+      "bottleneck_inference": {
+        "status": "historical_reference_only",
+        "candidate_bottleneck": null,
+        "reason": "historical_record_data_incomplete"
+      },
+      "summary": {
+        "can_explain": "它能说明旧 V001 是历史运营样本，路径保留为 legacy 证据。",
+        "cannot_explain": "不能说明当前方向成立/失败，也不能判断下一轮变量。",
+        "next_value": "作为历史边界与旧流程对照，防止旧 gray_test 口径覆盖当前运营目标。"
+      }
+    },
+    {
+      "video_id": "V002",
+      "title": "自动流的最简单流程",
+      "record_path": "review_loop/records/V002_自动流的最简单流程_douyin_policy_notice/V002_发布后复盘记录_post_publish_review_record.md",
+      "record_read": true,
+      "record_status_from_index": "policy_limited_abnormal_operation_sample",
+      "record_status_rule": "policy_limited_abnormal_operation_sample",
+      "sample_role": "abnormal_policy_limited_reference",
+      "normal_attribution_candidate": false,
+      "normal_attribution_eligible": false,
+      "normal_attribution_blocked_reason": null,
+      "allowed_uses": [
+        "platform_policy_risk_reference",
+        "small_sample_interest_signal_reference"
+      ],
+      "forbidden_uses": [
+        "normal_distribution_attribution",
+        "natural_traffic_failure_proof",
+        "content_success_or_failure_proof",
+        "current_operation_target"
+      ],
+      "data_completeness": "有播放 39、点赞 5、收藏 8 和平台减推通知；不是正常自然分发样本",
+      "data_confidence": "low",
+      "review_window": "unknown_or_missing",
+      "snapshot_label": "markdown_record_only",
+      "structured_snapshot_path": null,
+      "structured_snapshot_read": false,
+      "normalized_metrics": {
+        "play_count": {
+          "value": "39",
+          "numeric_value": 39.0,
+          "percent_value": null,
+          "source_status": "user_provided_or_calculated_from_fields",
+          "confidence": "medium"
+        },
+        "like_count": {
+          "value": "5",
+          "numeric_value": 5.0,
+          "percent_value": null,
+          "source_status": "user_provided_or_calculated_from_fields",
+          "confidence": "medium"
+        },
+        "favorite_count": {
+          "value": "8",
+          "numeric_value": 8.0,
+          "percent_value": null,
+          "source_status": "user_provided_or_calculated_from_fields",
+          "confidence": "medium"
+        },
+        "like_rate": {
+          "value": "5 / 39",
+          "numeric_value": 5.0,
+          "percent_value": null,
+          "source_status": "user_provided_or_calculated_from_fields",
+          "confidence": "medium"
+        },
+        "favorite_rate": {
+          "value": "8 / 39",
+          "numeric_value": 8.0,
+          "percent_value": null,
+          "source_status": "user_provided_or_calculated_from_fields",
+          "confidence": "medium"
+        },
+        "completion_rate": {
+          "value": null,
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "missing",
+          "confidence": "none"
+        },
+        "average_watch_time": {
+          "value": null,
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "missing",
+          "confidence": "none"
+        },
+        "profile_visit_count": {
+          "value": null,
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "missing",
+          "confidence": "none"
+        },
+        "dm_count": {
+          "value": null,
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "missing",
+          "confidence": "none"
+        },
+        "effective_dm_count": {
+          "value": null,
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "missing",
+          "confidence": "none"
+        },
+        "effective_consult_count": {
+          "value": null,
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "missing",
+          "confidence": "none"
+        },
+        "3s_retention": {
+          "value": null,
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "missing",
+          "confidence": "none"
+        },
+        "comment_count": {
+          "value": null,
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "missing",
+          "confidence": "none"
+        },
+        "new_follow_count": {
+          "value": null,
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "missing",
+          "confidence": "none"
+        }
+      },
+      "missing_fields": [
+        "3s_retention",
+        "average_watch_time",
+        "comment_count",
+        "completion_rate",
+        "dm_count",
+        "effective_consult_count",
+        "effective_dm_count",
+        "new_follow_count",
+        "profile_visit_count"
+      ],
+      "uncertain_fields": [
+        "uncertain_need_human_check",
+        "待验证"
+      ],
+      "data_quality": {
+        "quality_label": "abnormal_partial",
+        "quality_score_0_to_1": 0.45,
+        "missing_field_count": 9,
+        "uncertain_field_count": 2,
+        "usable_for_normal_distribution_attribution": false,
+        "quality_note": "平台审核减推污染样本，有兴趣信号但不能进入正常自然分发归因。"
+      },
+      "threshold_check": {
+        "play_signal": {
+          "status": "excluded_from_normal_distribution_judgment",
+          "reason": "policy_limited_abnormal_sample",
+          "observed_value": 39.0
+        },
+        "retention_signal": {
+          "status": "blocked_by_missing_data",
+          "reason": "missing_retention_fields"
+        },
+        "value_signal": {
+          "status": "blocked_by_missing_data",
+          "reason": "missing_favorite_rate"
+        },
+        "interaction_signal": {
+          "status": "blocked_by_missing_data",
+          "like_rate": null,
+          "comment_count": null,
+          "bucket": "weak_public_feedback"
+        },
+        "lead_signal": {
+          "status": "blocked_by_missing_data",
+          "missing_fields": [
+            "dm_count",
+            "effective_dm_count",
+            "effective_consult_count"
+          ]
+        },
+        "commercial_signal": {
+          "status": "blocked_by_missing_data",
+          "reason": "no_effective_consult_or_paid_signal_recorded"
+        }
+      },
+      "bottleneck_inference": {
+        "status": "abnormal_sample_excluded_from_normal_distribution_judgment",
+        "candidate_bottleneck": "platform_policy_packaging_risk",
+        "reason": "policy_distribution_limited"
+      },
+      "summary": {
+        "can_explain": "它能说明平台风险表达会污染分发，并显示小样本兴趣信号。",
+        "cannot_explain": "不能作为正常自然流量失败样本，也不能证明内容通过。",
+        "next_value": "用于下一轮规避平台风险表达，但不进入正常归因统计。"
+      }
+    },
+    {
+      "video_id": "V003",
+      "title": "以后会分享实用的，每天会给大家看我是怎么优化的，这个视频只用3个小时写出来的本地文件",
+      "record_path": "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_发布后灰度数据记录_post_publish_gray_test_record.md",
+      "record_read": true,
+      "record_status_from_index": "current_operation_target",
+      "record_status_rule": "current_operation_target",
+      "sample_role": "current_target_partial_interim",
+      "normal_attribution_candidate": true,
+      "normal_attribution_eligible": false,
+      "normal_attribution_blocked_reason": "current_target_partial_data_waiting_72h_7d_and_required_lead_fields",
+      "allowed_uses": [
+        "current_operation_observation",
+        "low_confidence_bottleneck_draft",
+        "missing_data_blocker",
+        "future_formal_review_after_72h_7d"
+      ],
+      "forbidden_uses": [
+        "72h_final_review_before_72h_data",
+        "7d_final_review_before_7d_data",
+        "formal_next_video_execution_prompt_before_required_data",
+        "commercial_validation_proof"
+      ],
+      "data_completeness": "已录入约 37 小时早期数据；72h / 7d 未完成",
+      "data_confidence": "low",
+      "review_window": "between_24h_and_72h",
+      "snapshot_label": "interim_36h_snapshot",
+      "structured_snapshot_path": "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_早期数据快照_early_interim_snapshot.json",
+      "structured_snapshot_read": true,
+      "normalized_metrics": {
+        "play_count": {
+          "value": 141,
+          "numeric_value": 141.0,
+          "percent_value": null,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "average_watch_time": {
+          "value": "21秒",
+          "numeric_value": 21.0,
+          "percent_value": null,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "cover_click_rate": {
+          "value": "0.00%",
+          "numeric_value": 0.0,
+          "percent_value": 0.0,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "completion_rate": {
+          "value": "4.17%",
+          "numeric_value": 4.17,
+          "percent_value": 4.17,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "two_second_bounce_rate": {
+          "value": "50.00%",
+          "numeric_value": 50.0,
+          "percent_value": 50.0,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "average_play_ratio": {
+          "value": "8.51%",
+          "numeric_value": 8.51,
+          "percent_value": 8.51,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "five_second_completion_rate": {
+          "value": "28.13%",
+          "numeric_value": 28.13,
+          "percent_value": 28.13,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "like_count": {
+          "value": 2,
+          "numeric_value": 2.0,
+          "percent_value": null,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "like_rate": {
+          "value": "1.42%",
+          "numeric_value": 1.42,
+          "percent_value": 1.42,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "favorite_count": {
+          "value": 3,
+          "numeric_value": 3.0,
+          "percent_value": null,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "favorite_rate": {
+          "value": "2.13%",
+          "numeric_value": 2.13,
+          "percent_value": 2.13,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "comment_count": {
+          "value": 0,
+          "numeric_value": 0.0,
+          "percent_value": null,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "comment_rate": {
+          "value": "0.00%",
+          "numeric_value": 0.0,
+          "percent_value": 0.0,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "share_count": {
+          "value": 0,
+          "numeric_value": 0.0,
+          "percent_value": null,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "share_rate": {
+          "value": "0.00%",
+          "numeric_value": 0.0,
+          "percent_value": 0.0,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "danmu_count": {
+          "value": 0,
+          "numeric_value": 0.0,
+          "percent_value": null,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "not_interested_count": {
+          "value": 0,
+          "numeric_value": 0.0,
+          "percent_value": null,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "not_interested_rate": {
+          "value": "0.00%",
+          "numeric_value": 0.0,
+          "percent_value": 0.0,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "new_follow_count": {
+          "value": 1,
+          "numeric_value": 1.0,
+          "percent_value": null,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "follow_rate_or_fan_rate_visible": {
+          "value": "0.71%",
+          "numeric_value": 0.71,
+          "percent_value": 0.71,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "unfollow_count": {
+          "value": 0,
+          "numeric_value": 0.0,
+          "percent_value": null,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "unfollow_rate": {
+          "value": "0.00%",
+          "numeric_value": 0.0,
+          "percent_value": 0.0,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "fan_play_ratio": {
+          "value": "4.3%",
+          "numeric_value": 4.3,
+          "percent_value": 4.3,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "traffic_source_recommendation_page": {
+          "value": "97.2%",
+          "numeric_value": 97.2,
+          "percent_value": 97.2,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "traffic_source_profile_page": {
+          "value": "1.4%",
+          "numeric_value": 1.4,
+          "percent_value": 1.4,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "traffic_source_friend_page": {
+          "value": "1.4%",
+          "numeric_value": 1.4,
+          "percent_value": 1.4,
+          "source_status": "extracted_from_screenshot",
+          "confidence": "high"
+        },
+        "3s_retention": {
+          "value": null,
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "missing",
+          "confidence": "none"
+        },
+        "profile_visit_count": {
+          "value": null,
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "missing",
+          "confidence": "none"
+        },
+        "dm_count": {
+          "value": null,
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "missing",
+          "confidence": "none"
+        },
+        "effective_dm_count": {
+          "value": null,
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "missing",
+          "confidence": "none"
+        },
+        "effective_consult_count": {
+          "value": null,
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "missing",
+          "confidence": "none"
+        },
+        "clear_need_customer_count": {
+          "value": null,
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "missing",
+          "confidence": "none"
+        },
+        "effective_comment_quality": {
+          "value": null,
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "missing",
+          "confidence": "none"
+        },
+        "72h_final_data": {
+          "value": null,
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "missing",
+          "confidence": "none"
+        },
+        "7d_final_data": {
+          "value": null,
+          "numeric_value": null,
+          "percent_value": null,
+          "source_status": "missing",
+          "confidence": "none"
+        }
+      },
+      "missing_fields": [
+        "3s_retention",
+        "72h_final_data",
+        "7d_final_data",
+        "clear_need_customer_count",
+        "dm_count",
+        "effective_comment_quality",
+        "effective_consult_count",
+        "effective_dm_count",
+        "profile_visit_count"
+      ],
+      "uncertain_fields": [
+        "age_distribution_estimated_from_bar_chart",
+        "exact_observation_window_from_platform",
+        "trend_curve_point_values"
+      ],
+      "data_quality": {
+        "quality_label": "partial_interim_low_confidence",
+        "quality_score_0_to_1": 0.55,
+        "missing_field_count": 9,
+        "uncertain_field_count": 3,
+        "usable_for_normal_distribution_attribution": false,
+        "quality_note": "当前目标样本，只有 interim_36h_snapshot，不能做 72h / 7d final 复盘。"
+      },
+      "threshold_check": {
+        "play_signal": {
+          "status": "checked",
+          "bucket": "fail",
+          "observed_value": 141.0,
+          "meaning": "触达不及格。优先检查选题、标题、开头、封面 / 首屏。"
+        },
+        "retention_signal": {
+          "status": "draft_low_confidence",
+          "bucket": "weak",
+          "completion_rate": 4.17,
+          "five_second_completion_rate": 28.13,
+          "two_second_bounce_rate": 50.0
+        },
+        "value_signal": {
+          "status": "draft_low_confidence",
+          "bucket": "positive_value_signal",
+          "favorite_rate": 2.13
+        },
+        "interaction_signal": {
+          "status": "checked",
+          "like_rate": 1.42,
+          "comment_count": 0.0,
+          "bucket": "weak_public_feedback"
+        },
+        "lead_signal": {
+          "status": "blocked_by_missing_data",
+          "missing_fields": [
+            "dm_count",
+            "effective_dm_count",
+            "effective_consult_count",
+            "clear_need_customer_count"
+          ]
+        },
+        "commercial_signal": {
+          "status": "blocked_by_missing_data",
+          "reason": "no_effective_consult_or_paid_signal_recorded"
+        }
+      },
+      "bottleneck_inference": {
+        "status": "draft_low_confidence",
+        "candidate_bottleneck": "opening_retention_and_initial_distribution_weak",
+        "evidence": [
+          "play_count=141",
+          "two_second_bounce_rate=50.00%",
+          "five_second_completion_rate=28.13%",
+          "completion_rate=4.17%",
+          "recommendation_page=97.2%"
+        ],
+        "blocked_for_formal_conclusion_by": [
+          "3s_retention",
+          "72h_final_data",
+          "7d_final_data",
+          "dm_count",
+          "effective_consult_count",
+          "effective_dm_count",
+          "profile_visit_count"
+        ]
+      },
+      "summary": {
+        "can_explain": "它能说明当前目标已有 36h 早期信号：低播放、开头承接弱、小收藏信号、需求侧缺失。",
+        "cannot_explain": "不能说明 72h / 7d 结果，不能决定方向失败，不能生成正式下一期执行。",
+        "next_value": "补齐关键字段后可作为下一轮唯一变量判断的主样本。"
+      }
+    }
+  ],
+  "cross_record_synthesis": {
+    "records_seen": [
+      "V001",
+      "V002",
+      "V003"
+    ],
+    "what_is_observed": [
+      "V001 提供旧阶段历史样本入口，但核心数据不完整。",
+      "V002 提供平台审核减推异常样本，可用于平台风险表达参考，不能用于正常自然流量归因。",
+      "V003 提供当前目标的 36h 早期信号：触达很小、前 5 秒承接弱、收藏有小正信号、需求侧字段缺失。"
+    ],
+    "what_is_not_proven": [
+      "未证明内容方向成立。",
+      "未证明内容方向失败。",
+      "未证明商业验证成立。",
+      "未证明数据飞轮已经跑通。",
+      "未证明可以进入下一条正式视频执行。"
+    ],
+    "valid_samples_for_normal_attribution": [],
+    "samples_not_for_normal_attribution": [
+      "V001",
+      "V002",
+      "V003"
+    ],
+    "current_largest_gap": "缺 V003 72h / 7d final 与需求侧字段，无法从早期低播放直接归因到内容方向或商业价值。",
+    "distance_to_north_star_goal": [
+      "缺稳定高质量需求信号。",
+      "缺有效私信 / 有效咨询 / 清晰需求客户。",
+      "缺可重复的同类内容样本。",
+      "缺 post-publish review 后的唯一变量验证闭环。"
+    ],
+    "per_record_summary": {
+      "V001": {
+        "can_explain": "它能说明旧 V001 是历史运营样本，路径保留为 legacy 证据。",
+        "cannot_explain": "不能说明当前方向成立/失败，也不能判断下一轮变量。",
+        "data_quality": {
+          "quality_label": "historical_incomplete",
+          "quality_score_0_to_1": 0.15,
+          "missing_field_count": 4,
+          "uncertain_field_count": 4,
+          "usable_for_normal_distribution_attribution": false,
+          "quality_note": "历史样本，核心窗口数据多为空，只能作为旧阶段参考。"
+        },
+        "next_value": "作为历史边界与旧流程对照，防止旧 gray_test 口径覆盖当前运营目标。"
+      },
+      "V002": {
+        "can_explain": "它能说明平台风险表达会污染分发，并显示小样本兴趣信号。",
+        "cannot_explain": "不能作为正常自然流量失败样本，也不能证明内容通过。",
+        "data_quality": {
+          "quality_label": "abnormal_partial",
+          "quality_score_0_to_1": 0.45,
+          "missing_field_count": 9,
+          "uncertain_field_count": 2,
+          "usable_for_normal_distribution_attribution": false,
+          "quality_note": "平台审核减推污染样本，有兴趣信号但不能进入正常自然分发归因。"
+        },
+        "next_value": "用于下一轮规避平台风险表达，但不进入正常归因统计。"
+      },
+      "V003": {
+        "can_explain": "它能说明当前目标已有 36h 早期信号：低播放、开头承接弱、小收藏信号、需求侧缺失。",
+        "cannot_explain": "不能说明 72h / 7d 结果，不能决定方向失败，不能生成正式下一期执行。",
+        "data_quality": {
+          "quality_label": "partial_interim_low_confidence",
+          "quality_score_0_to_1": 0.55,
+          "missing_field_count": 9,
+          "uncertain_field_count": 3,
+          "usable_for_normal_distribution_attribution": false,
+          "quality_note": "当前目标样本，只有 interim_36h_snapshot，不能做 72h / 7d final 复盘。"
+        },
+        "next_value": "补齐关键字段后可作为下一轮唯一变量判断的主样本。"
+      }
+    }
+  },
+  "next_episode_decision": {
+    "decision_status": "blocked_for_formal_next_episode_execution",
+    "can_enter_next_episode_execution": false,
+    "confidence": "low",
+    "blocked_reason": "V003 仍是 interim_36h_snapshot，缺 72h / 7d 和需求侧字段，不能生成正式下一条视频执行 prompt。",
+    "missing_data": [
+      "3s_retention",
+      "72h_final_data",
+      "7d_final_data",
+      "clear_need_customer_count",
+      "dm_count",
+      "effective_consult_count",
+      "effective_dm_count",
+      "profile_visit_count"
+    ],
+    "low_confidence_draft": {
+      "next_primary_variable": "opening_route_or_first_5s_packaging",
+      "supporting_variables": [
+        "evidence_compression",
+        "result_diff_display"
+      ],
+      "forbidden_variables": [
+        "target_user",
+        "core_topic_direction",
+        "offer_or_monetization",
+        "multi_variable_rewrite"
+      ],
+      "next_content_direction": "只允许准备开头/前 5 秒包装的对照假设，不进入正式制作。",
+      "next_video_structure_direction": "准备 opening_0_3s 与 bridge_3_8s 的候选结构草稿，等待 72h / 7d 后再裁决。",
+      "post_publish_validation_metric": [
+        "2s_bounce",
+        "5s_completion",
+        "3s_retention_if_available",
+        "average_watch_time"
+      ]
+    }
+  },
+  "final_user_result": {
+    "one_sentence_conclusion": "当前系统已能自动读三期记录并给出判断：V003 只能继续补数据和低置信度准备，不能进入下一期正式执行。",
+    "current_primary_bottleneck": "opening_retention_and_initial_distribution_weak / draft_low_confidence",
+    "can_enter_next_episode_execution": false,
+    "blocked_reason_if_not": "V003 仍是 interim_36h_snapshot，缺 72h / 7d 和需求侧字段，不能生成正式下一条视频执行 prompt。",
+    "recommended_next_route": "先补 V003 72h / 7d、3s_retention、主页访问、私信、有效私信、有效咨询和清晰需求客户；补齐后重跑本系统，再决定唯一主变量。"
+  },
+  "status_boundary": {
+    "content_validation_advanced": false,
+    "send_ready_advanced": false,
+    "publish_status_success_advanced": false,
+    "voice_validation_advanced": false,
+    "final_voice_validated_advanced": false,
+    "visual_master_locked_advanced": false,
+    "current_data_goal_anchor_ready": false,
+    "next_formal_video_execution_prompt_generated": false
+  }
+}
