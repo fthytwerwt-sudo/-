@@ -1,0 +1,11 @@
+$ npx --yes hyperframes@0.6.12 inspect --samples 8
+
+exit_code: 0
+
+STDOUT:
+◆  Inspecting layout for hyperframes_minimal_validation (8 timeline samples)
+
+◇  0 layout issues across 8 sample(s)
+
+
+STDERR:

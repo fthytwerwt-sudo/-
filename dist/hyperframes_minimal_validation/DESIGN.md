@@ -2,34 +2,45 @@
 
 ## Style Prompt
 
-Warm editorial AI knowledge card style with a bright ivory canvas, ink-black
-Chinese typography, soft coral and teal accents, layered paper-light panels,
-subtle motion, and generous negative space. The card should feel like a refined
-formal-operation insert, not a slide deck or a sales cover.
+HyperFrames minimal judgment and summary cards for AI knowledge videos.
+Cards must feel like refined formal-operation inserts, not static PPT pages or sales covers.
 
-## Colors
+## Locked Minimal Skins
 
-- Canvas: #F8F4EC
-- Ink: #1D1A17
-- Muted ink: #6E655B
-- Coral accent: #A83B31
-- Teal accent: #0F665F
-- Warm line: #E8D8C3
+### clean_soft / 干净柔和
 
-## Typography
+- `locked_status`: `allowed_minimal_skin`
+- `motion_strength`: `low_to_medium`
+- `text_density`: `comfortable`
+- `keyword_style`: `warm_orange`
+- `must_keep`:
+  - warm ivory and light beige background
+  - generous spacing
+  - warm orange keyword highlight
+  - soft shadow and gentle motion
+- `must_not`:
+  - black_background_white_text
+  - dense_dashboard
+  - hard_sales_cover
+  - noisy_motion
 
-- Primary: Arial, sans-serif
-- Numeric / labels: Arial, sans-serif
+### cute_ai_guide / 可爱 AI 向导
 
-## Motion Rules
+- `locked_status`: `allowed_minimal_skin`
+- `motion_strength`: `low_to_medium`
+- `text_density`: `comfortable_to_medium`
+- `keyword_style`: `blue_purple_pink_gradient`
+- `must_keep`:
+  - soft blue to lavender background
+  - friendly guide icon or shape
+  - blue purple pink keyword highlight
+  - soft bounce or float motion
+- `must_not`:
+  - childish_overload
+  - sales_avatar
+  - copyrighted_character
+  - hard_cta_badge
 
-- Light motion only: breathe, gentle reveal, keyword emphasis, small floating
-  accent marks.
-- Do not shake, bounce aggressively, flash, or crowd the evidence window.
+## Not Selected
 
-## What NOT to Do
-
-- Do not create a black background with white text.
-- Do not make a generic PPT title slide.
-- Do not use a course-sales layout or hard CTA.
-- Do not add unsupported metrics, data claims, or platform results.
+- `sharp_judgment`: not selected this round and not part of the default locked baseline.

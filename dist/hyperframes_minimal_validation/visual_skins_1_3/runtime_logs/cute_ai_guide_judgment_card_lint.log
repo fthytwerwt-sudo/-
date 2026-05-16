@@ -1,0 +1,11 @@
+$ npx --yes hyperframes@0.6.12 lint
+
+exit_code: 0
+
+STDOUT:
+◆  Linting hyperframes_minimal_validation/index.html
+
+◇  0 errors, 0 warnings
+
+
+STDERR:

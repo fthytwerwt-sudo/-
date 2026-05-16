@@ -1,5 +1,21 @@
 # Latest
 
+## 20260516｜HyperFrames 最小卡片用户通过与视觉皮肤锁定
+
+- `已确认` 用户已人工复审 `dist/hyperframes_minimal_validation/combined_preview.mp4` 并反馈可以通过；本轮只做最小卡片用户通过与 HyperFrames 小升级锁定回写，不生成正式视频，不修改已发布视频，不修改 `dist/latest_review_pack/`。
+- `route_decision（路由判断）`：`project_route = video_factory`；`task_type = user_visual_review_lock + hyperframes_visual_skin_baseline_upgrade + minimal_artifact_style_preset_generation + project_file_change`；`large_task_gate = triggered`；`lane = audit_lane -> standard_lane`；`parallel = serial_only`。
+- `impact_check_report（影响面检查）`：当前 root manifest 已写 `actual_output_type = real_hyperframes_motion`，review manifest 已写 `fallback_static_card = false`；旧正式事实中 “runtime 未发现 / 待验证” 口径已修正为“最小 runtime 通过，正式视频链路接入待验证”。
+- `已锁定` `hyperframes_minimal_style_baseline = locked_for_judgment_and_summary_cards`，`judgment_card_motion_minimal_baseline = locked`，`summary_card_motion_minimal_baseline = locked`。
+- `已锁定` allowed visual skins：`clean_soft（干净柔和）`、`cute_ai_guide（可爱 AI 向导）`。
+- `未纳入` `sharp_judgment（清晰判断）`：不写入默认锁定皮肤，不生成默认预览，不作为判断卡 / 总结卡默认基线。
+- `已升级` 可复跑脚本：`scripts/HyperFrames最小卡片验证_hyperframes_minimal_card_validation.py` 支持 `--skin clean_soft`、`--skin cute_ai_guide`、`--all-locked-skins`。
+- `已生成` skin 1 / skin 3 预览包：`dist/hyperframes_minimal_validation/visual_skins_1_3/clean_soft/`、`dist/hyperframes_minimal_validation/visual_skins_1_3/cute_ai_guide/`、`dist/hyperframes_minimal_validation/visual_skins_1_3/combined_skin_review.mp4`。
+- `已同步` `GPT数据源/08_当前正式事实.md`、`GPT数据源/05_文案路由规则.md`、`GPT数据源/07_AI知识类视频价值规则.md`、`codex_source/21_codex_judgment_permission_matrix.md`、`codex_source/01_execution_rules.md`、root manifest 与 review manifest。
+- `验证`：`npm run check` passed；HyperFrames lint / inspect / render 均有 exit_code=0 证据；7 个新 MP4 均为 1920x1080、30fps、h264、可解码、无音轨；root / skin manifests JSON parse 通过。
+- `状态边界`：本轮仍为 `internal_diagnostic_only（内部诊断产物）`；未推进 `content_validation（内容验证）`、`send_ready（可发送状态）`、发布候选、`voice_validation（声音验证）`、`final_voice_validated（最终声音验证）` 或 `visual_master_locked（视觉母版锁定）`。
+- `日志`：`codex_log/20260516_hyperframes_minimal_card_visual_lock.md`
+- `下一个目标`：后续真实视频执行中，把判断卡 / 总结卡的皮肤选择写进 `content_route_card V2.card_placement_decision`，并继续检查 locked copy 语义一致、字幕卡片不重叠、证据窗口不被打断和 HyperFrames runtime gate。
+
 ## 20260516｜HyperFrames 最小判断卡 / 总结卡产物验证
 
 - `已确认` 本轮只做 `hyperframes_minimal_runtime_validation（HyperFrames 最小运行验证）`，产物定位为 `internal_diagnostic_only（内部诊断产物）`；不生成正式视频，不修改已发布视频，不修改 `dist/latest_review_pack/`。

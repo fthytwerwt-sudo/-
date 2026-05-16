@@ -48,3 +48,24 @@
 - 本产物不推进 `content_validation`。
 - 本产物不推进 `send_ready`。
 - 本产物不锁定视觉母版。
+
+## User Visual Review And Minimal Style Lock
+
+- `user_visual_review`: passed
+- `reviewer`: user
+- `review_basis`: user watched combined_preview and approved
+- `hyperframes_minimal_style_baseline`: locked_for_judgment_and_summary_cards
+- `judgment_card_motion_minimal_baseline`: locked
+- `summary_card_motion_minimal_baseline`: locked
+- `allowed_hyperframes_visual_skins`: clean_soft, cute_ai_guide
+- `not_selected_visual_skin`: sharp_judgment
+- `visual_skin_preview_pack`: `dist/hyperframes_minimal_validation/visual_skins_1_3/`
+
+## Still Not Advanced
+
+- `content_validation`: not_advanced
+- `send_ready`: false
+- `publish_candidate`: false
+- `visual_master_locked`: false
+- `real_video_execution_chain_integration`: pending
+- `long_term_runtime_stability`: pending

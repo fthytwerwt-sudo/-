@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="zh-CN" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #F8F4EC;
+        color: #1D1A17;
+        font-family: Arial, sans-serif;
+      }
+      #root {
+        width: 1920px;
+        height: 1080px;
+        position: relative;
+        overflow: hidden;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        color: var(--primary-text);
+      }
+      .skin-legacy_minimal_runtime {
+        background: radial-gradient(circle at 14% 18%, rgba(168, 59, 49, 0.18), transparent 28%),radial-gradient(circle at 86% 78%, rgba(15, 102, 95, 0.16), transparent 30%),linear-gradient(135deg, #F8F4EC 0%, #FCFAF5 48%, #EFE1CF 100%);
+        color: #1D1A17;
+      }
+      .skin-clean_soft {
+        background: radial-gradient(circle at 84% 22%, rgba(232, 180, 92, 0.26), transparent 24%),radial-gradient(circle at 16% 78%, rgba(217, 198, 168, 0.26), transparent 28%),linear-gradient(135deg, #F8F4EC 0%, #FFF7EA 52%, #F3E5D0 100%);
+        color: #111827;
+      }
+      .skin-cute_ai_guide {
+        background: radial-gradient(circle at 84% 24%, rgba(251, 207, 232, 0.36), transparent 26%),radial-gradient(circle at 12% 78%, rgba(191, 227, 255, 0.42), transparent 30%),linear-gradient(135deg, #EAF6FF 0%, #EDF2FF 48%, #F3E8FF 100%);
+        color: #14203D;
+      }
+      .scene-content {
+        width: 100%;
+        height: 100%;
+        padding: 118px 156px 112px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 34px;
+      }
+      .meta-row,
+      .bottom-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 52px;
+        font-size: 26px;
+        color: var(--secondary-text);
+        letter-spacing: 0;
+      }
+      .eyebrow,
+      .route,
+      .tone,
+      .boundary,
+      .variant-pill {
+        padding: 12px 18px;
+        border: 1px solid rgba(29, 26, 23, 0.10);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.56);
+        backdrop-filter: blur(12px);
+      }
+      .statement-card {
+        position: relative;
+        min-height: 570px;
+        padding: 70px 82px;
+        display: grid;
+        grid-template-columns: 18px 1fr;
+        gap: 42px;
+        align-items: center;
+        border-radius: 38px;
+        border: 1px solid rgba(29, 26, 23, 0.10);
+        background: var(--panel-background);
+        box-shadow:
+          0 34px 88px var(--shadow-color),
+          inset 0 1px 0 rgba(255, 255, 255, 0.72);
+      }
+      .accent-rail {
+        width: 16px;
+        height: 100%;
+        border-radius: 999px;
+        background: linear-gradient(180deg, var(--accent), var(--accent-secondary));
+        box-shadow: 0 0 28px var(--accent-glow);
+      }
+      .text-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+      .title-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+      .locked-title {
+        max-width: 1060px;
+        font-size: 34px;
+        line-height: 1.35;
+        color: var(--secondary-text);
+      }
+      .variant-pill {
+        color: var(--primary-text);
+        font-size: 24px;
+        white-space: nowrap;
+      }
+      .main-text {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 18px 28px;
+        max-width: 1200px;
+        font-size: 92px;
+        line-height: 1.13;
+        font-weight: 800;
+        letter-spacing: 0;
+      }
+      .phrase {
+        display: inline-block;
+        white-space: nowrap;
+      }
+      .keyword {
+        color: var(--accent);
+      }
+      .secondary-keyword {
+        color: var(--accent-secondary);
+      }
+      .support {
+        max-width: 970px;
+        font-size: 34px;
+        line-height: 1.45;
+        color: var(--secondary-text);
+      }
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+      .grain {
+        position: absolute;
+        inset: 0;
+        opacity: 0.11;
+        background-image:
+          linear-gradient(rgba(29, 26, 23, 0.10) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(29, 26, 23, 0.08) 1px, transparent 1px);
+        background-size: 96px 96px;
+      }
+      .halo,
+      .cloud {
+        position: absolute;
+        border-radius: 999px;
+        filter: blur(8px);
+      }
+      .halo {
+        width: 520px;
+        height: 520px;
+        opacity: 0.42;
+      }
+      .halo-one {
+        left: -120px;
+        top: 120px;
+        background: radial-gradient(circle, var(--halo-one), transparent 62%);
+      }
+      .halo-two {
+        right: -110px;
+        bottom: 90px;
+        background: radial-gradient(circle, var(--halo-two), transparent 62%);
+      }
+      .cloud {
+        opacity: 0.28;
+        background: var(--decorative);
+      }
+      .cloud-a {
+        width: 220px;
+        height: 72px;
+        left: 136px;
+        bottom: 144px;
+      }
+      .cloud-b {
+        width: 180px;
+        height: 58px;
+        right: 250px;
+        top: 146px;
+      }
+      .transition-wipe {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 120%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.92) 24%, var(--wipe-accent) 50%, rgba(255, 255, 255, 0.92) 76%, transparent);
+        transform: translateX(-110%);
+      }
+      .soft-icon {
+        position: absolute;
+        right: 204px;
+        top: 288px;
+        width: 190px;
+        height: 190px;
+        border-radius: 56px;
+        display: grid;
+        place-items: center;
+        color: var(--accent);
+        background: rgba(255, 255, 255, 0.54);
+        border: 1px solid rgba(29, 26, 23, 0.10);
+        box-shadow: 0 24px 54px var(--shadow-color);
+      }
+      .soft-icon span {
+        font-size: 104px;
+        line-height: 1;
+      }
+      .soft-icon i {
+        position: absolute;
+        inset: 18px;
+        border-radius: 44px;
+        border: 2px solid var(--decorative-secondary);
+        opacity: 0.55;
+      }
+      .guide-figure {
+        position: absolute;
+        right: 198px;
+        top: 260px;
+        width: 214px;
+        height: 236px;
+        filter: drop-shadow(0 24px 48px rgba(59, 130, 246, 0.18));
+      }
+      .guide-head {
+        position: absolute;
+        top: 0;
+        left: 31px;
+        width: 152px;
+        height: 126px;
+        border-radius: 48px;
+        background: rgba(255, 255, 255, 0.76);
+        border: 2px solid rgba(59, 130, 246, 0.24);
+      }
+      .guide-body {
+        position: absolute;
+        left: 16px;
+        right: 16px;
+        bottom: 0;
+        height: 120px;
+        border-radius: 48px;
+        background: linear-gradient(145deg, rgba(191, 227, 255, 0.88), rgba(233, 213, 255, 0.88));
+        border: 2px solid rgba(139, 92, 246, 0.20);
+      }
+      .guide-eye {
+        position: absolute;
+        top: 48px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #14203D;
+      }
+      .eye-left {
+        left: 48px;
+      }
+      .eye-right {
+        right: 48px;
+      }
+      .guide-smile {
+        position: absolute;
+        left: 58px;
+        bottom: 34px;
+        width: 36px;
+        height: 18px;
+        border-bottom: 5px solid #8B5CF6;
+        border-radius: 0 0 30px 30px;
+      }
+      .guide-panel {
+        position: absolute;
+        left: 42px;
+        top: 44px;
+        width: 82px;
+        height: 12px;
+        border-radius: 999px;
+        background: #3B82F6;
+        opacity: 0.64;
+      }
+      .guide-panel.small {
+        top: 70px;
+        width: 54px;
+        background: #FF6B9A;
+      }
+      .spark {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #FB7185;
+        opacity: 0.76;
+      }
+      .spark-a {
+        right: 8px;
+        top: 20px;
+      }
+      .spark-b {
+        left: 0;
+        top: 104px;
+        background: #A78BFA;
+      }
+      .skin-legacy_minimal_runtime {
+        --panel-background: linear-gradient(145deg, rgba(255, 252, 245, 0.90), rgba(247, 237, 222, 0.84));
+        --primary-text: #1D1A17;
+        --secondary-text: #6E655B;
+        --accent: #A83B31;
+        --accent-secondary: #0F665F;
+        --highlight: #E8D8C3;
+        --decorative: rgba(232, 216, 195, 0.46);
+        --decorative-secondary: #0F665F;
+        --shadow-color: rgba(62, 47, 35, 0.16);
+        --accent-glow: rgba(168, 59, 49, 0.24);
+        --halo-one: rgba(168, 59, 49, 0.22);
+        --halo-two: rgba(15, 102, 95, 0.20);
+        --wipe-accent: rgba(168, 59, 49, 0.22);
+      }
+      .skin-clean_soft {
+        --panel-background: linear-gradient(145deg, rgba(255, 247, 234, 0.90), rgba(243, 229, 208, 0.82));
+        --primary-text: #111827;
+        --secondary-text: #6E655B;
+        --accent: #A26016;
+        --accent-secondary: #87520F;
+        --highlight: #7A4A12;
+        --decorative: rgba(217, 198, 168, 0.42);
+        --decorative-secondary: #E8D8C3;
+        --shadow-color: rgba(84, 58, 24, 0.14);
+        --accent-glow: rgba(201, 133, 43, 0.24);
+        --halo-one: rgba(232, 180, 92, 0.25);
+        --halo-two: rgba(217, 198, 168, 0.24);
+        --wipe-accent: rgba(242, 190, 115, 0.32);
+      }
+      .skin-cute_ai_guide {
+        --panel-background: linear-gradient(145deg, rgba(255, 255, 255, 0.74), rgba(233, 213, 255, 0.52));
+        --primary-text: #14203D;
+        --secondary-text: #5B6B8C;
+        --accent: #1D4ED8;
+        --accent-secondary: #6D28D9;
+        --highlight: #BE185D;
+        --decorative: rgba(191, 227, 255, 0.48);
+        --decorative-secondary: #E9D5FF;
+        --shadow-color: rgba(59, 130, 246, 0.13);
+        --accent-glow: rgba(59, 130, 246, 0.22);
+        --halo-one: rgba(96, 165, 250, 0.28);
+        --halo-two: rgba(167, 139, 250, 0.28);
+        --wipe-accent: rgba(167, 139, 250, 0.30);
+      }
+    </style>
+  </head>
+  <body>
+    <main
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="3.20"
+      data-width="1920"
+      data-height="1080"
+    >
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+      </script>
+
+      <section
+        id="scene-1"
+        class="scene judgment_card skin-cute_ai_guide clip"
+        data-start="0.00"
+        data-duration="3.20"
+        data-track-index="1"
+        data-layout-allow-overflow
+      >
+        <div class="grain" data-layout-ignore></div>
+        <div class="halo halo-one" data-layout-ignore></div>
+        <div class="halo halo-two" data-layout-ignore></div>
+        <div class="cloud cloud-a" data-layout-ignore></div>
+        <div class="cloud cloud-b" data-layout-ignore></div>
+
+          <div class="guide-figure" data-layout-ignore>
+            <div class="guide-head">
+              <span class="guide-eye eye-left"></span>
+              <span class="guide-eye eye-right"></span>
+              <span class="guide-smile"></span>
+            </div>
+            <div class="guide-body">
+              <span class="guide-panel"></span>
+              <span class="guide-panel small"></span>
+            </div>
+            <span class="spark spark-a"></span>
+            <span class="spark spark-b"></span>
+          </div>
+          <script>
+            tl.to("#scene-1 .guide-figure", { y: -12, duration: 1.3, repeat: 2, yoyo: true, ease: "sine.inOut" }, 0.75);
+            tl.to("#scene-1 .spark", { scale: 1.18, opacity: 0.35, duration: 0.8, repeat: 4, yoyo: true, stagger: 0.12, ease: "sine.inOut" }, 0.90);
+          </script>
+
+        <div class="scene-content">
+          <div class="meta-row">
+            <span class="eyebrow">judgment card</span>
+            <span class="route">cute AI guide</span>
+          </div>
+          <div class="statement-card">
+            <div class="accent-rail"></div>
+            <div class="text-stack">
+              <div class="title-row">
+                <p class="locked-title">AI 的正确用法，大家直接冲就行了</p>
+                <span class="variant-pill">可爱 AI 向导</span>
+              </div>
+              <h1 class="main-text" data-locked-text="AI 的正确用法：先判断，再执行">
+                <span class="phrase">AI 的正确用法：</span><span class="phrase keyword">先判断</span><span class="phrase secondary-keyword">再执行</span>
+              </h1>
+              <p class="support">先把判断边界说清，再进入可验证执行。</p>
+            </div>
+          </div>
+          <div class="bottom-row">
+            <span class="tone">light motion / keyword emphasis</span>
+            <span class="dot"></span>
+            <span class="boundary">internal_diagnostic_only</span>
+          </div>
+        </div>
+
+      </section>
+      <script>
+        tl.from("#scene-1 .eyebrow", { y: 22, opacity: 0, duration: 0.45, ease: "power3.out" }, 0.18);
+        tl.from("#scene-1 .route", { x: 18, opacity: 0, duration: 0.45, ease: "sine.out" }, 0.24);
+        tl.from("#scene-1 .statement-card", { y: 34, scale: 0.985, opacity: 0, duration: 0.62, ease: "expo.out" }, 0.28);
+        tl.from("#scene-1 .accent-rail", { scaleY: 0, opacity: 0, duration: 0.55, transformOrigin: "top", ease: "back.out(1.2)" }, 0.42);
+        tl.from("#scene-1 .main-text .phrase", { y: 20, opacity: 0, duration: 0.48, stagger: 0.08, ease: "power2.out" }, 0.52);
+        tl.from("#scene-1 .support", { y: 16, opacity: 0, duration: 0.42, ease: "circ.out" }, 0.82);
+        tl.from("#scene-1 .bottom-row", { y: 14, opacity: 0, duration: 0.38, ease: "sine.out" }, 1.00);
+        tl.to("#scene-1 .statement-card", { y: -4, duration: 1.4, repeat: 2, yoyo: true, ease: "sine.inOut" }, 1.15);
+        tl.to("#scene-1 .halo-one", { x: 24, y: -14, scale: 1.04, duration: 1.5, repeat: 2, yoyo: true, ease: "sine.inOut" }, 0.30);
+        tl.to("#scene-1 .halo-two", { x: -18, y: 12, scale: 1.03, duration: 1.7, repeat: 1, yoyo: true, ease: "sine.inOut" }, 0.35);
+        tl.to("#scene-1 .keyword", { color: "#BE185D", duration: 0.5, repeat: 2, yoyo: true, ease: "sine.inOut" }, 1.22);
+        tl.to("#scene-1 .secondary-keyword", { color: "#6D28D9", duration: 0.55, repeat: 2, yoyo: true, ease: "sine.inOut" }, 1.38);
+        tl.to("#scene-1 .cloud", { x: 18, duration: 2.0, repeat: 1, yoyo: true, ease: "sine.inOut" }, 0.40);
+
+      </script>
+
+      <script>
+        window.__timelines["main"] = tl;
+      </script>
+    </main>
+  </body>
+</html>

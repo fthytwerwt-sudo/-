@@ -453,10 +453,44 @@ validation_rule:
 
 - `codex_permission = must_decide_and_execute`：Codex 必须判断是否触发 HyperFrames 基线。
 - `hyperframes_required = true`：默认必须使用 `hyperframes_card_motion_baseline（HyperFrames 卡片动效基线）`。
-- `runtime_execution = 待验证`：若仓库没有 HyperFrames plugin / script / runtime entry，不得写“已接入”。
+- `minimal_runtime_validation = passed`：当前已通过 `npx --yes hyperframes@0.6.12 render` 完成最小判断卡 / 总结卡真实动效验证。
+- `real_video_execution_chain_integration = pending`：正式视频执行链是否稳定复用该 runtime adapter 仍待验证。
 - `future_video_execution_blocked_if_hyperframes_required_but_missing = true`：后续真实视频如果要求 HyperFrames 而 runtime 不可用，必须 blocked 或等待用户明确授权降级。
 
 HyperFrames 只强化卡片动效和观感，不替代中段真实录屏证据，不改文案职责，不新增素材里没有的数据结论，也不推进 `content_validation（内容验证）`。
+
+### hyperframes_visual_skin_permission（HyperFrames 视觉皮肤权限）
+
+```text
+hyperframes_visual_skin_permission:
+  codex_permission: must_decide_and_execute
+  codex_must_do:
+    - 当 card_placement_decision 选择 judgment_card 或 summary_card 时，必须在 clean_soft / cute_ai_guide 中选择一个视觉皮肤。
+    - 必须说明 skin_selection_reason。
+    - 必须记录 visual_tokens。
+    - 必须确认 card_text_semantic_match = true，不得因皮肤排版改写 locked copy 语义。
+  codex_must_not_do:
+    - 不得选择 sharp_judgment 作为默认皮肤。
+    - 不得新增第三套皮肤作为默认选项。
+    - 不得因皮肤选择改写 locked copy。
+    - 不得把皮肤好看写成 content_validation 通过。
+    - 不得把 clean_soft / cute_ai_guide 锁成最终视觉母版。
+  change_request_if:
+    - clean_soft / cute_ai_guide 都无法承载原卡片文字，且必须调整语义才能排版。
+  blocked_if:
+    - skin missing
+    - HyperFrames runtime unavailable
+    - selected skin would break subtitle / evidence window
+    - selected skin changes locked copy meaning
+  record_to:
+    - content_route_card V2.card_placement_decision
+    - hyperframes_visual_quality_gate
+    - review_manifest
+  validation_rule:
+    - 生成产物必须为 real_hyperframes_motion。
+    - visual_skin 只能来自 allowed_hyperframes_visual_skins = [clean_soft, cute_ai_guide]。
+    - sharp_judgment 只能写为 not_selected_this_round。
+```
 
 ## 6. 完成检查接入
 

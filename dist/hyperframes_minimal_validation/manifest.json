@@ -189,5 +189,39 @@
     "send_ready",
     "publish_candidate",
     "visual_master_locked"
-  ]
+  ],
+  "user_visual_review": "passed",
+  "reviewer": "user",
+  "review_basis": "user watched combined_preview and approved",
+  "hyperframes_minimal_style_baseline": "locked_for_judgment_and_summary_cards",
+  "judgment_card_motion_minimal_baseline": "locked",
+  "summary_card_motion_minimal_baseline": "locked",
+  "allowed_hyperframes_visual_skins": [
+    "clean_soft",
+    "cute_ai_guide"
+  ],
+  "not_selected_visual_skins": [
+    "sharp_judgment"
+  ],
+  "visual_skin_preview_pack": {
+    "status": "generated",
+    "output_root": "dist/hyperframes_minimal_validation/visual_skins_1_3",
+    "combined_skin_review": {
+      "output_path": "dist/hyperframes_minimal_validation/visual_skins_1_3/combined_skin_review.mp4",
+      "validation_status": "passed",
+      "actual_output_type": "real_hyperframes_motion"
+    },
+    "skin_manifests": [
+      "dist/hyperframes_minimal_validation/visual_skins_1_3/clean_soft/manifest.json",
+      "dist/hyperframes_minimal_validation/visual_skins_1_3/cute_ai_guide/manifest.json"
+    ]
+  },
+  "still_not_advanced": {
+    "content_validation": "not_advanced",
+    "send_ready": false,
+    "publish_candidate": false,
+    "visual_master_locked": false,
+    "real_video_execution_chain_integration": "pending",
+    "long_term_runtime_stability": "pending"
+  }
 }

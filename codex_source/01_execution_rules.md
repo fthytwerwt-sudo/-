@@ -476,15 +476,22 @@ hyperframes_visual_quality_gate:
     - evidence_window_not_interrupted
     - visual_quality_not_static_ppt
     - route_is_cute_info_card_route_or_allowed_sassy_route
+    - hyperframes_visual_skin_selected_from_allowed_locked_skins
+    - skin_selection_reason_exists
+    - visual_tokens_recorded
+    - selected_skin_is_not_sharp_judgment
   blocked_if:
     - HyperFrames required but unavailable
     - fallback static card used without user authorization
     - card changes locked copy meaning
     - card blocks evidence
     - output only says beautiful but lacks validation
+    - selected visual skin is missing
+    - selected visual skin changes locked copy meaning
+    - selected visual skin is sharp_judgment by default
 ```
 
-若 HyperFrames plugin / script / runtime 入口不存在或不可用，必须写：
+当前 `HyperFrames minimal runtime validation（HyperFrames 最小运行验证）` 已通过 `npx --yes hyperframes@0.6.12 render` 生成最小判断卡 / 总结卡真实动效产物；但正式视频执行链接入仍为 `pending（待验证）`。若后续真实视频任务中 HyperFrames plugin / script / runtime 入口不存在或不可用，必须写：
 
 ```text
 hyperframes_runtime_status = missing / not_found / not_verified
@@ -493,12 +500,31 @@ actual_video_execution_with_hyperframes = blocked_until_runtime_available
 future_video_execution_blocked_if_hyperframes_required_but_missing = true
 ```
 
+当 `card_placement_decision（卡片位置判断）` 选择 `judgment_card（判断卡）` 或 `summary_card（总结卡）` 时，Codex 必须在以下 allowed locked skins 中选择一个：
+
+```text
+allowed_hyperframes_visual_skins = [clean_soft, cute_ai_guide]
+not_selected_visual_skins = [sharp_judgment]
+```
+
+选择皮肤时必须记录：
+
+```text
+hyperframes_visual_skin:
+skin_selection_reason:
+visual_tokens:
+card_text_semantic_match:
+subtitle_overlap_risk:
+evidence_interrupt_risk:
+```
+
 硬规则：
 
 - 不得写 `HyperFrames 已接入`，除非仓库存在真实 plugin / script / runtime entry 且本轮验证通过。
 - 不得用普通静态 PPT 感卡片冒充 HyperFrames 已执行。
 - HyperFrames 只能强化 judgment_card / summary_card 等卡片动效与观感，不能替代中段真实录屏证据，不能改 locked copy，不能新增素材里没有的数据结论。
 - HyperFrames 视觉优化不得推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`。
+- `clean_soft（干净柔和）` 与 `cute_ai_guide（可爱 AI 向导）` 只是最小判断卡 / 总结卡 allowed skin baseline，不是最终视觉母版；`sharp_judgment（清晰判断）` 本轮不作为默认皮肤。
 
 ## 2A-2. Reference-to-Execution Contract Gate 参考到执行落地契约闸门
 
