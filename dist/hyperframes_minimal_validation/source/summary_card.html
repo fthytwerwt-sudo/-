@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="zh-CN" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #F8F4EC;
+        color: #1D1A17;
+        font-family: Arial, sans-serif;
+      }
+      #root {
+        width: 1920px;
+        height: 1080px;
+        position: relative;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 14% 18%, rgba(168, 59, 49, 0.18), transparent 28%),
+          radial-gradient(circle at 86% 78%, rgba(15, 102, 95, 0.16), transparent 30%),
+          linear-gradient(135deg, #F8F4EC 0%, #FCFAF5 48%, #EFE1CF 100%);
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+      }
+      .scene-content {
+        width: 100%;
+        height: 100%;
+        padding: 118px 156px 112px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 34px;
+      }
+      .meta-row,
+      .bottom-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 52px;
+        font-size: 26px;
+        color: #6E655B;
+        letter-spacing: 0;
+      }
+      .eyebrow,
+      .route,
+      .tone,
+      .boundary {
+        padding: 12px 18px;
+        border: 1px solid rgba(29, 26, 23, 0.10);
+        border-radius: 8px;
+        background: rgba(255, 252, 245, 0.66);
+        backdrop-filter: blur(12px);
+      }
+      .statement-card {
+        position: relative;
+        min-height: 570px;
+        padding: 70px 82px;
+        display: grid;
+        grid-template-columns: 18px 1fr;
+        gap: 42px;
+        align-items: center;
+        border-radius: 8px;
+        border: 1px solid rgba(29, 26, 23, 0.12);
+        background:
+          linear-gradient(145deg, rgba(255, 252, 245, 0.90), rgba(247, 237, 222, 0.84)),
+          repeating-linear-gradient(90deg, rgba(29, 26, 23, 0.035) 0 1px, transparent 1px 92px);
+        box-shadow:
+          0 34px 88px rgba(62, 47, 35, 0.16),
+          inset 0 1px 0 rgba(255, 255, 255, 0.72);
+      }
+      .accent-rail {
+        width: 16px;
+        height: 100%;
+        border-radius: 999px;
+        background: linear-gradient(180deg, #A83B31, #0F665F);
+        box-shadow: 0 0 28px rgba(168, 59, 49, 0.24);
+      }
+      .text-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+      .locked-title {
+        max-width: 1060px;
+        font-size: 34px;
+        line-height: 1.35;
+        color: #6E655B;
+      }
+      .main-text {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 18px 28px;
+        max-width: 1280px;
+        font-size: 96px;
+        line-height: 1.13;
+        font-weight: 800;
+        letter-spacing: 0;
+      }
+      .phrase {
+        display: inline-block;
+        white-space: nowrap;
+      }
+      .support {
+        max-width: 970px;
+        font-size: 34px;
+        line-height: 1.45;
+        color: #6E655B;
+      }
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #A83B31;
+      }
+      .grain {
+        position: absolute;
+        inset: 0;
+        opacity: 0.13;
+        background-image:
+          linear-gradient(rgba(29, 26, 23, 0.12) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(29, 26, 23, 0.10) 1px, transparent 1px);
+        background-size: 96px 96px;
+      }
+      .halo {
+        position: absolute;
+        width: 520px;
+        height: 520px;
+        border-radius: 50%;
+        filter: blur(8px);
+        opacity: 0.42;
+      }
+      .halo-one {
+        left: -120px;
+        top: 120px;
+        background: radial-gradient(circle, rgba(168, 59, 49, 0.22), transparent 62%);
+      }
+      .halo-two {
+        right: -110px;
+        bottom: 90px;
+        background: radial-gradient(circle, rgba(15, 102, 95, 0.20), transparent 62%);
+      }
+      .transition-wipe {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 120%;
+        background: linear-gradient(90deg, transparent, rgba(248, 244, 236, 0.96) 24%, rgba(168, 59, 49, 0.22) 50%, rgba(248, 244, 236, 0.96) 76%, transparent);
+        transform: translateX(-110%);
+      }
+      .summary_card .accent-rail {
+        background: linear-gradient(180deg, #0F665F, #A83B31);
+      }
+      .summary_card .dot {
+        background: #0F665F;
+      }
+    </style>
+  </head>
+  <body>
+    <main
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="3.20"
+      data-width="1920"
+      data-height="1080"
+    >
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+      </script>
+
+      <section
+        id="scene-1"
+        class="scene summary_card clip"
+        data-start="0.00"
+        data-duration="3.20"
+        data-track-index="1"
+        data-layout-allow-overflow
+      >
+        <div class="grain" data-layout-ignore></div>
+        <div class="halo halo-one" data-layout-ignore></div>
+        <div class="halo halo-two" data-layout-ignore></div>
+        <div class="scene-content">
+          <div class="meta-row">
+            <span class="eyebrow">summary card</span>
+            <span class="route">cute_info_card_route</span>
+          </div>
+          <div class="statement-card">
+            <div class="accent-rail"></div>
+            <div class="text-stack">
+              <p class="locked-title">AI 的正确用法，大家直接冲就行了</p>
+              <h1 class="main-text" data-locked-text="目标说清楚，下一步能验证，就可以冲">
+                <span class="phrase keyword">目标说清楚</span><span class="phrase">下一步能验证</span><span class="phrase secondary-keyword">就可以冲</span>
+              </h1>
+              <p class="support">把目标、验证、下一步收在一句话里。</p>
+            </div>
+          </div>
+          <div class="bottom-row">
+            <span class="tone">soft close / low pressure</span>
+            <span class="dot"></span>
+            <span class="boundary">internal_diagnostic_only</span>
+          </div>
+        </div>
+
+      </section>
+      <script>
+        tl.from("#scene-1 .eyebrow", { y: 22, opacity: 0, duration: 0.45, ease: "power3.out" }, 0.18);
+        tl.from("#scene-1 .route", { x: 18, opacity: 0, duration: 0.45, ease: "sine.out" }, 0.24);
+        tl.from("#scene-1 .statement-card", { y: 34, scale: 0.985, opacity: 0, duration: 0.62, ease: "expo.out" }, 0.28);
+        tl.from("#scene-1 .accent-rail", { scaleY: 0, opacity: 0, duration: 0.55, transformOrigin: "top", ease: "back.out(1.2)" }, 0.42);
+        tl.from("#scene-1 .main-text .phrase", { y: 20, opacity: 0, duration: 0.48, stagger: 0.08, ease: "power2.out" }, 0.52);
+        tl.from("#scene-1 .support", { y: 16, opacity: 0, duration: 0.42, ease: "circ.out" }, 0.82);
+        tl.from("#scene-1 .bottom-row", { y: 14, opacity: 0, duration: 0.38, ease: "sine.out" }, 1.0);
+        tl.to("#scene-1 .statement-card", { y: -4, duration: 1.4, repeat: 2, yoyo: true, ease: "sine.inOut" }, 1.15);
+        tl.to("#scene-1 .halo-one", { x: 24, y: -14, scale: 1.04, duration: 1.5, repeat: 2, yoyo: true, ease: "sine.inOut" }, 0.3);
+        tl.to("#scene-1 .halo-two", { x: -18, y: 12, scale: 1.03, duration: 1.7, repeat: 1, yoyo: true, ease: "sine.inOut" }, 0.35);
+        tl.to("#scene-1 .keyword", { color: "#0F665F", duration: 0.5, repeat: 2, yoyo: true, ease: "sine.inOut" }, 1.22);
+        tl.to("#scene-1 .secondary-keyword", { color: "#A83B31", duration: 0.55, repeat: 2, yoyo: true, ease: "sine.inOut" }, 1.38);
+
+      </script>
+
+      <script>
+        window.__timelines["main"] = tl;
+      </script>
+    </main>
+  </body>
+</html>

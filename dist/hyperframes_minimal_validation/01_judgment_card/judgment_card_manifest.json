@@ -1,0 +1,21 @@
+{
+  "artifact_type": "hyperframes_minimal_card_validation",
+  "internal_diagnostic_only": true,
+  "title": "AI 的正确用法，大家直接冲就行了",
+  "card_type": "judgment_card",
+  "text": "AI 的正确用法：先判断，再执行",
+  "hyperframes_required": true,
+  "hyperframes_runtime_status": "found_and_callable",
+  "actual_output_type": "real_hyperframes_motion",
+  "motion_type": "judgment_card_motion",
+  "route": "cute_info_card_route",
+  "output_path": "dist/hyperframes_minimal_validation/01_judgment_card/judgment_card.mp4",
+  "validation_status": "passed",
+  "render_log": "dist/hyperframes_minimal_validation/runtime_logs/judgment_card_render.log",
+  "must_not_claim": [
+    "content_validation_passed",
+    "send_ready",
+    "publish_candidate",
+    "visual_master_locked"
+  ]
+}

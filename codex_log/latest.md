@@ -1,5 +1,21 @@
 # Latest
 
+## 20260516｜HyperFrames 最小判断卡 / 总结卡产物验证
+
+- `已确认` 本轮只做 `hyperframes_minimal_runtime_validation（HyperFrames 最小运行验证）`，产物定位为 `internal_diagnostic_only（内部诊断产物）`；不生成正式视频，不修改已发布视频，不修改 `dist/latest_review_pack/`。
+- `route_decision（路由判断）`：`project_route = video_factory`；`task_type = hyperframes_runtime_validation + minimal_artifact_generation + card_motion_baseline_test`；`large_task_gate = false`；`lane = standard_lane`；`parallel = serial_only`。
+- `impact_check_report（影响面检查）`：仓库根 `package.json` 只有 `ffmpeg-static`，本轮前 `scripts/` 未发现项目级 HyperFrames 入口，本地 `skills/` 不存在；已读取全局 HyperFrames skill 与 HyperFrames CLI skill。
+- `HyperFrames runtime`：`npx --yes hyperframes@0.6.12` 可调用；`doctor` 显示 CLI、Chrome、FFmpeg、FFprobe 可用。内存低是渲染风险提示，但本轮用 draft / single worker 完成最小渲染。
+- `已新增` 可复跑脚本：`scripts/HyperFrames最小卡片验证_hyperframes_minimal_card_validation.py`。该脚本不读取 secret，不调用项目外部 API，通过 `npx --yes hyperframes@0.6.12 lint / inspect / render` 生成最小卡片验证产物。
+- `已生成` `judgment_card（判断卡）`：`dist/hyperframes_minimal_validation/01_judgment_card/judgment_card.mp4`；锁定文字为 `AI 的正确用法：先判断，再执行`；`actual_output_type = real_hyperframes_motion`。
+- `已生成` `summary_card（总结卡）`：`dist/hyperframes_minimal_validation/02_summary_card/summary_card.mp4`；锁定文字为 `目标说清楚，下一步能验证，就可以冲`；`actual_output_type = real_hyperframes_motion`。
+- `已生成` 合并预览：`dist/hyperframes_minimal_validation/combined_preview.mp4`。
+- `已生成` 审片与验证文件：`dist/hyperframes_minimal_validation/manifest.json`、`dist/hyperframes_minimal_validation/review_manifest.md`、两张卡片各自的 manifest、预览 PNG、HyperFrames lint / inspect / render 日志。
+- `技术验证`：HyperFrames lint 通过；HyperFrames validate 通过且 no console errors / 70 text elements pass WCAG AA；HyperFrames inspect 通过且 0 layout issues；HyperFrames render 三段均 exit_code=0；`ffprobe / ffmpeg decode` 验证三段视频均为 1920x1080、30fps、h264、可解码，无音轨（本轮不要求音轨）。
+- `状态边界`：`technical_runtime_validation = passed`、`hyperframes_minimal_artifact = generated`、`internal_diagnostic_only = true`；未推进 `content_validation（内容验证）`、`send_ready（可发送状态）`、可发布候选片待复审状态、`voice_validation（声音验证）`、`final_voice_validated（最终声音验证）` 或 `visual_master_locked（视觉母版锁定）`。
+- `日志`：`codex_log/20260516_hyperframes_minimal_card_validation.md`
+- `下一个目标`：若要进入真实视频执行，需要把本轮 runtime adapter 接入正式视频执行链，并继续通过 `card_placement_decision`、`hyperframes_visual_quality_gate`、`subtitle_card_overlap_check` 和 locked copy 语义检查。
+
 ## 20260516｜Codex 判断权限表与 HyperFrames 判断卡 / 总结卡基线
 
 - `已确认` 本轮只做《视频工厂｜OPC 一人公司 AI 闭环验证系统》的机制修补、项目文件修改、Codex 执行层判断权限补全和 HyperFrames 卡片执行基线补强；不生成视频、不修改已发布视频、不修改 `dist/latest_review_pack/`。
