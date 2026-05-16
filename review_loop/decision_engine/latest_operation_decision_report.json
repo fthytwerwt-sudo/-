@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-16T08:47:00.502070+00:00",
+  "generated_at": "2026-05-16T15:58:43.937189+00:00",
   "system_name": "operation_decision_system",
   "source_of_truth": {
     "operation_records_index": "review_loop/operation_records_index.md",
@@ -871,12 +871,64 @@
       ]
     }
   },
+  "copy_iteration_linkage": {
+    "status": "available",
+    "latest_copy_iteration_report_json": "review_loop/copy_iteration/latest_copy_iteration_report.json",
+    "latest_copy_iteration_report_md": "review_loop/copy_iteration/latest_copy_iteration_report.md",
+    "next_copy_revision_brief_path": "review_loop/copy_iteration/V003/V003_next_copy_revision_brief.md",
+    "script_path": "scripts/文案迭代决策系统_copy_iteration_decision_system.py",
+    "current_copy_version": "V003_copy_v1 / v1_raw",
+    "current_data_window": "interim_36h_snapshot",
+    "current_problem_layer": "opening_packaging",
+    "confidence": "low",
+    "revision_scope_allowed": [
+      "opening_0_3s",
+      "bridge_3_8s"
+    ],
+    "formal_copy_revision_allowed": false,
+    "low_confidence_prepare_allowed": true,
+    "status_boundary": {
+      "content_validation_advanced": false,
+      "send_ready_advanced": false,
+      "current_data_goal_anchor_ready": false,
+      "next_formal_video_execution_prompt_generated": false,
+      "target_audience_changed": false,
+      "topic_direction_changed": false
+    },
+    "decision_boundary": "当前只允许 ChatGPT 读取 brief 后低置信度准备开头和 3-8 秒承接，不生成正式下一条视频执行 prompt。"
+  },
   "final_user_result": {
     "one_sentence_conclusion": "当前系统已能自动读三期记录并给出判断：V003 只能继续补数据和低置信度准备，不能进入下一期正式执行。",
     "current_primary_bottleneck": "opening_retention_and_initial_distribution_weak / draft_low_confidence",
     "can_enter_next_episode_execution": false,
     "blocked_reason_if_not": "V003 仍是 interim_36h_snapshot，缺 72h / 7d 和需求侧字段，不能生成正式下一条视频执行 prompt。",
-    "recommended_next_route": "先补 V003 72h / 7d、3s_retention、主页访问、私信、有效私信、有效咨询和清晰需求客户；补齐后重跑本系统，再决定唯一主变量。"
+    "recommended_next_route": "先补 V003 72h / 7d、3s_retention、主页访问、私信、有效私信、有效咨询和清晰需求客户；补齐后重跑本系统，再决定唯一主变量。",
+    "copy_iteration_entry": {
+      "status": "available",
+      "latest_copy_iteration_report_json": "review_loop/copy_iteration/latest_copy_iteration_report.json",
+      "latest_copy_iteration_report_md": "review_loop/copy_iteration/latest_copy_iteration_report.md",
+      "next_copy_revision_brief_path": "review_loop/copy_iteration/V003/V003_next_copy_revision_brief.md",
+      "script_path": "scripts/文案迭代决策系统_copy_iteration_decision_system.py",
+      "current_copy_version": "V003_copy_v1 / v1_raw",
+      "current_data_window": "interim_36h_snapshot",
+      "current_problem_layer": "opening_packaging",
+      "confidence": "low",
+      "revision_scope_allowed": [
+        "opening_0_3s",
+        "bridge_3_8s"
+      ],
+      "formal_copy_revision_allowed": false,
+      "low_confidence_prepare_allowed": true,
+      "status_boundary": {
+        "content_validation_advanced": false,
+        "send_ready_advanced": false,
+        "current_data_goal_anchor_ready": false,
+        "next_formal_video_execution_prompt_generated": false,
+        "target_audience_changed": false,
+        "topic_direction_changed": false
+      },
+      "decision_boundary": "当前只允许 ChatGPT 读取 brief 后低置信度准备开头和 3-8 秒承接，不生成正式下一条视频执行 prompt。"
+    }
   },
   "status_boundary": {
     "content_validation_advanced": false,

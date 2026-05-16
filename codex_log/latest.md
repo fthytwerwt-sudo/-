@@ -1,5 +1,24 @@
 # Latest
 
+## 20260516｜文案迭代决策系统
+
+- `已确认` 本轮只做机制修补 / 路由修补、项目文件修改和代码执行 / 调试；不生成新视频，不修改已发布视频，不生成正式下一条视频执行 prompt，不直接重写 V003 文案。
+- `route_decision（路由判断）`：`project_route = video_factory`；`task_type = mechanism_or_route_fix + project_file_change + code_execution_or_debug + copy_iteration_system`；`large_task_gate = triggered`；`lane = audit_lane -> standard_lane`；`parallel = serial_only`；`write_owner = Codex Integrator only`。
+- `state_action_router（项目状态动作总控器）`：`inferred_state = copy_iteration_system_missing`；`selected_action = build_copy_iteration_decision_system`；`done_when = V003 文案被记录，系统生成 next_copy_revision_brief，并接入运营决策报告`。
+- `DeepSeek`：已创建供料任务卡 `codex_log/supply_requests/20260516_copy_iteration_decision_system_pre_supply_request.json`；真实调用通过，`deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`api_key_printed = false`、`api_key_written = false`、`env_file_read = false`。
+- `已新增` 可运行脚本：`scripts/文案迭代决策系统_copy_iteration_decision_system.py`。
+- `已新增` 文案迭代目录：`review_loop/copy_iteration/`，包含 `copy_registry.json`、`latest_copy_iteration_report.json`、`latest_copy_iteration_report.md` 和 V003 文案记录目录。
+- `已保真登记` V003 第一版原始文案：`review_loop/copy_iteration/V003/V003_copy_v1_raw.md`；raw 文案未改写，`克资 / 刻字定义 / 克兹` 只在 `suspected_typos` 中标记为疑似“客资”误写。
+- `已生成` V003 文案版本记录、结构拆解和迭代决策：`V003_copy_v1_record.json`、`V003_copy_structure_map.json`、`V003_copy_iteration_decision.json`。
+- `已生成` 给 ChatGPT 读取的 `V003_next_copy_revision_brief.md`：当前只允许低置信度准备开头 0-3 秒和 3-8 秒承接，不允许全文重写、换方向、换人群或改 offer。
+- `V003_copy_iteration_result`：`problem_layer = opening_packaging`；`supporting_problem_layers = bridge_3_8s`；`confidence = low`；`formal_copy_revision_allowed = false`；`low_confidence_prepare_allowed = true`；`revision_scope = opening_0_3s + bridge_3_8s`；`validation_metric = 2s_bounce / 3s_retention / 5s_completion / average_watch_time`。
+- `已接入` `scripts/运营决策系统_operation_decision_system.py`：最新运营决策报告已包含 `copy_iteration_linkage`，`final_user_operation_result.md` 增加“文案迭代入口”。
+- `已同步` `GPT数据源/05`、`11`、`13`、`14` 与 `codex_source/19`：新增 `copy_iteration_system_required`、`copy_version_record_missing`、`next_copy_revision_brief_required` 与 `copy_iteration_decision gate`。
+- `验证`：`py_compile` passed；`文案迭代决策系统 --validate-only` passed；`运营决策系统 --validate-only` passed；JSON parse passed；status boundary assertions passed；forbidden status scan passed。
+- `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status_success（发布成功口径）`、`voice_validation（声音验证）`、`final_voice_validated（最终声音验证）`、`visual_master_locked（视觉母版锁定）`；`current_data_goal_anchor` 未写 ready；未生成正式下一条视频执行 prompt。
+- `日志`：`codex_log/20260516_copy_iteration_decision_system.md`
+- `下一个安全用法`：ChatGPT 读取 `review_loop/copy_iteration/V003/V003_next_copy_revision_brief.md` 后向用户汇报并改稿；用户确认后再进入具体改稿或后续执行。
+
 ## 20260516｜HyperFrames 最小卡片用户通过与视觉皮肤锁定
 
 - `已确认` 用户已人工复审 `dist/hyperframes_minimal_validation/combined_preview.mp4` 并反馈可以通过；本轮只做最小卡片用户通过与 HyperFrames 小升级锁定回写，不生成正式视频，不修改已发布视频，不修改 `dist/latest_review_pack/`。

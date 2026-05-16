@@ -15,6 +15,27 @@
 - 系统判断 `blocked_for_formal_next_episode_execution` 时，只允许低置信度准备，不允许进入正式视频执行。
 - `operation_decision_system` 落地只代表决策系统可运行，不代表内容成功、方向成立、商业验证成立或数据飞轮真实跑通。
 
+## 0A-1. copy_iteration_decision gate（文案迭代决策闸门）
+
+数据反馈到文案之前，必须先输出 `copy_iteration_decision（文案迭代决策）`，不能只靠 ChatGPT / Codex 临场判断“改开头还是改方向”。
+
+当前可运行入口：
+
+- `scripts/文案迭代决策系统_copy_iteration_decision_system.py`
+- `review_loop/copy_iteration/latest_copy_iteration_report.json`
+- `review_loop/copy_iteration/latest_copy_iteration_report.md`
+- `review_loop/copy_iteration/V003/V003_copy_iteration_decision.json`
+- `review_loop/copy_iteration/V003/V003_next_copy_revision_brief.md`
+
+硬规则：
+
+- 每期、每版文案必须进入 `copy_registry.json`，并绑定发布数据窗口、运营记录和运营决策报告。
+- `raw_copy（原始文案）` 必须保真；疑似错字只进入 `suspected_typos（疑似错字）`，不得覆盖原文。
+- `copy_iteration_decision` 必须判断问题层级：`opening_packaging / bridge_3_8s / middle_structure / evidence_expression / tone_and_language / topic_angle / target_audience`。
+- V003 当前仍是 `partial_data_recorded / interim_36h_snapshot`，只能输出 `low_confidence_prepare_allowed = true`，不得输出正式文案 ready。
+- 当前默认问题层级为 `opening_packaging`，辅助关注 `bridge_3_8s`；不得直接判 `topic_angle` 失败或 `target_audience` 错误。
+- ChatGPT 后续改稿前必须读取 `V003_next_copy_revision_brief.md`；Codex 不负责最终定稿。
+
 ## 0B. 正式运营交付停止线
 
 目标驱动文案、`next_video_execution_prompt（下一条视频执行 prompt）`、`content_structure_feedback_card（内容结构反馈卡）` 和执行前补全包，只能作为进入视频执行的前置条件。它们不能替代正式运营视频交付。

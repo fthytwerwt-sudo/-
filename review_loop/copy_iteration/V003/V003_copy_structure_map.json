@@ -1,0 +1,269 @@
+{
+  "video_id": "V003",
+  "copy_id": "V003_copy_v1",
+  "source_path": "review_loop/copy_iteration/V003/V003_copy_v1_raw.md",
+  "structure_version": "copy_structure_map_v1",
+  "current_assessment": {
+    "opening_too_conceptual": true,
+    "enters_kpi_and_data_flywheel_too_fast": true,
+    "missing_real_data_conflict": true,
+    "has_internal_project_language": true,
+    "viewer_scene_insufficient": true,
+    "core_claim_keepable": true,
+    "assessment_confidence": "low",
+    "assessment_boundary": "只能用于准备开头和 3-8 秒承接，不能判定选题方向或目标人群失败。"
+  },
+  "segments": [
+    {
+      "segment_id": "opening_0_3s",
+      "original_text": "第三期\n别再让ai给你定kpi了。播放多少、点赞多少、克资多少，看着很完整，但大多数时候没用，",
+      "copy_function": "抛出反常识判断，试图阻断观众继续用 KPI 表思考。",
+      "viewer_question_answered": "为什么我不该只看 KPI？",
+      "data_feedback_target": [
+        "2s_bounce",
+        "3s_retention"
+      ],
+      "likely_issue_if_metric_bad": "2s 跳出高时，说明开头像概念判断，缺少真实冲突和观众代入。",
+      "can_modify_if_problem_layer": [
+        "opening_packaging"
+      ],
+      "must_keep": [
+        "不要再让 AI 只给 KPI 表",
+        "目标要服务下一步动作"
+      ],
+      "forbidden_change": [
+        "不得改成换人群",
+        "不得改核心方向",
+        "不得加入素材没有的数据承诺"
+      ]
+    },
+    {
+      "segment_id": "bridge_3_8s",
+      "original_text": "因为这些数字不会告诉你下一条到底该改标题，还是改开头，还是改中段结构。",
+      "copy_function": "解释开头判断和下一步行动之间的关系。",
+      "viewer_question_answered": "这些数据为什么没法指导下一条？",
+      "data_feedback_target": [
+        "5s_completion",
+        "average_watch_time"
+      ],
+      "likely_issue_if_metric_bad": "5s 完播弱时，说明承接没有快速把问题落到观众具体困境。",
+      "can_modify_if_problem_layer": [
+        "bridge_3_8s",
+        "opening_packaging"
+      ],
+      "must_keep": [
+        "下一条只改哪个变量的核心问题"
+      ],
+      "forbidden_change": [
+        "不得扩写成全文重写",
+        "不得改变 offer / 承接口径"
+      ]
+    },
+    {
+      "segment_id": "problem_setup",
+      "original_text": "我一开始也这样问，帮视频工厂定个目标，最好有播放、点赞和克资。",
+      "copy_function": "建立作者旧做法和观众常见误区。",
+      "viewer_question_answered": "作者之前是怎么错用 AI 的？",
+      "data_feedback_target": [
+        "average_watch_time",
+        "comment_count"
+      ],
+      "likely_issue_if_metric_bad": "如果中段观看弱，可能是旧做法交代太抽象。",
+      "can_modify_if_problem_layer": [
+        "middle_structure",
+        "tone_and_language"
+      ],
+      "must_keep": [
+        "我一开始也这样问的自曝视角"
+      ],
+      "forbidden_change": [
+        "不得把作者经验改成外部权威说教"
+      ]
+    },
+    {
+      "segment_id": "negative_example",
+      "original_text": "第一版确实很全，北极星目标、阶段目标、指标数、刻字定义都有，但我看完觉得不对，他还是在回答我要追哪些数字。",
+      "copy_function": "展示旧系统的完整但无用。",
+      "viewer_question_answered": "第一版为什么看起来完整但仍不对？",
+      "data_feedback_target": [
+        "average_watch_time",
+        "favorite_rate"
+      ],
+      "likely_issue_if_metric_bad": "如果收藏弱，可能是反面示例缺少可复用结构。",
+      "can_modify_if_problem_layer": [
+        "middle_structure",
+        "evidence_expression",
+        "tone_and_language"
+      ],
+      "must_keep": [
+        "看起来完整但不能指导下一步的反差"
+      ],
+      "forbidden_change": [
+        "不得删除反面示例",
+        "不得把疑似错字写进 normalized raw"
+      ]
+    },
+    {
+      "segment_id": "turning_point",
+      "original_text": "我真正需要的是数据回来以后，下一轮该改哪里。所以我又追问，",
+      "copy_function": "从追数字转向追判断系统。",
+      "viewer_question_answered": "真正的问题到底是什么？",
+      "data_feedback_target": [
+        "5s_completion",
+        "average_watch_time"
+      ],
+      "likely_issue_if_metric_bad": "承接弱时，转折点可能来得太晚或力度不足。",
+      "can_modify_if_problem_layer": [
+        "bridge_3_8s",
+        "middle_structure"
+      ],
+      "must_keep": [
+        "数据回来以后下一轮该改哪里"
+      ],
+      "forbidden_change": [
+        "不得改成商业承诺",
+        "不得改成新人群判断"
+      ]
+    },
+    {
+      "segment_id": "positive_system",
+      "original_text": "让ai设计一套目标驱动的数据飞轮，每期发布后，根据播放、留存、收藏、评论、私信和克兹，判断下一期只改哪个变量，这次结果才像个判断系统。",
+      "copy_function": "给出新系统的正解形态。",
+      "viewer_question_answered": "什么样的 AI 目标系统才有用？",
+      "data_feedback_target": [
+        "favorite_rate",
+        "average_watch_time"
+      ],
+      "likely_issue_if_metric_bad": "如果收藏有信号但观看弱，可能要提前压缩为更易懂的结果预览。",
+      "can_modify_if_problem_layer": [
+        "middle_structure",
+        "evidence_expression"
+      ],
+      "must_keep": [
+        "目标驱动数据飞轮",
+        "每期只改一个变量"
+      ],
+      "forbidden_change": [
+        "不得写成系统已经验证成功",
+        "不得生成下一条正式执行 prompt"
+      ]
+    },
+    {
+      "segment_id": "metric_explanation",
+      "original_text": "播放和留存是触达，点赞和收藏是认可，评论和追问是互动。",
+      "copy_function": "把指标分层解释给观众。",
+      "viewer_question_answered": "每类指标分别说明什么？",
+      "data_feedback_target": [
+        "favorite_rate",
+        "comment_count"
+      ],
+      "likely_issue_if_metric_bad": "如果互动弱，可能是指标解释仍偏概念，没有引出观众提问。",
+      "can_modify_if_problem_layer": [
+        "evidence_expression",
+        "tone_and_language"
+      ],
+      "must_keep": [
+        "播放/留存/收藏/评论的层级关系"
+      ],
+      "forbidden_change": [
+        "不得把点赞等同于客资",
+        "不得把收藏直接写成商业成立"
+      ]
+    },
+    {
+      "segment_id": "lead_quality_boundary",
+      "original_text": "但私信也不能全算克资，要看他有没有说清楚任务场景和想要的结果。",
+      "copy_function": "划清客资质量边界。",
+      "viewer_question_answered": "什么样的私信才有需求质量？",
+      "data_feedback_target": [
+        "dm_count",
+        "effective_dm_count",
+        "effective_consult_count"
+      ],
+      "likely_issue_if_metric_bad": "需求侧字段缺失时，只能保留规则，不得判定商业验证。",
+      "can_modify_if_problem_layer": [
+        "evidence_expression"
+      ],
+      "must_keep": [
+        "私信要看任务场景和结果"
+      ],
+      "forbidden_change": [
+        "不得把所有私信都算客资",
+        "不得在缺数据时写有效咨询成立"
+      ]
+    },
+    {
+      "segment_id": "core_claim",
+      "original_text": "所以，目标不是kpi表，真正有用的目标是逼你回答三件事哪一层出了问题，下一条只改哪个变量，改完看哪个指标。",
+      "copy_function": "输出整条文案的核心判断。",
+      "viewer_question_answered": "真正有用的目标要逼我回答什么？",
+      "data_feedback_target": [
+        "favorite_rate",
+        "average_watch_time"
+      ],
+      "likely_issue_if_metric_bad": "如果收藏弱且多样本重复，才考虑核心表达或选题角度问题。",
+      "can_modify_if_problem_layer": [
+        "evidence_expression",
+        "tone_and_language",
+        "topic_angle"
+      ],
+      "must_keep": [
+        "哪一层出问题",
+        "只改哪个变量",
+        "改完看哪个指标"
+      ],
+      "forbidden_change": [
+        "不得在 V003 早期数据下判方向失败",
+        "不得全文重写"
+      ]
+    },
+    {
+      "segment_id": "summary_rules",
+      "original_text": "没有这套判断，你每轮都在动，却不知道哪一步起作用。播放是入口，收藏是认可，私信要评分，每条只改一个主变量，",
+      "copy_function": "把行动规则压缩成可记住的总结。",
+      "viewer_question_answered": "我应该记住哪些复盘规则？",
+      "data_feedback_target": [
+        "favorite_rate",
+        "comment_count",
+        "average_watch_time"
+      ],
+      "likely_issue_if_metric_bad": "如果尾段弱，可能是规则密度高，需要更口语化。",
+      "can_modify_if_problem_layer": [
+        "tone_and_language",
+        "middle_structure"
+      ],
+      "must_keep": [
+        "播放是入口",
+        "收藏是认可",
+        "私信要评分",
+        "每条只改一个主变量"
+      ],
+      "forbidden_change": [
+        "不得改成多变量同时测试",
+        "不得改动核心规则"
+      ]
+    },
+    {
+      "segment_id": "ending_takeaway",
+      "original_text": "目标清楚了，动作才不会乱，复盘清楚了，下一步才会浮出来。",
+      "copy_function": "以一句人话收束价值。",
+      "viewer_question_answered": "这套判断最终带来什么？",
+      "data_feedback_target": [
+        "completion_rate",
+        "average_watch_time"
+      ],
+      "likely_issue_if_metric_bad": "如果结尾完播弱，可能是前文承接不足，结尾本身不优先大改。",
+      "can_modify_if_problem_layer": [
+        "tone_and_language"
+      ],
+      "must_keep": [
+        "目标清楚动作不乱",
+        "复盘清楚下一步浮出来"
+      ],
+      "forbidden_change": [
+        "不得加重销售承接",
+        "不得生成正式下一条执行 prompt"
+      ]
+    }
+  ]
+}

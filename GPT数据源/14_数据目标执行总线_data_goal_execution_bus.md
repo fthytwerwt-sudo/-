@@ -23,6 +23,24 @@
 - 若 V003 仍缺 72h / 7d、3s 留存、主页访问、私信、有效私信、有效咨询或清晰需求客户，不得把当前锚点写成 `ready`。
 - 本闸门只负责运营决策，不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`。
 
+## 0A-2. next_copy_revision_brief gate（下一版文案修改简报闸门）
+
+正式下一条视频执行前，必须先读取最新 `next_copy_revision_brief（下一版文案修改简报）`，并确认它不是正式执行 prompt。
+
+当前入口：
+
+- `review_loop/copy_iteration/latest_copy_iteration_report.md`
+- `review_loop/copy_iteration/V003/V003_next_copy_revision_brief.md`
+- `scripts/文案迭代决策系统_copy_iteration_decision_system.py`
+
+硬规则：
+
+- `next_copy_revision_brief` 只给 ChatGPT 做汇报、判断和改稿；不是 Codex 视频执行单。
+- 当 `formal_copy_revision_allowed = false` 时，Codex 不得生成 `next_video_execution_prompt（下一条视频执行 prompt）`。
+- 当 brief 只允许 `opening_0_3s + bridge_3_8s` 时，不得改目标用户、核心选题方向、offer 或全片结构。
+- 缺 `copy_iteration_decision` 或缺 `next_copy_revision_brief` 时，不得进入正式下一条视频执行。
+- brief 被 ChatGPT / 用户确认并升级为正式文案后，仍需重新建立 `locked_copy_contract（锁定文案契约）` 和 `data_goal_alignment_check（数据目标对齐检查）`，才能进入 Codex 执行。
+
 ## 0B. publish_candidate delivery gate
 
 数据目标执行总线只负责把目标接到文案、供料、剪辑、编排、装配和验收。它不能把执行前补全包、路由卡、时间线、TTS 韵律锚点、剪辑 / 装配决策包或技术预览升级成用户交付物。

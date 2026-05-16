@@ -150,6 +150,15 @@ if state = operation_decision_system_missing:
 if state = operation_decision_report_required:
   action = read review_loop/decision_engine/latest_operation_decision_report.json; if missing or invalid, generate it before deciding next execution
 
+if state = copy_iteration_system_required:
+  action = run scripts/文案迭代决策系统_copy_iteration_decision_system.py, then read latest_copy_iteration_report and V003_next_copy_revision_brief before any ChatGPT-facing copy revision judgment
+
+if state = copy_version_record_missing:
+  action = create review_loop/copy_iteration registry, raw copy record, copy quality notes, suspected typos, structure map, and data links; preserve raw copy exactly
+
+if state = next_copy_revision_brief_required:
+  action = generate V003_next_copy_revision_brief for ChatGPT only; do not generate formal next video execution prompt, and keep target audience / topic direction unchanged
+
 if state = publish_candidate_required:
   action = check publish_candidate requirements before any formal-operation video delivery claim
 
@@ -209,6 +218,9 @@ if state = gpt_project_sync_needed:
 
 if input_signal includes 文案修改 / 下一条视频 / 根据数据改 / 播放低 / 收藏低 / 客资弱 / 复盘后重写:
   action = read goal-driven data flywheel, check threshold_config_v1, diagnose main_bottleneck, lock primary_variable before copy revision
+
+if input_signal includes 文案版本 / 文案记录 / 文案迭代 / next_copy_revision_brief / 文案哪里好 / 文案哪里不好 / 数据反馈到文案:
+  action = require copy_iteration_system_required, preserve raw copy, classify problem layer, generate ChatGPT-readable copy iteration report, and block formal next video execution prompt
 
 if input_signal includes 根据数据推算下一段放什么 / 内容结构反馈 / 留存下滑 / 收藏低 / 评论弱 / 私信弱:
   action = generate content_structure_feedback_card and next_video_structure_plan before revised script

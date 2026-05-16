@@ -42,5 +42,12 @@
 ## 当前最稳路线
 先补 V003 的完整 72h / 7d 数据和需求侧字段，再重跑 `scripts/运营决策系统_operation_decision_system.py`。补齐前只做低置信度准备，不消耗下一期正式执行机会。
 
+## 文案迭代入口
+- 最新文案迭代报告：`review_loop/copy_iteration/latest_copy_iteration_report.md`
+- V003 下一版文案修改简报：`review_loop/copy_iteration/V003/V003_next_copy_revision_brief.md`
+- 当前下一步不是正式做新片，也不是直接改成最终稿。
+- 只允许低置信度准备 V003 的开头 0-3 秒和 3-8 秒承接。
+- 具体文案改稿由 ChatGPT 读取 `V003_next_copy_revision_brief.md` 后完成；Codex 只负责记录、结构化和报告。
+
 ## 用户不用看的中间过程已由系统处理
 系统已经读取三期记录、分类样本、标准化指标、检查阈值、排除异常样本、生成三期归纳，并自动阻断了下一期正式执行。

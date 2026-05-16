@@ -26,6 +26,13 @@ LATEST_REPORT_JSON = DECISION_DIR / "latest_operation_decision_report.json"
 LATEST_REPORT_MD = DECISION_DIR / "latest_operation_decision_report.md"
 FINAL_USER_REPORT_MD = DECISION_DIR / "final_user_operation_result.md"
 
+COPY_ITERATION_REPORT_JSON = Path("review_loop/copy_iteration/latest_copy_iteration_report.json")
+COPY_ITERATION_REPORT_MD = Path("review_loop/copy_iteration/latest_copy_iteration_report.md")
+V003_NEXT_COPY_REVISION_BRIEF_MD = Path(
+    "review_loop/copy_iteration/V003/V003_next_copy_revision_brief.md"
+)
+COPY_ITERATION_SCRIPT = Path("scripts/文案迭代决策系统_copy_iteration_decision_system.py")
+
 V003_RESULT_JSON = (
     Path("review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514")
     / "V003_operation_decision_result.json"
@@ -585,6 +592,36 @@ def decide_next_episode(records: list[dict[str, Any]], thresholds: dict[str, Any
     }
 
 
+def load_copy_iteration_linkage(root: Path) -> dict[str, Any]:
+    if not (root / COPY_ITERATION_REPORT_JSON).exists():
+        return {
+            "status": "missing",
+            "required_when": "需要文案迭代判断、ChatGPT 汇报文案好坏或准备低置信度开头/承接简报时。",
+            "run_to_generate": f"python3 {rel(COPY_ITERATION_SCRIPT)}",
+            "latest_copy_iteration_report_json": rel(COPY_ITERATION_REPORT_JSON),
+            "latest_copy_iteration_report_md": rel(COPY_ITERATION_REPORT_MD),
+            "next_copy_revision_brief_path": rel(V003_NEXT_COPY_REVISION_BRIEF_MD),
+            "decision_boundary": "缺文案迭代报告时，运营决策系统只能判断能否进入下一期，不能替 ChatGPT 输出文案修改简报。",
+        }
+    copy_report = load_json(root, COPY_ITERATION_REPORT_JSON)
+    return {
+        "status": "available",
+        "latest_copy_iteration_report_json": rel(COPY_ITERATION_REPORT_JSON),
+        "latest_copy_iteration_report_md": rel(COPY_ITERATION_REPORT_MD),
+        "next_copy_revision_brief_path": str(copy_report.get("chatgpt_read_first") or rel(V003_NEXT_COPY_REVISION_BRIEF_MD)),
+        "script_path": str(copy_report.get("paths", {}).get("script_path") or rel(COPY_ITERATION_SCRIPT)),
+        "current_copy_version": copy_report.get("current_copy_version"),
+        "current_data_window": copy_report.get("current_data_window"),
+        "current_problem_layer": copy_report.get("current_problem_layer"),
+        "confidence": copy_report.get("confidence"),
+        "revision_scope_allowed": copy_report.get("revision_scope_allowed", []),
+        "formal_copy_revision_allowed": False,
+        "low_confidence_prepare_allowed": True,
+        "status_boundary": copy_report.get("status_boundary", {}),
+        "decision_boundary": "当前只允许 ChatGPT 读取 brief 后低置信度准备开头和 3-8 秒承接，不生成正式下一条视频执行 prompt。",
+    }
+
+
 def build_reports(root: Path) -> dict[str, Any]:
     threshold_config = load_json(root, THRESHOLD_PATH)
     classification_rules = load_json(root, CLASSIFICATION_RULES_PATH)
@@ -621,6 +658,7 @@ def build_reports(root: Path) -> dict[str, Any]:
         "current_data_goal_anchor_ready": anchor_instance_status == "ready",
         "next_formal_video_execution_prompt_generated": False,
     }
+    copy_iteration_linkage = load_copy_iteration_linkage(root)
 
     report = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -640,12 +678,14 @@ def build_reports(root: Path) -> dict[str, Any]:
         "records_processed": records,
         "cross_record_synthesis": synthesis,
         "next_episode_decision": next_decision,
+        "copy_iteration_linkage": copy_iteration_linkage,
         "final_user_result": {
             "one_sentence_conclusion": "当前系统已能自动读三期记录并给出判断：V003 只能继续补数据和低置信度准备，不能进入下一期正式执行。",
             "current_primary_bottleneck": "opening_retention_and_initial_distribution_weak / draft_low_confidence",
             "can_enter_next_episode_execution": next_decision["can_enter_next_episode_execution"],
             "blocked_reason_if_not": next_decision.get("blocked_reason"),
             "recommended_next_route": "先补 V003 72h / 7d、3s_retention、主页访问、私信、有效私信、有效咨询和清晰需求客户；补齐后重跑本系统，再决定唯一主变量。",
+            "copy_iteration_entry": copy_iteration_linkage,
         },
         "status_boundary": status_boundary,
     }
@@ -777,6 +817,17 @@ def render_latest_report_md(report: dict[str, Any]) -> str:
     )
     for key, value in report["status_boundary"].items():
         lines.append(f"- {key}: `{value}`")
+    copy_link = report.get("copy_iteration_linkage", {})
+    lines.extend(
+        [
+            "",
+            "## copy_iteration_linkage",
+            f"- status: `{copy_link.get('status', 'missing')}`",
+            f"- latest_copy_iteration_report: `{copy_link.get('latest_copy_iteration_report_md', rel(COPY_ITERATION_REPORT_MD))}`",
+            f"- next_copy_revision_brief: `{copy_link.get('next_copy_revision_brief_path', rel(V003_NEXT_COPY_REVISION_BRIEF_MD))}`",
+            f"- boundary: {copy_link.get('decision_boundary', '缺文案迭代报告时需要先运行 copy iteration system。')}",
+        ]
+    )
     lines.append("")
     return "\n".join(lines)
 
@@ -821,6 +872,13 @@ def render_final_user_report_md(report: dict[str, Any]) -> str:
             "",
             "## 当前最稳路线",
             "先补 V003 的完整 72h / 7d 数据和需求侧字段，再重跑 `scripts/运营决策系统_operation_decision_system.py`。补齐前只做低置信度准备，不消耗下一期正式执行机会。",
+            "",
+            "## 文案迭代入口",
+            f"- 最新文案迭代报告：`{report.get('copy_iteration_linkage', {}).get('latest_copy_iteration_report_md', rel(COPY_ITERATION_REPORT_MD))}`",
+            f"- V003 下一版文案修改简报：`{report.get('copy_iteration_linkage', {}).get('next_copy_revision_brief_path', rel(V003_NEXT_COPY_REVISION_BRIEF_MD))}`",
+            "- 当前下一步不是正式做新片，也不是直接改成最终稿。",
+            "- 只允许低置信度准备 V003 的开头 0-3 秒和 3-8 秒承接。",
+            "- 具体文案改稿由 ChatGPT 读取 `V003_next_copy_revision_brief.md` 后完成；Codex 只负责记录、结构化和报告。",
             "",
             "## 用户不用看的中间过程已由系统处理",
             "系统已经读取三期记录、分类样本、标准化指标、检查阈值、排除异常样本、生成三期归纳，并自动阻断了下一期正式执行。",

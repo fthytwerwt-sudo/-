@@ -23,3 +23,9 @@
 - visual_master_locked_advanced: `False`
 - current_data_goal_anchor_ready: `False`
 - next_formal_video_execution_prompt_generated: `False`
+
+## copy_iteration_linkage
+- status: `available`
+- latest_copy_iteration_report: `review_loop/copy_iteration/latest_copy_iteration_report.md`
+- next_copy_revision_brief: `review_loop/copy_iteration/V003/V003_next_copy_revision_brief.md`
+- boundary: 当前只允许 ChatGPT 读取 brief 后低置信度准备开头和 3-8 秒承接，不生成正式下一条视频执行 prompt。
