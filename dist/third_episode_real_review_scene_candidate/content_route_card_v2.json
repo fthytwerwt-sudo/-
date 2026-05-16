@@ -1,0 +1,28 @@
+{
+  "content_route_card_version": "V2",
+  "candidate_status": "low_confidence_review_candidate",
+  "review_pack_type": "internal_review_pack",
+  "validation_goal": "低置信度验证真实数据冲突开头 + 复盘能力判断是否适合下一期。",
+  "data_goal_anchor_source": "codex_log/current_data_goal_anchor.md",
+  "data_goal_anchor_status": "partial_data_recorded",
+  "main_bottleneck_supported": "opening_retention_and_initial_distribution_weak / draft_low_confidence",
+  "primary_variable_supported": "opening_route_or_first_5s_packaging / low confidence",
+  "forbidden_variables_avoided": [
+    "target_user",
+    "topic_direction",
+    "offer",
+    "whole_script_rewrite"
+  ],
+  "post_publish_validation_metric": [
+    "2s_bounce",
+    "3s_retention",
+    "5s_completion",
+    "average_watch_time"
+  ],
+  "middle_carrier": "material_03 真实复盘录屏",
+  "card_placement_decision": "1 opening judgment card + 2 light judgment cards + 1 closing summary card",
+  "flow_flex_reason": "这条不是讲系统，而是展示真实复盘现场；真实录屏承担主证据，卡片只承担判断压缩和收束。",
+  "material_02_policy": "not_used_due_privacy_risk",
+  "hyperframes_visual_skin": "clean_soft",
+  "hyperframes_not_used_reason": ""
+}

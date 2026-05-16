@@ -1,0 +1,40 @@
+{
+  "provider": "aliyun_bailian",
+  "endpoint": "https://dashscope.aliyuncs.com/api/v1/services/audio/tts/customization",
+  "request_method": "POST",
+  "purpose": "list_existing_custom_voices_only_no_create",
+  "status_code": 200,
+  "elapsed_seconds": 0.372,
+  "request_id": "2feb058f-b314-97ff-b4c3-c82e56fd1ad3",
+  "target_voice_masked": "qwen-t...ac19",
+  "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+  "voice_count": 5,
+  "matched_count": 1,
+  "voices": [
+    {
+      "voice_masked": "qwen-t...af51",
+      "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+      "gmt_create": "2026-05-04 01:13:11"
+    },
+    {
+      "voice_masked": "qwen-t...ac19",
+      "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+      "gmt_create": "2026-04-26 23:54:54"
+    },
+    {
+      "voice_masked": "qwen-t...bb3b",
+      "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+      "gmt_create": "2026-04-26 23:16:03"
+    },
+    {
+      "voice_masked": "qwen-t...596a",
+      "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+      "gmt_create": "2026-04-26 23:14:06"
+    },
+    {
+      "voice_masked": "qwen-t...de43",
+      "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+      "gmt_create": "2026-04-26 01:33:33"
+    }
+  ]
+}

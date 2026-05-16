@@ -1,0 +1,14 @@
+$ npx --yes hyperframes@0.6.12 lint
+
+exit_code: 0
+
+STDOUT:
+◆  Linting hyperframes_cards/index.html
+
+  ⚠ timed_element_missing_clip_class [card]: <section id="card"> has timing attributes but no class="clip". The element will be visible for the entire composition instead of only during its scheduled time range.
+    Fix: Add class="clip" to the element. The HyperFrames runtime uses .clip to control visibility based on data-start/data-duration.
+
+◇  0 error(s), 1 warning(s)
+
+
+STDERR:

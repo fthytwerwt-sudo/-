@@ -1,0 +1,547 @@
+{
+  "map_version": "line_group_v1",
+  "line_group_count": 20,
+  "source_audio": "dist/third_episode_real_review_scene_candidate/narration.wav",
+  "line_groups": [
+    {
+      "line_group_id": "lg_001",
+      "narration_text": "AI 时代，真正拉开差距的不是数据，是复盘能力。",
+      "expected_visual": "开头判断卡，轻量 clean_soft 皮肤，直接钉住标题。",
+      "source_material": "generated_hyperframes_card",
+      "source_timecode": "00:00-00:03",
+      "card_text_if_any": "AI 时代，真正拉开差距的不是数据，是复盘能力\n141 播放｜2 秒跳出接近 50%｜收藏 3",
+      "allowed_visuals": [
+        "material_03 real review recording",
+        "material_01 planning context",
+        "clean_soft HyperFrames cards"
+      ],
+      "forbidden_visuals": [
+        "unblurred material_02",
+        "source media paths",
+        "desktop sidebar privacy",
+        "publish_candidate claim card"
+      ],
+      "subtitle_text": "AI 时代，真正拉开差距的不是数据，是复盘能力。",
+      "evidence_strength": "locked_copy_opening",
+      "alignment_status": "aligned_low_confidence_review_candidate",
+      "blocked_if_visual_mismatch": "blocked_or_copy_change_request",
+      "video_start": 0.0,
+      "video_end": 3.66,
+      "video_duration": 3.66,
+      "clip_path": "dist/third_episode_real_review_scene_candidate/video_work/clip_01_lg_001.mp4"
+    },
+    {
+      "line_group_id": "lg_002",
+      "narration_text": "我这条视频只有 141 播放，2 秒跳出接近 50%。如果只看播放，这条很差。",
+      "expected_visual": "material_03 展示 V003 数据与开头承接弱判断。",
+      "source_material": "material_03",
+      "source_timecode": "00:24-00:48",
+      "card_text_if_any": "",
+      "allowed_visuals": [
+        "material_03 real review recording",
+        "material_01 planning context",
+        "clean_soft HyperFrames cards"
+      ],
+      "forbidden_visuals": [
+        "unblurred material_02",
+        "source media paths",
+        "desktop sidebar privacy",
+        "publish_candidate claim card"
+      ],
+      "subtitle_text": "我这条视频只有 141 播放，2 秒跳出接近 50%。如果只看播放，这条很差。",
+      "evidence_strength": "high",
+      "alignment_status": "aligned_low_confidence_review_candidate",
+      "blocked_if_visual_mismatch": "blocked_or_copy_change_request",
+      "video_start": 3.66,
+      "video_end": 11.16,
+      "video_duration": 7.5,
+      "clip_path": "dist/third_episode_real_review_scene_candidate/video_work/clip_02_lg_002.mp4"
+    },
+    {
+      "line_group_id": "lg_003",
+      "narration_text": "但如果认真复盘，它反而告诉我：下一条最该先改的，不是方向，而是开头。",
+      "expected_visual": "material_03 展示只改开头 0-5 秒和不同时改多变量。",
+      "source_material": "material_03",
+      "source_timecode": "00:48-01:12",
+      "card_text_if_any": "",
+      "allowed_visuals": [
+        "material_03 real review recording",
+        "material_01 planning context",
+        "clean_soft HyperFrames cards"
+      ],
+      "forbidden_visuals": [
+        "unblurred material_02",
+        "source media paths",
+        "desktop sidebar privacy",
+        "publish_candidate claim card"
+      ],
+      "subtitle_text": "但如果认真复盘，它反而告诉我：下一条最该先改的，不是方向，而是开头。",
+      "evidence_strength": "high",
+      "alignment_status": "aligned_low_confidence_review_candidate",
+      "blocked_if_visual_mismatch": "blocked_or_copy_change_request",
+      "video_start": 11.16,
+      "video_end": 17.28,
+      "video_duration": 6.12,
+      "clip_path": "dist/third_episode_real_review_scene_candidate/video_work/clip_03_lg_003.mp4"
+    },
+    {
+      "line_group_id": "lg_004",
+      "narration_text": "很多人现在用 AI 做内容，最大的问题不是不会生成。而是数据回来以后，还是只会问一句：这条是不是废了？",
+      "expected_visual": "material_01 展示候选素材池与任务拆解方向，只作背景辅助。",
+      "source_material": "material_01",
+      "source_timecode": "00:48-01:18",
+      "card_text_if_any": "",
+      "allowed_visuals": [
+        "material_03 real review recording",
+        "material_01 planning context",
+        "clean_soft HyperFrames cards"
+      ],
+      "forbidden_visuals": [
+        "unblurred material_02",
+        "source media paths",
+        "desktop sidebar privacy",
+        "publish_candidate claim card"
+      ],
+      "subtitle_text": "很多人现在用 AI 做内容，最大的问题不是不会生成。而是数据回来以后，还是只会问一句：这条是不是废了？",
+      "evidence_strength": "medium",
+      "alignment_status": "aligned_low_confidence_review_candidate",
+      "blocked_if_visual_mismatch": "blocked_or_copy_change_request",
+      "video_start": 17.28,
+      "video_end": 24.44,
+      "video_duration": 7.16,
+      "clip_path": "dist/third_episode_real_review_scene_candidate/video_work/clip_04_lg_004.mp4"
+    },
+    {
+      "line_group_id": "lg_005",
+      "narration_text": "播放低，就怀疑选题。点赞少，就怀疑表达。没人私信，就怀疑方向。但这样复盘，其实没用。",
+      "expected_visual": "material_03 展示数据不能直接改文案，只能定位问题段。",
+      "source_material": "material_03",
+      "source_timecode": "01:12-01:36",
+      "card_text_if_any": "",
+      "allowed_visuals": [
+        "material_03 real review recording",
+        "material_01 planning context",
+        "clean_soft HyperFrames cards"
+      ],
+      "forbidden_visuals": [
+        "unblurred material_02",
+        "source media paths",
+        "desktop sidebar privacy",
+        "publish_candidate claim card"
+      ],
+      "subtitle_text": "播放低，就怀疑选题。点赞少，就怀疑表达。没人私信，就怀疑方向。但这样复盘，其实没用。",
+      "evidence_strength": "high",
+      "alignment_status": "aligned_low_confidence_review_candidate",
+      "blocked_if_visual_mismatch": "blocked_or_copy_change_request",
+      "video_start": 24.44,
+      "video_end": 32.18,
+      "video_duration": 7.74,
+      "clip_path": "dist/third_episode_real_review_scene_candidate/video_work/clip_05_lg_005.mp4"
+    },
+    {
+      "line_group_id": "lg_006",
+      "narration_text": "因为数据本身不会告诉你答案。真正有用的是，你能不能从数据里拆出问题层级。",
+      "expected_visual": "轻判断卡 02：数据不是答案，数据是定位器。",
+      "source_material": "generated_hyperframes_card",
+      "source_timecode": "card_insert",
+      "card_text_if_any": "数据不是答案\n数据是定位器",
+      "allowed_visuals": [
+        "material_03 real review recording",
+        "material_01 planning context",
+        "clean_soft HyperFrames cards"
+      ],
+      "forbidden_visuals": [
+        "unblurred material_02",
+        "source media paths",
+        "desktop sidebar privacy",
+        "publish_candidate claim card"
+      ],
+      "subtitle_text": "因为数据本身不会告诉你答案。真正有用的是，你能不能从数据里拆出问题层级。",
+      "evidence_strength": "judgment_card",
+      "alignment_status": "aligned_low_confidence_review_candidate",
+      "blocked_if_visual_mismatch": "blocked_or_copy_change_request",
+      "video_start": 32.18,
+      "video_end": 38.4,
+      "video_duration": 6.22,
+      "clip_path": "dist/third_episode_real_review_scene_candidate/video_work/clip_06_lg_006.mp4"
+    },
+    {
+      "line_group_id": "lg_007",
+      "narration_text": "比如我这条视频，推荐页其实给过一点入口。但 2 秒跳出接近 50%，5 秒完播也不高。",
+      "expected_visual": "material_03 展示推荐页、2s 跳出、5s 完播对应的文案诊断。",
+      "source_material": "material_03",
+      "source_timecode": "01:36-02:00",
+      "card_text_if_any": "",
+      "allowed_visuals": [
+        "material_03 real review recording",
+        "material_01 planning context",
+        "clean_soft HyperFrames cards"
+      ],
+      "forbidden_visuals": [
+        "unblurred material_02",
+        "source media paths",
+        "desktop sidebar privacy",
+        "publish_candidate claim card"
+      ],
+      "subtitle_text": "比如我这条视频，推荐页其实给过一点入口。但 2 秒跳出接近 50%，5 秒完播也不高。",
+      "evidence_strength": "high",
+      "alignment_status": "aligned_low_confidence_review_candidate",
+      "blocked_if_visual_mismatch": "blocked_or_copy_change_request",
+      "video_start": 38.4,
+      "video_end": 47.02,
+      "video_duration": 8.62,
+      "clip_path": "dist/third_episode_real_review_scene_candidate/video_work/clip_07_lg_007.mp4"
+    },
+    {
+      "line_group_id": "lg_008",
+      "narration_text": "这说明什么？它不一定说明方向错了。更可能说明，用户第一眼还没明白这条视频跟他有什么关系，就已经划走了。",
+      "expected_visual": "轻判断卡 01：不是方向错，是开头没接住。",
+      "source_material": "generated_hyperframes_card",
+      "source_timecode": "card_insert",
+      "card_text_if_any": "不是方向错\n是开头没接住",
+      "allowed_visuals": [
+        "material_03 real review recording",
+        "material_01 planning context",
+        "clean_soft HyperFrames cards"
+      ],
+      "forbidden_visuals": [
+        "unblurred material_02",
+        "source media paths",
+        "desktop sidebar privacy",
+        "publish_candidate claim card"
+      ],
+      "subtitle_text": "这说明什么？它不一定说明方向错了。更可能说明，用户第一眼还没明白这条视频跟他有什么关系，就已经划走了。",
+      "evidence_strength": "judgment_card",
+      "alignment_status": "aligned_low_confidence_review_candidate",
+      "blocked_if_visual_mismatch": "blocked_or_copy_change_request",
+      "video_start": 47.02,
+      "video_end": 54.98,
+      "video_duration": 7.96,
+      "clip_path": "dist/third_episode_real_review_scene_candidate/video_work/clip_08_lg_008.mp4"
+    },
+    {
+      "line_group_id": "lg_009",
+      "narration_text": "所以我下一条不该先换方向。也不该先换人群。更不该整条推翻重写。我只先改一个变量：开头 5 秒。",
+      "expected_visual": "material_03 展示只改一个变量与禁止同时改多项。",
+      "source_material": "material_03",
+      "source_timecode": "00:48-01:12",
+      "card_text_if_any": "",
+      "allowed_visuals": [
+        "material_03 real review recording",
+        "material_01 planning context",
+        "clean_soft HyperFrames cards"
+      ],
+      "forbidden_visuals": [
+        "unblurred material_02",
+        "source media paths",
+        "desktop sidebar privacy",
+        "publish_candidate claim card"
+      ],
+      "subtitle_text": "所以我下一条不该先换方向。也不该先换人群。更不该整条推翻重写。我只先改一个变量：开头 5 秒。",
+      "evidence_strength": "high",
+      "alignment_status": "aligned_low_confidence_review_candidate",
+      "blocked_if_visual_mismatch": "blocked_or_copy_change_request",
+      "video_start": 54.98,
+      "video_end": 66.7,
+      "video_duration": 11.72,
+      "clip_path": "dist/third_episode_real_review_scene_candidate/video_work/clip_09_lg_009.mp4"
+    },
+    {
+      "line_group_id": "lg_010",
+      "narration_text": "这就是我现在对 AI 最大的理解。AI 不是帮你列一堆 KPI 的。什么播放量、点赞率、收藏率、完播率，看着很完整。",
+      "expected_visual": "material_03 展示数据反馈到文案问题段，而不是 KPI 表。",
+      "source_material": "material_03",
+      "source_timecode": "01:12-01:36",
+      "card_text_if_any": "",
+      "allowed_visuals": [
+        "material_03 real review recording",
+        "material_01 planning context",
+        "clean_soft HyperFrames cards"
+      ],
+      "forbidden_visuals": [
+        "unblurred material_02",
+        "source media paths",
+        "desktop sidebar privacy",
+        "publish_candidate claim card"
+      ],
+      "subtitle_text": "这就是我现在对 AI 最大的理解。AI 不是帮你列一堆 KPI 的。什么播放量、点赞率、收藏率、完播率，看着很完整。",
+      "evidence_strength": "high",
+      "alignment_status": "aligned_low_confidence_review_candidate",
+      "blocked_if_visual_mismatch": "blocked_or_copy_change_request",
+      "video_start": 66.7,
+      "video_end": 75.88,
+      "video_duration": 9.18,
+      "clip_path": "dist/third_episode_real_review_scene_candidate/video_work/clip_10_lg_010.mp4"
+    },
+    {
+      "line_group_id": "lg_011",
+      "narration_text": "但如果这些数字最后不能告诉你下一步该改哪里，那它们只是一个好看的表。",
+      "expected_visual": "material_03 展示数据差后不知道改哪里这一开头候选。",
+      "source_material": "material_03",
+      "source_timecode": "02:00-02:36",
+      "card_text_if_any": "",
+      "allowed_visuals": [
+        "material_03 real review recording",
+        "material_01 planning context",
+        "clean_soft HyperFrames cards"
+      ],
+      "forbidden_visuals": [
+        "unblurred material_02",
+        "source media paths",
+        "desktop sidebar privacy",
+        "publish_candidate claim card"
+      ],
+      "subtitle_text": "但如果这些数字最后不能告诉你下一步该改哪里，那它们只是一个好看的表。",
+      "evidence_strength": "high",
+      "alignment_status": "aligned_low_confidence_review_candidate",
+      "blocked_if_visual_mismatch": "blocked_or_copy_change_request",
+      "video_start": 75.88,
+      "video_end": 80.66,
+      "video_duration": 4.78,
+      "clip_path": "dist/third_episode_real_review_scene_candidate/video_work/clip_11_lg_011.mp4"
+    },
+    {
+      "line_group_id": "lg_012",
+      "narration_text": "真正有用的复盘，应该逼你回答三个问题：第一，哪一层出了问题？是标题、开头、中段结构，还是结尾承接？",
+      "expected_visual": "material_03 展示规则表与下一期框架。",
+      "source_material": "material_03",
+      "source_timecode": "03:00-03:24",
+      "card_text_if_any": "",
+      "allowed_visuals": [
+        "material_03 real review recording",
+        "material_01 planning context",
+        "clean_soft HyperFrames cards"
+      ],
+      "forbidden_visuals": [
+        "unblurred material_02",
+        "source media paths",
+        "desktop sidebar privacy",
+        "publish_candidate claim card"
+      ],
+      "subtitle_text": "真正有用的复盘，应该逼你回答三个问题：第一，哪一层出了问题？是标题、开头、中段结构，还是结尾承接？",
+      "evidence_strength": "high",
+      "alignment_status": "aligned_low_confidence_review_candidate",
+      "blocked_if_visual_mismatch": "blocked_or_copy_change_request",
+      "video_start": 80.66,
+      "video_end": 89.18,
+      "video_duration": 8.52,
+      "clip_path": "dist/third_episode_real_review_scene_candidate/video_work/clip_12_lg_012.mp4"
+    },
+    {
+      "line_group_id": "lg_013",
+      "narration_text": "第二，下一条只改哪个变量？不要一条数据不好，就标题、选题、结构、人群全都改。",
+      "expected_visual": "material_03 回到只改一个变量的核心证据。",
+      "source_material": "material_03",
+      "source_timecode": "00:48-01:12",
+      "card_text_if_any": "",
+      "allowed_visuals": [
+        "material_03 real review recording",
+        "material_01 planning context",
+        "clean_soft HyperFrames cards"
+      ],
+      "forbidden_visuals": [
+        "unblurred material_02",
+        "source media paths",
+        "desktop sidebar privacy",
+        "publish_candidate claim card"
+      ],
+      "subtitle_text": "第二，下一条只改哪个变量？不要一条数据不好，就标题、选题、结构、人群全都改。",
+      "evidence_strength": "high",
+      "alignment_status": "aligned_low_confidence_review_candidate",
+      "blocked_if_visual_mismatch": "blocked_or_copy_change_request",
+      "video_start": 89.18,
+      "video_end": 97.22,
+      "video_duration": 8.04,
+      "clip_path": "dist/third_episode_real_review_scene_candidate/video_work/clip_13_lg_013.mp4"
+    },
+    {
+      "line_group_id": "lg_014",
+      "narration_text": "第三，改完以后看哪个指标？改开头，就看 2 秒跳出、3 秒留存、5 秒完播。",
+      "expected_visual": "material_03 展示 2s、5s 对应首屏与桥接判断。",
+      "source_material": "material_03",
+      "source_timecode": "01:36-02:00",
+      "card_text_if_any": "",
+      "allowed_visuals": [
+        "material_03 real review recording",
+        "material_01 planning context",
+        "clean_soft HyperFrames cards"
+      ],
+      "forbidden_visuals": [
+        "unblurred material_02",
+        "source media paths",
+        "desktop sidebar privacy",
+        "publish_candidate claim card"
+      ],
+      "subtitle_text": "第三，改完以后看哪个指标？改开头，就看 2 秒跳出、3 秒留存、5 秒完播。",
+      "evidence_strength": "high",
+      "alignment_status": "aligned_low_confidence_review_candidate",
+      "blocked_if_visual_mismatch": "blocked_or_copy_change_request",
+      "video_start": 97.22,
+      "video_end": 104.78,
+      "video_duration": 7.56,
+      "clip_path": "dist/third_episode_real_review_scene_candidate/video_work/clip_14_lg_014.mp4"
+    },
+    {
+      "line_group_id": "lg_015",
+      "narration_text": "改中段，就看平均观看和完播。改承接，就看收藏、评论、私信和主页访问。",
+      "expected_visual": "material_03 展示指标到文案段落的映射规则。",
+      "source_material": "material_03",
+      "source_timecode": "03:00-03:24",
+      "card_text_if_any": "",
+      "allowed_visuals": [
+        "material_03 real review recording",
+        "material_01 planning context",
+        "clean_soft HyperFrames cards"
+      ],
+      "forbidden_visuals": [
+        "unblurred material_02",
+        "source media paths",
+        "desktop sidebar privacy",
+        "publish_candidate claim card"
+      ],
+      "subtitle_text": "改中段，就看平均观看和完播。改承接，就看收藏、评论、私信和主页访问。",
+      "evidence_strength": "high",
+      "alignment_status": "aligned_low_confidence_review_candidate",
+      "blocked_if_visual_mismatch": "blocked_or_copy_change_request",
+      "video_start": 104.78,
+      "video_end": 112.68,
+      "video_duration": 7.9,
+      "clip_path": "dist/third_episode_real_review_scene_candidate/video_work/clip_15_lg_015.mp4"
+    },
+    {
+      "line_group_id": "lg_016",
+      "narration_text": "这条视频虽然播放低，但它还有 3 个收藏。这说明内容不一定完全没价值。更像是价值出现得太晚，用户前面没被接住。",
+      "expected_visual": "material_03 显示真实数据冲突和收藏信号边界。",
+      "source_material": "material_03",
+      "source_timecode": "02:00-02:36",
+      "card_text_if_any": "",
+      "allowed_visuals": [
+        "material_03 real review recording",
+        "material_01 planning context",
+        "clean_soft HyperFrames cards"
+      ],
+      "forbidden_visuals": [
+        "unblurred material_02",
+        "source media paths",
+        "desktop sidebar privacy",
+        "publish_candidate claim card"
+      ],
+      "subtitle_text": "这条视频虽然播放低，但它还有 3 个收藏。这说明内容不一定完全没价值。更像是价值出现得太晚，用户前面没被接住。",
+      "evidence_strength": "high",
+      "alignment_status": "aligned_low_confidence_review_candidate",
+      "blocked_if_visual_mismatch": "blocked_or_copy_change_request",
+      "video_start": 112.68,
+      "video_end": 121.7,
+      "video_duration": 9.02,
+      "clip_path": "dist/third_episode_real_review_scene_candidate/video_work/clip_16_lg_016.mp4"
+    },
+    {
+      "line_group_id": "lg_017",
+      "narration_text": "所以我下一条最该做的，不是证明我这个方向有多对。而是先把开头改到用户愿意留下来看。",
+      "expected_visual": "material_03 展示下一期主变量只改开头。",
+      "source_material": "material_03",
+      "source_timecode": "00:48-01:12",
+      "card_text_if_any": "",
+      "allowed_visuals": [
+        "material_03 real review recording",
+        "material_01 planning context",
+        "clean_soft HyperFrames cards"
+      ],
+      "forbidden_visuals": [
+        "unblurred material_02",
+        "source media paths",
+        "desktop sidebar privacy",
+        "publish_candidate claim card"
+      ],
+      "subtitle_text": "所以我下一条最该做的，不是证明我这个方向有多对。而是先把开头改到用户愿意留下来看。",
+      "evidence_strength": "high",
+      "alignment_status": "aligned_low_confidence_review_candidate",
+      "blocked_if_visual_mismatch": "blocked_or_copy_change_request",
+      "video_start": 121.7,
+      "video_end": 128.64,
+      "video_duration": 6.94,
+      "clip_path": "dist/third_episode_real_review_scene_candidate/video_work/clip_17_lg_017.mp4"
+    },
+    {
+      "line_group_id": "lg_018",
+      "narration_text": "播放是入口。收藏是认可。私信要评分。",
+      "expected_visual": "material_03 展示私信 / 咨询缺失与承接边界。",
+      "source_material": "material_03",
+      "source_timecode": "02:36-03:00",
+      "card_text_if_any": "",
+      "allowed_visuals": [
+        "material_03 real review recording",
+        "material_01 planning context",
+        "clean_soft HyperFrames cards"
+      ],
+      "forbidden_visuals": [
+        "unblurred material_02",
+        "source media paths",
+        "desktop sidebar privacy",
+        "publish_candidate claim card"
+      ],
+      "subtitle_text": "播放是入口。收藏是认可。私信要评分。",
+      "evidence_strength": "medium_high",
+      "alignment_status": "aligned_low_confidence_review_candidate",
+      "blocked_if_visual_mismatch": "blocked_or_copy_change_request",
+      "video_start": 128.64,
+      "video_end": 132.7,
+      "video_duration": 4.06,
+      "clip_path": "dist/third_episode_real_review_scene_candidate/video_work/clip_18_lg_018.mp4"
+    },
+    {
+      "line_group_id": "lg_019",
+      "narration_text": "但真正拉开差距的，不是你有没有数据。而是数据差的时候，你能不能看出问题在哪。",
+      "expected_visual": "material_03 展示数据定位问题段。",
+      "source_material": "material_03",
+      "source_timecode": "01:12-01:36",
+      "card_text_if_any": "",
+      "allowed_visuals": [
+        "material_03 real review recording",
+        "material_01 planning context",
+        "clean_soft HyperFrames cards"
+      ],
+      "forbidden_visuals": [
+        "unblurred material_02",
+        "source media paths",
+        "desktop sidebar privacy",
+        "publish_candidate claim card"
+      ],
+      "subtitle_text": "但真正拉开差距的，不是你有没有数据。而是数据差的时候，你能不能看出问题在哪。",
+      "evidence_strength": "high",
+      "alignment_status": "aligned_low_confidence_review_candidate",
+      "blocked_if_visual_mismatch": "blocked_or_copy_change_request",
+      "video_start": 132.7,
+      "video_end": 139.56,
+      "video_duration": 6.86,
+      "clip_path": "dist/third_episode_real_review_scene_candidate/video_work/clip_19_lg_019.mp4"
+    },
+    {
+      "line_group_id": "lg_020",
+      "narration_text": "如果每条内容发完，你都能知道下一条只改哪一个变量。那你就不是在碰运气。你是在迭代。",
+      "expected_visual": "结尾总结卡收束三问。",
+      "source_material": "generated_hyperframes_card",
+      "source_timecode": "closing_card",
+      "card_text_if_any": "哪一层出了问题？\n下一条只改哪个变量？\n改完看哪个指标？",
+      "allowed_visuals": [
+        "material_03 real review recording",
+        "material_01 planning context",
+        "clean_soft HyperFrames cards"
+      ],
+      "forbidden_visuals": [
+        "unblurred material_02",
+        "source media paths",
+        "desktop sidebar privacy",
+        "publish_candidate claim card"
+      ],
+      "subtitle_text": "如果每条内容发完，你都能知道下一条只改哪一个变量。那你就不是在碰运气。你是在迭代。",
+      "evidence_strength": "summary_card",
+      "alignment_status": "aligned_low_confidence_review_candidate",
+      "blocked_if_visual_mismatch": "blocked_or_copy_change_request",
+      "video_start": 139.56,
+      "video_end": 146.35,
+      "video_duration": 6.79,
+      "clip_path": "dist/third_episode_real_review_scene_candidate/video_work/clip_20_lg_020.mp4"
+    }
+  ]
+}

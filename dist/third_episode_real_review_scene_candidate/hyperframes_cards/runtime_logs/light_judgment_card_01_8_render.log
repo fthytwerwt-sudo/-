@@ -1,0 +1,275 @@
+$ npx --yes hyperframes@0.6.12 render --output /Users/fan/Documents/视频工厂/dist/third_episode_real_review_scene_candidate/hyperframes_cards/light_judgment_card_01_8.mp4 --quality draft --fps 30 --workers 1
+
+exit_code: 0
+
+STDOUT:
+
+◆  Rendering hyperframes_cards → /Users/fan/Documents/视频工厂/dist/third_episode_real_review_scene_candidate/hyperframes_cards/light_judgment_card_01_8.mp4
+   30fps · draft · 1 workers
+   GPU: browser GPU (auto-detect)
+
+[?25l│
+◇  Browser: system
+[?25h
+  ⚠ timed_element_missing_clip_class [card]: <section id="card"> has timing attributes but no class="clip". The element will be visible for the entire composition instead of only during its scheduled time range.
+    Fix: Add class="clip" to the element. The HyperFrames runtime uses .clip to control visibility based on data-start/data-duration.
+  Continuing render despite lint issues. Use --strict to block.
+
+
+[2K  █░░░░░░░░░░░░░░░░░░░░░░░░  5%  Compiling composition[Compiler] Injected deterministic @font-face rules for 1 requested font families
+[Compiler] Inlined CDN script: https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js
+[INFO] Compiled composition metadata {"entryFile":"index.html","staticDuration":7.96,"width":1920,"height":1080,"videoCount":0,"audioCount":0,"renderModeHints":{"recommendScreenshot":false,"reasons":[]}}
+
+[2K  ██░░░░░░░░░░░░░░░░░░░░░░░  10%  Extracting video frames[INFO] [Render] No HDR sources detected — rendering SDR
+
+[2K  █████░░░░░░░░░░░░░░░░░░░░  20%  Processing audio tracks
+[2K  ██████░░░░░░░░░░░░░░░░░░░  25%  Starting frame capture[INFO] streaming-encode gate {"enabled":true,"configFlag":true,"outputFormat":"mp4","workerCount":1,"durationSeconds":7.96,"maxDurationSeconds":240}
+[non-blocking] Failed to load resource: the server responded with a status of 404 (Not Found)
+
+[2K  ██████░░░░░░░░░░░░░░░░░░░  25%  Streaming frame 1/239
+[2K  ██████░░░░░░░░░░░░░░░░░░░  25%  Streaming frame 2/239
+[2K  ██████░░░░░░░░░░░░░░░░░░░  26%  Streaming frame 3/239
+[2K  ██████░░░░░░░░░░░░░░░░░░░  26%  Streaming frame 4/239
+[2K  ██████░░░░░░░░░░░░░░░░░░░  26%  Streaming frame 5/239
+[2K  ██████░░░░░░░░░░░░░░░░░░░  26%  Streaming frame 6/239
+[2K  ██████░░░░░░░░░░░░░░░░░░░  27%  Streaming frame 7/239
+[2K  ██████░░░░░░░░░░░░░░░░░░░  27%  Streaming frame 8/239
+[2K  ██████░░░░░░░░░░░░░░░░░░░  27%  Streaming frame 9/239
+[2K  ██████░░░░░░░░░░░░░░░░░░░  27%  Streaming frame 10/239
+[2K  ███████░░░░░░░░░░░░░░░░░░  28%  Streaming frame 11/239
+[2K  ███████░░░░░░░░░░░░░░░░░░  28%  Streaming frame 12/239
+[2K  ███████░░░░░░░░░░░░░░░░░░  28%  Streaming frame 13/239
+[2K  ███████░░░░░░░░░░░░░░░░░░  28%  Streaming frame 14/239
+[2K  ███████░░░░░░░░░░░░░░░░░░  28%  Streaming frame 15/239
+[2K  ███████░░░░░░░░░░░░░░░░░░  29%  Streaming frame 16/239
+[2K  ███████░░░░░░░░░░░░░░░░░░  29%  Streaming frame 17/239
+[2K  ███████░░░░░░░░░░░░░░░░░░  29%  Streaming frame 18/239
+[2K  ███████░░░░░░░░░░░░░░░░░░  29%  Streaming frame 19/239
+[2K  ███████░░░░░░░░░░░░░░░░░░  30%  Streaming frame 20/239
+[2K  ███████░░░░░░░░░░░░░░░░░░  30%  Streaming frame 21/239
+[2K  ███████░░░░░░░░░░░░░░░░░░  30%  Streaming frame 22/239
+[2K  ███████░░░░░░░░░░░░░░░░░░  30%  Streaming frame 23/239
+[2K  ███████░░░░░░░░░░░░░░░░░░  31%  Streaming frame 24/239
+[2K  ███████░░░░░░░░░░░░░░░░░░  31%  Streaming frame 25/239
+[2K  ███████░░░░░░░░░░░░░░░░░░  31%  Streaming frame 26/239
+[2K  ███████░░░░░░░░░░░░░░░░░░  31%  Streaming frame 27/239
+[2K  ███████░░░░░░░░░░░░░░░░░░  31%  Streaming frame 28/239
+[2K  ████████░░░░░░░░░░░░░░░░░  32%  Streaming frame 29/239
+[2K  ████████░░░░░░░░░░░░░░░░░  32%  Streaming frame 30/239
+[2K  ████████░░░░░░░░░░░░░░░░░  32%  Streaming frame 31/239
+[2K  ████████░░░░░░░░░░░░░░░░░  32%  Streaming frame 32/239
+[2K  ████████░░░░░░░░░░░░░░░░░  33%  Streaming frame 33/239
+[2K  ████████░░░░░░░░░░░░░░░░░  33%  Streaming frame 34/239
+[2K  ████████░░░░░░░░░░░░░░░░░  33%  Streaming frame 35/239
+[2K  ████████░░░░░░░░░░░░░░░░░  33%  Streaming frame 36/239
+[2K  ████████░░░░░░░░░░░░░░░░░  34%  Streaming frame 37/239
+[2K  ████████░░░░░░░░░░░░░░░░░  34%  Streaming frame 38/239
+[2K  ████████░░░░░░░░░░░░░░░░░  34%  Streaming frame 39/239
+[2K  ████████░░░░░░░░░░░░░░░░░  34%  Streaming frame 40/239
+[2K  ████████░░░░░░░░░░░░░░░░░  34%  Streaming frame 41/239
+[2K  ████████░░░░░░░░░░░░░░░░░  35%  Streaming frame 42/239
+[2K  ████████░░░░░░░░░░░░░░░░░  35%  Streaming frame 43/239
+[2K  ████████░░░░░░░░░░░░░░░░░  35%  Streaming frame 44/239
+[2K  ████████░░░░░░░░░░░░░░░░░  35%  Streaming frame 45/239
+[2K  █████████░░░░░░░░░░░░░░░░  36%  Streaming frame 46/239
+[2K  █████████░░░░░░░░░░░░░░░░  36%  Streaming frame 47/239
+[2K  █████████░░░░░░░░░░░░░░░░  36%  Streaming frame 48/239
+[2K  █████████░░░░░░░░░░░░░░░░  36%  Streaming frame 49/239
+[2K  █████████░░░░░░░░░░░░░░░░  37%  Streaming frame 50/239
+[2K  █████████░░░░░░░░░░░░░░░░  37%  Streaming frame 51/239
+[2K  █████████░░░░░░░░░░░░░░░░  37%  Streaming frame 52/239
+[2K  █████████░░░░░░░░░░░░░░░░  37%  Streaming frame 53/239
+[2K  █████████░░░░░░░░░░░░░░░░  37%  Streaming frame 54/239
+[2K  █████████░░░░░░░░░░░░░░░░  38%  Streaming frame 55/239
+[2K  █████████░░░░░░░░░░░░░░░░  38%  Streaming frame 56/239
+[2K  █████████░░░░░░░░░░░░░░░░  38%  Streaming frame 57/239
+[2K  █████████░░░░░░░░░░░░░░░░  38%  Streaming frame 58/239
+[2K  █████████░░░░░░░░░░░░░░░░  39%  Streaming frame 59/239
+[2K  █████████░░░░░░░░░░░░░░░░  39%  Streaming frame 60/239
+[2K  █████████░░░░░░░░░░░░░░░░  39%  Streaming frame 61/239
+[2K  █████████░░░░░░░░░░░░░░░░  39%  Streaming frame 62/239
+[2K  █████████░░░░░░░░░░░░░░░░  39%  Streaming frame 63/239
+[2K  ██████████░░░░░░░░░░░░░░░  40%  Streaming frame 64/239
+[2K  ██████████░░░░░░░░░░░░░░░  40%  Streaming frame 65/239
+[2K  ██████████░░░░░░░░░░░░░░░  40%  Streaming frame 66/239
+[2K  ██████████░░░░░░░░░░░░░░░  40%  Streaming frame 67/239
+[2K  ██████████░░░░░░░░░░░░░░░  41%  Streaming frame 68/239
+[2K  ██████████░░░░░░░░░░░░░░░  41%  Streaming frame 69/239
+[2K  ██████████░░░░░░░░░░░░░░░  41%  Streaming frame 70/239
+[2K  ██████████░░░░░░░░░░░░░░░  41%  Streaming frame 71/239
+[2K  ██████████░░░░░░░░░░░░░░░  42%  Streaming frame 72/239
+[2K  ██████████░░░░░░░░░░░░░░░  42%  Streaming frame 73/239
+[2K  ██████████░░░░░░░░░░░░░░░  42%  Streaming frame 74/239
+[2K  ██████████░░░░░░░░░░░░░░░  42%  Streaming frame 75/239
+[2K  ██████████░░░░░░░░░░░░░░░  42%  Streaming frame 76/239
+[2K  ██████████░░░░░░░░░░░░░░░  43%  Streaming frame 77/239
+[2K  ██████████░░░░░░░░░░░░░░░  43%  Streaming frame 78/239
+[2K  ██████████░░░░░░░░░░░░░░░  43%  Streaming frame 79/239
+[2K  ██████████░░░░░░░░░░░░░░░  43%  Streaming frame 80/239
+[2K  ███████████░░░░░░░░░░░░░░  44%  Streaming frame 81/239
+[2K  ███████████░░░░░░░░░░░░░░  44%  Streaming frame 82/239
+[2K  ███████████░░░░░░░░░░░░░░  44%  Streaming frame 83/239
+[2K  ███████████░░░░░░░░░░░░░░  44%  Streaming frame 84/239
+[2K  ███████████░░░░░░░░░░░░░░  45%  Streaming frame 85/239
+[2K  ███████████░░░░░░░░░░░░░░  45%  Streaming frame 86/239
+[2K  ███████████░░░░░░░░░░░░░░  45%  Streaming frame 87/239
+[2K  ███████████░░░░░░░░░░░░░░  45%  Streaming frame 88/239
+[2K  ███████████░░░░░░░░░░░░░░  45%  Streaming frame 89/239
+[2K  ███████████░░░░░░░░░░░░░░  46%  Streaming frame 90/239
+[2K  ███████████░░░░░░░░░░░░░░  46%  Streaming frame 91/239
+[2K  ███████████░░░░░░░░░░░░░░  46%  Streaming frame 92/239
+[2K  ███████████░░░░░░░░░░░░░░  46%  Streaming frame 93/239
+[2K  ███████████░░░░░░░░░░░░░░  47%  Streaming frame 94/239
+[2K  ███████████░░░░░░░░░░░░░░  47%  Streaming frame 95/239
+[2K  ███████████░░░░░░░░░░░░░░  47%  Streaming frame 96/239
+[2K  ███████████░░░░░░░░░░░░░░  47%  Streaming frame 97/239
+[2K  ████████████░░░░░░░░░░░░░  48%  Streaming frame 98/239
+[2K  ████████████░░░░░░░░░░░░░  48%  Streaming frame 99/239
+[2K  ████████████░░░░░░░░░░░░░  48%  Streaming frame 100/239
+[2K  ████████████░░░░░░░░░░░░░  48%  Streaming frame 101/239
+[2K  ████████████░░░░░░░░░░░░░  48%  Streaming frame 102/239
+[2K  ████████████░░░░░░░░░░░░░  49%  Streaming frame 103/239
+[2K  ████████████░░░░░░░░░░░░░  49%  Streaming frame 104/239
+[2K  ████████████░░░░░░░░░░░░░  49%  Streaming frame 105/239
+[2K  ████████████░░░░░░░░░░░░░  49%  Streaming frame 106/239
+[2K  ████████████░░░░░░░░░░░░░  50%  Streaming frame 107/239
+[2K  ████████████░░░░░░░░░░░░░  50%  Streaming frame 108/239
+[2K  ████████████░░░░░░░░░░░░░  50%  Streaming frame 109/239
+[2K  ████████████░░░░░░░░░░░░░  50%  Streaming frame 110/239
+[2K  ████████████░░░░░░░░░░░░░  51%  Streaming frame 111/239
+[2K  ████████████░░░░░░░░░░░░░  51%  Streaming frame 112/239
+[2K  ████████████░░░░░░░░░░░░░  51%  Streaming frame 113/239
+[2K  ████████████░░░░░░░░░░░░░  51%  Streaming frame 114/239
+[2K  ████████████░░░░░░░░░░░░░  51%  Streaming frame 115/239
+[2K  █████████████░░░░░░░░░░░░  52%  Streaming frame 116/239
+[2K  █████████████░░░░░░░░░░░░  52%  Streaming frame 117/239
+[2K  █████████████░░░░░░░░░░░░  52%  Streaming frame 118/239
+[2K  █████████████░░░░░░░░░░░░  52%  Streaming frame 119/239
+[2K  █████████████░░░░░░░░░░░░  53%  Streaming frame 120/239
+[2K  █████████████░░░░░░░░░░░░  53%  Streaming frame 121/239
+[2K  █████████████░░░░░░░░░░░░  53%  Streaming frame 122/239
+[2K  █████████████░░░░░░░░░░░░  53%  Streaming frame 123/239
+[2K  █████████████░░░░░░░░░░░░  54%  Streaming frame 124/239
+[2K  █████████████░░░░░░░░░░░░  54%  Streaming frame 125/239
+[2K  █████████████░░░░░░░░░░░░  54%  Streaming frame 126/239
+[2K  █████████████░░░░░░░░░░░░  54%  Streaming frame 127/239
+[2K  █████████████░░░░░░░░░░░░  54%  Streaming frame 128/239
+[2K  █████████████░░░░░░░░░░░░  55%  Streaming frame 129/239
+[2K  █████████████░░░░░░░░░░░░  55%  Streaming frame 130/239
+[2K  █████████████░░░░░░░░░░░░  55%  Streaming frame 131/239
+[2K  █████████████░░░░░░░░░░░░  55%  Streaming frame 132/239
+[2K  ██████████████░░░░░░░░░░░  56%  Streaming frame 133/239
+[2K  ██████████████░░░░░░░░░░░  56%  Streaming frame 134/239
+[2K  ██████████████░░░░░░░░░░░  56%  Streaming frame 135/239
+[2K  ██████████████░░░░░░░░░░░  56%  Streaming frame 136/239
+[2K  ██████████████░░░░░░░░░░░  57%  Streaming frame 137/239
+[2K  ██████████████░░░░░░░░░░░  57%  Streaming frame 138/239
+[2K  ██████████████░░░░░░░░░░░  57%  Streaming frame 139/239
+[2K  ██████████████░░░░░░░░░░░  57%  Streaming frame 140/239
+[2K  ██████████████░░░░░░░░░░░  57%  Streaming frame 141/239
+[2K  ██████████████░░░░░░░░░░░  58%  Streaming frame 142/239
+[2K  ██████████████░░░░░░░░░░░  58%  Streaming frame 143/239
+[2K  ██████████████░░░░░░░░░░░  58%  Streaming frame 144/239
+[2K  ██████████████░░░░░░░░░░░  58%  Streaming frame 145/239
+[2K  ██████████████░░░░░░░░░░░  59%  Streaming frame 146/239
+[2K  ██████████████░░░░░░░░░░░  59%  Streaming frame 147/239
+[2K  ██████████████░░░░░░░░░░░  59%  Streaming frame 148/239
+[2K  ██████████████░░░░░░░░░░░  59%  Streaming frame 149/239
+[2K  ███████████████░░░░░░░░░░  60%  Streaming frame 150/239
+[2K  ███████████████░░░░░░░░░░  60%  Streaming frame 151/239
+[2K  ███████████████░░░░░░░░░░  60%  Streaming frame 152/239
+[2K  ███████████████░░░░░░░░░░  60%  Streaming frame 153/239
+[2K  ███████████████░░░░░░░░░░  60%  Streaming frame 154/239
+[2K  ███████████████░░░░░░░░░░  61%  Streaming frame 155/239
+[2K  ███████████████░░░░░░░░░░  61%  Streaming frame 156/239
+[2K  ███████████████░░░░░░░░░░  61%  Streaming frame 157/239
+[2K  ███████████████░░░░░░░░░░  61%  Streaming frame 158/239
+[2K  ███████████████░░░░░░░░░░  62%  Streaming frame 159/239
+[2K  ███████████████░░░░░░░░░░  62%  Streaming frame 160/239
+[2K  ███████████████░░░░░░░░░░  62%  Streaming frame 161/239
+[2K  ███████████████░░░░░░░░░░  62%  Streaming frame 162/239
+[2K  ███████████████░░░░░░░░░░  63%  Streaming frame 163/239
+[2K  ███████████████░░░░░░░░░░  63%  Streaming frame 164/239
+[2K  ███████████████░░░░░░░░░░  63%  Streaming frame 165/239
+[2K  ███████████████░░░░░░░░░░  63%  Streaming frame 166/239
+[2K  ███████████████░░░░░░░░░░  63%  Streaming frame 167/239
+[2K  ████████████████░░░░░░░░░  64%  Streaming frame 168/239
+[2K  ████████████████░░░░░░░░░  64%  Streaming frame 169/239
+[2K  ████████████████░░░░░░░░░  64%  Streaming frame 170/239
+[2K  ████████████████░░░░░░░░░  64%  Streaming frame 171/239
+[2K  ████████████████░░░░░░░░░  65%  Streaming frame 172/239
+[2K  ████████████████░░░░░░░░░  65%  Streaming frame 173/239
+[2K  ████████████████░░░░░░░░░  65%  Streaming frame 174/239
+[2K  ████████████████░░░░░░░░░  65%  Streaming frame 175/239
+[2K  ████████████████░░░░░░░░░  66%  Streaming frame 176/239
+[2K  ████████████████░░░░░░░░░  66%  Streaming frame 177/239
+[2K  ████████████████░░░░░░░░░  66%  Streaming frame 178/239
+[2K  ████████████████░░░░░░░░░  66%  Streaming frame 179/239
+[2K  ████████████████░░░░░░░░░  66%  Streaming frame 180/239
+[2K  ████████████████░░░░░░░░░  67%  Streaming frame 181/239
+[2K  ████████████████░░░░░░░░░  67%  Streaming frame 182/239
+[2K  ████████████████░░░░░░░░░  67%  Streaming frame 183/239
+[2K  ████████████████░░░░░░░░░  67%  Streaming frame 184/239
+[2K  █████████████████░░░░░░░░  68%  Streaming frame 185/239
+[2K  █████████████████░░░░░░░░  68%  Streaming frame 186/239
+[2K  █████████████████░░░░░░░░  68%  Streaming frame 187/239
+[2K  █████████████████░░░░░░░░  68%  Streaming frame 188/239
+[2K  █████████████████░░░░░░░░  68%  Streaming frame 189/239
+[2K  █████████████████░░░░░░░░  69%  Streaming frame 190/239
+[2K  █████████████████░░░░░░░░  69%  Streaming frame 191/239
+[2K  █████████████████░░░░░░░░  69%  Streaming frame 192/239
+[2K  █████████████████░░░░░░░░  69%  Streaming frame 193/239
+[2K  █████████████████░░░░░░░░  70%  Streaming frame 194/239
+[2K  █████████████████░░░░░░░░  70%  Streaming frame 195/239
+[2K  █████████████████░░░░░░░░  70%  Streaming frame 196/239
+[2K  █████████████████░░░░░░░░  70%  Streaming frame 197/239
+[2K  █████████████████░░░░░░░░  71%  Streaming frame 198/239
+[2K  █████████████████░░░░░░░░  71%  Streaming frame 199/239
+[2K  █████████████████░░░░░░░░  71%  Streaming frame 200/239
+[2K  █████████████████░░░░░░░░  71%  Streaming frame 201/239
+[2K  █████████████████░░░░░░░░  71%  Streaming frame 202/239
+[2K  ██████████████████░░░░░░░  72%  Streaming frame 203/239
+[2K  ██████████████████░░░░░░░  72%  Streaming frame 204/239
+[2K  ██████████████████░░░░░░░  72%  Streaming frame 205/239
+[2K  ██████████████████░░░░░░░  72%  Streaming frame 206/239
+[2K  ██████████████████░░░░░░░  73%  Streaming frame 207/239
+[2K  ██████████████████░░░░░░░  73%  Streaming frame 208/239
+[2K  ██████████████████░░░░░░░  73%  Streaming frame 209/239
+[2K  ██████████████████░░░░░░░  73%  Streaming frame 210/239
+[2K  ██████████████████░░░░░░░  74%  Streaming frame 211/239
+[2K  ██████████████████░░░░░░░  74%  Streaming frame 212/239
+[2K  ██████████████████░░░░░░░  74%  Streaming frame 213/239
+[2K  ██████████████████░░░░░░░  74%  Streaming frame 214/239
+[2K  ██████████████████░░░░░░░  74%  Streaming frame 215/239
+[2K  ██████████████████░░░░░░░  75%  Streaming frame 216/239
+[2K  ██████████████████░░░░░░░  75%  Streaming frame 217/239
+[2K  ██████████████████░░░░░░░  75%  Streaming frame 218/239
+[2K  ██████████████████░░░░░░░  75%  Streaming frame 219/239
+[2K  ███████████████████░░░░░░  76%  Streaming frame 220/239
+[2K  ███████████████████░░░░░░  76%  Streaming frame 221/239
+[2K  ███████████████████░░░░░░  76%  Streaming frame 222/239
+[2K  ███████████████████░░░░░░  76%  Streaming frame 223/239
+[2K  ███████████████████░░░░░░  77%  Streaming frame 224/239
+[2K  ███████████████████░░░░░░  77%  Streaming frame 225/239
+[2K  ███████████████████░░░░░░  77%  Streaming frame 226/239
+[2K  ███████████████████░░░░░░  77%  Streaming frame 227/239
+[2K  ███████████████████░░░░░░  77%  Streaming frame 228/239
+[2K  ███████████████████░░░░░░  78%  Streaming frame 229/239
+[2K  ███████████████████░░░░░░  78%  Streaming frame 230/239
+[2K  ███████████████████░░░░░░  78%  Streaming frame 231/239
+[2K  ███████████████████░░░░░░  78%  Streaming frame 232/239
+[2K  ███████████████████░░░░░░  79%  Streaming frame 233/239
+[2K  ███████████████████░░░░░░  79%  Streaming frame 234/239
+[2K  ███████████████████░░░░░░  79%  Streaming frame 235/239
+[2K  ███████████████████░░░░░░  79%  Streaming frame 236/239
+[2K  ████████████████████░░░░░  80%  Streaming frame 237/239
+[2K  ████████████████████░░░░░  80%  Streaming frame 238/239
+[2K  ████████████████████░░░░░  80%  Streaming frame 239/239
+[2K  ██████████████████████░░░  90%  Assembling final video
+[2K  █████████████████████████  100%  Render complete
+◇  /Users/fan/Documents/视频工厂/dist/third_episode_real_review_scene_candidate/hyperframes_cards/light_judgment_card_01_8.mp4
+   700.2 KB · 15.4s · completed
+
+
+STDERR:
+[hyperframes] browserGpuMode auto → hardware (WebGL probe succeeded)

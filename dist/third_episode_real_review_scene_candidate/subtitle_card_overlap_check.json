@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "high_severity_overlap": false,
+  "subtitle_strategy": "source footage clips use bottom translucent subtitle band; full-screen HyperFrames cards use embedded/sidecar subtitles without extra bottom burn-in to avoid card clutter.",
+  "card_strategy": "cards are inserted as their own short full-screen clips, so they do not cover material_03 evidence windows.",
+  "material_03_key_text_protection": "caption band reserved to bottom 200px; key ChatGPT evidence remains primarily central/top after 16:9 crop.",
+  "material_02_unblurred_used": false,
+  "blocked_if": "any card or subtitle covers V003 data values / rule table / source privacy"
+}

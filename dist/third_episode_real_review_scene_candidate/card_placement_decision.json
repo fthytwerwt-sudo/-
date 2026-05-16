@@ -1,0 +1,65 @@
+{
+  "status": "passed",
+  "skin": "clean_soft",
+  "opening_judgment_card": {
+    "position": "0s opening segment",
+    "text": "AI 时代，真正拉开差距的不是数据，是复盘能力",
+    "support": "141 播放｜2 秒跳出接近 50%｜收藏 3"
+  },
+  "light_judgment_card_01": {
+    "line_group_id": "lg_008",
+    "text": "不是方向错\n是开头没接住"
+  },
+  "light_judgment_card_02": {
+    "line_group_id": "lg_006",
+    "text": "数据不是答案\n数据是定位器"
+  },
+  "closing_summary_card": {
+    "line_group_id": "lg_020",
+    "text": "哪一层出了问题？\n下一条只改哪个变量？\n改完看哪个指标？"
+  },
+  "hyperframes_cards": [
+    {
+      "card_id": "opening_judgment_card_1",
+      "text": "AI 时代，真正拉开差距的不是数据，是复盘能力\n141 播放｜2 秒跳出接近 50%｜收藏 3",
+      "support": "141 播放｜2 秒跳出接近 50%｜收藏 3",
+      "duration": 3.66,
+      "skin": "clean_soft",
+      "hyperframes_runtime_status": "found_and_callable",
+      "actual_output_type": "real_hyperframes_motion_reused",
+      "output_path": "dist/third_episode_real_review_scene_candidate/hyperframes_cards/opening_judgment_card_1.mp4"
+    },
+    {
+      "card_id": "light_judgment_card_02_6",
+      "text": "数据不是答案\n数据是定位器",
+      "support": "轻判断卡，不替代真实录屏证据",
+      "duration": 6.22,
+      "skin": "clean_soft",
+      "hyperframes_runtime_status": "found_and_callable",
+      "actual_output_type": "real_hyperframes_motion_reused",
+      "output_path": "dist/third_episode_real_review_scene_candidate/hyperframes_cards/light_judgment_card_02_6.mp4"
+    },
+    {
+      "card_id": "light_judgment_card_01_8",
+      "text": "不是方向错\n是开头没接住",
+      "support": "轻判断卡，不替代真实录屏证据",
+      "duration": 7.96,
+      "skin": "clean_soft",
+      "hyperframes_runtime_status": "found_and_callable",
+      "actual_output_type": "real_hyperframes_motion_reused",
+      "output_path": "dist/third_episode_real_review_scene_candidate/hyperframes_cards/light_judgment_card_01_8.mp4"
+    },
+    {
+      "card_id": "closing_summary_card_20",
+      "text": "哪一层出了问题？\n下一条只改哪个变量？\n改完看哪个指标？",
+      "support": "low_confidence_review_candidate / internal_review_pack",
+      "duration": 6.79,
+      "skin": "clean_soft",
+      "hyperframes_runtime_status": "found_and_callable",
+      "actual_output_type": "real_hyperframes_motion_reused",
+      "output_path": "dist/third_episode_real_review_scene_candidate/hyperframes_cards/closing_summary_card_20.mp4"
+    }
+  ],
+  "card_text_semantic_match": true,
+  "material_evidence_not_replaced_by_cards": true
+}

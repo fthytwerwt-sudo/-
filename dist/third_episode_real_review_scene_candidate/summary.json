@@ -1,0 +1,40 @@
+{
+  "status": "low_confidence_review_candidate",
+  "review_pack_type": "internal_review_pack",
+  "generated_new_video": true,
+  "modified_published_video": false,
+  "material_02_used": false,
+  "source_media_committed": false,
+  "full_mp4": "dist/third_episode_real_review_scene_candidate/full.mp4",
+  "duration_seconds": 146.35,
+  "resolution": "1920x1080",
+  "fps": "30/1",
+  "display_aspect_ratio": "16:9",
+  "audio_present": true,
+  "audio_codec": "aac",
+  "subtitles_present": true,
+  "subtitle_codec": "mov_text",
+  "can_decode": true,
+  "hyperframes_used": true,
+  "tts": {
+    "provider": "aliyun_bailian",
+    "model": "qwen3-tts-vc-realtime-2026-01-15",
+    "voice_masked": "qwen-t...ac19",
+    "local_tts_fallback_used": false,
+    "macos_say_used": false,
+    "silent_audio_fallback_used": false,
+    "api_key_printed": false,
+    "api_key_written": false
+  },
+  "status_boundary": {
+    "low_confidence_review_candidate": true,
+    "publish_candidate_ready_for_human_review": false,
+    "content_validation_advanced": false,
+    "send_ready_advanced": false,
+    "current_data_goal_anchor_ready": false,
+    "next_formal_video_prompt_generated": false,
+    "voice_validation_advanced": false,
+    "final_voice_validated_advanced": false,
+    "visual_master_locked_advanced": false
+  }
+}

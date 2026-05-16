@@ -1,0 +1,105 @@
+{
+  "request_id": "20260517_third_episode_real_review_scene_candidate_post_risk_review",
+  "created_at": "2026-05-17T04:05:00+08:00",
+  "task_id": "third_episode_real_review_scene_candidate",
+  "task_type": "low_confidence_review_candidate_video + material_execution + copy_iteration_candidate + project_file_change + code_debug",
+  "trigger_reason": "mandatory_post_risk_review",
+  "action": "risk_report",
+  "mandatory_for_every_task": true,
+  "participation_level": "mandatory_by_default",
+  "pre_supply_required": false,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "requires_real_deepseek_participation": false,
+  "allow_process_env_api_key": true,
+  "disable_env_file": true,
+  "safe_call_mode": "project_runtime_provider",
+  "project_route": "video_factory",
+  "current_goal": "执行后只读复核第三期真实复盘现场型 low_confidence_review_candidate / internal_review_pack 是否满足技术产物、状态边界和禁止事项。",
+  "current_stage": "formal_operation_active",
+  "current_step": "执行后风险复核：检查 review pack 文件、summary、locked copy、line-level timeline、media probe、subtitle/card overlap、TTS 边界、HyperFrames 边界、material_02 与 forbidden status 风险。",
+  "current_data_goal_anchor_path": "codex_log/current_data_goal_anchor.md",
+  "current_data_goal_anchor_status": "partial_data_recorded",
+  "known_context": [
+    "full.mp4 已由 Codex 生成在 dist/third_episode_real_review_scene_candidate/。",
+    "本轮仅允许 low_confidence_review_candidate / internal_review_pack。",
+    "TTS 禁止本地生成，必须走项目远程 TTS 链路；无声或本地 fallback 不可写完成。",
+    "material_03 是主素材，material_01 是辅助素材，material_02 默认不使用。",
+    "不得推进 content_validation、send_ready、current_data_goal_anchor ready、voice_validation、final_voice_validated 或 visual_master_locked。"
+  ],
+  "missing_context": [
+    "是否存在人工内容审片通过",
+    "是否存在声音最终验证通过",
+    "是否存在正式下一条视频执行许可"
+  ],
+  "decision_needed": "输出少于 800 个汉字，只读列出 pass_checks / residual_risks / blockers / commit_guard 四项。",
+  "candidate_files": [
+    "dist/third_episode_real_review_scene_candidate/summary.json",
+    "dist/third_episode_real_review_scene_candidate/review_manifest.md",
+    "dist/third_episode_real_review_scene_candidate/content_route_card_v2.json",
+    "dist/third_episode_real_review_scene_candidate/script_to_timeline_map.json",
+    "dist/third_episode_real_review_scene_candidate/card_placement_decision.json",
+    "dist/third_episode_real_review_scene_candidate/subtitle_card_overlap_check.json",
+    "dist/third_episode_real_review_scene_candidate/media_probe.json",
+    "dist/third_episode_real_review_scene_candidate/locked_copy_contract.json",
+    "dist/third_episode_real_review_scene_candidate/narration_tts_debug_sanitized.json",
+    "codex_log/latest.md",
+    "codex_log/20260517_third_episode_real_review_scene_candidate.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    ".git/",
+    "素材录制/",
+    "dist/latest_review_pack/",
+    "*.mp4 source media",
+    "*.mov source media",
+    "*.m4v source media",
+    "*.avi source media",
+    "*.mkv source media"
+  ],
+  "expected_output": [
+    "risk_and_conflict_report",
+    "forbidden_status_check",
+    "source_media_staging_warning",
+    "not_deepseek_conclusion_if_fallback"
+  ],
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_runtime_validation/20260517_third_episode_real_review_scene_candidate_post_review",
+    "read_first": [
+      "latest_supply_pack.md",
+      "latest_supply_pack.json",
+      "latest_supply_manifest.json",
+      "participation_report.json"
+    ]
+  },
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback_local_only 写成 DeepSeek 结论。",
+    "不得声称 multi-agent runtime（多 agent 运行时）已经长期稳定跑通。",
+    "不得读取、输出或复述 API key / secret / token。",
+    "不得把 low_confidence_review_candidate 写成 publish_candidate。",
+    "不得推进 forbidden status。",
+    "不得要求提交源视频。"
+  ],
+  "blocked_if": [
+    "full_mp4_missing",
+    "audio_missing_or_local_tts_fallback_used",
+    "subtitle_missing",
+    "decode_failed",
+    "aspect_ratio_not_16_9",
+    "material_02_unblurred_used",
+    "locked_copy_semantic_rewrite_detected",
+    "high_severity_subtitle_card_overlap",
+    "forbidden_status_advanced",
+    "source_video_staged"
+  ],
+  "fallback_policy": "fallback_local_only 只可作为供料不可用时的来源边界，不得作为 DeepSeek 结论或完成依据。",
+  "codex_next_input": "Codex must use this post review only as risk input; final completion still depends on local jq/ffprobe/ffmpeg/status/staging/git verification."
+}

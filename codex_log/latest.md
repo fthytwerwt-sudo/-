@@ -1,5 +1,22 @@
 # Latest
 
+## 20260517｜第三期真实复盘现场低置信度审片包
+
+- `已确认` 本轮基于第三期素材审计报告和 V003 文案迭代简报，生成 `low_confidence_review_candidate（低置信度审片候选）/ internal_review_pack（内部审片包）`；不是正式发布候选片，不生成正式下一条视频执行 prompt。
+- `route_decision（路由判断）`：`project_route = video_factory`；`task_type = low_confidence_review_candidate_video + material_execution + copy_iteration_candidate + project_file_change + code_debug`；`current_project_state = formal_operation_active + copy_iteration_prepare + material_audit_ready + formal_next_execution_blocked`；`execution_permission = low_confidence_internal_review_candidate_only`；`large_task_gate = triggered`；`lane = standard_lane`；`parallel = serial_only`。
+- `state_action_router（状态动作总控器）`：`input_signal = 用户要求按照真实复盘现场型结构执行`；`inferred_state = low_confidence_review_candidate_allowed`；`selected_action = 基于 locked copy、material_03 和判断卡生成内部审片候选包`；`forbidden_action = publish_candidate promotion / send_ready / content_validation passed / ready status promotion`。
+- `DeepSeek`：已创建执行前供料任务卡 `codex_log/supply_requests/20260517_third_episode_real_review_scene_candidate_pre_supply_request.json` 和执行后风险复核任务卡 `codex_log/supply_requests/20260517_third_episode_real_review_scene_candidate_post_risk_review_request.json`；两次真实调用均通过，`deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`api_key_printed = false`、`api_key_written = false`、`env_file_read = false`。
+- `使用素材`：主素材 `material_03 / /Users/fan/Documents/视频工厂/素材录制/第三期/v004 2026-05-16 23-22-13.mp4`；辅助素材 `material_01 / /Users/fan/Documents/视频工厂/素材录制/第三期/第二期 2026-05-15 23-15-27.mp4`；`material_02_used = false`。
+- `已生成` 审片包目录：`dist/third_episode_real_review_scene_candidate/`。
+- `已生成` 主视频：`dist/third_episode_real_review_scene_candidate/full.mp4`；`1920x1080`、`30fps`、`16:9`、可解码、有 AAC 音轨、有 `mov_text` 字幕。
+- `已生成` 审片与执行文件：`review_manifest.md`、`summary.json`、`content_route_card_v2.json`、`script_to_timeline_map.json`、`card_placement_decision.json`、`subtitle_card_overlap_check.json`、`media_probe.json`、`locked_copy_contract.json`、`captions.srt`、`narration.wav`、`narration_tts_debug_sanitized.json`、`tts_prosody_anchor_map.json`。
+- `TTS 边界`：本轮按用户要求禁止本地 TTS，实际使用项目 Aliyun / Bailian 远程 TTS 链路；`local_tts_fallback_used = false`、`macos_say_used = false`、`silent_audio_fallback_used = false`；不推进 `voice_validation` 或 `final_voice_validated`。
+- `HyperFrames`：使用 `clean_soft` 皮肤生成 1 张开头判断卡、2 张轻判断卡和 1 张结尾总结卡；卡片只做判断压缩，不替代 `material_03` 真实复盘录屏证据。
+- `字幕 / 卡片重叠`：`subtitle_card_overlap_check.status = passed`，未发现 high severity overlap；卡片为独立短片段，不遮挡 `material_03` 关键证据窗口。
+- `未推进`：`publish_candidate_ready_for_human_review`、`content_validation（内容验证）`、`send_ready（可发送状态）`、`current_data_goal_anchor ready`、`publish_status_success（发布成功口径）`、`voice_validation（声音验证）`、`final_voice_validated（最终声音验证）`、`visual_master_locked（视觉母版锁定）`。
+- `日志`：`codex_log/20260517_third_episode_real_review_scene_candidate.md`。
+- `下一个安全用法`：只可供用户 / ChatGPT 内部审片判断真实复盘现场型结构是否值得继续；不能直接作为正式发布候选或下一条正式执行结果。
+
 ## 20260517｜第三期素材内容审计
 
 - `已确认` 本轮只做第三期录制素材内容审计、复盘 / 诊断 / 审核和项目文件修改；不生成新视频，不修改已发布视频，不写下一期正式文案，不生成正式下一条视频执行 prompt。
