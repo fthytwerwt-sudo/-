@@ -1,0 +1,105 @@
+{
+  "fixture_id": "codex_judgment_permission_matrix_cases_v1",
+  "status_boundary": {
+    "content_validation": "not_advanced",
+    "send_ready": "not_advanced",
+    "voice_validation": "not_advanced",
+    "final_voice_validated": "not_advanced",
+    "visual_master_locked": "not_advanced",
+    "current_data_goal_anchor_ready": "not_advanced"
+  },
+  "cases": [
+    {
+      "case_id": "opening_route_project_correction_case",
+      "input": {
+        "judgment_object": "opening_route_decision",
+        "external_pack_claim": "Codex cannot decide opening route",
+        "project_rule": "Codex must run content_route_inference_function"
+      },
+      "expected": {
+        "codex_permission": "must_decide_and_execute",
+        "required_action": "write opening_route_decision with route_reason",
+        "must_not": [
+          "change_locked_opening_line",
+          "change_locked_title",
+          "change_core_claim"
+        ],
+        "blocked_if": [
+          "opening_route_unclear"
+        ]
+      }
+    },
+    {
+      "case_id": "judgment_card_hyperframes_required_runtime_missing_case",
+      "input": {
+        "judgment_object": "judgment_card",
+        "card_placement_decision": "selects_judgment_card",
+        "hyperframes_runtime_status": "missing"
+      },
+      "expected": {
+        "codex_permission": "must_decide_and_block",
+        "hyperframes_required": true,
+        "status": "blocked",
+        "completed": false,
+        "must_not": [
+          "use_static_card_as_hyperframes",
+          "claim_hyperframes_integrated",
+          "advance_content_validation"
+        ]
+      }
+    },
+    {
+      "case_id": "summary_card_not_forced_case",
+      "input": {
+        "judgment_object": "summary_card",
+        "ending_line_naturally_closes": true,
+        "evidence_window_active": false
+      },
+      "expected": {
+        "codex_permission": "must_decide_and_execute",
+        "summary_card_usage": "not_needed_with_reason",
+        "must_not": [
+          "force_summary_card_every_video"
+        ],
+        "record_to": "card_placement_decision"
+      }
+    },
+    {
+      "case_id": "copy_change_request_locked_title_case",
+      "input": {
+        "judgment_object": "copy_change_request",
+        "needed_change": "shorten_locked_title",
+        "allowed_copy_changes_contains_semantic_title_change": false
+      },
+      "expected": {
+        "codex_permission": "must_escalate_to_chatgpt_or_user",
+        "required_action": "write_copy_change_request",
+        "must_not": [
+          "change_locked_title_without_confirmation"
+        ],
+        "blocked_if": [
+          "user_or_chatgpt_not_confirmed"
+        ]
+      }
+    },
+    {
+      "case_id": "publish_candidate_hard_gap_case",
+      "input": {
+        "judgment_object": "publish_candidate_readiness",
+        "audio_exists": false,
+        "subtitle_exists": true,
+        "aspect_ratio_resolution": "1920x1080_16_9",
+        "material_evidence": "partial"
+      },
+      "expected": {
+        "codex_permission": "must_decide_and_block",
+        "status": "blocked_publish_candidate_unavailable",
+        "completed": false,
+        "must_not": [
+          "deliver_silent_preview",
+          "advance_send_ready"
+        ]
+      }
+    }
+  ]
+}

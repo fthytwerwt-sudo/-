@@ -1,5 +1,24 @@
 # Latest
 
+## 20260516｜Codex 判断权限表与 HyperFrames 判断卡 / 总结卡基线
+
+- `已确认` 本轮只做《视频工厂｜OPC 一人公司 AI 闭环验证系统》的机制修补、项目文件修改、Codex 执行层判断权限补全和 HyperFrames 卡片执行基线补强；不生成视频、不修改已发布视频、不修改 `dist/latest_review_pack/`。
+- `route_decision（路由判断）`：`project_route = video_factory`；`task_type = mechanism_or_route_fix + route_repair + project_file_change + codex_execution_permission_matrix + hyperframes_card_baseline_repair`；`large_task_gate = triggered`；`lane = audit_lane -> standard_lane`；`parallel = explore_plus_integrate`；`write_owner = Codex Integrator only`。
+- `state_action_router（项目状态动作总控器）`：推断 `codex_judgment_permission_matrix_needed`、`hyperframes_judgment_summary_card_baseline_needed`、`route_permission_boundary_repair_needed`；外部 Perplexity 资料只作参考，和仓库规则冲突时以仓库当前规则为准。
+- `parallel_execution_report（并行执行报告）`：Lane A 只读整理 Codex 判断权限表；Lane B 只读核 HyperFrames 卡片基线与 runtime 状态；Integrator 单点写入。没有多个写手写同一文件。
+- `已新增` `codex_source/21_codex_judgment_permission_matrix.md（Codex 判断权限表）`：明确 `must_decide_and_execute`、`must_decide_but_request_change`、`must_decide_and_block`、`must_escalate_to_chatgpt_or_user` 四层权限。
+- `已覆盖` 判断对象：`opening_route_decision`、`card_placement_decision`、`judgment_card`、`summary_card`、`result_diff_card`、`boundary_card`、`prompt_tail_card`、`script_to_timeline_map`、`subtitle_segmentation`、`tts_prosody`、`material_evidence`、`visual_mismatch`、`aspect_ratio_resolution`、`publish_candidate_readiness`、`data_goal_alignment`、`copy_change_request`、`human_review_required`。
+- `已修正` Perplexity 外部资料中不适合本项目的结论：Codex 在本项目必须通过 `content_route_inference_function（内容路由推理函数）` 判断 `opening_route_decision（开头路由判断）`；Codex 必须判断是否需要 `judgment_card（判断卡）` / `summary_card（总结卡）`，加与不加都必须说明依据。
+- `已补强` `GPT数据源/05_文案路由规则.md`：`content_route_card V2` 与 `card_placement_decision` 已接入 `hyperframes_required / hyperframes_motion_type / hyperframes_runtime_status / hyperframes_visual_quality_gate / blocked_if_hyperframes_unavailable`，并新增 `judgment_card_motion（判断卡动效）`、`summary_card_motion（总结卡动效）` 和 `hyperframes_card_motion_baseline（HyperFrames 卡片动效基线）`。
+- `已补强` `codex_source/01_execution_rules.md` 与 `codex_source/19_project_state_action_router.md`：新增 `codex_judgment_permission_gate（Codex 判断权限闸门）`、`hyperframes_card_motion_gate（HyperFrames 卡片动效闸门）`、`completion_truth_check（完成真实性检查）` 的 HyperFrames 检查项。
+- `已同步` `GPT数据源/07_AI知识类视频价值规则.md`、`GPT数据源/08_当前正式事实.md`、`GPT数据源/11_项目状态动作总控器_机制推理层.md`、`codex_source/00_codex_readme.md`：写清 HyperFrames 只能强化卡片动效和观感，不替代真实录屏证据、不改文案、不新增素材里没有的数据结论、不推进内容验证。
+- `HyperFrames runtime`：当前 Codex 会话可读取 HyperFrames skill，但已检查仓库 `package.json` 与 `scripts/`，未发现项目级 HyperFrames plugin / script / runtime entry。当前只能写 `runtime_execution = 待验证`、`hyperframes_runtime_status = missing / not_found / not_verified`；后续真实视频若要求 HyperFrames 且仓库 runtime 仍不可用，必须 `blocked` 或等待用户授权降级。
+- `DeepSeek`：已创建供料请求任务卡 `codex_log/supply_requests/20260516_codex_judgment_permission_and_hyperframes_baseline_pre_supply_request.json`；本轮因机制任务且禁止真实外部 API 调用，供料口径为 `fallback_local_only`，`not_deepseek_conclusion = true`。
+- `已新增` fixture：`codex_source/fixtures/codex_judgment_permission_matrix_cases.json`，覆盖 opening route 修正、判断卡 HyperFrames runtime 缺失、总结卡不强插、文案修改请求和发布候选阻断。
+- `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status_success（发布成功口径）`、`voice_validation（声音验证）`、`final_voice_validated（最终声音验证）`、`visual_master_locked（视觉母版锁定）`；`current_data_goal_anchor` 未写 ready；未生成视频、音频、图片。
+- `日志`：`codex_log/20260516_codex_judgment_permission_and_hyperframes_baseline.md`
+- `下一个目标`：后续真实视频执行前，先验证 HyperFrames runtime / plugin / script 是否存在；若 judgment_card / summary_card 被选中且 runtime 不可用，必须 blocked 或等待用户授权降级，不能普通静态卡片冒充 HyperFrames。
+
 ## 20260516｜运营决策系统完整修补
 
 - `已确认` 本轮把《视频工厂》的数据目标锚点 / 数据飞轮 / 运营复盘修成可运行 `operation_decision_system（运营决策系统）`，不是只写概念。

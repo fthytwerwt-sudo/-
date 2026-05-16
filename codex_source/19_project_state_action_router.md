@@ -195,6 +195,12 @@ if opening_route in [meme_gif_opening_hook, high_emotion_hook] or input_signal i
 if input_signal includes summary_card / 总结卡 / reversal_card / 反转卡 / result_diff_card / 结果差卡 / Prompt 引用尾卡 / 卡片位置:
   action = run content_route_inference_function and editing_inference_function, produce card_placement_decision before video execution
 
+if input_signal includes judgment_card / 判断卡 / summary_card / 总结卡 / Codex 判断权限 / 判断权限表:
+  action = read codex_source/21_codex_judgment_permission_matrix.md, produce codex_judgment_permission_gate, and decide execute / change_request / blocked / escalation boundary before editing or status claim
+
+if card_placement_decision selects judgment_card or summary_card:
+  action = require hyperframes_card_motion_baseline, hyperframes_runtime_gate, hyperframes_visual_quality_gate, subtitle_card_overlap_check, card_text_semantic_match, and evidence_window_not_interrupted; if HyperFrames runtime is missing and no fallback is authorized, blocked
+
 if state = quality_review_needed:
   action = run quality_issue_classifier before changing assets or status wording
 
@@ -240,6 +246,12 @@ if state = post_publish_no_rework:
 if state = fallback_requires_user_authorization:
   action = report fallback proposal, mark task blocked, and wait for explicit user authorization before using fallback as deliverable
 
+if state = codex_judgment_permission_matrix_needed:
+  action = create or read Codex judgment permission matrix and wire it into route_decision, content_route_card V2, card_placement_decision, and completion_truth_check
+
+if state = hyperframes_judgment_summary_card_baseline_needed:
+  action = require HyperFrames for selected judgment_card / summary_card; mark runtime_execution as pending unless a real plugin/script/runtime entry is found
+
 if state = blocked_need_user_input:
   action = stop and report exact missing user input
 ```
@@ -275,6 +287,8 @@ if state = blocked_need_user_input:
 - `subtitle_card_overlap_check_required`：生成字幕、标题卡、解释卡或总结卡时触发；high severity overlap 未修复时 blocked。
 - `post_publish_no_rework`：用户说视频已经发了 / 已发布时触发；当前视频只进入反馈记录和数据回流，不默认回炉或重做。
 - `fallback_requires_user_authorization`：原目标做不到且 Codex 想使用 fallback / 降级方案时触发；降级只能作为 blocked 后的修复建议，用户明确授权前不能作为完成结果。
+- `codex_judgment_permission_matrix_needed`：任务涉及 Codex 什么时候判断 / 什么时候不判断时触发；必须读取 `codex_source/21_codex_judgment_permission_matrix.md` 并输出 execute / change_request / blocked / escalation 边界。
+- `hyperframes_judgment_summary_card_baseline_needed`：`card_placement_decision` 选择 `judgment_card（判断卡）` 或 `summary_card（总结卡）` 时触发；HyperFrames 是默认动效和视觉优化基线，runtime 不存在时必须 blocked 或等待用户授权降级。
 
 ### 4-1. 目标驱动数据飞轮执行侧规则
 
@@ -558,6 +572,7 @@ not_allowed:
 - 任务涉及真实视频执行前的统一判断卡、`content_route_card V2（内容路由卡 V2）` 或等效完整字段。
 - 任务涉及 `opening_route_decision（开头路由判断）`、元素娃娃开头、梗图 GIF 开场、直接问题标题卡、录屏现场先行开头或开头参考图。
 - 任务涉及 `card_placement_decision（卡片位置判断）`、总结卡、反转卡、结果差卡、Prompt 尾卡或卡片位置路由。
+- 任务涉及 `judgment_card（判断卡）`、`summary_card（总结卡）` 或 HyperFrames 卡片动效基线。
 - 任务涉及最终文案进入执行，需要生成 `script_anchor_map / script_to_timeline_map / tts_prosody_anchor_map / forbidden_visual_map`。
 - 任务涉及高情绪 / 抖音抓眼 / 梗图 GIF / 抽象动效开头，需要生成 `opening_visual_hook_spec（开头视觉钩子规格）`。
 - 需要判断本轮是只做内容验证，还是值得沉淀三层 prompt 包 / 工作包。
@@ -594,6 +609,7 @@ content_route_inference_function:
 - `forbidden_variables_avoided（内容路由 / 时间线避开的禁止变量）`、`forbidden_visuals_by_goal（剪辑按目标禁用的画面）` 与 `forbidden_variable_avoided（装配避开的禁止变量）` 必须全部能追溯到同一组 `data_goal_anchor.forbidden_variables`；字段名不同不代表语义可分叉。
 - 若素材来自 FocuSee，缺 `focusee_middle_editing_decision（FocuSee 中段剪辑判断）` 时，不得进入中段剪辑或视频执行。
 - 涉及总结卡、反转卡、结果差卡或 Prompt 尾卡时，缺 `card_placement_decision（卡片位置判断）` 不得进入视频执行。
+- 涉及判断卡或总结卡时，`card_placement_decision（卡片位置判断）` 必须填写 `hyperframes_required / hyperframes_motion_type / hyperframes_runtime_status / hyperframes_visual_quality_gate`；HyperFrames 必需但 runtime 不存在且未授权降级时必须 blocked。
 - 不得先定人物次数、PPT 数量或尾卡数量，再把文案硬塞进去。
 - 涉及开头时，不得绕过 `opening_route_decision（开头路由判断）` 直接生成开头。
 - 涉及高情绪 / 抖音抓眼 / 梗图 GIF / 抽象动效开头时，不得只输出路线判断，必须输出 `opening_visual_hook_spec（开头视觉钩子规格）`；静态两行标题页不得默认通过。
@@ -745,6 +761,7 @@ quality_issue_classifier:
 4. fixture / 最小样例是否覆盖正常判断与 blocked 判断。
 5. `remaining_work_check（剩余工作检查）` 是否确认没有剩余 must-fix。
 6. 若最终文案进入执行，是否已生成 `script_anchor_extraction_function（文案锚点提取函数）`、`script_to_timeline_map（文案到时间线映射表）`、`tts_prosody_anchor_map（TTS 韵律锚点表）` 与必要的 `opening_visual_hook_spec（开头视觉钩子规格）`。
+7. 若 `judgment_card（判断卡）` 或 `summary_card（总结卡）` 被选中，是否已生成 `hyperframes_card_motion_plan（HyperFrames 卡片动效方案）`、`hyperframes_runtime_status（HyperFrames 运行时状态）`、`hyperframes_visual_quality_check（HyperFrames 视觉质量检查）`、`card_text_semantic_match（卡片文字语义匹配）`，并确认未用静态卡片冒充 HyperFrames。
 
 ## 5. 事实源裁决规则
 

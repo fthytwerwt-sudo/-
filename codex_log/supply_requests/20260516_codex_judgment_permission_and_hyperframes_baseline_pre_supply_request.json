@@ -1,0 +1,78 @@
+{
+  "request_id": "20260516_codex_judgment_permission_and_hyperframes_baseline_pre_supply_request",
+  "task_id": "20260516_codex_judgment_permission_and_hyperframes_baseline",
+  "task_type": "mechanism_or_route_fix",
+  "project_route": "video_factory",
+  "safe_call_mode": "no_external_api_this_round",
+  "deepseek_supply_gate": {
+    "required_by_project_rule": true,
+    "external_api_call_allowed_this_round": false,
+    "fallback_status": "fallback_local_only",
+    "not_deepseek_conclusion": true,
+    "reason": "User explicitly forbids real external API calls in this mechanism-only task."
+  },
+  "current_goal": "Create the Codex judgment permission matrix and wire HyperFrames as the required baseline for judgment_card and summary_card without changing videos or advancing status.",
+  "current_step": "pre_write_impact_check_and_local_supply",
+  "must_read_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/13_execution_lane_and_parallel_rules.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_log/latest.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/08_当前正式事实.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md"
+  ],
+  "decision_needed": [
+    "Which Codex judgments must be executed directly, requested as copy changes, blocked, or escalated.",
+    "Whether judgment_card and summary_card already have a HyperFrames baseline.",
+    "Whether a real HyperFrames runtime/plugin/script entry exists in this repository."
+  ],
+  "allowed_changes": [
+    "codex_source/21_codex_judgment_permission_matrix.md",
+    "codex_source/fixtures/codex_judgment_permission_matrix_cases.json",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/19_project_state_action_router.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/08_当前正式事实.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "codex_log/latest.md",
+    "codex_log/20260516_codex_judgment_permission_and_hyperframes_baseline.md"
+  ],
+  "forbidden_changes": [
+    "dist/latest_review_pack/",
+    "review_loop/records/",
+    "codex_log/current_operation_target.md",
+    "codex_log/current_data_goal_anchor.md ready status",
+    "API key / token / .env / secret",
+    "published video assets",
+    "send_ready",
+    "content_validation",
+    "voice_validation",
+    "final_voice_validated",
+    "visual_master_locked",
+    "publish_status_success"
+  ],
+  "expected_outputs": [
+    "codex_judgment_permission_matrix",
+    "hyperframes_card_motion_baseline",
+    "hyperframes_visual_quality_gate",
+    "hyperframes_runtime_gate",
+    "completion_truth_check additions",
+    "dated log",
+    "latest log update"
+  ],
+  "stop_condition": "Rules are written and verified, or blocked if a key entry file is missing.",
+  "must_not_claim": [
+    "DeepSeek actual participation",
+    "HyperFrames runtime is integrated",
+    "HyperFrames is long-term stable",
+    "content_validation passed",
+    "send_ready true",
+    "current_data_goal_anchor ready"
+  ]
+}
