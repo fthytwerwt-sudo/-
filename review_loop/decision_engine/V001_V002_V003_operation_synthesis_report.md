@@ -1,9 +1,10 @@
-# V001 / V002 / V003 运营三期归纳报告
+# V001 / V002 / V003 / V004 运营样本归纳报告
 
 ## 1. 三期总体结论
 - V001 提供旧阶段历史样本入口，但核心数据不完整。
 - V002 提供平台审核减推异常样本，可用于平台风险表达参考，不能用于正常自然流量归因。
 - V003 提供当前目标的 post_72h_pre_7d_snapshot（72h 后 / 7d 前补录，非 7d final）：触达很小、前 5 秒承接弱、收藏有小正信号、需求侧字段缺失。
+- V004 提供最新一期的 interim_17h_snapshot（约 17 小时早期数据，pre_24h，非 24h / 72h / 7d final）：只作为 pre_24h 早期记录，不自动替换 V003 当前目标。
 
 ## 2. 还不能证明什么
 - 未证明内容方向成立。
@@ -40,8 +41,17 @@
 - 正常归因可用：false
 - 正常归因阻断原因：current_target_partial_data_waiting_72h_7d_and_required_lead_fields
 
+### V004｜不能做得说很好，但确实方便 如果这条没有人看，我直接公开我全自动的制作方式
+- sample_classification: `latest_operation_sample_pre_24h`
+- data_quality: `pre_24h_interim_snapshot_recorded`
+- 能说明：它能说明最新一期已经进入记录池，并已有 interim_17h_snapshot（约 17 小时早期数据，pre_24h，非 24h / 72h / 7d final）。
+- 不能说明：不能说明方向失败、内容通过、平台充分验证，也不能自动切换 current_operation_target。
+- 对下一期价值：等待 24h / 72h / 7d 和人审确认后，再决定是否成为新的当前运营目标。
+- 正常归因可用：false
+- 正常归因阻断原因：latest_operation_sample_pre_24h_waiting_24h_72h_7d_and_human_target_switch_confirmation
+
 ## 4. 当前整体缺口
-- 缺 V003 7d final 与需求侧字段，无法从低播放直接归因到内容方向或商业价值。
+- 缺 V003 7d final 与需求侧字段；V004 也仍是 pre_24h 早期样本，无法从低播放直接归因到内容方向或商业价值。
 
 ## 5. 距离北极星目标仍缺
 - 缺稳定高质量需求信号。

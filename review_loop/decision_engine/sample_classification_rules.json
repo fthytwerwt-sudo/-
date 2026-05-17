@@ -50,6 +50,24 @@
         "formal_next_video_execution_prompt_before_required_data",
         "commercial_validation_proof"
       ]
+    },
+    "V004": {
+      "classification": "latest_operation_sample_pre_24h",
+      "sample_role": "latest_sample_interim_pre_24h",
+      "normal_attribution_eligible": false,
+      "normal_attribution_rule": "record_only_until_24h_72h_7d_and_human_target_switch_confirmation",
+      "allowed_uses": [
+        "latest_operation_sample_recording",
+        "pre_24h_early_signal_observation",
+        "future_target_switch_candidate_after_human_confirmation"
+      ],
+      "forbidden_uses": [
+        "current_operation_target_without_human_confirmation",
+        "direction_failure_proof",
+        "content_value_absent_proof",
+        "platform_full_validation_proof",
+        "formal_next_video_execution_prompt_before_required_data"
+      ]
     }
   }
 }

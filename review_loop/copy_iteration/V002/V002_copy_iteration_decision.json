@@ -1,0 +1,76 @@
+{
+  "video_id": "V002",
+  "copy_id": "V002_copy_v1",
+  "decision_version": "copy_iteration_decision_v1",
+  "generated_at_utc": "2026-05-17T13:45:22.649815+00:00",
+  "input_paths": {
+    "operation_report": "review_loop/decision_engine/latest_operation_decision_report.json",
+    "copy_registry": "review_loop/copy_iteration/copy_registry.json",
+    "copy_record": "review_loop/copy_iteration/V002/V002_copy_v1_record.json",
+    "structure_map": "review_loop/copy_iteration/V002/V002_copy_structure_map.json",
+    "linked_operation_record": "review_loop/records/V002_自动流的最简单流程_douyin_policy_notice/V002_发布后复盘记录_post_publish_review_record.md"
+  },
+  "sample_role": "policy_limited_abnormal_operation_sample",
+  "abnormal_sample_status": "policy_limited_abnormal_operation_sample",
+  "sample_interpretation_label": "policy_limited_but_interest_signal_strong",
+  "data_window": "user_latest_reported_metrics_no_screenshot_yet",
+  "source_status": "user_provided_in_chat / no_screenshot_yet",
+  "latest_user_reported_metrics": {
+    "play_count": "56",
+    "like_count": "6",
+    "favorite_count": "9",
+    "like_rate": "10.71%",
+    "favorite_rate": "16.07%",
+    "like_plus_favorite_action_rate": "26.79%"
+  },
+  "historical_metrics_preserved": {
+    "play_count": 39,
+    "like_count": 5,
+    "favorite_count": 8,
+    "like_rate": "12.82%",
+    "favorite_rate": "20.51%",
+    "like_plus_favorite_action_rate": "33.33%"
+  },
+  "problem_layer": "platform_risk_packaging",
+  "supporting_problem_layers": [
+    "copy_structure",
+    "footage_carrier",
+    "risk_word_replacement"
+  ],
+  "confidence": "medium_for_abnormal_sample_recording_only",
+  "formal_copy_revision_allowed": false,
+  "low_confidence_prepare_allowed": false,
+  "revision_scope": [
+    "record_only",
+    "abnormal_sample_reference_only"
+  ],
+  "allowed_use": [
+    "保留 V002 原始文案，作为异常高意图样本文案证据。",
+    "供 ChatGPT 后续做平台风险规避和安全表达桥接时参考。",
+    "用于解释 V002 高点赞 / 高收藏只是在减推污染样本中的兴趣信号。"
+  ],
+  "forbidden_changes": [
+    "modify_raw_copy",
+    "normal_distribution_attribution",
+    "content_validation_passed",
+    "direction_established",
+    "commercial_validation_established",
+    "formal_next_video_execution_prompt",
+    "write_user_metrics_as_screenshot_verified"
+  ],
+  "next_action": "record_only_no_formal_revision",
+  "rule_trace": [
+    "V002 is policy_limited_abnormal_operation_sample -> exclude from normal distribution attribution",
+    "56/6/9 source_status is user_provided_in_chat / no_screenshot_yet -> record as latest user report only",
+    "high like/favorite rates -> interest signal strong inside abnormal sample, not content passed"
+  ],
+  "status_boundary": {
+    "normal_distribution_sample": false,
+    "content_validation_advanced": false,
+    "send_ready_advanced": false,
+    "current_data_goal_anchor_ready": false,
+    "next_formal_video_execution_prompt_generated": false,
+    "direction_established": false,
+    "raw_copy_modified": false
+  }
+}

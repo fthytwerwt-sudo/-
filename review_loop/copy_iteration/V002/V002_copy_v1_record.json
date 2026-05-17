@@ -1,0 +1,69 @@
+{
+  "video_id": "V002",
+  "copy_id": "V002_copy_v1",
+  "version": "v1_raw",
+  "source_type": "user_provided_in_chat",
+  "source_status": "raw_source_locked",
+  "raw_copy_path": "review_loop/copy_iteration/V002/V002_copy_v1_raw.md",
+  "linked_operation_record": "review_loop/records/V002_自动流的最简单流程_douyin_policy_notice/V002_发布后复盘记录_post_publish_review_record.md",
+  "abnormal_sample_status": "policy_limited_abnormal_operation_sample",
+  "sample_interpretation_label": "policy_limited_but_interest_signal_strong",
+  "policy_notice": {
+    "review_result": "减少作品推荐",
+    "violation_reason": "引导至风险不可控渠道",
+    "reason_surface": "画面",
+    "distribution_status": "policy_distribution_limited"
+  },
+  "latest_user_reported_metrics": {
+    "play_count": 56,
+    "like_count": 6,
+    "favorite_count": 9,
+    "like_rate": "10.71%",
+    "favorite_rate": "16.07%",
+    "like_plus_favorite_action_rate": "26.79%",
+    "source_status": "user_provided_in_chat / no_screenshot_yet"
+  },
+  "historical_recorded_metrics_preserved": {
+    "play_count": 39,
+    "like_count": 5,
+    "favorite_count": 8,
+    "source_status": "historical_user_provided_record_preserved"
+  },
+  "copy_quality_notes": [
+    "原文展示了从一句话需求到自动流项目结构的过程，可作为强兴趣异常样本的内容证据。",
+    "文案中包含自动流、自动发布、工具名、可运行脚本等表达，需保持平台风险边界。",
+    "V002 数据被平台减推污染，不能作为自然分发归因样本。"
+  ],
+  "suspected_typos": [
+    {
+      "original_text": "吹",
+      "suspected_normalized_text": "工具名或语音转写待确认",
+      "action": "mark_only_do_not_modify_raw"
+    },
+    {
+      "original_text": "清量版",
+      "suspected_normalized_text": "轻量版",
+      "action": "mark_only_do_not_modify_raw"
+    },
+    {
+      "original_text": "想选举",
+      "suspected_normalized_text": "想选题",
+      "action": "mark_only_do_not_modify_raw"
+    },
+    {
+      "original_text": "翠",
+      "suspected_normalized_text": "tree",
+      "action": "mark_only_do_not_modify_raw"
+    }
+  ],
+  "raw_copy_modified": false,
+  "raw_copy_sha256": "52661bd69dec248a5a4286939772681128e12670fe6bc760b4fea775519e7e56",
+  "status_boundary": {
+    "normal_distribution_sample": false,
+    "content_validation_advanced": false,
+    "send_ready_advanced": false,
+    "current_data_goal_anchor_ready": false,
+    "next_formal_video_execution_prompt_generated": false,
+    "direction_established": false
+  }
+}

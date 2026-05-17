@@ -1,0 +1,208 @@
+{
+  "video_id": "V002",
+  "copy_id": "V002_copy_v1",
+  "source_path": "review_loop/copy_iteration/V002/V002_copy_v1_raw.md",
+  "structure_version": "copy_structure_map_v1",
+  "sample_boundary": {
+    "abnormal_sample_status": "policy_limited_abnormal_operation_sample",
+    "sample_interpretation_label": "policy_limited_but_interest_signal_strong",
+    "normal_distribution_attribution_allowed": false,
+    "content_validation_passed": false,
+    "direction_established": false
+  },
+  "current_assessment": {
+    "core_value_signal": "strong_interest_signal_inside_policy_limited_sample",
+    "platform_policy_risk": "high",
+    "risk_source": "画面触发“引导至风险不可控渠道”",
+    "assessment_confidence": "medium_for_recording_only",
+    "assessment_boundary": "只能作为异常样本文案结构和平台风险参考，不能作为正常自然流量表现。"
+  },
+  "segments": [
+    {
+      "segment_id": "opening_simple_flow",
+      "original_text": "大家好，短视频自动流的最简单流程。",
+      "copy_function": "直接给出选题和流程承诺。",
+      "viewer_question_answered": "这条讲什么？",
+      "data_feedback_target": [
+        "2s_bounce",
+        "3s_retention"
+      ],
+      "likely_issue_if_metric_bad": "平台减推污染下不能用自然留存归因，只能记录开头表达风险。",
+      "can_modify_if_problem_layer": [
+        "platform_risk_packaging",
+        "opening_packaging"
+      ],
+      "must_keep": [
+        "短视频自动流的最简单流程"
+      ],
+      "forbidden_change": [
+        "不得改 raw 文案",
+        "不得写内容通过"
+      ]
+    },
+    {
+      "segment_id": "one_sentence_prompt",
+      "original_text": "先打开豆包，只输入了一句话：我想用吹做一个短视频自动流。",
+      "copy_function": "展示从一句话需求开始。",
+      "viewer_question_answered": "这个流程怎么启动？",
+      "data_feedback_target": [
+        "favorite_rate",
+        "like_rate"
+      ],
+      "likely_issue_if_metric_bad": "强收藏可能来自“一句话开始”的实用感，但样本被减推污染。",
+      "can_modify_if_problem_layer": [
+        "evidence_expression"
+      ],
+      "must_keep": [
+        "一句话 prompt 起步"
+      ],
+      "forbidden_change": [
+        "不得把 56/6/9 写成截图确认",
+        "不得扩展成工具引流"
+      ]
+    },
+    {
+      "segment_id": "plan_versions",
+      "original_text": "用tree搭建短视频自动流，从零基础清量版到无人值守全自动化版。",
+      "copy_function": "把需求拆成可升级层级。",
+      "viewer_question_answered": "自动流是不是可以从小流程开始？",
+      "data_feedback_target": [
+        "favorite_rate"
+      ],
+      "likely_issue_if_metric_bad": "该段实用性强，但自动化/无人值守表达有平台风险。",
+      "can_modify_if_problem_layer": [
+        "platform_risk_packaging",
+        "tone_and_language"
+      ],
+      "must_keep": [
+        "从小流程到升级版的层级"
+      ],
+      "forbidden_change": [
+        "不得弱化平台风险记录"
+      ]
+    },
+    {
+      "segment_id": "workflow_chain",
+      "original_text": "选择题、策划、脚本、生成、分镜、制作视频、生成或者剪辑、配音、字幕、封面、标题、自动发布。",
+      "copy_function": "展示完整工位链路。",
+      "viewer_question_answered": "短视频生产能拆成哪些工位？",
+      "data_feedback_target": [
+        "favorite_rate",
+        "like_plus_favorite_action_rate"
+      ],
+      "likely_issue_if_metric_bad": "高收藏可能来自流程清单，但自动发布等词不能直接复用进安全版。",
+      "can_modify_if_problem_layer": [
+        "middle_structure",
+        "risk_word_replacement"
+      ],
+      "must_keep": [
+        "流程工位拆解"
+      ],
+      "forbidden_change": [
+        "不得把自动发布写成发布引导"
+      ]
+    },
+    {
+      "segment_id": "tree_prompt",
+      "original_text": "主要是想做一个vlog的视频自动流，先给我一个prompt，让tree帮我把架构搭建出来。",
+      "copy_function": "从需求转为架构 prompt。",
+      "viewer_question_answered": "怎么把想法变成架构输入？",
+      "data_feedback_target": [
+        "average_watch_time"
+      ],
+      "likely_issue_if_metric_bad": "工具名和架构搭建可作为兴趣点，但需要安全表达。",
+      "can_modify_if_problem_layer": [
+        "evidence_expression",
+        "platform_risk_packaging"
+      ],
+      "must_keep": [
+        "prompt -> 架构搭建"
+      ],
+      "forbidden_change": [
+        "不得新增下载入口或工具包承诺"
+      ]
+    },
+    {
+      "segment_id": "module_translation",
+      "original_text": "先固定账号风格，再决定拍什么，再写脚本，再拆镜头，再匹配素材，再做后期，最后导出成片和发布物料。",
+      "copy_function": "把复杂模块翻成人话。",
+      "viewer_question_answered": "这些模块对应人话里的哪些步骤？",
+      "data_feedback_target": [
+        "favorite_rate",
+        "comment_count"
+      ],
+      "likely_issue_if_metric_bad": "这是 V002 最可复用的结构表达。",
+      "can_modify_if_problem_layer": [
+        "middle_structure",
+        "tone_and_language"
+      ],
+      "must_keep": [
+        "把复杂模块翻成人话"
+      ],
+      "forbidden_change": [
+        "不得写成系统已跑通"
+      ]
+    },
+    {
+      "segment_id": "solo_coder_execution",
+      "original_text": "把它生成的这份prompt真的放进了tree的solo coder。",
+      "copy_function": "证明不是只截图保存，而是进入执行工具。",
+      "viewer_question_answered": "有没有真的开始执行？",
+      "data_feedback_target": [
+        "like_rate",
+        "favorite_rate"
+      ],
+      "likely_issue_if_metric_bad": "真实执行感是兴趣信号来源之一，但也可能触发平台工具风险。",
+      "can_modify_if_problem_layer": [
+        "evidence_expression",
+        "platform_risk_packaging"
+      ],
+      "must_keep": [
+        "真的放进 solo coder"
+      ],
+      "forbidden_change": [
+        "不得写成工具引导"
+      ]
+    },
+    {
+      "segment_id": "task_list",
+      "original_text": "updating tasks，还有十一个代办。",
+      "copy_function": "展示任务拆解成可执行列表。",
+      "viewer_question_answered": "AI 有没有拆成任务？",
+      "data_feedback_target": [
+        "favorite_rate"
+      ],
+      "likely_issue_if_metric_bad": "任务列表能增强可复用价值。",
+      "can_modify_if_problem_layer": [
+        "evidence_expression"
+      ],
+      "must_keep": [
+        "十一个代办"
+      ],
+      "forbidden_change": [
+        "不得改 raw 文案"
+      ]
+    },
+    {
+      "segment_id": "project_structure",
+      "original_text": "项目目录vlog automation workflow。下面有：modules、templates、workflows、config、assets、friend and logs。",
+      "copy_function": "以目录结构证明初步形状。",
+      "viewer_question_answered": "有没有项目目录？",
+      "data_feedback_target": [
+        "favorite_rate",
+        "completion_rate"
+      ],
+      "likely_issue_if_metric_bad": "目录证据强，但画面里的英文路径/工具结构需做安全遮挡和表达降风险。",
+      "can_modify_if_problem_layer": [
+        "evidence_expression",
+        "platform_risk_packaging"
+      ],
+      "must_keep": [
+        "有没有项目目录"
+      ],
+      "forbidden_change": [
+        "不得把它写成完整系统已跑通"
+      ]
+    }
+  ]
+}

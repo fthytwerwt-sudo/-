@@ -50,7 +50,31 @@
 - 结尾动作类型：missing_user_not_provided（用户未提供）
 - 本条唯一改动变量：not_applicable（本轮只记录，不生成新视频）
 
-## 用户确认数据
+## 用户本轮补充数据 latest_user_reported_metrics
+
+> `已确认` 本段为用户 2026-05-17 在聊天中补充的数据，当前没有对应截图复核；只能作为 `user_provided_in_chat / no_screenshot_yet（用户聊天补充 / 尚无截图）` 记录，不得写成截图已验证数据。
+
+| metric（指标） | value（值） | source_status（来源状态） |
+| --- | --- | --- |
+| play_count（播放量） | 56 | user_provided_in_chat / no_screenshot_yet |
+| like_count（点赞数） | 6 | user_provided_in_chat / no_screenshot_yet |
+| favorite_count（收藏数） | 9 | user_provided_in_chat / no_screenshot_yet |
+
+## 用户本轮补充数据计算 latest_user_reported_calculated_metrics
+
+| metric（指标） | formula（公式） | value（值） | source_status（来源状态） |
+| --- | --- | --- | --- |
+| like_rate（点赞率） | 6 / 56 | 10.71% | calculated_from_user_provided_in_chat_no_screenshot |
+| favorite_rate（收藏率） | 9 / 56 | 16.07% | calculated_from_user_provided_in_chat_no_screenshot |
+| like_plus_favorite_action_rate（点赞 + 收藏动作率，非去重） | 15 / 56 | 26.79% | calculated_from_user_provided_in_chat_no_screenshot |
+
+解释边界：
+
+- `abnormal_sample_status = policy_limited_abnormal_operation_sample（平台审核减推异常样本）`
+- `sample_interpretation_label = policy_limited_but_interest_signal_strong（平台减推污染样本，但兴趣信号强）`
+- 本段只能说明 V002 在平台减推污染样本内仍有强兴趣信号；不得写成正常自然流量样本，不得写成内容通过、方向成立或商业验证成立。
+
+## 历史已记录数据 preserved_historical_user_confirmed_data
 
 | metric（指标） | value（值） | source_status（来源状态） |
 | --- | --- | --- |
@@ -58,7 +82,7 @@
 | like_count（点赞数） | 5 | user_provided |
 | favorite_count（收藏数） | 8 | user_provided |
 
-## 计算数据
+## 历史已记录数据计算 preserved_historical_calculated_metrics
 
 | metric（指标） | formula（公式） | value（值） | source_status（来源状态） |
 | --- | --- | --- | --- |
@@ -71,16 +95,21 @@
 - 24h 数据状态：uncertain_need_human_check（时间窗未由截图原图确认）
 - 72h 数据状态：uncertain_need_human_check（时间窗未由截图原图确认）
 - 7 天数据状态：not_applicable_yet（尚未到 7d 封账）
-- 播放量：39
+- 最新用户补充播放量：56（user_provided_in_chat / no_screenshot_yet）
+- 历史已记录播放量：39（preserved_historical_user_confirmed_data）
 - 24h 播放量：uncertain_need_human_check（不把用户补充数据硬归入 24h）
 - 72h 播放量：uncertain_need_human_check（不把用户补充数据硬归入 72h）
 - 7 天播放量：not_applicable_yet（尚未到 7d 封账）
 - 是否达到 6000 播放基础门槛：not_applicable_policy_limited_sample（平台减推污染样本，不作为正常自然流量判断）
 - 完播率：missing_user_not_provided
-- 收藏率：20.51%
+- 最新用户补充收藏率：16.07%（calculated_from_user_provided_in_chat_no_screenshot）
+- 历史已记录收藏率：20.51%（preserved_historical_calculated_metrics）
 - 前 3 秒留存（可选）：missing_user_not_provided
 - 平均观看时长（可选）：missing_user_not_provided
-- 点赞率（可选）：12.82%
+- 最新用户补充点赞率（可选）：10.71%（calculated_from_user_provided_in_chat_no_screenshot）
+- 历史已记录点赞率（可选）：12.82%（preserved_historical_calculated_metrics）
+- 最新用户补充点赞 + 收藏动作率（非去重）：26.79%（calculated_from_user_provided_in_chat_no_screenshot）
+- 历史已记录点赞 + 收藏动作率（非去重）：33.33%（preserved_historical_calculated_metrics）
 - 评论数（可选）：missing_user_not_provided
 - 转粉数（可选）：missing_user_not_provided
 - 私信 / 咨询数（可选）：missing_user_not_provided
@@ -108,6 +137,8 @@
 - `已确认` 39 播放样本太小，不能沉淀为稳定规律。
 - `部分成立` 点赞率 12.82%、收藏率 20.51%，属于 `high_intent_small_sample_signal（小样本高兴趣信号）`。
 - `部分成立` 收藏数高于点赞数，初步说明该内容具有 `utility_value_signal（工具价值 / 可复用价值信号）`。
+- `已确认` 用户 2026-05-17 补充最新口径为播放 56、点赞 6、收藏 9；对应点赞率 10.71%、收藏率 16.07%、点赞 + 收藏动作率 26.79%，只能写为 `user_provided_in_chat / no_screenshot_yet`。
+- `部分成立` 新补充的 56 / 6 / 9 延续高互动兴趣信号，但因为平台减推污染与缺截图复核，仍不能写成内容通过、方向成立或自然流量表现最好。
 - `已确认` 本记录不得写成“内容失败”。
 - `已确认` 本记录不得写成“自然流量差”。
 - `已确认` 本记录标记为 `policy_limited_but_interest_signal_strong（平台减推污染样本，但兴趣信号强）`。

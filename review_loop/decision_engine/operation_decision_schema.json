@@ -34,7 +34,8 @@
   "sample_classes": [
     "historical_operation_record",
     "policy_limited_abnormal_operation_sample",
-    "current_operation_target"
+    "current_operation_target",
+    "latest_operation_sample_pre_24h"
   ],
   "decision_status_values": [
     "blocked_for_formal_next_episode_execution",

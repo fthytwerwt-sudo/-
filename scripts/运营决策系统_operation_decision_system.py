@@ -192,6 +192,8 @@ def metric_value(record: dict[str, Any], key: str, default: Any = "missing") -> 
 
 def snapshot_phrase(record: dict[str, Any]) -> str:
     label = str(record.get("snapshot_label") or "unknown_snapshot")
+    if label == "interim_17h_snapshot":
+        return f"{label}（约 17 小时早期数据，pre_24h，非 24h / 72h / 7d final）"
     if label == "post_72h_pre_7d_snapshot":
         return f"{label}（72h 后 / 7d 前补录，非 7d final）"
     hours = "约 65 小时" if "65h" in label else "约 37 小时" if "36h" in label else "当前"
@@ -205,7 +207,7 @@ def is_interim_snapshot(record: dict[str, Any]) -> bool:
     return label.startswith("interim_") or label == "post_72h_pre_7d_snapshot"
 
 
-def normalize_v003(snapshot: dict[str, Any]) -> dict[str, dict[str, Any]]:
+def normalize_structured_snapshot(snapshot: dict[str, Any]) -> dict[str, dict[str, Any]]:
     core = snapshot.get("core_metrics", {})
     metrics: dict[str, dict[str, Any]] = {}
     for key, value in core.items():
@@ -224,6 +226,10 @@ def normalize_markdown_record(video_id: str, text: str) -> dict[str, dict[str, A
         "favorite_count": ["favorite_count（收藏数）", "收藏数"],
         "like_rate": ["like_rate（点赞率）", "点赞率"],
         "favorite_rate": ["favorite_rate（收藏率）", "收藏率"],
+        "like_plus_favorite_action_rate": [
+            "like_plus_favorite_action_rate（点赞 + 收藏动作率，非去重）",
+            "like_plus_favorite_action_rate（点赞 + 收藏动作率）",
+        ],
         "completion_rate": ["completion_rate", "完播率"],
         "average_watch_time": ["average_watch_time", "平均观看时长"],
         "profile_visit_count": ["profile_visit_count"],
@@ -246,10 +252,17 @@ def normalize_markdown_record(video_id: str, text: str) -> dict[str, dict[str, A
             "favorite_count": "favorite_count（收藏数）",
             "like_rate": "like_rate（点赞率）",
             "favorite_rate": "favorite_rate（收藏率）",
+            "like_plus_favorite_action_rate": "like_plus_favorite_action_rate（点赞 + 收藏动作率，非去重）",
         }.items():
-            row = re.search(rf"\|\s*{re.escape(label)}\s*\|\s*([^|]+)\|", text)
-            if row:
-                normalized[key] = metric(row.group(1).strip(), "user_provided_or_calculated_from_fields", "medium")
+            for line in text.splitlines():
+                if not line.startswith("|") or label not in line:
+                    continue
+                cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+                if len(cells) < 3 or cells[0] != label:
+                    continue
+                value = cells[2] if len(cells) >= 4 and "/" in cells[1] else cells[1]
+                normalized[key] = metric(value, "user_provided_or_calculated_from_fields", "medium")
+                break
     return normalized
 
 
@@ -280,8 +293,8 @@ def load_record(
     if structured_snapshot_path and (root / structured_snapshot_path).exists():
         structured_snapshot = load_json(root, structured_snapshot_path)
 
-    if video_id == "V003" and structured_snapshot:
-        normalized_metrics = normalize_v003(structured_snapshot)
+    if video_id in {"V003", "V004"} and structured_snapshot:
+        normalized_metrics = normalize_structured_snapshot(structured_snapshot)
         missing_fields = structured_snapshot.get("missing_fields", [])
         uncertain_fields = structured_snapshot.get("uncertain_fields", [])
         data_confidence = structured_snapshot.get("data_confidence", "low")
@@ -305,6 +318,11 @@ def load_record(
         normal_attribution_eligible = False
         normal_attribution_blocked_reason = (
             "current_target_partial_data_waiting_72h_7d_and_required_lead_fields"
+        )
+    if video_id == "V004":
+        normal_attribution_eligible = False
+        normal_attribution_blocked_reason = (
+            "latest_operation_sample_pre_24h_waiting_24h_72h_7d_and_human_target_switch_confirmation"
         )
 
     return {
@@ -345,6 +363,9 @@ def data_quality(record: dict[str, Any]) -> dict[str, Any]:
     elif video_id == "V003":
         score = 0.55
         label = "partial_snapshot_low_confidence"
+    elif video_id == "V004":
+        score = 0.35
+        label = "pre_24h_interim_snapshot_recorded"
     else:
         score = 0.0
         label = "unknown"
@@ -359,6 +380,7 @@ def data_quality(record: dict[str, Any]) -> dict[str, Any]:
             "V001": "历史样本，核心窗口数据多为空，只能作为旧阶段参考。",
             "V002": "平台审核减推污染样本，有兴趣信号但不能进入正常自然分发归因。",
             "V003": v003_note,
+            "V004": "最新一期早期样本，约 17 小时数据已录入；不能判断方向失败、内容通过或目标切换。",
         }.get(video_id, "未知样本。"),
     }
 
@@ -378,6 +400,13 @@ def signal_from_play(play_count: float | None, thresholds: dict[str, Any], recor
             "bucket": "partial_snapshot_under_1000",
             "observed_value": play_count,
             "reason": f"{record['snapshot_label']}_not_final_7d",
+        }
+    if record["video_id"] == "V004":
+        return {
+            "status": "record_only_pre_24h",
+            "bucket": "pre_24h_interim_under_1000",
+            "observed_value": play_count,
+            "reason": f"{record['snapshot_label']}_not_24h_not_72h_not_7d",
         }
     if play_count < thresholds["single_video_play_thresholds"]["fail"]["max_exclusive"]:
         bucket = "fail"
@@ -421,7 +450,7 @@ def check_thresholds(record: dict[str, Any], thresholds: dict[str, Any]) -> dict
             )
         )
         retention_signal = {
-            "status": "draft_low_confidence" if record["video_id"] == "V003" else "checked",
+            "status": "draft_low_confidence" if record["video_id"] in {"V003", "V004"} else "checked",
             "bucket": "weak" if weak else "not_weak_from_available_fields",
             "completion_rate": completion_rate,
             "five_second_completion_rate": five_second_completion,
@@ -507,13 +536,38 @@ def infer_bottleneck(record: dict[str, Any], threshold_result: dict[str, Any]) -
                 )
             ),
         }
+    if video_id == "V004":
+        return {
+            "status": "record_only_pre_24h",
+            "candidate_bottleneck": "pre_24h_signal_observation_only",
+            "evidence": [
+                f"snapshot_label={record['snapshot_label']}",
+                f"play_count={metric_value(record, 'play_count')}",
+                f"two_second_bounce_rate={metric_value(record, 'two_second_bounce_rate')}",
+                f"five_second_completion_rate={metric_value(record, 'five_second_completion_rate')}",
+                f"completion_rate={metric_value(record, 'completion_rate')}",
+                f"recommendation_page={metric_value(record, 'traffic_source_recommendation_page')}",
+                f"favorite_count={metric_value(record, 'favorite_count')}",
+            ],
+            "blocked_for_formal_conclusion_by": [
+                "pre_24h_only",
+                "24h_final_data",
+                "72h_final_data",
+                "7d_final_data",
+                "3s_retention",
+                "lead_fields",
+                "human_target_switch_confirmation",
+            ],
+        }
     return {"status": "unknown", "candidate_bottleneck": None}
 
 
 def synthesize(records: list[dict[str, Any]]) -> dict[str, Any]:
     by_id = {record["video_id"]: record for record in records}
     v003 = by_id.get("V003", {})
+    v004 = by_id.get("V004", {})
     v003_snapshot = snapshot_phrase(v003) if v003 else "unknown"
+    v004_snapshot = snapshot_phrase(v004) if v004 else "not_recorded"
     valid_samples = [
         record["video_id"]
         for record in records
@@ -530,6 +584,7 @@ def synthesize(records: list[dict[str, Any]]) -> dict[str, Any]:
             "V001 提供旧阶段历史样本入口，但核心数据不完整。",
             "V002 提供平台审核减推异常样本，可用于平台风险表达参考，不能用于正常自然流量归因。",
             f"V003 提供当前目标的 {v003_snapshot}：触达很小、前 5 秒承接弱、收藏有小正信号、需求侧字段缺失。",
+            f"V004 提供最新一期的 {v004_snapshot}：只作为 pre_24h 早期记录，不自动替换 V003 当前目标。",
         ],
         "what_is_not_proven": [
             "未证明内容方向成立。",
@@ -540,7 +595,7 @@ def synthesize(records: list[dict[str, Any]]) -> dict[str, Any]:
         ],
         "valid_samples_for_normal_attribution": valid_samples,
         "samples_not_for_normal_attribution": sorted(set(excluded_samples)),
-        "current_largest_gap": "缺 V003 7d final 与需求侧字段，无法从低播放直接归因到内容方向或商业价值。",
+        "current_largest_gap": "缺 V003 7d final 与需求侧字段；V004 也仍是 pre_24h 早期样本，无法从低播放直接归因到内容方向或商业价值。",
         "distance_to_north_star_goal": [
             "缺稳定高质量需求信号。",
             "缺有效私信 / 有效咨询 / 清晰需求客户。",
@@ -578,6 +633,12 @@ def per_record_summary(record: dict[str, Any]) -> dict[str, Any]:
             "can_explain": f"它能说明当前目标已有 {snapshot_phrase(record)}：低播放、开头承接弱、小收藏信号、需求侧缺失。",
             "cannot_explain": "不能说明 7d 结果，不能决定方向失败，不能生成正式下一期执行。",
             "next_value": "补齐关键字段后可作为下一轮唯一变量判断的主样本。",
+        }
+    if video_id == "V004":
+        return {
+            "can_explain": f"它能说明最新一期已经进入记录池，并已有 {snapshot_phrase(record)}。",
+            "cannot_explain": "不能说明方向失败、内容通过、平台充分验证，也不能自动切换 current_operation_target。",
+            "next_value": "等待 24h / 72h / 7d 和人审确认后，再决定是否成为新的当前运营目标。",
         }
     return {"can_explain": "unknown", "cannot_explain": "unknown", "next_value": "unknown"}
 
@@ -647,6 +708,7 @@ def load_copy_iteration_linkage(root: Path) -> dict[str, Any]:
         "current_problem_layer": copy_report.get("current_problem_layer"),
         "confidence": copy_report.get("confidence"),
         "revision_scope_allowed": copy_report.get("revision_scope_allowed", []),
+        "registered_copy_records": copy_report.get("registered_copy_records", []),
         "formal_copy_revision_allowed": False,
         "low_confidence_prepare_allowed": True,
         "status_boundary": copy_report.get("status_boundary", {}),
@@ -662,7 +724,7 @@ def build_reports(root: Path) -> dict[str, Any]:
     current_anchor_text = read_text(root, CURRENT_ANCHOR_PATH)
     records_from_index = parse_index_records(index_text)
 
-    required_ids = ["V001", "V002", "V003"]
+    required_ids = ["V001", "V002", "V003", "V004"]
     missing_records = [video_id for video_id in required_ids if video_id not in records_from_index]
     if missing_records:
         raise RuntimeError(f"Missing records in operation index: {', '.join(missing_records)}")
@@ -713,11 +775,11 @@ def build_reports(root: Path) -> dict[str, Any]:
         "next_episode_decision": next_decision,
         "copy_iteration_linkage": copy_iteration_linkage,
         "final_user_result": {
-            "one_sentence_conclusion": f"当前系统已能自动读三期记录并给出判断：V003 最新为 {snapshot_phrase(v003_record)}，只能继续补数据和低置信度准备，不能进入下一期正式执行。",
+            "one_sentence_conclusion": f"当前系统已能自动读四期记录并给出判断：V003 仍是 current_operation_target，最新为 {snapshot_phrase(v003_record)}；V004 只是 pre_24h 最新样本，不能进入下一期正式执行。",
             "current_primary_bottleneck": "opening_retention_and_initial_distribution_weak / draft_low_confidence",
             "can_enter_next_episode_execution": next_decision["can_enter_next_episode_execution"],
             "blocked_reason_if_not": next_decision.get("blocked_reason"),
-            "recommended_next_route": "先补 V003 7d、3s_retention、V003 单条视频主页访问、私信、有效私信、有效咨询和清晰需求客户；补齐后重跑本系统，再决定唯一主变量。",
+            "recommended_next_route": "先补 V003 7d、3s_retention、V003 单条视频主页访问、私信、有效私信、有效咨询和清晰需求客户；V004 等待 24h / 72h / 7d 和人审确认是否切换目标。",
             "copy_iteration_entry": copy_iteration_linkage,
         },
         "status_boundary": status_boundary,
@@ -729,7 +791,7 @@ def build_reports(root: Path) -> dict[str, Any]:
 
 def validate_report(report: dict[str, Any]) -> None:
     record_ids = [record["video_id"] for record in report["records_processed"]]
-    for video_id in ["V001", "V002", "V003"]:
+    for video_id in ["V001", "V002", "V003", "V004"]:
         if video_id not in record_ids:
             raise RuntimeError(f"{video_id} was not processed")
     status_by_id = {record["video_id"]: record["record_status_rule"] for record in report["records_processed"]}
@@ -737,6 +799,8 @@ def validate_report(report: dict[str, Any]) -> None:
         raise RuntimeError("V002 was not classified as abnormal sample")
     if status_by_id["V003"] != "current_operation_target":
         raise RuntimeError("V003 was not classified as current operation target")
+    if status_by_id["V004"] != "latest_operation_sample_pre_24h":
+        raise RuntimeError("V004 was not classified as latest pre-24h sample")
     if report["status_boundary"]["current_data_goal_anchor_ready"]:
         raise RuntimeError("current_data_goal_anchor appears ready, expected not ready")
     if report["status_boundary"]["next_formal_video_execution_prompt_generated"]:
@@ -746,7 +810,7 @@ def validate_report(report: dict[str, Any]) -> None:
 def render_synthesis_md(report: dict[str, Any]) -> str:
     synthesis = report["cross_record_synthesis"]
     lines = [
-        "# V001 / V002 / V003 运营三期归纳报告",
+        "# V001 / V002 / V003 / V004 运营样本归纳报告",
         "",
         "## 1. 三期总体结论",
     ]
@@ -870,16 +934,18 @@ def render_final_user_report_md(report: dict[str, Any]) -> str:
     decision = report["next_episode_decision"]
     missing = decision.get("missing_data", [])
     v003 = next(record for record in report["records_processed"] if record["video_id"] == "V003")
+    v004 = next((record for record in report["records_processed"] if record["video_id"] == "V004"), None)
     lines = [
         "# 最终用户运营结果",
         "",
         "## 一句话结论",
-        f"当前还不能进入下一期正式执行：V003 最新为 {snapshot_phrase(v003)}，系统判断只能继续补数据，并允许低置信度准备开头/前 5 秒方向草稿。",
+        f"当前还不能进入下一期正式执行：V003 仍是 current_operation_target，最新为 {snapshot_phrase(v003)}；V004 已记录为 {snapshot_phrase(v004) if v004 else 'latest_operation_sample_pre_24h'}，但还不能切换目标或生成正式执行。",
         "",
-        "## 三期样本归纳",
+        "## 四期样本归纳",
         "- V001：历史运营样本，只能保留为旧阶段参考；核心数据不完整，不能参与当前归因。",
         "- V002：平台审核减推异常样本，可提示平台风险表达问题；不能当作正常自然流量失败。",
         f"- V003：当前运营目标，已有 {snapshot_phrase(v003)} 的低置信度信号；还不是 7d final。",
+        f"- V004：最新运营样本，已有 {snapshot_phrase(v004) if v004 else 'interim_17h_snapshot'}；不是 24h / 72h / 7d final，不能判断方向失败或内容通过。",
         "",
         "## 当前最可能短板",
         "- `opening_retention_and_initial_distribution_weak（开头留存与初始分发承接弱）`，但仍是 `draft_low_confidence（低置信度草稿）`。",
@@ -906,7 +972,7 @@ def render_final_user_report_md(report: dict[str, Any]) -> str:
             "- 不允许做：正式下一条视频执行 prompt、新视频制作、状态升级、商业验证结论、方向成立结论。",
             "",
             "## 当前最稳路线",
-            "先补 V003 的 7d 数据和需求侧字段，再重跑 `scripts/运营决策系统_operation_decision_system.py`。补齐前只做低置信度准备，不消耗下一期正式执行机会。",
+            "先补 V003 的 7d 数据和需求侧字段；V004 等待 24h / 72h / 7d 数据和人审确认是否切换 current_operation_target。补齐前只做记录和低置信度准备，不消耗下一期正式执行机会。",
             "",
             "## 文案迭代入口",
             f"- 最新文案迭代报告：`{report.get('copy_iteration_linkage', {}).get('latest_copy_iteration_report_md', rel(COPY_ITERATION_REPORT_MD))}`",
@@ -916,7 +982,7 @@ def render_final_user_report_md(report: dict[str, Any]) -> str:
             "- 具体文案改稿由 ChatGPT 读取 `V003_next_copy_revision_brief.md` 后完成；Codex 只负责记录、结构化和报告。",
             "",
             "## 用户不用看的中间过程已由系统处理",
-            "系统已经读取三期记录、分类样本、标准化指标、检查阈值、排除异常样本、生成三期归纳，并自动阻断了下一期正式执行。",
+            "系统已经读取四期记录、分类样本、标准化指标、检查阈值、排除异常样本、生成样本归纳，并自动阻断了下一期正式执行。",
             "",
         ]
     )

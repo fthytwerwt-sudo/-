@@ -1,0 +1,96 @@
+{
+  "video_id": "V004",
+  "video_title": "不能做得说很好，但确实方便 如果这条没有人看，我直接公开我全自动的制作方式",
+  "publish_platform": "抖音",
+  "publish_time_visible": "2026-05-17 04:08",
+  "work_status": "作品状态正常",
+  "video_duration_visible": "02:26",
+  "capture_time_if_known": "2026-05-17 21:20-21:22",
+  "capture_time_from_uploaded_filenames": [
+    "ScreenShot_2026-05-17_212049_265.png",
+    "wechat_longscreenshot_2026-05-17_212140_227.png",
+    "wechat_longscreenshot_2026-05-17_212204_548.png"
+  ],
+  "inferred_hours_after_publish": "约 17 小时 12-14 分",
+  "review_window": "pre_24h",
+  "snapshot_label": "interim_17h_snapshot",
+  "exact_24h_capture": false,
+  "not_72h_final": true,
+  "not_7d_final": true,
+  "human_review_required": true,
+  "source_status": "screenshot_archived_to_repo_and_user_provided_visual_read",
+  "screenshot_archive_status": "archived_to_repo",
+  "source_screenshots": {
+    "overview": "review_loop/screenshots/V004_全自动制作方式_public_ai_video_20260517/interim_17h_snapshot/V004_interim_17h_总览_overview_20260517_212049.png",
+    "retention_traffic": "review_loop/screenshots/V004_全自动制作方式_public_ai_video_20260517/interim_17h_snapshot/V004_interim_17h_流量分析_retention_traffic_20260517_212140.png",
+    "audience_profile": "review_loop/screenshots/V004_全自动制作方式_public_ai_video_20260517/interim_17h_snapshot/V004_interim_17h_观众分析_audience_profile_20260517_212204.png"
+  },
+  "core_metrics": {
+    "play_count": 55,
+    "like_count": 1,
+    "comment_count": 0,
+    "share_count": 0,
+    "favorite_count": 0,
+    "danmu_count": 0,
+    "completion_rate": "4.76%",
+    "two_second_bounce_rate": "41.18%",
+    "new_follow_count": 0,
+    "unfollow_count": 0,
+    "fan_play_ratio": "1.8%",
+    "average_watch_time": "14秒",
+    "five_second_completion_rate": "30.88%",
+    "average_play_ratio": "9.42%",
+    "like_rate": "1.82%",
+    "comment_rate": "0.00%",
+    "share_rate": "0.00%",
+    "favorite_rate": "0.00%",
+    "not_interested_rate": "0.00%"
+  },
+  "traffic_sources": {
+    "recommendation_page": "95.2%",
+    "profile_page": "4.8%"
+  },
+  "audience_metrics": {
+    "audience_growth": "暂无有效观众趋势数据",
+    "gender_distribution": "missing_not_visible_in_current_screenshot",
+    "age_distribution": "missing_not_visible_in_current_screenshot",
+    "region_distribution": "missing_not_visible_in_current_screenshot",
+    "interest_distribution": "missing_not_visible_in_current_screenshot"
+  },
+  "copy_context_boundary": {
+    "actual_metrics_favorite_count": 0,
+    "raw_copy_mentions_previous_case_favorite_count": 3,
+    "note": "V004 文案中提到“这条视频虽然播放低，但它还有 3 个收藏”引用的是 V003 复盘案例，不是 V004 自身数据。"
+  },
+  "missing_fields": [
+    "24h_final_data",
+    "72h_final_data",
+    "7d_final_data",
+    "3s_retention",
+    "profile_visit_count",
+    "dm_count",
+    "effective_dm_count",
+    "effective_consult_count",
+    "clear_need_customer_count",
+    "gender_distribution",
+    "age_distribution",
+    "region_distribution",
+    "interest_distribution"
+  ],
+  "uncertain_fields": [
+    "exact_capture_time_from_platform_page",
+    "whether_platform_will_continue_distribution_before_24h",
+    "whether_V004_should_replace_V003_as_current_operation_target_requires_human_confirmation"
+  ],
+  "status_boundary": {
+    "latest_operation_sample_pre_24h": true,
+    "current_operation_target_switched": false,
+    "content_validation_advanced": false,
+    "send_ready_advanced": false,
+    "current_data_goal_anchor_ready": false,
+    "next_formal_video_execution_prompt_generated": false,
+    "direction_failure_concluded": false,
+    "content_value_absent_concluded": false,
+    "platform_full_validation_concluded": false
+  }
+}

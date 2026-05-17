@@ -1,0 +1,57 @@
+{
+  "video_id": "V004",
+  "copy_id": "V004_copy_v1",
+  "version": "v1_raw",
+  "source_type": "user_provided_in_chat",
+  "source_status": "raw_source_locked",
+  "raw_copy_path": "review_loop/copy_iteration/V004/V004_copy_v1_raw.md",
+  "linked_operation_record": "review_loop/records/V004_全自动制作方式_public_ai_video_20260517/V004_发布后运营数据记录_post_publish_operation_record.md",
+  "linked_data_snapshot": "review_loop/records/V004_全自动制作方式_public_ai_video_20260517/V004_interim_17h_snapshot.json",
+  "operation_record_status": "latest_operation_sample_pre_24h",
+  "data_window": "pre_24h / interim_17h_snapshot",
+  "latest_interim_metrics": {
+    "play_count": 55,
+    "like_count": 1,
+    "comment_count": 0,
+    "share_count": 0,
+    "favorite_count": 0,
+    "completion_rate": "4.76%",
+    "two_second_bounce_rate": "41.18%",
+    "average_watch_time": "14秒",
+    "five_second_completion_rate": "30.88%",
+    "average_play_ratio": "9.42%",
+    "recommendation_page": "95.2%",
+    "profile_page": "4.8%",
+    "like_rate": "1.82%",
+    "favorite_rate": "0.00%",
+    "source_status": "screenshot_archived_to_repo_and_user_provided_visual_read"
+  },
+  "copy_quality_notes": [
+    "raw copy 明确把复盘能力作为核心观点。",
+    "文案引用 V003 的 141 播放、接近 50% 2s 跳出和 3 个收藏，用于说明上一条数据复盘，不等于 V004 自身数据。",
+    "V004 当前自身收藏量为 0，必须与文案引用的上一条案例收藏数 3 分开记录。",
+    "当前只是 pre_24h 早期快照，不允许生成正式下一条视频执行 prompt。"
+  ],
+  "raw_copy_mentions_previous_case": {
+    "previous_video_id": "V003",
+    "play_count": 141,
+    "favorite_count": 3,
+    "two_second_bounce_rate_approx": "接近 50%",
+    "boundary": "copy_reference_only_not_V004_actual_metrics"
+  },
+  "actual_metrics_boundary": {
+    "V004_actual_favorite_count": 0,
+    "raw_copy_mentions_previous_case_favorite_count": 3
+  },
+  "raw_copy_modified": false,
+  "raw_copy_sha256": "6bb793f8517618fe1d6c98bf861d2a6464fe224301ead8f8fed10eff2a4621fc",
+  "status_boundary": {
+    "current_operation_target_switched": false,
+    "content_validation_advanced": false,
+    "send_ready_advanced": false,
+    "current_data_goal_anchor_ready": false,
+    "next_formal_video_execution_prompt_generated": false,
+    "direction_failure_concluded": false,
+    "content_value_absent_concluded": false
+  }
+}

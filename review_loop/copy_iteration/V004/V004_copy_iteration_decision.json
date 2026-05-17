@@ -1,0 +1,71 @@
+{
+  "video_id": "V004",
+  "copy_id": "V004_copy_v1",
+  "decision_version": "copy_iteration_decision_v1",
+  "generated_at_utc": "2026-05-17T13:45:22.649858+00:00",
+  "input_paths": {
+    "operation_report": "review_loop/decision_engine/latest_operation_decision_report.json",
+    "copy_registry": "review_loop/copy_iteration/copy_registry.json",
+    "copy_record": "review_loop/copy_iteration/V004/V004_copy_v1_record.json",
+    "structure_map": "review_loop/copy_iteration/V004/V004_copy_structure_map.json",
+    "linked_operation_record": "review_loop/records/V004_全自动制作方式_public_ai_video_20260517/V004_发布后运营数据记录_post_publish_operation_record.md",
+    "linked_data_snapshot": "review_loop/records/V004_全自动制作方式_public_ai_video_20260517/V004_interim_17h_snapshot.json"
+  },
+  "sample_role": "latest_operation_sample_pre_24h",
+  "data_window": "pre_24h / interim_17h_snapshot",
+  "source_status": "screenshot_archived_to_repo_and_user_provided_visual_read",
+  "latest_interim_metrics": {
+    "play_count": 55,
+    "favorite_count": 0,
+    "two_second_bounce_rate": "41.18%",
+    "five_second_completion_rate": "30.88%",
+    "recommendation_page": "95.2%"
+  },
+  "actual_metrics_boundary": {
+    "V004_actual_favorite_count": 0,
+    "raw_copy_mentions_previous_case_favorite_count": 3,
+    "must_not_mix": true
+  },
+  "problem_layer": "pre_24h_observation_only",
+  "supporting_problem_layers": [
+    "opening_packaging",
+    "evidence_expression"
+  ],
+  "confidence": "low_for_diagnosis",
+  "formal_copy_revision_allowed": false,
+  "low_confidence_prepare_allowed": false,
+  "revision_scope": [
+    "record_only",
+    "wait_24h_72h_7d"
+  ],
+  "allowed_use": [
+    "保留 V004 原始文案和早期数据，作为最新运营样本。",
+    "后续等待 24h / 72h / 7d 数据后再判断是否切换 current_operation_target。",
+    "记录 raw copy 中 V003 案例引用与 V004 自身数据的边界。"
+  ],
+  "forbidden_changes": [
+    "modify_raw_copy",
+    "direction_failure_concluded",
+    "content_validation_passed",
+    "content_value_absent_concluded",
+    "platform_full_validation_concluded",
+    "current_operation_target_switch_without_human_confirmation",
+    "formal_next_video_execution_prompt"
+  ],
+  "next_action": "record_only_wait_for_24h_72h_7d_and_human_confirmation",
+  "rule_trace": [
+    "V004 is interim_17h_snapshot -> not 24h final, not 72h final, not 7d final",
+    "V004 actual favorite_count = 0 but raw copy mentions previous case favorite_count = 3",
+    "V003 remains current_operation_target until explicit human / ChatGPT confirmation"
+  ],
+  "status_boundary": {
+    "current_operation_target_switched": false,
+    "content_validation_advanced": false,
+    "send_ready_advanced": false,
+    "current_data_goal_anchor_ready": false,
+    "next_formal_video_execution_prompt_generated": false,
+    "direction_failure_concluded": false,
+    "content_value_absent_concluded": false,
+    "raw_copy_modified": false
+  }
+}

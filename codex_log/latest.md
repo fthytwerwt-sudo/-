@@ -1,5 +1,39 @@
 # Latest
 
+## 20260517｜V004 interim_17h 数据与文案补录
+
+- `已确认` 本轮在 V002 未提交补录基础上继续串行执行 V004 记录；最终计划 V002 + V004 统一 commit / push。
+- `route_decision（路由判断）`：`project_route = video_factory`；`task_type = project_file_change + operation_data_intake + copy_record_backfill + operation_decision_rerun + copy_iteration_rerun`；`large_task_gate = triggered`；`lane = standard_lane`；`parallel = serial_only`。
+- `state_action_router（状态动作总控器）`：`input_signal = 用户提供 V004 约 17h 数据截图和完整 raw copy`；`inferred_state = latest_operation_sample_pre_24h + copy_version_record_missing`；`selected_action = 归档截图、新增 V004 snapshot / operation record / copy_iteration 记录、重跑系统`。
+- `V004 身份`：登记为 `latest_operation_sample_pre_24h`；`current_operation_target_switched = false`；V003 仍保持 `current_operation_target`。
+- `截图归档`：三张截图已归档到 `review_loop/screenshots/V004_全自动制作方式_public_ai_video_20260517/interim_17h_snapshot/`，`screenshot_archive_status = archived_to_repo`。
+- `V004 数据`：播放 55、点赞 1、收藏 0、完播率 4.76%、2s 跳出 41.18%、5s 完播 30.88%、平均播放 14 秒、推荐页 95.2%、个人主页 4.8%、涨粉 0。
+- `数据窗口`：`review_window = pre_24h`，`snapshot_label = interim_17h_snapshot`，不是 24h final、72h final 或 7d final。
+- `raw copy`：V004 原始文案已保真写入 `review_loop/copy_iteration/V004/V004_copy_v1_raw.md`；`raw_copy_modified = false`。
+- `文案数据边界`：V004 自身 `favorite_count = 0`；raw copy 中“3 个收藏”引用的是 V003 复盘案例，不是 V004 自身数据。
+- `copy_registry`：已登记 `V002 / V003 / V004`，V004 为 `recorded_latest_sample_pre_24h_only`。
+- `运营决策系统`：已重跑并验证通过；`records_processed = V001 / V002 / V003 / V004`，仍阻断正式下一期执行。
+- `文案迭代系统`：已重跑并验证通过；V004 copy record / structure map / decision / brief 均已生成，未生成正式下一条视频执行 prompt。
+- `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`current_data_goal_anchor ready`、`publish_status_success（发布成功口径）`、`voice_validation（声音验证）`、`visual_master_locked（视觉母版锁定）`。
+- `日志`：`codex_log/20260517_V004_interim_17h_data_and_copy_intake.md`
+
+## 20260517｜V002 原始文案与 56/6/9 用户补充数据补录
+
+- `已确认` 本轮只做 V002《自动流的最简单流程》原始文案补录、用户补充数据补录、文案迭代记录补齐、系统重跑和日志更新；不生成新视频，不生成正式下一条视频执行 prompt，不推进 `content_validation / send_ready / current_data_goal_anchor ready`。
+- `route_decision（路由判断）`：`project_route = video_factory`；`task_type = project_file_change + data_backfill + copy_iteration_record_backfill + operation_decision_rerun + copy_iteration_rerun`；`large_task_gate = triggered`；`lane = standard_lane`；`parallel = serial_only`；`write_owner = Codex Integrator only`。
+- `state_action_router（状态动作总控器）`：`input_signal = 用户指出 V002 原始文案未登记并补充 56/6/9 数据`；`inferred_state = copy_version_record_missing + V002_metric_backfill_needed + abnormal_sample_boundary_required`；`selected_action = 新增 V002 copy_iteration 记录、补录用户数据、重跑运营 / 文案迭代系统`；`forbidden_action = normal_distribution_attribution / content_validation passed / direction established / next formal prompt / ready promotion`。
+- `DeepSeek`：已创建供料任务卡 `codex_log/supply_requests/20260517_V002_copy_and_metric_backfill_pre_supply_request.json`；真实供料通过，`deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`api_key_printed = false`、`api_key_written = false`、`env_file_read = false`。
+- `已新增` V002 文案记录目录：`review_loop/copy_iteration/V002/`，包含 `V002_copy_v1_raw.md`、`V002_copy_v1_record.json`、`V002_copy_structure_map.json`、`V002_copy_iteration_decision.json`、`V002_next_copy_revision_brief.md`。
+- `raw copy`：用户本轮提供的第二期原始文案已保真写入；`raw_copy_modified = false`，疑似错字只在 record 中标记，不改 raw。
+- `copy_registry`：`review_loop/copy_iteration/copy_registry.json` 已新增 `V002_copy_v1`；V002 标记为 `policy_limited_abnormal_operation_sample` 和 `recorded_abnormal_sample_reference_only`，不设为 current operation target。
+- `V002 数据补录`：历史已记录 39 / 5 / 8 保留；新增用户补充 56 播放、6 点赞、9 收藏，`source_status = user_provided_in_chat / no_screenshot_yet`。
+- `计算指标`：`like_rate = 6 / 56 = 10.71%`；`favorite_rate = 9 / 56 = 16.07%`；`like_plus_favorite_action_rate = 15 / 56 = 26.79%`。
+- `样本解释`：V002 仍是 `policy_limited_abnormal_operation_sample（平台审核减推异常样本）`；`sample_interpretation_label = policy_limited_but_interest_signal_strong（平台减推污染样本，但兴趣信号强）`；不得写成正常自然流量样本、内容通过、方向成立或商业验证成立。
+- `运营决策系统`：已重跑 `scripts/运营决策系统_operation_decision_system.py`；V002 仍被排除出正常自然流量归因，V003 仍是 `current_operation_target`，下一期正式执行仍 blocked。
+- `文案迭代系统`：已重跑 `scripts/文案迭代决策系统_copy_iteration_decision_system.py`；系统现在登记 V002 + V003 两条 copy records，V003 当前低置信度准备口径不变。
+- `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`current_data_goal_anchor ready`、`publish_status_success（发布成功口径）`、`voice_validation（声音验证）`、`visual_master_locked（视觉母版锁定）`；未生成正式下一条视频执行 prompt。
+- `日志`：`codex_log/20260517_V002_copy_and_metric_backfill.md`
+
 ## 20260517｜V003 post_72h_pre_7d 数据录入与账号诊断记录
 
 - `已确认` 本轮只做 V003 运营数据录入、账号诊断记录、项目文件修改和复盘前置系统重跑；不生成新视频，不修改已发布视频，不生成正式下一条视频执行 prompt。

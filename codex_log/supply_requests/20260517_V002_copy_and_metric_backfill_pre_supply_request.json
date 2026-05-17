@@ -1,0 +1,151 @@
+{
+  "request_id": "20260517_V002_copy_and_metric_backfill_pre_supply",
+  "created_at": "2026-05-17T21:10:00+08:00",
+  "task_id": "V002_copy_and_metric_backfill",
+  "task_type": "project_file_change + data_backfill + copy_iteration_record_backfill + operation_decision_rerun + copy_iteration_rerun",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "file_map",
+  "mandatory_for_every_task": true,
+  "participation_level": "mandatory_by_default",
+  "pre_supply_required": true,
+  "post_review_required": false,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "requires_real_deepseek_participation": false,
+  "allow_process_env_api_key": true,
+  "disable_env_file": true,
+  "safe_call_mode": "project_runtime_provider",
+  "project_route": "video_factory",
+  "project_stage": "formal_operation_active",
+  "operation_stage": "copy_iteration_record_backfill",
+  "current_goal": "把 V002《自动流的最简单流程》的原始文案和用户补充 56/6/9 指标补录进仓库，修复 copy_iteration 只登记 V003、漏记 V002 的问题。",
+  "current_stage_goal": "V002 保持 policy_limited_abnormal_operation_sample；V003 仍保持 current_operation_target；本轮只补记录、结构化、日志和系统重跑，不生成正式下一条视频执行 prompt。",
+  "current_step": "执行前供料：只读复核 V002 记录、copy_iteration registry、两个决策系统和禁止状态推进风险。",
+  "current_data_goal_anchor_path": "codex_log/current_data_goal_anchor.md",
+  "current_data_goal_anchor_status": "partial_data_recorded",
+  "supporting_variables": [
+    "V002_raw_copy_backfill",
+    "V002_user_reported_latest_metrics",
+    "copy_registry_V002_entry",
+    "operation_decision_system_rerun",
+    "copy_iteration_decision_system_rerun"
+  ],
+  "forbidden_variables": [
+    "不要把 V002 写成正常自然流量样本",
+    "不要把 V002 写成内容通过、方向成立或商业验证成立",
+    "不要把 V002 的 56/6/9 写成截图已验证",
+    "不要覆盖 V002 历史已记录 39/5/8",
+    "不要修改 V003 raw copy 或 current_operation_target 身份",
+    "不要生成正式下一条视频执行 prompt",
+    "不要推进 content_validation / send_ready / current_data_goal_anchor ready / voice_validation / visual_master_locked"
+  ],
+  "success_metric": "V002 raw copy、copy record、structure map、decision、brief 和 registry 全部生成；V002 记录新增 user_latest_reported_metrics；两个系统重跑并继续阻断正式下一期执行。",
+  "failure_metric": "V002 被误写为正常自然流量样本、旧数据被覆盖、用户补充数据被写成截图确认、V003 身份被修改、系统重跑失败或 forbidden status 推进。",
+  "known_context": [
+    "V002 是 policy_limited_abnormal_operation_sample。",
+    "平台通知为减少作品推荐，原因是引导至风险不可控渠道，触发位置为画面。",
+    "旧数据 39/5/8 必须保留。",
+    "本轮用户补充最新数据 56/6/9，无截图确认。",
+    "V002 是异常高意图样本，可写 policy_limited_but_interest_signal_strong。",
+    "copy_iteration 当前只有 V003，需补 V002，但 V002 不得成为 current_operation_target。"
+  ],
+  "missing_context": [
+    "V002 最新 56/6/9 对应截图",
+    "V002 完播率",
+    "V002 平均观看时长",
+    "V002 3s_retention",
+    "V002 私信和咨询字段"
+  ],
+  "decision_needed": "输出少于 800 个汉字，只读复核 files / risks / blockers / report_focus 四项。",
+  "candidate_files": [
+    "review_loop/records/V002_自动流的最简单流程_douyin_policy_notice/V002_发布后复盘记录_post_publish_review_record.md",
+    "review_loop/records/V002_自动流的最简单流程_douyin_policy_notice/V002_复盘到文案调整桥接_review_to_copy_revision_bridge.md",
+    "review_loop/copy_iteration/copy_registry.json",
+    "scripts/运营决策系统_operation_decision_system.py",
+    "scripts/文案迭代决策系统_copy_iteration_decision_system.py",
+    "review_loop/operation_records_index.md",
+    "codex_log/latest.md",
+    "codex_log/current_operation_target.md",
+    "codex_log/current_data_goal_anchor.md",
+    "codex_source/19_project_state_action_router.md"
+  ],
+  "must_read_files": [
+    "AGENTS.md",
+    "codex_log/latest.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_log/current_operation_target.md",
+    "codex_log/current_data_goal_anchor.md",
+    "review_loop/operation_records_index.md",
+    "review_loop/records/V002_自动流的最简单流程_douyin_policy_notice/V002_发布后复盘记录_post_publish_review_record.md",
+    "review_loop/copy_iteration/copy_registry.json",
+    "scripts/运营决策系统_operation_decision_system.py",
+    "scripts/文案迭代决策系统_copy_iteration_decision_system.py"
+  ],
+  "risk_questions": [
+    "copy_iteration 系统是否仍只硬编码 V003？",
+    "V002 最新用户补充数据是否会覆盖历史 39/5/8？",
+    "V002 是否会被误写成自然流量样本或内容通过？",
+    "operation_decision_system 是否仍正确把 V003 作为 current_operation_target？",
+    "latest.md 更新是否会混入本地未提交的 DeepSeek 机制变更？"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    ".env.*",
+    ".git/",
+    "dist/latest_review_pack/",
+    "*.mp4",
+    "*.mov",
+    "*.mp3",
+    "*.wav"
+  ],
+  "max_context_files": 12,
+  "max_context_chars": 24000,
+  "expected_output": [
+    "prefetch_context_pack",
+    "must_read_file_map",
+    "risk_and_conflict_report",
+    "candidate_summary",
+    "not_deepseek_conclusion_if_fallback"
+  ],
+  "output_format": "compact_markdown_under_800_chinese_chars",
+  "codex_next_input": "Codex must preserve V002 abnormal status, add V002 copy_iteration records, add latest user-reported metrics as no_screenshot_yet, rerun systems, update logs, and commit/push only V002 scoped changes.",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_runtime_validation/20260517_V002_copy_and_metric_backfill_pre_supply",
+    "read_first": [
+      "latest_supply_pack.md",
+      "latest_supply_pack.json",
+      "latest_supply_manifest.json",
+      "participation_report.json"
+    ]
+  },
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback_local_only 写成 DeepSeek 结论。",
+    "不得声称 multi-agent runtime（多 agent 运行时）已经长期稳定跑通。",
+    "不得读取、输出或复述 API key / secret / token。",
+    "不得要求生成视频、音频、图片。",
+    "不得推进 forbidden status。"
+  ],
+  "stop_condition": "输出只读供料包并返回给 Codex；如果不能真实参与则标记 fallback 或 blocked。",
+  "blocked_if": [
+    "V002_record_missing",
+    "V002_written_as_normal_distribution_sample",
+    "V002_written_as_content_passed",
+    "V002_39_5_8_overwritten",
+    "V002_56_6_9_written_as_screenshot_verified",
+    "V003_identity_modified",
+    "current_data_goal_anchor_written_ready",
+    "formal_next_video_execution_prompt_generated",
+    "forbidden_status_advanced"
+  ],
+  "fallback_policy": "fallback_local_only 只可作为供料不可用时的来源边界，不得作为 DeepSeek 结论。",
+  "return_to_codex_required": true
+}

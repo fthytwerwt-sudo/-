@@ -1,6 +1,6 @@
 {
   "system_name": "copy_iteration_decision_system",
-  "generated_at_utc": "2026-05-17T12:56:49.437924+00:00",
+  "generated_at_utc": "2026-05-17T13:45:22.653837+00:00",
   "current_copy_version": "V003_copy_v1 / v1_raw",
   "current_data_window": "post_72h_pre_7d_snapshot",
   "current_problem_layer": "opening_packaging",
@@ -10,6 +10,32 @@
   "revision_scope_allowed": [
     "opening_0_3s",
     "bridge_3_8s"
+  ],
+  "registered_copy_records": [
+    {
+      "video_id": "V002",
+      "copy_id": "V002_copy_v1",
+      "sample_role": "policy_limited_abnormal_operation_sample",
+      "record_status": "recorded_abnormal_sample_reference_only",
+      "raw_copy_path": "review_loop/copy_iteration/V002/V002_copy_v1_raw.md",
+      "decision_path": "review_loop/copy_iteration/V002/V002_copy_iteration_decision.json"
+    },
+    {
+      "video_id": "V003",
+      "copy_id": "V003_copy_v1",
+      "sample_role": "current_operation_target",
+      "record_status": "low_confidence_prepare_only",
+      "raw_copy_path": "review_loop/copy_iteration/V003/V003_copy_v1_raw.md",
+      "decision_path": "review_loop/copy_iteration/V003/V003_copy_iteration_decision.json"
+    },
+    {
+      "video_id": "V004",
+      "copy_id": "V004_copy_v1",
+      "sample_role": "latest_operation_sample_pre_24h",
+      "record_status": "recorded_latest_sample_pre_24h_only",
+      "raw_copy_path": "review_loop/copy_iteration/V004/V004_copy_v1_raw.md",
+      "decision_path": "review_loop/copy_iteration/V004/V004_copy_iteration_decision.json"
+    }
   ],
   "keep_items": [
     "核心观点：目标不是 KPI 表，而是下一步动作判断系统。",
@@ -29,11 +55,21 @@
   "chatgpt_read_first": "review_loop/copy_iteration/V003/V003_next_copy_revision_brief.md",
   "paths": {
     "copy_registry": "review_loop/copy_iteration/copy_registry.json",
+    "v002_raw_copy": "review_loop/copy_iteration/V002/V002_copy_v1_raw.md",
+    "v002_copy_record": "review_loop/copy_iteration/V002/V002_copy_v1_record.json",
+    "v002_structure_map": "review_loop/copy_iteration/V002/V002_copy_structure_map.json",
+    "v002_copy_iteration_decision": "review_loop/copy_iteration/V002/V002_copy_iteration_decision.json",
+    "v002_next_copy_revision_brief": "review_loop/copy_iteration/V002/V002_next_copy_revision_brief.md",
     "v003_raw_copy": "review_loop/copy_iteration/V003/V003_copy_v1_raw.md",
     "v003_copy_record": "review_loop/copy_iteration/V003/V003_copy_v1_record.json",
     "v003_structure_map": "review_loop/copy_iteration/V003/V003_copy_structure_map.json",
     "v003_copy_iteration_decision": "review_loop/copy_iteration/V003/V003_copy_iteration_decision.json",
     "v003_next_copy_revision_brief": "review_loop/copy_iteration/V003/V003_next_copy_revision_brief.md",
+    "v004_raw_copy": "review_loop/copy_iteration/V004/V004_copy_v1_raw.md",
+    "v004_copy_record": "review_loop/copy_iteration/V004/V004_copy_v1_record.json",
+    "v004_structure_map": "review_loop/copy_iteration/V004/V004_copy_structure_map.json",
+    "v004_copy_iteration_decision": "review_loop/copy_iteration/V004/V004_copy_iteration_decision.json",
+    "v004_next_copy_revision_brief": "review_loop/copy_iteration/V004/V004_next_copy_revision_brief.md",
     "latest_copy_iteration_report_md": "review_loop/copy_iteration/latest_copy_iteration_report.md",
     "script_path": "scripts/文案迭代决策系统_copy_iteration_decision_system.py"
   },

@@ -1,12 +1,13 @@
 # 最新运营决策系统报告
 
 ## 系统结论
-当前系统已能自动读三期记录并给出判断：V003 最新为 post_72h_pre_7d_snapshot（72h 后 / 7d 前补录，非 7d final），只能继续补数据和低置信度准备，不能进入下一期正式执行。
+当前系统已能自动读四期记录并给出判断：V003 仍是 current_operation_target，最新为 post_72h_pre_7d_snapshot（72h 后 / 7d 前补录，非 7d final）；V004 只是 pre_24h 最新样本，不能进入下一期正式执行。
 
 ## records_processed
 - V001: `historical_operation_record` / `historical_incomplete`
 - V002: `policy_limited_abnormal_operation_sample` / `abnormal_partial`
 - V003: `current_operation_target` / `partial_snapshot_low_confidence`
+- V004: `latest_operation_sample_pre_24h` / `pre_24h_interim_snapshot_recorded`
 
 ## next_episode_decision
 - decision_status: `blocked_for_formal_next_episode_execution`

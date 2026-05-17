@@ -8,6 +8,11 @@
 - 本轮只允许改：`opening_0_3s + bridge_3_8s`
 - 当前不允许：全文重写、换选题方向、换目标人群、生成正式下一条视频执行 prompt。
 
+## 已登记文案记录
+- `V002` / `V002_copy_v1`：`policy_limited_abnormal_operation_sample`，`recorded_abnormal_sample_reference_only`
+- `V003` / `V003_copy_v1`：`current_operation_target`，`low_confidence_prepare_only`
+- `V004` / `V004_copy_v1`：`latest_operation_sample_pre_24h`，`recorded_latest_sample_pre_24h_only`
+
 ## 保留项
 - 核心观点：目标不是 KPI 表，而是下一步动作判断系统。
 - 播放是入口，收藏是认可，私信要评分。

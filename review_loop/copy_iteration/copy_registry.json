@@ -1,8 +1,26 @@
 {
   "registry_version": "copy_iteration_registry_v1",
   "system_name": "copy_iteration_decision_system",
-  "updated_at_utc": "2026-05-17T12:56:49.434564+00:00",
+  "updated_at_utc": "2026-05-17T13:45:22.648882+00:00",
   "records": [
+    {
+      "video_id": "V002",
+      "copy_id": "V002_copy_v1",
+      "version": "v1_raw",
+      "source_type": "user_provided_in_chat",
+      "source_status": "raw_source_locked",
+      "raw_copy_path": "review_loop/copy_iteration/V002/V002_copy_v1_raw.md",
+      "record_path": "review_loop/copy_iteration/V002/V002_copy_v1_record.json",
+      "structure_map_path": "review_loop/copy_iteration/V002/V002_copy_structure_map.json",
+      "decision_path": "review_loop/copy_iteration/V002/V002_copy_iteration_decision.json",
+      "next_copy_revision_brief_path": "review_loop/copy_iteration/V002/V002_next_copy_revision_brief.md",
+      "linked_operation_record": "review_loop/records/V002_自动流的最简单流程_douyin_policy_notice/V002_发布后复盘记录_post_publish_review_record.md",
+      "publish_status": "published_then_policy_distribution_limited",
+      "operation_record_status": "policy_limited_abnormal_operation_sample",
+      "sample_interpretation_label": "policy_limited_but_interest_signal_strong",
+      "data_window": "user_latest_reported_metrics_no_screenshot_yet",
+      "current_revision_status": "recorded_abnormal_sample_reference_only"
+    },
     {
       "video_id": "V003",
       "copy_id": "V003_copy_v1",
@@ -20,6 +38,24 @@
       "publish_status": "published_in_formal_operation",
       "data_window": "post_72h_pre_7d_snapshot",
       "current_revision_status": "low_confidence_prepare_only"
+    },
+    {
+      "video_id": "V004",
+      "copy_id": "V004_copy_v1",
+      "version": "v1_raw",
+      "source_type": "user_provided_in_chat",
+      "source_status": "raw_source_locked",
+      "raw_copy_path": "review_loop/copy_iteration/V004/V004_copy_v1_raw.md",
+      "record_path": "review_loop/copy_iteration/V004/V004_copy_v1_record.json",
+      "structure_map_path": "review_loop/copy_iteration/V004/V004_copy_structure_map.json",
+      "decision_path": "review_loop/copy_iteration/V004/V004_copy_iteration_decision.json",
+      "next_copy_revision_brief_path": "review_loop/copy_iteration/V004/V004_next_copy_revision_brief.md",
+      "linked_operation_record": "review_loop/records/V004_全自动制作方式_public_ai_video_20260517/V004_发布后运营数据记录_post_publish_operation_record.md",
+      "linked_data_snapshot": "review_loop/records/V004_全自动制作方式_public_ai_video_20260517/V004_interim_17h_snapshot.json",
+      "publish_status": "published_in_formal_operation",
+      "operation_record_status": "latest_operation_sample_pre_24h",
+      "data_window": "pre_24h / interim_17h_snapshot",
+      "current_revision_status": "recorded_latest_sample_pre_24h_only"
     }
   ],
   "status_boundary": {

@@ -1,0 +1,212 @@
+{
+  "video_id": "V004",
+  "copy_id": "V004_copy_v1",
+  "source_path": "review_loop/copy_iteration/V004/V004_copy_v1_raw.md",
+  "structure_version": "copy_structure_map_v1",
+  "sample_boundary": {
+    "operation_record_status": "latest_operation_sample_pre_24h",
+    "review_window": "pre_24h",
+    "snapshot_label": "interim_17h_snapshot",
+    "formal_copy_revision_allowed": false,
+    "current_operation_target_switched": false
+  },
+  "current_assessment": {
+    "core_claim": "真正拉开差距的不是数据，是复盘能力。",
+    "actual_metrics_favorite_count": 0,
+    "raw_copy_mentions_previous_case_favorite_count": 3,
+    "assessment_confidence": "low_for_diagnosis / high_for_recording",
+    "assessment_boundary": "只能记录 V004 早期样本和文案结构，不能判断方向失败、内容通过或正式下一条变量。"
+  },
+  "segments": [
+    {
+      "segment_id": "opening_claim",
+      "original_text": "AI 时代，真正拉开差距的不是数据，是复盘能力。",
+      "copy_function": "用反常识观点开场，把讨论从数据数量转向复盘能力。",
+      "viewer_question_answered": "为什么有数据还不够？",
+      "data_feedback_target": [
+        "2s_bounce",
+        "3s_retention"
+      ],
+      "likely_issue_if_metric_bad": "如果早期 2s 跳出仍高，可能说明抽象判断仍需要更早落到观众痛点。",
+      "can_modify_if_problem_layer": [
+        "opening_packaging"
+      ],
+      "must_keep": [
+        "不是数据，是复盘能力"
+      ],
+      "forbidden_change": [
+        "不得改 raw 文案",
+        "不得写方向失败"
+      ]
+    },
+    {
+      "segment_id": "previous_case_conflict",
+      "original_text": "我这条视频只有 141 播放，2 秒跳出接近 50%。",
+      "copy_function": "引用 V003 真实数据冲突，说明低播放也能提供复盘线索。",
+      "viewer_question_answered": "上一条到底差在哪里？",
+      "data_feedback_target": [
+        "2s_bounce",
+        "5s_completion"
+      ],
+      "likely_issue_if_metric_bad": "这是前一条案例引用，不得混作 V004 自身数据。",
+      "can_modify_if_problem_layer": [
+        "evidence_expression",
+        "opening_packaging"
+      ],
+      "must_keep": [
+        "141 播放",
+        "2 秒跳出接近 50%"
+      ],
+      "forbidden_change": [
+        "不得写 V004 favorite_count = 3"
+      ]
+    },
+    {
+      "segment_id": "problem_reframe",
+      "original_text": "下一条最该先改的，不是方向，而是开头。",
+      "copy_function": "给出单变量复盘结论。",
+      "viewer_question_answered": "低播放后应该先改什么？",
+      "data_feedback_target": [
+        "5s_completion",
+        "average_watch_time"
+      ],
+      "likely_issue_if_metric_bad": "当前 V004 自身只是 pre_24h，不能把该判断升级成最终结论。",
+      "can_modify_if_problem_layer": [
+        "bridge_3_8s",
+        "opening_packaging"
+      ],
+      "must_keep": [
+        "不是方向，而是开头"
+      ],
+      "forbidden_change": [
+        "不得生成正式下一条视频执行 prompt"
+      ]
+    },
+    {
+      "segment_id": "bad_review_pattern",
+      "original_text": "播放低，就怀疑选题。点赞少，就怀疑表达。没人私信，就怀疑方向。",
+      "copy_function": "指出常见错误复盘方式。",
+      "viewer_question_answered": "为什么很多人的复盘没用？",
+      "data_feedback_target": [
+        "average_watch_time",
+        "comment_count"
+      ],
+      "likely_issue_if_metric_bad": "如果中段弱，可能要压缩反面例子，让观众更快看到正解。",
+      "can_modify_if_problem_layer": [
+        "middle_structure",
+        "tone_and_language"
+      ],
+      "must_keep": [
+        "播放低/点赞少/没人私信的误判链"
+      ],
+      "forbidden_change": [
+        "不得把 V004 55 播放写成选题失败"
+      ]
+    },
+    {
+      "segment_id": "problem_layering",
+      "original_text": "真正有用的是，你能不能从数据里拆出问题层级。",
+      "copy_function": "把复盘方法落到问题分层。",
+      "viewer_question_answered": "数据该怎样变成下一步动作？",
+      "data_feedback_target": [
+        "favorite_rate",
+        "average_watch_time"
+      ],
+      "likely_issue_if_metric_bad": "V004 favorite_rate 为 0%，但 pre_24h 不能判内容无价值。",
+      "can_modify_if_problem_layer": [
+        "evidence_expression",
+        "middle_structure"
+      ],
+      "must_keep": [
+        "问题层级"
+      ],
+      "forbidden_change": [
+        "不得把 0 收藏写成价值不存在"
+      ]
+    },
+    {
+      "segment_id": "single_variable_rule",
+      "original_text": "我只先改一个变量：开头 5 秒。",
+      "copy_function": "明确单变量迭代原则。",
+      "viewer_question_answered": "下一条只改哪里？",
+      "data_feedback_target": [
+        "2s_bounce",
+        "3s_retention",
+        "5s_completion"
+      ],
+      "likely_issue_if_metric_bad": "这是文案中的复盘原则，不是本轮正式执行指令。",
+      "can_modify_if_problem_layer": [
+        "opening_packaging"
+      ],
+      "must_keep": [
+        "只先改一个变量",
+        "开头 5 秒"
+      ],
+      "forbidden_change": [
+        "不得升级成正式执行 prompt"
+      ]
+    },
+    {
+      "segment_id": "metric_to_action_system",
+      "original_text": "真正有用的复盘，应该逼你回答三个问题：",
+      "copy_function": "把指标转成三问结构。",
+      "viewer_question_answered": "什么样的复盘才有用？",
+      "data_feedback_target": [
+        "average_watch_time",
+        "completion_rate"
+      ],
+      "likely_issue_if_metric_bad": "如果尾段弱，三问结构可能需要更早出现。",
+      "can_modify_if_problem_layer": [
+        "middle_structure",
+        "evidence_expression"
+      ],
+      "must_keep": [
+        "哪一层出了问题",
+        "下一条只改哪个变量",
+        "改完看哪个指标"
+      ],
+      "forbidden_change": [
+        "不得改成 KPI 表"
+      ]
+    },
+    {
+      "segment_id": "previous_value_signal",
+      "original_text": "这条视频虽然播放低，但它还有 3 个收藏。",
+      "copy_function": "引用 V003 的小正信号，说明价值可能出现得太晚。",
+      "viewer_question_answered": "低播放是不是完全没价值？",
+      "data_feedback_target": [
+        "favorite_rate"
+      ],
+      "likely_issue_if_metric_bad": "这是 V003 案例引用；V004 actual favorite_count = 0。",
+      "can_modify_if_problem_layer": [
+        "evidence_expression"
+      ],
+      "must_keep": [
+        "3 个收藏是上一条案例"
+      ],
+      "forbidden_change": [
+        "不得混写 V004 actual_metrics"
+      ]
+    },
+    {
+      "segment_id": "ending_iteration",
+      "original_text": "那你就不是在碰运气。你是在迭代。",
+      "copy_function": "把数据复盘收束为迭代方法。",
+      "viewer_question_answered": "这套方法最终改变什么？",
+      "data_feedback_target": [
+        "completion_rate",
+        "average_watch_time"
+      ],
+      "likely_issue_if_metric_bad": "结尾能否成立需要等待更完整数据。",
+      "can_modify_if_problem_layer": [
+        "tone_and_language"
+      ],
+      "must_keep": [
+        "不是碰运气，是迭代"
+      ],
+      "forbidden_change": [
+        "不得写商业验证成立"
+      ]
+    }
+  ]
+}
