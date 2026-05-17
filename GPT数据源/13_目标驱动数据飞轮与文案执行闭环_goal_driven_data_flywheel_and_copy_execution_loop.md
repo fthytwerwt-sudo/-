@@ -4,7 +4,7 @@
 
 当前数据飞轮运行在 `formal_operation_active（正式运营中）` 阶段。
 
-发布数据不再作为“灰度测试项目”数据理解，而作为 `operation_records（运营记录）` 和 `operation_review（运营复盘）` 的输入。`data_goal_anchor（数据目标锚点）` 继续服务正式运营变量判断，但当前实例仍为 `partial_data_recorded`，不到 72h / 7d 和人审前不得写 `ready`。
+发布数据不再作为“灰度测试项目”数据理解，而作为 `operation_records（运营记录）` 和 `operation_review（运营复盘）` 的输入。`data_goal_anchor（数据目标锚点）` 继续服务正式运营变量判断，但当前实例仍为 `partial_data_recorded`，不到 7d、需求侧字段和人审前不得写 `ready`。
 
 `已确认` 运营判断层必须由 `operation_decision_system（运营决策系统）` 输出报告后才算进入。当前可运行入口为 `scripts/运营决策系统_operation_decision_system.py`；系统输出统一写入 `review_loop/decision_engine/latest_operation_decision_report.json`、`review_loop/decision_engine/latest_operation_decision_report.md` 和 `review_loop/decision_engine/final_user_operation_result.md`。
 
@@ -32,7 +32,7 @@
 - 每期、每版文案必须进入 `copy_registry.json`，并绑定发布数据窗口、运营记录和运营决策报告。
 - `raw_copy（原始文案）` 必须保真；疑似错字只进入 `suspected_typos（疑似错字）`，不得覆盖原文。
 - `copy_iteration_decision` 必须判断问题层级：`opening_packaging / bridge_3_8s / middle_structure / evidence_expression / tone_and_language / topic_angle / target_audience`。
-- V003 当前仍是 `partial_data_recorded / interim_36h_snapshot`，只能输出 `low_confidence_prepare_allowed = true`，不得输出正式文案 ready。
+- V003 当前仍是 `partial_data_recorded / post_72h_pre_7d_snapshot`，只能输出 `low_confidence_prepare_allowed = true`，不得输出正式文案 ready。
 - 当前默认问题层级为 `opening_packaging`，辅助关注 `bridge_3_8s`；不得直接判 `topic_angle` 失败或 `target_audience` 错误。
 - ChatGPT 后续改稿前必须读取 `V003_next_copy_revision_brief.md`；Codex 不负责最终定稿。
 

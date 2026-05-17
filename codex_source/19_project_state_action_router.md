@@ -275,7 +275,7 @@ if state = blocked_need_user_input:
 - `operation_decision_system_missing`：只有规则 / 卡片 / 锚点，不算系统完成；必须有可运行脚本、schema/config、三期归纳和最终用户报告。
 - `operation_decision_report_required`：缺 `review_loop/decision_engine/latest_operation_decision_report.json` 或 JSON 不可解析时，不得直接拍板下一期执行。
 - `operation_review`：必须有足够数据再判断阶段门槛、短板层和下一轮唯一运营变量。
-- `operation_next_variable_decision`：只在运营复盘完成后选择下一轮唯一变量；缺 72h / 7d 或人审时只能保留 draft。
+- `operation_next_variable_decision`：只在运营复盘完成后选择下一轮唯一变量；缺 7d、需求侧字段或人审时只能保留 draft。
 - `legacy_gray_test_data_intake`：只作为历史兼容别名，不得作为新数据默认路由。
 - `material_audit_needed`：先判断素材用途、证据强度和缺口，不直接生成或改动媒体。
 - `voice_review_needed`：只做声音问题归因和候选复审，不写最终声音通过，不调用 TTS / voice cloning API。

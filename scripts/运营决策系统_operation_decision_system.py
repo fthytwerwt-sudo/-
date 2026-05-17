@@ -43,7 +43,7 @@ V003_RESULT_MD = (
 )
 V003_LATEST_SNAPSHOT_JSON = (
     Path("review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514")
-    / "V003_interim_65h_snapshot.json"
+    / "V003_post_72h_pre_7d_snapshot.json"
 )
 
 FORBIDDEN_STATUS_PATTERNS = {
@@ -192,6 +192,8 @@ def metric_value(record: dict[str, Any], key: str, default: Any = "missing") -> 
 
 def snapshot_phrase(record: dict[str, Any]) -> str:
     label = str(record.get("snapshot_label") or "unknown_snapshot")
+    if label == "post_72h_pre_7d_snapshot":
+        return f"{label}（72h 后 / 7d 前补录，非 7d final）"
     hours = "约 65 小时" if "65h" in label else "约 37 小时" if "36h" in label else "当前"
     if label.startswith("interim_"):
         return f"{label}（{hours}中间数据，非 final）"
@@ -199,7 +201,8 @@ def snapshot_phrase(record: dict[str, Any]) -> str:
 
 
 def is_interim_snapshot(record: dict[str, Any]) -> bool:
-    return str(record.get("snapshot_label", "")).startswith("interim_")
+    label = str(record.get("snapshot_label", ""))
+    return label.startswith("interim_") or label == "post_72h_pre_7d_snapshot"
 
 
 def normalize_v003(snapshot: dict[str, Any]) -> dict[str, dict[str, Any]]:
@@ -341,11 +344,11 @@ def data_quality(record: dict[str, Any]) -> dict[str, Any]:
         label = "abnormal_partial"
     elif video_id == "V003":
         score = 0.55
-        label = "partial_interim_low_confidence"
+        label = "partial_snapshot_low_confidence"
     else:
         score = 0.0
         label = "unknown"
-    v003_note = f"当前目标样本，最新为 {snapshot_phrase(record)}，不能做 72h / 7d final 复盘。"
+    v003_note = f"当前目标样本，最新为 {snapshot_phrase(record)}，不能做 7d final 复盘。"
     return {
         "quality_label": label,
         "quality_score_0_to_1": score,
@@ -372,9 +375,9 @@ def signal_from_play(play_count: float | None, thresholds: dict[str, Any], recor
     if record["video_id"] == "V003" and is_interim_snapshot(record):
         return {
             "status": "draft_low_confidence",
-            "bucket": "early_interim_under_1000",
+            "bucket": "partial_snapshot_under_1000",
             "observed_value": play_count,
-            "reason": f"{record['snapshot_label']}_not_final_72h_or_7d",
+            "reason": f"{record['snapshot_label']}_not_final_7d",
         }
     if play_count < thresholds["single_video_play_thresholds"]["fail"]["max_exclusive"]:
         bucket = "fail"
@@ -537,7 +540,7 @@ def synthesize(records: list[dict[str, Any]]) -> dict[str, Any]:
         ],
         "valid_samples_for_normal_attribution": valid_samples,
         "samples_not_for_normal_attribution": sorted(set(excluded_samples)),
-        "current_largest_gap": "缺 V003 72h / 7d final 与需求侧字段，无法从早期低播放直接归因到内容方向或商业价值。",
+        "current_largest_gap": "缺 V003 7d final 与需求侧字段，无法从低播放直接归因到内容方向或商业价值。",
         "distance_to_north_star_goal": [
             "缺稳定高质量需求信号。",
             "缺有效私信 / 有效咨询 / 清晰需求客户。",
@@ -573,7 +576,7 @@ def per_record_summary(record: dict[str, Any]) -> dict[str, Any]:
     if video_id == "V003":
         return {
             "can_explain": f"它能说明当前目标已有 {snapshot_phrase(record)}：低播放、开头承接弱、小收藏信号、需求侧缺失。",
-            "cannot_explain": "不能说明 72h / 7d 结果，不能决定方向失败，不能生成正式下一期执行。",
+            "cannot_explain": "不能说明 7d 结果，不能决定方向失败，不能生成正式下一期执行。",
             "next_value": "补齐关键字段后可作为下一轮唯一变量判断的主样本。",
         }
     return {"can_explain": "unknown", "cannot_explain": "unknown", "next_value": "unknown"}
@@ -587,11 +590,12 @@ def decide_next_episode(records: list[dict[str, Any]], thresholds: dict[str, Any
         )
     )
     if missing_required or is_interim_snapshot(current):
+        missing_text = "、".join(missing_required) if missing_required else "关键复盘字段"
         return {
             "decision_status": "blocked_for_formal_next_episode_execution",
             "can_enter_next_episode_execution": False,
             "confidence": "low",
-            "blocked_reason": f"V003 仍是 {current['snapshot_label']}，缺 72h / 7d 和需求侧字段，不能生成正式下一条视频执行 prompt。",
+            "blocked_reason": f"V003 仍是 {current['snapshot_label']}，缺 {missing_text}，不能生成正式下一条视频执行 prompt。",
             "missing_data": missing_required,
             "low_confidence_draft": {
                 "next_primary_variable": "opening_route_or_first_5s_packaging",
@@ -603,7 +607,7 @@ def decide_next_episode(records: list[dict[str, Any]], thresholds: dict[str, Any
                     "multi_variable_rewrite",
                 ],
                 "next_content_direction": "只允许准备开头/前 5 秒包装的对照假设，不进入正式制作。",
-                "next_video_structure_direction": "准备 opening_0_3s 与 bridge_3_8s 的候选结构草稿，等待 72h / 7d 后再裁决。",
+                "next_video_structure_direction": "准备 opening_0_3s 与 bridge_3_8s 的候选结构草稿，等待 7d 与需求侧字段后再裁决。",
                 "post_publish_validation_metric": [
                     "2s_bounce",
                     "5s_completion",
@@ -713,7 +717,7 @@ def build_reports(root: Path) -> dict[str, Any]:
             "current_primary_bottleneck": "opening_retention_and_initial_distribution_weak / draft_low_confidence",
             "can_enter_next_episode_execution": next_decision["can_enter_next_episode_execution"],
             "blocked_reason_if_not": next_decision.get("blocked_reason"),
-            "recommended_next_route": "先补 V003 72h / 7d、3s_retention、主页访问、私信、有效私信、有效咨询和清晰需求客户；补齐后重跑本系统，再决定唯一主变量。",
+            "recommended_next_route": "先补 V003 7d、3s_retention、V003 单条视频主页访问、私信、有效私信、有效咨询和清晰需求客户；补齐后重跑本系统，再决定唯一主变量。",
             "copy_iteration_entry": copy_iteration_linkage,
         },
         "status_boundary": status_boundary,
@@ -875,7 +879,7 @@ def render_final_user_report_md(report: dict[str, Any]) -> str:
         "## 三期样本归纳",
         "- V001：历史运营样本，只能保留为旧阶段参考；核心数据不完整，不能参与当前归因。",
         "- V002：平台审核减推异常样本，可提示平台风险表达问题；不能当作正常自然流量失败。",
-        f"- V003：当前运营目标，已有 {snapshot_phrase(v003)} 的低置信度信号；还不是 72h / 7d final。",
+        f"- V003：当前运营目标，已有 {snapshot_phrase(v003)} 的低置信度信号；还不是 7d final。",
         "",
         "## 当前最可能短板",
         "- `opening_retention_and_initial_distribution_weak（开头留存与初始分发承接弱）`，但仍是 `draft_low_confidence（低置信度草稿）`。",
@@ -888,7 +892,7 @@ def render_final_user_report_md(report: dict[str, Any]) -> str:
             "",
             "## 下一期是否可以进入正式执行",
             "- 不可以。",
-            "- 原因：缺 72h / 7d、3s 留存、主页访问、私信、有效私信、有效咨询和清晰需求客户等关键字段。",
+            "- 原因：缺 7d、3s 留存、V003 单条视频主页访问、私信、有效私信、有效咨询和清晰需求客户等关键字段。",
             "",
             "## 如果不能执行，缺哪些数据",
         ]
@@ -902,7 +906,7 @@ def render_final_user_report_md(report: dict[str, Any]) -> str:
             "- 不允许做：正式下一条视频执行 prompt、新视频制作、状态升级、商业验证结论、方向成立结论。",
             "",
             "## 当前最稳路线",
-            "先补 V003 的完整 72h / 7d 数据和需求侧字段，再重跑 `scripts/运营决策系统_operation_decision_system.py`。补齐前只做低置信度准备，不消耗下一期正式执行机会。",
+            "先补 V003 的 7d 数据和需求侧字段，再重跑 `scripts/运营决策系统_operation_decision_system.py`。补齐前只做低置信度准备，不消耗下一期正式执行机会。",
             "",
             "## 文案迭代入口",
             f"- 最新文案迭代报告：`{report.get('copy_iteration_linkage', {}).get('latest_copy_iteration_report_md', rel(COPY_ITERATION_REPORT_MD))}`",

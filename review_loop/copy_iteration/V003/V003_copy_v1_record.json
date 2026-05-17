@@ -6,7 +6,7 @@
   "source_status": "raw_source_locked",
   "raw_copy_path": "review_loop/copy_iteration/V003/V003_copy_v1_raw.md",
   "linked_operation_record": "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_发布后灰度数据记录_post_publish_gray_test_record.md",
-  "linked_data_snapshot": "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_interim_65h_snapshot.json",
+  "linked_data_snapshot": "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_post_72h_pre_7d_snapshot.json",
   "linked_operation_decision_report": "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_operation_decision_result.md",
   "copy_quality_notes": [
     "开头直接进入 KPI 概念，真实数据冲突出现得不够早。",
@@ -38,7 +38,7 @@
     "客资相关词只在备注中规范化；raw 文案不改。",
     "下一版只允许低置信度准备 opening_0_3s 和 bridge_3_8s。"
   ],
-  "current_data_window": "interim_65h_snapshot",
+  "current_data_window": "post_72h_pre_7d_snapshot",
   "data_confidence": "low",
   "formal_revision_allowed": false,
   "formal_copy_revision_allowed": false,

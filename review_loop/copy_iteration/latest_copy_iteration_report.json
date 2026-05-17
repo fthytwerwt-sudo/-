@@ -1,8 +1,8 @@
 {
   "system_name": "copy_iteration_decision_system",
-  "generated_at_utc": "2026-05-16T18:31:40.111512+00:00",
+  "generated_at_utc": "2026-05-17T12:56:49.437924+00:00",
   "current_copy_version": "V003_copy_v1 / v1_raw",
-  "current_data_window": "interim_65h_snapshot",
+  "current_data_window": "post_72h_pre_7d_snapshot",
   "current_problem_layer": "opening_packaging",
   "confidence": "low",
   "formal_copy_revision_allowed": false,
@@ -23,7 +23,7 @@
     "whole_script_rewrite",
     "formal_next_video_execution_prompt"
   ],
-  "when_continue_copy_revision": "补齐 72h / 7d 或下一轮同类样本后，若 2s/3s/5s 仍弱，继续调 opening_packaging 和 bridge_3_8s。",
+  "when_continue_copy_revision": "补齐 7d 或下一轮同类样本后，若 2s/3s/5s 仍弱，继续调 opening_packaging 和 bridge_3_8s。",
   "when_adjust_topic_angle": "只有多个正常分发样本在开头、结构、语气测试后仍收藏/评论/需求信号持续弱，才进入 topic_angle 判断。",
   "when_allow_new_target_audience": "必须 7-10 个正常样本经过开头、结构、语气测试仍失败后，才允许讨论 target_audience 变化。",
   "chatgpt_read_first": "review_loop/copy_iteration/V003/V003_next_copy_revision_brief.md",

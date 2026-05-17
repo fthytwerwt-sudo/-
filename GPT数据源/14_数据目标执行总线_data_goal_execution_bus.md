@@ -20,7 +20,7 @@
 
 - 若最终报告为 `blocked_for_formal_next_episode_execution`，不得继续生成正式下一条视频执行 prompt。
 - 若 V002 被识别为 `policy_limited_abnormal_operation_sample`，不得把它纳入正常自然分发归因。
-- 若 V003 仍缺 72h / 7d、3s 留存、主页访问、私信、有效私信、有效咨询或清晰需求客户，不得把当前锚点写成 `ready`。
+- 若 V003 仍缺 7d、3s 留存、V003 单条视频主页访问、私信、有效私信、有效咨询或清晰需求客户，不得把当前锚点写成 `ready`。
 - 本闸门只负责运营决策，不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`。
 
 ## 0A-2. next_copy_revision_brief gate（下一版文案修改简报闸门）

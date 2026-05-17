@@ -42,15 +42,16 @@ current_operation_target:
   publish_platform: "抖音"
   publish_time_visible: "2026-05-14 04:50"
   video_duration: "04:03"
-  current_observation_window: "between_24h_and_72h / interim_36h_snapshot + between_48h_and_72h / interim_65h_snapshot"
+  current_observation_window: "between_24h_and_72h / interim_36h_snapshot + between_48h_and_72h / interim_65h_snapshot + post_72h_pre_7d / post_72h_pre_7d_snapshot"
   record_path: "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_发布后灰度数据记录_post_publish_gray_test_record.md"
-  structured_snapshot_path: "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_interim_65h_snapshot.json"
-  previous_structured_snapshot_path: "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_早期数据快照_early_interim_snapshot.json"
+  structured_snapshot_path: "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_post_72h_pre_7d_snapshot.json"
+  previous_structured_snapshot_path: "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_interim_65h_snapshot.json"
+  earlier_structured_snapshot_path: "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_早期数据快照_early_interim_snapshot.json"
   screenshot_manifest_path: "review_loop/screenshots/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_截图清单_screenshot_manifest.md"
-  data_completeness: "partial_interim_data_recorded"
+  account_diagnostic_path: "review_loop/account_diagnostics/20260517_account_diagnostic_snapshot/account_diagnostic_20260510_20260516.json"
+  data_completeness: "partial_post_72h_pre_7d_data_recorded"
   data_confidence: "low_to_medium_for_recording_only / low_for_diagnosis"
   next_required_data:
-    - "72h_data"
     - "7d_data"
     - "3s_retention"
     - "profile_visit_count"
@@ -66,28 +67,28 @@ current_operation_target:
 | --- | --- | --- | --- | --- |
 | V001 | 我用 AI 做 PPT 踩过的坑 | `historical_operation_record` | `review_loop/records/V001_v31_AI做PPT踩坑_gray_test/V001_gray_test_record.md` | 历史运营样本，原灰度字段保留为 legacy |
 | V002 | 自动流的最简单流程 | `policy_limited_abnormal_operation_sample` | `review_loop/records/V002_自动流的最简单流程_douyin_policy_notice/V002_发布后复盘记录_post_publish_review_record.md` | 平台审核减推异常样本，不作为正常分发样本 |
-| V003 | 以后会分享实用的，每天会给大家看我是怎么优化的，这个视频只用3个小时写出来的本地文件 | `current_operation_target` | `review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_发布后灰度数据记录_post_publish_gray_test_record.md` | 当前运营目标，约 37 小时和约 65 小时中间数据已录入；仍非 72h final |
+| V003 | 以后会分享实用的，每天会给大家看我是怎么优化的，这个视频只用3个小时写出来的本地文件 | `current_operation_target` | `review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_发布后灰度数据记录_post_publish_gray_test_record.md` | 当前运营目标，约 37 小时、65 小时和 72h 后 / 7d 前数据已录入；仍非 7d final |
 
 ## 5. current_data_goal_anchor
 
 - anchor_path：`codex_log/current_data_goal_anchor.md`
 - anchor_instance_status：`partial_data_recorded`
-- data_confidence：`low`
+- data_confidence：`low_to_medium`
 - main_bottleneck_draft：`opening_retention_and_initial_distribution_weak / draft_low_confidence`
 - primary_variable_draft：`opening_route_or_first_5s_packaging / draft_low_confidence`
 - ready_status：`not_ready`
-- why_not_ready：V003 仍缺 72h / 7d 数据、3s 留存、主页访问、私信、有效私信、有效咨询、清晰需求客户和人审后的正式复盘判断。
+- why_not_ready：V003 已补到 72h 后 / 7d 前快照，但仍缺 7d 数据、3s 留存、V003 单条视频主页访问、私信、有效私信、有效咨询、清晰需求客户和人审后的正式复盘判断。
 
 ## 6. not_allowed
 
 - 不得把正式运营写成内容通过。
 - 不得把正式运营写成商业模式成立。
-- 不得把 V003 的 141 播放写成项目失败。
-- 不得把 V003 收藏率 2.13% 写成方向成立。
-- 不得把 `interim_36h_snapshot` 或 `interim_65h_snapshot` 写成 72h final 或 7d final。
+- 不得把 V003 的 143 播放写成项目失败。
+- 不得把 V003 收藏率 2.10% 写成方向成立。
+- 不得把 `interim_36h_snapshot`、`interim_65h_snapshot` 或 `post_72h_pre_7d_snapshot` 写成 7d final；本轮 `post_72h_pre_7d_snapshot` 也不得写成精确 72h 截止点。
 - 不得生成下一条正式视频执行 prompt。
 - 不得推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`。
 
 ## 7. next_target
 
-等 V003 72h / 7d 数据和需求侧字段补齐后，进入 `operation_review（运营复盘）`，只回答运营复盘四问：是否达到阶段门槛、当前最短板层、下一轮唯一运营变量、改完看哪个指标。
+等 V003 7d 数据和需求侧字段补齐后，进入 `operation_review（运营复盘）`，只回答运营复盘四问：是否达到阶段门槛、当前最短板层、下一轮唯一运营变量、改完看哪个指标。

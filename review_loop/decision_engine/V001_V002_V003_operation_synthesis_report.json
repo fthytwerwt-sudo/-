@@ -7,7 +7,7 @@
   "what_is_observed": [
     "V001 提供旧阶段历史样本入口，但核心数据不完整。",
     "V002 提供平台审核减推异常样本，可用于平台风险表达参考，不能用于正常自然流量归因。",
-    "V003 提供当前目标的 interim_65h_snapshot（约 65 小时中间数据，非 final）：触达很小、前 5 秒承接弱、收藏有小正信号、需求侧字段缺失。"
+    "V003 提供当前目标的 post_72h_pre_7d_snapshot（72h 后 / 7d 前补录，非 7d final）：触达很小、前 5 秒承接弱、收藏有小正信号、需求侧字段缺失。"
   ],
   "what_is_not_proven": [
     "未证明内容方向成立。",
@@ -22,7 +22,7 @@
     "V002",
     "V003"
   ],
-  "current_largest_gap": "缺 V003 72h / 7d final 与需求侧字段，无法从早期低播放直接归因到内容方向或商业价值。",
+  "current_largest_gap": "缺 V003 7d final 与需求侧字段，无法从低播放直接归因到内容方向或商业价值。",
   "distance_to_north_star_goal": [
     "缺稳定高质量需求信号。",
     "缺有效私信 / 有效咨询 / 清晰需求客户。",
@@ -57,15 +57,15 @@
       "next_value": "用于下一轮规避平台风险表达，但不进入正常归因统计。"
     },
     "V003": {
-      "can_explain": "它能说明当前目标已有 interim_65h_snapshot（约 65 小时中间数据，非 final）：低播放、开头承接弱、小收藏信号、需求侧缺失。",
-      "cannot_explain": "不能说明 72h / 7d 结果，不能决定方向失败，不能生成正式下一期执行。",
+      "can_explain": "它能说明当前目标已有 post_72h_pre_7d_snapshot（72h 后 / 7d 前补录，非 7d final）：低播放、开头承接弱、小收藏信号、需求侧缺失。",
+      "cannot_explain": "不能说明 7d 结果，不能决定方向失败，不能生成正式下一期执行。",
       "data_quality": {
-        "quality_label": "partial_interim_low_confidence",
+        "quality_label": "partial_snapshot_low_confidence",
         "quality_score_0_to_1": 0.55,
-        "missing_field_count": 9,
-        "uncertain_field_count": 5,
+        "missing_field_count": 8,
+        "uncertain_field_count": 8,
         "usable_for_normal_distribution_attribution": false,
-        "quality_note": "当前目标样本，最新为 interim_65h_snapshot（约 65 小时中间数据，非 final），不能做 72h / 7d final 复盘。"
+        "quality_note": "当前目标样本，最新为 post_72h_pre_7d_snapshot（72h 后 / 7d 前补录，非 7d final），不能做 7d final 复盘。"
       },
       "next_value": "补齐关键字段后可作为下一轮唯一变量判断的主样本。"
     }

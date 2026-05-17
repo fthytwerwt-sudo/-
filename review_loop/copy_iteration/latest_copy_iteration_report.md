@@ -2,7 +2,7 @@
 
 ## 当前结论
 - 当前文案版本：`V003_copy_v1 / v1_raw`
-- 当前数据窗口：`interim_65h_snapshot`
+- 当前数据窗口：`post_72h_pre_7d_snapshot`
 - 当前问题层级：`opening_packaging`
 - 置信度：`low`
 - 本轮只允许改：`opening_0_3s + bridge_3_8s`
@@ -21,7 +21,7 @@
 - `formal_next_video_execution_prompt`
 
 ## 什么时候继续调文案
-补齐 72h / 7d 或下一轮同类样本后，若 2s/3s/5s 仍弱，继续调 opening_packaging 和 bridge_3_8s。
+补齐 7d 或下一轮同类样本后，若 2s/3s/5s 仍弱，继续调 opening_packaging 和 bridge_3_8s。
 
 ## 什么时候调选题方向
 只有多个正常分发样本在开头、结构、语气测试后仍收藏/评论/需求信号持续弱，才进入 topic_angle 判断。

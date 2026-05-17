@@ -1,7 +1,7 @@
 {
   "registry_version": "copy_iteration_registry_v1",
   "system_name": "copy_iteration_decision_system",
-  "updated_at_utc": "2026-05-16T18:31:40.110091+00:00",
+  "updated_at_utc": "2026-05-17T12:56:49.434564+00:00",
   "records": [
     {
       "video_id": "V003",
@@ -15,10 +15,10 @@
       "decision_path": "review_loop/copy_iteration/V003/V003_copy_iteration_decision.json",
       "next_copy_revision_brief_path": "review_loop/copy_iteration/V003/V003_next_copy_revision_brief.md",
       "linked_operation_record": "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_发布后灰度数据记录_post_publish_gray_test_record.md",
-      "linked_data_snapshot": "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_interim_65h_snapshot.json",
+      "linked_data_snapshot": "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_post_72h_pre_7d_snapshot.json",
       "linked_decision_report": "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_operation_decision_result.md",
       "publish_status": "published_in_formal_operation",
-      "data_window": "interim_65h_snapshot",
+      "data_window": "post_72h_pre_7d_snapshot",
       "current_revision_status": "low_confidence_prepare_only"
     }
   ],

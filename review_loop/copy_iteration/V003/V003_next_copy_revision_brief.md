@@ -6,13 +6,13 @@
 当前不是换方向，也不是换人群，而是低置信度准备开头 0-3 秒和 3-8 秒承接。
 
 ## 2. 数据触发原因
-- 2s 跳出：49.69%
+- 2s 跳出：48.81%
 - 3s 留存：missing
-- 5s 完播：27.95%
-- 完播率：4.14%
-- 平均观看：21秒
-- 收藏：3 / 收藏率 2.13%
-- 缺失数据：3s_retention、72h_final_data、7d_final_data、clear_need_customer_count、dm_count、effective_consult_count、effective_dm_count、profile_visit_count
+- 5s 完播：28.57%
+- 完播率：4.05%
+- 平均观看：20秒
+- 收藏：3 / 收藏率 2.10%
+- 缺失数据：3s_retention、7d_final_data、clear_need_customer_count、dm_count、effective_consult_count、effective_dm_count、profile_visit_count
 
 ## 3. 这版文案好的地方
 - 核心观点成立：目标不是 KPI 表，而是逼出下一步动作。
@@ -39,7 +39,7 @@
 - 不做全文重写。
 
 ## 7. 给 ChatGPT 的改稿指令
-下一版先把开头从“别再让 AI 给你定 KPI”改成真实数据冲突切入，优先用 V003 的 141 播放、2s 跳出 49.69%、收藏 3 作为开场证据，再转入“AI 真正有用的是判断下一条先改哪”。不要重写全片，只重写开头和 3-8 秒承接。
+下一版先把开头从“别再让 AI 给你定 KPI”改成真实数据冲突切入，优先用 V003 的 143 播放、2s 跳出 48.81%、收藏 3 作为开场证据，再转入“AI 真正有用的是判断下一条先改哪”。不要重写全片，只重写开头和 3-8 秒承接。
 
 ## 8. 改完看什么指标
 - 2s bounce

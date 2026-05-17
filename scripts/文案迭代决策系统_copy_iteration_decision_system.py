@@ -33,7 +33,7 @@ V003_OPERATION_RECORD_PATH = Path(
 )
 V003_DATA_SNAPSHOT_PATH = Path(
     "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/"
-    "V003_interim_65h_snapshot.json"
+    "V003_post_72h_pre_7d_snapshot.json"
 )
 V003_OPERATION_DECISION_PATH = Path(
     "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/"
@@ -41,7 +41,7 @@ V003_OPERATION_DECISION_PATH = Path(
 )
 
 SCRIPT_PATH = Path("scripts/文案迭代决策系统_copy_iteration_decision_system.py")
-CURRENT_DATA_WINDOW = "interim_65h_snapshot"
+CURRENT_DATA_WINDOW = "post_72h_pre_7d_snapshot"
 
 RAW_COPY = """第三期
 别再让ai给你定kpi了。播放多少、点赞多少、克资多少，看着很完整，但大多数时候没用，因为这些数字不会告诉你下一条到底该改标题，还是改开头，还是改中段结构。我一开始也这样问，帮视频工厂定个目标，最好有播放、点赞和克资。第一版确实很全，北极星目标、阶段目标、指标数、刻字定义都有，但我看完觉得不对，他还是在回答我要追哪些数字。我真正需要的是数据回来以后，下一轮该改哪里。所以我又追问，让ai设计一套目标驱动的数据飞轮，每期发布后，根据播放、留存、收藏、评论、私信和克兹，判断下一期只改哪个变量，这次结果才像个判断系统。播放和留存是触达，点赞和收藏是认可，评论和追问是互动。但私信也不能全算克资，要看他有没有说清楚任务场景和想要的结果。所以，目标不是kpi表，真正有用的目标是逼你回答三件事哪一层出了问题，下一条只改哪个变量，改完看哪个指标。没有这套判断，你每轮都在动，却不知道哪一步起作用。播放是入口，收藏是认可，私信要评分，每条只改一个主变量，目标清楚了，动作才不会乱，复盘清楚了，下一步才会浮出来。
@@ -570,7 +570,7 @@ def build_latest_report(decision: dict[str, Any]) -> dict[str, Any]:
             "每条只改一个主变量。",
         ],
         "forbidden_items": decision["forbidden_changes"],
-        "when_continue_copy_revision": "补齐 72h / 7d 或下一轮同类样本后，若 2s/3s/5s 仍弱，继续调 opening_packaging 和 bridge_3_8s。",
+        "when_continue_copy_revision": "补齐 7d 或下一轮同类样本后，若 2s/3s/5s 仍弱，继续调 opening_packaging 和 bridge_3_8s。",
         "when_adjust_topic_angle": "只有多个正常分发样本在开头、结构、语气测试后仍收藏/评论/需求信号持续弱，才进入 topic_angle 判断。",
         "when_allow_new_target_audience": "必须 7-10 个正常样本经过开头、结构、语气测试仍失败后，才允许讨论 target_audience 变化。",
         "chatgpt_read_first": rel(V003_BRIEF_PATH),

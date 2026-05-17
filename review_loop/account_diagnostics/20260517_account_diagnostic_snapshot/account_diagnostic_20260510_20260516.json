@@ -1,0 +1,49 @@
+{
+  "record_type": "account_diagnostic_snapshot",
+  "record_scope": "account_level_only",
+  "stats_period": "2026-05-10 至 2026-05-16",
+  "capture_time_if_known": "2026-05-17 20:34:56",
+  "capture_time_source": "local_screenshot_filename_and_user_prompt",
+  "source_screenshot": {
+    "internal_path": "review_loop/account_diagnostics/20260517_account_diagnostic_snapshot/account_diagnostic_20260510_20260516_short_video_20260517_203456.png",
+    "source_user_upload": "/Users/fan/Desktop/素材截图/wechat_longscreenshot_2026-05-17_203456_412.png",
+    "source_status": "archived_source_screenshot",
+    "sha256": "0e86c757d47bafcd7c0ef7c8d57a1ea2ebe236b8ef127bf49ed6e8f13632b7c7"
+  },
+  "account_diagnostic_metrics": {
+    "post_count": 2,
+    "video_play_count": 170,
+    "completion_rate": "4.84%",
+    "interaction_index": "5.29%",
+    "net_follower_gain": 1
+  },
+  "peer_comparison": {
+    "active_percentile": "81.00%",
+    "play_percentile": "83.62%",
+    "completion_rate_relative": "lower_than_93.64_percent_of_peers",
+    "interaction_percentile": "63.16%",
+    "follower_gain_percentile": "62.00%"
+  },
+  "yesterday_20260516": {
+    "play_count": 19,
+    "profile_visit_count": 1,
+    "work_like_count": 1,
+    "share_count": 0,
+    "comment_count": 0,
+    "cover_click_rate": "-",
+    "net_follower_gain": 0,
+    "unfollow_count": 0,
+    "total_followers": 4
+  },
+  "boundary": {
+    "not_v003_single_video_metrics": true,
+    "profile_visit_count_not_equal_v003_profile_visit_count": true,
+    "not_dm_or_consult_data": true,
+    "not_business_validation": true,
+    "not_content_validation": true,
+    "not_send_ready": true,
+    "usage": "账号层观察，只能辅助判断账号整体活跃度、低完播风险和账号增长状态。"
+  },
+  "data_confidence": "medium_for_visible_account_metrics",
+  "human_review_required": true
+}
