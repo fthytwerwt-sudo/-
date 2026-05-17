@@ -1,5 +1,17 @@
 # Latest
 
+## 20260518｜第四期 AI 短视频复盘系统发布候选片阻断
+
+- `blocked_publish_candidate_unavailable`：本轮目标是直接生成 `publish_candidate_ready_for_human_review（可发布候选片，待人工复审）`，但当前进程没有远程 TTS 授权环境变量，且用户本轮禁止读取 `.env / API key / token / secret`。
+- `route_decision（路由判断）`：`project_route = video_factory`；`task_type = video_sample_or_assembly + project_file_change + review_diagnosis_audit`；`large_task_gate = triggered`；`lane = audit_lane -> blocked`；`parallel = serial_only`；`execution_permission = blocked_publish_candidate_unavailable_before_video_generation`。
+- `state_action_router（状态动作总控器）`：`inferred_state = publish_candidate_requested_but_remote_tts_authorization_unavailable_under_secret_read_ban`；`selected_action = 记录阻断，不生成降级视频`；`forbidden_action = read_secret / local_tts_fallback / macos_say / silent_preview / technical_preview_as_delivery`。
+- `skill_used`：已读取并使用 `skills/视频素材解析_video_material_audit/SKILL.md` 复核第四期素材证据边界；`material_02` 与 `material_04` 均仍可读，2 秒解码抽样通过。
+- `TTS 状态`：`DASHSCOPE_API_KEY_present = false`、`ALIYUN_API_KEY_present = false`；既有脚本依赖本地 runtime config 的 `auth.api_key`，本轮按用户边界未读取该 secret，未调用远程 TTS。
+- `未生成`：未创建 `dist/fourth_episode_ai_review_system_publish_candidate/`，未生成 `full.mp4 / narration.wav / captions.srt / review pack / publish_candidate_checklist`，未用 JSON / route card 冒充完成。
+- `未推进`：`publish_candidate_ready_for_human_review = false`、`content_validation = pending_user_chatgpt_review_not_advanced`、`send_ready = false`、`current_data_goal_anchor_ready = false`、`voice_validation = pending_not_advanced`、`visual_master_locked = false`。
+- `未修改`：未覆盖 `dist/latest_review_pack/`，未提交原始视频素材。
+- `日志`：`codex_log/20260518_fourth_episode_ai_review_system_publish_candidate.md`
+
 ## 20260518｜第四期素材审计与项目内视频素材解析 skill
 
 - `已确认` 本轮先新增项目内可复用 skill：`skills/视频素材解析_video_material_audit/SKILL.md`，并补充模板与 README；后续命中素材录制 / 解析视频 / 素材审计 / 给 ChatGPT 写素材报告类任务时，必须优先读取并使用该 skill。

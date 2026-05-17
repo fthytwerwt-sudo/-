@@ -1,0 +1,53 @@
+{
+  "supply_request_id": "20260518_fourth_episode_publish_candidate_pre_supply_request",
+  "project_route": "video_factory",
+  "task_type": [
+    "video_sample_or_assembly",
+    "project_file_change",
+    "review_diagnosis_audit"
+  ],
+  "requested_delivery": "publish_candidate_ready_for_human_review",
+  "current_project_state": [
+    "formal_operation_active",
+    "publish_candidate_requested",
+    "current_data_goal_anchor_not_ready"
+  ],
+  "primary_inputs": [
+    "skills/视频素材解析_video_material_audit/SKILL.md",
+    "codex_log/material_audit/fourth_episode/20260518_fourth_episode_material_index.json",
+    "codex_log/material_audit/fourth_episode/20260518_fourth_episode_material_detail_report.md",
+    "codex_log/current_operation_target.md",
+    "codex_log/current_data_goal_anchor.md",
+    "GPT数据源/05_文案路由规则.md",
+    "review_loop/08_发布前平台风险检查_pre_publish_platform_risk_check.md"
+  ],
+  "deepseek_participation_report": {
+    "deepseek_actual_participation": false,
+    "fallback_status": "fallback_local_only",
+    "not_deepseek_conclusion": true,
+    "reason": "当前进程无 DEEPSEEK_API_KEY / DEEPSEEK_BASE_URL / DEEPSEEK_MODEL，且本轮不读取 secret，不调用未授权外部 API。"
+  },
+  "token_usage_expectation_check": {
+    "token_reduction_observed": false,
+    "may_claim_deepseek_deep_participation": false
+  },
+  "codex_local_findings": {
+    "material_02_readable": true,
+    "material_04_readable": true,
+    "remote_tts_process_env_available": false,
+    "formal_runtime_config_exists": true,
+    "formal_runtime_config_read": false,
+    "blocked_reason": "远程 TTS 需要授权；当前进程无 key，且用户禁止读取 API key / token / secret。"
+  },
+  "forbidden_actions": [
+    "read_env_or_secret_files",
+    "print_api_key",
+    "write_api_key",
+    "use_local_tts_fallback",
+    "use_macos_say",
+    "generate_silent_preview_as_delivery",
+    "advance_content_validation",
+    "advance_send_ready",
+    "advance_current_data_goal_anchor_ready"
+  ]
+}
