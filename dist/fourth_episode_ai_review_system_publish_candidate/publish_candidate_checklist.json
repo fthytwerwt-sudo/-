@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "publish_candidate_ready_for_human_review": true,
+  "technical_validation": "passed",
+  "audio_validation": "passed",
+  "subtitle_validation": "passed",
+  "line_level_visual_alignment": "passed",
+  "subtitle_card_overlap_check": "passed",
+  "platform_risk_precheck": "passed_low_risk_with_notes",
+  "privacy_risk_check": "passed_or_masked",
+  "review_pack_generated": true,
+  "resolution": "1920x1080",
+  "aspect_ratio": "16:9",
+  "content_validation": "pending_user_chatgpt_review",
+  "send_ready": false,
+  "current_data_goal_anchor_ready": false,
+  "visual_master_locked": false,
+  "voice_validation": "pending",
+  "source_videos_committed": false,
+  "local_tts_fallback_used": false,
+  "macos_say_used": false
+}

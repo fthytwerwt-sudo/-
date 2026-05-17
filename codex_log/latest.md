@@ -1,5 +1,20 @@
 # Latest
 
+## 20260518｜第四期 AI 短视频复盘系统发布候选片生成
+
+- `已确认` 本轮在用户明确授权阿里 / 百炼远程 TTS 后，使用 `authorized_runtime_config` 作为 TTS 授权来源；未打印、未写入、未提交 API key。
+- `route_decision（路由判断）`：`project_route = video_factory`；`task_type = video_sample_or_assembly + publish_candidate_delivery + TTS_authorization_unblock + project_file_change`；`large_task_gate = triggered`；`lane = audit_lane -> standard_lane`；`parallel = serial_only`；`execution_permission = conditional_execute_after_tts_auth_check -> executed`。
+- `state_action_router（状态动作总控器）`：`inferred_state = remote_tts_authorization_check_required_before_video_assembly`；`selected_action = 先做 TTS 授权安全检查，再生成完整发布候选正片`；`forbidden_action = local_tts_fallback / macOS say / silent preview / technical_preview_as_delivery / key_print_or_write`。
+- `skill_used`：本轮继续引用 `skills/视频素材解析_video_material_audit/SKILL.md`；第四期素材使用边界来自 `codex_log/material_audit/fourth_episode/20260518_fourth_episode_material_detail_report.md`。
+- `已生成` 完整发布候选片：`dist/fourth_episode_ai_review_system_publish_candidate/full.mp4`；规格 `1920x1080`、`16:9`、H.264、AAC 口播音轨、`mov_text` 字幕流、可解码。
+- `已生成` 口播音轨：`dist/fourth_episode_ai_review_system_publish_candidate/narration.wav`；`provider = aliyun_bailian`；`model = qwen3-tts-vc-realtime-2026-01-15`；`local_tts_fallback_used = false`；`macos_say_used = false`。
+- `已生成` 审片包与锚点文件：`summary.json`、`media_probe.json`、`review_manifest.md`、`publish_candidate_checklist.json`、`content_route_card_v2.json`、`script_to_timeline_map.json`、`tts_prosody_anchor_map.json`、`subtitle_card_overlap_check.json`、`platform_risk_precheck.json`、`privacy_risk_check.json`、`narration_tts_debug_sanitized.json`。
+- `素材使用`：已使用 `material_04 00:55-01:50` 开头证据、`material_02 00:20-01:50` 中段主体、`material_01 01:04-01:28` 结尾辅助；未使用 `material_03 00:30-00:55` 高隐私片段。
+- `验证`：JSON parse passed；`py_compile` passed；`ffprobe` passed；`ffmpeg decode` passed；音量检查非静音；抽帧 contact sheet 已人工目检；`secret_leak_scan_sanitized = passed`。
+- `状态边界`：`publish_candidate_ready_for_human_review = true`；`content_validation = pending_user_chatgpt_review`；`send_ready = false`；`current_data_goal_anchor_ready = false`；`visual_master_locked = false`；`voice_validation = pending`。
+- `未推进 / 未提交`：未覆盖 `dist/latest_review_pack/`；未提交原始素材视频；未生成正式下一条视频执行 prompt；未提交 runtime config 或任何 secret 文件。
+- `日志`：`codex_log/20260518_fourth_episode_ai_review_system_publish_candidate.md`
+
 ## 20260518｜第四期 AI 短视频复盘系统发布候选片阻断
 
 - `blocked_publish_candidate_unavailable`：本轮目标是直接生成 `publish_candidate_ready_for_human_review（可发布候选片，待人工复审）`，但当前进程没有远程 TTS 授权环境变量，且用户本轮禁止读取 `.env / API key / token / secret`。

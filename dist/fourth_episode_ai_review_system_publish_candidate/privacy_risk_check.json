@@ -1,0 +1,21 @@
+{
+  "status": "passed_or_masked",
+  "privacy_risk_level": "low_after_masking",
+  "material_03_used": false,
+  "privacy_masks_applied": true,
+  "mask_regions": [
+    {
+      "x": 0,
+      "y": 0,
+      "w": 1920,
+      "h": 86
+    },
+    {
+      "x": 0,
+      "y": 86,
+      "w": 310,
+      "h": 994
+    }
+  ],
+  "remaining_risk": "manual_review_required_for_screen_text_readability_and_any_account_names"
+}

@@ -1,0 +1,20 @@
+{
+  "status": "enforced",
+  "forbidden_visuals": [
+    {
+      "material": "material_03",
+      "timecode": "00:30-00:55",
+      "reason": "privacy_risk_high_from_material_audit",
+      "used": false
+    },
+    {
+      "visual": "API key / token / secret",
+      "used": false
+    },
+    {
+      "visual": "unmasked full local path / username",
+      "used": false,
+      "mitigation": "top and left privacy masks on source recordings"
+    }
+  ]
+}

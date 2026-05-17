@@ -1,0 +1,38 @@
+{
+  "status": "generated",
+  "card_count": 4,
+  "cards": [
+    {
+      "line_group_id": "lg_001",
+      "card_role": "judgment_card",
+      "card_text": "不是看数据\n是判断下一条只改哪里",
+      "timeline_slot": "00:00:00,000-00:00:06,440",
+      "density": "low",
+      "overlap_policy": "card main text kept above subtitle band"
+    },
+    {
+      "line_group_id": "lg_010",
+      "card_role": "process_summary_card",
+      "card_text": "配置 → 字段 → 截图入库\n文案记录 → 问题层 → 下一轮变量",
+      "timeline_slot": "00:00:49,240-00:00:57,520",
+      "density": "low",
+      "overlap_policy": "card main text kept above subtitle band"
+    },
+    {
+      "line_group_id": "lg_014",
+      "card_role": "boundary_card",
+      "card_text": "看不见：标缺失\n看不准：待确认\n不硬猜",
+      "timeline_slot": "00:01:17,240-00:01:23,440",
+      "density": "low",
+      "overlap_policy": "card main text kept above subtitle band"
+    },
+    {
+      "line_group_id": "lg_030",
+      "card_role": "ending_summary_card",
+      "card_text": "不是保证爆款\n是别再凭感觉乱改",
+      "timeline_slot": "00:02:49,960-00:02:54,300",
+      "density": "low",
+      "overlap_policy": "card main text kept above subtitle band"
+    }
+  ]
+}

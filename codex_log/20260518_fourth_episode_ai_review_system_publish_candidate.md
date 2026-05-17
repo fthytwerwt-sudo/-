@@ -1,4 +1,197 @@
-# 20260518｜第四期 AI 短视频复盘系统发布候选片阻断记录
+# 20260518｜第四期 AI 短视频复盘系统发布候选片生成记录
+
+## 0. 本轮 TTS 授权修复后完成记录
+
+```yaml
+status: publish_candidate_ready_for_human_review
+previous_blocked_commit: a06ef14
+previous_blocked_reason: remote_tts_authorization_unavailable_under_secret_read_ban
+tts_auth_source: authorized_runtime_config
+api_key_printed: false
+api_key_written: false
+secret_file_staged: false
+local_tts_fallback_used: false
+macos_say_used: false
+silent_video_generated: false
+technical_preview_as_delivery: false
+```
+
+本轮用户明确授权 Codex 为阿里 / 百炼远程 TTS 读取项目既有 runtime config 中的 `auth.api_key` 字段。Codex 只将授权来源记录为 `authorized_runtime_config`，未把 key 值写入任何 JSON、Markdown、debug 文件、prompt、日志或 Git 暂存内容。
+
+## 0.1 route_decision
+
+```yaml
+project_route: video_factory
+task_type:
+  - video_sample_or_assembly
+  - publish_candidate_delivery
+  - TTS_authorization_unblock
+  - project_file_change
+responsibility_layer:
+  - execution_layer
+  - validation_layer
+  - sync_layer
+current_project_state:
+  - formal_operation_active
+  - publish_candidate_requested
+  - remote_tts_authorized_for_this_turn
+execution_permission: conditional_execute_after_tts_auth_check -> executed
+large_task_gate:
+  triggered: true
+  reason: "本轮同时命中完整成片、远程 TTS、字幕、卡片、素材证据、审片包、平台风险、隐私风险和多文件验证。"
+lane_recommendation: "audit_lane -> standard_lane"
+parallel_recommendation: serial_only
+write_owner: "Codex Integrator only"
+not_allowed:
+  - "本地 TTS fallback"
+  - "macOS say"
+  - "无声视频"
+  - "技术预览冒充发布候选片"
+  - "打印 / 写入 / 提交 API key"
+  - "推进 content_validation / send_ready / current_data_goal_anchor ready / visual_master_locked / voice_validation"
+```
+
+## 0.2 state_action_router
+
+```yaml
+input_signal: "用户明确授权阿里 / 百炼远程 TTS，要求继续生成第四期完整发布候选正片。"
+current_project_state:
+  formal_operation: formal_operation_active
+  requested_delivery: publish_candidate_ready_for_human_review
+  data_goal_anchor_status: partial_data_recorded / not_ready
+fact_source_arbitration:
+  primary_source:
+    - "用户当轮 TTS 授权与 locked copy contract"
+    - "codex_log/material_audit/fourth_episode/20260518_fourth_episode_material_detail_report.md"
+    - "codex_log/material_audit/fourth_episode/20260518_fourth_episode_material_index.json"
+    - "codex_source/00_codex_readme.md"
+    - "codex_source/01_execution_rules.md"
+  secondary_sources:
+    - "codex_log/latest.md"
+    - "skills/视频素材解析_video_material_audit/SKILL.md"
+    - "codex_source/19_project_state_action_router.md"
+conflict_detected: true
+conflict_resolution: "本轮只授权 TTS 所需 key；不读取无关 secret，不推进 send_ready 或 content_validation passed。"
+inferred_state: remote_tts_authorization_check_required_before_video_assembly
+confidence: high
+selected_action: "使用授权远程 TTS 生成 narration.wav，并继续完成 full.mp4 / subtitles / cards / review pack / validation。"
+forbidden_action:
+  - "local_tts_fallback"
+  - "macOS say"
+  - "silent preview"
+  - "technical preview as delivery"
+  - "secret value logging"
+```
+
+## 0.3 tts_auth_check
+
+```yaml
+DASHSCOPE_API_KEY_present: false
+ALIYUN_API_KEY_present: false
+authorized_runtime_config_checked: true
+authorized_runtime_config_exists: true
+authorized_runtime_config_in_repo: false
+tts_auth_available: true
+tts_auth_source: authorized_runtime_config
+key_printed: false
+key_written: false
+secret_file_staged: false
+```
+
+## 0.4 full_video_output
+
+```yaml
+output_dir: "dist/fourth_episode_ai_review_system_publish_candidate/"
+full_mp4: "dist/fourth_episode_ai_review_system_publish_candidate/full.mp4"
+narration_wav: "dist/fourth_episode_ai_review_system_publish_candidate/narration.wav"
+captions_srt: "dist/fourth_episode_ai_review_system_publish_candidate/captions.srt"
+duration_seconds: 174.3
+resolution: "1920x1080"
+aspect_ratio: "16:9"
+video_codec: h264
+audio_codec: aac
+subtitle_codec: mov_text
+can_decode: true
+```
+
+## 0.5 material_usage
+
+```yaml
+skill_used: "skills/视频素材解析_video_material_audit/SKILL.md"
+opening_evidence: "material_04 00:55-01:50"
+middle_evidence: "material_02 00:20-01:50"
+ending_support: "material_01 01:04-01:28 + material_04 01:30-01:50"
+forbidden_default_segment: "material_03 00:30-00:55"
+privacy_mitigation: "source recording clips use top and left masks; material_03 high-risk segment not used"
+```
+
+## 0.6 files_created
+
+- `dist/fourth_episode_ai_review_system_publish_candidate/full.mp4`
+- `dist/fourth_episode_ai_review_system_publish_candidate/captions.srt`
+- `dist/fourth_episode_ai_review_system_publish_candidate/narration.wav`
+- `dist/fourth_episode_ai_review_system_publish_candidate/review_manifest.md`
+- `dist/fourth_episode_ai_review_system_publish_candidate/summary.json`
+- `dist/fourth_episode_ai_review_system_publish_candidate/media_probe.json`
+- `dist/fourth_episode_ai_review_system_publish_candidate/locked_copy_contract.json`
+- `dist/fourth_episode_ai_review_system_publish_candidate/content_route_card_v2.json`
+- `dist/fourth_episode_ai_review_system_publish_candidate/script_function_map.json`
+- `dist/fourth_episode_ai_review_system_publish_candidate/evidence_anchor_map.json`
+- `dist/fourth_episode_ai_review_system_publish_candidate/visual_anchor_map.json`
+- `dist/fourth_episode_ai_review_system_publish_candidate/tts_prosody_anchor_map.json`
+- `dist/fourth_episode_ai_review_system_publish_candidate/card_anchor_map.json`
+- `dist/fourth_episode_ai_review_system_publish_candidate/forbidden_visual_map.json`
+- `dist/fourth_episode_ai_review_system_publish_candidate/script_to_timeline_map.json`
+- `dist/fourth_episode_ai_review_system_publish_candidate/subtitle_card_overlap_check.json`
+- `dist/fourth_episode_ai_review_system_publish_candidate/publish_candidate_checklist.json`
+- `dist/fourth_episode_ai_review_system_publish_candidate/platform_risk_precheck.json`
+- `dist/fourth_episode_ai_review_system_publish_candidate/privacy_risk_check.json`
+- `dist/fourth_episode_ai_review_system_publish_candidate/narration_tts_debug_sanitized.json`
+- `dist/fourth_episode_ai_review_system_publish_candidate/secret_leak_scan_sanitized.json`
+- `dist/fourth_episode_ai_review_system_publish_candidate/cover_frame.png`
+- `dist/fourth_episode_ai_review_system_publish_candidate/mid_evidence_frame.png`
+- `dist/fourth_episode_ai_review_system_publish_candidate/validation_contact_sheet.jpg`
+- `scripts/生成第四期AI复盘系统发布候选片_generate_fourth_episode_ai_review_system_publish_candidate.py`
+
+## 0.7 verification_result
+
+```yaml
+json_parse: passed
+py_compile: passed
+ffprobe_full_mp4: passed
+ffmpeg_decode_full_mp4: passed
+resolution_check: passed_1920x1080
+aspect_ratio_check: passed_16_9
+audio_stream_check: passed
+subtitle_stream_check: passed
+narration_volume_check: "mean_volume=-16.1 dB; max_volume=-1.0 dB"
+subtitle_card_overlap_check: passed
+platform_risk_precheck: passed_low_risk_with_notes
+privacy_risk_check: passed_or_masked
+secret_leak_scan_sanitized: passed
+source_videos_staged: false
+```
+
+## 0.8 status_boundary
+
+```yaml
+publish_candidate_ready_for_human_review: true
+technical_validation: passed
+audio_validation: passed
+subtitle_validation: passed
+line_level_visual_alignment: passed
+content_validation: pending_user_chatgpt_review
+send_ready: false
+current_data_goal_anchor_ready: false
+visual_master_locked: false
+voice_validation: pending
+next_formal_video_execution_prompt_generated: false
+dist_latest_review_pack_updated: false
+```
+
+---
+
+# 上一轮阻断记录
 
 ## 1. route_decision
 

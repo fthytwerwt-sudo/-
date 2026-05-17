@@ -1,0 +1,15 @@
+{
+  "visual_policy": "screen_recording_evidence_first_with_low_density_cards",
+  "resolution": "1920x1080",
+  "aspect_ratio": "16:9",
+  "source_materials_used": [
+    "material_01",
+    "material_02",
+    "material_04"
+  ],
+  "privacy_masks": {
+    "top_px": 86,
+    "left_px": 310,
+    "applied_to_source_recordings": true
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "provider": "aliyun_bailian",
+  "purpose": "list_existing_custom_voices_only_no_create",
+  "tts_auth_source": "authorized_runtime_config",
+  "status_code": 200,
+  "elapsed_seconds": 0.395,
+  "request_id": "5581b764-8c63-9674-a244-34a95435ea3c",
+  "target_voice_masked": "qwen-t...ac19",
+  "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+  "voice_count": 5,
+  "matched_count": 1,
+  "api_key_printed": false,
+  "api_key_written": false,
+  "voices": [
+    {
+      "voice_masked": "qwen-t...af51",
+      "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+      "gmt_create": "2026-05-04 01:13:11"
+    },
+    {
+      "voice_masked": "qwen-t...ac19",
+      "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+      "gmt_create": "2026-04-26 23:54:54"
+    },
+    {
+      "voice_masked": "qwen-t...bb3b",
+      "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+      "gmt_create": "2026-04-26 23:16:03"
+    },
+    {
+      "voice_masked": "qwen-t...596a",
+      "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+      "gmt_create": "2026-04-26 23:14:06"
+    },
+    {
+      "voice_masked": "qwen-t...de43",
+      "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+      "gmt_create": "2026-04-26 01:33:33"
+    }
+  ]
+}

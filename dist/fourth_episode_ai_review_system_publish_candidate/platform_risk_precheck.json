@@ -1,0 +1,11 @@
+{
+  "status": "passed_low_risk_with_notes",
+  "platform_risk_level": "low",
+  "handled_risks": [
+    "没有写全自动 / 一键生成 / 无人值守 / 自动发布",
+    "Trae 仅作为同类 AI 编程工具举例",
+    "结尾保留不是保证爆款的边界",
+    "没有引导私信领取或站外跳转"
+  ],
+  "manual_review_notes": "公开视频前建议人工再看 Trae 句子是否需要更轻处理。"
+}

@@ -1,0 +1,23 @@
+{
+  "skill_used": "skills/视频素材解析_video_material_audit/SKILL.md",
+  "anchors": [
+    {
+      "anchor": "opening_evidence",
+      "material": "material_04",
+      "timecode": "00:55-01:30",
+      "value": "AI 没有直接写稿，而是先确认事实和方向。"
+    },
+    {
+      "anchor": "middle_evidence",
+      "material": "material_02",
+      "timecode": "00:20-01:50",
+      "value": "配置、字段、截图入库、文案记录、问题层和变量被拆成任务结构。"
+    },
+    {
+      "anchor": "ending_support",
+      "material": "material_01/material_04",
+      "timecode": "01:04-01:28 / 01:30-01:50",
+      "value": "结尾收束到先判断变量再做下一条。"
+    }
+  ]
+}

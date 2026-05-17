@@ -1,0 +1,36 @@
+{
+  "content_type": "AI 工作流实验 / 短视频复盘系统拆解",
+  "validation_goal": "生成发布候选正片，验证 AI 短视频复盘系统这个账号价值点是否更清楚",
+  "current_phase": "formal_operation_active",
+  "delivery_target": "publish_candidate_ready_for_human_review",
+  "opening_route_decision": "screen_first_opening + judgment_card",
+  "middle_carrier_decision": "material_02",
+  "evidence_plan": {
+    "opening_evidence": "material_04 00:55-01:30",
+    "middle_evidence": "material_02 00:20-01:50",
+    "ending_support": "material_01 01:04-01:28 + material_04 01:30-01:50",
+    "default_forbidden": "material_03 00:30-00:55"
+  },
+  "card_placement_decision": [
+    "lg_001",
+    "lg_010",
+    "lg_014",
+    "lg_030"
+  ],
+  "platform_risk_note": {
+    "handled_terms": [
+      "全自动",
+      "自动流",
+      "一键复制",
+      "直接拿去用",
+      "Trae 直接做出来"
+    ],
+    "public_wording": [
+      "搭第一版",
+      "通用提示词结构",
+      "可以改成自己的",
+      "不是保证爆款",
+      "别凭感觉乱改"
+    ]
+  }
+}

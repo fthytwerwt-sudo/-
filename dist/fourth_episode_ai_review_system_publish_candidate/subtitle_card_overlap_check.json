@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "high_severity_overlap": false,
+  "subtitle_band": "bottom centered band y=862..1040",
+  "source_recording_key_area_policy": "top toolbar and left sidebar masked; central evidence kept visible",
+  "card_policy": "low-density cards keep main text above subtitle band",
+  "blocked_if": "any subtitle/card covers key evidence or privacy mask fails"
+}

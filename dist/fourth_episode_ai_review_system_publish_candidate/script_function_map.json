@@ -1,0 +1,185 @@
+{
+  "script_function_map_version": "v1",
+  "groups": [
+    {
+      "line_group_id": "lg_001",
+      "narration_text": "我最近搭了一个 AI 短视频复盘系统。\n但它真正有用的地方，不是帮我做一张数据表。",
+      "function": "开头先立判断：系统价值不是数据表。",
+      "evidence_strength": "locked_opening"
+    },
+    {
+      "line_group_id": "lg_002",
+      "narration_text": "而是每条视频发完以后，它能逼我回答一个问题：\n下一条，到底只改哪里？",
+      "function": "用 material_04 开始证明 AI 先确认事实和方向。",
+      "evidence_strength": "high"
+    },
+    {
+      "line_group_id": "lg_003",
+      "narration_text": "以前我看数据，很容易乱。\n播放低，就怀疑选题。点赞少，就怀疑表达。",
+      "function": "说明旧复盘方式会误判变量。",
+      "evidence_strength": "medium"
+    },
+    {
+      "line_group_id": "lg_004",
+      "narration_text": "没人私信，就怀疑方向。\n但这样其实没用。",
+      "function": "继续压低误判问题。",
+      "evidence_strength": "medium"
+    },
+    {
+      "line_group_id": "lg_005",
+      "narration_text": "因为你每次都改一堆东西，下一条好了或者坏了，\n你也不知道到底是哪一步起作用。",
+      "function": "转入只改一个变量的必要性。",
+      "evidence_strength": "medium"
+    },
+    {
+      "line_group_id": "lg_006",
+      "narration_text": "所以我没有让 AI 直接给我一个复盘结论。\n我先让它把这个复盘系统拆开。",
+      "function": "把主题落到拆任务而不是先写文案。",
+      "evidence_strength": "high"
+    },
+    {
+      "line_group_id": "lg_007",
+      "narration_text": "第一步，是配置。\n你做什么平台，账号目标是什么，看 24 小时、72 小时，还是 7 天数据，",
+      "function": "进入 material_02 主体证据：配置层。",
+      "evidence_strength": "high"
+    },
+    {
+      "line_group_id": "lg_008",
+      "narration_text": "哪些指标算观察信号，这些先写成可以改的配置。",
+      "function": "证明系统不是写结论，而是配置观察信号。",
+      "evidence_strength": "high"
+    },
+    {
+      "line_group_id": "lg_009",
+      "narration_text": "第二步，是字段。\n一条视频发完以后，不是只记播放量。",
+      "function": "字段层：从单指标到多字段。",
+      "evidence_strength": "high"
+    },
+    {
+      "line_group_id": "lg_010",
+      "narration_text": "它要分开记：2 秒跳出，5 秒完播，平均观看，收藏，评论，主页访问，私信，有效咨询。",
+      "function": "展示字段清单，人话解释素材小字。",
+      "evidence_strength": "summary_card"
+    },
+    {
+      "line_group_id": "lg_011",
+      "narration_text": "第三步，是截图入库。\n现在我每次发完视频，不是自己重新开表格慢慢填。",
+      "function": "截图入库是当前脚本必须保留的用户确认结构。",
+      "evidence_strength": "high"
+    },
+    {
+      "line_group_id": "lg_012",
+      "narration_text": "我直接把后台截图丢给这个系统。\n它会先判断这是哪条视频，是 24 小时、72 小时，还是 7 天数据。",
+      "function": "突出截图进入系统后的判断流程。",
+      "evidence_strength": "high"
+    },
+    {
+      "line_group_id": "lg_013",
+      "narration_text": "然后把截图里的播放、跳出、完播、收藏、评论这些字段整理出来。",
+      "function": "字段提取和整理。",
+      "evidence_strength": "high"
+    },
+    {
+      "line_group_id": "lg_014",
+      "narration_text": "看不见的字段，它不会乱猜，会直接标成缺失。\n看不准的地方，也会标成待确认。",
+      "function": "边界卡：不硬猜，降低平台和事实风险。",
+      "evidence_strength": "boundary_card"
+    },
+    {
+      "line_group_id": "lg_015",
+      "narration_text": "这样我拿到的就不是一堆截图，而是一份可以复盘的记录。",
+      "function": "截图转可复盘记录。",
+      "evidence_strength": "high"
+    },
+    {
+      "line_group_id": "lg_016",
+      "narration_text": "第四步，是文案记录。\n每条视频原始文案要单独存下来。",
+      "function": "文案记录不是二次脑补。",
+      "evidence_strength": "high"
+    },
+    {
+      "line_group_id": "lg_017",
+      "narration_text": "不能今天改一版，明天又改一版，\n最后连当时发出去的原文是什么都找不到。",
+      "function": "解释为什么原始文案要留底。",
+      "evidence_strength": "medium"
+    },
+    {
+      "line_group_id": "lg_018",
+      "narration_text": "第五步，是问题层判断。\n数据不好，不能直接说这条废了。",
+      "function": "进入问题层判断。",
+      "evidence_strength": "medium"
+    },
+    {
+      "line_group_id": "lg_019",
+      "narration_text": "它要先判断问题出在哪一层：\n是标题封面没接住，是开头 5 秒没讲清，",
+      "function": "把问题层拆出来。",
+      "evidence_strength": "high"
+    },
+    {
+      "line_group_id": "lg_020",
+      "narration_text": "是中段证据不够，是结尾没有承接动作，\n还是平台风险让内容被误伤。",
+      "function": "补齐问题层并明确平台风险只作为可能层。",
+      "evidence_strength": "high"
+    },
+    {
+      "line_group_id": "lg_021",
+      "narration_text": "第六步，是下一轮变量。\n它最后不能给我十几个建议。",
+      "function": "进入下一轮变量，避免泛建议。",
+      "evidence_strength": "high"
+    },
+    {
+      "line_group_id": "lg_022",
+      "narration_text": "它只应该收成一句话：\n下一条先改哪个变量，改完看哪个指标。",
+      "function": "收束核心承诺：下一条只改一个变量。",
+      "evidence_strength": "high"
+    },
+    {
+      "line_group_id": "lg_023",
+      "narration_text": "比如改开头，就看 2 秒跳出、3 秒留存、5 秒完播。\n改中段，就看平均观看和完播。",
+      "function": "变量和指标绑定。",
+      "evidence_strength": "medium"
+    },
+    {
+      "line_group_id": "lg_024",
+      "narration_text": "改承接，就看收藏、评论、主页访问和私信。",
+      "function": "承接变量指标绑定。",
+      "evidence_strength": "medium"
+    },
+    {
+      "line_group_id": "lg_025",
+      "narration_text": "这个系统现在还不是最终版。\n但它已经解决了我以前最大的问题：",
+      "function": "结尾边界：不是最终版。",
+      "evidence_strength": "medium"
+    },
+    {
+      "line_group_id": "lg_026",
+      "narration_text": "我不是凭感觉做下一条了。\n每条视频发完，至少能留下一个可复盘、可修改、可验证的动作。",
+      "function": "账号价值收束。",
+      "evidence_strength": "medium"
+    },
+    {
+      "line_group_id": "lg_027",
+      "narration_text": "如果你也想做自己的短视频复盘系统，\n我把我这套整理成了通用版。",
+      "function": "轻 CTA，不引导私信。",
+      "evidence_strength": "medium"
+    },
+    {
+      "line_group_id": "lg_028",
+      "narration_text": "不是固定模板，而是一套可以改的提示词结构。\n你可以把自己的平台、账号目标、视频类型和指标填进去，",
+      "function": "弱化导流，强调可改结构。",
+      "evidence_strength": "medium"
+    },
+    {
+      "line_group_id": "lg_029",
+      "narration_text": "再交给 Trae 这类 AI 编程工具，\n先搭出一版自己的复盘系统。",
+      "function": "Trae 只作为同类工具举例，不写强导流。",
+      "evidence_strength": "medium"
+    },
+    {
+      "line_group_id": "lg_030",
+      "narration_text": "不是保证爆款。\n是先让你别再凭感觉乱改。",
+      "function": "结尾风险边界和最终判断。",
+      "evidence_strength": "locked_ending"
+    }
+  ]
+}
