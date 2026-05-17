@@ -1,0 +1,44 @@
+{
+  "request_id": "20260518_fourth_episode_material_audit_pre_supply_request",
+  "created_at_local_date": "2026-05-18",
+  "project_route": "video_factory",
+  "task_type": [
+    "mechanism_or_route_fix",
+    "project_file_change",
+    "review_diagnosis_audit",
+    "material_audit"
+  ],
+  "audit_goal": "Create and use the project-local video material audit skill before auditing the fourth episode source recordings.",
+  "material_root": "/Users/fan/Documents/视频工厂/素材录制/第四期",
+  "expected_material_count": 4,
+  "target_content_direction": "我用 AI 做视频，第一步不是写文案，而是拆任务",
+  "deepseek_supply_gate": {
+    "external_api_call_allowed": false,
+    "reason": "User explicitly forbids external API calls and secret reads in this task.",
+    "fallback_status": "fallback_local_only",
+    "not_deepseek_conclusion": true,
+    "token_usage_expectation_check": "no_token_reduction_expected_without_live_call"
+  },
+  "must_read_files": [
+    "AGENTS.md",
+    "codex_log/latest.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_log/current_operation_target.md",
+    "codex_log/current_data_goal_anchor.md",
+    "review_loop/operation_records_index.md",
+    "review_loop/copy_iteration/latest_copy_iteration_report.md",
+    "review_loop/decision_engine/final_user_operation_result.md",
+    "codex_log/material_audit/third_episode/20260517_third_episode_material_detail_report.md",
+    "review_loop/08_发布前平台风险检查_pre_publish_platform_risk_check.md",
+    "skills/视频素材解析_video_material_audit/SKILL.md"
+  ],
+  "status_boundary": {
+    "content_validation_advanced": false,
+    "send_ready_advanced": false,
+    "publish_candidate_advanced": false,
+    "current_data_goal_anchor_ready_advanced": false,
+    "next_formal_video_execution_prompt_generated": false
+  }
+}

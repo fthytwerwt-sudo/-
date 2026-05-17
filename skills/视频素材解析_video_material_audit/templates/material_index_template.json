@@ -1,0 +1,36 @@
+{
+  "audit_id": "",
+  "skill_used": "skills/视频素材解析_video_material_audit/SKILL.md",
+  "material_root": "",
+  "material_count_expected": null,
+  "material_count_found": 0,
+  "materials": [
+    {
+      "material_id": "material_01",
+      "file_name": "",
+      "source_path": "",
+      "file_size_bytes": 0,
+      "duration": "",
+      "resolution": "",
+      "aspect_ratio": "",
+      "fps": "",
+      "codec": "",
+      "audio_present": false,
+      "decodable": false,
+      "technical_status": "",
+      "contact_sheet_path": "",
+      "role_guess": "",
+      "best_use": "",
+      "platform_risk_level": "",
+      "privacy_risk_level": ""
+    }
+  ],
+  "status_boundary": {
+    "content_validation_advanced": false,
+    "send_ready_advanced": false,
+    "publish_candidate_advanced": false,
+    "current_data_goal_anchor_ready_advanced": false,
+    "next_formal_video_execution_prompt_generated": false,
+    "source_media_committed": false
+  }
+}

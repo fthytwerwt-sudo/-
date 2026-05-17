@@ -1,0 +1,63 @@
+{
+  "fixture_id": "deepseek_deep_file_supply_cases_v1",
+  "created_at": "2026-05-17",
+  "project_route": "video_factory",
+  "purpose": "Validate DeepSeek deep file supply mode, mid-task incremental supply, and fallback truth boundary.",
+  "cases": [
+    {
+      "case_id": "case_1_deep_file_prefetch_success",
+      "trigger": {
+        "trigger_reason": "mandatory_pre_supply",
+        "deep_supply_mode": {
+          "enabled": true,
+          "mode": [
+            "deep_file_prefetch",
+            "mid_task_incremental_supply",
+            "post_risk_review"
+          ]
+        },
+        "fallback_local_only": false
+      },
+      "expected": {
+        "relevant_file_bundle_exists": true,
+        "exact_snippet_pack_exists": true,
+        "dependency_map_exists": true,
+        "codex_next_input_exists": true,
+        "fallback_local_only": false,
+        "deepseek_depth_validation_status": "passed_contract_level"
+      }
+    },
+    {
+      "case_id": "case_2_mid_task_incremental_supply_required",
+      "trigger": {
+        "trigger_reason": "mid_task_incremental_supply",
+        "codex_discovers": [
+          "conflict_or_uncertain_files",
+          "missing_dependency",
+          "failed_validation_logs"
+        ]
+      },
+      "expected": {
+        "incremental_supply_request_exists": true,
+        "risk_delta_report_exists": true,
+        "exact_snippet_pack_exists": true,
+        "codex_next_input_blocks_blind_continue": true,
+        "completion_status_if_not_run": "partial_completed_or_blocked"
+      }
+    },
+    {
+      "case_id": "case_3_fallback_not_deep_participation",
+      "trigger": {
+        "deepseek_unavailable": true,
+        "fallback_local_only": true,
+        "user_required_deepseek": true
+      },
+      "expected": {
+        "not_deepseek_conclusion": true,
+        "completed": false,
+        "completion_status": "blocked_or_deepseek_not_deeply_participated",
+        "deepseek_actual_participation_must_not_equal": "deepseek_passed"
+      }
+    }
+  ]
+}

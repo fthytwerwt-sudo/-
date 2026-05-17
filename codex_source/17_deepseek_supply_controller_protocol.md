@@ -67,6 +67,7 @@ Codex route_decision（路由判断）
 7. `user_explicit_deepseek（用户明确要求 DeepSeek 参与）`
 8. `mandatory_pre_supply（强制执行前供料）`
 9. `mandatory_post_risk_review（强制执行后风险复核）`
+10. `mid_task_incremental_supply（任务中增量供料）`
 
 触发 controller 不等于自动通过 DeepSeek 生成；controller 必须如实记录供料来源。
 
@@ -103,6 +104,114 @@ redact_stdout_stderr: true
 
 DeepSeek 每次只做一个小动作，不能一次吞掉完整项目任务。
 
+### 3A. DeepSeek deep file supply mode（DeepSeek 深度文件供料模式）
+
+`DeepSeek deep file supply mode（DeepSeek 深度文件供料模式）` 是 `mandatory_deepseek_supply_loop（强制 DeepSeek 供料循环）` 的默认升级形态。
+
+目的：
+
+让 DeepSeek 从轻量文件地图供料升级为深度文件内容供料。DeepSeek 负责先读 / 接收任务相关文件内容，持续给 Codex 提供上下文、关键片段、冲突提醒和执行建议。Codex 负责最小必要复核、写入、验证、日志和 Git 收尾。
+
+默认链路：
+
+```text
+route_decision
+-> create_supply_request
+-> deep_file_prefetch
+-> relevant_file_bundle
+-> exact_snippet_pack
+-> dependency_map
+-> risk_and_conflict_report
+-> codex_next_input
+-> Codex child_task_graph
+-> mid_task_incremental_supply
+-> Codex write / validate
+-> post_risk_review
+-> completion_truth_check
+```
+
+角色边界：
+
+- DeepSeek 只读，不写文件，不 commit，不 push，不拍板项目事实。
+- Codex 是唯一写入执行层。
+- Codex 不再默认全仓深读。
+- Codex 必须复核 `will_modify_files（本轮要修改的文件）`、`conflict_or_uncertain_files（DeepSeek 标记冲突 / 不确定的文件）`、`validation_failed_files（验证失败后关联文件）` 和 `safety_sensitive_files（安全敏感文件）`。
+- 若 DeepSeek 供料与仓库原文件冲突，以 Codex 对目标文件的复核为准，并记录冲突。
+- 若用户明确要求 DeepSeek 深度参与，但本轮只有 `fallback_local_only（本地兜底）` 或未真实调用，完成状态只能是 `blocked（阻断）` 或 `deepseek_not_deeply_participated（DeepSeek 未深度参与）`，不得写 `completed（已完成）`。
+
+安全实现：
+
+- 如果安全架构不允许模型直接访问本地文件系统，controller / safe runner 只能在允许范围内读取文本文件内容。
+- 文件内容以 `relevant_file_bundle（相关文件内容包）` 和 `exact_snippet_pack（关键原文片段包）` 形式传入 DeepSeek 或写入供料包。
+- `.env`、API key、token、secret、媒体文件、`.git/` 和 `dist/latest_review_pack/` 仍默认禁止读取。
+
+DeepSeek 输出包在原有 `file_map / risk_report / context_summary` 之外，必须稳定保留：
+
+```text
+relevant_file_bundle:
+  - path
+  - file_role
+  - why_relevant
+  - content_excerpt
+  - excerpt_range_or_marker
+  - confidence
+
+exact_snippet_pack:
+  - path
+  - snippet
+  - why_it_matters
+  - codex_should_use_for
+  - risk_if_ignored
+
+dependency_map:
+  - source_file
+  - depends_on
+  - dependency_type
+  - impact
+
+missing_or_uncertain_files:
+  - path_or_query
+  - reason
+  - blocked_if_missing
+```
+
+### 3B. mid_task_incremental_supply（任务中增量供料）
+
+`mid_task_incremental_supply（任务中增量供料）` 用来防止 DeepSeek 只在执行前供料一次。
+
+触发条件：
+
+```text
+mid_task_incremental_supply_trigger:
+  - Codex 发现新文件依赖
+  - Codex 不确定某字段来源
+  - Codex 准备修改多个机制入口
+  - Codex 遇到测试失败
+  - Codex 发现旧口径残留
+  - Codex 发现 DeepSeek 供料和原文件冲突
+  - Codex 执行超过一个 child_task 后上下文不足
+```
+
+动作：
+
+```text
+mid_task_incremental_supply_action:
+  - 创建 incremental_supply_request
+  - 传入当前 child_task、已读文件、待改文件、冲突点、失败日志
+  - DeepSeek 返回 exact_snippet_pack、risk_delta_report、codex_next_input
+  - Codex 再继续执行
+```
+
+硬规则：
+
+```text
+if task_is_large and only_pre_supply_exists:
+  deepseek_depth_validation = failed_insufficient_depth
+
+if mid_task_incremental_supply_required but not_run:
+  completion_status = partial_completed_or_blocked
+```
+
 controller 当前支持完整 `execution_supply_pack family（执行供料包族）`：
 
 1. `file_map（文件地图）`
@@ -131,7 +240,7 @@ controller 当前支持完整 `execution_supply_pack family（执行供料包族
 
 Codex 后续执行仍必须复核原文件；供料包只是输入，不是最终判断。
 
-### 3A. `execution_supply_pack family（执行供料包族）`
+### 3C. `execution_supply_pack family（执行供料包族）`
 
 `execution_supply_pack family（执行供料包族）` 用来承接“最终文案进入执行后”的全链路供料。标准链路是：
 
@@ -260,7 +369,7 @@ assembly_decision_pack:
   blocked_if:
 ```
 
-### 3B. `editing_decision_pack（剪辑决策包）`
+### 3D. `editing_decision_pack（剪辑决策包）`
 
 `editing_decision_pack（剪辑决策包）` 专门回答视频执行现场的剪辑判断问题：
 

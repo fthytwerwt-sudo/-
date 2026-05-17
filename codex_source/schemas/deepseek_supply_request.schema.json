@@ -74,6 +74,7 @@
       "enum": [
         "mandatory_pre_supply",
         "mandatory_post_risk_review",
+        "mid_task_incremental_supply",
         "missing_context",
         "rule_conflict",
         "stale_context_risk",
@@ -220,6 +221,166 @@
     "current_step": {
       "type": "string",
       "minLength": 1
+    },
+    "deep_supply_mode": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "mode": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "deep_file_prefetch",
+              "mid_task_incremental_supply",
+              "post_risk_review"
+            ]
+          }
+        }
+      }
+    },
+    "file_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "candidate_files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "must_prefetch_files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "optional_prefetch_files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "forbidden_files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "secret_files_forbidden": {
+          "type": "boolean",
+          "const": true
+        }
+      }
+    },
+    "content_loading_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "include_file_content": {
+          "type": "boolean"
+        },
+        "include_exact_snippets": {
+          "type": "boolean"
+        },
+        "max_file_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_chars_per_file": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_total_chars": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "truncate_policy": {
+          "type": "string"
+        },
+        "redaction_policy": {
+          "type": "string"
+        }
+      }
+    },
+    "codex_minimal_review_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "codex_must_review": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "will_modify_files",
+              "conflict_or_uncertain_files",
+              "validation_failed_files",
+              "safety_sensitive_files",
+              "files_with_low_confidence_supply",
+              "files_required_by_tests_or_schema"
+            ]
+          }
+        },
+        "codex_should_not_default_deep_read_all": {
+          "type": "boolean",
+          "const": true
+        }
+      }
+    },
+    "output_required": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "relevant_file_bundle",
+          "exact_snippet_pack",
+          "dependency_map",
+          "risk_and_conflict_report",
+          "missing_or_uncertain_files",
+          "codex_next_input",
+          "token_usage_expectation_check"
+        ]
+      }
+    },
+    "will_modify_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "conflict_or_uncertain_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "validation_failed_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "safety_sensitive_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "incremental_supply_request": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "mid_task_incremental_supply_trigger": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "mid_task_incremental_supply_action": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     },
     "known_context": {
       "type": "array",

@@ -1,0 +1,168 @@
+{
+  "request_id": "fixture_deepseek_deep_file_supply_request_example",
+  "created_at": "2026-05-17T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "fixture_deepseek_deep_file_supply_mode",
+  "task_type": "mechanism_or_route_fix",
+  "project_stage": "formal_operation_active",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "context_summary",
+  "mandatory_for_every_task": true,
+  "participation_level": "mandatory_by_default",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "Validate deep file supply request fields without requiring a live DeepSeek call.",
+  "current_step": "fixture validation for deep_file_prefetch fields and fallback truth boundary.",
+  "known_context": [
+    "DeepSeek is readonly supply.",
+    "Codex is the only write integrator.",
+    "Fallback local output must not be labeled as a DeepSeek conclusion."
+  ],
+  "missing_context": [
+    "Whether controller preserves relevant_file_bundle and exact_snippet_pack in fallback mode."
+  ],
+  "decision_needed": "Return a supply pack that keeps deep file supply fields and fallback provenance.",
+  "candidate_files": [
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md",
+    "codex_source/schemas/deepseek_supply_request.schema.json",
+    "scripts/deepseek_supply_controller.py"
+  ],
+  "must_read_files": [
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md",
+    "codex_source/schemas/deepseek_supply_request.schema.json"
+  ],
+  "optional_files": [
+    "scripts/deepseek_supply_controller.py"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "*.mp4",
+    "*.mov",
+    "*.mp3",
+    "*.wav",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.gif",
+    "*.webp"
+  ],
+  "max_context_files": 6,
+  "max_context_chars": 24000,
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "deep_file_prefetch",
+      "mid_task_incremental_supply",
+      "post_risk_review"
+    ]
+  },
+  "file_scope": {
+    "candidate_files": [
+      "codex_source/17_deepseek_supply_controller_protocol.md",
+      "codex_source/18_deepseek_supply_request_schema.md",
+      "codex_source/schemas/deepseek_supply_request.schema.json",
+      "scripts/deepseek_supply_controller.py"
+    ],
+    "must_prefetch_files": [
+      "codex_source/17_deepseek_supply_controller_protocol.md",
+      "codex_source/18_deepseek_supply_request_schema.md"
+    ],
+    "optional_prefetch_files": [
+      "codex_source/schemas/deepseek_supply_request.schema.json",
+      "scripts/deepseek_supply_controller.py"
+    ],
+    "forbidden_files": [
+      ".env",
+      ".env.local",
+      "dist/latest_review_pack/"
+    ],
+    "secret_files_forbidden": true
+  },
+  "content_loading_policy": {
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 6,
+    "max_chars_per_file": 4000,
+    "max_total_chars": 24000,
+    "truncate_policy": "headings_and_relevant_lines_first",
+    "redaction_policy": "never_include_api_key_or_secret"
+  },
+  "codex_minimal_review_policy": {
+    "codex_must_review": [
+      "will_modify_files",
+      "conflict_or_uncertain_files",
+      "validation_failed_files",
+      "safety_sensitive_files"
+    ],
+    "codex_should_not_default_deep_read_all": true
+  },
+  "will_modify_files": [
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md"
+  ],
+  "conflict_or_uncertain_files": [],
+  "validation_failed_files": [],
+  "safety_sensitive_files": [
+    "scripts/deepseek_supply_controller.py"
+  ],
+  "output_required": [
+    "relevant_file_bundle",
+    "exact_snippet_pack",
+    "dependency_map",
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "token_usage_expectation_check"
+  ],
+  "expected_output": [
+    "relevant_file_bundle",
+    "exact_snippet_pack",
+    "dependency_map",
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "token_usage_expectation_check"
+  ],
+  "output_format": "deepseek_supply_pack_json_and_markdown",
+  "codex_next_input": "Codex should verify the controller preserves deep supply fields and does not mislabel fallback as DeepSeek participation.",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_supply_controller/deep_file_supply_fixture_validation",
+    "pack_md": "dist/deepseek_supply_controller/deep_file_supply_fixture_validation/latest_supply_pack.md",
+    "pack_json": "dist/deepseek_supply_controller/deep_file_supply_fixture_validation/latest_supply_pack.json",
+    "manifest": "dist/deepseek_supply_controller/deep_file_supply_fixture_validation/latest_supply_manifest.json"
+  },
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback_local_only 本地兜底写成 DeepSeek 结论。",
+    "不得写 multi-agent runtime 多 agent 运行时已跑通。",
+    "DeepSeek token 未观察到减少时不得写 DeepSeek 已深度参与。",
+    "Codex 不得凭主观判断跳过 DeepSeek 供料闸门。",
+    "不得读取 .env、API key、token、secret 或媒体文件。"
+  ],
+  "stop_condition": "controller writes a supply pack with deep supply fields and fallback provenance.",
+  "blocked_if": [
+    "candidate file matches forbidden path",
+    "fallback is labeled as deepseek_passed",
+    "deep supply fields are dropped"
+  ],
+  "fallback_policy": "Fallback is allowed for fixture validation only and must remain not_deepseek_conclusion.",
+  "requires_real_deepseek_participation": false,
+  "allow_process_env_api_key": false,
+  "disable_env_file": true,
+  "safe_deepseek_process_env_test": false,
+  "deepseek_readiness_check_required": true
+}

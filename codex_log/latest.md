@@ -1,5 +1,19 @@
 # Latest
 
+## 20260518｜第四期素材审计与项目内视频素材解析 skill
+
+- `已确认` 本轮先新增项目内可复用 skill：`skills/视频素材解析_video_material_audit/SKILL.md`，并补充模板与 README；后续命中素材录制 / 解析视频 / 素材审计 / 给 ChatGPT 写素材报告类任务时，必须优先读取并使用该 skill。
+- `已确认` 已最小同步入口：`codex_source/00_codex_readme.md`、`codex_source/01_execution_rules.md`、`codex_source/19_project_state_action_router.md`；未读取或未实际使用该 skill，不得把素材审计写成 `completed（已完成）`。
+- `route_decision（路由判断）`：`project_route = video_factory`；`task_type = mechanism_or_route_fix + project_file_change + review_diagnosis_audit + material_audit`；`large_task_gate = triggered`；`lane = audit_lane -> standard_lane`；`parallel = serial_only`；`execution_permission = audit_only`。
+- `DeepSeek`：本轮用户明确禁止外部 API / secret 读取；已创建本地供料请求卡 `codex_log/supply_requests/20260518_fourth_episode_material_audit_pre_supply_request.json`，口径为 `fallback_local_only`、`not_deepseek_conclusion = true`，未写成 DeepSeek 真实参与。
+- `已确认` 第四期素材目录命中 `/Users/fan/Documents/视频工厂/素材录制/第四期`，共 4 个 `.mp4` 素材；4 个素材均 `ffprobe` 可读、`ffmpeg` 可解码、H.264、30fps、无音轨。
+- `已生成` 素材索引：`codex_log/material_audit/fourth_episode/20260518_fourth_episode_material_index.json`。
+- `已生成` ChatGPT 可读素材细节报告：`codex_log/material_audit/fourth_episode/20260518_fourth_episode_material_detail_report.md`，报告中已标明 `skill_used = skills/视频素材解析_video_material_audit/SKILL.md`。
+- `素材判断`：`material_02` 最适合作为主素材，证明从 prompt 拆成配置、字段、模板、报告和验收标准；`material_04 00:55-01:30` 最适合作为开头证据，直接支撑“一句糊话变执行单”；`material_03 00:30-00:55` 隐私风险最高，不建议未打码公开使用。
+- `部分成立` 第四期素材能支撑下一条从“数据复盘能力”转向“真实 AI 工作流实验”；但 `待验证` 仍不能证明 AI 已经自动做完整条视频、商业闭环成立或正式执行 ready。
+- `未推进`：未生成最终文案、未生成新视频、未生成正式下一条视频执行 prompt、未推进 `content_validation / send_ready / publish_candidate / current_data_goal_anchor ready`、未提交原始视频素材。
+- `日志`：`codex_log/20260518_fourth_episode_material_audit.md`
+
 ## 20260517｜V004 interim_17h 数据与文案补录
 
 - `已确认` 本轮在 V002 未提交补录基础上继续串行执行 V004 记录；最终计划 V002 + V004 统一 commit / push。
@@ -33,6 +47,29 @@
 - `文案迭代系统`：已重跑 `scripts/文案迭代决策系统_copy_iteration_decision_system.py`；系统现在登记 V002 + V003 两条 copy records，V003 当前低置信度准备口径不变。
 - `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`current_data_goal_anchor ready`、`publish_status_success（发布成功口径）`、`voice_validation（声音验证）`、`visual_master_locked（视觉母版锁定）`；未生成正式下一条视频执行 prompt。
 - `日志`：`codex_log/20260517_V002_copy_and_metric_backfill.md`
+
+## 20260517｜DeepSeek deep file supply mode 深度文件供料机制升级
+
+- `已确认` 本轮只做 DeepSeek 供料机制、Codex 执行规则、schema / fixture / request / controller / 日志升级；不生成新视频，不修改已发布视频，不推进视频状态。
+- `route_decision（路由判断）`：`project_route = video_factory`；`task_type = mechanism_or_route_fix + project_file_change + code_debug + validation_layer_sync`；`large_task_gate = triggered`；`lane = audit_lane -> standard_lane`；`parallel = serial_only`；`write_owner = Codex Integrator only`。
+- `state_action_router（项目状态动作总控器）`：`input_signal = 用户要求 DeepSeek 深度参与并直接帮 Codex 读取任务相关文件内容`；`inferred_state = deepseek_deep_file_supply_required + codex_vertical_completion_missing`；`selected_action = 更新机制、执行规则、controller、schema、fixtures、supply requests、日志和验证链`。
+- `impact_check_report（影响面检查）`：当前 DeepSeek 链路包含 `scripts/deepseek_supply_controller.py`、`scripts/deepseek_readonly_explorer.py`、`scripts/DeepSeek安全供料运行器_deepseek_safe_supply_runner.py`、`scripts/DeepSeek运行时供应商_deepseek_runtime_provider.py`、`codex_source/17`、`codex_source/18`、`codex_source/schemas/deepseek_supply_request.schema.json`、`codex_source/fixtures/*` 和 `codex_log/supply_requests/*`；旧机制已有 pre / post risk review，但缺内容级 `relevant_file_bundle / exact_snippet_pack` 和一等 `mid_task_incremental_supply` 字段。
+- `已接入` `DeepSeek deep file supply mode（DeepSeek 深度文件供料模式）`：默认链路为 `route_decision -> create_supply_request -> deep_file_prefetch -> relevant_file_bundle -> exact_snippet_pack -> dependency_map -> risk_and_conflict_report -> codex_next_input -> mid_task_incremental_supply -> post_risk_review -> completion_truth_check`。
+- `已接入` `Codex minimal review policy（Codex 最小必要复核策略）`：Codex 不再默认全仓深读，但必须复核 `will_modify_files`、`conflict_or_uncertain_files`、`validation_failed_files`、`safety_sensitive_files`、schema / tests 依赖文件和 runtime safety 文件。
+- `已更新` controller：`scripts/deepseek_supply_controller.py` 支持 `deep_supply_mode`、嵌套 `file_scope`、`content_loading_policy`、`codex_minimal_review_policy`、`incremental_supply_request`，并把 `relevant_file_bundle`、`exact_snippet_pack`、`dependency_map`、`risk_delta_report`、`missing_or_uncertain_files` 写入 supply pack / manifest / markdown。
+- `已更新` schema / docs：`codex_source/schemas/deepseek_supply_request.schema.json`、`codex_source/17_deepseek_supply_controller_protocol.md`、`codex_source/18_deepseek_supply_request_schema.md`、`codex_source/00_codex_readme.md`、`codex_source/01_execution_rules.md`、`codex_source/19_project_state_action_router.md`、`GPT数据源/01`、`08`、`10`、`11`。
+- `已新增` fixtures：`codex_source/fixtures/DeepSeek深度文件供料_deep_file_supply_cases.json` 覆盖 `case_1_deep_file_prefetch_success`、`case_2_mid_task_incremental_supply_required`、`case_3_fallback_not_deep_participation`；`codex_source/fixtures/DeepSeek深度文件供料_deep_file_supply_request_example.json` 可用于 controller fallback truth 验证。
+- `已新增 / 更新` supply requests：`codex_log/supply_requests/20260517_deepseek_deep_file_supply_mode_pre_supply_request.json`、`20260517_deepseek_deep_file_supply_mode_mid_task_incremental_supply_request.json`、`20260517_deepseek_deep_file_supply_mode_post_risk_review_request.json`。
+- `DeepSeek real-call validation`：pre / mid / post 三次通过 `scripts/DeepSeek安全供料运行器_deepseek_safe_supply_runner.py`，均为 `deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`env_file_read = false`、`api_key_printed = false`、`api_key_written = false`；输出目录分别为 `dist/deepseek_supply_controller/deep_file_supply_mode_pre_supply/`、`deep_file_supply_mode_mid_task/`、`deep_file_supply_mode_post_risk_review/`。
+- `field preservation validation`：pre pack 含 `relevant_file_bundle = 10`、`exact_snippet_pack = 11`、`dependency_map = 10`；mid pack 含 `relevant_file_bundle = 10`、`exact_snippet_pack = 11`、`dependency_map = 10`；post pack 含 `relevant_file_bundle = 9`、`exact_snippet_pack = 10`、`dependency_map = 9`，且 `post_risk_review = true`。
+- `fallback truth validation`：fixture controller run 输出 `supply_source = fallback_local_only`、`not_deepseek_conclusion = true`，同时仍保留 `relevant_file_bundle / exact_snippet_pack / dependency_map`；fallback 未被误写成 DeepSeek 真实参与。
+- `completion_truth_check`：`failed_insufficient_depth` 和 `failed_deepseek_not_deeply_participated` 两个负例断言通过；能识别 deep supply 不足和用户要求 DeepSeek 但只有 fallback 的情况。
+- `验证`：`python3 -m py_compile scripts/*.py` passed；8 个 JSON parse passed；schema 新字段存在且 `mid_task_incremental_supply` 在 enum 中；fixture controller run passed；pre / mid / post safe runner real call passed；`git diff --check` passed。
+- `GPT Project 上传包`：`not_generated（未生成）`；本轮只是机制文件、脚本、schema、fixture 和日志变更，没有伪装成 UI / GPT Project 上传已同步。
+- `未推进`：`content_validation（内容验证）`、`send_ready（可发送状态）`、`publish_status_success（发布成功口径）`、`voice_validation（声音验证）`、`final_voice_validated（最终声音验证）`、`visual_master_locked（视觉母版锁定）`。
+- `待验证`：本轮证明机制接线和本地三次真实调用通过；DeepSeek 深度文件供料在后续独立 Codex 会话、更多任务类型、长期 token 递减和 post risk review 稳定性仍需继续验证，不能写成长期稳定已验证或 multi-agent runtime 已跑通。
+- `日志`：`codex_log/20260517_DeepSeek深度文件供料闸门_deepseek_deep_file_supply_gate.md`
+- `下一个目标`：后续所有大型 / 多文件 / DeepSeek 明确参与任务，默认使用 deep file supply request，并在执行中触发 `mid_task_incremental_supply`；Codex 只做最小必要复核、写入、验证和收尾。
 
 ## 20260517｜V003 post_72h_pre_7d 数据录入与账号诊断记录
 

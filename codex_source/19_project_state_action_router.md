@@ -117,6 +117,15 @@ if state = mechanism_repair_needed:
 if state = deepseek_supply_required:
   action = create_supply_request, run_deepseek_pre_supply, and read supply pack before file modification
 
+if state = deepseek_deep_file_supply_required:
+  action = create_supply_request with deep_supply_mode enabled, run deep_file_prefetch, require relevant_file_bundle / exact_snippet_pack / dependency_map / risk_and_conflict_report / codex_next_input, then let Codex continue with minimal necessary review
+
+if state = deepseek_mid_task_incremental_supply_required:
+  action = create incremental_supply_request with current_child_task, files_already_read, will_modify_files, conflict_points, and failed_validation_logs; run mid_task_incremental_supply before continuing
+
+if state = deepseek_not_deeply_participated:
+  action = mark blocked or deepseek_not_deeply_participated when user required deep participation but DeepSeek real call, relevant_file_bundle, exact_snippet_pack, or mid-task/post risk supply is missing
+
 if state = deepseek_pre_supply_missing:
   action = run_deepseek_pre_supply or mark fallback_local_only / blocked before write
 
@@ -155,6 +164,12 @@ if state = copy_iteration_system_required:
 
 if state = copy_version_record_missing:
   action = create review_loop/copy_iteration registry, raw copy record, copy quality notes, suspected typos, structure map, and data links; preserve raw copy exactly
+
+if state = material_audit_needed:
+  action = read skills/视频素材解析_video_material_audit/SKILL.md, run video material audit only, generate material_index / material_detail_report / timecode map / evidence and risk judgment, and do not generate final copy or video
+
+if input_signal includes 素材录制 / 录制素材 / 解析视频 / 素材审计 / 第几期素材 / 给 ChatGPT 写素材报告:
+  action = require project video_material_audit skill, keep status_boundary unchanged, and block completion if only file existence or metadata is reported without timecode-level content analysis
 
 if state = next_copy_revision_brief_required:
   action = generate V003_next_copy_revision_brief for ChatGPT only; do not generate formal next video execution prompt, and keep target audience / topic direction unchanged

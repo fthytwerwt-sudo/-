@@ -39,6 +39,7 @@ EXECUTION_SUPPLY_ACTIONS = {
 ALLOWED_TRIGGER_REASONS = {
     "mandatory_pre_supply",
     "mandatory_post_risk_review",
+    "mid_task_incremental_supply",
     "missing_context",
     "rule_conflict",
     "stale_context_risk",
@@ -160,6 +161,16 @@ EXECUTION_SUPPLY_OUTPUT_KEYS = {
     "image_prompt_pack": "image_prompt_pack",
     "asset_validation_pack": "asset_validation_pack",
     "assembly_decision_pack": "assembly_decision_pack",
+}
+DEEP_SUPPLY_MODE_VALUES = {
+    "deep_file_prefetch",
+    "mid_task_incremental_supply",
+    "post_risk_review",
+}
+DEFAULT_DEEP_CONTENT_POLICY = {
+    "max_file_count": 8,
+    "max_chars_per_file": 1200,
+    "max_total_chars": 12000,
 }
 
 
@@ -364,12 +375,21 @@ def ordered_unique(values: list[str]) -> list[str]:
 
 
 def context_files_from_request(card: dict[str, Any]) -> list[str]:
-    max_context_files = card.get("max_context_files", 8)
+    content_policy = card.get("content_loading_policy")
+    if not isinstance(content_policy, dict):
+        content_policy = {}
+    file_scope = card.get("file_scope")
+    if not isinstance(file_scope, dict):
+        file_scope = {}
+    max_context_files = content_policy.get("max_file_count", card.get("max_context_files", 8))
     if not isinstance(max_context_files, int) or max_context_files < 1:
         raise ValueError("request_invalid_max_context_files")
     raw_files = ordered_unique(
-        ensure_string_list(card.get("must_read_files"), "must_read_files")
+        ensure_string_list(file_scope.get("must_prefetch_files"), "file_scope.must_prefetch_files")
+        + ensure_string_list(card.get("must_read_files"), "must_read_files")
+        + ensure_string_list(file_scope.get("candidate_files"), "file_scope.candidate_files")
         + ensure_string_list(card.get("candidate_files"), "candidate_files")
+        + ensure_string_list(file_scope.get("optional_prefetch_files"), "file_scope.optional_prefetch_files")
         + ensure_string_list(card.get("optional_files"), "optional_files")
     )
     return raw_files[:max_context_files]
@@ -451,6 +471,19 @@ def task_from_request(card: dict[str, Any]) -> str:
         "deepseek_readiness_check_required",
         "safe_call_mode",
         "readiness_expected_fields",
+        "deep_supply_mode",
+        "file_scope",
+        "content_loading_policy",
+        "codex_minimal_review_policy",
+        "output_required",
+        "will_modify_files",
+        "conflict_or_uncertain_files",
+        "validation_failed_files",
+        "safety_sensitive_files",
+        "incremental_supply_request",
+        "mid_task_incremental_supply_trigger",
+        "mid_task_incremental_supply_action",
+        "completion_truth_check_required",
     ):
         if field_name in card:
             payload[field_name] = card.get(field_name)
@@ -513,6 +546,8 @@ def choose_auto_action(trigger_reason: str) -> str:
     if trigger_reason == "mandatory_pre_supply":
         return "file_map"
     if trigger_reason == "mandatory_post_risk_review":
+        return "risk_report"
+    if trigger_reason == "mid_task_incremental_supply":
         return "risk_report"
     if trigger_reason in {"missing_context", "after_read_gap"}:
         return "missing_files"
@@ -887,6 +922,279 @@ def collect_missing_files(sections: dict[str, Any]) -> list[Any]:
             missing.extend(listify(section.get("missing_files")))
             missing.extend(listify(section.get("missing")))
     return [item for item in missing if item]
+
+
+def request_list_from_nested(card: dict[str, Any] | None, *field_path: str) -> list[str]:
+    if not isinstance(card, dict):
+        return []
+    current: Any = card
+    for part in field_path:
+        if not isinstance(current, dict):
+            return []
+        current = current.get(part)
+    if isinstance(current, list):
+        return [item for item in current if isinstance(item, str)]
+    return []
+
+
+def content_loading_policy_from_request(card: dict[str, Any] | None) -> dict[str, int]:
+    policy = dict(DEFAULT_DEEP_CONTENT_POLICY)
+    if isinstance(card, dict) and isinstance(card.get("content_loading_policy"), dict):
+        raw_policy = card["content_loading_policy"]
+        for key in ("max_file_count", "max_chars_per_file", "max_total_chars"):
+            value = raw_policy.get(key)
+            if isinstance(value, int) and value > 0:
+                policy[key] = value
+    return policy
+
+
+def deep_supply_modes_from_request(card: dict[str, Any] | None) -> list[str]:
+    if not isinstance(card, dict):
+        return []
+    mode_config = card.get("deep_supply_mode")
+    if not isinstance(mode_config, dict) or mode_config.get("enabled") is not True:
+        return []
+    raw_modes = mode_config.get("mode", [])
+    if not isinstance(raw_modes, list):
+        return []
+    return [mode for mode in raw_modes if isinstance(mode, str) and mode in DEEP_SUPPLY_MODE_VALUES]
+
+
+def classify_file_role(path_label: str, request_card: dict[str, Any] | None) -> str:
+    if path_label in request_list_from_nested(request_card, "will_modify_files"):
+        return "will_modify_file"
+    if path_label in request_list_from_nested(request_card, "conflict_or_uncertain_files"):
+        return "conflict_or_uncertain_file"
+    if path_label in request_list_from_nested(request_card, "validation_failed_files"):
+        return "validation_failed_file"
+    if path_label.endswith(".schema.json") or "/schemas/" in path_label:
+        return "schema_contract"
+    if path_label.endswith(".py") or path_label.startswith("scripts/"):
+        return "runner_or_controller"
+    if "/fixtures/" in path_label:
+        return "fixture_or_request_example"
+    if path_label.startswith("GPT数据源/"):
+        return "project_mechanism_source"
+    if path_label.startswith("codex_source/"):
+        return "codex_execution_rule_source"
+    if path_label.startswith("codex_log/"):
+        return "current_log_or_request_source"
+    return "readonly_context"
+
+
+def marker_range_for_excerpt(text: str, excerpt: str) -> str:
+    if not excerpt:
+        return "empty_excerpt"
+    start = text.find(excerpt[:80])
+    if start < 0:
+        return "selected_relevant_lines"
+    start_line = text[:start].count("\n") + 1
+    end_line = start_line + max(0, excerpt.count("\n"))
+    return f"lines:{start_line}-{end_line}"
+
+
+def select_relevant_excerpt(text: str, path_label: str, request_card: dict[str, Any] | None, max_chars: int) -> str:
+    keywords = [
+        "DeepSeek",
+        "deepseek",
+        "fallback_local_only",
+        "token_usage_expectation_check",
+        "supply_request",
+        "Codex",
+        "复核",
+        "content_validation",
+        "send_ready",
+    ]
+    if isinstance(request_card, dict):
+        keywords.extend(str(item) for item in request_card.get("output_required", []) if isinstance(item, str))
+    selected_lines: list[str] = []
+    for line in text.splitlines():
+        if any(keyword in line for keyword in keywords):
+            selected_lines.append(line)
+        if len("\n".join(selected_lines)) >= max_chars:
+            break
+    excerpt = "\n".join(selected_lines).strip()
+    if not excerpt:
+        excerpt = text[:max_chars].strip()
+    if len(excerpt) > max_chars:
+        excerpt = excerpt[:max_chars].rstrip() + "\n...[truncated]"
+    return excerpt
+
+
+def build_relevant_file_bundle(
+    *,
+    context_files: list[Path],
+    request_card: dict[str, Any] | None,
+) -> list[dict[str, Any]]:
+    policy = content_loading_policy_from_request(request_card)
+    max_file_count = policy["max_file_count"]
+    max_chars_per_file = policy["max_chars_per_file"]
+    max_total_chars = policy["max_total_chars"]
+    bundle: list[dict[str, Any]] = []
+    total_chars = 0
+    for path in context_files[:max_file_count]:
+        path_label = relative_label(path)
+        try:
+            text = path.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            text = path.read_text(encoding="utf-8", errors="replace")
+        remaining_chars = max_total_chars - total_chars
+        if remaining_chars <= 0:
+            break
+        excerpt_limit = min(max_chars_per_file, remaining_chars)
+        excerpt = select_relevant_excerpt(text, path_label, request_card, excerpt_limit)
+        total_chars += len(excerpt)
+        bundle.append(
+            {
+                "path": path_label,
+                "file_role": classify_file_role(path_label, request_card),
+                "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+                "content_excerpt": excerpt,
+                "excerpt_range_or_marker": marker_range_for_excerpt(text, excerpt),
+                "confidence": "high" if excerpt else "low",
+            }
+        )
+    return bundle
+
+
+def build_exact_snippet_pack(
+    *,
+    relevant_file_bundle: list[dict[str, Any]],
+    request_card: dict[str, Any] | None,
+) -> list[dict[str, Any]]:
+    snippets: list[dict[str, Any]] = []
+    codex_review_policy = (
+        request_card.get("codex_minimal_review_policy", {}) if isinstance(request_card, dict) else {}
+    )
+    must_review = codex_review_policy.get("codex_must_review", []) if isinstance(codex_review_policy, dict) else []
+    for entry in relevant_file_bundle:
+        excerpt = str(entry.get("content_excerpt", "")).strip()
+        if not excerpt:
+            continue
+        first_lines = "\n".join(excerpt.splitlines()[:8])
+        snippets.append(
+            {
+                "path": entry["path"],
+                "snippet": first_lines,
+                "why_it_matters": f"{entry['file_role']} for DeepSeek deep file supply mode",
+                "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+                "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary.",
+            }
+        )
+    if must_review:
+        snippets.append(
+            {
+                "path": "codex_minimal_review_policy",
+                "snippet": json.dumps(must_review, ensure_ascii=False),
+                "why_it_matters": "Defines which files Codex must still review directly.",
+                "codex_should_use_for": "will_modify_files + conflict_or_uncertain_files + validation_failed_files review gate",
+                "risk_if_ignored": "DeepSeek supply could be misread as replacing Codex safety review.",
+            }
+        )
+    return snippets
+
+
+def build_dependency_map_from_bundle(relevant_file_bundle: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    paths = [entry["path"] for entry in relevant_file_bundle]
+    dependency_map: list[dict[str, Any]] = []
+    for path in paths:
+        if path.endswith("deepseek_supply_request.schema.json"):
+            depends_on = [candidate for candidate in paths if candidate.endswith("18_deepseek_supply_request_schema.md")]
+            dependency_type = "schema_documents_request_contract"
+        elif path.endswith("deepseek_supply_controller.py"):
+            depends_on = [
+                candidate
+                for candidate in paths
+                if candidate.endswith("deepseek_supply_request.schema.json")
+                or candidate.endswith("17_deepseek_supply_controller_protocol.md")
+            ]
+            dependency_type = "controller_enforces_protocol_and_schema"
+        elif path.endswith("01_execution_rules.md"):
+            depends_on = [candidate for candidate in paths if candidate.endswith("17_deepseek_supply_controller_protocol.md")]
+            dependency_type = "execution_rules_reference_controller_protocol"
+        elif path.startswith("GPT数据源/"):
+            depends_on = [candidate for candidate in paths if candidate.startswith("codex_source/")]
+            dependency_type = "project_mechanism_mirrors_codex_execution_surface"
+        else:
+            depends_on = []
+            dependency_type = "readonly_context"
+        dependency_map.append(
+            {
+                "source_file": path,
+                "depends_on": depends_on,
+                "dependency_type": dependency_type,
+                "impact": "update_together_if_deep_file_supply_contract_changes",
+            }
+        )
+    return dependency_map
+
+
+def build_missing_or_uncertain_files(
+    *,
+    missing_files: list[Any],
+    request_card: dict[str, Any] | None,
+) -> list[dict[str, Any]]:
+    result: list[dict[str, Any]] = []
+    for item in missing_files:
+        result.append(
+            {
+                "path_or_query": item if isinstance(item, str) else json.dumps(item, ensure_ascii=False),
+                "reason": "reported_by_deepseek_or_fallback_pack",
+                "blocked_if_missing": False,
+            }
+        )
+    if isinstance(request_card, dict):
+        for item in request_card.get("missing_context", []):
+            if isinstance(item, str):
+                result.append(
+                    {
+                        "path_or_query": item,
+                        "reason": "request_missing_context",
+                        "blocked_if_missing": False,
+                    }
+                )
+    return result
+
+
+def build_deepseek_depth_validation(
+    *,
+    relevant_file_bundle: list[dict[str, Any]],
+    exact_snippet_pack: list[dict[str, Any]],
+    supply_source: str,
+    request_card: dict[str, Any] | None,
+) -> dict[str, Any]:
+    modes = deep_supply_modes_from_request(request_card)
+    user_required = bool(
+        isinstance(request_card, dict)
+        and (
+            request_card.get("user_explicit_deepseek_required") is True
+            or request_card.get("requires_real_deepseek_participation") is True
+        )
+    )
+    missing_modes = [mode for mode in DEEP_SUPPLY_MODE_VALUES if mode not in modes]
+    insufficient_depth = (
+        not relevant_file_bundle
+        or not exact_snippet_pack
+        or ("deep_file_prefetch" not in modes)
+        or ("mid_task_incremental_supply" not in modes)
+    )
+    if user_required and supply_source != "deepseek_passed":
+        status = "failed_deepseek_not_deeply_participated"
+    elif insufficient_depth:
+        status = "failed_insufficient_depth"
+    else:
+        status = "passed_contract_level"
+    return {
+        "enabled": bool(modes),
+        "modes": modes,
+        "missing_modes": missing_modes,
+        "relevant_file_bundle_exists": bool(relevant_file_bundle),
+        "exact_snippet_pack_exists": bool(exact_snippet_pack),
+        "deepseek_actual_required": user_required,
+        "supply_source": supply_source,
+        "status": status,
+        "not_long_term_runtime_validation": True,
+    }
 
 
 def request_has_sample_value(card: dict[str, Any], field_name: str) -> bool:
@@ -1383,6 +1691,19 @@ def build_supply_pack(
     )
     risks = collect_risks(sections.get("risk_and_conflict_report"))
     missing_files = collect_missing_files(sections)
+    relevant_file_bundle = build_relevant_file_bundle(
+        context_files=context_files,
+        request_card=request_card,
+    )
+    exact_snippet_pack = build_exact_snippet_pack(
+        relevant_file_bundle=relevant_file_bundle,
+        request_card=request_card,
+    )
+    dependency_map = build_dependency_map_from_bundle(relevant_file_bundle)
+    missing_or_uncertain_files = build_missing_or_uncertain_files(
+        missing_files=missing_files,
+        request_card=request_card,
+    )
     editing_decision_pack = build_editing_decision_support(
         request_card=request_card,
         action=actual_action,
@@ -1488,6 +1809,68 @@ def build_supply_pack(
                 "remaining_work": post_risk_review["remaining_work"],
             }
         )
+    codex_review_policy = (
+        request_card.get("codex_minimal_review_policy", {}) if isinstance(request_card, dict) else {}
+    )
+    files_codex_must_review = ordered_unique(
+        request_list_from_nested(request_card, "will_modify_files")
+        + request_list_from_nested(request_card, "conflict_or_uncertain_files")
+        + request_list_from_nested(request_card, "validation_failed_files")
+        + request_list_from_nested(request_card, "safety_sensitive_files")
+    )
+    if not files_codex_must_review:
+        files_codex_must_review = [
+            path
+            for path in files_considered
+            if classify_file_role(path, request_card)
+            in {
+                "will_modify_file",
+                "conflict_or_uncertain_file",
+                "validation_failed_file",
+                "runner_or_controller",
+                "schema_contract",
+            }
+        ]
+    codex_next_input.update(
+        {
+            "recommended_child_tasks": [
+                "update_deep_file_supply_contract",
+                "update_controller_schema_fixture",
+                "run_validation_and_truth_check",
+            ],
+            "files_codex_must_review": files_codex_must_review,
+            "files_codex_can_trust_from_deepseek_unless_conflict": [
+                entry["path"]
+                for entry in relevant_file_bundle
+                if entry["path"] not in files_codex_must_review
+            ],
+            "blocked_conditions": [
+                "deepseek_actual_required_but_not_deepseek_passed",
+                "relevant_file_bundle_missing",
+                "exact_snippet_pack_missing",
+                "validation_failed_files_not_reviewed_by_codex",
+            ],
+        }
+    )
+    deepseek_depth_validation = build_deepseek_depth_validation(
+        relevant_file_bundle=relevant_file_bundle,
+        exact_snippet_pack=exact_snippet_pack,
+        supply_source=supply_source,
+        request_card=request_card,
+    )
+    risk_delta_report = (
+        [
+            {
+                "risk_type": "fallback_mislabel_risk",
+                "path": "deepseek_supply_pack",
+                "evidence": "supply_source is not deepseek_passed",
+                "severity": "high",
+                "suggested_codex_action": "do_not_claim_completed_if_user_required_deepseek",
+            }
+        ]
+        if not_deepseek_conclusion
+        else []
+    )
     return {
         "supply_id": supply_id,
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
@@ -1547,6 +1930,16 @@ def build_supply_pack(
         "files_recommended": files_recommended,
         "risks": risks,
         "missing_files": missing_files,
+        "deep_supply_mode": request_card.get("deep_supply_mode", {}) if request_card else {},
+        "content_loading_policy": request_card.get("content_loading_policy", {}) if request_card else {},
+        "codex_minimal_review_policy": codex_review_policy,
+        "deepseek_depth_validation": deepseek_depth_validation,
+        "relevant_file_bundle": relevant_file_bundle,
+        "exact_snippet_pack": exact_snippet_pack,
+        "dependency_map": dependency_map,
+        "risk_and_conflict_report": sections.get("risk_and_conflict_report"),
+        "risk_delta_report": risk_delta_report,
+        "missing_or_uncertain_files": missing_or_uncertain_files,
         "editing_decision_pack": editing_decision_pack,
         "execution_supply_pack": execution_supply_pack,
         "codex_next_input": codex_next_input,
@@ -1619,6 +2012,15 @@ def write_supply_outputs(pack: dict[str, Any], output_dir: Path) -> None:
         "editing_decision_pack": pack.get("editing_decision_pack"),
         "execution_supply_pack": pack.get("execution_supply_pack"),
         "post_risk_review": pack.get("post_risk_review"),
+        "deep_supply_mode": pack.get("deep_supply_mode", {}),
+        "content_loading_policy": pack.get("content_loading_policy", {}),
+        "codex_minimal_review_policy": pack.get("codex_minimal_review_policy", {}),
+        "deepseek_depth_validation": pack.get("deepseek_depth_validation", {}),
+        "relevant_file_bundle": pack.get("relevant_file_bundle", []),
+        "exact_snippet_pack": pack.get("exact_snippet_pack", []),
+        "dependency_map": pack.get("dependency_map", []),
+        "risk_delta_report": pack.get("risk_delta_report", []),
+        "missing_or_uncertain_files": pack.get("missing_or_uncertain_files", []),
         "not_allowed": pack["not_allowed"],
         "files": {
             "latest_supply_pack_md": relative_label(pack_md_path),
@@ -1734,6 +2136,42 @@ def write_supply_outputs(pack: dict[str, Any], output_dir: Path) -> None:
         "",
         "```json",
         json.dumps(pack["missing_files"], ensure_ascii=False, indent=2),
+        "```",
+        "",
+        "## deepseek_depth_validation（DeepSeek 深度供料校验）",
+        "",
+        "```json",
+        json.dumps(pack.get("deepseek_depth_validation"), ensure_ascii=False, indent=2),
+        "```",
+        "",
+        "## relevant_file_bundle（相关文件内容包）",
+        "",
+        "```json",
+        json.dumps(pack.get("relevant_file_bundle"), ensure_ascii=False, indent=2),
+        "```",
+        "",
+        "## exact_snippet_pack（关键原文片段包）",
+        "",
+        "```json",
+        json.dumps(pack.get("exact_snippet_pack"), ensure_ascii=False, indent=2),
+        "```",
+        "",
+        "## dependency_map（依赖映射）",
+        "",
+        "```json",
+        json.dumps(pack.get("dependency_map"), ensure_ascii=False, indent=2),
+        "```",
+        "",
+        "## risk_delta_report（增量风险报告）",
+        "",
+        "```json",
+        json.dumps(pack.get("risk_delta_report"), ensure_ascii=False, indent=2),
+        "```",
+        "",
+        "## missing_or_uncertain_files（缺失或不确定文件）",
+        "",
+        "```json",
+        json.dumps(pack.get("missing_or_uncertain_files"), ensure_ascii=False, indent=2),
         "```",
         "",
         "## editing_decision_pack（剪辑决策包）",
