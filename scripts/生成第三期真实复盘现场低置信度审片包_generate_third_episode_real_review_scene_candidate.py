@@ -322,6 +322,116 @@ def parse_range(raw: str) -> tuple[float, float]:
     return parse_seconds(start), parse_seconds(end)
 
 
+USER_RECORDING_MATERIALS = {"material_01", "material_02", "material_03"}
+STRONG_EVIDENCE_STRENGTHS = {"high", "medium_high"}
+WEAK_EVIDENCE_STRENGTHS = {"medium", "medium_low", "low"}
+NON_EVIDENCE_SEGMENT_ROLES = {
+    "waiting_or_blank_or_repeated_action",
+    "waiting",
+    "blank",
+    "repeated_action",
+    "transition",
+    "non_evidence_transition",
+}
+
+
+def truthy_field(value: Any) -> bool:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        return value.strip().lower() in {"1", "true", "yes", "y", "on"}
+    return bool(value)
+
+
+def falsey_field(value: Any) -> bool:
+    if isinstance(value, bool):
+        return not value
+    if isinstance(value, str):
+        return value.strip().lower() in {"0", "false", "no", "n", "off"}
+    return not bool(value)
+
+
+def is_user_recording_group(group: dict[str, Any]) -> bool:
+    return str(group.get("source_material", "")) in USER_RECORDING_MATERIALS
+
+
+def infer_evidence_window_lock(group: dict[str, Any]) -> bool:
+    if truthy_field(group.get("do_not_speedup", False)):
+        return True
+    if "evidence_window_lock" in group:
+        return truthy_field(group["evidence_window_lock"])
+    if "evidence_window" in group:
+        return truthy_field(group["evidence_window"])
+    if truthy_field(group.get("source_text_must_be_readable", False)):
+        return True
+
+    evidence_strength = str(group.get("evidence_strength", "")).lower()
+    if evidence_strength in STRONG_EVIDENCE_STRENGTHS:
+        return True
+    if evidence_strength in WEAK_EVIDENCE_STRENGTHS and falsey_field(group.get("source_text_must_be_readable", True)):
+        return False
+
+    role = str(group.get("segment_role", "")).lower()
+    if role in NON_EVIDENCE_SEGMENT_ROLES and falsey_field(group.get("source_text_must_be_readable", True)):
+        return False
+
+    return is_user_recording_group(group)
+
+
+def resolve_clip_speed_policy(group: dict[str, Any], source_duration: float, target_duration: float) -> dict[str, Any]:
+    source_duration = max(0.5, float(source_duration))
+    target_duration = max(0.5, float(target_duration))
+    requested_speedup = max(1.0, source_duration / target_duration)
+    evidence_window_lock = infer_evidence_window_lock(group)
+    do_not_speedup = truthy_field(group.get("do_not_speedup", evidence_window_lock))
+    role = str(group.get("segment_role", "")).lower()
+    evidence_strength = str(group.get("evidence_strength", "")).lower()
+    explicit_non_evidence = (
+        role in NON_EVIDENCE_SEGMENT_ROLES
+        and falsey_field(group.get("source_text_must_be_readable", True))
+        and evidence_strength not in STRONG_EVIDENCE_STRENGTHS
+        and not do_not_speedup
+        and not evidence_window_lock
+    )
+
+    if evidence_window_lock or do_not_speedup:
+        max_allowed_speedup = 1.0
+        speed_factor = 1.0
+        policy = "locked_evidence_window"
+    elif explicit_non_evidence:
+        max_allowed_speedup = float(group.get("max_allowed_speedup", requested_speedup))
+        speed_factor = min(requested_speedup, max(1.0, max_allowed_speedup))
+        policy = "explicit_non_evidence_speedup"
+    elif evidence_strength in WEAK_EVIDENCE_STRENGTHS:
+        max_allowed_speedup = float(group.get("max_allowed_speedup", 1.25))
+        speed_factor = min(requested_speedup, max(1.0, max_allowed_speedup))
+        policy = "weak_evidence_or_context"
+    else:
+        max_allowed_speedup = 1.0
+        speed_factor = 1.0
+        policy = "conservative_default_no_speedup"
+
+    speed_factor = max(1.0, round(speed_factor, 6))
+    render_duration = round(source_duration / speed_factor, 3)
+    setpts_factor = round(1.0 / speed_factor, 8)
+    return {
+        "policy": policy,
+        "source_duration": round(source_duration, 3),
+        "target_duration": round(target_duration, 3),
+        "requested_speedup": round(requested_speedup, 3),
+        "speed_factor": speed_factor,
+        "setpts_factor": setpts_factor,
+        "render_duration": render_duration,
+        "allow_timeline_extension": render_duration > target_duration + 0.001,
+        "do_not_compress_to_tts_duration": evidence_window_lock or do_not_speedup,
+        "evidence_window_lock": evidence_window_lock,
+        "do_not_speedup": do_not_speedup,
+        "max_allowed_speedup": round(max_allowed_speedup, 3),
+        "readability_target": group.get("readability_target", "source_text_and_key_action_must_be_readable"),
+        "source_text_must_be_readable": truthy_field(group.get("source_text_must_be_readable", evidence_window_lock)),
+    }
+
+
 def srt_time(seconds: float) -> str:
     millis = int(round(max(0.0, seconds) * 1000))
     hours = millis // 3_600_000
@@ -818,14 +928,15 @@ def render_hyperframes_card(card_id: str, text: str, support: str, duration: flo
     }
 
 
-def render_source_clip(group: dict[str, Any], output_path: Path, duration: float, caption_path: Path | None) -> None:
+def render_source_clip(group: dict[str, Any], output_path: Path, duration: float, caption_path: Path | None) -> dict[str, Any]:
     source_path = MAIN_MATERIAL if group["source_material"] == "material_03" else AUX_MATERIAL
     start, end = parse_range(group["source_timecode"])
     source_duration = max(0.5, end - start)
-    factor = duration / source_duration
+    speed_policy = resolve_clip_speed_policy(group, source_duration=source_duration, target_duration=duration)
+    render_duration = float(speed_policy["render_duration"])
     base_vf = (
         f"trim=start={start:.3f}:duration={source_duration:.3f},"
-        f"setpts={factor:.8f}*(PTS-STARTPTS),"
+        f"setpts={float(speed_policy['setpts_factor']):.8f}*(PTS-STARTPTS),"
         "fps=30,scale=1920:1080:force_original_aspect_ratio=increase,"
         "crop=1920:1080,setsar=1,setdar=16/9,format=rgba"
     )
@@ -840,7 +951,7 @@ def render_source_clip(group: dict[str, Any], output_path: Path, duration: float
                 "-loop",
                 "1",
                 "-t",
-                f"{duration:.3f}",
+                f"{render_duration:.3f}",
                 "-i",
                 str(caption_path),
                 "-filter_complex",
@@ -883,6 +994,7 @@ def render_source_clip(group: dict[str, Any], output_path: Path, duration: float
             ],
             timeout=600,
         )
+    return speed_policy
 
 
 def normalize_card_clip(card_path: Path, output_path: Path, duration: float) -> None:
@@ -910,12 +1022,14 @@ def normalize_card_clip(card_path: Path, output_path: Path, duration: float) -> 
     )
 
 
-def build_captions(audio_timeline: list[dict[str, Any]]) -> None:
+def build_captions(timeline_items: list[dict[str, Any]]) -> None:
     lines: list[str] = []
-    for index, item in enumerate(audio_timeline, start=1):
+    for index, item in enumerate(timeline_items, start=1):
         lines.append(str(index))
-        lines.append(f"{srt_time(item['start'])} --> {srt_time(item['end'])}")
-        lines.append(item["text"])
+        start = float(item.get("video_start", item.get("start", 0.0)))
+        end = float(item.get("video_end", item.get("end", start + 0.8)))
+        lines.append(f"{srt_time(start)} --> {srt_time(end)}")
+        lines.append(item.get("subtitle_text", item.get("text", "")))
         lines.append("")
     CAPTIONS_SRT.write_text("\n".join(lines), encoding="utf-8")
 
@@ -930,8 +1044,9 @@ def render_timeline(audio_timeline: list[dict[str, Any]]) -> list[dict[str, Any]
 
     timeline_items: list[dict[str, Any]] = []
     card_cache: dict[str, tuple[Path, dict[str, Any]]] = {}
+    video_cursor = 0.0
     for index, (group, audio_item) in enumerate(zip(LINE_GROUPS, audio_timeline), start=1):
-        duration = max(0.8, float(audio_item["duration"]) + float(audio_item["pause_after"]))
+        target_duration = max(0.8, float(audio_item["duration"]) + float(audio_item["pause_after"]))
         output_clip = WORK_DIR / f"clip_{index:02d}_{group['id']}.mp4"
         if group["visual"].endswith("_card") or group["visual"].startswith("light_judgment"):
             support = ""
@@ -942,32 +1057,38 @@ def render_timeline(audio_timeline: list[dict[str, Any]]) -> list[dict[str, Any]
             else:
                 support = "轻判断卡，不替代真实录屏证据"
             card_key = f"{group['visual']}_{index}"
-            card_path, card_run = render_hyperframes_card(card_key, group["card_text"], support, duration)
+            card_path, card_run = render_hyperframes_card(card_key, group["card_text"], support, target_duration)
             card_cache[card_key] = (card_path, card_run)
-            normalize_card_clip(card_path, output_clip, duration)
+            normalize_card_clip(card_path, output_clip, target_duration)
             card_result = card_run
+            clip_duration = target_duration
+            speed_policy = None
         else:
             caption_path = CAPTION_DIR / f"caption_{index:02d}_{group['id']}.png"
             render_caption_png(group["text"], caption_path)
-            render_source_clip(group, output_clip, duration, caption_path)
+            speed_policy = render_source_clip(group, output_clip, target_duration, caption_path)
             card_result = None
+            clip_duration = float(speed_policy["render_duration"])
         timeline_items.append(
             {
                 **group,
                 "clip_path": rel(output_clip),
-                "video_start": round(float(audio_item["start"]), 3),
-                "video_end": round(float(audio_item["start"]) + duration, 3),
-                "video_duration": round(duration, 3),
+                "video_start": round(video_cursor, 3),
+                "video_end": round(video_cursor + clip_duration, 3),
+                "video_duration": round(clip_duration, 3),
+                "target_duration": round(target_duration, 3),
                 "narration_start": audio_item["start"],
                 "narration_end": audio_item["end"],
                 "subtitle_text": group["text"],
                 "card_generation": card_result,
+                "editing_speed_policy": speed_policy,
                 "allowed_visuals": ["material_03 real review recording", "material_01 planning context", "clean_soft HyperFrames cards"],
                 "forbidden_visuals": ["unblurred material_02", "source media paths", "desktop sidebar privacy", "publish_candidate claim card"],
                 "alignment_status": "aligned_low_confidence_review_candidate",
                 "blocked_if_visual_mismatch": "blocked_or_copy_change_request",
             }
         )
+        video_cursor += clip_duration
     return timeline_items
 
 
@@ -1015,7 +1136,6 @@ def concatenate_video(timeline_items: list[dict[str, Any]]) -> None:
             "language=chi",
             "-movflags",
             "+faststart",
-            "-shortest",
             str(FULL_MP4),
         ],
         timeout=900,
@@ -1268,8 +1388,8 @@ def ensure_inputs() -> None:
 def main() -> None:
     ensure_inputs()
     audio_duration, audio_timeline, tts_debug = make_voice_track()
-    build_captions(audio_timeline)
     timeline_items = render_timeline(audio_timeline)
+    build_captions(timeline_items)
     concatenate_video(timeline_items)
     probe = final_probe()
     write_support_files(audio_duration, audio_timeline, timeline_items, probe, tts_debug)
