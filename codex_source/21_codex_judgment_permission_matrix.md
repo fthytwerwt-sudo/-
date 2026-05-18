@@ -107,22 +107,59 @@ judgment_object: card_placement_decision
 codex_permission: must_decide_and_execute
 codex_must_do:
   - 判断 card_type、copy_function、selected_position、evidence_dependency、interrupt_risk
-  - 判断是否需要 judgment_card / summary_card / result_diff_card / boundary_card / prompt_tail_card
+  - 判断是否需要 data_result_card / judgment_card / summary_card / result_diff_card / boundary_card / prompt_tail_card
+  - 先通过 card_budget_gate 控制主卡数量，再通过 cluster_merge_rule 把同一文案功能的 1-5 个 line_group 合并成一个信息簇
+  - 判断 data_result_card 是否有真实数据、AI 判断、下一步变量和验证指标支撑
   - 判断是否要求 HyperFrames 动效基线
 codex_must_not_do:
   - 不得先固定旧 shot、旧 template 或旧 reference 时间点
   - 不得让卡片抢中段真实证据窗口
+  - 不得看到一句数据、判断或总结就插一张卡
+  - 不得把指标名称、缺失字段或推测写成 data_result_card 的真实数据
 change_request_if:
   - 卡片文案需要语义改写才能承载
 blocked_if:
   - card_position_unclear
   - card overlaps subtitles or key evidence
+  - card_budget_gate missing
+  - cluster_merge_rule missing
+  - data_result_card selected without real_metric_values or clear data source
   - HyperFrames required but runtime missing and no user authorization for fallback
 record_to:
   - content_route_card V2.card_placement_decision
   - script_to_timeline_map.card_text_if_any
 validation_rule:
   - 每张卡片必须有 copy_function、evidence_dependency、interrupt_risk 和 blocked_if
+  - 若总卡数超预算，优先保留 data_result_card、key_judgment_card、ending_summary_card、boundary_card，再保留 process_summary_card
+```
+
+### 4.2A data_result_card（数据成果卡）
+
+```text
+judgment_object: data_result_card
+codex_permission: must_decide_and_execute
+codex_must_do:
+  - 只在 line_group 或相邻 line_groups 同时包含 real_metric_values、diagnosis_or_judgment、next_variable_or_action、validation_metric 时选择
+  - 把连续 1-5 个同一数据判断功能的 line_group 合并成一个 data_cluster
+  - 输出原始数据、AI 判断、下一条只改、改完看四块信息
+  - 如果只能保留一张中段卡，优先保留 data_result_card 而不是 process_summary_card
+codex_must_not_do:
+  - 不得用 data_result_card 代替真实录屏、平台截图或数据来源
+  - 不得把播放、收藏、完播率等指标名称当成真实数值
+  - 不得新增素材里没有的数据结论
+change_request_if:
+  - 文案需要补充真实数值或明确数据来源才能成立
+blocked_if:
+  - real_metric_values missing
+  - data_source unclear
+  - card_interrupts_key_evidence
+  - card_overlaps_subtitles_or_key_ocr
+record_to:
+  - content_route_card V2.card_placement_decision.card_budget_gate
+  - content_route_card V2.card_placement_decision.card_cluster_map
+  - script_to_timeline_map.card_role
+validation_rule:
+  - selected data_result_card 必须说明数据来源、判断边界、下一轮变量和验证指标
 ```
 
 ### 4.3 judgment_card（判断卡）

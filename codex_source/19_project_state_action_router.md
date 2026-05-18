@@ -219,6 +219,9 @@ if opening_route in [meme_gif_opening_hook, high_emotion_hook] or input_signal i
 if input_signal includes summary_card / 总结卡 / reversal_card / 反转卡 / result_diff_card / 结果差卡 / Prompt 引用尾卡 / 卡片位置:
   action = run content_route_inference_function and editing_inference_function, produce card_placement_decision before video execution
 
+if input_signal includes data_result_card / 数据成果卡 / 卡片预算 / card_budget_gate / cluster_merge_rule / 卡片太密 / PPT 感过重:
+  action = run card_budget_gate, cluster_merge_rule, evidence_window_protection, and data_result_card_priority before video execution; choose cards by information cluster and budget, not by every sentence
+
 if input_signal includes judgment_card / 判断卡 / summary_card / 总结卡 / Codex 判断权限 / 判断权限表:
   action = read codex_source/21_codex_judgment_permission_matrix.md, produce codex_judgment_permission_gate, and decide execute / change_request / blocked / escalation boundary before editing or status claim
 

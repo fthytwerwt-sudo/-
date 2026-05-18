@@ -1,0 +1,216 @@
+{
+  "fixture_version": "2026-05-19",
+  "purpose": "card_budget_gate / cluster_merge_rule / evidence_window_protection / data_result_card_priority dry-run cases",
+  "cases": [
+    {
+      "case_id": "data_cluster_merges_to_one_data_result_card",
+      "video_duration": 120,
+      "line_groups": [
+        {
+          "line_group_id": "lg_101",
+          "narration_text": "这条视频 24 小时播放 1280，2 秒跳出 63%，5 秒完播 18%。",
+          "line_group_goal": "原始数据",
+          "visual_role": "middle_evidence",
+          "required_material": "material_01",
+          "timeline_slot": "00:00:30,000-00:00:38,000",
+          "card_role": "none"
+        },
+        {
+          "line_group_id": "lg_102",
+          "narration_text": "AI 判断问题主要在开头 5 秒，没有先说清结果差。",
+          "line_group_goal": "AI 判断",
+          "visual_role": "middle_evidence",
+          "required_material": "material_01",
+          "timeline_slot": "00:00:38,000-00:00:45,000",
+          "card_role": "none"
+        },
+        {
+          "line_group_id": "lg_103",
+          "narration_text": "所以下一条只改开头，改完看 2 秒跳出、3 秒留存和 5 秒完播。",
+          "line_group_goal": "下一步变量和验证指标",
+          "visual_role": "middle_evidence",
+          "required_material": "material_01",
+          "timeline_slot": "00:00:45,000-00:00:54,000",
+          "card_role": "none"
+        }
+      ],
+      "expect": {
+        "selected_data_result_card": true,
+        "data_result_card_count": 1
+      }
+    },
+    {
+      "case_id": "multiple_metric_sentences_do_not_split_cards",
+      "video_duration": 130,
+      "line_groups": [
+        {
+          "line_group_id": "lg_201",
+          "narration_text": "播放 3200，点赞 48，收藏 96。",
+          "line_group_goal": "原始数据第一组",
+          "visual_role": "middle_evidence",
+          "required_material": "material_01",
+          "timeline_slot": "00:00:30,000-00:00:38,000",
+          "card_role": "none"
+        },
+        {
+          "line_group_id": "lg_202",
+          "narration_text": "平均观看 7.2 秒，主页访问 18，私信 0。",
+          "line_group_goal": "原始数据第二组",
+          "visual_role": "middle_evidence",
+          "required_material": "material_01",
+          "timeline_slot": "00:00:38,000-00:00:46,000",
+          "card_role": "none"
+        },
+        {
+          "line_group_id": "lg_203",
+          "narration_text": "AI 判断收藏有信号，但承接弱；下一条只改结尾，改完看收藏、主页访问和私信。",
+          "line_group_goal": "判断和下一步",
+          "visual_role": "middle_evidence",
+          "required_material": "material_01",
+          "timeline_slot": "00:00:46,000-00:00:56,000",
+          "card_role": "none"
+        }
+      ],
+      "expect": {
+        "data_result_card_count": 1
+      }
+    },
+    {
+      "case_id": "over_budget_keeps_data_result_card_over_process_summary_card",
+      "video_duration": 150,
+      "line_groups": [
+        {
+          "line_group_id": "lg_301",
+          "narration_text": "不是看数据表，是判断下一条改哪里。",
+          "line_group_goal": "开头判断",
+          "visual_role": "judgment_card",
+          "required_material": "generated_card",
+          "timeline_slot": "00:00:00,000-00:00:05,000",
+          "card_role": "judgment_card"
+        },
+        {
+          "line_group_id": "lg_302",
+          "narration_text": "先配置，再字段，再截图入库。",
+          "line_group_goal": "流程总结",
+          "visual_role": "process_summary_card",
+          "required_material": "generated_card",
+          "timeline_slot": "00:00:40,000-00:00:47,000",
+          "card_role": "process_summary_card"
+        },
+        {
+          "line_group_id": "lg_303",
+          "narration_text": "播放 5600，完播率 21%，收藏 180。AI 判断中段证据有效，但结尾承接弱，下一条只改承接，改完看收藏、主页访问和私信。",
+          "line_group_goal": "数据成果",
+          "visual_role": "middle_evidence",
+          "required_material": "material_01",
+          "timeline_slot": "00:01:00,000-00:01:12,000",
+          "card_role": "none"
+        },
+        {
+          "line_group_id": "lg_304",
+          "narration_text": "看不见的字段标缺失。",
+          "line_group_goal": "边界",
+          "visual_role": "boundary_card",
+          "required_material": "generated_card",
+          "timeline_slot": "00:01:22,000-00:01:28,000",
+          "card_role": "boundary_card"
+        },
+        {
+          "line_group_id": "lg_305",
+          "narration_text": "不是保证爆款，是别再凭感觉乱改。",
+          "line_group_goal": "结尾总结",
+          "visual_role": "ending_summary_card",
+          "required_material": "generated_card",
+          "timeline_slot": "00:02:20,000-00:02:28,000",
+          "card_role": "ending_summary_card"
+        }
+      ],
+      "expect": {
+        "process_summary_dropped": true,
+        "selected_data_result_card": true
+      }
+    },
+    {
+      "case_id": "card_inside_real_evidence_window_is_dropped",
+      "video_duration": 100,
+      "line_groups": [
+        {
+          "line_group_id": "lg_401",
+          "narration_text": "这里正在展示真实录屏里的关键字段。",
+          "line_group_goal": "证据窗口中间误插卡",
+          "visual_role": "middle_evidence",
+          "required_material": "material_01",
+          "timeline_slot": "00:00:35,000-00:00:42,000",
+          "card_role": "judgment_card"
+        }
+      ],
+      "expect": {
+        "evidence_blocked_cards": true
+      }
+    },
+    {
+      "case_id": "hyperframes_route_and_skin_remain_unchanged",
+      "video_duration": 80,
+      "line_groups": [
+        {
+          "line_group_id": "lg_501",
+          "narration_text": "不是看数据，是判断下一条只改哪里。",
+          "line_group_goal": "开头判断",
+          "visual_role": "judgment_card",
+          "required_material": "generated_card",
+          "timeline_slot": "00:00:00,000-00:00:05,000",
+          "card_role": "judgment_card"
+        }
+      ],
+      "expect": {
+        "hyperframes_visual_changed": false
+      }
+    },
+    {
+      "case_id": "no_real_data_does_not_generate_data_result_card",
+      "video_duration": 120,
+      "line_groups": [
+        {
+          "line_group_id": "lg_601",
+          "narration_text": "它要分开记：2 秒跳出，5 秒完播，平均观看，收藏，评论，主页访问，私信，有效咨询。",
+          "line_group_goal": "只有指标名称，没有真实数值",
+          "visual_role": "middle_evidence",
+          "required_material": "material_01",
+          "timeline_slot": "00:00:45,000-00:00:54,000",
+          "card_role": "none"
+        },
+        {
+          "line_group_id": "lg_602",
+          "narration_text": "下一条只改哪个变量，改完看哪个指标。",
+          "line_group_goal": "下一步变量",
+          "visual_role": "middle_evidence",
+          "required_material": "material_01",
+          "timeline_slot": "00:00:54,000-00:01:02,000",
+          "card_role": "none"
+        }
+      ],
+      "expect": {
+        "selected_data_result_card": false
+      }
+    },
+    {
+      "case_id": "unclear_data_source_blocks_definite_data_card",
+      "video_duration": 120,
+      "line_groups": [
+        {
+          "line_group_id": "lg_701",
+          "narration_text": "播放 1800，完播率 12%，收藏 20。AI 判断可能是开头问题，下一条只改开头，改完看 2 秒跳出。",
+          "line_group_goal": "数据来源不清",
+          "visual_role": "middle_evidence",
+          "required_material": "material_01",
+          "timeline_slot": "00:00:30,000-00:00:44,000",
+          "card_role": "none",
+          "data_source_status": "unclear"
+        }
+      ],
+      "expect": {
+        "data_source_unclear_blocks_data_result_card": true
+      }
+    }
+  ]
+}

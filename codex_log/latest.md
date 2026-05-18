@@ -1,5 +1,20 @@
 # Latest
 
+## 20260519｜card_budget_gate 与 data_result_card 路由补强
+
+- `已确认` 本轮只做《视频工厂》卡片判断机制补强；不重做第四期视频，不改变 HyperFrames 展示形式、视觉路线、动效路线、卡片皮肤或现有生成方式。
+- `route_decision（路由判断）`：`project_route = video_factory`；`task_type = mechanism_or_route_fix + project_file_change + code_debug + validation_dry_run`；`large_task_gate = triggered`；`lane = serial_only`；`DeepSeek = fallback_local_only`；`not_deepseek_conclusion = true`。
+- `state_action_router（状态动作总控器）`：`input_signal = data_result_card / card_budget_gate / cluster_merge_rule / evidence_window_protection`；`current_project_state = formal_operation_active + data_driven_operation_iteration`；`selected_action = 机制文件补强 + helper / fixture / test + 第四期 dry-run`；`forbidden_action = regenerate_video / change_HyperFrames_visual_motion_skin / advance_status`。
+- `已更新` `GPT数据源/05_文案路由规则.md`：在 `content_route_card V2.card_placement_decision` 中补入 `card_budget_gate（卡片预算闸门）`、`cluster_merge_rule（信息簇合并规则）`、`evidence_window_protection（证据窗口保护规则）`、`data_result_card_priority（数据成果卡优先级）` 和 `card_type_selection_policy（卡片类型选择策略）`。
+- `已更新` `GPT数据源/07_AI知识类视频价值规则.md`：明确 `data_result_card（数据成果卡）` 只能压缩真实数据、AI 判断、下一步变量和验证指标；卡片好看或位置正确不等于 `content_validation` 通过。
+- `已更新` `GPT数据源/11_项目状态动作总控器_机制推理层.md`、`codex_source/19_project_state_action_router.md`、`codex_source/21_codex_judgment_permission_matrix.md`：接入卡片预算、信息簇、数据成果卡优先级和证据窗口保护；超预算时 `data_result_card > key_judgment_card > ending_summary_card > boundary_card > process_summary_card`。
+- `已新增` 可运行判断层：`scripts/卡片判断闸门_card_decision_gate.py`、`codex_source/fixtures/卡片判断闸门_card_decision_gate_cases.json`、`tests/test_card_decision_gate.py`。
+- `第四期 dry-run`：`dist/fourth_episode_ai_review_system_publish_candidate/card_decision_dry_run.json` 已生成；当前 4 张卡仍在预算内，`lg_010 -> lg_014` 间距为 `soft_spacing_warning`；识别 `lg_019-lg_023` 为 `data_result_card` 候选信息簇，但因缺真实数值，状态为 `candidate_blocked_missing_real_metric_values`。
+- `建议`：若后续用户授权重做第四期并补齐真实数值，优先把 `lg_010 process_summary_card` 替换或合并为 `data_result_card`；当前不得新增素材里没有的数据结论。
+- `未推进`：未生成或覆盖 `full.mp4 / narration.wav / captions.srt`；未覆盖 `dist/latest_review_pack/`；未推进 `content_validation / send_ready / current_data_goal_anchor_ready / voice_validation / visual_master_locked`。
+- `验证`：JSON parse passed；Python `py_compile` passed；fixture unittest passed；第四期 dry-run passed；`git diff --check` passed。
+- `日志`：`codex_log/20260519_card_budget_gate_and_data_result_card_route.md`
+
 ## 20260518｜第四期 AI 短视频复盘系统发布候选片生成
 
 - `已确认` 本轮在用户明确授权阿里 / 百炼远程 TTS 后，使用 `authorized_runtime_config` 作为 TTS 授权来源；未打印、未写入、未提交 API key。

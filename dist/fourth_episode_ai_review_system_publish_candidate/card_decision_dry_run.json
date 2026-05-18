@@ -1,0 +1,800 @@
+{
+  "card_decision_dry_run": {
+    "video_duration": 174.3,
+    "card_budget": {
+      "video_duration": 174.3,
+      "max_main_cards": 4,
+      "optional_extra_card_allowed": "1 only if data_result_card is missing and evidence supports it",
+      "min_gap_between_main_cards_sec": 25,
+      "hard_min_gap_sec": 18,
+      "no_back_to_back_generated_cards": true,
+      "priority_order": [
+        "data_result_card",
+        "key_judgment_card",
+        "ending_summary_card",
+        "boundary_card",
+        "process_summary_card"
+      ]
+    },
+    "detected_clusters": [
+      {
+        "cluster_id": "card_cluster_001",
+        "line_group_ids": [
+          "lg_001"
+        ],
+        "cluster_type": "data_cluster",
+        "key_information": "我最近搭了一个 AI 短视频复盘系统。",
+        "candidate_card_type": "data_result_card",
+        "merge_reason": "contiguous_line_groups_share_copy_function",
+        "selected_or_dropped": "pending_budget_and_evidence_check",
+        "reason": "cluster_merge_rule groups 1-5 line_groups before card selection"
+      },
+      {
+        "cluster_id": "card_cluster_002",
+        "line_group_ids": [
+          "lg_002"
+        ],
+        "cluster_type": "judgment_cluster",
+        "key_information": "而是每条视频发完以后，它能逼我回答一个问题：",
+        "candidate_card_type": "judgment_card",
+        "merge_reason": "contiguous_line_groups_share_copy_function",
+        "selected_or_dropped": "pending_budget_and_evidence_check",
+        "reason": "cluster_merge_rule groups 1-5 line_groups before card selection"
+      },
+      {
+        "cluster_id": "card_cluster_003",
+        "line_group_ids": [
+          "lg_003",
+          "lg_004",
+          "lg_005"
+        ],
+        "cluster_type": "data_cluster",
+        "key_information": "以前我看数据，很容易乱。 / 没人私信，就怀疑方向。 / 因为你每次都改一堆东西，下一条好了或者坏了，",
+        "candidate_card_type": "data_result_card",
+        "merge_reason": "contiguous_line_groups_share_copy_function",
+        "selected_or_dropped": "pending_budget_and_evidence_check",
+        "reason": "cluster_merge_rule groups 1-5 line_groups before card selection"
+      },
+      {
+        "cluster_id": "card_cluster_004",
+        "line_group_ids": [
+          "lg_006"
+        ],
+        "cluster_type": "judgment_cluster",
+        "key_information": "所以我没有让 AI 直接给我一个复盘结论。",
+        "candidate_card_type": "judgment_card",
+        "merge_reason": "contiguous_line_groups_share_copy_function",
+        "selected_or_dropped": "pending_budget_and_evidence_check",
+        "reason": "cluster_merge_rule groups 1-5 line_groups before card selection"
+      },
+      {
+        "cluster_id": "card_cluster_005",
+        "line_group_ids": [
+          "lg_007",
+          "lg_008",
+          "lg_009",
+          "lg_010"
+        ],
+        "cluster_type": "data_cluster",
+        "key_information": "第一步，是配置。 / 哪些指标算观察信号，这些先写成可以改的配置。 / 第二步，是字段。 / 它要分开记：2 秒跳出，5 秒完播，平均观看，收藏，评论，主页访问，私信，有效咨询。",
+        "candidate_card_type": "data_result_card",
+        "merge_reason": "contiguous_line_groups_share_copy_function",
+        "selected_or_dropped": "pending_budget_and_evidence_check",
+        "reason": "cluster_merge_rule groups 1-5 line_groups before card selection"
+      },
+      {
+        "cluster_id": "card_cluster_006",
+        "line_group_ids": [
+          "lg_011"
+        ],
+        "cluster_type": "judgment_cluster",
+        "key_information": "第三步，是截图入库。",
+        "candidate_card_type": "judgment_card",
+        "merge_reason": "contiguous_line_groups_share_copy_function",
+        "selected_or_dropped": "pending_budget_and_evidence_check",
+        "reason": "cluster_merge_rule groups 1-5 line_groups before card selection"
+      },
+      {
+        "cluster_id": "card_cluster_007",
+        "line_group_ids": [
+          "lg_012",
+          "lg_013"
+        ],
+        "cluster_type": "data_cluster",
+        "key_information": "我直接把后台截图丢给这个系统。 / 然后把截图里的播放、跳出、完播、收藏、评论这些字段整理出来。",
+        "candidate_card_type": "data_result_card",
+        "merge_reason": "contiguous_line_groups_share_copy_function",
+        "selected_or_dropped": "pending_budget_and_evidence_check",
+        "reason": "cluster_merge_rule groups 1-5 line_groups before card selection"
+      },
+      {
+        "cluster_id": "card_cluster_008",
+        "line_group_ids": [
+          "lg_014"
+        ],
+        "cluster_type": "boundary_cluster",
+        "key_information": "看不见的字段，它不会乱猜，会直接标成缺失。",
+        "candidate_card_type": "boundary_card",
+        "merge_reason": "contiguous_line_groups_share_copy_function",
+        "selected_or_dropped": "pending_budget_and_evidence_check",
+        "reason": "cluster_merge_rule groups 1-5 line_groups before card selection"
+      },
+      {
+        "cluster_id": "card_cluster_009",
+        "line_group_ids": [
+          "lg_015",
+          "lg_016",
+          "lg_017"
+        ],
+        "cluster_type": "judgment_cluster",
+        "key_information": "这样我拿到的就不是一堆截图，而是一份可以复盘的记录。 / 第四步，是文案记录。 / 不能今天改一版，明天又改一版，",
+        "candidate_card_type": "judgment_card",
+        "merge_reason": "contiguous_line_groups_share_copy_function",
+        "selected_or_dropped": "pending_budget_and_evidence_check",
+        "reason": "cluster_merge_rule groups 1-5 line_groups before card selection"
+      },
+      {
+        "cluster_id": "card_cluster_010",
+        "line_group_ids": [
+          "lg_018"
+        ],
+        "cluster_type": "data_cluster",
+        "key_information": "第五步，是问题层判断。",
+        "candidate_card_type": "data_result_card",
+        "merge_reason": "contiguous_line_groups_share_copy_function",
+        "selected_or_dropped": "pending_budget_and_evidence_check",
+        "reason": "cluster_merge_rule groups 1-5 line_groups before card selection"
+      },
+      {
+        "cluster_id": "card_cluster_011",
+        "line_group_ids": [
+          "lg_019",
+          "lg_020"
+        ],
+        "cluster_type": "judgment_cluster",
+        "key_information": "它要先判断问题出在哪一层： / 是中段证据不够，是结尾没有承接动作，",
+        "candidate_card_type": "judgment_card",
+        "merge_reason": "contiguous_line_groups_share_copy_function",
+        "selected_or_dropped": "pending_budget_and_evidence_check",
+        "reason": "cluster_merge_rule groups 1-5 line_groups before card selection"
+      },
+      {
+        "cluster_id": "card_cluster_012",
+        "line_group_ids": [
+          "lg_021",
+          "lg_022",
+          "lg_023",
+          "lg_024"
+        ],
+        "cluster_type": "data_cluster",
+        "key_information": "第六步，是下一轮变量。 / 它只应该收成一句话： / 比如改开头，就看 2 秒跳出、3 秒留存、5 秒完播。 / 改承接，就看收藏、评论、主页访问和私信。",
+        "candidate_card_type": "data_result_card",
+        "merge_reason": "contiguous_line_groups_share_copy_function",
+        "selected_or_dropped": "pending_budget_and_evidence_check",
+        "reason": "cluster_merge_rule groups 1-5 line_groups before card selection"
+      },
+      {
+        "cluster_id": "card_cluster_013",
+        "line_group_ids": [
+          "lg_025",
+          "lg_026"
+        ],
+        "cluster_type": "judgment_cluster",
+        "key_information": "这个系统现在还不是最终版。 / 我不是凭感觉做下一条了。",
+        "candidate_card_type": "judgment_card",
+        "merge_reason": "contiguous_line_groups_share_copy_function",
+        "selected_or_dropped": "pending_budget_and_evidence_check",
+        "reason": "cluster_merge_rule groups 1-5 line_groups before card selection"
+      },
+      {
+        "cluster_id": "card_cluster_014",
+        "line_group_ids": [
+          "lg_027",
+          "lg_028"
+        ],
+        "cluster_type": "data_cluster",
+        "key_information": "如果你也想做自己的短视频复盘系统， / 不是固定模板，而是一套可以改的提示词结构。",
+        "candidate_card_type": "data_result_card",
+        "merge_reason": "contiguous_line_groups_share_copy_function",
+        "selected_or_dropped": "pending_budget_and_evidence_check",
+        "reason": "cluster_merge_rule groups 1-5 line_groups before card selection"
+      },
+      {
+        "cluster_id": "card_cluster_015",
+        "line_group_ids": [
+          "lg_030"
+        ],
+        "cluster_type": "boundary_cluster",
+        "key_information": "不是保证爆款。",
+        "candidate_card_type": "boundary_card",
+        "merge_reason": "contiguous_line_groups_share_copy_function",
+        "selected_or_dropped": "pending_budget_and_evidence_check",
+        "reason": "cluster_merge_rule groups 1-5 line_groups before card selection"
+      }
+    ],
+    "candidate_cards": [
+      {
+        "line_group_id": "lg_001",
+        "card_type": "judgment_card",
+        "current_visual_role": "judgment_card",
+        "timeline_slot": "00:00:00,000-00:00:06,440",
+        "start_sec": 0.0,
+        "end_sec": 6.44,
+        "function": "开头先立判断：系统价值不是数据表。",
+        "source": "existing_card",
+        "evidence_window_safe": true
+      },
+      {
+        "line_group_id": "lg_010",
+        "card_type": "process_summary_card",
+        "current_visual_role": "process_summary_card",
+        "timeline_slot": "00:00:49,240-00:00:57,520",
+        "start_sec": 49.24,
+        "end_sec": 57.52,
+        "function": "展示字段清单，人话解释素材小字。",
+        "source": "existing_card",
+        "evidence_window_safe": true
+      },
+      {
+        "line_group_id": "lg_014",
+        "card_type": "boundary_card",
+        "current_visual_role": "boundary_card",
+        "timeline_slot": "00:01:17,240-00:01:23,440",
+        "start_sec": 77.24,
+        "end_sec": 83.44,
+        "function": "边界卡：不硬猜，降低平台和事实风险。",
+        "source": "existing_card",
+        "evidence_window_safe": true
+      },
+      {
+        "line_group_id": "lg_030",
+        "card_type": "ending_summary_card",
+        "current_visual_role": "ending_summary_card",
+        "timeline_slot": "00:02:49,960-00:02:54,300",
+        "start_sec": 169.96,
+        "end_sec": 174.3,
+        "function": "结尾风险边界和最终判断。",
+        "source": "existing_card",
+        "evidence_window_safe": true
+      }
+    ],
+    "selected_cards": [
+      {
+        "line_group_id": "lg_001",
+        "card_type": "judgment_card",
+        "current_visual_role": "judgment_card",
+        "timeline_slot": "00:00:00,000-00:00:06,440",
+        "start_sec": 0.0,
+        "end_sec": 6.44,
+        "function": "开头先立判断：系统价值不是数据表。",
+        "source": "existing_card",
+        "evidence_window_safe": true
+      },
+      {
+        "line_group_id": "lg_010",
+        "card_type": "process_summary_card",
+        "current_visual_role": "process_summary_card",
+        "timeline_slot": "00:00:49,240-00:00:57,520",
+        "start_sec": 49.24,
+        "end_sec": 57.52,
+        "function": "展示字段清单，人话解释素材小字。",
+        "source": "existing_card",
+        "evidence_window_safe": true
+      },
+      {
+        "line_group_id": "lg_014",
+        "card_type": "boundary_card",
+        "current_visual_role": "boundary_card",
+        "timeline_slot": "00:01:17,240-00:01:23,440",
+        "start_sec": 77.24,
+        "end_sec": 83.44,
+        "function": "边界卡：不硬猜，降低平台和事实风险。",
+        "source": "existing_card",
+        "evidence_window_safe": true
+      },
+      {
+        "line_group_id": "lg_030",
+        "card_type": "ending_summary_card",
+        "current_visual_role": "ending_summary_card",
+        "timeline_slot": "00:02:49,960-00:02:54,300",
+        "start_sec": 169.96,
+        "end_sec": 174.3,
+        "function": "结尾风险边界和最终判断。",
+        "source": "existing_card",
+        "evidence_window_safe": true
+      }
+    ],
+    "dropped_or_merged_cards": [],
+    "spacing_warnings": [
+      {
+        "previous": "lg_001",
+        "current": "lg_010",
+        "gap_sec": 42.8,
+        "status": "passed"
+      },
+      {
+        "previous": "lg_010",
+        "current": "lg_014",
+        "gap_sec": 19.72,
+        "status": "soft_spacing_warning"
+      },
+      {
+        "previous": "lg_014",
+        "current": "lg_030",
+        "gap_sec": 86.52,
+        "status": "passed"
+      }
+    ],
+    "reasons": {
+      "selection_policy": "data_result_card > key_judgment_card > ending_summary_card > boundary_card > process_summary_card",
+      "sentence_level_cards_forbidden": true,
+      "cluster_merge_rule_applied": true
+    },
+    "evidence_window_protection_result": {
+      "status": "passed",
+      "blocked_cards": [],
+      "protected_visual_roles": [
+        "ending_support",
+        "middle_evidence",
+        "opening_evidence"
+      ]
+    },
+    "hyperframes_unchanged_check": {
+      "visual_route_changed": false,
+      "motion_route_changed": false,
+      "skin_changed": false,
+      "existing_hyperframes_fields_preserved": true,
+      "content_route_card_read": true
+    }
+  },
+  "fourth_episode_card_decision_dry_run": {
+    "original_cards": [
+      {
+        "line_group_id": "lg_001",
+        "card_type": "judgment_card",
+        "current_visual_role": "judgment_card",
+        "timeline_slot": "00:00:00,000-00:00:06,440",
+        "start_sec": 0.0,
+        "end_sec": 6.44,
+        "function": "开头先立判断：系统价值不是数据表。",
+        "source": "existing_card",
+        "evidence_window_safe": true
+      },
+      {
+        "line_group_id": "lg_010",
+        "card_type": "process_summary_card",
+        "current_visual_role": "process_summary_card",
+        "timeline_slot": "00:00:49,240-00:00:57,520",
+        "start_sec": 49.24,
+        "end_sec": 57.52,
+        "function": "展示字段清单，人话解释素材小字。",
+        "source": "existing_card",
+        "evidence_window_safe": true
+      },
+      {
+        "line_group_id": "lg_014",
+        "card_type": "boundary_card",
+        "current_visual_role": "boundary_card",
+        "timeline_slot": "00:01:17,240-00:01:23,440",
+        "start_sec": 77.24,
+        "end_sec": 83.44,
+        "function": "边界卡：不硬猜，降低平台和事实风险。",
+        "source": "existing_card",
+        "evidence_window_safe": true
+      },
+      {
+        "line_group_id": "lg_030",
+        "card_type": "ending_summary_card",
+        "current_visual_role": "ending_summary_card",
+        "timeline_slot": "00:02:49,960-00:02:54,300",
+        "start_sec": 169.96,
+        "end_sec": 174.3,
+        "function": "结尾风险边界和最终判断。",
+        "source": "existing_card",
+        "evidence_window_safe": true
+      }
+    ],
+    "new_rule_selected_cards": [
+      {
+        "line_group_id": "lg_001",
+        "card_type": "judgment_card",
+        "current_visual_role": "judgment_card",
+        "timeline_slot": "00:00:00,000-00:00:06,440",
+        "start_sec": 0.0,
+        "end_sec": 6.44,
+        "function": "开头先立判断：系统价值不是数据表。",
+        "source": "existing_card",
+        "evidence_window_safe": true
+      },
+      {
+        "line_group_id": "lg_010",
+        "card_type": "process_summary_card",
+        "current_visual_role": "process_summary_card",
+        "timeline_slot": "00:00:49,240-00:00:57,520",
+        "start_sec": 49.24,
+        "end_sec": 57.52,
+        "function": "展示字段清单，人话解释素材小字。",
+        "source": "existing_card",
+        "evidence_window_safe": true
+      },
+      {
+        "line_group_id": "lg_014",
+        "card_type": "boundary_card",
+        "current_visual_role": "boundary_card",
+        "timeline_slot": "00:01:17,240-00:01:23,440",
+        "start_sec": 77.24,
+        "end_sec": 83.44,
+        "function": "边界卡：不硬猜，降低平台和事实风险。",
+        "source": "existing_card",
+        "evidence_window_safe": true
+      },
+      {
+        "line_group_id": "lg_030",
+        "card_type": "ending_summary_card",
+        "current_visual_role": "ending_summary_card",
+        "timeline_slot": "00:02:49,960-00:02:54,300",
+        "start_sec": 169.96,
+        "end_sec": 174.3,
+        "function": "结尾风险边界和最终判断。",
+        "source": "existing_card",
+        "evidence_window_safe": true
+      }
+    ],
+    "recommended_adjustment": {
+      "keep": [
+        {
+          "line_group_id": "lg_001",
+          "card_type": "judgment_card",
+          "current_visual_role": "judgment_card",
+          "timeline_slot": "00:00:00,000-00:00:06,440",
+          "start_sec": 0.0,
+          "end_sec": 6.44,
+          "function": "开头先立判断：系统价值不是数据表。",
+          "source": "existing_card",
+          "evidence_window_safe": true
+        },
+        {
+          "line_group_id": "lg_010",
+          "card_type": "process_summary_card",
+          "current_visual_role": "process_summary_card",
+          "timeline_slot": "00:00:49,240-00:00:57,520",
+          "start_sec": 49.24,
+          "end_sec": 57.52,
+          "function": "展示字段清单，人话解释素材小字。",
+          "source": "existing_card",
+          "evidence_window_safe": true
+        },
+        {
+          "line_group_id": "lg_014",
+          "card_type": "boundary_card",
+          "current_visual_role": "boundary_card",
+          "timeline_slot": "00:01:17,240-00:01:23,440",
+          "start_sec": 77.24,
+          "end_sec": 83.44,
+          "function": "边界卡：不硬猜，降低平台和事实风险。",
+          "source": "existing_card",
+          "evidence_window_safe": true
+        },
+        {
+          "line_group_id": "lg_030",
+          "card_type": "ending_summary_card",
+          "current_visual_role": "ending_summary_card",
+          "timeline_slot": "00:02:49,960-00:02:54,300",
+          "start_sec": 169.96,
+          "end_sec": 174.3,
+          "function": "结尾风险边界和最终判断。",
+          "source": "existing_card",
+          "evidence_window_safe": true
+        }
+      ],
+      "merge": [
+        {
+          "cluster_id": "card_cluster_003",
+          "line_group_ids": [
+            "lg_003",
+            "lg_004",
+            "lg_005"
+          ],
+          "candidate_card_type": "data_result_card",
+          "reason": "contiguous_line_groups_share_copy_function"
+        },
+        {
+          "cluster_id": "card_cluster_005",
+          "line_group_ids": [
+            "lg_007",
+            "lg_008",
+            "lg_009",
+            "lg_010"
+          ],
+          "candidate_card_type": "data_result_card",
+          "reason": "contiguous_line_groups_share_copy_function"
+        },
+        {
+          "cluster_id": "card_cluster_007",
+          "line_group_ids": [
+            "lg_012",
+            "lg_013"
+          ],
+          "candidate_card_type": "data_result_card",
+          "reason": "contiguous_line_groups_share_copy_function"
+        },
+        {
+          "cluster_id": "card_cluster_009",
+          "line_group_ids": [
+            "lg_015",
+            "lg_016",
+            "lg_017"
+          ],
+          "candidate_card_type": "judgment_card",
+          "reason": "contiguous_line_groups_share_copy_function"
+        },
+        {
+          "cluster_id": "card_cluster_011",
+          "line_group_ids": [
+            "lg_019",
+            "lg_020"
+          ],
+          "candidate_card_type": "judgment_card",
+          "reason": "contiguous_line_groups_share_copy_function"
+        },
+        {
+          "cluster_id": "card_cluster_012",
+          "line_group_ids": [
+            "lg_021",
+            "lg_022",
+            "lg_023",
+            "lg_024"
+          ],
+          "candidate_card_type": "data_result_card",
+          "reason": "contiguous_line_groups_share_copy_function"
+        },
+        {
+          "cluster_id": "card_cluster_013",
+          "line_group_ids": [
+            "lg_025",
+            "lg_026"
+          ],
+          "candidate_card_type": "judgment_card",
+          "reason": "contiguous_line_groups_share_copy_function"
+        },
+        {
+          "cluster_id": "card_cluster_014",
+          "line_group_ids": [
+            "lg_027",
+            "lg_028"
+          ],
+          "candidate_card_type": "data_result_card",
+          "reason": "contiguous_line_groups_share_copy_function"
+        }
+      ],
+      "replace": [
+        {
+          "from": "lg_010",
+          "from_card_type": "process_summary_card",
+          "to": "data_result_card",
+          "status": "candidate_blocked_missing_real_metric_values",
+          "reason": "metric_names_or_workflow_fields_are_not_real_metric_values",
+          "data_result_line_group_ids": [
+            "lg_019",
+            "lg_020",
+            "lg_021",
+            "lg_022",
+            "lg_023"
+          ]
+        }
+      ],
+      "drop": [],
+      "add_data_result_card_candidate": {
+        "card_type": "data_result_card",
+        "line_group_ids": [
+          "lg_019",
+          "lg_020",
+          "lg_021",
+          "lg_022",
+          "lg_023"
+        ],
+        "start_sec": 103.2,
+        "end_sec": 133.48,
+        "selected_or_dropped": "candidate_blocked_missing_real_metric_values",
+        "reason": "metric_names_or_workflow_fields_are_not_real_metric_values",
+        "output_shape": {
+          "原始数据": "required_real_metric_values",
+          "AI 判断": "required_problem_layer_and_boundary",
+          "下一条只改": "required_primary_variable",
+          "改完看": "required_validation_metrics"
+        },
+        "trigger_check": {
+          "real_metric_values": false,
+          "diagnosis_or_judgment": true,
+          "next_variable_or_action": true,
+          "validation_metric": true,
+          "data_source_clear": true
+        },
+        "key_information": "它要先判断问题出在哪一层： / 是中段证据不够，是结尾没有承接动作， / 第六步，是下一轮变量。 / 它只应该收成一句话： / 比如改开头，就看 2 秒跳出、3 秒留存、5 秒完播。"
+      }
+    },
+    "keep": [
+      {
+        "line_group_id": "lg_001",
+        "card_type": "judgment_card",
+        "current_visual_role": "judgment_card",
+        "timeline_slot": "00:00:00,000-00:00:06,440",
+        "start_sec": 0.0,
+        "end_sec": 6.44,
+        "function": "开头先立判断：系统价值不是数据表。",
+        "source": "existing_card",
+        "evidence_window_safe": true
+      },
+      {
+        "line_group_id": "lg_010",
+        "card_type": "process_summary_card",
+        "current_visual_role": "process_summary_card",
+        "timeline_slot": "00:00:49,240-00:00:57,520",
+        "start_sec": 49.24,
+        "end_sec": 57.52,
+        "function": "展示字段清单，人话解释素材小字。",
+        "source": "existing_card",
+        "evidence_window_safe": true
+      },
+      {
+        "line_group_id": "lg_014",
+        "card_type": "boundary_card",
+        "current_visual_role": "boundary_card",
+        "timeline_slot": "00:01:17,240-00:01:23,440",
+        "start_sec": 77.24,
+        "end_sec": 83.44,
+        "function": "边界卡：不硬猜，降低平台和事实风险。",
+        "source": "existing_card",
+        "evidence_window_safe": true
+      },
+      {
+        "line_group_id": "lg_030",
+        "card_type": "ending_summary_card",
+        "current_visual_role": "ending_summary_card",
+        "timeline_slot": "00:02:49,960-00:02:54,300",
+        "start_sec": 169.96,
+        "end_sec": 174.3,
+        "function": "结尾风险边界和最终判断。",
+        "source": "existing_card",
+        "evidence_window_safe": true
+      }
+    ],
+    "merge": [
+      {
+        "cluster_id": "card_cluster_003",
+        "line_group_ids": [
+          "lg_003",
+          "lg_004",
+          "lg_005"
+        ],
+        "candidate_card_type": "data_result_card",
+        "reason": "contiguous_line_groups_share_copy_function"
+      },
+      {
+        "cluster_id": "card_cluster_005",
+        "line_group_ids": [
+          "lg_007",
+          "lg_008",
+          "lg_009",
+          "lg_010"
+        ],
+        "candidate_card_type": "data_result_card",
+        "reason": "contiguous_line_groups_share_copy_function"
+      },
+      {
+        "cluster_id": "card_cluster_007",
+        "line_group_ids": [
+          "lg_012",
+          "lg_013"
+        ],
+        "candidate_card_type": "data_result_card",
+        "reason": "contiguous_line_groups_share_copy_function"
+      },
+      {
+        "cluster_id": "card_cluster_009",
+        "line_group_ids": [
+          "lg_015",
+          "lg_016",
+          "lg_017"
+        ],
+        "candidate_card_type": "judgment_card",
+        "reason": "contiguous_line_groups_share_copy_function"
+      },
+      {
+        "cluster_id": "card_cluster_011",
+        "line_group_ids": [
+          "lg_019",
+          "lg_020"
+        ],
+        "candidate_card_type": "judgment_card",
+        "reason": "contiguous_line_groups_share_copy_function"
+      },
+      {
+        "cluster_id": "card_cluster_012",
+        "line_group_ids": [
+          "lg_021",
+          "lg_022",
+          "lg_023",
+          "lg_024"
+        ],
+        "candidate_card_type": "data_result_card",
+        "reason": "contiguous_line_groups_share_copy_function"
+      },
+      {
+        "cluster_id": "card_cluster_013",
+        "line_group_ids": [
+          "lg_025",
+          "lg_026"
+        ],
+        "candidate_card_type": "judgment_card",
+        "reason": "contiguous_line_groups_share_copy_function"
+      },
+      {
+        "cluster_id": "card_cluster_014",
+        "line_group_ids": [
+          "lg_027",
+          "lg_028"
+        ],
+        "candidate_card_type": "data_result_card",
+        "reason": "contiguous_line_groups_share_copy_function"
+      }
+    ],
+    "replace": [
+      {
+        "from": "lg_010",
+        "from_card_type": "process_summary_card",
+        "to": "data_result_card",
+        "status": "candidate_blocked_missing_real_metric_values",
+        "reason": "metric_names_or_workflow_fields_are_not_real_metric_values",
+        "data_result_line_group_ids": [
+          "lg_019",
+          "lg_020",
+          "lg_021",
+          "lg_022",
+          "lg_023"
+        ]
+      }
+    ],
+    "drop": [],
+    "add_data_result_card_candidate": {
+      "card_type": "data_result_card",
+      "line_group_ids": [
+        "lg_019",
+        "lg_020",
+        "lg_021",
+        "lg_022",
+        "lg_023"
+      ],
+      "start_sec": 103.2,
+      "end_sec": 133.48,
+      "selected_or_dropped": "candidate_blocked_missing_real_metric_values",
+      "reason": "metric_names_or_workflow_fields_are_not_real_metric_values",
+      "output_shape": {
+        "原始数据": "required_real_metric_values",
+        "AI 判断": "required_problem_layer_and_boundary",
+        "下一条只改": "required_primary_variable",
+        "改完看": "required_validation_metrics"
+      },
+      "trigger_check": {
+        "real_metric_values": false,
+        "diagnosis_or_judgment": true,
+        "next_variable_or_action": true,
+        "validation_metric": true,
+        "data_source_clear": true
+      },
+      "key_information": "它要先判断问题出在哪一层： / 是中段证据不够，是结尾没有承接动作， / 第六步，是下一轮变量。 / 它只应该收成一句话： / 比如改开头，就看 2 秒跳出、3 秒留存、5 秒完播。"
+    },
+    "reason": "data_result_card requires real metric values; process_summary_card is lower priority when supported data exists",
+    "total_card_count_after_rule": 4,
+    "evidence_window_protection_result": "passed",
+    "hyperframes_unchanged_check": "passed_no_visual_motion_skin_change",
+    "no_video_regenerated": true,
+    "current_problem": {
+      "missing_card_types": [
+        "data_result_card"
+      ],
+      "over_card_risk": "low",
+      "under_card_risk": "data_result_card_missing_or_pending"
+    }
+  }
+}
