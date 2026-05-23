@@ -1,5 +1,19 @@
 # Latest
 
+## 20260524｜文案颗粒度配比机制补写
+
+- `已确认` 本轮只做文案机制补写，不写最终文案、不生成视频、不生成音频、不推进任何内容状态。
+- `已新增` `copy_granularity_mixture_rule（文案颗粒度配比规则）`：文案表层要顺口，但关键价值点必须落到素材颗粒度；精彩和重要的位置讲细节，普通过渡位置顺口推进。
+- `已更新` `GPT数据源/04_选题与文案规则.md`、`GPT数据源/05_文案路由规则.md`、`GPT数据源/07_AI知识类视频价值规则.md`。
+- 后续文案必须区分：`smooth_line（顺口推进句）`、`material_granularity_line（素材颗粒度句）`、`judgment_boundary_line（判断 / 边界句）`、`result_transition_line（结果变化句）`。
+- 关键句必须绑定素材动作、真实页面、真实字段、真实表格 / 云盘表格、结果变化或回到聊天框结论；缺素材支撑时必须降级、退回改稿或 blocked。
+- 普通过渡、轻吐槽、观众心理和收尾可以顺口，但不得承载事实证明；整篇机械堆步骤也必须退回改稿。
+- `DeepSeek`：已创建供料任务卡并完成安全供料，`deepseek_actual_participation = deepseek_passed`，`fallback_status = not_used`，`api_key_printed = false`，`api_key_written = false`，`env_file_read = false`；DeepSeek 只读供料，不拍板项目事实。
+- `content_validation = not_advanced`
+- `send_ready = false`
+- `voice_validation / visual_master_locked / current_data_goal_anchor ready / publish_candidate_ready_for_human_review` 均未推进。
+- `日志`：`codex_log/20260524_copy_granularity_mixture_mechanism.md`
+
 ## 20260519｜card_budget_gate 与 data_result_card 路由补强
 
 - `已确认` 本轮只做《视频工厂》卡片判断机制补强；不重做第四期视频，不改变 HyperFrames 展示形式、视觉路线、动效路线、卡片皮肤或现有生成方式。
