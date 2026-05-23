@@ -2009,3 +2009,25 @@
 - `dist/latest_review_pack/summary.json`
 - `codex_log/20260425_round34_中段双展示提示卡_正反分段提示修复.md`
 - `codex_log/20260425_round34_中段暂定通过与本地审片路径修正.md`
+
+## 20260524｜新第四期素材解析结果同步
+
+- `已确认` 新第四期素材解析已完成，本轮只同步审计结果，不重跑素材解析、不生成成片、不提交原始素材和图片产物。
+- `已确认` 素材目录：`/Users/fan/Documents/视频工厂/素材录制/新第四期`。
+- `已确认` 结果目录：`codex_log/material_audit/新第四期_20260524_001649/`。
+- `已确认` 本次同步到 main 的审计文件：
+  - `00_material_inventory.md`
+  - `01_media_probe_report.md`
+  - `05_timeline_segment_map.md`
+  - `06_evidence_anchor_report.md`
+  - `07_missing_and_risk_report.md`
+  - `08_chatgpt_handoff_pack.md`
+  - `manifest.json`
+- `sync_status = synced_to_main`
+- `technical_material_audit = passed_with_limits`
+- `content_validation = not_advanced`
+- `send_ready = false`
+- `blocked = false`
+- `partial_completed = false`
+- `未提交` 原始素材视频、keyframes 图片、contact_sheets 图片、音频副本、成片文件、dist 大媒体文件或任何凭据类文件 / 密钥值。
+- `待验证` 本轮素材只支持 ChatGPT 进入最终文案判断，不代表内容验证通过，不代表可发送，不代表商品、佣金、流量或商业闭环已验证。
