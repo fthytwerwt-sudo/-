@@ -1,0 +1,36 @@
+{
+  "created_at": "2026-05-24T23:11:18+08:00",
+  "output_dir": "/Users/fan/Documents/视频工厂/codex_log/script_preflight/新第四期_选品初筛_20260524_231118",
+  "status": "completed_preflight_with_copy_change_requests",
+  "line_group_count": 21,
+  "required_files": [
+    "00_locked_copy_contract_candidate.md",
+    "01_line_group_map.md",
+    "02_script_to_timeline_map.json",
+    "03_script_to_timeline_map.md",
+    "04_content_route_card_v2.json",
+    "05_content_route_card_v2.md",
+    "06_tts_prosody_anchor_map.json",
+    "07_card_placement_decision.md",
+    "08_editing_decision_pack.md",
+    "09_privacy_and_readability_check.md",
+    "10_copy_change_request_if_any.md",
+    "11_next_video_execution_prompt_draft.md",
+    "manifest.json"
+  ],
+  "media_files_committed": false,
+  "video_generated": false,
+  "audio_generated": false,
+  "content_validation": "not_advanced",
+  "send_ready": false,
+  "formal_video_execution_ready": false,
+  "source_materials": [
+    "V001",
+    "V003",
+    "V004"
+  ],
+  "excluded_materials": [
+    "V002"
+  ],
+  "copy_change_request": "required_before_formal_video_execution"
+}

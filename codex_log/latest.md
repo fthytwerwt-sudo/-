@@ -1,5 +1,23 @@
 # Latest
 
+## 20260524｜新第四期文案 line_group 与素材时间码对齐
+
+- 已确认：本轮只做新第四期成片前置包，不生成视频、不生成音频、不替换素材、不推进内容状态。
+- 已生成：`codex_log/script_preflight/新第四期_选品初筛_20260524_231118/`
+- 已生成：`01_line_group_map.md`，共 21 个 line_group，已对齐 V001 / V003 / V004 时间码或边界卡承载方式。
+- 已生成：`02_script_to_timeline_map.json` 与 `03_script_to_timeline_map.md`。
+- 已生成：`04_content_route_card_v2.json` 与 `05_content_route_card_v2.md`，其中 `current_data_goal_anchor_status = partial_or_not_ready`，`formal_video_execution_ready = false`。
+- 已生成：`06_tts_prosody_anchor_map.json`，只做韵律锚点，不生成 TTS。
+- 已生成：`07_card_placement_decision.md`、`08_editing_decision_pack.md`、`09_privacy_and_readability_check.md`。
+- 已生成：`10_copy_change_request_if_any.md`，正式成片前需先处理“直接操作电脑”“SKU 复杂”“最值得复查”“云盘遮挡”等风险表达。
+- 已生成：`11_next_video_execution_prompt_draft.md`，标记 `not_executed_this_round = true`。
+- content_validation = not_advanced
+- send_ready = false
+- video_generated = false
+- audio_generated = false
+- media_committed = false
+
+
 ## 20260524｜文案对标逐字稿与话语口味补充解析
 
 - `已确认` 本轮只做对标视频逐字稿 / 话语口味补充解析，不写新第四期最终文案、不生成视频、不替换素材、不推进内容状态。
