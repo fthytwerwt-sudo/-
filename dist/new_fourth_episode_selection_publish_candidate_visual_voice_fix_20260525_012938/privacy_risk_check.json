@@ -1,0 +1,8 @@
+{
+  "status": "pending_human_spot_check_no_auto_mask",
+  "default_masking_disabled": true,
+  "true_secret_detected_in_known_reports": false,
+  "ocr_over_video_frames": "not_available",
+  "policy": "商品名 / 价格 / 佣金 / 月销 / 表格字段默认保留可见；若用户复审发现真实 secret，下一轮必须 blocked 后获授权处理。",
+  "no_whiteout_no_blur_no_black_block": true
+}

@@ -27,9 +27,32 @@
 
 不得把以下产物写成交付完成：`technical_preview（技术预览）`、`technical_preview_candidate（技术预览候选）`、`preflight package（执行前补全包）`、`silent preview（无声预览）`、无音轨视频、横屏技术包、只交 JSON / Markdown / route card。
 
-`publish_candidate` 基础线至少包含：横屏 16:9、默认 1920x1080、有口播或明确可发布音轨、有字幕、清楚开头、中段证据、结尾收束、基础人感质量、不误写数据 / 客资 / 状态、可由 ChatGPT / 用户按发布标准复审。无声视频不能作为发布候选片；1280x720 横屏只能作为历史内部诊断或低清临时检查，不能作为正式运营默认交付。旧 `竖屏 9:16 / 1080x1920` 只保留为历史样片、历史提示卡或用户另行指定竖屏策略时的特殊任务口径。
+`publish_candidate` 基础线至少包含：有口播或明确可发布音轨、有字幕、清楚开头、中段证据、结尾收束、基础人感质量、不误写数据 / 客资 / 状态、可由 ChatGPT / 用户按发布标准复审。无声视频不能作为发布候选片；1280x720 横屏只能作为历史内部诊断或低清临时检查，不能作为正式运营默认交付。旧 `竖屏 9:16 / 1080x1920` 只保留为历史样片、历史提示卡或用户另行指定竖屏策略时的特殊任务口径。
 
-如果缺声音、字幕、横屏 16:9 构图、1920x1080 装配、剪辑节奏、素材证据、TTS、卡片、人感质量、平台风险、API 授权或装配能力，必须 blocked 或修到满足 `publish_candidate`；不得用技术验证消耗正式运营阶段的内容迭代机会。
+用户提供录屏 / 桌面素材时，默认启用 `source_native_no_mask_visual_rule（源素材比例 + 无遮挡视觉规则）`：`source_material_ratio_preferred = true`、`no_default_16_9_for_user_recording = true`。除非用户明确指定横屏 16:9 / 1920x1080，发布候选片不得为了旧固定比例增加灰边、白边、黑边、letterbox、pillarbox 或 padding bands。
+
+如果缺声音、字幕、剪辑节奏、素材证据、TTS、卡片、人感质量、平台风险、API 授权或装配能力，必须 blocked 或修到满足 `publish_candidate`；不得用技术验证消耗正式运营阶段的内容迭代机会。
+
+## 0A-1b. source_native_no_mask_visual_execution_gate（源比例无遮挡视觉执行闸门）
+
+后续视频执行默认写入以下硬边界：
+
+```text
+no_default_masking_without_user_authorization = true
+no_default_16_9_for_user_recording = true
+source_material_ratio_preferred = true
+blocked_if_visual_evidence_unreadable = true
+```
+
+执行要求：
+
+- 默认禁止遮挡、洗白、模糊、灰色遮罩、黑块遮挡、整屏 privacy mask、final-stage whiteout。
+- 字幕默认优先 sidecar 或轻量方案；不得用大黑条字幕盖住商品卡、表格、聊天框或画面 OCR。
+- 卡片默认用独立段、前后转场卡或不遮挡式承载；不得盖住中段核心证据。
+- 用户给的素材优先按源素材比例使用；多素材比例不同只能做等比 cover / 最小裁切，不能用 padding bands 填边。
+- 商品名、价格、佣金、月销、店铺分、商品分、表格字段、云盘文件名、浏览器边栏和页面结构默认保留可见。
+- 发现真实 `secret / API key / token / 身份证号 / 银行卡 / 手机号 / 私人地址` 时，不得自行遮挡继续，必须 blocked 请求用户授权。
+- 如果去掉遮挡后核心证据不可读、或必须靠遮挡才能继续，必须 blocked；不得交 `publish_candidate`。
 
 ## 0A-2. no_degrade_completion_gate 禁止降级完成闸门
 

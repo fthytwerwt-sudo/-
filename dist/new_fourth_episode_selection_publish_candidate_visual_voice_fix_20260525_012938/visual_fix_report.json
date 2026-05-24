@@ -1,0 +1,99 @@
+{
+  "gray_border_removed": true,
+  "whiteout_removed": true,
+  "black_block_removed": true,
+  "default_masking_disabled": true,
+  "forced_16_9_disabled": true,
+  "source_material_ratio_used": true,
+  "subtitle_burn_in_used": false,
+  "render_pipeline_added_issue": false,
+  "frame_sample_check": {
+    "status": "passed_no_pipeline_padding_mask_or_whiteout_detected",
+    "sample_count": 8,
+    "frames": [
+      {
+        "time_seconds": 0.5,
+        "local_frame_path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/frame_samples_local_only/sample_01_0000s.jpg",
+        "bright_white_pixel_ratio": 0.4688,
+        "dark_pixel_ratio": 0.0048,
+        "right_top_dark_pixel_ratio": 0.0026,
+        "full_frame_whiteout_detected": false,
+        "large_black_block_detected": false,
+        "bright_source_ui_without_whiteout": false
+      },
+      {
+        "time_seconds": 5.0,
+        "local_frame_path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/frame_samples_local_only/sample_02_0005s.jpg",
+        "bright_white_pixel_ratio": 0.4677,
+        "dark_pixel_ratio": 0.0052,
+        "right_top_dark_pixel_ratio": 0.0026,
+        "full_frame_whiteout_detected": false,
+        "large_black_block_detected": false,
+        "bright_source_ui_without_whiteout": false
+      },
+      {
+        "time_seconds": 15.0,
+        "local_frame_path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/frame_samples_local_only/sample_03_0015s.jpg",
+        "bright_white_pixel_ratio": 0.4676,
+        "dark_pixel_ratio": 0.0052,
+        "right_top_dark_pixel_ratio": 0.0026,
+        "full_frame_whiteout_detected": false,
+        "large_black_block_detected": false,
+        "bright_source_ui_without_whiteout": false
+      },
+      {
+        "time_seconds": 30.0,
+        "local_frame_path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/frame_samples_local_only/sample_04_0030s.jpg",
+        "bright_white_pixel_ratio": 0.8936,
+        "dark_pixel_ratio": 0.0037,
+        "right_top_dark_pixel_ratio": 0.0186,
+        "full_frame_whiteout_detected": false,
+        "large_black_block_detected": false,
+        "bright_source_ui_without_whiteout": true
+      },
+      {
+        "time_seconds": 55.0,
+        "local_frame_path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/frame_samples_local_only/sample_05_0055s.jpg",
+        "bright_white_pixel_ratio": 0.4674,
+        "dark_pixel_ratio": 0.0053,
+        "right_top_dark_pixel_ratio": 0.0027,
+        "full_frame_whiteout_detected": false,
+        "large_black_block_detected": false,
+        "bright_source_ui_without_whiteout": false
+      },
+      {
+        "time_seconds": 80.0,
+        "local_frame_path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/frame_samples_local_only/sample_06_0080s.jpg",
+        "bright_white_pixel_ratio": 0.8919,
+        "dark_pixel_ratio": 0.0027,
+        "right_top_dark_pixel_ratio": 0.0107,
+        "full_frame_whiteout_detected": false,
+        "large_black_block_detected": false,
+        "bright_source_ui_without_whiteout": true
+      },
+      {
+        "time_seconds": 113.11,
+        "local_frame_path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/frame_samples_local_only/sample_07_0113s.jpg",
+        "bright_white_pixel_ratio": 0.7236,
+        "dark_pixel_ratio": 0.0039,
+        "right_top_dark_pixel_ratio": 0.0,
+        "full_frame_whiteout_detected": false,
+        "large_black_block_detected": false,
+        "bright_source_ui_without_whiteout": false
+      },
+      {
+        "time_seconds": 220.22,
+        "local_frame_path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/frame_samples_local_only/sample_08_0220s.jpg",
+        "bright_white_pixel_ratio": 0.7926,
+        "dark_pixel_ratio": 0.0041,
+        "right_top_dark_pixel_ratio": 0.0008,
+        "full_frame_whiteout_detected": false,
+        "large_black_block_detected": false,
+        "bright_source_ui_without_whiteout": false
+      }
+    ],
+    "gray_border_check": "passed_by_pipeline_no_pad_no_edge_mask",
+    "whiteout_check": "passed_no_full_frame_whiteout_detected; bright UI frames are source material pages with visible text/structure",
+    "black_block_check": "passed_by_pipeline_no_black_mask_and_frame_samples"
+  }
+}

@@ -1,5 +1,23 @@
 # Latest
 
+## 20260525｜新第四期无遮挡源比例 + B 语音修复候选片
+
+- 已确认：本轮按用户指令先落库“源素材比例 + 无默认遮挡”视觉机制，再重生成新第四期修复候选片；未改 locked v0.2 文案语义。
+- 已写入机制：`source_native_no_mask_visual_rule`、`visual_evidence_must_remain_visible_rule`、`no_default_masking_without_user_authorization = true`、`no_default_16_9_for_user_recording = true`、`source_material_ratio_preferred = true`、`blocked_if_visual_evidence_unreadable = true`。
+- 已生成：`/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/full.mp4`。
+- 已生成：`narration.wav`，走阿里 / 百炼 B 语音路线：`provider = aliyun_bailian`，`target_model = qwen3-tts-vc-realtime-2026-01-15`，`custom_voice_masked = qwen-t...ac19`，`used_b_voice = true`，`used_b_pacing = true`。
+- 已生成：`captions.srt`，并作为 sidecar / embedded subtitle 使用；未烧录大黑条字幕，未用字幕遮挡中段核心素材。
+- 视觉修复：`canvas = 3412x1846`，`canvas_strategy = source_native_or_primary_material_ratio`；未强制 16:9，未强制 1920x1080，未使用 gray padding / white padding / black padding / letterbox / pillarbox。
+- 视觉修复：默认遮挡已禁用；未使用 final-stage whiteout、full-frame privacy mask、right account black block、edge privacy mask、gray dim overlay 或 large redaction rect。
+- 验证：`ffprobe = passed`；`ffmpeg_decode = passed`；`audio_present = true`；`non_silent = true`；`subtitles_present = true`；`subtitle_card_overlap = passed`；`secret_scan = passed`。
+- `publish_candidate_ready_for_human_review = true`
+- `content_validation = pending_user_chatgpt_review`
+- `send_ready = false`
+- `voice_validation = pending_user_chatgpt_review`
+- `visual_master_locked = false`
+- `current_data_goal_anchor_ready = false`
+- `media_committed = false`
+
 ## 20260525｜新第四期成片视觉 / TTS 路线只读诊断
 
 - 已确认：本轮只做只读诊断；未修复、未重渲染、未重新生成 TTS，未修改 `full.mp4` / `narration.wav` / `captions.srt`。

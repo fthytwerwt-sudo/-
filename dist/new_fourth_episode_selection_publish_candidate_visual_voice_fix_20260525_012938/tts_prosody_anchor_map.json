@@ -1,0 +1,368 @@
+{
+  "metadata": {
+    "tts_generated": false,
+    "audio_generated": false,
+    "forbidden_upward_words": [
+      "爆品",
+      "一定能卖",
+      "自动赚钱",
+      "商业闭环"
+    ],
+    "global_notes": [
+      "开头痛点短停顿",
+      "字段列举中等停顿",
+      "边界句强停顿",
+      "结尾动作低压收束",
+      "不允许把风险词读成兴奋承诺"
+    ]
+  },
+  "anchors": [
+    {
+      "line_group_id": "LG001",
+      "tone": "direct",
+      "pause_instruction": "短停顿：拍视频 / 剪辑 / 样品 / 测错商品成本逐级推进",
+      "emphasis_words": [
+        "测错商品"
+      ],
+      "split_suggestion": "长字段列举需要拆成短字幕；不改语义，只拆停顿。",
+      "must_not_raise_on": [
+        "爆品",
+        "一定能卖",
+        "自动赚钱",
+        "商业闭环"
+      ],
+      "risk_note": "这是用户经验判断，不是商业数据结论。"
+    },
+    {
+      "line_group_id": "LG002",
+      "tone": "light_tease",
+      "pause_instruction": "顺口推进，句尾轻停顿",
+      "emphasis_words": [
+        "商品卡"
+      ],
+      "split_suggestion": "长字段列举需要拆成短字幕；不改语义，只拆停顿。",
+      "must_not_raise_on": [
+        "爆品",
+        "一定能卖",
+        "自动赚钱",
+        "商业闭环"
+      ],
+      "risk_note": "只证明“信息多且分散”，不证明“哪个商品好”。"
+    },
+    {
+      "line_group_id": "LG003",
+      "tone": "firm_boundary",
+      "pause_instruction": "边界句前后强停顿，降低语速",
+      "emphasis_words": [],
+      "split_suggestion": "长字段列举需要拆成短字幕；不改语义，只拆停顿。",
+      "must_not_raise_on": [
+        "爆品",
+        "一定能卖",
+        "自动赚钱",
+        "商业闭环"
+      ],
+      "risk_note": "属于经验风险判断，不能成为具体商品财务结论。"
+    },
+    {
+      "line_group_id": "LG004",
+      "tone": "firm_boundary",
+      "pause_instruction": "边界句前后强停顿，降低语速",
+      "emphasis_words": [
+        "风险"
+      ],
+      "split_suggestion": "长字段列举需要拆成短字幕；不改语义，只拆停顿。",
+      "must_not_raise_on": [
+        "爆品",
+        "一定能卖",
+        "自动赚钱",
+        "商业闭环"
+      ],
+      "risk_note": "本句可作为通用选品风险，不能写成 V001 某商品已确认 SKU 复杂。"
+    },
+    {
+      "line_group_id": "LG005",
+      "tone": "firm_boundary",
+      "pause_instruction": "边界句前后强停顿，降低语速",
+      "emphasis_words": [
+        "风险"
+      ],
+      "split_suggestion": "长字段列举需要拆成短字幕；不改语义，只拆停顿。",
+      "must_not_raise_on": [
+        "爆品",
+        "一定能卖",
+        "自动赚钱",
+        "商业闭环"
+      ],
+      "risk_note": "这是风险维度说明，不是转化预测。"
+    },
+    {
+      "line_group_id": "LG006",
+      "tone": "light_tease",
+      "pause_instruction": "顺口推进，句尾轻停顿",
+      "emphasis_words": [
+        "商品卡",
+        "风险"
+      ],
+      "split_suggestion": "长字段列举需要拆成短字幕；不改语义，只拆停顿。",
+      "must_not_raise_on": [
+        "爆品",
+        "一定能卖",
+        "自动赚钱",
+        "商业闭环"
+      ],
+      "risk_note": "只呈现手动流程，不宣称字段已全部核验。"
+    },
+    {
+      "line_group_id": "LG007",
+      "tone": "light_tease",
+      "pause_instruction": "顺口推进，句尾轻停顿",
+      "emphasis_words": [
+        "商品卡"
+      ],
+      "split_suggestion": "长字段列举需要拆成短字幕；不改语义，只拆停顿。",
+      "must_not_raise_on": [
+        "爆品",
+        "一定能卖",
+        "自动赚钱",
+        "商业闭环"
+      ],
+      "risk_note": "只支持执行型辅助初筛，不支持无人自动成功。"
+    },
+    {
+      "line_group_id": "LG008",
+      "tone": "calm_judgment",
+      "pause_instruction": "字段列举用中等停顿，每 2-3 个字段一组",
+      "emphasis_words": [
+        "风险"
+      ],
+      "split_suggestion": "长字段列举需要拆成短字幕；不改语义，只拆停顿。",
+      "must_not_raise_on": [
+        "爆品",
+        "一定能卖",
+        "自动赚钱",
+        "商业闭环"
+      ],
+      "risk_note": "字段只是初筛依据，不等于人工复核完成。"
+    },
+    {
+      "line_group_id": "LG009",
+      "tone": "light_tease",
+      "pause_instruction": "顺口推进，句尾轻停顿",
+      "emphasis_words": [
+        "商品卡"
+      ],
+      "split_suggestion": "长字段列举需要拆成短字幕；不改语义，只拆停顿。",
+      "must_not_raise_on": [
+        "爆品",
+        "一定能卖",
+        "自动赚钱",
+        "商业闭环"
+      ],
+      "risk_note": "证明结果整理，不证明全过程无人执行。"
+    },
+    {
+      "line_group_id": "LG010",
+      "tone": "calm_judgment",
+      "pause_instruction": "字段列举用中等停顿，每 2-3 个字段一组",
+      "emphasis_words": [
+        "商品卡",
+        "风险"
+      ],
+      "split_suggestion": "长字段列举需要拆成短字幕；不改语义，只拆停顿。",
+      "must_not_raise_on": [
+        "爆品",
+        "一定能卖",
+        "自动赚钱",
+        "商业闭环"
+      ],
+      "risk_note": "表格是初筛记录，不是发布判断。"
+    },
+    {
+      "line_group_id": "LG011",
+      "tone": "calm_judgment",
+      "pause_instruction": "字段列举用中等停顿，每 2-3 个字段一组",
+      "emphasis_words": [
+        "判断表",
+        "复查",
+        "风险",
+        "下一步"
+      ],
+      "split_suggestion": "长字段列举需要拆成短字幕；不改语义，只拆停顿。",
+      "must_not_raise_on": [
+        "爆品",
+        "一定能卖",
+        "自动赚钱",
+        "商业闭环"
+      ],
+      "risk_note": "字段显示支持“判断过程”，不支持“商品结论已验证”。"
+    },
+    {
+      "line_group_id": "LG012",
+      "tone": "firm_boundary",
+      "pause_instruction": "边界句前后强停顿，降低语速",
+      "emphasis_words": [
+        "复查"
+      ],
+      "split_suggestion": "长字段列举需要拆成短字幕；不改语义，只拆停顿。",
+      "must_not_raise_on": [
+        "爆品",
+        "一定能卖",
+        "自动赚钱",
+        "商业闭环"
+      ],
+      "risk_note": "核心安全边界：不是爆品/不是马上拍/不是收益承诺。"
+    },
+    {
+      "line_group_id": "LG013",
+      "tone": "light_tease",
+      "pause_instruction": "顺口推进，句尾轻停顿",
+      "emphasis_words": [
+        "商品卡",
+        "复查"
+      ],
+      "split_suggestion": "长字段列举需要拆成短字幕；不改语义，只拆停顿。",
+      "must_not_raise_on": [
+        "爆品",
+        "一定能卖",
+        "自动赚钱",
+        "商业闭环"
+      ],
+      "risk_note": "3/4 是初筛结果，不是最终选择。"
+    },
+    {
+      "line_group_id": "LG014",
+      "tone": "calm_judgment",
+      "pause_instruction": "字段列举用中等停顿，每 2-3 个字段一组",
+      "emphasis_words": [
+        "风险"
+      ],
+      "split_suggestion": "长字段列举需要拆成短字幕；不改语义，只拆停顿。",
+      "must_not_raise_on": [
+        "爆品",
+        "一定能卖",
+        "自动赚钱",
+        "商业闭环"
+      ],
+      "risk_note": "收益信号只是复查条件，不是收益预测。"
+    },
+    {
+      "line_group_id": "LG015",
+      "tone": "calm_judgment",
+      "pause_instruction": "字段列举用中等停顿，每 2-3 个字段一组",
+      "emphasis_words": [
+        "复查",
+        "风险",
+        "下一步"
+      ],
+      "split_suggestion": "长字段列举需要拆成短字幕；不改语义，只拆停顿。",
+      "must_not_raise_on": [
+        "爆品",
+        "一定能卖",
+        "自动赚钱",
+        "商业闭环"
+      ],
+      "risk_note": "这是全片最强证据，但仍是复查，不是拍板。"
+    },
+    {
+      "line_group_id": "LG016",
+      "tone": "calm_judgment",
+      "pause_instruction": "字段列举用中等停顿，每 2-3 个字段一组",
+      "emphasis_words": [
+        "风险",
+        "下一步"
+      ],
+      "split_suggestion": "长字段列举需要拆成短字幕；不改语义，只拆停顿。",
+      "must_not_raise_on": [
+        "爆品",
+        "一定能卖",
+        "自动赚钱",
+        "商业闭环"
+      ],
+      "risk_note": "证明资料归档，不证明数据完整核验。"
+    },
+    {
+      "line_group_id": "LG017",
+      "tone": "calm_judgment",
+      "pause_instruction": "字段列举用中等停顿，每 2-3 个字段一组",
+      "emphasis_words": [
+        "复查",
+        "风险",
+        "下一步"
+      ],
+      "split_suggestion": "长字段列举需要拆成短字幕；不改语义，只拆停顿。",
+      "must_not_raise_on": [
+        "爆品",
+        "一定能卖",
+        "自动赚钱",
+        "商业闭环"
+      ],
+      "risk_note": "结论是复查优先级，不是最终商品选择。"
+    },
+    {
+      "line_group_id": "LG018",
+      "tone": "light_tease",
+      "pause_instruction": "顺口推进，句尾轻停顿",
+      "emphasis_words": [],
+      "split_suggestion": "长字段列举需要拆成短字幕；不改语义，只拆停顿。",
+      "must_not_raise_on": [
+        "爆品",
+        "一定能卖",
+        "自动赚钱",
+        "商业闭环"
+      ],
+      "risk_note": "机制对比，不是功能宣传承诺。"
+    },
+    {
+      "line_group_id": "LG019",
+      "tone": "firm_boundary",
+      "pause_instruction": "边界句前后强停顿，降低语速",
+      "emphasis_words": [],
+      "split_suggestion": "长字段列举需要拆成短字幕；不改语义，只拆停顿。",
+      "must_not_raise_on": [
+        "爆品",
+        "一定能卖",
+        "自动赚钱",
+        "商业闭环"
+      ],
+      "risk_note": "核心合规句。"
+    },
+    {
+      "line_group_id": "LG020",
+      "tone": "low_pressure",
+      "pause_instruction": "结尾低压收束，动作句前停顿",
+      "emphasis_words": [
+        "判断表",
+        "复查",
+        "风险",
+        "下一步"
+      ],
+      "split_suggestion": "长字段列举需要拆成短字幕；不改语义，只拆停顿。",
+      "must_not_raise_on": [
+        "爆品",
+        "一定能卖",
+        "自动赚钱",
+        "商业闭环"
+      ],
+      "risk_note": "证明流程改善，不证明商业效果。"
+    },
+    {
+      "line_group_id": "LG021",
+      "tone": "low_pressure",
+      "pause_instruction": "结尾低压收束，动作句前停顿",
+      "emphasis_words": [
+        "商品卡",
+        "复查",
+        "风险",
+        "下一步"
+      ],
+      "split_suggestion": "长字段列举需要拆成短字幕；不改语义，只拆停顿。",
+      "must_not_raise_on": [
+        "爆品",
+        "一定能卖",
+        "自动赚钱",
+        "商业闭环"
+      ],
+      "risk_note": "低压行动建议，不是商业承诺。"
+    }
+  ]
+}

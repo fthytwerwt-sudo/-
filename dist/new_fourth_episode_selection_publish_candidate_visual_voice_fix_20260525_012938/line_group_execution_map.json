@@ -1,0 +1,655 @@
+{
+  "line_groups": [
+    {
+      "line_group_id": "LG001",
+      "narration_text": "朋友们，你有没有发现，现在做带货，最贵的已经不是拍一条视频了，也不是剪辑、样品，而是前面测错商品的成本。",
+      "audio_range": {
+        "line_group_id": "LG001",
+        "start": 0.0,
+        "end_with_pause": 9.67,
+        "duration": 9.67
+      },
+      "visual_execution": {
+        "line_group_id": "LG001",
+        "title": "开头趋势痛点：测错商品成本比拍视频更贵",
+        "source_timecode_selected": {
+          "material_id": "V001",
+          "start": 15.0,
+          "end": 84.0,
+          "span": 69.0,
+          "raw": "V001 00:15-01:24"
+        },
+        "duration_seconds": 9.67,
+        "clip_path": "dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/video_work/001_LG001.mp4",
+        "masking_applied": false,
+        "padding_applied": false,
+        "card_overlay_applied": false,
+        "subtitle_burn_in_applied": false,
+        "visual_strategy": "source_material_clip_only_cover_crop_no_pad_no_mask"
+      },
+      "subtitle_strategy": "sidecar_srt_and_embedded_mov_text_no_burn_in",
+      "masking_strategy": "no_default_masking_user_material_visible",
+      "alignment_status": "executed_from_preflight_line_group_map"
+    },
+    {
+      "line_group_id": "LG002",
+      "narration_text": "你刷半天精选联盟，看到的全是商品卡：这个佣金高，那个销量好，这个图精致，那个价格像适合冲动消费，但翻到最后还是不知道哪个值得继续测。",
+      "audio_range": {
+        "line_group_id": "LG002",
+        "start": 9.67,
+        "end_with_pause": 21.09,
+        "duration": 11.42
+      },
+      "visual_execution": {
+        "line_group_id": "LG002",
+        "title": "精选联盟商品卡混乱：佣金高、销量好，但不知道哪个该测",
+        "source_timecode_selected": {
+          "material_id": "V001",
+          "start": 15.0,
+          "end": 84.0,
+          "span": 69.0,
+          "raw": "V001 00:15-01:24"
+        },
+        "duration_seconds": 11.42,
+        "clip_path": "dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/video_work/002_LG002.mp4",
+        "masking_applied": false,
+        "padding_applied": false,
+        "card_overlay_applied": false,
+        "subtitle_burn_in_applied": false,
+        "visual_strategy": "source_material_clip_only_cover_crop_no_pad_no_mask"
+      },
+      "subtitle_strategy": "sidecar_srt_and_embedded_mov_text_no_burn_in",
+      "masking_strategy": "no_default_masking_user_material_visible",
+      "alignment_status": "executed_from_preflight_line_group_map"
+    },
+    {
+      "line_group_id": "LG003",
+      "narration_text": "有的商品佣金看起来很高，但客单价太低，你拍一条视频的时间成本可能都不一定回得来。",
+      "audio_range": {
+        "line_group_id": "LG003",
+        "start": 21.09,
+        "end_with_pause": 27.72,
+        "duration": 6.63
+      },
+      "visual_execution": {
+        "line_group_id": "LG003",
+        "title": "选品坑点一：佣金高但客单价低，时间成本可能回不来",
+        "source_timecode_selected": {
+          "material_id": "V001",
+          "start": 96.0,
+          "end": 129.0,
+          "span": 33.0,
+          "raw": "V001 01:36-02:09"
+        },
+        "duration_seconds": 6.63,
+        "clip_path": "dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/video_work/003_LG003.mp4",
+        "masking_applied": false,
+        "padding_applied": false,
+        "card_overlay_applied": false,
+        "subtitle_burn_in_applied": false,
+        "visual_strategy": "source_material_clip_only_cover_crop_no_pad_no_mask"
+      },
+      "subtitle_strategy": "sidecar_srt_and_embedded_mov_text_no_burn_in",
+      "masking_strategy": "no_default_masking_user_material_visible",
+      "alignment_status": "executed_from_preflight_line_group_map"
+    },
+    {
+      "line_group_id": "LG004",
+      "narration_text": "有的商品销量看起来不错，但 SKU 太复杂，观众看完根本不知道该买哪一款。",
+      "audio_range": {
+        "line_group_id": "LG004",
+        "start": 27.72,
+        "end_with_pause": 34.19,
+        "duration": 6.47
+      },
+      "visual_execution": {
+        "line_group_id": "LG004",
+        "title": "选品坑点二：销量好但 SKU 复杂，观众不知道买哪款",
+        "source_timecode_selected": {
+          "material_id": "V001",
+          "start": 132.0,
+          "end": 204.0,
+          "span": 72.0,
+          "raw": "V001 02:12-03:24"
+        },
+        "duration_seconds": 6.47,
+        "clip_path": "dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/video_work/004_LG004.mp4",
+        "masking_applied": false,
+        "padding_applied": false,
+        "card_overlay_applied": false,
+        "subtitle_burn_in_applied": false,
+        "visual_strategy": "source_material_clip_only_cover_crop_no_pad_no_mask"
+      },
+      "subtitle_strategy": "sidecar_srt_and_embedded_mov_text_no_burn_in",
+      "masking_strategy": "no_default_masking_user_material_visible",
+      "alignment_status": "executed_from_preflight_line_group_map"
+    },
+    {
+      "line_group_id": "LG005",
+      "narration_text": "有的商品图片特别好看，但店铺分和商品分一低，你视频拍得再顺，转化也可能卡住；退货风险一高，后面全是售后坑。",
+      "audio_range": {
+        "line_group_id": "LG005",
+        "start": 34.19,
+        "end_with_pause": 43.54,
+        "duration": 9.35
+      },
+      "visual_execution": {
+        "line_group_id": "LG005",
+        "title": "选品坑点三：图好看但店铺/商品分低，转化可能卡住",
+        "source_timecode_selected": {
+          "material_id": "V001",
+          "start": 96.0,
+          "end": 129.0,
+          "span": 33.0,
+          "raw": "V001 01:36-02:09"
+        },
+        "duration_seconds": 9.35,
+        "clip_path": "dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/video_work/005_LG005.mp4",
+        "masking_applied": false,
+        "padding_applied": false,
+        "card_overlay_applied": false,
+        "subtitle_burn_in_applied": false,
+        "visual_strategy": "source_material_clip_only_cover_crop_no_pad_no_mask"
+      },
+      "subtitle_strategy": "sidecar_srt_and_embedded_mov_text_no_burn_in",
+      "masking_strategy": "no_default_masking_user_material_visible",
+      "alignment_status": "executed_from_preflight_line_group_map"
+    },
+    {
+      "line_group_id": "LG006",
+      "narration_text": "以前这一步，我都是自己一个个翻：打开精选联盟，输入品类，点开商品卡，看价格、佣金、月销、店铺分、商品分、评价和退货风险。",
+      "audio_range": {
+        "line_group_id": "LG006",
+        "start": 43.54,
+        "end_with_pause": 56.0,
+        "duration": 12.46
+      },
+      "visual_execution": {
+        "line_group_id": "LG006",
+        "title": "手动选品过程：打开页面、输入品类、点商品卡、记字段",
+        "source_timecode_selected": {
+          "material_id": "V001",
+          "start": 15.0,
+          "end": 84.0,
+          "span": 69.0,
+          "raw": "V001 00:15-01:24"
+        },
+        "duration_seconds": 12.46,
+        "clip_path": "dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/video_work/006_LG006.mp4",
+        "masking_applied": false,
+        "padding_applied": false,
+        "card_overlay_applied": false,
+        "subtitle_burn_in_applied": false,
+        "visual_strategy": "source_material_clip_only_cover_crop_no_pad_no_mask"
+      },
+      "subtitle_strategy": "sidecar_srt_and_embedded_mov_text_no_burn_in",
+      "masking_strategy": "no_default_masking_user_material_visible",
+      "alignment_status": "executed_from_preflight_line_group_map"
+    },
+    {
+      "line_group_id": "LG007",
+      "narration_text": "所以这次我换了一个做法：我不想再自己一个个翻了，我让 Codex 先帮我跑一轮选品初筛。注意，不是问它“帮我找一个爆品”，而是让它把商品卡里的信息拆出来。",
+      "audio_range": {
+        "line_group_id": "LG007",
+        "start": 56.0,
+        "end_with_pause": 68.44,
+        "duration": 12.44
+      },
+      "visual_execution": {
+        "line_group_id": "LG007",
+        "title": "Codex 入场：不是问爆品，而是让它拆商品卡信息",
+        "source_timecode_selected": {
+          "material_id": "V001",
+          "start": 87.0,
+          "end": 93.0,
+          "span": 6.0,
+          "raw": "V001 01:27-01:33"
+        },
+        "duration_seconds": 12.44,
+        "clip_path": "dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/video_work/007_LG007.mp4",
+        "masking_applied": false,
+        "padding_applied": false,
+        "card_overlay_applied": false,
+        "subtitle_burn_in_applied": false,
+        "visual_strategy": "source_material_clip_only_cover_crop_no_pad_no_mask"
+      },
+      "subtitle_strategy": "sidecar_srt_and_embedded_mov_text_no_burn_in",
+      "masking_strategy": "no_default_masking_user_material_visible",
+      "alignment_status": "executed_from_preflight_line_group_map"
+    },
+    {
+      "line_group_id": "LG008",
+      "narration_text": "它会先看几个硬字段：客单价、佣金、销量信号、店铺分、商品分、退货和风险，以及内容可拍性。",
+      "audio_range": {
+        "line_group_id": "LG008",
+        "start": 68.44,
+        "end_with_pause": 77.96,
+        "duration": 9.52
+      },
+      "visual_execution": {
+        "line_group_id": "LG008",
+        "title": "商品卡字段：客单价、佣金、销量、店铺分、商品分、退货风险、内容可拍性",
+        "source_timecode_selected": {
+          "material_id": "V001",
+          "start": 96.0,
+          "end": 129.0,
+          "span": 33.0,
+          "raw": "V001 01:36-02:09"
+        },
+        "duration_seconds": 9.52,
+        "clip_path": "dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/video_work/008_LG008.mp4",
+        "masking_applied": false,
+        "padding_applied": false,
+        "card_overlay_applied": false,
+        "subtitle_burn_in_applied": false,
+        "visual_strategy": "source_material_clip_only_cover_crop_no_pad_no_mask"
+      },
+      "subtitle_strategy": "sidecar_srt_and_embedded_mov_text_no_burn_in",
+      "masking_strategy": "no_default_masking_user_material_visible",
+      "alignment_status": "executed_from_preflight_line_group_map"
+    },
+    {
+      "line_group_id": "LG009",
+      "narration_text": "这一步已经和我自己手动翻不一样了。我自己看的时候，是边看边想；Codex 做的时候，是边看边记录。",
+      "audio_range": {
+        "line_group_id": "LG009",
+        "start": 77.96,
+        "end_with_pause": 85.7,
+        "duration": 7.74
+      },
+      "visual_execution": {
+        "line_group_id": "LG009",
+        "title": "手动看 vs Codex 记录：从边看边想到边看边记录",
+        "source_timecode_selected": {
+          "material_id": "V001",
+          "start": 132.0,
+          "end": 204.0,
+          "span": 72.0,
+          "raw": "V001 02:12-03:24"
+        },
+        "duration_seconds": 7.74,
+        "clip_path": "dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/video_work/009_LG009.mp4",
+        "masking_applied": false,
+        "padding_applied": false,
+        "card_overlay_applied": false,
+        "subtitle_burn_in_applied": false,
+        "visual_strategy": "source_material_clip_only_cover_crop_no_pad_no_mask"
+      },
+      "subtitle_strategy": "sidecar_srt_and_embedded_mov_text_no_burn_in",
+      "masking_strategy": "no_default_masking_user_material_visible",
+      "alignment_status": "executed_from_preflight_line_group_map"
+    },
+    {
+      "line_group_id": "LG010",
+      "narration_text": "它会把商品先整理成一张候选表。原来页面上是一张张商品卡，到了表格里，就变成一行一行可以判断的记录。",
+      "audio_range": {
+        "line_group_id": "LG010",
+        "start": 85.7,
+        "end_with_pause": 93.76,
+        "duration": 8.06
+      },
+      "visual_execution": {
+        "line_group_id": "LG010",
+        "title": "候选表出现：rank/category/grade/listing_candidate/video_candidate/key_basis/key_risk/status",
+        "source_timecode_selected": {
+          "material_id": "V003",
+          "start": 33.0,
+          "end": 48.0,
+          "span": 15.0,
+          "raw": "V003 00:33-00:48"
+        },
+        "duration_seconds": 8.06,
+        "clip_path": "dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/video_work/010_LG010.mp4",
+        "masking_applied": false,
+        "padding_applied": false,
+        "card_overlay_applied": false,
+        "subtitle_burn_in_applied": false,
+        "visual_strategy": "source_material_clip_only_cover_crop_no_pad_no_mask"
+      },
+      "subtitle_strategy": "sidecar_srt_and_embedded_mov_text_no_burn_in",
+      "masking_strategy": "no_default_masking_user_material_visible",
+      "alignment_status": "executed_from_preflight_line_group_map"
+    },
+    {
+      "line_group_id": "LG011",
+      "narration_text": "表里会写商品名、客单价区间、佣金空间、销量信号、店铺分、商品分、退货风险、内容能不能拍、为什么留下、为什么不能直接上、下一步还要核什么。",
+      "audio_range": {
+        "line_group_id": "LG011",
+        "start": 93.76,
+        "end_with_pause": 106.72,
+        "duration": 12.96
+      },
+      "visual_execution": {
+        "line_group_id": "LG011",
+        "title": "明细表出现：estimated_comm/sales_signal/shop_score/product_score/refund_or_risk/listing_ready/video_ready",
+        "source_timecode_selected": {
+          "material_id": "V003",
+          "start": 51.0,
+          "end": 90.0,
+          "span": 39.0,
+          "raw": "V003 00:51-01:30"
+        },
+        "duration_seconds": 12.96,
+        "clip_path": "dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/video_work/011_LG011.mp4",
+        "masking_applied": false,
+        "padding_applied": false,
+        "card_overlay_applied": false,
+        "subtitle_burn_in_applied": false,
+        "visual_strategy": "source_material_clip_only_cover_crop_no_pad_no_mask"
+      },
+      "subtitle_strategy": "sidecar_srt_and_embedded_mov_text_no_burn_in",
+      "masking_strategy": "no_default_masking_user_material_visible",
+      "alignment_status": "executed_from_preflight_line_group_map"
+    },
+    {
+      "line_group_id": "LG012",
+      "narration_text": "Codex 没有直接跟我说这个商品能爆，也没有说马上去拍。它真正帮我做的是：先把一堆看起来都能卖的商品分成几类，缩小到下一轮复查。",
+      "audio_range": {
+        "line_group_id": "LG012",
+        "start": 106.72,
+        "end_with_pause": 118.05,
+        "duration": 11.33
+      },
+      "visual_execution": {
+        "line_group_id": "LG012",
+        "title": "关键判断：Codex 不替我拍板，只缩小判断范围",
+        "source_timecode_selected": {
+          "material_id": "V003",
+          "start": 33.0,
+          "end": 48.0,
+          "span": 15.0,
+          "raw": "V003 00:33-00:48"
+        },
+        "duration_seconds": 11.33,
+        "clip_path": "dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/video_work/012_LG012.mp4",
+        "masking_applied": false,
+        "padding_applied": false,
+        "card_overlay_applied": false,
+        "subtitle_burn_in_applied": false,
+        "visual_strategy": "source_material_clip_only_cover_crop_no_pad_no_mask"
+      },
+      "subtitle_strategy": "sidecar_srt_and_embedded_mov_text_no_burn_in",
+      "masking_strategy": "no_default_masking_user_material_visible",
+      "alignment_status": "executed_from_preflight_line_group_map"
+    },
+    {
+      "line_group_id": "LG013",
+      "narration_text": "它会把商品先缩成几个更窄的方向，再从几个方向里挑出几个具体商品卡，最后不是让我继续翻二十个商品，而是告诉我先复查这四个。",
+      "audio_range": {
+        "line_group_id": "LG013",
+        "start": 118.05,
+        "end_with_pause": 128.73,
+        "duration": 10.68
+      },
+      "visual_execution": {
+        "line_group_id": "LG013",
+        "title": "结果变化：一堆商品卡 -> 3 个窄方向 -> 4 个复查商品",
+        "source_timecode_selected": {
+          "material_id": "V004",
+          "start": 0.0,
+          "end": 6.0,
+          "span": 6.0,
+          "raw": "V004 00:00-00:06"
+        },
+        "duration_seconds": 10.68,
+        "clip_path": "dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/video_work/013_LG013.mp4",
+        "masking_applied": false,
+        "padding_applied": false,
+        "card_overlay_applied": false,
+        "subtitle_burn_in_applied": false,
+        "visual_strategy": "source_material_clip_only_cover_crop_no_pad_no_mask"
+      },
+      "subtitle_strategy": "sidecar_srt_and_embedded_mov_text_no_burn_in",
+      "masking_strategy": "no_default_masking_user_material_visible",
+      "alignment_status": "executed_from_preflight_line_group_map"
+    },
+    {
+      "line_group_id": "LG014",
+      "narration_text": "为什么是这四个？因为它们在佣金、内容可拍性、价格带和风险之间，至少有继续核验的空间；但每一个都还不能直接拍。",
+      "audio_range": {
+        "line_group_id": "LG014",
+        "start": 128.73,
+        "end_with_pause": 138.25,
+        "duration": 9.52
+      },
+      "visual_execution": {
+        "line_group_id": "LG014",
+        "title": "为什么留下：收益信号 + 风险同时看",
+        "source_timecode_selected": {
+          "material_id": "V004",
+          "start": 9.0,
+          "end": 24.0,
+          "span": 15.0,
+          "raw": "V004 00:09-00:24"
+        },
+        "duration_seconds": 9.52,
+        "clip_path": "dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/video_work/014_LG014.mp4",
+        "masking_applied": false,
+        "padding_applied": false,
+        "card_overlay_applied": false,
+        "subtitle_burn_in_applied": false,
+        "visual_strategy": "source_material_clip_only_cover_crop_no_pad_no_mask"
+      },
+      "subtitle_strategy": "sidecar_srt_and_embedded_mov_text_no_burn_in",
+      "masking_strategy": "no_default_masking_user_material_visible",
+      "alignment_status": "executed_from_preflight_line_group_map"
+    },
+    {
+      "line_group_id": "LG015",
+      "narration_text": "最后结果是一张复查表：第一个商品为什么留下，第二个商品最大的风险是什么，第三个商品内容能不能拍，第四个商品下一步要去巨量百应核什么。",
+      "audio_range": {
+        "line_group_id": "LG015",
+        "start": 138.25,
+        "end_with_pause": 148.37,
+        "duration": 10.12
+      },
+      "visual_execution": {
+        "line_group_id": "LG015",
+        "title": "四个商品卡复查表：商品名、搜什么、复查重点",
+        "source_timecode_selected": {
+          "material_id": "V004",
+          "start": 39.0,
+          "end": 51.0,
+          "span": 12.0,
+          "raw": "V004 00:39-00:51"
+        },
+        "duration_seconds": 10.12,
+        "clip_path": "dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/video_work/015_LG015.mp4",
+        "masking_applied": false,
+        "padding_applied": false,
+        "card_overlay_applied": false,
+        "subtitle_burn_in_applied": false,
+        "visual_strategy": "source_material_clip_only_cover_crop_no_pad_no_mask"
+      },
+      "subtitle_strategy": "sidecar_srt_and_embedded_mov_text_no_burn_in",
+      "masking_strategy": "no_default_masking_user_material_visible",
+      "alignment_status": "executed_from_preflight_line_group_map"
+    },
+    {
+      "line_group_id": "LG016",
+      "narration_text": "它最后不是把一堆截图丢给我，而是把文件和表格整理好，放到云盘里。我打开以后能看到商品名、客单价、佣金、销量信号、评分、风险、适不适合我和下一步要核什么。",
+      "audio_range": {
+        "line_group_id": "LG016",
+        "start": 148.37,
+        "end_with_pause": 161.37,
+        "duration": 13.0
+      },
+      "visual_execution": {
+        "line_group_id": "LG016",
+        "title": "云盘表格：文件和表格整理好，一个地方能看",
+        "source_timecode_selected": {
+          "material_id": "V003",
+          "start": 0.0,
+          "end": 6.0,
+          "span": 6.0,
+          "raw": "V003 00:00-00:06"
+        },
+        "duration_seconds": 13.0,
+        "clip_path": "dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/video_work/016_LG016.mp4",
+        "masking_applied": false,
+        "padding_applied": false,
+        "card_overlay_applied": false,
+        "subtitle_burn_in_applied": false,
+        "visual_strategy": "source_material_clip_only_cover_crop_no_pad_no_mask"
+      },
+      "subtitle_strategy": "sidecar_srt_and_embedded_mov_text_no_burn_in",
+      "masking_strategy": "no_default_masking_user_material_visible",
+      "alignment_status": "executed_from_preflight_line_group_map"
+    },
+    {
+      "line_group_id": "LG017",
+      "narration_text": "如果连表格都不想看，它还可以回到聊天框里给我总结：目前最值得先复查的是哪几个商品，为什么留下，风险在哪里，下一步先核什么。",
+      "audio_range": {
+        "line_group_id": "LG017",
+        "start": 161.37,
+        "end_with_pause": 171.98,
+        "duration": 10.61
+      },
+      "visual_execution": {
+        "line_group_id": "LG017",
+        "title": "聊天框结论：最值得复查商品、理由、风险、下一步",
+        "source_timecode_selected": {
+          "material_id": "V004",
+          "start": 27.0,
+          "end": 36.0,
+          "span": 9.0,
+          "raw": "V004 00:27-00:36"
+        },
+        "duration_seconds": 10.61,
+        "clip_path": "dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/video_work/017_LG017.mp4",
+        "masking_applied": false,
+        "padding_applied": false,
+        "card_overlay_applied": false,
+        "subtitle_burn_in_applied": false,
+        "visual_strategy": "source_material_clip_only_cover_crop_no_pad_no_mask"
+      },
+      "subtitle_strategy": "sidecar_srt_and_embedded_mov_text_no_burn_in",
+      "masking_strategy": "no_default_masking_user_material_visible",
+      "alignment_status": "executed_from_preflight_line_group_map"
+    },
+    {
+      "line_group_id": "LG018",
+      "narration_text": "普通 AI 可能很快给你十几个方向，你看完都对但没法开始；执行型 AI 如果能看页面、整理、记录、归类，再把结果回到表格和聊天框里，它就从建议变成了工作。",
+      "audio_range": {
+        "line_group_id": "LG018",
+        "start": 171.98,
+        "end_with_pause": 184.03,
+        "duration": 12.05
+      },
+      "visual_execution": {
+        "line_group_id": "LG018",
+        "title": "普通 AI vs 执行型 AI：建议变成工作",
+        "source_timecode_selected": {
+          "material_id": "V001",
+          "start": 87.0,
+          "end": 93.0,
+          "span": 6.0,
+          "raw": "V001 01:27-01:33"
+        },
+        "duration_seconds": 12.05,
+        "clip_path": "dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/video_work/018_LG018.mp4",
+        "masking_applied": false,
+        "padding_applied": false,
+        "card_overlay_applied": false,
+        "subtitle_burn_in_applied": false,
+        "visual_strategy": "source_material_clip_only_cover_crop_no_pad_no_mask"
+      },
+      "subtitle_strategy": "sidecar_srt_and_embedded_mov_text_no_burn_in",
+      "masking_strategy": "no_default_masking_user_material_visible",
+      "alignment_status": "executed_from_preflight_line_group_map"
+    },
+    {
+      "line_group_id": "LG019",
+      "narration_text": "当然，这不代表 Codex 已经帮我选出了爆品，也不代表这些商品一定能卖，更不代表佣金一定能覆盖成本。现在这一步，只能叫选品初筛。",
+      "audio_range": {
+        "line_group_id": "LG019",
+        "start": 184.03,
+        "end_with_pause": 195.28,
+        "duration": 11.25
+      },
+      "visual_execution": {
+        "line_group_id": "LG019",
+        "title": "边界：不是爆品，不是一定能卖，不是佣金覆盖成本",
+        "source_timecode_selected": {
+          "material_id": "V003",
+          "start": 51.0,
+          "end": 90.0,
+          "span": 39.0,
+          "raw": "V003 00:51-01:30"
+        },
+        "duration_seconds": 11.25,
+        "clip_path": "dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/video_work/019_LG019.mp4",
+        "masking_applied": false,
+        "padding_applied": false,
+        "card_overlay_applied": false,
+        "subtitle_burn_in_applied": false,
+        "visual_strategy": "source_material_clip_only_cover_crop_no_pad_no_mask"
+      },
+      "subtitle_strategy": "sidecar_srt_and_embedded_mov_text_no_burn_in",
+      "masking_strategy": "no_default_masking_user_material_visible",
+      "alignment_status": "executed_from_preflight_line_group_map"
+    },
+    {
+      "line_group_id": "LG020",
+      "narration_text": "哪怕只是做到这一步，对我来说已经很有用了。以前是我在商品页里乱翻，现在是 Codex 先帮我把商品变成判断表；以前看完还不知道先测哪个，现在先知道这几个值得复查、风险最大、下一步先核什么。",
+      "audio_range": {
+        "line_group_id": "LG020",
+        "start": 195.28,
+        "end_with_pause": 210.12,
+        "duration": 14.84
+      },
+      "visual_execution": {
+        "line_group_id": "LG020",
+        "title": "价值收束：少掉一轮乱翻商品和凭感觉乱选",
+        "source_timecode_selected": {
+          "material_id": "V001",
+          "start": 15.0,
+          "end": 84.0,
+          "span": 69.0,
+          "raw": "V001 00:15-01:24"
+        },
+        "duration_seconds": 14.84,
+        "clip_path": "dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/video_work/020_LG020.mp4",
+        "masking_applied": false,
+        "padding_applied": false,
+        "card_overlay_applied": false,
+        "subtitle_burn_in_applied": false,
+        "visual_strategy": "source_material_clip_only_cover_crop_no_pad_no_mask"
+      },
+      "subtitle_strategy": "sidecar_srt_and_embedded_mov_text_no_burn_in",
+      "masking_strategy": "no_default_masking_user_material_visible",
+      "alignment_status": "executed_from_preflight_line_group_map"
+    },
+    {
+      "line_group_id": "LG021",
+      "narration_text": "所以如果你还在手动翻精选联盟，先别急着拍，也别急着问 AI 哪个品能爆。先让它把商品卡拆成表，把风险写出来，把下一步复查项列清楚。过了这张表，再拍；没过这张表，就别浪费时间拍视频。",
+      "audio_range": {
+        "line_group_id": "LG021",
+        "start": 210.12,
+        "end_with_pause": 226.22,
+        "duration": 16.1
+      },
+      "visual_execution": {
+        "line_group_id": "LG021",
+        "title": "结尾动作：把商品卡拆成表，过表再拍，没过表别浪费时间",
+        "source_timecode_selected": {
+          "material_id": "V004",
+          "start": 39.0,
+          "end": 51.0,
+          "span": 12.0,
+          "raw": "V004 00:39-00:51"
+        },
+        "duration_seconds": 16.1,
+        "clip_path": "dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/video_work/021_LG021.mp4",
+        "masking_applied": false,
+        "padding_applied": false,
+        "card_overlay_applied": false,
+        "subtitle_burn_in_applied": false,
+        "visual_strategy": "source_material_clip_only_cover_crop_no_pad_no_mask"
+      },
+      "subtitle_strategy": "sidecar_srt_and_embedded_mov_text_no_burn_in",
+      "masking_strategy": "no_default_masking_user_material_visible",
+      "alignment_status": "executed_from_preflight_line_group_map"
+    }
+  ]
+}

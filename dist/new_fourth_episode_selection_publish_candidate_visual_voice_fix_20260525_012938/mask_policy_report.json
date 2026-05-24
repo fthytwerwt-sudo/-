@@ -1,0 +1,13 @@
+{
+  "default_masking_disabled": true,
+  "privacy_whiteout_used": false,
+  "full_frame_mask_used": false,
+  "gray_dim_overlay_used": false,
+  "black_block_mask_used": false,
+  "final_stage_whiteout_used": false,
+  "forced_16_9_disabled": true,
+  "forced_1920x1080_disabled": true,
+  "subtitle_burn_in_used": false,
+  "card_overlay_on_core_evidence_used": false,
+  "status": "passed_no_default_masking"
+}

@@ -1,0 +1,131 @@
+{
+  "status": "complete",
+  "output_dir": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938",
+  "media_local_only": [
+    "full.mp4",
+    "narration.wav",
+    "narration_raw.wav",
+    "captions.srt",
+    "tts_segments/",
+    "video_work/",
+    "frame_samples_local_only/"
+  ],
+  "committable_review_pack_files": [
+    "summary.json",
+    "media_probe.json",
+    "review_manifest.md",
+    "publish_candidate_checklist.json",
+    "visual_fix_report.json",
+    "canvas_ratio_report.json",
+    "mask_policy_report.json",
+    "subtitle_card_overlap_check.json",
+    "privacy_risk_check.json",
+    "readability_check.json",
+    "secret_leak_scan_sanitized.json",
+    "narration_tts_debug_sanitized.json",
+    "line_group_execution_map.json",
+    "script_to_timeline_map.json",
+    "content_route_card_v2.json",
+    "tts_prosody_anchor_map.json",
+    "card_placement_decision.json",
+    "editing_decision_pack.json",
+    "local_open_path_report.md"
+  ],
+  "generated_files": [
+    {
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/summary.json",
+      "exists": true,
+      "size_bytes": 4024
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/media_probe.json",
+      "exists": true,
+      "size_bytes": 7155
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/review_manifest.md",
+      "exists": true,
+      "size_bytes": 1597
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/publish_candidate_checklist.json",
+      "exists": true,
+      "size_bytes": 814
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/visual_fix_report.json",
+      "exists": true,
+      "size_bytes": 4785
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/canvas_ratio_report.json",
+      "exists": true,
+      "size_bytes": 485
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/mask_policy_report.json",
+      "exists": true,
+      "size_bytes": 403
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/subtitle_card_overlap_check.json",
+      "exists": true,
+      "size_bytes": 242
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/privacy_risk_check.json",
+      "exists": true,
+      "size_bytes": 402
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/readability_check.json",
+      "exists": true,
+      "size_bytes": 4761
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/secret_leak_scan_sanitized.json",
+      "exists": true,
+      "size_bytes": 230
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/narration_tts_debug_sanitized.json",
+      "exists": true,
+      "size_bytes": 1898
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/line_group_execution_map.json",
+      "exists": true,
+      "size_bytes": 28734
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/script_to_timeline_map.json",
+      "exists": true,
+      "size_bytes": 36132
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/content_route_card_v2.json",
+      "exists": true,
+      "size_bytes": 2446
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/tts_prosody_anchor_map.json",
+      "exists": true,
+      "size_bytes": 11288
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/card_placement_decision.json",
+      "exists": true,
+      "size_bytes": 289
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/editing_decision_pack.json",
+      "exists": true,
+      "size_bytes": 14869
+    },
+    {
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/local_open_path_report.md",
+      "exists": true,
+      "size_bytes": 606
+    }
+  ]
+}

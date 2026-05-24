@@ -1,0 +1,40 @@
+{
+  "status": "remote_tts_generated",
+  "provider": "aliyun_bailian",
+  "api_route_family": "aliyun_qwen_realtime_websocket_voice_clone",
+  "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+  "custom_voice_masked": "qwen-t...ac19",
+  "voice_reference": "voice_sample2_cute_guide_voice_candidate_20260426",
+  "voice_reference_path": "/Users/fan/Documents/视频工厂/dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
+  "voice_reference_loaded": true,
+  "b_pacing_reference": "tts_15s_b_pacing_locked_20260427",
+  "b_pacing_reference_path": "/Users/fan/Documents/视频工厂/dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+  "b_pacing_reference_loaded": true,
+  "used_b_voice": true,
+  "used_b_pacing": true,
+  "local_tts_fallback_used": false,
+  "macos_say_used": false,
+  "serena_used": false,
+  "auth_source": "authorized_runtime_config",
+  "key_printed": false,
+  "key_written": false,
+  "key_committed": false,
+  "segment_count": 33,
+  "audio": {
+    "path": "dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/narration.wav",
+    "absolute_path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/narration.wav",
+    "duration_seconds": 226.22,
+    "codec": "pcm_s16le",
+    "sample_rate": 48000,
+    "channels": 1,
+    "sample_width_bytes": 2,
+    "frames": 10858560,
+    "file_size_bytes": 21717198
+  },
+  "voice_resolution": {
+    "voice_masked": "qwen-t...ac19",
+    "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+    "resolved_by": "list_existing_custom_voices_match_suffix_ac19"
+  },
+  "instructions_summary": "custom B voice + B pacing instructions loaded; full voice id and API key intentionally omitted"
+}

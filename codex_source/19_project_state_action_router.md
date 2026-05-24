@@ -307,7 +307,9 @@ if state = blocked_need_user_input:
 - `data_goal_execution_bus_needed`：13 已定义目标但未接到全执行链时，必须补 14 总线或同步执行规则；不得只扩写说明。
 - `codex_execution_structure_drift_risk`：Codex 可以改结构，不能改目标、主短板、主变量、禁止变量和验证指标。
 - `editing_or_assembly_without_data_goal_anchor`：缺 `data_goal_anchor_used` 时，不得生成 `editing_decision_pack` 或 `assembly_decision_pack`。
-- `publish_candidate_required`：正式运营视频交付任务必须先检查横屏 16:9 / 1920x1080、音轨、字幕、开头、中段证据、结尾、人感质量、平台风险和装配能力。
+- `publish_candidate_required`：正式运营视频交付任务必须先检查音轨、字幕、开头、中段证据、结尾、人感质量、平台风险和装配能力；用户提供录屏 / 桌面素材时，优先检查源素材比例与证据可读性，不再默认强制 16:9 / 1920x1080。
+- `source_native_no_mask_visual_required`：用户素材进入视频执行、修复成片或发布候选时触发；必须默认不遮挡、不洗白、不加灰色遮罩、不加黑块、不加整屏 privacy mask、不用 padding bands 填边，并优先使用源素材比例。
+- `visual_evidence_unreadable_blocked`：若商品卡、表格、聊天框结论等核心证据因遮挡、洗白、卡片、字幕、缩放或裁切不可读，必须 blocked，不得交候选片。
 - `technical_preview_not_delivery`：技术预览、无声预览、横屏技术包或只交 JSON / Markdown route card 只能作为内部诊断，不得写完成或内容推进。
 - `formal_operation_delivery_blocked`：无法生成可发布候选片时必须停止当前视频执行线，写 `blocked_publish_candidate_unavailable` 和缺失能力。
 - `no_degrade_completion_required`：正式运营、用户可见交付、项目文件落库、GPT Project 同步、数据录入、复盘记录、素材审计、TTS / 字幕 / 卡片 / 比例 / 导出、commit / push 等任务，都必须检查目标、产物、验证、同步和回报是否真实完成；缺任一必交付项时不得写 `completed`。

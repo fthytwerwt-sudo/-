@@ -1,0 +1,6 @@
+{
+  "status": "adapted_for_no_mask_source_ratio_rule",
+  "card_overlay_on_core_evidence_used": false,
+  "independent_card_segments_used": false,
+  "reason": "本轮优先保留源素材结构可读；判断 / 边界由口播和 sidecar subtitles 承载，不盖住商品卡或表格。"
+}
