@@ -1,5 +1,17 @@
 # Latest
 
+## 20260525｜新第四期成片视觉 / TTS 路线只读诊断
+
+- 已确认：本轮只做只读诊断；未修复、未重渲染、未重新生成 TTS，未修改 `full.mp4` / `narration.wav` / `captions.srt`。
+- 已确认：诊断对象为 `dist/new_fourth_episode_selection_publish_candidate_20260525_001803/full.mp4`。
+- 已生成：诊断目录 `/Users/fan/Documents/视频工厂/codex_log/diagnostics/new_fourth_publish_candidate_visual_tts_audit_20260525_010732`。
+- 视觉结论：大面积白屏 / 洗白主要来自最终装配阶段的 strengthened privacy redaction / whiteout layer；源素材和中间 `visual_with_captions.mp4` 没有同等程度主体洗白。
+- 视觉结论：右上角黑块来自 right account/sidebar privacy mask；左侧 / 顶部灰边来自 edge privacy masks + canvas / padding safe bands 叠加。
+- TTS 结论：实际为 `aliyun_bailian + qwen3-tts-instruct-flash-realtime + Serena`，没有走 B 语音路线。
+- TTS 结论：预期 B 路线应检查 `qwen3-tts-vc-realtime-2026-01-15 + qwen-t...ac19 + tts_15s_b_pacing_locked_20260427`；本次 `used_b_voice = false`，`used_b_pacing = false`。
+- 状态边界：`video_regenerated = false`，`tts_regenerated = false`，`content_validation = pending_user_chatgpt_review`，`send_ready = false`，`voice_validation = failed_user_feedback`，`visual_master_locked = false`。
+- 下一步建议：先修视觉遮挡 / 白屏 / 灰边根因，再修 TTS B 语音 route；不得直接继续发布。
+
 ## 20260524｜新第四期选品初筛发布候选片生成（TTS 授权解阻）
 
 - `已确认` 本轮继续上一轮 blocked 的新第四期 publish candidate 任务，不改 locked v0.2 文案语义，不采纳 copy_change_request 做改稿。

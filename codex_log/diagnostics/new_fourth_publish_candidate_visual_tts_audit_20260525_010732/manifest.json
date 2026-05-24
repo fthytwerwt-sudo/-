@@ -1,0 +1,50 @@
+{
+  "diagnostic_status": "completed_read_only_diagnosis",
+  "created_at": "2026-05-25T01:07:32",
+  "source_video": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/full.mp4",
+  "narration": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/narration.wav",
+  "captions": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/captions.srt",
+  "diagnostic_dir": "/Users/fan/Documents/视频工厂/codex_log/diagnostics/new_fourth_publish_candidate_visual_tts_audit_20260525_010732",
+  "local_only_frame_dir": "/tmp/new_fourth_visual_tts_audit_20260525_005746",
+  "reports": [
+    "00_diagnostic_summary.md",
+    "01_visual_artifact_frame_index.md",
+    "02_visual_artifact_root_cause.md",
+    "03_redaction_overlay_audit.md",
+    "04_canvas_crop_padding_audit.md",
+    "05_subtitle_card_layer_audit.md",
+    "06_tts_actual_route_audit.md",
+    "07_tts_b_voice_mismatch_root_cause.md",
+    "08_minimal_fix_plan.md",
+    "09_do_not_fix_yet.md"
+  ],
+  "media_modified": false,
+  "video_regenerated": false,
+  "tts_regenerated": false,
+  "content_validation": "pending_user_chatgpt_review",
+  "send_ready": false,
+  "voice_validation": "failed_user_feedback",
+  "visual_master_locked": false,
+  "visual_root_cause": {
+    "gray_border_origin": "privacy edge masks + canvas/edge padding bands",
+    "whiteout_origin": "final-stage strengthened redaction / whiteout privacy mask",
+    "black_block_origin": "right account/sidebar privacy mask",
+    "source_material_has_issue": false,
+    "render_pipeline_added_issue": true
+  },
+  "tts_root_cause": {
+    "provider": "aliyun_bailian",
+    "actual_model": "qwen3-tts-instruct-flash-realtime",
+    "actual_voice": "Serena",
+    "expected_b_voice_route": "qwen3-tts-vc-realtime-2026-01-15 + qwen-t...ac19 + tts_15s_b_pacing_locked_20260427",
+    "used_b_voice": false,
+    "used_b_pacing": false,
+    "mismatch_origin": [
+      "wrong_model",
+      "missing_voice_reference",
+      "missing_pacing_reference",
+      "provider_route_bypassed_voice_clone",
+      "fallback_to_default_aliyun_voice"
+    ]
+  }
+}
