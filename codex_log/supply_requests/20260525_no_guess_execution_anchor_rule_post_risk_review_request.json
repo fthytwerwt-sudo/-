@@ -1,0 +1,151 @@
+{
+  "request_id": "20260525_no_guess_execution_anchor_rule_post_risk_review_request",
+  "created_at": "2026-05-25T02:50:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "no_guess_execution_anchor_rule_sync",
+  "task_type": "project_file_change + mechanism_or_route_fix + post_risk_review",
+  "project_stage": "formal_operation_active",
+  "trigger_reason": "mandatory_post_risk_review",
+  "action": "auto",
+  "mandatory_for_every_task": true,
+  "participation_level": "readonly_post_risk_review",
+  "pre_supply_required": false,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "复核 codex_source/01_execution_rules.md 中新增的 no_guess_execution_anchor_gate 是否只约束执行边界，没有推进内容状态、没有覆盖 dirty diff、没有越权要求 AGENTS.md 同步。",
+  "current_step": "post_write_risk_review",
+  "known_context": [
+    "用户明确要求可以直接同步到 codex_source/01_execution_rules.md。",
+    "Codex 已在 codex_source/01_execution_rules.md 新增 no_guess_execution_anchor_gate。",
+    "本轮未生成视频、音频、图片，未推进 content_validation / send_ready / publish_status。",
+    "目标文件写入前已有 material_evidence_preflight_gate 与 EdgeGuard dirty diff，必须保留。"
+  ],
+  "missing_context": [
+    "User did not request commit or push in this turn.",
+    "AGENTS.md was not modified because user only authorized direct sync to codex_source/01_execution_rules.md."
+  ],
+  "candidate_files": [
+    "codex_source/01_execution_rules.md",
+    "codex_log/supply_requests/20260525_no_guess_execution_anchor_rule_pre_supply_request.json",
+    "codex_log/supply_requests/20260525_no_guess_execution_anchor_rule_post_risk_review_request.json",
+    "dist/deepseek_supply_controller/no_guess_execution_anchor_rule_pre_supply/latest_supply_pack.md",
+    "GPT数据源/08_当前正式事实.md",
+    "codex_log/latest.md"
+  ],
+  "must_read_files": [
+    "codex_source/01_execution_rules.md",
+    "GPT数据源/08_当前正式事实.md",
+    "codex_log/latest.md"
+  ],
+  "optional_files": [
+    "AGENTS.md",
+    "codex_source/19_project_state_action_router.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    "dist/latest_review_pack",
+    "素材录制/",
+    "review_loop/"
+  ],
+  "expected_output": [
+    "risk_and_conflict_report",
+    "status_promotion_risk_check",
+    "forbidden_change_risk",
+    "dirty_diff_preservation_check",
+    "codex_next_input"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files.",
+    "DeepSeek must not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is stable or completed.",
+    "Do not recommend status promotion, media generation, AGENTS.md modification, or latest_review_pack update for this narrow sync.",
+    "Do not ignore unrelated dirty changes."
+  ],
+  "blocked_if": [
+    "new rule promotes content_validation, send_ready, publish_status, voice_validation, visual_master_locked, or commercial validation",
+    "new rule allows Codex to decide hard_decision objects",
+    "new rule conflicts with locked_copy_contract or copy_change_request rules",
+    "new rule overwrites prior material_evidence_preflight_gate or EdgeGuard dirty diff",
+    "post review requires modifying files outside this request without user authorization"
+  ],
+  "return_to_codex": {
+    "read_status_required": true,
+    "impact_check_required": true,
+    "write_scope": [
+      "codex_source/01_execution_rules.md"
+    ],
+    "output_dir": "dist/deepseek_supply_controller/no_guess_execution_anchor_rule_post_review",
+    "verification_required": [
+      "keyword_check",
+      "git_diff_check",
+      "secret_scan",
+      "no_forbidden_status_promotion_check"
+    ]
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "post_risk_review"
+    ]
+  },
+  "file_scope": {
+    "candidate_files": [
+      "codex_source/01_execution_rules.md",
+      "GPT数据源/08_当前正式事实.md",
+      "codex_log/latest.md"
+    ],
+    "must_prefetch_files": [
+      "codex_source/01_execution_rules.md",
+      "GPT数据源/08_当前正式事实.md"
+    ],
+    "optional_prefetch_files": [
+      "codex_log/latest.md",
+      "AGENTS.md",
+      "codex_source/19_project_state_action_router.md"
+    ],
+    "forbidden_files": [
+      ".env",
+      ".env.local",
+      "dist/latest_review_pack",
+      "素材录制/",
+      "review_loop/"
+    ],
+    "secret_files_forbidden": true
+  },
+  "content_loading_policy": {
+    "read_only": true,
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 5,
+    "max_chars_per_file": 1500,
+    "max_total_chars": 9000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "do_not_read_secret_files": true,
+    "do_not_modify_files": true
+  },
+  "codex_minimal_review_policy": {
+    "will_modify_files": [
+      "codex_source/01_execution_rules.md"
+    ],
+    "conflict_or_uncertain_files": [
+      "codex_source/01_execution_rules.md"
+    ],
+    "safety_sensitive_files": [
+      "GPT数据源/08_当前正式事实.md",
+      "codex_log/latest.md",
+      "dist/latest_review_pack"
+    ]
+  },
+  "output_required": [
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input"
+  ]
+}

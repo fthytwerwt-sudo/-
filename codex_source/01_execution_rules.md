@@ -153,11 +153,183 @@ status = blocked
 - 同一时间 3 层以上文字信息、标题卡和口播字幕抢位、解释卡遮挡证据画面、总结卡和口播字幕重复、字幕压住关键表格 / prompt / 按钮，均视为阻断级风险。
 - high severity overlap 必须修复；修不了则 blocked。
 
+`material_evidence_preflight_gate（素材证据预检闸门）`：
+
+- 视频执行前必须从 `material_detail_report（素材细节报告）` 生成 `material_evidence_contract.json（素材证据契约）`。
+- 每个 `line_group（句组）` 必须通过 `line_group_evidence_gate_report.json（句组证据闸门报告）` 绑定素材证据、卡片承接或明确无需视觉证明。
+- 视频生成前必须生成 `auto_storyboard_preflight_report.json（自动分镜预检报告）`。
+- `auto_edit_allowed` 不是 `true` 时，不得执行剪辑 / 装配 / `full.mp4` 生成。
+- `blocked_no_evidence_count / high_mismatch_risk_count / privacy_high_selected_count / data_sentence_without_source_count / judgment_sentence_hard_mapped_to_recording_count / action_sentence_without_card_or_direct_visual_count / selected_material_in_cannot_support_count / card_required_unresolved_count` 任一大于 0，必须 blocked。
+- 默认可运行脚本为 `scripts/素材证据闸门_material_evidence_gate.py`；默认第四期数据成果卡生成入口已提供 `--preflight-only`，用于证明 no-render 预检会被调用。
+
+`edgeguard_black_border_gate（EdgeGuard 黑边 / 灰边 / 边缘残留闸门）`：
+
+- 视频生成链路必须把 Layer 0 边缘防护作为默认质量门槛；录屏层进入画布前必须遵守 `safe_fit_policy`，输出生成后必须运行 `output_edge_scan`。
+- 默认可运行脚本为 `scripts/边缘防护_EdgeGuard_edge_residue_guard.py`，输出 `input_edge_report.json / output_edge_report.json / edgeguard_probe_summary.json`。
+- `scale+pad` 不得使用默认黑底补边来适配 1920x1080；若源录屏比例与 16:9 不完全一致，优先使用 `cover_with_minimal_safe_crop`，且必须保留 FocuSee 原始运镜、不得二次默认 zoom、不得裁掉关键 UI。
+- 若 `safe_fit_policy.safe_fit_allowed != true`，或 `output_edge_scan.pass != true`，不得把输出写成 `publish_candidate` 或 `completed`；必须 blocked 或仅保留为 `internal_diagnostic_only`。
+- EdgeGuard 只处理黑边、灰边、透明 padding、canvas 露底和边缘残留；不得借此新增 Remotion 效果层、高亮框、悬浮判断卡、3D 科技感或转场桥。
+
 `post_publish_no_rework_boundary（已发布视频不默认回炉边界）`：
 
 - 用户明确说“视频已经发了 / 已发布”时，当前视频进入 `operation_data_intake / operation_review` 数据回流，不再按编辑任务处理。
 - 此时只允许记录反馈、生成复盘报告、修补仓库机制、修补下一轮执行规则。
 - 不得默认重新生成该视频、回炉该视频、把已发布视频当待修片或把修片任务当机制修补。
+
+## 0A-5. no_guess_execution_anchor_gate 禁止猜测式执行锚点闸门
+
+Codex 在《视频工厂》中可以做执行层推断，但不得凭自己的猜想改变用户 / ChatGPT 已锁定的目标、文案、结构、视觉路线、声音路线、素材证据链、状态结论或商业判断。
+
+核心原则：
+
+- 可以推断“怎么执行更稳”，不能推断“用户真正想要什么”。
+- 可以补技术细节，不能补关键决策。
+- 可以选择低风险、可回滚、不改变语义的实现方式，不能因为执行方便而重排结构、删除判断卡、替换素材链、改文案、改比例、改声音或推进状态。
+- `safe_inference（安全推断）` 只允许发生在执行层；`hard_decision（硬决策）` 必须回到用户 / ChatGPT 确认。
+
+### 0A-5.1 safe_inference 允许范围
+
+以下属于 `safe_inference（安全推断）`，Codex 可以自行处理，但必须在最终报告写入 `safe_inference_log`：
+
+1. 文件和路径层：
+   - 用户给出明确目录或文件名，且仓库内只有一个唯一匹配项时，可以自行解析实际路径。
+   - 输出目录需要加时间戳时，可以自动命名。
+   - 多个候选同时存在时，必须 `blocked_user_decision_required（需要用户决策阻断）`，不得凭感觉挑一个。
+2. 技术实现层：
+   - 可以选择 `ffprobe / ffmpeg / existing Python script / JSON / Markdown` 等等价实现方式完成同一验证。
+   - 临时文件可以放到本轮输出目录。
+   - 不得因为实现更方便而改变视频比例、删除卡片、换声音路线、洗白画面或交 fallback。
+3. 非语义格式层：
+   - 可以做字幕断句、标点微调、TTS 停顿、文件命名、报告栏目排序、JSON 字段补齐、manifest 整理。
+   - 不得改标题、开头句、核心判断、人味表达、用户确认的强句子或 ChatGPT 锁定的表达。
+4. 验证和安全层：
+   - 可以主动补 `ffprobe`、`ffmpeg decode`、音轨 / 非静音检查、字幕卡片重叠检查、媒体误提交检查、secret / token / API key 泄露检查。
+   - 验证失败后必须修复或 blocked，不得把无声视频、技术预览、局部结果或“能跑通”包装成 `completed`。
+
+安全推断记录格式：
+
+```text
+safe_inference_log:
+  inference_id:
+  inferred_detail:
+  evidence:
+  why_safe:
+  reversible:
+  changed_user_intent: false
+```
+
+### 0A-5.2 hard_decision 禁止猜测范围
+
+以下属于 `hard_decision（硬决策）`，Codex 必须停止并回到用户 / ChatGPT，不得自行猜测：
+
+1. 目标和任务边界：
+   - 不得猜本轮是修机制还是修视频、重做成片还是只读诊断、局部修复还是重新设计、发布候选片还是技术预览。
+   - 目标不清时必须输出 `blocked_goal_anchor_missing（目标锚点缺失阻断）`，列出当前可识别目标、缺失锚点、2-4 个可选路线和推荐路线，但不得执行。
+2. 文案和内容结构：
+   - 不得自行改变 `locked_topic / locked_title / locked_opening_line / locked_final_script / core_judgment / line_group 顺序 / 文案节奏 / 人味表达 / 用户明确保留句`。
+   - 文案和画面不匹配时必须输出 `copy_change_request（文案修改请求）` 或 blocked，不得为了接画面改稿、删句、压缩强表达或删除判断卡。
+3. 视觉路线和素材使用：
+   - 不得自行猜是否遮挡、洗白、模糊、改比例、裁掉源素材、用卡片替代真实录屏、重排素材顺序或删除判断卡 / 结果卡 / 边界卡。
+   - 用户给什么素材，优先用素材本身；默认不遮挡、不洗白、不灰化、不黑块遮挡、不让卡片盖住核心证据。
+   - 不得凭执行方便强制改比例。比例必须来自用户明确指令、锁定前置包或当前仓库交付基线；若用户录屏 / 源素材比例与既有交付基线冲突且会影响核心证据可读性，必须 blocked 或请求授权。
+   - 发现真实 `secret / API key / token / 身份证 / 银行卡 / 私人地址` 时，必须 blocked，不得自行遮挡后继续。
+4. 声音和 TTS 路线：
+   - 不得自行选择声音、TTS model、voice reference、pacing reference 或 TTS 失败后的 fallback。
+   - 不得把“阿里 / 百炼 TTS 可用”当成“目标声音正确”；不得把普通 voice、Serena、`macOS say` 或本地低质 fallback 冒充 B voice / 目标声音。
+   - 预定声音路线不可用时必须 blocked，不得换声音或生成无声视频继续。
+5. 判断卡 / 结果卡 / 边界卡：
+   - 不得自行删除或降级 `judgment_card / result_card / boundary_card / ending_action_card / data_result_card`。
+   - 卡片和素材冲突时优先调整位置、改成独立卡片段、放到证据前后、缩短卡片文字或改为字幕 / 旁白承接；确实无法保留时必须 blocked 并说明原因。
+6. 商业判断和数据结论：
+   - 不得自行写商品一定能卖、佣金一定覆盖成本、方向已验证、商业闭环成立、服务包有人愿意付费、内容通过、可以发布或 `send_ready = true`。
+   - 只能写 `目前适合复查 / 当前素材能支撑初筛 / 需要人工复核 / 待 ChatGPT 或用户内容复审 / content_validation = pending_user_chatgpt_review / send_ready = false`。
+7. Git / 文件 / 同步边界：
+   - 不得自行提交原始素材、大视频、音频；不得删除素材、移动素材、覆盖旧成片、覆盖 `latest_review_pack`、新建外部工作区或把 unrelated dirty changes 一起提交。
+   - 必须使用 path-limited staging；未列入允许范围的文件不得修改。
+
+阻断输出格式：
+
+```text
+blocked_user_decision_required:
+  blocked_type:
+  missing_anchor:
+  why_cannot_infer:
+  current_evidence:
+  options:
+    - option_a:
+    - option_b:
+    - option_c:
+  recommended_option:
+  no_files_modified_after_block: true
+```
+
+### 0A-5.3 中间态处理规则
+
+可继续但必须标注 `assumption_logged（已记录假设）` 的缺口：
+
+- 具体数值不清，但只做结构展示。
+- 画面文字小，但可用卡片解释。
+- 某字段不清，但不读取具体值。
+- 非关键文件缺失，但不影响主任务。
+- 可用同等验证方式替代。
+
+必须停止并输出 `blocked_user_decision_required（需要用户决策阻断）` 的缺口：
+
+- 目标不清、路线不清、多个候选文件无法唯一选择。
+- 素材无法支撑关键文案、需要改 locked copy、需要遮挡但无授权、需要改变比例但无授权。
+- TTS 声音路线不可用、需要外部 API 但无授权、发现真实 secret。
+- 生成结果不能满足 `publish_candidate`，或执行结构和 locked preflight 不一致。
+
+### 0A-5.4 修复任务回归检查
+
+凡任务命中“修片 / 重新生成 / 视觉修复 / 声音修复 / TTS 修复 / 卡片修复 / 比例修复 / 遮挡修复”，Codex 必须先执行：
+
+`regression_check_against_locked_preflight（对锁定前置包做回归检查）`
+
+至少检查：
+
+- `locked_copy_contract` 是否仍一致。
+- `line_group` 数量和顺序是否仍一致。
+- `script_to_timeline_map` 是否仍一致。
+- `judgment_card / result_card / boundary_card / ending_action_card` 是否保留。
+- `V001 -> V003 -> V004` 证据链是否仍一致。
+- 文案结构是否仍按 ChatGPT / 用户确认版本推进。
+- 修复是否只影响目标问题，而不是重做整条视频。
+
+回归检查输出格式：
+
+```text
+regression_check_against_locked_preflight:
+  locked_copy_preserved:
+  line_group_count_preserved:
+  line_group_order_preserved:
+  judgment_cards_preserved:
+  result_cards_preserved:
+  boundary_cards_preserved:
+  evidence_chain_preserved:
+  changed_structure:
+  changed_structure_reason:
+  user_authorization_for_structure_change:
+```
+
+硬规则：修复任务不是重新设计任务。除非用户明确授权，Codex 不得把 `fix（修复）` 偷换成 `redesign（重新设计）`。
+
+### 0A-5.5 完成标准
+
+一轮 Codex 任务只有同时满足以下条件，才能写 `completed`：
+
+1. 没有猜关键决策。
+2. 所有安全推断都有记录。
+3. 所有硬决策都由用户 / ChatGPT 确认。
+4. 修复任务完成了回归检查。
+5. 没有把修复变成重新设计。
+6. 没有改变 locked copy。
+7. 没有删除关键判断卡。
+8. 没有改变核心素材证据链。
+9. 没有推进未经确认的状态。
+10. commit / push 符合任务要求。
+
+否则必须写 `blocked`，或仅在用户明确允许分阶段交付时写 `partial_completed`。
 
 ## 1. 文件定位
 
