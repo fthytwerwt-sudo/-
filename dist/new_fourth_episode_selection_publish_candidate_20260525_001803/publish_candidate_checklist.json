@@ -1,0 +1,18 @@
+{
+  "ffprobe": "passed",
+  "ffmpeg_decode": "passed",
+  "audio_present": true,
+  "non_silent": true,
+  "subtitles_present": true,
+  "subtitle_burned_in_video": true,
+  "privacy_redaction": "passed_for_human_review_after_strengthened_redaction",
+  "readability": "passed_for_human_review_with_card_translation",
+  "secret_scan": "passed",
+  "publish_candidate_ready_for_human_review": true,
+  "content_validation": "pending_user_chatgpt_review",
+  "send_ready": false,
+  "local_tts_fallback_used": false,
+  "macos_say_used": false,
+  "subtitle_card_overlap": "passed_for_human_review",
+  "media_commit_check": "pending_git_stage_check"
+}

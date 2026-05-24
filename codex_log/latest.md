@@ -1,5 +1,24 @@
 # Latest
 
+## 20260524｜新第四期选品初筛发布候选片生成（TTS 授权解阻）
+
+- `已确认` 本轮继续上一轮 blocked 的新第四期 publish candidate 任务，不改 locked v0.2 文案语义，不采纳 copy_change_request 做改稿。
+- `已确认` 安全加载现有阿里 / 百炼 TTS 授权：`auth_source = authorized_runtime_config`；只记录 presence / source，不打印、不写入、不提交 key。
+- `已生成` 完整成片：`/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/full.mp4`。
+- `已生成` 正式 TTS 音轨：`/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/narration.wav`；`provider = aliyun_bailian`；`model = qwen3-tts-instruct-flash-realtime`；`local_tts_fallback_used = false`；`macos_say_used = false`。
+- `已生成` 字幕：`captions.srt`，并已烧录 group-level 字幕层到 `full.mp4`。
+- `已生成` review pack：`summary.json`、`media_probe.json`、`review_manifest.md`、`publish_candidate_checklist.json`、`script_to_timeline_map.json`、`tts_prosody_anchor_map.json`、`privacy_risk_check.json`、`readability_check.json`、`subtitle_card_overlap_check.json`、`platform_risk_precheck.json`、`secret_leak_scan_sanitized.json`。
+- `隐私处理`：已对账号 / 路径 / 商品名 / 商品价格 / 佣金 / 月销 / 表格值执行遮挡或洗白，字段含义由卡片与字幕承载；仍需用户 / ChatGPT 人工抽查观感。
+- `验证`：`ffprobe = passed`；`ffmpeg_decode = passed`；`audio_present = true`；`non_silent = true`；`subtitles_present = true`；`secret_scan = passed`。
+- `publish_candidate_ready_for_human_review = true`
+- `content_validation = pending_user_chatgpt_review`
+- `send_ready = false`
+- `voice_validation = pending_user_chatgpt_review`
+- `visual_master_locked = false`
+- `current_data_goal_anchor_ready = false`
+- `media_committed = false`
+
+
 ## 20260524｜新第四期 locked v0.2 发布候选生成阻断
 
 - `已确认` 本轮目标是按 locked v0.2 文案生成完整 `publish_candidate_ready_for_human_review`，不是技术预览、不是文案包、不是无声预览。

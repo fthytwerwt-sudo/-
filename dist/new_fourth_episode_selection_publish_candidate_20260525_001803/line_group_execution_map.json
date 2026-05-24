@@ -1,0 +1,1036 @@
+{
+  "line_groups": [
+    {
+      "line_group_id": "LG001",
+      "start": 0.0,
+      "end": 9.48,
+      "duration": 9.48,
+      "narration_text": "朋友们，你有没有发现，现在做带货，最贵的已经不是拍一条视频了，也不是剪辑、样品，而是前面测错商品的成本。",
+      "subtitle_text": "最贵的不是拍视频，是前面测错商品的成本。",
+      "source_timecode": [
+        "V001 00:15-01:24",
+        "V003 00:33-00:48",
+        "V004 00:27-00:36"
+      ],
+      "expected_visual": "V001 商品卡快速扫过，叠 V003/V004 表格结果一闪，形成“乱翻商品卡 -> 判断表”的对照。",
+      "card_text_if_any": "测错商品，比拍视频更贵"
+    },
+    {
+      "line_group_id": "LG002",
+      "start": 9.48,
+      "end": 21.92,
+      "duration": 12.44,
+      "narration_text": "你刷半天精选联盟，看到的全是商品卡：这个佣金高，那个销量好，这个图精致，那个价格像适合冲动消费，但翻到最后还是不知道哪个值得继续测。",
+      "subtitle_text": "商品卡很多，但最后还是不知道哪个值得继续测。",
+      "source_timecode": [
+        "V001 00:15-01:24",
+        "V001 01:36-02:09"
+      ],
+      "expected_visual": "精选联盟商品卡列表与商品卡近景，重点让观众看到商品卡、价格/佣金/月销等字段位置。",
+      "card_text_if_any": "商品太多，每个都像机会，也像坑"
+    },
+    {
+      "line_group_id": "LG003",
+      "start": 21.92,
+      "end": 29.46,
+      "duration": 7.54,
+      "narration_text": "有的商品佣金看起来很高，但客单价太低，你拍一条视频的时间成本可能都不一定回得来。",
+      "subtitle_text": "佣金高，不等于一定值得测。",
+      "source_timecode": [
+        "V001 01:36-02:09",
+        "V003 00:51-01:30"
+      ],
+      "expected_visual": "商品卡字段或明细表背景，叠判断卡说明“佣金高不等于值得测”。",
+      "card_text_if_any": "判断：佣金要和客单价、时间成本一起看"
+    },
+    {
+      "line_group_id": "LG004",
+      "start": 29.46,
+      "end": 36.76,
+      "duration": 7.3,
+      "narration_text": "有的商品销量看起来不错，但 SKU 太复杂，观众看完根本不知道该买哪一款。",
+      "subtitle_text": "销量好，也可能卡在 SKU 复杂。",
+      "source_timecode": [
+        "V001 02:12-03:24"
+      ],
+      "expected_visual": "商品页或 AI 分析窗口背景，叠 SKU 复杂判断卡；如画面不显示 SKU，只做经验判断卡。",
+      "card_text_if_any": "风险：SKU 太复杂，观众难决策"
+    },
+    {
+      "line_group_id": "LG005",
+      "start": 36.76,
+      "end": 48.56,
+      "duration": 11.8,
+      "narration_text": "有的商品图片特别好看，但店铺分和商品分一低，你视频拍得再顺，转化也可能卡住；退货风险一高，后面全是售后坑。",
+      "subtitle_text": "图好看，也要看店铺分、商品分和退货风险。",
+      "source_timecode": [
+        "V001 01:36-02:09",
+        "V003 00:51-01:30"
+      ],
+      "expected_visual": "V001 商品卡/字段页或 V003 明细表，叠“分数/退货风险需复核”卡。",
+      "card_text_if_any": "别只看图：评分 / 退货 / 售后风险也要核"
+    },
+    {
+      "line_group_id": "LG006",
+      "start": 48.56,
+      "end": 61.32,
+      "duration": 12.76,
+      "narration_text": "以前这一步，我都是自己一个个翻：打开精选联盟，输入品类，点开商品卡，看价格、佣金、月销、店铺分、商品分、评价和退货风险。",
+      "subtitle_text": "以前是打开页面、输品类、点商品卡、一个个记字段。",
+      "source_timecode": [
+        "V001 00:15-01:24"
+      ],
+      "expected_visual": "V001 搜索/浏览流程，按页面动作切：进入页面、搜索、商品卡列表、字段区域。",
+      "card_text_if_any": "手动选品 = 边看边记"
+    },
+    {
+      "line_group_id": "LG007",
+      "start": 61.32,
+      "end": 73.86,
+      "duration": 12.54,
+      "narration_text": "所以这次我换了一个做法：我不想再自己一个个翻了，我让 Codex 先帮我跑一轮选品初筛。注意，不是问它“帮我找一个爆品”，而是让它把商品卡里的信息拆出来。",
+      "subtitle_text": "不是问爆品，是让它先拆商品卡信息。",
+      "source_timecode": [
+        "V001 01:27-01:33",
+        "V001 02:12-03:24"
+      ],
+      "expected_visual": "AI/聊天分析窗口叠商品页，表现“把页面信息整理出来”。",
+      "card_text_if_any": "不要问：帮我找爆品；要问：先拆商品卡字段"
+    },
+    {
+      "line_group_id": "LG008",
+      "start": 73.86,
+      "end": 83.02,
+      "duration": 9.16,
+      "narration_text": "它会先看几个硬字段：客单价、佣金、销量信号、店铺分、商品分、退货和风险，以及内容可拍性。",
+      "subtitle_text": "先看硬字段：价格、佣金、销量、评分、退货风险、内容可拍性。",
+      "source_timecode": [
+        "V001 01:36-02:09",
+        "V003 00:51-01:30"
+      ],
+      "expected_visual": "商品卡近景 + 明细表字段列，逐个高亮字段名。",
+      "card_text_if_any": "初筛字段：价格 / 佣金 / 销量 / 评分 / 风险 / 可拍性"
+    },
+    {
+      "line_group_id": "LG009",
+      "start": 83.02,
+      "end": 91.48,
+      "duration": 8.46,
+      "narration_text": "这一步已经和我自己手动翻不一样了。我自己看的时候，是边看边想；Codex 做的时候，是边看边记录。",
+      "subtitle_text": "手动是边看边想，AI 初筛是边看边记录。",
+      "source_timecode": [
+        "V001 02:12-03:24",
+        "V003 00:33-00:48"
+      ],
+      "expected_visual": "左边商品页/AI 分析，右边或下一镜转到候选方向表。",
+      "card_text_if_any": "变化：商品卡 -> 可记录的判断项"
+    },
+    {
+      "line_group_id": "LG010",
+      "start": 91.48,
+      "end": 101.14,
+      "duration": 9.66,
+      "narration_text": "它会把商品先整理成一张候选表。原来页面上是一张张商品卡，到了表格里，就变成一行一行可以判断的记录。",
+      "subtitle_text": "商品卡进表以后，变成一行一行可判断的记录。",
+      "source_timecode": [
+        "V003 00:33-00:48"
+      ],
+      "expected_visual": "候选方向表局部放大，高亮 rank / category / grade / listing_candidate / video_candidate / key_basis / key_risk / status。",
+      "card_text_if_any": "候选表字段：方向 / 等级 / 候选 / 依据 / 风险 / 状态"
+    },
+    {
+      "line_group_id": "LG011",
+      "start": 101.14,
+      "end": 114.72,
+      "duration": 13.58,
+      "narration_text": "表里会写商品名、客单价区间、佣金空间、销量信号、店铺分、商品分、退货风险、内容能不能拍、为什么留下、为什么不能直接上、下一步还要核什么。",
+      "subtitle_text": "表格里最重要的是：为什么留下，为什么不能直接上，下一步核什么。",
+      "source_timecode": [
+        "V003 00:51-01:30"
+      ],
+      "expected_visual": "V003 明细表局部放大，高亮 estimated_comm / sales_signal / shop_score / product_score / refund_or_risk / listing_ready / video_ready / reason / evidence_note。",
+      "card_text_if_any": "不是推荐表，是复查判断表"
+    },
+    {
+      "line_group_id": "LG012",
+      "start": 114.72,
+      "end": 126.72,
+      "duration": 12.0,
+      "narration_text": "Codex 没有直接跟我说这个商品能爆，也没有说马上去拍。它真正帮我做的是：先把一堆看起来都能卖的商品分成几类，缩小到下一轮复查。",
+      "subtitle_text": "它不是替我拍板，是先缩小复查范围。",
+      "source_timecode": [
+        "V003 00:33-00:48",
+        "V004 00:27-00:36"
+      ],
+      "expected_visual": "判断卡覆盖 V003/V004 表格背景，明确“不拍板，只缩小复查范围”。",
+      "card_text_if_any": "边界：不拍板，只初筛"
+    },
+    {
+      "line_group_id": "LG013",
+      "start": 126.72,
+      "end": 139.28,
+      "duration": 12.56,
+      "narration_text": "它会把商品先缩成几个更窄的方向，再从几个方向里挑出几个具体商品卡，最后不是让我继续翻二十个商品，而是告诉我先复查这四个。",
+      "subtitle_text": "从二十张商品卡，先缩成几个方向，再缩成四个复查对象。",
+      "source_timecode": [
+        "V004 00:00-00:06",
+        "V004 00:27-00:36"
+      ],
+      "expected_visual": "V004 先展示 3 个方向，再切到“先确认 4 个商品卡”的排序/结果。",
+      "card_text_if_any": "结果变化：商品卡 -> 3 个方向 -> 4 个复查对象"
+    },
+    {
+      "line_group_id": "LG014",
+      "start": 139.28,
+      "end": 149.98,
+      "duration": 10.7,
+      "narration_text": "为什么是这四个？因为它们在佣金、内容可拍性、价格带和风险之间，至少有继续核验的空间；但每一个都还不能直接拍。",
+      "subtitle_text": "留下，不是因为一定能卖，而是因为有继续核验的空间。",
+      "source_timecode": [
+        "V004 00:09-00:24"
+      ],
+      "expected_visual": "V004 留下原因画面，框选“佣金/可拍性/价格带/风险/继续核验”等依据。",
+      "card_text_if_any": "留下理由 = 收益信号 + 内容可拍性 + 风险待核"
+    },
+    {
+      "line_group_id": "LG015",
+      "start": 149.98,
+      "end": 164.14,
+      "duration": 14.16,
+      "narration_text": "最后结果是一张复查表：第一个商品为什么留下，第二个商品最大的风险是什么，第三个商品内容能不能拍，第四个商品下一步要去巨量百应核什么。",
+      "subtitle_text": "最后不是爆品答案，而是一张复查表。",
+      "source_timecode": [
+        "V004 00:39-00:51"
+      ],
+      "expected_visual": "V004 优先级表高清局部，重点看优先级、商品名、搜什么、复查重点。",
+      "card_text_if_any": "复查表：为什么留下 / 最大风险 / 下一步核什么"
+    },
+    {
+      "line_group_id": "LG016",
+      "start": 164.14,
+      "end": 177.82,
+      "duration": 13.68,
+      "narration_text": "它最后不是把一堆截图丢给我，而是把文件和表格整理好，放到云盘里。我打开以后能看到商品名、客单价、佣金、销量信号、评分、风险、适不适合我和下一步要核什么。",
+      "subtitle_text": "信息从一堆页面，变成一个地方能看的表。",
+      "source_timecode": [
+        "V003 00:00-00:06",
+        "V003 00:33-00:48",
+        "V003 00:51-01:30",
+        "V004 00:39-00:51"
+      ],
+      "expected_visual": "Google Drive 文件列表短证据 + 候选表/明细表/复查表局部串联。",
+      "card_text_if_any": "一个地方看：字段 / 理由 / 风险 / 下一步"
+    },
+    {
+      "line_group_id": "LG017",
+      "start": 177.82,
+      "end": 190.54,
+      "duration": 12.72,
+      "narration_text": "如果连表格都不想看，它还可以回到聊天框里给我总结：目前最值得先复查的是哪几个商品，为什么留下，风险在哪里，下一步先核什么。",
+      "subtitle_text": "它把理由、风险和下一步都回传成我能看懂的结论。",
+      "source_timecode": [
+        "V004 00:27-00:36",
+        "V004 00:39-00:51"
+      ],
+      "expected_visual": "V004 复查结论背景 + 总结卡；如聊天框文字不可读，用卡片重述“复查对象/理由/风险/下一步”。",
+      "card_text_if_any": "回传结论：先复查谁 / 为什么 / 风险 / 下一步"
+    },
+    {
+      "line_group_id": "LG018",
+      "start": 190.54,
+      "end": 205.44,
+      "duration": 14.9,
+      "narration_text": "普通 AI 可能很快给你十几个方向，你看完都对但没法开始；执行型 AI 如果能看页面、整理、记录、归类，再把结果回到表格和聊天框里，它就从建议变成了工作。",
+      "subtitle_text": "区别不是回答更多，而是把任务往前推一步。",
+      "source_timecode": [
+        "V001 01:27-01:33",
+        "V003 00:33-00:48",
+        "V004 00:27-00:51"
+      ],
+      "expected_visual": "V001 AI 分析窗口 -> V003 表格 -> V004 复查结果，表现从建议到工作流的转换。",
+      "card_text_if_any": "从建议，到工作流"
+    },
+    {
+      "line_group_id": "LG019",
+      "start": 205.44,
+      "end": 216.96,
+      "duration": 11.52,
+      "narration_text": "当然，这不代表 Codex 已经帮我选出了爆品，也不代表这些商品一定能卖，更不代表佣金一定能覆盖成本。现在这一步，只能叫选品初筛。",
+      "subtitle_text": "这不是爆品答案，只是选品初筛。",
+      "source_timecode": [
+        "card_supported_boundary_statement",
+        "V003 00:51-01:30",
+        "V004 00:39-00:51"
+      ],
+      "expected_visual": "大字边界卡覆盖表格背景，节奏放慢。",
+      "card_text_if_any": "边界：不是爆品 / 不是一定能卖 / 不是佣金保证"
+    },
+    {
+      "line_group_id": "LG020",
+      "start": 216.96,
+      "end": 233.24,
+      "duration": 16.28,
+      "narration_text": "哪怕只是做到这一步，对我来说已经很有用了。以前是我在商品页里乱翻，现在是 Codex 先帮我把商品变成判断表；以前看完还不知道先测哪个，现在先知道这几个值得复查、风险最大、下一步先核什么。",
+      "subtitle_text": "以前是乱翻，现在至少先变成判断表。",
+      "source_timecode": [
+        "V001 00:15-01:24",
+        "V004 00:27-00:51"
+      ],
+      "expected_visual": "V001 商品卡混乱蒙太奇 -> V004 复查表，形成前后变化。",
+      "card_text_if_any": "价值：少一轮乱翻，多一张判断表"
+    },
+    {
+      "line_group_id": "LG021",
+      "start": 233.24,
+      "end": 250.62,
+      "duration": 17.38,
+      "narration_text": "所以如果你还在手动翻精选联盟，先别急着拍，也别急着问 AI 哪个品能爆。先让它把商品卡拆成表，把风险写出来，把下一步复查项列清楚。过了这张表，再拍；没过这张表，就别浪费时间拍视频。",
+      "subtitle_text": "先拆成表，先看风险，再决定要不要拍。",
+      "source_timecode": [
+        "V004 00:39-00:51",
+        "card_supported_action_statement"
+      ],
+      "expected_visual": "V004 复查表局部 + 结尾行动卡。",
+      "card_text_if_any": "先过表，再拍"
+    }
+  ],
+  "audio_chunks": [
+    {
+      "index": 1,
+      "line_group_id": "LG001",
+      "part": 1,
+      "text": "朋友们，你有没有发现，现在做带货，最贵的已经不是拍一条视频了，也不是剪辑、样品，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_001_LG001_01.wav",
+      "start": 0.0,
+      "end": 7.2,
+      "duration": 7.2,
+      "pause_after": 0.1
+    },
+    {
+      "index": 2,
+      "line_group_id": "LG001",
+      "part": 2,
+      "text": "而是前面测错商品的成本。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_002_LG001_02.wav",
+      "start": 7.3,
+      "end": 9.22,
+      "duration": 1.92,
+      "pause_after": 0.26
+    },
+    {
+      "index": 3,
+      "line_group_id": "LG002",
+      "part": 1,
+      "text": "你刷半天精选联盟，看到的全是商品卡：这个佣金高，那个销量好，这个图精致，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_003_LG002_01.wav",
+      "start": 9.48,
+      "end": 16.2,
+      "duration": 6.72,
+      "pause_after": 0.1
+    },
+    {
+      "index": 4,
+      "line_group_id": "LG002",
+      "part": 2,
+      "text": "那个价格像适合冲动消费，但翻到最后还是不知道哪个值得继续测。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_004_LG002_02.wav",
+      "start": 16.3,
+      "end": 21.66,
+      "duration": 5.36,
+      "pause_after": 0.26
+    },
+    {
+      "index": 5,
+      "line_group_id": "LG003",
+      "part": 1,
+      "text": "有的商品佣金看起来很高，但客单价太低，你拍一条视频的时间成本可能都不一定回得来。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_005_LG003_01.wav",
+      "start": 21.92,
+      "end": 29.2,
+      "duration": 7.28,
+      "pause_after": 0.26
+    },
+    {
+      "index": 6,
+      "line_group_id": "LG004",
+      "part": 1,
+      "text": "有的商品销量看起来不错，但 SKU 太复杂，观众看完根本不知道该买哪一款。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_006_LG004_01.wav",
+      "start": 29.46,
+      "end": 36.5,
+      "duration": 7.04,
+      "pause_after": 0.26
+    },
+    {
+      "index": 7,
+      "line_group_id": "LG005",
+      "part": 1,
+      "text": "有的商品图片特别好看，但店铺分和商品分一低，你视频拍得再顺，转化也可能卡住；",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_007_LG005_01.wav",
+      "start": 36.76,
+      "end": 44.92,
+      "duration": 8.16,
+      "pause_after": 0.1
+    },
+    {
+      "index": 8,
+      "line_group_id": "LG005",
+      "part": 2,
+      "text": "退货风险一高，后面全是售后坑。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_008_LG005_02.wav",
+      "start": 45.02,
+      "end": 48.3,
+      "duration": 3.28,
+      "pause_after": 0.26
+    },
+    {
+      "index": 9,
+      "line_group_id": "LG006",
+      "part": 1,
+      "text": "以前这一步，我都是自己一个个翻：打开精选联盟，输入品类，点开商品卡，看价格、佣金、",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_009_LG006_01.wav",
+      "start": 48.56,
+      "end": 56.0,
+      "duration": 7.44,
+      "pause_after": 0.1
+    },
+    {
+      "index": 10,
+      "line_group_id": "LG006",
+      "part": 2,
+      "text": "月销、店铺分、商品分、评价和退货风险。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_010_LG006_02.wav",
+      "start": 56.1,
+      "end": 61.06,
+      "duration": 4.96,
+      "pause_after": 0.26
+    },
+    {
+      "index": 11,
+      "line_group_id": "LG007",
+      "part": 1,
+      "text": "所以这次我换了一个做法：我不想再自己一个个翻了，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_011_LG007_01.wav",
+      "start": 61.32,
+      "end": 65.64,
+      "duration": 4.32,
+      "pause_after": 0.1
+    },
+    {
+      "index": 12,
+      "line_group_id": "LG007",
+      "part": 2,
+      "text": "我让 Codex 先帮我跑一轮选品初筛。注意，不是问它“帮我找一个爆品”，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_012_LG007_02.wav",
+      "start": 65.74,
+      "end": 71.1,
+      "duration": 5.36,
+      "pause_after": 0.1
+    },
+    {
+      "index": 13,
+      "line_group_id": "LG007",
+      "part": 3,
+      "text": "而是让它把商品卡里的信息拆出来。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_013_LG007_03.wav",
+      "start": 71.2,
+      "end": 73.6,
+      "duration": 2.4,
+      "pause_after": 0.26
+    },
+    {
+      "index": 14,
+      "line_group_id": "LG008",
+      "part": 1,
+      "text": "它会先看几个硬字段：客单价、佣金、销量信号、店铺分、商品分、退货和风险，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_014_LG008_01.wav",
+      "start": 73.86,
+      "end": 81.22,
+      "duration": 7.36,
+      "pause_after": 0.1
+    },
+    {
+      "index": 15,
+      "line_group_id": "LG008",
+      "part": 2,
+      "text": "以及内容可拍性。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_015_LG008_02.wav",
+      "start": 81.32,
+      "end": 82.76,
+      "duration": 1.44,
+      "pause_after": 0.26
+    },
+    {
+      "index": 16,
+      "line_group_id": "LG009",
+      "part": 1,
+      "text": "这一步已经和我自己手动翻不一样了。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_016_LG009_01.wav",
+      "start": 83.02,
+      "end": 85.26,
+      "duration": 2.24,
+      "pause_after": 0.1
+    },
+    {
+      "index": 17,
+      "line_group_id": "LG009",
+      "part": 2,
+      "text": "我自己看的时候，是边看边想；",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_017_LG009_02.wav",
+      "start": 85.36,
+      "end": 88.16,
+      "duration": 2.8,
+      "pause_after": 0.1
+    },
+    {
+      "index": 18,
+      "line_group_id": "LG009",
+      "part": 3,
+      "text": "Codex 做的时候，是边看边记录。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_018_LG009_03.wav",
+      "start": 88.26,
+      "end": 91.22,
+      "duration": 2.96,
+      "pause_after": 0.26
+    },
+    {
+      "index": 19,
+      "line_group_id": "LG010",
+      "part": 1,
+      "text": "它会把商品先整理成一张候选表。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_019_LG010_01.wav",
+      "start": 91.48,
+      "end": 94.2,
+      "duration": 2.72,
+      "pause_after": 0.1
+    },
+    {
+      "index": 20,
+      "line_group_id": "LG010",
+      "part": 2,
+      "text": "原来页面上是一张张商品卡，到了表格里，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_020_LG010_02.wav",
+      "start": 94.3,
+      "end": 98.54,
+      "duration": 4.24,
+      "pause_after": 0.1
+    },
+    {
+      "index": 21,
+      "line_group_id": "LG010",
+      "part": 3,
+      "text": "就变成一行一行可以判断的记录。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_021_LG010_03.wav",
+      "start": 98.64,
+      "end": 100.88,
+      "duration": 2.24,
+      "pause_after": 0.26
+    },
+    {
+      "index": 22,
+      "line_group_id": "LG011",
+      "part": 1,
+      "text": "表里会写商品名、客单价区间、佣金空间、销量信号、",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_022_LG011_01.wav",
+      "start": 101.14,
+      "end": 106.18,
+      "duration": 5.04,
+      "pause_after": 0.1
+    },
+    {
+      "index": 23,
+      "line_group_id": "LG011",
+      "part": 2,
+      "text": "店铺分、商品分、退货风险、内容能不能拍、",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_023_LG011_02.wav",
+      "start": 106.28,
+      "end": 110.28,
+      "duration": 4.0,
+      "pause_after": 0.1
+    },
+    {
+      "index": 24,
+      "line_group_id": "LG011",
+      "part": 3,
+      "text": "为什么留下、为什么不能直接上、下一步还要核什么。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_024_LG011_03.wav",
+      "start": 110.38,
+      "end": 114.46,
+      "duration": 4.08,
+      "pause_after": 0.26
+    },
+    {
+      "index": 25,
+      "line_group_id": "LG012",
+      "part": 1,
+      "text": "Codex 没有直接跟我说这个商品能爆，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_025_LG012_01.wav",
+      "start": 114.72,
+      "end": 117.36,
+      "duration": 2.64,
+      "pause_after": 0.1
+    },
+    {
+      "index": 26,
+      "line_group_id": "LG012",
+      "part": 2,
+      "text": "也没有说马上去拍。它真正帮我做的是：",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_026_LG012_02.wav",
+      "start": 117.46,
+      "end": 121.38,
+      "duration": 3.92,
+      "pause_after": 0.1
+    },
+    {
+      "index": 27,
+      "line_group_id": "LG012",
+      "part": 3,
+      "text": "先把一堆看起来都能卖的商品分成几类，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_027_LG012_03.wav",
+      "start": 121.48,
+      "end": 124.52,
+      "duration": 3.04,
+      "pause_after": 0.1
+    },
+    {
+      "index": 28,
+      "line_group_id": "LG012",
+      "part": 4,
+      "text": "缩小到下一轮复查。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_028_LG012_04.wav",
+      "start": 124.62,
+      "end": 126.46,
+      "duration": 1.84,
+      "pause_after": 0.26
+    },
+    {
+      "index": 29,
+      "line_group_id": "LG013",
+      "part": 1,
+      "text": "它会把商品先缩成几个更窄的方向，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_029_LG013_01.wav",
+      "start": 126.72,
+      "end": 129.84,
+      "duration": 3.12,
+      "pause_after": 0.1
+    },
+    {
+      "index": 30,
+      "line_group_id": "LG013",
+      "part": 2,
+      "text": "再从几个方向里挑出几个具体商品卡，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_030_LG013_02.wav",
+      "start": 129.94,
+      "end": 133.22,
+      "duration": 3.28,
+      "pause_after": 0.1
+    },
+    {
+      "index": 31,
+      "line_group_id": "LG013",
+      "part": 3,
+      "text": "最后不是让我继续翻二十个商品，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_031_LG013_03.wav",
+      "start": 133.32,
+      "end": 136.44,
+      "duration": 3.12,
+      "pause_after": 0.1
+    },
+    {
+      "index": 32,
+      "line_group_id": "LG013",
+      "part": 4,
+      "text": "而是告诉我先复查这四个。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_032_LG013_04.wav",
+      "start": 136.54,
+      "end": 139.02,
+      "duration": 2.48,
+      "pause_after": 0.26
+    },
+    {
+      "index": 33,
+      "line_group_id": "LG014",
+      "part": 1,
+      "text": "为什么是这四个？因为它们在佣金、内容可拍性、",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_033_LG014_01.wav",
+      "start": 139.28,
+      "end": 143.6,
+      "duration": 4.32,
+      "pause_after": 0.1
+    },
+    {
+      "index": 34,
+      "line_group_id": "LG014",
+      "part": 2,
+      "text": "价格带和风险之间，至少有继续核验的空间；",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_034_LG014_02.wav",
+      "start": 143.7,
+      "end": 147.22,
+      "duration": 3.52,
+      "pause_after": 0.1
+    },
+    {
+      "index": 35,
+      "line_group_id": "LG014",
+      "part": 3,
+      "text": "但每一个都还不能直接拍。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_035_LG014_03.wav",
+      "start": 147.32,
+      "end": 149.72,
+      "duration": 2.4,
+      "pause_after": 0.26
+    },
+    {
+      "index": 36,
+      "line_group_id": "LG015",
+      "part": 1,
+      "text": "最后结果是一张复查表：第一个商品为什么留下，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_036_LG015_01.wav",
+      "start": 149.98,
+      "end": 154.14,
+      "duration": 4.16,
+      "pause_after": 0.1
+    },
+    {
+      "index": 37,
+      "line_group_id": "LG015",
+      "part": 2,
+      "text": "第二个商品最大的风险是什么，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_037_LG015_02.wav",
+      "start": 154.24,
+      "end": 156.48,
+      "duration": 2.24,
+      "pause_after": 0.1
+    },
+    {
+      "index": 38,
+      "line_group_id": "LG015",
+      "part": 3,
+      "text": "第三个商品内容能不能拍，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_038_LG015_03.wav",
+      "start": 156.58,
+      "end": 159.78,
+      "duration": 3.2,
+      "pause_after": 0.1
+    },
+    {
+      "index": 39,
+      "line_group_id": "LG015",
+      "part": 4,
+      "text": "第四个商品下一步要去巨量百应核什么。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_039_LG015_04.wav",
+      "start": 159.88,
+      "end": 163.88,
+      "duration": 4.0,
+      "pause_after": 0.26
+    },
+    {
+      "index": 40,
+      "line_group_id": "LG016",
+      "part": 1,
+      "text": "它最后不是把一堆截图丢给我，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_040_LG016_01.wav",
+      "start": 164.14,
+      "end": 166.38,
+      "duration": 2.24,
+      "pause_after": 0.1
+    },
+    {
+      "index": 41,
+      "line_group_id": "LG016",
+      "part": 2,
+      "text": "而是把文件和表格整理好，放到云盘里。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_041_LG016_02.wav",
+      "start": 166.48,
+      "end": 169.52,
+      "duration": 3.04,
+      "pause_after": 0.1
+    },
+    {
+      "index": 42,
+      "line_group_id": "LG016",
+      "part": 3,
+      "text": "我打开以后能看到商品名、客单价、佣金、销量信号、",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_042_LG016_03.wav",
+      "start": 169.62,
+      "end": 173.94,
+      "duration": 4.32,
+      "pause_after": 0.1
+    },
+    {
+      "index": 43,
+      "line_group_id": "LG016",
+      "part": 4,
+      "text": "评分、风险、适不适合我和下一步要核什么。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_043_LG016_04.wav",
+      "start": 174.04,
+      "end": 177.56,
+      "duration": 3.52,
+      "pause_after": 0.26
+    },
+    {
+      "index": 44,
+      "line_group_id": "LG017",
+      "part": 1,
+      "text": "如果连表格都不想看，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_044_LG017_01.wav",
+      "start": 177.82,
+      "end": 180.06,
+      "duration": 2.24,
+      "pause_after": 0.1
+    },
+    {
+      "index": 45,
+      "line_group_id": "LG017",
+      "part": 2,
+      "text": "它还可以回到聊天框里给我总结：",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_045_LG017_02.wav",
+      "start": 180.16,
+      "end": 182.64,
+      "duration": 2.48,
+      "pause_after": 0.1
+    },
+    {
+      "index": 46,
+      "line_group_id": "LG017",
+      "part": 3,
+      "text": "目前最值得先复查的是哪几个商品，为什么留下，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_046_LG017_03.wav",
+      "start": 182.74,
+      "end": 187.78,
+      "duration": 5.04,
+      "pause_after": 0.1
+    },
+    {
+      "index": 47,
+      "line_group_id": "LG017",
+      "part": 4,
+      "text": "风险在哪里，下一步先核什么。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_047_LG017_04.wav",
+      "start": 187.88,
+      "end": 190.28,
+      "duration": 2.4,
+      "pause_after": 0.26
+    },
+    {
+      "index": 48,
+      "line_group_id": "LG018",
+      "part": 1,
+      "text": "普通 AI 可能很快给你十几个方向，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_048_LG018_01.wav",
+      "start": 190.54,
+      "end": 193.26,
+      "duration": 2.72,
+      "pause_after": 0.1
+    },
+    {
+      "index": 49,
+      "line_group_id": "LG018",
+      "part": 2,
+      "text": "你看完都对但没法开始；",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_049_LG018_02.wav",
+      "start": 193.36,
+      "end": 195.84,
+      "duration": 2.48,
+      "pause_after": 0.1
+    },
+    {
+      "index": 50,
+      "line_group_id": "LG018",
+      "part": 3,
+      "text": "执行型 AI 如果能看页面、整理、记录、归类，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_050_LG018_03.wav",
+      "start": 195.94,
+      "end": 200.98,
+      "duration": 5.04,
+      "pause_after": 0.1
+    },
+    {
+      "index": 51,
+      "line_group_id": "LG018",
+      "part": 4,
+      "text": "再把结果回到表格和聊天框里，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_051_LG018_04.wav",
+      "start": 201.08,
+      "end": 203.24,
+      "duration": 2.16,
+      "pause_after": 0.1
+    },
+    {
+      "index": 52,
+      "line_group_id": "LG018",
+      "part": 5,
+      "text": "它就从建议变成了工作。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_052_LG018_05.wav",
+      "start": 203.34,
+      "end": 205.18,
+      "duration": 1.84,
+      "pause_after": 0.26
+    },
+    {
+      "index": 53,
+      "line_group_id": "LG019",
+      "part": 1,
+      "text": "当然，这不代表 Codex 已经帮我选出了爆品，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_053_LG019_01.wav",
+      "start": 205.44,
+      "end": 208.56,
+      "duration": 3.12,
+      "pause_after": 0.1
+    },
+    {
+      "index": 54,
+      "line_group_id": "LG019",
+      "part": 2,
+      "text": "也不代表这些商品一定能卖，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_054_LG019_02.wav",
+      "start": 208.66,
+      "end": 210.74,
+      "duration": 2.08,
+      "pause_after": 0.1
+    },
+    {
+      "index": 55,
+      "line_group_id": "LG019",
+      "part": 3,
+      "text": "更不代表佣金一定能覆盖成本。现在这一步，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_055_LG019_03.wav",
+      "start": 210.84,
+      "end": 215.08,
+      "duration": 4.24,
+      "pause_after": 0.1
+    },
+    {
+      "index": 56,
+      "line_group_id": "LG019",
+      "part": 4,
+      "text": "只能叫选品初筛。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_056_LG019_04.wav",
+      "start": 215.18,
+      "end": 216.7,
+      "duration": 1.52,
+      "pause_after": 0.26
+    },
+    {
+      "index": 57,
+      "line_group_id": "LG020",
+      "part": 1,
+      "text": "哪怕只是做到这一步，对我来说已经很有用了。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_057_LG020_01.wav",
+      "start": 216.96,
+      "end": 220.24,
+      "duration": 3.28,
+      "pause_after": 0.1
+    },
+    {
+      "index": 58,
+      "line_group_id": "LG020",
+      "part": 2,
+      "text": "以前是我在商品页里乱翻，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_058_LG020_02.wav",
+      "start": 220.34,
+      "end": 222.82,
+      "duration": 2.48,
+      "pause_after": 0.1
+    },
+    {
+      "index": 59,
+      "line_group_id": "LG020",
+      "part": 3,
+      "text": "现在是 Codex 先帮我把商品变成判断表；",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_059_LG020_03.wav",
+      "start": 222.92,
+      "end": 226.12,
+      "duration": 3.2,
+      "pause_after": 0.1
+    },
+    {
+      "index": 60,
+      "line_group_id": "LG020",
+      "part": 4,
+      "text": "以前看完还不知道先测哪个，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_060_LG020_04.wav",
+      "start": 226.22,
+      "end": 228.3,
+      "duration": 2.08,
+      "pause_after": 0.1
+    },
+    {
+      "index": 61,
+      "line_group_id": "LG020",
+      "part": 5,
+      "text": "现在先知道这几个值得复查、风险最大、",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_061_LG020_05.wav",
+      "start": 228.4,
+      "end": 231.44,
+      "duration": 3.04,
+      "pause_after": 0.1
+    },
+    {
+      "index": 62,
+      "line_group_id": "LG020",
+      "part": 6,
+      "text": "下一步先核什么。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_062_LG020_06.wav",
+      "start": 231.54,
+      "end": 232.98,
+      "duration": 1.44,
+      "pause_after": 0.26
+    },
+    {
+      "index": 63,
+      "line_group_id": "LG021",
+      "part": 1,
+      "text": "所以如果你还在手动翻精选联盟，先别急着拍，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_063_LG021_01.wav",
+      "start": 233.24,
+      "end": 236.76,
+      "duration": 3.52,
+      "pause_after": 0.1
+    },
+    {
+      "index": 64,
+      "line_group_id": "LG021",
+      "part": 2,
+      "text": "也别急着问 AI 哪个品能爆。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_064_LG021_02.wav",
+      "start": 236.86,
+      "end": 239.74,
+      "duration": 2.88,
+      "pause_after": 0.1
+    },
+    {
+      "index": 65,
+      "line_group_id": "LG021",
+      "part": 3,
+      "text": "先让它把商品卡拆成表，把风险写出来，",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_065_LG021_03.wav",
+      "start": 239.84,
+      "end": 243.12,
+      "duration": 3.28,
+      "pause_after": 0.1
+    },
+    {
+      "index": 66,
+      "line_group_id": "LG021",
+      "part": 4,
+      "text": "把下一步复查项列清楚。过了这张表，再拍；",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_066_LG021_04.wav",
+      "start": 243.22,
+      "end": 247.22,
+      "duration": 4.0,
+      "pause_after": 0.1
+    },
+    {
+      "index": 67,
+      "line_group_id": "LG021",
+      "part": 5,
+      "text": "没过这张表，就别浪费时间拍视频。",
+      "path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/tts_segments/seg_067_LG021_05.wav",
+      "start": 247.32,
+      "end": 250.36,
+      "duration": 3.04,
+      "pause_after": 0.26
+    }
+  ]
+}

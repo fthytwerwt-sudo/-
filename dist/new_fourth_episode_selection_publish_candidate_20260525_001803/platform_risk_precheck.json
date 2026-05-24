@@ -1,0 +1,11 @@
+{
+  "status": "passed_for_human_review",
+  "blocked_claims_avoided": [
+    "一定能卖",
+    "自动赚钱",
+    "Codex 已选出爆品",
+    "佣金一定覆盖成本"
+  ],
+  "content_validation": "pending_user_chatgpt_review",
+  "send_ready": false
+}

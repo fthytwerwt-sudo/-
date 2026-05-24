@@ -1,0 +1,14 @@
+{
+  "status": "passed_for_human_review_after_strengthened_redaction",
+  "redaction_applied": true,
+  "masked_areas": [
+    "top navigation/account band",
+    "bottom system/path band",
+    "right account/sidebar band",
+    "left edge residue band"
+  ],
+  "media_committed": false,
+  "requires_human_spot_check": true,
+  "redaction_strengthened_after_visual_spot_check": true,
+  "notes": "product names, prices, commission/monthly sales and table values are masked or washed out; cards/subtitles carry the mechanism."
+}

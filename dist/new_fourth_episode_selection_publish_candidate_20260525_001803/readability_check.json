@@ -1,0 +1,7 @@
+{
+  "status": "passed_for_human_review_with_card_translation",
+  "table_readability_treatment": "local zoom and card translation",
+  "small_text_not_used_as_sole_evidence": true,
+  "requires_human_spot_check": true,
+  "note": "field meaning is carried by cards/subtitles because sensitive table values were masked."
+}

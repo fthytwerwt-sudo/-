@@ -1,0 +1,13 @@
+{
+  "card_budget_gate": "6 main cards + 1 weak ending action card",
+  "main_cards": {
+    "LG001": "测错商品，比拍视频更贵",
+    "LG008": "价格 / 佣金 / 销量 / 评分 / 风险 / 可拍性",
+    "LG010": "候选表：依据 / 风险 / 状态 / 下一步",
+    "LG013": "商品卡 -> 3 个方向 -> 4 个复查对象",
+    "LG015": "为什么留下 / 风险在哪 / 下一步核什么",
+    "LG019": "不是爆品答案，只是选品初筛",
+    "LG021": "先过表，再拍"
+  },
+  "card_density_status": "passed_not_every_line_group_carded"
+}

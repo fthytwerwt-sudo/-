@@ -1,0 +1,49 @@
+{
+  "status": "publish_candidate_ready_for_human_review",
+  "publish_candidate_ready_for_human_review": true,
+  "content_validation": "pending_user_chatgpt_review",
+  "send_ready": false,
+  "voice_validation": "pending_user_chatgpt_review",
+  "visual_master_locked": false,
+  "current_data_goal_anchor_ready": false,
+  "full_video_path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/full.mp4",
+  "narration_path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/narration.wav",
+  "captions_path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803/captions.srt",
+  "review_pack_dir": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260525_001803",
+  "tts": {
+    "provider": "aliyun_bailian",
+    "model": "qwen3-tts-instruct-flash-realtime",
+    "voice": "Serena",
+    "auth_source": "authorized_runtime_config",
+    "local_tts_fallback_used": false,
+    "macos_say_used": false
+  },
+  "materials_used": {
+    "V001": [
+      "商品卡浏览",
+      "商品字段",
+      "选品页"
+    ],
+    "V003": [
+      "候选表",
+      "明细表",
+      "云盘表格"
+    ],
+    "V004": [
+      "3个方向",
+      "4个复查商品",
+      "优先级表"
+    ],
+    "V002": []
+  },
+  "media_committed": false,
+  "verification": {
+    "ffprobe": "passed",
+    "ffmpeg_decode": "passed",
+    "audio_present": true,
+    "non_silent": true,
+    "subtitles_present": true,
+    "privacy_redaction": "passed_for_human_review_after_strengthened_redaction",
+    "secret_scan": "passed"
+  }
+}

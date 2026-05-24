@@ -1,0 +1,12 @@
+{
+  "used_materials": [
+    "V001",
+    "V003",
+    "V004"
+  ],
+  "V002_used": false,
+  "assembly": "line_group_level",
+  "subtitle_execution": "burned group-level subtitle PNG overlays plus sidecar captions.srt",
+  "privacy_treatment": "top/bottom/right/left masks applied; no raw media committed",
+  "readability_treatment": "V003/V004 local zoom plus card translation for table fields"
+}
