@@ -88,5 +88,19 @@
     "ffmpeg": "used_with_dts_warnings",
     "local_asr": "not_available",
     "local_ocr": "not_available"
+  },
+  "transcript_supplement": {
+    "generated_at": "2026-05-24 22:20:11",
+    "transcript_status": "blocked_local_asr_missing",
+    "full_transcript_committed": false,
+    "audio_committed": false,
+    "external_api_called": false,
+    "local_only_dir": "/Users/fan/Documents/视频工厂/本地仅分析_local_only/reference_transcripts/文案对标_20260524_221353",
+    "reports": [
+      "codex_log/reference_audit/文案对标_20260524_215056/13_transcript_extraction_report.md",
+      "codex_log/reference_audit/文案对标_20260524_215056/14_line_level_copy_taste_analysis.md",
+      "codex_log/reference_audit/文案对标_20260524_215056/15_reference_vs_new_fourth_copy_gap.md",
+      "codex_log/reference_audit/文案对标_20260524_215056/16_transcript_driven_chatgpt_handoff_pack.md"
+    ]
   }
 }

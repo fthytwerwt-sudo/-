@@ -1,5 +1,21 @@
 # Latest
 
+## 20260524｜文案对标逐字稿与话语口味补充解析
+
+- `已确认` 本轮只做对标视频逐字稿 / 话语口味补充解析，不写新第四期最终文案、不生成视频、不替换素材、不推进内容状态。
+- `已确认` reference 视频：`/Users/fan/Documents/视频工厂/文案库/文案对标.MP4`；上一轮 reference audit 目录：`codex_log/reference_audit/文案对标_20260524_215056/`。
+- `音频提取`：已生成 local-only 音频 `/Users/fan/Documents/视频工厂/本地仅分析_local_only/reference_transcripts/文案对标_20260524_221353/reference_audio.wav`，不提交 Git。
+- `逐字稿状态`：`transcript_status = blocked_local_asr_missing`；本机未检测到可用本地 ASR / OCR，且本轮禁止外部 API，因此未生成完整逐字稿。
+- `full_transcript_local_only = not_generated`；`transcript_blocked_report` 位于 `/Users/fan/Documents/视频工厂/本地仅分析_local_only/reference_transcripts/文案对标_20260524_221353/transcript_blocked_report.md`。
+- `FULL_TRANSCRIPT_COMMIT_ALLOWED = false`；未提交完整第三方逐字稿全文，只提交安全分析报告、短引用机制分析和改稿规则。
+- `已生成` 仓库安全报告：`13_transcript_extraction_report.md`、`14_line_level_copy_taste_analysis.md`、`15_reference_vs_new_fourth_copy_gap.md`、`16_transcript_driven_chatgpt_handoff_pack.md`。
+- `已生成` dated log：`codex_log/20260524_reference_transcript_copy_taste_audit.md`。
+- `content_validation = not_advanced`
+- `send_ready = false`
+- `video_generated = false`
+- `media_committed = false`
+- `full_transcript_committed = false`
+
 ## 20260524｜项目内文案对标视频全方位解析
 
 - `已确认` 本轮只做项目内对标视频解析和 reference pack，不写新第四期最终文案、不生成视频、不替换素材、不推进任何内容状态。
