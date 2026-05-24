@@ -1,0 +1,47 @@
+{
+  "generated_at": "2026-05-24T21:50:56",
+  "requested_path": "/Users/fan/Documents/视频工厂/文案库/文案对标",
+  "resolved_path": "/Users/fan/Documents/视频工厂/文案库/文案对标.MP4",
+  "reference_file_count": 3,
+  "files": [
+    {
+      "file_id": "R001",
+      "relative_path": "文案库/文案对标.MP4",
+      "absolute_path": "/Users/fan/Documents/视频工厂/文案库/文案对标.MP4",
+      "file_type": "video/mp4",
+      "size_bytes": 373998641,
+      "duration_seconds": 416.740114,
+      "modified_time": "2026-05-24T21:12:50",
+      "sha256": "8676bfb25f2c4bb8dbcf6bd2b6cdba5f6f279e7ae16639ccd91b711fe0a47687",
+      "is_primary_reference_candidate": true,
+      "selected_for_deep_audit": true,
+      "selection_reason": "唯一名称包含“文案对标”的视频文件；位于文案库；体积最大且时长最长；进入深度解析。"
+    },
+    {
+      "file_id": "R002",
+      "relative_path": "文案库/喜欢 txt.txt",
+      "absolute_path": "/Users/fan/Documents/视频工厂/文案库/喜欢 txt.txt",
+      "file_type": "text/plain",
+      "size_bytes": 65688,
+      "duration_seconds": null,
+      "modified_time": "2026-04-13T22:13:21",
+      "sha256": "16b8057080dfacaae9acdca7e145bf856ac24bdd1c8bbcb9e2d1f120edd70f80",
+      "is_primary_reference_candidate": false,
+      "selected_for_deep_audit": false,
+      "selection_reason": "同目录文案喜好文本，作为 secondary reference context；不当作主视频 transcript。"
+    },
+    {
+      "file_id": "R003",
+      "relative_path": "文案库/不喜欢.txt",
+      "absolute_path": "/Users/fan/Documents/视频工厂/文案库/不喜欢.txt",
+      "file_type": "text/plain",
+      "size_bytes": 16272,
+      "duration_seconds": null,
+      "modified_time": "2026-04-13T23:36:19",
+      "sha256": "946fc5fda1263564f9616ef69587b385c88554c03e6b32d10deb99f21eb2622b",
+      "is_primary_reference_candidate": false,
+      "selected_for_deep_audit": false,
+      "selection_reason": "同目录文案喜好文本，作为 secondary reference context；不当作主视频 transcript。"
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-05-24T21:50:56",
+  "output_dir": "codex_log/reference_audit/文案对标_20260524_215056",
+  "source_reference": "/Users/fan/Documents/视频工厂/文案库/文案对标.MP4",
+  "source_media_committed": false,
+  "preview_images_committed": false,
+  "reports": [
+    {
+      "path": "codex_log/reference_audit/文案对标_20260524_215056/00_reference_inventory.md",
+      "exists": true,
+      "size_bytes": 2225
+    },
+    {
+      "path": "codex_log/reference_audit/文案对标_20260524_215056/00_reference_inventory.json",
+      "exists": true,
+      "size_bytes": 2118
+    },
+    {
+      "path": "codex_log/reference_audit/文案对标_20260524_215056/01_media_probe_report.md",
+      "exists": true,
+      "size_bytes": 2063
+    },
+    {
+      "path": "codex_log/reference_audit/文案对标_20260524_215056/02_scene_timeline_map.md",
+      "exists": true,
+      "size_bytes": 6082
+    },
+    {
+      "path": "codex_log/reference_audit/文案对标_20260524_215056/03_copy_transcript_and_structure.md",
+      "exists": true,
+      "size_bytes": 4108
+    },
+    {
+      "path": "codex_log/reference_audit/文案对标_20260524_215056/04_visual_style_audit.md",
+      "exists": true,
+      "size_bytes": 2954
+    },
+    {
+      "path": "codex_log/reference_audit/文案对标_20260524_215056/05_motion_efficiency_audit.md",
+      "exists": true,
+      "size_bytes": 2457
+    },
+    {
+      "path": "codex_log/reference_audit/文案对标_20260524_215056/06_audio_sfx_rhythm_audit.md",
+      "exists": true,
+      "size_bytes": 2199
+    },
+    {
+      "path": "codex_log/reference_audit/文案对标_20260524_215056/07_card_and_overlay_audit.md",
+      "exists": true,
+      "size_bytes": 2561
+    },
+    {
+      "path": "codex_log/reference_audit/文案对标_20260524_215056/08_editing_pacing_audit.md",
+      "exists": true,
+      "size_bytes": 1432
+    },
+    {
+      "path": "codex_log/reference_audit/文案对标_20260524_215056/09_reference_to_execution_contract.md",
+      "exists": true,
+      "size_bytes": 3107
+    },
+    {
+      "path": "codex_log/reference_audit/文案对标_20260524_215056/10_transferable_rules_for_video_factory.md",
+      "exists": true,
+      "size_bytes": 2362
+    },
+    {
+      "path": "codex_log/reference_audit/文案对标_20260524_215056/11_risk_and_non_transferable_parts.md",
+      "exists": true,
+      "size_bytes": 1877
+    },
+    {
+      "path": "codex_log/reference_audit/文案对标_20260524_215056/12_chatgpt_handoff_pack.md",
+      "exists": true,
+      "size_bytes": 5918
+    }
+  ],
+  "status_boundary": {
+    "content_validation": "not_advanced",
+    "send_ready": false,
+    "video_generated": false,
+    "media_committed": false,
+    "third_party_assets_copied": false
+  },
+  "tools": {
+    "ffprobe": "used",
+    "ffmpeg": "used_with_dts_warnings",
+    "local_asr": "not_available",
+    "local_ocr": "not_available"
+  }
+}

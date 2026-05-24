@@ -1,5 +1,22 @@
 # Latest
 
+## 20260524｜项目内文案对标视频全方位解析
+
+- `已确认` 本轮只做项目内对标视频解析和 reference pack，不写新第四期最终文案、不生成视频、不替换素材、不推进任何内容状态。
+- `已确认` 对标路径：`/Users/fan/Documents/视频工厂/文案库/文案对标.MP4`；原目录 `/Users/fan/Documents/视频工厂/文案库/文案对标` 不存在，本轮按 fallback 命中 `文案库/文案对标.MP4`。
+- `已生成` 输出目录：`codex_log/reference_audit/文案对标_20260524_215056/`。
+- `已生成` 12 个报告文件 + inventory JSON + manifest：`00_reference_inventory` 至 `12_chatgpt_handoff_pack`。
+- `已生成` Reference-to-Execution Contract：`codex_log/reference_audit/文案对标_20260524_215056/09_reference_to_execution_contract.md`。
+- `已生成` ChatGPT handoff pack：`codex_log/reference_audit/文案对标_20260524_215056/12_chatgpt_handoff_pack.md`。
+- `已确认` 原始对标视频、音频、完整抽帧目录、contact sheet 大图均未提交；只提交 `.md / .json` 报告。
+- `已确认` 未复用第三方人物、画面、平台 UI、BGM、音效、字体、logo 或原始素材资产；本轮只提取结构、节奏、卡片功能、动效功能和文案颗粒度机制。
+- `content_validation = not_advanced`
+- `send_ready = false`
+- `video_generated = false`
+- `media_committed = false`
+- 本轮只支持 ChatGPT 后续参考，不代表当前视频已经过线。
+- `日志`：`codex_log/20260524_reference_copy_visual_audio_audit.md`
+
 ## 20260524｜文案颗粒度配比机制补写
 
 - `已确认` 本轮只做文案机制补写，不写最终文案、不生成视频、不生成音频、不推进任何内容状态。
