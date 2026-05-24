@@ -1,0 +1,15 @@
+{
+  "status": "precheck_only_pass_with_blocked_delivery",
+  "forbidden_claims_avoided_in_planned_copy": [
+    "商品一定能卖",
+    "佣金一定覆盖成本",
+    "Codex 已选出爆品",
+    "商业闭环已成立",
+    "自动赚钱"
+  ],
+  "remaining_risks": [
+    "locked copy contains strong automation wording; user instructed not to revise, so it must be handled with cards/review notes if TTS becomes available",
+    "product data privacy must be masked"
+  ],
+  "publish_candidate_ready_for_human_review": false
+}

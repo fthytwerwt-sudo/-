@@ -1,0 +1,29 @@
+{
+  "status": "not_rendered_due_to_tts_blocker",
+  "core_evidence": [
+    "V001 00:15-01:24",
+    "V001 01:36-02:09",
+    "V001 02:12-03:24",
+    "V003 00:33-00:48",
+    "V003 00:51-01:30",
+    "V004 00:00-00:06",
+    "V004 00:27-00:36",
+    "V004 00:39-00:51"
+  ],
+  "excluded": "V002 default not used",
+  "privacy_required": [
+    "Google Drive account/path",
+    "local path",
+    "product name",
+    "product price",
+    "commission",
+    "monthly sales",
+    "shop information"
+  ],
+  "readability_required": [
+    "V003 candidate table zoom",
+    "V003 detail table zoom",
+    "V004 review table zoom or card translation"
+  ],
+  "blocked_before_editing_reason": "remote TTS authorization unavailable; publish candidate requires narration.wav and audio track"
+}

@@ -1,0 +1,12 @@
+{
+  "status": "pending_not_rendered",
+  "readability_risk": true,
+  "planned_handling": [
+    "local zoom/crop for V003/V004 tables",
+    "hold key table frames",
+    "short card translation"
+  ],
+  "rendered_video_checked": false,
+  "pass": false,
+  "reason": "No full.mp4 generated; cannot verify table readability."
+}

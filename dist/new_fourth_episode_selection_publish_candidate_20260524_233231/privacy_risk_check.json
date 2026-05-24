@@ -1,0 +1,21 @@
+{
+  "status": "pending_not_rendered",
+  "privacy_redaction_required": true,
+  "risks": [
+    "Google Drive account/path",
+    "product names",
+    "prices",
+    "commission",
+    "monthly sales",
+    "shop info",
+    "table screenshots"
+  ],
+  "planned_handling": [
+    "mask/crop account and path",
+    "blur product names and values unless explicitly approved",
+    "use card translation for dense tables"
+  ],
+  "rendered_video_checked": false,
+  "pass": false,
+  "reason": "No full.mp4 generated due TTS blocker; cannot claim privacy redaction completed."
+}

@@ -1,5 +1,22 @@
 # Latest
 
+## 20260524｜新第四期 locked v0.2 发布候选生成阻断
+
+- `已确认` 本轮目标是按 locked v0.2 文案生成完整 `publish_candidate_ready_for_human_review`，不是技术预览、不是文案包、不是无声预览。
+- `已确认` preflight 输出目录存在：`codex_log/script_preflight/新第四期_选品初筛_20260524_231118/`；`script_to_timeline_map` / `content_route_card_v2` / `tts_prosody_anchor_map` 均可解析。
+- `素材检查`：`/Users/fan/Documents/视频工厂/素材录制/新第四期` 存在；V001 / V003 / V004 均可解码；素材本身无音轨，必须另行生成正式 TTS。
+- `blocked_publish_candidate_unavailable_remote_tts_authorization_missing`：当前进程 `DASHSCOPE_API_KEY_present = false`、`ALIYUN_API_KEY_present = false`；本轮禁止读取 API key / token / secret，因此未读取本地 runtime 授权文件。
+- `未生成` `full.mp4`、`narration.wav`、`captions.srt`；未生成无声视频，未使用 macOS say，未使用本地低质 TTS fallback。
+- `已生成` 阻断审计包：`dist/new_fourth_episode_selection_publish_candidate_20260524_233231/`。
+- `content_validation = not_advanced_due_blocked`
+- `send_ready = false`
+- `publish_candidate_ready_for_human_review = false`
+- `voice_validation = not_advanced_due_blocked`
+- `visual_master_locked = false`
+- `current_data_goal_anchor_ready = false`
+- `media_committed = false`
+
+
 ## 20260524｜新第四期文案 line_group 与素材时间码对齐
 
 - 已确认：本轮只做新第四期成片前置包，不生成视频、不生成音频、不替换素材、不推进内容状态。

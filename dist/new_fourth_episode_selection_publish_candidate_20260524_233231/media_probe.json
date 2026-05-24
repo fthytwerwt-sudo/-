@@ -1,0 +1,62 @@
+{
+  "V001": {
+    "path": "/Users/fan/Documents/视频工厂/素材录制/新第四期/内建视网膜显示器 2026-05-23 20-57-41.mp4",
+    "exists": true,
+    "size_bytes": 992116084,
+    "duration_seconds": 481.667,
+    "width": 3412,
+    "height": 1846,
+    "fps": 30.002,
+    "video_codec": "h264",
+    "audio_present": false,
+    "audio_codec": null,
+    "audio_channels": 0,
+    "sample_rate": null,
+    "decodable": "not_rechecked_here_but_probe_skill_passed"
+  },
+  "V002": {
+    "path": "/Users/fan/Documents/视频工厂/素材录制/新第四期/内建视网膜显示器 2026-05-23 21-28-53.mp4",
+    "exists": true,
+    "size_bytes": 23248230,
+    "duration_seconds": 12.5,
+    "width": 3310,
+    "height": 1680,
+    "fps": 30.08,
+    "video_codec": "h264",
+    "audio_present": false,
+    "audio_codec": null,
+    "audio_channels": 0,
+    "sample_rate": null,
+    "decodable": "not_rechecked_here_but_probe_skill_passed"
+  },
+  "V003": {
+    "path": "/Users/fan/Documents/视频工厂/素材录制/新第四期/内建视网膜显示器 2026-05-23 22-44-33.mp4",
+    "exists": true,
+    "size_bytes": 242137410,
+    "duration_seconds": 96.333,
+    "width": 3356,
+    "height": 1692,
+    "fps": 30.01,
+    "video_codec": "h264",
+    "audio_present": false,
+    "audio_codec": null,
+    "audio_channels": 0,
+    "sample_rate": null,
+    "decodable": "not_rechecked_here_but_probe_skill_passed"
+  },
+  "V004": {
+    "path": "/Users/fan/Documents/视频工厂/素材录制/新第四期/内建视网膜显示器 2026-05-23 22-51-40.mp4",
+    "exists": true,
+    "size_bytes": 106182950,
+    "duration_seconds": 50.2,
+    "width": 3220,
+    "height": 1678,
+    "fps": 30.02,
+    "video_codec": "h264",
+    "audio_present": false,
+    "audio_codec": null,
+    "audio_channels": 0,
+    "sample_rate": null,
+    "decodable": "not_rechecked_here_but_probe_skill_passed"
+  }
+}

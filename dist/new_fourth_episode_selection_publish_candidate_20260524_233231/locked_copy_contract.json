@@ -1,0 +1,24 @@
+{
+  "locked_copy_status": "locked_by_user_and_chatgpt_via_current_execution_prompt",
+  "copy_change_request_usage": "execution_risk_only",
+  "codex_may_rewrite_copy": false,
+  "locked_topic": "Codex / AI 参与精选联盟商品初筛：从手动翻商品卡，变成先把商品字段、风险、理由和下一步复查项整理成判断表。",
+  "locked_title": "我让 Codex 帮我跑了一轮选品初筛，最后它给我回了一张商品判断表",
+  "locked_opening_line": "朋友们，你有没有发现，现在做带货，最贵的已经不是拍一条视频了，而是你前面测错商品的成本。",
+  "locked_final_script_source": "draft_script_v0.2 locked by user in current prompt; previous preflight 00 file references the draft but does not duplicate full long script text.",
+  "allowed_copy_changes": [
+    "标点调整",
+    "字幕断句",
+    "TTS 停顿",
+    "不改变语义的分句"
+  ],
+  "forbidden_copy_changes": [
+    "改标题",
+    "改开头句",
+    "改核心判断",
+    "改口播语义",
+    "按 copy_change_request 改文案",
+    "新增素材无证据结论"
+  ],
+  "execution_status": "blocked_publish_candidate_unavailable_remote_tts_authorization_missing"
+}

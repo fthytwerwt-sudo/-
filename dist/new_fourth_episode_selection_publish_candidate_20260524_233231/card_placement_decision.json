@@ -1,0 +1,48 @@
+{
+  "status": "not_rendered_due_to_tts_blocker",
+  "main_card_budget": "6 main cards + optional low-pressure CTA card",
+  "cards": [
+    {
+      "card_id": "C001",
+      "line_group": "LG001",
+      "type": "opening_pain_card",
+      "text": "测错商品，比拍视频更贵"
+    },
+    {
+      "card_id": "C002",
+      "line_group": "LG008",
+      "type": "field_card",
+      "text": "价格 / 佣金 / 销量 / 评分 / 风险 / 可拍性"
+    },
+    {
+      "card_id": "C003",
+      "line_group": "LG010-LG011",
+      "type": "candidate_table_field_card",
+      "text": "候选表：依据 / 风险 / 状态 / 下一步"
+    },
+    {
+      "card_id": "C004",
+      "line_group": "LG013",
+      "type": "result_change_card",
+      "text": "商品卡 -> 3 个方向 -> 4 个复查对象"
+    },
+    {
+      "card_id": "C005",
+      "line_group": "LG015-LG017",
+      "type": "review_table_result_card",
+      "text": "为什么留下 / 风险在哪 / 下一步核什么"
+    },
+    {
+      "card_id": "C006",
+      "line_group": "LG019",
+      "type": "boundary_card",
+      "text": "不是爆品答案，只是选品初筛"
+    },
+    {
+      "card_id": "C007",
+      "line_group": "LG021",
+      "type": "optional_action_card",
+      "text": "先过表，再拍"
+    }
+  ]
+}

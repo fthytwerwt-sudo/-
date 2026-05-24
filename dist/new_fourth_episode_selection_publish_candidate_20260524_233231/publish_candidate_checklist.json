@@ -1,0 +1,19 @@
+{
+  "status": "blocked_publish_candidate_unavailable_remote_tts_authorization_missing",
+  "full_mp4_generated": false,
+  "narration_wav_generated": false,
+  "captions_srt_generated": false,
+  "review_pack_generated": true,
+  "ffprobe_full_mp4_passed": false,
+  "ffmpeg_decode_full_mp4_passed": false,
+  "audio_present": false,
+  "non_silent": false,
+  "privacy_redaction_completed": false,
+  "table_readability_verified": false,
+  "subtitle_card_overlap_passed": false,
+  "secret_scan_passed": true,
+  "publish_candidate_ready_for_human_review": false,
+  "content_validation": "not_advanced_due_blocked",
+  "send_ready": false,
+  "blocked_if": "remote TTS authorization missing under current secret boundary"
+}

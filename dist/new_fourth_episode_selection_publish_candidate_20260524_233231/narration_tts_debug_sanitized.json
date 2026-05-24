@@ -1,0 +1,18 @@
+{
+  "status": "blocked_remote_tts_authorization_missing_under_current_secret_boundary",
+  "provider_required": "aliyun_bailian / qwen3-tts-vc-realtime-2026-01-15",
+  "voice_base_candidate": "qwen-t...ac19",
+  "DASHSCOPE_API_KEY_present": false,
+  "ALIYUN_API_KEY_present": false,
+  "authorized_runtime_config_exists": true,
+  "authorized_runtime_config_read": false,
+  "authorized_runtime_config_read_reason": "user constraints forbid reading / printing / writing API key, token, or secret this turn",
+  "tts_auth_available_for_execution": false,
+  "macos_say_used": false,
+  "local_tts_fallback_used": false,
+  "silent_audio_fallback_used": false,
+  "api_key_printed": false,
+  "api_key_written": false,
+  "narration_wav_generated": false,
+  "blocked_type": "blocked_publish_candidate_unavailable_remote_tts_authorization_missing"
+}

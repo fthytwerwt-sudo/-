@@ -1,0 +1,643 @@
+{
+  "status": "blocked_publish_candidate_unavailable_remote_tts_authorization_missing",
+  "reason": "TTS authorization unavailable before render; no video assembly attempted.",
+  "line_group_count": 21,
+  "source_map": "/Users/fan/Documents/视频工厂/codex_log/script_preflight/新第四期_选品初筛_20260524_231118/02_script_to_timeline_map.json",
+  "copy_change_request_usage": "execution_risk_only_not_copy_revision",
+  "line_groups": [
+    {
+      "line_group_id": "LG001",
+      "title": "开头趋势痛点：测错商品成本比拍视频更贵",
+      "narration_text": "朋友们，你有没有发现，现在做带货，最贵的已经不是拍一条视频了，也不是剪辑、样品，而是前面测错商品的成本。",
+      "granularity_type": [
+        "smooth_line",
+        "judgment_boundary_line"
+      ],
+      "detail_density": "medium",
+      "copy_function": [
+        "hook",
+        "pain_point",
+        "judgment"
+      ],
+      "source_timecode": [
+        "V001 00:15-01:24",
+        "V003 00:33-00:48",
+        "V004 00:27-00:36"
+      ],
+      "expected_visual": "V001 商品卡快速扫过，叠 V003/V004 表格结果一闪，形成“乱翻商品卡 -> 判断表”的对照。",
+      "allowed_visuals": "V001 商品卡蒙太奇；V003 候选方向表；V004 复查表短闪。",
+      "forbidden_visuals": "不得展示“已验证商业闭环”“已卖爆”的画面或文案。",
+      "subtitle_text": "最贵的不是拍视频，是前面测错商品的成本。",
+      "card_text_if_any": "测错商品，比拍视频更贵",
+      "evidence_strength": "medium",
+      "alignment_status": "aligned_with_boundary_card",
+      "blocked_if_visual_mismatch": "如果没有商品卡或表格结果画面，开头只能保留为用户经验陈述，不能写成已验证结论。",
+      "privacy_risk": "商品卡可能露出店铺/商品信息；开头快闪不读具体商品名和数值。",
+      "readability_risk": "快闪表格只能做结果感，不承担细读信息。",
+      "copy_change_request_if_needed": "无需改核心语义；但字幕要避免“已证明最贵”。",
+      "boundary_note": "这是用户经验判断，不是商业数据结论。",
+      "execution_status": "not_rendered_due_to_tts_blocker"
+    },
+    {
+      "line_group_id": "LG002",
+      "title": "精选联盟商品卡混乱：佣金高、销量好，但不知道哪个该测",
+      "narration_text": "你刷半天精选联盟，看到的全是商品卡：这个佣金高，那个销量好，这个图精致，那个价格像适合冲动消费，但翻到最后还是不知道哪个值得继续测。",
+      "granularity_type": [
+        "material_granularity_line"
+      ],
+      "detail_density": "high",
+      "copy_function": [
+        "pain_point",
+        "proof"
+      ],
+      "source_timecode": [
+        "V001 00:15-01:24",
+        "V001 01:36-02:09"
+      ],
+      "expected_visual": "精选联盟商品卡列表与商品卡近景，重点让观众看到商品卡、价格/佣金/月销等字段位置。",
+      "allowed_visuals": "V001 搜索结果页、商品卡列表、字段局部。",
+      "forbidden_visuals": "不得读死具体金额、佣金比例、销量值；不得把任一商品说成“该测”。",
+      "subtitle_text": "商品卡很多，但最后还是不知道哪个值得继续测。",
+      "card_text_if_any": "商品太多，每个都像机会，也像坑",
+      "evidence_strength": "strong",
+      "alignment_status": "aligned",
+      "blocked_if_visual_mismatch": "若 V001 字段不可读，需改为“能看到商品卡字段区域”，不要口播具体字段值。",
+      "privacy_risk": "商品名、店铺名、平台账号可能可见；建议模糊敏感区。",
+      "readability_risk": "商品卡小字多，需 120%-160% 局部放大。",
+      "copy_change_request_if_needed": "无核心改稿；执行时不读具体数值。",
+      "boundary_note": "只证明“信息多且分散”，不证明“哪个商品好”。",
+      "execution_status": "not_rendered_due_to_tts_blocker"
+    },
+    {
+      "line_group_id": "LG003",
+      "title": "选品坑点一：佣金高但客单价低，时间成本可能回不来",
+      "narration_text": "有的商品佣金看起来很高，但客单价太低，你拍一条视频的时间成本可能都不一定回得来。",
+      "granularity_type": [
+        "judgment_boundary_line"
+      ],
+      "detail_density": "medium",
+      "copy_function": [
+        "judgment",
+        "boundary"
+      ],
+      "source_timecode": [
+        "V001 01:36-02:09",
+        "V003 00:51-01:30"
+      ],
+      "expected_visual": "商品卡字段或明细表背景，叠判断卡说明“佣金高不等于值得测”。",
+      "allowed_visuals": "V001 商品卡局部；V003 明细表字段列。",
+      "forbidden_visuals": "不得指向某个具体商品说“成本回不来”；不得读具体佣金。",
+      "subtitle_text": "佣金高，不等于一定值得测。",
+      "card_text_if_any": "判断：佣金要和客单价、时间成本一起看",
+      "evidence_strength": "medium",
+      "alignment_status": "card_supported_boundary_statement",
+      "blocked_if_visual_mismatch": "若画面无法显示客单价/佣金字段，必须以用户经验卡片承载，不当作画面证明。",
+      "privacy_risk": "表格数值和商品名称需遮挡或只高亮字段名。",
+      "readability_risk": "判断卡不能挡住字段区域。",
+      "copy_change_request_if_needed": "建议把“可能都不一定回得来”保留为可能性，不改成确定亏损。",
+      "boundary_note": "属于经验风险判断，不能成为具体商品财务结论。",
+      "execution_status": "not_rendered_due_to_tts_blocker"
+    },
+    {
+      "line_group_id": "LG004",
+      "title": "选品坑点二：销量好但 SKU 复杂，观众不知道买哪款",
+      "narration_text": "有的商品销量看起来不错，但 SKU 太复杂，观众看完根本不知道该买哪一款。",
+      "granularity_type": [
+        "judgment_boundary_line"
+      ],
+      "detail_density": "medium",
+      "copy_function": [
+        "judgment",
+        "boundary"
+      ],
+      "source_timecode": [
+        "V001 02:12-03:24"
+      ],
+      "expected_visual": "商品页或 AI 分析窗口背景，叠 SKU 复杂判断卡；如画面不显示 SKU，只做经验判断卡。",
+      "allowed_visuals": "V001 商品页；V001 AI 分析窗口；抽象 SKU 风险卡。",
+      "forbidden_visuals": "不得在没有 SKU 画面时说“你看这里 SKU 很复杂”。",
+      "subtitle_text": "销量好，也可能卡在 SKU 复杂。",
+      "card_text_if_any": "风险：SKU 太复杂，观众难决策",
+      "evidence_strength": "medium_to_weak",
+      "alignment_status": "card_supported_boundary_statement",
+      "blocked_if_visual_mismatch": "如果找不到 SKU 画面，字幕必须降级为“有些品还要核 SKU 复杂度”。",
+      "privacy_risk": "商品页信息可能暴露商品/店铺；必要时遮挡。",
+      "readability_risk": "SKU 相关文字若不可读，不要让观众硬看小字。",
+      "copy_change_request_if_needed": "需要 ChatGPT 复核是否改成“还要核 SKU 会不会太复杂”。",
+      "boundary_note": "本句可作为通用选品风险，不能写成 V001 某商品已确认 SKU 复杂。",
+      "execution_status": "not_rendered_due_to_tts_blocker"
+    },
+    {
+      "line_group_id": "LG005",
+      "title": "选品坑点三：图好看但店铺/商品分低，转化可能卡住",
+      "narration_text": "有的商品图片特别好看，但店铺分和商品分一低，你视频拍得再顺，转化也可能卡住；退货风险一高，后面全是售后坑。",
+      "granularity_type": [
+        "judgment_boundary_line"
+      ],
+      "detail_density": "medium",
+      "copy_function": [
+        "judgment",
+        "boundary"
+      ],
+      "source_timecode": [
+        "V001 01:36-02:09",
+        "V003 00:51-01:30"
+      ],
+      "expected_visual": "V001 商品卡/字段页或 V003 明细表，叠“分数/退货风险需复核”卡。",
+      "allowed_visuals": "字段名高亮：shop_score / product_score / refund_or_risk。",
+      "forbidden_visuals": "不得展示具体低分并断言转化差；不得把退货风险写成已验证售后坑。",
+      "subtitle_text": "图好看，也要看店铺分、商品分和退货风险。",
+      "card_text_if_any": "别只看图：评分 / 退货 / 售后风险也要核",
+      "evidence_strength": "medium",
+      "alignment_status": "aligned_with_uncertain_values",
+      "blocked_if_visual_mismatch": "字段不可读时，以卡片说明“需复核字段”，不读数值。",
+      "privacy_risk": "表格和商品卡可能含具体商品；遮挡商品名或只框字段列。",
+      "readability_risk": "字段名比字段值更重要，避免全屏小字。",
+      "copy_change_request_if_needed": "建议把“分一低”保留为泛化风险，不要对应某个商品。",
+      "boundary_note": "这是风险维度说明，不是转化预测。",
+      "execution_status": "not_rendered_due_to_tts_blocker"
+    },
+    {
+      "line_group_id": "LG006",
+      "title": "手动选品过程：打开页面、输入品类、点商品卡、记字段",
+      "narration_text": "以前这一步，我都是自己一个个翻：打开精选联盟，输入品类，点开商品卡，看价格、佣金、月销、店铺分、商品分、评价和退货风险。",
+      "granularity_type": [
+        "material_granularity_line"
+      ],
+      "detail_density": "high",
+      "copy_function": [
+        "demonstration",
+        "pain_point"
+      ],
+      "source_timecode": [
+        "V001 00:15-01:24"
+      ],
+      "expected_visual": "V001 搜索/浏览流程，按页面动作切：进入页面、搜索、商品卡列表、字段区域。",
+      "allowed_visuals": "V001 00:15-01:24 连续流程；必要时加鼠标高亮。",
+      "forbidden_visuals": "不得剪成 Codex 自动完成所有点击；本段讲“以前手动翻”。",
+      "subtitle_text": "以前是打开页面、输品类、点商品卡、一个个记字段。",
+      "card_text_if_any": "手动选品 = 边看边记",
+      "evidence_strength": "strong",
+      "alignment_status": "aligned",
+      "blocked_if_visual_mismatch": "如缺完整手动流程，只能拆成商品卡浏览蒙太奇。",
+      "privacy_risk": "页面账号/路径/商品名遮挡。",
+      "readability_risk": "动作太快会看不清，字段段落需 1-2 秒停顿。",
+      "copy_change_request_if_needed": "无。",
+      "boundary_note": "只呈现手动流程，不宣称字段已全部核验。",
+      "execution_status": "not_rendered_due_to_tts_blocker"
+    },
+    {
+      "line_group_id": "LG007",
+      "title": "Codex 入场：不是问爆品，而是让它拆商品卡信息",
+      "narration_text": "所以这次我换了一个做法：我不想再自己一个个翻了，我让 Codex 先帮我跑一轮选品初筛。注意，不是问它“帮我找一个爆品”，而是让它把商品卡里的信息拆出来。",
+      "granularity_type": [
+        "result_transition_line"
+      ],
+      "detail_density": "medium",
+      "copy_function": [
+        "transition",
+        "proof_setup"
+      ],
+      "source_timecode": [
+        "V001 01:27-01:33",
+        "V001 02:12-03:24"
+      ],
+      "expected_visual": "AI/聊天分析窗口叠商品页，表现“把页面信息整理出来”。",
+      "allowed_visuals": "ChatGPT/Atlas 分析页面；商品页与 AI 输出同屏；不要强行造无人操作。",
+      "forbidden_visuals": "不得表现 Codex 自动点击确认、全无人值守、已完整自动选品成功。",
+      "subtitle_text": "不是问爆品，是让它先拆商品卡信息。",
+      "card_text_if_any": "不要问：帮我找爆品；要问：先拆商品卡字段",
+      "evidence_strength": "medium",
+      "alignment_status": "copy_change_request_recommended",
+      "blocked_if_visual_mismatch": "如果画面只能证明 AI 分析页面，文案需从“直接操作我的电脑”降级为“先跑初筛/整理信息”。",
+      "privacy_risk": "AI 窗口可能露出账号或输入内容，需遮挡敏感部分。",
+      "readability_risk": "AI 输出小字不细读，用卡片复述机制。",
+      "copy_change_request_if_needed": "建议 ChatGPT 将“直接让 Codex 操作我的电脑”改为“我让 Codex/AI 先跑一轮选品初筛，把页面信息整理出来”，除非后续补录明确操作画面。",
+      "boundary_note": "只支持执行型辅助初筛，不支持无人自动成功。",
+      "execution_status": "not_rendered_due_to_tts_blocker"
+    },
+    {
+      "line_group_id": "LG008",
+      "title": "商品卡字段：客单价、佣金、销量、店铺分、商品分、退货风险、内容可拍性",
+      "narration_text": "它会先看几个硬字段：客单价、佣金、销量信号、店铺分、商品分、退货和风险，以及内容可拍性。",
+      "granularity_type": [
+        "material_granularity_line"
+      ],
+      "detail_density": "high",
+      "copy_function": [
+        "proof",
+        "demonstration"
+      ],
+      "source_timecode": [
+        "V001 01:36-02:09",
+        "V003 00:51-01:30"
+      ],
+      "expected_visual": "商品卡近景 + 明细表字段列，逐个高亮字段名。",
+      "allowed_visuals": "字段局部放大；表格列高亮；字段卡辅助说明。",
+      "forbidden_visuals": "不得读具体商品的精确价格/佣金/销量/评分。",
+      "subtitle_text": "先看硬字段：价格、佣金、销量、评分、退货风险、内容可拍性。",
+      "card_text_if_any": "初筛字段：价格 / 佣金 / 销量 / 评分 / 风险 / 可拍性",
+      "evidence_strength": "strong",
+      "alignment_status": "aligned",
+      "blocked_if_visual_mismatch": "若字段不可见，需要补录 R001 或用字段卡，不能让小字承担证明。",
+      "privacy_risk": "具体商品数据建议打码，保留字段名。",
+      "readability_risk": "字段列举需中速停顿，每 2-3 个字段分一屏。",
+      "copy_change_request_if_needed": "无核心改稿；执行时避免数值化承诺。",
+      "boundary_note": "字段只是初筛依据，不等于人工复核完成。",
+      "execution_status": "not_rendered_due_to_tts_blocker"
+    },
+    {
+      "line_group_id": "LG009",
+      "title": "手动看 vs Codex 记录：从边看边想到边看边记录",
+      "narration_text": "这一步已经和我自己手动翻不一样了。我自己看的时候，是边看边想；Codex 做的时候，是边看边记录。",
+      "granularity_type": [
+        "result_transition_line"
+      ],
+      "detail_density": "medium",
+      "copy_function": [
+        "result",
+        "contrast"
+      ],
+      "source_timecode": [
+        "V001 02:12-03:24",
+        "V003 00:33-00:48"
+      ],
+      "expected_visual": "左边商品页/AI 分析，右边或下一镜转到候选方向表。",
+      "allowed_visuals": "V001 分析窗口；V003 候选表。",
+      "forbidden_visuals": "不得表现实时自动写入如果没有录屏证明；可表现结果表。",
+      "subtitle_text": "手动是边看边想，AI 初筛是边看边记录。",
+      "card_text_if_any": "变化：商品卡 -> 可记录的判断项",
+      "evidence_strength": "medium",
+      "alignment_status": "aligned_with_result_table",
+      "blocked_if_visual_mismatch": "若无实时记录画面，只说“最后整理成表”，不要说“实时自动记录”。",
+      "privacy_risk": "表格文件名/路径遮挡。",
+      "readability_risk": "转场要给表格出现 1 秒停顿。",
+      "copy_change_request_if_needed": "可把“Codex 做的时候”改为“这轮初筛的结果”以降低自动化承诺。",
+      "boundary_note": "证明结果整理，不证明全过程无人执行。",
+      "execution_status": "not_rendered_due_to_tts_blocker"
+    },
+    {
+      "line_group_id": "LG010",
+      "title": "候选表出现：rank/category/grade/listing_candidate/video_candidate/key_basis/key_risk/status",
+      "narration_text": "它会把商品先整理成一张候选表。原来页面上是一张张商品卡，到了表格里，就变成一行一行可以判断的记录。",
+      "granularity_type": [
+        "material_granularity_line"
+      ],
+      "detail_density": "high",
+      "copy_function": [
+        "proof",
+        "result"
+      ],
+      "source_timecode": [
+        "V003 00:33-00:48"
+      ],
+      "expected_visual": "候选方向表局部放大，高亮 rank / category / grade / listing_candidate / video_candidate / key_basis / key_risk / status。",
+      "allowed_visuals": "V003 候选表，字段名高亮，必要时做 2 屏拆分。",
+      "forbidden_visuals": "不得全屏硬放小字；不得把 grade/status 说成最终结论。",
+      "subtitle_text": "商品卡进表以后，变成一行一行可判断的记录。",
+      "card_text_if_any": "候选表字段：方向 / 等级 / 候选 / 依据 / 风险 / 状态",
+      "evidence_strength": "strong",
+      "alignment_status": "aligned",
+      "blocked_if_visual_mismatch": "若 V003 小字不可读，必须补录 R002 或用信息卡重建字段，不读具体值。",
+      "privacy_risk": "Drive 表格可能露出文件路径/账号；表头和样例行需脱敏。",
+      "readability_risk": "表格字段多，必须局部放大。",
+      "copy_change_request_if_needed": "无核心改稿。",
+      "boundary_note": "表格是初筛记录，不是发布判断。",
+      "execution_status": "not_rendered_due_to_tts_blocker"
+    },
+    {
+      "line_group_id": "LG011",
+      "title": "明细表出现：estimated_comm/sales_signal/shop_score/product_score/refund_or_risk/listing_ready/video_ready",
+      "narration_text": "表里会写商品名、客单价区间、佣金空间、销量信号、店铺分、商品分、退货风险、内容能不能拍、为什么留下、为什么不能直接上、下一步还要核什么。",
+      "granularity_type": [
+        "material_granularity_line"
+      ],
+      "detail_density": "high",
+      "copy_function": [
+        "proof",
+        "demonstration"
+      ],
+      "source_timecode": [
+        "V003 00:51-01:30"
+      ],
+      "expected_visual": "V003 明细表局部放大，高亮 estimated_comm / sales_signal / shop_score / product_score / refund_or_risk / listing_ready / video_ready / reason / evidence_note。",
+      "allowed_visuals": "字段分组卡 + 表格局部，先看字段，再看一行样例。",
+      "forbidden_visuals": "不得承诺每个字段都已人工核验；不得读死商品名和数值。",
+      "subtitle_text": "表格里最重要的是：为什么留下，为什么不能直接上，下一步核什么。",
+      "card_text_if_any": "不是推荐表，是复查判断表",
+      "evidence_strength": "strong",
+      "alignment_status": "aligned",
+      "blocked_if_visual_mismatch": "如果表格不可读，必须补录或卡片化；不能让观众看一屏密密麻麻的小字。",
+      "privacy_risk": "商品名、数值、文件名需判断是否可公开；默认脱敏。",
+      "readability_risk": "最高。建议 2-3 次局部推近。",
+      "copy_change_request_if_needed": "无核心改稿；执行时避免完整公开具体商品数据。",
+      "boundary_note": "字段显示支持“判断过程”，不支持“商品结论已验证”。",
+      "execution_status": "not_rendered_due_to_tts_blocker"
+    },
+    {
+      "line_group_id": "LG012",
+      "title": "关键判断：Codex 不替我拍板，只缩小判断范围",
+      "narration_text": "Codex 没有直接跟我说这个商品能爆，也没有说马上去拍。它真正帮我做的是：先把一堆看起来都能卖的商品分成几类，缩小到下一轮复查。",
+      "granularity_type": [
+        "judgment_boundary_line"
+      ],
+      "detail_density": "medium",
+      "copy_function": [
+        "judgment",
+        "boundary",
+        "proof"
+      ],
+      "source_timecode": [
+        "V003 00:33-00:48",
+        "V004 00:27-00:36"
+      ],
+      "expected_visual": "判断卡覆盖 V003/V004 表格背景，明确“不拍板，只缩小复查范围”。",
+      "allowed_visuals": "V003 候选表；V004 复查排序；判断卡。",
+      "forbidden_visuals": "不得出现“爆品答案”“马上去拍”“闭眼冲”。",
+      "subtitle_text": "它不是替我拍板，是先缩小复查范围。",
+      "card_text_if_any": "边界：不拍板，只初筛",
+      "evidence_strength": "strong",
+      "alignment_status": "aligned_boundary_required",
+      "blocked_if_visual_mismatch": "边界卡必须保留；删掉会让视频变成过度承诺。",
+      "privacy_risk": "表格背景脱敏。",
+      "readability_risk": "判断卡需要大字，不压住关键字段。",
+      "copy_change_request_if_needed": "无；本句必须保留。",
+      "boundary_note": "核心安全边界：不是爆品/不是马上拍/不是收益承诺。",
+      "execution_status": "not_rendered_due_to_tts_blocker"
+    },
+    {
+      "line_group_id": "LG013",
+      "title": "结果变化：一堆商品卡 -> 3 个窄方向 -> 4 个复查商品",
+      "narration_text": "它会把商品先缩成几个更窄的方向，再从几个方向里挑出几个具体商品卡，最后不是让我继续翻二十个商品，而是告诉我先复查这四个。",
+      "granularity_type": [
+        "result_transition_line"
+      ],
+      "detail_density": "high",
+      "copy_function": [
+        "result",
+        "transition"
+      ],
+      "source_timecode": [
+        "V004 00:00-00:06",
+        "V004 00:27-00:36"
+      ],
+      "expected_visual": "V004 先展示 3 个方向，再切到“先确认 4 个商品卡”的排序/结果。",
+      "allowed_visuals": "V004 三方向表；V004 四商品复查提示。",
+      "forbidden_visuals": "不得把 3 个方向/4 个商品说成最终商品池或已上架商品。",
+      "subtitle_text": "从二十张商品卡，先缩成几个方向，再缩成四个复查对象。",
+      "card_text_if_any": "结果变化：商品卡 -> 3 个方向 -> 4 个复查对象",
+      "evidence_strength": "strong",
+      "alignment_status": "aligned",
+      "blocked_if_visual_mismatch": "若 V004 结果画面不可读，需要结果变化卡重建，不读具体商品名。",
+      "privacy_risk": "具体商品名可打码或只露模糊类别。",
+      "readability_risk": "箭头式结果卡比表格全屏更清楚。",
+      "copy_change_request_if_needed": "无核心改稿；“四个”有 V004 支撑，但必须标记为复查对象。",
+      "boundary_note": "3/4 是初筛结果，不是最终选择。",
+      "execution_status": "not_rendered_due_to_tts_blocker"
+    },
+    {
+      "line_group_id": "LG014",
+      "title": "为什么留下：收益信号 + 风险同时看",
+      "narration_text": "为什么是这四个？因为它们在佣金、内容可拍性、价格带和风险之间，至少有继续核验的空间；但每一个都还不能直接拍。",
+      "granularity_type": [
+        "material_granularity_line"
+      ],
+      "detail_density": "high",
+      "copy_function": [
+        "proof",
+        "judgment"
+      ],
+      "source_timecode": [
+        "V004 00:09-00:24"
+      ],
+      "expected_visual": "V004 留下原因画面，框选“佣金/可拍性/价格带/风险/继续核验”等依据。",
+      "allowed_visuals": "V004 解释段局部；依据与风险并列卡。",
+      "forbidden_visuals": "不得读死 499/68/139/58、20%/50%/25% 等数值为最终事实。",
+      "subtitle_text": "留下，不是因为一定能卖，而是因为有继续核验的空间。",
+      "card_text_if_any": "留下理由 = 收益信号 + 内容可拍性 + 风险待核",
+      "evidence_strength": "strong",
+      "alignment_status": "aligned_with_value_uncertainty",
+      "blocked_if_visual_mismatch": "如果数值不可核，必须只讲字段和逻辑，不读具体值。",
+      "privacy_risk": "商品数据/佣金数字默认敏感，建议只露字段名。",
+      "readability_risk": "画面数据多，需逐项框选。",
+      "copy_change_request_if_needed": "把“至少有继续核验的空间”保留；不要改成“最适合我”。",
+      "boundary_note": "收益信号只是复查条件，不是收益预测。",
+      "execution_status": "not_rendered_due_to_tts_blocker"
+    },
+    {
+      "line_group_id": "LG015",
+      "title": "四个商品卡复查表：商品名、搜什么、复查重点",
+      "narration_text": "最后结果是一张复查表：第一个商品为什么留下，第二个商品最大的风险是什么，第三个商品内容能不能拍，第四个商品下一步要去巨量百应核什么。",
+      "granularity_type": [
+        "material_granularity_line"
+      ],
+      "detail_density": "high",
+      "copy_function": [
+        "result",
+        "proof"
+      ],
+      "source_timecode": [
+        "V004 00:39-00:51"
+      ],
+      "expected_visual": "V004 优先级表高清局部，重点看优先级、商品名、搜什么、复查重点。",
+      "allowed_visuals": "V004 priority table；如补录 R003，使用高清版本。",
+      "forbidden_visuals": "不得公开敏感商品名/搜索词，除非用户确认可公开；不得说这些商品已可直接拍。",
+      "subtitle_text": "最后不是爆品答案，而是一张复查表。",
+      "card_text_if_any": "复查表：为什么留下 / 最大风险 / 下一步核什么",
+      "evidence_strength": "strongest",
+      "alignment_status": "aligned_but_needs_zoom_or_reshoot",
+      "blocked_if_visual_mismatch": "若 V004 小字不可读，必须补录 R003 或做脱敏重建卡。",
+      "privacy_risk": "最高。商品名、搜索词、复查重点可能暴露选品策略。",
+      "readability_risk": "最高。必须局部放大，不可全屏硬放。",
+      "copy_change_request_if_needed": "无核心改稿；建议保留“复查表”而非“答案表”。",
+      "boundary_note": "这是全片最强证据，但仍是复查，不是拍板。",
+      "execution_status": "not_rendered_due_to_tts_blocker"
+    },
+    {
+      "line_group_id": "LG016",
+      "title": "云盘表格：文件和表格整理好，一个地方能看",
+      "narration_text": "它最后不是把一堆截图丢给我，而是把文件和表格整理好，放到云盘里。我打开以后能看到商品名、客单价、佣金、销量信号、评分、风险、适不适合我和下一步要核什么。",
+      "granularity_type": [
+        "material_granularity_line"
+      ],
+      "detail_density": "high",
+      "copy_function": [
+        "proof",
+        "result"
+      ],
+      "source_timecode": [
+        "V003 00:00-00:06",
+        "V003 00:33-00:48",
+        "V003 00:51-01:30",
+        "V004 00:39-00:51"
+      ],
+      "expected_visual": "Google Drive 文件列表短证据 + 候选表/明细表/复查表局部串联。",
+      "allowed_visuals": "V003 Drive 文件列表（遮挡账号/路径）；V003/V004 表格局部。",
+      "forbidden_visuals": "不得露 Google 账号、Drive 路径、未脱敏文件名；不得说云盘为公开交付物。",
+      "subtitle_text": "信息从一堆页面，变成一个地方能看的表。",
+      "card_text_if_any": "一个地方看：字段 / 理由 / 风险 / 下一步",
+      "evidence_strength": "strong",
+      "alignment_status": "aligned_with_privacy_mask_required",
+      "blocked_if_visual_mismatch": "如果 Drive 画面涉及隐私无法遮挡，则只使用表格局部，不展示文件列表。",
+      "privacy_risk": "Google Drive 账号、路径、文件名、商品名均需遮挡评估。",
+      "readability_risk": "Drive 列表不承担读字，表格字段需放大。",
+      "copy_change_request_if_needed": "无核心改稿；“云盘”有证据但必须遮挡。",
+      "boundary_note": "证明资料归档，不证明数据完整核验。",
+      "execution_status": "not_rendered_due_to_tts_blocker"
+    },
+    {
+      "line_group_id": "LG017",
+      "title": "聊天框结论：最值得复查商品、理由、风险、下一步",
+      "narration_text": "如果连表格都不想看，它还可以回到聊天框里给我总结：目前最值得先复查的是哪几个商品，为什么留下，风险在哪里，下一步先核什么。",
+      "granularity_type": [
+        "material_granularity_line",
+        "judgment_boundary_line"
+      ],
+      "detail_density": "high",
+      "copy_function": [
+        "result",
+        "judgment"
+      ],
+      "source_timecode": [
+        "V004 00:27-00:36",
+        "V004 00:39-00:51"
+      ],
+      "expected_visual": "V004 复查结论背景 + 总结卡；如聊天框文字不可读，用卡片重述“复查对象/理由/风险/下一步”。",
+      "allowed_visuals": "V004 四商品复查排序；V004 复查表；聊天框结论卡。",
+      "forbidden_visuals": "不得伪造聊天框原文；不得写“最适合我的商品已确定”。",
+      "subtitle_text": "它把理由、风险和下一步都回传成我能看懂的结论。",
+      "card_text_if_any": "回传结论：先复查谁 / 为什么 / 风险 / 下一步",
+      "evidence_strength": "strong",
+      "alignment_status": "aligned_if_card_paraphrase",
+      "blocked_if_visual_mismatch": "若没有清晰聊天框结论，必须写成“我可以把这张复查表再总结成聊天框结论”，或只用表格证据。",
+      "privacy_risk": "聊天框可能露任务内容、商品名、路径；需遮挡。",
+      "readability_risk": "聊天框小字不可硬读。",
+      "copy_change_request_if_needed": "建议避免“最值得”绝对化，改为“当前更值得先复查”。",
+      "boundary_note": "结论是复查优先级，不是最终商品选择。",
+      "execution_status": "not_rendered_due_to_tts_blocker"
+    },
+    {
+      "line_group_id": "LG018",
+      "title": "普通 AI vs 执行型 AI：建议变成工作",
+      "narration_text": "普通 AI 可能很快给你十几个方向，你看完都对但没法开始；执行型 AI 如果能看页面、整理、记录、归类，再把结果回到表格和聊天框里，它就从建议变成了工作。",
+      "granularity_type": [
+        "judgment_boundary_line"
+      ],
+      "detail_density": "medium",
+      "copy_function": [
+        "contrast",
+        "judgment"
+      ],
+      "source_timecode": [
+        "V001 01:27-01:33",
+        "V003 00:33-00:48",
+        "V004 00:27-00:51"
+      ],
+      "expected_visual": "V001 AI 分析窗口 -> V003 表格 -> V004 复查结果，表现从建议到工作流的转换。",
+      "allowed_visuals": "三段证据串联；判断卡“建议 -> 工作”。",
+      "forbidden_visuals": "不得写成 Agent 已完全跑通商业流程；不得说“自动赚钱”。",
+      "subtitle_text": "区别不是回答更多，而是把任务往前推一步。",
+      "card_text_if_any": "从建议，到工作流",
+      "evidence_strength": "medium",
+      "alignment_status": "aligned_with_boundary",
+      "blocked_if_visual_mismatch": "若缺页面操作证据，必须弱化“直接操作电脑”，强调“整理结果”。",
+      "privacy_risk": "跨多个画面，统一遮挡账户/路径/商品。",
+      "readability_risk": "不要在同一屏塞普通 AI/执行型 AI 长对比。",
+      "copy_change_request_if_needed": "建议保留“如果能看页面/整理记录”条件感，不写成全部自动化事实。",
+      "boundary_note": "机制对比，不是功能宣传承诺。",
+      "execution_status": "not_rendered_due_to_tts_blocker"
+    },
+    {
+      "line_group_id": "LG019",
+      "title": "边界：不是爆品，不是一定能卖，不是佣金覆盖成本",
+      "narration_text": "当然，这不代表 Codex 已经帮我选出了爆品，也不代表这些商品一定能卖，更不代表佣金一定能覆盖成本。现在这一步，只能叫选品初筛。",
+      "granularity_type": [
+        "judgment_boundary_line"
+      ],
+      "detail_density": "high",
+      "copy_function": [
+        "boundary"
+      ],
+      "source_timecode": [
+        "card_supported_boundary_statement",
+        "V003 00:51-01:30",
+        "V004 00:39-00:51"
+      ],
+      "expected_visual": "大字边界卡覆盖表格背景，节奏放慢。",
+      "allowed_visuals": "边界卡；表格背景虚化；不读具体商品。",
+      "forbidden_visuals": "不得配合高燃音效/冲刺箭头，避免弱化边界。",
+      "subtitle_text": "这不是爆品答案，只是选品初筛。",
+      "card_text_if_any": "边界：不是爆品 / 不是一定能卖 / 不是佣金保证",
+      "evidence_strength": "boundary_required",
+      "alignment_status": "aligned_boundary_required",
+      "blocked_if_visual_mismatch": "边界卡必须保留，否则平台与内容风险上升。",
+      "privacy_risk": "低；背景仍需脱敏。",
+      "readability_risk": "边界卡必须清晰，至少 2 秒。",
+      "copy_change_request_if_needed": "无；必须保留。",
+      "boundary_note": "核心合规句。",
+      "execution_status": "not_rendered_due_to_tts_blocker"
+    },
+    {
+      "line_group_id": "LG020",
+      "title": "价值收束：少掉一轮乱翻商品和凭感觉乱选",
+      "narration_text": "哪怕只是做到这一步，对我来说已经很有用了。以前是我在商品页里乱翻，现在是 Codex 先帮我把商品变成判断表；以前看完还不知道先测哪个，现在先知道这几个值得复查、风险最大、下一步先核什么。",
+      "granularity_type": [
+        "smooth_line",
+        "result_transition_line"
+      ],
+      "detail_density": "medium",
+      "copy_function": [
+        "result",
+        "value"
+      ],
+      "source_timecode": [
+        "V001 00:15-01:24",
+        "V004 00:27-00:51"
+      ],
+      "expected_visual": "V001 商品卡混乱蒙太奇 -> V004 复查表，形成前后变化。",
+      "allowed_visuals": "前后对比：商品卡堆叠/复查表/结论卡。",
+      "forbidden_visuals": "不得量化节省时间、降低成本比例、带来转化提升。",
+      "subtitle_text": "以前是乱翻，现在至少先变成判断表。",
+      "card_text_if_any": "价值：少一轮乱翻，多一张判断表",
+      "evidence_strength": "strong_for_process_change",
+      "alignment_status": "aligned",
+      "blocked_if_visual_mismatch": "若缺 V004 复查表，则价值收束只能写成“目标”，不能写成“已经变成表”。",
+      "privacy_risk": "前后对比均需脱敏。",
+      "readability_risk": "结论卡短句，不堆字段。",
+      "copy_change_request_if_needed": "建议不要说“节省多少时间”，当前无量化证据。",
+      "boundary_note": "证明流程改善，不证明商业效果。",
+      "execution_status": "not_rendered_due_to_tts_blocker"
+    },
+    {
+      "line_group_id": "LG021",
+      "title": "结尾动作：把商品卡拆成表，过表再拍，没过表别浪费时间",
+      "narration_text": "所以如果你还在手动翻精选联盟，先别急着拍，也别急着问 AI 哪个品能爆。先让它把商品卡拆成表，把风险写出来，把下一步复查项列清楚。过了这张表，再拍；没过这张表，就别浪费时间拍视频。",
+      "granularity_type": [
+        "smooth_line",
+        "ending_action"
+      ],
+      "detail_density": "medium",
+      "copy_function": [
+        "CTA",
+        "ending_action"
+      ],
+      "source_timecode": [
+        "V004 00:39-00:51",
+        "card_supported_action_statement"
+      ],
+      "expected_visual": "V004 复查表局部 + 结尾行动卡。",
+      "allowed_visuals": "复查表最后一屏；行动卡；低压收束。",
+      "forbidden_visuals": "不得强卖服务包；不得说“照做必成”。",
+      "subtitle_text": "先拆成表，先看风险，再决定要不要拍。",
+      "card_text_if_any": "先过表，再拍",
+      "evidence_strength": "strong_for_action_framework",
+      "alignment_status": "aligned_with_action_card",
+      "blocked_if_visual_mismatch": "如果复查表不可读，结尾必须使用行动卡，不展示敏感商品信息。",
+      "privacy_risk": "结尾表格商品名/搜索词遮挡。",
+      "readability_risk": "行动卡用 6-8 个字，不加长说明。",
+      "copy_change_request_if_needed": "建议 ChatGPT 复核“过了这张表，再拍”是否改为“我会先过这张表再拍”，降低普适命令感。",
+      "boundary_note": "低压行动建议，不是商业承诺。",
+      "execution_status": "not_rendered_due_to_tts_blocker"
+    }
+  ]
+}

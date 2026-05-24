@@ -1,0 +1,63 @@
+{
+  "status": "blocked_publish_candidate_unavailable_remote_tts_authorization_missing",
+  "created_at": "2026-05-24T23:32:31+08:00",
+  "output_dir": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260524_233231",
+  "goal": "Generate new fourth episode selection publish candidate from locked v0.2 copy",
+  "result": "blocked_before_video_generation",
+  "why_no_publish_candidate": "Formal publish candidate requires authorized remote/project TTS. Current process has no DASHSCOPE_API_KEY or ALIYUN_API_KEY, and reading local runtime config would violate user secret boundary.",
+  "full_mp4": null,
+  "narration_wav": null,
+  "captions_srt": null,
+  "review_manifest": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_20260524_233231/review_manifest.md",
+  "material_probe_summary": {
+    "V001": {
+      "duration_seconds": 481.667,
+      "resolution": "3412x1846",
+      "audio_present": false,
+      "validation_status": "passed"
+    },
+    "V002": {
+      "duration_seconds": 12.5,
+      "resolution": "3310x1680",
+      "audio_present": false,
+      "validation_status": "passed"
+    },
+    "V003": {
+      "duration_seconds": 96.333,
+      "resolution": "3356x1692",
+      "audio_present": false,
+      "validation_status": "passed"
+    },
+    "V004": {
+      "duration_seconds": 50.2,
+      "resolution": "3220x1678",
+      "audio_present": false,
+      "validation_status": "passed"
+    }
+  },
+  "tts_authorization": {
+    "status": "blocked_remote_tts_authorization_missing_under_current_secret_boundary",
+    "provider_required": "aliyun_bailian / qwen3-tts-vc-realtime-2026-01-15",
+    "voice_base_candidate": "qwen-t...ac19",
+    "DASHSCOPE_API_KEY_present": false,
+    "ALIYUN_API_KEY_present": false,
+    "authorized_runtime_config_exists": true,
+    "authorized_runtime_config_read": false,
+    "authorized_runtime_config_read_reason": "user constraints forbid reading / printing / writing API key, token, or secret this turn",
+    "tts_auth_available_for_execution": false,
+    "macos_say_used": false,
+    "local_tts_fallback_used": false,
+    "silent_audio_fallback_used": false,
+    "api_key_printed": false,
+    "api_key_written": false,
+    "narration_wav_generated": false,
+    "blocked_type": "blocked_publish_candidate_unavailable_remote_tts_authorization_missing"
+  },
+  "publish_candidate_ready_for_human_review": false,
+  "content_validation": "not_advanced_due_blocked",
+  "send_ready": false,
+  "voice_validation": "not_advanced_due_blocked",
+  "visual_master_locked": false,
+  "current_data_goal_anchor_ready": false,
+  "media_committed": false
+}
