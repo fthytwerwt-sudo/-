@@ -1,5 +1,23 @@
 # Latest
 
+## 20260524｜对标文案话语机制反报告腔修正
+
+- `已确认` 本轮是对上一轮 `reference_copy_voice_mechanism（对标文案话语机制）` 的修正；上一轮方向正确，但仍存在字段化、报告腔、标签化输出风险。
+- `已新增` `前台口播转换规则`：后台检查字段只用于验收，不得出现在最终稿；最终文案必须把字段转成自然口播链条。
+- `已新增` `anti_report_voice_gate（反报告腔话语闸门）`：最终稿不得出现“用户痛点句 / AI 救场句 / 能力定义句”等标签化段落，不得像在解释机制。
+- `已新增` `反报告腔价值标准`：高价值文案必须像真人叙事 + 具体坑点 + 工具救场，不能像机制说明 + 字段罗列。
+- 后续最终文案默认先讲普通人为什么卡住，再让 AI / Codex 作为救场工具自然出现；坑点细节要嵌在句子里，不做字段清单。
+- 本轮不写新第四期最终文案、不生成视频、不修改素材、不提交第三方逐字稿全文、不推进任何内容状态。
+- `content_validation = not_advanced`
+- `send_ready = false`
+- `voice_validation = not_advanced`
+- `visual_master_locked = false`
+- `current_data_goal_anchor_ready = false`
+- `video_generated = false`
+- `media_committed = false`
+- `full_transcript_committed = false`
+- `日志`：`codex_log/20260524_reference_copy_voice_anti_report_fix.md`
+
 ## 20260525｜流程启动闸门 + 发片清单 + 修片会话卡机制补强
 
 - `已确认` 本轮只做视频执行 / 修片 / 发片候选机制补强，不生成视频、不重生成候选片、不修改 `dist/` 媒体产物、不改新第四期 locked 文案语义。
