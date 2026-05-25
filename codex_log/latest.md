@@ -1,5 +1,23 @@
 # Latest
 
+## 20260524｜对标文案话语机制落库
+
+- `已确认` 本轮只做文案机制补写，不写新第四期最终文案、不生成视频、不提交第三方逐字稿全文、不推进任何内容状态。
+- `已新增` `reference_copy_voice_mechanism（对标文案话语机制）`：后续最终文案默认从普通人复杂问题起手，先讲旧方法痛点，再让 AI / Codex 作为救场工具出现。
+- `已更新` `GPT数据源/04_选题与文案规则.md`、`GPT数据源/05_文案路由规则.md`、`GPT数据源/07_AI知识类视频价值规则.md`。
+- 后续 ChatGPT 写稿默认继承对标稿的话语机制：普通人复杂问题起手、旧方法痛点、AI / Codex 救场、案例推进、坑点细节、能力定义、低压收尾。
+- `已确认` 结构不写死：每条内容仍按真实素材、reference pack、证据强弱、平台风险、观众理解路径和本轮数据目标动态调整。
+- `已确认` 本机制补在 `copy_granularity_mixture_rule（文案颗粒度配比规则）` 之上，用来回答“以后怎么说人话”；不是替换已有素材颗粒度规则。
+- `content_validation = not_advanced`
+- `send_ready = false`
+- `voice_validation = not_advanced`
+- `visual_master_locked = false`
+- `current_data_goal_anchor_ready = false`
+- `video_generated = false`
+- `media_committed = false`
+- `full_transcript_committed = false`
+- `日志`：`codex_log/20260524_reference_copy_mechanism.md`
+
 ## 20260525｜新第四期无遮挡源比例 + B 语音修复候选片
 
 - 已确认：本轮按用户指令先落库“源素材比例 + 无默认遮挡”视觉机制，再重生成新第四期修复候选片；未改 locked v0.2 文案语义。
