@@ -1,5 +1,16 @@
 # Latest
 
+## 20260525｜DeepSeek 供料链只读诊断
+
+- `已确认` 本轮只做 DeepSeek 供料链诊断：不修代码、不改 DeepSeek runtime provider / safe runner / controller / schema、不改文案机制文件、不写文案、不生成视频、不推进内容状态。
+- `上一轮复核`：commit `d8017bcc3c168b1d5a8658609fc1d2ed6d213704` 已在 `main / origin/main`；上一轮记录为 `supply_request_created = false`、`deepseek_call_attempted = false`、`fallback_status = fallback_local_only`、`not_deepseek_conclusion = true`。
+- `runtime provider`：`scripts/DeepSeek运行时供应商_deepseek_runtime_provider.py status` 返回 `status = ready`；provider 只输出脱敏 public status，`api_key_printed = false`、`api_key_written = false`。
+- `safe runner / smoke test`：`scripts/DeepSeek安全供料运行器_deepseek_safe_supply_runner.py` 可用；最小 workspace-local 临时 request 通过 safe runner/provider 返回 `deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`env_file_read = false`、`api_key_printed = false`、`api_key_written = false`。
+- `根因分类`：上一轮不是 runtime provider 不可用，也不是 safe runner 缺失；主因是 Codex 执行层绕过 mandatory DeepSeek supply gate，并把允许写入范围过窄当成未创建 supply_request 的理由。结果质量影响低，但 `affects_multi_agent_validation = true`。
+- `修复建议`：下一轮应做 process gate compliance repair，明确没有 DeepSeek MCP tool 时仍必须使用仓库内 provider/safe runner；用户明确要求 DeepSeek 参与、视频执行、剪辑装配、数据复盘、reference audit、素材审计、runtime 诊断任务必须 `deepseek_passed` 或 blocked。
+- `状态边界`：`content_validation = not_advanced`；`send_ready = false`；`voice_validation = not_advanced`；`visual_master_locked = false`；`current_data_goal_anchor_ready = not_advanced`；`multi_agent_runtime_validated = false`。
+- `日志`：`codex_log/deepseek_diagnostics/20260525_deepseek_supply_line_diagnosis.md`
+
 ## 20260524｜对标文案话语机制反报告腔修正
 
 - `已确认` 本轮是对上一轮 `reference_copy_voice_mechanism（对标文案话语机制）` 的修正；上一轮方向正确，但仍存在字段化、报告腔、标签化输出风险。
