@@ -132,6 +132,41 @@ codex_judgment_to_preflight_binding:
 - `script_to_timeline_map` 是执行计划，不是逐句画面对齐通过证明；必须检查实际观察画面和 mismatch 修复。
 - `completion_truth_preflight` 必须阻断 `full.mp4 exists means completed`、`technical_validation means content_validation`、`field exists means gate passed` 这三类偷换。
 
+## 3B. mandatory_commit_push_gate 判断权限
+
+`已确认` Codex 必须自己判断 Git 收尾是否完成；这属于执行层验收判断，不需要用户每轮提醒。
+
+```text
+judgment_object: mandatory_commit_push_gate
+codex_permission: must_decide_and_block
+codex_must_do:
+  - 判断本轮是否创建或修改了仓库文件
+  - 显式列出本轮相关文件，禁止默认 git add .
+  - 对 staged diff 做 secret scan
+  - 创建 commit
+  - push 到当前主读取分支或本轮锁定目标分支
+  - 校验 remote HEAD / remote commit readback
+  - 输出 git_sync_status
+codex_must_not_do:
+  - 不得把 local-only 文件改动写成仓库事实已生效
+  - 不得把 commit_created_but_not_pushed 写成 completed
+  - 不得把 pushed_to_wrong_branch 写成主读取分支已同步
+  - 不得提交 unrelated dirty / untracked files
+  - 不得提交 API key / token / secret / local authorization file
+blocked_if:
+  - current_branch_unclear
+  - push_failed
+  - remote_head_not_verified
+  - unrelated_dirty_files_cannot_be_isolated
+  - secret_scan_failed
+validation_rule:
+  - completed requires relevant_files_committed + pushed_to_current_reading_branch + remote_head_verified + unrelated_dirty_files_not_committed + secret_scan_passed
+record_to:
+  - final_report.git_sync_status
+  - sync_back_check
+  - codex_log/latest.md when repository facts or execution rules changed
+```
+
 ## 4. 判断对象权限矩阵
 
 ### 4.1 opening_route_decision（开头路由判断）

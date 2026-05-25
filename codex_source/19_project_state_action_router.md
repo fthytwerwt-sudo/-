@@ -171,6 +171,12 @@ if state = locked_copy_diff_preflight_required:
 if state = completion_truth_preflight_required:
   action = verify required_output_inventory, all preflight reports, all gates passed, review_pack contains reports, media probes if media generated, latest updated if mechanism changed, and no forbidden status promotion
 
+if state = mandatory_commit_push_required:
+  action = explicitly stage only this round's relevant files, run staged secret scan, create commit, push to current reading branch or locked target branch, verify remote HEAD / remote commit readback, and write git_sync_status before any completed claim
+
+if state = git_sync_incomplete:
+  action = mark partial_completed with reason local_changes_done_but_not_pushed or blocked with exact git blocker; do not write completed
+
 if state = repair_session_required:
   action = read_or_create current_repair_session before repairing an existing candidate, recover previous state from latest.md / review pack / summary.json / review_manifest.md if missing, lock one primary_issue_this_round, and update remaining_blockers after execution
 
@@ -311,6 +317,9 @@ if output includes technical_preview / silent preview / 无音轨视频 / 横屏
 
 if state = no_degrade_completion_required:
   action = check exact target, required deliverables, real verification, sync status, and completion truth; if any required item is missing, continue or blocked instead of degraded completion
+
+if input_signal includes commit / push / Git 收尾 / completed / sync_back_check / 远端校验 / remote HEAD / 仓库文件改动:
+  action = trigger mandatory_commit_push_required; completed is forbidden until commit + push + remote verification succeeds
 
 if state = self_repair_audit_required:
   action = audit locked goal, title, final script, script_to_timeline_map, subtitles, cards, audio, ratio, final media probe, data_goal_alignment_check, publish_candidate checklist, git sync, and no-degrade rule; repair or blocked
@@ -938,9 +947,9 @@ Codex 收尾时必须按以下四态判断：
 
 | completion_state | 可写条件 | 不可写条件 |
 | --- | --- | --- |
-| `completed` | 仓库写明的目标、产物、验证、同步、回报全部完成；DeepSeek 参与报告 / token 检查边界写清；无禁止状态推进；无剩余 must-fix | 任一 required item 未完成；DeepSeek 被跳过且无 blocked 原因；fallback 被写成 DeepSeek 结论；internal diagnostic、local-only output、partial result、技术预览、无声视频、比例错误视频被当成交付 |
-| `partial_completed` | 仅用于用户明确接受的分阶段任务，且已完成项可验证、未完成项已列入 remaining_work_check | 完整交付任务不得用它替代 blocked；不得对用户写成已完成 |
-| `blocked` | 缺关键文件、缺用户输入、需要 secret / API、需要修改禁止状态、证据不足 | 不得用猜测继续 |
+| `completed` | 仓库写明的目标、产物、验证、同步、回报全部完成；DeepSeek 参与报告 / token 检查边界写清；若本轮改了仓库文件，则相关文件已显式 stage、commit 已创建、push 已成功、远端 HEAD 已校验、unrelated dirty files 未被提交、secret scan 通过；无禁止状态推进；无剩余 must-fix | 任一 required item 未完成；DeepSeek 被跳过且无 blocked 原因；fallback 被写成 DeepSeek 结论；internal diagnostic、local-only output、partial result、技术预览、无声视频、比例错误视频被当成交付；本地改动未 commit / 未 push / 未远端校验 |
+| `partial_completed` | 仅用于用户明确接受的分阶段任务，且已完成项可验证、未完成项已列入 remaining_work_check；或本地改动完成但 push / remote verification 未完成且 reason = `local_changes_done_but_not_pushed` | 完整交付任务不得用它替代 blocked；不得对用户写成已完成；不得在仓库文件改动未完成 Git 收尾时伪装 completed |
+| `blocked` | 缺关键文件、缺用户输入、需要 secret / API、需要修改禁止状态、证据不足、push 失败、当前分支不明、unrelated dirty files 无法隔离、secret scan failed、remote HEAD 无法校验 | 不得用猜测继续 |
 | `continue` | 无 blocked，仍有必交付项 | Codex 必须继续执行，不得结束 |
 
 ## 8. feedback_update 执行口径

@@ -1,0 +1,218 @@
+{
+  "request_id": "20260526_mandatory_commit_push_gate_pre_supply_request",
+  "created_at": "2026-05-26T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "mandatory_commit_push_gate",
+  "task_type": "mechanism_repair + project_file_change + codex_execution_rule_fix",
+  "project_stage": "formal_operation_active",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "auto",
+  "mandatory_for_every_task": true,
+  "participation_level": "readonly_pre_supply",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "将 mandatory_commit_push_gate 写入《视频工厂》长期协作机制、Codex 执行规则、ChatGPT -> Codex prompt 模板、完成状态定义和 sync_back_check；任何仓库文件改动未完成 commit + push + remote HEAD 校验前不得写 completed。",
+  "current_step": "before_write_gate",
+  "known_context": [
+    "用户明确要求每个最小任务完成后必须 commit + push + remote verification。",
+    "本轮只做机制修补和规则文件修改，不生成媒体，不改 dist 媒体产物，不推进内容、声音或发布状态。",
+    "当前分支为 main，origin/HEAD 指向 origin/main。",
+    "工作区已有 unrelated dirty / untracked backlog，本轮必须 path-limited staging，禁止 git add .。"
+  ],
+  "missing_context": [
+    "DeepSeek runtime provider key availability is unknown before safe runner attempt.",
+    "Some target files already have unrelated dirty edits; Codex must avoid committing unrelated hunks."
+  ],
+  "candidate_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/08_branch_sync_and_reading_branch_rules.md",
+    "codex_source/10_codex_multi_agent_prompt_library.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/21_codex_judgment_permission_matrix.md",
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md",
+    "codex_log/latest.md"
+  ],
+  "must_read_files": [
+    "AGENTS.md",
+    "codex_log/latest.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/08_branch_sync_and_reading_branch_rules.md",
+    "codex_source/10_codex_multi_agent_prompt_library.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/21_codex_judgment_permission_matrix.md",
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md"
+  ],
+  "optional_files": [
+    "codex_source/13_execution_lane_and_parallel_rules.md",
+    "project_source/20_codex_multi_agent_routing_note_for_gpt_project.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    "本地运行配置_local_runtime/",
+    "dist/latest_review_pack",
+    "dist/",
+    "素材录制/",
+    "GPT 数据源/"
+  ],
+  "expected_output": [
+    "file_map",
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "status_promotion_risk_check",
+    "git_completion_gate_risk_check"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files.",
+    "DeepSeek must not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is stable or completed.",
+    "Do not modify media outputs, content_validation, voice_validation, send_ready, final_voice_validated, visual_master_locked, or latest_review_pack.",
+    "Do not commit API key / token / secret / local authorization file.",
+    "Do not overwrite or include unrelated dirty changes."
+  ],
+  "blocked_if": [
+    "Any required rule entry is missing or unreadable.",
+    "Rule can only be written to logs but not completion standards or prompt templates.",
+    "Current branch is unclear.",
+    "Push or remote HEAD verification cannot be completed.",
+    "Unrelated dirty files cannot be isolated from this round's commit.",
+    "Secret scan fails."
+  ],
+  "return_to_codex": {
+    "read_status_required": true,
+    "impact_check_required": true,
+    "write_scope": [
+      "AGENTS.md",
+      "codex_source/00_codex_readme.md",
+      "codex_source/01_execution_rules.md",
+      "codex_source/08_branch_sync_and_reading_branch_rules.md",
+      "codex_source/10_codex_multi_agent_prompt_library.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/21_codex_judgment_permission_matrix.md",
+      "GPT数据源/01_项目系统提示词.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md",
+      "codex_log/latest.md",
+      "codex_log/20260526_mandatory_commit_push_gate.md"
+    ],
+    "output_dir": "dist/deepseek_supply_controller/mandatory_commit_push_gate_pre_supply",
+    "verification_required": [
+      "markdown_syntax_or_structure_check",
+      "git_diff_check",
+      "keyword_grep_check",
+      "secret_scan",
+      "remote_head_verification"
+    ]
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "deep_file_prefetch",
+      "post_risk_review"
+    ]
+  },
+  "file_scope": {
+    "candidate_files": [
+      "AGENTS.md",
+      "codex_source/00_codex_readme.md",
+      "codex_source/01_execution_rules.md",
+      "codex_source/08_branch_sync_and_reading_branch_rules.md",
+      "codex_source/10_codex_multi_agent_prompt_library.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/21_codex_judgment_permission_matrix.md",
+      "GPT数据源/01_项目系统提示词.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md",
+      "codex_log/latest.md"
+    ],
+    "must_prefetch_files": [
+      "AGENTS.md",
+      "codex_source/01_execution_rules.md",
+      "codex_source/08_branch_sync_and_reading_branch_rules.md",
+      "codex_source/10_codex_multi_agent_prompt_library.md",
+      "codex_source/19_project_state_action_router.md",
+      "GPT数据源/01_项目系统提示词.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md"
+    ],
+    "optional_prefetch_files": [
+      "codex_source/00_codex_readme.md",
+      "codex_source/21_codex_judgment_permission_matrix.md",
+      "GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md",
+      "codex_log/latest.md"
+    ],
+    "forbidden_files": [
+      ".env",
+      ".env.local",
+      "本地运行配置_local_runtime/",
+      "dist/latest_review_pack",
+      "dist/",
+      "素材录制/"
+    ],
+    "secret_files_forbidden": true
+  },
+  "content_loading_policy": {
+    "read_only": true,
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 10,
+    "max_chars_per_file": 1400,
+    "max_total_chars": 14000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "do_not_read_secret_files": true,
+    "do_not_modify_files": true
+  },
+  "codex_minimal_review_policy": {
+    "will_modify_files": [
+      "AGENTS.md",
+      "codex_source/00_codex_readme.md",
+      "codex_source/01_execution_rules.md",
+      "codex_source/08_branch_sync_and_reading_branch_rules.md",
+      "codex_source/10_codex_multi_agent_prompt_library.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/21_codex_judgment_permission_matrix.md",
+      "GPT数据源/01_项目系统提示词.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md",
+      "codex_log/latest.md",
+      "codex_log/20260526_mandatory_commit_push_gate.md"
+    ],
+    "conflict_or_uncertain_files": [
+      "GPT数据源/01_项目系统提示词.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "codex_log/latest.md",
+      "package.json",
+      "dist/deepseek_readonly_explorer/latest_prefetch_context_pack.md"
+    ],
+    "safety_sensitive_files": [
+      ".env",
+      ".env.local",
+      "本地运行配置_local_runtime/",
+      "dist/",
+      "素材录制/"
+    ]
+  },
+  "output_required": [
+    "relevant_file_bundle",
+    "exact_snippet_pack",
+    "dependency_map",
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "token_usage_expectation_check"
+  ]
+}

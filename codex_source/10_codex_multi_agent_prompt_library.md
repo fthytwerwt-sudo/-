@@ -181,6 +181,20 @@
 - 1 个 integrator 统一落地
 - explorers 不改文件
 - integrator 独占写文件权
+- 如果任何仓库文件被创建或修改，任务完成前必须显式 stage 本轮相关文件、创建 commit、push 到当前主读取分支或锁定目标分支，并完成 remote HEAD verification；否则只能报 `blocked` 或 `partial_completed`，不得写 `completed`
+
+默认 Git 完成要求：
+
+```text
+Git completion requirement:
+- If any repository file is created or modified, this task is not completed until:
+  1. relevant files are explicitly staged
+  2. commit is created
+  3. commit is pushed to the current reading branch
+  4. remote HEAD is verified
+  5. unrelated dirty / untracked files are not included
+- If push cannot be completed, report blocked or partial_completed. Do not write completed.
+```
 
 ### 8.1 仅读探索版
 
@@ -284,13 +298,15 @@
 4. integrator 更新 `codex_log/latest.md`
 5. 命中条件时补完整日志
 6. integrator 做 `git diff --check`
-7. 若有 Git 跟踪改动，按仓库规则 commit + push
+7. 若有 Git 跟踪改动，按仓库规则 explicit staging + secret scan + commit + push + remote HEAD verification
 
 【完成标准】
 - 目标文档已真实落文件
 - 状态标注清楚
 - `codex_log/latest.md` 已更新
 - 命中条件时日志已补
+- 若有仓库文件改动，commit + push + remote HEAD verification 已完成
+- unrelated dirty / untracked files 未纳入提交
 - Git 状态如实回报
 
 【最终输出格式】
@@ -300,6 +316,7 @@
 4. 哪些是已确认 / 建议判断 / 外部参考
 5. 日志是否更新
 6. Git 状态与同步锚点
+7. `git_sync_status`
 ```
 
 ### 8.3 代码执行版
@@ -348,13 +365,13 @@
 4. integrator 运行最贴近本轮改动的验证
 5. integrator 更新 `codex_log/latest.md`
 6. 命中条件时补完整日志
-7. integrator commit + push
+7. integrator explicit stage + secret scan + commit + push + remote HEAD verification
 
 【完成标准】
 - 真正问题已落修
 - 验证结果已真实执行并如实汇报
 - 没有 explorer 越权改文件
-- 日志与 Git 状态同步完成
+- 日志与 Git 状态同步完成；若有仓库文件改动，remote HEAD 已校验
 
 【最终输出格式】
 1. 根因
@@ -363,6 +380,7 @@
 4. 结果分类
 5. 剩余风险
 6. Git 状态与同步锚点
+7. `git_sync_status`
 ```
 
 ### 8.4 回审后修改版
@@ -411,13 +429,13 @@
    - 最小落点
 3. integrator 在允许范围内落修改
 4. integrator 做最小必要验证
-5. integrator 更新日志并收尾 Git
+5. integrator 更新日志并收尾 Git；若有仓库文件改动，必须 explicit stage + secret scan + commit + push + remote HEAD verification
 
 【完成标准】
 - 本轮只围绕已收束的最高优先级改点执行
 - 没有把回审再次扩回判断层
 - 验收口径清楚
-- 日志和 Git 状态完整
+- 日志和 Git 状态完整；若有仓库文件改动，remote HEAD 已校验
 
 【最终输出格式】
 1. 已确认改点
@@ -426,6 +444,7 @@
 4. 验收结果
 5. 剩余待验证点
 6. Git 状态与同步锚点
+7. `git_sync_status`
 ```
 
 ### 8.5 DeepSeek readonly explorer（DeepSeek 只读探索器）
@@ -486,7 +505,10 @@
 5. 更新 `codex_log/latest.md`，命中条件时新增 dated log。
 6. 执行 `git diff --check`。
 7. 检查禁止项没有被误改。
-8. commit / push / PR 收尾。
+8. 若有仓库文件改动，显式 stage 本轮相关文件，禁止默认 `git add .`。
+9. 对 staged diff 做 secret scan。
+10. commit / push / PR 收尾。
+11. 校验 remote HEAD / remote commit readback。
 
 【硬边界】
 - 不改视频产物。
@@ -495,6 +517,8 @@
 - 不把 `send_ready` 写成 true。
 - 不把 DeepSeek API 未接入写成已接入。
 - 不把多 agent runtime 未跑通写成已跑通。
+- 不把 local-only 或 commit 未 push 写成 completed。
+- 不把 unrelated dirty / untracked files 混入本轮提交。
 
 【最终输出】
 1. `route_decision（路由判断）`
@@ -503,8 +527,9 @@
 4. `protected_items_check（保护项检查）`
 5. `validation（验证）`
 6. `git_status（Git 状态）`
-7. `remaining_risks（剩余风险）`
-8. `下一个目标`
+7. `git_sync_status`
+8. `remaining_risks（剩余风险）`
+9. `下一个目标`
 ```
 
 ## 9. 使用注意事项

@@ -6,6 +6,7 @@
 
 - commit
 - push
+- remote HEAD verification
 - PR
 - `codex_log/latest.md`
 - 主读取分支回流
@@ -43,13 +44,85 @@
 
 ## 4. 上传 / 同步硬规则
 
-### 4.1 何时必须 commit + push
+### 4.1 何时必须 commit + push + remote verification
 
 凡本轮存在 Git 跟踪的仓库文件改动，且本轮结果不是 `local_only`、不是 `no_repo_change`，必须：
 
 1. 更新 `codex_log/latest.md`
-2. commit
-3. push
+2. 显式 stage 本轮相关文件，禁止默认 `git add .`
+3. 对 staged diff 做 secret scan
+4. commit
+5. push
+6. 校验远端 HEAD 或远端目标 commit 可读
+
+这条规则命名为：
+
+```text
+mandatory_commit_push_gate:
+  status: active
+  applies_to:
+    - any_minimal_task_with_repo_file_changes
+    - project_file_change
+    - mechanism_repair
+    - code_change
+    - script_change
+    - fixture_or_test_change
+    - log_change
+    - GPT_Project_sync_package_change
+    - review_pack_schema_or_rule_change
+  completed_requires:
+    - relevant_files_staged_explicitly
+    - commit_created
+    - push_succeeded
+    - remote_head_verified
+    - no_unrelated_dirty_files_committed
+    - no_secret_committed
+  completed_forbidden_if:
+    - local_changes_uncommitted
+    - commit_created_but_not_pushed
+    - pushed_to_wrong_branch
+    - remote_head_not_verified
+    - unrelated_dirty_files_mixed_into_commit
+    - secret_scan_failed
+    - only_local_output_exists
+  allowed_non_push_cases:
+    - truly_read_only_task_with_no_file_changes
+    - blocked_before_any_file_change
+    - user_explicitly_says_do_not_commit_or_push_this_round
+  non_push_status:
+    - no_file_change_completed_readonly
+    - blocked
+    - partial_completed
+  default_rule:
+    - If repository files changed, completed is forbidden until commit + push + remote verification is done.
+```
+
+完成状态补强：
+
+```text
+completed:
+  required_if_repo_files_changed:
+    - relevant_files_committed = true
+    - pushed_to_current_reading_branch = true
+    - remote_head_verified = true
+    - unrelated_dirty_files_not_committed = true
+    - secret_scan_passed = true
+```
+
+如果本地任务完成但未 push，只能写：
+
+```text
+partial_completed:
+  reason: local_changes_done_but_not_pushed
+
+blocked:
+  reason:
+    - push_failed
+    - current_branch_unclear
+    - unrelated_dirty_files_cannot_be_isolated
+    - secret_scan_failed
+    - remote_head_not_verified
+```
 
 ### 4.2 何时必须同步回主读取分支
 
@@ -62,9 +135,12 @@
 只要本轮结果改变了下个聊天框默认应该知道的当前状态，无论本轮是成功、失败、半成功还是 blocked，都必须：
 1. 更新 `codex_log/latest.md`
 2. 若有真实执行结果，补 `codex_log/YYYYMMDD_任务名.md`
-3. commit
-4. push
-5. 同步回 `main`
+3. 显式 stage 本轮相关文件并确认没有 unrelated dirty / untracked 被纳入
+4. 做 staged secret scan
+5. commit
+6. push
+7. 校验远端 HEAD / 远端 commit 可读
+8. 同步回 `main`
 
 注意：
 - `content_validation` 未通过，不等于不能同步
@@ -137,6 +213,9 @@
 2. 最新提交 SHA
 3. 是否已 push
 4. 是否已同步回 `main`
+5. 远端 HEAD 是否已校验
+6. 是否仅 stage 本轮相关文件
+7. secret scan 是否通过
 
 ## 6. 状态分类必须显式标记
 
@@ -158,6 +237,9 @@
 - 已 commit
 - 已 push
 - 已同步回 `main`
+- 已校验远端 HEAD 或远端 commit 可读
+- unrelated dirty / untracked files 未被纳入提交
+- staged secret scan 通过
 
 补充解释：
 
@@ -224,10 +306,13 @@
 3. 若本轮涉及当前待发对象 / 当前审核对象 / 当前唯一 blocker / 当前样片状态，再更新 `codex_log/current_publish_target.md`
 4. 若本轮涉及轻量证据包变化，再更新 `codex_log/current_publish_target_light_evidence.md`
 5. 命中写日志条件时补完整日志
-6. commit
-7. push 当前任务分支
-8. 只要本轮结果改变了下个聊天框默认应该知道的当前状态，就同步回 `main`
-9. 回报 4 个同步锚点
+6. 用路径清单显式 stage 本轮相关文件，禁止默认 `git add .`
+7. 对 staged diff 做 secret scan
+8. commit
+9. push 当前任务分支 / 主读取分支
+10. 只要本轮结果改变了下个聊天框默认应该知道的当前状态，就同步回 `main`
+11. 校验远端 HEAD 或远端目标 commit 可读
+12. 回报 Git 同步锚点和 `git_sync_status`
 
 ## 9. 允许例外
 
@@ -247,4 +332,4 @@
 
 ## 10. 当前一句话规则
 
-凡本轮存在 Git 跟踪的仓库改动，且不是 `local_only` / `no_repo_change`，必须完成 `latest.md + commit + push`；只要本轮结果改变了下个聊天框默认应该知道的当前状态，无论成功、失败、半成功还是 `blocked`，都还必须同步回 `main`；当前待发对象指针里的 `lane_recommendation / parallel_recommendation` 也属于这种必须回流的接手口径；未满足这些条件时，不得写“已完成上传”或“已同步”。
+凡本轮存在 Git 跟踪的仓库改动，且不是 `local_only` / `no_repo_change`，必须完成 `latest.md + explicit staging + secret scan + commit + push + remote HEAD verification`；只要本轮结果改变了下个聊天框默认应该知道的当前状态，无论成功、失败、半成功还是 `blocked`，都还必须同步回 `main`；当前待发对象指针里的 `lane_recommendation / parallel_recommendation` 也属于这种必须回流的接手口径；未满足这些条件时，不得写“已完成上传”“已同步”或 `completed`。

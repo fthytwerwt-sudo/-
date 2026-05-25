@@ -1,0 +1,185 @@
+{
+  "request_id": "20260526_mandatory_commit_push_gate_post_risk_review_request",
+  "created_at": "2026-05-26T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "mandatory_commit_push_gate",
+  "task_type": "mechanism_repair + project_file_change + codex_execution_rule_fix",
+  "project_stage": "formal_operation_active",
+  "trigger_reason": "mandatory_post_risk_review",
+  "action": "risk_report",
+  "mandatory_for_every_task": true,
+  "participation_level": "readonly_post_risk_review",
+  "pre_supply_required": false,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "后置复核 mandatory_commit_push_gate 是否已写入执行规则、配合手册、prompt 模板、完成状态、sync_back_check 和日志；检查是否误推进内容/声音/发布状态，是否存在 unrelated dirty 混提交风险或 secret 风险。",
+  "current_step": "after_write_before_commit",
+  "known_context": [
+    "mandatory_commit_push_gate 已写入 AGENTS.md、codex_source/00、01、08、10、19、21、GPT数据源/01、11、13、latest 和 dated log。",
+    "本轮未生成媒体，未修改 dist 媒体产物，未推进 content_validation / voice_validation / send_ready / final_voice_validated / visual_master_locked。",
+    "工作区存在 unrelated dirty / untracked backlog，本轮必须只 stage 相关文件 / hunk。",
+    "前置 DeepSeek safe runner 已返回 deepseek_actual_participation = deepseek_passed。"
+  ],
+  "missing_context": [
+    "Post-review cannot inspect remote push result before commit/push completes.",
+    "Token usage observation still requires user-side check if needed."
+  ],
+  "candidate_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/08_branch_sync_and_reading_branch_rules.md",
+    "codex_source/10_codex_multi_agent_prompt_library.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/21_codex_judgment_permission_matrix.md",
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md",
+    "codex_log/latest.md",
+    "codex_log/20260526_mandatory_commit_push_gate.md",
+    "codex_log/supply_requests/20260526_mandatory_commit_push_gate_pre_supply_request.json"
+  ],
+  "must_read_files": [
+    "AGENTS.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/08_branch_sync_and_reading_branch_rules.md",
+    "codex_source/10_codex_multi_agent_prompt_library.md",
+    "codex_source/19_project_state_action_router.md",
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "codex_log/latest.md",
+    "codex_log/20260526_mandatory_commit_push_gate.md"
+  ],
+  "optional_files": [
+    "codex_source/00_codex_readme.md",
+    "codex_source/21_codex_judgment_permission_matrix.md",
+    "GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    "本地运行配置_local_runtime/",
+    "dist/latest_review_pack",
+    "dist/",
+    "素材录制/",
+    "GPT 数据源/"
+  ],
+  "expected_output": [
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "status_promotion_risk_check",
+    "git_completion_gate_risk_check"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files.",
+    "DeepSeek must not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is stable or completed.",
+    "Do not modify media outputs or status fields.",
+    "Do not print, write, or commit API key / token / secret."
+  ],
+  "blocked_if": [
+    "mandatory_commit_push_gate is only in logs but not completion standards.",
+    "prompt template lacks commit + push + remote HEAD verification.",
+    "sync_back_check lacks commit / push / remote readback checks.",
+    "Rules allow completed before push.",
+    "Status fields were promoted.",
+    "Secret scan fails.",
+    "Unrelated dirty files cannot be isolated for commit."
+  ],
+  "return_to_codex": {
+    "read_status_required": true,
+    "impact_check_required": false,
+    "write_scope": [],
+    "output_dir": "dist/deepseek_supply_controller/mandatory_commit_push_gate_post_risk_review",
+    "verification_required": [
+      "keyword_grep_check",
+      "git_diff_check",
+      "secret_scan",
+      "path_limited_staging",
+      "remote_head_verification_after_push"
+    ]
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "post_risk_review"
+    ]
+  },
+  "file_scope": {
+    "candidate_files": [
+      "AGENTS.md",
+      "codex_source/00_codex_readme.md",
+      "codex_source/01_execution_rules.md",
+      "codex_source/08_branch_sync_and_reading_branch_rules.md",
+      "codex_source/10_codex_multi_agent_prompt_library.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/21_codex_judgment_permission_matrix.md",
+      "GPT数据源/01_项目系统提示词.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md",
+      "codex_log/latest.md",
+      "codex_log/20260526_mandatory_commit_push_gate.md"
+    ],
+    "must_prefetch_files": [
+      "codex_source/01_execution_rules.md",
+      "codex_source/08_branch_sync_and_reading_branch_rules.md",
+      "codex_source/10_codex_multi_agent_prompt_library.md",
+      "GPT数据源/01_项目系统提示词.md"
+    ],
+    "optional_prefetch_files": [
+      "AGENTS.md",
+      "codex_source/00_codex_readme.md",
+      "codex_source/19_project_state_action_router.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "codex_log/latest.md"
+    ],
+    "forbidden_files": [
+      ".env",
+      ".env.local",
+      "本地运行配置_local_runtime/",
+      "dist/latest_review_pack",
+      "dist/",
+      "素材录制/"
+    ],
+    "secret_files_forbidden": true
+  },
+  "content_loading_policy": {
+    "read_only": true,
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 10,
+    "max_chars_per_file": 1400,
+    "max_total_chars": 14000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "do_not_read_secret_files": true,
+    "do_not_modify_files": true
+  },
+  "codex_minimal_review_policy": {
+    "will_modify_files": [],
+    "conflict_or_uncertain_files": [
+      "GPT数据源/01_项目系统提示词.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "codex_log/latest.md"
+    ],
+    "safety_sensitive_files": [
+      ".env",
+      ".env.local",
+      "本地运行配置_local_runtime/",
+      "dist/",
+      "素材录制/"
+    ]
+  },
+  "output_required": [
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "token_usage_expectation_check"
+  ]
+}

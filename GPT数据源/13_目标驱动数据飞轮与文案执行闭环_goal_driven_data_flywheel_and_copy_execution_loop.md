@@ -891,8 +891,30 @@ next_video_execution_prompt:
     - do_not_change_send_ready
     - do_not_touch_dist_latest_review_pack_unless_task_explicitly_authorizes
   done_when:
+    - If any repository file is created or modified, this task is not completed until relevant files are explicitly staged, commit is created, push to the current reading branch succeeds, remote HEAD is verified, unrelated dirty / untracked files are not included, and staged secret scan passes.
+  git_completion_requirement:
+    - relevant_files_staged_explicitly
+    - commit_created
+    - pushed_to_current_reading_branch
+    - remote_head_verified
+    - unrelated_dirty_files_not_included
+    - secret_scan_passed
+  git_sync_status_required:
+    - current_branch
+    - files_changed
+    - files_staged
+    - commit_sha
+    - pushed
+    - remote_head_verified
+    - unrelated_dirty_files
+    - secret_scan
+    - completed_allowed
   blocked_if:
     - missing_threshold_config_v1
+    - local_changes_done_but_not_pushed
+    - remote_head_not_verified
+    - unrelated_dirty_files_cannot_be_isolated
+    - secret_scan_failed
     - missing_video_goal_card
     - missing_post_publish_review_card_when_claiming_data_driven
     - missing_main_bottleneck

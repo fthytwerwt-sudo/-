@@ -1,5 +1,18 @@
 # Latest
 
+## 20260526｜mandatory_commit_push_gate 强制提交推送闸门
+
+- `已确认` 本轮只做 GPT / Codex 配合手册与执行规则修补，不生成媒体、不修改 `dist/` 媒体产物、不推进任何视频 / 声音 / 内容 / 发布状态。
+- `已新增` `mandatory_commit_push_gate（强制提交推送闸门）`：以后任何最小任务只要创建或修改仓库文件，`completed` 必须等到本轮相关文件显式 stage、commit 创建、push 成功、远端 HEAD 校验通过、unrelated dirty files 未被提交、secret scan 通过后才允许写。
+- `已补强` `completed` 定义：`relevant_files_committed = true`、`pushed_to_current_reading_branch = true`、`remote_head_verified = true`、`unrelated_dirty_files_not_committed = true`、`secret_scan_passed = true`。
+- `已写入` non-push 状态边界：本地完成但未 push / 未远端校验时，只能写 `partial_completed: local_changes_done_but_not_pushed` 或 `blocked`，不得写 `completed`。
+- `已更新` ChatGPT -> Codex prompt 默认完成标准：所有仓库写入类任务默认追加 `Git completion requirement`，包括 explicit staging、commit、push、remote HEAD verification 和 unrelated dirty exclusion。
+- `已更新` Codex 最终回报格式：必须默认包含 `git_sync_status.current_branch / files_changed / files_staged / commit_sha / pushed / remote_head_verified / unrelated_dirty_files / secret_scan / completed_allowed`。
+- `已更新` `sync_back_check`：必须检查 latest、dated log、commit、push、远端可查、是否有未提交本轮相关文件、unrelated dirty files 是否未混入、secret scan 是否通过。
+- `DeepSeek`：已创建前置供料任务卡 `codex_log/supply_requests/20260526_mandatory_commit_push_gate_pre_supply_request.json` 与后置风险复核任务卡 `codex_log/supply_requests/20260526_mandatory_commit_push_gate_post_risk_review_request.json`；safe runner 均返回 `deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`api_key_printed = false`、`api_key_written = false`、`env_file_read = false`。
+- `状态边界`：`media_generated = false`；`dist_media_modified = false`；`content_validation = not_advanced`；`voice_validation = not_advanced`；`send_ready = false`；`final_voice_validated = false`；`visual_master_locked = false`。
+- `日志`：`codex_log/20260526_mandatory_commit_push_gate.md`
+
 ## 20260525｜MiniMax speech-2.8-hd 默认正片候选 TTS 路线切换
 
 - `已确认` 用户已将后续正片候选默认 TTS 路线切换为 MiniMax `speech-2.8-hd`；百炼代理模型名为 `MiniMax/speech-2.8-hd`。
