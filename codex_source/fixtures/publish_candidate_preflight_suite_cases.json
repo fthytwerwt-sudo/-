@@ -1,0 +1,62 @@
+{
+  "schema": "publish_candidate_preflight_suite_cases.v1",
+  "purpose": "Minimum blocked cases for publish_candidate_preflight_suite no-render validation.",
+  "cases": [
+    {
+      "case_id": "line_level_mapping_missing_blocks",
+      "input_signal": "script_to_timeline_map missing or only paragraph-level mapping before video export",
+      "expected_gate": "line_level_alignment_preflight",
+      "expected_status": "blocked",
+      "expected_reason": "script_to_timeline_map_missing",
+      "must_not_write": ["completed", "send_ready_true", "content_validation_passed"]
+    },
+    {
+      "case_id": "tts_route_mismatch_blocks",
+      "input_signal": "expected B voice route but actual provider/model/voice route differs",
+      "expected_gate": "tts_route_and_prosody_preflight",
+      "expected_status": "blocked",
+      "expected_reason": "actual_voice_route_mismatch",
+      "must_not_write": ["completed", "send_ready_true", "content_validation_passed"]
+    },
+    {
+      "case_id": "judgment_card_missing_decision_blocks",
+      "input_signal": "prompt does not mention judgment_card and component_decision_table is missing",
+      "expected_gate": "card_decision_preflight",
+      "expected_status": "blocked",
+      "expected_reason": "component_decision_table_missing",
+      "must_not_write": ["completed", "send_ready_true", "content_validation_passed"]
+    },
+    {
+      "case_id": "forbidden_mask_detected_blocks",
+      "input_signal": "default privacy whiteout or mask appears without user authorization",
+      "expected_gate": "forbidden_action_preflight",
+      "expected_status": "blocked",
+      "expected_reason": "added_default_mask_or_whiteout",
+      "must_not_write": ["completed", "send_ready_true", "content_validation_passed"]
+    },
+    {
+      "case_id": "visual_evidence_unreadable_blocks",
+      "input_signal": "key evidence is covered, washed out, cropped, or unreadable",
+      "expected_gate": "visual_evidence_readability_preflight",
+      "expected_status": "blocked",
+      "expected_reason": "key_evidence_unreadable",
+      "must_not_write": ["completed", "send_ready_true", "content_validation_passed"]
+    },
+    {
+      "case_id": "locked_copy_semantic_diff_blocks",
+      "input_signal": "actual subtitle, TTS, or card text rewrites locked copy semantics",
+      "expected_gate": "locked_copy_diff_preflight",
+      "expected_status": "blocked",
+      "expected_reason": "semantic_diff_detected",
+      "must_not_write": ["completed", "send_ready_true", "content_validation_passed"]
+    },
+    {
+      "case_id": "full_mp4_exists_but_preflight_missing_not_completed",
+      "input_signal": "full.mp4 exists but one or more required preflight reports are missing",
+      "expected_gate": "completion_truth_preflight",
+      "expected_status": "blocked",
+      "expected_reason": "all_preflight_reports_exist_missing",
+      "must_not_write": ["completed", "send_ready_true", "content_validation_passed"]
+    }
+  ]
+}

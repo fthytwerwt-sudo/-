@@ -18,6 +18,21 @@
 - `full_transcript_committed = false`
 - `日志`：`codex_log/20260524_reference_copy_voice_anti_report_fix.md`
 
+## 20260525｜publish_candidate_preflight_suite 发片候选预检套件机制落库
+
+- `已确认` 本轮只做视频执行 / 修片 / 发片候选机制补强，不生成视频、不重渲染、不生成 TTS / 音频 / 字幕、不修改 `dist/` 媒体产物、不推进任何内容状态。
+- `route_decision（路由判断）`：`project_route = video_factory`；`task_type = mechanism_or_route_fix + project_file_change + code_debug + validation_dry_run`；`large_task_gate = triggered`；`lane = audit_lane -> standard_lane`；`parallel = serial_only`；`write_owner = Codex Integrator only`。
+- `DeepSeek`：已创建供料任务卡 `codex_log/supply_requests/20260525_publish_candidate_preflight_suite_pre_supply_request.json`；安全供料控制器返回 `invalid_context_pack`，本轮结论按 `fallback_local_only / not_deepseek_conclusion = true` 处理，不写成 DeepSeek 深度参与或 DeepSeek 结论。
+- `已新增` `publish_candidate_preflight_suite（发片候选预检套件）` 最小可运行脚本：`scripts/发片候选预检套件_publish_candidate_preflight_suite.py`，支持 `--no-render`、结构级 / 字段级 gate 检查、缺文件 blocked 报告、7 个子报告输出和 `review_pack_required_preflight_reports`。
+- `已新增` fixture：`codex_source/fixtures/publish_candidate_preflight_suite_cases.json`，覆盖 7 个 blocked case：逐句映射缺失、TTS route 不一致、判断卡决策缺失、禁止遮挡、视觉证据不可读、locked copy 语义差异、`full.mp4` 存在但预检缺失不得 completed。
+- `已接入` 7 个闸门：`line_level_alignment_preflight`、`tts_route_and_prosody_preflight`、`card_decision_preflight`、`forbidden_action_preflight`、`visual_evidence_readability_preflight`、`locked_copy_diff_preflight`、`completion_truth_preflight`。
+- `已更新` 机制入口 / 执行规则 / 状态动作路由 / 判断权限 / GPT Project 侧规则 / 文案路由 / 视频价值规则 / 项目状态动作总控器，后续命中视频执行、修片、发片候选、TTS、字幕、卡片、时间线、审片包任务时，必须在导出前跑预检套件。
+- `review_pack` 新要求：后续审片包必须包含 `publish_candidate_preflight_report.json/md` 与 7 个 gate 子报告；缺任一 required gate 或 report，不得导出、不得 `completed`。
+- `验证`：已运行脚本语法检查、`--help`、fixture JSON 解析、关键词 grep、fixture `--no-render` dry-run；dry-run 输出目录为 `codex_log/diagnostics/publish_candidate_preflight_suite_20260525_no_render/`，整体按预期为 `overall_status = blocked`，fixture validation 为 `passed`。
+- `状态边界`：`video_generated = false`；`audio_generated = false`；`media_modified = false`；`content_validation = not_advanced`；`send_ready = false`；`voice_validation = not_advanced`；`visual_master_locked = false`；`current_data_goal_anchor_ready = not_advanced`。
+- `待验证` 本轮机制写入只代表 preflight suite 可运行、可阻断、可产报告并已接入规则；下一轮真实发片 / 修片任务必须用真实 review pack 和真实素材链验证是否能在导出前阻断错误。
+- `日志`：`codex_log/20260525_发片候选预检套件_publish_candidate_preflight_suite.md`
+
 ## 20260525｜流程启动闸门 + 发片清单 + 修片会话卡机制补强
 
 - `已确认` 本轮只做视频执行 / 修片 / 发片候选机制补强，不生成视频、不重生成候选片、不修改 `dist/` 媒体产物、不改新第四期 locked 文案语义。

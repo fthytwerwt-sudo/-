@@ -301,6 +301,64 @@ current_repair_session:
 9. `codex_source/20_reference_to_execution_contract.md`
 10. `codex_source/21_codex_judgment_permission_matrix.md`
 11. `GPT数据源/01_项目系统提示词.md`
+## 0A-7. publish_candidate_preflight_suite（发片候选预检套件）
+
+凡任务进入 `publish_candidate / repair_candidate / video_execution / regenerate_video / pre_publish_fix / final_script_to_video / TTS generation / subtitle generation / card generation / timeline assembly / review_pack generation` 任一链路，导出前必须运行 `publish_candidate_preflight_suite（发片候选预检套件）`。它不是新平行流程，而是接在：
+
+```text
+process_boot_gate
+-> publish_candidate_required_inventory
+-> publish_candidate_preflight_suite
+-> no-render preflight report
+-> blocked / continue / publish_candidate_ready_for_human_review
+-> review_pack
+-> completion_truth_check
+```
+
+默认可运行入口：
+
+- `scripts/发片候选预检套件_publish_candidate_preflight_suite.py`
+
+必需七个闸门：
+
+```text
+publish_candidate_preflight_suite:
+  required_gates:
+    - line_level_alignment_preflight
+    - tts_route_and_prosody_preflight
+    - card_decision_preflight
+    - forbidden_action_preflight
+    - visual_evidence_readability_preflight
+    - locked_copy_diff_preflight
+    - completion_truth_preflight
+```
+
+硬规则：
+
+- `script_to_timeline_map` 存在不等于逐句对齐通过；必须有 `line_level_alignment_report`。
+- `tts_prosody_anchor_map` 存在不等于实际 TTS 路线 / 声音 / 韵律通过；必须有 `tts_route_and_prosody_report`。
+- `card_placement_decision` 存在不等于卡片判断通过；判断卡、总结卡、结果差卡、边界卡、Prompt 尾卡加与不加都必须有理由。
+- 视觉证据可读性必须作为导出前检查；结构检查不能冒充 OCR / 视觉语义真实通过。
+- `locked_copy_contract` 必须和实际字幕、TTS 文本、卡片文案做差异预检；允许标点、换行、字幕分句和 TTS pause marker，不允许语义改写。
+- 任一必需 gate missing / failed / only documented not executed 时，不得导出、不得写 `completed`。
+
+后续 `review_pack（审片包）` 必须包含：
+
+```text
+review_pack_required_preflight_reports:
+  - publish_candidate_preflight_report.json
+  - publish_candidate_preflight_report.md
+  - line_level_alignment_report.json
+  - tts_route_and_prosody_report.json
+  - card_decision_preflight_report.json
+  - forbidden_action_audit.json
+  - visual_evidence_readability_report.json
+  - locked_copy_diff_report.json
+  - completion_truth_preflight_report.json
+```
+
+本套件只证明导出前预检链被调用和报告可复核；不自动推进 `content_validation / send_ready / voice_validation / visual_master_locked / current_data_goal_anchor_ready`。
+
 12. `GPT数据源/03_总索引与阅读顺序.md`
 13. `GPT数据源/08_当前正式事实.md`
 14. `GPT数据源/06_当前主线锚点_API生成真人_用户录制素材_少量PPT_云端剪辑.md`

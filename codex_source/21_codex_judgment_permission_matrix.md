@@ -75,6 +75,56 @@ perplexity_reference_correction:
 Perplexity 只能作为 `external_research_reference（外部研究参考）`，不得直接升级为仓库事实。若 Perplexity 与本文件、`content_route_inference_function（内容路由推理函数）` 或当前正式事实冲突，以仓库文件为准。
 
 ## 4. 判断对象权限矩阵
+## 3A. publish_candidate_preflight_suite 判断统一入口
+
+`已确认` Codex 不能因为本轮 prompt 没点名某个组件，就跳过判断卡、总结卡、结果差卡、边界卡、Prompt 尾卡、TTS 路线、逐句画面对齐、禁止事项或视觉证据可读性判断。
+
+凡任务命中视频执行、修片、发片候选、重新生成、发布前修复、最终文案进视频、TTS / 字幕 / 卡片 / 时间线 / review_pack 生成，Codex 必须把以下判断对象统一接入 `publish_candidate_preflight_suite（发片候选预检套件）`：
+
+```text
+codex_judgment_to_preflight_binding:
+  script_to_timeline_map:
+    required_gate: line_level_alignment_preflight
+    permission: must_decide_and_block
+  tts_prosody:
+    required_gate: tts_route_and_prosody_preflight
+    permission: must_decide_and_block
+  judgment_card:
+    required_gate: card_decision_preflight
+    permission: must_decide_and_execute_or_block
+  summary_card:
+    required_gate: card_decision_preflight
+    permission: must_decide_and_execute_or_block
+  result_diff_card:
+    required_gate: card_decision_preflight
+    permission: must_decide_and_execute_or_block
+  boundary_card:
+    required_gate: card_decision_preflight
+    permission: must_decide_and_execute_or_block
+  prompt_tail_card:
+    required_gate: card_decision_preflight
+    permission: must_decide_and_execute_or_block
+  forbidden_actions:
+    required_gate: forbidden_action_preflight
+    permission: must_decide_and_block
+  visual_evidence_readability:
+    required_gate: visual_evidence_readability_preflight
+    permission: must_decide_and_block
+  locked_copy_diff:
+    required_gate: locked_copy_diff_preflight
+    permission: must_decide_and_block
+  completion_truth_check:
+    required_gate: completion_truth_preflight
+    permission: must_decide_and_block
+```
+
+硬规则：
+
+- 加卡与不加卡都必须说明依据；缺依据不是默认不加，而是 `card_decision_preflight` blocked。
+- `tts_prosody_anchor_map` 是路线和韵律约束，不是实际声音通过证明；必须对比实际 TTS route。
+- `script_to_timeline_map` 是执行计划，不是逐句画面对齐通过证明；必须检查实际观察画面和 mismatch 修复。
+- `completion_truth_preflight` 必须阻断 `full.mp4 exists means completed`、`technical_validation means content_validation`、`field exists means gate passed` 这三类偷换。
+
 
 ### 4.1 opening_route_decision（开头路由判断）
 

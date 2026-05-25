@@ -144,6 +144,30 @@ if state = process_boot_required:
 if state = publish_candidate_inventory_required:
   action = build publish_candidate_required_inventory, verify locked_copy_contract / content_route_card_v2 / card_placement_decision / script_to_timeline_map / tts_prosody_anchor_map / visual_evidence_check / subtitle_card_overlap_check / publish_candidate_checklist / data_goal_alignment_check / review_pack / remaining_blockers, and block or continue if any required item is missing without not_applicable_reason
 
+if state = publish_candidate_preflight_suite_required:
+  action = run scripts/发片候选预检套件_publish_candidate_preflight_suite.py in --no-render mode before export; require line_level_alignment_preflight / tts_route_and_prosody_preflight / card_decision_preflight / forbidden_action_preflight / visual_evidence_readability_preflight / locked_copy_diff_preflight / completion_truth_preflight; write reports into review_pack requirement; block export and completion if any required gate is missing or failed
+
+if state = line_level_alignment_preflight_required:
+  action = verify script_to_timeline_map is line_group-level and each line_group has narration, source_timecode, expected/actual visual, allowed/forbidden visuals, evidence strength, alignment status, mismatch reason, and repair action; block paragraph-only mapping or unresolved visual mismatch
+
+if state = tts_route_and_prosody_preflight_required:
+  action = verify expected TTS provider/model/voice route and prosody anchors against actual TTS route; block unauthorized fallback, route mismatch, silent audio, or unknown route marked passed
+
+if state = card_decision_preflight_required:
+  action = verify judgment_card / summary_card / result_diff_card / boundary_card / prompt_tail_card needed/not-needed decisions, reasons, line_group binding, evidence dependency, and interrupt risk
+
+if state = forbidden_action_preflight_required:
+  action = audit locked copy changes, removed required cards, TTS route changes, fallback use, default masking/whiteout, technical preview as delivery, missing inventory completion, and forbidden status promotion
+
+if state = visual_evidence_readability_preflight_required:
+  action = verify key evidence windows remain visible and are not covered by subtitles/cards, masks, whiteout, black blocks, gray residues, or unauthorized ratio changes; mark structural-only checks separately from future visual probes
+
+if state = locked_copy_diff_preflight_required:
+  action = compare locked_title / locked_opening_line / locked_final_script against actual subtitle text, TTS text, and card text; allow punctuation/line breaks/subtitle segmentation/TTS pause markers only; block semantic diffs
+
+if state = completion_truth_preflight_required:
+  action = verify required_output_inventory, all preflight reports, all gates passed, review_pack contains reports, media probes if media generated, latest updated if mechanism changed, and no forbidden status promotion
+
 if state = repair_session_required:
   action = read_or_create current_repair_session before repairing an existing candidate, recover previous state from latest.md / review pack / summary.json / review_manifest.md if missing, lock one primary_issue_this_round, and update remaining_blockers after execution
 
@@ -273,6 +297,9 @@ if input_signal includes 修片 / 修复片 / repair_candidate / pre_publish_fix
 
 
 if output includes technical_preview / silent preview / 无音轨视频 / 横屏技术包 / JSON route card / Markdown route card:
+if input_signal includes 发片候选 / 候选片 / 修片 / 视频执行 / 重新生成 / 发布前修复 / final_script_to_video / TTS / subtitle / card / timeline / review_pack:
+  action = trigger publish_candidate_preflight_suite_required before export; run seven required preflight gates; add preflight reports to review_pack requirement; block if any gate is missing, failed, or only documented
+
   action = mark technical_preview_not_delivery; treat as internal_diagnostic_only; cannot satisfy formal operation delivery
 
 if state = no_degrade_completion_required:
@@ -332,6 +359,14 @@ if state = blocked_need_user_input:
 - `data_goal_execution_bus_needed`：13 已定义目标但未接到全执行链时，必须补 14 总线或同步执行规则；不得只扩写说明。
 - `codex_execution_structure_drift_risk`：Codex 可以改结构，不能改目标、主短板、主变量、禁止变量和验证指标。
 - `editing_or_assembly_without_data_goal_anchor`：缺 `data_goal_anchor_used` 时，不得生成 `editing_decision_pack` 或 `assembly_decision_pack`。
+- `publish_candidate_preflight_suite_required`：发片候选、修片候选、视频执行、重新生成、发布前修复、最终文案进视频或 TTS / 字幕 / 卡片 / 时间线 / review_pack 生成时触发；必须运行 `scripts/发片候选预检套件_publish_candidate_preflight_suite.py --no-render` 或等价入口，产出总报告与七个子报告。任一 gate missing / failed / only documented 时不得导出、不得 `completed`。
+- `line_level_alignment_preflight_required`：`script_to_timeline_map` 不能只证明文件存在；必须逐句检查 line_group 字段、实际观察画面、证据强度和 mismatch 修复状态。
+- `tts_route_and_prosody_preflight_required`：`tts_prosody_anchor_map` 不能只证明字段存在；必须检查实际 provider / model / voice route / pacing 是否使用，禁止未授权 fallback。
+- `card_decision_preflight_required`：prompt 未提卡片不代表可省略；判断卡、总结卡、结果差卡、边界卡、Prompt 尾卡需要 / 不需要都必须写依据。
+- `forbidden_action_preflight_required`：导出前必须审计改文案、删卡、改声音、遮挡、状态推进、technical preview 冒充交付等禁止行为。
+- `visual_evidence_readability_preflight_required`：核心证据被字幕、卡片、遮挡、洗白、边缘残留或比例变化影响时必须 blocked；结构检查与未来 OCR / 视觉探针必须分开标注。
+- `locked_copy_diff_preflight_required`：锁定文案与实际字幕、TTS 和卡片文案必须对齐；非语义格式变化可接受，语义差异必须 blocked。
+- `completion_truth_preflight_required`：完成真实性必须检查七个预检报告、review_pack 包含关系、媒体探针（如适用）、日志和禁止状态推进；不得用 `full.mp4` 或字段存在替代完成。
 - `publish_candidate_required`：正式运营视频交付任务必须先检查音轨、字幕、开头、中段证据、结尾、人感质量、平台风险和装配能力；用户提供录屏 / 桌面素材时，优先检查源素材比例与证据可读性，不再默认强制 16:9 / 1920x1080。
 - `source_native_no_mask_visual_required`：用户素材进入视频执行、修复成片或发布候选时触发；必须默认不遮挡、不洗白、不加灰色遮罩、不加黑块、不加整屏 privacy mask、不用 padding bands 填边，并优先使用源素材比例。
 - `visual_evidence_unreadable_blocked`：若商品卡、表格、聊天框结论等核心证据因遮挡、洗白、卡片、字幕、缩放或裁切不可读，必须 blocked，不得交候选片。
