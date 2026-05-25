@@ -1,5 +1,22 @@
 # Latest
 
+## 20260526｜三项候选片判断机制落库
+
+- `已确认` 本轮只做机制落库，不生成视频、不生成音频、不调用 MiniMax / 阿里 / 百炼 / TTS API、不修改 `dist/` 媒体产物、不修改素材目录、不修改用户文案。
+- `route_decision（路由判断）`：`project_route = video_factory`；`task_type = mechanism_or_route_fix + project_file_change + code_debug + fixture_or_test_change`；`large_task_gate = triggered`；`lane = audit_lane -> standard_lane`；`parallel = serial_only`；`write_owner = Codex Integrator only`。
+- `DeepSeek`：已创建供料任务卡 `codex_log/supply_requests/20260526_three_candidate_judgment_rules_pre_supply_request.json`；safe runner 返回 `deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`not_deepseek_conclusion = false`、`api_key_printed = false`、`api_key_written = false`；`multi_agent_runtime_validation = not_started`。
+- `DeepSeek 后置风险复核`：任务卡 `codex_log/supply_requests/20260526_three_candidate_judgment_rules_post_risk_review_request.json`；safe runner 返回 `deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`not_deepseek_conclusion = false`、`api_key_printed = false`、`api_key_written = false`；复核包读取结果为 `forbidden_status_promotion = 未发现`、`secret_risk = 未检测到`、`fallback_mislabel_risk = none_observed`。
+- `机制 gap report`：`codex_log/mechanism_gap_report.md`。缺失项为 `line_visual_tolerance_rule / near_equivalent_material_substitution_report / publish_candidate_user_standard_rule`；`b_voice_feel_minimax_formal_voice_rule` 为部分成立，已补强。
+- `已新增 / 补强` `line_visual_tolerance_rule（文案画面一致性容差规则）`：近似素材替代最多约 `5%`，连续近似替代最多 1 个句组；只允许非核心、局部、偶发、极其相近替代；核心证据错位为 0；全程漂移、需要猜测、素材不极近或用户素材缺失时必须 blocked。
+- `已新增` `near_equivalent_material_substitution_report（近似素材替代报告）`：后续候选片必须输出 `total_line_group_count / exact_match_count / near_equivalent_count / near_equivalent_ratio / consecutive_near_equivalent_max / core_evidence_mismatch_count / whole_video_drift_detected / substitutions / final_decision`。
+- `已补强` `b_voice_feel_minimax_formal_voice_rule（B 方案听感 + MiniMax 正式语音规则）`：B 方案升级为正式声音听感标准；正式生成路线必须是 MiniMax `speech-2.8-hd / MiniMax/speech-2.8-hd`；旧 Qwen / 阿里 B 语音路线、`Serena`、`macOS say`、本地低质 TTS、silent audio 或未授权 fallback 不能作为正片候选完成。
+- `已新增` `publish_candidate_user_standard_rule（候选可发布用户标准）`：候选片必须达到用户打开后原则上可以直接发、再进入人工复审的标准；微小瑕疵可接受，整体漂移、文案被改、声音错、画面错、字幕卡片遮挡、技术预览或内部诊断冒充候选片不可接受。
+- `已接入` `publish_candidate_preflight_suite`：新增 `line_visual_tolerance_preflight / near_equivalent_material_substitution_preflight / b_voice_feel_minimax_preflight / publish_candidate_user_standard_preflight`，并要求 review pack 增加对应报告。
+- `已补 fixture / tests`：`codex_source/fixtures/publish_candidate_preflight_suite_cases.json` 覆盖用户指定 7 个 case；`tests/test_publish_candidate_voice_gate.py` 与 `tests/test_publish_candidate_preflight_tolerance.py` 覆盖 TTS 路线、B 听感、近似素材容差、核心证据阻断、全程漂移阻断、小瑕疵但仍需人审。
+- `no-render dry run`：`codex_log/diagnostics/three_candidate_judgment_rules_preflight_20260526_no_render/` 已生成十二闸门报告；无输入 dry run 按预期 `overall_status = blocked`，fixture validation `passed`，case_count = 19。
+- `未推进`：`content_validation = not_advanced`；`send_ready = false`；`voice_validation = not_advanced`；`final_voice_validated = false`；`visual_master_locked = false`。
+- `日志`：`codex_log/20260526_三项候选片判断机制_three_candidate_judgment_rules.md`
+
 ## 20260526｜mandatory_commit_push_gate 强制提交推送闸门
 
 - `已确认` 本轮只做 GPT / Codex 配合手册与执行规则修补，不生成媒体、不修改 `dist/` 媒体产物、不推进任何视频 / 声音 / 内容 / 发布状态。

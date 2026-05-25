@@ -1,0 +1,11 @@
+{
+  "schema": "near_equivalent_material_substitution_preflight.v1",
+  "gate_name": "near_equivalent_material_substitution_preflight",
+  "status": "blocked",
+  "check_depth": "structural_check_only",
+  "blocked_reasons": [
+    "script_to_timeline_map_missing"
+  ],
+  "warnings": [],
+  "checked_input": ""
+}

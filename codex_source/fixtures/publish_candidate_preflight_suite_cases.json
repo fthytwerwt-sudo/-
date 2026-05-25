@@ -11,6 +11,30 @@
       "must_not_write": ["completed", "send_ready_true", "content_validation_passed"]
     },
     {
+      "case_id": "near_equivalent_one_non_core_line_allowed",
+      "input_signal": "one non-core line_group uses extremely close substitute material; near_equivalent_ratio <= 0.05; claim and viewer inference preserved",
+      "expected_gate": "line_visual_tolerance_preflight",
+      "expected_status": "passed",
+      "expected_reason": "near_equivalent_ratio_lte_0_05",
+      "must_not_write": ["send_ready_true", "content_validation_passed", "whole_video_drift_allowed"]
+    },
+    {
+      "case_id": "core_evidence_substitution_blocked",
+      "input_signal": "product card, candidate table, detail table, review table, result diff, cost, commission, risk, or next-action line_group is replaced by non-exact material",
+      "expected_gate": "near_equivalent_material_substitution_preflight",
+      "expected_status": "blocked",
+      "expected_reason": "core_evidence_mismatch_count_gt_0",
+      "must_not_write": ["completed", "publish_candidate_ready_for_human_review_true", "send_ready_true", "content_validation_passed"]
+    },
+    {
+      "case_id": "whole_video_drift_blocked",
+      "input_signal": "multiple consecutive sections use theme-related but evidence-different visuals, or whole_video_drift_detected=true",
+      "expected_gate": "line_visual_tolerance_preflight",
+      "expected_status": "blocked",
+      "expected_reason": "whole_video_drift_detected",
+      "must_not_write": ["completed", "publish_candidate_ready_for_human_review_true", "send_ready_true", "content_validation_passed"]
+    },
+    {
       "case_id": "tts_route_mismatch_blocks",
       "input_signal": "expected B voice route but actual provider/model/voice route differs",
       "expected_gate": "tts_route_and_prosody_preflight",
@@ -27,12 +51,28 @@
       "must_not_write": ["send_ready_true", "content_validation_passed", "voice_validation_passed"]
     },
     {
+      "case_id": "b_voice_feel_minimax_passed",
+      "input_signal": "tts_route_report declares MiniMax speech-2.8-hd and B voice feel tags: light companion, low pressure, natural spoken Chinese, B pacing, subtle pause joke rhythm, game guide feeling, not broadcast/sales/customer-service/childish",
+      "expected_gate": "b_voice_feel_minimax_preflight",
+      "expected_status": "passed",
+      "expected_reason": "passed_minimax_b_voice_feel",
+      "must_not_write": ["send_ready_true", "content_validation_passed", "voice_validation_passed", "final_voice_validated_true"]
+    },
+    {
       "case_id": "publish_candidate_with_aliyun_qwen_tts_fails",
       "input_signal": "tts_route_report declares actual_tts_provider=aliyun_bailian and actual_tts_model=qwen3-tts-vc-realtime-2026-01-15 for a publish candidate",
       "expected_gate": "publish_candidate_voice_gate",
       "expected_status": "blocked",
       "expected_reason": "failed_non_minimax_voice",
       "must_not_write": ["completed", "publish_candidate_ready_for_human_review_true", "send_ready_true", "content_validation_passed"]
+    },
+    {
+      "case_id": "old_qwen_b_voice_publish_candidate_blocked",
+      "input_signal": "old Qwen / Aliyun B voice route is used for a publish candidate even if B pacing or B feel is present",
+      "expected_gate": "b_voice_feel_minimax_preflight",
+      "expected_status": "blocked",
+      "expected_reason": "actual_tts_provider_not_minimax",
+      "must_not_write": ["completed", "publish_candidate_ready_for_human_review_true", "send_ready_true", "content_validation_passed", "voice_validation_passed"]
     },
     {
       "case_id": "publish_candidate_with_macos_say_fails",
@@ -97,6 +137,22 @@
       "expected_status": "blocked",
       "expected_reason": "all_preflight_reports_exist_missing",
       "must_not_write": ["completed", "send_ready_true", "content_validation_passed"]
+    },
+    {
+      "case_id": "technical_preview_not_publish_candidate",
+      "input_signal": "full.mp4 exists but candidate is only technical_preview/internal_diagnostic_only and lacks review pack, preflight suite, or MiniMax route",
+      "expected_gate": "publish_candidate_user_standard_preflight",
+      "expected_status": "blocked",
+      "expected_reason": "forbidden_major_flaws_detected",
+      "must_not_write": ["completed", "publish_candidate_ready_for_human_review_true", "send_ready_true", "content_validation_passed"]
+    },
+    {
+      "case_id": "minor_flaw_allowed_but_candidate_still_review_required",
+      "input_signal": "only tiny timing or non-core visual transition flaw exists; all candidate gates pass, but human review remains required and send_ready stays false",
+      "expected_gate": "publish_candidate_user_standard_preflight",
+      "expected_status": "passed",
+      "expected_reason": "publish_candidate_ready_for_human_review_does_not_equal_send_ready",
+      "must_not_write": ["send_ready_true", "content_validation_passed", "voice_validation_passed", "final_voice_validated_true"]
     }
   ]
 }

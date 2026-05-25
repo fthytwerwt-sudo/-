@@ -79,7 +79,7 @@ Perplexity 只能作为 `external_research_reference（外部研究参考）`，
 
 `已确认` Codex 不能因为本轮 prompt 没点名某个组件，就跳过判断卡、总结卡、结果差卡、边界卡、Prompt 尾卡、TTS 路线、逐句画面对齐、禁止事项或视觉证据可读性判断。
 
-`已确认` Codex 后续判断正片候选声音路线时，不得把阿里 B 方案继续当默认生成 provider。B 方案只保留为 `voice_feel_reference`；正片候选实际 TTS 必须是 MiniMax `speech-2.8-hd / MiniMax/speech-2.8-hd`，否则必须阻断或标记为内部诊断。
+`已确认` Codex 后续判断正片候选声音路线时，不得把阿里 B 方案继续当默认生成 provider。B 方案升级为 `formal_voice_feel_reference（正式声音听感参考）`；正片候选实际 TTS 必须是 MiniMax `speech-2.8-hd / MiniMax/speech-2.8-hd`，否则必须阻断或标记为内部诊断。
 
 凡任务命中视频执行、修片、发片候选、重新生成、发布前修复、最终文案进视频、TTS / 字幕 / 卡片 / 时间线 / review_pack 生成，Codex 必须把以下判断对象统一接入 `publish_candidate_preflight_suite（发片候选预检套件）`：
 
@@ -88,6 +88,14 @@ codex_judgment_to_preflight_binding:
   script_to_timeline_map:
     required_gate: line_level_alignment_preflight
     permission: must_decide_and_block
+  line_visual_tolerance:
+    required_gate: line_visual_tolerance_preflight
+    permission: must_decide_and_block
+    hard_requirement: max_near_equivalent_ratio <= 0.05; core_evidence_mismatch_count = 0; whole_video_drift_detected = false
+  near_equivalent_material_substitution:
+    required_gate: near_equivalent_material_substitution_preflight
+    permission: must_decide_and_block
+    hard_requirement: extremely_close_non_core_only; thematic_similarity_is_not_enough; user_material_needed_but_missing blocks
   tts_prosody:
     required_gate: tts_route_and_prosody_preflight
     permission: must_decide_and_block
@@ -95,7 +103,11 @@ codex_judgment_to_preflight_binding:
     required_gate: publish_candidate_voice_gate
     permission: must_decide_and_block
     hard_requirement: MiniMax speech-2.8-hd / MiniMax/speech-2.8-hd only
-    b_voice_scheme_role: voice_feel_reference_only
+    b_voice_scheme_role: formal_voice_feel_reference_only
+  b_voice_feel_minimax_formal_voice:
+    required_gate: b_voice_feel_minimax_preflight
+    permission: must_decide_and_block
+    hard_requirement: B feel is formal standard; MiniMax is formal generation route; old Qwen / Aliyun B route is blocked for publish candidate completed
   judgment_card:
     required_gate: card_decision_preflight
     permission: must_decide_and_execute_or_block
@@ -120,6 +132,10 @@ codex_judgment_to_preflight_binding:
   locked_copy_diff:
     required_gate: locked_copy_diff_preflight
     permission: must_decide_and_block
+  publish_candidate_user_standard:
+    required_gate: publish_candidate_user_standard_preflight
+    permission: must_decide_and_block
+    hard_requirement: candidate can enter human review only when user can in principle publish after review; minor flaws allowed, major flaws blocked; send_ready requires final user or ChatGPT confirmation
   completion_truth_check:
     required_gate: completion_truth_preflight
     permission: must_decide_and_block
@@ -130,6 +146,9 @@ codex_judgment_to_preflight_binding:
 - 加卡与不加卡都必须说明依据；缺依据不是默认不加，而是 `card_decision_preflight` blocked。
 - `tts_prosody_anchor_map` 是路线和韵律约束，不是实际声音通过证明；必须对比实际 TTS route。
 - `script_to_timeline_map` 是执行计划，不是逐句画面对齐通过证明；必须检查实际观察画面和 mismatch 修复。
+- `line_visual_tolerance_rule` 只允许局部、偶发、极其相近的非核心素材替代；主题相近、全程偏差、核心证据错位或需要观众猜测都必须 blocked。
+- `near_equivalent_material_substitution_report` 必须记录每个近似替代的句组、原需求画面、替代素材、时间码、风险和 allowed / blocked 结论。
+- `publish_candidate_user_standard_rule` 是用户可发布候选标准，不是技术通过标准；技术预览、内部诊断、只有 JSON/Markdown 包、缺 review pack / preflight suite 都不能作为候选完成。
 - `completion_truth_preflight` 必须阻断 `full.mp4 exists means completed`、`technical_validation means content_validation`、`field exists means gate passed` 这三类偷换。
 
 ## 3B. mandatory_commit_push_gate 判断权限

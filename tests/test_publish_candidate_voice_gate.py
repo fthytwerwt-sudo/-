@@ -108,6 +108,59 @@ class PublishCandidateVoiceGateTests(unittest.TestCase):
         self.assertIs(result["full_video_can_only_be_internal_diagnostic"], True)
         self.assertEqual(result["blocked_reasons"], [])
 
+    def test_b_voice_feel_minimax_formal_voice_rule_passes_with_minimax_and_feel(self) -> None:
+        result = route_module.validate_b_voice_feel_minimax_route(
+            {
+                "tts_route_report": {
+                    "actual_tts_provider": "minimax",
+                    "actual_tts_model": "speech-2.8-hd",
+                    "selected_route": "minimax_official_api",
+                    "is_minimax_speech_2_8_hd": True,
+                    "audio_present": True,
+                    "non_silent": True,
+                    "fallback_tts_used": False,
+                    "b_voice_feel_reflected": True,
+                    "voice_feel_tags": [
+                        "light_companion",
+                        "low_pressure",
+                        "natural_spoken_chinese",
+                        "b_pacing_feel",
+                        "subtle_pause_joke_rhythm",
+                        "game_guide_feeling",
+                        "not_broadcast",
+                        "not_sales",
+                        "not_customer_service",
+                        "not_childish_cute_voice",
+                    ],
+                }
+            },
+            _summary(),
+        )
+        self.assertEqual(result["voice_route_validation"], "passed_minimax_b_voice_feel")
+        self.assertEqual(result["blocked_reasons"], [])
+        self.assertEqual(
+            result["b_voice_feel_minimax_formal_voice_rule"]["b_voice_scheme_role"],
+            "formal_voice_feel_reference",
+        )
+
+    def test_old_qwen_b_voice_route_blocked_for_publish_candidate(self) -> None:
+        result = route_module.validate_b_voice_feel_minimax_route(
+            {
+                "tts_route_report": {
+                    "actual_tts_provider": "aliyun_bailian",
+                    "actual_tts_model": "qwen3-tts-vc-realtime-2026-01-15",
+                    "selected_route": "aliyun_qwen_realtime_websocket_voice_clone",
+                    "audio_present": True,
+                    "non_silent": True,
+                    "b_voice_feel_reflected": True,
+                    "voice_feel_tags": ["light_companion", "b_pacing_feel"],
+                }
+            },
+            _summary(),
+        )
+        self.assertEqual(result["voice_route_validation"], "failed_non_minimax_voice")
+        self.assertIn("actual_tts_provider_not_minimax", result["blocked_reasons"])
+
 
 if __name__ == "__main__":
     unittest.main()

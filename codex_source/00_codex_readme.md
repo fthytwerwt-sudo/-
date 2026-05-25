@@ -328,30 +328,38 @@ process_boot_gate
 
 - `scripts/发片候选预检套件_publish_candidate_preflight_suite.py`
 
-必需八个闸门：
+必需十二个闸门：
 
 ```text
 publish_candidate_preflight_suite:
   required_gates:
     - line_level_alignment_preflight
+    - line_visual_tolerance_preflight
+    - near_equivalent_material_substitution_preflight
     - tts_route_and_prosody_preflight
     - publish_candidate_voice_gate
+    - b_voice_feel_minimax_preflight
     - card_decision_preflight
     - forbidden_action_preflight
     - visual_evidence_readability_preflight
     - locked_copy_diff_preflight
+    - publish_candidate_user_standard_preflight
     - completion_truth_preflight
 ```
 
 硬规则：
 
 - `script_to_timeline_map` 存在不等于逐句对齐通过；必须有 `line_level_alignment_report`。
+- `line_visual_tolerance_rule（文案画面一致性容差规则）` 已启用：只允许最多约 `5%` 的局部、偶发、极其相近素材替代；核心证据错位必须为 `0`，全程漂移必须 blocked。
+- `near_equivalent_material_substitution_report（近似素材替代报告）` 是后续候选片必填报告；`极其相近素材` 不等于主题相近，`局部降级` 不等于全程偏差。素材无法支撑文案时必须 blocked，等待用户补素材视频或图片，不允许为了出片硬剪。
 - `tts_prosody_anchor_map` 存在不等于实际 TTS 路线 / 声音 / 韵律通过；必须有 `tts_route_and_prosody_report`。
 - `tts_route_report` 是后续正片候选必填报告；实际 TTS provider 必须是 `minimax`，模型必须是 `speech-2.8-hd` 或 `MiniMax/speech-2.8-hd`。
-- 阿里 B 方案只保留为 `voice_feel_reference`，不能继续作为正片候选默认 TTS provider；非 MiniMax TTS 只能写 `blocked_publish_candidate_unavailable` 或 `internal_diagnostic_only`。
+- `b_voice_feel_minimax_formal_voice_rule（B 方案听感 + MiniMax 正式语音规则）` 已启用：B 方案升级为正式声音听感标准，正式生成路线仍必须是 MiniMax `speech-2.8-hd / MiniMax/speech-2.8-hd`；旧 Qwen / 阿里 B 语音脚本只能作为历史 / reference / internal diagnostic。
+- 非 MiniMax TTS 只能写 `blocked_publish_candidate_unavailable` 或 `internal_diagnostic_only`，不得写正片候选完成。
 - `card_placement_decision` 存在不等于卡片判断通过；判断卡、总结卡、结果差卡、边界卡、Prompt 尾卡加与不加都必须有理由。
 - 视觉证据可读性必须作为导出前检查；结构检查不能冒充 OCR / 视觉语义真实通过。
 - `locked_copy_contract` 必须和实际字幕、TTS 文本、卡片文案做差异预检；允许标点、换行、字幕分句和 TTS pause marker，不允许语义改写。
+- `publish_candidate_user_standard_rule（候选可发布用户标准）` 已启用：候选可发布表示用户打开片子后原则上可以直接发、但仍需人工复审；小瑕疵可接受，整体漂移、文案被改、声音错、画面错、字幕卡片遮挡、技术预览冒充候选片均必须 blocked 或 `internal_diagnostic_only`。
 - 任一必需 gate missing / failed / only documented not executed 时，不得导出、不得写 `completed`。
 
 后续 `review_pack（审片包）` 必须包含：
@@ -361,13 +369,17 @@ review_pack_required_preflight_reports:
   - publish_candidate_preflight_report.json
   - publish_candidate_preflight_report.md
   - line_level_alignment_report.json
+  - line_visual_tolerance_report.json
+  - near_equivalent_material_substitution_report.json
   - tts_route_and_prosody_report.json
   - tts_route_report.json
   - tts_route_report.md
+  - b_voice_feel_minimax_report.json
   - card_decision_preflight_report.json
   - forbidden_action_audit.json
   - visual_evidence_readability_report.json
   - locked_copy_diff_report.json
+  - publish_candidate_user_standard_report.json
   - completion_truth_preflight_report.json
 ```
 

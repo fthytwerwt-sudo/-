@@ -13,9 +13,47 @@ MINIMAX_SELECTED_ROUTES = {
     "route_b",
 }
 B_VOICE_SCHEME_ROLE = {
-    "status": "reference_only",
-    "meaning": "只保留 B 方案听感方向、停顿梗感、轻陪伴感和低压向导感",
+    "status": "formal_voice_feel_reference",
+    "meaning": "B 方案升级为正式声音听感标准，保留停顿梗感、轻陪伴感和低压向导感",
     "not_allowed": "不再把阿里 B 方案作为正片候选默认 TTS 生成路线",
+}
+B_VOICE_FEEL_REQUIRED_TAGS = {
+    "light_companion",
+    "low_pressure",
+    "natural_spoken_chinese",
+    "b_pacing_feel",
+    "subtle_pause_joke_rhythm",
+    "game_guide_feeling",
+    "not_broadcast",
+    "not_sales",
+    "not_customer_service",
+    "not_childish_cute_voice",
+}
+B_VOICE_FEEL_MINIMAX_FORMAL_VOICE_RULE = {
+    "status": "active",
+    "b_voice_scheme_role": "formal_voice_feel_reference",
+    "required_generation_route": {
+        "provider_family": ["minimax", "aliyun_bailian_proxy_to_minimax"],
+        "model": sorted(REQUIRED_MINIMAX_MODELS),
+    },
+    "required_voice_feel": sorted(B_VOICE_FEEL_REQUIRED_TAGS),
+    "forbidden_generation_route": [
+        "aliyun_qwen_realtime_websocket_voice_clone_as_publish_candidate",
+        "qwen3-tts-vc-realtime-2026-01-15_as_publish_candidate",
+        "Serena",
+        "macOS_say",
+        "local_low_quality_tts",
+        "silent_audio",
+        "unauthorized_fallback",
+    ],
+    "required_report": ["tts_route_report.json", "tts_route_report.md"],
+    "blocked_if": [
+        "actual_model_is_not_minimax_speech_2_8_hd",
+        "fallback_used = true",
+        "audio_missing = true",
+        "non_silent = false",
+        "b_voice_feel_not_reflected = true",
+    ],
 }
 
 
@@ -69,6 +107,18 @@ def _first_value(payloads: list[dict[str, Any]], keys: list[str]) -> Any:
 
 def _any_truthy(payloads: list[dict[str, Any]], keys: list[str]) -> bool:
     return any(truthy(payload.get(key)) for payload in payloads for key in keys)
+
+
+def _list_values(payloads: list[dict[str, Any]], keys: list[str]) -> list[str]:
+    values: list[str] = []
+    for payload in payloads:
+        for key in keys:
+            value = payload.get(key)
+            if isinstance(value, list):
+                values.extend(str(item) for item in value)
+            elif isinstance(value, str) and value:
+                values.append(value)
+    return values
 
 
 def _explicit_route_report_present(tts_map: Any, summary: Any) -> bool:
@@ -147,6 +197,9 @@ def build_tts_route_report(tts_map: Any, summary: Any) -> dict[str, Any]:
     )
     macos_say_used = _any_truthy(payloads, ["macos_say_used", "local_say_fallback_used"])
     local_low_quality_tts_used = _any_truthy(payloads, ["local_tts_fallback_used", "local_low_quality_tts_used"])
+    voice_feel_tags = set(_list_values(payloads, ["voice_feel_tags", "required_voice_feel_used", "b_voice_feel_tags"]))
+    explicit_b_voice_feel = _first_value(payloads, ["b_voice_feel_reflected", "used_b_voice_feel", "b_voice_feel_passed"])
+    missing_b_voice_tags = sorted(B_VOICE_FEEL_REQUIRED_TAGS - voice_feel_tags)
 
     report = {
         "actual_tts_provider": actual_provider,
@@ -172,6 +225,9 @@ def build_tts_route_report(tts_map: Any, summary: Any) -> dict[str, Any]:
         "local_low_quality_tts_used": local_low_quality_tts_used,
         "tts_route_report_present": _explicit_route_report_present(tts_map, summary),
         "b_voice_scheme_role": B_VOICE_SCHEME_ROLE,
+        "b_voice_feel_reflected": truthy(explicit_b_voice_feel) or not missing_b_voice_tags,
+        "voice_feel_tags": sorted(voice_feel_tags),
+        "missing_b_voice_feel_tags": missing_b_voice_tags,
     }
     return report
 
@@ -231,5 +287,28 @@ def validate_publish_candidate_tts_route(tts_map: Any, summary: Any) -> dict[str
         "publish_candidate_context": publish_candidate,
         "voice_route_validation": voice_route_validation,
         "full_video_can_only_be_internal_diagnostic": bool(reasons),
+        "blocked_reasons": sorted(set(reasons)),
+    }
+
+
+def validate_b_voice_feel_minimax_route(tts_map: Any, summary: Any) -> dict[str, Any]:
+    validation = validate_publish_candidate_tts_route(tts_map, summary)
+    reasons = list(validation.get("blocked_reasons", []))
+
+    if validation.get("voice_route_validation") != "internal_diagnostic_only":
+        if not validation.get("b_voice_feel_reflected"):
+            reasons.append("b_voice_feel_not_reflected")
+        if validation.get("missing_b_voice_feel_tags"):
+            reasons.append("b_voice_feel_required_tags_missing")
+
+    if reasons:
+        voice_route_validation = validation.get("voice_route_validation")
+    else:
+        voice_route_validation = "passed_minimax_b_voice_feel"
+
+    return {
+        **validation,
+        "voice_route_validation": voice_route_validation,
+        "b_voice_feel_minimax_formal_voice_rule": B_VOICE_FEEL_MINIMAX_FORMAL_VOICE_RULE,
         "blocked_reasons": sorted(set(reasons)),
     }

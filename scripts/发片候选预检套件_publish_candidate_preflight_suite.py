@@ -9,7 +9,9 @@ from pathlib import Path
 from typing import Any
 
 from 正片候选TTS路线_publish_candidate_tts_route import (
+    B_VOICE_FEEL_MINIMAX_FORMAL_VOICE_RULE,
     REQUIRED_MINIMAX_MODELS,
+    validate_b_voice_feel_minimax_route,
     validate_publish_candidate_tts_route,
 )
 
@@ -18,23 +20,31 @@ ROOT = Path(__file__).resolve().parents[1]
 
 GATES = [
     "line_level_alignment_preflight",
+    "line_visual_tolerance_preflight",
+    "near_equivalent_material_substitution_preflight",
     "tts_route_and_prosody_preflight",
     "publish_candidate_voice_gate",
+    "b_voice_feel_minimax_preflight",
     "card_decision_preflight",
     "forbidden_action_preflight",
     "visual_evidence_readability_preflight",
     "locked_copy_diff_preflight",
+    "publish_candidate_user_standard_preflight",
     "completion_truth_preflight",
 ]
 
 REPORT_FILENAMES = {
     "line_level_alignment_preflight": "line_level_alignment_report",
+    "line_visual_tolerance_preflight": "line_visual_tolerance_report",
+    "near_equivalent_material_substitution_preflight": "near_equivalent_material_substitution_report",
     "tts_route_and_prosody_preflight": "tts_route_and_prosody_report",
     "publish_candidate_voice_gate": "tts_route_report",
+    "b_voice_feel_minimax_preflight": "b_voice_feel_minimax_report",
     "card_decision_preflight": "card_decision_preflight_report",
     "forbidden_action_preflight": "forbidden_action_audit",
     "visual_evidence_readability_preflight": "visual_evidence_readability_report",
     "locked_copy_diff_preflight": "locked_copy_diff_report",
+    "publish_candidate_user_standard_preflight": "publish_candidate_user_standard_report",
     "completion_truth_preflight": "completion_truth_preflight_report",
 }
 
@@ -69,15 +79,106 @@ REVIEW_PACK_REQUIRED_PREFLIGHT_REPORTS = [
     "publish_candidate_preflight_report.json",
     "publish_candidate_preflight_report.md",
     "line_level_alignment_report.json",
+    "line_visual_tolerance_report.json",
+    "near_equivalent_material_substitution_report.json",
     "tts_route_and_prosody_report.json",
     "tts_route_report.json",
     "tts_route_report.md",
+    "b_voice_feel_minimax_report.json",
     "card_decision_preflight_report.json",
     "forbidden_action_audit.json",
     "visual_evidence_readability_report.json",
     "locked_copy_diff_report.json",
+    "publish_candidate_user_standard_report.json",
     "completion_truth_preflight_report.json",
 ]
+
+CORE_EVIDENCE_LINE_TYPES = {
+    "product_card_field",
+    "candidate_table",
+    "detail_table",
+    "review_table",
+    "product_review_priority",
+    "boundary_statement",
+    "result_diff",
+    "next_action",
+    "cost_or_commission_claim",
+    "risk_claim",
+}
+ALLOWED_MINOR_FLAWS = {
+    "tiny_timing_imperfection",
+    "minor_non_core_visual_transition_issue",
+    "slight_subtitle_pacing_issue_not_affecting_understanding",
+    "small_aesthetic_imperfection_not_affecting_publish",
+}
+FORBIDDEN_MAJOR_FLAWS = {
+    "locked_copy_changed",
+    "title_changed",
+    "voice_route_wrong",
+    "fallback_tts_used",
+    "silent_audio",
+    "line_visual_whole_video_drift",
+    "core_evidence_mismatch",
+    "subtitle_blocks_core_evidence",
+    "card_blocks_core_evidence",
+    "gray_border_or_black_border_obvious",
+    "whiteout_or_black_block_present",
+    "full_frame_mask_or_unapproved_redaction",
+    "only_internal_diagnostic",
+    "only_technical_preview",
+    "only_json_or_markdown_package",
+    "no_review_pack",
+    "no_preflight_suite",
+    "completion_claim_without_validation",
+}
+LINE_VISUAL_TOLERANCE_RULE = {
+    "status": "active",
+    "applies_to": [
+        "locked_copy_video_execution",
+        "publish_candidate_delivery",
+        "video_repair_execution",
+        "final_script_to_video",
+    ],
+    "tolerance_policy": {
+        "max_near_equivalent_ratio": 0.05,
+        "max_consecutive_near_equivalent_groups": 1,
+        "whole_video_drift_allowed": False,
+        "core_evidence_mismatch_allowed": False,
+    },
+    "allowed_near_equivalent_if": [
+        "line_group_is_non_core_evidence",
+        "visual_proves_same_claim",
+        "material_role_is_same_or_stronger",
+        "viewer_inference_is_unchanged",
+        "no_change_to_locked_copy_meaning",
+        "no_change_from_review_to_recommendation",
+        "no_change_from_initial_screening_to_final_decision",
+        "no_new_commercial_claim",
+    ],
+    "forbidden_near_equivalent_if": [
+        "line_group_is_core_evidence",
+        "line_group_is_boundary_statement",
+        "line_group_is_result_diff",
+        "line_group_is_product_or_table_proof",
+        "visual_changes_claim",
+        "visual_requires_guessing",
+        "material_only_thematically_related",
+        "mismatch_repeats_across_multiple_sections",
+    ],
+    "core_evidence_line_types": sorted(CORE_EVIDENCE_LINE_TYPES),
+    "required_report": [
+        "line_visual_alignment_report",
+        "near_equivalent_material_substitution_report",
+    ],
+    "blocked_if": [
+        "near_equivalent_ratio > 0.05",
+        "core_evidence_mismatch_count > 0",
+        "whole_video_drift_detected = true",
+        "visual_requires_guessing = true",
+        "replacement_material_not_extremely_close = true",
+        "user_material_needed_but_missing = true",
+    ],
+}
 
 
 def read_json(path: Path | None, label: str) -> tuple[Any | None, list[str]]:
@@ -242,6 +343,185 @@ def line_level_alignment_preflight(timeline: Any, path: Path | None) -> dict[str
     )
 
 
+def _line_group_type(group: dict[str, Any]) -> str:
+    return str(group.get("line_group_type") or group.get("claim_type") or group.get("evidence_type") or "")
+
+
+def _is_core_evidence_line(group: dict[str, Any]) -> bool:
+    group_type = _line_group_type(group)
+    if truthy(group.get("is_core_evidence")):
+        return True
+    return group_type in CORE_EVIDENCE_LINE_TYPES
+
+
+def _is_near_equivalent(group: dict[str, Any]) -> bool:
+    text = flatten_text(
+        [
+            group.get("visual_match_type"),
+            group.get("alignment_status"),
+            group.get("evidence_match_status"),
+        ]
+    ).lower()
+    return "near_equivalent" in text or "near equivalent" in text
+
+
+def _whole_video_drift_detected(timeline: Any, groups: list[dict[str, Any]]) -> bool:
+    if isinstance(timeline, dict) and truthy(timeline.get("whole_video_drift_detected")):
+        return True
+    return any(truthy(group.get("whole_video_drift_detected")) for group in groups)
+
+
+def build_near_equivalent_material_substitution_report(timeline: Any) -> tuple[dict[str, Any], list[str]]:
+    groups = line_groups_from_timeline(timeline)
+    total = len(groups)
+    exact_match_count = 0
+    near_equivalent_count = 0
+    core_evidence_mismatch_count = 0
+    consecutive = 0
+    consecutive_max = 0
+    substitutions: list[dict[str, Any]] = []
+    reasons: list[str] = []
+
+    for index, group in enumerate(groups, start=1):
+        near = _is_near_equivalent(group)
+        if near:
+            near_equivalent_count += 1
+            consecutive += 1
+            consecutive_max = max(consecutive_max, consecutive)
+        else:
+            consecutive = 0
+            status = flatten_text([group.get("visual_match_type"), group.get("alignment_status")]).lower()
+            if "exact" in status or "passed" in status:
+                exact_match_count += 1
+
+        if not near:
+            continue
+
+        group_id = str(group.get("line_group_id") or group.get("id") or f"group_{index}")
+        group_type = _line_group_type(group)
+        is_core = _is_core_evidence_line(group)
+        if is_core:
+            core_evidence_mismatch_count += 1
+
+        visual_requires_guessing = truthy(group.get("visual_requires_guessing"))
+        user_material_needed = truthy(group.get("user_material_needed_but_missing"))
+        extremely_close = truthy(group.get("replacement_material_extremely_close")) or bool(group.get("why_extremely_close"))
+        claim_preserved = truthy(group.get("claim_preserved"))
+        viewer_inference_preserved = truthy(group.get("viewer_inference_preserved"))
+        allowed = (
+            not is_core
+            and extremely_close
+            and claim_preserved
+            and viewer_inference_preserved
+            and not visual_requires_guessing
+            and not user_material_needed
+        )
+        blocked_reasons: list[str] = []
+        if is_core:
+            blocked_reasons.append("core_evidence_mismatch")
+        if not extremely_close:
+            blocked_reasons.append("replacement_material_not_extremely_close")
+        if not claim_preserved:
+            blocked_reasons.append("claim_not_preserved")
+        if not viewer_inference_preserved:
+            blocked_reasons.append("viewer_inference_changed")
+        if visual_requires_guessing:
+            blocked_reasons.append("visual_requires_guessing")
+        if user_material_needed:
+            blocked_reasons.append("user_material_needed_but_missing")
+
+        substitutions.append(
+            {
+                "line_group_id": group_id,
+                "original_required_visual": group.get("expected_visual") or group.get("required_material") or "",
+                "substitute_visual_used": group.get("substitute_visual_used") or group.get("actual_visual_observed") or "",
+                "substitute_material_id": group.get("substitute_material_id") or group.get("material_id") or "",
+                "substitute_timecode": group.get("substitute_timecode") or group.get("source_timecode") or "",
+                "line_group_type": group_type,
+                "is_core_evidence": is_core,
+                "why_extremely_close": group.get("why_extremely_close") or "",
+                "claim_preserved": claim_preserved,
+                "viewer_inference_preserved": viewer_inference_preserved,
+                "risk": "low" if allowed else "blocked",
+                "allowed": allowed,
+                "blocked_reason": blocked_reasons,
+            }
+        )
+
+    near_ratio = round(near_equivalent_count / total, 4) if total else 0.0
+    whole_drift = _whole_video_drift_detected(timeline, groups)
+    if near_ratio > 0.05:
+        reasons.append("near_equivalent_ratio_gt_0_05")
+    if consecutive_max > 1:
+        reasons.append("consecutive_near_equivalent_groups_gt_1")
+    if core_evidence_mismatch_count > 0:
+        reasons.append("core_evidence_mismatch_count_gt_0")
+    if whole_drift:
+        reasons.append("whole_video_drift_detected")
+    if any("visual_requires_guessing" in item["blocked_reason"] for item in substitutions):
+        reasons.append("visual_requires_guessing")
+    if any("replacement_material_not_extremely_close" in item["blocked_reason"] for item in substitutions):
+        reasons.append("replacement_material_not_extremely_close")
+    if any("user_material_needed_but_missing" in item["blocked_reason"] for item in substitutions):
+        reasons.append("user_material_needed_but_missing")
+    if any("claim_not_preserved" in item["blocked_reason"] for item in substitutions):
+        reasons.append("claim_not_preserved")
+    if any("viewer_inference_changed" in item["blocked_reason"] for item in substitutions):
+        reasons.append("viewer_inference_changed")
+
+    report = {
+        "total_line_group_count": total,
+        "exact_match_count": exact_match_count,
+        "near_equivalent_count": near_equivalent_count,
+        "near_equivalent_ratio": near_ratio,
+        "consecutive_near_equivalent_max": consecutive_max,
+        "core_evidence_mismatch_count": core_evidence_mismatch_count,
+        "whole_video_drift_detected": whole_drift,
+        "substitutions": substitutions,
+        "final_decision": "blocked_need_user_material" if reasons else "passed",
+    }
+    return report, sorted(set(reasons))
+
+
+def line_visual_tolerance_preflight(timeline: Any, path: Path | None) -> dict[str, Any]:
+    if timeline is None:
+        return blocked_report(
+            "line_visual_tolerance_preflight",
+            ["script_to_timeline_map_missing"],
+            checked_input=rel(path) if path else "",
+            line_visual_tolerance_rule=LINE_VISUAL_TOLERANCE_RULE,
+        )
+    report, reasons = build_near_equivalent_material_substitution_report(timeline)
+    return blocked_report(
+        "line_visual_tolerance_preflight",
+        reasons,
+        checked_input=rel(path) if path else "",
+        line_visual_tolerance_rule=LINE_VISUAL_TOLERANCE_RULE,
+        near_equivalent_material_substitution_report=report,
+        warnings=[
+            "极其相近素材不等于主题相近；局部降级不等于全程偏差。",
+            "达不到容差条件时必须 blocked，并等待用户补素材视频或图片，不允许硬剪。",
+        ],
+    )
+
+
+def near_equivalent_material_substitution_preflight(timeline: Any, path: Path | None) -> dict[str, Any]:
+    if timeline is None:
+        return blocked_report(
+            "near_equivalent_material_substitution_preflight",
+            ["script_to_timeline_map_missing"],
+            checked_input=rel(path) if path else "",
+        )
+    report, reasons = build_near_equivalent_material_substitution_report(timeline)
+    return blocked_report(
+        "near_equivalent_material_substitution_preflight",
+        reasons,
+        checked_input=rel(path) if path else "",
+        near_equivalent_material_substitution_report=report,
+        check_depth="implemented",
+    )
+
+
 def tts_route_and_prosody_preflight(tts_map: Any, summary: Any, path: Path | None) -> dict[str, Any]:
     reasons: list[str] = []
     warnings = ["audio waveform / nonsilent validation is delegated to media probes when media is generated."]
@@ -338,6 +618,23 @@ def publish_candidate_voice_gate(tts_map: Any, summary: Any, path: Path | None) 
         },
         **validation,
         warnings=warnings,
+    )
+
+
+def b_voice_feel_minimax_preflight(tts_map: Any, summary: Any, path: Path | None) -> dict[str, Any]:
+    validation = validate_b_voice_feel_minimax_route(tts_map, summary)
+    reasons = validation.pop("blocked_reasons", [])
+    rule = validation.pop("b_voice_feel_minimax_formal_voice_rule", B_VOICE_FEEL_MINIMAX_FORMAL_VOICE_RULE)
+    return blocked_report(
+        "b_voice_feel_minimax_preflight",
+        reasons,
+        checked_input=rel(path) if path else "",
+        b_voice_feel_minimax_formal_voice_rule=rule,
+        **validation,
+        warnings=[
+            "B 方案升级的是正式听感标准，不是旧 Qwen / 阿里 B 语音引擎。",
+            "正式候选片生成路线必须是 MiniMax speech-2.8-hd 或 MiniMax/speech-2.8-hd；旧 B 语音脚本只能是历史 / reference / internal diagnostic。",
+        ],
     )
 
 
@@ -507,6 +804,82 @@ def locked_copy_diff_preflight(locked_copy: Any, summary: Any, content_route: An
     )
 
 
+def publish_candidate_user_standard_preflight(summary: Any) -> dict[str, Any]:
+    if summary is None:
+        return blocked_report(
+            "publish_candidate_user_standard_preflight",
+            ["summary_json_missing"],
+            publish_candidate_user_standard_rule={
+                "status": "active",
+                "user_definition": "publish_candidate_means_user_can_watch_and_directly_publish_after_human_review",
+            },
+        )
+    if not isinstance(summary, dict):
+        return blocked_report("publish_candidate_user_standard_preflight", ["summary_json_invalid"])
+
+    raw_major_flaws = summary.get("forbidden_major_flaws", [])
+    detected_major_flaws_set = {
+        str(item)
+        for item in raw_major_flaws
+        if isinstance(raw_major_flaws, list) and str(item) in FORBIDDEN_MAJOR_FLAWS
+    }
+    detected_major_flaws_set.update(flaw for flaw in FORBIDDEN_MAJOR_FLAWS if truthy(summary.get(flaw)))
+    status_text = str(summary.get("status") or "").lower()
+    if status_text in FORBIDDEN_MAJOR_FLAWS:
+        detected_major_flaws_set.add(status_text)
+    detected_major_flaws = sorted(detected_major_flaws_set)
+    declared_minor_flaws = {
+        str(item)
+        for item in summary.get("minor_flaws", [])
+        if isinstance(summary.get("minor_flaws"), list)
+    }
+    unknown_minor_flaws = sorted(declared_minor_flaws - ALLOWED_MINOR_FLAWS)
+
+    requirements = {
+        "locked_copy_preserved": truthy(summary.get("locked_copy_preserved")),
+        "minimax_voice_gate_passed": truthy(summary.get("minimax_voice_gate_passed")),
+        "line_visual_tolerance_passed": truthy(summary.get("line_visual_tolerance_passed")),
+        "core_evidence_mismatch_count_zero": int(summary.get("core_evidence_mismatch_count") or 0) == 0,
+        "subtitle_card_overlap_check_passed": truthy(summary.get("subtitle_card_overlap_check_passed")),
+        "visual_evidence_readability_passed": truthy(summary.get("visual_evidence_readability_passed")),
+        "completion_truth_preflight_passed": truthy(summary.get("completion_truth_preflight_passed")),
+        "review_pack_complete": truthy(summary.get("review_pack_complete")),
+    }
+    missing_requirements = sorted(key for key, value in requirements.items() if not value)
+    reasons = []
+    if detected_major_flaws:
+        reasons.append("forbidden_major_flaws_detected")
+    if unknown_minor_flaws:
+        reasons.append("minor_flaw_not_in_allowed_list")
+    if missing_requirements:
+        reasons.append("candidate_required_fields_missing_or_failed")
+    if truthy(summary.get("send_ready")):
+        reasons.append("publish_candidate_does_not_equal_send_ready")
+
+    publish_candidate_ready = not reasons
+    return blocked_report(
+        "publish_candidate_user_standard_preflight",
+        reasons,
+        publish_candidate_user_standard_rule={
+            "status": "active",
+            "user_definition": "publish_candidate_means_user_can_watch_and_directly_publish_after_human_review",
+            "allowed_minor_flaws": sorted(ALLOWED_MINOR_FLAWS),
+            "forbidden_major_flaws": sorted(FORBIDDEN_MAJOR_FLAWS),
+            "candidate_allowed_only_if": sorted(requirements),
+            "status_boundary": "publish_candidate_ready_for_human_review_does_not_equal_send_ready; send_ready_requires_user_or_chatgpt_final_confirmation",
+        },
+        detected_major_flaws=detected_major_flaws,
+        allowed_minor_flaws_seen=sorted(declared_minor_flaws & ALLOWED_MINOR_FLAWS),
+        unknown_minor_flaws=unknown_minor_flaws,
+        requirements=requirements,
+        missing_requirements=missing_requirements,
+        publish_candidate_ready_for_human_review=publish_candidate_ready,
+        send_ready_allowed=False,
+        human_review_required=True,
+        check_depth="implemented",
+    )
+
+
 def completion_truth_preflight(
     gate_reports: list[dict[str, Any]],
     review_pack: Path | None,
@@ -583,12 +956,16 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
 
     reports = [
         line_level_alignment_preflight(timeline, args.script_to_timeline_map),
+        line_visual_tolerance_preflight(timeline, args.script_to_timeline_map),
+        near_equivalent_material_substitution_preflight(timeline, args.script_to_timeline_map),
         tts_route_and_prosody_preflight(tts_map, summary, args.tts_prosody_anchor_map),
         publish_candidate_voice_gate(tts_map, summary, args.tts_prosody_anchor_map),
+        b_voice_feel_minimax_preflight(tts_map, summary, args.tts_prosody_anchor_map),
         card_decision_preflight(content_route, args.content_route_card),
         forbidden_action_preflight(summary, content_route, locked_copy, tts_map),
         visual_evidence_readability_preflight(content_route, summary),
         locked_copy_diff_preflight(locked_copy, summary, content_route, tts_map, args.locked_copy_contract),
+        publish_candidate_user_standard_preflight(summary),
     ]
     reports.append(completion_truth_preflight(reports, args.review_pack, summary))
 
@@ -607,7 +984,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         failed.append("fixture_validation")
     overall_status = "passed" if not failed else "blocked"
     aggregate = {
-        "schema": "publish_candidate_preflight_suite.v1",
+        "schema": "publish_candidate_preflight_suite.v2",
         "no_render": bool(args.no_render),
         "overall_status": overall_status,
         "status": overall_status,
@@ -629,6 +1006,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "only_docs_updated_but_no_script_or_report_wiring": "partial_completed",
             "full_mp4_exists_means_completed": False,
             "technical_validation_means_content_validation": False,
+            "publish_candidate_ready_for_human_review_means_send_ready": False,
+            "old_qwen_b_voice_route_means_publish_candidate": False,
         },
     }
     write_json(output_dir / "publish_candidate_preflight_report.json", aggregate)

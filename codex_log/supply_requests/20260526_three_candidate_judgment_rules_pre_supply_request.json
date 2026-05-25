@@ -1,0 +1,171 @@
+{
+  "request_id": "20260526_three_candidate_judgment_rules_pre_supply_request",
+  "created_at": "2026-05-26T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "three_candidate_judgment_rules_mechanism",
+  "task_type": "mechanism_or_route_fix + project_file_change + code_debug + fixture_or_test_change",
+  "project_stage": "formal_operation_active",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "auto",
+  "mandatory_for_every_task": true,
+  "participation_level": "readonly_pre_supply",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "只落库 line_visual_tolerance_rule、b_voice_feel_minimax_formal_voice_rule、publish_candidate_user_standard_rule，并接入 publish_candidate_preflight_suite；不生成视频、不生成音频、不调用 TTS API、不修改 dist 媒体产物。",
+  "current_step": "before_write_gate",
+  "known_context": [
+    "当前项目为《视频工厂》，正式运营阶段只接受 publish_candidate_ready_for_human_review 或 blocked_publish_candidate_unavailable，technical_preview 只能 internal_diagnostic_only。",
+    "已有 publish_candidate_preflight_suite 和 MiniMax speech-2.8-hd route helper；本轮要补近似素材容差、B 听感正式标准、用户可发布候选标准。",
+    "B 方案升级的是听感标准，不是旧 Qwen / 阿里 B 语音引擎；正片候选生成路线必须是 MiniMax speech-2.8-hd 或 MiniMax/speech-2.8-hd。",
+    "本轮必须保持 content_validation/send_ready/voice_validation/final_voice_validated/visual_master_locked 不推进。"
+  ],
+  "missing_context": [
+    "Need audit whether line_visual_tolerance_rule, near_equivalent_material_substitution_report, publish_candidate_user_standard_rule already exist or are only partially present.",
+    "Need identify whether old B voice route wording still allows Qwen / Aliyun B route as publish candidate completed.",
+    "Need ensure fixture/test coverage for near-equivalent allowed, core evidence blocked, whole-video drift blocked, MiniMax pass, old Qwen blocked, technical preview blocked, minor flaw review-required."
+  ],
+  "candidate_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/21_codex_judgment_permission_matrix.md",
+    "scripts/发片候选预检套件_publish_candidate_preflight_suite.py",
+    "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+    "codex_source/fixtures/publish_candidate_preflight_suite_cases.json",
+    "tests/test_publish_candidate_voice_gate.py",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/08_当前正式事实.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "codex_log/latest.md"
+  ],
+  "must_read_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/21_codex_judgment_permission_matrix.md",
+    "scripts/发片候选预检套件_publish_candidate_preflight_suite.py",
+    "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/08_当前正式事实.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "codex_log/latest.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    "本地运行配置_local_runtime/",
+    "dist/",
+    "素材录制/",
+    "GPT 数据源/"
+  ],
+  "expected_output": [
+    "file_map",
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "status_promotion_risk_check"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files.",
+    "DeepSeek must not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is stable or completed.",
+    "Do not claim long-term mechanism stability from this task.",
+    "Do not generate video, audio, TTS, subtitles, or media outputs.",
+    "Do not modify dist media artifacts or source materials.",
+    "Do not promote content_validation, send_ready, voice_validation, final_voice_validated, or visual_master_locked.",
+    "Do not overwrite unrelated dirty changes in target files."
+  ],
+  "blocked_if": [
+    "No writable mechanism entry can be found.",
+    "Only natural language docs can be changed and no preflight field/test wiring is possible.",
+    "Old B voice route and MiniMax route conflict cannot be reconciled.",
+    "Change would require calling TTS API or generating video/audio.",
+    "Change would require modifying dist media artifacts.",
+    "Secret/API key/token risk is detected."
+  ],
+  "return_to_codex": {
+    "read_status_required": true,
+    "impact_check_required": true,
+    "write_scope": [
+      "codex_source/00_codex_readme.md",
+      "codex_source/01_execution_rules.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/21_codex_judgment_permission_matrix.md",
+      "scripts/发片候选预检套件_publish_candidate_preflight_suite.py",
+      "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+      "codex_source/fixtures/publish_candidate_preflight_suite_cases.json",
+      "tests/test_publish_candidate_voice_gate.py",
+      "GPT数据源/05_文案路由规则.md",
+      "GPT数据源/07_AI知识类视频价值规则.md",
+      "GPT数据源/08_当前正式事实.md",
+      "codex_log/latest.md",
+      "codex_log/20260526_三项候选片判断机制_three_candidate_judgment_rules.md"
+    ],
+    "output_dir": "codex_log/deepseek_supply/20260526_three_candidate_judgment_rules_pre_supply",
+    "verification_required": [
+      "py_compile",
+      "fixture_json_parse",
+      "unit_tests",
+      "keyword_grep",
+      "old_b_qwen_publish_candidate_blocked_grep",
+      "no_send_ready_true_promotion_check",
+      "secret_scan",
+      "git_diff_review"
+    ]
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "deep_file_prefetch",
+      "post_risk_review"
+    ]
+  },
+  "content_loading_policy": {
+    "read_only": true,
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 12,
+    "max_chars_per_file": 1400,
+    "max_total_chars": 16000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "do_not_read_secret_files": true,
+    "do_not_modify_files": true
+  },
+  "codex_minimal_review_policy": {
+    "will_modify_files": [
+      "codex_source/00_codex_readme.md",
+      "codex_source/01_execution_rules.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/21_codex_judgment_permission_matrix.md",
+      "scripts/发片候选预检套件_publish_candidate_preflight_suite.py",
+      "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+      "codex_source/fixtures/publish_candidate_preflight_suite_cases.json",
+      "tests/test_publish_candidate_voice_gate.py",
+      "GPT数据源/05_文案路由规则.md",
+      "GPT数据源/07_AI知识类视频价值规则.md",
+      "GPT数据源/08_当前正式事实.md",
+      "codex_log/latest.md",
+      "codex_log/20260526_三项候选片判断机制_three_candidate_judgment_rules.md"
+    ],
+    "conflict_or_uncertain_files": [
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "codex_log/latest.md"
+    ],
+    "safety_sensitive_files": [
+      "GPT数据源/08_当前正式事实.md",
+      "codex_log/latest.md",
+      "dist/"
+    ]
+  }
+}
