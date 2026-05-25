@@ -19,6 +19,46 @@
       "must_not_write": ["completed", "send_ready_true", "content_validation_passed"]
     },
     {
+      "case_id": "publish_candidate_with_minimax_speech_2_8_hd_passes",
+      "input_signal": "tts_route_report declares actual_tts_provider=minimax, actual_tts_model=speech-2.8-hd, audio_present=true, non_silent=true, fallback_tts_used=false",
+      "expected_gate": "publish_candidate_voice_gate",
+      "expected_status": "passed",
+      "expected_reason": "passed_minimax",
+      "must_not_write": ["send_ready_true", "content_validation_passed", "voice_validation_passed"]
+    },
+    {
+      "case_id": "publish_candidate_with_aliyun_qwen_tts_fails",
+      "input_signal": "tts_route_report declares actual_tts_provider=aliyun_bailian and actual_tts_model=qwen3-tts-vc-realtime-2026-01-15 for a publish candidate",
+      "expected_gate": "publish_candidate_voice_gate",
+      "expected_status": "blocked",
+      "expected_reason": "failed_non_minimax_voice",
+      "must_not_write": ["completed", "publish_candidate_ready_for_human_review_true", "send_ready_true", "content_validation_passed"]
+    },
+    {
+      "case_id": "publish_candidate_with_macos_say_fails",
+      "input_signal": "tts_route_report declares macos_say_used=true for a publish candidate",
+      "expected_gate": "publish_candidate_voice_gate",
+      "expected_status": "blocked",
+      "expected_reason": "failed_non_minimax_voice",
+      "must_not_write": ["completed", "publish_candidate_ready_for_human_review_true", "send_ready_true", "content_validation_passed"]
+    },
+    {
+      "case_id": "minimax_route_unavailable_blocks_publish_candidate",
+      "input_signal": "tts_route_report declares MiniMax speech-2.8-hd target but audio_generated=false or audio_present=false",
+      "expected_gate": "publish_candidate_voice_gate",
+      "expected_status": "blocked",
+      "expected_reason": "blocked_minimax_unavailable",
+      "must_not_write": ["completed", "publish_candidate_ready_for_human_review_true", "send_ready_true", "content_validation_passed"]
+    },
+    {
+      "case_id": "internal_diagnostic_can_use_non_minimax_only_if_not_publish_candidate",
+      "input_signal": "summary status is internal_diagnostic_only and publish_candidate_ready_for_human_review=false; non-MiniMax route is allowed only as diagnostic",
+      "expected_gate": "publish_candidate_voice_gate",
+      "expected_status": "passed",
+      "expected_reason": "internal_diagnostic_only",
+      "must_not_write": ["completed", "publish_candidate_ready_for_human_review_true", "send_ready_true", "content_validation_passed"]
+    },
+    {
       "case_id": "judgment_card_missing_decision_blocks",
       "input_signal": "prompt does not mention judgment_card and component_decision_table is missing",
       "expected_gate": "card_decision_preflight",

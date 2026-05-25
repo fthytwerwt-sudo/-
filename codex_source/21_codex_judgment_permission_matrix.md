@@ -40,6 +40,7 @@ codex_judgment_permission_layers:
     examples:
       - publish_candidate_readiness failed
       - material_evidence missing
+      - edgeguard_output_scan failed
       - HyperFrames required but runtime missing
       - high severity subtitle/card overlap
 
@@ -74,10 +75,11 @@ perplexity_reference_correction:
 
 Perplexity 只能作为 `external_research_reference（外部研究参考）`，不得直接升级为仓库事实。若 Perplexity 与本文件、`content_route_inference_function（内容路由推理函数）` 或当前正式事实冲突，以仓库文件为准。
 
-## 4. 判断对象权限矩阵
 ## 3A. publish_candidate_preflight_suite 判断统一入口
 
 `已确认` Codex 不能因为本轮 prompt 没点名某个组件，就跳过判断卡、总结卡、结果差卡、边界卡、Prompt 尾卡、TTS 路线、逐句画面对齐、禁止事项或视觉证据可读性判断。
+
+`已确认` Codex 后续判断正片候选声音路线时，不得把阿里 B 方案继续当默认生成 provider。B 方案只保留为 `voice_feel_reference`；正片候选实际 TTS 必须是 MiniMax `speech-2.8-hd / MiniMax/speech-2.8-hd`，否则必须阻断或标记为内部诊断。
 
 凡任务命中视频执行、修片、发片候选、重新生成、发布前修复、最终文案进视频、TTS / 字幕 / 卡片 / 时间线 / review_pack 生成，Codex 必须把以下判断对象统一接入 `publish_candidate_preflight_suite（发片候选预检套件）`：
 
@@ -89,6 +91,11 @@ codex_judgment_to_preflight_binding:
   tts_prosody:
     required_gate: tts_route_and_prosody_preflight
     permission: must_decide_and_block
+  publish_candidate_voice_route:
+    required_gate: publish_candidate_voice_gate
+    permission: must_decide_and_block
+    hard_requirement: MiniMax speech-2.8-hd / MiniMax/speech-2.8-hd only
+    b_voice_scheme_role: voice_feel_reference_only
   judgment_card:
     required_gate: card_decision_preflight
     permission: must_decide_and_execute_or_block
@@ -125,6 +132,7 @@ codex_judgment_to_preflight_binding:
 - `script_to_timeline_map` 是执行计划，不是逐句画面对齐通过证明；必须检查实际观察画面和 mismatch 修复。
 - `completion_truth_preflight` 必须阻断 `full.mp4 exists means completed`、`technical_validation means content_validation`、`field exists means gate passed` 这三类偷换。
 
+## 4. 判断对象权限矩阵
 
 ### 4.1 opening_route_decision（开头路由判断）
 
@@ -303,6 +311,31 @@ validation_rule:
   - boundary_card 只能降误读，不得新增 claim
 ```
 
+### 4.6A edgeguard_black_border_gate（EdgeGuard 黑边 / 灰边 / 边缘残留闸门）
+
+```text
+judgment_object: edgeguard_black_border_gate
+codex_permission: must_decide_and_block
+codex_must_do:
+  - 识别 source_video_edge / scale_pad_fit / crop_fit / overlay_position / canvas_background / transparent_padding / aspect_ratio_mismatch / export_scaling 的可能来源
+  - 运行 input_edge_preflight 和 output_edge_scan
+  - 生成 safe_fit_policy，并在录屏适配到 1920x1080 时避免默认黑底 scale+pad
+  - 若 output_edge_scan.pass != true，阻断 publish_candidate / completed 声明
+codex_must_not_do:
+  - 不得用粗暴二次 zoom、黑底遮挡、大裁切或转场效果掩盖边缘 bug
+  - 不得借 EdgeGuard 新增 Remotion 效果层、高亮框、悬浮判断卡、3D 科技感或改文案 / 音频 / 字幕内容
+blocked_if:
+  - safe_fit_policy.safe_fit_allowed != true
+  - output_edge_scan.pass != true
+  - 修复需要覆盖旧 full.mp4 或 dist/latest_review_pack
+record_to:
+  - edgeguard_probe_summary.json
+  - edgeguard_entrypoint_call.json
+  - dated log and latest.md
+validation_rule:
+  - EdgeGuard 只能证明边缘技术质量，不得升级 content_validation、send_ready 或 visual_master_locked
+```
+
 ### 4.7 prompt_tail_card（Prompt 尾卡）
 
 ```text
@@ -345,6 +378,41 @@ record_to:
   - review pack
 validation_rule:
   - line_level_script_visual_alignment_gate 必须通过
+```
+
+### 4.8A material_evidence_gate（素材证据闸门）
+
+```text
+judgment_object: material_evidence_gate
+codex_permission: must_decide_and_block
+codex_must_do:
+  - 从 material_detail_report 生成 material_evidence_contract
+  - 为每个 line_group 输出 line_group_evidence_gate
+  - 在 auto_storyboard_preflight_report 中统计直接匹配、代理匹配、卡片解决和阻断项
+  - 在剪辑 / 装配 / full.mp4 生成前判断 auto_edit_allowed
+codex_must_not_do:
+  - 不得把主题相关画面写成 direct_match
+  - 不得把 background_context_only 当证据
+  - 不得把 privacy_risk = high 的素材默认入片
+  - 不得让 cannot_support 命中的素材承接文案点
+  - 不得把 dry-run 通过写成 content_validation 通过
+change_request_if:
+  - 证据不足但可以通过删改 locked copy 语义修复
+blocked_if:
+  - blocked_no_evidence_count > 0
+  - high_mismatch_risk_count > 0
+  - privacy_high_selected_count > 0
+  - data_sentence_without_source_count > 0
+  - judgment_sentence_hard_mapped_to_recording_count > 0
+  - action_sentence_without_card_or_direct_visual_count > 0
+  - selected_material_in_cannot_support_count > 0
+  - card_required_unresolved_count > 0
+record_to:
+  - material_evidence_contract.json
+  - line_group_evidence_gate_report.json
+  - auto_storyboard_preflight_report.json
+validation_rule:
+  - auto_edit_allowed = true 才能继续 render / assembly
 ```
 
 ### 4.9 subtitle_segmentation（字幕分句）

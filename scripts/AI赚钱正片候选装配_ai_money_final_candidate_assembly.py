@@ -29,6 +29,7 @@ TARGET_MODEL = "qwen3-tts-vc-realtime-2026-01-15"
 VOICE_MASKED = "qwen-t...ac19"
 VOICE_SUFFIX = "ac19"
 SAMPLE_RATE = 24000
+LEGACY_NON_MINIMAX_ROUTE_BLOCKED_FOR_PUBLISH_CANDIDATE = True
 TARGET_WIDTH = 1440
 TARGET_HEIGHT = 1080
 FPS = 30
@@ -158,6 +159,30 @@ def run_command(args: list[str], log_path: pathlib.Path | None = None) -> subpro
 def write_json(path: pathlib.Path, data: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def block_legacy_non_minimax_publish_candidate() -> None:
+    write_json(
+        OUTPUT_DIR / "tts_route_report.json",
+        {
+            "actual_tts_provider": "aliyun_bailian",
+            "actual_tts_model": TARGET_MODEL,
+            "selected_route": "aliyun_qwen_realtime_websocket_voice_clone",
+            "is_minimax_speech_2_8_hd": False,
+            "audio_generated": False,
+            "audio_present": False,
+            "non_silent": False,
+            "fallback_tts_used": False,
+            "b_voice_scheme_role": "voice_feel_reference_only",
+            "voice_route_validation": "failed_non_minimax_voice",
+            "publish_candidate_ready_for_human_review": False,
+            "full_video_can_only_be_internal_diagnostic": True,
+            "blocked_reason": "minimax_speech_2_8_hd_required_for_publish_candidate",
+            "api_key_printed": False,
+            "api_key_written": False,
+        },
+    )
+    raise RuntimeError("blocked_publish_candidate_unavailable:minimax_speech_2_8_hd_required")
 
 
 def rel(path: pathlib.Path) -> str:
@@ -1256,6 +1281,8 @@ def build_read_status() -> dict[str, str]:
 
 
 async def main_async() -> None:
+    if LEGACY_NON_MINIMAX_ROUTE_BLOCKED_FOR_PUBLISH_CANDIDATE:
+        block_legacy_non_minimax_publish_candidate()
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     SEGMENT_DIR.mkdir(parents=True, exist_ok=True)
     VIDEO_WORK_DIR.mkdir(parents=True, exist_ok=True)

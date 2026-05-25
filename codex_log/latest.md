@@ -1,5 +1,18 @@
 # Latest
 
+## 20260525｜MiniMax speech-2.8-hd 默认正片候选 TTS 路线切换
+
+- `已确认` 用户已将后续正片候选默认 TTS 路线切换为 MiniMax `speech-2.8-hd`；百炼代理模型名为 `MiniMax/speech-2.8-hd`。
+- `已确认` B 方案只保留为 `voice_feel_reference（声音听感参考）`：轻陪伴、低压、停顿梗感、游戏向导感；阿里 / 百炼 `qwen-t...ac19` 与 `qwen3-tts-vc-realtime-2026-01-15` 不再是正片候选默认 TTS 生成路线。
+- `已新增` provider / gate helper：`scripts/正片候选TTS路线_publish_candidate_tts_route.py`，统一判定 `passed_minimax / failed_non_minimax_voice / blocked_minimax_unavailable / internal_diagnostic_only`。
+- `已升级` `publish_candidate_preflight_suite`：从七闸门升级为八闸门，新增 `publish_candidate_voice_gate`，并要求 review pack 包含 `tts_route_report.json/md`。
+- `已更新` 当前第四期主生成脚本默认 TTS 路线为 MiniMax 百炼代理；旧 B 语音修复脚本、第二期横屏候选脚本、AI 赚钱正片候选装配脚本已加硬阻断，不能再用非 MiniMax TTS 生成正片候选完成态；旧脚本里不可达的 `publish_candidate_ready_for_human_review` 字面残留也已降为 blocked / reference-only 口径。
+- `DeepSeek`：前置供料任务卡 `codex_log/supply_requests/20260525_minimax_default_tts_route_switch_pre_supply_request.json` 曾返回 `blocked_invalid_context_pack`；执行后风险复核任务卡 `codex_log/supply_requests/20260525_minimax_default_tts_route_switch_post_risk_review_request.json` 已通过 safe runner，`deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`api_key_printed = false`、`api_key_written = false`。
+- `验证`：`py_compile` passed；fixture JSON parse passed；`tests/test_publish_candidate_voice_gate.py` 5/5 passed；no-render preflight 输出 `overall_status = blocked`，`publish_candidate_voice_gate` 因缺 `tts_route_report / MiniMax audio` 正常 blocked，fixture validation passed；旧 route grep 仅剩历史记录、负例 fixture、检测字段或已阻断 legacy script 残留。
+- `未生成`：本轮未生成视频、未生成全片音频、未调用 TTS 生成正片、未修改 `dist/` 现有媒体产物。
+- `状态边界`：`content_validation = not_advanced`；`send_ready = false`；`voice_validation = not_advanced`；`final_voice_validated = false`；`visual_master_locked = false`。
+- `日志`：`codex_log/20260525_minimax_default_tts_route_switch.md`
+
 ## 20260525｜DeepSeek 供料链只读诊断
 
 - `已确认` 本轮只做 DeepSeek 供料链诊断：不修代码、不改 DeepSeek runtime provider / safe runner / controller / schema、不改文案机制文件、不写文案、不生成视频、不推进内容状态。
@@ -58,7 +71,6 @@
 - `状态边界`：`video_generated = false`；`content_validation = not_advanced`；`send_ready = false`；`voice_validation = not_advanced`；`visual_master_locked = false`；`current_data_goal_anchor_ready = not_advanced`。
 - `待验证` 本轮机制写入只代表入口规则和 fixture 已落库，不代表长期稳定；下一轮真实视频 / 修片任务必须用 `process_boot_report` 和 `publish_candidate_required_inventory` 验证机制是否真实触发。
 - `日志`：`codex_log/20260525_流程启动闸门修片会话机制_process_boot_gate_repair_session_mechanism.md`
-
 
 ## 20260524｜对标文案话语机制落库
 
@@ -125,7 +137,6 @@
 - `visual_master_locked = false`
 - `current_data_goal_anchor_ready = false`
 - `media_committed = false`
-
 
 ## 20260524｜新第四期 locked v0.2 发布候选生成阻断
 
@@ -208,6 +219,77 @@
 - `send_ready = false`
 - `voice_validation / visual_master_locked / current_data_goal_anchor ready / publish_candidate_ready_for_human_review` 均未推进。
 - `日志`：`codex_log/20260524_copy_granularity_mixture_mechanism.md`
+
+## 20260523｜EdgeGuard 黑边 / 灰边 / 边缘残留机制修复
+
+- `已确认` 本轮只修 `Layer 0 = EdgeGuard（边缘防护层）`；没有修复或重做第四期完整成片，没有覆盖任何 `full.mp4`，没有覆盖 `dist/latest_review_pack/`，没有新增 Remotion 效果层 / 高亮框 / 悬浮判断卡 / 3D 科技感 / 转场桥。
+- `route_decision（路由判断）`：`project_route = video_factory`；`task_type = edge_residue_bug_fix + visual_generation_pipeline_guard + validation_layer_sync`；`execution_mode = mechanism_fix_only`；`target_layer = Layer 0 EdgeGuard`；`DeepSeek = fallback_local_only`，`not_deepseek_conclusion = true`。
+- `state_action_router（状态动作总控器）`：`selected_action = locate_edge_residue_sources + implement_or_fix_edgeguard + add_edge_scan_validation + update_logs_without_status_promotion`；禁止 `modify_fourth_episode_video / add_remotion_effects / add_highlight_box / add_floating_panel / promote_content_status`。
+- `根因定位`：旧第四期输出只读扫描发现 left/right black edge，最大 `36px`；material_02 源录屏只读抽样 `source_has_edge_residue = false`；最可能根因为旧生成链路 `scale=1920:1080:force_original_aspect_ratio=decrease + pad=1920:1080` 默认黑底补边叠加源比例与 16:9 不完全一致。
+- `已新增` EdgeGuard helper：`scripts/边缘防护_EdgeGuard_edge_residue_guard.py`，包含 `input_edge_preflight`、`safe_fit_policy`、`output_edge_scan`、synthetic diagnostic mode；阈值为 `max_unintended_edge_width_px = 3`、`suspicious = 4`、`fail = 8`。
+- `已接入` 当前基础生成脚本：源录屏进入 1920x1080 时从默认黑底 `scale+pad` 改为 `cover_with_minimal_safe_crop`，记录 `edgeguard_safe_fit_policy`，并在导出后、候选声明前调用 `run_edgeguard_output_scan()`；`output_edge_scan.pass != true` 时阻断候选声明。
+- `默认入口 no-render 验证`：`scripts/生成第四期数据成果卡发布候选片_generate_fourth_episode_data_result_card_publish_candidate.py --edgeguard-synthetic-only --output-dir dist/edgeguard_diagnostics/default_entrypoint_no_render_probe` passed，`full_mp4_generated = false`。
+- `内部诊断产物`：`dist/edgeguard_diagnostics/input_edge_report.json`、`output_edge_report.json`、`edgeguard_probe_summary.json`、`before_after_edge_contact_sheet.png`、`fourth_episode_reference_read_only_output_scan/output_edge_report.json`、`fourth_episode_source_material_02_read_only_input_preflight/input_edge_report.json`。
+- `测试`：`py_compile` passed；`tests/test_edgeguard.py` 4 cases passed；EdgeGuard synthetic probe passed；JSON parse passed；未触碰 `dist/latest_review_pack/`、第四期 `full.mp4` 或源录屏素材。
+- `未推进`：`content_validation / send_ready / visual_master_locked / publish_status / voice_validation / current_data_goal_anchor_ready` 均未推进。
+- `日志`：`codex_log/20260523_edgeguard_black_border_fix.md`
+
+## 20260519｜素材证据闸门默认视频执行机制
+
+- `已确认` 本轮只做机制修补，不修任何单条视频；未生成新视频、未重剪第四期、未修改任何 `full.mp4`、未重新生成 TTS、未改 HyperFrames 视觉形式 / 动效路线 / 皮肤。
+- `route_decision（路由判断）`：`project_route = video_factory`；`task_type = mechanism_or_route_fix + execution_gate_repair + validation_gate_repair + code_integration + validation_dry_run`；`large_task_gate = triggered`；`lane = audit_lane -> standard_lane`；`parallel = serial_only`。
+- `DeepSeek`：本轮因用户禁止读取 API key / token / secret，供料闸门记录为 `fallback_local_only`，`not_deepseek_conclusion = true`；未打印、未写入、未读取 secret。
+- `已新增` 可运行默认闸门：`scripts/素材证据闸门_material_evidence_gate.py`，支持 `--material-report`、`--timeline`、`--content-route-card`、`--output-dir`、`--dry-run`、`--require-pass`。
+- `默认机制`：后续视频执行必须走 `material_detail_report -> material_evidence_contract -> line_group_evidence_gate -> auto_storyboard_preflight_report -> auto_edit_allowed check -> render only if passed`。
+- `已接入` 当前默认第四期数据成果卡生成入口：`scripts/生成第四期数据成果卡发布候选片_generate_fourth_episode_data_result_card_publish_candidate.py` 已新增 `--preflight-only` / `--output-dir`，并在 TTS / `full.mp4` 生成前调用素材证据闸门。
+- `第四期 dry-run`：`dist/fourth_episode_evidence_gate_default_mechanism_dry_run/` 已生成 `material_evidence_contract.json`、`line_group_evidence_gate_report.json`、`auto_storyboard_preflight_report.json`；当前数据成果卡候选片 timeline 为 `auto_edit_allowed = true`、`total_line_groups = 36`、`direct_match_count = 26`、`proxy_match_count = 6`、`card_required_resolved_count = 4`、全部阻断计数为 0。
+- `legacy blocked 验证`：旧 `dist/fourth_episode_ai_review_system_publish_candidate/script_to_timeline_map.json` 另存 `dist/fourth_episode_evidence_gate_default_mechanism_dry_run_legacy_ai_review_blocked/`，结果为 `auto_edit_allowed = false`，命中 `data_sentence_without_source_count`，证明预检失败会阻断而不是继续产片。
+- `测试`：`py_compile` passed；`tests/test_material_evidence_gate.py` 10 cases passed；default entrypoint `--preflight-only` passed 且 `full_mp4_generated = false`；dry-run JSON parse passed；`git diff --check` passed。
+- `未推进`：`content_validation / send_ready / current_data_goal_anchor_ready / voice_validation / visual_master_locked` 均未推进；未覆盖 `dist/latest_review_pack/`。
+- `日志`：`codex_log/20260519_material_evidence_gate_default_video_execution.md`
+
+## 20260519｜第四期证据驱动自动剪辑修复候选片
+
+- `已确认` 本轮按执行单直接修复第四期“文案和画面对不上号”问题：先从素材解析报告自动生成证据契约和句组证据闸门，通过后直接重做完整候选片，没有停在分析阶段，也没有要求用户多审一轮分镜。
+- `route_decision（路由判断）`：`project_route = video_factory`；`task_type = video_repair_execution + script_visual_alignment_repair + evidence_driven_auto_edit + hyperframes_result_card_repair + review_candidate_delivery`；`large_task_gate = triggered`；`lane = standard_lane`；`parallel = serial_only`。
+- `DeepSeek`：本轮因用户禁止读取 API key / token / secret，供料闸门记录为 `fallback_local_only`，`not_deepseek_conclusion = true`；结论来自 Codex 对 repo 文件、素材解析报告、运行产物和验证结果的本地复核。
+- `已生成` 新修复候选片目录：`dist/fourth_episode_data_result_card_publish_candidate_repair_evidence_auto_edit/`，包含 `full.mp4`、`narration.wav`、`captions.srt`、`summary.json`、`review_manifest.md`、`publish_candidate_checklist.json`、`content_route_card_v2.json`、`script_to_timeline_map.json`、`material_evidence_contract.json`、`line_group_evidence_gate_report.json`、`auto_storyboard_preflight_report.json`、`hyperframes_card_validation_report.json`、`subtitle_card_overlap_check.json`、`platform_risk_precheck.json`、`privacy_risk_check.json`。
+- `证据预检`：`auto_edit_allowed = true`；`total_line_groups = 36`；`direct_match_count = 6`；`proxy_match_count = 11`；`card_required_resolved_count = 19`；`blocked_no_evidence_count = 0`；`high_mismatch_risk_count = 0`；`privacy_high_selected_count = 0`；`material_03 00:30-00:55` 未入片。
+- `文案画面对齐`：`lg_014-lg_016` 已全部改为 `card_required_resolved`，由 HyperFrames 下一轮变量 / 指标卡承接；判断句、动作句、边界句不再硬配普通录屏。
+- `HyperFrames`：真实生成 19 个 HyperFrames 片段；`main_card_count = 4`、`sub_state_count = 15`、`actual_visible_main_cards = 4`、`whether_card_budget_gate_passed = true`；数据成果卡按原始数据、留存指标、AI 判断、下一步变量 / 验证指标逐层同步口播。
+- `字幕 / 卡片`：卡片段不烧录大灰底字幕条，仅保留 sidecar SRT；`subtitle_card_overlap_check.status = passed`，`high_severity_overlap = false`。
+- `验证`：`python3 -m py_compile scripts/*.py` passed；JSON parse passed；`ffprobe` passed；`ffmpeg decode` passed；video metadata probe passed；`npm run check` passed；`npx hyperframes lint / inspect` passed；`git diff --check` passed。
+- `状态边界`：`review_candidate_ready_for_human_review = true`；`publish_candidate_ready = false`；`content_validation = pending_user_chatgpt_review`；`send_ready = false`；`voice_validation = pending_user_chatgpt_review`；`final_voice_validated = false`；`visual_master_locked = false`；未覆盖 `dist/latest_review_pack/`。
+- `日志`：`codex_log/20260519_fourth_episode_evidence_auto_edit_alignment_repair.md`
+
+## 20260519｜第四期修复候选片：逐句画面对齐 + HyperFrames 复盘卡
+
+- `已确认` 本轮按用户人工审片反馈修复当前第四期候选片两个内容失败点：`script_visual_mismatch_issue（文案画面错位）` 与 `review_card_visual_quality_issue / hyperframes_not_used_issue（复盘卡未真实走 HyperFrames）`。
+- `route_decision（路由判断）`：`project_route = video_factory`；`task_type = video_repair + quality_review + script_visual_alignment_repair + hyperframes_card_repair`；`large_task_gate = triggered`；`lane = audit_lane -> standard_lane`；`parallel = serial_only`；`write_owner = Codex Integrator only`。
+- `影响面检查`：当前最新候选片来自 `codex_log/current_local_artifact_paths.md`，路径为 `dist/fourth_episode_data_result_card_publish_candidate/full.mp4`；`dist/latest_review_pack/` 仍是旧 v3.1 包，未作为本轮当前片、也未覆盖。
+- `问题定位`：用户截图句“第六步，是下一轮变量。它最后不能给我十几个建议。”属于上一版 `dist/fourth_episode_ai_review_system_publish_candidate/lg_021`，不在最新数据成果卡候选片中；最新片对应语义为 `lg_014-lg_016`，已改用 HyperFrames 变量判断 / 指标卡承接。
+- `根因分类`：`primary_issue = script_visual_mismatch_issue`；`secondary_issue = review_card_visual_quality_issue + hyperframes_not_used_issue`；当前旧候选片按 `content_validation = failed` 处理，不再写成内容通过。
+- `已生成` 修复候选片目录：`dist/fourth_episode_data_result_card_publish_candidate_repair_script_visual_alignment_hyperframes_card/`，包含 `full.mp4`、`narration.wav`、`captions.srt`、`summary.json`、`media_probe.json`、`review_manifest.md`、`script_to_timeline_map.json`、`hyperframes_card_validation_report.json`、`subtitle_card_overlap_check.json`、`script_visual_alignment_report.json`、`quality_issue_classifier.json`、`repair_report.md`、`impact_check_report.md`。
+- `HyperFrames`：真实调用 `npx --yes hyperframes@0.6.12 lint / inspect / render` 生成 10 个卡片片段；包含 `judgment_card`、`data_result_card`、`next_variable_judgment_card`、`metric_check_card`、`review_summary_card`、`boundary_card`、`review_result_card`、`summary_card`；每张均有 source HTML、render log、preview PNG 和 timeline MP4。
+- `文案画面对齐`：`script_to_timeline_map.json` 已重写为 `line_group_repair_v1_hyperframes_cards`；`lg_014-lg_016` 不再硬配普通录屏；`lg_025 / lg_034 / lg_035` 这类抽象清单也改为结果卡承接；`script_visual_alignment_report.status = passed`。
+- `字幕 / 卡片`：素材段字幕改为轻量底部胶囊；HyperFrames 卡片段不烧录大灰底字幕，仅保留 sidecar SRT；`subtitle_card_overlap_check.status = passed`，`high_severity_overlap = false`。
+- `验证`：JSON parse passed；`python3 -m py_compile scripts/*.py` passed；`ffprobe` passed；`ffmpeg decode` passed；`npm run check` passed；`npx hyperframes lint && inspect` passed；`git diff --check` passed。
+- `状态边界`：新片只是 `review_candidate_ready_for_human_review = true`；`publish_candidate_ready = false`；`publish_candidate_ready_for_human_review = false`；`content_validation = pending_user_chatgpt_review`；`send_ready = false`；未覆盖 `dist/latest_review_pack/`，未修改已发布视频，未推进 `visual_master_locked`。
+- `日志`：`codex_log/20260519_repair_script_visual_alignment_and_hyperframes_review_card.md`
+
+## 20260519｜第四期数据成果卡发布候选片生成
+
+- `已确认` 本轮按用户锁定的新结构生成第四期完整 `publish_candidate_ready_for_human_review（可发布候选片，待人工复审）`；不是 dry-run、不是文案包、不是 technical preview。
+- `route_decision（路由判断）`：`project_route = video_factory`；`task_type = video_sample_or_assembly + publish_candidate_delivery + locked_copy_video_execution + card_decision_gate_applied`；`current_project_state = formal_operation_active + data_driven_operation_iteration`；`large_task_gate = triggered`；`lane = standard_lane`；`parallel = serial_only`。
+- `DeepSeek`：执行前供料尝试被 `invalid_context_pack` 阻断，未写成 DeepSeek 真实结论；本轮结论来自 Codex 对 repo 文件、素材审计、运行产物和验证结果的本地复核。
+- `已生成` 新候选片目录：`dist/fourth_episode_data_result_card_publish_candidate/`，包含 `full.mp4`、`narration.wav`、`captions.srt`、`summary.json`、`media_probe.json`、`review_manifest.md`、`publish_candidate_checklist.json`、`locked_copy_contract.json`、`content_route_card_v2.json`、`script_to_timeline_map.json`、`tts_prosody_anchor_map.json`、`card_decision_dry_run.json`、`subtitle_card_overlap_check.json`、`platform_risk_precheck.json`、`privacy_risk_check.json`、`narration_tts_debug_sanitized.json`。
+- `locked_copy_contract`：锁定标题为 `我把一条低播放视频，变成了一页下一条能执行的复盘卡`；锁定开头句为 `我最近发了一条视频。`；未改核心语义；`content_validation = pending_user_chatgpt_review`。
+- `卡片`：`card_decision_gate` 已运行；实际时长 `177.926s`；`max_main_cards = 4`；选中 `judgment_card / data_result_card / boundary_card / summary_card`；`data_result_card` 出现在 `00:00:22.109-00:00:27.503`；`evidence_window_protection = passed`；`hyperframes_unchanged_check = passed_no_visual_motion_skin_change`。
+- `TTS`：使用远程 Aliyun/Bailian TTS，`target_model = qwen3-tts-vc-realtime-2026-01-15`，`voice_base_candidate = qwen-t...ac19`，继承 `20260427_B_pacing_reference`；只对远程 TTS 段做轻微 `speech_pacing` 调整；`local_tts_fallback_used = false`；`macos_say_used = false`；`voice_validation = pending_user_chatgpt_review`；`final_voice_validated = false`。
+- `素材使用`：`opening_evidence = material_04 00:55-01:30`；`middle_evidence = material_02 00:20-01:50`；`ending_support = material_01 01:04-01:28 + material_04 01:30-01:50`；未使用 `material_03 00:30-00:55`。
+- `验证`：`py_compile` passed；`tests/test_card_decision_gate.py` passed；JSON parse passed；`ffprobe` passed；`ffmpeg decode` passed；video metadata probe passed；acceptance assertions passed；`git diff --check` passed；`secret_leak_scan_sanitized = passed`。
+- `状态边界`：`publish_candidate_ready_for_human_review = true`；`content_validation = pending_user_chatgpt_review`；`send_ready = false`；`current_data_goal_anchor_ready = false`；`visual_master_locked = false`；`dist/latest_review_pack/` 未覆盖；未提交原始素材视频。
+- `日志`：`codex_log/20260519_fourth_episode_data_result_card_publish_candidate.md`
 
 ## 20260519｜card_budget_gate 与 data_result_card 路由补强
 

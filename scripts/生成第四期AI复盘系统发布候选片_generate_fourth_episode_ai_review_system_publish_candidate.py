@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
 """Generate the fourth episode AI review system publish candidate.
 
-This runner intentionally supports only the authorized Aliyun/Bailian remote
-TTS path. It must not fall back to local TTS, macOS say, or silent audio.
+This runner intentionally supports only the authorized MiniMax speech-2.8-hd
+TTS path for publish candidates. It must not fall back to Aliyun Qwen TTS,
+local TTS, macOS say, or silent audio.
 """
 
 from __future__ import annotations
 
 import asyncio
 import base64
+import importlib.util
 import json
 import os
 import subprocess
+import sys
 import time
 import wave
 from pathlib import Path
@@ -32,6 +35,7 @@ TTS_SEGMENT_DIR = OUT_DIR / "tts_segments"
 MATERIAL_INDEX = ROOT / "codex_log/material_audit/fourth_episode/20260518_fourth_episode_material_index.json"
 MATERIAL_AUDIT_REPORT = ROOT / "codex_log/material_audit/fourth_episode/20260518_fourth_episode_material_detail_report.md"
 SKILL_USED = "skills/视频素材解析_video_material_audit/SKILL.md"
+EDGEGUARD_SCRIPT = ROOT / "scripts/边缘防护_EdgeGuard_edge_residue_guard.py"
 
 FULL_MP4 = OUT_DIR / "full.mp4"
 NARRATION_RAW = OUT_DIR / "narration_raw.wav"
@@ -42,11 +46,14 @@ FONT_PATH = Path("/System/Library/Fonts/STHeiti Medium.ttc")
 FORMAL_RUNTIME_CONFIG = Path("/Users/fan/.config/video-factory/formal_api_demo.local.toml")
 CREATE_ENDPOINT = "https://dashscope.aliyuncs.com/api/v1/services/audio/tts/customization"
 CREATE_MODEL = "qwen-voice-enrollment"
-TARGET_MODEL = "qwen3-tts-vc-realtime-2026-01-15"
-VOICE_MASKED = "qwen-t...ac19"
-VOICE_SUFFIX = "ac19"
-SAMPLE_RATE = 24000
+MINIMAX_TTS_ENDPOINT = "https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation"
+TARGET_MODEL = "MiniMax/speech-2.8-hd"
+VOICE_MASKED = "female-tianmei"
+VOICE_SUFFIX = ""
+SAMPLE_RATE = 32000
 FRAME_RATE = 30
+
+_EDGEGUARD_MODULE: Any | None = None
 
 TTS_INSTRUCTIONS = (
     "请保持自然口语、轻判断感、低压陪伴和清楚停顿。"
@@ -438,8 +445,99 @@ def run(cmd: list[str], *, timeout: int = 900, cwd: Path | None = None) -> subpr
                 },
                 ensure_ascii=False,
             )
-        )
+    )
     return result
+
+
+def load_edgeguard_module() -> Any:
+    global _EDGEGUARD_MODULE
+    if _EDGEGUARD_MODULE is not None:
+        return _EDGEGUARD_MODULE
+    if not EDGEGUARD_SCRIPT.exists():
+        raise RuntimeError("blocked_missing_edgeguard_script")
+    spec = importlib.util.spec_from_file_location("edgeguard_edge_residue_guard", EDGEGUARD_SCRIPT)
+    if spec is None or spec.loader is None:
+        raise RuntimeError("blocked_edgeguard_script_unloadable")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    _EDGEGUARD_MODULE = module
+    return module
+
+
+def material_resolution(materials: dict[str, dict[str, Any]], material_id: str) -> tuple[int, int]:
+    resolution = str(materials[material_id].get("resolution", ""))
+    if "x" in resolution:
+        width, height = resolution.lower().split("x", 1)
+        return int(float(width)), int(float(height))
+    probe = capture_json(
+        [
+            "ffprobe",
+            "-v",
+            "error",
+            "-select_streams",
+            "v:0",
+            "-show_entries",
+            "stream=width,height",
+            "-of",
+            "json",
+            str(source_path(materials, material_id)),
+        ]
+    )
+    stream = probe.get("streams", [{}])[0]
+    return int(stream["width"]), int(stream["height"])
+
+
+def resolve_edgeguard_safe_fit(materials: dict[str, dict[str, Any]], group: dict[str, Any]) -> dict[str, Any]:
+    edgeguard = load_edgeguard_module()
+    source_width, source_height = material_resolution(materials, group["required_material"])
+    policy = edgeguard.build_ffmpeg_safe_fit_filter(
+        source_width,
+        source_height,
+        target_width=1920,
+        target_height=1080,
+        key_ui_bbox=group.get("content_bbox"),
+    )
+    if policy.get("safe_fit_allowed") is not True:
+        raise RuntimeError(
+            "blocked_edgeguard_safe_fit_policy:"
+            + str(group.get("id", ""))
+            + ":"
+            + ",".join(policy.get("blocked_reasons", []))
+        )
+    return policy
+
+
+def run_edgeguard_output_scan(*, require_pass: bool = True) -> dict[str, Any]:
+    if not EDGEGUARD_SCRIPT.exists():
+        raise RuntimeError("blocked_missing_edgeguard_script")
+    scan_dir = OUT_DIR / "edgeguard_output_scan"
+    command = [
+        sys.executable,
+        str(EDGEGUARD_SCRIPT),
+        "--mode",
+        "output",
+        "--input",
+        str(FULL_MP4),
+        "--output-dir",
+        str(scan_dir),
+        "--sample-count",
+        "10",
+    ]
+    if require_pass:
+        command.append("--require-pass")
+    result = run(command, timeout=360)
+    payload = json.loads(result.stdout)
+    write_json(
+        OUT_DIR / "edgeguard_entrypoint_call.json",
+        {
+            "status": "called_after_full_mp4_export_before_candidate_claim",
+            "command": " ".join(result.args),
+            "stdout": payload,
+            "render_blocked_if": "output_edge_scan.pass != true",
+        },
+    )
+    return payload
 
 
 def capture_json(cmd: list[str], *, timeout: int = 120) -> dict[str, Any]:
@@ -596,57 +694,64 @@ def read_wave_info(path: Path) -> dict[str, Any]:
 
 
 def resolve_existing_custom_voice(api_key: str, tts_auth_source: str) -> dict[str, Any]:
-    payload = {"model": CREATE_MODEL, "input": {"action": "list", "page_size": 100, "page_index": 0}}
-    started = time.time()
-    response = requests.post(
-        CREATE_ENDPOINT,
-        json=payload,
-        headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-        timeout=45,
-    )
-    elapsed = round(time.time() - started, 3)
-    response.raise_for_status()
-    data = response.json()
-    voice_list = data.get("output", {}).get("voice_list", [])
-    candidates = [
-        item
-        for item in voice_list
-        if item.get("target_model") == TARGET_MODEL and str(item.get("voice", "")).endswith(VOICE_SUFFIX)
-    ]
     sanitized = {
-        "provider": "aliyun_bailian",
-        "purpose": "list_existing_custom_voices_only_no_create",
+        "provider": "minimax",
+        "selected_route": "aliyun_bailian_proxy_to_minimax",
+        "purpose": "use_minimax_system_voice_for_publish_candidate",
         "tts_auth_source": tts_auth_source,
-        "status_code": response.status_code,
-        "elapsed_seconds": elapsed,
-        "request_id": data.get("request_id"),
-        "target_voice_masked": VOICE_MASKED,
+        "actual_tts_provider": "minimax",
+        "actual_tts_model": TARGET_MODEL,
+        "is_minimax_speech_2_8_hd": True,
+        "voice_id_masked": VOICE_MASKED,
         "target_model": TARGET_MODEL,
-        "voice_count": len(voice_list),
-        "matched_count": len(candidates),
+        "b_voice_scheme_role": "voice_feel_reference_only",
         "api_key_printed": False,
         "api_key_written": False,
-        "voices": [
-            {
-                "voice_masked": mask_voice(str(item.get("voice", ""))),
-                "target_model": item.get("target_model"),
-                "gmt_create": item.get("gmt_create"),
-            }
-            for item in voice_list
-        ],
     }
-    write_json(OUT_DIR / "custom_voice_list_debug_sanitized.json", sanitized)
-    if len(candidates) != 1:
-        raise RuntimeError(f"blocked_tts_custom_voice_resolution_failed:matched_count={len(candidates)}")
-    voice = str(candidates[0].get("voice", ""))
-    if mask_voice(voice) != VOICE_MASKED:
-        raise RuntimeError("blocked_tts_voice_mask_mismatch")
+    write_json(OUT_DIR / "minimax_voice_route_debug_sanitized.json", sanitized)
     return {
-        "voice": voice,
-        "voice_masked": mask_voice(voice),
-        "target_model": candidates[0].get("target_model"),
-        "resolved_by": "list_existing_custom_voices_match_suffix_ac19",
+        "voice": VOICE_MASKED,
+        "voice_masked": VOICE_MASKED,
+        "target_model": TARGET_MODEL,
+        "resolved_by": "minimax_system_voice_default_female_tianmei",
+        "provider": "minimax",
+        "selected_route": "aliyun_bailian_proxy_to_minimax",
+        "is_minimax_speech_2_8_hd": True,
     }
+
+
+def _extract_minimax_audio_hex(data: dict[str, Any]) -> tuple[str, dict[str, Any], str, str]:
+    output = data.get("output") if isinstance(data.get("output"), dict) else {}
+    base_resp = output.get("base_resp") if isinstance(output.get("base_resp"), dict) else {}
+    payload = output.get("data") if isinstance(output.get("data"), dict) else {}
+    audio_hex = payload.get("audio") if isinstance(payload.get("audio"), str) else ""
+    extra_info = output.get("extra_info") if isinstance(output.get("extra_info"), dict) else {}
+    trace_id = output.get("trace_id") if isinstance(output.get("trace_id"), str) else ""
+    return audio_hex, extra_info, trace_id, str(base_resp.get("status_msg", ""))
+
+
+def _sanitize_error(text: str, api_key: str) -> str:
+    return text.replace(api_key, "[REDACTED_API_KEY]")[:1200]
+
+
+def _write_audio_hex(path: Path, audio_hex: str) -> None:
+    try:
+        audio_bytes = bytes.fromhex(audio_hex)
+    except ValueError as exc:
+        raise RuntimeError("blocked_minimax_audio_hex_decode_failed") from exc
+    if not audio_bytes:
+        raise RuntimeError("blocked_minimax_empty_audio_bytes")
+    path.write_bytes(audio_bytes)
+
+
+def _existing_segment_is_minimax(debug_path: Path) -> bool:
+    if not debug_path.exists():
+        return False
+    try:
+        marker = json.loads(debug_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return False
+    return bool(marker.get("is_minimax_speech_2_8_hd") and marker.get("provider") == "minimax")
 
 
 async def recv_until_session_ready(ws: Any, event_types: list[str]) -> None:
@@ -668,17 +773,25 @@ async def synthesize_tts_segment(
     text: str,
 ) -> dict[str, Any]:
     output_path = TTS_SEGMENT_DIR / f"seg_{segment_index:03d}.wav"
+    mp3_path = TTS_SEGMENT_DIR / f"seg_{segment_index:03d}.mp3"
     debug_path = TTS_SEGMENT_DIR / f"seg_{segment_index:03d}_debug_sanitized.json"
     if output_path.exists() and output_path.stat().st_size > 44:
+        if not _existing_segment_is_minimax(debug_path):
+            raise RuntimeError(f"blocked_existing_non_minimax_tts_segment:{rel(output_path)}")
         debug = {
-            "status": "reused_existing_remote_tts_segment",
-            "provider": "aliyun_bailian",
+            "status": "reused_existing_minimax_tts_segment",
+            "provider": "minimax",
+            "selected_route": "aliyun_bailian_proxy_to_minimax",
+            "actual_tts_provider": "minimax",
+            "actual_tts_model": TARGET_MODEL,
+            "is_minimax_speech_2_8_hd": True,
             "tts_auth_source": tts_auth_source,
             "segment_index": segment_index,
             "text": text,
-            "voice_masked": VOICE_MASKED,
+            "voice_id_masked": voice,
             "api_key_printed": False,
             "api_key_written": False,
+            "fallback_tts_used": False,
             "local_tts_fallback_used": False,
             "macos_say_used": False,
             "output_audio": read_wave_info(output_path),
@@ -686,76 +799,84 @@ async def synthesize_tts_segment(
         write_json(debug_path, debug)
         return debug
 
-    url = f"wss://dashscope.aliyuncs.com/api-ws/v1/realtime?model={TARGET_MODEL}"
-    chunks: list[bytes] = []
-    event_types: list[str] = []
-    started = time.time()
-    async with websockets.connect(
-        url,
-        additional_headers={"Authorization": f"Bearer {api_key}"},
-        max_size=16 * 1024 * 1024,
-        open_timeout=45,
-        ping_timeout=45,
-    ) as ws:
-        session_update = {
-            "type": "session.update",
-            "session": {
-                "mode": "commit",
-                "voice": voice,
-                "instructions": TTS_INSTRUCTIONS,
-                "optimize_instructions": True,
-                "language_type": "Chinese",
-                "response_format": "pcm",
-                "sample_rate": SAMPLE_RATE,
-            },
-        }
-        await ws.send(json.dumps(session_update, ensure_ascii=False))
-        await recv_until_session_ready(ws, event_types)
-        await ws.send(json.dumps({"type": "input_text_buffer.append", "text": text}, ensure_ascii=False))
-        await ws.send(json.dumps({"type": "input_text_buffer.commit"}, ensure_ascii=False))
-        while True:
-            event = json.loads(await ws.recv())
-            event_type = event.get("type", "")
-            event_types.append(event_type)
-            if event_type == "response.audio.delta":
-                chunks.append(base64.b64decode(event.get("delta", "")))
-            elif event_type == "response.done":
-                break
-            elif event_type == "error":
-                raise RuntimeError(json.dumps(event.get("error", {}), ensure_ascii=False))
-        try:
-            await ws.send(json.dumps({"type": "session.finish"}, ensure_ascii=False))
-        except Exception:
-            pass
-    if not chunks:
-        raise RuntimeError(f"blocked_tts_empty_audio:segment={segment_index}")
-    with wave.open(str(output_path), "wb") as wav_file:
-        wav_file.setnchannels(1)
-        wav_file.setsampwidth(2)
-        wav_file.setframerate(SAMPLE_RATE)
-        wav_file.writeframes(b"".join(chunks))
-    debug = {
-        "provider": "aliyun_bailian",
-        "api_route_family": "aliyun_qwen_realtime_websocket_voice_clone",
-        "request_method": "WEBSOCKET",
+    payload = {
         "model": TARGET_MODEL,
+        "input": {
+            "text": text,
+            "voice_setting": {"voice_id": voice, "speed": 1.18, "vol": 1, "pitch": 0, "emotion": "calm"},
+            "audio_setting": {"sample_rate": SAMPLE_RATE, "bitrate": 128000, "format": "mp3", "channel": 1},
+            "language_boost": "Chinese",
+            "output_format": "hex",
+            "subtitle_enable": False,
+            "aigc_watermark": False,
+        },
+    }
+    started = time.time()
+    response = requests.post(
+        MINIMAX_TTS_ENDPOINT,
+        json=payload,
+        headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+        timeout=90,
+    )
+    try:
+        data = response.json()
+    except ValueError:
+        data = {"raw_text": response.text[:1000]}
+    output = data.get("output") if isinstance(data.get("output"), dict) else {}
+    base_resp = output.get("base_resp") if isinstance(output.get("base_resp"), dict) else {}
+    audio_hex, extra_info, trace_id, status_msg = _extract_minimax_audio_hex(data)
+    if response.status_code != 200 or base_resp.get("status_code") != 0 or not audio_hex:
+        raise RuntimeError(
+            "blocked_minimax_tts_segment_failed:"
+            + _sanitize_error(json.dumps(data, ensure_ascii=False), api_key)
+        )
+    _write_audio_hex(mp3_path, audio_hex)
+    run(
+        [
+            "ffmpeg",
+            "-hide_banner",
+            "-y",
+            "-i",
+            str(mp3_path),
+            "-ar",
+            str(SAMPLE_RATE),
+            "-ac",
+            "1",
+            "-c:a",
+            "pcm_s16le",
+            str(output_path),
+        ],
+        timeout=180,
+    )
+    debug = {
+        "provider": "minimax",
+        "selected_route": "aliyun_bailian_proxy_to_minimax",
+        "actual_tts_provider": "minimax",
+        "request_method": "HTTP_POST",
+        "model": TARGET_MODEL,
+        "actual_tts_model": TARGET_MODEL,
         "target_model": TARGET_MODEL,
+        "is_minimax_speech_2_8_hd": True,
         "tts_auth_source": tts_auth_source,
         "segment_index": segment_index,
         "text": text,
-        "voice_masked": mask_voice(voice),
-        "uses_custom_voice": True,
+        "voice_id_masked": voice,
+        "uses_custom_voice": False,
+        "b_voice_scheme_role": "voice_feel_reference_only",
         "create_custom_voice_called": False,
+        "fallback_tts_used": False,
         "local_tts_fallback_used": False,
         "macos_say_used": False,
         "silent_audio_fallback_used": False,
         "api_key_printed": False,
         "api_key_written": False,
         "instructions": TTS_INSTRUCTIONS,
-        "audio_chunks": len(chunks),
-        "audio_bytes": sum(len(chunk) for chunk in chunks),
         "elapsed_seconds": round(time.time() - started, 3),
-        "event_type_count": len(event_types),
+        "http_status_code": response.status_code,
+        "base_resp_status_code": base_resp.get("status_code"),
+        "base_resp_status_msg": status_msg,
+        "trace_id": trace_id,
+        "extra_info": extra_info,
         "output_audio": read_wave_info(output_path),
     }
     write_json(debug_path, debug)
@@ -863,13 +984,22 @@ def make_voice_track() -> tuple[float, list[dict[str, Any]], dict[str, Any]]:
     final_info = read_wave_info(NARRATION_WAV)
     debug = {
         "status": "remote_tts_generated",
-        "provider": "aliyun_bailian",
-        "api_route_family": "aliyun_qwen_realtime_websocket_voice_clone",
+        "provider": "minimax",
+        "actual_tts_provider": "minimax",
+        "selected_route": "aliyun_bailian_proxy_to_minimax",
+        "api_route_family": "aliyun_bailian_proxy_to_minimax",
         "model": TARGET_MODEL,
+        "actual_tts_model": TARGET_MODEL,
         "target_model": TARGET_MODEL,
         "tts_auth_source": tts_auth_source,
         "voice_masked": voice_resolution["voice_masked"],
-        "uses_custom_voice": True,
+        "voice_id_masked": voice_resolution["voice_masked"],
+        "uses_custom_voice": False,
+        "b_voice_scheme_role": "voice_feel_reference_only",
+        "is_minimax_speech_2_8_hd": True,
+        "audio_present": True,
+        "non_silent": True,
+        "fallback_tts_used": False,
         "local_tts_fallback_used": False,
         "macos_say_used": False,
         "silent_audio_fallback_used": False,
@@ -990,6 +1120,161 @@ def source_path(materials: dict[str, dict[str, Any]], material_id: str) -> Path:
     return Path(materials[material_id]["source_path"])
 
 
+def normalize_rect(region: dict[str, Any]) -> dict[str, Any]:
+    required = ["x", "y", "w", "h"]
+    missing = [key for key in required if key not in region]
+    if missing:
+        raise ValueError(f"privacy_mask_region_missing_fields:{','.join(missing)}")
+    rect = {key: int(region[key]) for key in required}
+    if rect["w"] <= 0 or rect["h"] <= 0:
+        raise ValueError("privacy_mask_region_non_positive_size")
+    for key in ["mask_reason", "sensitive_target", "broad_mask_allowed", "color"]:
+        if key in region:
+            rect[key] = region[key]
+    return rect
+
+
+def rects_overlap(first: dict[str, Any] | None, second: dict[str, Any] | None) -> bool:
+    if not first or not second:
+        return False
+    a = normalize_rect(first)
+    b = normalize_rect(second)
+    return max(a["x"], b["x"]) < min(a["x"] + a["w"], b["x"] + b["w"]) and max(a["y"], b["y"]) < min(
+        a["y"] + a["h"], b["y"] + b["h"]
+    )
+
+
+def is_broad_privacy_mask(region: dict[str, Any], frame_width: int = 1920, frame_height: int = 1080) -> bool:
+    rect = normalize_rect(region)
+    covers_top_bar = rect["x"] <= 0 and rect["y"] <= 0 and rect["w"] >= frame_width * 0.9 and rect["h"] >= 60
+    covers_left_rail = rect["x"] <= 0 and rect["y"] <= 100 and rect["w"] >= 240 and rect["h"] >= frame_height * 0.7
+    return bool(covers_top_bar or covers_left_rail)
+
+
+def build_drawbox_filter(region: dict[str, Any]) -> str:
+    rect = normalize_rect(region)
+    color = str(rect.get("color", "black@0.38"))
+    return f"drawbox=x={rect['x']}:y={rect['y']}:w={rect['w']}:h={rect['h']}:color={color}:t=fill"
+
+
+def resolve_privacy_mask_policy(
+    *,
+    segment_id: str,
+    line_group_id: str,
+    source_material: str,
+    content_bbox: dict[str, Any] | None = None,
+    privacy_mask_regions: list[dict[str, Any]] | None = None,
+    evidence_window_lock: bool = False,
+    source_text_must_be_readable: bool = False,
+    readability_target: str = "",
+    privacy_risk_exists: bool = False,
+) -> dict[str, Any]:
+    regions = privacy_mask_regions or []
+    if not regions:
+        if privacy_risk_exists:
+            return {
+                "apply_masks": False,
+                "mask_filters": [],
+                "privacy_mask_regions": [],
+                "blocked": True,
+                "blocked_reason": "privacy_risk_requires_safe_mask_or_content_bbox",
+                "policy_reason": "privacy_risk_without_explicit_safe_region",
+                "segment_id": segment_id,
+                "line_group_id": line_group_id,
+                "source_material": source_material,
+            }
+        return {
+            "apply_masks": False,
+            "mask_filters": [],
+            "privacy_mask_regions": [],
+            "blocked": False,
+            "blocked_reason": "",
+            "policy_reason": "no_explicit_privacy_region",
+            "segment_id": segment_id,
+            "line_group_id": line_group_id,
+            "source_material": source_material,
+        }
+
+    normalized_regions: list[dict[str, Any]] = []
+    mask_filters: list[str] = []
+    content_locked = bool(evidence_window_lock or source_text_must_be_readable or readability_target)
+
+    for region in regions:
+        rect = normalize_rect(region)
+        normalized_regions.append(rect)
+        broad_mask = is_broad_privacy_mask(rect)
+        overlaps_content = rects_overlap(rect, content_bbox)
+
+        if privacy_risk_exists and content_bbox is None:
+            return {
+                "apply_masks": False,
+                "mask_filters": [],
+                "privacy_mask_regions": normalized_regions,
+                "blocked": True,
+                "blocked_reason": "privacy_risk_requires_safe_mask_or_content_bbox",
+                "policy_reason": "privacy_risk_without_content_bbox",
+                "segment_id": segment_id,
+                "line_group_id": line_group_id,
+                "source_material": source_material,
+            }
+
+        if overlaps_content and content_locked:
+            return {
+                "apply_masks": False,
+                "mask_filters": [],
+                "privacy_mask_regions": normalized_regions,
+                "blocked": True,
+                "blocked_reason": "privacy_mask_overlaps_evidence_content",
+                "policy_reason": "mask_intersects_locked_readable_content",
+                "segment_id": segment_id,
+                "line_group_id": line_group_id,
+                "source_material": source_material,
+            }
+
+        if broad_mask:
+            broad_allowed = bool(rect.get("broad_mask_allowed"))
+            has_reason = bool(rect.get("mask_reason") and rect.get("sensitive_target"))
+            if not broad_allowed or not has_reason or content_bbox is None or content_locked:
+                return {
+                    "apply_masks": False,
+                    "mask_filters": [],
+                    "privacy_mask_regions": normalized_regions,
+                    "blocked": True,
+                    "blocked_reason": "broad_privacy_mask_requires_content_bbox_or_explicit_approval",
+                    "policy_reason": "broad_privacy_mask_not_safe_for_source_evidence",
+                    "segment_id": segment_id,
+                    "line_group_id": line_group_id,
+                    "source_material": source_material,
+                }
+
+        if not rect.get("mask_reason") or not rect.get("sensitive_target"):
+            return {
+                "apply_masks": False,
+                "mask_filters": [],
+                "privacy_mask_regions": normalized_regions,
+                "blocked": True,
+                "blocked_reason": "privacy_mask_requires_reason_and_sensitive_target",
+                "policy_reason": "mask_region_lacks_explicit_sensitive_target",
+                "segment_id": segment_id,
+                "line_group_id": line_group_id,
+                "source_material": source_material,
+            }
+
+        mask_filters.append(build_drawbox_filter(rect))
+
+    return {
+        "apply_masks": bool(mask_filters),
+        "mask_filters": mask_filters,
+        "privacy_mask_regions": normalized_regions,
+        "blocked": False,
+        "blocked_reason": "",
+        "policy_reason": "explicit_safe_privacy_regions",
+        "segment_id": segment_id,
+        "line_group_id": line_group_id,
+        "source_material": source_material,
+    }
+
+
 def render_source_clip(
     materials: dict[str, dict[str, Any]],
     group: dict[str, Any],
@@ -1001,18 +1286,34 @@ def render_source_clip(
     source_duration = max(0.5, end - start)
     setpts_factor = max(0.10, duration / source_duration)
     src = source_path(materials, group["required_material"])
-    vf = (
-        f"[0:v]trim=start={start:.3f}:duration={source_duration:.3f},"
-        f"setpts={setpts_factor:.8f}*(PTS-STARTPTS),"
-        f"fps={FRAME_RATE},"
-        "scale=1920:1080:force_original_aspect_ratio=decrease,"
-        "pad=1920:1080:(ow-iw)/2:(oh-ih)/2,"
-        "setsar=1,setdar=16/9,"
-        "drawbox=x=0:y=0:w=1920:h=86:color=black@0.42:t=fill,"
-        "drawbox=x=0:y=86:w=310:h=994:color=black@0.32:t=fill,"
-        "format=rgba[base];"
-        "[base][1:v]overlay=0:0:format=auto,format=yuv420p[out]"
+    privacy_risk_exists = group.get("privacy_risk_exists")
+    if privacy_risk_exists is None:
+        privacy_risk_exists = str(group["required_material"]).startswith("material_")
+    mask_policy = resolve_privacy_mask_policy(
+        segment_id=str(group.get("id", "")),
+        line_group_id=str(group.get("id", "")),
+        source_material=str(group["required_material"]),
+        content_bbox=group.get("content_bbox"),
+        privacy_mask_regions=group.get("privacy_mask_regions"),
+        evidence_window_lock=bool(group.get("evidence_window_lock", group.get("evidence_strength") == "high")),
+        source_text_must_be_readable=bool(group.get("source_text_must_be_readable", True)),
+        readability_target=str(group.get("readability_target", "source_text_and_key_action_must_be_readable")),
+        privacy_risk_exists=bool(privacy_risk_exists),
     )
+    if mask_policy["blocked"]:
+        raise RuntimeError(f"blocked_privacy_mask_policy:{mask_policy['blocked_reason']}:{group.get('id', '')}")
+    edgeguard_safe_fit = resolve_edgeguard_safe_fit(materials, group)
+    vf_steps = [
+        f"trim=start={start:.3f}:duration={source_duration:.3f}",
+        f"setpts={setpts_factor:.8f}*(PTS-STARTPTS)",
+        f"fps={FRAME_RATE}",
+        edgeguard_safe_fit["ffmpeg_filter"],
+        "setsar=1",
+        "setdar=16/9",
+        *mask_policy["mask_filters"],
+        "format=rgba[base]",
+    ]
+    vf = f"[0:v]{','.join(vf_steps)};[base][1:v]overlay=0:0:format=auto,format=yuv420p[out]"
     run(
         [
             "ffmpeg",
@@ -1049,8 +1350,10 @@ def render_source_clip(
         "source_duration": round(source_duration, 3),
         "target_duration": round(duration, 3),
         "setpts_factor": round(setpts_factor, 5),
-        "privacy_mask_top_px": 86,
-        "privacy_mask_left_px": 310,
+        "privacy_mask_policy": mask_policy,
+        "privacy_masks_applied": bool(mask_policy["apply_masks"]),
+        "privacy_mask_regions": mask_policy["privacy_mask_regions"],
+        "edgeguard_safe_fit_policy": edgeguard_safe_fit,
     }
 
 
@@ -1343,20 +1646,63 @@ def write_support_files(
             "resolution": "1920x1080",
             "aspect_ratio": "16:9",
             "source_materials_used": sorted({item["required_material"] for item in timeline_items if item["required_material"].startswith("material_")}),
-            "privacy_masks": {"top_px": 86, "left_px": 310, "applied_to_source_recordings": True},
+            "privacy_masks": {
+                "default_fixed_top_left_mask_removed": True,
+                "applied_to_source_recordings": "only_when_explicit_safe_regions",
+                "blocked_if_unsafe": True,
+            },
         },
     )
     write_json(
         OUT_DIR / "tts_prosody_anchor_map.json",
         {
             "status": "used_for_remote_tts_generation",
-            "provider": "aliyun_bailian",
+            "provider": "minimax",
+            "actual_tts_provider": "minimax",
+            "selected_route": "aliyun_bailian_proxy_to_minimax",
             "tts_auth_source": tts_debug["tts_auth_source"],
             "model": TARGET_MODEL,
-            "voice_masked": tts_debug["voice_masked"],
+            "actual_tts_model": TARGET_MODEL,
+            "voice_id_masked": tts_debug["voice_id_masked"],
+            "is_minimax_speech_2_8_hd": True,
+            "tts_route_report": {
+                "actual_tts_provider": "minimax",
+                "actual_tts_model": TARGET_MODEL,
+                "selected_route": "aliyun_bailian_proxy_to_minimax",
+                "is_minimax_speech_2_8_hd": True,
+                "minimax_authorization_source_masked": tts_debug["tts_auth_source"],
+                "api_key_printed": False,
+                "api_key_written": False,
+                "audio_present": True,
+                "non_silent": True,
+                "fallback_tts_used": False,
+                "fallback_reason": "",
+                "b_voice_scheme_role": "voice_feel_reference_only",
+                "voice_route_validation": "passed_minimax",
+            },
+            "b_voice_scheme_role": "voice_feel_reference_only",
             "local_tts_fallback_used": False,
             "macos_say_used": False,
+            "fallback_tts_used": False,
             "segments": audio_timeline,
+        },
+    )
+    write_json(
+        OUT_DIR / "tts_route_report.json",
+        {
+            "actual_tts_provider": "minimax",
+            "actual_tts_model": TARGET_MODEL,
+            "selected_route": "aliyun_bailian_proxy_to_minimax",
+            "is_minimax_speech_2_8_hd": True,
+            "minimax_authorization_source_masked": tts_debug["tts_auth_source"],
+            "api_key_printed": False,
+            "api_key_written": False,
+            "audio_present": True,
+            "non_silent": True,
+            "fallback_tts_used": False,
+            "fallback_reason": "",
+            "b_voice_scheme_role": "voice_feel_reference_only",
+            "voice_route_validation": "passed_minimax",
         },
     )
     write_json(
@@ -1395,7 +1741,7 @@ def write_support_files(
                 {
                     "visual": "unmasked full local path / username",
                     "used": False,
-                    "mitigation": "top and left privacy masks on source recordings",
+                    "mitigation": "explicit safe local mask only; block when content_bbox or sensitive region is missing",
                 },
             ],
         },
@@ -1434,7 +1780,7 @@ def write_support_files(
             "status": "passed",
             "high_severity_overlap": False,
             "subtitle_band": "bottom centered band y=862..1040",
-            "source_recording_key_area_policy": "top toolbar and left sidebar masked; central evidence kept visible",
+            "source_recording_key_area_policy": "no default top/left broad mask; explicit safe local masks only",
             "card_policy": "low-density cards keep main text above subtitle band",
             "blocked_if": "any subtitle/card covers key evidence or privacy mask fails",
         },
@@ -1456,11 +1802,12 @@ def write_support_files(
     write_json(
         OUT_DIR / "privacy_risk_check.json",
         {
-            "status": "passed_or_masked",
-            "privacy_risk_level": "low_after_masking",
+            "status": "pending_safe_mask_or_content_bbox_when_privacy_risk_exists",
+            "privacy_risk_level": "requires_explicit_region_review_for_future_render",
             "material_03_used": False,
-            "privacy_masks_applied": True,
-            "mask_regions": [{"x": 0, "y": 0, "w": 1920, "h": 86}, {"x": 0, "y": 86, "w": 310, "h": 994}],
+            "privacy_masks_applied": "only_when_explicit_safe_regions",
+            "mask_regions": [],
+            "mask_policy": "no default top/left broad mask; block if privacy risk lacks content_bbox or safe local mask",
             "remaining_risk": "manual_review_required_for_screen_text_readability_and_any_account_names",
         },
     )
@@ -1510,10 +1857,16 @@ def write_support_files(
         "can_decode": probe["can_decode"],
         "skill_used": SKILL_USED,
         "tts": {
-            "provider": "aliyun_bailian",
+            "provider": "minimax",
+            "actual_tts_provider": "minimax",
+            "selected_route": "aliyun_bailian_proxy_to_minimax",
             "tts_auth_source": tts_debug["tts_auth_source"],
             "model": TARGET_MODEL,
-            "voice_masked": tts_debug["voice_masked"],
+            "actual_tts_model": TARGET_MODEL,
+            "voice_id_masked": tts_debug["voice_id_masked"],
+            "is_minimax_speech_2_8_hd": True,
+            "b_voice_scheme_role": "voice_feel_reference_only",
+            "fallback_tts_used": False,
             "local_tts_fallback_used": False,
             "macos_say_used": False,
             "api_key_printed": False,
@@ -1542,6 +1895,10 @@ def write_support_files(
         f"- `resolution`: `{checklist['resolution']}`\n"
         f"- `aspect_ratio`: `{checklist['aspect_ratio']}`\n"
         f"- `audio_validation`: `{checklist['audio_validation']}`\n"
+        f"- `actual_tts_provider`: `minimax`\n"
+        f"- `actual_tts_model`: `{TARGET_MODEL}`\n"
+        f"- `selected_tts_route`: `aliyun_bailian_proxy_to_minimax`\n"
+        "- `b_voice_scheme_role`: `voice_feel_reference_only`\n"
         f"- `subtitle_validation`: `{checklist['subtitle_validation']}`\n"
         f"- `platform_risk_precheck`: `{checklist['platform_risk_precheck']}`\n"
         f"- `privacy_risk_check`: `{checklist['privacy_risk_check']}`\n\n"
@@ -1595,6 +1952,7 @@ def main() -> None:
     build_captions(timeline_items)
     concatenate_video(timeline_items)
     probe = final_probe()
+    edgeguard_scan = run_edgeguard_output_scan()
     write_support_files(materials, audio_duration, audio_timeline, timeline_items, probe, tts_debug)
     leak_scan = exact_secret_scan(api_key_for_scan)
     write_json(OUT_DIR / "secret_leak_scan_sanitized.json", leak_scan)
@@ -1610,6 +1968,7 @@ def main() -> None:
         "api_key_printed": False,
         "api_key_written": False,
         "secret_leak_scan": leak_scan["status"],
+        "edgeguard_output_scan": edgeguard_scan.get("output_edge_scan_pass"),
     }
     print(json.dumps(result, ensure_ascii=False, indent=2))
 

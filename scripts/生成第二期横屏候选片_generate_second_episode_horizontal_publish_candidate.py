@@ -44,6 +44,7 @@ TARGET_MODEL = "qwen3-tts-vc-realtime-2026-01-15"
 VOICE_MASKED = "qwen-t...ac19"
 VOICE_SUFFIX = "ac19"
 SAMPLE_RATE = 24000
+LEGACY_NON_MINIMAX_ROUTE_BLOCKED_FOR_PUBLISH_CANDIDATE = True
 TTS_INSTRUCTIONS = (
     "请参考新样本2的说话方式和 B 版停顿梗感，保持自然口语、轻吐槽、低压陪伴和判断感。"
     "不要播音腔、新闻腔、销售腔、客服腔，也不要夸张带货。"
@@ -188,6 +189,31 @@ def srt_time(seconds: float) -> str:
 
 def write_json(path: Path, data: dict) -> None:
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def block_legacy_non_minimax_publish_candidate() -> None:
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    write_json(
+        OUT_DIR / "tts_route_report.json",
+        {
+            "actual_tts_provider": "aliyun_bailian",
+            "actual_tts_model": TARGET_MODEL,
+            "selected_route": "aliyun_qwen_realtime_websocket_voice_clone",
+            "is_minimax_speech_2_8_hd": False,
+            "audio_generated": False,
+            "audio_present": False,
+            "non_silent": False,
+            "fallback_tts_used": False,
+            "b_voice_scheme_role": "voice_feel_reference_only",
+            "voice_route_validation": "failed_non_minimax_voice",
+            "publish_candidate_ready_for_human_review": False,
+            "full_video_can_only_be_internal_diagnostic": True,
+            "blocked_reason": "minimax_speech_2_8_hd_required_for_publish_candidate",
+            "api_key_printed": False,
+            "api_key_written": False,
+        },
+    )
+    raise RuntimeError("blocked_publish_candidate_unavailable:minimax_speech_2_8_hd_required")
 
 
 def rel(path: Path) -> str:
@@ -1064,7 +1090,7 @@ def write_support_files(audio_duration: float, probe: dict) -> None:
     audio_stream = probe["audio"] or {}
     duration = float(audio_stream.get("duration") or audio_duration)
     checklist = {
-        "status": "publish_candidate_ready_for_human_review",
+        "status": "blocked_publish_candidate_unavailable",
         "video_exists": FINAL_VIDEO.exists(),
         "can_decode": probe["can_decode"],
         "duration": round(duration, 3),
@@ -1082,12 +1108,15 @@ def write_support_files(audio_duration: float, probe: dict) -> None:
         "no_forbidden_claims": True,
         "no_status_promotion": True,
         "source_media_unchanged": True,
-        "ready_for_human_review": True,
+        "ready_for_human_review": False,
+        "b_voice_scheme_role": "voice_feel_reference_only",
+        "voice_route_validation": "failed_non_minimax_voice",
+        "blocked_reason": "legacy_qwen_b_voice_route_no_longer_allowed_for_publish_candidate",
     }
     write_json(OUT_DIR / "publish_candidate_checklist.json", checklist)
     review_manifest = f"""# review_manifest
 
-status: `publish_candidate_ready_for_human_review`
+status: `blocked_publish_candidate_unavailable`
 content_validation: `pending_human_review`
 send_ready: `false`
 
@@ -1106,7 +1135,7 @@ send_ready: `false`
 
 - `publish_candidate != send_ready`
 - `publish_candidate != content_validation passed`
-- `voice_validation` 未推进；本轮只确认阿里 / 百炼 TTS 音轨已生成、可解码、可供人审。
+- `voice_validation` 未推进；旧阿里 / 百炼 Qwen B route 只能作为历史参考，不再允许作为正片候选默认 TTS 路线。
 - `visual_master_locked` 未推进。
 - 不写 V003 已完成 72h / 7d 复盘。
 - 不写数据飞轮已跑通。
@@ -1122,6 +1151,8 @@ send_ready: `false`
 
 
 def main() -> None:
+    if LEGACY_NON_MINIMAX_ROUTE_BLOCKED_FOR_PUBLISH_CANDIDATE:
+        block_legacy_non_minimax_publish_candidate()
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     make_script_files()
     audio_duration = make_voice_track()

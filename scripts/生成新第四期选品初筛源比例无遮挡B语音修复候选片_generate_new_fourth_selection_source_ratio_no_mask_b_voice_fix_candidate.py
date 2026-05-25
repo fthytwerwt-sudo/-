@@ -51,6 +51,7 @@ VOICE_MASKED = "qwen-t...ac19"
 VOICE_SUFFIX = "ac19"
 SAMPLE_RATE = 24000
 FPS = 30
+LEGACY_B_VOICE_ROUTE_BLOCKED_FOR_PUBLISH_CANDIDATE = True
 
 MATERIALS = {
     "V001": ROOT / "素材录制" / "新第四期" / "内建视网膜显示器 2026-05-23 20-57-41.mp4",
@@ -1057,10 +1058,10 @@ def write_review_pack(
     write_json(OUTPUT_DIR / "secret_leak_scan_sanitized.json", secret_scan)
 
     checklist = {
-        "publish_candidate_ready_for_human_review": True,
+        "publish_candidate_ready_for_human_review": False,
         "content_validation": "pending_user_chatgpt_review",
         "send_ready": False,
-        "voice_validation": "pending_user_chatgpt_review",
+        "voice_validation": "not_advanced",
         "visual_master_locked": False,
         "current_data_goal_anchor_ready": False,
         "full_mp4_generated": full_path.exists(),
@@ -1078,6 +1079,9 @@ def write_review_pack(
         "forced_16_9_disabled": True,
         "used_b_voice": True,
         "used_b_pacing": True,
+        "b_voice_scheme_role": "voice_feel_reference_only",
+        "voice_route_validation": "failed_non_minimax_voice",
+        "blocked_reason": "legacy_b_voice_route_no_longer_allowed_for_publish_candidate",
         "local_tts_fallback_used": False,
         "macos_say_used": False,
         "secret_scan": secret_scan["status"],
@@ -1086,7 +1090,7 @@ def write_review_pack(
     write_json(OUTPUT_DIR / "publish_candidate_checklist.json", checklist)
 
     summary = {
-        "status": "publish_candidate_ready_for_human_review",
+        "status": "blocked_publish_candidate_unavailable",
         "run_id": RUN_ID,
         "output_dir": str(OUTPUT_DIR),
         "full_video_path": str(full_path),
@@ -1115,15 +1119,17 @@ def write_review_pack(
                 "- forced_16_9_disabled: `true`",
                 "- subtitle_strategy: `sidecar_srt_and_embedded_mov_text_no_burn_in`",
                 "- provider: `aliyun_bailian`",
+                "- legacy_provider_status: `blocked_for_publish_candidate_minimax_required`",
                 f"- target_model: `{TARGET_MODEL}`",
                 f"- custom_voice_masked: `{VOICE_MASKED}`",
-                "- used_b_voice: `true`",
-                "- used_b_pacing: `true`",
+                "- used_b_voice: `reference_only`",
+                "- used_b_pacing: `reference_only`",
+                "- voice_route_validation: `failed_non_minimax_voice`",
                 "- local_tts_fallback_used: `false`",
                 "- macos_say_used: `false`",
                 "- content_validation: `pending_user_chatgpt_review`",
                 "- send_ready: `false`",
-                "- voice_validation: `pending_user_chatgpt_review`",
+                "- voice_validation: `not_advanced`",
                 "- visual_master_locked: `false`",
                 "",
                 "## 素材使用",
@@ -1163,6 +1169,27 @@ def main() -> None:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     SEGMENT_DIR.mkdir(parents=True, exist_ok=True)
     VIDEO_WORK_DIR.mkdir(parents=True, exist_ok=True)
+    if LEGACY_B_VOICE_ROUTE_BLOCKED_FOR_PUBLISH_CANDIDATE:
+        write_json(
+            OUTPUT_DIR / "tts_route_report.json",
+            {
+                "actual_tts_provider": "aliyun_bailian",
+                "actual_tts_model": TARGET_MODEL,
+                "selected_route": "aliyun_qwen_realtime_websocket_voice_clone",
+                "is_minimax_speech_2_8_hd": False,
+                "audio_present": False,
+                "non_silent": False,
+                "fallback_tts_used": False,
+                "b_voice_scheme_role": "voice_feel_reference_only",
+                "voice_route_validation": "failed_non_minimax_voice",
+                "publish_candidate_ready_for_human_review": False,
+                "full_video_can_only_be_internal_diagnostic": True,
+                "blocked_reason": "legacy_b_voice_route_no_longer_allowed_for_publish_candidate",
+                "api_key_printed": False,
+                "api_key_written": False,
+            },
+        )
+        raise RuntimeError("blocked_publish_candidate_unavailable:minimax_speech_2_8_hd_required")
     if not B_PACING_REFERENCE.exists():
         raise RuntimeError(f"B pacing reference missing: {B_PACING_REFERENCE}")
     if not VOICE_REFERENCE.exists():

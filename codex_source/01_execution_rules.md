@@ -186,15 +186,16 @@ status = blocked
 python scripts/发片候选预检套件_publish_candidate_preflight_suite.py --no-render --output-dir <preflight_output_dir> ...
 ```
 
-七个必需 gate：
+八个必需 gate：
 
 1. `line_level_alignment_preflight（逐句文案画面对齐预检）`：检查 `script_to_timeline_map` 是否为 `line_group` 级，且每组含 `line_group_id / line_ids / narration_text / required_material / source_timecode / expected_visual / actual_visual_observed / allowed_visuals / forbidden_visuals / evidence_strength / alignment_status / mismatch_reason / repair_action`。
 2. `tts_route_and_prosody_preflight（TTS 路线与韵律预检）`：检查目标 provider / model / voice route、实际 provider / model / voice route、预期 pacing 是否被使用，禁止未授权 fallback、无声或本地低质 TTS 冒充发布候选。
-3. `card_decision_preflight（卡片决策预检）`：检查 `judgment_card / summary_card / result_diff_card / boundary_card / prompt_tail_card` 的 `needed / reason / not_needed_reason / line_group_id / evidence_dependency / interrupt_risk`。
-4. `forbidden_action_preflight（禁止事项预检）`：检查是否改 locked title / opening line / final script semantics，是否删除必需判断卡 / 边界卡，是否改 TTS 路线、使用未授权 fallback、默认遮挡、把技术预览写成交付或推进状态。
-5. `visual_evidence_readability_preflight（视觉证据可读性预检）`：检查核心证据窗口、源比例 / 授权、无遮蔽、无 whiteout / black block / gray residue，字幕和卡片不遮挡证据。
-6. `locked_copy_diff_preflight（锁定文案差异预检）`：比较 `locked_title / locked_opening_line / locked_final_script` 与实际字幕、TTS 文本、卡片文本，只允许非语义格式变化。
-7. `completion_truth_preflight（完成真实性预检）`：检查必交付清单、七个子报告、review_pack 包含关系、媒体探针（若生成媒体）、日志更新和禁止状态推进。
+3. `publish_candidate_voice_gate（正片候选语音闸门）`：检查 `tts_route_report` 是否显示实际 provider 为 `minimax`，实际模型为 `speech-2.8-hd / MiniMax/speech-2.8-hd`，音频存在、非静音、未使用 fallback；B 方案只允许作为 `voice_feel_reference`。
+4. `card_decision_preflight（卡片决策预检）`：检查 `judgment_card / summary_card / result_diff_card / boundary_card / prompt_tail_card` 的 `needed / reason / not_needed_reason / line_group_id / evidence_dependency / interrupt_risk`。
+5. `forbidden_action_preflight（禁止事项预检）`：检查是否改 locked title / opening line / final script semantics，是否删除必需判断卡 / 边界卡，是否改 TTS 路线、使用未授权 fallback、默认遮挡、把技术预览写成交付或推进状态。
+6. `visual_evidence_readability_preflight（视觉证据可读性预检）`：检查核心证据窗口、源比例 / 授权、无遮蔽、无 whiteout / black block / gray residue，字幕和卡片不遮挡证据。
+7. `locked_copy_diff_preflight（锁定文案差异预检）`：比较 `locked_title / locked_opening_line / locked_final_script` 与实际字幕、TTS 文本、卡片文本，只允许非语义格式变化。
+8. `completion_truth_preflight（完成真实性预检）`：检查必交付清单、八个子报告、review_pack 包含关系、媒体探针（若生成媒体）、日志更新和禁止状态推进。
 
 阻断规则：
 
@@ -206,7 +207,9 @@ blocked_if:
   - only_file_exists_or_field_exists_without_semantic_or_declared_validation
 ```
 
-`completion_truth_check（完成真实性检查）` 必须读取 `publish_candidate_preflight_report.json`。`full.mp4` 存在、`script_to_timeline_map` 存在、`tts_prosody_anchor_map` 存在或 `technical_validation` 通过，都不能替代七闸门报告。
+`completion_truth_check（完成真实性检查）` 必须读取 `publish_candidate_preflight_report.json`。`full.mp4` 存在、`script_to_timeline_map` 存在、`tts_prosody_anchor_map` 存在或 `technical_validation` 通过，都不能替代八闸门报告。
+
+MiniMax 正片候选语音硬规则：后续 `publish_candidate / formal_operation_publish_candidate / ready_for_human_review` 默认必须走 MiniMax `speech-2.8-hd` 或百炼代理 `MiniMax/speech-2.8-hd`。阿里 Qwen TTS、Serena、macOS say、本地低质 TTS 或未授权 fallback 均不得作为正片候选完成条件；只能 blocked 或标记为 `internal_diagnostic_only`。
 
 ## 0A-5. no_guess_execution_anchor_gate 禁止猜测式执行锚点闸门
 

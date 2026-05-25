@@ -8,12 +8,18 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from 正片候选TTS路线_publish_candidate_tts_route import (
+    REQUIRED_MINIMAX_MODELS,
+    validate_publish_candidate_tts_route,
+)
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
 GATES = [
     "line_level_alignment_preflight",
     "tts_route_and_prosody_preflight",
+    "publish_candidate_voice_gate",
     "card_decision_preflight",
     "forbidden_action_preflight",
     "visual_evidence_readability_preflight",
@@ -24,6 +30,7 @@ GATES = [
 REPORT_FILENAMES = {
     "line_level_alignment_preflight": "line_level_alignment_report",
     "tts_route_and_prosody_preflight": "tts_route_and_prosody_report",
+    "publish_candidate_voice_gate": "tts_route_report",
     "card_decision_preflight": "card_decision_preflight_report",
     "forbidden_action_preflight": "forbidden_action_audit",
     "visual_evidence_readability_preflight": "visual_evidence_readability_report",
@@ -63,6 +70,8 @@ REVIEW_PACK_REQUIRED_PREFLIGHT_REPORTS = [
     "publish_candidate_preflight_report.md",
     "line_level_alignment_report.json",
     "tts_route_and_prosody_report.json",
+    "tts_route_report.json",
+    "tts_route_report.md",
     "card_decision_preflight_report.json",
     "forbidden_action_audit.json",
     "visual_evidence_readability_report.json",
@@ -306,6 +315,32 @@ def tts_route_and_prosody_preflight(tts_map: Any, summary: Any, path: Path | Non
     )
 
 
+def publish_candidate_voice_gate(tts_map: Any, summary: Any, path: Path | None) -> dict[str, Any]:
+    validation = validate_publish_candidate_tts_route(tts_map, summary)
+    reasons = validation.pop("blocked_reasons", [])
+    warnings = [
+        "B 方案仅保留为 voice_feel_reference；正片候选必须使用 MiniMax speech-2.8-hd 或 MiniMax/speech-2.8-hd。",
+        "本 gate 只检查 TTS 路线与音频存在性字段；真实听感仍需要用户 / ChatGPT 人工复审。",
+    ]
+    if validation.get("voice_route_validation") == "internal_diagnostic_only":
+        warnings.append("非 MiniMax TTS 仅允许 internal_diagnostic_only，不能写 publish_candidate_ready_for_human_review。")
+
+    return blocked_report(
+        "publish_candidate_voice_gate",
+        reasons,
+        checked_input=rel(path) if path else "",
+        required_provider="minimax",
+        required_model=sorted(REQUIRED_MINIMAX_MODELS),
+        authorization_policy={
+            "per_video_user_authorization_required": False,
+            "meaning": "MiniMax route 在本地 runtime / 百炼代理 / 官方 API 中配置可用后，后续正片候选默认直接调用。",
+            "not_meaning": "不代表可以打印、提交、绕过或伪造 API key / token / secret。",
+        },
+        **validation,
+        warnings=warnings,
+    )
+
+
 def card_decision_preflight(content_route: Any, path: Path | None) -> dict[str, Any]:
     reasons: list[str] = []
     if content_route is None:
@@ -514,6 +549,7 @@ def validate_fixture_cases(path: Path | None) -> dict[str, Any] | None:
     cases = data.get("cases") if isinstance(data, dict) else None
     case_errors: list[str] = errors[:]
     required = {"case_id", "input_signal", "expected_gate", "expected_status", "expected_reason", "must_not_write"}
+    allowed_expected_status = {"blocked", "passed", "internal_diagnostic_only"}
     if not isinstance(cases, list):
         case_errors.append("fixture_cases_missing")
         cases = []
@@ -524,8 +560,8 @@ def validate_fixture_cases(path: Path | None) -> dict[str, Any] | None:
         missing = sorted(required - set(case))
         if missing:
             case_errors.append(f"{case.get('case_id', 'unknown')}:missing:{','.join(missing)}")
-        if case.get("expected_status") != "blocked":
-            case_errors.append(f"{case.get('case_id', 'unknown')}:expected_status_not_blocked")
+        if case.get("expected_status") not in allowed_expected_status:
+            case_errors.append(f"{case.get('case_id', 'unknown')}:unsupported_expected_status")
     return {
         "schema": "publish_candidate_preflight_suite.fixture_validation.v1",
         "fixture_path": rel(path),
@@ -548,6 +584,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     reports = [
         line_level_alignment_preflight(timeline, args.script_to_timeline_map),
         tts_route_and_prosody_preflight(tts_map, summary, args.tts_prosody_anchor_map),
+        publish_candidate_voice_gate(tts_map, summary, args.tts_prosody_anchor_map),
         card_decision_preflight(content_route, args.content_route_card),
         forbidden_action_preflight(summary, content_route, locked_copy, tts_map),
         visual_evidence_readability_preflight(content_route, summary),
