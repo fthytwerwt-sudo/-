@@ -1,0 +1,206 @@
+{
+  "request_id": "20260525_process_boot_gate_repair_session_pre_supply_request",
+  "created_at": "2026-05-25T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "process_boot_gate_repair_session_mechanism",
+  "task_type": "project_file_change + mechanism_or_route_fix + validation_layer_sync",
+  "project_stage": "formal_operation_active",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "auto",
+  "mandatory_for_every_task": true,
+  "participation_level": "readonly_pre_supply",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "补强视频执行 / 修片 / 发片候选任务的三层强制机制：process_boot_gate、publish_candidate_required_inventory、current_repair_session，并接入 state_action_router 与 completion_relay_gate。",
+  "current_step": "before_write_gate",
+  "known_context": [
+    "本轮只做机制修补，不生成视频，不修改 dist 媒体产物，不推进 content_validation / send_ready / voice_validation / visual_master_locked / current_data_goal_anchor_ready。",
+    "现有机制包括 route_decision、state_action_router、Completion Relay Gate、material_evidence_gate、script_to_timeline_map、tts_prosody_anchor_map、data_goal_alignment_check。",
+    "本轮要把 GPT prompt 只作为本轮增量目标写成硬规则，避免 prompt_missing_component 导致默认组件静默跳过。",
+    "目标文件当前已有未提交改动，Codex 必须增量修改并保留已有 dirty diff。"
+  ],
+  "missing_context": [
+    "DeepSeek runtime provider key availability is unknown before safe runner attempt.",
+    "No real video candidate is being repaired in this turn; current_repair_session is only a mechanism template."
+  ],
+  "candidate_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/21_codex_judgment_permission_matrix.md",
+    "codex_source/fixtures/mechanism_inference_function_cases.json",
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/08_当前正式事实.md",
+    "GPT数据源/10_OPC一人公司闭环与多AI协作机制.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "codex_log/latest.md"
+  ],
+  "must_read_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/21_codex_judgment_permission_matrix.md",
+    "codex_source/fixtures/mechanism_inference_function_cases.json",
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/08_当前正式事实.md",
+    "GPT数据源/10_OPC一人公司闭环与多AI协作机制.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "codex_log/latest.md"
+  ],
+  "optional_files": [
+    "codex_source/13_execution_lane_and_parallel_rules.md",
+    "project_source/20_codex_multi_agent_routing_note_for_gpt_project.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    "dist/latest_review_pack",
+    "素材录制/",
+    "GPT 数据源/",
+    "review_loop/"
+  ],
+  "expected_output": [
+    "file_map",
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "status_promotion_risk_check"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files.",
+    "DeepSeek must not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is stable or completed.",
+    "Do not modify locked copy, media outputs, content_validation, send_ready, publish status, latest_review_pack, voice_validation, visual_master_locked, current_data_goal_anchor_ready, or source materials.",
+    "Do not overwrite unrelated dirty changes in target files."
+  ],
+  "blocked_if": [
+    "codex_source/00_codex_readme.md missing or unreadable",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md missing or unreadable",
+    "requested mechanism conflicts with existing route_decision or state_action_router and cannot be reconciled",
+    "requested change would require generating video or modifying media outputs",
+    "requested change would promote content_validation, send_ready, voice_validation, visual_master_locked, or current_data_goal_anchor_ready",
+    "patch would overwrite existing dirty diff"
+  ],
+  "return_to_codex": {
+    "read_status_required": true,
+    "impact_check_required": true,
+    "write_scope": [
+      "codex_source/00_codex_readme.md",
+      "codex_source/19_project_state_action_router.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/01_项目系统提示词.md",
+      "GPT数据源/05_文案路由规则.md",
+      "GPT数据源/07_AI知识类视频价值规则.md",
+      "codex_source/fixtures/mechanism_inference_function_cases.json",
+      "codex_log/latest.md"
+    ],
+    "output_dir": "dist/deepseek_supply_controller/process_boot_gate_repair_session_pre_supply",
+    "verification_required": [
+      "keyword_check",
+      "json_parse",
+      "git_diff_check",
+      "no_forbidden_status_promotion_check",
+      "no_media_output_changed_check"
+    ]
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "deep_file_prefetch",
+      "post_risk_review"
+    ]
+  },
+  "file_scope": {
+    "candidate_files": [
+      "AGENTS.md",
+      "codex_source/00_codex_readme.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/21_codex_judgment_permission_matrix.md",
+      "codex_source/fixtures/mechanism_inference_function_cases.json",
+      "GPT数据源/01_项目系统提示词.md",
+      "GPT数据源/05_文案路由规则.md",
+      "GPT数据源/07_AI知识类视频价值规则.md",
+      "GPT数据源/08_当前正式事实.md",
+      "GPT数据源/10_OPC一人公司闭环与多AI协作机制.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "codex_log/latest.md"
+    ],
+    "must_prefetch_files": [
+      "codex_source/00_codex_readme.md",
+      "codex_source/19_project_state_action_router.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/01_项目系统提示词.md",
+      "GPT数据源/05_文案路由规则.md",
+      "GPT数据源/07_AI知识类视频价值规则.md",
+      "codex_source/fixtures/mechanism_inference_function_cases.json",
+      "codex_log/latest.md"
+    ],
+    "optional_prefetch_files": [
+      "AGENTS.md",
+      "GPT数据源/08_当前正式事实.md",
+      "GPT数据源/10_OPC一人公司闭环与多AI协作机制.md",
+      "codex_source/21_codex_judgment_permission_matrix.md"
+    ],
+    "forbidden_files": [
+      ".env",
+      ".env.local",
+      "dist/latest_review_pack",
+      "素材录制/",
+      "review_loop/"
+    ],
+    "secret_files_forbidden": true
+  },
+  "content_loading_policy": {
+    "read_only": true,
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 8,
+    "max_chars_per_file": 1200,
+    "max_total_chars": 12000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "do_not_read_secret_files": true,
+    "do_not_modify_files": true
+  },
+  "codex_minimal_review_policy": {
+    "will_modify_files": [
+      "codex_source/00_codex_readme.md",
+      "codex_source/19_project_state_action_router.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/01_项目系统提示词.md",
+      "GPT数据源/05_文案路由规则.md",
+      "GPT数据源/07_AI知识类视频价值规则.md",
+      "codex_source/fixtures/mechanism_inference_function_cases.json",
+      "codex_log/latest.md"
+    ],
+    "conflict_or_uncertain_files": [
+      "codex_source/00_codex_readme.md",
+      "codex_source/19_project_state_action_router.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "codex_log/latest.md"
+    ],
+    "safety_sensitive_files": [
+      "GPT数据源/08_当前正式事实.md",
+      "codex_log/latest.md",
+      "dist/latest_review_pack"
+    ]
+  },
+  "output_required": [
+    "relevant_file_bundle",
+    "exact_snippet_pack",
+    "dependency_map",
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input"
+  ]
+}

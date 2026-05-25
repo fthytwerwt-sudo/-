@@ -1606,6 +1606,120 @@
         "补齐 current_data_goal_anchor_source",
         "补齐 every_segment_maps_to_goal / no_forbidden_variable_introduced"
       ]
+    },
+    {
+      "case_id": "prompt_missing_judgment_card_but_video_execution_requires_component_check",
+      "function_name": "process_boot_gate",
+      "case_type": "required_component_decision",
+      "input_signal": [
+        "用户要求按锁定文案执行视频。",
+        "本轮 prompt 未提判断卡 / 总结卡 / 结果差卡。"
+      ],
+      "observed_evidence": {
+        "task_type": "video_execution",
+        "prompt_mentions_judgment_card": false,
+        "content_route_card_v2_required": true,
+        "card_placement_decision_required": true,
+        "prompt_used_as_full_process_source": false
+      },
+      "expected_state_inference": [
+        "process_boot_required",
+        "component_decision_table_required"
+      ],
+      "expected_action_policy": [
+        "output_process_boot_report",
+        "treat_prompt_as_prompt_delta_only",
+        "decide_judgment_card_needed_or_not_needed_with_reason"
+      ],
+      "validation_rule": [
+        "prompt 没提判断卡不代表可跳过组件判断。",
+        "judgment_card / summary_card / result_diff_card / prompt_tail_card 都必须有 needed + reason 或 not_needed_reason。"
+      ],
+      "blocked_if": [
+        "component_decision_table_missing",
+        "prompt_used_as_full_process_source"
+      ],
+      "expected_feedback_update": [
+        "process_boot_report.component_decision_table",
+        "remaining_work_check"
+      ]
+    },
+    {
+      "case_id": "repair_candidate_without_current_repair_session_blocks_or_creates_session",
+      "function_name": "repair_session_required",
+      "case_type": "blocked_or_create_session",
+      "input_signal": [
+        "用户要求继续修上一版候选片。",
+        "仓库没有可读 current_repair_session。"
+      ],
+      "observed_evidence": {
+        "task_type": "repair_candidate",
+        "current_repair_session_exists": false,
+        "latest_log_available": true,
+        "summary_json_available": true,
+        "review_manifest_available": true,
+        "target_candidate_known": true
+      },
+      "expected_state_inference": [
+        "repair_session_required",
+        "previous_state_recovery_required"
+      ],
+      "expected_action_policy": [
+        "read_latest_and_review_pack",
+        "create_or_restore_current_repair_session",
+        "lock_primary_issue_this_round_before_repair"
+      ],
+      "validation_rule": [
+        "修片前必须先有 current_repair_session。",
+        "不能从本轮 prompt 猜上一轮修到哪里。"
+      ],
+      "blocked_if": [
+        "target_candidate_unknown",
+        "previous_state_unrecoverable",
+        "locked_goal_conflict"
+      ],
+      "expected_feedback_update": [
+        "current_repair_session",
+        "remaining_blockers"
+      ]
+    },
+    {
+      "case_id": "full_mp4_generated_but_inventory_missing_is_partial_not_completed",
+      "function_name": "publish_candidate_required_inventory",
+      "case_type": "completion_blocked",
+      "input_signal": [
+        "执行链已经生成 full.mp4。",
+        "缺 review_pack 或 data_goal_alignment_check。"
+      ],
+      "observed_evidence": {
+        "task_type": "publish_candidate",
+        "full_mp4_exists": true,
+        "review_pack_exists": false,
+        "data_goal_alignment_check_exists": false,
+        "subtitle_card_overlap_check_exists": true,
+        "required_inventory_exists": true
+      },
+      "expected_state_inference": [
+        "publish_candidate_inventory_required",
+        "completion_state_not_completed"
+      ],
+      "expected_action_policy": [
+        "continue_or_block_completion",
+        "complete_missing_inventory_items_or_write_remaining_blockers"
+      ],
+      "validation_rule": [
+        "full.mp4 存在不等于发片候选完成。",
+        "缺 required item 且无 not_applicable_reason 时不得写 completed。"
+      ],
+      "blocked_if": [
+        "any_required_item_missing_without_not_applicable_reason",
+        "completion_state_written_completed"
+      ],
+      "expected_feedback_update": [
+        "publish_candidate_required_inventory",
+        "remaining_work_check",
+        "completion_state = continue_or_blocked"
+      ]
     }
   ]
 }

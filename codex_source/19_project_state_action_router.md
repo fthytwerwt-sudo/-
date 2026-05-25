@@ -138,6 +138,16 @@ if state = deepseek_claim_without_token_usage:
 if state = codex_vertical_completion_missing:
   action = run_codex_vertical_completion across affected files, schema, fixture, logs, and package
 
+if state = process_boot_required:
+  action = read_full_process_entries, output process_boot_report, treat GPT prompt as prompt_delta only, build required_output_inventory, detect locked_items / allowed_changes / forbidden_changes, and block if complete flow is not loaded
+
+if state = publish_candidate_inventory_required:
+  action = build publish_candidate_required_inventory, verify locked_copy_contract / content_route_card_v2 / card_placement_decision / script_to_timeline_map / tts_prosody_anchor_map / visual_evidence_check / subtitle_card_overlap_check / publish_candidate_checklist / data_goal_alignment_check / review_pack / remaining_blockers, and block or continue if any required item is missing without not_applicable_reason
+
+if state = repair_session_required:
+  action = read_or_create current_repair_session before repairing an existing candidate, recover previous state from latest.md / review pack / summary.json / review_manifest.md if missing, lock one primary_issue_this_round, and update remaining_blockers after execution
+
+
 if state = data_goal_anchor_needed:
   action = create_data_goal_anchor or block_execution_if_goal_anchor_missing before video execution
 
@@ -252,6 +262,16 @@ if input_signal includes 视频执行 / 剪辑 / 编排 / 装配 / editing_decis
 if input_signal includes 做视频 / 产视频 / 发片候选 / 运营内容 / 下一条视频 / 发布候选:
   action = require delivery_baseline_gate and resolve to publish_candidate_ready_for_human_review or blocked_publish_candidate_unavailable
 
+if input_signal includes 发片候选 / 候选片 / 修片 / 视频执行 / 重新生成 / 发布前修复 / final_script_to_video / TTS / subtitle / card / timeline / review_pack / privacy_mask / aspect_ratio / visual_evidence:
+  action = trigger process_boot_required; prompt is prompt_delta only; require process_boot_report before execution
+
+if input_signal includes 发片候选 / 候选片 / 修片 / 视频执行 / 重新生成 / 发布前修复:
+  action = trigger publish_candidate_inventory_required; missing required items must be blocked or continue, not completed
+
+if input_signal includes 修片 / 修复片 / repair_candidate / pre_publish_fix / regenerate_video_for_existing_candidate:
+  action = trigger repair_session_required; do not guess previous repair state from prompt
+
+
 if output includes technical_preview / silent preview / 无音轨视频 / 横屏技术包 / JSON route card / Markdown route card:
   action = mark technical_preview_not_delivery; treat as internal_diagnostic_only; cannot satisfy formal operation delivery
 
@@ -303,6 +323,11 @@ if state = blocked_need_user_input:
 - `deepseek_post_review_missing`：修改后必须复核状态偷换、禁止修改、遗漏同步、fallback 误标和剩余工作。
 - `deepseek_claim_without_token_usage`：token 未观察到减少时不得写 DeepSeek 已深度参与。
 - `codex_vertical_completion_missing`：只写文档不算完成，必须补脚本、schema、fixture、日志、上传包和验证链。
+
+- `process_boot_required`：视频执行、修片、发片候选、重新生成、发布前修复或最终文案进视频时触发；必须输出 `process_boot_report`，把 GPT prompt 当 `prompt_delta`，并按仓库流程读取完整入口。缺报告、缺完整流程读取或把 prompt 当完整流程源时 blocked。
+- `publish_candidate_inventory_required`：发片候选、修片候选或视频执行时触发；必须生成 `publish_candidate_required_inventory` 并逐项判断 required / not_applicable。任一必需项缺失且无 `not_applicable_reason` 时，不得写 `completed`。
+- `repair_session_required`：修片、发布前修复或重生成既有候选片时触发；必须读或创建 `current_repair_session`，恢复上一轮状态，锁本轮唯一主修问题，并在执行后更新 `remaining_blockers`。
+
 - `data_goal_anchor_needed`：缺数据目标锚点时，不得进入视频执行、剪辑、编排或装配。
 - `data_goal_execution_bus_needed`：13 已定义目标但未接到全执行链时，必须补 14 总线或同步执行规则；不得只扩写说明。
 - `codex_execution_structure_drift_risk`：Codex 可以改结构，不能改目标、主短板、主变量、禁止变量和验证指标。

@@ -1,0 +1,172 @@
+{
+  "request_id": "20260525_process_boot_gate_repair_session_post_risk_review_request",
+  "created_at": "2026-05-25T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "process_boot_gate_repair_session_mechanism",
+  "task_type": "project_file_change + mechanism_or_route_fix + validation_layer_sync",
+  "project_stage": "formal_operation_active",
+  "trigger_reason": "mandatory_post_risk_review",
+  "action": "auto",
+  "mandatory_for_every_task": true,
+  "participation_level": "readonly_post_risk_review",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "执行后风险复核：检查 process_boot_gate、publish_candidate_required_inventory、current_repair_session 三层机制写入是否存在状态推进、禁止范围误改、遗漏同步或 fallback 误标。",
+  "current_step": "after_write_validation",
+  "known_context": [
+    "Codex 已写入流程启动闸门、发片候选必交付清单、当前修片会话卡及 state_action_router 接入。",
+    "本轮未生成视频、未修改媒体产物、未推进 content_validation / send_ready / voice_validation / visual_master_locked / current_data_goal_anchor_ready。",
+    "本轮已完成关键词 grep、JSON parse、npm run check、git diff --check 和媒体变更扫描。"
+  ],
+  "missing_context": [
+    "No real video repair session was executed; current_repair_session is a template / trigger mechanism only."
+  ],
+  "candidate_files": [
+    "codex_source/00_codex_readme.md",
+    "codex_source/19_project_state_action_router.md",
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "codex_source/fixtures/mechanism_inference_function_cases.json",
+    "codex_log/latest.md",
+    "codex_log/20260525_流程启动闸门修片会话机制_process_boot_gate_repair_session_mechanism.md"
+  ],
+  "must_read_files": [
+    "codex_source/00_codex_readme.md",
+    "codex_source/19_project_state_action_router.md",
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "codex_source/fixtures/mechanism_inference_function_cases.json",
+    "codex_log/latest.md",
+    "codex_log/20260525_流程启动闸门修片会话机制_process_boot_gate_repair_session_mechanism.md"
+  ],
+  "optional_files": [
+    "AGENTS.md",
+    "GPT数据源/08_当前正式事实.md",
+    "codex_source/21_codex_judgment_permission_matrix.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    "dist/latest_review_pack",
+    "素材录制/",
+    "GPT 数据源/",
+    "review_loop/"
+  ],
+  "expected_output": [
+    "risk_report",
+    "post_risk_review",
+    "status_promotion_risk_check",
+    "missing_or_uncertain_files",
+    "codex_next_input"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files.",
+    "DeepSeek must not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is stable or completed.",
+    "Do not approve content_validation, send_ready, voice_validation, visual_master_locked, current_data_goal_anchor_ready, video generation, media output changes, or latest_review_pack changes."
+  ],
+  "blocked_if": [
+    "status_promotion_risk detected",
+    "forbidden media or dist/latest_review_pack change detected",
+    "process_boot_report or required inventory missing from entry files",
+    "repair_session_required not connected to state_action_router",
+    "fixture cases invalid or missing expected blocked behavior",
+    "latest.md claims long-term stability or video completion"
+  ],
+  "return_to_codex": {
+    "read_status_required": true,
+    "impact_check_required": false,
+    "write_scope": [],
+    "output_dir": "dist/deepseek_supply_controller/process_boot_gate_repair_session_post_risk_review",
+    "verification_required": [
+      "keyword_check",
+      "json_parse",
+      "git_diff_check",
+      "no_forbidden_status_promotion_check",
+      "no_media_output_changed_check"
+    ]
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "post_risk_review"
+    ]
+  },
+  "file_scope": {
+    "candidate_files": [
+      "codex_source/00_codex_readme.md",
+      "codex_source/19_project_state_action_router.md",
+      "GPT数据源/01_项目系统提示词.md",
+      "GPT数据源/05_文案路由规则.md",
+      "GPT数据源/07_AI知识类视频价值规则.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "codex_source/fixtures/mechanism_inference_function_cases.json",
+      "codex_log/latest.md",
+      "codex_log/20260525_流程启动闸门修片会话机制_process_boot_gate_repair_session_mechanism.md"
+    ],
+    "must_prefetch_files": [
+      "codex_source/00_codex_readme.md",
+      "codex_source/19_project_state_action_router.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "codex_source/fixtures/mechanism_inference_function_cases.json",
+      "codex_log/latest.md"
+    ],
+    "optional_prefetch_files": [
+      "GPT数据源/01_项目系统提示词.md",
+      "GPT数据源/05_文案路由规则.md",
+      "GPT数据源/07_AI知识类视频价值规则.md",
+      "codex_log/20260525_流程启动闸门修片会话机制_process_boot_gate_repair_session_mechanism.md"
+    ],
+    "forbidden_files": [
+      ".env",
+      ".env.local",
+      "dist/latest_review_pack",
+      "素材录制/",
+      "review_loop/"
+    ],
+    "secret_files_forbidden": true
+  },
+  "content_loading_policy": {
+    "read_only": true,
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 8,
+    "max_chars_per_file": 1200,
+    "max_total_chars": 12000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "do_not_read_secret_files": true,
+    "do_not_modify_files": true
+  },
+  "codex_minimal_review_policy": {
+    "will_modify_files": [],
+    "conflict_or_uncertain_files": [
+      "codex_source/00_codex_readme.md",
+      "codex_source/19_project_state_action_router.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "codex_log/latest.md"
+    ],
+    "safety_sensitive_files": [
+      "GPT数据源/08_当前正式事实.md",
+      "codex_log/latest.md",
+      "dist/latest_review_pack"
+    ]
+  },
+  "output_required": [
+    "relevant_file_bundle",
+    "exact_snippet_pack",
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input"
+  ]
+}

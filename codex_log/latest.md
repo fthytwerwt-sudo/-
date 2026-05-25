@@ -1,5 +1,21 @@
 # Latest
 
+## 20260525｜流程启动闸门 + 发片清单 + 修片会话卡机制补强
+
+- `已确认` 本轮只做视频执行 / 修片 / 发片候选机制补强，不生成视频、不重生成候选片、不修改 `dist/` 媒体产物、不改新第四期 locked 文案语义。
+- `route_decision（路由判断）`：`project_route = video_factory`；`task_type = mechanism_or_route_fix + project_file_change + validation_layer_sync`；`large_task_gate = triggered`；`lane = audit_lane -> standard_lane`；`parallel = serial_only`；`write_owner = Codex Integrator only`。
+- `DeepSeek`：已创建供料任务卡 `codex_log/supply_requests/20260525_流程启动闸门修片会话机制_process_boot_gate_repair_session_pre_supply_request.json`，安全供料返回 `deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`api_key_printed = false`、`api_key_written = false`、`env_file_read = false`；供料包只作为只读参考，项目事实仍以仓库原文件为准。
+- `已写入` `process_boot_gate（流程启动闸门）`：后续命中视频执行、修片、发片候选、重新生成、发布前修复、最终文案进视频或 TTS / 字幕 / 卡片 / 时间线 / 审片包 / 视觉证据任务时，必须先读完整流程入口并输出 `process_boot_report（流程启动报告）`。
+- `已写入` prompt 边界：GPT prompt 只代表本轮 `prompt_delta（增量目标）`，不是完整流程唯一依据；prompt 未写的默认流程义务不得静默省略。
+- `已写入` `publish_candidate_required_inventory（发片候选必交付清单）`：`locked_copy_contract / content_route_card_v2 / card_placement_decision / script_to_timeline_map / tts_prosody_anchor_map / visual_evidence_check / subtitle_card_overlap_check / publish_candidate_checklist / data_goal_alignment_check / review_pack / remaining_blockers` 默认进入判断；不适用必须写 `not_applicable_reason`，缺必需项不得 `completed`。
+- `已写入` `current_repair_session（当前修片会话卡）`：修片 / 既有候选片重生成必须先从 latest、review pack、summary、manifest 恢复或创建状态卡，锁本轮唯一主修问题，执行后更新 `remaining_blockers`，不得从 prompt 猜状态。
+- `已接入` `state_action_router（项目状态动作总控器）`：新增 `process_boot_required / publish_candidate_inventory_required / repair_session_required` 三类状态、trigger、selected_action、blocked_if。
+- `已补 fixture`：`codex_source/fixtures/mechanism_inference_function_cases.json` 新增 prompt 缺判断卡仍需组件判断、修片无 session 先恢复 / 创建、full.mp4 已生成但清单缺项不得 completed 三个最小 case。
+- `状态边界`：`video_generated = false`；`content_validation = not_advanced`；`send_ready = false`；`voice_validation = not_advanced`；`visual_master_locked = false`；`current_data_goal_anchor_ready = not_advanced`。
+- `待验证` 本轮机制写入只代表入口规则和 fixture 已落库，不代表长期稳定；下一轮真实视频 / 修片任务必须用 `process_boot_report` 和 `publish_candidate_required_inventory` 验证机制是否真实触发。
+- `日志`：`codex_log/20260525_流程启动闸门修片会话机制_process_boot_gate_repair_session_mechanism.md`
+
+
 ## 20260524｜对标文案话语机制落库
 
 - `已确认` 本轮只做文案机制补写，不写新第四期最终文案、不生成视频、不提交第三方逐字稿全文、不推进任何内容状态。
