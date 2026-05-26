@@ -33,11 +33,15 @@ Codex 后续默认先读：
 - `actual_tts_provider = minimax`
 - `actual_tts_model in [speech-2.8-hd, MiniMax/speech-2.8-hd]`
 - `actual_voice_id == expected_b_minimax_voice_id`
+- `actual_voice_id not in [female-tianmei, female-shaonv, female-shaonv-jingpin, female-yujie]`
+- `actual_gender_direction = male_or_male_leaning`
 - `actual_voice_setting matches locked_voice_setting`
 - `timbre_change_allowed = false`
 - `human_voice_review_status = user_confirmed`
 
-`female-tianmei` 不得继续作为 B 方案默认声音，除非用户明确试听并确认。情绪、停顿、上扬、重音和语速只能在同一 `voice_id` 内优化；不得为了情绪更丰富而换音色。缺 `expected_b_minimax_voice_id`、缺用户试听确认或 `actual_voice_id` 不匹配时，必须 blocked 或停在 `pending_user_review`，不得写 `voice_validation = passed`。
+`已确认` 用户已拒绝上一轮 `female-shaonv / female-shaonv-jingpin / female-yujie` 候选，原因是 `wrong_gender_and_wrong_voice_identity（性别方向和声音身份错误）`。这些候选与 `female-tianmei` 一起进入 B 方案禁用 voice_id 列表，除非未来用户明确反悔并重新确认。
+
+`已确认` 本轮重审后，B 方案目标方向为 `male_or_male_leaning（男声或偏男声）`。旧文件中的 `可爱女生向导音` 只能作为历史冲突口径，不得覆盖当前 B 声音身份锁。情绪、停顿、上扬、重音和语速只能在同一 `voice_id` 内优化；不得为了情绪更丰富而换性别或换音色。缺 `expected_b_minimax_voice_id`、缺用户试听确认、`actual_voice_id` 不匹配、命中禁用 voice_id 或性别方向不匹配时，必须 blocked 或停在 `pending_user_review`，不得写 `voice_validation = passed`。
 
 ## 0A-2. user_feedback_boundary and no_degrade_completion gate
 
@@ -679,7 +683,7 @@ Codex 的纵向补全不能替 ChatGPT 偷懒；ChatGPT 仍必须在上游提供
 - `v31_element_doll_opening_preview（v3.1 元素娃娃开头预览）` 只保留为开头预览证据。
 - `fixed_material_anchor（固定素材锚点）` 只有 v3.1 元素娃娃开头；但这不等于元素娃娃是唯一 reference。
 - PR #7 B、cute card、round34 中段剪辑、TTS 节奏参考、TTS 语音 / 音色候选参考、`visual_route_map.json`、`locked_reference_registry.md` 仍属于 `reference_whitelist（参考白名单）`，后续按任务类型读取路径索引和 registry 复核后可继续使用。
-- TTS 必须拆开：`tts_pacing_reference（TTS 节奏参考）` 管语速、停顿、轻吐槽、梗感和句间节奏；`tts_voice_reference（TTS 语音 / 音色参考）` 管声音质感、可爱向导音方向和 custom voice 底子。
+- TTS 必须拆开：`tts_pacing_reference（TTS 节奏参考）` 管语速、停顿、轻吐槽、梗感和句间节奏；`tts_voice_reference（TTS 语音 / 音色参考）` 管声音质感和 custom voice 底子。2026-05-27 B 声音本体重审后，历史 `可爱向导音 / 可爱女生向导音` 不得覆盖 B 方案当前 `male_or_male_leaning（男声或偏男声）` 身份锁。
 - TTS voice reference 当前包括 `voice_sample2_cute_guide_voice_candidate_20260426`、脱敏 custom voice `qwen-t...ac19`、`target_model = qwen3-tts-vc-realtime-2026-01-15`；该项仍是 candidate / pending，不得写成 final voice passed、`voice_validation = passed` 或 `final_voice_validated = true`。
 - round34、v3、PR #7 B、cute card、TTS 不得再被默认输出成当前固定素材锚点；其中 v3 仍只作历史候选 / 对照，其他 reference whitelist 项不得因清库口径被误判为废弃。
 - PR #46 只保留为未来流程 / 教学 / 操作拆解类视频升级方向资料，不作为当前 reference。

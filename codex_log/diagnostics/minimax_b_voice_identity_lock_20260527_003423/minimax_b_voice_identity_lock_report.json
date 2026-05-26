@@ -220,7 +220,11 @@
       "fallback_tts_used": false,
       "macos_say_used": false,
       "local_low_quality_tts_used": false,
-      "silent_audio_fallback_used": false
+      "silent_audio_fallback_used": false,
+      "user_review_status": "rejected_by_user",
+      "lock_status": "rejected",
+      "rejection_reason": "wrong_gender_and_wrong_voice_identity",
+      "future_use_allowed": false
     },
     {
       "candidate_id": "B01",
@@ -299,7 +303,11 @@
       "fallback_tts_used": false,
       "macos_say_used": false,
       "local_low_quality_tts_used": false,
-      "silent_audio_fallback_used": false
+      "silent_audio_fallback_used": false,
+      "user_review_status": "rejected_by_user",
+      "lock_status": "rejected",
+      "rejection_reason": "wrong_gender_and_wrong_voice_identity",
+      "future_use_allowed": false
     },
     {
       "candidate_id": "B02",
@@ -378,7 +386,11 @@
       "fallback_tts_used": false,
       "macos_say_used": false,
       "local_low_quality_tts_used": false,
-      "silent_audio_fallback_used": false
+      "silent_audio_fallback_used": false,
+      "user_review_status": "rejected_by_user",
+      "lock_status": "rejected",
+      "rejection_reason": "wrong_gender_and_wrong_voice_identity",
+      "future_use_allowed": false
     },
     {
       "candidate_id": "B02",
@@ -457,7 +469,11 @@
       "fallback_tts_used": false,
       "macos_say_used": false,
       "local_low_quality_tts_used": false,
-      "silent_audio_fallback_used": false
+      "silent_audio_fallback_used": false,
+      "user_review_status": "rejected_by_user",
+      "lock_status": "rejected",
+      "rejection_reason": "wrong_gender_and_wrong_voice_identity",
+      "future_use_allowed": false
     },
     {
       "candidate_id": "B03",
@@ -536,7 +552,11 @@
       "fallback_tts_used": false,
       "macos_say_used": false,
       "local_low_quality_tts_used": false,
-      "silent_audio_fallback_used": false
+      "silent_audio_fallback_used": false,
+      "user_review_status": "rejected_by_user",
+      "lock_status": "rejected",
+      "rejection_reason": "wrong_gender_and_wrong_voice_identity",
+      "future_use_allowed": false
     },
     {
       "candidate_id": "B03",
@@ -615,7 +635,11 @@
       "fallback_tts_used": false,
       "macos_say_used": false,
       "local_low_quality_tts_used": false,
-      "silent_audio_fallback_used": false
+      "silent_audio_fallback_used": false,
+      "user_review_status": "rejected_by_user",
+      "lock_status": "rejected",
+      "rejection_reason": "wrong_gender_and_wrong_voice_identity",
+      "future_use_allowed": false
     }
   ],
   "b_voice_identity_lock": {
@@ -671,5 +695,19 @@
     "https://help.aliyun.com/zh/model-studio/minimax-synchronous-speech-synthesis-api",
     "https://platform.minimax.io/docs/api-reference/speech-t2a-http",
     "https://platform.minimax.io/docs/api-reference/voice-cloning-clone"
-  ]
+  ],
+  "superseded_by_reaudit": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/minimax_b_voice_identity_reaudit_report.json",
+  "previous_candidate_review_update": {
+    "schema": "previous_candidate_rejection_report.v1",
+    "run_id": "20260527_012222",
+    "rejected_candidates": [
+      "female-shaonv",
+      "female-shaonv-jingpin",
+      "female-yujie"
+    ],
+    "user_reason": "wrong_gender_and_wrong_voice_identity",
+    "future_use_allowed": false,
+    "affected_previous_review_table": "codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423/voice_candidate_review_table.json",
+    "status": "rejected_by_user"
+  }
 }

@@ -1,6 +1,6 @@
 {
   "schema": "voice_candidate_review_table.v1",
-  "status": "pending_user_review",
+  "status": "rejected_by_user",
   "human_voice_review_required": true,
   "allowed_lock_status_values": [
     "pending_user_review",
@@ -22,8 +22,10 @@
       "too_broadcast": "待人工判断",
       "too_sales": "待人工判断",
       "too_childish": "待人工判断",
-      "user_choice": "pending",
-      "lock_status": "pending_user_review"
+      "user_choice": "rejected_by_user",
+      "lock_status": "rejected",
+      "rejection_reason": "wrong_gender_and_wrong_voice_identity",
+      "future_use_allowed": false
     },
     {
       "candidate_id": "B01_v2_more_emotional",
@@ -39,8 +41,10 @@
       "too_broadcast": "待人工判断",
       "too_sales": "待人工判断",
       "too_childish": "待人工判断",
-      "user_choice": "pending",
-      "lock_status": "pending_user_review"
+      "user_choice": "rejected_by_user",
+      "lock_status": "rejected",
+      "rejection_reason": "wrong_gender_and_wrong_voice_identity",
+      "future_use_allowed": false
     },
     {
       "candidate_id": "B02_v1_stable",
@@ -56,8 +60,10 @@
       "too_broadcast": "待人工判断",
       "too_sales": "待人工判断",
       "too_childish": "待人工判断",
-      "user_choice": "pending",
-      "lock_status": "pending_user_review"
+      "user_choice": "rejected_by_user",
+      "lock_status": "rejected",
+      "rejection_reason": "wrong_gender_and_wrong_voice_identity",
+      "future_use_allowed": false
     },
     {
       "candidate_id": "B02_v2_more_emotional",
@@ -73,8 +79,10 @@
       "too_broadcast": "待人工判断",
       "too_sales": "待人工判断",
       "too_childish": "待人工判断",
-      "user_choice": "pending",
-      "lock_status": "pending_user_review"
+      "user_choice": "rejected_by_user",
+      "lock_status": "rejected",
+      "rejection_reason": "wrong_gender_and_wrong_voice_identity",
+      "future_use_allowed": false
     },
     {
       "candidate_id": "B03_v1_stable",
@@ -90,8 +98,10 @@
       "too_broadcast": "待人工判断",
       "too_sales": "待人工判断",
       "too_childish": "待人工判断",
-      "user_choice": "pending",
-      "lock_status": "pending_user_review"
+      "user_choice": "rejected_by_user",
+      "lock_status": "rejected",
+      "rejection_reason": "wrong_gender_and_wrong_voice_identity",
+      "future_use_allowed": false
     },
     {
       "candidate_id": "B03_v2_more_emotional",
@@ -107,8 +117,14 @@
       "too_broadcast": "待人工判断",
       "too_sales": "待人工判断",
       "too_childish": "待人工判断",
-      "user_choice": "pending",
-      "lock_status": "pending_user_review"
+      "user_choice": "rejected_by_user",
+      "lock_status": "rejected",
+      "rejection_reason": "wrong_gender_and_wrong_voice_identity",
+      "future_use_allowed": false
     }
-  ]
+  ],
+  "user_verdict": "rejected_all",
+  "user_reason": "wrong_gender_and_wrong_voice_identity",
+  "future_use_allowed": false,
+  "rejected_at": "2026-05-27T01:22:22+08:00"
 }

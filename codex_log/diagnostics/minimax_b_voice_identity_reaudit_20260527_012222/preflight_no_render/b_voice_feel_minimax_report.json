@@ -1,0 +1,180 @@
+{
+  "schema": "b_voice_feel_minimax_preflight.v1",
+  "gate_name": "b_voice_feel_minimax_preflight",
+  "status": "blocked",
+  "check_depth": "structural_check_only",
+  "blocked_reasons": [
+    "actual_gender_direction_missing",
+    "actual_voice_id_missing",
+    "audio_missing_or_silent",
+    "audio_not_generated_or_missing",
+    "b_voice_feel_not_reflected",
+    "b_voice_feel_required_tags_missing",
+    "expected_b_minimax_voice_id_missing",
+    "failed_non_minimax_voice",
+    "human_voice_review_status_not_user_confirmed",
+    "tts_route_report_missing",
+    "voice_identity_lock_status_not_user_confirmed"
+  ],
+  "warnings": [
+    "B 方案升级的是正式听感标准，不是旧 Qwen / 阿里 B 语音引擎。",
+    "正式候选片生成路线必须是 MiniMax speech-2.8-hd 或 MiniMax/speech-2.8-hd；旧 B 语音脚本只能是历史 / reference / internal diagnostic。"
+  ],
+  "checked_input": "",
+  "b_voice_feel_minimax_formal_voice_rule": {
+    "status": "active",
+    "b_voice_scheme_role": "formal_voice_feel_reference",
+    "required_generation_route": {
+      "provider_family": [
+        "minimax",
+        "aliyun_bailian_proxy_to_minimax"
+      ],
+      "model": [
+        "MiniMax/speech-2.8-hd",
+        "speech-2.8-hd"
+      ]
+    },
+    "required_voice_feel": [
+      "b_pacing_feel",
+      "game_guide_feeling",
+      "light_companion",
+      "low_pressure",
+      "natural_spoken_chinese",
+      "not_broadcast",
+      "not_childish_cute_voice",
+      "not_customer_service",
+      "not_sales",
+      "subtle_pause_joke_rhythm"
+    ],
+    "forbidden_generation_route": [
+      "aliyun_qwen_realtime_websocket_voice_clone_as_publish_candidate",
+      "qwen3-tts-vc-realtime-2026-01-15_as_publish_candidate",
+      "Serena",
+      "macOS_say",
+      "local_low_quality_tts",
+      "silent_audio",
+      "unauthorized_fallback"
+    ],
+    "required_report": [
+      "tts_route_report.json",
+      "tts_route_report.md"
+    ],
+    "blocked_if": [
+      "actual_model_is_not_minimax_speech_2_8_hd",
+      "fallback_used = true",
+      "audio_missing = true",
+      "non_silent = false",
+      "b_voice_feel_not_reflected = true"
+    ]
+  },
+  "actual_tts_provider": "",
+  "actual_tts_model": "",
+  "selected_route": "",
+  "is_minimax_speech_2_8_hd": false,
+  "minimax_authorization_source_masked": "none",
+  "api_key_printed": false,
+  "api_key_written": false,
+  "audio_present": false,
+  "non_silent": false,
+  "fallback_tts_used": false,
+  "fallback_reason": "",
+  "macos_say_used": false,
+  "local_low_quality_tts_used": false,
+  "tts_route_report_present": false,
+  "b_voice_scheme_role": {
+    "status": "formal_voice_feel_reference",
+    "meaning": "B 方案升级为正式声音身份与听感标准，保留男声或偏男声方向、停顿梗感、轻陪伴感和低压向导感",
+    "not_allowed": "不再把阿里 B 方案作为正片候选默认 TTS 生成路线"
+  },
+  "b_voice_feel_reflected": false,
+  "voice_feel_tags": [],
+  "missing_b_voice_feel_tags": [
+    "b_pacing_feel",
+    "game_guide_feeling",
+    "light_companion",
+    "low_pressure",
+    "natural_spoken_chinese",
+    "not_broadcast",
+    "not_childish_cute_voice",
+    "not_customer_service",
+    "not_sales",
+    "subtle_pause_joke_rhythm"
+  ],
+  "publish_candidate_context": true,
+  "voice_route_validation": "failed_non_minimax_voice",
+  "full_video_can_only_be_internal_diagnostic": true,
+  "b_voice_identity_lock": {
+    "b_voice_identity_lock_rule": {
+      "status": "pending_user_review",
+      "required_provider": "minimax",
+      "required_model": "speech-2.8-hd",
+      "lock_status_values": [
+        "pending_user_review",
+        "user_confirmed"
+      ],
+      "expected_b_minimax_voice_id": null,
+      "required_gender_direction": "male_or_male_leaning",
+      "expected_b_voice_reference_audio_path": [
+        "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+        "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav"
+      ],
+      "timbre_change_allowed": false,
+      "emotion_optimization_allowed": true,
+      "prosody_optimization_allowed": true,
+      "human_voice_review_required": true,
+      "human_voice_review_status": "pending_user_review",
+      "forbidden_voice_ids": [
+        "female-shaonv",
+        "female-shaonv-jingpin",
+        "female-tianmei",
+        "female-yujie"
+      ],
+      "forbidden_voice_direction": [
+        "female_system_voice",
+        "childish_cute_voice",
+        "broadcast_voice",
+        "sales_voice"
+      ],
+      "blocked_if": [
+        "expected_b_minimax_voice_id_missing",
+        "actual_voice_id_mismatch_expected_b_minimax_voice_id",
+        "actual_voice_id_in_forbidden_voice_ids",
+        "actual_gender_direction_missing",
+        "actual_gender_direction_mismatch_required_gender_direction",
+        "human_voice_review_status_not_user_confirmed",
+        "timbre_change_allowed_true"
+      ]
+    },
+    "voice_identity_lock_status": "pending_user_review",
+    "expected_b_minimax_voice_id": "",
+    "actual_voice_id": "",
+    "actual_gender_direction": "",
+    "required_gender_direction": "male_or_male_leaning",
+    "actual_voice_setting": {},
+    "human_voice_review_required": true,
+    "human_voice_review_status": "pending_user_review",
+    "timbre_change_allowed": false,
+    "emotion_optimization_allowed": true,
+    "prosody_optimization_allowed": true,
+    "forbidden_voice_ids": [
+      "female-shaonv",
+      "female-shaonv-jingpin",
+      "female-tianmei",
+      "female-yujie"
+    ],
+    "forbidden_default_voice_ids_without_user_confirmation": [
+      "female-shaonv",
+      "female-shaonv-jingpin",
+      "female-tianmei",
+      "female-yujie"
+    ],
+    "voice_identity_gate_validation": "blocked_b_voice_identity_lock",
+    "blocked_reasons": [
+      "actual_gender_direction_missing",
+      "actual_voice_id_missing",
+      "expected_b_minimax_voice_id_missing",
+      "human_voice_review_status_not_user_confirmed",
+      "voice_identity_lock_status_not_user_confirmed"
+    ]
+  }
+}

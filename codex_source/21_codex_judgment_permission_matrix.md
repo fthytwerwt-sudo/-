@@ -83,6 +83,8 @@ Perplexity 只能作为 `external_research_reference（外部研究参考）`，
 
 `已确认` 2026-05-27 起，Codex 判断 B 方案声音时必须区分 `voice_feel_tags（声音听感标签）` 与 `voice_identity（声音身份）`。`b_voice_feel_reflected = true` 只能证明听感方向字段存在，不能证明声音身份通过；必须有 `b_voice_identity_lock.status = user_confirmed` 与 `actual_voice_id == expected_b_minimax_voice_id`。
 
+`已确认` 2026-05-27 B 声音本体重审后，上一轮 `female-shaonv / female-shaonv-jingpin / female-yujie` 女声候选已被用户全部拒绝，原因是 `wrong_gender_and_wrong_voice_identity`。后续 B 方案声音方向必须按 `male_or_male_leaning（男声或偏男声）` 过滤，`female-tianmei / female-shaonv / female-shaonv-jingpin / female-yujie` 均不得作为默认 B 方案声音。
+
 凡任务命中视频执行、修片、发片候选、重新生成、发布前修复、最终文案进视频、TTS / 字幕 / 卡片 / 时间线 / review_pack 生成，Codex 必须把以下判断对象统一接入 `publish_candidate_preflight_suite（发片候选预检套件）`：
 
 ```text
@@ -109,11 +111,11 @@ codex_judgment_to_preflight_binding:
   b_voice_feel_minimax_formal_voice:
     required_gate: b_voice_feel_minimax_preflight
     permission: must_decide_and_block
-    hard_requirement: B feel is formal standard; MiniMax is formal generation route; old Qwen / Aliyun B route is blocked for publish candidate completed; actual_voice_id must equal expected_b_minimax_voice_id after user-confirmed voice lock
+    hard_requirement: B feel is formal standard; MiniMax is formal generation route; old Qwen / Aliyun B route is blocked for publish candidate completed; actual_voice_id must equal expected_b_minimax_voice_id after user-confirmed voice lock; actual_gender_direction must be male_or_male_leaning
   b_voice_identity_lock:
     required_gate: b_voice_identity_lock_preflight
     permission: must_decide_and_block
-    hard_requirement: expected_b_minimax_voice_id required; human_voice_review_status must be user_confirmed; timbre_change_allowed false; female-tianmei forbidden unless user-confirmed
+    hard_requirement: expected_b_minimax_voice_id required; actual_voice_id must equal expected_b_minimax_voice_id; actual_voice_id must not be in forbidden_voice_ids; actual_gender_direction must be male_or_male_leaning; human_voice_review_status must be user_confirmed; timbre_change_allowed false; female-tianmei/female-shaonv/female-shaonv-jingpin/female-yujie forbidden unless future user reverses and confirms
   judgment_card:
     required_gate: card_decision_preflight
     permission: must_decide_and_execute_or_block

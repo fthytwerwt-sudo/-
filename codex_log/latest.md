@@ -1,5 +1,26 @@
 # Latest
 
+## 20260527｜B 声音本体重审与 MiniMax 男声/偏男候选试听包
+
+- `task_result.status = completed_with_reaudited_voice_candidates`
+- `target_delivery = b_voice_identity_reaudit_and_male_leaning_minimax_candidates`
+- `video_generated = false`；`full_narration_regenerated = false`；`copy_changed = false`；`current_video_modified = false`。
+- `diagnostics_path = codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222`
+- `audit_report = codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/minimax_b_voice_identity_reaudit_report.json`
+- `review_table_v2 = codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/voice_candidate_review_table_v2.md`
+- `previous_rejection_report = codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/previous_candidate_rejection_report.json`
+- `previous_wrong_candidates.rejected_by_user = [female-shaonv, female-shaonv-jingpin, female-yujie]`；`reason = wrong_gender_and_wrong_voice_identity`；`future_use_allowed = false`。
+- `b_voice_reference_audio.loaded = true`：已读取 `B_15秒文案_停顿梗感.wav` 与 `语音样本2_声音复刻试听_15秒.wav`；音频可解码、非静音，停顿结构已记录到 `b_voice_reference_audit.json`。
+- `b_voice_target_profile.gender_target = male_or_male_leaning`；旧 `可爱女生向导音` 口径只保留为历史冲突口径，不得覆盖当前 B 声音身份锁。
+- `minimax_voice_list = read_ok`；`system_voice_count = 303`；本轮筛出男声/偏男候选后生成 5 个基础 voice_id、10 条短试听样本。
+- `new_voice_candidates = [male-qn-qingse, male-qn-daxuesheng, Chinese (Mandarin)_Gentleman, Chinese (Mandarin)_Gentle_Youth, Chinese (Mandarin)_Sincere_Adult]`；每个候选均有 `v1_identity_stable` 与 `v2_emotional_rich`。
+- `b_voice_identity_lock.status = pending_user_review`；`expected_b_minimax_voice_id = null`；`required_gender_direction = male_or_male_leaning`；`forbidden_voice_ids = [female-tianmei, female-shaonv, female-shaonv-jingpin, female-yujie]`；`human_voice_review_required = true`；`human_voice_review_status = pending_user_review`。
+- `新增机制`：后续正片候选必须检查 `actual_voice_id == expected_b_minimax_voice_id`、`actual_voice_id not in forbidden_voice_ids`、`actual_gender_direction = male_or_male_leaning`、`timbre_change_allowed = false`、`human_voice_review_status = user_confirmed`；任一不满足必须 blocked。
+- `状态边界`：未推进 `send_ready / content_validation / voice_validation / final_voice_validated / visual_master_locked`。
+- `DeepSeek`：已创建供料任务卡并运行 safe runner；runtime provider ready，但 controller 返回 `blocked_invalid_context_pack`，`deepseek_actual_participation = not_attempted_policy_violation`，`not_deepseek_conclusion = true`；本轮结论来自 Codex 本地复核 + MiniMax 实测，不写 DeepSeek 已参与。
+- `验证`：`py_compile` passed；`tests.test_publish_candidate_voice_gate` + `tests.test_minimax_b_voice_identity_lock` + `tests.test_publish_candidate_preflight_tolerance` 16/16 passed；`publish_candidate_preflight_suite --no-render` fixture validation passed（24 cases）。
+- `日志`：`codex_log/20260527_b_voice_reference_reaudit_and_minimax_candidates.md`
+
 ## 20260527｜MiniMax B 方案声音身份锁定候选试听包
 
 - `task_result.status = completed_with_voice_candidates`

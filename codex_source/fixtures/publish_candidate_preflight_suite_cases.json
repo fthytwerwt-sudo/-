@@ -52,7 +52,7 @@
     },
     {
       "case_id": "b_voice_feel_minimax_passed",
-      "input_signal": "tts_route_report declares MiniMax speech-2.8-hd, B voice feel tags, actual_voice_id equals expected_b_minimax_voice_id, b_voice_identity_lock.status=user_confirmed, and human_voice_review_status=user_confirmed",
+      "input_signal": "tts_route_report declares MiniMax speech-2.8-hd, B voice feel tags, actual_voice_id equals expected_b_minimax_voice_id, actual_gender_direction=male_or_male_leaning, b_voice_identity_lock.status=user_confirmed, and human_voice_review_status=user_confirmed",
       "expected_gate": "b_voice_feel_minimax_preflight",
       "expected_status": "passed",
       "expected_reason": "passed_minimax_b_voice_identity_lock",
@@ -67,11 +67,27 @@
       "must_not_write": ["completed", "send_ready_true", "content_validation_passed", "voice_validation_passed", "final_voice_validated_true"]
     },
     {
-      "case_id": "female_tianmei_default_b_voice_blocks_without_user_confirmation",
-      "input_signal": "actual_voice_id=female-tianmei is used as B scheme without explicit user_confirmed human voice review",
+      "case_id": "female_tianmei_default_b_voice_blocks",
+      "input_signal": "actual_voice_id=female-tianmei is used as B scheme after B voice identity requires male_or_male_leaning",
       "expected_gate": "b_voice_identity_lock_preflight",
       "expected_status": "blocked",
-      "expected_reason": "female_tianmei_used_without_user_confirmation",
+      "expected_reason": "actual_voice_id_in_forbidden_voice_ids",
+      "must_not_write": ["completed", "publish_candidate_ready_for_human_review_true", "send_ready_true", "voice_validation_passed", "final_voice_validated_true"]
+    },
+    {
+      "case_id": "previous_rejected_female_candidates_block",
+      "input_signal": "actual_voice_id is one of female-shaonv, female-shaonv-jingpin, or female-yujie after user rejected all previous female candidates as wrong gender and wrong voice identity",
+      "expected_gate": "b_voice_identity_lock_preflight",
+      "expected_status": "blocked",
+      "expected_reason": "actual_voice_id_in_forbidden_voice_ids",
+      "must_not_write": ["completed", "publish_candidate_ready_for_human_review_true", "send_ready_true", "voice_validation_passed", "final_voice_validated_true"]
+    },
+    {
+      "case_id": "b_voice_gender_direction_mismatch_blocks",
+      "input_signal": "actual_gender_direction is female_system_voice or unknown while required_gender_direction=male_or_male_leaning",
+      "expected_gate": "b_voice_identity_lock_preflight",
+      "expected_status": "blocked",
+      "expected_reason": "actual_gender_direction_mismatch_required_gender_direction",
       "must_not_write": ["completed", "publish_candidate_ready_for_human_review_true", "send_ready_true", "voice_validation_passed", "final_voice_validated_true"]
     },
     {

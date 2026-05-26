@@ -1,0 +1,13 @@
+{
+  "schema": "previous_candidate_rejection_report.v1",
+  "run_id": "20260527_012222",
+  "rejected_candidates": [
+    "female-shaonv",
+    "female-shaonv-jingpin",
+    "female-yujie"
+  ],
+  "user_reason": "wrong_gender_and_wrong_voice_identity",
+  "future_use_allowed": false,
+  "affected_previous_review_table": "codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423/voice_candidate_review_table.json",
+  "status": "rejected_by_user"
+}

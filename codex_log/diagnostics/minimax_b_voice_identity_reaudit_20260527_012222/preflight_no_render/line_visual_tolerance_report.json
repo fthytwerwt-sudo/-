@@ -1,0 +1,70 @@
+{
+  "schema": "line_visual_tolerance_preflight.v1",
+  "gate_name": "line_visual_tolerance_preflight",
+  "status": "blocked",
+  "check_depth": "structural_check_only",
+  "blocked_reasons": [
+    "script_to_timeline_map_missing"
+  ],
+  "warnings": [],
+  "checked_input": "",
+  "line_visual_tolerance_rule": {
+    "status": "active",
+    "applies_to": [
+      "locked_copy_video_execution",
+      "publish_candidate_delivery",
+      "video_repair_execution",
+      "final_script_to_video"
+    ],
+    "tolerance_policy": {
+      "max_near_equivalent_ratio": 0.05,
+      "max_consecutive_near_equivalent_groups": 1,
+      "whole_video_drift_allowed": false,
+      "core_evidence_mismatch_allowed": false
+    },
+    "allowed_near_equivalent_if": [
+      "line_group_is_non_core_evidence",
+      "visual_proves_same_claim",
+      "material_role_is_same_or_stronger",
+      "viewer_inference_is_unchanged",
+      "no_change_to_locked_copy_meaning",
+      "no_change_from_review_to_recommendation",
+      "no_change_from_initial_screening_to_final_decision",
+      "no_new_commercial_claim"
+    ],
+    "forbidden_near_equivalent_if": [
+      "line_group_is_core_evidence",
+      "line_group_is_boundary_statement",
+      "line_group_is_result_diff",
+      "line_group_is_product_or_table_proof",
+      "visual_changes_claim",
+      "visual_requires_guessing",
+      "material_only_thematically_related",
+      "mismatch_repeats_across_multiple_sections"
+    ],
+    "core_evidence_line_types": [
+      "boundary_statement",
+      "candidate_table",
+      "cost_or_commission_claim",
+      "detail_table",
+      "next_action",
+      "product_card_field",
+      "product_review_priority",
+      "result_diff",
+      "review_table",
+      "risk_claim"
+    ],
+    "required_report": [
+      "line_visual_alignment_report",
+      "near_equivalent_material_substitution_report"
+    ],
+    "blocked_if": [
+      "near_equivalent_ratio > 0.05",
+      "core_evidence_mismatch_count > 0",
+      "whole_video_drift_detected = true",
+      "visual_requires_guessing = true",
+      "replacement_material_not_extremely_close = true",
+      "user_material_needed_but_missing = true"
+    ]
+  }
+}

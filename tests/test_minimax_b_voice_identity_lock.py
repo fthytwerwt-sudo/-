@@ -50,9 +50,11 @@ class MinimaxBVoiceIdentityLockTests(unittest.TestCase):
         result = route_module.validate_b_voice_feel_minimax_route(
             _base_tts_report(
                 actual_voice_id="female-tianmei",
+                actual_gender_direction="female_system_voice",
                 b_voice_identity_lock={
                     "status": "pending_user_review",
                     "expected_b_minimax_voice_id": "female-tianmei",
+                    "required_gender_direction": "male_or_male_leaning",
                     "human_voice_review_status": "pending_user_review",
                     "timbre_change_allowed": False,
                 },
@@ -61,15 +63,41 @@ class MinimaxBVoiceIdentityLockTests(unittest.TestCase):
         )
 
         self.assertIn("female_tianmei_used_without_user_confirmation", result["blocked_reasons"])
+        self.assertIn("actual_voice_id_in_forbidden_voice_ids", result["blocked_reasons"])
+        self.assertIn("actual_gender_direction_mismatch_required_gender_direction", result["blocked_reasons"])
         self.assertIn("voice_identity_lock_status_not_user_confirmed", result["blocked_reasons"])
+
+    def test_previous_rejected_female_candidates_block_even_if_user_confirmed_payload_claims_passed(self) -> None:
+        for voice_id in ["female-shaonv", "female-shaonv-jingpin", "female-yujie"]:
+            with self.subTest(voice_id=voice_id):
+                result = route_module.validate_minimax_b_voice_identity_lock(
+                    _base_tts_report(
+                        actual_voice_id=voice_id,
+                        actual_gender_direction="female_system_voice",
+                        b_voice_identity_lock={
+                            "status": "user_confirmed",
+                            "expected_b_minimax_voice_id": voice_id,
+                            "required_gender_direction": "male_or_male_leaning",
+                            "human_voice_review_status": "user_confirmed",
+                            "timbre_change_allowed": False,
+                        },
+                    ),
+                    _summary(),
+                )
+
+                self.assertEqual(result["voice_identity_gate_validation"], "blocked_b_voice_identity_lock")
+                self.assertIn("actual_voice_id_in_forbidden_voice_ids", result["blocked_reasons"])
+                self.assertIn("actual_gender_direction_mismatch_required_gender_direction", result["blocked_reasons"])
 
     def test_voice_id_mismatch_blocks(self) -> None:
         result = route_module.validate_minimax_b_voice_identity_lock(
             _base_tts_report(
                 actual_voice_id="female-shaonv",
+                actual_gender_direction="female_system_voice",
                 b_voice_identity_lock={
                     "status": "user_confirmed",
                     "expected_b_minimax_voice_id": "female-yujie",
+                    "required_gender_direction": "male_or_male_leaning",
                     "human_voice_review_status": "user_confirmed",
                     "timbre_change_allowed": False,
                 },
@@ -83,9 +111,10 @@ class MinimaxBVoiceIdentityLockTests(unittest.TestCase):
     def test_user_confirmed_same_voice_id_passes_identity_lock(self) -> None:
         result = route_module.validate_b_voice_feel_minimax_route(
             _base_tts_report(
-                actual_voice_id="female-shaonv",
+                actual_voice_id="male-qn-qingse",
+                actual_gender_direction="male_or_male_leaning",
                 actual_voice_setting={
-                    "voice_id": "female-shaonv",
+                    "voice_id": "male-qn-qingse",
                     "speed": 1.08,
                     "pitch": 0,
                     "emotion": "calm",
@@ -93,9 +122,10 @@ class MinimaxBVoiceIdentityLockTests(unittest.TestCase):
                 },
                 b_voice_identity_lock={
                     "status": "user_confirmed",
-                    "expected_b_minimax_voice_id": "female-shaonv",
+                    "expected_b_minimax_voice_id": "male-qn-qingse",
+                    "required_gender_direction": "male_or_male_leaning",
                     "locked_voice_setting": {
-                        "voice_id": "female-shaonv",
+                        "voice_id": "male-qn-qingse",
                         "speed": 1.08,
                         "pitch": 0,
                         "emotion": "calm",

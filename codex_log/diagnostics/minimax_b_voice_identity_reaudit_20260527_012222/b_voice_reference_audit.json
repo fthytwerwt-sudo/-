@@ -1,0 +1,115 @@
+{
+  "schema": "b_voice_reference_audit.v2",
+  "run_id": "20260527_012222",
+  "reference_audio_loaded": true,
+  "reference_audio_paths": [
+    "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+    "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav"
+  ],
+  "reference_audio_analysis": [
+    {
+      "path": "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+      "absolute_path": "/Users/fan/Documents/视频工厂/dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+      "role": "B 版停顿梗感参考",
+      "exists": true,
+      "ffprobe": {
+        "passed": true,
+        "duration_seconds": 16.32,
+        "codec_name": "pcm_s16le",
+        "sample_rate": 24000,
+        "channels": 1,
+        "file_size_bytes": 783404
+      },
+      "volume": {
+        "passed": true,
+        "mean_volume_db": "-23.4",
+        "max_volume_db": "-7.1"
+      },
+      "pause_detection": {
+        "threshold": "noise=-35dB,d=0.12",
+        "silence_count": 13,
+        "silence_durations_seconds": [
+          0.222,
+          0.513,
+          0.35,
+          0.349,
+          0.372,
+          0.208,
+          0.125,
+          0.291,
+          0.167,
+          0.258,
+          0.184,
+          0.142,
+          0.217
+        ],
+        "mean_silence_seconds": 0.261,
+        "max_silence_seconds": 0.513,
+        "pause_density_per_10s": 7.97
+      }
+    },
+    {
+      "path": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
+      "absolute_path": "/Users/fan/Documents/视频工厂/dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
+      "role": "历史声音底子参考",
+      "exists": true,
+      "ffprobe": {
+        "passed": true,
+        "duration_seconds": 13.6,
+        "codec_name": "pcm_s16le",
+        "sample_rate": 24000,
+        "channels": 1,
+        "file_size_bytes": 652844
+      },
+      "volume": {
+        "passed": true,
+        "mean_volume_db": "-23.8",
+        "max_volume_db": "-5.0"
+      },
+      "pause_detection": {
+        "threshold": "noise=-35dB,d=0.12",
+        "silence_count": 11,
+        "silence_durations_seconds": [
+          0.439,
+          0.152,
+          0.407,
+          0.282,
+          0.28,
+          0.271,
+          0.376,
+          0.579,
+          0.172,
+          0.175,
+          0.297
+        ],
+        "mean_silence_seconds": 0.312,
+        "max_silence_seconds": 0.579,
+        "pause_density_per_10s": 8.09
+      }
+    }
+  ],
+  "historical_description": [
+    "voice_sample2: 自然口语、真人分享、解释型节奏，禁止播音腔/广告腔/销售腔/客服腔。",
+    "20260427 B: 停顿梗感、轻吐槽、熟人分享、低压、不亢奋，句间留短停顿。",
+    "旧事实层曾写过可爱女生向导音；本轮用户明确纠正为上一轮把以前男生声音改成女生声音，当前纠正优先。"
+  ],
+  "inferred_gender": "male_or_male_leaning",
+  "inferred_age_feel": "young_adult_or_adult_not_childish",
+  "inferred_timbre": "low_pressure_natural_male_leaning_companion_tone",
+  "inferred_energy": "medium_low_controlled_not_hype",
+  "inferred_pause_style": "moderate_to_clear_boundary_pause_with_joke_timing",
+  "inferred_emotion_style": "warm_light_roast_sincere_explanatory",
+  "inferred_upward_tone": "mild_rise_allowed_on_question_or_turning_point_firm_drop_on_boundary",
+  "delivery_style": "spoken_chinese_familiar_sharing_game_guide_feeling_not_reader",
+  "forbidden_voice_direction": [
+    "female_system_voice",
+    "childish_cute_voice",
+    "broadcast_voice",
+    "sales_voice",
+    "flat_reader_voice"
+  ],
+  "confidence": "medium",
+  "confidence_reason": "性别方向以用户当前纠正和历史 B 声音链路为主；Codex 已读取参考音频技术元数据和停顿结构，但最终音色相似度仍需用户人耳复审。",
+  "human_audio_reference_review_needed": true,
+  "conflict_note": "仓库旧口径中的可爱女生向导音与用户本轮纠正冲突；本轮按用户当前纠正上提规则，禁止继续从女声候选锁 B。"
+}

@@ -288,7 +288,7 @@ python scripts/发片候选预检套件_publish_candidate_preflight_suite.py --n
 3. `near_equivalent_material_substitution_preflight（近似素材替代预检）`：输出 `near_equivalent_material_substitution_report`，逐条记录替代素材、时间码、是否核心证据、为何极其相近、claim / viewer inference 是否保留、是否 allowed 或 blocked。
 4. `tts_route_and_prosody_preflight（TTS 路线与韵律预检）`：检查目标 provider / model / voice route、实际 provider / model / voice route、预期 pacing 是否被使用，禁止未授权 fallback、无声或本地低质 TTS 冒充发布候选。
 5. `publish_candidate_voice_gate（正片候选语音闸门）`：检查 `tts_route_report` 是否显示实际 provider 为 `minimax`，实际模型为 `speech-2.8-hd / MiniMax/speech-2.8-hd`，音频存在、非静音、未使用 fallback。
-6. `b_voice_feel_minimax_preflight（B 方案听感 + MiniMax 预检）`：检查 B 方案正式听感字段已反映，同时正式生成路线仍为 MiniMax；旧 Qwen / 阿里 B 语音路线不得作为 publish candidate completed。2026-05-27 起，本 gate 还必须检查 `b_voice_identity_lock`：只有 `actual_voice_id == expected_b_minimax_voice_id` 且 `human_voice_review_status = user_confirmed` 才能放行。
+6. `b_voice_feel_minimax_preflight（B 方案听感 + MiniMax 预检）`：检查 B 方案正式听感字段已反映，同时正式生成路线仍为 MiniMax；旧 Qwen / 阿里 B 语音路线不得作为 publish candidate completed。2026-05-27 起，本 gate 还必须检查 `b_voice_identity_lock`：只有 `actual_voice_id == expected_b_minimax_voice_id`、`actual_voice_id` 不在禁用列表、`actual_gender_direction = male_or_male_leaning` 且 `human_voice_review_status = user_confirmed` 才能放行。
 7. `card_decision_preflight（卡片决策预检）`：检查 `judgment_card / summary_card / result_diff_card / boundary_card / prompt_tail_card` 的 `needed / reason / not_needed_reason / line_group_id / evidence_dependency / interrupt_risk`。
 8. `forbidden_action_preflight（禁止事项预检）`：检查是否改 locked title / opening line / final script semantics，是否删除必需判断卡 / 边界卡，是否改 TTS 路线、使用未授权 fallback、默认遮挡、把技术预览写成交付或推进状态。
 9. `visual_evidence_readability_preflight（视觉证据可读性预检）`：检查核心证据窗口、源比例 / 授权、无遮蔽、无 whiteout / black block / gray residue，字幕和卡片不遮挡证据。
@@ -310,7 +310,7 @@ blocked_if:
 
 MiniMax 正片候选语音硬规则：后续 `publish_candidate / formal_operation_publish_candidate / ready_for_human_review` 默认必须走 MiniMax `speech-2.8-hd` 或百炼代理 `MiniMax/speech-2.8-hd`。阿里 Qwen TTS、Serena、macOS say、本地低质 TTS 或未授权 fallback 均不得作为正片候选完成条件；只能 blocked 或标记为 `internal_diagnostic_only`。
 
-MiniMax B 声音身份锁硬规则：后续 B 方案正片候选不得再只靠 `voice_feel_tags`、`b_voice_feel_reflected = true` 或“听起来像 B”放行。必须先有 `b_voice_identity_lock.status = user_confirmed`、`expected_b_minimax_voice_id`、`locked_voice_setting` 和 `human_voice_review_status = user_confirmed`；实际生成报告必须写明 `actual_voice_id`，且必须等于 `expected_b_minimax_voice_id`。`female-tianmei` 禁止继续作为默认 B 音色，除非用户明确试听并确认它就是新 B。音色身份优先级高于情绪和停顿；只能在同一 `voice_id` 内调 `speed / pitch / emotion / pause tags`，不得为了情绪更丰富而换音色。
+MiniMax B 声音身份锁硬规则：后续 B 方案正片候选不得再只靠 `voice_feel_tags`、`b_voice_feel_reflected = true` 或“听起来像 B”放行。必须先有 `b_voice_identity_lock.status = user_confirmed`、`expected_b_minimax_voice_id`、`locked_voice_setting` 和 `human_voice_review_status = user_confirmed`；实际生成报告必须写明 `actual_voice_id`，且必须等于 `expected_b_minimax_voice_id`。2026-05-27 重审后，B 方案目标性别方向为 `male_or_male_leaning（男声或偏男声）`；`female-tianmei / female-shaonv / female-shaonv-jingpin / female-yujie` 均禁止继续作为 B 音色，除非未来用户明确反悔并重新确认。音色身份优先级高于情绪和停顿；只能在同一 `voice_id` 内调 `speed / pitch / emotion / pause tags`，不得为了情绪更丰富而换性别、换音色或回到女声系统音色。
 
 三项候选片判断机制硬规则：
 
@@ -335,6 +335,9 @@ b_voice_feel_minimax_formal_voice_rule:
     b_voice_identity_lock.status: user_confirmed
     expected_b_minimax_voice_id: required
     actual_voice_id == expected_b_minimax_voice_id
+    actual_voice_id_not_in_forbidden_voice_ids: true
+    required_gender_direction: male_or_male_leaning
+    actual_gender_direction == required_gender_direction
     timbre_change_allowed: false
     human_voice_review_required: true
     human_voice_review_status: user_confirmed
@@ -346,8 +349,11 @@ b_voice_feel_minimax_formal_voice_rule:
     - local_low_quality_tts
     - silent_audio
     - unauthorized_fallback
-  forbidden_default_voice_id_without_user_confirmation:
+  forbidden_voice_ids:
     - female-tianmei
+    - female-shaonv
+    - female-shaonv-jingpin
+    - female-yujie
 
 publish_candidate_user_standard_rule:
   user_definition: publish_candidate_means_user_can_watch_and_directly_publish_after_human_review

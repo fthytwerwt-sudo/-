@@ -1,0 +1,14 @@
+{
+  "schema": "publish_candidate_user_standard_preflight.v1",
+  "gate_name": "publish_candidate_user_standard_preflight",
+  "status": "blocked",
+  "check_depth": "structural_check_only",
+  "blocked_reasons": [
+    "summary_json_missing"
+  ],
+  "warnings": [],
+  "publish_candidate_user_standard_rule": {
+    "status": "active",
+    "user_definition": "publish_candidate_means_user_can_watch_and_directly_publish_after_human_review"
+  }
+}

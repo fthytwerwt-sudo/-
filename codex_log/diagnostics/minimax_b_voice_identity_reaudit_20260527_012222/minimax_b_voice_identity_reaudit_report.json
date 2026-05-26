@@ -1,0 +1,473 @@
+{
+  "schema": "minimax_b_voice_identity_reaudit_report.v1",
+  "status": "completed_with_reaudited_voice_candidates",
+  "run_id": "20260527_012222",
+  "output_dir": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222",
+  "video_generated": false,
+  "full_narration_regenerated": false,
+  "copy_changed": false,
+  "current_video_modified": false,
+  "deepseek_supply_gate": {
+    "deepseek_call_real": false,
+    "supply_source": "blocked",
+    "blocked_reason": "invalid_context_pack",
+    "not_deepseek_conclusion": true,
+    "pack_path": "codex_log/deepseek_supply/20260527_B声音身份重审_b_voice_identity_reaudit_pre_supply/latest_supply_pack.md"
+  },
+  "previous_candidates": {
+    "rejected_all": true,
+    "rejected_voice_ids": [
+      "female-shaonv",
+      "female-shaonv-jingpin",
+      "female-yujie"
+    ],
+    "reason": "wrong_gender_and_wrong_voice_identity",
+    "future_use_allowed": false
+  },
+  "minimax_voice_capability": {
+    "supports_voice_id": true,
+    "supports_voice_list": true,
+    "supports_voice_clone": true,
+    "supports_reference_audio": true,
+    "supports_style_prompt": false,
+    "supports_speed_pitch_emotion": true,
+    "evidence": {
+      "voice_list_observed": {
+        "system_voice_count": 303,
+        "base_resp_status_code": 0,
+        "selected_male_or_male_leaning_count": 5
+      },
+      "short_sample_generation_observed": {
+        "candidate_count": 5,
+        "sample_count": 10,
+        "all_samples_non_silent": true,
+        "all_samples_10_to_20s": true
+      },
+      "voice_clone_reference_audio_note": "MiniMax/阿里百炼支持 voice_clone/audio_url；本轮未上传本地参考音频，短样本仅用系统 male/male-leaning voice_id。",
+      "style_prompt_note": "当前 DashScope MiniMax TTS route 未验证 style_prompt 字段；本轮只用 voice_setting + pause tag + emotion。"
+    }
+  },
+  "b_voice_reference_audit": {
+    "schema": "b_voice_reference_audit.v2",
+    "run_id": "20260527_012222",
+    "reference_audio_loaded": true,
+    "reference_audio_paths": [
+      "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+      "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav"
+    ],
+    "reference_audio_analysis": [
+      {
+        "path": "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+        "absolute_path": "/Users/fan/Documents/视频工厂/dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+        "role": "B 版停顿梗感参考",
+        "exists": true,
+        "ffprobe": {
+          "passed": true,
+          "duration_seconds": 16.32,
+          "codec_name": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "file_size_bytes": 783404
+        },
+        "volume": {
+          "passed": true,
+          "mean_volume_db": "-23.4",
+          "max_volume_db": "-7.1"
+        },
+        "pause_detection": {
+          "threshold": "noise=-35dB,d=0.12",
+          "silence_count": 13,
+          "silence_durations_seconds": [
+            0.222,
+            0.513,
+            0.35,
+            0.349,
+            0.372,
+            0.208,
+            0.125,
+            0.291,
+            0.167,
+            0.258,
+            0.184,
+            0.142,
+            0.217
+          ],
+          "mean_silence_seconds": 0.261,
+          "max_silence_seconds": 0.513,
+          "pause_density_per_10s": 7.97
+        }
+      },
+      {
+        "path": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
+        "absolute_path": "/Users/fan/Documents/视频工厂/dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
+        "role": "历史声音底子参考",
+        "exists": true,
+        "ffprobe": {
+          "passed": true,
+          "duration_seconds": 13.6,
+          "codec_name": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "file_size_bytes": 652844
+        },
+        "volume": {
+          "passed": true,
+          "mean_volume_db": "-23.8",
+          "max_volume_db": "-5.0"
+        },
+        "pause_detection": {
+          "threshold": "noise=-35dB,d=0.12",
+          "silence_count": 11,
+          "silence_durations_seconds": [
+            0.439,
+            0.152,
+            0.407,
+            0.282,
+            0.28,
+            0.271,
+            0.376,
+            0.579,
+            0.172,
+            0.175,
+            0.297
+          ],
+          "mean_silence_seconds": 0.312,
+          "max_silence_seconds": 0.579,
+          "pause_density_per_10s": 8.09
+        }
+      }
+    ],
+    "historical_description": [
+      "voice_sample2: 自然口语、真人分享、解释型节奏，禁止播音腔/广告腔/销售腔/客服腔。",
+      "20260427 B: 停顿梗感、轻吐槽、熟人分享、低压、不亢奋，句间留短停顿。",
+      "旧事实层曾写过可爱女生向导音；本轮用户明确纠正为上一轮把以前男生声音改成女生声音，当前纠正优先。"
+    ],
+    "inferred_gender": "male_or_male_leaning",
+    "inferred_age_feel": "young_adult_or_adult_not_childish",
+    "inferred_timbre": "low_pressure_natural_male_leaning_companion_tone",
+    "inferred_energy": "medium_low_controlled_not_hype",
+    "inferred_pause_style": "moderate_to_clear_boundary_pause_with_joke_timing",
+    "inferred_emotion_style": "warm_light_roast_sincere_explanatory",
+    "inferred_upward_tone": "mild_rise_allowed_on_question_or_turning_point_firm_drop_on_boundary",
+    "delivery_style": "spoken_chinese_familiar_sharing_game_guide_feeling_not_reader",
+    "forbidden_voice_direction": [
+      "female_system_voice",
+      "childish_cute_voice",
+      "broadcast_voice",
+      "sales_voice",
+      "flat_reader_voice"
+    ],
+    "confidence": "medium",
+    "confidence_reason": "性别方向以用户当前纠正和历史 B 声音链路为主；Codex 已读取参考音频技术元数据和停顿结构，但最终音色相似度仍需用户人耳复审。",
+    "human_audio_reference_review_needed": true,
+    "conflict_note": "仓库旧口径中的可爱女生向导音与用户本轮纠正冲突；本轮按用户当前纠正上提规则，禁止继续从女声候选锁 B。"
+  },
+  "b_voice_target_profile": {
+    "gender_target": "male_or_male_leaning",
+    "timbre_target": "低压、自然、真人分享感、偏男声/男声，不是系统女声",
+    "emotion_target": "warm_light_roast_sincere_explanatory",
+    "pause_target": "moderate_to_stronger_boundary_pause",
+    "upward_target": "mild_rise_on_question_or_turning_point",
+    "energy_target": "medium_low_controlled",
+    "must_not_be": [
+      "female_system_voice",
+      "childish_cute_voice",
+      "broadcast_voice",
+      "sales_voice",
+      "flat_reader_voice"
+    ]
+  },
+  "candidate_filter": {
+    "require_gender_match": true,
+    "reject_female_voice_ids": true,
+    "reject_childish_or_cute_voice": true,
+    "reject_broadcast_or_sales_voice": true,
+    "prefer_male_or_neutral_voice": true,
+    "require_pause_potential": true,
+    "require_emotion_potential": true
+  },
+  "new_voice_candidates": [
+    {
+      "candidate_id": "BMALE_01_v1_identity_stable",
+      "voice_id": "male-qn-qingse",
+      "voice_name": "青涩青年音色",
+      "gender_label": "male_or_male_leaning",
+      "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_01_male-qn-qingse_v1_identity_stable.mp3",
+      "prosody_version": "v1_identity_stable",
+      "voice_setting": {
+        "speed": 1.02,
+        "pitch": 0,
+        "emotion": "calm",
+        "vol": 1
+      },
+      "reference_audio_used": false,
+      "same_voice_id_required": true,
+      "timbre_change_allowed": false,
+      "user_review_status": "pending_user_review",
+      "duration_seconds": 17.388,
+      "technical_non_silent": true,
+      "acceptable_duration_10_to_20s": true,
+      "notes": "MiniMax male voice_id; lower-pressure youth tone candidate"
+    },
+    {
+      "candidate_id": "BMALE_01_v2_emotional_rich",
+      "voice_id": "male-qn-qingse",
+      "voice_name": "青涩青年音色",
+      "gender_label": "male_or_male_leaning",
+      "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_01_male-qn-qingse_v2_emotional_rich.mp3",
+      "prosody_version": "v2_emotional_rich",
+      "voice_setting": {
+        "speed": 0.99,
+        "pitch": 0,
+        "emotion": "happy",
+        "vol": 1
+      },
+      "reference_audio_used": false,
+      "same_voice_id_required": true,
+      "timbre_change_allowed": false,
+      "user_review_status": "pending_user_review",
+      "duration_seconds": 19.26,
+      "technical_non_silent": true,
+      "acceptable_duration_10_to_20s": true,
+      "notes": "MiniMax male voice_id; lower-pressure youth tone candidate"
+    },
+    {
+      "candidate_id": "BMALE_02_v1_identity_stable",
+      "voice_id": "male-qn-daxuesheng",
+      "voice_name": "青年大学生音色",
+      "gender_label": "male_or_male_leaning",
+      "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_02_male-qn-daxuesheng_v1_identity_stable.mp3",
+      "prosody_version": "v1_identity_stable",
+      "voice_setting": {
+        "speed": 1.02,
+        "pitch": 0,
+        "emotion": "calm",
+        "vol": 1
+      },
+      "reference_audio_used": false,
+      "same_voice_id_required": true,
+      "timbre_change_allowed": false,
+      "user_review_status": "pending_user_review",
+      "duration_seconds": 16.704,
+      "technical_non_silent": true,
+      "acceptable_duration_10_to_20s": true,
+      "notes": "MiniMax male voice_id; conversational young-adult tone candidate"
+    },
+    {
+      "candidate_id": "BMALE_02_v2_emotional_rich",
+      "voice_id": "male-qn-daxuesheng",
+      "voice_name": "青年大学生音色",
+      "gender_label": "male_or_male_leaning",
+      "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_02_male-qn-daxuesheng_v2_emotional_rich.mp3",
+      "prosody_version": "v2_emotional_rich",
+      "voice_setting": {
+        "speed": 0.99,
+        "pitch": 0,
+        "emotion": "happy",
+        "vol": 1
+      },
+      "reference_audio_used": false,
+      "same_voice_id_required": true,
+      "timbre_change_allowed": false,
+      "user_review_status": "pending_user_review",
+      "duration_seconds": 18.576,
+      "technical_non_silent": true,
+      "acceptable_duration_10_to_20s": true,
+      "notes": "MiniMax male voice_id; conversational young-adult tone candidate"
+    },
+    {
+      "candidate_id": "BMALE_03_v1_identity_stable",
+      "voice_id": "Chinese (Mandarin)_Gentleman",
+      "voice_name": "温润男声",
+      "gender_label": "male_or_male_leaning",
+      "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_03_Chinese_Mandarin_Gentleman_v1_identity_stable.mp3",
+      "prosody_version": "v1_identity_stable",
+      "voice_setting": {
+        "speed": 1.02,
+        "pitch": 0,
+        "emotion": "calm",
+        "vol": 1
+      },
+      "reference_audio_used": false,
+      "same_voice_id_required": true,
+      "timbre_change_allowed": false,
+      "user_review_status": "pending_user_review",
+      "duration_seconds": 16.38,
+      "technical_non_silent": true,
+      "acceptable_duration_10_to_20s": true,
+      "notes": "Mandarin male warm/gentle naming; suitable for light companion tone"
+    },
+    {
+      "candidate_id": "BMALE_03_v2_emotional_rich",
+      "voice_id": "Chinese (Mandarin)_Gentleman",
+      "voice_name": "温润男声",
+      "gender_label": "male_or_male_leaning",
+      "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_03_Chinese_Mandarin_Gentleman_v2_emotional_rich.mp3",
+      "prosody_version": "v2_emotional_rich",
+      "voice_setting": {
+        "speed": 0.99,
+        "pitch": 0,
+        "emotion": "happy",
+        "vol": 1
+      },
+      "reference_audio_used": false,
+      "same_voice_id_required": true,
+      "timbre_change_allowed": false,
+      "user_review_status": "pending_user_review",
+      "duration_seconds": 17.46,
+      "technical_non_silent": true,
+      "acceptable_duration_10_to_20s": true,
+      "notes": "Mandarin male warm/gentle naming; suitable for light companion tone"
+    },
+    {
+      "candidate_id": "BMALE_04_v1_identity_stable",
+      "voice_id": "Chinese (Mandarin)_Gentle_Youth",
+      "voice_name": "温润青年",
+      "gender_label": "male_or_male_leaning",
+      "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_04_Chinese_Mandarin_Gentle_Youth_v1_identity_stable.mp3",
+      "prosody_version": "v1_identity_stable",
+      "voice_setting": {
+        "speed": 1.02,
+        "pitch": 0,
+        "emotion": "calm",
+        "vol": 1
+      },
+      "reference_audio_used": false,
+      "same_voice_id_required": true,
+      "timbre_change_allowed": false,
+      "user_review_status": "pending_user_review",
+      "duration_seconds": 15.876,
+      "technical_non_silent": true,
+      "acceptable_duration_10_to_20s": true,
+      "notes": "Mandarin young male warm naming; suitable for B youth-guide direction"
+    },
+    {
+      "candidate_id": "BMALE_04_v2_emotional_rich",
+      "voice_id": "Chinese (Mandarin)_Gentle_Youth",
+      "voice_name": "温润青年",
+      "gender_label": "male_or_male_leaning",
+      "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_04_Chinese_Mandarin_Gentle_Youth_v2_emotional_rich.mp3",
+      "prosody_version": "v2_emotional_rich",
+      "voice_setting": {
+        "speed": 0.99,
+        "pitch": 0,
+        "emotion": "happy",
+        "vol": 1
+      },
+      "reference_audio_used": false,
+      "same_voice_id_required": true,
+      "timbre_change_allowed": false,
+      "user_review_status": "pending_user_review",
+      "duration_seconds": 17.064,
+      "technical_non_silent": true,
+      "acceptable_duration_10_to_20s": true,
+      "notes": "Mandarin young male warm naming; suitable for B youth-guide direction"
+    },
+    {
+      "candidate_id": "BMALE_05_v1_identity_stable",
+      "voice_id": "Chinese (Mandarin)_Sincere_Adult",
+      "voice_name": "真诚青年",
+      "gender_label": "male_or_male_leaning",
+      "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_05_Chinese_Mandarin_Sincere_Adult_v1_identity_stable.mp3",
+      "prosody_version": "v1_identity_stable",
+      "voice_setting": {
+        "speed": 1.02,
+        "pitch": 0,
+        "emotion": "calm",
+        "vol": 1
+      },
+      "reference_audio_used": false,
+      "same_voice_id_required": true,
+      "timbre_change_allowed": false,
+      "user_review_status": "pending_user_review",
+      "duration_seconds": 16.812,
+      "technical_non_silent": true,
+      "acceptable_duration_10_to_20s": true,
+      "notes": "Mandarin sincere young-adult naming; suitable for low-pressure explanatory tone"
+    },
+    {
+      "candidate_id": "BMALE_05_v2_emotional_rich",
+      "voice_id": "Chinese (Mandarin)_Sincere_Adult",
+      "voice_name": "真诚青年",
+      "gender_label": "male_or_male_leaning",
+      "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_05_Chinese_Mandarin_Sincere_Adult_v2_emotional_rich.mp3",
+      "prosody_version": "v2_emotional_rich",
+      "voice_setting": {
+        "speed": 0.99,
+        "pitch": 0,
+        "emotion": "happy",
+        "vol": 1
+      },
+      "reference_audio_used": false,
+      "same_voice_id_required": true,
+      "timbre_change_allowed": false,
+      "user_review_status": "pending_user_review",
+      "duration_seconds": 17.748,
+      "technical_non_silent": true,
+      "acceptable_duration_10_to_20s": true,
+      "notes": "Mandarin sincere young-adult naming; suitable for low-pressure explanatory tone"
+    }
+  ],
+  "b_voice_identity_lock": {
+    "status": "pending_user_review",
+    "expected_b_minimax_voice_id": null,
+    "forbidden_voice_ids": [
+      "female-tianmei",
+      "female-shaonv",
+      "female-shaonv-jingpin",
+      "female-yujie"
+    ],
+    "forbidden_voice_direction": [
+      "female_system_voice",
+      "childish_cute_voice",
+      "broadcast_voice",
+      "sales_voice"
+    ],
+    "required_gender_direction": "male_or_male_leaning",
+    "human_voice_review_required": true,
+    "human_voice_review_status": "pending_user_review",
+    "timbre_change_allowed": false,
+    "emotion_optimization_allowed": true,
+    "prosody_optimization_allowed": true
+  },
+  "review_table": {
+    "md": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/voice_candidate_review_table_v2.md",
+    "json": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/voice_candidate_review_table_v2.json"
+  },
+  "recommended_user_action": {
+    "listen_to_samples": [
+      "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_01_male-qn-qingse_v1_identity_stable.mp3",
+      "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_01_male-qn-qingse_v2_emotional_rich.mp3",
+      "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_02_male-qn-daxuesheng_v1_identity_stable.mp3",
+      "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_02_male-qn-daxuesheng_v2_emotional_rich.mp3",
+      "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_03_Chinese_Mandarin_Gentleman_v1_identity_stable.mp3",
+      "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_03_Chinese_Mandarin_Gentleman_v2_emotional_rich.mp3",
+      "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_04_Chinese_Mandarin_Gentle_Youth_v1_identity_stable.mp3",
+      "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_04_Chinese_Mandarin_Gentle_Youth_v2_emotional_rich.mp3",
+      "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_05_Chinese_Mandarin_Sincere_Adult_v1_identity_stable.mp3",
+      "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_05_Chinese_Mandarin_Sincere_Adult_v2_emotional_rich.mp3"
+    ],
+    "choose_candidate_id": "选择 BMALE_01/BMALE_02/BMALE_03/BMALE_04/BMALE_05 中的一个基础 candidate_id，或全部拒绝。",
+    "reject_all_if_needed": true
+  },
+  "next_step_after_user_choice": {
+    "lock_selected_voice_id": true,
+    "regenerate_full_narration_only": "after_user_choice_only",
+    "replace_audio_in_full_mp4": "after_full_narration_review_only_not_this_round"
+  },
+  "verification": {
+    "py_compile": "passed",
+    "unittest": [
+      "tests.test_publish_candidate_voice_gate",
+      "tests.test_minimax_b_voice_identity_lock",
+      "tests.test_publish_candidate_preflight_tolerance"
+    ],
+    "publish_candidate_preflight_suite_no_render": {
+      "report": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/preflight_no_render/publish_candidate_preflight_report.json",
+      "fixture_validation_status": "passed",
+      "case_count": 24,
+      "overall_status": "blocked_as_expected_for_no_input_no_render"
+    },
+    "unittest_count": "16/16 passed"
+  }
+}

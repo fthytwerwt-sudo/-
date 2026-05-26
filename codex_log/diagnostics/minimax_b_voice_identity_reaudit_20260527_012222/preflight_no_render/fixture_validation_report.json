@@ -1,0 +1,7 @@
+{
+  "schema": "publish_candidate_preflight_suite.fixture_validation.v1",
+  "fixture_path": "codex_source/fixtures/publish_candidate_preflight_suite_cases.json",
+  "case_count": 24,
+  "status": "passed",
+  "blocked_reasons": []
+}

@@ -14,9 +14,22 @@ MINIMAX_SELECTED_ROUTES = {
 }
 B_VOICE_SCHEME_ROLE = {
     "status": "formal_voice_feel_reference",
-    "meaning": "B 方案升级为正式声音听感标准，保留停顿梗感、轻陪伴感和低压向导感",
+    "meaning": "B 方案升级为正式声音身份与听感标准，保留男声或偏男声方向、停顿梗感、轻陪伴感和低压向导感",
     "not_allowed": "不再把阿里 B 方案作为正片候选默认 TTS 生成路线",
 }
+REQUIRED_B_VOICE_GENDER_DIRECTION = "male_or_male_leaning"
+FORBIDDEN_B_VOICE_IDS = {
+    "female-tianmei",
+    "female-shaonv",
+    "female-shaonv-jingpin",
+    "female-yujie",
+}
+FORBIDDEN_B_VOICE_DIRECTIONS = [
+    "female_system_voice",
+    "childish_cute_voice",
+    "broadcast_voice",
+    "sales_voice",
+]
 B_VOICE_FEEL_REQUIRED_TAGS = {
     "light_companion",
     "low_pressure",
@@ -56,11 +69,12 @@ B_VOICE_FEEL_MINIMAX_FORMAL_VOICE_RULE = {
     ],
 }
 B_VOICE_IDENTITY_LOCK_RULE = {
-    "status": "active_pending_user_review",
+    "status": "pending_user_review",
     "required_provider": "minimax",
     "required_model": "speech-2.8-hd",
     "lock_status_values": ["pending_user_review", "user_confirmed"],
     "expected_b_minimax_voice_id": None,
+    "required_gender_direction": REQUIRED_B_VOICE_GENDER_DIRECTION,
     "expected_b_voice_reference_audio_path": [
         "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
         "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
@@ -70,18 +84,21 @@ B_VOICE_IDENTITY_LOCK_RULE = {
     "prosody_optimization_allowed": True,
     "human_voice_review_required": True,
     "human_voice_review_status": "pending_user_review",
-    "forbidden_default_voice_ids_without_user_confirmation": ["female-tianmei"],
+    "forbidden_voice_ids": sorted(FORBIDDEN_B_VOICE_IDS),
+    "forbidden_voice_direction": FORBIDDEN_B_VOICE_DIRECTIONS,
     "blocked_if": [
         "expected_b_minimax_voice_id_missing",
         "actual_voice_id_mismatch_expected_b_minimax_voice_id",
+        "actual_voice_id_in_forbidden_voice_ids",
+        "actual_gender_direction_missing",
+        "actual_gender_direction_mismatch_required_gender_direction",
         "human_voice_review_status_not_user_confirmed",
-        "female_tianmei_used_without_user_confirmation",
         "timbre_change_allowed_true",
     ],
 }
 USER_CONFIRMED_VOICE_STATUS = "user_confirmed"
 PENDING_USER_REVIEW_STATUS = "pending_user_review"
-FORBIDDEN_DEFAULT_B_VOICE_IDS = {"female-tianmei"}
+FORBIDDEN_DEFAULT_B_VOICE_IDS = set(FORBIDDEN_B_VOICE_IDS)
 
 
 def truthy(value: Any) -> bool:
@@ -160,6 +177,12 @@ def _list_values(payloads: list[dict[str, Any]], keys: list[str]) -> list[str]:
                 values.extend(str(item) for item in value)
             elif isinstance(value, str) and value:
                 values.append(value)
+    return values
+
+
+def _set_values(payloads: list[dict[str, Any]], keys: list[str], default: set[str] | None = None) -> set[str]:
+    values = set(default or set())
+    values.update(_list_values(payloads, keys))
     return values
 
 
@@ -291,6 +314,14 @@ def build_b_voice_identity_lock_report(tts_map: Any, summary: Any) -> dict[str, 
         actual_voice_id_value = actual_voice_setting.get("voice_id")
     actual_voice_id = str(actual_voice_id_value or "")
     expected_voice_id = str(_first_value(payloads, ["expected_b_minimax_voice_id"]) or "")
+    actual_gender_direction = str(
+        _first_value(payloads, ["actual_gender_direction", "actual_voice_gender_direction", "gender_direction", "gender_label"])
+        or ""
+    )
+    required_gender_direction = str(
+        _first_value(payloads, ["required_gender_direction"]) or REQUIRED_B_VOICE_GENDER_DIRECTION
+    )
+    forbidden_voice_ids = _set_values(payloads, ["forbidden_voice_ids"], FORBIDDEN_DEFAULT_B_VOICE_IDS)
     lock_status_value = _first_value(payloads, ["voice_identity_lock_status", "b_voice_identity_lock_status"])
     if lock_status_value is None:
         for payload in payloads:
@@ -313,12 +344,15 @@ def build_b_voice_identity_lock_report(tts_map: Any, summary: Any) -> dict[str, 
         "voice_identity_lock_status": lock_status,
         "expected_b_minimax_voice_id": expected_voice_id,
         "actual_voice_id": actual_voice_id,
+        "actual_gender_direction": actual_gender_direction,
+        "required_gender_direction": required_gender_direction,
         "actual_voice_setting": actual_voice_setting,
         "human_voice_review_required": human_review_required,
         "human_voice_review_status": human_review_status,
         "timbre_change_allowed": timbre_change_allowed,
         "emotion_optimization_allowed": True,
         "prosody_optimization_allowed": True,
+        "forbidden_voice_ids": sorted(forbidden_voice_ids),
         "forbidden_default_voice_ids_without_user_confirmation": sorted(FORBIDDEN_DEFAULT_B_VOICE_IDS),
     }
 
@@ -336,6 +370,9 @@ def validate_minimax_b_voice_identity_lock(tts_map: Any, summary: Any) -> dict[s
 
     actual_voice_id = str(report["actual_voice_id"])
     expected_voice_id = str(report["expected_b_minimax_voice_id"])
+    actual_gender_direction = str(report["actual_gender_direction"])
+    required_gender_direction = str(report["required_gender_direction"])
+    forbidden_voice_ids = set(report["forbidden_voice_ids"])
     human_review_status = str(report["human_voice_review_status"])
     lock_status = str(report["voice_identity_lock_status"])
 
@@ -343,10 +380,17 @@ def validate_minimax_b_voice_identity_lock(tts_map: Any, summary: Any) -> dict[s
         reasons.append("expected_b_minimax_voice_id_missing")
     if not actual_voice_id:
         reasons.append("actual_voice_id_missing")
-    if actual_voice_id in FORBIDDEN_DEFAULT_B_VOICE_IDS and human_review_status != USER_CONFIRMED_VOICE_STATUS:
+    if actual_voice_id in forbidden_voice_ids:
+        reasons.append("actual_voice_id_in_forbidden_voice_ids")
+    if actual_voice_id == "female-tianmei" and human_review_status != USER_CONFIRMED_VOICE_STATUS:
         reasons.append("female_tianmei_used_without_user_confirmation")
     if expected_voice_id and actual_voice_id and actual_voice_id != expected_voice_id:
         reasons.append("actual_voice_id_mismatch_expected_b_minimax_voice_id")
+    if required_gender_direction:
+        if not actual_gender_direction:
+            reasons.append("actual_gender_direction_missing")
+        elif actual_gender_direction != required_gender_direction:
+            reasons.append("actual_gender_direction_mismatch_required_gender_direction")
     if report["timbre_change_allowed"]:
         reasons.append("timbre_change_allowed_true")
     if report["human_voice_review_required"] and human_review_status != USER_CONFIRMED_VOICE_STATUS:

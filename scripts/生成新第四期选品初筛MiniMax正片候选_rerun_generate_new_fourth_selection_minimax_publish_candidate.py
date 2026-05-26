@@ -45,7 +45,19 @@ TARGET_MODEL = "MiniMax/speech-2.8-hd"
 OFFICIAL_MODEL = "speech-2.8-hd"
 PENDING_USER_REVIEW_STATUS = "pending_user_review"
 USER_CONFIRMED_VOICE_STATUS = "user_confirmed"
-FORBIDDEN_DEFAULT_B_VOICE_IDS = {"female-tianmei"}
+REQUIRED_B_VOICE_GENDER_DIRECTION = "male_or_male_leaning"
+FORBIDDEN_DEFAULT_B_VOICE_IDS = {
+    "female-tianmei",
+    "female-shaonv",
+    "female-shaonv-jingpin",
+    "female-yujie",
+}
+FORBIDDEN_B_VOICE_DIRECTIONS = [
+    "female_system_voice",
+    "childish_cute_voice",
+    "broadcast_voice",
+    "sales_voice",
+]
 SAMPLE_RATE = 32000
 FPS = 30
 CANVAS_W = 1920
@@ -68,9 +80,15 @@ def load_minimax_b_voice_identity_lock() -> dict[str, Any]:
     expected_voice_id = os.environ.get("EXPECTED_B_MINIMAX_VOICE_ID", "").strip()
     review_status = os.environ.get("B_VOICE_HUMAN_REVIEW_STATUS", PENDING_USER_REVIEW_STATUS).strip()
     lock_status = os.environ.get("B_VOICE_IDENTITY_LOCK_STATUS", PENDING_USER_REVIEW_STATUS).strip()
+    required_gender_direction = os.environ.get(
+        "B_VOICE_REQUIRED_GENDER_DIRECTION", REQUIRED_B_VOICE_GENDER_DIRECTION
+    ).strip() or REQUIRED_B_VOICE_GENDER_DIRECTION
+    actual_gender_direction = os.environ.get("B_VOICE_ACTUAL_GENDER_DIRECTION", "").strip()
     return {
         "status": lock_status or PENDING_USER_REVIEW_STATUS,
         "expected_b_minimax_voice_id": expected_voice_id,
+        "required_gender_direction": required_gender_direction,
+        "actual_gender_direction": actual_gender_direction or "",
         "expected_b_voice_reference_audio_path": [
             "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
             "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
@@ -91,6 +109,8 @@ def load_minimax_b_voice_identity_lock() -> dict[str, Any]:
         "prosody_optimization_allowed": True,
         "human_voice_review_required": True,
         "human_voice_review_status": review_status or PENDING_USER_REVIEW_STATUS,
+        "forbidden_voice_ids": sorted(FORBIDDEN_DEFAULT_B_VOICE_IDS),
+        "forbidden_voice_direction": FORBIDDEN_B_VOICE_DIRECTIONS,
         "forbidden_default_voice_ids_without_user_confirmation": sorted(FORBIDDEN_DEFAULT_B_VOICE_IDS),
     }
 
@@ -285,12 +305,19 @@ def validate_b_voice_identity_lock_for_full_generation() -> dict[str, Any]:
     lock_status = str(B_VOICE_IDENTITY_LOCK.get("status") or PENDING_USER_REVIEW_STATUS)
     review_status = str(B_VOICE_IDENTITY_LOCK.get("human_voice_review_status") or PENDING_USER_REVIEW_STATUS)
     expected_voice_id = str(B_VOICE_IDENTITY_LOCK.get("expected_b_minimax_voice_id") or "")
+    actual_gender_direction = str(B_VOICE_IDENTITY_LOCK.get("actual_gender_direction") or "")
+    required_gender_direction = str(B_VOICE_IDENTITY_LOCK.get("required_gender_direction") or REQUIRED_B_VOICE_GENDER_DIRECTION)
     locked_setting = B_VOICE_IDENTITY_LOCK.get("locked_voice_setting")
 
     if not expected_voice_id:
         reasons.append("expected_b_minimax_voice_id_missing")
-    if expected_voice_id in FORBIDDEN_DEFAULT_B_VOICE_IDS and review_status != USER_CONFIRMED_VOICE_STATUS:
-        reasons.append("female_tianmei_used_without_user_confirmation")
+    if expected_voice_id in FORBIDDEN_DEFAULT_B_VOICE_IDS:
+        reasons.append("expected_b_minimax_voice_id_in_forbidden_voice_ids")
+    if required_gender_direction:
+        if not actual_gender_direction:
+            reasons.append("actual_gender_direction_missing")
+        elif actual_gender_direction != required_gender_direction:
+            reasons.append("actual_gender_direction_mismatch_required_gender_direction")
     if lock_status != USER_CONFIRMED_VOICE_STATUS:
         reasons.append("voice_identity_lock_status_not_user_confirmed")
     if review_status != USER_CONFIRMED_VOICE_STATUS:
@@ -324,7 +351,8 @@ def validate_b_voice_identity_lock_for_full_generation() -> dict[str, Any]:
                     "- `reason`: MiniMax B voice identity has not been user-confirmed.",
                     "- `full_narration_regenerated`: `false`",
                     "- `full_video_generated`: `false`",
-                    "- `forbidden_default_voice_id`: `female-tianmei`",
+                    "- `forbidden_voice_ids`: `female-tianmei, female-shaonv, female-shaonv-jingpin, female-yujie`",
+                    "- `required_gender_direction`: `male_or_male_leaning`",
                 ]
             ),
         )

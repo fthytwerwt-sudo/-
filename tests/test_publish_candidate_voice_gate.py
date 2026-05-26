@@ -120,9 +120,10 @@ class PublishCandidateVoiceGateTests(unittest.TestCase):
                     "non_silent": True,
                     "fallback_tts_used": False,
                     "b_voice_feel_reflected": True,
-                    "actual_voice_id": "female-shaonv",
+                    "actual_voice_id": "male-qn-qingse",
+                    "actual_gender_direction": "male_or_male_leaning",
                     "actual_voice_setting": {
-                        "voice_id": "female-shaonv",
+                        "voice_id": "male-qn-qingse",
                         "speed": 1.08,
                         "pitch": 0,
                         "emotion": "calm",
@@ -130,9 +131,10 @@ class PublishCandidateVoiceGateTests(unittest.TestCase):
                     },
                     "b_voice_identity_lock": {
                         "status": "user_confirmed",
-                        "expected_b_minimax_voice_id": "female-shaonv",
+                        "expected_b_minimax_voice_id": "male-qn-qingse",
+                        "required_gender_direction": "male_or_male_leaning",
                         "locked_voice_setting": {
-                            "voice_id": "female-shaonv",
+                            "voice_id": "male-qn-qingse",
                             "speed": 1.08,
                             "pitch": 0,
                             "emotion": "calm",

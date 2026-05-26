@@ -1,6 +1,10 @@
 # MiniMax B 声音身份锁定报告
 
 - `status`: completed_with_voice_candidates
+- `superseded_by_reaudit`: codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/minimax_b_voice_identity_reaudit_report.json
+- `user_verdict_after_review`: rejected_all
+- `rejection_reason`: wrong_gender_and_wrong_voice_identity
+- `future_use_allowed`: false
 - `run_id`: 20260527_003423
 - `output_dir`: codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423
 - `video_generated`: false
@@ -25,6 +29,8 @@
 - 所有样本均为 MiniMax route_b 真实短样本，均不使用 Qwen / Serena / macOS say / local fallback。
 
 ## 候选样本
+
+`注意`：以下女声候选已在 2026-05-27 被用户全部拒绝，不得继续进入 B 方案锁定候选列表。
 
 ### B01_v1_stable
 - `voice_id`: female-shaonv

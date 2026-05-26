@@ -1,0 +1,8 @@
+# line_level_alignment_preflight
+
+- `status`: `blocked`
+- `check_depth`: `structural_check_only`
+- `blocked_reasons`:
+  - `script_to_timeline_map_missing`
+- `warnings`:
+  - `semantic visual A/B judgment requires future visual probe; this script checks declared fields and known statuses.`

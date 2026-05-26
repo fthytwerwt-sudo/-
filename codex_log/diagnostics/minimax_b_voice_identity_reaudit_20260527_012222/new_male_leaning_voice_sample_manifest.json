@@ -1,0 +1,672 @@
+{
+  "status": "completed_with_reaudited_voice_candidates",
+  "generated_at": "2026-05-27T01:24:59+0800",
+  "route": "aliyun_bailian_proxy_to_minimax",
+  "model": "MiniMax/speech-2.8-hd",
+  "api_key_printed": false,
+  "api_key_written": false,
+  "short_sample_generation_only": true,
+  "full_narration_regenerated": false,
+  "full_video_modified": false,
+  "copy_changed": false,
+  "sample_text_plain": "朋友们，现在做带货，最贵的不是拍视频。\n最贵的是前面测错商品的成本。\n所以我不会让 AI 直接说哪个品能爆。\n我会先拆商品卡，把风险写出来，再决定要不要继续测。",
+  "candidate_count": 5,
+  "candidates": [
+    {
+      "candidate_id": "BMALE_01",
+      "voice_id": "male-qn-qingse",
+      "voice_name": "青涩青年音色",
+      "gender_label": "male_or_male_leaning",
+      "selection_reason": "MiniMax male voice_id; lower-pressure youth tone candidate",
+      "versions": [
+        {
+          "candidate_id": "BMALE_01",
+          "voice_id": "male-qn-qingse",
+          "voice_name": "青涩青年音色",
+          "gender_label": "male_or_male_leaning",
+          "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_01_male-qn-qingse_v1_identity_stable.mp3",
+          "absolute_sample_path": "/Users/fan/Documents/视频工厂/codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_01_male-qn-qingse_v1_identity_stable.mp3",
+          "voice_setting": {
+            "speed": 1.02,
+            "pitch": 0,
+            "emotion": "calm",
+            "vol": 1
+          },
+          "prosody_version": "v1_identity_stable",
+          "purpose": "先判断音色是否像 B",
+          "pause_style": "moderate",
+          "upward_tone": "neutral_boundary",
+          "style_prompt_or_instructions": "自然口语、轻陪伴、低压解释、轻吐槽；同一 voice_id 内只调语速/停顿/情绪，不改变音色身份。",
+          "reference_audio_used": false,
+          "reference_audio_loaded_for_audit": true,
+          "same_voice_id_required": true,
+          "timbre_change_allowed": false,
+          "tts_call": {
+            "ok": true,
+            "http_status_code": 200,
+            "base_resp_status_code": 0,
+            "base_resp_status_msg": "success",
+            "trace_id": "06650a401eca7fcf31aa4871922a03df",
+            "elapsed_seconds": 2.008,
+            "emotion_attempted": "calm"
+          },
+          "technical_validation": {
+            "ffprobe_result": {
+              "passed": true,
+              "duration_seconds": 17.388,
+              "codec_name": "mp3",
+              "sample_rate": 32000,
+              "channels": 1,
+              "bit_rate": "128789",
+              "file_size_bytes": 279924
+            },
+            "ffmpeg_decode_result": {
+              "passed": true,
+              "stderr_tail": ""
+            },
+            "duration_check": {
+              "duration_seconds": 17.388,
+              "target_range_seconds": "10_to_15",
+              "acceptable_range_seconds": "10_to_20",
+              "passed_target": false,
+              "passed_acceptable": true
+            },
+            "non_silent_check": {
+              "passed": true,
+              "mean_volume_db": "-24.1",
+              "stderr_tail": "t) -> pcm_s16le (native))\nPress [q] to stop, [?] for help\nOutput #0, null, to 'pipe:':\n  Metadata:\n    AIGC            : {\"Label\":\"1\",\"ContentProducer\":\"MiniMax\",\"ProduceID\":\"06650a401eca7fcf31aa4871922a03df\",\"ReservedCode1\":\"{\\\"SecurityData\\\":{\\\"Type\\\":\\\"TC260PG\\\",\\\"Version\\\":1,\\\"PubSD\\\":[{\\\"Type\\\":\\\"DS\\\",\\\"AlgID\\\":\\\"1.2.156.10197.1.501\\\",\\\"TBSData\\\":{\\\"Type\\\":\\\"LabelMataD\n    encoder         : Lavf62.12.100\n  Stream #0:0: Audio: pcm_s16le, 32000 Hz, mono, s16, 512 kb/s\n    Metadata:\n      encoder         : Lavc62.28.100 pcm_s16le\n[Parsed_volumedetect_0 @ 0xa2700ce40] n_samples: 555887\n[Parsed_volumedetect_0 @ 0xa2700ce40] mean_volume: -24.1 dB\n[Parsed_volumedetect_0 @ 0xa2700ce40] max_volume: -4.3 dB\n[Parsed_volumedetect_0 @ 0xa2700ce40] histogram_4db: 3\n[Parsed_volumedetect_0 @ 0xa2700ce40] histogram_5db: 12\n[Parsed_volumedetect_0 @ 0xa2700ce40] histogram_6db: 29\n[Parsed_volumedetect_0 @ 0xa2700ce40] histogram_7db: 202\n[Parsed_volumedetect_0 @ 0xa2700ce40] histogram_8db: 354\n[out#0/null @ 0xa2700c6c0] video:0KiB audio:1086KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nsize=N/A time=00:00:17.37 bitrate=N/A speed=2.19e+03x elapsed=0:00:00.00    \n"
+            },
+            "technical_passed": false
+          },
+          "notes": "MiniMax male voice_id; lower-pressure youth tone candidate"
+        },
+        {
+          "candidate_id": "BMALE_01",
+          "voice_id": "male-qn-qingse",
+          "voice_name": "青涩青年音色",
+          "gender_label": "male_or_male_leaning",
+          "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_01_male-qn-qingse_v2_emotional_rich.mp3",
+          "absolute_sample_path": "/Users/fan/Documents/视频工厂/codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_01_male-qn-qingse_v2_emotional_rich.mp3",
+          "voice_setting": {
+            "speed": 0.99,
+            "pitch": 0,
+            "emotion": "happy",
+            "vol": 1
+          },
+          "prosody_version": "v2_emotional_rich",
+          "purpose": "在同一音色内优化情绪、停顿、上扬",
+          "pause_style": "stronger_boundary_pause",
+          "upward_tone": "mild_rise_on_question_and_firm_drop_on_boundary",
+          "style_prompt_or_instructions": "自然口语、轻陪伴、低压解释、轻吐槽；同一 voice_id 内只调语速/停顿/情绪，不改变音色身份。",
+          "reference_audio_used": false,
+          "reference_audio_loaded_for_audit": true,
+          "same_voice_id_required": true,
+          "timbre_change_allowed": false,
+          "tts_call": {
+            "ok": true,
+            "http_status_code": 200,
+            "base_resp_status_code": 0,
+            "base_resp_status_msg": "success",
+            "trace_id": "06650a42c4296d9ef2f44be90f57e937",
+            "elapsed_seconds": 1.664,
+            "emotion_attempted": "happy"
+          },
+          "technical_validation": {
+            "ffprobe_result": {
+              "passed": true,
+              "duration_seconds": 19.26,
+              "codec_name": "mp3",
+              "sample_rate": 32000,
+              "channels": 1,
+              "bit_rate": "128712",
+              "file_size_bytes": 309876
+            },
+            "ffmpeg_decode_result": {
+              "passed": true,
+              "stderr_tail": ""
+            },
+            "duration_check": {
+              "duration_seconds": 19.26,
+              "target_range_seconds": "10_to_15",
+              "acceptable_range_seconds": "10_to_20",
+              "passed_target": false,
+              "passed_acceptable": true
+            },
+            "non_silent_check": {
+              "passed": true,
+              "mean_volume_db": "-23.9",
+              "stderr_tail": "s: 0\nStream mapping:\n  Stream #0:0 -> #0:0 (mp3 (mp3float) -> pcm_s16le (native))\nPress [q] to stop, [?] for help\nOutput #0, null, to 'pipe:':\n  Metadata:\n    AIGC            : {\"Label\":\"1\",\"ContentProducer\":\"MiniMax\",\"ProduceID\":\"06650a42c4296d9ef2f44be90f57e937\",\"ReservedCode1\":\"{\\\"SecurityData\\\":{\\\"Type\\\":\\\"TC260PG\\\",\\\"Version\\\":1,\\\"PubSD\\\":[{\\\"Type\\\":\\\"DS\\\",\\\"AlgID\\\":\\\"1.2.156.10197.1.501\\\",\\\"TBSData\\\":{\\\"Type\\\":\\\"LabelMataD\n    encoder         : Lavf62.12.100\n  Stream #0:0: Audio: pcm_s16le, 32000 Hz, mono, s16, 512 kb/s\n    Metadata:\n      encoder         : Lavc62.28.100 pcm_s16le\n[Parsed_volumedetect_0 @ 0x814c48900] n_samples: 615791\n[Parsed_volumedetect_0 @ 0x814c48900] mean_volume: -23.9 dB\n[Parsed_volumedetect_0 @ 0x814c48900] max_volume: -6.2 dB\n[Parsed_volumedetect_0 @ 0x814c48900] histogram_6db: 5\n[Parsed_volumedetect_0 @ 0x814c48900] histogram_7db: 57\n[Parsed_volumedetect_0 @ 0x814c48900] histogram_8db: 247\n[Parsed_volumedetect_0 @ 0x814c48900] histogram_9db: 567\n[out#0/null @ 0x814c48180] video:0KiB audio:1203KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nsize=N/A time=00:00:19.24 bitrate=N/A speed=2.23e+03x elapsed=0:00:00.00    \n"
+            },
+            "technical_passed": false
+          },
+          "notes": "MiniMax male voice_id; lower-pressure youth tone candidate"
+        }
+      ]
+    },
+    {
+      "candidate_id": "BMALE_02",
+      "voice_id": "male-qn-daxuesheng",
+      "voice_name": "青年大学生音色",
+      "gender_label": "male_or_male_leaning",
+      "selection_reason": "MiniMax male voice_id; conversational young-adult tone candidate",
+      "versions": [
+        {
+          "candidate_id": "BMALE_02",
+          "voice_id": "male-qn-daxuesheng",
+          "voice_name": "青年大学生音色",
+          "gender_label": "male_or_male_leaning",
+          "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_02_male-qn-daxuesheng_v1_identity_stable.mp3",
+          "absolute_sample_path": "/Users/fan/Documents/视频工厂/codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_02_male-qn-daxuesheng_v1_identity_stable.mp3",
+          "voice_setting": {
+            "speed": 1.02,
+            "pitch": 0,
+            "emotion": "calm",
+            "vol": 1
+          },
+          "prosody_version": "v1_identity_stable",
+          "purpose": "先判断音色是否像 B",
+          "pause_style": "moderate",
+          "upward_tone": "neutral_boundary",
+          "style_prompt_or_instructions": "自然口语、轻陪伴、低压解释、轻吐槽；同一 voice_id 内只调语速/停顿/情绪，不改变音色身份。",
+          "reference_audio_used": false,
+          "reference_audio_loaded_for_audit": true,
+          "same_voice_id_required": true,
+          "timbre_change_allowed": false,
+          "tts_call": {
+            "ok": true,
+            "http_status_code": 200,
+            "base_resp_status_code": 0,
+            "base_resp_status_msg": "success",
+            "trace_id": "06650a48cfc298efc974aacc3be5cefe",
+            "elapsed_seconds": 7.97,
+            "emotion_attempted": "calm"
+          },
+          "technical_validation": {
+            "ffprobe_result": {
+              "passed": true,
+              "duration_seconds": 16.704,
+              "codec_name": "mp3",
+              "sample_rate": 32000,
+              "channels": 1,
+              "bit_rate": "128821",
+              "file_size_bytes": 268980
+            },
+            "ffmpeg_decode_result": {
+              "passed": true,
+              "stderr_tail": ""
+            },
+            "duration_check": {
+              "duration_seconds": 16.704,
+              "target_range_seconds": "10_to_15",
+              "acceptable_range_seconds": "10_to_20",
+              "passed_target": false,
+              "passed_acceptable": true
+            },
+            "non_silent_check": {
+              "passed": true,
+              "mean_volume_db": "-23.7",
+              "stderr_tail": "t) -> pcm_s16le (native))\nPress [q] to stop, [?] for help\nOutput #0, null, to 'pipe:':\n  Metadata:\n    AIGC            : {\"Label\":\"1\",\"ContentProducer\":\"MiniMax\",\"ProduceID\":\"06650a48cfc298efc974aacc3be5cefe\",\"ReservedCode1\":\"{\\\"SecurityData\\\":{\\\"Type\\\":\\\"TC260PG\\\",\\\"Version\\\":1,\\\"PubSD\\\":[{\\\"Type\\\":\\\"DS\\\",\\\"AlgID\\\":\\\"1.2.156.10197.1.501\\\",\\\"TBSData\\\":{\\\"Type\\\":\\\"LabelMataD\n    encoder         : Lavf62.12.100\n  Stream #0:0: Audio: pcm_s16le, 32000 Hz, mono, s16, 512 kb/s\n    Metadata:\n      encoder         : Lavc62.28.100 pcm_s16le\n[Parsed_volumedetect_0 @ 0xba500ce40] n_samples: 533999\n[Parsed_volumedetect_0 @ 0xba500ce40] mean_volume: -23.7 dB\n[Parsed_volumedetect_0 @ 0xba500ce40] max_volume: -5.7 dB\n[Parsed_volumedetect_0 @ 0xba500ce40] histogram_5db: 2\n[Parsed_volumedetect_0 @ 0xba500ce40] histogram_6db: 26\n[Parsed_volumedetect_0 @ 0xba500ce40] histogram_7db: 83\n[Parsed_volumedetect_0 @ 0xba500ce40] histogram_8db: 297\n[Parsed_volumedetect_0 @ 0xba500ce40] histogram_9db: 631\n[out#0/null @ 0xba500c6c0] video:0KiB audio:1043KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nsize=N/A time=00:00:16.68 bitrate=N/A speed=2.06e+03x elapsed=0:00:00.00    \n"
+            },
+            "technical_passed": false
+          },
+          "notes": "MiniMax male voice_id; conversational young-adult tone candidate"
+        },
+        {
+          "candidate_id": "BMALE_02",
+          "voice_id": "male-qn-daxuesheng",
+          "voice_name": "青年大学生音色",
+          "gender_label": "male_or_male_leaning",
+          "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_02_male-qn-daxuesheng_v2_emotional_rich.mp3",
+          "absolute_sample_path": "/Users/fan/Documents/视频工厂/codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_02_male-qn-daxuesheng_v2_emotional_rich.mp3",
+          "voice_setting": {
+            "speed": 0.99,
+            "pitch": 0,
+            "emotion": "happy",
+            "vol": 1
+          },
+          "prosody_version": "v2_emotional_rich",
+          "purpose": "在同一音色内优化情绪、停顿、上扬",
+          "pause_style": "stronger_boundary_pause",
+          "upward_tone": "mild_rise_on_question_and_firm_drop_on_boundary",
+          "style_prompt_or_instructions": "自然口语、轻陪伴、低压解释、轻吐槽；同一 voice_id 内只调语速/停顿/情绪，不改变音色身份。",
+          "reference_audio_used": false,
+          "reference_audio_loaded_for_audit": true,
+          "same_voice_id_required": true,
+          "timbre_change_allowed": false,
+          "tts_call": {
+            "ok": true,
+            "http_status_code": 200,
+            "base_resp_status_code": 0,
+            "base_resp_status_msg": "success",
+            "trace_id": "06650a4c6063c8af4a9c3a4fe7ed9e31",
+            "elapsed_seconds": 1.775,
+            "emotion_attempted": "happy"
+          },
+          "technical_validation": {
+            "ffprobe_result": {
+              "passed": true,
+              "duration_seconds": 18.576,
+              "codec_name": "mp3",
+              "sample_rate": 32000,
+              "channels": 1,
+              "bit_rate": "128739",
+              "file_size_bytes": 298932
+            },
+            "ffmpeg_decode_result": {
+              "passed": true,
+              "stderr_tail": ""
+            },
+            "duration_check": {
+              "duration_seconds": 18.576,
+              "target_range_seconds": "10_to_15",
+              "acceptable_range_seconds": "10_to_20",
+              "passed_target": false,
+              "passed_acceptable": true
+            },
+            "non_silent_check": {
+              "passed": true,
+              "mean_volume_db": "-23.0",
+              "stderr_tail": "p\nOutput #0, null, to 'pipe:':\n  Metadata:\n    AIGC            : {\"Label\":\"1\",\"ContentProducer\":\"MiniMax\",\"ProduceID\":\"06650a4c6063c8af4a9c3a4fe7ed9e31\",\"ReservedCode1\":\"{\\\"SecurityData\\\":{\\\"Type\\\":\\\"TC260PG\\\",\\\"Version\\\":1,\\\"PubSD\\\":[{\\\"Type\\\":\\\"DS\\\",\\\"AlgID\\\":\\\"1.2.156.10197.1.501\\\",\\\"TBSData\\\":{\\\"Type\\\":\\\"LabelMataD\n    encoder         : Lavf62.12.100\n  Stream #0:0: Audio: pcm_s16le, 32000 Hz, mono, s16, 512 kb/s\n    Metadata:\n      encoder         : Lavc62.28.100 pcm_s16le\n[Parsed_volumedetect_0 @ 0xb9ec64900] n_samples: 593903\n[Parsed_volumedetect_0 @ 0xb9ec64900] mean_volume: -23.0 dB\n[Parsed_volumedetect_0 @ 0xb9ec64900] max_volume: -3.8 dB\n[Parsed_volumedetect_0 @ 0xb9ec64900] histogram_3db: 3\n[Parsed_volumedetect_0 @ 0xb9ec64900] histogram_4db: 10\n[Parsed_volumedetect_0 @ 0xb9ec64900] histogram_5db: 12\n[Parsed_volumedetect_0 @ 0xb9ec64900] histogram_6db: 56\n[Parsed_volumedetect_0 @ 0xb9ec64900] histogram_7db: 113\n[Parsed_volumedetect_0 @ 0xb9ec64900] histogram_8db: 543\n[out#0/null @ 0xb9ec64180] video:0KiB audio:1160KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nsize=N/A time=00:00:18.55 bitrate=N/A speed=2.06e+03x elapsed=0:00:00.00    \n"
+            },
+            "technical_passed": false
+          },
+          "notes": "MiniMax male voice_id; conversational young-adult tone candidate"
+        }
+      ]
+    },
+    {
+      "candidate_id": "BMALE_03",
+      "voice_id": "Chinese (Mandarin)_Gentleman",
+      "voice_name": "温润男声",
+      "gender_label": "male_or_male_leaning",
+      "selection_reason": "Mandarin male warm/gentle naming; suitable for light companion tone",
+      "versions": [
+        {
+          "candidate_id": "BMALE_03",
+          "voice_id": "Chinese (Mandarin)_Gentleman",
+          "voice_name": "温润男声",
+          "gender_label": "male_or_male_leaning",
+          "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_03_Chinese_Mandarin_Gentleman_v1_identity_stable.mp3",
+          "absolute_sample_path": "/Users/fan/Documents/视频工厂/codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_03_Chinese_Mandarin_Gentleman_v1_identity_stable.mp3",
+          "voice_setting": {
+            "speed": 1.02,
+            "pitch": 0,
+            "emotion": "calm",
+            "vol": 1
+          },
+          "prosody_version": "v1_identity_stable",
+          "purpose": "先判断音色是否像 B",
+          "pause_style": "moderate",
+          "upward_tone": "neutral_boundary",
+          "style_prompt_or_instructions": "自然口语、轻陪伴、低压解释、轻吐槽；同一 voice_id 内只调语速/停顿/情绪，不改变音色身份。",
+          "reference_audio_used": false,
+          "reference_audio_loaded_for_audit": true,
+          "same_voice_id_required": true,
+          "timbre_change_allowed": false,
+          "tts_call": {
+            "ok": true,
+            "http_status_code": 200,
+            "base_resp_status_code": 0,
+            "base_resp_status_msg": "success",
+            "trace_id": "06650a4e5d69657682ef427057a2e840",
+            "elapsed_seconds": 1.867,
+            "emotion_attempted": "calm"
+          },
+          "technical_validation": {
+            "ffprobe_result": {
+              "passed": true,
+              "duration_seconds": 16.38,
+              "codec_name": "mp3",
+              "sample_rate": 32000,
+              "channels": 1,
+              "bit_rate": "128838",
+              "file_size_bytes": 263796
+            },
+            "ffmpeg_decode_result": {
+              "passed": true,
+              "stderr_tail": ""
+            },
+            "duration_check": {
+              "duration_seconds": 16.38,
+              "target_range_seconds": "10_to_15",
+              "acceptable_range_seconds": "10_to_20",
+              "passed_target": false,
+              "passed_acceptable": true
+            },
+            "non_silent_check": {
+              "passed": true,
+              "mean_volume_db": "-23.3",
+              "stderr_tail": "Output #0, null, to 'pipe:':\n  Metadata:\n    AIGC            : {\"Label\":\"1\",\"ContentProducer\":\"MiniMax\",\"ProduceID\":\"06650a4e5d69657682ef427057a2e840\",\"ReservedCode1\":\"{\\\"SecurityData\\\":{\\\"Type\\\":\\\"TC260PG\\\",\\\"Version\\\":1,\\\"PubSD\\\":[{\\\"Type\\\":\\\"DS\\\",\\\"AlgID\\\":\\\"1.2.156.10197.1.501\\\",\\\"TBSData\\\":{\\\"Type\\\":\\\"LabelMataD\n    encoder         : Lavf62.12.100\n  Stream #0:0: Audio: pcm_s16le, 32000 Hz, mono, s16, 512 kb/s\n    Metadata:\n      encoder         : Lavc62.28.100 pcm_s16le\n[Parsed_volumedetect_0 @ 0x7cb00cf00] n_samples: 523631\n[Parsed_volumedetect_0 @ 0x7cb00cf00] mean_volume: -23.3 dB\n[Parsed_volumedetect_0 @ 0x7cb00cf00] max_volume: -2.6 dB\n[Parsed_volumedetect_0 @ 0x7cb00cf00] histogram_2db: 12\n[Parsed_volumedetect_0 @ 0x7cb00cf00] histogram_3db: 23\n[Parsed_volumedetect_0 @ 0x7cb00cf00] histogram_4db: 31\n[Parsed_volumedetect_0 @ 0x7cb00cf00] histogram_5db: 116\n[Parsed_volumedetect_0 @ 0x7cb00cf00] histogram_6db: 220\n[Parsed_volumedetect_0 @ 0x7cb00cf00] histogram_7db: 554\n[out#0/null @ 0x7cb00c780] video:0KiB audio:1023KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nsize=N/A time=00:00:16.36 bitrate=N/A speed=1.94e+03x elapsed=0:00:00.00    \n"
+            },
+            "technical_passed": false
+          },
+          "notes": "Mandarin male warm/gentle naming; suitable for light companion tone"
+        },
+        {
+          "candidate_id": "BMALE_03",
+          "voice_id": "Chinese (Mandarin)_Gentleman",
+          "voice_name": "温润男声",
+          "gender_label": "male_or_male_leaning",
+          "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_03_Chinese_Mandarin_Gentleman_v2_emotional_rich.mp3",
+          "absolute_sample_path": "/Users/fan/Documents/视频工厂/codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_03_Chinese_Mandarin_Gentleman_v2_emotional_rich.mp3",
+          "voice_setting": {
+            "speed": 0.99,
+            "pitch": 0,
+            "emotion": "happy",
+            "vol": 1
+          },
+          "prosody_version": "v2_emotional_rich",
+          "purpose": "在同一音色内优化情绪、停顿、上扬",
+          "pause_style": "stronger_boundary_pause",
+          "upward_tone": "mild_rise_on_question_and_firm_drop_on_boundary",
+          "style_prompt_or_instructions": "自然口语、轻陪伴、低压解释、轻吐槽；同一 voice_id 内只调语速/停顿/情绪，不改变音色身份。",
+          "reference_audio_used": false,
+          "reference_audio_loaded_for_audit": true,
+          "same_voice_id_required": true,
+          "timbre_change_allowed": false,
+          "tts_call": {
+            "ok": true,
+            "http_status_code": 200,
+            "base_resp_status_code": 0,
+            "base_resp_status_msg": "success",
+            "trace_id": "06650a500473e84b6d5a48b704f64110",
+            "elapsed_seconds": 1.681,
+            "emotion_attempted": "happy"
+          },
+          "technical_validation": {
+            "ffprobe_result": {
+              "passed": true,
+              "duration_seconds": 17.46,
+              "codec_name": "mp3",
+              "sample_rate": 32000,
+              "channels": 1,
+              "bit_rate": "128786",
+              "file_size_bytes": 281076
+            },
+            "ffmpeg_decode_result": {
+              "passed": true,
+              "stderr_tail": ""
+            },
+            "duration_check": {
+              "duration_seconds": 17.46,
+              "target_range_seconds": "10_to_15",
+              "acceptable_range_seconds": "10_to_20",
+              "passed_target": false,
+              "passed_acceptable": true
+            },
+            "non_silent_check": {
+              "passed": true,
+              "mean_volume_db": "-23.4",
+              "stderr_tail": ") -> pcm_s16le (native))\nPress [q] to stop, [?] for help\nOutput #0, null, to 'pipe:':\n  Metadata:\n    AIGC            : {\"Label\":\"1\",\"ContentProducer\":\"MiniMax\",\"ProduceID\":\"06650a500473e84b6d5a48b704f64110\",\"ReservedCode1\":\"{\\\"SecurityData\\\":{\\\"Type\\\":\\\"TC260PG\\\",\\\"Version\\\":1,\\\"PubSD\\\":[{\\\"Type\\\":\\\"DS\\\",\\\"AlgID\\\":\\\"1.2.156.10197.1.501\\\",\\\"TBSData\\\":{\\\"Type\\\":\\\"LabelMataD\n    encoder         : Lavf62.12.100\n  Stream #0:0: Audio: pcm_s16le, 32000 Hz, mono, s16, 512 kb/s\n    Metadata:\n      encoder         : Lavc62.28.100 pcm_s16le\n[Parsed_volumedetect_0 @ 0x872c24900] n_samples: 558191\n[Parsed_volumedetect_0 @ 0x872c24900] mean_volume: -23.4 dB\n[Parsed_volumedetect_0 @ 0x872c24900] max_volume: -3.9 dB\n[Parsed_volumedetect_0 @ 0x872c24900] histogram_3db: 4\n[Parsed_volumedetect_0 @ 0x872c24900] histogram_4db: 51\n[Parsed_volumedetect_0 @ 0x872c24900] histogram_5db: 124\n[Parsed_volumedetect_0 @ 0x872c24900] histogram_6db: 246\n[Parsed_volumedetect_0 @ 0x872c24900] histogram_7db: 422\n[out#0/null @ 0x872c24180] video:0KiB audio:1090KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nsize=N/A time=00:00:17.44 bitrate=N/A speed=1.93e+03x elapsed=0:00:00.00    \n"
+            },
+            "technical_passed": false
+          },
+          "notes": "Mandarin male warm/gentle naming; suitable for light companion tone"
+        }
+      ]
+    },
+    {
+      "candidate_id": "BMALE_04",
+      "voice_id": "Chinese (Mandarin)_Gentle_Youth",
+      "voice_name": "温润青年",
+      "gender_label": "male_or_male_leaning",
+      "selection_reason": "Mandarin young male warm naming; suitable for B youth-guide direction",
+      "versions": [
+        {
+          "candidate_id": "BMALE_04",
+          "voice_id": "Chinese (Mandarin)_Gentle_Youth",
+          "voice_name": "温润青年",
+          "gender_label": "male_or_male_leaning",
+          "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_04_Chinese_Mandarin_Gentle_Youth_v1_identity_stable.mp3",
+          "absolute_sample_path": "/Users/fan/Documents/视频工厂/codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_04_Chinese_Mandarin_Gentle_Youth_v1_identity_stable.mp3",
+          "voice_setting": {
+            "speed": 1.02,
+            "pitch": 0,
+            "emotion": "calm",
+            "vol": 1
+          },
+          "prosody_version": "v1_identity_stable",
+          "purpose": "先判断音色是否像 B",
+          "pause_style": "moderate",
+          "upward_tone": "neutral_boundary",
+          "style_prompt_or_instructions": "自然口语、轻陪伴、低压解释、轻吐槽；同一 voice_id 内只调语速/停顿/情绪，不改变音色身份。",
+          "reference_audio_used": false,
+          "reference_audio_loaded_for_audit": true,
+          "same_voice_id_required": true,
+          "timbre_change_allowed": false,
+          "tts_call": {
+            "ok": true,
+            "http_status_code": 200,
+            "base_resp_status_code": 0,
+            "base_resp_status_msg": "success",
+            "trace_id": "06650a537361439c53a3063e2e110731",
+            "elapsed_seconds": 2.89,
+            "emotion_attempted": "calm"
+          },
+          "technical_validation": {
+            "ffprobe_result": {
+              "passed": true,
+              "duration_seconds": 15.876,
+              "codec_name": "mp3",
+              "sample_rate": 32000,
+              "channels": 1,
+              "bit_rate": "128864",
+              "file_size_bytes": 255732
+            },
+            "ffmpeg_decode_result": {
+              "passed": true,
+              "stderr_tail": ""
+            },
+            "duration_check": {
+              "duration_seconds": 15.876,
+              "target_range_seconds": "10_to_15",
+              "acceptable_range_seconds": "10_to_20",
+              "passed_target": false,
+              "passed_acceptable": true
+            },
+            "non_silent_check": {
+              "passed": true,
+              "mean_volume_db": "-31.5",
+              "stderr_tail": " : {\"Label\":\"1\",\"ContentProducer\":\"MiniMax\",\"ProduceID\":\"06650a537361439c53a3063e2e110731\",\"ReservedCode1\":\"{\\\"SecurityData\\\":{\\\"Type\\\":\\\"TC260PG\\\",\\\"Version\\\":1,\\\"PubSD\\\":[{\\\"Type\\\":\\\"DS\\\",\\\"AlgID\\\":\\\"1.2.156.10197.1.501\\\",\\\"TBSData\\\":{\\\"Type\\\":\\\"LabelMataD\n    encoder         : Lavf62.12.100\n  Stream #0:0: Audio: pcm_s16le, 32000 Hz, mono, s16, 512 kb/s\n    Metadata:\n      encoder         : Lavc62.28.100 pcm_s16le\n[Parsed_volumedetect_0 @ 0xa32c44900] n_samples: 507503\n[Parsed_volumedetect_0 @ 0xa32c44900] mean_volume: -31.5 dB\n[Parsed_volumedetect_0 @ 0xa32c44900] max_volume: -11.0 dB\n[Parsed_volumedetect_0 @ 0xa32c44900] histogram_10db: 1\n[Parsed_volumedetect_0 @ 0xa32c44900] histogram_11db: 5\n[Parsed_volumedetect_0 @ 0xa32c44900] histogram_12db: 12\n[Parsed_volumedetect_0 @ 0xa32c44900] histogram_13db: 30\n[Parsed_volumedetect_0 @ 0xa32c44900] histogram_14db: 87\n[Parsed_volumedetect_0 @ 0xa32c44900] histogram_15db: 188\n[Parsed_volumedetect_0 @ 0xa32c44900] histogram_16db: 344\n[out#0/null @ 0xa32c44180] video:0KiB audio:991KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nsize=N/A time=00:00:15.85 bitrate=N/A speed=1.92e+03x elapsed=0:00:00.00    \n"
+            },
+            "technical_passed": false
+          },
+          "notes": "Mandarin young male warm naming; suitable for B youth-guide direction"
+        },
+        {
+          "candidate_id": "BMALE_04",
+          "voice_id": "Chinese (Mandarin)_Gentle_Youth",
+          "voice_name": "温润青年",
+          "gender_label": "male_or_male_leaning",
+          "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_04_Chinese_Mandarin_Gentle_Youth_v2_emotional_rich.mp3",
+          "absolute_sample_path": "/Users/fan/Documents/视频工厂/codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_04_Chinese_Mandarin_Gentle_Youth_v2_emotional_rich.mp3",
+          "voice_setting": {
+            "speed": 0.99,
+            "pitch": 0,
+            "emotion": "happy",
+            "vol": 1
+          },
+          "prosody_version": "v2_emotional_rich",
+          "purpose": "在同一音色内优化情绪、停顿、上扬",
+          "pause_style": "stronger_boundary_pause",
+          "upward_tone": "mild_rise_on_question_and_firm_drop_on_boundary",
+          "style_prompt_or_instructions": "自然口语、轻陪伴、低压解释、轻吐槽；同一 voice_id 内只调语速/停顿/情绪，不改变音色身份。",
+          "reference_audio_used": false,
+          "reference_audio_loaded_for_audit": true,
+          "same_voice_id_required": true,
+          "timbre_change_allowed": false,
+          "tts_call": {
+            "ok": true,
+            "http_status_code": 200,
+            "base_resp_status_code": 0,
+            "base_resp_status_msg": "success",
+            "trace_id": "06650a64355b6e4c648722dc36893bcd",
+            "elapsed_seconds": 18.255,
+            "emotion_attempted": "happy"
+          },
+          "technical_validation": {
+            "ffprobe_result": {
+              "passed": true,
+              "duration_seconds": 17.064,
+              "codec_name": "mp3",
+              "sample_rate": 32000,
+              "channels": 1,
+              "bit_rate": "128804",
+              "file_size_bytes": 274740
+            },
+            "ffmpeg_decode_result": {
+              "passed": true,
+              "stderr_tail": ""
+            },
+            "duration_check": {
+              "duration_seconds": 17.064,
+              "target_range_seconds": "10_to_15",
+              "acceptable_range_seconds": "10_to_20",
+              "passed_target": false,
+              "passed_acceptable": true
+            },
+            "non_silent_check": {
+              "passed": true,
+              "mean_volume_db": "-31.3",
+              "stderr_tail": "pcm_s16le (native))\nPress [q] to stop, [?] for help\nOutput #0, null, to 'pipe:':\n  Metadata:\n    AIGC            : {\"Label\":\"1\",\"ContentProducer\":\"MiniMax\",\"ProduceID\":\"06650a64355b6e4c648722dc36893bcd\",\"ReservedCode1\":\"{\\\"SecurityData\\\":{\\\"Type\\\":\\\"TC260PG\\\",\\\"Version\\\":1,\\\"PubSD\\\":[{\\\"Type\\\":\\\"DS\\\",\\\"AlgID\\\":\\\"1.2.156.10197.1.501\\\",\\\"TBSData\\\":{\\\"Type\\\":\\\"LabelMataD\n    encoder         : Lavf62.12.100\n  Stream #0:0: Audio: pcm_s16le, 32000 Hz, mono, s16, 512 kb/s\n    Metadata:\n      encoder         : Lavc62.28.100 pcm_s16le\n[Parsed_volumedetect_0 @ 0xa08c24900] n_samples: 545519\n[Parsed_volumedetect_0 @ 0xa08c24900] mean_volume: -31.3 dB\n[Parsed_volumedetect_0 @ 0xa08c24900] max_volume: -12.7 dB\n[Parsed_volumedetect_0 @ 0xa08c24900] histogram_12db: 3\n[Parsed_volumedetect_0 @ 0xa08c24900] histogram_13db: 14\n[Parsed_volumedetect_0 @ 0xa08c24900] histogram_14db: 88\n[Parsed_volumedetect_0 @ 0xa08c24900] histogram_15db: 240\n[Parsed_volumedetect_0 @ 0xa08c24900] histogram_16db: 422\n[out#0/null @ 0xa08c24180] video:0KiB audio:1065KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nsize=N/A time=00:00:17.04 bitrate=N/A speed=1.99e+03x elapsed=0:00:00.00    \n"
+            },
+            "technical_passed": false
+          },
+          "notes": "Mandarin young male warm naming; suitable for B youth-guide direction"
+        }
+      ]
+    },
+    {
+      "candidate_id": "BMALE_05",
+      "voice_id": "Chinese (Mandarin)_Sincere_Adult",
+      "voice_name": "真诚青年",
+      "gender_label": "male_or_male_leaning",
+      "selection_reason": "Mandarin sincere young-adult naming; suitable for low-pressure explanatory tone",
+      "versions": [
+        {
+          "candidate_id": "BMALE_05",
+          "voice_id": "Chinese (Mandarin)_Sincere_Adult",
+          "voice_name": "真诚青年",
+          "gender_label": "male_or_male_leaning",
+          "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_05_Chinese_Mandarin_Sincere_Adult_v1_identity_stable.mp3",
+          "absolute_sample_path": "/Users/fan/Documents/视频工厂/codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_05_Chinese_Mandarin_Sincere_Adult_v1_identity_stable.mp3",
+          "voice_setting": {
+            "speed": 1.02,
+            "pitch": 0,
+            "emotion": "calm",
+            "vol": 1
+          },
+          "prosody_version": "v1_identity_stable",
+          "purpose": "先判断音色是否像 B",
+          "pause_style": "moderate",
+          "upward_tone": "neutral_boundary",
+          "style_prompt_or_instructions": "自然口语、轻陪伴、低压解释、轻吐槽；同一 voice_id 内只调语速/停顿/情绪，不改变音色身份。",
+          "reference_audio_used": false,
+          "reference_audio_loaded_for_audit": true,
+          "same_voice_id_required": true,
+          "timbre_change_allowed": false,
+          "tts_call": {
+            "ok": true,
+            "http_status_code": 200,
+            "base_resp_status_code": 0,
+            "base_resp_status_msg": "success",
+            "trace_id": "06650a6709fb9a0d624bf4a54d18d5fb",
+            "elapsed_seconds": 1.847,
+            "emotion_attempted": "calm"
+          },
+          "technical_validation": {
+            "ffprobe_result": {
+              "passed": true,
+              "duration_seconds": 16.812,
+              "codec_name": "mp3",
+              "sample_rate": 32000,
+              "channels": 1,
+              "bit_rate": "128816",
+              "file_size_bytes": 270708
+            },
+            "ffmpeg_decode_result": {
+              "passed": true,
+              "stderr_tail": ""
+            },
+            "duration_check": {
+              "duration_seconds": 16.812,
+              "target_range_seconds": "10_to_15",
+              "acceptable_range_seconds": "10_to_20",
+              "passed_target": false,
+              "passed_acceptable": true
+            },
+            "non_silent_check": {
+              "passed": true,
+              "mean_volume_db": "-32.7",
+              "stderr_tail": " #0, null, to 'pipe:':\n  Metadata:\n    AIGC            : {\"Label\":\"1\",\"ContentProducer\":\"MiniMax\",\"ProduceID\":\"06650a6709fb9a0d624bf4a54d18d5fb\",\"ReservedCode1\":\"{\\\"SecurityData\\\":{\\\"Type\\\":\\\"TC260PG\\\",\\\"Version\\\":1,\\\"PubSD\\\":[{\\\"Type\\\":\\\"DS\\\",\\\"AlgID\\\":\\\"1.2.156.10197.1.501\\\",\\\"TBSData\\\":{\\\"Type\\\":\\\"LabelMataD\n    encoder         : Lavf62.12.100\n  Stream #0:0: Audio: pcm_s16le, 32000 Hz, mono, s16, 512 kb/s\n    Metadata:\n      encoder         : Lavc62.28.100 pcm_s16le\n[Parsed_volumedetect_0 @ 0x79700cf00] n_samples: 537455\n[Parsed_volumedetect_0 @ 0x79700cf00] mean_volume: -32.7 dB\n[Parsed_volumedetect_0 @ 0x79700cf00] max_volume: -11.3 dB\n[Parsed_volumedetect_0 @ 0x79700cf00] histogram_11db: 6\n[Parsed_volumedetect_0 @ 0x79700cf00] histogram_12db: 16\n[Parsed_volumedetect_0 @ 0x79700cf00] histogram_13db: 67\n[Parsed_volumedetect_0 @ 0x79700cf00] histogram_14db: 140\n[Parsed_volumedetect_0 @ 0x79700cf00] histogram_15db: 256\n[Parsed_volumedetect_0 @ 0x79700cf00] histogram_16db: 365\n[out#0/null @ 0x79700c780] video:0KiB audio:1050KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nsize=N/A time=00:00:16.79 bitrate=N/A speed=1.93e+03x elapsed=0:00:00.00    \n"
+            },
+            "technical_passed": false
+          },
+          "notes": "Mandarin sincere young-adult naming; suitable for low-pressure explanatory tone"
+        },
+        {
+          "candidate_id": "BMALE_05",
+          "voice_id": "Chinese (Mandarin)_Sincere_Adult",
+          "voice_name": "真诚青年",
+          "gender_label": "male_or_male_leaning",
+          "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_05_Chinese_Mandarin_Sincere_Adult_v2_emotional_rich.mp3",
+          "absolute_sample_path": "/Users/fan/Documents/视频工厂/codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/samples/BMALE_05_Chinese_Mandarin_Sincere_Adult_v2_emotional_rich.mp3",
+          "voice_setting": {
+            "speed": 0.99,
+            "pitch": 0,
+            "emotion": "happy",
+            "vol": 1
+          },
+          "prosody_version": "v2_emotional_rich",
+          "purpose": "在同一音色内优化情绪、停顿、上扬",
+          "pause_style": "stronger_boundary_pause",
+          "upward_tone": "mild_rise_on_question_and_firm_drop_on_boundary",
+          "style_prompt_or_instructions": "自然口语、轻陪伴、低压解释、轻吐槽；同一 voice_id 内只调语速/停顿/情绪，不改变音色身份。",
+          "reference_audio_used": false,
+          "reference_audio_loaded_for_audit": true,
+          "same_voice_id_required": true,
+          "timbre_change_allowed": false,
+          "tts_call": {
+            "ok": true,
+            "http_status_code": 200,
+            "base_resp_status_code": 0,
+            "base_resp_status_msg": "success",
+            "trace_id": "06650a694c6d32d1efb988b66785093d",
+            "elapsed_seconds": 1.903,
+            "emotion_attempted": "happy"
+          },
+          "technical_validation": {
+            "ffprobe_result": {
+              "passed": true,
+              "duration_seconds": 17.748,
+              "codec_name": "mp3",
+              "sample_rate": 32000,
+              "channels": 1,
+              "bit_rate": "128773",
+              "file_size_bytes": 285684
+            },
+            "ffmpeg_decode_result": {
+              "passed": true,
+              "stderr_tail": ""
+            },
+            "duration_check": {
+              "duration_seconds": 17.748,
+              "target_range_seconds": "10_to_15",
+              "acceptable_range_seconds": "10_to_20",
+              "passed_target": false,
+              "passed_acceptable": true
+            },
+            "non_silent_check": {
+              "passed": true,
+              "mean_volume_db": "-32.5",
+              "stderr_tail": "cm_s16le (native))\nPress [q] to stop, [?] for help\nOutput #0, null, to 'pipe:':\n  Metadata:\n    AIGC            : {\"Label\":\"1\",\"ContentProducer\":\"MiniMax\",\"ProduceID\":\"06650a694c6d32d1efb988b66785093d\",\"ReservedCode1\":\"{\\\"SecurityData\\\":{\\\"Type\\\":\\\"TC260PG\\\",\\\"Version\\\":1,\\\"PubSD\\\":[{\\\"Type\\\":\\\"DS\\\",\\\"AlgID\\\":\\\"1.2.156.10197.1.501\\\",\\\"TBSData\\\":{\\\"Type\\\":\\\"LabelMataD\n    encoder         : Lavf62.12.100\n  Stream #0:0: Audio: pcm_s16le, 32000 Hz, mono, s16, 512 kb/s\n    Metadata:\n      encoder         : Lavc62.28.100 pcm_s16le\n[Parsed_volumedetect_0 @ 0x859040900] n_samples: 567407\n[Parsed_volumedetect_0 @ 0x859040900] mean_volume: -32.5 dB\n[Parsed_volumedetect_0 @ 0x859040900] max_volume: -10.3 dB\n[Parsed_volumedetect_0 @ 0x859040900] histogram_10db: 13\n[Parsed_volumedetect_0 @ 0x859040900] histogram_11db: 58\n[Parsed_volumedetect_0 @ 0x859040900] histogram_12db: 91\n[Parsed_volumedetect_0 @ 0x859040900] histogram_13db: 158\n[Parsed_volumedetect_0 @ 0x859040900] histogram_14db: 268\n[out#0/null @ 0x859040180] video:0KiB audio:1108KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nsize=N/A time=00:00:17.73 bitrate=N/A speed=1.95e+03x elapsed=0:00:00.00    \n"
+            },
+            "technical_passed": false
+          },
+          "notes": "Mandarin sincere young-adult naming; suitable for low-pressure explanatory tone"
+        }
+      ]
+    }
+  ],
+  "api_failures_sanitized": []
+}
