@@ -1,0 +1,16 @@
+{
+  "schema": "publish_candidate_checklist.v1",
+  "status": "blocked",
+  "checks": {
+    "full_mp4_generated": false,
+    "narration_wav_generated": false,
+    "captions_srt_generated": false,
+    "minimax_speech_2_8_hd_full_tts": false,
+    "locked_copy_unchanged": true,
+    "line_group_mapping_regenerated": true,
+    "core_evidence_mismatch_count_zero": false,
+    "readability_passed": false,
+    "preflight_suite_all_passed": false,
+    "secret_scan_passed": null
+  }
+}

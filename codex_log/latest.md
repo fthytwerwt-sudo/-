@@ -1,5 +1,23 @@
 # Latest
 
+## 20260526｜新第四期选品初筛锁稿正片候选阻断
+
+- `task_result.status = blocked`
+- `blocked_type = blocked_publish_candidate_unavailable`
+- `target_delivery = publish_candidate_ready_for_human_review`
+- `degradation_used = false`
+- `no_degraded_output_created = true`
+- `review_pack_path = dist/new_fourth_episode_selection_locked_script_publish_candidate_20260526_171604`
+- `locked_copy_created = true`；`locked_copy_changed = false`；`old_v02_reused = false`；本轮未复用旧 v0.2 文案。
+- `line_group_count = 245`；`near_equivalent_count = 10`；`near_equivalent_ratio = 0.0408`；`consecutive_near_equivalent_max = 5`；`core_evidence_mismatch_count = 10`；`whole_video_drift_detected = false`。
+- `visual_blocker`：现有素材不能无猜测证明“Codex 操作我的电脑 / 进入选品页面 / 输入品类词 / 一张一张翻商品卡”；候选表、明细表、复查表存在小字/隐私/遮挡可读性风险；SKU 复杂度缺少清楚证据。
+- `copy_blocker`：旧 preflight 已要求相关句子走 `copy_change_request`，但本轮锁稿禁止 Codex 改稿，因此 blocked。
+- `tts`：MiniMax 百炼代理 route_b / `MiniMax/speech-2.8-hd` smoke 能生成音频，但 smoke 报告 `task_status = blocked`；本轮未生成全片 `narration.wav`，未使用 fallback / macOS say / 本地低质 TTS。
+- `publish_candidate_preflight_suite.status = blocked`；通过：`card_decision_preflight / forbidden_action_preflight / locked_copy_diff_preflight`；失败：`line_level_alignment_preflight / line_visual_tolerance_preflight / near_equivalent_material_substitution_preflight / tts_route_and_prosody_preflight / publish_candidate_voice_gate / b_voice_feel_minimax_preflight / visual_evidence_readability_preflight / publish_candidate_user_standard_preflight / completion_truth_preflight`。
+- `media_generated = false`；`full.mp4 = not_generated`；`narration.wav = not_generated`；`captions.srt = not_generated`。
+- `content_validation = pending_user_chatgpt_review_if_future_candidate_generated`；`send_ready = false`；`voice_validation = pending_user_chatgpt_review_if_future_candidate_generated`；`final_voice_validated = false`；`visual_master_locked = false`；`current_data_goal_anchor_ready = false`。
+- `日志`：`codex_log/20260526_新第四期选品初筛正片候选_blocked_publish_candidate.md`
+
 ## 20260526｜三项候选片判断机制落库
 
 - `已确认` 本轮只做机制落库，不生成视频、不生成音频、不调用 MiniMax / 阿里 / 百炼 / TTS API、不修改 `dist/` 媒体产物、不修改素材目录、不修改用户文案。

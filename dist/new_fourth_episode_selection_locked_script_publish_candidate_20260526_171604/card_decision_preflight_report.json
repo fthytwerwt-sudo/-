@@ -1,0 +1,46 @@
+{
+  "schema": "card_decision_preflight.v1",
+  "gate_name": "card_decision_preflight",
+  "status": "passed",
+  "check_depth": "structural_check_only",
+  "blocked_reasons": [],
+  "warnings": [],
+  "checked_input": "dist/new_fourth_episode_selection_locked_script_publish_candidate_20260526_171604/content_route_card_v2.json",
+  "component_decision_table": {
+    "judgment_card": {
+      "needed": true,
+      "reason": "突出“先判断值不值得继续测”。",
+      "line_group_id": "LG026",
+      "evidence_dependency": "boundary_statement",
+      "interrupt_risk": "low"
+    },
+    "summary_card": {
+      "needed": true,
+      "reason": "承接候选表字段汇总。",
+      "line_group_id": "LG087",
+      "evidence_dependency": "candidate_table",
+      "interrupt_risk": "low"
+    },
+    "result_diff_card": {
+      "needed": true,
+      "reason": "承接从二十张商品卡缩成四个复查对象。",
+      "line_group_id": "LG155",
+      "evidence_dependency": "review_table",
+      "interrupt_risk": "low"
+    },
+    "boundary_card": {
+      "needed": true,
+      "reason": "必须保留不是爆品答案、只是选品初筛的边界。",
+      "line_group_id": "LG169",
+      "evidence_dependency": "boundary_statement",
+      "interrupt_risk": "low"
+    },
+    "prompt_tail_card": {
+      "needed": true,
+      "reason": "结尾行动卡：把商品卡拆成表、风险写出来、复查项列清楚。",
+      "line_group_id": "LG245",
+      "evidence_dependency": "next_action",
+      "interrupt_risk": "low"
+    }
+  }
+}

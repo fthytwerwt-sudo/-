@@ -1,0 +1,39 @@
+{
+  "schema": "completion_truth_preflight.v1",
+  "gate_name": "completion_truth_preflight",
+  "status": "blocked",
+  "check_depth": "implemented",
+  "blocked_reasons": [
+    "any_required_gate_failed"
+  ],
+  "warnings": [],
+  "failed_gates": [
+    "line_level_alignment_preflight",
+    "line_visual_tolerance_preflight",
+    "near_equivalent_material_substitution_preflight",
+    "tts_route_and_prosody_preflight",
+    "publish_candidate_voice_gate",
+    "b_voice_feel_minimax_preflight",
+    "visual_evidence_readability_preflight",
+    "publish_candidate_user_standard_preflight"
+  ],
+  "review_pack": "dist/new_fourth_episode_selection_locked_script_publish_candidate_20260526_171604",
+  "missing_review_pack_reports": [],
+  "required_review_pack_reports": [
+    "publish_candidate_preflight_report.json",
+    "publish_candidate_preflight_report.md",
+    "line_level_alignment_report.json",
+    "line_visual_tolerance_report.json",
+    "near_equivalent_material_substitution_report.json",
+    "tts_route_and_prosody_report.json",
+    "tts_route_report.json",
+    "tts_route_report.md",
+    "b_voice_feel_minimax_report.json",
+    "card_decision_preflight_report.json",
+    "forbidden_action_audit.json",
+    "visual_evidence_readability_report.json",
+    "locked_copy_diff_report.json",
+    "publish_candidate_user_standard_report.json",
+    "completion_truth_preflight_report.json"
+  ]
+}

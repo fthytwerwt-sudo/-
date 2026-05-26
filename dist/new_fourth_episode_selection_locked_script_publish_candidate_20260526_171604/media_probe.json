@@ -1,0 +1,19 @@
+{
+  "schema": "media_probe.v1",
+  "status": "blocked_no_candidate_media",
+  "full_mp4_exists": false,
+  "narration_wav_exists": false,
+  "captions_srt_exists": false,
+  "ffprobe": "not_run_no_full_mp4",
+  "ffmpeg_decode": "not_run_no_full_mp4",
+  "audio_present": false,
+  "non_silent": false,
+  "subtitles_present": false,
+  "edgeguard": "not_run_no_full_mp4",
+  "subtitle_card_overlap": "blocked_not_run",
+  "visual_evidence_readability": "blocked",
+  "secret_scan": "passed_no_raw_secret_detected",
+  "ffprobe_smoke_audio": "passed_15s_wav_non_candidate",
+  "ffmpeg_decode_smoke_audio": "passed_non_candidate",
+  "candidate_media_absence_verified": true
+}

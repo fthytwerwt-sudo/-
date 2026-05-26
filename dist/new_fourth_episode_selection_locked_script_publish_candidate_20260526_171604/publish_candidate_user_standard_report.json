@@ -1,0 +1,79 @@
+{
+  "schema": "publish_candidate_user_standard_preflight.v1",
+  "gate_name": "publish_candidate_user_standard_preflight",
+  "status": "blocked",
+  "check_depth": "implemented",
+  "blocked_reasons": [
+    "candidate_required_fields_missing_or_failed",
+    "forbidden_major_flaws_detected"
+  ],
+  "warnings": [],
+  "publish_candidate_user_standard_rule": {
+    "status": "active",
+    "user_definition": "publish_candidate_means_user_can_watch_and_directly_publish_after_human_review",
+    "allowed_minor_flaws": [
+      "minor_non_core_visual_transition_issue",
+      "slight_subtitle_pacing_issue_not_affecting_understanding",
+      "small_aesthetic_imperfection_not_affecting_publish",
+      "tiny_timing_imperfection"
+    ],
+    "forbidden_major_flaws": [
+      "card_blocks_core_evidence",
+      "completion_claim_without_validation",
+      "core_evidence_mismatch",
+      "fallback_tts_used",
+      "full_frame_mask_or_unapproved_redaction",
+      "gray_border_or_black_border_obvious",
+      "line_visual_whole_video_drift",
+      "locked_copy_changed",
+      "no_preflight_suite",
+      "no_review_pack",
+      "only_internal_diagnostic",
+      "only_json_or_markdown_package",
+      "only_technical_preview",
+      "silent_audio",
+      "subtitle_blocks_core_evidence",
+      "title_changed",
+      "voice_route_wrong",
+      "whiteout_or_black_block_present"
+    ],
+    "candidate_allowed_only_if": [
+      "completion_truth_preflight_passed",
+      "core_evidence_mismatch_count_zero",
+      "line_visual_tolerance_passed",
+      "locked_copy_preserved",
+      "minimax_voice_gate_passed",
+      "review_pack_complete",
+      "subtitle_card_overlap_check_passed",
+      "visual_evidence_readability_passed"
+    ],
+    "status_boundary": "publish_candidate_ready_for_human_review_does_not_equal_send_ready; send_ready_requires_user_or_chatgpt_final_confirmation"
+  },
+  "detected_major_flaws": [
+    "core_evidence_mismatch"
+  ],
+  "allowed_minor_flaws_seen": [],
+  "unknown_minor_flaws": [],
+  "requirements": {
+    "locked_copy_preserved": true,
+    "minimax_voice_gate_passed": false,
+    "line_visual_tolerance_passed": false,
+    "core_evidence_mismatch_count_zero": false,
+    "subtitle_card_overlap_check_passed": false,
+    "visual_evidence_readability_passed": false,
+    "completion_truth_preflight_passed": false,
+    "review_pack_complete": false
+  },
+  "missing_requirements": [
+    "completion_truth_preflight_passed",
+    "core_evidence_mismatch_count_zero",
+    "line_visual_tolerance_passed",
+    "minimax_voice_gate_passed",
+    "review_pack_complete",
+    "subtitle_card_overlap_check_passed",
+    "visual_evidence_readability_passed"
+  ],
+  "publish_candidate_ready_for_human_review": false,
+  "send_ready_allowed": false,
+  "human_review_required": true
+}

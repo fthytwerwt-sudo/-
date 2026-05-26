@@ -1,0 +1,24 @@
+{
+  "schema": "material_evidence_contract.v1",
+  "status": "blocked",
+  "auto_edit_allowed": false,
+  "required_evidence_zero_mismatch": [
+    "Codex 操作电脑",
+    "商品卡字段",
+    "候选表",
+    "明细表",
+    "复查表",
+    "SKU 风险",
+    "不是爆品答案，只是初筛"
+  ],
+  "missing_material_needed": [
+    "R001 Codex/computer-use 连续操作录屏",
+    "R002 商品卡字段高清近景",
+    "R003 候选表/明细表高清近景或静态图",
+    "R004 复查表高清近景或静态图",
+    "R005 SKU/规格复杂度证据"
+  ],
+  "allowed_near_equivalent_ratio_max": 0.05,
+  "actual_near_equivalent_ratio": 0.0408,
+  "core_evidence_mismatch_count": 10
+}

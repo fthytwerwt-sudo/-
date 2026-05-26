@@ -1,0 +1,7 @@
+{
+  "schema": "subtitle_card_overlap_check.v1",
+  "status": "blocked_not_run",
+  "subtitle_card_overlap_check_passed": false,
+  "reason": "no full.mp4 rendered because auto_edit_allowed=false",
+  "high_severity_overlap_unknown": true
+}

@@ -1,0 +1,15 @@
+{
+  "schema": "visual_evidence_readability_preflight.v1",
+  "gate_name": "visual_evidence_readability_preflight",
+  "status": "blocked",
+  "check_depth": "structural_check_only",
+  "blocked_reasons": [
+    "key_evidence_unreadable"
+  ],
+  "warnings": [
+    "OCR/readability semantic validation requires future visual probe; this script enforces declared checks and known report status."
+  ],
+  "detected_readability_risks": [
+    "key_evidence_unreadable"
+  ]
+}

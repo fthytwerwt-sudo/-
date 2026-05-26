@@ -1,0 +1,311 @@
+{
+  "schema": "line_visual_tolerance_preflight.v1",
+  "gate_name": "line_visual_tolerance_preflight",
+  "status": "blocked",
+  "check_depth": "structural_check_only",
+  "blocked_reasons": [
+    "claim_not_preserved",
+    "consecutive_near_equivalent_groups_gt_1",
+    "core_evidence_mismatch_count_gt_0",
+    "replacement_material_not_extremely_close",
+    "user_material_needed_but_missing",
+    "viewer_inference_changed",
+    "visual_requires_guessing"
+  ],
+  "warnings": [
+    "极其相近素材不等于主题相近；局部降级不等于全程偏差。",
+    "达不到容差条件时必须 blocked，并等待用户补素材视频或图片，不允许硬剪。"
+  ],
+  "checked_input": "dist/new_fourth_episode_selection_locked_script_publish_candidate_20260526_171604/script_to_timeline_map.json",
+  "line_visual_tolerance_rule": {
+    "status": "active",
+    "applies_to": [
+      "locked_copy_video_execution",
+      "publish_candidate_delivery",
+      "video_repair_execution",
+      "final_script_to_video"
+    ],
+    "tolerance_policy": {
+      "max_near_equivalent_ratio": 0.05,
+      "max_consecutive_near_equivalent_groups": 1,
+      "whole_video_drift_allowed": false,
+      "core_evidence_mismatch_allowed": false
+    },
+    "allowed_near_equivalent_if": [
+      "line_group_is_non_core_evidence",
+      "visual_proves_same_claim",
+      "material_role_is_same_or_stronger",
+      "viewer_inference_is_unchanged",
+      "no_change_to_locked_copy_meaning",
+      "no_change_from_review_to_recommendation",
+      "no_change_from_initial_screening_to_final_decision",
+      "no_new_commercial_claim"
+    ],
+    "forbidden_near_equivalent_if": [
+      "line_group_is_core_evidence",
+      "line_group_is_boundary_statement",
+      "line_group_is_result_diff",
+      "line_group_is_product_or_table_proof",
+      "visual_changes_claim",
+      "visual_requires_guessing",
+      "material_only_thematically_related",
+      "mismatch_repeats_across_multiple_sections"
+    ],
+    "core_evidence_line_types": [
+      "boundary_statement",
+      "candidate_table",
+      "cost_or_commission_claim",
+      "detail_table",
+      "next_action",
+      "product_card_field",
+      "product_review_priority",
+      "result_diff",
+      "review_table",
+      "risk_claim"
+    ],
+    "required_report": [
+      "line_visual_alignment_report",
+      "near_equivalent_material_substitution_report"
+    ],
+    "blocked_if": [
+      "near_equivalent_ratio > 0.05",
+      "core_evidence_mismatch_count > 0",
+      "whole_video_drift_detected = true",
+      "visual_requires_guessing = true",
+      "replacement_material_not_extremely_close = true",
+      "user_material_needed_but_missing = true"
+    ]
+  },
+  "near_equivalent_material_substitution_report": {
+    "total_line_group_count": 245,
+    "exact_match_count": 235,
+    "near_equivalent_count": 10,
+    "near_equivalent_ratio": 0.0408,
+    "consecutive_near_equivalent_max": 5,
+    "core_evidence_mismatch_count": 10,
+    "whole_video_drift_detected": false,
+    "substitutions": [
+      {
+        "line_group_id": "LG018",
+        "original_required_visual": "商品 SKU/变体复杂度页面或复查表中清楚可读的 SKU 风险字段。",
+        "substitute_visual_used": "现有明细/复查表有风险字段，但 SKU 复杂度作为具体风险缺少可读近景证据。",
+        "substitute_material_id": "V003/V004",
+        "substitute_timecode": "00:51-01:30 / 00:39-00:51",
+        "line_group_type": "risk_claim",
+        "is_core_evidence": true,
+        "why_extremely_close": "",
+        "claim_preserved": false,
+        "viewer_inference_preserved": false,
+        "risk": "blocked",
+        "allowed": false,
+        "blocked_reason": [
+          "core_evidence_mismatch",
+          "replacement_material_not_extremely_close",
+          "claim_not_preserved",
+          "viewer_inference_changed",
+          "visual_requires_guessing",
+          "user_material_needed_but_missing"
+        ]
+      },
+      {
+        "line_group_id": "LG041",
+        "original_required_visual": "必须清楚看到 Codex/执行型 AI 正在操作电脑：进入选品页面、输入品类词、逐张翻商品卡。",
+        "substitute_visual_used": "现有素材能看到页面、商品卡、表格和 AI 输出，但不能无猜测地证明“Codex 操作我的电脑”这一核心动作。",
+        "substitute_material_id": "V001/V003/V004",
+        "substitute_timecode": "旧审计仅有商品卡/表格/聊天输出参考，无直接 computer-use 操作证据",
+        "line_group_type": "product_card_field",
+        "is_core_evidence": true,
+        "why_extremely_close": "",
+        "claim_preserved": false,
+        "viewer_inference_preserved": false,
+        "risk": "blocked",
+        "allowed": false,
+        "blocked_reason": [
+          "core_evidence_mismatch",
+          "replacement_material_not_extremely_close",
+          "claim_not_preserved",
+          "viewer_inference_changed",
+          "visual_requires_guessing",
+          "user_material_needed_but_missing"
+        ]
+      },
+      {
+        "line_group_id": "LG052",
+        "original_required_visual": "必须清楚看到 Codex/执行型 AI 正在操作电脑：进入选品页面、输入品类词、逐张翻商品卡。",
+        "substitute_visual_used": "现有素材能看到页面、商品卡、表格和 AI 输出，但不能无猜测地证明“Codex 操作我的电脑”这一核心动作。",
+        "substitute_material_id": "V001/V003/V004",
+        "substitute_timecode": "旧审计仅有商品卡/表格/聊天输出参考，无直接 computer-use 操作证据",
+        "line_group_type": "product_card_field",
+        "is_core_evidence": true,
+        "why_extremely_close": "",
+        "claim_preserved": false,
+        "viewer_inference_preserved": false,
+        "risk": "blocked",
+        "allowed": false,
+        "blocked_reason": [
+          "core_evidence_mismatch",
+          "replacement_material_not_extremely_close",
+          "claim_not_preserved",
+          "viewer_inference_changed",
+          "visual_requires_guessing",
+          "user_material_needed_but_missing"
+        ]
+      },
+      {
+        "line_group_id": "LG053",
+        "original_required_visual": "必须清楚看到 Codex/执行型 AI 正在操作电脑：进入选品页面、输入品类词、逐张翻商品卡。",
+        "substitute_visual_used": "现有素材能看到页面、商品卡、表格和 AI 输出，但不能无猜测地证明“Codex 操作我的电脑”这一核心动作。",
+        "substitute_material_id": "V001/V003/V004",
+        "substitute_timecode": "旧审计仅有商品卡/表格/聊天输出参考，无直接 computer-use 操作证据",
+        "line_group_type": "product_card_field",
+        "is_core_evidence": true,
+        "why_extremely_close": "",
+        "claim_preserved": false,
+        "viewer_inference_preserved": false,
+        "risk": "blocked",
+        "allowed": false,
+        "blocked_reason": [
+          "core_evidence_mismatch",
+          "replacement_material_not_extremely_close",
+          "claim_not_preserved",
+          "viewer_inference_changed",
+          "visual_requires_guessing",
+          "user_material_needed_but_missing"
+        ]
+      },
+      {
+        "line_group_id": "LG054",
+        "original_required_visual": "必须清楚看到 Codex/执行型 AI 正在操作电脑：进入选品页面、输入品类词、逐张翻商品卡。",
+        "substitute_visual_used": "现有素材能看到页面、商品卡、表格和 AI 输出，但不能无猜测地证明“Codex 操作我的电脑”这一核心动作。",
+        "substitute_material_id": "V001/V003/V004",
+        "substitute_timecode": "旧审计仅有商品卡/表格/聊天输出参考，无直接 computer-use 操作证据",
+        "line_group_type": "product_card_field",
+        "is_core_evidence": true,
+        "why_extremely_close": "",
+        "claim_preserved": false,
+        "viewer_inference_preserved": false,
+        "risk": "blocked",
+        "allowed": false,
+        "blocked_reason": [
+          "core_evidence_mismatch",
+          "replacement_material_not_extremely_close",
+          "claim_not_preserved",
+          "viewer_inference_changed",
+          "visual_requires_guessing",
+          "user_material_needed_but_missing"
+        ]
+      },
+      {
+        "line_group_id": "LG055",
+        "original_required_visual": "必须清楚看到 Codex/执行型 AI 正在操作电脑：进入选品页面、输入品类词、逐张翻商品卡。",
+        "substitute_visual_used": "现有素材能看到页面、商品卡、表格和 AI 输出，但不能无猜测地证明“Codex 操作我的电脑”这一核心动作。",
+        "substitute_material_id": "V001/V003/V004",
+        "substitute_timecode": "旧审计仅有商品卡/表格/聊天输出参考，无直接 computer-use 操作证据",
+        "line_group_type": "product_card_field",
+        "is_core_evidence": true,
+        "why_extremely_close": "",
+        "claim_preserved": false,
+        "viewer_inference_preserved": false,
+        "risk": "blocked",
+        "allowed": false,
+        "blocked_reason": [
+          "core_evidence_mismatch",
+          "replacement_material_not_extremely_close",
+          "claim_not_preserved",
+          "viewer_inference_changed",
+          "visual_requires_guessing",
+          "user_material_needed_but_missing"
+        ]
+      },
+      {
+        "line_group_id": "LG056",
+        "original_required_visual": "必须清楚看到 Codex/执行型 AI 正在操作电脑：进入选品页面、输入品类词、逐张翻商品卡。",
+        "substitute_visual_used": "现有素材能看到页面、商品卡、表格和 AI 输出，但不能无猜测地证明“Codex 操作我的电脑”这一核心动作。",
+        "substitute_material_id": "V001/V003/V004",
+        "substitute_timecode": "旧审计仅有商品卡/表格/聊天输出参考，无直接 computer-use 操作证据",
+        "line_group_type": "product_card_field",
+        "is_core_evidence": true,
+        "why_extremely_close": "",
+        "claim_preserved": false,
+        "viewer_inference_preserved": false,
+        "risk": "blocked",
+        "allowed": false,
+        "blocked_reason": [
+          "core_evidence_mismatch",
+          "replacement_material_not_extremely_close",
+          "claim_not_preserved",
+          "viewer_inference_changed",
+          "visual_requires_guessing",
+          "user_material_needed_but_missing"
+        ]
+      },
+      {
+        "line_group_id": "LG125",
+        "original_required_visual": "商品 SKU/变体复杂度页面或复查表中清楚可读的 SKU 风险字段。",
+        "substitute_visual_used": "现有明细/复查表有风险字段，但 SKU 复杂度作为具体风险缺少可读近景证据。",
+        "substitute_material_id": "V003/V004",
+        "substitute_timecode": "00:51-01:30 / 00:39-00:51",
+        "line_group_type": "risk_claim",
+        "is_core_evidence": true,
+        "why_extremely_close": "",
+        "claim_preserved": false,
+        "viewer_inference_preserved": false,
+        "risk": "blocked",
+        "allowed": false,
+        "blocked_reason": [
+          "core_evidence_mismatch",
+          "replacement_material_not_extremely_close",
+          "claim_not_preserved",
+          "viewer_inference_changed",
+          "visual_requires_guessing",
+          "user_material_needed_but_missing"
+        ]
+      },
+      {
+        "line_group_id": "LG168",
+        "original_required_visual": "商品 SKU/变体复杂度页面或复查表中清楚可读的 SKU 风险字段。",
+        "substitute_visual_used": "现有明细/复查表有风险字段，但 SKU 复杂度作为具体风险缺少可读近景证据。",
+        "substitute_material_id": "V003/V004",
+        "substitute_timecode": "00:51-01:30 / 00:39-00:51",
+        "line_group_type": "risk_claim",
+        "is_core_evidence": true,
+        "why_extremely_close": "",
+        "claim_preserved": false,
+        "viewer_inference_preserved": false,
+        "risk": "blocked",
+        "allowed": false,
+        "blocked_reason": [
+          "core_evidence_mismatch",
+          "replacement_material_not_extremely_close",
+          "claim_not_preserved",
+          "viewer_inference_changed",
+          "visual_requires_guessing",
+          "user_material_needed_but_missing"
+        ]
+      },
+      {
+        "line_group_id": "LG198",
+        "original_required_visual": "必须清楚看到 Codex/执行型 AI 正在操作电脑：进入选品页面、输入品类词、逐张翻商品卡。",
+        "substitute_visual_used": "现有素材能看到页面、商品卡、表格和 AI 输出，但不能无猜测地证明“Codex 操作我的电脑”这一核心动作。",
+        "substitute_material_id": "V001/V003/V004",
+        "substitute_timecode": "旧审计仅有商品卡/表格/聊天输出参考，无直接 computer-use 操作证据",
+        "line_group_type": "product_card_field",
+        "is_core_evidence": true,
+        "why_extremely_close": "",
+        "claim_preserved": false,
+        "viewer_inference_preserved": false,
+        "risk": "blocked",
+        "allowed": false,
+        "blocked_reason": [
+          "core_evidence_mismatch",
+          "replacement_material_not_extremely_close",
+          "claim_not_preserved",
+          "viewer_inference_changed",
+          "visual_requires_guessing",
+          "user_material_needed_but_missing"
+        ]
+      }
+    ],
+    "final_decision": "blocked_need_user_material"
+  }
+}

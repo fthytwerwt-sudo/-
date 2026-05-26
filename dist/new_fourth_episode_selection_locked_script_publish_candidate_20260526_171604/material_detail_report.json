@@ -1,0 +1,52 @@
+{
+  "schema": "material_detail_report.v1",
+  "status": "partial_support_but_not_publish_candidate_ready",
+  "source_dir": "素材录制/新第四期/",
+  "materials": {
+    "V001": {
+      "path": "素材录制/新第四期/内建视网膜显示器 2026-05-23 20-57-41.mp4",
+      "duration_seconds": 481.67,
+      "role": "选品页面、商品卡浏览、聊天/页面切换参考",
+      "audio_track": false,
+      "useful_timecodes": [
+        "00:15-01:24 商品卡字段",
+        "01:27-01:33 ChatGPT/Atlas 分析",
+        "02:12-03:24 商品页与 AI 输出"
+      ]
+    },
+    "V002": {
+      "path": "素材录制/新第四期/内建视网膜显示器 2026-05-23 21-28-53.mp4",
+      "duration_seconds": 12.5,
+      "role": "弱证据，不推荐作为核心画面",
+      "audio_track": false,
+      "useful_timecodes": []
+    },
+    "V003": {
+      "path": "素材录制/新第四期/内建视网膜显示器 2026-05-23 22-44-33.mp4",
+      "duration_seconds": 96.33,
+      "role": "候选方向表、明细字段表",
+      "audio_track": false,
+      "useful_timecodes": [
+        "00:33-00:48 候选方向表",
+        "00:51-01:30 明细字段表"
+      ]
+    },
+    "V004": {
+      "path": "素材录制/新第四期/内建视网膜显示器 2026-05-23 22-51-40.mp4",
+      "duration_seconds": 50.2,
+      "role": "方向收窄、四个复查对象、复查优先级表",
+      "audio_track": false,
+      "useful_timecodes": [
+        "00:00-00:06 三个更窄方向",
+        "00:27-00:36 四个商品卡复查",
+        "00:39-00:51 复查表"
+      ]
+    }
+  },
+  "material_support_summary": {
+    "supports_product_card_to_table_to_review_workflow": true,
+    "supports_direct_codex_operates_computer_claim_without_guessing": false,
+    "supports_sku_complexity_claim_without_guessing": false,
+    "supports_publish_readable_tables_without_zoom_or_static_export": false
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "schema": "data_goal_alignment_check.v1",
+  "status": "blocked",
+  "current_data_goal_anchor_ready": false,
+  "reason": "current_data_goal_anchor read as partial_data_recorded / next_video_execution_prompt not ready; not advanced this round."
+}

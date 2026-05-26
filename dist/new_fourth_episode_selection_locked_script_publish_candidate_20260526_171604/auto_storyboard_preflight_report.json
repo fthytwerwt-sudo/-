@@ -1,0 +1,7 @@
+{
+  "schema": "auto_storyboard_preflight_report.v1",
+  "status": "blocked",
+  "auto_edit_allowed": false,
+  "blocked_reason": "line_group_evidence_gate_failed",
+  "full_mp4_generation_allowed": false
+}
