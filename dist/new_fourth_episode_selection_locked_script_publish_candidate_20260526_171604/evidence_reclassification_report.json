@@ -1,0 +1,166 @@
+{
+  "schema": "evidence_reclassification_report.v1",
+  "created_at": "2026-05-26 17:53:56 +0800",
+  "video_generated": false,
+  "tts_called": false,
+  "copy_changed": false,
+  "goal": "Re-audit new fourth episode material evidence and determine whether previous blocked status was too narrow.",
+  "must_read_status": {
+    "line_visual_alignment_report.json": "read_ok",
+    "script_to_timeline_map.json": "read_ok",
+    "near_equivalent_material_substitution_report.json": "read_ok",
+    "copy_change_request_if_any.md": "read_ok",
+    "publish_candidate_preflight_report.json": "read_ok",
+    "素材录制/新第四期/": "read_ok_all_4_mp4",
+    "old_line_group_map.md": "read_ok",
+    "old_script_to_timeline_map.md": "read_ok",
+    "old_copy_change_request_if_any.md": "read_ok",
+    "material_audit_skill": "used",
+    "video_metadata_probe_skill": "used"
+  },
+  "evidence_standard_revision": {
+    "codex_computer_operation_evidence": {
+      "direct_evidence_if": [
+        "Atlas / Codex 任务输入画面存在",
+        "Codex 输入字幕或任务文本画面存在",
+        "Codex 点击确定 / 执行 / 提交画面存在",
+        "Codex 输出任务结果画面存在"
+      ],
+      "not_required": [
+        "Codex 必须亲自逐页滚动商品卡",
+        "Codex 必须完整无人值守操作精选联盟"
+      ],
+      "blocked_if": [
+        "只有最终表格，没有任何 Codex / Atlas 操作画面",
+        "只有用户口播，没有任务输入或执行证据"
+      ]
+    },
+    "product_card_processing_evidence": {
+      "passed_if": [
+        "商品卡截图 / 页面素材存在",
+        "多个商品卡字段被统计进表",
+        "任务或输出能证明 Codex 基于这些截图 / 页面做了整理"
+      ],
+      "visual_label": [
+        "screenshot_based_product_card_processing"
+      ],
+      "blocked_if": [
+        "没有商品卡素材",
+        "没有商品字段进入表格",
+        "无法证明表格来自商品卡信息"
+      ]
+    }
+  },
+  "evidence_reclassification": {
+    "codex_atlas_operation": {
+      "status": "direct_evidence_present",
+      "evidence_path": "素材录制/新第四期/内建视网膜显示器 2026-05-23 20-57-41.mp4",
+      "timecode": "V001 00:00-00:12; V001 01:27-01:33",
+      "audit_frame_paths": [
+        "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_locked_script_publish_candidate_20260526_171604/evidence_reaudit_frames/codex_atlas_context_0000.png",
+        "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_locked_script_publish_candidate_20260526_171604/evidence_reaudit_frames/codex_atlas_computer_use_0006.png",
+        "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_locked_script_publish_candidate_20260526_171604/evidence_reaudit_frames/codex_computer_use_running_0127.png",
+        "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_locked_script_publish_candidate_20260526_171604/evidence_reaudit_frames/codex_computer_use_search_input_0130.png"
+      ],
+      "visible_text_or_action_found": [
+        "ChatGPT Atlas / 已查看 ChatGPT Atlas",
+        "已使用 Computer Use",
+        "已运行命令",
+        "页面已进入选品广场",
+        "中文关键词直接键入不稳定，我会改用系统剪贴板粘贴关键词到搜索框",
+        "已经拿到第一个关键词“键帽”的可见样本"
+      ],
+      "conclusion": "成立。按本轮重新定义的证据标准，素材能直接证明 Atlas/Codex/Computer Use 参与任务输入、执行和页面处理；不再要求它完整无人值守逐页翻商品卡。"
+    },
+    "product_card_processing": {
+      "status": "screenshot_based_product_card_processing_present",
+      "evidence_path": "素材录制/新第四期/内建视网膜显示器 2026-05-23 20-57-41.mp4; 素材录制/新第四期/内建视网膜显示器 2026-05-23 22-44-33.mp4; 素材录制/新第四期/内建视网膜显示器 2026-05-23 22-51-40.mp4",
+      "timecode": "V001 00:15-02:09; V003 00:33-01:30; V004 00:27-00:51",
+      "audit_frame_paths": [
+        "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_locked_script_publish_candidate_20260526_171604/evidence_reaudit_frames/candidate_table_0033.png",
+        "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_locked_script_publish_candidate_20260526_171604/evidence_reaudit_frames/detail_table_0051.png",
+        "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_locked_script_publish_candidate_20260526_171604/evidence_reaudit_frames/four_product_cards_0027.png",
+        "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_locked_script_publish_candidate_20260526_171604/evidence_reaudit_frames/review_table_0039.png"
+      ],
+      "field_or_text_found": [
+        "商品卡页面：售价/到手价、月销、佣金率、预计赚等字段区域",
+        "候选表：rank / main_category / sub_category / grade / listing_candidate / video_candidate / key_basis / key_risk / status",
+        "明细表：estimated_comm / sales_signal / shop_score / product_score / refund_or_risk / ready / reason / evidence_note / screenshot_name",
+        "复查表：先确认 4 个商品卡、复查重点、下一步目标"
+      ],
+      "conclusion": "成立。证据更准确归类为 screenshot_based_product_card_processing，而不是 live_browser_page_turning。实时逐页翻卡缺失不构成选品初筛证据缺失。"
+    },
+    "sku_evidence": {
+      "status": "table_evidence_passed",
+      "evidence_path": "素材录制/新第四期/内建视网膜显示器 2026-05-23 22-51-40.mp4",
+      "timecode": "V004 00:27-00:39",
+      "field_or_text_found": [
+        "SKU 数量",
+        "买错/不适配差评",
+        "配列兼容",
+        "配列、轴体、兼容"
+      ],
+      "conclusion": "成立。SKU/规格复杂度可由表格截图和复查文字证明，不需要必须看到规格页。"
+    },
+    "table_readability": {
+      "status": "high_res_source_present_edit_zoom_required_not_missing_material",
+      "evidence_path": "V003/V004 source videos and extracted high-resolution audit frames",
+      "timecode": "V003 00:33-01:30; V004 00:27-00:51",
+      "field_or_text_found": [
+        "候选方向表",
+        "商品候选明细表",
+        "四个商品卡复查表",
+        "下一步目标"
+      ],
+      "conclusion": "素材不是缺失。正式剪辑需要裁切、放大、局部遮挡隐私，并做字幕/卡片避让；这属于执行要求，不是补素材 blocker。"
+    }
+  },
+  "previous_blockers_reclassified": {
+    "resolved": [
+      "LG018",
+      "LG041",
+      "LG052",
+      "LG053",
+      "LG054",
+      "LG055",
+      "LG056",
+      "LG077",
+      "LG078",
+      "LG080",
+      "LG108",
+      "LG109",
+      "LG110",
+      "LG111",
+      "LG112",
+      "LG113",
+      "LG119",
+      "LG125",
+      "LG128",
+      "LG138",
+      "LG140",
+      "LG160",
+      "LG168",
+      "LG198",
+      "LG202",
+      "LG204",
+      "LG220",
+      "LG234"
+    ],
+    "still_blocked": [],
+    "resolved_count": 28,
+    "still_blocked_count": 0
+  },
+  "sku_evidence_status": "table_evidence_passed",
+  "live_browser_page_turning_missing": "present_as_gap_but_not_blocker",
+  "screenshot_based_product_card_processing_present": true,
+  "candidate_tables_high_res_or_static_support": "present_high_res_source_frames; edit_zoom_required",
+  "can_continue_to_publish_candidate_generation": true,
+  "next_step": "rerun publish candidate generation with existing locked script",
+  "remaining_material_needed": [],
+  "remaining_execution_requirements_not_material_blockers": [
+    "crop/zoom V003/V004 table areas for readability",
+    "mask account/path/sensitive product information",
+    "run subtitle_card_overlap_check during render",
+    "generate full MiniMax speech-2.8-hd narration in next generation run"
+  ]
+}

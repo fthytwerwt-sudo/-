@@ -34,3 +34,12 @@
 - `secret_scan_report.json/md`
 - `data_goal_alignment_check.json`
 - `remaining_blockers.md`
+## Evidence Reclassification V2
+
+- `evidence_reclassification_report.json/md`
+- `script_to_timeline_map_v2.json/md`
+- `line_visual_alignment_report_v2.json/md`
+- `near_equivalent_material_substitution_report_v2.json/md`
+- `remaining_blockers_v2.md`
+- `candidate_rerun_readiness_report.md`
+- `copy_change_request_if_any_v2.md`

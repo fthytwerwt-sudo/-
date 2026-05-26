@@ -1,5 +1,22 @@
 # Latest
 
+## 20260526｜新第四期选品初筛素材证据复核
+
+- `task_result.status = completed`
+- `video_generated = false`；`tts_called = false`；`copy_changed = false`
+- 本轮只做素材证据重新归类，不生成正片、不补素材、不继续 TTS、不降级文案。
+- `review_pack_path = dist/new_fourth_episode_selection_locked_script_publish_candidate_20260526_171604`
+- `evidence_reclassification_report = dist/new_fourth_episode_selection_locked_script_publish_candidate_20260526_171604/evidence_reclassification_report.json`
+- `codex_atlas_operation.status = direct_evidence_present`：V001 `00:00-00:12` 与 `01:27-01:33` 可见 ChatGPT Atlas、`已使用 Computer Use`、`已运行命令`、页面已进入选品广场、关键词/搜索框处理和可见样本获取。
+- `product_card_processing.status = screenshot_based_product_card_processing_present`：V001 有商品卡页面，V003/V004 有商品字段进入候选表、明细表和复查表；`live_browser_page_turning_missing` 不是 blocker。
+- `sku_evidence.status = table_evidence_passed`：V004 `00:27-00:39` 可见 `SKU 数量`、`买错/不适配差评`、`配列 / 轴体 / 兼容`。
+- `candidate/detail/review_table_readability = high_res_source_present_edit_zoom_required_not_missing_material`：后续剪辑需裁切、放大、遮挡隐私和做字幕/卡片避让，但不再要求用户补素材。
+- `previous_blockers.resolved = 28`；`previous_blockers.still_blocked = 0`
+- `can_continue_to_publish_candidate_generation = true`
+- `next_step = rerun publish candidate generation with existing locked script`
+- `status_boundary`：未推进 `send_ready / content_validation / voice_validation / final_voice_validated / visual_master_locked`。
+- `日志`：`codex_log/20260526_新第四期选品初筛素材证据复核_evidence_reclassification.md`
+
 ## 20260526｜新第四期选品初筛锁稿正片候选阻断
 
 - `task_result.status = blocked`
