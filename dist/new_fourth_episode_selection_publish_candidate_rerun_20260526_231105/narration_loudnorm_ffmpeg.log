@@ -1,0 +1,44 @@
+$ /opt/homebrew/bin/ffmpeg -hide_banner -y -i /Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/narration_raw.wav -af loudnorm=I=-16:TP=-1.5:LRA=9,alimiter=limit=0.95 -ar 48000 -ac 1 -c:a pcm_s16le /Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/narration.wav
+
+STDOUT:
+
+STDERR:
+[aist#0:0/pcm_s16le @ 0x752c0c180] Guessed Channel Layout: mono
+Input #0, wav, from '/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/narration_raw.wav':
+  Duration: 00:10:36.38, bitrate: 512 kb/s
+  Stream #0:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 32000 Hz, mono, s16, 512 kb/s
+Stream mapping:
+  Stream #0:0 -> #0:0 (pcm_s16le (native) -> pcm_s16le (native))
+Press [q] to stop, [?] for help
+Output #0, wav, to '/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/narration.wav':
+  Metadata:
+    ISFT            : Lavf62.12.100
+  Stream #0:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 48000 Hz, mono, s16, 768 kb/s
+    Metadata:
+      encoder         : Lavc62.28.100 pcm_s16le
+size=    2048KiB time=00:00:24.19 bitrate= 693.3kbits/s speed=  48x elapsed=0:00:00.50    
+size=    4352KiB time=00:00:47.29 bitrate= 753.7kbits/s speed=46.9x elapsed=0:00:01.00    
+size=    6656KiB time=00:01:12.09 bitrate= 756.3kbits/s speed=47.5x elapsed=0:00:01.51    
+size=    8960KiB time=00:01:37.59 bitrate= 752.1kbits/s speed=48.3x elapsed=0:00:02.01    
+size=   11520KiB time=00:02:03.39 bitrate= 764.8kbits/s speed=48.9x elapsed=0:00:02.52    
+size=   13824KiB time=00:02:29.29 bitrate= 758.5kbits/s speed=49.2x elapsed=0:00:03.03    
+size=   16384KiB time=00:02:55.89 bitrate= 763.0kbits/s speed=49.6x elapsed=0:00:03.54    
+size=   18688KiB time=00:03:22.09 bitrate= 757.5kbits/s speed=49.9x elapsed=0:00:04.05    
+size=   21248KiB time=00:03:48.29 bitrate= 762.4kbits/s speed=50.1x elapsed=0:00:04.55    
+size=   23808KiB time=00:04:14.69 bitrate= 765.7kbits/s speed=50.3x elapsed=0:00:05.06    
+size=   26112KiB time=00:04:40.69 bitrate= 762.1kbits/s speed=50.4x elapsed=0:00:05.57    
+size=   28672KiB time=00:05:06.89 bitrate= 765.3kbits/s speed=50.5x elapsed=0:00:06.07    
+size=   30976KiB time=00:05:33.19 bitrate= 761.6kbits/s speed=50.6x elapsed=0:00:06.58    
+size=   33536KiB time=00:05:59.89 bitrate= 763.3kbits/s speed=50.7x elapsed=0:00:07.09    
+size=   36096KiB time=00:06:25.99 bitrate= 766.1kbits/s speed=50.8x elapsed=0:00:07.59    
+size=   38400KiB time=00:06:51.89 bitrate= 763.7kbits/s speed=50.8x elapsed=0:00:08.10    
+size=   40960KiB time=00:07:17.89 bitrate= 766.3kbits/s speed=50.8x elapsed=0:00:08.61    
+size=   43264KiB time=00:07:43.19 bitrate= 765.2kbits/s speed=50.8x elapsed=0:00:09.12    
+size=   45568KiB time=00:08:08.69 bitrate= 763.8kbits/s speed=50.8x elapsed=0:00:09.62    
+size=   48128KiB time=00:08:34.89 bitrate= 765.7kbits/s speed=50.8x elapsed=0:00:10.13    
+size=   50688KiB time=00:09:00.89 bitrate= 767.7kbits/s speed=50.8x elapsed=0:00:10.64    
+size=   52992KiB time=00:09:27.29 bitrate= 765.2kbits/s speed=50.9x elapsed=0:00:11.15    
+size=   55552KiB time=00:09:53.89 bitrate= 766.3kbits/s speed=50.9x elapsed=0:00:11.66    
+size=   58112KiB time=00:10:20.39 bitrate= 767.3kbits/s speed=  51x elapsed=0:00:12.17    
+[out#0/wav @ 0x752c44180] video:0KiB audio:59661KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.000128%
+size=   59661KiB time=00:10:36.40 bitrate= 768.0kbits/s speed=51.1x elapsed=0:00:12.46

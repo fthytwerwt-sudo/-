@@ -1,0 +1,5 @@
+$ /Library/Developer/CommandLineTools/usr/bin/python3 /Users/fan/Documents/视频工厂/scripts/发片候选预检套件_publish_candidate_preflight_suite.py --no-render --script-to-timeline-map /Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/script_to_timeline_map.json --tts-prosody-anchor-map /Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/tts_prosody_anchor_map.json --locked-copy-contract /Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/locked_copy_contract.json --content-route-card /Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/content_route_card_v2.json --summary-json /Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/summary.json --review-pack /Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105 --output-dir /Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105
+
+STDOUT:
+
+STDERR:

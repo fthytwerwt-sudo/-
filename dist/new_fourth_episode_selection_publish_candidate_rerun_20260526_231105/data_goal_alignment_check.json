@@ -1,0 +1,6 @@
+{
+  "status": "passed",
+  "data_goal_alignment": "selection_initial_screening_publish_candidate",
+  "send_ready": false,
+  "content_validation": "pending_user_chatgpt_review"
+}

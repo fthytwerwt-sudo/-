@@ -1,0 +1,77 @@
+{
+  "status": "passed",
+  "edgeguard": "passed",
+  "border_scan": {
+    "status": "passed",
+    "sample_count": 8,
+    "frames": [
+      {
+        "time_seconds": 0.8,
+        "local_frame_path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/frame_samples_local_only/sample_01_00000s.jpg",
+        "bright_white_pixel_ratio": 0.0135,
+        "dark_pixel_ratio": 0.0,
+        "full_frame_whiteout_detected": false,
+        "full_frame_blackout_detected": false
+      },
+      {
+        "time_seconds": 8.0,
+        "local_frame_path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/frame_samples_local_only/sample_02_00008s.jpg",
+        "bright_white_pixel_ratio": 0.5565,
+        "dark_pixel_ratio": 0.0049,
+        "full_frame_whiteout_detected": false,
+        "full_frame_blackout_detected": false
+      },
+      {
+        "time_seconds": 20.0,
+        "local_frame_path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/frame_samples_local_only/sample_03_00020s.jpg",
+        "bright_white_pixel_ratio": 0.5541,
+        "dark_pixel_ratio": 0.0048,
+        "full_frame_whiteout_detected": false,
+        "full_frame_blackout_detected": false
+      },
+      {
+        "time_seconds": 45.0,
+        "local_frame_path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/frame_samples_local_only/sample_04_00045s.jpg",
+        "bright_white_pixel_ratio": 0.1521,
+        "dark_pixel_ratio": 0.0359,
+        "full_frame_whiteout_detected": false,
+        "full_frame_blackout_detected": false
+      },
+      {
+        "time_seconds": 90.0,
+        "local_frame_path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/frame_samples_local_only/sample_05_00090s.jpg",
+        "bright_white_pixel_ratio": 0.554,
+        "dark_pixel_ratio": 0.0049,
+        "full_frame_whiteout_detected": false,
+        "full_frame_blackout_detected": false
+      },
+      {
+        "time_seconds": 222.689,
+        "local_frame_path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/frame_samples_local_only/sample_06_00222s.jpg",
+        "bright_white_pixel_ratio": 0.5572,
+        "dark_pixel_ratio": 0.0049,
+        "full_frame_whiteout_detected": false,
+        "full_frame_blackout_detected": false
+      },
+      {
+        "time_seconds": 413.565,
+        "local_frame_path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/frame_samples_local_only/sample_07_00413s.jpg",
+        "bright_white_pixel_ratio": 0.5546,
+        "dark_pixel_ratio": 0.0049,
+        "full_frame_whiteout_detected": false,
+        "full_frame_blackout_detected": false
+      },
+      {
+        "time_seconds": 628.254,
+        "local_frame_path": "/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/frame_samples_local_only/sample_08_00628s.jpg",
+        "bright_white_pixel_ratio": 0.6346,
+        "dark_pixel_ratio": 0.0137,
+        "full_frame_whiteout_detected": false,
+        "full_frame_blackout_detected": false
+      }
+    ]
+  },
+  "obvious_gray_border": false,
+  "whiteout_or_blackout": false,
+  "padding_bands": false
+}

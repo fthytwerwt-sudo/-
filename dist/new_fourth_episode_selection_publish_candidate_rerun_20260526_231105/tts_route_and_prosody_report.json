@@ -1,0 +1,22 @@
+{
+  "schema": "tts_route_and_prosody_preflight.v1",
+  "gate_name": "tts_route_and_prosody_preflight",
+  "status": "passed",
+  "check_depth": "structural_check_only",
+  "blocked_reasons": [],
+  "warnings": [
+    "audio waveform / nonsilent validation is delegated to media probes when media is generated."
+  ],
+  "checked_input": "dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/tts_prosody_anchor_map.json",
+  "route_summary": {
+    "target_tts_provider": "minimax",
+    "target_tts_model": "MiniMax/speech-2.8-hd",
+    "expected_voice_route": "MiniMax/speech-2.8-hd",
+    "actual_tts_provider": "minimax",
+    "actual_tts_model": "MiniMax/speech-2.8-hd",
+    "used_expected_voice_route": true,
+    "used_expected_pacing": true,
+    "fallback_used": false,
+    "fallback_authorized": false
+  }
+}

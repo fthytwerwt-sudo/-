@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "can_continue_to_publish_candidate_generation": true,
+  "readiness_report": "dist/new_fourth_episode_selection_locked_script_publish_candidate_20260526_171604/candidate_rerun_readiness_report.md",
+  "remaining_blockers_v2": "dist/new_fourth_episode_selection_locked_script_publish_candidate_20260526_171604/remaining_blockers_v2.md",
+  "remaining_material_needed": [],
+  "repeated_resolved_blockers": false
+}

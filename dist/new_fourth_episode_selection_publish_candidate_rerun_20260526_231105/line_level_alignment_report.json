@@ -1,0 +1,14 @@
+{
+  "schema": "line_level_alignment_preflight.v1",
+  "gate_name": "line_level_alignment_preflight",
+  "status": "passed",
+  "check_depth": "structural_check_only",
+  "blocked_reasons": [],
+  "warnings": [
+    "semantic visual A/B judgment requires future visual probe; this script checks declared fields and known statuses."
+  ],
+  "checked_input": "dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/script_to_timeline_map.json",
+  "line_group_count": 245,
+  "missing_by_group": {},
+  "mismatch_groups": []
+}

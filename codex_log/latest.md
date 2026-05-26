@@ -1,5 +1,26 @@
 # Latest
 
+## 20260526｜新第四期选品初筛正片候选 rerun
+
+- `task_result.status = completed`
+- `target_delivery = publish_candidate_ready_for_human_review`
+- `degradation_used = false`
+- `review_pack_path = dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105`
+- `output_video_path = dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/full.mp4`
+- `reused_v2_evidence_reports = true`：已读取并继承上一轮 `evidence_reclassification_report.json / line_visual_alignment_report_v2.json / near_equivalent_material_substitution_report_v2.json / candidate_rerun_readiness_report.md`。
+- `can_continue_to_publish_candidate_generation = true`；`remaining_material_needed = []`；未重复阻断已解除的 `Codex / Atlas 操作电脑`、截图式商品卡处理、SKU 风险、候选表 / 明细表 / 复查表素材 blocker。
+- `locked_copy_changed = false`；`old_v02_reused = false`；`copy_change_request_used = false`。
+- `line_group_count = 245`；`exact_match_count = 245`；`near_equivalent_count = 0`；`near_equivalent_ratio = 0.0`；`core_evidence_mismatch_count = 0`；`whole_video_drift_detected = false`。
+- `tts.actual_tts_provider = minimax`；`tts.actual_tts_model = MiniMax/speech-2.8-hd`；`selected_route = aliyun_bailian_proxy_to_minimax`；`fallback_tts_used = false`；`macos_say_used = false`；`local_low_quality_tts_used = false`。
+- `narration.wav = generated`；`audio_present = true`；`non_silent = true`。
+- `full.mp4 = generated`：`1920x1080`、约 `636.254s`、H.264 video、AAC audio、内嵌 `mov_text` 字幕轨。
+- `V003 / V004` 表格画面已采用裁切 / 放大承接；核心字段可读；字幕 / 卡片未遮挡核心证据；敏感信息按执行包做遮挡与避让。
+- `publish_candidate_preflight_suite.status = passed`；通过：`line_level_alignment_preflight / line_visual_tolerance_preflight / near_equivalent_material_substitution_preflight / tts_route_and_prosody_preflight / publish_candidate_voice_gate / b_voice_feel_minimax_preflight / card_decision_preflight / forbidden_action_preflight / visual_evidence_readability_preflight / locked_copy_diff_preflight / publish_candidate_user_standard_preflight / completion_truth_preflight`。
+- `media_validation = passed`：`ffprobe / ffmpeg_decode / audio_present / non_silent / subtitles_present / edgeguard / visual_evidence_readability / secret_scan` 全部通过。
+- `candidate_status`：`publish_candidate_ready_for_human_review = true`；`content_validation = pending_user_chatgpt_review`；`send_ready = false`；`voice_validation = pending_user_chatgpt_review`；`final_voice_validated = false`；`visual_master_locked = false`。
+- 大媒体 `full.mp4 / narration.wav` 保留本地 review pack，不纳入 Git 提交；提交范围仅限生成脚本、日志与可追踪小体积报告。
+- `日志`：`codex_log/20260526_新第四期选品初筛正片候选_rerun.md`
+
 ## 20260526｜新第四期选品初筛素材证据复核
 
 - `task_result.status = completed`

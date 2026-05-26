@@ -1,0 +1,20 @@
+{
+  "schema": "near_equivalent_material_substitution_preflight.v1",
+  "gate_name": "near_equivalent_material_substitution_preflight",
+  "status": "passed",
+  "check_depth": "implemented",
+  "blocked_reasons": [],
+  "warnings": [],
+  "checked_input": "dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/script_to_timeline_map.json",
+  "near_equivalent_material_substitution_report": {
+    "total_line_group_count": 245,
+    "exact_match_count": 245,
+    "near_equivalent_count": 0,
+    "near_equivalent_ratio": 0.0,
+    "consecutive_near_equivalent_max": 0,
+    "core_evidence_mismatch_count": 0,
+    "whole_video_drift_detected": false,
+    "substitutions": [],
+    "final_decision": "passed"
+  }
+}

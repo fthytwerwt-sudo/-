@@ -1,0 +1,70 @@
+$ /opt/homebrew/bin/ffmpeg -hide_banner -y -i /Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/video_work/video_track_no_audio.mp4 -i /Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/narration.wav -i /Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/captions.srt -map 0:v:0 -map 1:a:0 -map 2:0 -c:v copy -c:a aac -b:a 192k -c:s mov_text -metadata:s:s:0 language=chi -shortest /Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/full.mp4
+
+STDOUT:
+
+STDERR:
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/video_work/video_track_no_audio.mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf62.12.100
+  Duration: 00:10:36.50, start: 0.000000, bitrate: 2536 kb/s
+  Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(progressive), 1920x1080, 2533 kb/s, 30 fps, 30 tbr, 15360 tbn (default)
+    Metadata:
+      handler_name    : VideoHandler
+      encoder         : Lavc62.28.100 libx264
+[aist#1:0/pcm_s16le @ 0x8aac0c480] Guessed Channel Layout: mono
+Input #1, wav, from '/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/narration.wav':
+  Metadata:
+    encoder         : Lavf62.12.100
+  Duration: 00:10:36.38, bitrate: 768 kb/s
+  Stream #1:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 48000 Hz, mono, s16, 768 kb/s
+Input #2, srt, from '/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/captions.srt':
+  Duration: N/A, bitrate: N/A
+  Stream #2:0: Subtitle: subrip (srt)
+Stream mapping:
+  Stream #0:0 -> #0:0 (copy)
+  Stream #1:0 -> #0:1 (pcm_s16le (native) -> aac (native))
+  Stream #2:0 -> #0:2 (subrip (srt) -> mov_text (native))
+Press [q] to stop, [?] for help
+Output #0, mp4, to '/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/full.mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf62.12.100
+  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(progressive), 1920x1080, q=2-31, 2533 kb/s, 30 fps, 30 tbr, 15360 tbn (default)
+    Metadata:
+      handler_name    : VideoHandler
+      encoder         : Lavc62.28.100 libx264
+  Stream #0:1: Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, mono, fltp, 192 kb/s
+    Metadata:
+      encoder         : Lavc62.28.100 aac
+  Stream #0:2(chi): Subtitle: mov_text (tx3g / 0x67337874)
+    Metadata:
+      encoder         : Lavc62.28.100 mov_text
+frame=  867 fps=0.0 q=-1.0 size=    5632KiB time=00:00:28.92 bitrate=1594.9kbits/s speed=57.6x elapsed=0:00:00.50    
+frame= 1735 fps=1730 q=-1.0 size=   16896KiB time=00:00:57.83 bitrate=2393.2kbits/s speed=57.7x elapsed=0:00:01.00    
+frame= 2591 fps=1723 q=-1.0 size=   28160KiB time=00:01:26.42 bitrate=2669.3kbits/s speed=57.5x elapsed=0:00:01.50    
+frame= 3501 fps=1745 q=-1.0 size=   40960KiB time=00:01:56.71 bitrate=2874.9kbits/s speed=58.2x elapsed=0:00:02.00    
+frame= 4371 fps=1737 q=-1.0 size=   45312KiB time=00:02:25.74 bitrate=2546.8kbits/s speed=57.9x elapsed=0:00:02.51    
+frame= 5289 fps=1748 q=-1.0 size=   54784KiB time=00:02:56.32 bitrate=2545.3kbits/s speed=58.3x elapsed=0:00:03.02    
+frame= 6119 fps=1732 q=-1.0 size=   72704KiB time=00:03:23.96 bitrate=2920.0kbits/s speed=57.7x elapsed=0:00:03.53    
+frame= 7015 fps=1735 q=-1.0 size=   82176KiB time=00:03:53.89 bitrate=2878.1kbits/s speed=57.9x elapsed=0:00:04.04    
+frame= 7879 fps=1731 q=-1.0 size=   96256KiB time=00:04:22.74 bitrate=3001.2kbits/s speed=57.7x elapsed=0:00:04.55    
+frame= 8784 fps=1736 q=-1.0 size=  102144KiB time=00:04:52.84 bitrate=2857.4kbits/s speed=57.9x elapsed=0:00:05.05    
+frame= 9646 fps=1732 q=-1.0 size=  109312KiB time=00:05:21.60 bitrate=2784.5kbits/s speed=57.7x elapsed=0:00:05.56    
+frame=10528 fps=1732 q=-1.0 size=  121600KiB time=00:05:50.93 bitrate=2838.6kbits/s speed=57.7x elapsed=0:00:06.08    
+frame=11395 fps=1729 q=-1.0 size=  129280KiB time=00:06:19.92 bitrate=2787.6kbits/s speed=57.7x elapsed=0:00:06.58    
+frame=12242 fps=1724 q=-1.0 size=  141568KiB time=00:06:47.89 bitrate=2843.2kbits/s speed=57.5x elapsed=0:00:07.09    
+frame=13132 fps=1727 q=-1.0 size=  148992KiB time=00:07:17.76 bitrate=2788.2kbits/s speed=57.6x elapsed=0:00:07.60    
+frame=14009 fps=1727 q=-1.0 size=  161280KiB time=00:07:46.98 bitrate=2829.2kbits/s speed=57.6x elapsed=0:00:08.11    
+frame=14797 fps=1717 q=-1.0 size=  172800KiB time=00:08:13.26 bitrate=2869.8kbits/s speed=57.2x elapsed=0:00:08.61    
+frame=15606 fps=1711 q=-1.0 size=  177152KiB time=00:08:40.29 bitrate=2789.2kbits/s speed=  57x elapsed=0:00:09.12    
+frame=16463 fps=1709 q=-1.0 size=  187648KiB time=00:09:08.77 bitrate=2801.2kbits/s speed=  57x elapsed=0:00:09.63    
+frame=17388 fps=1715 q=-1.0 size=  193024KiB time=00:09:39.60 bitrate=2728.2kbits/s speed=57.2x elapsed=0:00:10.13    
+frame=18306 fps=1720 q=-1.0 size=  202240KiB time=00:10:10.21 bitrate=2715.0kbits/s speed=57.3x elapsed=0:00:10.64    
+[out#0/mp4 @ 0x8aac44300] video:196861KiB audio:13401KiB subtitle:10KiB other streams:0KiB global headers:0KiB muxing overhead: 0.317014%
+frame=19086 fps=1720 q=-1.0 Lsize=  210938KiB time=00:10:36.25 bitrate=2715.9kbits/s speed=57.3x elapsed=0:00:11.09    
+[aac @ 0x8aac41c00] Qavg: 51162.766

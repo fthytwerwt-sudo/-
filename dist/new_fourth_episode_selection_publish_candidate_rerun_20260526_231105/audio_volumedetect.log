@@ -1,0 +1,81 @@
+$ /opt/homebrew/bin/ffmpeg -hide_banner -i /Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/full.mp4 -af volumedetect -f null -
+
+STDOUT:
+
+STDERR:
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '/Users/fan/Documents/视频工厂/dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/full.mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf62.12.100
+  Duration: 00:10:36.25, start: 0.000000, bitrate: 2715 kb/s
+  Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(progressive), 1920x1080, 2534 kb/s, 30 fps, 30 tbr, 15360 tbn (default)
+    Metadata:
+      handler_name    : VideoHandler
+      encoder         : Lavc62.28.100 libx264
+  Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, mono, fltp, 172 kb/s (default)
+    Metadata:
+      handler_name    : SoundHandler
+  Stream #0:2[0x3](chi): Subtitle: mov_text (tx3g / 0x67337874), 0 kb/s (default)
+    Metadata:
+      handler_name    : SubtitleHandler
+[Parsed_volumedetect_0 @ 0x74500d8c0] n_samples: 0
+Stream mapping:
+  Stream #0:0 -> #0:0 (h264 (native) -> wrapped_avframe (native))
+  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))
+Press [q] to stop, [?] for help
+Output #0, null, to 'pipe:':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf62.12.100
+  Stream #0:0(und): Video: wrapped_avframe, yuv420p(progressive), 1920x1080, q=2-31, 200 kb/s, 30 fps, 30 tbn (default)
+    Metadata:
+      encoder         : Lavc62.28.100 wrapped_avframe
+      handler_name    : VideoHandler
+  Stream #0:1(und): Audio: pcm_s16le, 48000 Hz, mono, s16, 768 kb/s (default)
+    Metadata:
+      encoder         : Lavc62.28.100 pcm_s16le
+      handler_name    : SoundHandler
+[vf#0:0 @ 0x745090000] Reconfiguring filter graph because video parameters changed to yuv420p(tv, bt709), 1920x1080, unspecified alph
+frame=  731 fps=0.0 q=-0.0 size=N/A time=00:00:24.40 bitrate=N/A speed=48.4x elapsed=0:00:00.50    
+frame= 1281 fps=1271 q=-0.0 size=N/A time=00:00:42.70 bitrate=N/A speed=42.4x elapsed=0:00:01.00    
+frame= 1635 fps=1079 q=-0.0 size=N/A time=00:00:54.53 bitrate=N/A speed=  36x elapsed=0:00:01.51    
+frame= 2156 fps=1064 q=-0.0 size=N/A time=00:01:11.86 bitrate=N/A speed=35.5x elapsed=0:00:02.02    
+frame= 2828 fps=1117 q=-0.0 size=N/A time=00:01:34.26 bitrate=N/A speed=37.2x elapsed=0:00:02.53    
+frame= 3467 fps=1141 q=-0.0 size=N/A time=00:01:55.56 bitrate=N/A speed=  38x elapsed=0:00:03.03    
+frame= 4190 fps=1183 q=-0.0 size=N/A time=00:02:19.66 bitrate=N/A speed=39.4x elapsed=0:00:03.54    
+frame= 4870 fps=1204 q=-0.0 size=N/A time=00:02:42.33 bitrate=N/A speed=40.1x elapsed=0:00:04.04    
+frame= 5317 fps=1167 q=-0.0 size=N/A time=00:02:57.23 bitrate=N/A speed=38.9x elapsed=0:00:04.55    
+frame= 5721 fps=1129 q=-0.0 size=N/A time=00:03:10.70 bitrate=N/A speed=37.6x elapsed=0:00:05.06    
+frame= 6103 fps=1095 q=-0.0 size=N/A time=00:03:23.43 bitrate=N/A speed=36.5x elapsed=0:00:05.57    
+frame= 6774 fps=1114 q=-0.0 size=N/A time=00:03:45.80 bitrate=N/A speed=37.1x elapsed=0:00:06.07    
+frame= 7257 fps=1102 q=-0.0 size=N/A time=00:04:01.90 bitrate=N/A speed=36.7x elapsed=0:00:06.58    
+frame= 7753 fps=1093 q=-0.0 size=N/A time=00:04:18.43 bitrate=N/A speed=36.4x elapsed=0:00:07.09    
+frame= 8445 fps=1112 q=-0.0 size=N/A time=00:04:41.50 bitrate=N/A speed=37.1x elapsed=0:00:07.59    
+frame= 9126 fps=1127 q=-0.0 size=N/A time=00:05:04.23 bitrate=N/A speed=37.6x elapsed=0:00:08.09    
+frame= 9779 fps=1137 q=-0.0 size=N/A time=00:05:25.96 bitrate=N/A speed=37.9x elapsed=0:00:08.59    
+frame=10253 fps=1126 q=-0.0 size=N/A time=00:05:41.76 bitrate=N/A speed=37.5x elapsed=0:00:09.10    
+frame=10909 fps=1136 q=-0.0 size=N/A time=00:06:03.63 bitrate=N/A speed=37.9x elapsed=0:00:09.60    
+frame=11566 fps=1144 q=-0.0 size=N/A time=00:06:25.53 bitrate=N/A speed=38.1x elapsed=0:00:10.10    
+frame=12083 fps=1139 q=-0.0 size=N/A time=00:06:42.76 bitrate=N/A speed=  38x elapsed=0:00:10.60    
+frame=12816 fps=1153 q=-0.0 size=N/A time=00:07:07.20 bitrate=N/A speed=38.4x elapsed=0:00:11.11    
+frame=13304 fps=1145 q=-0.0 size=N/A time=00:07:23.46 bitrate=N/A speed=38.2x elapsed=0:00:11.61    
+frame=13948 fps=1150 q=-0.0 size=N/A time=00:07:44.93 bitrate=N/A speed=38.3x elapsed=0:00:12.12    
+frame=14342 fps=1136 q=-0.0 size=N/A time=00:07:58.06 bitrate=N/A speed=37.9x elapsed=0:00:12.63    
+frame=15239 fps=1160 q=-0.0 size=N/A time=00:08:27.96 bitrate=N/A speed=38.7x elapsed=0:00:13.14    
+frame=15830 fps=1160 q=-0.0 size=N/A time=00:08:47.66 bitrate=N/A speed=38.7x elapsed=0:00:13.64    
+frame=16513 fps=1167 q=-0.0 size=N/A time=00:09:10.46 bitrate=N/A speed=38.9x elapsed=0:00:14.15    
+frame=17202 fps=1174 q=-0.0 size=N/A time=00:09:33.40 bitrate=N/A speed=39.1x elapsed=0:00:14.65    
+frame=17599 fps=1160 q=-0.0 size=N/A time=00:09:46.63 bitrate=N/A speed=38.7x elapsed=0:00:15.16    
+frame=18283 fps=1167 q=-0.0 size=N/A time=00:10:09.43 bitrate=N/A speed=38.9x elapsed=0:00:15.67    
+frame=18952 fps=1172 q=-0.0 size=N/A time=00:10:31.73 bitrate=N/A speed=39.1x elapsed=0:00:16.17    
+[Parsed_volumedetect_0 @ 0x74500e100] n_samples: 30539776
+[Parsed_volumedetect_0 @ 0x74500e100] mean_volume: -16.0 dB
+[Parsed_volumedetect_0 @ 0x74500e100] max_volume: -1.0 dB
+[Parsed_volumedetect_0 @ 0x74500e100] histogram_1db: 9204
+[Parsed_volumedetect_0 @ 0x74500e100] histogram_2db: 34410
+[out#0/null @ 0x74500c9c0] video:7903KiB audio:59648KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame=19086 fps=1176 q=-0.0 Lsize=N/A time=00:10:36.20 bitrate=N/A speed=39.2x elapsed=0:00:16.23

@@ -1,0 +1,28 @@
+{
+  "schema": "completion_truth_preflight.v1",
+  "gate_name": "completion_truth_preflight",
+  "status": "passed",
+  "check_depth": "implemented",
+  "blocked_reasons": [],
+  "warnings": [],
+  "failed_gates": [],
+  "review_pack": "dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105",
+  "missing_review_pack_reports": [],
+  "required_review_pack_reports": [
+    "publish_candidate_preflight_report.json",
+    "publish_candidate_preflight_report.md",
+    "line_level_alignment_report.json",
+    "line_visual_tolerance_report.json",
+    "near_equivalent_material_substitution_report.json",
+    "tts_route_and_prosody_report.json",
+    "tts_route_report.json",
+    "tts_route_report.md",
+    "b_voice_feel_minimax_report.json",
+    "card_decision_preflight_report.json",
+    "forbidden_action_audit.json",
+    "visual_evidence_readability_report.json",
+    "locked_copy_diff_report.json",
+    "publish_candidate_user_standard_report.json",
+    "completion_truth_preflight_report.json"
+  ]
+}

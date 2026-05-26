@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "high_severity_overlap": false,
+  "subtitle_strategy": "sidecar_srt_and_embedded_mov_text",
+  "burned_in_caption_background": false,
+  "cards_cover_core_material": false,
+  "evidence_obstruction": false
+}
