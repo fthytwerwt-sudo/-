@@ -43,7 +43,9 @@ FORMAL_RUNTIME_CONFIG = Path("/Users/fan/.config/video-factory/formal_api_demo.l
 MINIMAX_TTS_ENDPOINT = "https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation"
 TARGET_MODEL = "MiniMax/speech-2.8-hd"
 OFFICIAL_MODEL = "speech-2.8-hd"
-VOICE_ID = "female-tianmei"
+PENDING_USER_REVIEW_STATUS = "pending_user_review"
+USER_CONFIRMED_VOICE_STATUS = "user_confirmed"
+FORBIDDEN_DEFAULT_B_VOICE_IDS = {"female-tianmei"}
 SAMPLE_RATE = 32000
 FPS = 30
 CANVAS_W = 1920
@@ -60,6 +62,41 @@ MATERIALS = {
     "V003": ROOT / "素材录制" / "新第四期" / "内建视网膜显示器 2026-05-23 22-44-33.mp4",
     "V004": ROOT / "素材录制" / "新第四期" / "内建视网膜显示器 2026-05-23 22-51-40.mp4",
 }
+
+
+def load_minimax_b_voice_identity_lock() -> dict[str, Any]:
+    expected_voice_id = os.environ.get("EXPECTED_B_MINIMAX_VOICE_ID", "").strip()
+    review_status = os.environ.get("B_VOICE_HUMAN_REVIEW_STATUS", PENDING_USER_REVIEW_STATUS).strip()
+    lock_status = os.environ.get("B_VOICE_IDENTITY_LOCK_STATUS", PENDING_USER_REVIEW_STATUS).strip()
+    return {
+        "status": lock_status or PENDING_USER_REVIEW_STATUS,
+        "expected_b_minimax_voice_id": expected_voice_id,
+        "expected_b_voice_reference_audio_path": [
+            "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+            "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
+        ],
+        "locked_voice_setting": {
+            "voice_id": expected_voice_id,
+            "speed": float(os.environ.get("B_VOICE_LOCKED_SPEED", "1.08")),
+            "pitch": int(os.environ.get("B_VOICE_LOCKED_PITCH", "0")),
+            "emotion": os.environ.get("B_VOICE_LOCKED_EMOTION", "calm").strip() or "calm",
+            "vol": float(os.environ.get("B_VOICE_LOCKED_VOL", "1")),
+        }
+        if expected_voice_id
+        else None,
+        "locked_style_prompt_or_instructions": os.environ.get("B_VOICE_LOCKED_STYLE_INSTRUCTIONS", "").strip()
+        or None,
+        "timbre_change_allowed": False,
+        "emotion_optimization_allowed": True,
+        "prosody_optimization_allowed": True,
+        "human_voice_review_required": True,
+        "human_voice_review_status": review_status or PENDING_USER_REVIEW_STATUS,
+        "forbidden_default_voice_ids_without_user_confirmation": sorted(FORBIDDEN_DEFAULT_B_VOICE_IDS),
+    }
+
+
+B_VOICE_IDENTITY_LOCK = load_minimax_b_voice_identity_lock()
+VOICE_ID = str(B_VOICE_IDENTITY_LOCK.get("expected_b_minimax_voice_id") or "")
 
 CARD_GROUPS = {
     "LG001": {
@@ -241,6 +278,57 @@ def load_tts_api_key() -> tuple[str, str, dict[str, Any]]:
         "api_key_written": False,
     }
     return key, source, auth_check
+
+
+def validate_b_voice_identity_lock_for_full_generation() -> dict[str, Any]:
+    reasons: list[str] = []
+    lock_status = str(B_VOICE_IDENTITY_LOCK.get("status") or PENDING_USER_REVIEW_STATUS)
+    review_status = str(B_VOICE_IDENTITY_LOCK.get("human_voice_review_status") or PENDING_USER_REVIEW_STATUS)
+    expected_voice_id = str(B_VOICE_IDENTITY_LOCK.get("expected_b_minimax_voice_id") or "")
+    locked_setting = B_VOICE_IDENTITY_LOCK.get("locked_voice_setting")
+
+    if not expected_voice_id:
+        reasons.append("expected_b_minimax_voice_id_missing")
+    if expected_voice_id in FORBIDDEN_DEFAULT_B_VOICE_IDS and review_status != USER_CONFIRMED_VOICE_STATUS:
+        reasons.append("female_tianmei_used_without_user_confirmation")
+    if lock_status != USER_CONFIRMED_VOICE_STATUS:
+        reasons.append("voice_identity_lock_status_not_user_confirmed")
+    if review_status != USER_CONFIRMED_VOICE_STATUS:
+        reasons.append("human_voice_review_status_not_user_confirmed")
+    if B_VOICE_IDENTITY_LOCK.get("timbre_change_allowed") is not False:
+        reasons.append("timbre_change_allowed_true")
+    if not isinstance(locked_setting, dict):
+        reasons.append("locked_voice_setting_missing")
+    elif locked_setting.get("voice_id") != expected_voice_id:
+        reasons.append("locked_voice_setting_voice_id_mismatch")
+
+    report = {
+        "status": "passed" if not reasons else "blocked_pending_user_review",
+        "b_voice_identity_lock": B_VOICE_IDENTITY_LOCK,
+        "expected_b_minimax_voice_id": expected_voice_id,
+        "actual_voice_id_to_use": expected_voice_id,
+        "human_voice_review_required": True,
+        "human_voice_review_status": review_status,
+        "timbre_change_allowed": False,
+        "blocked_reasons": sorted(set(reasons)),
+    }
+    write_json(OUT_DIR / "b_voice_identity_lock_preflight.json", report)
+    if reasons:
+        write_text(
+            OUT_DIR / "b_voice_identity_lock_preflight.md",
+            "\n".join(
+                [
+                    "# b_voice_identity_lock_preflight",
+                    "",
+                    "- `status`: `blocked_pending_user_review`",
+                    "- `reason`: MiniMax B voice identity has not been user-confirmed.",
+                    "- `full_narration_regenerated`: `false`",
+                    "- `full_video_generated`: `false`",
+                    "- `forbidden_default_voice_id`: `female-tianmei`",
+                ]
+            ),
+        )
+    return report
 
 
 def sanitize_error(text: str, secret: str) -> str:
@@ -549,11 +637,17 @@ def synthesize_chunk(api_key: str, auth_source: str, chunk: dict[str, Any]) -> d
         debug["audio"] = wave_info(wav_path)
         write_json(debug_path, debug)
         return debug
+    locked_voice_setting = dict(B_VOICE_IDENTITY_LOCK.get("locked_voice_setting") or {})
+    locked_voice_setting.setdefault("voice_id", VOICE_ID)
+    locked_voice_setting.setdefault("speed", 1.08)
+    locked_voice_setting.setdefault("vol", 1)
+    locked_voice_setting.setdefault("pitch", 0)
+    locked_voice_setting.setdefault("emotion", "calm")
     payload = {
         "model": TARGET_MODEL,
         "input": {
             "text": chunk["text"],
-            "voice_setting": {"voice_id": VOICE_ID, "speed": 1.16, "vol": 1, "pitch": 0, "emotion": "calm"},
+            "voice_setting": locked_voice_setting,
             "audio_setting": {"sample_rate": SAMPLE_RATE, "bitrate": 128000, "format": "mp3", "channel": 1},
             "language_boost": "Chinese",
             "output_format": "hex",
@@ -623,6 +717,10 @@ def synthesize_chunk(api_key: str, auth_source: str, chunk: dict[str, Any]) -> d
         "is_minimax_speech_2_8_hd": True,
         "tts_auth_source_masked": masked_source(auth_source),
         "voice_id_masked": VOICE_ID,
+        "actual_voice_id": VOICE_ID,
+        "actual_voice_setting": locked_voice_setting,
+        "b_voice_identity_lock": B_VOICE_IDENTITY_LOCK,
+        "human_voice_review_status": B_VOICE_IDENTITY_LOCK["human_voice_review_status"],
         "chunk_index": index,
         "line_group_ids": [g["line_group_id"] for g in chunk["groups"]],
         "text_char_count": len(chunk["text"]),
@@ -1092,6 +1190,16 @@ def write_reports(
         "silent_audio_fallback_used": False,
         "b_voice_scheme_role": "formal_voice_feel_reference",
         "b_voice_feel_reflected": True,
+        "actual_voice_id": VOICE_ID,
+        "actual_voice_setting": B_VOICE_IDENTITY_LOCK["locked_voice_setting"],
+        "b_voice_identity_lock": B_VOICE_IDENTITY_LOCK,
+        "voice_identity_gate": {
+            "actual_voice_id_equals_expected_b_minimax_voice_id": True,
+            "actual_voice_setting_matches_locked_voice_setting": True,
+            "timbre_change_allowed": False,
+            "human_voice_review_status": B_VOICE_IDENTITY_LOCK["human_voice_review_status"],
+            "voice_identity_lock_status": B_VOICE_IDENTITY_LOCK["status"],
+        },
         "voice_feel_tags": [
             "light_companion",
             "low_pressure",
@@ -1135,8 +1243,10 @@ def write_reports(
             "status": "passed",
             "b_voice_scheme_role": "formal_voice_feel_reference",
             "b_voice_feel_reflected": True,
+            "voice_identity_lock_status": B_VOICE_IDENTITY_LOCK["status"],
             "human_voice_review_required": True,
-            "note": "B 方案是听感参考；实际生成路线为 MiniMax speech-2.8-hd。",
+            "human_voice_review_status": B_VOICE_IDENTITY_LOCK["human_voice_review_status"],
+            "note": "B 方案必须同时满足 MiniMax route、expected_b_minimax_voice_id 和 user_confirmed human voice review。",
         },
     )
     write_text(
@@ -1162,6 +1272,10 @@ def write_reports(
         "tts_route_report": route_report,
         "b_voice_scheme_role": "formal_voice_feel_reference",
         "b_voice_feel_reflected": True,
+        "actual_voice_id": VOICE_ID,
+        "actual_voice_setting": B_VOICE_IDENTITY_LOCK["locked_voice_setting"],
+        "b_voice_identity_lock": B_VOICE_IDENTITY_LOCK,
+        "voice_identity_gate": route_report["voice_identity_gate"],
         "voice_feel_tags": route_report["voice_feel_tags"],
         "timeline": tts_timeline,
     }
@@ -1416,6 +1530,12 @@ def main() -> None:
     for material in MATERIALS.values():
         if not material.exists():
             raise RuntimeError(f"blocked_publish_candidate_unavailable:material_missing:{material}")
+    voice_lock_preflight = validate_b_voice_identity_lock_for_full_generation()
+    if voice_lock_preflight["status"] != "passed":
+        raise RuntimeError(
+            "blocked_publish_candidate_unavailable:b_voice_identity_lock_pending_user_review:"
+            + ",".join(voice_lock_preflight["blocked_reasons"])
+        )
 
     auth_key, auth_source, auth_check = load_tts_api_key()
     if not auth_key:

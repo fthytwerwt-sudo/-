@@ -55,6 +55,33 @@ B_VOICE_FEEL_MINIMAX_FORMAL_VOICE_RULE = {
         "b_voice_feel_not_reflected = true",
     ],
 }
+B_VOICE_IDENTITY_LOCK_RULE = {
+    "status": "active_pending_user_review",
+    "required_provider": "minimax",
+    "required_model": "speech-2.8-hd",
+    "lock_status_values": ["pending_user_review", "user_confirmed"],
+    "expected_b_minimax_voice_id": None,
+    "expected_b_voice_reference_audio_path": [
+        "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+        "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
+    ],
+    "timbre_change_allowed": False,
+    "emotion_optimization_allowed": True,
+    "prosody_optimization_allowed": True,
+    "human_voice_review_required": True,
+    "human_voice_review_status": "pending_user_review",
+    "forbidden_default_voice_ids_without_user_confirmation": ["female-tianmei"],
+    "blocked_if": [
+        "expected_b_minimax_voice_id_missing",
+        "actual_voice_id_mismatch_expected_b_minimax_voice_id",
+        "human_voice_review_status_not_user_confirmed",
+        "female_tianmei_used_without_user_confirmation",
+        "timbre_change_allowed_true",
+    ],
+}
+USER_CONFIRMED_VOICE_STATUS = "user_confirmed"
+PENDING_USER_REVIEW_STATUS = "pending_user_review"
+FORBIDDEN_DEFAULT_B_VOICE_IDS = {"female-tianmei"}
 
 
 def truthy(value: Any) -> bool:
@@ -80,19 +107,34 @@ def flatten_text(value: Any) -> str:
 def _nested_payloads(payload: Any) -> list[dict[str, Any]]:
     if not isinstance(payload, dict):
         return []
-    candidates = [payload]
-    for key in [
-        "tts_route_report",
-        "tts",
-        "voice_route",
-        "validation",
-        "media_probe",
-        "narration",
-        "narration_tts_debug_sanitized",
-    ]:
-        nested = payload.get(key)
-        if isinstance(nested, dict):
-            candidates.append(nested)
+    candidates: list[dict[str, Any]] = []
+    seen: set[int] = set()
+
+    def collect(node: dict[str, Any]) -> None:
+        node_id = id(node)
+        if node_id in seen:
+            return
+        seen.add(node_id)
+        candidates.append(node)
+        for key in [
+            "tts_route_report",
+            "tts",
+            "voice_route",
+            "validation",
+            "media_probe",
+            "narration",
+            "narration_tts_debug_sanitized",
+            "voice_setting",
+            "actual_voice_setting",
+            "b_voice_identity_lock",
+            "voice_identity_gate",
+            "locked_voice_setting",
+        ]:
+            nested = node.get(key)
+            if isinstance(nested, dict):
+                collect(nested)
+
+    collect(payload)
     return candidates
 
 
@@ -232,6 +274,93 @@ def build_tts_route_report(tts_map: Any, summary: Any) -> dict[str, Any]:
     return report
 
 
+def _normalized_status(value: Any, default: str = PENDING_USER_REVIEW_STATUS) -> str:
+    if isinstance(value, str) and value.strip():
+        return value.strip()
+    return default
+
+
+def build_b_voice_identity_lock_report(tts_map: Any, summary: Any) -> dict[str, Any]:
+    payloads: list[dict[str, Any]] = []
+    for source in [tts_map, summary]:
+        payloads.extend(_nested_payloads(source))
+
+    actual_voice_setting = _first_value(payloads, ["actual_voice_setting", "voice_setting"]) or {}
+    actual_voice_id_value = _first_value(payloads, ["actual_voice_id", "actual_b_voice_id", "voice_id_masked"])
+    if not actual_voice_id_value and isinstance(actual_voice_setting, dict):
+        actual_voice_id_value = actual_voice_setting.get("voice_id")
+    actual_voice_id = str(actual_voice_id_value or "")
+    expected_voice_id = str(_first_value(payloads, ["expected_b_minimax_voice_id"]) or "")
+    lock_status_value = _first_value(payloads, ["voice_identity_lock_status", "b_voice_identity_lock_status"])
+    if lock_status_value is None:
+        for payload in payloads:
+            if (
+                "expected_b_minimax_voice_id" in payload
+                and "human_voice_review_status" in payload
+                and "status" in payload
+            ):
+                lock_status_value = payload.get("status")
+                break
+    lock_status = _normalized_status(lock_status_value)
+    human_review_required_value = _first_value(payloads, ["human_voice_review_required"])
+    human_review_required = True if human_review_required_value is None else truthy(human_review_required_value)
+    human_review_status = _normalized_status(_first_value(payloads, ["human_voice_review_status"]))
+    timbre_change_allowed_value = _first_value(payloads, ["timbre_change_allowed"])
+    timbre_change_allowed = False if timbre_change_allowed_value is None else truthy(timbre_change_allowed_value)
+
+    return {
+        "b_voice_identity_lock_rule": B_VOICE_IDENTITY_LOCK_RULE,
+        "voice_identity_lock_status": lock_status,
+        "expected_b_minimax_voice_id": expected_voice_id,
+        "actual_voice_id": actual_voice_id,
+        "actual_voice_setting": actual_voice_setting,
+        "human_voice_review_required": human_review_required,
+        "human_voice_review_status": human_review_status,
+        "timbre_change_allowed": timbre_change_allowed,
+        "emotion_optimization_allowed": True,
+        "prosody_optimization_allowed": True,
+        "forbidden_default_voice_ids_without_user_confirmation": sorted(FORBIDDEN_DEFAULT_B_VOICE_IDS),
+    }
+
+
+def validate_minimax_b_voice_identity_lock(tts_map: Any, summary: Any) -> dict[str, Any]:
+    report = build_b_voice_identity_lock_report(tts_map, summary)
+    reasons: list[str] = []
+
+    if is_internal_diagnostic_only(tts_map, summary):
+        return {
+            **report,
+            "voice_identity_gate_validation": "internal_diagnostic_only",
+            "blocked_reasons": [],
+        }
+
+    actual_voice_id = str(report["actual_voice_id"])
+    expected_voice_id = str(report["expected_b_minimax_voice_id"])
+    human_review_status = str(report["human_voice_review_status"])
+    lock_status = str(report["voice_identity_lock_status"])
+
+    if not expected_voice_id:
+        reasons.append("expected_b_minimax_voice_id_missing")
+    if not actual_voice_id:
+        reasons.append("actual_voice_id_missing")
+    if actual_voice_id in FORBIDDEN_DEFAULT_B_VOICE_IDS and human_review_status != USER_CONFIRMED_VOICE_STATUS:
+        reasons.append("female_tianmei_used_without_user_confirmation")
+    if expected_voice_id and actual_voice_id and actual_voice_id != expected_voice_id:
+        reasons.append("actual_voice_id_mismatch_expected_b_minimax_voice_id")
+    if report["timbre_change_allowed"]:
+        reasons.append("timbre_change_allowed_true")
+    if report["human_voice_review_required"] and human_review_status != USER_CONFIRMED_VOICE_STATUS:
+        reasons.append("human_voice_review_status_not_user_confirmed")
+    if lock_status != USER_CONFIRMED_VOICE_STATUS:
+        reasons.append("voice_identity_lock_status_not_user_confirmed")
+
+    return {
+        **report,
+        "voice_identity_gate_validation": "passed_b_voice_identity_lock" if not reasons else "blocked_b_voice_identity_lock",
+        "blocked_reasons": sorted(set(reasons)),
+    }
+
+
 def validate_publish_candidate_tts_route(tts_map: Any, summary: Any) -> dict[str, Any]:
     report = build_tts_route_report(tts_map, summary)
     reasons: list[str] = []
@@ -293,6 +422,7 @@ def validate_publish_candidate_tts_route(tts_map: Any, summary: Any) -> dict[str
 
 def validate_b_voice_feel_minimax_route(tts_map: Any, summary: Any) -> dict[str, Any]:
     validation = validate_publish_candidate_tts_route(tts_map, summary)
+    identity_validation = validate_minimax_b_voice_identity_lock(tts_map, summary)
     reasons = list(validation.get("blocked_reasons", []))
 
     if validation.get("voice_route_validation") != "internal_diagnostic_only":
@@ -300,14 +430,23 @@ def validate_b_voice_feel_minimax_route(tts_map: Any, summary: Any) -> dict[str,
             reasons.append("b_voice_feel_not_reflected")
         if validation.get("missing_b_voice_feel_tags"):
             reasons.append("b_voice_feel_required_tags_missing")
+        if identity_validation.get("voice_identity_gate_validation") != "passed_b_voice_identity_lock":
+            reasons.extend(str(reason) for reason in identity_validation.get("blocked_reasons", []))
 
     if reasons:
-        voice_route_validation = validation.get("voice_route_validation")
+        if (
+            validation.get("voice_route_validation") == "passed_minimax"
+            and identity_validation.get("voice_identity_gate_validation") == "blocked_b_voice_identity_lock"
+        ):
+            voice_route_validation = "blocked_b_voice_identity_lock"
+        else:
+            voice_route_validation = validation.get("voice_route_validation")
     else:
-        voice_route_validation = "passed_minimax_b_voice_feel"
+        voice_route_validation = "passed_minimax_b_voice_identity_lock"
 
     return {
         **validation,
+        "b_voice_identity_lock": identity_validation,
         "voice_route_validation": voice_route_validation,
         "b_voice_feel_minimax_formal_voice_rule": B_VOICE_FEEL_MINIMAX_FORMAL_VOICE_RULE,
         "blocked_reasons": sorted(set(reasons)),

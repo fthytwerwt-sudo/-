@@ -120,6 +120,28 @@ class PublishCandidateVoiceGateTests(unittest.TestCase):
                     "non_silent": True,
                     "fallback_tts_used": False,
                     "b_voice_feel_reflected": True,
+                    "actual_voice_id": "female-shaonv",
+                    "actual_voice_setting": {
+                        "voice_id": "female-shaonv",
+                        "speed": 1.08,
+                        "pitch": 0,
+                        "emotion": "calm",
+                        "vol": 1,
+                    },
+                    "b_voice_identity_lock": {
+                        "status": "user_confirmed",
+                        "expected_b_minimax_voice_id": "female-shaonv",
+                        "locked_voice_setting": {
+                            "voice_id": "female-shaonv",
+                            "speed": 1.08,
+                            "pitch": 0,
+                            "emotion": "calm",
+                            "vol": 1,
+                        },
+                        "timbre_change_allowed": False,
+                        "human_voice_review_required": True,
+                        "human_voice_review_status": "user_confirmed",
+                    },
                     "voice_feel_tags": [
                         "light_companion",
                         "low_pressure",
@@ -136,7 +158,7 @@ class PublishCandidateVoiceGateTests(unittest.TestCase):
             },
             _summary(),
         )
-        self.assertEqual(result["voice_route_validation"], "passed_minimax_b_voice_feel")
+        self.assertEqual(result["voice_route_validation"], "passed_minimax_b_voice_identity_lock")
         self.assertEqual(result["blocked_reasons"], [])
         self.assertEqual(
             result["b_voice_feel_minimax_formal_voice_rule"]["b_voice_scheme_role"],

@@ -163,7 +163,7 @@ if state = publish_candidate_voice_gate_required:
   action = require tts_route_report; verify actual_tts_provider = minimax, actual_tts_model in [speech-2.8-hd, MiniMax/speech-2.8-hd], selected_route in [minimax_official_api, aliyun_bailian_proxy_to_minimax], audio_present = true, non_silent = true, fallback_tts_used = false; block publish candidate completion for aliyun_qwen_tts / Serena / macOS say / local fallback / missing MiniMax route
 
 if state = b_voice_feel_minimax_preflight_required:
-  action = require b_voice_feel_minimax_formal_voice_rule; treat B scheme as formal_voice_feel_reference, not old Qwen/Aliyun provider; verify light_companion / low_pressure / natural_spoken_chinese / b_pacing_feel / subtle_pause_joke_rhythm / game_guide_feeling and not_broadcast / not_sales / not_customer_service / not_childish_cute_voice; block if actual model is not MiniMax speech-2.8-hd, fallback used, audio missing/silent, or B feel not reflected
+  action = require b_voice_feel_minimax_formal_voice_rule and b_voice_identity_lock; treat B scheme as formal_voice_feel_reference, not old Qwen/Aliyun provider; verify light_companion / low_pressure / natural_spoken_chinese / b_pacing_feel / subtle_pause_joke_rhythm / game_guide_feeling and not_broadcast / not_sales / not_customer_service / not_childish_cute_voice; additionally require actual_voice_id == expected_b_minimax_voice_id, timbre_change_allowed = false, human_voice_review_status = user_confirmed; block if actual model is not MiniMax speech-2.8-hd, fallback used, audio missing/silent, B feel not reflected, expected voice id missing, actual voice id mismatch, or B voice not user-confirmed
 
 if state = card_decision_preflight_required:
   action = verify judgment_card / summary_card / result_diff_card / boundary_card / prompt_tail_card needed/not-needed decisions, reasons, line_group binding, evidence dependency, and interrupt risk
@@ -385,11 +385,12 @@ if state = blocked_need_user_input:
 - `publish_candidate_inventory_required`：发片候选、修片候选或视频执行时触发；必须生成 `publish_candidate_required_inventory` 并逐项判断 required / not_applicable。任一必需项缺失且无 `not_applicable_reason` 时，不得写 `completed`。
 - `publish_candidate_preflight_suite_required`：发片候选、修片候选、视频执行、重新生成、发布前修复、最终文案进视频或 TTS / 字幕 / 卡片 / 时间线 / review_pack 生成时触发；必须运行 `scripts/发片候选预检套件_publish_candidate_preflight_suite.py --no-render` 或等价入口，产出总报告与十二个子报告。任一 gate missing / failed / only documented 时不得导出、不得 `completed`。
 - `line_visual_tolerance_preflight_required` / `near_equivalent_material_substitution_preflight_required`：允许最多约 5% 的局部非核心近似素材替代；核心证据错位、全程漂移、需要猜测、素材不极近或用户素材缺失时必须 blocked。
-- `b_voice_feel_minimax_preflight_required`：B 方案是正式听感标准，MiniMax 是正式生成路线；旧 Qwen / 阿里 B 语音路线不能作为正片候选完成。
+- `b_voice_feel_minimax_preflight_required`：B 方案是正式听感标准，MiniMax 是正式生成路线；旧 Qwen / 阿里 B 语音路线不能作为正片候选完成。2026-05-27 起还必须执行 `b_voice_identity_lock（B 声音身份锁）`：未取得 `expected_b_minimax_voice_id` 与用户试听确认前，只能生成候选样本或 blocked，不能把 `b_voice_feel_reflected = true` 写成声音通过。
 - `publish_candidate_user_standard_preflight_required`：按用户打开后原则上可直接发的标准判断候选；小瑕疵可进人工复审，重大缺陷只能 blocked / internal_diagnostic_only，且 `publish_candidate_ready_for_human_review != send_ready`。
 - `line_level_alignment_preflight_required`：`script_to_timeline_map` 不能只证明文件存在；必须逐句检查 line_group 字段、实际观察画面、证据强度和 mismatch 修复状态。
 - `tts_route_and_prosody_preflight_required`：`tts_prosody_anchor_map` 不能只证明字段存在；必须检查实际 provider / model / voice route / pacing 是否使用，禁止未授权 fallback。
 - `publish_candidate_voice_gate_required`：`tts_route_report` 是正片候选必填；实际 TTS 必须为 MiniMax `speech-2.8-hd / MiniMax/speech-2.8-hd`，B 方案只作听感参考。非 MiniMax 语音只能 `blocked_publish_candidate_unavailable` 或 `internal_diagnostic_only`，不得 `completed` 或 `publish_candidate_ready_for_human_review = true`。
+- `b_voice_identity_lock_required`：B 方案正片候选必须检查 `actual_voice_id == expected_b_minimax_voice_id`、`actual_voice_setting matches locked_voice_setting`、`timbre_change_allowed = false`、`human_voice_review_status = user_confirmed`；`female-tianmei` 不得默认继续作为 B 音色，除非用户明确试听确认。
 - `card_decision_preflight_required`：prompt 未提卡片不代表可省略；判断卡、总结卡、结果差卡、边界卡、Prompt 尾卡需要 / 不需要都必须写依据。
 - `forbidden_action_preflight_required`：导出前必须审计改文案、删卡、改声音、遮挡、状态推进、technical preview 冒充交付等禁止行为。
 - `visual_evidence_readability_preflight_required`：核心证据被字幕、卡片、遮挡、洗白、边缘残留或比例变化影响时必须 blocked；结构检查与未来 OCR / 视觉探针必须分开标注。

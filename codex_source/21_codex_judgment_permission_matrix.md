@@ -81,6 +81,8 @@ Perplexity 只能作为 `external_research_reference（外部研究参考）`，
 
 `已确认` Codex 后续判断正片候选声音路线时，不得把阿里 B 方案继续当默认生成 provider。B 方案升级为 `formal_voice_feel_reference（正式声音听感参考）`；正片候选实际 TTS 必须是 MiniMax `speech-2.8-hd / MiniMax/speech-2.8-hd`，否则必须阻断或标记为内部诊断。
 
+`已确认` 2026-05-27 起，Codex 判断 B 方案声音时必须区分 `voice_feel_tags（声音听感标签）` 与 `voice_identity（声音身份）`。`b_voice_feel_reflected = true` 只能证明听感方向字段存在，不能证明声音身份通过；必须有 `b_voice_identity_lock.status = user_confirmed` 与 `actual_voice_id == expected_b_minimax_voice_id`。
+
 凡任务命中视频执行、修片、发片候选、重新生成、发布前修复、最终文案进视频、TTS / 字幕 / 卡片 / 时间线 / review_pack 生成，Codex 必须把以下判断对象统一接入 `publish_candidate_preflight_suite（发片候选预检套件）`：
 
 ```text
@@ -107,7 +109,11 @@ codex_judgment_to_preflight_binding:
   b_voice_feel_minimax_formal_voice:
     required_gate: b_voice_feel_minimax_preflight
     permission: must_decide_and_block
-    hard_requirement: B feel is formal standard; MiniMax is formal generation route; old Qwen / Aliyun B route is blocked for publish candidate completed
+    hard_requirement: B feel is formal standard; MiniMax is formal generation route; old Qwen / Aliyun B route is blocked for publish candidate completed; actual_voice_id must equal expected_b_minimax_voice_id after user-confirmed voice lock
+  b_voice_identity_lock:
+    required_gate: b_voice_identity_lock_preflight
+    permission: must_decide_and_block
+    hard_requirement: expected_b_minimax_voice_id required; human_voice_review_status must be user_confirmed; timbre_change_allowed false; female-tianmei forbidden unless user-confirmed
   judgment_card:
     required_gate: card_decision_preflight
     permission: must_decide_and_execute_or_block
@@ -501,6 +507,7 @@ codex_must_do:
 codex_must_not_do:
   - 不得因 TTS 不顺擅自改写文案语义
   - 不得把候选音色写成 voice_validation passed
+  - 不得为了情绪更丰富而改变已锁定 voice_id
 change_request_if:
   - 某句必须改语义才读得顺
 blocked_if:

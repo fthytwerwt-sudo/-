@@ -1,5 +1,24 @@
 # Latest
 
+## 20260527｜MiniMax B 方案声音身份锁定候选试听包
+
+- `task_result.status = completed_with_voice_candidates`
+- `target_delivery = minimax_b_voice_identity_lock_candidates`
+- `video_generated = false`；`full_narration_regenerated = false`；`copy_changed = false`；`current_video_modified = false`。
+- `diagnostics_path = codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423`
+- `review_table = codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423/voice_candidate_review_table.md`
+- `lock_report = codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423/minimax_b_voice_identity_lock_report.json`
+- `minimax_voice_capability`：`supports_voice_id = true`，`supports_voice_list = true`，`supports_voice_clone = true`，`supports_reference_audio = true`，`supports_style_prompt = false`，`supports_speed_pitch_emotion = true`。
+- `actual_route = aliyun_bailian_proxy_to_minimax`；`actual_model = MiniMax/speech-2.8-hd`；`system_voice_count = 303`；`voice_cloning_count = 1`；`fallback_tts_used = false`；`api_key_printed = false`；`api_key_written = false`。
+- `voice_candidates_generated = 6`：`female-shaonv / female-shaonv-jingpin / female-yujie` 各生成 `v1_stable` 与 `v2_more_emotional` 两个韵律版本；全部非静音，时长约 `13.248s / 14.22s / 13.824s / 14.868s / 16.92s / 19.152s`。
+- `b_reference_audio.loaded = true`：已读取 `B_15秒文案_停顿梗感.wav` 与 `语音样本2_声音复刻试听_15秒.wav`；本轮未上传本地参考音频，原因是当前百炼 MiniMax voice clone 需要公网 `audio_url`，本轮 API scope 仅限短试听样本。
+- `b_voice_identity_lock.status = pending_user_review`；`expected_b_minimax_voice_id = null`；`candidate_expected_b_minimax_voice_id_options = [female-shaonv, female-shaonv-jingpin, female-yujie]`；`human_voice_review_required = true`；`human_voice_review_status = pending_user_review`。
+- `新增机制`：后续 B 方案正片候选不得只靠 `b_voice_feel_reflected = true` 通过；必须满足 `actual_voice_id == expected_b_minimax_voice_id`、`timbre_change_allowed = false`、`human_voice_review_status = user_confirmed`。
+- `禁止继续默认`：`female-tianmei` 不得作为 B 方案默认声音，除非用户明确试听并确认。
+- `状态边界`：未推进 `send_ready / content_validation / voice_validation / final_voice_validated / visual_master_locked`。
+- `DeepSeek`：已创建前置供料请求与后置风险复核请求并运行 safe runner；两次均返回 `blocked_invalid_context_pack`，`deepseek_actual_participation = not_attempted_policy_violation`，`not_deepseek_conclusion = true`，因此本轮机制结论来自 Codex 本地复核 + 官方文档 + MiniMax 实测，不写 DeepSeek 已参与。
+- `日志`：`codex_log/20260527_minimax_b_voice_identity_lock.md`
+
 ## 20260526｜新第四期选品初筛正片候选 rerun
 
 - `task_result.status = completed`

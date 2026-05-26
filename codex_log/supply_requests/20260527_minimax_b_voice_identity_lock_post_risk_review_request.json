@@ -1,0 +1,121 @@
+{
+  "request_id": "20260527_minimax_b_voice_identity_lock_post_risk_review_request",
+  "created_at": "2026-05-27T00:55:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "minimax_b_voice_identity_lock",
+  "task_type": "project_file_change + code_debug + tts_voice_identity_lock + mechanism_or_route_fix + short_audio_sample_generation",
+  "project_stage": "formal_operation_active",
+  "trigger_reason": "mandatory_post_risk_review",
+  "action": "auto",
+  "mandatory_for_every_task": true,
+  "participation_level": "readonly_post_risk_review",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "Post-risk review for MiniMax B voice identity lock: verify no full video or full narration changed, no copy changed, no status promoted, voice identity gate blocks feel-tags-only pass, and no secret was printed or written.",
+  "current_step": "after_sample_generation_and_before_git_commit",
+  "known_context": [
+    "Generated six MiniMax route_b short samples in codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423.",
+    "The generated candidates are female-shaonv, female-shaonv-jingpin, and female-yujie, each with v1_stable and v2_more_emotional.",
+    "b_voice_identity_lock remains pending_user_review; expected_b_minimax_voice_id is not user-confirmed.",
+    "No full video, full narration, locked copy, current full.mp4, or current narration.wav should be modified.",
+    "female-tianmei is forbidden as default B voice unless explicitly user-confirmed."
+  ],
+  "missing_context": [
+    "Need independent risk check for status promotion and fallback mislabeling.",
+    "Need verify modified gate code blocks b_voice_feel_reflected=true without expected_b_minimax_voice_id and user_confirmed human review.",
+    "Need verify generated diagnostic reports do not contain API keys or tokens."
+  ],
+  "decision_needed": "Return risk review summary for forbidden status promotion, missed sync files, fallback mislabel risk, and remaining work before Git closure.",
+  "candidate_files": [
+    "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+    "scripts/生成新第四期选品初筛MiniMax正片候选_rerun_generate_new_fourth_selection_minimax_publish_candidate.py",
+    "tests/test_publish_candidate_voice_gate.py",
+    "tests/test_minimax_b_voice_identity_lock.py",
+    "codex_source/fixtures/publish_candidate_preflight_suite_cases.json",
+    "codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423/minimax_b_voice_identity_lock_report.json",
+    "codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423/voice_candidate_review_table.json",
+    "codex_log/20260527_minimax_b_voice_identity_lock.md",
+    "codex_log/latest.md",
+    "GPT数据源/08_当前正式事实.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/21_codex_judgment_permission_matrix.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md"
+  ],
+  "must_read_files": [
+    "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+    "tests/test_minimax_b_voice_identity_lock.py",
+    "codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423/minimax_b_voice_identity_lock_report.json",
+    "codex_log/20260527_minimax_b_voice_identity_lock.md"
+  ],
+  "optional_files": [
+    "codex_source/fixtures/publish_candidate_preflight_suite_cases.json",
+    "codex_log/latest.md",
+    "GPT数据源/08_当前正式事实.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    ".env.*",
+    ".git/",
+    "dist/latest_review_pack/",
+    "*.mp4",
+    "*.mov",
+    "*.m4v",
+    "*.mp3",
+    "*.wav",
+    "*.m4a",
+    "*.aac",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.gif",
+    "*.webp"
+  ],
+  "max_context_files": 8,
+  "max_context_chars": 24000,
+  "expected_output": [
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "status_promotion_risk_check",
+    "fallback_mislabel_risk",
+    "secret_risk",
+    "remaining_work",
+    "codex_next_input",
+    "token_usage_expectation_check"
+  ],
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback_local_only 本地兜底写成 DeepSeek 结论。",
+    "不得写 multi-agent runtime 多 agent 运行时已跑通。",
+    "DeepSeek token 未观察到减少时不得写 DeepSeek 已深度参与。",
+    "不得读取 .env、API key、token、secret 或媒体文件。"
+  ],
+  "blocked_if": [
+    "content_validation or send_ready or voice_validation or final_voice_validated was promoted",
+    "female-tianmei remains default B voice without user confirmation",
+    "b_voice_feel_reflected=true can pass without user_confirmed identity lock",
+    "full.mp4 or narration.wav was modified",
+    "secret or token appears in reports or diff"
+  ],
+  "return_to_codex": {
+    "output_dir": "codex_log/deepseek_supply/20260527_minimax_b_voice_identity_lock_post_risk_review",
+    "pack_md": "codex_log/deepseek_supply/20260527_minimax_b_voice_identity_lock_post_risk_review/latest_supply_pack.md",
+    "pack_json": "codex_log/deepseek_supply/20260527_minimax_b_voice_identity_lock_post_risk_review/latest_supply_pack.json",
+    "manifest": "codex_log/deepseek_supply/20260527_minimax_b_voice_identity_lock_post_risk_review/latest_supply_manifest.json"
+  },
+  "requires_real_deepseek_participation": false,
+  "allow_process_env_api_key": true,
+  "disable_env_file": true,
+  "safe_deepseek_process_env_test": true,
+  "deepseek_readiness_check_required": true
+}

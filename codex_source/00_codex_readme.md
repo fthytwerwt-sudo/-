@@ -26,6 +26,19 @@ Codex 后续默认先读：
 
 若缺音轨、字幕、横屏 16:9 / 1920x1080 装配、清楚开头、中段证据、结尾收束、基础人感质量、平台风险检查、API 授权或装配能力，Codex 必须 blocked 或修到满足 `publish_candidate`，不得把“技术能跑”偷换成“项目能交付”。`publish_candidate` 仍需 ChatGPT / 用户按发布标准复审，不能自动推进 `send_ready（可发送状态）`。
 
+## 0A-1a. MiniMax B voice identity lock
+
+`已确认` 2026-05-27 起，B 方案声音从 `voice_feel_tags（声音听感标签）` 升级为 `b_voice_identity_lock（B 声音身份锁）`。后续正式运营正片候选必须同时满足：
+
+- `actual_tts_provider = minimax`
+- `actual_tts_model in [speech-2.8-hd, MiniMax/speech-2.8-hd]`
+- `actual_voice_id == expected_b_minimax_voice_id`
+- `actual_voice_setting matches locked_voice_setting`
+- `timbre_change_allowed = false`
+- `human_voice_review_status = user_confirmed`
+
+`female-tianmei` 不得继续作为 B 方案默认声音，除非用户明确试听并确认。情绪、停顿、上扬、重音和语速只能在同一 `voice_id` 内优化；不得为了情绪更丰富而换音色。缺 `expected_b_minimax_voice_id`、缺用户试听确认或 `actual_voice_id` 不匹配时，必须 blocked 或停在 `pending_user_review`，不得写 `voice_validation = passed`。
+
 ## 0A-2. user_feedback_boundary and no_degrade_completion gate
 
 `已确认` 正式运营阶段，用户只负责：

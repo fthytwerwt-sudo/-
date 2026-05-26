@@ -52,11 +52,35 @@
     },
     {
       "case_id": "b_voice_feel_minimax_passed",
-      "input_signal": "tts_route_report declares MiniMax speech-2.8-hd and B voice feel tags: light companion, low pressure, natural spoken Chinese, B pacing, subtle pause joke rhythm, game guide feeling, not broadcast/sales/customer-service/childish",
+      "input_signal": "tts_route_report declares MiniMax speech-2.8-hd, B voice feel tags, actual_voice_id equals expected_b_minimax_voice_id, b_voice_identity_lock.status=user_confirmed, and human_voice_review_status=user_confirmed",
       "expected_gate": "b_voice_feel_minimax_preflight",
       "expected_status": "passed",
-      "expected_reason": "passed_minimax_b_voice_feel",
+      "expected_reason": "passed_minimax_b_voice_identity_lock",
       "must_not_write": ["send_ready_true", "content_validation_passed", "voice_validation_passed", "final_voice_validated_true"]
+    },
+    {
+      "case_id": "b_voice_feel_tags_only_identity_lock_missing_blocks",
+      "input_signal": "tts_route_report declares MiniMax speech-2.8-hd and b_voice_feel_reflected=true but expected_b_minimax_voice_id or human_voice_review_status=user_confirmed is missing",
+      "expected_gate": "b_voice_identity_lock_preflight",
+      "expected_status": "blocked",
+      "expected_reason": "expected_b_minimax_voice_id_missing",
+      "must_not_write": ["completed", "send_ready_true", "content_validation_passed", "voice_validation_passed", "final_voice_validated_true"]
+    },
+    {
+      "case_id": "female_tianmei_default_b_voice_blocks_without_user_confirmation",
+      "input_signal": "actual_voice_id=female-tianmei is used as B scheme without explicit user_confirmed human voice review",
+      "expected_gate": "b_voice_identity_lock_preflight",
+      "expected_status": "blocked",
+      "expected_reason": "female_tianmei_used_without_user_confirmation",
+      "must_not_write": ["completed", "publish_candidate_ready_for_human_review_true", "send_ready_true", "voice_validation_passed", "final_voice_validated_true"]
+    },
+    {
+      "case_id": "b_voice_identity_voice_id_mismatch_blocks",
+      "input_signal": "actual_voice_id differs from expected_b_minimax_voice_id even though MiniMax route and B voice feel tags are present",
+      "expected_gate": "b_voice_identity_lock_preflight",
+      "expected_status": "blocked",
+      "expected_reason": "actual_voice_id_mismatch_expected_b_minimax_voice_id",
+      "must_not_write": ["completed", "publish_candidate_ready_for_human_review_true", "send_ready_true", "voice_validation_passed", "final_voice_validated_true"]
     },
     {
       "case_id": "publish_candidate_with_aliyun_qwen_tts_fails",

@@ -1,0 +1,8 @@
+{
+  "status": "retrying_same_minimax_route",
+  "attempt": 1,
+  "error_sanitized": "ConnectionError: ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))",
+  "fallback_tts_used": false,
+  "api_key_printed": false,
+  "api_key_written": false
+}

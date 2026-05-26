@@ -1,0 +1,675 @@
+{
+  "schema": "minimax_b_voice_identity_lock_report.v1",
+  "status": "completed_with_voice_candidates",
+  "run_id": "20260527_003423",
+  "output_dir": "codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423",
+  "video_generated": false,
+  "full_narration_regenerated": false,
+  "copy_changed": false,
+  "current_video_modified": false,
+  "auth_report_sanitized": {
+    "DASHSCOPE_API_KEY_present": false,
+    "ALIYUN_API_KEY_present": false,
+    "authorized_runtime_config_checked": true,
+    "authorized_runtime_config_exists": true,
+    "authorized_runtime_config_key_nonempty": true,
+    "authorized_runtime_config_in_repo": false,
+    "api_key_printed": false,
+    "api_key_written": false,
+    "tts_auth_source_masked": "authorized_runtime_config:formal_api_demo.local.toml"
+  },
+  "minimax_voice_capability": {
+    "supports_voice_id": true,
+    "supports_voice_list": true,
+    "supports_voice_clone": true,
+    "supports_reference_audio": true,
+    "supports_style_prompt": false,
+    "supports_speed_pitch_emotion": true,
+    "evidence": {
+      "voice_list_observed": {
+        "endpoint": "https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation",
+        "model": "MiniMax/speech-2.8-turbo",
+        "system_voice_count": 303,
+        "voice_cloning_count": 1,
+        "base_resp_status_code": 0,
+        "selected_voice_count": 3
+      },
+      "short_sample_generation_observed": {
+        "endpoint": "https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation",
+        "model": "MiniMax/speech-2.8-hd",
+        "sample_count": 6,
+        "all_samples_non_silent": true,
+        "emotion_values_used": [
+          "calm",
+          "happy"
+        ]
+      },
+      "voice_clone_reference_audio_note": "Aliyun MiniMax voice_clone supports audio_url; local B reference audio was only read/validated this round and was not uploaded or used as reference_audio.",
+      "style_prompt_note": "Current DashScope MiniMax TTS route documents voice_setting and pause tags; no style_prompt field was verified for this route."
+    }
+  },
+  "b_reference_audio": {
+    "reference_audio_1": {
+      "path": "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+      "absolute_path": "/Users/fan/Documents/视频工厂/dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+      "exists": true,
+      "validation": {
+        "ffprobe_result": {
+          "passed": true,
+          "duration_seconds": 16.32,
+          "codec_name": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "bit_rate": "384021",
+          "file_size_bytes": 783404
+        },
+        "ffmpeg_decode_result": {
+          "passed": true,
+          "stderr_tail": ""
+        },
+        "duration_check": {
+          "duration_seconds": 16.32,
+          "target_range_seconds": "10_to_15",
+          "acceptable_range_seconds": "10_to_20",
+          "passed_target": false,
+          "passed_acceptable": true
+        },
+        "non_silent_check": {
+          "passed": true,
+          "mean_volume_db": "-23.4",
+          "stderr_tail": "essed Channel Layout: mono\nInput #0, wav, from '/Users/fan/Documents/视频工厂/dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav':\n  Duration: 00:00:16.32, bitrate: 384 kb/s\n  Stream #0:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 24000 Hz, mono, s16, 384 kb/s\n[Parsed_volumedetect_0 @ 0x88ac20480] n_samples: 0\nStream mapping:\n  Stream #0:0 -> #0:0 (pcm_s16le (native) -> pcm_s16le (native))\nPress [q] to stop, [?] for help\nOutput #0, null, to 'pipe:':\n  Metadata:\n    encoder         : Lavf62.12.100\n  Stream #0:0: Audio: pcm_s16le, 24000 Hz, mono, s16, 384 kb/s\n    Metadata:\n      encoder         : Lavc62.28.100 pcm_s16le\n[Parsed_volumedetect_0 @ 0x88ac20900] n_samples: 391680\n[Parsed_volumedetect_0 @ 0x88ac20900] mean_volume: -23.4 dB\n[Parsed_volumedetect_0 @ 0x88ac20900] max_volume: -7.1 dB\n[Parsed_volumedetect_0 @ 0x88ac20900] histogram_7db: 22\n[Parsed_volumedetect_0 @ 0x88ac20900] histogram_8db: 229\n[Parsed_volumedetect_0 @ 0x88ac20900] histogram_9db: 641\n[out#0/null @ 0x88ac20180] video:0KiB audio:765KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nsize=N/A time=00:00:16.32 bitrate=N/A speed=9.09e+03x elapsed=0:00:00.00    \n"
+        },
+        "technical_passed": true
+      }
+    },
+    "reference_audio_2": {
+      "path": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
+      "absolute_path": "/Users/fan/Documents/视频工厂/dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
+      "exists": true,
+      "validation": {
+        "ffprobe_result": {
+          "passed": true,
+          "duration_seconds": 13.6,
+          "codec_name": "pcm_s16le",
+          "sample_rate": 24000,
+          "channels": 1,
+          "bit_rate": "384025",
+          "file_size_bytes": 652844
+        },
+        "ffmpeg_decode_result": {
+          "passed": true,
+          "stderr_tail": ""
+        },
+        "duration_check": {
+          "duration_seconds": 13.6,
+          "target_range_seconds": "10_to_15",
+          "acceptable_range_seconds": "10_to_20",
+          "passed_target": true,
+          "passed_acceptable": true
+        },
+        "non_silent_check": {
+          "passed": true,
+          "mean_volume_db": "-23.8",
+          "stderr_tail": "00:00:13.60, bitrate: 384 kb/s\n  Stream #0:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 24000 Hz, mono, s16, 384 kb/s\n[Parsed_volumedetect_0 @ 0x75ec20480] n_samples: 0\nStream mapping:\n  Stream #0:0 -> #0:0 (pcm_s16le (native) -> pcm_s16le (native))\nPress [q] to stop, [?] for help\nOutput #0, null, to 'pipe:':\n  Metadata:\n    encoder         : Lavf62.12.100\n  Stream #0:0: Audio: pcm_s16le, 24000 Hz, mono, s16, 384 kb/s\n    Metadata:\n      encoder         : Lavc62.28.100 pcm_s16le\n[Parsed_volumedetect_0 @ 0x75ec20900] n_samples: 326400\n[Parsed_volumedetect_0 @ 0x75ec20900] mean_volume: -23.8 dB\n[Parsed_volumedetect_0 @ 0x75ec20900] max_volume: -5.0 dB\n[Parsed_volumedetect_0 @ 0x75ec20900] histogram_4db: 1\n[Parsed_volumedetect_0 @ 0x75ec20900] histogram_5db: 2\n[Parsed_volumedetect_0 @ 0x75ec20900] histogram_6db: 10\n[Parsed_volumedetect_0 @ 0x75ec20900] histogram_7db: 37\n[Parsed_volumedetect_0 @ 0x75ec20900] histogram_8db: 178\n[Parsed_volumedetect_0 @ 0x75ec20900] histogram_9db: 404\n[out#0/null @ 0x75ec20180] video:0KiB audio:638KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nsize=N/A time=00:00:13.60 bitrate=N/A speed=6.97e+03x elapsed=0:00:00.00    \n"
+        },
+        "technical_passed": true
+      }
+    },
+    "loaded": true,
+    "used_for_clone_or_reference_audio": false,
+    "not_used_reason": "current safe route generated system voice candidates only; MiniMax voice_clone requires public audio_url and was not executed in this short-sample-only run"
+  },
+  "voice_lock_strategy": {
+    "selected_option": "option_c_generate_candidate_samples_for_user_selection",
+    "reason": "Current safe route can list and synthesize system voice_id candidates. Voice clone/reference audio support exists but requires public audio_url; no local reference audio upload was performed this round.",
+    "forbidden_default_voice_id": "female-tianmei",
+    "final_voice_id_locked": false
+  },
+  "selected_voice_catalog": [
+    {
+      "voice_id": "female-shaonv",
+      "voice_name": "少女音色",
+      "description": []
+    },
+    {
+      "voice_id": "female-shaonv-jingpin",
+      "voice_name": "少女音色-beta",
+      "description": []
+    },
+    {
+      "voice_id": "female-yujie",
+      "voice_name": "御姐音色",
+      "description": []
+    }
+  ],
+  "voice_candidates": [
+    {
+      "candidate_id": "B01",
+      "prosody_version_id": "v1_stable",
+      "voice_id": "female-shaonv",
+      "voice_name": "少女音色",
+      "http_status_code": 200,
+      "base_resp_status_code": 0,
+      "base_resp_status_msg": "success",
+      "trace_id": "0664fe94b745676e8cee47f643ebc9e7",
+      "elapsed_seconds": 1.995,
+      "request_attempt": 1,
+      "tts_auth_source_masked": "authorized_runtime_config:formal_api_demo.local.toml",
+      "api_key_printed": false,
+      "api_key_written": false,
+      "status": "remote_minimax_short_sample_generated",
+      "actual_tts_provider": "minimax",
+      "actual_tts_model": "MiniMax/speech-2.8-hd",
+      "selected_route": "aliyun_bailian_proxy_to_minimax",
+      "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423/samples/B01_female-shaonv_v1_stable.mp3",
+      "absolute_sample_path": "/Users/fan/Documents/视频工厂/codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423/samples/B01_female-shaonv_v1_stable.mp3",
+      "voice_setting": {
+        "voice_id": "female-shaonv",
+        "speed": 1.08,
+        "pitch": 0,
+        "emotion": "calm",
+        "vol": 1
+      },
+      "style_prompt_or_instructions": "稳定版：同一 voice_id 内使用 calm emotion、1.08 speed、轻停顿，优先保持音色稳定。",
+      "pause_style": "moderate",
+      "rise_fall": "natural_drop_on_boundary",
+      "reference_audio_used": false,
+      "reference_audio_status": "not_used_current_route_requires_public_audio_url_for_voice_clone",
+      "timbre_change_allowed": false,
+      "same_voice_id_required": true,
+      "sample_text": "朋友们，现在做带货，最贵的不是拍视频。<#0.16#>最贵的是前面测错商品的成本。<#0.16#>所以我不会让 AI 直接说哪个品能爆。我会先拆商品卡，看风险，再决定测不测。",
+      "extra_info": {
+        "audio_channel": 1,
+        "audio_format": "mp3",
+        "audio_length": 13248,
+        "audio_sample_rate": 32000,
+        "audio_size": 213684,
+        "bitrate": 128000,
+        "invisible_character_ratio": 0,
+        "usage_characters": 146,
+        "word_count": 87
+      },
+      "technical_validation": {
+        "ffprobe_result": {
+          "passed": true,
+          "duration_seconds": 13.248,
+          "codec_name": "mp3",
+          "sample_rate": 32000,
+          "channels": 1,
+          "bit_rate": "129036",
+          "file_size_bytes": 213684
+        },
+        "ffmpeg_decode_result": {
+          "passed": true,
+          "stderr_tail": ""
+        },
+        "duration_check": {
+          "duration_seconds": 13.248,
+          "target_range_seconds": "10_to_15",
+          "acceptable_range_seconds": "10_to_20",
+          "passed_target": true,
+          "passed_acceptable": true
+        },
+        "non_silent_check": {
+          "passed": true,
+          "mean_volume_db": "-23.6",
+          "stderr_tail": " mp3 (mp3float), 32000 Hz, mono, fltp, 128 kb/s, start 0.016531\n[Parsed_volumedetect_0 @ 0xba4c68480] n_samples: 0\nStream mapping:\n  Stream #0:0 -> #0:0 (mp3 (mp3float) -> pcm_s16le (native))\nPress [q] to stop, [?] for help\nOutput #0, null, to 'pipe:':\n  Metadata:\n    AIGC            : {\"Label\":\"1\",\"ContentProducer\":\"MiniMax\",\"ProduceID\":\"0664fe94b745676e8cee47f643ebc9e7\",\"ReservedCode1\":\"{\\\"SecurityData\\\":{\\\"Type\\\":\\\"TC260PG\\\",\\\"Version\\\":1,\\\"PubSD\\\":[{\\\"Type\\\":\\\"DS\\\",\\\"AlgID\\\":\\\"1.2.156.10197.1.501\\\",\\\"TBSData\\\":{\\\"Type\\\":\\\"LabelMataD\n    encoder         : Lavf62.12.100\n  Stream #0:0: Audio: pcm_s16le, 32000 Hz, mono, s16, 512 kb/s\n    Metadata:\n      encoder         : Lavc62.28.100 pcm_s16le\n[Parsed_volumedetect_0 @ 0xba4c68900] n_samples: 423407\n[Parsed_volumedetect_0 @ 0xba4c68900] mean_volume: -23.6 dB\n[Parsed_volumedetect_0 @ 0xba4c68900] max_volume: -9.3 dB\n[Parsed_volumedetect_0 @ 0xba4c68900] histogram_9db: 154\n[Parsed_volumedetect_0 @ 0xba4c68900] histogram_10db: 1101\n[out#0/null @ 0xba4c68180] video:0KiB audio:827KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nsize=N/A time=00:00:13.23 bitrate=N/A speed=2.11e+03x elapsed=0:00:00.00    \n"
+        },
+        "technical_passed": true
+      },
+      "fallback_tts_used": false,
+      "macos_say_used": false,
+      "local_low_quality_tts_used": false,
+      "silent_audio_fallback_used": false
+    },
+    {
+      "candidate_id": "B01",
+      "prosody_version_id": "v2_more_emotional",
+      "voice_id": "female-shaonv",
+      "voice_name": "少女音色",
+      "http_status_code": 200,
+      "base_resp_status_code": 0,
+      "base_resp_status_msg": "success",
+      "trace_id": "0664fe96c0f328c82332bf8508a77f68",
+      "elapsed_seconds": 1.382,
+      "request_attempt": 1,
+      "tts_auth_source_masked": "authorized_runtime_config:formal_api_demo.local.toml",
+      "api_key_printed": false,
+      "api_key_written": false,
+      "status": "remote_minimax_short_sample_generated",
+      "actual_tts_provider": "minimax",
+      "actual_tts_model": "MiniMax/speech-2.8-hd",
+      "selected_route": "aliyun_bailian_proxy_to_minimax",
+      "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423/samples/B01_female-shaonv_v2_more_emotional.mp3",
+      "absolute_sample_path": "/Users/fan/Documents/视频工厂/codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423/samples/B01_female-shaonv_v2_more_emotional.mp3",
+      "voice_setting": {
+        "voice_id": "female-shaonv",
+        "speed": 1.04,
+        "pitch": 0,
+        "emotion": "happy",
+        "vol": 1
+      },
+      "style_prompt_or_instructions": "情绪更丰富版：保持同一 voice_id，只通过 happy emotion、稍慢语速、问题句轻上扬和边界句收束停顿增强真人感。",
+      "pause_style": "stronger_boundary_pause",
+      "rise_fall": "mild_rise_on_question_firm_drop_on_boundary",
+      "reference_audio_used": false,
+      "reference_audio_status": "not_used_current_route_requires_public_audio_url_for_voice_clone",
+      "timbre_change_allowed": false,
+      "same_voice_id_required": true,
+      "sample_text": "朋友们，现在做带货，<#0.14#>最贵的不是拍视频。<#0.20#>最贵的是测错商品。<#0.22#>所以我不会让 AI 直接说哪个品能爆。<#0.16#>先拆商品卡，看风险，再决定测不测。",
+      "extra_info": {
+        "audio_channel": 1,
+        "audio_format": "mp3",
+        "audio_length": 14220,
+        "audio_sample_rate": 32000,
+        "audio_size": 229236,
+        "bitrate": 128000,
+        "invisible_character_ratio": 0,
+        "usage_characters": 148,
+        "word_count": 96
+      },
+      "technical_validation": {
+        "ffprobe_result": {
+          "passed": true,
+          "duration_seconds": 14.22,
+          "codec_name": "mp3",
+          "sample_rate": 32000,
+          "channels": 1,
+          "bit_rate": "128965",
+          "file_size_bytes": 229236
+        },
+        "ffmpeg_decode_result": {
+          "passed": true,
+          "stderr_tail": ""
+        },
+        "duration_check": {
+          "duration_seconds": 14.22,
+          "target_range_seconds": "10_to_15",
+          "acceptable_range_seconds": "10_to_20",
+          "passed_target": true,
+          "passed_acceptable": true
+        },
+        "non_silent_check": {
+          "passed": true,
+          "mean_volume_db": "-24.9",
+          "stderr_tail": ".016531\n[Parsed_volumedetect_0 @ 0x85cc68480] n_samples: 0\nStream mapping:\n  Stream #0:0 -> #0:0 (mp3 (mp3float) -> pcm_s16le (native))\nPress [q] to stop, [?] for help\nOutput #0, null, to 'pipe:':\n  Metadata:\n    AIGC            : {\"Label\":\"1\",\"ContentProducer\":\"MiniMax\",\"ProduceID\":\"0664fe96c0f328c82332bf8508a77f68\",\"ReservedCode1\":\"{\\\"SecurityData\\\":{\\\"Type\\\":\\\"TC260PG\\\",\\\"Version\\\":1,\\\"PubSD\\\":[{\\\"Type\\\":\\\"DS\\\",\\\"AlgID\\\":\\\"1.2.156.10197.1.501\\\",\\\"TBSData\\\":{\\\"Type\\\":\\\"LabelMataD\n    encoder         : Lavf62.12.100\n  Stream #0:0: Audio: pcm_s16le, 32000 Hz, mono, s16, 512 kb/s\n    Metadata:\n      encoder         : Lavc62.28.100 pcm_s16le\n[Parsed_volumedetect_0 @ 0x85cc68900] n_samples: 454511\n[Parsed_volumedetect_0 @ 0x85cc68900] mean_volume: -24.9 dB\n[Parsed_volumedetect_0 @ 0x85cc68900] max_volume: -9.8 dB\n[Parsed_volumedetect_0 @ 0x85cc68900] histogram_9db: 18\n[Parsed_volumedetect_0 @ 0x85cc68900] histogram_10db: 307\n[Parsed_volumedetect_0 @ 0x85cc68900] histogram_11db: 880\n[out#0/null @ 0x85cc68180] video:0KiB audio:888KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nsize=N/A time=00:00:14.20 bitrate=N/A speed=2.04e+03x elapsed=0:00:00.00    \n"
+        },
+        "technical_passed": true
+      },
+      "fallback_tts_used": false,
+      "macos_say_used": false,
+      "local_low_quality_tts_used": false,
+      "silent_audio_fallback_used": false
+    },
+    {
+      "candidate_id": "B02",
+      "prosody_version_id": "v1_stable",
+      "voice_id": "female-shaonv-jingpin",
+      "voice_name": "少女音色-beta",
+      "http_status_code": 200,
+      "base_resp_status_code": 0,
+      "base_resp_status_msg": "success",
+      "trace_id": "0664fe97b3d71594416f1e51c8bffa94",
+      "elapsed_seconds": 1.653,
+      "request_attempt": 1,
+      "tts_auth_source_masked": "authorized_runtime_config:formal_api_demo.local.toml",
+      "api_key_printed": false,
+      "api_key_written": false,
+      "status": "remote_minimax_short_sample_generated",
+      "actual_tts_provider": "minimax",
+      "actual_tts_model": "MiniMax/speech-2.8-hd",
+      "selected_route": "aliyun_bailian_proxy_to_minimax",
+      "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423/samples/B02_female-shaonv-jingpin_v1_stable.mp3",
+      "absolute_sample_path": "/Users/fan/Documents/视频工厂/codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423/samples/B02_female-shaonv-jingpin_v1_stable.mp3",
+      "voice_setting": {
+        "voice_id": "female-shaonv-jingpin",
+        "speed": 1.08,
+        "pitch": 0,
+        "emotion": "calm",
+        "vol": 1
+      },
+      "style_prompt_or_instructions": "稳定版：同一 voice_id 内使用 calm emotion、1.08 speed、轻停顿，优先保持音色稳定。",
+      "pause_style": "moderate",
+      "rise_fall": "natural_drop_on_boundary",
+      "reference_audio_used": false,
+      "reference_audio_status": "not_used_current_route_requires_public_audio_url_for_voice_clone",
+      "timbre_change_allowed": false,
+      "same_voice_id_required": true,
+      "sample_text": "朋友们，现在做带货，最贵的不是拍视频。<#0.16#>最贵的是前面测错商品的成本。<#0.16#>所以我不会让 AI 直接说哪个品能爆。我会先拆商品卡，看风险，再决定测不测。",
+      "extra_info": {
+        "audio_channel": 1,
+        "audio_format": "mp3",
+        "audio_length": 13824,
+        "audio_sample_rate": 32000,
+        "audio_size": 222900,
+        "bitrate": 128000,
+        "invisible_character_ratio": 0,
+        "usage_characters": 146,
+        "word_count": 87
+      },
+      "technical_validation": {
+        "ffprobe_result": {
+          "passed": true,
+          "duration_seconds": 13.824,
+          "codec_name": "mp3",
+          "sample_rate": 32000,
+          "channels": 1,
+          "bit_rate": "128993",
+          "file_size_bytes": 222900
+        },
+        "ffmpeg_decode_result": {
+          "passed": true,
+          "stderr_tail": ""
+        },
+        "duration_check": {
+          "duration_seconds": 13.824,
+          "target_range_seconds": "10_to_15",
+          "acceptable_range_seconds": "10_to_20",
+          "passed_target": true,
+          "passed_acceptable": true
+        },
+        "non_silent_check": {
+          "passed": true,
+          "mean_volume_db": "-23.6",
+          "stderr_tail": "s: 0\nStream mapping:\n  Stream #0:0 -> #0:0 (mp3 (mp3float) -> pcm_s16le (native))\nPress [q] to stop, [?] for help\nOutput #0, null, to 'pipe:':\n  Metadata:\n    AIGC            : {\"Label\":\"1\",\"ContentProducer\":\"MiniMax\",\"ProduceID\":\"0664fe97b3d71594416f1e51c8bffa94\",\"ReservedCode1\":\"{\\\"SecurityData\\\":{\\\"Type\\\":\\\"TC260PG\\\",\\\"Version\\\":1,\\\"PubSD\\\":[{\\\"Type\\\":\\\"DS\\\",\\\"AlgID\\\":\\\"1.2.156.10197.1.501\\\",\\\"TBSData\\\":{\\\"Type\\\":\\\"LabelMataD\n    encoder         : Lavf62.12.100\n  Stream #0:0: Audio: pcm_s16le, 32000 Hz, mono, s16, 512 kb/s\n    Metadata:\n      encoder         : Lavc62.28.100 pcm_s16le\n[Parsed_volumedetect_0 @ 0xafac68900] n_samples: 441839\n[Parsed_volumedetect_0 @ 0xafac68900] mean_volume: -23.6 dB\n[Parsed_volumedetect_0 @ 0xafac68900] max_volume: -7.7 dB\n[Parsed_volumedetect_0 @ 0xafac68900] histogram_7db: 1\n[Parsed_volumedetect_0 @ 0xafac68900] histogram_8db: 3\n[Parsed_volumedetect_0 @ 0xafac68900] histogram_9db: 154\n[Parsed_volumedetect_0 @ 0xafac68900] histogram_10db: 1021\n[out#0/null @ 0xafac68180] video:0KiB audio:863KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nsize=N/A time=00:00:13.80 bitrate=N/A speed=2.13e+03x elapsed=0:00:00.00    \n"
+        },
+        "technical_passed": true
+      },
+      "fallback_tts_used": false,
+      "macos_say_used": false,
+      "local_low_quality_tts_used": false,
+      "silent_audio_fallback_used": false
+    },
+    {
+      "candidate_id": "B02",
+      "prosody_version_id": "v2_more_emotional",
+      "voice_id": "female-shaonv-jingpin",
+      "voice_name": "少女音色-beta",
+      "http_status_code": 200,
+      "base_resp_status_code": 0,
+      "base_resp_status_msg": "success",
+      "trace_id": "0664fe9953821261b4cf9531911a1784",
+      "elapsed_seconds": 1.723,
+      "request_attempt": 1,
+      "tts_auth_source_masked": "authorized_runtime_config:formal_api_demo.local.toml",
+      "api_key_printed": false,
+      "api_key_written": false,
+      "status": "remote_minimax_short_sample_generated",
+      "actual_tts_provider": "minimax",
+      "actual_tts_model": "MiniMax/speech-2.8-hd",
+      "selected_route": "aliyun_bailian_proxy_to_minimax",
+      "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423/samples/B02_female-shaonv-jingpin_v2_more_emotional.mp3",
+      "absolute_sample_path": "/Users/fan/Documents/视频工厂/codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423/samples/B02_female-shaonv-jingpin_v2_more_emotional.mp3",
+      "voice_setting": {
+        "voice_id": "female-shaonv-jingpin",
+        "speed": 1.04,
+        "pitch": 0,
+        "emotion": "happy",
+        "vol": 1
+      },
+      "style_prompt_or_instructions": "情绪更丰富版：保持同一 voice_id，只通过 happy emotion、稍慢语速、问题句轻上扬和边界句收束停顿增强真人感。",
+      "pause_style": "stronger_boundary_pause",
+      "rise_fall": "mild_rise_on_question_firm_drop_on_boundary",
+      "reference_audio_used": false,
+      "reference_audio_status": "not_used_current_route_requires_public_audio_url_for_voice_clone",
+      "timbre_change_allowed": false,
+      "same_voice_id_required": true,
+      "sample_text": "朋友们，现在做带货，<#0.14#>最贵的不是拍视频。<#0.20#>最贵的是测错商品。<#0.22#>所以我不会让 AI 直接说哪个品能爆。<#0.16#>先拆商品卡，看风险，再决定测不测。",
+      "extra_info": {
+        "audio_channel": 1,
+        "audio_format": "mp3",
+        "audio_length": 14868,
+        "audio_sample_rate": 32000,
+        "audio_size": 239604,
+        "bitrate": 128000,
+        "invisible_character_ratio": 0,
+        "usage_characters": 148,
+        "word_count": 96
+      },
+      "technical_validation": {
+        "ffprobe_result": {
+          "passed": true,
+          "duration_seconds": 14.868,
+          "codec_name": "mp3",
+          "sample_rate": 32000,
+          "channels": 1,
+          "bit_rate": "128923",
+          "file_size_bytes": 239604
+        },
+        "ffmpeg_decode_result": {
+          "passed": true,
+          "stderr_tail": ""
+        },
+        "duration_check": {
+          "duration_seconds": 14.868,
+          "target_range_seconds": "10_to_15",
+          "acceptable_range_seconds": "10_to_20",
+          "passed_target": true,
+          "passed_acceptable": true
+        },
+        "non_silent_check": {
+          "passed": true,
+          "mean_volume_db": "-24.4",
+          "stderr_tail": "io: mp3 (mp3float), 32000 Hz, mono, fltp, 128 kb/s, start 0.016531\n[Parsed_volumedetect_0 @ 0x8a900c9c0] n_samples: 0\nStream mapping:\n  Stream #0:0 -> #0:0 (mp3 (mp3float) -> pcm_s16le (native))\nPress [q] to stop, [?] for help\nOutput #0, null, to 'pipe:':\n  Metadata:\n    AIGC            : {\"Label\":\"1\",\"ContentProducer\":\"MiniMax\",\"ProduceID\":\"0664fe9953821261b4cf9531911a1784\",\"ReservedCode1\":\"{\\\"SecurityData\\\":{\\\"Type\\\":\\\"TC260PG\\\",\\\"Version\\\":1,\\\"PubSD\\\":[{\\\"Type\\\":\\\"DS\\\",\\\"AlgID\\\":\\\"1.2.156.10197.1.501\\\",\\\"TBSData\\\":{\\\"Type\\\":\\\"LabelMataD\n    encoder         : Lavf62.12.100\n  Stream #0:0: Audio: pcm_s16le, 32000 Hz, mono, s16, 512 kb/s\n    Metadata:\n      encoder         : Lavc62.28.100 pcm_s16le\n[Parsed_volumedetect_0 @ 0x8a900ce40] n_samples: 475247\n[Parsed_volumedetect_0 @ 0x8a900ce40] mean_volume: -24.4 dB\n[Parsed_volumedetect_0 @ 0x8a900ce40] max_volume: -8.3 dB\n[Parsed_volumedetect_0 @ 0x8a900ce40] histogram_8db: 78\n[Parsed_volumedetect_0 @ 0x8a900ce40] histogram_9db: 398\n[out#0/null @ 0x8a900c6c0] video:0KiB audio:928KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nsize=N/A time=00:00:14.85 bitrate=N/A speed=2.03e+03x elapsed=0:00:00.00    \n"
+        },
+        "technical_passed": true
+      },
+      "fallback_tts_used": false,
+      "macos_say_used": false,
+      "local_low_quality_tts_used": false,
+      "silent_audio_fallback_used": false
+    },
+    {
+      "candidate_id": "B03",
+      "prosody_version_id": "v1_stable",
+      "voice_id": "female-yujie",
+      "voice_name": "御姐音色",
+      "http_status_code": 200,
+      "base_resp_status_code": 0,
+      "base_resp_status_msg": "success",
+      "trace_id": "0664fe9be80288ab2fae3c1f9c5bbd7d",
+      "elapsed_seconds": 1.948,
+      "request_attempt": 1,
+      "tts_auth_source_masked": "authorized_runtime_config:formal_api_demo.local.toml",
+      "api_key_printed": false,
+      "api_key_written": false,
+      "status": "remote_minimax_short_sample_generated",
+      "actual_tts_provider": "minimax",
+      "actual_tts_model": "MiniMax/speech-2.8-hd",
+      "selected_route": "aliyun_bailian_proxy_to_minimax",
+      "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423/samples/B03_female-yujie_v1_stable.mp3",
+      "absolute_sample_path": "/Users/fan/Documents/视频工厂/codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423/samples/B03_female-yujie_v1_stable.mp3",
+      "voice_setting": {
+        "voice_id": "female-yujie",
+        "speed": 1.08,
+        "pitch": 0,
+        "emotion": "calm",
+        "vol": 1
+      },
+      "style_prompt_or_instructions": "稳定版：同一 voice_id 内使用 calm emotion、1.08 speed、轻停顿，优先保持音色稳定。",
+      "pause_style": "moderate",
+      "rise_fall": "natural_drop_on_boundary",
+      "reference_audio_used": false,
+      "reference_audio_status": "not_used_current_route_requires_public_audio_url_for_voice_clone",
+      "timbre_change_allowed": false,
+      "same_voice_id_required": true,
+      "sample_text": "朋友们，现在做带货，最贵的不是拍视频。<#0.16#>最贵的是前面测错商品的成本。<#0.16#>所以我不会让 AI 直接说哪个品能爆。我会先拆商品卡，看风险，再决定测不测。",
+      "extra_info": {
+        "audio_channel": 1,
+        "audio_format": "mp3",
+        "audio_length": 16920,
+        "audio_sample_rate": 32000,
+        "audio_size": 272436,
+        "bitrate": 128000,
+        "invisible_character_ratio": 0,
+        "usage_characters": 146,
+        "word_count": 87
+      },
+      "technical_validation": {
+        "ffprobe_result": {
+          "passed": true,
+          "duration_seconds": 16.92,
+          "codec_name": "mp3",
+          "sample_rate": 32000,
+          "channels": 1,
+          "bit_rate": "128811",
+          "file_size_bytes": 272436
+        },
+        "ffmpeg_decode_result": {
+          "passed": true,
+          "stderr_tail": ""
+        },
+        "duration_check": {
+          "duration_seconds": 16.92,
+          "target_range_seconds": "10_to_15",
+          "acceptable_range_seconds": "10_to_20",
+          "passed_target": false,
+          "passed_acceptable": true
+        },
+        "non_silent_check": {
+          "passed": true,
+          "mean_volume_db": "-23.9",
+          "stderr_tail": "p\nOutput #0, null, to 'pipe:':\n  Metadata:\n    AIGC            : {\"Label\":\"1\",\"ContentProducer\":\"MiniMax\",\"ProduceID\":\"0664fe9be80288ab2fae3c1f9c5bbd7d\",\"ReservedCode1\":\"{\\\"SecurityData\\\":{\\\"Type\\\":\\\"TC260PG\\\",\\\"Version\\\":1,\\\"PubSD\\\":[{\\\"Type\\\":\\\"DS\\\",\\\"AlgID\\\":\\\"1.2.156.10197.1.501\\\",\\\"TBSData\\\":{\\\"Type\\\":\\\"LabelMataD\n    encoder         : Lavf62.12.100\n  Stream #0:0: Audio: pcm_s16le, 32000 Hz, mono, s16, 512 kb/s\n    Metadata:\n      encoder         : Lavc62.28.100 pcm_s16le\n[Parsed_volumedetect_0 @ 0xbd4c44900] n_samples: 540911\n[Parsed_volumedetect_0 @ 0xbd4c44900] mean_volume: -23.9 dB\n[Parsed_volumedetect_0 @ 0xbd4c44900] max_volume: -4.8 dB\n[Parsed_volumedetect_0 @ 0xbd4c44900] histogram_4db: 8\n[Parsed_volumedetect_0 @ 0xbd4c44900] histogram_5db: 46\n[Parsed_volumedetect_0 @ 0xbd4c44900] histogram_6db: 58\n[Parsed_volumedetect_0 @ 0xbd4c44900] histogram_7db: 82\n[Parsed_volumedetect_0 @ 0xbd4c44900] histogram_8db: 157\n[Parsed_volumedetect_0 @ 0xbd4c44900] histogram_9db: 438\n[out#0/null @ 0xbd4c44180] video:0KiB audio:1056KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nsize=N/A time=00:00:16.90 bitrate=N/A speed=1.95e+03x elapsed=0:00:00.00    \n"
+        },
+        "technical_passed": true
+      },
+      "fallback_tts_used": false,
+      "macos_say_used": false,
+      "local_low_quality_tts_used": false,
+      "silent_audio_fallback_used": false
+    },
+    {
+      "candidate_id": "B03",
+      "prosody_version_id": "v2_more_emotional",
+      "voice_id": "female-yujie",
+      "voice_name": "御姐音色",
+      "http_status_code": 200,
+      "base_resp_status_code": 0,
+      "base_resp_status_msg": "success",
+      "trace_id": "0664feafb317d6ed1db1e8f4add36bd7",
+      "elapsed_seconds": 19.333,
+      "request_attempt": 2,
+      "tts_auth_source_masked": "authorized_runtime_config:formal_api_demo.local.toml",
+      "api_key_printed": false,
+      "api_key_written": false,
+      "status": "remote_minimax_short_sample_generated",
+      "actual_tts_provider": "minimax",
+      "actual_tts_model": "MiniMax/speech-2.8-hd",
+      "selected_route": "aliyun_bailian_proxy_to_minimax",
+      "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423/samples/B03_female-yujie_v2_more_emotional.mp3",
+      "absolute_sample_path": "/Users/fan/Documents/视频工厂/codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423/samples/B03_female-yujie_v2_more_emotional.mp3",
+      "voice_setting": {
+        "voice_id": "female-yujie",
+        "speed": 1.04,
+        "pitch": 0,
+        "emotion": "happy",
+        "vol": 1
+      },
+      "style_prompt_or_instructions": "情绪更丰富版：保持同一 voice_id，只通过 happy emotion、稍慢语速、问题句轻上扬和边界句收束停顿增强真人感。",
+      "pause_style": "stronger_boundary_pause",
+      "rise_fall": "mild_rise_on_question_firm_drop_on_boundary",
+      "reference_audio_used": false,
+      "reference_audio_status": "not_used_current_route_requires_public_audio_url_for_voice_clone",
+      "timbre_change_allowed": false,
+      "same_voice_id_required": true,
+      "sample_text": "朋友们，现在做带货，<#0.14#>最贵的不是拍视频。<#0.20#>最贵的是测错商品。<#0.22#>所以我不会让 AI 直接说哪个品能爆。<#0.16#>先拆商品卡，看风险，再决定测不测。",
+      "extra_info": {
+        "audio_channel": 1,
+        "audio_format": "mp3",
+        "audio_length": 19152,
+        "audio_sample_rate": 32000,
+        "audio_size": 308148,
+        "bitrate": 128000,
+        "invisible_character_ratio": 0,
+        "usage_characters": 148,
+        "word_count": 96
+      },
+      "technical_validation": {
+        "ffprobe_result": {
+          "passed": true,
+          "duration_seconds": 19.152,
+          "codec_name": "mp3",
+          "sample_rate": 32000,
+          "channels": 1,
+          "bit_rate": "128716",
+          "file_size_bytes": 308148
+        },
+        "ffmpeg_decode_result": {
+          "passed": true,
+          "stderr_tail": ""
+        },
+        "duration_check": {
+          "duration_seconds": 19.152,
+          "target_range_seconds": "10_to_15",
+          "acceptable_range_seconds": "10_to_20",
+          "passed_target": false,
+          "passed_acceptable": true
+        },
+        "non_silent_check": {
+          "passed": true,
+          "mean_volume_db": "-23.8",
+          "stderr_tail": "ples: 0\nStream mapping:\n  Stream #0:0 -> #0:0 (mp3 (mp3float) -> pcm_s16le (native))\nPress [q] to stop, [?] for help\nOutput #0, null, to 'pipe:':\n  Metadata:\n    AIGC            : {\"Label\":\"1\",\"ContentProducer\":\"MiniMax\",\"ProduceID\":\"0664feafb317d6ed1db1e8f4add36bd7\",\"ReservedCode1\":\"{\\\"SecurityData\\\":{\\\"Type\\\":\\\"TC260PG\\\",\\\"Version\\\":1,\\\"PubSD\\\":[{\\\"Type\\\":\\\"DS\\\",\\\"AlgID\\\":\\\"1.2.156.10197.1.501\\\",\\\"TBSData\\\":{\\\"Type\\\":\\\"LabelMataD\n    encoder         : Lavf62.12.100\n  Stream #0:0: Audio: pcm_s16le, 32000 Hz, mono, s16, 512 kb/s\n    Metadata:\n      encoder         : Lavc62.28.100 pcm_s16le\n[Parsed_volumedetect_0 @ 0xbcb044900] n_samples: 612335\n[Parsed_volumedetect_0 @ 0xbcb044900] mean_volume: -23.8 dB\n[Parsed_volumedetect_0 @ 0xbcb044900] max_volume: -6.9 dB\n[Parsed_volumedetect_0 @ 0xbcb044900] histogram_6db: 2\n[Parsed_volumedetect_0 @ 0xbcb044900] histogram_7db: 91\n[Parsed_volumedetect_0 @ 0xbcb044900] histogram_8db: 240\n[Parsed_volumedetect_0 @ 0xbcb044900] histogram_9db: 650\n[out#0/null @ 0xbcb044180] video:0KiB audio:1196KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nsize=N/A time=00:00:19.13 bitrate=N/A speed=2e+03x elapsed=0:00:00.00    \n"
+        },
+        "technical_passed": true
+      },
+      "fallback_tts_used": false,
+      "macos_say_used": false,
+      "local_low_quality_tts_used": false,
+      "silent_audio_fallback_used": false
+    }
+  ],
+  "b_voice_identity_lock": {
+    "status": "pending_user_review",
+    "expected_b_minimax_voice_id": null,
+    "expected_b_voice_reference_audio_path": [
+      "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+      "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav"
+    ],
+    "candidate_expected_b_minimax_voice_id_options": [
+      "female-shaonv",
+      "female-shaonv-jingpin",
+      "female-yujie"
+    ],
+    "locked_voice_setting": null,
+    "locked_style_prompt_or_instructions": null,
+    "timbre_change_allowed": false,
+    "emotion_optimization_allowed": true,
+    "prosody_optimization_allowed": true,
+    "human_voice_review_required": true,
+    "human_voice_review_status": "pending_user_review",
+    "forbidden_default_voice_id_without_user_confirmation": "female-tianmei"
+  },
+  "voice_identity_gate": {
+    "required": true,
+    "actual_voice_id_must_equal_expected_b_minimax_voice_id": true,
+    "actual_voice_setting_must_match_locked_voice_setting": true,
+    "timbre_change_allowed_must_equal_false": true,
+    "human_voice_review_status_must_equal_user_confirmed": true,
+    "current_gate_status": "blocked_pending_user_review"
+  },
+  "human_voice_review_gate": {
+    "required": true,
+    "status": "pending_user_review",
+    "review_table_md": "codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423/voice_candidate_review_table.md",
+    "review_table_json": "codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423/voice_candidate_review_table.json"
+  },
+  "status_boundaries": {
+    "send_ready": false,
+    "voice_validation": "not_advanced",
+    "final_voice_validated": false,
+    "content_validation": "not_advanced",
+    "visual_master_locked": false
+  },
+  "secret_risk": {
+    "api_key_printed": false,
+    "api_key_written": false,
+    "report_contains_api_key": false
+  },
+  "source_docs": [
+    "https://help.aliyun.com/zh/model-studio/sound-management",
+    "https://help.aliyun.com/zh/model-studio/voice-cloning-user-guide",
+    "https://help.aliyun.com/zh/model-studio/minimax-synchronous-speech-synthesis-api",
+    "https://platform.minimax.io/docs/api-reference/speech-t2a-http",
+    "https://platform.minimax.io/docs/api-reference/voice-cloning-clone"
+  ]
+}

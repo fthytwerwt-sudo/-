@@ -1,0 +1,79 @@
+{
+  "candidate_id": "B03",
+  "prosody_version_id": "v1_stable",
+  "voice_id": "female-yujie",
+  "voice_name": "御姐音色",
+  "http_status_code": 200,
+  "base_resp_status_code": 0,
+  "base_resp_status_msg": "success",
+  "trace_id": "0664fe9be80288ab2fae3c1f9c5bbd7d",
+  "elapsed_seconds": 1.948,
+  "request_attempt": 1,
+  "tts_auth_source_masked": "authorized_runtime_config:formal_api_demo.local.toml",
+  "api_key_printed": false,
+  "api_key_written": false,
+  "status": "remote_minimax_short_sample_generated",
+  "actual_tts_provider": "minimax",
+  "actual_tts_model": "MiniMax/speech-2.8-hd",
+  "selected_route": "aliyun_bailian_proxy_to_minimax",
+  "sample_path": "codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423/samples/B03_female-yujie_v1_stable.mp3",
+  "absolute_sample_path": "/Users/fan/Documents/视频工厂/codex_log/diagnostics/minimax_b_voice_identity_lock_20260527_003423/samples/B03_female-yujie_v1_stable.mp3",
+  "voice_setting": {
+    "voice_id": "female-yujie",
+    "speed": 1.08,
+    "pitch": 0,
+    "emotion": "calm",
+    "vol": 1
+  },
+  "style_prompt_or_instructions": "稳定版：同一 voice_id 内使用 calm emotion、1.08 speed、轻停顿，优先保持音色稳定。",
+  "pause_style": "moderate",
+  "rise_fall": "natural_drop_on_boundary",
+  "reference_audio_used": false,
+  "reference_audio_status": "not_used_current_route_requires_public_audio_url_for_voice_clone",
+  "timbre_change_allowed": false,
+  "same_voice_id_required": true,
+  "sample_text": "朋友们，现在做带货，最贵的不是拍视频。<#0.16#>最贵的是前面测错商品的成本。<#0.16#>所以我不会让 AI 直接说哪个品能爆。我会先拆商品卡，看风险，再决定测不测。",
+  "extra_info": {
+    "audio_channel": 1,
+    "audio_format": "mp3",
+    "audio_length": 16920,
+    "audio_sample_rate": 32000,
+    "audio_size": 272436,
+    "bitrate": 128000,
+    "invisible_character_ratio": 0,
+    "usage_characters": 146,
+    "word_count": 87
+  },
+  "technical_validation": {
+    "ffprobe_result": {
+      "passed": true,
+      "duration_seconds": 16.92,
+      "codec_name": "mp3",
+      "sample_rate": 32000,
+      "channels": 1,
+      "bit_rate": "128811",
+      "file_size_bytes": 272436
+    },
+    "ffmpeg_decode_result": {
+      "passed": true,
+      "stderr_tail": ""
+    },
+    "duration_check": {
+      "duration_seconds": 16.92,
+      "target_range_seconds": "10_to_15",
+      "acceptable_range_seconds": "10_to_20",
+      "passed_target": false,
+      "passed_acceptable": true
+    },
+    "non_silent_check": {
+      "passed": true,
+      "mean_volume_db": "-23.9",
+      "stderr_tail": "p\nOutput #0, null, to 'pipe:':\n  Metadata:\n    AIGC            : {\"Label\":\"1\",\"ContentProducer\":\"MiniMax\",\"ProduceID\":\"0664fe9be80288ab2fae3c1f9c5bbd7d\",\"ReservedCode1\":\"{\\\"SecurityData\\\":{\\\"Type\\\":\\\"TC260PG\\\",\\\"Version\\\":1,\\\"PubSD\\\":[{\\\"Type\\\":\\\"DS\\\",\\\"AlgID\\\":\\\"1.2.156.10197.1.501\\\",\\\"TBSData\\\":{\\\"Type\\\":\\\"LabelMataD\n    encoder         : Lavf62.12.100\n  Stream #0:0: Audio: pcm_s16le, 32000 Hz, mono, s16, 512 kb/s\n    Metadata:\n      encoder         : Lavc62.28.100 pcm_s16le\n[Parsed_volumedetect_0 @ 0xbd4c44900] n_samples: 540911\n[Parsed_volumedetect_0 @ 0xbd4c44900] mean_volume: -23.9 dB\n[Parsed_volumedetect_0 @ 0xbd4c44900] max_volume: -4.8 dB\n[Parsed_volumedetect_0 @ 0xbd4c44900] histogram_4db: 8\n[Parsed_volumedetect_0 @ 0xbd4c44900] histogram_5db: 46\n[Parsed_volumedetect_0 @ 0xbd4c44900] histogram_6db: 58\n[Parsed_volumedetect_0 @ 0xbd4c44900] histogram_7db: 82\n[Parsed_volumedetect_0 @ 0xbd4c44900] histogram_8db: 157\n[Parsed_volumedetect_0 @ 0xbd4c44900] histogram_9db: 438\n[out#0/null @ 0xbd4c44180] video:0KiB audio:1056KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nsize=N/A time=00:00:16.90 bitrate=N/A speed=1.95e+03x elapsed=0:00:00.00    \n"
+    },
+    "technical_passed": true
+  },
+  "fallback_tts_used": false,
+  "macos_say_used": false,
+  "local_low_quality_tts_used": false,
+  "silent_audio_fallback_used": false
+}
