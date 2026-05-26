@@ -1,0 +1,161 @@
+{
+  "schema": "tts_voice_identity_audit.v1",
+  "task_type": "readonly_tts_voice_audit",
+  "video_generated": false,
+  "tts_called": false,
+  "audio_regenerated": false,
+  "copy_changed": false,
+  "media_changed": false,
+  "rules_changed": false,
+  "review_pack_path": "dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105",
+  "narration_wav": "dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/narration.wav",
+  "tts_route_actual_status": {
+    "actual_tts_provider": "minimax",
+    "actual_tts_model": "MiniMax/speech-2.8-hd",
+    "selected_route": "aliyun_bailian_proxy_to_minimax",
+    "audio_present": true,
+    "non_silent": true,
+    "fallback_tts_used": false,
+    "macos_say_used": false,
+    "local_low_quality_tts_used": false,
+    "route_status": "route_correct",
+    "important_boundary": "route_correct_does_not_mean_voice_identity_correct"
+  },
+  "actual_voice_identity": {
+    "status": "found_minimax_system_voice_identity",
+    "voice_id": "female-tianmei",
+    "voice_name": null,
+    "speaker": null,
+    "speaker_id": null,
+    "timbre": null,
+    "voice_setting": {
+      "voice_id": "female-tianmei",
+      "speed": 1.16,
+      "vol": 1,
+      "pitch": 0,
+      "emotion": "calm"
+    },
+    "speed": 1.16,
+    "pitch": 0,
+    "emotion": "calm",
+    "style_prompt": null,
+    "instructions": null,
+    "request_payload_found": "partial_script_payload_found_runtime_full_payload_not_persisted",
+    "payload_path": [
+      "scripts/生成新第四期选品初筛MiniMax正片候选_rerun_generate_new_fourth_selection_minimax_publish_candidate.py",
+      "dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/tts_segments/chunk_001_debug_sanitized.json"
+    ],
+    "confidence": "high_for_voice_id_medium_for_full_runtime_payload"
+  },
+  "b_voice_representation": {
+    "type": "feel_tags_only",
+    "has_concrete_voice_identity": false,
+    "has_concrete_minimax_voice_id": false,
+    "has_reference_audio": true,
+    "reference_audio_type": "historical_qwen_custom_voice_trial_and_voice_sample2_assets",
+    "has_similarity_check": false,
+    "has_human_review": false,
+    "feel_tags_only": true,
+    "old_qwen_voice_reference": {
+      "voice_masked": "qwen-t...ac19",
+      "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+      "status": "historical_reference_internal_diagnostic_only_not_publish_candidate_route"
+    }
+  },
+  "b_voice_feel_reflected_basis": {
+    "checked_by": [
+      "tags",
+      "prompt_or_report_text"
+    ],
+    "not_checked_by": [
+      "actual_voice_id",
+      "audio_similarity",
+      "human_review"
+    ],
+    "structural_only": true,
+    "b_voice_feel_reflected_is_structural_only": true,
+    "human_voice_review_required": true,
+    "evidence": [
+      "tts_route_report.json check_depth = structural_check_only",
+      "b_voice_feel_minimax_report.json check_depth = structural_check_only",
+      "scripts/正片候选TTS路线_publish_candidate_tts_route.py sets b_voice_feel_reflected from explicit flag or required voice_feel_tags",
+      "rerun generator hardcodes b_voice_feel_reflected = true and voice_feel_tags"
+    ],
+    "weakness": "No MiniMax B voice identity, no reference-audio similarity score, and no human listening gate were required before marking b_voice_feel_reflected true."
+  },
+  "expected_b_voice_anchor": {
+    "found": true,
+    "anchor_type": [
+      "old_qwen_voice",
+      "voice_feel_reference",
+      "reference_audio"
+    ],
+    "old_qwen_voice": "qwen-t...ac19",
+    "minimax_voice": null,
+    "reference_audio": [
+      "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
+      "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav"
+    ],
+    "voice_feel_reference": "20260427 B 版停顿梗感方向：轻陪伴、低压、停顿梗感、游戏向导感",
+    "path": [
+      "AGENTS.md",
+      "GPT数据源/08_当前正式事实.md",
+      "codex_log/20260427_十五秒文案语速停顿试配.md",
+      "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/run_summary.json"
+    ]
+  },
+  "was_expected_b_voice_anchor_passed_to_minimax": {
+    "status": "false",
+    "evidence": "MiniMax payload used voice_setting.voice_id = female-tianmei; historical B anchor qwen-t...ac19 is Qwen custom voice reference and is explicitly not a MiniMax voice_id."
+  },
+  "chunking_voice_risk": {
+    "status": "medium",
+    "chunk_count": 14,
+    "chunking_strategy": "line_group text batched by max_chars=260",
+    "chunk_pause_strategy": "0.12s silence inserted between chunks; estimated per-line pauses only drive subtitle/timeline allocation",
+    "whether_each_chunk_repeats_voice_prompt": "voice_setting repeated, but no explicit style_prompt exists",
+    "whether_voice_style_may_reset_between_chunks": true,
+    "whether_long_form_generation_may_flatten_style": true,
+    "reason": "Separate remote calls with the same system voice can preserve basic timbre but may reset micro-prosody; no persistent style prompt or B-reference similarity gate constrains the long-form feel."
+  },
+  "likely_root_cause": {
+    "primary": "The rerun used MiniMax system voice female-tianmei, not the historical B custom voice qwen-t...ac19 and not a user-approved MiniMax B voice_id.",
+    "secondary": [
+      "b_voice_feel_reflected=true was a structural tag/report check, not an audio identity or similarity check.",
+      "No style_prompt/instructions encoded the B reference beyond report tags.",
+      "Fourteen chunked calls may flatten or reset the intended B pause/joke feel.",
+      "Speed 1.16 and emotion calm may push the delivery away from the slower B stop-and-joke cadence."
+    ],
+    "confidence": "high"
+  },
+  "recommended_next_fix": {
+    "should_regenerate_tts": true,
+    "minimal_fix_scope": [
+      "voice identity",
+      "voice prompt or style instruction",
+      "prosody speed/pause tuning",
+      "human listening gate"
+    ],
+    "required_new_fields": [
+      "expected_b_minimax_voice_id",
+      "expected_b_voice_reference_audio_path",
+      "voice_identity_lock_status",
+      "actual_voice_setting",
+      "style_prompt_or_voice_instructions",
+      "human_voice_review_required",
+      "human_voice_review_status"
+    ],
+    "blocked_until_user_review": true,
+    "next_codex_prompt_needed": "Regenerate narration only after locking a MiniMax voice_id or approved MiniMax voice candidate against the B reference sample; do not mark voice_validation passed without human listening review."
+  },
+  "diagnostic_samples": {
+    "opening_sample": "codex_log/diagnostics/tts_voice_audit_20260526_234902/sample_01_opening.wav",
+    "field_listing_sample": "codex_log/diagnostics/tts_voice_audit_20260526_234902/sample_02_field_listing.wav",
+    "boundary_close_sample": "codex_log/diagnostics/tts_voice_audit_20260526_234902/sample_03_boundary_close.wav"
+  },
+  "blocked_or_unknown_items": {
+    "missing_actual_tts_payload": "partial_only_full_runtime_request_payload_not_saved",
+    "missing_minimax_b_voice_identity": true,
+    "requires_human_review_to_judge_voice_match": true
+  }
+}
