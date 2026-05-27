@@ -1,5 +1,5 @@
 {
-  "status": "pending_user_review",
+  "status": "user_confirmed",
   "generated_voice_id": "oldBMinimax20260528010200",
   "candidates": [
     {
@@ -56,7 +56,10 @@
         "non_silent": true
       },
       "non_silent": true,
-      "status": "generated"
+      "status": "generated",
+      "user_choice": "not_selected",
+      "lock_status": "rejected_for_default_b_voice",
+      "human_voice_review_status": "not_selected"
     },
     {
       "sample_id": "V2_prosody_optimized",
@@ -115,7 +118,11 @@
         "non_silent": true
       },
       "non_silent": true,
-      "status": "generated"
+      "status": "generated",
+      "user_choice": "selected_by_user",
+      "lock_status": "user_confirmed",
+      "human_voice_review_status": "user_confirmed",
+      "selected_sample_scope": "confirmed_exact_codex_generated_v2_sample_not_generic_v2"
     },
     {
       "sample_id": "V3_emotion_rich",
@@ -174,7 +181,15 @@
         "non_silent": true
       },
       "non_silent": true,
-      "status": "generated"
+      "status": "generated",
+      "user_choice": "not_selected",
+      "lock_status": "rejected_for_default_b_voice",
+      "human_voice_review_status": "not_selected"
     }
-  ]
+  ],
+  "selected_voice_id": "oldBMinimax20260528010200",
+  "selected_sample_version": "V2_prosody_optimized",
+  "selected_sample_path": "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V2_prosody_optimized.mp3",
+  "selected_sample_scope": "confirmed_exact_codex_generated_v2_sample_not_generic_v2",
+  "human_voice_review_status": "user_confirmed"
 }

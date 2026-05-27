@@ -10,6 +10,12 @@ OLD_ALIYUN_QWEN_B_MODEL = "qwen3-tts-vc-realtime-2026-01-15"
 OLD_ALIYUN_QWEN_B_ROUTE = "aliyun_qwen_realtime_websocket_voice_clone"
 OLD_ALIYUN_QWEN_B_MASKED_VOICE_ID = "qwen-t...ac19"
 MINIMAX_B_TARGET_MODEL = "MiniMax/speech-2.8-hd"
+CONFIRMED_OLD_B_MINIMAX_VOICE_ID = "oldBMinimax20260528010200"
+CONFIRMED_OLD_B_MINIMAX_SAMPLE_VERSION = "V2_prosody_optimized"
+CONFIRMED_OLD_B_MINIMAX_SAMPLE_PATH = (
+    "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/"
+    "samples/V2_prosody_optimized.mp3"
+)
 MINIMAX_SELECTED_ROUTES = {
     "minimax_official_api",
     "aliyun_bailian_proxy_to_minimax",
@@ -17,10 +23,13 @@ MINIMAX_SELECTED_ROUTES = {
     "route_b",
 }
 B_VOICE_SCHEME_ROLE = {
-    "status": "old_b_to_minimax_migration_via_bailian_pending_user_review",
-    "meaning": "旧阿里 / Qwen B 只作为 reference anchor；正式目标供应商为 MiniMax reference audio / voice clone 生成的声音身份",
+    "status": "old_b_to_minimax_voice_user_confirmed",
+    "meaning": "旧阿里 / Qwen B 只作为 reference anchor；正式 B 方案声音已迁移并锁定为用户确认的 MiniMax 声音身份",
     "not_allowed": "不得恢复旧 Qwen 为正式默认路线，不得用 MiniMax 系统 voice_id、voice_feel_tags 或男声候选冒充旧 B",
     "next_route": "old_b_to_minimax_via_aliyun_bailian",
+    "confirmed_voice_id": CONFIRMED_OLD_B_MINIMAX_VOICE_ID,
+    "confirmed_sample_version": CONFIRMED_OLD_B_MINIMAX_SAMPLE_VERSION,
+    "confirmed_sample_path": CONFIRMED_OLD_B_MINIMAX_SAMPLE_PATH,
 }
 REQUIRED_B_VOICE_GENDER_DIRECTION = "male_or_male_leaning"
 FORBIDDEN_B_VOICE_IDS = {
@@ -84,7 +93,7 @@ OLD_B_REFERENCE_AUDIO_PATHS = [
     "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
 ]
 OLD_B_TO_MINIMAX_MIGRATION_ROUTE = {
-    "status": "pending_user_review",
+    "status": "user_confirmed",
     "selected_route": "old_b_to_minimax_via_aliyun_bailian",
     "old_qwen_role": "reference_anchor_only",
     "minimax_role": "final_generation_provider",
@@ -104,7 +113,11 @@ OLD_B_TO_MINIMAX_MIGRATION_ROUTE = {
     "official_minimax_api_key_required": False,
     "reference_audio_upload_authorization_received": True,
     "reference_audio_upload_requires_user_authorization": False,
-    "latest_generated_minimax_voice_id": "oldBMinimax20260528010200",
+    "latest_generated_minimax_voice_id": CONFIRMED_OLD_B_MINIMAX_VOICE_ID,
+    "confirmed_minimax_voice_id": CONFIRMED_OLD_B_MINIMAX_VOICE_ID,
+    "confirmed_sample_version": CONFIRMED_OLD_B_MINIMAX_SAMPLE_VERSION,
+    "confirmed_sample_path": CONFIRMED_OLD_B_MINIMAX_SAMPLE_PATH,
+    "confirmed_sample_scope": "exact_codex_generated_v2_sample_not_generic_v2_direction",
     "latest_review_report": "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/old_b_to_minimax_bailian_report.json",
     "blocked_if": [
         "aliyun_bailian_auth_missing",
@@ -114,24 +127,37 @@ OLD_B_TO_MINIMAX_MIGRATION_ROUTE = {
         "generated_minimax_voice_id_missing",
         "system_voice_candidate_used_as_old_b",
         "old_qwen_route_selected_as_formal_route",
-        "human_voice_review_status_not_user_confirmed",
     ],
 }
 OLD_B_TO_MINIMAX_VOICE_LOCK_RULE = {
-    "status": "pending_user_review",
+    "status": "user_confirmed",
+    "expected_b_minimax_voice_id": CONFIRMED_OLD_B_MINIMAX_VOICE_ID,
     "old_b_reference_audio_path": OLD_B_REFERENCE_AUDIO_PATHS,
     "old_b_reference_voice_masked_id": OLD_ALIYUN_QWEN_B_MASKED_VOICE_ID,
     "target_provider": "minimax",
     "target_model": MINIMAX_B_TARGET_MODEL,
     "auth_route": "aliyun_bailian_proxy_to_minimax",
-    "generated_minimax_voice_id": "oldBMinimax20260528010200",
+    "generated_minimax_voice_id": CONFIRMED_OLD_B_MINIMAX_VOICE_ID,
+    "selected_sample_version": CONFIRMED_OLD_B_MINIMAX_SAMPLE_VERSION,
+    "selected_sample_path": CONFIRMED_OLD_B_MINIMAX_SAMPLE_PATH,
+    "selected_sample_scope": "confirmed_exact_codex_generated_v2_sample",
+    "locked_voice_setting": {
+        "voice_id": CONFIRMED_OLD_B_MINIMAX_VOICE_ID,
+        "speed": 1.02,
+        "pitch": 0,
+        "emotion": "neutral",
+        "vol": 1,
+    },
     "timbre_similarity_required": True,
     "prosody_optimization_allowed": True,
     "emotion_optimization_allowed": True,
+    "prosody_micro_tuning_allowed": True,
+    "emotion_micro_tuning_allowed": True,
+    "speed_micro_tuning_allowed": True,
     "timbre_change_allowed": False,
     "system_voice_substitution_allowed": False,
     "human_voice_review_required": True,
-    "human_voice_review_status": "pending_user_review",
+    "human_voice_review_status": "user_confirmed",
 }
 FORBIDDEN_B_VOICE_DIRECTIONS = [
     "female_system_voice",
@@ -178,18 +204,29 @@ B_VOICE_FEEL_MINIMAX_FORMAL_VOICE_RULE = {
     ],
 }
 B_VOICE_IDENTITY_LOCK_RULE = {
-    "status": "pending_user_review",
+    "status": "user_confirmed",
     "required_provider": "minimax",
     "required_model": "speech-2.8-hd",
     "lock_status_values": ["pending_user_review", "user_confirmed"],
-    "expected_b_minimax_voice_id": None,
+    "expected_b_minimax_voice_id": CONFIRMED_OLD_B_MINIMAX_VOICE_ID,
+    "selected_sample_version": CONFIRMED_OLD_B_MINIMAX_SAMPLE_VERSION,
+    "selected_sample_path": CONFIRMED_OLD_B_MINIMAX_SAMPLE_PATH,
+    "selected_sample_scope": "confirmed_exact_codex_generated_v2_sample_not_generic_v2",
     "required_gender_direction": REQUIRED_B_VOICE_GENDER_DIRECTION,
     "expected_b_voice_reference_audio_path": OLD_B_REFERENCE_AUDIO_PATHS,
+    "locked_voice_setting": {
+        "voice_id": CONFIRMED_OLD_B_MINIMAX_VOICE_ID,
+        "speed": 1.02,
+        "pitch": 0,
+        "emotion": "neutral",
+        "vol": 1,
+    },
     "timbre_change_allowed": False,
     "emotion_optimization_allowed": True,
     "prosody_optimization_allowed": True,
+    "micro_tuning_allowed": True,
     "human_voice_review_required": True,
-    "human_voice_review_status": "pending_user_review",
+    "human_voice_review_status": "user_confirmed",
     "forbidden_voice_ids": sorted(FORBIDDEN_OLD_B_REPLACEMENT_VOICE_IDS),
     "forbidden_voice_direction": FORBIDDEN_B_VOICE_DIRECTIONS,
     "blocked_if": [

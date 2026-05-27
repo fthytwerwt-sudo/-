@@ -1,5 +1,23 @@
 # Latest
 
+## 20260528｜锁定旧 B 迁移 MiniMax 声音并只替换当前候选片音轨
+
+- `task_result.status = completed_with_locked_b_voice_audio_replacement`
+- `target_delivery = b_voice_identity_lock + full_narration_regeneration_only + audio_track_replacement_only`
+- `user_confirmation`：用户确认的不是泛指任意 `V2_prosody_optimized` 方向，而是刚刚 Codex 生成的具体试听样本 `codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V2_prosody_optimized.mp3`。
+- `locked_voice.expected_b_minimax_voice_id = oldBMinimax20260528010200`；`selected_sample_version = V2_prosody_optimized`；`human_voice_review_status = user_confirmed`；`timbre_change_allowed = false`；`micro_tuning_allowed = true`。
+- `generation_route`：`actual_tts_provider = minimax`；`actual_tts_model = MiniMax/speech-2.8-hd`；`selected_route = aliyun_bailian_proxy_to_minimax`；`fallback_used = false`；`system_voice_substitution_used = false`。
+- `narration_path = dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322/narration.wav`；`actual_voice_id = oldBMinimax20260528010200`；`non_silent = true`；`mean_volume = -16.0 dB`；`duration = 636.254s`。
+- `output_video_path = dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322/full.mp4`；源视频为 `dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/full.mp4`。
+- `media_validation`：`video_stream_unchanged = true`；`audio_track_replaced_only = true`；`audio_present = true`；`ffmpeg_decode = passed`；`video probe = 1920x1080 / 636.254s / h264 / aac / decodable`。
+- `copy_changed = false`；`visual_changed = false`；本轮未改锁稿、未重新剪辑、未重新抽系统音色、未恢复旧 Qwen 正式路线。
+- `review_pack_path = dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322`
+- `reports`：`tts_route_report.json / b_voice_identity_lock_report.json / voice_gate_report.json / media_probe.json / ffmpeg_decode_check.log / audio_volumedetect.log / review_manifest.md`
+- `candidate_status`：`publish_candidate_ready_for_human_review = true`；`voice_validation = pending_user_chatgpt_review`；`final_voice_validated = false`；`send_ready = false`；`content_validation = pending_user_chatgpt_review`。
+- `DeepSeek`：已创建前置供料请求与执行后风险复核请求并运行 safe runner；runtime provider ready，但 controller 均返回 `blocked_invalid_context_pack`，`deepseek_actual_participation = not_attempted_policy_violation`，`not_deepseek_conclusion = true`；本轮结论来自 Codex 本地复核 + 百炼 MiniMax 实测，不写 DeepSeek 已参与。
+- `验证`：`py_compile` passed；`python3 -m unittest tests.test_publish_candidate_voice_gate tests.test_minimax_b_voice_identity_lock` 22/22 passed；voice gate rerun passed；JSON parse passed；`git diff --check` passed；secret scan passed。
+- `日志`：`codex_log/20260528_lock_old_b_minimax_voice_audio_replace.md`
+
 ## 20260528｜旧 B 通过阿里百炼代理迁移到 MiniMax 试听样本
 
 - `task_result.status = completed_with_old_b_minimax_samples_via_bailian`

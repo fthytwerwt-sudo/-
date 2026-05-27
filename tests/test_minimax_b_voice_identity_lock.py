@@ -142,6 +142,56 @@ class MinimaxBVoiceIdentityLockTests(unittest.TestCase):
         self.assertEqual(result["voice_route_validation"], "passed_minimax_b_voice_identity_lock")
         self.assertEqual(result["blocked_reasons"], [])
 
+    def test_confirmed_old_b_minimax_v2_sample_passes_identity_lock(self) -> None:
+        confirmed_voice_id = "oldBMinimax20260528010200"
+        confirmed_sample_path = (
+            "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/"
+            "samples/V2_prosody_optimized.mp3"
+        )
+        result = route_module.validate_b_voice_feel_minimax_route(
+            _base_tts_report(
+                actual_voice_id=confirmed_voice_id,
+                actual_gender_direction="male_or_male_leaning",
+                actual_voice_setting={
+                    "voice_id": confirmed_voice_id,
+                    "speed": 1.02,
+                    "pitch": 0,
+                    "emotion": "neutral",
+                    "vol": 1,
+                },
+                generated_minimax_voice_id=confirmed_voice_id,
+                b_voice_identity_lock={
+                    "status": "user_confirmed",
+                    "expected_b_minimax_voice_id": confirmed_voice_id,
+                    "selected_sample_version": "V2_prosody_optimized",
+                    "selected_sample_path": confirmed_sample_path,
+                    "required_gender_direction": "male_or_male_leaning",
+                    "locked_voice_setting": {
+                        "voice_id": confirmed_voice_id,
+                        "speed": 1.02,
+                        "pitch": 0,
+                        "emotion": "neutral",
+                        "vol": 1,
+                    },
+                    "human_voice_review_status": "user_confirmed",
+                    "human_voice_review_required": True,
+                    "timbre_change_allowed": False,
+                },
+            ),
+            _summary(),
+        )
+
+        self.assertEqual(result["voice_route_validation"], "passed_minimax_b_voice_identity_lock")
+        self.assertEqual(result["blocked_reasons"], [])
+        self.assertEqual(
+            route_module.B_VOICE_IDENTITY_LOCK_RULE["selected_sample_path"],
+            confirmed_sample_path,
+        )
+        self.assertEqual(
+            route_module.B_VOICE_IDENTITY_LOCK_RULE["selected_sample_scope"],
+            "confirmed_exact_codex_generated_v2_sample_not_generic_v2",
+        )
+
     def test_user_confirmed_male_system_voice_still_blocks_identity_lock(self) -> None:
         result = route_module.validate_minimax_b_voice_identity_lock(
             _base_tts_report(

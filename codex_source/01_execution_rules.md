@@ -310,9 +310,9 @@ blocked_if:
 
 MiniMax 正片候选语音硬规则：后续 `publish_candidate / formal_operation_publish_candidate / ready_for_human_review` 默认必须走 MiniMax `speech-2.8-hd` 或百炼代理 `MiniMax/speech-2.8-hd`。阿里 Qwen TTS、Serena、macOS say、本地低质 TTS 或未授权 fallback 均不得作为正片候选完成条件；只能 blocked 或标记为 `internal_diagnostic_only`。
 
-MiniMax B 声音身份锁硬规则：后续 B 方案正片候选不得再只靠 `voice_feel_tags`、`b_voice_feel_reflected = true` 或“听起来像 B”放行。必须先有 `b_voice_identity_lock.status = user_confirmed`、`expected_b_minimax_voice_id`、`locked_voice_setting` 和 `human_voice_review_status = user_confirmed`；实际生成报告必须写明 `actual_voice_id`，且必须等于 `expected_b_minimax_voice_id`。2026-05-27 重审后，B 方案目标性别方向为 `male_or_male_leaning（男声或偏男声）`；`female-tianmei / female-shaonv / female-shaonv-jingpin / female-yujie` 均禁止继续作为 B 音色，除非未来用户明确反悔并重新确认。音色身份优先级高于情绪和停顿；只能在同一 `voice_id` 内调 `speed / pitch / emotion / pause tags`，不得为了情绪更丰富而换性别、换音色或回到女声系统音色。
+MiniMax B 声音身份锁硬规则：后续 B 方案正片候选不得再只靠 `voice_feel_tags`、`b_voice_feel_reflected = true` 或“听起来像 B”放行。2026-05-28 起，正式 B 方案声音已由用户确认并锁定为 `expected_b_minimax_voice_id = oldBMinimax20260528010200`。用户确认对象不是泛指任意 `V2_prosody_optimized` 方向，而是刚刚 Codex 生成的具体试听样本：`codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V2_prosody_optimized.mp3`。后续实际生成报告必须写明 `actual_voice_id`，且必须等于 `oldBMinimax20260528010200`；`b_voice_identity_lock.status = user_confirmed`、`human_voice_review_status = user_confirmed`、`timbre_change_allowed = false`。音色身份优先级高于情绪和停顿；只能在同一 `voice_id` 内做 `speed / pitch / emotion / pause tags / prosody` 微调，不得为了情绪更丰富而换性别、换音色、重新抽系统音色或回到旧 Qwen 正式路线。
 
-旧 B 到 MiniMax 迁移硬规则：当用户要求“用 MiniMax 做出以前阿里 B 的声音”时，旧阿里 / Qwen B 只能作为 `reference_anchor_only`，不得恢复旧 Qwen 为正式默认路线。旧 B 历史身份为 `provider = aliyun_bailian`、`api_route_family = aliyun_qwen_realtime_websocket_voice_clone`、`model / target_model = qwen3-tts-vc-realtime-2026-01-15`、`custom_voice_masked_id = qwen-t...ac19`。`qwen-t...ac19` 不是 MiniMax `voice_id`，不得写入 `expected_b_minimax_voice_id`。`female-tianmei / female-shaonv / female-shaonv-jingpin / female-yujie / male-qn-qingse / male-qn-daxuesheng / Chinese (Mandarin)_Gentleman / Chinese (Mandarin)_Gentle_Youth / Chinese (Mandarin)_Sincere_Adult` 等系统候选均不能替代旧 B。下一轮路线为 `route_b_migrate_old_b_to_minimax`；必须使用旧 B 参考音频生成或克隆出 MiniMax 声音身份。缺公网 `audio_url`、缺授权上传、缺 `generated_minimax_voice_id` 或缺用户试听确认时，必须 `blocked_need_reference_audio_url` / `pending_reference_audio_url`，并保持 `voice_validation` 与 `final_voice_validated` 不推进。
+旧 B 到 MiniMax 迁移硬规则：当用户要求“用 MiniMax 做出以前阿里 B 的声音”时，旧阿里 / Qwen B 只能作为 `reference_anchor_only`，不得恢复旧 Qwen 为正式默认路线。旧 B 历史身份为 `provider = aliyun_bailian`、`api_route_family = aliyun_qwen_realtime_websocket_voice_clone`、`model / target_model = qwen3-tts-vc-realtime-2026-01-15`、`custom_voice_masked_id = qwen-t...ac19`。`qwen-t...ac19` 不是 MiniMax `voice_id`，不得写入 `expected_b_minimax_voice_id`。`female-tianmei / female-shaonv / female-shaonv-jingpin / female-yujie / male-qn-qingse / male-qn-daxuesheng / Chinese (Mandarin)_Gentleman / Chinese (Mandarin)_Gentle_Youth / Chinese (Mandarin)_Sincere_Adult` 等系统候选均不能替代旧 B。当前迁移已完成并经用户确认：`generated_minimax_voice_id = oldBMinimax20260528010200`、`selected_sample_version = V2_prosody_optimized`、`selected_sample_path = codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V2_prosody_optimized.mp3`。后续缺该 `voice_id`、换成系统音色、缺用户确认状态或改用旧 Qwen 正式路线时，必须 blocked，并保持 `voice_validation` 与 `final_voice_validated` 不推进。
 
 三项候选片判断机制硬规则：
 
@@ -331,11 +331,14 @@ line_visual_tolerance_rule:
     - user_material_needed_but_missing = true
 
 b_voice_feel_minimax_formal_voice_rule:
-  b_voice_scheme_role: old_b_to_minimax_migration_pending_reference_audio_url
+  b_voice_scheme_role: old_b_to_minimax_voice_user_confirmed
   required_generation_route: minimax / aliyun_bailian_proxy_to_minimax + speech-2.8-hd / MiniMax/speech-2.8-hd
   required_identity_lock:
     b_voice_identity_lock.status: user_confirmed
-    expected_b_minimax_voice_id: required
+    expected_b_minimax_voice_id: oldBMinimax20260528010200
+    selected_sample_version: V2_prosody_optimized
+    selected_sample_path: codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V2_prosody_optimized.mp3
+    selected_sample_scope: confirmed_exact_codex_generated_v2_sample_not_generic_v2
     actual_voice_id == expected_b_minimax_voice_id
     actual_voice_id_not_in_forbidden_voice_ids: true
     required_gender_direction: male_or_male_leaning
@@ -388,18 +391,31 @@ old_aliyun_qwen_b_restoration_rule:
     - TTS_API_required_but_not_authorized
 
 old_b_to_minimax_voice_lock:
-  status: pending_reference_audio_url
+  status: user_confirmed
   old_b_reference_voice_masked_id: qwen-t...ac19
   target_provider: minimax
   target_model: MiniMax/speech-2.8-hd
-  generated_minimax_voice_id: required_after_clone
+  generated_minimax_voice_id: oldBMinimax20260528010200
+  expected_b_minimax_voice_id: oldBMinimax20260528010200
+  selected_sample_version: V2_prosody_optimized
+  selected_sample_path: codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V2_prosody_optimized.mp3
+  selected_sample_scope: confirmed_exact_codex_generated_v2_sample
+  locked_voice_setting:
+    voice_id: oldBMinimax20260528010200
+    speed: 1.02
+    pitch: 0
+    emotion: neutral
+    vol: 1
   system_voice_substitution_allowed: false
   old_qwen_formal_route_allowed: false
   timbre_change_allowed: false
+  prosody_micro_tuning_allowed: true
+  emotion_micro_tuning_allowed: true
+  speed_micro_tuning_allowed: true
   human_voice_review_required: true
-  human_voice_review_status: user_confirmed_required_before_publish_candidate
+  human_voice_review_status: user_confirmed
   blocked_if:
-    - reference_audio_url_or_upload_authorization_missing
+    - actual_voice_id_mismatch_expected_b_minimax_voice_id
     - generated_minimax_voice_id_missing
     - system_voice_candidate_used_as_old_b
     - old_qwen_route_selected_as_formal_route

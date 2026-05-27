@@ -46,11 +46,22 @@ OFFICIAL_MODEL = "speech-2.8-hd"
 PENDING_USER_REVIEW_STATUS = "pending_user_review"
 USER_CONFIRMED_VOICE_STATUS = "user_confirmed"
 REQUIRED_B_VOICE_GENDER_DIRECTION = "male_or_male_leaning"
+CONFIRMED_OLD_B_MINIMAX_VOICE_ID = "oldBMinimax20260528010200"
+CONFIRMED_OLD_B_MINIMAX_SAMPLE_VERSION = "V2_prosody_optimized"
+CONFIRMED_OLD_B_MINIMAX_SAMPLE_PATH = (
+    "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/"
+    "samples/V2_prosody_optimized.mp3"
+)
 FORBIDDEN_DEFAULT_B_VOICE_IDS = {
     "female-tianmei",
     "female-shaonv",
     "female-shaonv-jingpin",
     "female-yujie",
+    "male-qn-qingse",
+    "male-qn-daxuesheng",
+    "Chinese (Mandarin)_Gentleman",
+    "Chinese (Mandarin)_Gentle_Youth",
+    "Chinese (Mandarin)_Sincere_Adult",
 }
 FORBIDDEN_B_VOICE_DIRECTIONS = [
     "female_system_voice",
@@ -77,16 +88,19 @@ MATERIALS = {
 
 
 def load_minimax_b_voice_identity_lock() -> dict[str, Any]:
-    expected_voice_id = os.environ.get("EXPECTED_B_MINIMAX_VOICE_ID", "").strip()
-    review_status = os.environ.get("B_VOICE_HUMAN_REVIEW_STATUS", PENDING_USER_REVIEW_STATUS).strip()
-    lock_status = os.environ.get("B_VOICE_IDENTITY_LOCK_STATUS", PENDING_USER_REVIEW_STATUS).strip()
+    expected_voice_id = os.environ.get("EXPECTED_B_MINIMAX_VOICE_ID", CONFIRMED_OLD_B_MINIMAX_VOICE_ID).strip()
+    review_status = os.environ.get("B_VOICE_HUMAN_REVIEW_STATUS", USER_CONFIRMED_VOICE_STATUS).strip()
+    lock_status = os.environ.get("B_VOICE_IDENTITY_LOCK_STATUS", USER_CONFIRMED_VOICE_STATUS).strip()
     required_gender_direction = os.environ.get(
         "B_VOICE_REQUIRED_GENDER_DIRECTION", REQUIRED_B_VOICE_GENDER_DIRECTION
     ).strip() or REQUIRED_B_VOICE_GENDER_DIRECTION
-    actual_gender_direction = os.environ.get("B_VOICE_ACTUAL_GENDER_DIRECTION", "").strip()
+    actual_gender_direction = os.environ.get("B_VOICE_ACTUAL_GENDER_DIRECTION", REQUIRED_B_VOICE_GENDER_DIRECTION).strip()
     return {
         "status": lock_status or PENDING_USER_REVIEW_STATUS,
         "expected_b_minimax_voice_id": expected_voice_id,
+        "selected_sample_version": CONFIRMED_OLD_B_MINIMAX_SAMPLE_VERSION,
+        "selected_sample_path": CONFIRMED_OLD_B_MINIMAX_SAMPLE_PATH,
+        "selected_sample_scope": "confirmed_exact_codex_generated_v2_sample_not_generic_v2",
         "required_gender_direction": required_gender_direction,
         "actual_gender_direction": actual_gender_direction or "",
         "expected_b_voice_reference_audio_path": [
@@ -95,9 +109,9 @@ def load_minimax_b_voice_identity_lock() -> dict[str, Any]:
         ],
         "locked_voice_setting": {
             "voice_id": expected_voice_id,
-            "speed": float(os.environ.get("B_VOICE_LOCKED_SPEED", "1.08")),
+            "speed": float(os.environ.get("B_VOICE_LOCKED_SPEED", "1.02")),
             "pitch": int(os.environ.get("B_VOICE_LOCKED_PITCH", "0")),
-            "emotion": os.environ.get("B_VOICE_LOCKED_EMOTION", "calm").strip() or "calm",
+            "emotion": os.environ.get("B_VOICE_LOCKED_EMOTION", "neutral").strip() or "neutral",
             "vol": float(os.environ.get("B_VOICE_LOCKED_VOL", "1")),
         }
         if expected_voice_id
@@ -107,6 +121,7 @@ def load_minimax_b_voice_identity_lock() -> dict[str, Any]:
         "timbre_change_allowed": False,
         "emotion_optimization_allowed": True,
         "prosody_optimization_allowed": True,
+        "micro_tuning_allowed": True,
         "human_voice_review_required": True,
         "human_voice_review_status": review_status or PENDING_USER_REVIEW_STATUS,
         "forbidden_voice_ids": sorted(FORBIDDEN_DEFAULT_B_VOICE_IDS),

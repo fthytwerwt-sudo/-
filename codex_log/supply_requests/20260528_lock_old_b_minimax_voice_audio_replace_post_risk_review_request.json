@@ -1,0 +1,111 @@
+{
+  "request_id": "20260528_lock_old_b_minimax_voice_audio_replace_post_risk_review_request",
+  "created_at": "2026-05-28T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "lock_old_b_minimax_voice_audio_replace",
+  "task_type": "post_risk_review + b_voice_identity_lock + audio_track_replacement_only",
+  "project_stage": "formal_operation_active",
+  "trigger_reason": "mandatory_post_risk_review",
+  "action": "auto",
+  "mandatory_for_every_task": true,
+  "participation_level": "readonly_post_risk_review",
+  "pre_supply_required": false,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "复核本轮是否已把 oldBMinimax20260528010200 锁为正式 B voice_id、是否只替换当前候选片音轨、是否没有改文案/画面/状态推进/系统音色替代/secret 泄露。",
+  "current_step": "post_write_risk_review",
+  "known_context": [
+    "输出目录为 dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322。",
+    "新旁白为 narration.wav，新视频为 full.mp4。",
+    "voice_gate_report.status = passed，video_stream_unchanged = true，audio_track_replaced_only = true。",
+    "用户确认的样本路径为 codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V2_prosody_optimized.mp3。",
+    "状态边界仍保持 voice_validation=pending_user_chatgpt_review、send_ready=false、final_voice_validated=false、content_validation=pending_user_chatgpt_review。"
+  ],
+  "missing_context": [
+    "需要复核是否仍有规则文件把 old_b_to_minimax_voice_lock 写成 pending_user_review 或 pending_reference_audio_url。",
+    "需要复核是否误把系统音色候选写成默认 B。",
+    "需要复核是否把大媒体提交到 Git。",
+    "需要复核是否有 secret/token/key 写入日志。"
+  ],
+  "candidate_files": [
+    "GPT数据源/08_当前正式事实.md",
+    "codex_source/01_execution_rules.md",
+    "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+    "scripts/生成新第四期选品初筛MiniMax正片候选_rerun_generate_new_fourth_selection_minimax_publish_candidate.py",
+    "scripts/锁定旧B迁移MiniMax声音并替换音轨_lock_old_b_minimax_voice_replace_audio.py",
+    "codex_log/latest.md",
+    "codex_log/20260528_lock_old_b_minimax_voice_audio_replace.md",
+    "dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322/voice_gate_report.json",
+    "dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322/media_probe.json",
+    "dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322/summary.json"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    "dist/latest_review_pack",
+    "素材录制/",
+    "GPT 数据源/"
+  ],
+  "expected_output": [
+    "risk_and_conflict_report",
+    "status_promotion_risk_check",
+    "missing_or_uncertain_files",
+    "codex_next_input"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files.",
+    "DeepSeek must not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is stable or completed.",
+    "Do not print, write, or commit API key / token / secret.",
+    "Do not promote voice_validation, content_validation, send_ready, final_voice_validated, or visual_master_locked."
+  ],
+  "blocked_if": [
+    "actual_voice_id does not equal oldBMinimax20260528010200",
+    "system voice substitution is detected",
+    "video stream changed",
+    "copy changed",
+    "voice_validation or send_ready was promoted",
+    "secret leakage risk exists",
+    "git stage includes unrelated dirty files or ignored media"
+  ],
+  "return_to_codex": {
+    "risk_review_required": true,
+    "output_dir": "codex_log/deepseek_supply/20260528_lock_old_b_minimax_voice_audio_replace_post_risk_review",
+    "verification_required": [
+      "voice_gate_report_readback",
+      "media_probe_readback",
+      "status_boundary_check",
+      "secret_scan",
+      "git_status_path_limited_check"
+    ]
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "deep_file_prefetch"
+    ]
+  },
+  "content_loading_policy": {
+    "read_only": true,
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 8,
+    "max_chars_per_file": 1800,
+    "max_total_chars": 14000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "do_not_read_secret_files": true,
+    "do_not_modify_files": true
+  },
+  "output_required": [
+    "risk_and_conflict_report",
+    "status_promotion_risk_check",
+    "missing_or_uncertain_files",
+    "codex_next_input"
+  ]
+}

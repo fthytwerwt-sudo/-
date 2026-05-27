@@ -1,0 +1,480 @@
+{
+  "supply_id": "supply_20260527T192112Z",
+  "generated_at_utc": "2026-05-27T19:21:47.180876+00:00",
+  "request_id": "20260528_lock_old_b_minimax_voice_audio_replace_post_risk_review_request",
+  "request_file": "/Users/fan/Documents/视频工厂/codex_log/supply_requests/20260528_lock_old_b_minimax_voice_audio_replace_post_risk_review_request.json",
+  "request_validation_status": "passed",
+  "current_goal": "复核本轮是否已把 oldBMinimax20260528010200 锁为正式 B voice_id、是否只替换当前候选片音轨、是否没有改文案/画面/状态推进/系统音色替代/secret 泄露。",
+  "requires_real_deepseek_participation": false,
+  "safe_loader_policy": {},
+  "runtime_provider": {
+    "runtime_provider_status": "ready",
+    "runtime_provider_auto_load_enabled": true,
+    "runtime_provider_key_source": "project_env",
+    "runtime_provider_key_source_path": ".env",
+    "runtime_provider_version": "20260515"
+  },
+  "data_goal_anchor": {},
+  "current_stage_goal": "",
+  "main_bottleneck": "",
+  "primary_variable": "",
+  "forbidden_variables": [],
+  "success_metric": "",
+  "failure_metric": "",
+  "post_publish_validation_metric": "",
+  "current_step": "post_write_risk_review",
+  "known_context": [
+    "输出目录为 dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322。",
+    "新旁白为 narration.wav，新视频为 full.mp4。",
+    "voice_gate_report.status = passed，video_stream_unchanged = true，audio_track_replaced_only = true。",
+    "用户确认的样本路径为 codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V2_prosody_optimized.mp3。",
+    "状态边界仍保持 voice_validation=pending_user_chatgpt_review、send_ready=false、final_voice_validated=false、content_validation=pending_user_chatgpt_review。"
+  ],
+  "missing_context": [
+    "需要复核是否仍有规则文件把 old_b_to_minimax_voice_lock 写成 pending_user_review 或 pending_reference_audio_url。",
+    "需要复核是否误把系统音色候选写成默认 B。",
+    "需要复核是否把大媒体提交到 Git。",
+    "需要复核是否有 secret/token/key 写入日志。"
+  ],
+  "decision_needed": "",
+  "task": "Use this supply_request task card as the only current task context. Do not infer missing project state from memory.\n{\n  \"request_id\": \"20260528_lock_old_b_minimax_voice_audio_replace_post_risk_review_request\",\n  \"task_id\": \"lock_old_b_minimax_voice_audio_replace\",\n  \"mandatory_for_every_task\": true,\n  \"participation_level\": \"readonly_post_risk_review\",\n  \"pre_supply_required\": false,\n  \"post_review_required\": true,\n  \"codex_vertical_completion_required\": true,\n  \"token_usage_expectation\": \"token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required\",\n  \"fallback_allowed\": true,\n  \"fallback_not_completion\": true,\n  \"user_explicit_deepseek_required\": false,\n  \"deepseek_must_not_be_skipped_by_codex_discretion\": true,\n  \"current_goal\": \"复核本轮是否已把 oldBMinimax20260528010200 锁为正式 B voice_id、是否只替换当前候选片音轨、是否没有改文案/画面/状态推进/系统音色替代/secret 泄露。\",\n  \"current_step\": \"post_write_risk_review\",\n  \"known_context\": [\n    \"输出目录为 dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322。\",\n    \"新旁白为 narration.wav，新视频为 full.mp4。\",\n    \"voice_gate_report.status = passed，video_stream_unchanged = true，audio_track_replaced_only = true。\",\n    \"用户确认的样本路径为 codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V2_prosody_optimized.mp3。\",\n    \"状态边界仍保持 voice_validation=pending_user_chatgpt_review、send_ready=false、final_voice_validated=false、content_validation=pending_user_chatgpt_review。\"\n  ],\n  \"missing_context\": [\n    \"需要复核是否仍有规则文件把 old_b_to_minimax_voice_lock 写成 pending_user_review 或 pending_reference_audio_url。\",\n    \"需要复核是否误把系统音色候选写成默认 B。\",\n    \"需要复核是否把大媒体提交到 Git。\",\n    \"需要复核是否有 secret/token/key 写入日志。\"\n  ],\n  \"decision_needed\": \"\",\n  \"expected_output\": [\n    \"risk_and_conflict_report\",\n    \"status_promotion_risk_check\",\n    \"missing_or_uncertain_files\",\n    \"codex_next_input\"\n  ],\n  \"codex_next_input\": \"\",\n  \"return_to_codex\": {\n    \"risk_review_required\": true,\n    \"output_dir\": \"codex_log/deepseek_supply/20260528_lock_old_b_minimax_voice_audio_replace_post_risk_review\",\n    \"verification_required\": [\n      \"voice_gate_report_readback\",\n      \"media_probe_readback\",\n      \"status_boundary_check\",\n      \"secret_scan\",\n      \"git_status_path_limited_check\"\n    ]\n  },\n  \"stop_condition\": \"\",\n  \"blocked_if\": [\n    \"actual_voice_id does not equal oldBMinimax20260528010200\",\n    \"system voice substitution is detected\",\n    \"video stream changed\",\n    \"copy changed\",\n    \"voice_validation or send_ready was promoted\",\n    \"secret leakage risk exists\",\n    \"git stage includes unrelated dirty files or ignored media\"\n  ],\n  \"not_allowed\": [\n    \"DeepSeek must not write files.\",\n    \"DeepSeek must not decide project facts.\",\n    \"Do not treat fallback_local_only as a DeepSeek conclusion.\",\n    \"Do not claim multi-agent runtime is stable or completed.\",\n    \"Do not print, write, or commit API key / token / secret.\",\n    \"Do not promote voice_validation, content_validation, send_ready, final_voice_validated, or visual_master_locked.\"\n  ],\n  \"deep_supply_mode\": {\n    \"enabled\": true,\n    \"mode\": [\n      \"deep_file_prefetch\"\n    ]\n  },\n  \"content_loading_policy\": {\n    \"read_only\": true,\n    \"include_file_content\": true,\n    \"include_exact_snippets\": true,\n    \"max_file_count\": 8,\n    \"max_chars_per_file\": 1800,\n    \"max_total_chars\": 14000,\n    \"truncate_policy\": \"head_and_relevant_snippets\",\n    \"do_not_read_secret_files\": true,\n    \"do_not_modify_files\": true\n  },\n  \"output_required\": [\n    \"risk_and_conflict_report\",\n    \"status_promotion_risk_check\",\n    \"missing_or_uncertain_files\",\n    \"codex_next_input\"\n  ]\n}",
+  "task_type": "post_risk_review + b_voice_identity_lock + audio_track_replacement_only",
+  "trigger_reason": "mandatory_post_risk_review",
+  "requested_action": "auto",
+  "action": "risk_report",
+  "max_rounds": 1,
+  "supply_source": "blocked",
+  "not_deepseek_conclusion": true,
+  "deepseek_actual_participation": "not_attempted_policy_violation",
+  "blocked_reason": "invalid_context_pack",
+  "deepseek_supply_gate": {
+    "mandatory_for_every_task": true,
+    "supply_request_created": true,
+    "deepseek_call_required": true,
+    "deepseek_call_attempted": false,
+    "deepseek_actual_participation": "not_attempted_policy_violation",
+    "supply_source": "blocked",
+    "fallback_status": "not_used",
+    "not_deepseek_conclusion": true,
+    "blocked_reason": "invalid_context_pack",
+    "token_usage_expected": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+    "token_usage_observed_or_user_check_required": "user_check_required",
+    "fallback_not_completion": true,
+    "deepseek_must_not_be_skipped_by_codex_discretion": true
+  },
+  "deepseek_readiness_check": {
+    "required": true,
+    "runtime_provider": {
+      "runtime_provider_status": "ready",
+      "runtime_provider_auto_load_enabled": true,
+      "runtime_provider_key_source": "project_env",
+      "runtime_provider_key_source_path": ".env",
+      "runtime_provider_version": "20260515"
+    },
+    "env_file_read": "false",
+    "process_env_key_allowed": "true",
+    "process_env_key_present": "true",
+    "safe_call_mode": "process_env_only",
+    "request_validation_status": "passed",
+    "supply_source": "blocked",
+    "fallback_status": "not_used",
+    "not_deepseek_conclusion": true,
+    "context_pack_validation": "blocked_invalid_context_pack",
+    "deepseek_actual_participation": "not_attempted_policy_violation",
+    "blocked_reason": "invalid_context_pack",
+    "completion_rule": [
+      "deepseek_passed 才能写 DeepSeek 真实参与。",
+      "fallback_local_only 必须写 not_deepseek_conclusion = true。",
+      "missing_process_env_key 必须写 blocked_missing_process_env_api_key。",
+      "token 未观察到减少时，不得写 DeepSeek 已深度参与。",
+      "不得把 fallback 写成 DeepSeek 稳定供料。"
+    ]
+  },
+  "deepseek_participation_report": {
+    "deepseek_call_real": false,
+    "deepseek_actual_participation": "not_attempted_policy_violation",
+    "supply_source": "blocked",
+    "fallback_status": "not_used",
+    "not_deepseek_conclusion": true,
+    "blocked_reason": "invalid_context_pack",
+    "token_usage_expectation_check": {
+      "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+      "expected_to_decrease": false,
+      "observed_token_usage": "not_available_user_check_required",
+      "token_usage_observed_or_user_check_required": "user_check_required",
+      "cannot_claim_deepseek_deep_participation_if_token_not_decreased": true,
+      "fallback_local_only_token_rule": "fallback_local_only 不应减少 DeepSeek token，也不能写 DeepSeek 已深度参与。"
+    },
+    "codex_original_file_review_required": true,
+    "deepseek_may_write_files": false,
+    "deepseek_may_decide_project_facts": false,
+    "multi_agent_runtime_validation": "not_started"
+  },
+  "token_usage_expectation_check": {
+    "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+    "expected_to_decrease": false,
+    "observed_token_usage": "not_available_user_check_required",
+    "token_usage_observed_or_user_check_required": "user_check_required",
+    "cannot_claim_deepseek_deep_participation_if_token_not_decreased": true,
+    "fallback_local_only_token_rule": "fallback_local_only 不应减少 DeepSeek token，也不能写 DeepSeek 已深度参与。"
+  },
+  "post_risk_review": {
+    "status_promotion_risk": "check_required_no_forbidden_status_promotion",
+    "forbidden_change_risk": "check_required_no_env_media_or_latest_review_pack_change",
+    "missed_sync_files": "check_required_docs_scripts_schema_fixture_logs_package_paths",
+    "fallback_mislabel_risk": "present",
+    "remaining_work": "Codex must run validation, sync logs/package/path index, and report token check boundary."
+  },
+  "env_file_read": "false",
+  "process_env_key_allowed": "true",
+  "process_env_key_present": "true",
+  "api_key_printed": "false",
+  "api_key_written": "false",
+  "context_pack_validation": "blocked_invalid_context_pack",
+  "deepseek_generation_status": "blocked_invalid_context_pack",
+  "fallback_status": "not_used",
+  "pipeline_status": "blocked",
+  "multi_agent_runtime_validation": "not_started",
+  "files_considered": [
+    "GPT数据源/08_当前正式事实.md",
+    "codex_source/01_execution_rules.md",
+    "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+    "scripts/生成新第四期选品初筛MiniMax正片候选_rerun_generate_new_fourth_selection_minimax_publish_candidate.py",
+    "scripts/锁定旧B迁移MiniMax声音并替换音轨_lock_old_b_minimax_voice_replace_audio.py",
+    "codex_log/latest.md",
+    "codex_log/20260528_lock_old_b_minimax_voice_audio_replace.md",
+    "dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322/voice_gate_report.json"
+  ],
+  "files_recommended": [
+    "GPT数据源/08_当前正式事实.md",
+    "codex_source/01_execution_rules.md",
+    "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+    "scripts/生成新第四期选品初筛MiniMax正片候选_rerun_generate_new_fourth_selection_minimax_publish_candidate.py",
+    "scripts/锁定旧B迁移MiniMax声音并替换音轨_lock_old_b_minimax_voice_replace_audio.py",
+    "codex_log/latest.md",
+    "codex_log/20260528_lock_old_b_minimax_voice_audio_replace.md",
+    "dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322/voice_gate_report.json"
+  ],
+  "risks": [],
+  "missing_files": [],
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "deep_file_prefetch"
+    ]
+  },
+  "content_loading_policy": {
+    "read_only": true,
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 8,
+    "max_chars_per_file": 1800,
+    "max_total_chars": 14000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "do_not_read_secret_files": true,
+    "do_not_modify_files": true
+  },
+  "codex_minimal_review_policy": {},
+  "deepseek_depth_validation": {
+    "enabled": true,
+    "modes": [
+      "deep_file_prefetch"
+    ],
+    "missing_modes": [
+      "post_risk_review",
+      "mid_task_incremental_supply"
+    ],
+    "relevant_file_bundle_exists": true,
+    "exact_snippet_pack_exists": true,
+    "deepseek_actual_required": false,
+    "supply_source": "blocked",
+    "status": "failed_insufficient_depth",
+    "not_long_term_runtime_validation": true
+  },
+  "relevant_file_bundle": [
+    {
+      "path": "GPT数据源/08_当前正式事实.md",
+      "file_role": "project_mechanism_source",
+      "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+      "content_excerpt": "- `已确认` 正式运营阶段，用户只负责目标修正、页面 / 美观 / 观感对标和结果合格反馈；GPT / Codex 负责内部执行问题自查与修复，不得把内部排障责任转给用户。\n- `已确认` Codex 不得降级完成任何正式运营交付任务。凡仓库写明的目标、产物、验证、同步、回报未全部完成，必须 `blocked` 或继续修到满足基线，不得用 fallback、技术预览、局部结果、内部诊断或本地未同步产物冒充 `completed`。\n- `待验证` 本机制写入不代表当前所有执行问题已经解决，不代表当前视频已通过，不代表 Codex 后续永远不会再错，也不代表机制长期稳定；后续真实任务仍必须按闸门验证。\n- `已确认` ChatGPT / 用户是最终落稿和文案锁定入口；Codex 是执行层，不得擅自改标题、选题、开头句、核心判断、人味表达、文案语义或视觉标题卡标题。\n- `已确认` Codex 如判断文案无法执行，必须输出 `copy_change_request（文案修改请求）` 或 blocked，不能自行改稿。\n- `未推进` 本事实只修机制，不代表当前已发布视频内容通过，不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`。\n- `未推进` 运营决策系统落地不代表内容成功、方向成立、商业验证成立或数据飞轮真实跑通；不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`，也不把 `current_data_goal_anchor` 写成 `ready`。\n## 0E. 2026-05-16 Codex 判断权限表与 HyperFrames 卡片基线事实\n- `已确认` 本轮新增 `codex_source/21_codex_judgment_permission_matrix.md（Codex 判断权限表）`，用于区分 Codex 必须判断并执行、必须判断但只能请求改文案、必须判断并阻断、必须升级给 ChatGPT / 用户的边界。\n- `已确认` Codex 必须自行判断低风险、可逆、可验证的执行细节，包括 `opening_route_decision（开头路由判断）`、`card_placement_decision（卡片位置判断）`、`script_to_timeline_map（文案到时间线映射）`、`subtitle_segmentation（字幕分句）`、`tts_prosody（TTS 韵律）`、`aspect_ratio_resolution（比例与分辨率）` 和 `publish_candidate_readiness（可发布候选片准备状态）`。\n- `已确认` Codex 不得擅自改写 `locked_topic（锁定选题）`、`locked_title（锁定标题）`、`locked_opening_line（锁定开头句）`、`locked_final_script（锁定最终口播稿）`、核心判断、数据目标、内容验证或发送状态；需要改语义时必须输出 `copy_change_request（文案修改请求）`、`human_review_required（需要人工复审）` 或 `blocked（阻断）`。\n- `未推进` 本轮只修机制，不代表判断卡 / 总结卡已经达到最终视觉母版，不代表 HyperFrames runtime 已完成长期稳定验证，不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`，也不把 `current_data_goal_anchor` 写成 `ready`。\n- `未推进` `conten\n...[truncated]",
+      "excerpt_range_or_marker": "lines:23-36",
+      "confidence": "high"
+    },
+    {
+      "path": "codex_source/01_execution_rules.md",
+      "file_role": "codex_execution_rule_source",
+      "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+      "content_excerpt": "# Codex 执行规则\n命中截图、平台数据、评论、私信、咨询、复盘或下一轮变量判断时，Codex 必须优先读取：\n本覆盖口径不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`。\n当前进入 `formal_operation_active（正式运营中）` 后，Codex 在 `route_decision（路由判断）` 阶段必须判断本轮是否是视频交付任务。\nCodex 后续不得降级处理正式运营任务。凡任务目标指向做视频、产视频、发片候选、运营内容、下一条视频、发布候选、项目机制落库、GPT Project 同步、数据录入、复盘记录、素材审计、文案到执行映射、TTS、字幕、卡片、比例、导出、commit / push 等，必须实实在在完成仓库写明的目标。\n- DeepSeek 需要真实参与但只有 `fallback_local_only`。\n`mandatory_commit_push_gate（强制提交推送闸门）` 是 Codex 默认完成标准的一部分，不是临时收尾建议。以后任何最小任务只要对仓库文件产生有效改动，`completed（已完成）` 必须等到 Git 收尾完成后才允许写。\nCodex 最终回报必须默认包含：\n正式运营阶段，用户只负责目标修正、页面 / 美观 / 观感对标，以及如实反馈结果是否合格；用户不负责替 GPT / Codex 诊断内部原因。\n当用户只反馈“不合格 / 不对 / 不顺 / 不美观 / 不是我要的 / 文案画面对不上 / 标题被改 / 比例错 / 声音不行 / 字幕不对”时，Codex 必须触发 `self_repair_audit（自修审计）`，至少检查：\n- final_script 是否被 Codex 越权改写。\n发现任一内部问题，Codex 必须修复或 `blocked`，不得把诊断责任转给用户。\n正式运营视频执行前必须先有 `locked_copy_contract（锁定文案契约）`。该契约由 ChatGPT / 用户确认，Codex 只能按它执行，不得擅自改写。\n`codex_copy_authority_boundary（Codex 文案权限边界）`：\n11. `publish_candidate_user_standard_preflight（候选可发布用户标准预检）`：按用户标准区分可接受小瑕疵和重大缺陷；`publish_candidate_ready_for_human_review` 不等于 `send_ready`。\nMiniMax B 声音身份锁硬规则：后续 B 方案正片候选不得再只靠 `voice_feel_tags`、`b_voice_feel_reflected = true` 或“听起来像 B”放行。2026-05-28 起，正式 B 方案声音已由用户确认并锁定为 `expected_b_minimax_voice_id = oldBMinimax20260528010200`。用户确认对象不是泛指任意 `V2_prosody_optimized` 方向，而是刚刚 Codex 生成的具体试听样本：`codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V2_prosody_optimized.mp3`。后续实际生成报告必须写明 `actual_voice_id`，且必须等于 `oldBMinimax20260528010200`；`b_voice_identity_lock.status = user_confirmed`、`human_voice_review_status = user_confirmed`、`timbre_change_allowed = false`。音色身份优先级高于情绪和停顿；只能在同一 `voice_id` 内做 `speed / pitch / emotion / pause tags / prosody` 微调，不得为了情绪更丰富而换性别、换音\n...[truncated]",
+      "excerpt_range_or_marker": "selected_relevant_lines",
+      "confidence": "high"
+    },
+    {
+      "path": "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+      "file_role": "runner_or_controller",
+      "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+      "content_excerpt": "#!/usr/bin/env python3\nfrom __future__ import annotations\n\nfrom typing import Any\n\n\nDEFAULT_TTS_PROVIDER_FOR_PUBLISH_CANDIDATE = \"minimax\"\nREQUIRED_MINIMAX_MODELS = {\"speech-2.8-hd\", \"MiniMax/speech-2.8-hd\"}\nOLD_ALIYUN_QWEN_B_MODEL = \"qwen3-tts-vc-realtime-2026-01-15\"\nOLD_ALIYUN_QWEN_B_ROUTE = \"aliyun_qwen_realtime_websocket_voice_clone\"\nOLD_ALIYUN_QWEN_B_MASKED_VOICE_ID = \"qwen-t...ac19\"\nMINIMAX_B_TARGET_MODEL = \"MiniMax/speech-2.8-hd\"\nCONFIRMED_OLD_B_MINIMAX_VOICE_ID = \"oldBMinimax20260528010200\"\nCONFIRMED_OLD_B_MINIMAX_SAMPLE_VERSION = \"V2_prosody_optimized\"\nCONFIRMED_OLD_B_MINIMAX_SAMPLE_PATH = (\n    \"codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/\"\n    \"samples/V2_prosody_optimized.mp3\"\n)\nMINIMAX_SELECTED_ROUTES = {\n    \"minimax_official_api\",\n    \"aliyun_bailian_proxy_to_minimax\",\n    \"route_a\",\n    \"route_b\",\n}\nB_VOICE_SCHEME_ROLE = {\n    \"status\": \"old_b_to_minimax_voice_user_confirmed\",\n    \"meaning\": \"旧阿里 / Qwen B 只作为 reference anchor；正式 B 方案声音已迁移并锁定为用户确认的 MiniMax 声音身份\",\n    \"not_allowed\": \"不得恢复旧 Qwen 为正式默认路线，不得用 MiniMax 系统 voice_id、voice_feel_tags 或男声候选冒充旧 B\",\n    \"next_route\": \"old_b_to_minimax_via_aliyun_bailian\",\n    \"confirmed_voice_id\": CONFIRMED_OLD_B_MINIMAX_VOICE_ID,\n    \"confirmed_sample_version\": CONFIRMED_OLD_B_MINIMAX_SAMPLE_VERSION,\n    \"confirmed_sample_path\": CONFIRMED_OLD_B_MINIMAX_SAMPLE_PATH,\n}\nREQUIRED_B_VOICE_GENDER_DIRECTION = \"male_or_male_leaning\"\nFORBIDDEN_B_VOICE_IDS = {\n    \"female-tianmei\",\n    \"female-shaonv\",\n    \"female-shaonv-jingpin\",\n    \"female-yujie\",\n}\nFORBIDDEN_OLD_B_REPLACEMENT_VOICE_IDS = {\n    *FORBIDDEN_B_VOICE_IDS,\n    \"male-qn-qingse\",\n    \"male-qn-daxuesheng\",\n    \"Chinese (Mandarin)_Gentleman\",\n    \"Chinese (Mandarin)_Gentle_Youth\",\n    \"Chinese (Mandarin)_Sincere_Adult\",\n}\nOLD_ALIYUN_QWEN_B_VOICE_R",
+      "excerpt_range_or_marker": "lines:1-49",
+      "confidence": "high"
+    },
+    {
+      "path": "scripts/生成新第四期选品初筛MiniMax正片候选_rerun_generate_new_fourth_selection_minimax_publish_candidate.py",
+      "file_role": "runner_or_controller",
+      "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+      "content_excerpt": "\"content_validation\": \"pending_user_chatgpt_review\",\n        \"send_ready\": False,\n                \"- `content_validation`: `pending_user_chatgpt_review`\",\n                \"- `send_ready`: `false`\",\n            \"send_ready\": False,\n            \"content_validation\": \"pending_user_chatgpt_review\",\n                \"8. 本轮会读取 v2 证据复核报告：是。\",\n                \"- `prompt_delta`: 基于 v2 证据复核继续生成正片候选，不重复阻断已解除素材 blocker。\",",
+      "excerpt_range_or_marker": "lines:1422-1429",
+      "confidence": "high"
+    },
+    {
+      "path": "scripts/锁定旧B迁移MiniMax声音并替换音轨_lock_old_b_minimax_voice_replace_audio.py",
+      "file_role": "runner_or_controller",
+      "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+      "content_excerpt": "\"selected_sample_source\": \"刚刚 Codex 生成的 V2 试听样本\",\n        \"send_ready\": False,\n        \"content_validation\": \"pending_user_chatgpt_review\",\n                \"selected_sample_source\": \"刚刚 Codex 生成的 V2 试听样本\",\n            \"send_ready\": False,\n            \"content_validation\": \"pending_user_chatgpt_review\",\n                \"- `selected_sample_source`: `刚刚 Codex 生成的 V2 试听样本`\",\n                \"- `send_ready`: `false`\",\n            \"selected_sample_source\": \"刚刚 Codex 生成的 V2 试听样本\",",
+      "excerpt_range_or_marker": "selected_relevant_lines",
+      "confidence": "high"
+    },
+    {
+      "path": "codex_log/latest.md",
+      "file_role": "current_log_or_request_source",
+      "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+      "content_excerpt": "- `user_confirmation`：用户确认的不是泛指任意 `V2_prosody_optimized` 方向，而是刚刚 Codex 生成的具体试听样本 `codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V2_prosody_optimized.mp3`。\n- `candidate_status`：`publish_candidate_ready_for_human_review = true`；`voice_validation = pending_user_chatgpt_review`；`final_voice_validated = false`；`send_ready = false`；`content_validation = pending_user_chatgpt_review`。\n- `DeepSeek`：已创建供料请求并运行 safe runner；runtime provider ready，但 controller 返回 `blocked_invalid_context_pack`，`deepseek_actual_participation = not_attempted_policy_violation`，`not_deepseek_conclusion = true`；本轮结论来自 Codex 本地复核 + 百炼 MiniMax 实测，不写 DeepSeek 已参与。\n- `状态边界`：未生成全片旁白，未替换当前视频音轨，未生成视频，未改文案，未改画面，未推进 `voice_validation / final_voice_validated / content_validation / send_ready / visual_master_locked`。\n- `DeepSeek`：前置供料与执行后风险复核均实际运行通过，`deepseek_actual_participation = deepseek_passed`，`fallback_status = not_used`，`api_key_printed = false`，`api_key_written = false`。\n- `状态边界`：未生成音频 / 视频，未上传参考音频，未调用 MiniMax TTS / clone API，未改文案，未推进 `voice_validation / final_voice_validated / content_validation / send_ready / visual_master_locked`。\n- `DeepSeek`：已创建前置供料任务卡与后置风险复核任务卡并运行 safe runner；两次均返回 `deepseek_actual_participation = deepseek_passed`，`fallback_status = not_used`，`api_key_printed = false`，`api_key_written = false`。\n- `DeepSeek`：已创建供料任务卡并运行 safe runner；runtime provider ready，key 未打印 / 未写入；controller 返回 `blocked_invalid_context_pack`，`deepseek_actual_participation = not_attempted_policy_violation`，`not_deepseek_conclusion = true`。\n- `状态边界`：未推进 `voice_validation / final_voice_validated / content_validation / send_ready / visual_master_locked`。\n- `DeepSeek`：已创建供料任务卡并运行 safe runner；runtime provider ready，key 未打印 / 未写入；controller 返回 `blocked_invalid_context_pack`，`deepseek_actual_partic\n...[truncated]",
+      "excerpt_range_or_marker": "lines:7-17",
+      "confidence": "high"
+    },
+    {
+      "path": "codex_log/20260528_lock_old_b_minimax_voice_audio_replace.md",
+      "file_role": "current_log_or_request_source",
+      "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+      "content_excerpt": "- `selected_sample_source = 刚刚 Codex 生成的 V2 试听样本`\n- `send_ready = false`\n- `content_validation = pending_user_chatgpt_review`\n## DeepSeek\n- `supply_request = codex_log/supply_requests/20260528_lock_old_b_minimax_voice_audio_replace_pre_supply_request.json`\n- `supply_pack = codex_log/deepseek_supply/20260528_lock_old_b_minimax_voice_audio_replace_pre_supply/latest_supply_pack.md`\n- `deepseek_actual_participation = not_attempted_policy_violation`\n- `not_deepseek_conclusion = true`",
+      "excerpt_range_or_marker": "selected_relevant_lines",
+      "confidence": "high"
+    },
+    {
+      "path": "dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322/voice_gate_report.json",
+      "file_role": "readonly_context",
+      "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+      "content_excerpt": "{\n  \"status\": \"passed\",\n  \"publish_candidate_tts_route\": {\n    \"actual_tts_provider\": \"minimax\",\n    \"actual_tts_model\": \"MiniMax/speech-2.8-hd\",\n    \"selected_route\": \"aliyun_bailian_proxy_to_minimax\",\n    \"is_minimax_speech_2_8_hd\": true,\n    \"minimax_authorization_source_masked\": \"authorized_runtime_config:formal_api_demo.local.toml\",\n    \"api_key_printed\": false,\n    \"api_key_written\": false,\n    \"audio_present\": true,\n    \"non_silent\": true,\n    \"fallback_tts_used\": false,\n    \"fallback_reason\": \"\",\n    \"macos_say_used\": false,\n    \"local_low_quality_tts_used\": false,\n    \"tts_route_report_present\": true,\n    \"b_voice_scheme_role\": {\n      \"status\": \"old_b_to_minimax_migration_via_bailian_pending_user_review\",\n      \"meaning\": \"旧阿里 / Qwen B 只作为 reference anchor；正式目标供应商为 MiniMax reference audio / voice clone 生成的声音身份\",\n      \"not_allowed\": \"不得恢复旧 Qwen 为正式默认路线，不得用 MiniMax 系统 voice_id、voice_feel_tags 或男声候选冒充旧 B\",\n      \"next_route\": \"old_b_to_minimax_via_aliyun_bailian\"\n    },\n    \"b_voice_feel_reflected\": true,\n    \"voice_feel_tags\": [\n      \"b_pacing_feel\",\n      \"game_guide_feeling\",\n      \"light_companion\",\n      \"low_pressure\",\n      \"natural_spoken_chinese\",\n      \"not_broadcast\",\n      \"not_childish_cute_voice\",\n      \"not_customer_service\",\n      \"not_sales\",\n      \"subtle_pause_joke_rhythm\"\n    ],\n    \"missing_b_voice_feel_tags\": [],\n    \"old_aliyun_qwen_b_voice_route\": {\n      \"status\": \"reference_anchor_only_for_minimax_migration\",\n      \"role\": \"reference_anchor_only\",\n      \"provider\": \"aliyun_bailian\",\n      \"api_route_family\": \"aliyun_qwen_realtime_websocket_voice_clone\",\n      \"request_method\": \"WEBSOCKET\",\n      \"model\": \"qwen3-tts-vc-realtime-2026-01-15\",\n      \"target_model\": \"qwen3-tts-vc-realtime-2026-01-15\",\n      \"voice_identity_kind\": \"aliyun_qw",
+      "excerpt_range_or_marker": "lines:1-46",
+      "confidence": "high"
+    }
+  ],
+  "exact_snippet_pack": [
+    {
+      "path": "GPT数据源/08_当前正式事实.md",
+      "snippet": "- `已确认` 正式运营阶段，用户只负责目标修正、页面 / 美观 / 观感对标和结果合格反馈；GPT / Codex 负责内部执行问题自查与修复，不得把内部排障责任转给用户。\n- `已确认` Codex 不得降级完成任何正式运营交付任务。凡仓库写明的目标、产物、验证、同步、回报未全部完成，必须 `blocked` 或继续修到满足基线，不得用 fallback、技术预览、局部结果、内部诊断或本地未同步产物冒充 `completed`。\n- `待验证` 本机制写入不代表当前所有执行问题已经解决，不代表当前视频已通过，不代表 Codex 后续永远不会再错，也不代表机制长期稳定；后续真实任务仍必须按闸门验证。\n- `已确认` ChatGPT / 用户是最终落稿和文案锁定入口；Codex 是执行层，不得擅自改标题、选题、开头句、核心判断、人味表达、文案语义或视觉标题卡标题。\n- `已确认` Codex 如判断文案无法执行，必须输出 `copy_change_request（文案修改请求）` 或 blocked，不能自行改稿。\n- `未推进` 本事实只修机制，不代表当前已发布视频内容通过，不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`。\n- `未推进` 运营决策系统落地不代表内容成功、方向成立、商业验证成立或数据飞轮真实跑通；不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`，也不把 `current_data_goal_anchor` 写成 `ready`。\n## 0E. 2026-05-16 Codex 判断权限表与 HyperFrames 卡片基线事实",
+      "why_it_matters": "project_mechanism_source for DeepSeek deep file supply mode",
+      "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+      "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+    },
+    {
+      "path": "codex_source/01_execution_rules.md",
+      "snippet": "# Codex 执行规则\n命中截图、平台数据、评论、私信、咨询、复盘或下一轮变量判断时，Codex 必须优先读取：\n本覆盖口径不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`。\n当前进入 `formal_operation_active（正式运营中）` 后，Codex 在 `route_decision（路由判断）` 阶段必须判断本轮是否是视频交付任务。\nCodex 后续不得降级处理正式运营任务。凡任务目标指向做视频、产视频、发片候选、运营内容、下一条视频、发布候选、项目机制落库、GPT Project 同步、数据录入、复盘记录、素材审计、文案到执行映射、TTS、字幕、卡片、比例、导出、commit / push 等，必须实实在在完成仓库写明的目标。\n- DeepSeek 需要真实参与但只有 `fallback_local_only`。\n`mandatory_commit_push_gate（强制提交推送闸门）` 是 Codex 默认完成标准的一部分，不是临时收尾建议。以后任何最小任务只要对仓库文件产生有效改动，`completed（已完成）` 必须等到 Git 收尾完成后才允许写。\nCodex 最终回报必须默认包含：",
+      "why_it_matters": "codex_execution_rule_source for DeepSeek deep file supply mode",
+      "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+      "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+    },
+    {
+      "path": "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+      "snippet": "#!/usr/bin/env python3\nfrom __future__ import annotations\n\nfrom typing import Any\n\n\nDEFAULT_TTS_PROVIDER_FOR_PUBLISH_CANDIDATE = \"minimax\"\nREQUIRED_MINIMAX_MODELS = {\"speech-2.8-hd\", \"MiniMax/speech-2.8-hd\"}",
+      "why_it_matters": "runner_or_controller for DeepSeek deep file supply mode",
+      "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+      "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+    },
+    {
+      "path": "scripts/生成新第四期选品初筛MiniMax正片候选_rerun_generate_new_fourth_selection_minimax_publish_candidate.py",
+      "snippet": "\"content_validation\": \"pending_user_chatgpt_review\",\n        \"send_ready\": False,\n                \"- `content_validation`: `pending_user_chatgpt_review`\",\n                \"- `send_ready`: `false`\",\n            \"send_ready\": False,\n            \"content_validation\": \"pending_user_chatgpt_review\",\n                \"8. 本轮会读取 v2 证据复核报告：是。\",\n                \"- `prompt_delta`: 基于 v2 证据复核继续生成正片候选，不重复阻断已解除素材 blocker。\",",
+      "why_it_matters": "runner_or_controller for DeepSeek deep file supply mode",
+      "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+      "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+    },
+    {
+      "path": "scripts/锁定旧B迁移MiniMax声音并替换音轨_lock_old_b_minimax_voice_replace_audio.py",
+      "snippet": "\"selected_sample_source\": \"刚刚 Codex 生成的 V2 试听样本\",\n        \"send_ready\": False,\n        \"content_validation\": \"pending_user_chatgpt_review\",\n                \"selected_sample_source\": \"刚刚 Codex 生成的 V2 试听样本\",\n            \"send_ready\": False,\n            \"content_validation\": \"pending_user_chatgpt_review\",\n                \"- `selected_sample_source`: `刚刚 Codex 生成的 V2 试听样本`\",\n                \"- `send_ready`: `false`\",",
+      "why_it_matters": "runner_or_controller for DeepSeek deep file supply mode",
+      "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+      "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+    },
+    {
+      "path": "codex_log/latest.md",
+      "snippet": "- `user_confirmation`：用户确认的不是泛指任意 `V2_prosody_optimized` 方向，而是刚刚 Codex 生成的具体试听样本 `codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V2_prosody_optimized.mp3`。\n- `candidate_status`：`publish_candidate_ready_for_human_review = true`；`voice_validation = pending_user_chatgpt_review`；`final_voice_validated = false`；`send_ready = false`；`content_validation = pending_user_chatgpt_review`。\n- `DeepSeek`：已创建供料请求并运行 safe runner；runtime provider ready，但 controller 返回 `blocked_invalid_context_pack`，`deepseek_actual_participation = not_attempted_policy_violation`，`not_deepseek_conclusion = true`；本轮结论来自 Codex 本地复核 + 百炼 MiniMax 实测，不写 DeepSeek 已参与。\n- `状态边界`：未生成全片旁白，未替换当前视频音轨，未生成视频，未改文案，未改画面，未推进 `voice_validation / final_voice_validated / content_validation / send_ready / visual_master_locked`。\n- `DeepSeek`：前置供料与执行后风险复核均实际运行通过，`deepseek_actual_participation = deepseek_passed`，`fallback_status = not_used`，`api_key_printed = false`，`api_key_written = false`。\n- `状态边界`：未生成音频 / 视频，未上传参考音频，未调用 MiniMax TTS / clone API，未改文案，未推进 `voice_validation / final_voice_validated / content_validation / send_ready / visual_master_locked`。\n- `DeepSeek`：已创建前置供料任务卡与后置风险复核任务卡并运行 safe runner；两次均返回 `deepseek_actual_participation = deepseek_passed`，`fallback_status = not_used`，`api_key_printed = false`，`api_key_written = false`。\n- `DeepSeek`：已创建供料任务卡并运行 safe runner；runtime provider ready，key 未打印 / 未写入；controller 返回 `blocked_invalid_context_pack`，`deepseek_actual_participation = not_attempted_policy_violation`，`not_deepseek_conclusion = true`。",
+      "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+      "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+      "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+    },
+    {
+      "path": "codex_log/20260528_lock_old_b_minimax_voice_audio_replace.md",
+      "snippet": "- `selected_sample_source = 刚刚 Codex 生成的 V2 试听样本`\n- `send_ready = false`\n- `content_validation = pending_user_chatgpt_review`\n## DeepSeek\n- `supply_request = codex_log/supply_requests/20260528_lock_old_b_minimax_voice_audio_replace_pre_supply_request.json`\n- `supply_pack = codex_log/deepseek_supply/20260528_lock_old_b_minimax_voice_audio_replace_pre_supply/latest_supply_pack.md`\n- `deepseek_actual_participation = not_attempted_policy_violation`\n- `not_deepseek_conclusion = true`",
+      "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+      "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+      "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+    },
+    {
+      "path": "dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322/voice_gate_report.json",
+      "snippet": "{\n  \"status\": \"passed\",\n  \"publish_candidate_tts_route\": {\n    \"actual_tts_provider\": \"minimax\",\n    \"actual_tts_model\": \"MiniMax/speech-2.8-hd\",\n    \"selected_route\": \"aliyun_bailian_proxy_to_minimax\",\n    \"is_minimax_speech_2_8_hd\": true,\n    \"minimax_authorization_source_masked\": \"authorized_runtime_config:formal_api_demo.local.toml\",",
+      "why_it_matters": "readonly_context for DeepSeek deep file supply mode",
+      "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+      "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+    }
+  ],
+  "dependency_map": [
+    {
+      "source_file": "GPT数据源/08_当前正式事实.md",
+      "depends_on": [
+        "codex_source/01_execution_rules.md"
+      ],
+      "dependency_type": "project_mechanism_mirrors_codex_execution_surface",
+      "impact": "update_together_if_deep_file_supply_contract_changes"
+    },
+    {
+      "source_file": "codex_source/01_execution_rules.md",
+      "depends_on": [],
+      "dependency_type": "execution_rules_reference_controller_protocol",
+      "impact": "update_together_if_deep_file_supply_contract_changes"
+    },
+    {
+      "source_file": "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+      "depends_on": [],
+      "dependency_type": "readonly_context",
+      "impact": "update_together_if_deep_file_supply_contract_changes"
+    },
+    {
+      "source_file": "scripts/生成新第四期选品初筛MiniMax正片候选_rerun_generate_new_fourth_selection_minimax_publish_candidate.py",
+      "depends_on": [],
+      "dependency_type": "readonly_context",
+      "impact": "update_together_if_deep_file_supply_contract_changes"
+    },
+    {
+      "source_file": "scripts/锁定旧B迁移MiniMax声音并替换音轨_lock_old_b_minimax_voice_replace_audio.py",
+      "depends_on": [],
+      "dependency_type": "readonly_context",
+      "impact": "update_together_if_deep_file_supply_contract_changes"
+    },
+    {
+      "source_file": "codex_log/latest.md",
+      "depends_on": [],
+      "dependency_type": "readonly_context",
+      "impact": "update_together_if_deep_file_supply_contract_changes"
+    },
+    {
+      "source_file": "codex_log/20260528_lock_old_b_minimax_voice_audio_replace.md",
+      "depends_on": [],
+      "dependency_type": "readonly_context",
+      "impact": "update_together_if_deep_file_supply_contract_changes"
+    },
+    {
+      "source_file": "dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322/voice_gate_report.json",
+      "depends_on": [],
+      "dependency_type": "readonly_context",
+      "impact": "update_together_if_deep_file_supply_contract_changes"
+    }
+  ],
+  "risk_and_conflict_report": null,
+  "risk_delta_report": [
+    {
+      "risk_type": "fallback_mislabel_risk",
+      "path": "deepseek_supply_pack",
+      "evidence": "supply_source is not deepseek_passed",
+      "severity": "high",
+      "suggested_codex_action": "do_not_claim_completed_if_user_required_deepseek"
+    }
+  ],
+  "missing_or_uncertain_files": [
+    {
+      "path_or_query": "需要复核是否仍有规则文件把 old_b_to_minimax_voice_lock 写成 pending_user_review 或 pending_reference_audio_url。",
+      "reason": "request_missing_context",
+      "blocked_if_missing": false
+    },
+    {
+      "path_or_query": "需要复核是否误把系统音色候选写成默认 B。",
+      "reason": "request_missing_context",
+      "blocked_if_missing": false
+    },
+    {
+      "path_or_query": "需要复核是否把大媒体提交到 Git。",
+      "reason": "request_missing_context",
+      "blocked_if_missing": false
+    },
+    {
+      "path_or_query": "需要复核是否有 secret/token/key 写入日志。",
+      "reason": "request_missing_context",
+      "blocked_if_missing": false
+    }
+  ],
+  "editing_decision_pack": null,
+  "execution_supply_pack": null,
+  "codex_next_input": {
+    "read_first": [
+      "GPT数据源/08_当前正式事实.md",
+      "codex_source/01_execution_rules.md",
+      "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+      "scripts/生成新第四期选品初筛MiniMax正片候选_rerun_generate_new_fourth_selection_minimax_publish_candidate.py",
+      "scripts/锁定旧B迁移MiniMax声音并替换音轨_lock_old_b_minimax_voice_replace_audio.py",
+      "codex_log/latest.md",
+      "codex_log/20260528_lock_old_b_minimax_voice_audio_replace.md",
+      "dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322/voice_gate_report.json"
+    ],
+    "use_as": "readonly_supply_pack",
+    "warning": "This pack is local fallback, not a DeepSeek conclusion.",
+    "post_risk_review_required": true,
+    "status_promotion_risk": "check_required_no_forbidden_status_promotion",
+    "forbidden_change_risk": "check_required_no_env_media_or_latest_review_pack_change",
+    "missed_sync_files": "check_required_docs_scripts_schema_fixture_logs_package_paths",
+    "fallback_mislabel_risk": "present",
+    "remaining_work": "Codex must run validation, sync logs/package/path index, and report token check boundary.",
+    "recommended_child_tasks": [
+      "update_deep_file_supply_contract",
+      "update_controller_schema_fixture",
+      "run_validation_and_truth_check"
+    ],
+    "files_codex_must_review": [
+      "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+      "scripts/生成新第四期选品初筛MiniMax正片候选_rerun_generate_new_fourth_selection_minimax_publish_candidate.py",
+      "scripts/锁定旧B迁移MiniMax声音并替换音轨_lock_old_b_minimax_voice_replace_audio.py"
+    ],
+    "files_codex_can_trust_from_deepseek_unless_conflict": [
+      "GPT数据源/08_当前正式事实.md",
+      "codex_source/01_execution_rules.md",
+      "codex_log/latest.md",
+      "codex_log/20260528_lock_old_b_minimax_voice_audio_replace.md",
+      "dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322/voice_gate_report.json"
+    ],
+    "blocked_conditions": [
+      "deepseek_actual_required_but_not_deepseek_passed",
+      "relevant_file_bundle_missing",
+      "exact_snippet_pack_missing",
+      "validation_failed_files_not_reviewed_by_codex"
+    ]
+  },
+  "not_allowed": [
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim DeepSeek is stable production supply.",
+    "Do not claim multi-agent runtime is running.",
+    "Do not let DeepSeek write files or decide project facts.",
+    "Do not read .env, API keys, media files, or dist/latest_review_pack/.",
+    "Do not call Aliyun or other real generation APIs in mechanism-only tests."
+  ],
+  "explorer_status": {
+    "validation_status": "blocked",
+    "api_validation": "passed",
+    "deepseek_generation_status": "blocked_invalid_context_pack",
+    "context_pack_validation": "blocked_invalid_context_pack",
+    "fallback_status": "not_used",
+    "pipeline_status": "blocked",
+    "multi_agent_runtime_validation": "not_started",
+    "validated_at_utc": "2026-05-27T19:21:12.982505+00:00",
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-v4-flash",
+    "scope": "readonly_explorer_minimal_api_validation",
+    "env_file_read": "false",
+    "process_env_key_allowed": "true",
+    "process_env_key_present": "true",
+    "safe_call_mode": "process_env_only",
+    "deepseek_actual_participation": "not_attempted_policy_violation",
+    "api_key_printed": "false",
+    "api_key_written": "false",
+    "error_category": "empty_content"
+  },
+  "explorer_returncode": 12,
+  "explorer_pack_path": "dist/deepseek_readonly_explorer/latest_prefetch_context_pack.md",
+  "output_dir": "codex_log/deepseek_supply/20260528_lock_old_b_minimax_voice_audio_replace_post_risk_review",
+  "sections": {}
+}
