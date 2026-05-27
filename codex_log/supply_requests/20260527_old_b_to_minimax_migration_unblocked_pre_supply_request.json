@@ -1,0 +1,126 @@
+{
+  "request_id": "20260527_old_b_to_minimax_migration_unblocked_pre_supply_request",
+  "created_at": "2026-05-27T23:41:25+08:00",
+  "project_route": "video_factory",
+  "task_id": "old_b_to_minimax_migration_unblocked",
+  "task_type": "old_b_to_minimax_voice_migration + authorized_reference_audio_upload_check + minimax_voice_clone_sample_generation",
+  "project_stage": "formal_operation_active",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "auto",
+  "mandatory_for_every_task": true,
+  "participation_level": "readonly_pre_supply",
+  "pre_supply_required": true,
+  "post_review_required": false,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "no_multi_agent_runtime_claim": true,
+  "current_goal": "用户已授权仅上传两条旧 B 参考音频用于 MiniMax voice clone/reference 短样本；检查是否能生成 MiniMax 可读取 file_id/audio_url 并生成 V1/V2/V3 三条短试听，若缺 MiniMax 官方认证或 clone 能力必须阻断，不得 fallback 系统音色。",
+  "current_step": "before_upload_or_generation_gate",
+  "known_context": [
+    "上一轮 old_b_to_minimax_migration 阻断原因为 reference_audio_url_or_upload_authorization_missing。",
+    "本轮用户已授权上传两条指定旧 B 参考音频，但禁止上传其他音频、禁止提交参考音频到 Git、禁止打印或写入 key/token/secret。",
+    "MiniMax 官方 voice clone 文档要求先用 /v1/files/upload 获取 file_id，再用 /v1/voice_clone 创建 cloned voice_id。",
+    "本轮最终路线仍是 MiniMax，旧 Qwen / 阿里只作为 reference_anchor_only。"
+  ],
+  "missing_context": [
+    "当前本地是否存在 MiniMax 官方 MINIMAX_API_KEY。",
+    "用户可控 OSS URL 是否足以被当前 MiniMax clone 链路消费，或是否仍必须用 MiniMax official files/upload file_id。",
+    "是否存在任何脚本会把 MiniMax 系统音色候选当作旧 B 迁移结果。"
+  ],
+  "candidate_files": [
+    "AGENTS.md",
+    "codex_log/diagnostics/old_b_to_minimax_migration_20260527_224840/old_b_to_minimax_migration_report.json",
+    "codex_log/latest.md",
+    "GPT数据源/08_当前正式事实.md",
+    "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+    "scripts/旧B到MiniMax迁移解阻样本生成_old_b_to_minimax_migration_unblocked.py"
+  ],
+  "must_read_files": [
+    "AGENTS.md",
+    "codex_log/diagnostics/old_b_to_minimax_migration_20260527_224840/old_b_to_minimax_migration_report.json",
+    "codex_log/latest.md",
+    "GPT数据源/08_当前正式事实.md",
+    "scripts/正片候选TTS路线_publish_candidate_tts_route.py"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    "dist/**/*.mp4",
+    "dist/**/*.wav",
+    "dist/**/*.mp3",
+    "素材录制/",
+    "本地运行配置_local_runtime/",
+    "/Users/fan/.config/video-factory/formal_api_demo.local.toml"
+  ],
+  "expected_output": [
+    "upload_strategy_check",
+    "minimax_official_file_upload_auth_check",
+    "reference_audio_input_readiness",
+    "forbidden_system_voice_substitution_rule_check",
+    "codex_next_input"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files.",
+    "DeepSeek must not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is stable or completed.",
+    "Do not print, write, or commit API key / token / secret.",
+    "Do not call TTS or clone API from DeepSeek.",
+    "Do not upload reference audio from DeepSeek.",
+    "Do not generate or modify audio/video media outputs.",
+    "Do not generate MiniMax system voice candidates.",
+    "Do not restore old Qwen as formal publish candidate route.",
+    "Do not promote voice_validation, content_validation, send_ready, final_voice_validated, or visual_master_locked."
+  ],
+  "blocked_if": [
+    "MINIMAX_API_KEY missing for official files/upload",
+    "reference audio files cannot be decoded",
+    "only OSS URL is available but current MiniMax official clone requires file_id",
+    "would need to use MiniMax system voice_id as fallback",
+    "would need to restore old Qwen route",
+    "would print/write/commit API key or signed URL"
+  ],
+  "return_to_codex": {
+    "read_status_required": true,
+    "impact_check_required": true,
+    "write_scope": [
+      "GPT数据源/08_当前正式事实.md",
+      "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+      "tests/test_publish_candidate_voice_gate.py",
+      "tests/test_minimax_b_voice_identity_lock.py",
+      "codex_log/latest.md",
+      "codex_log/20260527_old_b_to_minimax_migration_unblocked.md",
+      "codex_log/diagnostics/old_b_to_minimax_migration_unblocked_20260527_234125/",
+      "codex_log/supply_requests/20260527_old_b_to_minimax_migration_unblocked_pre_supply_request.json"
+    ],
+    "output_dir": "codex_log/deepseek_supply/20260527_old_b_to_minimax_migration_unblocked_pre_supply",
+    "verification_required": [
+      "python_py_compile",
+      "targeted_tests",
+      "no_audio_uploaded_if_blocked_before_official_auth",
+      "no_media_output_changed_check",
+      "secret_scan"
+    ]
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "deep_file_prefetch"
+    ]
+  },
+  "content_loading_policy": {
+    "read_only": true,
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 9,
+    "max_chars_per_file": 2000,
+    "max_total_chars": 16000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "do_not_read_secret_files": true,
+    "do_not_modify_files": true
+  }
+}

@@ -1,0 +1,213 @@
+{
+  "task_result": {
+    "status": "blocked",
+    "video_generated": false,
+    "audio_generated": false,
+    "tts_api_called": false,
+    "copy_changed": false,
+    "current_video_modified": false
+  },
+  "created_at": "2026-05-27T15:46:16.976454+00:00",
+  "output_dir": "codex_log/diagnostics/old_b_to_minimax_migration_unblocked_20260527_234125",
+  "route_arbitration": {
+    "old_qwen_role": "reference_anchor_only",
+    "minimax_role": "final_generation_provider",
+    "selected_route": "route_b_migrate_old_b_to_minimax",
+    "system_voice_candidates_allowed": false,
+    "old_qwen_formal_route_allowed": false
+  },
+  "user_authorization": {
+    "reference_audio_upload_authorized_this_round": true,
+    "authorized_files": [
+      "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+      "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav"
+    ],
+    "upload_attempted": false,
+    "upload_attempted_reason": "not_attempted_because_minimax_official_api_key_missing",
+    "reference_audio_committed_to_git": false
+  },
+  "upload_strategy": {
+    "selected": "minimax_official_file_upload",
+    "reason": "MiniMax 官方 voice clone 文档要求通过 /v1/files/upload 获取 file_id；当前没有可确认的 MiniMax audio_url 克隆接口，因此不把 OSS URL 当作已可用的克隆输入。",
+    "option_a_upload_to_user_controlled_oss": {
+      "available": true,
+      "selected": false,
+      "reason": "本轮未发现可用的 MiniMax 官方 audio_url 克隆入口；只上传到 OSS 不能产生 generated_minimax_voice_id。",
+      "upload_attempted": false
+    },
+    "option_b_minimax_official_file_upload": {
+      "available": false,
+      "selected": true,
+      "blocked_reason": "minimax_official_api_key_missing",
+      "upload_attempted": false
+    }
+  },
+  "reference_audio_inputs": [
+    {
+      "reference_audio_id": "reference_audio_1",
+      "local_path": "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+      "uploaded": false,
+      "audio_url": null,
+      "file_id": null,
+      "reason": "blocked_before_upload_minimax_official_api_key_missing"
+    },
+    {
+      "reference_audio_id": "reference_audio_2",
+      "local_path": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
+      "uploaded": false,
+      "audio_url": null,
+      "file_id": null,
+      "reason": "blocked_before_upload_minimax_official_api_key_missing"
+    }
+  ],
+  "reference_audio_probe": [
+    {
+      "path": "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+      "exists": true,
+      "decode_ok": true,
+      "size_bytes": 783404,
+      "channels": 1,
+      "sample_rate": 24000,
+      "frames": 391680,
+      "duration_seconds": 16.32,
+      "sample_width_bytes": 2,
+      "format": "wav"
+    },
+    {
+      "path": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
+      "exists": true,
+      "decode_ok": true,
+      "size_bytes": 652844,
+      "channels": 1,
+      "sample_rate": 24000,
+      "frames": 326400,
+      "duration_seconds": 13.6,
+      "sample_width_bytes": 2,
+      "format": "wav"
+    }
+  ],
+  "minimax_reference_clone_capability": {
+    "supports_voice_clone": true,
+    "supports_reference_audio": true,
+    "requires_file_id": true,
+    "requires_audio_url": false,
+    "accepts_local_file_directly": false,
+    "current_audio_url_available": false,
+    "current_file_id_available": false,
+    "official_minimax_api_key_available": false,
+    "official_minimax_api_key_source": "none",
+    "env_file_minimax_api_key_name_present": false,
+    "official_docs": [
+      "https://platform.minimax.io/docs/api-reference/voice-cloning-uploadcloneaudio",
+      "https://platform.minimax.io/docs/api-reference/voice-cloning-clone",
+      "https://platform.minimax.io/docs/api-reference/speech-t2a-http",
+      "https://platform.minimax.io/docs/guides/speech-voice-clone"
+    ]
+  },
+  "local_runtime_capability": {
+    "user_controlled_oss_config_fields_present": true,
+    "formal_runtime_config_checked_for_field_presence_only": true,
+    "formal_runtime_config_values_logged": false,
+    "formal_example_config_checked_for_non_secret_bucket_endpoint_only": true,
+    "minimax_group_id_present": false,
+    "formal_runtime_config_exists": true,
+    "auth_api_key_field_present": true,
+    "aliyun_oss_access_key_id_field_present": true,
+    "aliyun_oss_access_key_secret_field_present": true,
+    "aliyun_oss_bucket_field_present": false,
+    "aliyun_oss_endpoint_field_present": false
+  },
+  "generated_samples": [
+    {
+      "sample_id": "V1_identity_match",
+      "goal": "尽量贴旧 B 音色",
+      "speed": 1.0,
+      "emotion": "neutral / calm",
+      "pause_style": "保持旧 B 停顿感",
+      "sample_path": null,
+      "target_provider": "minimax",
+      "target_model": "MiniMax/speech-2.8-hd",
+      "generated_minimax_voice_id": null,
+      "reference_audio_used": false,
+      "non_silent": null,
+      "status": "not_generated",
+      "blocked_reason": "minimax_official_api_key_missing"
+    },
+    {
+      "sample_id": "V2_prosody_optimized",
+      "goal": "音色不变，优化停顿、句尾、上扬",
+      "speed": "0.98-1.04",
+      "emotion": "warm / natural",
+      "pause_style": "语义边界更清楚",
+      "sample_path": null,
+      "target_provider": "minimax",
+      "target_model": "MiniMax/speech-2.8-hd",
+      "generated_minimax_voice_id": null,
+      "reference_audio_used": false,
+      "non_silent": null,
+      "status": "not_generated",
+      "blocked_reason": "minimax_official_api_key_missing"
+    },
+    {
+      "sample_id": "V3_emotion_rich",
+      "goal": "音色不变，增加轻吐槽、判断感、自然起伏",
+      "speed": "0.98-1.03",
+      "emotion": "warm_lively",
+      "pause_style": "关键句更有空间",
+      "sample_path": null,
+      "target_provider": "minimax",
+      "target_model": "MiniMax/speech-2.8-hd",
+      "generated_minimax_voice_id": null,
+      "reference_audio_used": false,
+      "non_silent": null,
+      "status": "not_generated",
+      "blocked_reason": "minimax_official_api_key_missing"
+    }
+  ],
+  "old_b_to_minimax_voice_lock": {
+    "status": "pending_minimax_official_auth",
+    "old_b_reference_audio_path": [
+      "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+      "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav"
+    ],
+    "old_b_reference_voice_masked_id": "qwen-t...ac19",
+    "target_provider": "minimax",
+    "target_model": "MiniMax/speech-2.8-hd",
+    "generated_minimax_voice_id": null,
+    "timbre_similarity_required": true,
+    "prosody_optimization_allowed": true,
+    "emotion_optimization_allowed": true,
+    "timbre_change_allowed": false,
+    "system_voice_substitution_allowed": false,
+    "human_voice_review_required": true,
+    "human_voice_review_status": "pending_minimax_official_auth"
+  },
+  "status_boundary": {
+    "full_narration_regenerated": false,
+    "current_video_modified": false,
+    "copy_changed": false,
+    "voice_validation": "not_advanced",
+    "send_ready": false
+  },
+  "blocked": {
+    "blocked_reasons": [
+      "minimax_official_api_key_missing"
+    ],
+    "primary_blocked_reason": "minimax_official_api_key_missing",
+    "forbidden_fallback": [
+      "不得用 MiniMax 系统音色替代旧 B",
+      "不得用男声候选替代旧 B",
+      "不得恢复旧 Qwen 正式路线",
+      "不得使用 macOS say / 本地低质 TTS / silent audio"
+    ]
+  },
+  "next_user_action": {
+    "authorize_reference_audio_upload": false,
+    "provide_minimax_official_api_key": true,
+    "set_required_env": [
+      "MINIMAX_API_KEY"
+    ],
+    "listen_to_samples": false,
+    "choose_or_reject": false
+  }
+}

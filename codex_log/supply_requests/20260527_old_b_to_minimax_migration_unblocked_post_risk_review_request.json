@@ -1,0 +1,117 @@
+{
+  "request_id": "20260527_old_b_to_minimax_migration_unblocked_post_risk_review_request",
+  "created_at": "2026-05-27T23:55:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "old_b_to_minimax_migration_unblocked_post_risk_review",
+  "task_type": "post_risk_review + secret_scan_focus + voice_route_boundary_review",
+  "project_stage": "formal_operation_active",
+  "trigger_reason": "mandatory_post_risk_review",
+  "action": "auto",
+  "mandatory_for_every_task": true,
+  "participation_level": "readonly_post_risk_review",
+  "pre_supply_required": false,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "no_multi_agent_runtime_claim": true,
+  "current_goal": "复核本轮旧 B 到 MiniMax 迁移上传授权解阻检查：确认没有上传参考音频、没有生成音频、没有调用 MiniMax clone/TTS API、没有泄露 secret、没有把 OSS URL 或系统音色候选写成 cloned voice 完成态。",
+  "current_step": "post_write_risk_review",
+  "known_context": [
+    "本轮用户授权上传两条旧 B 参考音频，但 Codex 因缺 MINIMAX_API_KEY 阻断，未上传。",
+    "报告状态应为 blocked / pending_minimax_official_auth。",
+    "正式事实和 route script 已补 blocked_need_minimax_official_auth / minimax_file_id_missing 闸门。",
+    "不得推进 voice_validation、send_ready、content_validation 或 final_voice_validated。"
+  ],
+  "missing_context": [
+    "需要复核 staged/changed files 是否包含任何 secret、签名 URL、参考音频或生成音频。",
+    "需要复核报告是否正确保持 blocked，而非 completed。",
+    "需要复核机制是否仍阻断系统音色替代旧 B。"
+  ],
+  "candidate_files": [
+    "GPT数据源/08_当前正式事实.md",
+    "codex_log/latest.md",
+    "codex_log/20260527_old_b_to_minimax_migration_unblocked.md",
+    "codex_log/diagnostics/old_b_to_minimax_migration_unblocked_20260527_234125/old_b_to_minimax_migration_unblocked_report.json",
+    "codex_log/diagnostics/old_b_to_minimax_migration_unblocked_20260527_234125/old_b_to_minimax_migration_unblocked_report.md",
+    "codex_log/diagnostics/old_b_to_minimax_migration_unblocked_20260527_234125/voice_candidate_review_table_old_b_minimax.md",
+    "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+    "scripts/旧B到MiniMax迁移解阻样本生成_old_b_to_minimax_migration_unblocked.py",
+    "tests/test_publish_candidate_voice_gate.py"
+  ],
+  "must_read_files": [
+    "GPT数据源/08_当前正式事实.md",
+    "codex_log/latest.md",
+    "codex_log/20260527_old_b_to_minimax_migration_unblocked.md",
+    "codex_log/diagnostics/old_b_to_minimax_migration_unblocked_20260527_234125/old_b_to_minimax_migration_unblocked_report.json",
+    "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+    "tests/test_publish_candidate_voice_gate.py"
+  ],
+  "expected_output": [
+    "forbidden_upload_or_media_change_check",
+    "secret_risk_check",
+    "status_promotion_check",
+    "system_voice_substitution_check",
+    "codex_next_input"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    "dist/**/*.mp4",
+    "dist/**/*.wav",
+    "dist/**/*.mp3",
+    "素材录制/",
+    "本地运行配置_local_runtime/",
+    "/Users/fan/.config/video-factory/formal_api_demo.local.toml"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files.",
+    "DeepSeek must not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is stable or completed.",
+    "Do not print, write, or commit API key / token / secret.",
+    "Do not call TTS or clone API from DeepSeek.",
+    "Do not upload reference audio from DeepSeek.",
+    "Do not generate or modify audio/video media outputs.",
+    "Do not generate MiniMax system voice candidates.",
+    "Do not restore old Qwen as formal publish candidate route.",
+    "Do not promote voice_validation, content_validation, send_ready, final_voice_validated, or visual_master_locked."
+  ],
+  "blocked_if": [
+    "report says completed despite no generated samples",
+    "reference audio was uploaded or committed",
+    "secret or signed URL appears in changed files",
+    "system voice substitution allowed",
+    "status promotion detected",
+    "current video or full narration changed"
+  ],
+  "return_to_codex": {
+    "output_dir": "codex_log/deepseek_supply/20260527_old_b_to_minimax_migration_unblocked_post_risk_review",
+    "verification_required": [
+      "path_limited_git_diff",
+      "secret_scan",
+      "targeted_tests",
+      "remote_verify_after_push"
+    ]
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "deep_file_prefetch"
+    ]
+  },
+  "content_loading_policy": {
+    "read_only": true,
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 9,
+    "max_chars_per_file": 2000,
+    "max_total_chars": 16000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "do_not_read_secret_files": true,
+    "do_not_modify_files": true
+  }
+}

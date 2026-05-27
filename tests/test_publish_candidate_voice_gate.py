@@ -228,6 +228,33 @@ class PublishCandidateVoiceGateTests(unittest.TestCase):
         self.assertIn("reference_audio_url_or_upload_authorization_missing", result["blocked_reasons"])
         self.assertIn("generated_minimax_voice_id_missing", result["blocked_reasons"])
 
+    def test_old_b_to_minimax_lock_blocks_after_upload_authorization_without_minimax_auth(self) -> None:
+        result = route_module.validate_old_b_to_minimax_voice_lock(
+            {
+                "old_b_to_minimax_voice_lock": {
+                    "status": "pending_minimax_official_auth",
+                    "target_provider": "minimax",
+                    "target_model": "MiniMax/speech-2.8-hd",
+                    "requires_file_id": True,
+                    "current_file_id_available": False,
+                    "reference_audio_upload_authorized": True,
+                    "official_minimax_api_key_available": False,
+                    "system_voice_substitution_allowed": False,
+                    "old_qwen_formal_route_allowed": False,
+                    "human_voice_review_status": "pending_minimax_official_auth",
+                }
+            },
+            _summary(),
+        )
+
+        self.assertEqual(
+            result["old_b_to_minimax_voice_lock_validation"],
+            "blocked_need_minimax_official_auth",
+        )
+        self.assertIn("minimax_official_api_key_missing", result["blocked_reasons"])
+        self.assertIn("minimax_file_id_missing", result["blocked_reasons"])
+        self.assertIn("generated_minimax_voice_id_missing", result["blocked_reasons"])
+
     def test_old_b_to_minimax_lock_rejects_system_voice_even_if_male(self) -> None:
         result = route_module.validate_old_b_to_minimax_voice_lock(
             {

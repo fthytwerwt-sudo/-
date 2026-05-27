@@ -1,5 +1,22 @@
 # Latest
 
+## 20260527｜旧 B 到 MiniMax 迁移上传授权解阻检查
+
+- `task_result.status = blocked`
+- `target_delivery = old_b_to_minimax_migration_unblocked`
+- `route_arbitration`：`old_qwen_role = reference_anchor_only`；`minimax_role = final_generation_provider`；`selected_route = route_b_migrate_old_b_to_minimax`；`system_voice_candidates_allowed = false`。
+- `user_authorization = received`：用户授权仅上传两条旧 B 参考音频用于 MiniMax voice clone / reference 短样本；本轮未上传，因为当前官方 MiniMax clone 链路缺 `MINIMAX_API_KEY`。
+- `reference_audio.loaded = true`：`B_15秒文案_停顿梗感.wav` 为 `16.32s / 24000 Hz / mono / wav`；`语音样本2_声音复刻试听_15秒.wav` 为 `13.60s / 24000 Hz / mono / wav`。
+- `upload_strategy.selected = minimax_official_file_upload`；原因是 MiniMax 官方 voice clone 要先 `/v1/files/upload` 获取 `file_id`，再 `/v1/voice_clone` 创建 `voice_id`；仅上传到 OSS 不能在当前官方链路里直接生成 `generated_minimax_voice_id`。
+- `blocked_reason = minimax_official_api_key_missing`；`audio_url_created = false`；`file_id_created = false`；`generated_samples = none`。
+- `diagnostics_path = codex_log/diagnostics/old_b_to_minimax_migration_unblocked_20260527_234125`
+- `migration_report = codex_log/diagnostics/old_b_to_minimax_migration_unblocked_20260527_234125/old_b_to_minimax_migration_unblocked_report.json`
+- `review_table = codex_log/diagnostics/old_b_to_minimax_migration_unblocked_20260527_234125/voice_candidate_review_table_old_b_minimax.md`
+- `old_b_to_minimax_voice_lock.status = pending_minimax_official_auth`；`generated_minimax_voice_id = null`；`human_voice_review_status = pending_minimax_official_auth`；`system_voice_substitution_allowed = false`。
+- `状态边界`：未生成音频 / 视频，未上传参考音频，未调用 MiniMax TTS / clone API，未改文案，未推进 `voice_validation / final_voice_validated / content_validation / send_ready / visual_master_locked`。
+- `DeepSeek`：已创建前置供料任务卡与后置风险复核任务卡并运行 safe runner；两次均返回 `deepseek_actual_participation = deepseek_passed`，`fallback_status = not_used`，`api_key_printed = false`，`api_key_written = false`。
+- `日志`：`codex_log/20260527_old_b_to_minimax_migration_unblocked.md`
+
 ## 20260527｜旧 B 到 MiniMax 声音迁移审计
 
 - `task_result.status = blocked_need_reference_audio_url`

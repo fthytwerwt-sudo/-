@@ -17,10 +17,10 @@ MINIMAX_SELECTED_ROUTES = {
     "route_b",
 }
 B_VOICE_SCHEME_ROLE = {
-    "status": "old_b_to_minimax_migration_pending_reference_audio_url",
+    "status": "old_b_to_minimax_migration_pending_minimax_official_auth",
     "meaning": "旧阿里 / Qwen B 只作为 reference anchor；正式目标供应商为 MiniMax reference audio / voice clone 生成的声音身份",
     "not_allowed": "不得恢复旧 Qwen 为正式默认路线，不得用 MiniMax 系统 voice_id、voice_feel_tags 或男声候选冒充旧 B",
-    "next_route": "route_b_migrate_old_b_to_minimax_after_reference_audio_url_or_upload_authorization",
+    "next_route": "route_b_migrate_old_b_to_minimax_after_minimax_official_auth",
 }
 REQUIRED_B_VOICE_GENDER_DIRECTION = "male_or_male_leaning"
 FORBIDDEN_B_VOICE_IDS = {
@@ -84,7 +84,7 @@ OLD_B_REFERENCE_AUDIO_PATHS = [
     "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
 ]
 OLD_B_TO_MINIMAX_MIGRATION_ROUTE = {
-    "status": "pending_reference_audio_url",
+    "status": "pending_minimax_official_auth",
     "selected_route": "route_b_migrate_old_b_to_minimax",
     "old_qwen_role": "reference_anchor_only",
     "minimax_role": "final_generation_provider",
@@ -95,9 +95,13 @@ OLD_B_TO_MINIMAX_MIGRATION_ROUTE = {
     "requires_reference_audio_access": True,
     "current_bailian_proxy_requires_audio_url": True,
     "official_minimax_supports_file_upload_for_voice_clone": True,
-    "reference_audio_upload_requires_user_authorization": True,
+    "official_minimax_file_upload_required_for_clone": True,
+    "oss_audio_url_not_sufficient_for_official_clone": True,
+    "reference_audio_upload_authorization_received": True,
+    "reference_audio_upload_requires_user_authorization": False,
     "blocked_if": [
-        "reference_audio_url_or_upload_authorization_missing",
+        "minimax_official_api_key_missing",
+        "minimax_file_id_missing",
         "generated_minimax_voice_id_missing",
         "system_voice_candidate_used_as_old_b",
         "old_qwen_route_selected_as_formal_route",
@@ -105,7 +109,7 @@ OLD_B_TO_MINIMAX_MIGRATION_ROUTE = {
     ],
 }
 OLD_B_TO_MINIMAX_VOICE_LOCK_RULE = {
-    "status": "pending_reference_audio_url",
+    "status": "pending_minimax_official_auth",
     "old_b_reference_audio_path": OLD_B_REFERENCE_AUDIO_PATHS,
     "old_b_reference_voice_masked_id": OLD_ALIYUN_QWEN_B_MASKED_VOICE_ID,
     "target_provider": "minimax",
@@ -117,7 +121,7 @@ OLD_B_TO_MINIMAX_VOICE_LOCK_RULE = {
     "timbre_change_allowed": False,
     "system_voice_substitution_allowed": False,
     "human_voice_review_required": True,
-    "human_voice_review_status": "pending_reference_audio_url",
+    "human_voice_review_status": "pending_minimax_official_auth",
 }
 FORBIDDEN_B_VOICE_DIRECTIONS = [
     "female_system_voice",
@@ -191,6 +195,7 @@ B_VOICE_IDENTITY_LOCK_RULE = {
 USER_CONFIRMED_VOICE_STATUS = "user_confirmed"
 PENDING_USER_REVIEW_STATUS = "pending_user_review"
 PENDING_REFERENCE_AUDIO_URL_STATUS = "pending_reference_audio_url"
+PENDING_MINIMAX_OFFICIAL_AUTH_STATUS = "pending_minimax_official_auth"
 FORBIDDEN_DEFAULT_B_VOICE_IDS = set(FORBIDDEN_OLD_B_REPLACEMENT_VOICE_IDS)
 
 
@@ -505,13 +510,26 @@ def build_old_b_to_minimax_voice_lock_report(tts_map: Any, summary: Any) -> dict
     )
     requires_audio_url_value = _first_value(payloads, ["requires_audio_url", "need_public_accessible_url"])
     requires_audio_url = True if requires_audio_url_value is None else truthy(requires_audio_url_value)
+    requires_file_id_value = _first_value(payloads, ["requires_file_id", "official_minimax_file_upload_required_for_clone"])
+    requires_file_id = True if requires_file_id_value is None else truthy(requires_file_id_value)
     current_audio_url_available = _any_truthy(
         payloads,
         ["current_audio_url_available", "reference_audio_url_available", "audio_url_available"],
     )
+    current_file_id_available = _any_truthy(
+        payloads,
+        ["current_file_id_available", "reference_audio_file_id_available", "file_id_created", "minimax_file_id_available"],
+    )
     reference_audio_upload_authorized = _any_truthy(
         payloads,
         ["reference_audio_upload_authorized", "user_authorized_reference_audio_upload", "upload_authorized"],
+    )
+    official_minimax_api_key_value = _first_value(
+        payloads,
+        ["official_minimax_api_key_available", "minimax_official_api_key_available", "minimax_api_key_available"],
+    )
+    official_minimax_api_key_available = (
+        None if official_minimax_api_key_value is None else truthy(official_minimax_api_key_value)
     )
     accepts_local_file_directly_value = _first_value(payloads, ["accepts_local_file_directly"])
     accepts_local_file_directly = False if accepts_local_file_directly_value is None else truthy(accepts_local_file_directly_value)
@@ -548,8 +566,11 @@ def build_old_b_to_minimax_voice_lock_report(tts_map: Any, summary: Any) -> dict
         "old_b_reference_audio_path": OLD_B_REFERENCE_AUDIO_PATHS,
         "old_b_reference_voice_masked_id": old_b_reference_voice_masked_id,
         "requires_audio_url": requires_audio_url,
+        "requires_file_id": requires_file_id,
         "accepts_local_file_directly": accepts_local_file_directly,
         "current_audio_url_available": current_audio_url_available,
+        "current_file_id_available": current_file_id_available,
+        "official_minimax_api_key_available": official_minimax_api_key_available,
         "reference_audio_upload_authorized": reference_audio_upload_authorized,
         "timbre_similarity_required": True,
         "prosody_optimization_allowed": True,
@@ -595,11 +616,26 @@ def validate_old_b_to_minimax_voice_lock(tts_map: Any, summary: Any) -> dict[str
         report["current_audio_url_available"] or report["reference_audio_upload_authorized"]
     ):
         reasons.append("reference_audio_url_or_upload_authorization_missing")
+    if (
+        report["requires_file_id"]
+        and not report["current_file_id_available"]
+        and not generated_minimax_voice_id
+        and report["reference_audio_upload_authorized"]
+    ):
+        reasons.append("minimax_file_id_missing")
+    if (
+        report["official_minimax_api_key_available"] is False
+        and not generated_minimax_voice_id
+        and report["reference_audio_upload_authorized"]
+    ):
+        reasons.append("minimax_official_api_key_missing")
     if report["human_voice_review_required"] and human_review_status != USER_CONFIRMED_VOICE_STATUS:
         reasons.append("human_voice_review_status_not_user_confirmed")
 
     if "reference_audio_url_or_upload_authorization_missing" in reasons:
         validation = "blocked_need_reference_audio_url"
+    elif "minimax_official_api_key_missing" in reasons:
+        validation = "blocked_need_minimax_official_auth"
     elif reasons:
         validation = "blocked_old_b_to_minimax_voice_lock"
     else:
