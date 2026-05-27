@@ -108,13 +108,13 @@ class MinimaxBVoiceIdentityLockTests(unittest.TestCase):
         self.assertEqual(result["voice_identity_gate_validation"], "blocked_b_voice_identity_lock")
         self.assertIn("actual_voice_id_mismatch_expected_b_minimax_voice_id", result["blocked_reasons"])
 
-    def test_user_confirmed_same_voice_id_passes_identity_lock(self) -> None:
+    def test_user_confirmed_cloned_voice_id_passes_identity_lock(self) -> None:
         result = route_module.validate_b_voice_feel_minimax_route(
             _base_tts_report(
-                actual_voice_id="male-qn-qingse",
+                actual_voice_id="bClone20260527Ac19V1",
                 actual_gender_direction="male_or_male_leaning",
                 actual_voice_setting={
-                    "voice_id": "male-qn-qingse",
+                    "voice_id": "bClone20260527Ac19V1",
                     "speed": 1.08,
                     "pitch": 0,
                     "emotion": "calm",
@@ -122,10 +122,10 @@ class MinimaxBVoiceIdentityLockTests(unittest.TestCase):
                 },
                 b_voice_identity_lock={
                     "status": "user_confirmed",
-                    "expected_b_minimax_voice_id": "male-qn-qingse",
+                    "expected_b_minimax_voice_id": "bClone20260527Ac19V1",
                     "required_gender_direction": "male_or_male_leaning",
                     "locked_voice_setting": {
-                        "voice_id": "male-qn-qingse",
+                        "voice_id": "bClone20260527Ac19V1",
                         "speed": 1.08,
                         "pitch": 0,
                         "emotion": "calm",
@@ -141,6 +141,25 @@ class MinimaxBVoiceIdentityLockTests(unittest.TestCase):
 
         self.assertEqual(result["voice_route_validation"], "passed_minimax_b_voice_identity_lock")
         self.assertEqual(result["blocked_reasons"], [])
+
+    def test_user_confirmed_male_system_voice_still_blocks_identity_lock(self) -> None:
+        result = route_module.validate_minimax_b_voice_identity_lock(
+            _base_tts_report(
+                actual_voice_id="male-qn-qingse",
+                actual_gender_direction="male_or_male_leaning",
+                b_voice_identity_lock={
+                    "status": "user_confirmed",
+                    "expected_b_minimax_voice_id": "male-qn-qingse",
+                    "required_gender_direction": "male_or_male_leaning",
+                    "human_voice_review_status": "user_confirmed",
+                    "timbre_change_allowed": False,
+                },
+            ),
+            _summary(),
+        )
+
+        self.assertEqual(result["voice_identity_gate_validation"], "blocked_b_voice_identity_lock")
+        self.assertIn("actual_voice_id_in_forbidden_voice_ids", result["blocked_reasons"])
 
     def test_male_minimax_candidate_still_cannot_replace_old_aliyun_b(self) -> None:
         result = route_module.validate_old_b_voice_replacement_rule(

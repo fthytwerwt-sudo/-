@@ -288,7 +288,7 @@ python scripts/发片候选预检套件_publish_candidate_preflight_suite.py --n
 3. `near_equivalent_material_substitution_preflight（近似素材替代预检）`：输出 `near_equivalent_material_substitution_report`，逐条记录替代素材、时间码、是否核心证据、为何极其相近、claim / viewer inference 是否保留、是否 allowed 或 blocked。
 4. `tts_route_and_prosody_preflight（TTS 路线与韵律预检）`：检查目标 provider / model / voice route、实际 provider / model / voice route、预期 pacing 是否被使用，禁止未授权 fallback、无声或本地低质 TTS 冒充发布候选。
 5. `publish_candidate_voice_gate（正片候选语音闸门）`：检查 `tts_route_report` 是否显示实际 provider 为 `minimax`，实际模型为 `speech-2.8-hd / MiniMax/speech-2.8-hd`，音频存在、非静音、未使用 fallback。
-6. `b_voice_feel_minimax_preflight（B 方案听感 + MiniMax 预检）`：检查 B 方案正式听感字段已反映，同时正式生成路线仍为 MiniMax；旧 Qwen / 阿里 B 语音路线不得作为 publish candidate completed。2026-05-27 起，本 gate 还必须检查 `b_voice_identity_lock`：只有 `actual_voice_id == expected_b_minimax_voice_id`、`actual_voice_id` 不在禁用列表、`actual_gender_direction = male_or_male_leaning` 且 `human_voice_review_status = user_confirmed` 才能放行。2026-05-27 旧 B 恢复审计后，如任务明确要求恢复旧阿里 / Qwen B 声音，应先进入 `old_b_voice_restoration_audit / route_a_restore_old_qwen_b`，不得继续用 MiniMax 系统候选替代旧 B。
+6. `b_voice_feel_minimax_preflight（B 方案听感 + MiniMax 预检）`：检查 B 方案正式听感字段已反映，同时正式生成路线仍为 MiniMax；旧 Qwen / 阿里 B 语音路线不得作为 publish candidate completed。2026-05-27 起，本 gate 还必须检查 `b_voice_identity_lock`：只有 `actual_voice_id == expected_b_minimax_voice_id`、`actual_voice_id` 不在禁用列表、`actual_gender_direction = male_or_male_leaning` 且 `human_voice_review_status = user_confirmed` 才能放行。2026-05-27 22:48 用户最新指令后，如任务要求旧 B 声音，应进入 `old_b_to_minimax_voice_migration / route_b_migrate_old_b_to_minimax`；旧 Qwen 只作参考锚点，MiniMax 系统候选不得替代旧 B。
 7. `card_decision_preflight（卡片决策预检）`：检查 `judgment_card / summary_card / result_diff_card / boundary_card / prompt_tail_card` 的 `needed / reason / not_needed_reason / line_group_id / evidence_dependency / interrupt_risk`。
 8. `forbidden_action_preflight（禁止事项预检）`：检查是否改 locked title / opening line / final script semantics，是否删除必需判断卡 / 边界卡，是否改 TTS 路线、使用未授权 fallback、默认遮挡、把技术预览写成交付或推进状态。
 9. `visual_evidence_readability_preflight（视觉证据可读性预检）`：检查核心证据窗口、源比例 / 授权、无遮蔽、无 whiteout / black block / gray residue，字幕和卡片不遮挡证据。
@@ -312,7 +312,7 @@ MiniMax 正片候选语音硬规则：后续 `publish_candidate / formal_operati
 
 MiniMax B 声音身份锁硬规则：后续 B 方案正片候选不得再只靠 `voice_feel_tags`、`b_voice_feel_reflected = true` 或“听起来像 B”放行。必须先有 `b_voice_identity_lock.status = user_confirmed`、`expected_b_minimax_voice_id`、`locked_voice_setting` 和 `human_voice_review_status = user_confirmed`；实际生成报告必须写明 `actual_voice_id`，且必须等于 `expected_b_minimax_voice_id`。2026-05-27 重审后，B 方案目标性别方向为 `male_or_male_leaning（男声或偏男声）`；`female-tianmei / female-shaonv / female-shaonv-jingpin / female-yujie` 均禁止继续作为 B 音色，除非未来用户明确反悔并重新确认。音色身份优先级高于情绪和停顿；只能在同一 `voice_id` 内调 `speed / pitch / emotion / pause tags`，不得为了情绪更丰富而换性别、换音色或回到女声系统音色。
 
-旧阿里 / Qwen B 声音恢复硬规则：当用户明确要求恢复“以前阿里大模型 B 方案声音”时，不得继续生成 MiniMax 系统候选，也不得把男声系统候选当成旧 B。旧 B 历史身份为 `provider = aliyun_bailian`、`api_route_family = aliyun_qwen_realtime_websocket_voice_clone`、`model / target_model = qwen3-tts-vc-realtime-2026-01-15`、`custom_voice_masked_id = qwen-t...ac19`。`qwen-t...ac19` 不是 MiniMax `voice_id`，不得写入 `expected_b_minimax_voice_id`。`female-tianmei / female-shaonv / female-shaonv-jingpin / female-yujie / male-qn-qingse / male-qn-daxuesheng / Chinese (Mandarin)_Gentleman / Chinese (Mandarin)_Gentle_Youth / Chinese (Mandarin)_Sincere_Adult` 等系统候选均不能替代旧 B。下一轮推荐路线为 `route_a_restore_old_qwen_b`，但必须先做 runtime smoke，并在用户试听确认前保持 `voice_validation` 与 `final_voice_validated` 不推进。
+旧 B 到 MiniMax 迁移硬规则：当用户要求“用 MiniMax 做出以前阿里 B 的声音”时，旧阿里 / Qwen B 只能作为 `reference_anchor_only`，不得恢复旧 Qwen 为正式默认路线。旧 B 历史身份为 `provider = aliyun_bailian`、`api_route_family = aliyun_qwen_realtime_websocket_voice_clone`、`model / target_model = qwen3-tts-vc-realtime-2026-01-15`、`custom_voice_masked_id = qwen-t...ac19`。`qwen-t...ac19` 不是 MiniMax `voice_id`，不得写入 `expected_b_minimax_voice_id`。`female-tianmei / female-shaonv / female-shaonv-jingpin / female-yujie / male-qn-qingse / male-qn-daxuesheng / Chinese (Mandarin)_Gentleman / Chinese (Mandarin)_Gentle_Youth / Chinese (Mandarin)_Sincere_Adult` 等系统候选均不能替代旧 B。下一轮路线为 `route_b_migrate_old_b_to_minimax`；必须使用旧 B 参考音频生成或克隆出 MiniMax 声音身份。缺公网 `audio_url`、缺授权上传、缺 `generated_minimax_voice_id` 或缺用户试听确认时，必须 `blocked_need_reference_audio_url` / `pending_reference_audio_url`，并保持 `voice_validation` 与 `final_voice_validated` 不推进。
 
 三项候选片判断机制硬规则：
 
@@ -331,7 +331,7 @@ line_visual_tolerance_rule:
     - user_material_needed_but_missing = true
 
 b_voice_feel_minimax_formal_voice_rule:
-  b_voice_scheme_role: route_conflict_pending_old_aliyun_b_restoration
+  b_voice_scheme_role: old_b_to_minimax_migration_pending_reference_audio_url
   required_generation_route: minimax / aliyun_bailian_proxy_to_minimax + speech-2.8-hd / MiniMax/speech-2.8-hd
   required_identity_lock:
     b_voice_identity_lock.status: user_confirmed
@@ -356,14 +356,20 @@ b_voice_feel_minimax_formal_voice_rule:
     - female-shaonv
     - female-shaonv-jingpin
     - female-yujie
+    - male-qn-qingse
+    - male-qn-daxuesheng
+    - Chinese (Mandarin)_Gentleman
+    - Chinese (Mandarin)_Gentle_Youth
+    - Chinese (Mandarin)_Sincere_Adult
 
 old_aliyun_qwen_b_restoration_rule:
-  status: evidence_found_pending_runtime_smoke
+  status: reference_anchor_only_for_minimax_migration
   provider: aliyun_bailian
   api_route_family: aliyun_qwen_realtime_websocket_voice_clone
   model: qwen3-tts-vc-realtime-2026-01-15
   custom_voice_masked_id: qwen-t...ac19
-  next_route: route_a_restore_old_qwen_b
+  old_qwen_role: reference_anchor_only
+  next_route: route_b_migrate_old_b_to_minimax
   forbidden_replacement_voice_ids:
     - female-tianmei
     - female-shaonv
@@ -377,9 +383,27 @@ old_aliyun_qwen_b_restoration_rule:
   blocked_if:
     - MiniMax_system_voice_candidate_used_as_old_b
     - qwen_t_ac19_written_as_minimax_voice_id
+    - reference_audio_url_or_upload_authorization_missing
+    - generated_minimax_voice_id_missing
     - TTS_API_required_but_not_authorized
-    - runtime_smoke_missing
-    - user_listening_review_missing
+
+old_b_to_minimax_voice_lock:
+  status: pending_reference_audio_url
+  old_b_reference_voice_masked_id: qwen-t...ac19
+  target_provider: minimax
+  target_model: MiniMax/speech-2.8-hd
+  generated_minimax_voice_id: required_after_clone
+  system_voice_substitution_allowed: false
+  old_qwen_formal_route_allowed: false
+  timbre_change_allowed: false
+  human_voice_review_required: true
+  human_voice_review_status: user_confirmed_required_before_publish_candidate
+  blocked_if:
+    - reference_audio_url_or_upload_authorization_missing
+    - generated_minimax_voice_id_missing
+    - system_voice_candidate_used_as_old_b
+    - old_qwen_route_selected_as_formal_route
+    - human_voice_review_status_not_user_confirmed
 
 publish_candidate_user_standard_rule:
   user_definition: publish_candidate_means_user_can_watch_and_directly_publish_after_human_review

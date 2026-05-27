@@ -1,0 +1,138 @@
+{
+  "request_id": "20260527_old_b_to_minimax_migration_pre_supply_request",
+  "created_at": "2026-05-27T22:48:40+08:00",
+  "project_route": "video_factory",
+  "task_id": "old_b_to_minimax_voice_migration",
+  "task_type": "old_b_to_minimax_voice_migration + minimax_voice_clone_or_reference_audio_test + tts_prosody_optimization + voice_identity_lock_preparation",
+  "project_stage": "formal_operation_active",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "auto",
+  "mandatory_for_every_task": true,
+  "participation_level": "readonly_pre_supply",
+  "pre_supply_required": true,
+  "post_review_required": false,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "no_multi_agent_runtime_claim": true,
+  "current_goal": "使用 MiniMax 参考音频 / voice clone 能力迁移旧阿里 / Qwen B 方案声音；旧 Qwen 只作为 reference anchor，不恢复为正式路线；若缺少授权上传或公网 audio_url，必须阻断且不得回退到 MiniMax 系统音色候选。",
+  "current_step": "before_write_gate",
+  "known_context": [
+    "用户最新指令要求目标供应商必须是 MiniMax，旧阿里 / Qwen B 只作为参考音频和声音锚点。",
+    "旧 B 参考锚点为 aliyun_bailian / qwen3-tts-vc-realtime-2026-01-15 / qwen-t...ac19。",
+    "本轮禁止恢复旧 Qwen 正式路线，禁止生成系统 voice_id 候选，禁止生成全片旁白或修改当前视频。",
+    "仓库已有审计记录显示 MiniMax voice clone / reference audio 能力存在，但当前代理路线可能需要公网 audio_url 或授权上传。"
+  ],
+  "missing_context": [
+    "需要复核当前仓库是否已有旧 B 参考音频的公网 audio_url 或已授权上传记录。",
+    "需要复核现有脚本和规则是否仍把 route_a_restore_old_qwen_b 写成下一步唯一修复路线。",
+    "需要复核哪些规则仍允许 MiniMax 系统音色候选替代旧 B。"
+  ],
+  "candidate_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/21_codex_judgment_permission_matrix.md",
+    "codex_log/latest.md",
+    "GPT数据源/08_当前正式事实.md",
+    "codex_log/diagnostics/old_aliyun_b_voice_restoration_audit_20260527_222316/old_b_voice_restoration_audit_report.json",
+    "codex_log/diagnostics/tts_voice_audit_20260526_234902/tts_voice_identity_audit.json",
+    "codex_log/diagnostics/minimax_b_voice_identity_reaudit_20260527_012222/minimax_b_voice_identity_reaudit_report.json",
+    "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+    "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
+    "scripts/正片候选TTS路线_publish_candidate_tts_route.py"
+  ],
+  "must_read_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_log/latest.md",
+    "GPT数据源/08_当前正式事实.md",
+    "codex_log/diagnostics/old_aliyun_b_voice_restoration_audit_20260527_222316/old_b_voice_restoration_audit_report.json",
+    "scripts/正片候选TTS路线_publish_candidate_tts_route.py"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    "dist/**/*.mp4",
+    "dist/**/*.wav",
+    "dist/**/*.mp3",
+    "素材录制/",
+    "本地运行配置_local_runtime/",
+    "/Users/fan/.config/video-factory/formal_api_demo.local.toml"
+  ],
+  "expected_output": [
+    "old_b_to_minimax_route_arbitration",
+    "minimax_reference_clone_capability_gap",
+    "audio_url_or_upload_authorization_check",
+    "forbidden_system_voice_substitution_rule_check",
+    "codex_next_input"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files.",
+    "DeepSeek must not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is stable or completed.",
+    "Do not print, write, or commit API key / token / secret.",
+    "Do not call TTS API.",
+    "Do not upload reference audio.",
+    "Do not generate or modify audio/video media outputs.",
+    "Do not generate MiniMax system voice candidates.",
+    "Do not restore old Qwen as formal publish candidate route.",
+    "Do not promote voice_validation, content_validation, send_ready, final_voice_validated, or visual_master_locked."
+  ],
+  "blocked_if": [
+    "cannot find old B reference audio",
+    "cannot identify MiniMax reference clone requirement",
+    "requires public audio_url or upload authorization that is not present",
+    "requires printing/writing/submitting API key or token",
+    "requires TTS API call to continue without authorized reference audio access",
+    "would overwrite unrelated dirty changes or historical media evidence"
+  ],
+  "return_to_codex": {
+    "read_status_required": true,
+    "impact_check_required": true,
+    "write_scope": [
+      "GPT数据源/08_当前正式事实.md",
+      "codex_source/00_codex_readme.md",
+      "codex_source/01_execution_rules.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/21_codex_judgment_permission_matrix.md",
+      "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+      "tests/test_publish_candidate_voice_gate.py",
+      "tests/test_minimax_b_voice_identity_lock.py",
+      "codex_log/latest.md",
+      "codex_log/20260527_old_b_to_minimax_migration.md",
+      "codex_log/diagnostics/old_b_to_minimax_migration_20260527_224840/"
+    ],
+    "output_dir": "codex_log/deepseek_supply/20260527_old_b_to_minimax_migration_pre_supply",
+    "verification_required": [
+      "python_py_compile",
+      "targeted_tests",
+      "no_tts_api_call_check",
+      "no_media_output_changed_check",
+      "secret_scan"
+    ]
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "deep_file_prefetch"
+    ]
+  },
+  "content_loading_policy": {
+    "read_only": true,
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 9,
+    "max_chars_per_file": 2000,
+    "max_total_chars": 16000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "do_not_read_secret_files": true,
+    "do_not_modify_files": true
+  }
+}

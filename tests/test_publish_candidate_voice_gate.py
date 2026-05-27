@@ -108,7 +108,7 @@ class PublishCandidateVoiceGateTests(unittest.TestCase):
         self.assertIs(result["full_video_can_only_be_internal_diagnostic"], True)
         self.assertEqual(result["blocked_reasons"], [])
 
-    def test_b_voice_feel_minimax_formal_voice_rule_passes_with_minimax_and_feel(self) -> None:
+    def test_b_voice_feel_minimax_formal_voice_rule_passes_with_confirmed_cloned_voice(self) -> None:
         result = route_module.validate_b_voice_feel_minimax_route(
             {
                 "tts_route_report": {
@@ -120,10 +120,10 @@ class PublishCandidateVoiceGateTests(unittest.TestCase):
                     "non_silent": True,
                     "fallback_tts_used": False,
                     "b_voice_feel_reflected": True,
-                    "actual_voice_id": "male-qn-qingse",
+                    "actual_voice_id": "bClone20260527Ac19V1",
                     "actual_gender_direction": "male_or_male_leaning",
                     "actual_voice_setting": {
-                        "voice_id": "male-qn-qingse",
+                        "voice_id": "bClone20260527Ac19V1",
                         "speed": 1.08,
                         "pitch": 0,
                         "emotion": "calm",
@@ -131,10 +131,10 @@ class PublishCandidateVoiceGateTests(unittest.TestCase):
                     },
                     "b_voice_identity_lock": {
                         "status": "user_confirmed",
-                        "expected_b_minimax_voice_id": "male-qn-qingse",
+                        "expected_b_minimax_voice_id": "bClone20260527Ac19V1",
                         "required_gender_direction": "male_or_male_leaning",
                         "locked_voice_setting": {
-                            "voice_id": "male-qn-qingse",
+                            "voice_id": "bClone20260527Ac19V1",
                             "speed": 1.08,
                             "pitch": 0,
                             "emotion": "calm",
@@ -202,9 +202,84 @@ class PublishCandidateVoiceGateTests(unittest.TestCase):
         self.assertTrue(result["old_b_route_detected"])
         self.assertEqual(
             result["old_b_voice_replacement_validation"],
-            "old_b_route_detected_pending_runtime_smoke",
+            "old_b_reference_anchor_detected_not_formal_route",
         )
-        self.assertEqual(result["next_route"], "route_a_restore_old_qwen_b")
+        self.assertEqual(result["next_route"], "route_b_migrate_old_b_to_minimax")
+        self.assertEqual(result["old_qwen_role"], "reference_anchor_only")
+
+    def test_old_b_to_minimax_lock_blocks_without_reference_audio_url_or_generated_voice(self) -> None:
+        result = route_module.validate_old_b_to_minimax_voice_lock(
+            {
+                "old_b_to_minimax_voice_lock": {
+                    "status": "pending_reference_audio_url",
+                    "target_provider": "minimax",
+                    "target_model": "MiniMax/speech-2.8-hd",
+                    "current_audio_url_available": False,
+                    "reference_audio_upload_authorized": False,
+                    "system_voice_substitution_allowed": False,
+                    "old_qwen_formal_route_allowed": False,
+                    "human_voice_review_status": "pending_reference_audio_url",
+                }
+            },
+            _summary(),
+        )
+
+        self.assertEqual(result["old_b_to_minimax_voice_lock_validation"], "blocked_need_reference_audio_url")
+        self.assertIn("reference_audio_url_or_upload_authorization_missing", result["blocked_reasons"])
+        self.assertIn("generated_minimax_voice_id_missing", result["blocked_reasons"])
+
+    def test_old_b_to_minimax_lock_rejects_system_voice_even_if_male(self) -> None:
+        result = route_module.validate_old_b_to_minimax_voice_lock(
+            {
+                "old_b_to_minimax_voice_lock": {
+                    "status": "pending_user_review",
+                    "target_provider": "minimax",
+                    "target_model": "MiniMax/speech-2.8-hd",
+                    "generated_minimax_voice_id": "male-qn-qingse",
+                    "current_audio_url_available": True,
+                    "human_voice_review_status": "pending_user_review",
+                },
+                "tts_route_report": {
+                    "actual_tts_provider": "minimax",
+                    "actual_tts_model": "speech-2.8-hd",
+                    "selected_route": "minimax_official_api",
+                    "actual_voice_id": "male-qn-qingse",
+                    "audio_present": True,
+                    "non_silent": True,
+                },
+            },
+            _summary(),
+        )
+
+        self.assertEqual(
+            result["old_b_to_minimax_voice_lock_validation"],
+            "blocked_old_b_to_minimax_voice_lock",
+        )
+        self.assertIn("system_voice_candidate_cannot_replace_old_b", result["blocked_reasons"])
+
+    def test_old_b_to_minimax_lock_passes_only_after_cloned_voice_and_user_review(self) -> None:
+        result = route_module.validate_old_b_to_minimax_voice_lock(
+            {
+                "old_b_to_minimax_voice_lock": {
+                    "status": "user_confirmed",
+                    "target_provider": "minimax",
+                    "target_model": "MiniMax/speech-2.8-hd",
+                    "generated_minimax_voice_id": "bClone20260527Ac19V1",
+                    "current_audio_url_available": True,
+                    "system_voice_substitution_allowed": False,
+                    "old_qwen_formal_route_allowed": False,
+                    "human_voice_review_status": "user_confirmed",
+                    "timbre_change_allowed": False,
+                }
+            },
+            _summary(),
+        )
+
+        self.assertEqual(
+            result["old_b_to_minimax_voice_lock_validation"],
+            "passed_old_b_to_minimax_voice_lock",
+        )
+        self.assertEqual(result["blocked_reasons"], [])
 
     def test_minimax_system_voice_cannot_replace_old_aliyun_b_even_if_male(self) -> None:
         result = route_module.validate_old_b_voice_replacement_rule(

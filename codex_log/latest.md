@@ -1,5 +1,22 @@
 # Latest
 
+## 20260527｜旧 B 到 MiniMax 声音迁移审计
+
+- `task_result.status = blocked_need_reference_audio_url`
+- `target_delivery = old_b_to_minimax_voice_migration`
+- `route_arbitration`：`old_qwen_role = reference_anchor_only`；`minimax_role = final_generation_provider`；`selected_route = route_b_migrate_old_b_to_minimax`；`system_voice_candidates_allowed = false`。
+- `video_generated = false`；`audio_generated = false`；`tts_api_called = false`；`copy_changed = false`；`current_video_modified = false`。
+- `diagnostics_path = codex_log/diagnostics/old_b_to_minimax_migration_20260527_224840`
+- `migration_report = codex_log/diagnostics/old_b_to_minimax_migration_20260527_224840/old_b_to_minimax_migration_report.json`
+- `old_b_reference_audio.loaded = true`：已读取 `B_15秒文案_停顿梗感.wav` 与 `语音样本2_声音复刻试听_15秒.wav` 的存在性和音频元信息。
+- `minimax_reference_clone_capability`：MiniMax 官方 voice clone 支持先上传参考音频获取 `file_id` 再克隆 `voice_id`；仓库当前百炼代理链路记录为需要公网 `audio_url`。
+- `blocked_reason = reference_audio_url_or_upload_authorization_missing`：当前没有旧 B 参考音频公网 `audio_url`，也没有本轮用户授权上传参考音频；因此未调用 MiniMax TTS / clone API，未生成迁移样本。
+- `forbidden_replacement_rule.active = true`：禁止用 MiniMax 系统女声、男声或中性候选替代旧 B；旧 Qwen / 阿里 B 只作参考锚点，不恢复为正式默认路线。
+- `old_b_to_minimax_voice_lock.status = pending_reference_audio_url`；`target_provider = minimax`；`target_model = MiniMax/speech-2.8-hd`；`generated_minimax_voice_id = null`；`system_voice_substitution_allowed = false`；`old_qwen_formal_route_allowed = false`；`human_voice_review_status = pending_reference_audio_url`。
+- `DeepSeek`：已创建供料任务卡并运行 safe runner；runtime provider ready，key 未打印 / 未写入；controller 返回 `blocked_invalid_context_pack`，`deepseek_actual_participation = not_attempted_policy_violation`，`not_deepseek_conclusion = true`。
+- `状态边界`：未推进 `voice_validation / final_voice_validated / content_validation / send_ready / visual_master_locked`。
+- `日志`：`codex_log/20260527_old_b_to_minimax_migration.md`
+
 ## 20260527｜旧阿里 / Qwen B 方案声音恢复审计
 
 - `task_result.status = completed_old_b_voice_audit`

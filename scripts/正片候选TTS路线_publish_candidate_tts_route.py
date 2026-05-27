@@ -9,6 +9,7 @@ REQUIRED_MINIMAX_MODELS = {"speech-2.8-hd", "MiniMax/speech-2.8-hd"}
 OLD_ALIYUN_QWEN_B_MODEL = "qwen3-tts-vc-realtime-2026-01-15"
 OLD_ALIYUN_QWEN_B_ROUTE = "aliyun_qwen_realtime_websocket_voice_clone"
 OLD_ALIYUN_QWEN_B_MASKED_VOICE_ID = "qwen-t...ac19"
+MINIMAX_B_TARGET_MODEL = "MiniMax/speech-2.8-hd"
 MINIMAX_SELECTED_ROUTES = {
     "minimax_official_api",
     "aliyun_bailian_proxy_to_minimax",
@@ -16,10 +17,10 @@ MINIMAX_SELECTED_ROUTES = {
     "route_b",
 }
 B_VOICE_SCHEME_ROLE = {
-    "status": "route_conflict_pending_old_aliyun_b_restoration",
-    "meaning": "B 方案当前必须回到旧阿里 / Qwen 自定义声音身份审计；MiniMax 系统候选只可作为历史错误尝试，不可替代旧 B",
-    "not_allowed": "不得再用 MiniMax 系统 voice_id、voice_feel_tags 或男声候选冒充旧阿里 / Qwen B 声音",
-    "next_route": "route_a_restore_old_qwen_b_if_runtime_smoke_passes",
+    "status": "old_b_to_minimax_migration_pending_reference_audio_url",
+    "meaning": "旧阿里 / Qwen B 只作为 reference anchor；正式目标供应商为 MiniMax reference audio / voice clone 生成的声音身份",
+    "not_allowed": "不得恢复旧 Qwen 为正式默认路线，不得用 MiniMax 系统 voice_id、voice_feel_tags 或男声候选冒充旧 B",
+    "next_route": "route_b_migrate_old_b_to_minimax_after_reference_audio_url_or_upload_authorization",
 }
 REQUIRED_B_VOICE_GENDER_DIRECTION = "male_or_male_leaning"
 FORBIDDEN_B_VOICE_IDS = {
@@ -37,7 +38,8 @@ FORBIDDEN_OLD_B_REPLACEMENT_VOICE_IDS = {
     "Chinese (Mandarin)_Sincere_Adult",
 }
 OLD_ALIYUN_QWEN_B_VOICE_ROUTE = {
-    "status": "evidence_found_pending_runtime_smoke",
+    "status": "reference_anchor_only_for_minimax_migration",
+    "role": "reference_anchor_only",
     "provider": "aliyun_bailian",
     "api_route_family": OLD_ALIYUN_QWEN_B_ROUTE,
     "request_method": "WEBSOCKET",
@@ -60,7 +62,8 @@ OLD_ALIYUN_QWEN_B_VOICE_ROUTE = {
         "scripts/语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis.py",
         "scripts/生成新第四期选品初筛源比例无遮挡B语音修复候选片_generate_new_fourth_selection_source_ratio_no_mask_b_voice_fix_candidate.py",
     ],
-    "publish_candidate_completion_status": "not_passed_until_runtime_smoke_and_user_route_decision",
+    "publish_candidate_completion_status": "not_selected_as_formal_route_user_current_instruction",
+    "formal_route_selected": False,
 }
 OLD_B_FORBIDDEN_REPLACEMENT_RULE = {
     "status": "active",
@@ -73,8 +76,48 @@ OLD_B_FORBIDDEN_REPLACEMENT_RULE = {
         "female-shaonv-jingpin cannot replace old B",
         "female-yujie cannot replace old B",
         "MiniMax male or neutral system voice candidates cannot directly replace old B",
-        "Only restored old Qwen/Aliyun B route or old-B reference clone confirmed by user can become new B",
+        "Only a MiniMax voice cloned or generated from the old-B reference audio and confirmed by user can become new B",
     ],
+}
+OLD_B_REFERENCE_AUDIO_PATHS = [
+    "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+    "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
+]
+OLD_B_TO_MINIMAX_MIGRATION_ROUTE = {
+    "status": "pending_reference_audio_url",
+    "selected_route": "route_b_migrate_old_b_to_minimax",
+    "old_qwen_role": "reference_anchor_only",
+    "minimax_role": "final_generation_provider",
+    "target_provider": "minimax",
+    "target_model": MINIMAX_B_TARGET_MODEL,
+    "system_voice_candidates_allowed": False,
+    "old_qwen_formal_route_allowed": False,
+    "requires_reference_audio_access": True,
+    "current_bailian_proxy_requires_audio_url": True,
+    "official_minimax_supports_file_upload_for_voice_clone": True,
+    "reference_audio_upload_requires_user_authorization": True,
+    "blocked_if": [
+        "reference_audio_url_or_upload_authorization_missing",
+        "generated_minimax_voice_id_missing",
+        "system_voice_candidate_used_as_old_b",
+        "old_qwen_route_selected_as_formal_route",
+        "human_voice_review_status_not_user_confirmed",
+    ],
+}
+OLD_B_TO_MINIMAX_VOICE_LOCK_RULE = {
+    "status": "pending_reference_audio_url",
+    "old_b_reference_audio_path": OLD_B_REFERENCE_AUDIO_PATHS,
+    "old_b_reference_voice_masked_id": OLD_ALIYUN_QWEN_B_MASKED_VOICE_ID,
+    "target_provider": "minimax",
+    "target_model": MINIMAX_B_TARGET_MODEL,
+    "generated_minimax_voice_id": None,
+    "timbre_similarity_required": True,
+    "prosody_optimization_allowed": True,
+    "emotion_optimization_allowed": True,
+    "timbre_change_allowed": False,
+    "system_voice_substitution_allowed": False,
+    "human_voice_review_required": True,
+    "human_voice_review_status": "pending_reference_audio_url",
 }
 FORBIDDEN_B_VOICE_DIRECTIONS = [
     "female_system_voice",
@@ -127,16 +170,13 @@ B_VOICE_IDENTITY_LOCK_RULE = {
     "lock_status_values": ["pending_user_review", "user_confirmed"],
     "expected_b_minimax_voice_id": None,
     "required_gender_direction": REQUIRED_B_VOICE_GENDER_DIRECTION,
-    "expected_b_voice_reference_audio_path": [
-        "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
-        "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
-    ],
+    "expected_b_voice_reference_audio_path": OLD_B_REFERENCE_AUDIO_PATHS,
     "timbre_change_allowed": False,
     "emotion_optimization_allowed": True,
     "prosody_optimization_allowed": True,
     "human_voice_review_required": True,
     "human_voice_review_status": "pending_user_review",
-    "forbidden_voice_ids": sorted(FORBIDDEN_B_VOICE_IDS),
+    "forbidden_voice_ids": sorted(FORBIDDEN_OLD_B_REPLACEMENT_VOICE_IDS),
     "forbidden_voice_direction": FORBIDDEN_B_VOICE_DIRECTIONS,
     "blocked_if": [
         "expected_b_minimax_voice_id_missing",
@@ -150,7 +190,8 @@ B_VOICE_IDENTITY_LOCK_RULE = {
 }
 USER_CONFIRMED_VOICE_STATUS = "user_confirmed"
 PENDING_USER_REVIEW_STATUS = "pending_user_review"
-FORBIDDEN_DEFAULT_B_VOICE_IDS = set(FORBIDDEN_B_VOICE_IDS)
+PENDING_REFERENCE_AUDIO_URL_STATUS = "pending_reference_audio_url"
+FORBIDDEN_DEFAULT_B_VOICE_IDS = set(FORBIDDEN_OLD_B_REPLACEMENT_VOICE_IDS)
 
 
 def truthy(value: Any) -> bool:
@@ -198,6 +239,9 @@ def _nested_payloads(payload: Any) -> list[dict[str, Any]]:
             "b_voice_identity_lock",
             "voice_identity_gate",
             "locked_voice_setting",
+            "old_b_to_minimax_voice_lock",
+            "minimax_reference_clone_capability",
+            "route_arbitration",
         ]:
             nested = node.get(key)
             if isinstance(nested, dict):
@@ -347,6 +391,7 @@ def build_tts_route_report(tts_map: Any, summary: Any) -> dict[str, Any]:
         "missing_b_voice_feel_tags": missing_b_voice_tags,
         "old_aliyun_qwen_b_voice_route": OLD_ALIYUN_QWEN_B_VOICE_ROUTE,
         "old_b_forbidden_replacement_rule": OLD_B_FORBIDDEN_REPLACEMENT_RULE,
+        "old_b_to_minimax_migration_route": OLD_B_TO_MINIMAX_MIGRATION_ROUTE,
     }
     return report
 
@@ -403,9 +448,11 @@ def build_old_aliyun_b_voice_restoration_report(tts_map: Any, summary: Any) -> d
         "voice_identity_matches_old_b": voice_ok,
         "old_b_route_detected": old_b_route_detected,
         "can_old_b_voice_run_on_minimax_directly": False,
-        "can_qwen_old_b_route_be_restored_for_publish_candidate": "likely_after_runtime_smoke_and_user_route_decision",
-        "publish_candidate_completion_status": "not_passed_until_runtime_smoke_and_user_route_decision",
-        "next_route": "route_a_restore_old_qwen_b",
+        "old_qwen_role": "reference_anchor_only",
+        "minimax_role": "final_generation_provider",
+        "can_qwen_old_b_route_be_restored_for_publish_candidate": "not_selected_user_current_instruction_reference_only",
+        "publish_candidate_completion_status": "not_selected_as_formal_route_user_current_instruction",
+        "next_route": "route_b_migrate_old_b_to_minimax",
         "system_voice_candidates_cannot_replace_old_b": True,
         "forbidden_voice_ids": sorted(FORBIDDEN_OLD_B_REPLACEMENT_VOICE_IDS),
     }
@@ -427,7 +474,7 @@ def validate_old_b_voice_replacement_rule(tts_map: Any, summary: Any) -> dict[st
         reasons.append("old_aliyun_qwen_b_route_not_detected")
 
     if report["old_b_route_detected"] and not reasons:
-        validation = "old_b_route_detected_pending_runtime_smoke"
+        validation = "old_b_reference_anchor_detected_not_formal_route"
     elif "system_voice_candidate_cannot_replace_old_b" in reasons:
         validation = "blocked_system_voice_replacement_for_old_b"
     else:
@@ -436,6 +483,131 @@ def validate_old_b_voice_replacement_rule(tts_map: Any, summary: Any) -> dict[st
     return {
         **report,
         "old_b_voice_replacement_validation": validation,
+        "blocked_reasons": sorted(set(reasons)),
+    }
+
+
+def build_old_b_to_minimax_voice_lock_report(tts_map: Any, summary: Any) -> dict[str, Any]:
+    payloads: list[dict[str, Any]] = []
+    for source in [tts_map, summary]:
+        payloads.extend(_nested_payloads(source))
+
+    route_report = build_tts_route_report(tts_map, summary)
+    actual_voice_id = _voice_identity_from_payloads(payloads)
+    target_provider = str(_first_value(payloads, ["target_provider"]) or "minimax")
+    target_model = str(_first_value(payloads, ["target_model"]) or MINIMAX_B_TARGET_MODEL)
+    generated_minimax_voice_id = str(
+        _first_value(payloads, ["generated_minimax_voice_id", "target_minimax_voice_id"]) or ""
+    )
+    old_b_reference_voice_masked_id = str(
+        _first_value(payloads, ["old_b_reference_voice_masked_id", "old_b_voice_masked_id"])
+        or OLD_ALIYUN_QWEN_B_MASKED_VOICE_ID
+    )
+    requires_audio_url_value = _first_value(payloads, ["requires_audio_url", "need_public_accessible_url"])
+    requires_audio_url = True if requires_audio_url_value is None else truthy(requires_audio_url_value)
+    current_audio_url_available = _any_truthy(
+        payloads,
+        ["current_audio_url_available", "reference_audio_url_available", "audio_url_available"],
+    )
+    reference_audio_upload_authorized = _any_truthy(
+        payloads,
+        ["reference_audio_upload_authorized", "user_authorized_reference_audio_upload", "upload_authorized"],
+    )
+    accepts_local_file_directly_value = _first_value(payloads, ["accepts_local_file_directly"])
+    accepts_local_file_directly = False if accepts_local_file_directly_value is None else truthy(accepts_local_file_directly_value)
+    human_review_required_value = _first_value(payloads, ["human_voice_review_required"])
+    human_review_required = True if human_review_required_value is None else truthy(human_review_required_value)
+    human_review_status = _normalized_status(
+        _first_value(payloads, ["human_voice_review_status"]),
+        PENDING_REFERENCE_AUDIO_URL_STATUS,
+    )
+    lock_status = _normalized_status(_first_value(payloads, ["old_b_to_minimax_voice_lock_status", "status"]), PENDING_REFERENCE_AUDIO_URL_STATUS)
+    timbre_change_allowed_value = _first_value(payloads, ["timbre_change_allowed"])
+    timbre_change_allowed = False if timbre_change_allowed_value is None else truthy(timbre_change_allowed_value)
+    system_voice_substitution_allowed_value = _first_value(payloads, ["system_voice_substitution_allowed"])
+    system_voice_substitution_allowed = (
+        False if system_voice_substitution_allowed_value is None else truthy(system_voice_substitution_allowed_value)
+    )
+    old_qwen_formal_route_allowed_value = _first_value(payloads, ["old_qwen_formal_route_allowed"])
+    old_qwen_formal_route_allowed = (
+        False if old_qwen_formal_route_allowed_value is None else truthy(old_qwen_formal_route_allowed_value)
+    )
+
+    return {
+        "old_b_to_minimax_migration_route": OLD_B_TO_MINIMAX_MIGRATION_ROUTE,
+        "old_b_to_minimax_voice_lock_rule": OLD_B_TO_MINIMAX_VOICE_LOCK_RULE,
+        "status": lock_status,
+        "old_qwen_role": "reference_anchor_only",
+        "minimax_role": "final_generation_provider",
+        "target_provider": target_provider,
+        "target_model": target_model,
+        "actual_tts_provider": route_report["actual_tts_provider"],
+        "actual_tts_model": route_report["actual_tts_model"],
+        "actual_voice_id": actual_voice_id,
+        "generated_minimax_voice_id": generated_minimax_voice_id,
+        "old_b_reference_audio_path": OLD_B_REFERENCE_AUDIO_PATHS,
+        "old_b_reference_voice_masked_id": old_b_reference_voice_masked_id,
+        "requires_audio_url": requires_audio_url,
+        "accepts_local_file_directly": accepts_local_file_directly,
+        "current_audio_url_available": current_audio_url_available,
+        "reference_audio_upload_authorized": reference_audio_upload_authorized,
+        "timbre_similarity_required": True,
+        "prosody_optimization_allowed": True,
+        "emotion_optimization_allowed": True,
+        "timbre_change_allowed": timbre_change_allowed,
+        "system_voice_substitution_allowed": system_voice_substitution_allowed,
+        "old_qwen_formal_route_allowed": old_qwen_formal_route_allowed,
+        "human_voice_review_required": human_review_required,
+        "human_voice_review_status": human_review_status,
+        "forbidden_voice_ids": sorted(FORBIDDEN_OLD_B_REPLACEMENT_VOICE_IDS),
+    }
+
+
+def validate_old_b_to_minimax_voice_lock(tts_map: Any, summary: Any) -> dict[str, Any]:
+    report = build_old_b_to_minimax_voice_lock_report(tts_map, summary)
+    reasons: list[str] = []
+
+    actual_voice_id = str(report["actual_voice_id"])
+    generated_minimax_voice_id = str(report["generated_minimax_voice_id"])
+    target_provider = str(report["target_provider"]).strip().lower()
+    target_model = str(report["target_model"])
+    human_review_status = str(report["human_voice_review_status"])
+
+    if target_provider != "minimax":
+        reasons.append("target_provider_not_minimax")
+    if target_model not in REQUIRED_MINIMAX_MODELS:
+        reasons.append("target_model_not_minimax_speech_2_8_hd")
+    if not generated_minimax_voice_id:
+        reasons.append("generated_minimax_voice_id_missing")
+    if generated_minimax_voice_id in FORBIDDEN_OLD_B_REPLACEMENT_VOICE_IDS:
+        reasons.append("system_voice_candidate_cannot_replace_old_b")
+    if actual_voice_id in FORBIDDEN_OLD_B_REPLACEMENT_VOICE_IDS:
+        reasons.append("system_voice_candidate_cannot_replace_old_b")
+    if generated_minimax_voice_id and _is_old_aliyun_qwen_b_voice_identity(generated_minimax_voice_id):
+        reasons.append("qwen_t_ac19_cannot_be_minimax_voice_id")
+    if report["system_voice_substitution_allowed"]:
+        reasons.append("system_voice_substitution_allowed_true")
+    if report["old_qwen_formal_route_allowed"]:
+        reasons.append("old_qwen_formal_route_selected")
+    if report["timbre_change_allowed"]:
+        reasons.append("timbre_change_allowed_true")
+    if report["requires_audio_url"] and not (
+        report["current_audio_url_available"] or report["reference_audio_upload_authorized"]
+    ):
+        reasons.append("reference_audio_url_or_upload_authorization_missing")
+    if report["human_voice_review_required"] and human_review_status != USER_CONFIRMED_VOICE_STATUS:
+        reasons.append("human_voice_review_status_not_user_confirmed")
+
+    if "reference_audio_url_or_upload_authorization_missing" in reasons:
+        validation = "blocked_need_reference_audio_url"
+    elif reasons:
+        validation = "blocked_old_b_to_minimax_voice_lock"
+    else:
+        validation = "passed_old_b_to_minimax_voice_lock"
+
+    return {
+        **report,
+        "old_b_to_minimax_voice_lock_validation": validation,
         "blocked_reasons": sorted(set(reasons)),
     }
 
