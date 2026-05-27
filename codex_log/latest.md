@@ -1,5 +1,22 @@
 # Latest
 
+## 20260527｜旧阿里 / Qwen B 方案声音恢复审计
+
+- `task_result.status = completed_old_b_voice_audit`
+- `target_delivery = old_aliyun_b_voice_restoration_audit`
+- `video_generated = false`；`audio_generated = false`；`tts_api_called = false`；`copy_changed = false`；`current_video_modified = false`。
+- `diagnostics_path = codex_log/diagnostics/old_aliyun_b_voice_restoration_audit_20260527_222316`
+- `audit_report = codex_log/diagnostics/old_aliyun_b_voice_restoration_audit_20260527_222316/old_b_voice_restoration_audit_report.json`
+- `old_b_voice_fact`：`provider = aliyun_bailian`；`api_route_family = aliyun_qwen_realtime_websocket_voice_clone`；`model / target_model = qwen3-tts-vc-realtime-2026-01-15`；`custom_voice_masked_id = qwen-t...ac19`。
+- `old_b_reference_audio.loaded = true`：已读取 `B_15秒文案_停顿梗感.wav` 与 `语音样本2_声音复刻试听_15秒.wav`；本轮仅探测存在性与音频元信息，不生成新样本。
+- `route_conflict.exists = true`：当前仓库近期默认 MiniMax `speech-2.8-hd / MiniMax/speech-2.8-hd`，但用户最新指令要求恢复旧阿里 / Qwen B 方案声音；不得通过继续抽 MiniMax 系统候选解决。
+- `forbidden_replacement_rule.active = true`：`female-tianmei / female-shaonv / female-shaonv-jingpin / female-yujie` 不能替代旧 B；`male-qn-qingse / male-qn-daxuesheng / Chinese (Mandarin)_Gentleman / Chinese (Mandarin)_Gentle_Youth / Chinese (Mandarin)_Sincere_Adult` 等男声或中性系统候选也不能直接替代旧 B。
+- `next_route.selected = route_a_restore_old_qwen_b`；原因是旧 B 证据链完整且用户当前明确要求恢复以前阿里大模型 B 声音；下一轮如授权调用 TTS API，先做最小 runtime smoke。
+- `current_callable_status = pending_runtime_smoke`：旧脚本和历史授权运行证据存在，但本轮禁止调用 TTS API，且旧修复候选脚本当前有 `LEGACY_B_VOICE_ROUTE_BLOCKED_FOR_PUBLISH_CANDIDATE = True`，所以不写当前已通过。
+- `DeepSeek`：已创建供料任务卡并运行 safe runner；runtime provider ready，key 未打印 / 未写入；controller 返回 `blocked_invalid_context_pack`，`deepseek_actual_participation = not_attempted_policy_violation`，`not_deepseek_conclusion = true`。
+- `状态边界`：未推进 `voice_validation / final_voice_validated / content_validation / send_ready / visual_master_locked`。
+- `日志`：`codex_log/20260527_old_aliyun_b_voice_restoration_audit.md`
+
 ## 20260527｜工作流入口归位索引
 
 - `task_result.status = completed_with_entry_routing_index`

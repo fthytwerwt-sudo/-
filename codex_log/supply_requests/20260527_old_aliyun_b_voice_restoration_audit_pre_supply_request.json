@@ -1,0 +1,143 @@
+{
+  "request_id": "20260527_old_aliyun_b_voice_restoration_audit_pre_supply_request",
+  "created_at": "2026-05-27T22:23:16+08:00",
+  "project_route": "video_factory",
+  "task_id": "old_aliyun_b_voice_restoration_audit",
+  "task_type": "readonly_voice_route_audit + old_b_voice_restoration_check + voice_route_conflict_arbitration + mechanism_repair_if_needed",
+  "project_stage": "formal_operation_active",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "auto",
+  "mandatory_for_every_task": true,
+  "participation_level": "readonly_pre_supply",
+  "pre_supply_required": true,
+  "post_review_required": false,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "no_multi_agent_runtime_claim": true,
+  "current_goal": "只读审计以前阿里 / Qwen B 方案声音路线，确认 qwen-t...ac19 与 qwen3-tts-vc-realtime-2026-01-15 的证据、与当前 MiniMax 默认路线的冲突，并防止任何 MiniMax 系统音色候选替代旧 B。",
+  "current_step": "before_write_gate",
+  "known_context": [
+    "本轮禁止调用 TTS API、禁止生成音频、禁止生成视频、禁止重新抽 MiniMax 系统音色。",
+    "仓库历史口径记录了 qwen-t...ac19、qwen3-tts-vc-realtime-2026-01-15、voice_sample2_cute_guide_voice_candidate_20260426 与 20260427 B 版停顿梗感参考。",
+    "近期机制把正片候选默认 TTS 路线切到 MiniMax，导致声音身份与模型路线冲突。",
+    "用户最新指令要求恢复旧阿里大模型 B 方案声音，不要继续用 MiniMax 系统候选替代。"
+  ],
+  "missing_context": [
+    "需要复核 qwen-t...ac19 是否只存在于脱敏日志，是否有足够证据对应旧 B 声音本体。",
+    "需要复核旧 B 路线是否仍只是历史可调用证据，还是可以作为下一轮正片候选默认恢复路线。",
+    "需要复核哪些规则仍会把 MiniMax 系统音色候选写成 B 方案候选。"
+  ],
+  "candidate_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/21_codex_judgment_permission_matrix.md",
+    "codex_log/latest.md",
+    "GPT数据源/08_当前正式事实.md",
+    "codex_log/20260427_十五秒文案语速停顿试配.md",
+    "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/run_summary.json",
+    "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_voice_clone_tts_request_debug_sanitized.json",
+    "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/custom_voice_list_debug_sanitized.json",
+    "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/run_summary.json",
+    "scripts/语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis.py",
+    "scripts/生成新第四期选品初筛源比例无遮挡B语音修复候选片_generate_new_fourth_selection_source_ratio_no_mask_b_voice_fix_candidate.py",
+    "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+    "codex_log/20260525_minimax_default_tts_route_switch.md"
+  ],
+  "must_read_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_log/latest.md",
+    "GPT数据源/08_当前正式事实.md",
+    "codex_log/20260427_十五秒文案语速停顿试配.md",
+    "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/run_summary.json",
+    "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+    "codex_log/20260525_minimax_default_tts_route_switch.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    "dist/**/*.mp4",
+    "dist/**/*.wav",
+    "dist/**/*.mp3",
+    "素材录制/",
+    "本地运行配置_local_runtime/",
+    "/Users/fan/.config/video-factory/formal_api_demo.local.toml"
+  ],
+  "expected_output": [
+    "old_b_voice_evidence_map",
+    "route_conflict_report",
+    "missing_or_uncertain_files",
+    "forbidden_replacement_rule_check",
+    "codex_next_input"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files.",
+    "DeepSeek must not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is stable or completed.",
+    "Do not print, write, or commit API key / token / secret.",
+    "Do not call TTS API.",
+    "Do not generate or modify video/audio media outputs.",
+    "Do not generate MiniMax voice candidates.",
+    "Do not promote voice_validation, content_validation, send_ready, final_voice_validated, or visual_master_locked.",
+    "Do not claim qwen-t...ac19 is final validated voice unless evidence and user confirmation support it."
+  ],
+  "blocked_if": [
+    "cannot find old B voice evidence",
+    "cannot find qwen-t...ac19 evidence",
+    "cannot find old B reference audio",
+    "cannot identify old B generation route",
+    "requires printing/writing/submitting API key or token",
+    "requires TTS API call to continue",
+    "would overwrite unrelated dirty changes or historical media evidence"
+  ],
+  "return_to_codex": {
+    "read_status_required": true,
+    "impact_check_required": true,
+    "write_scope": [
+      "GPT数据源/08_当前正式事实.md",
+      "codex_source/00_codex_readme.md",
+      "codex_source/01_execution_rules.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/21_codex_judgment_permission_matrix.md",
+      "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+      "tests/test_publish_candidate_voice_gate.py",
+      "tests/test_minimax_b_voice_identity_lock.py",
+      "codex_log/latest.md",
+      "codex_log/20260527_old_aliyun_b_voice_restoration_audit.md",
+      "codex_log/diagnostics/old_aliyun_b_voice_restoration_audit_20260527_222316/"
+    ],
+    "output_dir": "codex_log/deepseek_supply/20260527_old_aliyun_b_voice_restoration_audit_pre_supply",
+    "verification_required": [
+      "python_py_compile",
+      "targeted_tests",
+      "no_tts_api_call_check",
+      "no_media_output_changed_check",
+      "secret_scan"
+    ]
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "deep_file_prefetch"
+    ]
+  },
+  "content_loading_policy": {
+    "read_only": true,
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 9,
+    "max_chars_per_file": 2000,
+    "max_total_chars": 16000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "do_not_read_secret_files": true,
+    "do_not_modify_files": true
+  }
+}

@@ -85,6 +85,8 @@ Perplexity 只能作为 `external_research_reference（外部研究参考）`，
 
 `已确认` 2026-05-27 B 声音本体重审后，上一轮 `female-shaonv / female-shaonv-jingpin / female-yujie` 女声候选已被用户全部拒绝，原因是 `wrong_gender_and_wrong_voice_identity`。后续 B 方案声音方向必须按 `male_or_male_leaning（男声或偏男声）` 过滤，`female-tianmei / female-shaonv / female-shaonv-jingpin / female-yujie` 均不得作为默认 B 方案声音。
 
+`已确认` 2026-05-27 旧阿里 / Qwen B 方案声音恢复审计后，用户当前最新指令要求恢复以前阿里大模型 B 声音，而不是继续挑 MiniMax 系统候选。旧 B 身份为 `aliyun_bailian / aliyun_qwen_realtime_websocket_voice_clone / qwen3-tts-vc-realtime-2026-01-15 / qwen-t...ac19`。`qwen-t...ac19` 不是 MiniMax `voice_id`；MiniMax 女声、男声或中性系统候选都不能自动替代旧 B。下一轮只能走 `route_a_restore_old_qwen_b`、旧 B reference clone 经用户确认、或 blocked。
+
 凡任务命中视频执行、修片、发片候选、重新生成、发布前修复、最终文案进视频、TTS / 字幕 / 卡片 / 时间线 / review_pack 生成，Codex 必须把以下判断对象统一接入 `publish_candidate_preflight_suite（发片候选预检套件）`：
 
 ```text
@@ -116,6 +118,10 @@ codex_judgment_to_preflight_binding:
     required_gate: b_voice_identity_lock_preflight
     permission: must_decide_and_block
     hard_requirement: expected_b_minimax_voice_id required; actual_voice_id must equal expected_b_minimax_voice_id; actual_voice_id must not be in forbidden_voice_ids; actual_gender_direction must be male_or_male_leaning; human_voice_review_status must be user_confirmed; timbre_change_allowed false; female-tianmei/female-shaonv/female-shaonv-jingpin/female-yujie forbidden unless future user reverses and confirms
+  old_aliyun_qwen_b_voice_restoration:
+    required_gate: old_b_voice_restoration_audit
+    permission: must_decide_and_block
+    hard_requirement: if user asks for old Aliyun B voice, audit qwen-t...ac19/qwen3-tts-vc-realtime-2026-01-15 first; MiniMax system voice ids including male candidates cannot replace old B; route_a_restore_old_qwen_b requires runtime smoke and user listening review before voice_validation can advance
   judgment_card:
     required_gate: card_decision_preflight
     permission: must_decide_and_execute_or_block

@@ -142,6 +142,21 @@ class MinimaxBVoiceIdentityLockTests(unittest.TestCase):
         self.assertEqual(result["voice_route_validation"], "passed_minimax_b_voice_identity_lock")
         self.assertEqual(result["blocked_reasons"], [])
 
+    def test_male_minimax_candidate_still_cannot_replace_old_aliyun_b(self) -> None:
+        result = route_module.validate_old_b_voice_replacement_rule(
+            _base_tts_report(
+                actual_voice_id="Chinese (Mandarin)_Gentleman",
+                actual_gender_direction="male_or_male_leaning",
+            ),
+            _summary(),
+        )
+
+        self.assertEqual(
+            result["old_b_voice_replacement_validation"],
+            "blocked_system_voice_replacement_for_old_b",
+        )
+        self.assertIn("system_voice_candidate_cannot_replace_old_b", result["blocked_reasons"])
+
 
 if __name__ == "__main__":
     unittest.main()

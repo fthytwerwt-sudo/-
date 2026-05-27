@@ -43,6 +43,23 @@ Codex 后续默认先读：
 
 `已确认` 本轮重审后，B 方案目标方向为 `male_or_male_leaning（男声或偏男声）`。旧文件中的 `可爱女生向导音` 只能作为历史冲突口径，不得覆盖当前 B 声音身份锁。情绪、停顿、上扬、重音和语速只能在同一 `voice_id` 内优化；不得为了情绪更丰富而换性别或换音色。缺 `expected_b_minimax_voice_id`、缺用户试听确认、`actual_voice_id` 不匹配、命中禁用 voice_id 或性别方向不匹配时，必须 blocked 或停在 `pending_user_review`，不得写 `voice_validation = passed`。
 
+## 0A-1b. Old Aliyun / Qwen B voice restoration override
+
+`已确认` 2026-05-27 旧 B 声音恢复审计后，用户当前最新指令优先于上一轮 MiniMax 系统候选方向：不要继续生成或挑选 MiniMax 系统声音候选，先恢复“以前阿里大模型 B 方案声音”。
+
+旧 B 声音身份事实：
+
+- `provider = aliyun_bailian`
+- `api_route_family = aliyun_qwen_realtime_websocket_voice_clone`
+- `model / target_model = qwen3-tts-vc-realtime-2026-01-15`
+- `custom_voice_masked_id = qwen-t...ac19`
+- `voice_reference = voice_sample2_cute_guide_voice_candidate_20260426`
+- `pacing_reference = tts_15s_b_pacing_locked_20260427`
+
+`qwen-t...ac19` 不是 MiniMax `voice_id`，不得写入 `expected_b_minimax_voice_id`。MiniMax 系统候选不能替代旧 B：`female-tianmei / female-shaonv / female-shaonv-jingpin / female-yujie` 禁止替代，`male-qn-qingse / male-qn-daxuesheng / Chinese (Mandarin)_Gentleman / Chinese (Mandarin)_Gentle_Youth / Chinese (Mandarin)_Sincere_Adult` 等男声或中性系统候选也禁止直接替代。
+
+后续唯一推荐修复路线为 `route_a_restore_old_qwen_b（恢复旧 Qwen / 阿里 B 路线）`。恢复前必须先做 runtime smoke；未通过 smoke 与用户试听确认前，不得推进 `voice_validation = passed`、`final_voice_validated = true` 或 `send_ready = true`。
+
 ## 0A-2. user_feedback_boundary and no_degrade_completion gate
 
 `已确认` 正式运营阶段，用户只负责：

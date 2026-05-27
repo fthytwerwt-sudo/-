@@ -6,6 +6,9 @@ from typing import Any
 
 DEFAULT_TTS_PROVIDER_FOR_PUBLISH_CANDIDATE = "minimax"
 REQUIRED_MINIMAX_MODELS = {"speech-2.8-hd", "MiniMax/speech-2.8-hd"}
+OLD_ALIYUN_QWEN_B_MODEL = "qwen3-tts-vc-realtime-2026-01-15"
+OLD_ALIYUN_QWEN_B_ROUTE = "aliyun_qwen_realtime_websocket_voice_clone"
+OLD_ALIYUN_QWEN_B_MASKED_VOICE_ID = "qwen-t...ac19"
 MINIMAX_SELECTED_ROUTES = {
     "minimax_official_api",
     "aliyun_bailian_proxy_to_minimax",
@@ -13,9 +16,10 @@ MINIMAX_SELECTED_ROUTES = {
     "route_b",
 }
 B_VOICE_SCHEME_ROLE = {
-    "status": "formal_voice_feel_reference",
-    "meaning": "B 方案升级为正式声音身份与听感标准，保留男声或偏男声方向、停顿梗感、轻陪伴感和低压向导感",
-    "not_allowed": "不再把阿里 B 方案作为正片候选默认 TTS 生成路线",
+    "status": "route_conflict_pending_old_aliyun_b_restoration",
+    "meaning": "B 方案当前必须回到旧阿里 / Qwen 自定义声音身份审计；MiniMax 系统候选只可作为历史错误尝试，不可替代旧 B",
+    "not_allowed": "不得再用 MiniMax 系统 voice_id、voice_feel_tags 或男声候选冒充旧阿里 / Qwen B 声音",
+    "next_route": "route_a_restore_old_qwen_b_if_runtime_smoke_passes",
 }
 REQUIRED_B_VOICE_GENDER_DIRECTION = "male_or_male_leaning"
 FORBIDDEN_B_VOICE_IDS = {
@@ -23,6 +27,54 @@ FORBIDDEN_B_VOICE_IDS = {
     "female-shaonv",
     "female-shaonv-jingpin",
     "female-yujie",
+}
+FORBIDDEN_OLD_B_REPLACEMENT_VOICE_IDS = {
+    *FORBIDDEN_B_VOICE_IDS,
+    "male-qn-qingse",
+    "male-qn-daxuesheng",
+    "Chinese (Mandarin)_Gentleman",
+    "Chinese (Mandarin)_Gentle_Youth",
+    "Chinese (Mandarin)_Sincere_Adult",
+}
+OLD_ALIYUN_QWEN_B_VOICE_ROUTE = {
+    "status": "evidence_found_pending_runtime_smoke",
+    "provider": "aliyun_bailian",
+    "api_route_family": OLD_ALIYUN_QWEN_B_ROUTE,
+    "request_method": "WEBSOCKET",
+    "model": OLD_ALIYUN_QWEN_B_MODEL,
+    "target_model": OLD_ALIYUN_QWEN_B_MODEL,
+    "voice_identity_kind": "aliyun_qwen_custom_voice_masked",
+    "custom_voice_masked_id": OLD_ALIYUN_QWEN_B_MASKED_VOICE_ID,
+    "voice_resolution": "list_existing_custom_voices_match_suffix_ac19",
+    "create_model": "qwen-voice-enrollment",
+    "create_custom_voice_called_in_20260427_trial": False,
+    "reference_audio_paths": [
+        "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+        "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
+    ],
+    "evidence_paths": [
+        "codex_log/20260427_十五秒文案语速停顿试配.md",
+        "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/run_summary.json",
+        "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_voice_clone_tts_request_debug_sanitized.json",
+        "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/custom_voice_list_debug_sanitized.json",
+        "scripts/语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis.py",
+        "scripts/生成新第四期选品初筛源比例无遮挡B语音修复候选片_generate_new_fourth_selection_source_ratio_no_mask_b_voice_fix_candidate.py",
+    ],
+    "publish_candidate_completion_status": "not_passed_until_runtime_smoke_and_user_route_decision",
+}
+OLD_B_FORBIDDEN_REPLACEMENT_RULE = {
+    "status": "active",
+    "system_voice_candidates_cannot_replace_old_b": True,
+    "old_b_voice_route": OLD_ALIYUN_QWEN_B_VOICE_ROUTE,
+    "forbidden_voice_ids": sorted(FORBIDDEN_OLD_B_REPLACEMENT_VOICE_IDS),
+    "forbidden_replacement_rule": [
+        "female-tianmei cannot replace old B",
+        "female-shaonv cannot replace old B",
+        "female-shaonv-jingpin cannot replace old B",
+        "female-yujie cannot replace old B",
+        "MiniMax male or neutral system voice candidates cannot directly replace old B",
+        "Only restored old Qwen/Aliyun B route or old-B reference clone confirmed by user can become new B",
+    ],
 }
 FORBIDDEN_B_VOICE_DIRECTIONS = [
     "female_system_voice",
@@ -293,8 +345,99 @@ def build_tts_route_report(tts_map: Any, summary: Any) -> dict[str, Any]:
         "b_voice_feel_reflected": truthy(explicit_b_voice_feel) or not missing_b_voice_tags,
         "voice_feel_tags": sorted(voice_feel_tags),
         "missing_b_voice_feel_tags": missing_b_voice_tags,
+        "old_aliyun_qwen_b_voice_route": OLD_ALIYUN_QWEN_B_VOICE_ROUTE,
+        "old_b_forbidden_replacement_rule": OLD_B_FORBIDDEN_REPLACEMENT_RULE,
     }
     return report
+
+
+def _voice_identity_from_payloads(payloads: list[dict[str, Any]]) -> str:
+    actual_voice_setting = _first_value(payloads, ["actual_voice_setting", "voice_setting"]) or {}
+    voice_value = _first_value(
+        payloads,
+        [
+            "actual_voice_id",
+            "actual_b_voice_id",
+            "custom_voice_masked_id",
+            "custom_voice_masked",
+            "voice_masked",
+            "voice_id_masked",
+            "voice_id",
+        ],
+    )
+    if not voice_value and isinstance(actual_voice_setting, dict):
+        voice_value = actual_voice_setting.get("voice_id")
+    return str(voice_value or "")
+
+
+def _is_old_aliyun_qwen_b_voice_identity(value: str) -> bool:
+    normalized = value.strip()
+    return normalized == OLD_ALIYUN_QWEN_B_MASKED_VOICE_ID or normalized.endswith("ac19")
+
+
+def build_old_aliyun_b_voice_restoration_report(tts_map: Any, summary: Any) -> dict[str, Any]:
+    payloads: list[dict[str, Any]] = []
+    for source in [tts_map, summary]:
+        payloads.extend(_nested_payloads(source))
+
+    route_report = build_tts_route_report(tts_map, summary)
+    voice_identity = _voice_identity_from_payloads(payloads)
+    provider_ok = route_report["actual_tts_provider"] == "aliyun_bailian"
+    model_ok = route_report["actual_tts_model"] == OLD_ALIYUN_QWEN_B_MODEL
+    route_ok = route_report["selected_route"] == OLD_ALIYUN_QWEN_B_ROUTE
+    voice_ok = _is_old_aliyun_qwen_b_voice_identity(voice_identity)
+    old_b_route_detected = provider_ok and model_ok and route_ok and voice_ok
+
+    return {
+        "old_b_voice_route": OLD_ALIYUN_QWEN_B_VOICE_ROUTE,
+        "old_b_voice_exists": True,
+        "old_b_voice_model": OLD_ALIYUN_QWEN_B_MODEL,
+        "old_b_voice_masked_id": OLD_ALIYUN_QWEN_B_MASKED_VOICE_ID,
+        "actual_provider": route_report["actual_tts_provider"],
+        "actual_model": route_report["actual_tts_model"],
+        "actual_route": route_report["selected_route"],
+        "actual_voice_identity": voice_identity,
+        "provider_matches_old_b": provider_ok,
+        "model_matches_old_b": model_ok,
+        "route_matches_old_b": route_ok,
+        "voice_identity_matches_old_b": voice_ok,
+        "old_b_route_detected": old_b_route_detected,
+        "can_old_b_voice_run_on_minimax_directly": False,
+        "can_qwen_old_b_route_be_restored_for_publish_candidate": "likely_after_runtime_smoke_and_user_route_decision",
+        "publish_candidate_completion_status": "not_passed_until_runtime_smoke_and_user_route_decision",
+        "next_route": "route_a_restore_old_qwen_b",
+        "system_voice_candidates_cannot_replace_old_b": True,
+        "forbidden_voice_ids": sorted(FORBIDDEN_OLD_B_REPLACEMENT_VOICE_IDS),
+    }
+
+
+def validate_old_b_voice_replacement_rule(tts_map: Any, summary: Any) -> dict[str, Any]:
+    report = build_old_aliyun_b_voice_restoration_report(tts_map, summary)
+    reasons: list[str] = []
+    actual_voice_identity = str(report["actual_voice_identity"])
+
+    if actual_voice_identity in FORBIDDEN_OLD_B_REPLACEMENT_VOICE_IDS:
+        reasons.append("system_voice_candidate_cannot_replace_old_b")
+    if report["actual_provider"] in {"minimax", "minimax_official_api", "aliyun_bailian_proxy_to_minimax"}:
+        if actual_voice_identity and actual_voice_identity != OLD_ALIYUN_QWEN_B_MASKED_VOICE_ID:
+            reasons.append("minimax_voice_id_cannot_equal_old_aliyun_b")
+        if _is_old_aliyun_qwen_b_voice_identity(actual_voice_identity):
+            reasons.append("qwen_t_ac19_cannot_be_minimax_voice_id")
+    if not report["old_b_route_detected"]:
+        reasons.append("old_aliyun_qwen_b_route_not_detected")
+
+    if report["old_b_route_detected"] and not reasons:
+        validation = "old_b_route_detected_pending_runtime_smoke"
+    elif "system_voice_candidate_cannot_replace_old_b" in reasons:
+        validation = "blocked_system_voice_replacement_for_old_b"
+    else:
+        validation = "blocked_old_b_route_not_detected"
+
+    return {
+        **report,
+        "old_b_voice_replacement_validation": validation,
+        "blocked_reasons": sorted(set(reasons)),
+    }
 
 
 def _normalized_status(value: Any, default: str = PENDING_USER_REVIEW_STATUS) -> str:

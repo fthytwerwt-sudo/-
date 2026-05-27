@@ -1,0 +1,142 @@
+{
+  "task_result": {
+    "status": "completed_old_b_voice_audit",
+    "video_generated": false,
+    "audio_generated": false,
+    "tts_api_called": false,
+    "copy_changed": false,
+    "current_video_modified": false
+  },
+  "impact_check": {
+    "task_type": "old_b_voice_restoration_audit",
+    "will_call_tts_api": false,
+    "will_generate_audio": false,
+    "will_generate_video": false,
+    "will_change_copy": false,
+    "will_change_current_video": false,
+    "will_update_rules": true,
+    "will_update_logs": true,
+    "secret_risk": "low; no secret file read; key presence only observed through safe runner redacted public status"
+  },
+  "old_b_voice_fact_report": {
+    "old_b_voice_exists": true,
+    "old_b_voice_model": "qwen3-tts-vc-realtime-2026-01-15",
+    "old_b_voice_masked_id": "qwen-t...ac19",
+    "old_b_reference_audio_paths": [
+      "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+      "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav"
+    ],
+    "old_b_generation_script": [
+      "scripts/语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis.py",
+      "scripts/生成新第四期选品初筛源比例无遮挡B语音修复候选片_generate_new_fourth_selection_source_ratio_no_mask_b_voice_fix_candidate.py"
+    ],
+    "old_b_route_status": "evidence_found_current_publish_gate_conflicted_pending_runtime_smoke",
+    "old_b_was_user_preferred": true,
+    "qwen_t_ac19_is_user_old_aliyun_b_voice": "confirmed_as_repository_old_b_custom_voice_masked_id_for_20260427_B_pacing_trial; final_voice_validation_not_advanced",
+    "confidence": "high_for_historical_route_identity; medium_for_current_callable_status_until_next_runtime_smoke",
+    "evidence_paths": [
+      "AGENTS.md",
+      "GPT数据源/08_当前正式事实.md",
+      "codex_log/current_local_artifact_paths.md",
+      "codex_log/20260427_十五秒文案语速停顿试配.md",
+      "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/run_summary.json",
+      "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_voice_clone_tts_request_debug_sanitized.json",
+      "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/custom_voice_list_debug_sanitized.json",
+      "codex_log/20260525_visual_no_mask_source_ratio_and_voice_b_fix.md",
+      "dist/new_fourth_episode_selection_publish_candidate_visual_voice_fix_20260525_012938/summary.json"
+    ]
+  },
+  "old_b_reference_audio": {
+    "reference_audio_1": {
+      "path": "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+      "exists": true,
+      "duration_seconds": 16.32,
+      "codec": "pcm_s16le",
+      "sample_rate": 24000,
+      "channels": 1,
+      "role": "B 版停顿梗感参考"
+    },
+    "reference_audio_2": {
+      "path": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
+      "exists": true,
+      "duration_seconds": 13.6,
+      "codec": "pcm_s16le",
+      "sample_rate": 24000,
+      "channels": 1,
+      "role": "历史声音底子参考"
+    }
+  },
+  "old_b_route_runtime_check": {
+    "required_provider": "aliyun_bailian",
+    "required_model": "qwen3-tts-vc-realtime-2026-01-15",
+    "required_voice_id": "qwen-t...ac19",
+    "required_auth_source": "authorized_runtime_config_or_project_runtime; secret_not_read",
+    "existing_script_found": true,
+    "existing_runtime_config_found": "historical_logs_show_authorized_runtime_config; current_secret_file_not_read",
+    "likely_callable_without_code_change": false,
+    "reason": "当前旧 B 修复候选脚本已设置 LEGACY_B_VOICE_ROUTE_BLOCKED_FOR_PUBLISH_CANDIDATE = True，下一轮需显式恢复 route_a 并做 runtime smoke。",
+    "blockers": [
+      "本轮禁止调用 TTS API，未做当前 runtime smoke。",
+      "当前正片候选闸门仍与旧 Qwen 路线冲突。",
+      "需要下一轮明确恢复旧 Qwen / 阿里 B 路线后，再只重生成旁白或做短 smoke。"
+    ]
+  },
+  "voice_route_conflict_report": {
+    "conflict_exists": true,
+    "conflict_a": "当前正片候选默认要求 MiniMax speech-2.8-hd / MiniMax/speech-2.8-hd。",
+    "conflict_b": "用户当前要求恢复旧阿里 / Qwen B 方案声音 qwen-t...ac19。",
+    "can_old_b_voice_run_on_minimax_directly": false,
+    "can_minimax_clone_old_b_with_reference_audio": "possible_in_capability_terms_but_not_selected_this_round_and_requires_user_confirmation",
+    "can_qwen_old_b_route_be_restored_for_publish_candidate": "yes_after_explicit_route_restore_and_runtime_smoke; not marked passed in this audit",
+    "safest_next_path": "route_a_restore_old_qwen_b",
+    "conflict_decision_needed": false,
+    "reason": "用户最新指令已裁决不要继续抽 MiniMax 系统候选，优先恢复旧阿里大模型 B 声音。"
+  },
+  "forbidden_replacement_rule": {
+    "system_voice_candidates_cannot_replace_old_b": true,
+    "forbidden_voice_ids": [
+      "female-tianmei",
+      "female-shaonv",
+      "female-shaonv-jingpin",
+      "female-yujie",
+      "male-qn-qingse",
+      "male-qn-daxuesheng",
+      "Chinese (Mandarin)_Gentleman",
+      "Chinese (Mandarin)_Gentle_Youth",
+      "Chinese (Mandarin)_Sincere_Adult"
+    ],
+    "rule": [
+      "female-tianmei 不能替代旧 B。",
+      "female-shaonv / female-shaonv-jingpin / female-yujie 不能替代旧 B。",
+      "MiniMax 男声或中性系统候选也不能直接替代旧 B。",
+      "只有恢复旧 Qwen / 阿里 B 路线，或用旧 B 参考音频克隆并经用户确认，才能成为新 B。"
+    ]
+  },
+  "next_route": {
+    "selected_route": "route_a_restore_old_qwen_b",
+    "reason": "旧 B 证据链完整，且用户最新指令明确要恢复以前阿里大模型 B 方案声音；MiniMax 系统候选方向已被否决。",
+    "next_codex_prompt_needed": true,
+    "next_prompt_scope": [
+      "只恢复旧 Qwen / 阿里 B 短 smoke 或旁白路线。",
+      "允许调用 TTS API 时先做最小 runtime smoke。",
+      "通过后再决定是否只重生成全片旁白并替换音轨；仍不得改文案或画面。"
+    ]
+  },
+  "deepseek_participation_report": {
+    "supply_request_created": true,
+    "deepseek_call_real": false,
+    "deepseek_actual_participation": "not_attempted_policy_violation",
+    "supply_source": "blocked",
+    "blocked_reason": "invalid_context_pack",
+    "not_deepseek_conclusion": true,
+    "api_key_printed": false,
+    "api_key_written": false
+  },
+  "status_boundaries": {
+    "voice_validation": "not_advanced",
+    "final_voice_validated": false,
+    "content_validation": "not_advanced",
+    "send_ready": false,
+    "visual_master_locked": false
+  }
+}
