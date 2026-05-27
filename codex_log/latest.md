@@ -1,5 +1,24 @@
 # Latest
 
+## 20260527｜工作流入口归位索引
+
+- `task_result.status = completed_with_entry_routing_index`
+- `target_delivery = workflow_entry_routing_index`
+- `repair_scope = Codex 执行入口层 / routing index layer`
+- `audit_recheck`：`missing_standard = false`；`routing_index_gap = true（主缺口）`；`execution_discipline_gap = true（次缺口）`；`execution_entry_gap = partial`。
+- `routing_index_path = codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md`
+- `codex_entry_updated = codex_source/00_codex_readme.md`
+- `execution_rules_updated = codex_source/01_execution_rules.md`
+- `state_action_router_updated = codex_source/19_project_state_action_router.md`
+- `fixture_updated = codex_source/fixtures/mechanism_inference_function_cases.json`
+- 新增要求：Codex 每轮在 `route_decision（路由判断）` 后、具体执行前，必须输出 `workflow_route_decision（工作流归位判断）`，并从 `copy_testing_flow / material_evidence_flow / aesthetic_editing_flow / quality_review_flow / data_review_flow / mechanism_repair_flow` 中选择工作流。
+- `workflow_route_decision` 必须写明：`workflow_type / reason / must_read / required_handoff / forbidden_status / blocked_if`。
+- `status_boundary`：未推进 `content_validation / send_ready / voice_validation / final_voice_validated / visual_master_locked / current_data_goal_anchor_ready`。
+- `video_generated = false`；`audio_generated = false`；`copy_changed = false`；`media_changed = false`。
+- 本轮只修入口索引；未新增文案 / 素材 / 剪辑 / 复盘大机制；不代表机制长期稳定。
+- 后续真实任务必须验证 Codex 是否稳定输出 `workflow_route_decision`。
+- `日志`：`codex_log/20260527_工作流入口归位索引_workflow_entry_routing_index.md`
+
 ## 20260527｜B 声音本体重审与 MiniMax 男声/偏男候选试听包
 
 - `task_result.status = completed_with_reaudited_voice_candidates`

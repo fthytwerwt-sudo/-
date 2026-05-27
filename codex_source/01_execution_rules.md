@@ -606,7 +606,7 @@ regression_check_against_locked_preflight:
 
 ## 2A. 执行前 route_decision 闸门
 
-每次任务必须先输出 `route_decision（路由判断）`，再执行默认读取顺序。
+每次任务必须先输出 `route_decision（路由判断）`，再输出 `workflow_route_decision（工作流归位判断）`，然后才能进入默认读取顺序和具体执行。
 
 `route_decision（路由判断）` 是执行许可，不是可选说明。
 
@@ -692,31 +692,67 @@ route_decision:
 最终回报必须包含：
 
 1. 本轮 `route_decision（路由判断）`
-2. 实际读取文件清单
-3. 哪些文件 `read_ok（已读取）`
-4. 哪些文件 `missing（文件不存在）` / `unreadable（无法读取）` / `not_applicable（本轮不适用）`
-5. 本轮允许修改范围
-6. 本轮禁止修改范围
-7. 是否触发 blocked
-8. 命中视频执行 / 剪辑 / 编排 / DeepSeek 供料时，必须回报 `data_goal_anchor_gate（数据目标锚点闸门）`
-9. 命中判断卡 / 总结卡 / 卡片动效 / HyperFrames 时，必须回报 `codex_judgment_permission_gate（Codex 判断权限闸门）` 与 `hyperframes_card_motion_gate（HyperFrames 卡片动效闸门）`
+2. 本轮 `workflow_route_decision（工作流归位判断）`
+3. 实际读取文件清单
+4. 哪些文件 `read_ok（已读取）`
+5. 哪些文件 `missing（文件不存在）` / `unreadable（无法读取）` / `not_applicable（本轮不适用）`
+6. 本轮允许修改范围
+7. 本轮禁止修改范围
+8. 是否触发 blocked
+9. 命中视频执行 / 剪辑 / 编排 / DeepSeek 供料时，必须回报 `data_goal_anchor_gate（数据目标锚点闸门）`
+10. 命中判断卡 / 总结卡 / 卡片动效 / HyperFrames 时，必须回报 `codex_judgment_permission_gate（Codex 判断权限闸门）` 与 `hyperframes_card_motion_gate（HyperFrames 卡片动效闸门）`
 
 每次最终回报必须新增栏目：
 
 1. `route_decision（本轮路由判断）`
-2. `read_status（实际读取状态）`
-3. `execution_permission（执行许可是否成立）`
-4. `data_goal_anchor_used（使用的数据目标锚点，命中视频执行 / 剪辑 / 编排时必填）`
-5. `execution_structure_adjustments（执行结构调整）`
-6. `why_adjustments_do_not_break_primary_variable（为什么调整不破坏主变量）`
-7. `forbidden_variables_avoided（已避开的禁止变量）`
-8. `post_publish_validation_metric（发布后验证指标）`
+2. `workflow_route_decision（工作流归位判断）`
+3. `read_status（实际读取状态）`
+4. `execution_permission（执行许可是否成立）`
+5. `data_goal_anchor_used（使用的数据目标锚点，命中视频执行 / 剪辑 / 编排时必填）`
+6. `execution_structure_adjustments（执行结构调整）`
+7. `why_adjustments_do_not_break_primary_variable（为什么调整不破坏主变量）`
+8. `forbidden_variables_avoided（已避开的禁止变量）`
+9. `post_publish_validation_metric（发布后验证指标）`
 
 不得只回报“已完成”。
 
+### 2A-0A. Workflow Route Decision Gate 工作流归位闸门
+
+`workflow_route_decision（工作流归位判断）` 必须放在 `route_decision（路由判断）` 之后、任何写入 / 生成视频 / 生成音频 / 媒体修改 / 状态推进之前。
+
+Codex 必须读取：
+
+- `codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md`
+
+执行前必须输出：
+
+```text
+workflow_route_decision:
+  workflow_type:
+    - copy_testing_flow
+    - material_evidence_flow
+    - aesthetic_editing_flow
+    - quality_review_flow
+    - data_review_flow
+    - mechanism_repair_flow
+  reason:
+  must_read:
+  required_handoff:
+  forbidden_status:
+  blocked_if:
+```
+
+硬规则：
+
+1. 如果没有 `workflow_route_decision（工作流归位判断）`，Codex 不得进入写入、生成视频、生成音频、媒体修改或状态推进。
+2. `workflow_type` 只能从索引文件列出的 6 类中选择。
+3. `must_read / required_handoff / forbidden_status / blocked_if` 必须来自索引文件和本轮任务事实，不得只按用户 prompt 表面动作补写。
+4. 每条工作流都默认禁止自动推进 `content_validation = passed / send_ready = true / voice_validation = passed / final_voice_validated = true / visual_master_locked = true / current_data_goal_anchor_ready = true`。
+5. 若本轮同时命中多条工作流，先选最高风险主工作流；其余工作流写入 `reason` 或 `blocked_if`，不得混合执行到无法验收。
+
 ## 2A-1. Project State Action Router Gate 项目状态动作总控闸门
 
-`Project State Action Router Gate（项目状态动作总控闸门）` 必须放在 `route_decision（路由判断）` 之后、具体执行之前。
+`Project State Action Router Gate（项目状态动作总控闸门）` 必须放在 `route_decision（路由判断）` 和 `workflow_route_decision（工作流归位判断）` 之后、具体执行之前。
 
 它不替代 `route_decision（路由判断）`，而是补充回答：
 

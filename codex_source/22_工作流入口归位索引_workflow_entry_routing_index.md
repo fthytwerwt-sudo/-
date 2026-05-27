@@ -1,0 +1,91 @@
+# 工作流入口归位索引 Workflow Entry Routing Index
+
+## 1. 用途
+
+本文件只是 Codex 执行入口层的短索引，不新增文案、素材、剪辑、复审或复盘大机制。
+
+用途：让 Codex 每轮在 `route_decision（路由判断）` 之后、具体执行之前，先判断任务属于哪条工作流，再读取对应文件、产出对应交接件、触发对应 blocker。
+
+若未输出 `workflow_route_decision（工作流归位判断）`，不得进入写入、生成视频、生成音频、修改媒体或状态推进。
+
+## 2. 每轮必须输出 workflow_route_decision
+
+```text
+workflow_route_decision:
+  workflow_type:
+  reason:
+  must_read:
+  required_handoff:
+  forbidden_status:
+  blocked_if:
+```
+
+允许的 `workflow_type` 只有：
+
+- `copy_testing_flow（文案测试流）`
+- `material_evidence_flow（素材证据流）`
+- `aesthetic_editing_flow（审美剪辑流）`
+- `quality_review_flow（质量复审流）`
+- `data_review_flow（数据复盘流）`
+- `mechanism_repair_flow（机制修补流）`
+
+所有工作流默认禁止自动推进：
+
+- `content_validation = passed（内容验证通过）`
+- `send_ready = true（可发送）`
+- `voice_validation = passed（声音验证通过）`
+- `final_voice_validated = true（最终声音验证通过）`
+- `visual_master_locked = true（视觉母版锁定）`
+- `current_data_goal_anchor_ready = true（当前数据目标锚点 ready）`
+
+除非用户 / ChatGPT 明确最终复审确认，Codex 不得推进以上状态。
+
+## 3. 工作流归位表
+
+### 3.1 copy_testing_flow（文案测试流）
+
+- `input_signal（输入信号）`：最终文案、改文案、标题、开头、下一条视频、文案测试、Perplexity 初稿、ChatGPT 落稿、内容结构反馈。
+- `must_read（必须读取）`：`GPT数据源/04_选题与文案规则.md`、`GPT数据源/05_文案路由规则.md`、`GPT数据源/07_AI知识类视频价值规则.md`、`GPT数据源/08_当前正式事实.md`、`codex_log/current_data_goal_anchor.md`。
+- `required_handoff（必须交接件）`：`material_detail_report（素材细节报告）`、`final_script_source_check（最终文案来源检查）`、`content_route_card_v2（内容路由卡 V2）`、`script_anchor_extraction_function_output（文案锚点提取结果）`。
+- `forbidden_status（禁止状态）`：使用第 2 节统一禁止状态。
+- `blocked_if（阻断条件）`：最终文案来源不明、Perplexity 初稿被当成最终稿、素材细节缺失却要定稿、Codex 被要求直接重写最终文案、数据锚点为 `draft / waiting_data` 却要写正式数据驱动执行。
+
+### 3.2 material_evidence_flow（素材证据流）
+
+- `input_signal（输入信号）`：用户给素材、录屏、截图、时间码、素材审计、素材能否支撑文案、隐私 / 平台风险、给 ChatGPT 写素材报告。
+- `must_read（必须读取）`：`skills/视频素材解析_video_material_audit/SKILL.md`、`GPT数据源/05_文案路由规则.md`、`GPT数据源/07_AI知识类视频价值规则.md`、`codex_source/00_codex_readme.md`、`codex_source/01_execution_rules.md`。
+- `required_handoff（必须交接件）`：`material_detail_report（素材细节报告）`、`material_evidence_contract（素材证据契约）`、`line_visual_alignment_report（文案画面对齐报告）`、`missing_material_or_blocked_report（缺素材或阻断报告）`。
+- `forbidden_status（禁止状态）`：使用第 2 节统一禁止状态。
+- `blocked_if（阻断条件）`：素材 skill 未读取、时间码缺失、关键页面 / 按钮 / 输入框 / 结果不可见、证据只能证明弱相关、需要补录却被要求继续剪、素材报告被当成最终文案。
+
+### 3.3 aesthetic_editing_flow（审美剪辑流）
+
+- `input_signal（输入信号）`：剪辑更好、像作品、不像 demo、节奏不顺、卡片不好看、字幕 / 卡片挡画面、画面不可读、做成可发布候选片。
+- `must_read（必须读取）`：`GPT数据源/07_AI知识类视频价值规则.md`、`GPT数据源/08_当前正式事实.md`、`codex_source/00_codex_readme.md`、`codex_source/01_execution_rules.md`、`codex_source/19_project_state_action_router.md`、`codex_source/21_codex_judgment_permission_matrix.md`。
+- `required_handoff（必须交接件）`：`editing_inference_function_output（剪辑推理结果）`、`editing_decision_pack（剪辑决策包）`、`visual_readability_report（画面可读性报告）`、`review_pack（审片包）`。
+- `forbidden_status（禁止状态）`：使用第 2 节统一禁止状态。
+- `blocked_if（阻断条件）`：缺 line_group 级文案画面对齐、核心证据不可读、字幕 / 卡片 high severity overlap、卡片替代真实证据、只能产出技术预览却要写完成。
+
+### 3.4 quality_review_flow（质量复审流）
+
+- `input_signal（输入信号）`：复审、审片、质量问题、像 demo、不舒服、不合格、不顺、不美观、技术验证、内容验证、send_ready、remaining_blockers。
+- `must_read（必须读取）`：`codex_log/latest.md`、`GPT数据源/08_当前正式事实.md`、`GPT数据源/07_AI知识类视频价值规则.md`、`dist/latest_review_pack/summary.json`、`dist/latest_review_pack/review_manifest.md`、`codex_source/19_project_state_action_router.md`。
+- `required_handoff（必须交接件）`：`quality_issue_classifier_output（质量短板分类结果）`、`technical_validation（技术验证）`、`content_validation_boundary（内容验证边界）`、`remaining_blockers（剩余阻断）`。
+- `forbidden_status（禁止状态）`：使用第 2 节统一禁止状态。
+- `blocked_if（阻断条件）`：把技术验证写成内容验证、用户未确认却推进 send_ready、声音 / 视觉 / 内容状态边界不清、缺审片包或关键媒体证据却要裁决可发。
+
+### 3.5 data_review_flow（数据复盘流）
+
+- `input_signal（输入信号）`：24h、72h、7d、平台数据、播放 / 收藏 / 私信 / 咨询、运营数据、发布后复盘、下一轮只改一个变量。
+- `must_read（必须读取）`：`review_loop/00_review_loop_readme.md`、`codex_log/current_operation_target.md`、`review_loop/operation_records_index.md`、`codex_log/current_data_goal_anchor.md`、`codex_log/current_gray_test_target.md`。
+- `required_handoff（必须交接件）`：`operation_data_record（运营数据记录）`、`missing_fields_report（缺失字段报告）`、`threshold_check（阈值检查）`、`next_variable_draft（下一变量草稿）`。
+- `forbidden_status（禁止状态）`：使用第 2 节统一禁止状态。
+- `blocked_if（阻断条件）`：视频 ID 不明、时间窗不明、数据字段缺失、数据不足却要判断成败、一次改多个主变量、把历史灰度目标当成当前正式运营目标。
+
+### 3.6 mechanism_repair_flow（机制修补流）
+
+- `input_signal（输入信号）`：修规则、补入口、机制修补、路由修补、索引缺口、执行纪律、旧口径残留、读取顺序冲突。
+- `must_read（必须读取）`：`AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_source/01_execution_rules.md`、`codex_source/19_project_state_action_router.md`、`codex_log/latest.md`，以及被影响的具体机制文件。
+- `required_handoff（必须交接件）`：`impact_check（影响面检查）`、`affected_entry_files（受影响入口文件）`、`fixture_or_keyword_check（fixture 或关键词检查）`、`status_boundary_report（状态边界报告）`。
+- `forbidden_status（禁止状态）`：使用第 2 节统一禁止状态。
+- `blocked_if（阻断条件）`：已有等价索引会重复、必须新增大机制、必须改正式事实状态、需要生成视频 / 音频、需要推进内容 / 发布 / 声音 / 视觉状态、本地脏改无法隔离。

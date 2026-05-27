@@ -19,6 +19,7 @@
 它不替代：
 
 - `AGENTS.md` 的 `route_decision（路由判断）`
+- `codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md` 的 `workflow_route_decision（工作流归位判断）`
 - `codex_source/01_execution_rules.md` 的执行规则
 - `Completion Relay Gate（补全接力闸门）`
 - `Reference-to-Execution Contract（参考到执行落地契约）`
@@ -29,7 +30,19 @@
 
 每次 Codex 任务必须先输出 `route_decision（路由判断）`。
 
-在 `route_decision` 成立后、进入具体执行前，必须再输出：
+在 `route_decision` 成立后，必须先读取 `codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md` 并输出：
+
+```text
+workflow_route_decision:
+  workflow_type:
+  reason:
+  must_read:
+  required_handoff:
+  forbidden_status:
+  blocked_if:
+```
+
+随后、进入具体执行前，必须再输出：
 
 ```text
 state_action_router:
@@ -65,6 +78,8 @@ state_action_router:
 - `blocked_if`：必须阻断的条件。
 - `feedback_update_required`：执行结果是否需要更新 latest、dated log、路径索引、机制文件或 missing fields。
 
+`workflow_route_decision` 缺失时，`state_action_router` 不得把任务推进到具体执行；必须先补工作流归位或 blocked。
+
 ## 3. 触发优先级
 
 ```text
@@ -82,6 +97,8 @@ P0:
 P1:
   - mechanism_written_but_unverified
   - Codex partial completion risk
+  - workflow_route_decision_missing
+  - workflow_entry_routing_index_needed
   - reference_contract_needed
   - missing inference function
   - data_goal_anchor_needed
@@ -113,6 +130,12 @@ if state = gray_test_waiting_data:
 
 if state = mechanism_repair_needed:
   action = repair specified mechanism only, do not touch video status
+
+if state = workflow_route_decision_missing:
+  action = read codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md, output workflow_route_decision with workflow_type / reason / must_read / required_handoff / forbidden_status / blocked_if, and block write / video / audio / status promotion until it exists
+
+if state = workflow_entry_routing_index_needed:
+  action = repair the Codex entry routing index only, keep it short, update affected entry files and minimal fixtures/logs, do not add a new big mechanism or promote project status
 
 if state = deepseek_supply_required:
   action = create_supply_request, run_deepseek_pre_supply, and read supply pack before file modification

@@ -2,7 +2,7 @@
   "schema": "mechanism_inference_function_cases_v1",
   "description": "Minimum fixture cases for editing_inference_function, content_route_inference_function, and quality_issue_classifier in 视频工厂 OPC project.",
   "created_at": "2026-05-12T00:00:00+08:00",
-  "updated_at": "2026-05-15T00:00:00+08:00",
+  "updated_at": "2026-05-27T00:00:00+08:00",
   "project_route": "video_factory",
   "status_boundary": {
     "content_validation": "not_changed",
@@ -13,6 +13,228 @@
     "visual_master_locked": "not_changed"
   },
   "cases": [
+    {
+      "case_id": "user_pastes_final_script_should_route_to_copy_testing_flow",
+      "function_name": "workflow_entry_routing_index",
+      "case_type": "workflow_route_decision",
+      "input_signal": [
+        "用户贴出最终文案，要求判断能不能进入下一条视频。",
+        "本轮没有素材细节报告。"
+      ],
+      "observed_evidence": {
+        "final_script_present": true,
+        "material_detail_report_exists": false,
+        "perplexity_draft_may_exist": true,
+        "codex_asked_to_rewrite_final_copy": false
+      },
+      "expected_state_inference": [
+        "copy_testing_flow"
+      ],
+      "expected_action_policy": [
+        "output_workflow_route_decision",
+        "require_material_detail_report",
+        "check_final_script_source",
+        "do_not_write_final_script_by_codex"
+      ],
+      "validation_rule": [
+        "用户贴最终文案时先进入 copy_testing_flow。",
+        "Perplexity 初稿不能直接当最终稿执行。"
+      ],
+      "blocked_if": [
+        "final_script_source_unknown",
+        "material_detail_report_missing",
+        "codex_required_to_write_final_copy"
+      ],
+      "expected_feedback_update": [
+        "workflow_route_decision.workflow_type = copy_testing_flow",
+        "required_handoff includes material_detail_report"
+      ]
+    },
+    {
+      "case_id": "user_uploads_material_should_route_to_material_evidence_flow",
+      "function_name": "workflow_entry_routing_index",
+      "case_type": "workflow_route_decision",
+      "input_signal": [
+        "用户提供录屏素材，要求判断能支撑哪些文案。",
+        "任务涉及时间码、页面、按钮、结果可见性。"
+      ],
+      "observed_evidence": {
+        "material_present": true,
+        "timecode_required": true,
+        "skill_path_exists": "skills/视频素材解析_video_material_audit/SKILL.md",
+        "final_copy_requested": false
+      },
+      "expected_state_inference": [
+        "material_evidence_flow"
+      ],
+      "expected_action_policy": [
+        "read_video_material_audit_skill",
+        "output_material_detail_report",
+        "output_material_evidence_contract",
+        "do_not_generate_video"
+      ],
+      "validation_rule": [
+        "素材输入优先进入 material_evidence_flow。",
+        "素材审计只能交接证据，不写最终文案。"
+      ],
+      "blocked_if": [
+        "material_skill_unread",
+        "timecode_missing",
+        "visible_result_missing"
+      ],
+      "expected_feedback_update": [
+        "workflow_route_decision.workflow_type = material_evidence_flow",
+        "required_handoff includes material_evidence_contract"
+      ]
+    },
+    {
+      "case_id": "user_says_video_looks_demo_should_route_to_quality_review_flow",
+      "function_name": "workflow_entry_routing_index",
+      "case_type": "workflow_route_decision",
+      "input_signal": [
+        "用户反馈视频像 demo、不舒服或不合格。",
+        "任务目标是判断问题而不是立即重剪。"
+      ],
+      "observed_evidence": {
+        "user_quality_feedback_present": true,
+        "media_rebuild_requested": false,
+        "send_ready_change_requested": false
+      },
+      "expected_state_inference": [
+        "quality_review_flow"
+      ],
+      "expected_action_policy": [
+        "output_quality_issue_classifier_output",
+        "separate_technical_validation_from_content_validation",
+        "write_remaining_blockers",
+        "do_not_promote_send_ready"
+      ],
+      "validation_rule": [
+        "像 demo / 不舒服优先进入 quality_review_flow。",
+        "技术验证不能冒充内容验证。"
+      ],
+      "blocked_if": [
+        "review_pack_missing",
+        "content_validation_promoted_without_user_confirmation",
+        "send_ready_promoted_without_user_confirmation"
+      ],
+      "expected_feedback_update": [
+        "workflow_route_decision.workflow_type = quality_review_flow",
+        "required_handoff includes remaining_blockers"
+      ]
+    },
+    {
+      "case_id": "user_asks_make_editing_better_should_route_to_aesthetic_editing_flow",
+      "function_name": "workflow_entry_routing_index",
+      "case_type": "workflow_route_decision",
+      "input_signal": [
+        "用户要求剪辑更好、节奏更顺、画面更像作品。",
+        "任务涉及字幕、卡片、证据画面可读性。"
+      ],
+      "observed_evidence": {
+        "editing_quality_requested": true,
+        "line_group_alignment_required": true,
+        "media_generation_allowed_by_user": false
+      },
+      "expected_state_inference": [
+        "aesthetic_editing_flow"
+      ],
+      "expected_action_policy": [
+        "output_editing_inference_function_output",
+        "output_editing_decision_pack",
+        "output_visual_readability_report",
+        "block_if_only_technical_preview_possible"
+      ],
+      "validation_rule": [
+        "剪辑观感优化进入 aesthetic_editing_flow。",
+        "卡片不能替代真实证据。"
+      ],
+      "blocked_if": [
+        "line_group_alignment_missing",
+        "core_evidence_unreadable",
+        "subtitle_card_high_severity_overlap"
+      ],
+      "expected_feedback_update": [
+        "workflow_route_decision.workflow_type = aesthetic_editing_flow",
+        "required_handoff includes editing_decision_pack"
+      ]
+    },
+    {
+      "case_id": "user_gives_platform_data_should_route_to_data_review_flow",
+      "function_name": "workflow_entry_routing_index",
+      "case_type": "workflow_route_decision",
+      "input_signal": [
+        "用户提供 24h / 72h / 7d 平台数据截图。",
+        "任务要求判断下一轮只改一个变量。"
+      ],
+      "observed_evidence": {
+        "platform_data_present": true,
+        "time_window_required": true,
+        "next_variable_requested": true,
+        "copy_rewrite_requested_immediately": false
+      },
+      "expected_state_inference": [
+        "data_review_flow"
+      ],
+      "expected_action_policy": [
+        "record_operation_data",
+        "output_missing_fields_report",
+        "output_threshold_check",
+        "draft_next_variable_without_forcing_conclusion"
+      ],
+      "validation_rule": [
+        "平台数据输入进入 data_review_flow。",
+        "数据不足时不得强行判断成败。"
+      ],
+      "blocked_if": [
+        "video_id_unknown",
+        "time_window_unknown",
+        "required_metric_missing",
+        "multiple_primary_variables_requested"
+      ],
+      "expected_feedback_update": [
+        "workflow_route_decision.workflow_type = data_review_flow",
+        "required_handoff includes threshold_check"
+      ]
+    },
+    {
+      "case_id": "user_asks_fix_rules_should_route_to_mechanism_repair_flow",
+      "function_name": "workflow_entry_routing_index",
+      "case_type": "workflow_route_decision",
+      "input_signal": [
+        "用户要求补入口索引或修执行规则。",
+        "任务明确不生成视频、不推进状态。"
+      ],
+      "observed_evidence": {
+        "mechanism_repair_requested": true,
+        "routing_index_gap": true,
+        "new_big_mechanism_allowed": false,
+        "status_promotion_allowed": false
+      },
+      "expected_state_inference": [
+        "mechanism_repair_flow"
+      ],
+      "expected_action_policy": [
+        "output_impact_check",
+        "update_affected_entry_files_only",
+        "add_or_update_minimal_fixture",
+        "do_not_promote_status"
+      ],
+      "validation_rule": [
+        "修入口 / 修规则进入 mechanism_repair_flow。",
+        "路由索引补强不代表机制长期稳定。"
+      ],
+      "blocked_if": [
+        "equivalent_index_already_exists",
+        "big_mechanism_required",
+        "dirty_changes_cannot_be_isolated",
+        "status_promotion_required"
+      ],
+      "expected_feedback_update": [
+        "workflow_route_decision.workflow_type = mechanism_repair_flow",
+        "latest_log_updated"
+      ]
+    },
     {
       "case_id": "editing_zoom_needed_button_too_small",
       "function_name": "editing_inference_function",

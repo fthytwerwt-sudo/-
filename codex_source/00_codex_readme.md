@@ -173,6 +173,7 @@ input_edge_preflight
 
 ```text
 route_decision
+-> workflow_route_decision
 -> state_action_router
 -> process_boot_gate
 -> process_boot_report
@@ -201,6 +202,8 @@ route_decision
 - 若 prompt 与仓库流程冲突，先标冲突并按当前仓库事实源裁决，不得直接执行。
 - 若无法判断某组件是否需要，必须 `blocked` 或 `human_review_required`。
 - `process_boot_gate` 只防止执行断层，不推进 `content_validation / send_ready / voice_validation / visual_master_locked / current_data_goal_anchor_ready`。
+
+`workflow_route_decision（工作流归位判断）` 来自 `codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md`。它不替代 `route_decision`、`state_action_router` 或 `process_boot_gate`；它只负责让 Codex 先归位到文案测试、素材证据、审美剪辑、质量复审、数据复盘或机制修补中的一条工作流。
 
 `process_boot_report（流程启动报告）` 模板：
 
@@ -448,15 +451,30 @@ review_pack_required_preflight_reports:
 5. `GPT数据源/10_OPC一人公司闭环与多AI协作机制.md`
 6. `GPT数据源/11_项目状态动作总控器_机制推理层.md`
 7. `codex_source/19_project_state_action_router.md`
-8. `GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md`
-9. `codex_source/20_reference_to_execution_contract.md`
-10. `codex_source/21_codex_judgment_permission_matrix.md`
-11. `GPT数据源/01_项目系统提示词.md`
-12. `GPT数据源/03_总索引与阅读顺序.md`
-13. `GPT数据源/08_当前正式事实.md`
-14. `GPT数据源/06_当前主线锚点_API生成真人_用户录制素材_少量PPT_云端剪辑.md`
+8. `codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md`
+9. `GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md`
+10. `codex_source/20_reference_to_execution_contract.md`
+11. `codex_source/21_codex_judgment_permission_matrix.md`
+12. `GPT数据源/01_项目系统提示词.md`
+13. `GPT数据源/03_总索引与阅读顺序.md`
+14. `GPT数据源/08_当前正式事实.md`
+15. `GPT数据源/06_当前主线锚点_API生成真人_用户录制素材_少量PPT_云端剪辑.md`
 
 每次 Codex 执行前必须先通过 `route_decision（路由判断）`；未输出项目路由、任务类型、责任层级、必读文件与读取状态前，不得执行。
+
+`route_decision（路由判断）` 通过后、进入任何写入、生成视频、生成音频、媒体修改或状态推进前，必须读取 `codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md` 并输出：
+
+```text
+workflow_route_decision:
+  workflow_type:
+  reason:
+  must_read:
+  required_handoff:
+  forbidden_status:
+  blocked_if:
+```
+
+`workflow_type` 只能从 `copy_testing_flow / material_evidence_flow / aesthetic_editing_flow / quality_review_flow / data_review_flow / mechanism_repair_flow` 中选择。缺 `workflow_route_decision` 时，不得进入具体执行。
 
 若任务命中“素材录制 / 录制素材 / 解析视频 / 素材审计 / 第几期素材 / 给 ChatGPT 写素材报告 / 素材证据链 / 平台风险 / 隐私风险”，Codex 必须优先读取项目内 skill：
 
@@ -464,7 +482,7 @@ review_pack_required_preflight_reports:
 
 没有读取并实际使用该 skill，不得把素材审计任务写成 `completed（已完成）`。该 skill 只允许输出素材索引、素材细节报告、时间码解析、证据强度和风险判断；不得生成视频、写最终文案或推进 `content_validation / send_ready / publish_candidate / current_data_goal_anchor ready`。
 
-`route_decision（路由判断）` 通过后、进入具体执行前，必须再读取 `codex_source/19_project_state_action_router.md` 并输出 `state_action_router（项目状态动作总控器）`，判断当前状态、事实源裁决、触发机制、选择动作、完成标准和阻断条件。
+`workflow_route_decision（工作流归位判断）` 通过后、进入具体执行前，必须再读取 `codex_source/19_project_state_action_router.md` 并输出 `state_action_router（项目状态动作总控器）`，判断当前状态、事实源裁决、触发机制、选择动作、完成标准和阻断条件。
 
 若任务命中长视频、大信息量、多文件、多步骤、多验证，或用户明确提到多 agent / 并发 / 提速，Codex 必须在 `route_decision（路由判断）` 阶段触发 `large_task_gate（大任务闸门）`，并读取 `codex_source/13_execution_lane_and_parallel_rules.md` 与 `project_source/20_codex_multi_agent_routing_note_for_gpt_project.md`。
 
