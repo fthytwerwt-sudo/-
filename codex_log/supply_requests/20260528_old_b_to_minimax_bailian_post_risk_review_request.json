@@ -1,0 +1,125 @@
+{
+  "request_id": "20260528_old_b_to_minimax_bailian_post_risk_review_request",
+  "created_at": "2026-05-28T01:18:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "old_b_to_minimax_via_aliyun_bailian",
+  "task_type": "post_risk_review + tts_authorization_route_fix + old_b_to_minimax_migration_via_bailian",
+  "project_stage": "formal_operation_active",
+  "trigger_reason": "mandatory_post_risk_review",
+  "action": "auto",
+  "mandatory_for_every_task": true,
+  "participation_level": "readonly_post_review",
+  "pre_supply_required": false,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "no_multi_agent_runtime_claim": true,
+  "current_goal": "执行后风险复核：确认旧 B 到 MiniMax 迁移已通过阿里百炼代理生成短样本，且没有要求 MINIMAX_API_KEY、没有系统音色替代、没有状态推进、没有 secret 泄露。",
+  "current_step": "post_write_risk_review",
+  "known_context": [
+    "已通过 aliyun_bailian_proxy_to_minimax 生成 3 条短试听样本，voice_id 为 oldBMinimax20260528010200。",
+    "样本目录为 codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/。",
+    "声音锁仍为 pending_user_review，用户未试听确认前不得写 user_confirmed。",
+    "本轮不应生成全片旁白、替换视频、改文案、推进 voice_validation 或 send_ready。"
+  ],
+  "missing_context": [
+    "需要复核脚本是否仍把 MINIMAX_API_KEY 当百炼路线硬前置。",
+    "需要复核报告/日志是否写入 key、签名 URL 完整参数或 secret。",
+    "需要复核测试是否覆盖百炼路线不要求官方 MiniMax key。"
+  ],
+  "candidate_files": [
+    "GPT数据源/08_当前正式事实.md",
+    "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+    "scripts/旧B到MiniMax迁移解阻样本生成_old_b_to_minimax_migration_unblocked.py",
+    "tests/test_publish_candidate_voice_gate.py",
+    "codex_log/latest.md",
+    "codex_log/20260528_old_b_to_minimax_bailian.md",
+    "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/old_b_to_minimax_bailian_report.json",
+    "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/voice_candidate_review_table_old_b_minimax.md"
+  ],
+  "must_read_files": [
+    "GPT数据源/08_当前正式事实.md",
+    "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+    "scripts/旧B到MiniMax迁移解阻样本生成_old_b_to_minimax_migration_unblocked.py",
+    "tests/test_publish_candidate_voice_gate.py",
+    "codex_log/latest.md",
+    "codex_log/20260528_old_b_to_minimax_bailian.md",
+    "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/old_b_to_minimax_bailian_report.json"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    "dist/latest_review_pack",
+    "dist/**/*.mp4",
+    "dist/**/*.wav",
+    "素材录制/",
+    "GPT 数据源/",
+    "本地运行配置_local_runtime/"
+  ],
+  "expected_output": [
+    "risk_and_conflict_report",
+    "status_promotion_risk_check",
+    "secret_leak_risk_check",
+    "codex_next_input"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files.",
+    "DeepSeek must not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is stable or completed.",
+    "Do not print, write, or commit API key / token / secret.",
+    "Do not read or attach binary reference audio content.",
+    "Do not promote voice_validation, content_validation, send_ready, final_voice_validated, or visual_master_locked.",
+    "Do not recommend MiniMax system voice candidates as a substitute for old B."
+  ],
+  "blocked_if": [
+    "MINIMAX_API_KEY remains a hard blocker for aliyun_bailian_proxy_to_minimax",
+    "system voice candidates can still pass as old B",
+    "generated_minimax_voice_id is marked user_confirmed before user listening review",
+    "report/log leaks key or full signed URL query",
+    "voice_validation or send_ready advanced"
+  ],
+  "return_to_codex": {
+    "read_status_required": true,
+    "impact_check_required": true,
+    "write_scope": [
+      "codex_log/deepseek_supply/20260528_old_b_to_minimax_bailian_post_risk_review"
+    ],
+    "output_dir": "codex_log/deepseek_supply/20260528_old_b_to_minimax_bailian_post_risk_review",
+    "verification_required": [
+      "python_py_compile",
+      "unit_tests",
+      "sample_non_silent_check",
+      "secret_scan",
+      "remote_head_verify"
+    ]
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "post_risk_review"
+    ]
+  },
+  "content_loading_policy": {
+    "read_only": true,
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 8,
+    "max_chars_per_file": 1800,
+    "max_total_chars": 14000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "do_not_read_secret_files": true,
+    "do_not_read_binary_files": true,
+    "do_not_modify_files": true
+  },
+  "output_required": [
+    "risk_and_conflict_report",
+    "status_promotion_risk_check",
+    "secret_leak_risk_check",
+    "codex_next_input"
+  ]
+}

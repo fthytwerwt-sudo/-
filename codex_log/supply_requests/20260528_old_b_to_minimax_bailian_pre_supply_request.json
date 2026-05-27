@@ -1,0 +1,159 @@
+{
+  "request_id": "20260528_old_b_to_minimax_bailian_pre_supply_request",
+  "created_at": "2026-05-28T00:54:12+08:00",
+  "project_route": "video_factory",
+  "task_id": "old_b_to_minimax_via_aliyun_bailian",
+  "task_type": "aliyun_bailian_minimax_voice_clone_check + old_b_to_minimax_migration_via_bailian + tts_authorization_route_fix",
+  "project_stage": "formal_operation_active",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "auto",
+  "mandatory_for_every_task": true,
+  "participation_level": "readonly_pre_supply",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "no_multi_agent_runtime_claim": true,
+  "current_goal": "使用项目现有阿里百炼授权通过 aliyun_bailian_proxy_to_minimax 继续旧 B 参考音频迁移到 MiniMax，不再要求 MINIMAX_API_KEY；如百炼代理支持 reference audio / voice clone，则生成 3 条短样本，否则明确 blocked。",
+  "current_step": "before_write_gate",
+  "known_context": [
+    "用户明确纠正：项目用阿里百炼 API Key 连接 MiniMax，不应因缺 MINIMAX_API_KEY 直接 blocked。",
+    "旧 B / Qwen 只作为 reference_anchor_only；最终目标供应商仍是 MiniMax。",
+    "旧 B 参考音频路径存在于 dist/voice_trials 下，但本供料请求不要求 DeepSeek 读取二进制音频本体。",
+    "不得使用 MiniMax 系统音色候选替代旧 B，不得恢复旧 Qwen 为正式路线。"
+  ],
+  "missing_context": [
+    "需要复核当前脚本是否仍写死 MiniMax 官方 key/file upload。",
+    "需要确认阿里百炼代理 MiniMax voice clone 的接口字段、audio_url 要求和返回 voice_id 行为。",
+    "需要检查现有运行配置中阿里百炼授权字段是否可用且不泄露。",
+    "需要确认生成样本不会推进 voice_validation、send_ready 或替换当前视频。"
+  ],
+  "candidate_files": [
+    "AGENTS.md",
+    "codex_log/latest.md",
+    "GPT数据源/08_当前正式事实.md",
+    "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+    "scripts/旧B到MiniMax迁移解阻样本生成_old_b_to_minimax_migration_unblocked.py",
+    "scripts/MiniMax最小语音测试_minimax_speech_2_8_hd_min_test.py",
+    "codex_log/diagnostics/old_b_to_minimax_migration_unblocked_20260527_234125/old_b_to_minimax_migration_unblocked_report.json",
+    "codex_log/diagnostics/old_b_to_minimax_migration_20260527_224840/old_b_to_minimax_migration_report.json"
+  ],
+  "must_read_files": [
+    "AGENTS.md",
+    "codex_log/latest.md",
+    "GPT数据源/08_当前正式事实.md",
+    "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+    "scripts/旧B到MiniMax迁移解阻样本生成_old_b_to_minimax_migration_unblocked.py",
+    "codex_log/diagnostics/old_b_to_minimax_migration_unblocked_20260527_234125/old_b_to_minimax_migration_unblocked_report.json",
+    "codex_log/diagnostics/old_b_to_minimax_migration_20260527_224840/old_b_to_minimax_migration_report.json"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    "dist/latest_review_pack",
+    "dist/**/*.mp4",
+    "dist/**/*.wav",
+    "素材录制/",
+    "GPT 数据源/",
+    "本地运行配置_local_runtime/"
+  ],
+  "expected_output": [
+    "file_map",
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "status_promotion_risk_check"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files.",
+    "DeepSeek must not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is stable or completed.",
+    "Do not print, write, or commit API key / token / secret.",
+    "Do not read or attach binary reference audio content.",
+    "Do not generate or modify full narration or video outputs.",
+    "Do not promote voice_validation, content_validation, send_ready, final_voice_validated, or visual_master_locked.",
+    "Do not recommend MiniMax system voice candidates as a substitute for old B."
+  ],
+  "blocked_if": [
+    "cannot identify Aliyun Bailian authorization route",
+    "cannot determine whether Bailian proxy supports MiniMax reference audio / voice clone",
+    "script still requires MINIMAX_API_KEY as the only route",
+    "requires printing/writing/submitting API key or token",
+    "would use system voice candidates as old B substitute",
+    "would restore old Qwen as formal route",
+    "would overwrite unrelated dirty changes or historical media evidence"
+  ],
+  "return_to_codex": {
+    "read_status_required": true,
+    "impact_check_required": true,
+    "write_scope": [
+      "GPT数据源/08_当前正式事实.md",
+      "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+      "scripts/旧B到MiniMax迁移解阻样本生成_old_b_to_minimax_migration_unblocked.py",
+      "codex_log/latest.md",
+      "codex_log/20260528_old_b_to_minimax_bailian.md",
+      "codex_log/diagnostics/old_b_to_minimax_bailian_*"
+    ],
+    "output_dir": "codex_log/deepseek_supply/20260528_old_b_to_minimax_bailian_pre_supply",
+    "verification_required": [
+      "python_py_compile",
+      "reference_audio_probe",
+      "bailian_clone_capability_check",
+      "sample_non_silent_check_if_generated",
+      "no_forbidden_status_promotion_check",
+      "secret_scan",
+      "path_limited_git_stage"
+    ]
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "deep_file_prefetch"
+    ]
+  },
+  "content_loading_policy": {
+    "read_only": true,
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 8,
+    "max_chars_per_file": 1800,
+    "max_total_chars": 14000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "do_not_read_secret_files": true,
+    "do_not_read_binary_files": true,
+    "do_not_modify_files": true
+  },
+  "codex_minimal_review_policy": {
+    "will_modify_files": [
+      "GPT数据源/08_当前正式事实.md",
+      "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+      "scripts/旧B到MiniMax迁移解阻样本生成_old_b_to_minimax_migration_unblocked.py",
+      "codex_log/latest.md",
+      "codex_log/20260528_old_b_to_minimax_bailian.md"
+    ],
+    "conflict_or_uncertain_files": [
+      "scripts/正片候选TTS路线_publish_candidate_tts_route.py",
+      "scripts/旧B到MiniMax迁移解阻样本生成_old_b_to_minimax_migration_unblocked.py",
+      "codex_log/latest.md"
+    ],
+    "safety_sensitive_files": [
+      "GPT数据源/08_当前正式事实.md",
+      "codex_log/latest.md",
+      "dist",
+      "本地运行配置_local_runtime"
+    ]
+  },
+  "output_required": [
+    "relevant_file_bundle",
+    "exact_snippet_pack",
+    "dependency_map",
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input"
+  ]
+}

@@ -1,5 +1,26 @@
 # Latest
 
+## 20260528｜旧 B 通过阿里百炼代理迁移到 MiniMax 试听样本
+
+- `task_result.status = completed_with_old_b_minimax_samples_via_bailian`
+- `target_delivery = old_b_to_minimax_via_aliyun_bailian`
+- `auth_route_recheck`：上一轮 `minimax_official_api_key_missing` 阻断被用户纠正；本轮 `should_require_minimax_official_key = false`，实际使用 `aliyun_bailian_proxy_to_minimax`。
+- `aliyun_bailian_auth_check`：项目既有本地正式运行配置 `[auth].api_key` 可用；`api_key_printed = false`；`api_key_written = false`。
+- `bailian_minimax_clone_capability`：支持 `MiniMax/speech-2.8-hd`、`voice_clone`、`reference_audio`；百炼链路需要 `audio_url`，不接受直接本地文件；官方证据：`https://help.aliyun.com/zh/model-studio/mini-clone-api`。
+- `reference_audio_inputs`：已仅上传用户授权的两条旧 B 参考音频到用户可控 OSS，并在报告中只保留脱敏签名 URL；未提交参考音频到 Git。
+- `generated_minimax_voice_id = oldBMinimax20260528010200`
+- `generated_samples`：
+  - `V1_identity_match`: `codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V1_identity_match.mp3`，`duration = 15.697s`，`non_silent = true`
+  - `V2_prosody_optimized`: `codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V2_prosody_optimized.mp3`，`duration = 16.236s`，`non_silent = true`
+  - `V3_emotion_rich`: `codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V3_emotion_rich.mp3`，`duration = 15.660s`，`non_silent = true`
+- `diagnostics_path = codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200`
+- `migration_report = codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/old_b_to_minimax_bailian_report.json`
+- `review_table = codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/voice_candidate_review_table_old_b_minimax.md`
+- `old_b_to_minimax_voice_lock.status = pending_user_review`；`generated_minimax_voice_id = oldBMinimax20260528010200`；`human_voice_review_status = pending_user_review`；`system_voice_substitution_allowed = false`。
+- `状态边界`：未生成全片旁白，未替换当前视频音轨，未生成视频，未改文案，未改画面，未推进 `voice_validation / final_voice_validated / content_validation / send_ready / visual_master_locked`。
+- `DeepSeek`：前置供料与执行后风险复核均实际运行通过，`deepseek_actual_participation = deepseek_passed`，`fallback_status = not_used`，`api_key_printed = false`，`api_key_written = false`。
+- `日志`：`codex_log/20260528_old_b_to_minimax_bailian.md`
+
 ## 20260527｜旧 B 到 MiniMax 迁移上传授权解阻检查
 
 - `task_result.status = blocked`

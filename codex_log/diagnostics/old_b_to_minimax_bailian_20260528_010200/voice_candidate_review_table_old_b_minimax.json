@@ -1,0 +1,180 @@
+{
+  "status": "pending_user_review",
+  "generated_voice_id": "oldBMinimax20260528010200",
+  "candidates": [
+    {
+      "sample_id": "V1_identity_match",
+      "goal": "尽量贴旧 B 音色",
+      "speed": 1.0,
+      "emotion": "neutral",
+      "pause_style": "保持旧 B 停顿感",
+      "text": "朋友们，现在做带货，最贵的不是拍视频。\n最贵的是前面测错商品的成本。\n所以我不会让 AI 直接说哪个品能爆。\n我会先让它把商品卡拆成表，把风险写出来，再决定要不要继续测。",
+      "sample_path": "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V1_identity_match.mp3",
+      "generated_voice_id": "oldBMinimax20260528010200",
+      "generated_minimax_voice_id": "oldBMinimax20260528010200",
+      "target_provider": "minimax",
+      "target_model": "MiniMax/speech-2.8-hd",
+      "auth_route": "aliyun_bailian_proxy_to_minimax",
+      "reference_audio_used": true,
+      "reference_audio_id": "reference_audio_1",
+      "prosody_version": "V1_identity_match",
+      "voice_setting": {
+        "voice_id": "oldBMinimax20260528010200",
+        "speed": 1.0,
+        "pitch": 0,
+        "emotion": "neutral",
+        "vol": 1
+      },
+      "same_voice_id_required": true,
+      "timbre_change_allowed": false,
+      "generation_call": {
+        "ok": true,
+        "request_id": "ed9c91d2-e270-9074-af36-b985115a359b",
+        "base_resp_status_code": 0,
+        "base_resp_status_msg": "success",
+        "elapsed_seconds": 11.613
+      },
+      "audio_validation": {
+        "passed": true,
+        "ffprobe": {
+          "passed": true,
+          "duration_seconds": 15.697,
+          "codec_name": "mp3",
+          "sample_rate": 32000,
+          "channels": 1,
+          "bit_rate": "97232",
+          "file_size_bytes": 190788
+        },
+        "decode": {
+          "passed": true,
+          "stderr_tail": ""
+        },
+        "non_silent_check": {
+          "passed": true,
+          "mean_volume_db": "-22.2"
+        },
+        "non_silent": true
+      },
+      "non_silent": true,
+      "status": "generated"
+    },
+    {
+      "sample_id": "V2_prosody_optimized",
+      "goal": "音色不变，优化停顿、句尾、上扬",
+      "speed": 1.02,
+      "emotion": "neutral",
+      "pause_style": "语义边界更清楚",
+      "text": "朋友们，现在做带货，最贵的不是拍视频。\n\n最贵的是，前面测错商品的成本。\n\n所以我不会让 AI 直接说，哪个品能爆。\n我会先让它把商品卡拆成表，把风险写出来，再决定要不要继续测。",
+      "sample_path": "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V2_prosody_optimized.mp3",
+      "generated_voice_id": "oldBMinimax20260528010200",
+      "generated_minimax_voice_id": "oldBMinimax20260528010200",
+      "target_provider": "minimax",
+      "target_model": "MiniMax/speech-2.8-hd",
+      "auth_route": "aliyun_bailian_proxy_to_minimax",
+      "reference_audio_used": true,
+      "reference_audio_id": "reference_audio_1",
+      "prosody_version": "V2_prosody_optimized",
+      "voice_setting": {
+        "voice_id": "oldBMinimax20260528010200",
+        "speed": 1.02,
+        "pitch": 0,
+        "emotion": "neutral",
+        "vol": 1
+      },
+      "same_voice_id_required": true,
+      "timbre_change_allowed": false,
+      "generation_call": {
+        "ok": true,
+        "http_status_code": 200,
+        "base_resp_status_code": 0,
+        "base_resp_status_msg": "success",
+        "trace_id": "0666563d3a4b62daa2a65459f91cc7e6",
+        "elapsed_seconds": 5.814,
+        "sample_path": "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V2_prosody_optimized.mp3"
+      },
+      "error_sanitized": "",
+      "audio_validation": {
+        "passed": true,
+        "ffprobe": {
+          "passed": true,
+          "duration_seconds": 16.236,
+          "codec_name": "mp3",
+          "sample_rate": 32000,
+          "channels": 1,
+          "bit_rate": "128845",
+          "file_size_bytes": 261492
+        },
+        "decode": {
+          "passed": true,
+          "stderr_tail": ""
+        },
+        "non_silent_check": {
+          "passed": true,
+          "mean_volume_db": "-23.0"
+        },
+        "non_silent": true
+      },
+      "non_silent": true,
+      "status": "generated"
+    },
+    {
+      "sample_id": "V3_emotion_rich",
+      "goal": "音色不变，增加轻吐槽、判断感、自然起伏",
+      "speed": 1.0,
+      "emotion": "happy",
+      "pause_style": "关键句更有空间",
+      "text": "朋友们，现在做带货，最贵的不是拍视频。\n\n最贵的是，前面测错商品的成本。\n所以我不会让 AI 直接说，哪个品能爆。\n\n我会先让它把商品卡拆成表，把风险写出来，再决定要不要继续测。",
+      "sample_path": "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V3_emotion_rich.mp3",
+      "generated_voice_id": "oldBMinimax20260528010200",
+      "generated_minimax_voice_id": "oldBMinimax20260528010200",
+      "target_provider": "minimax",
+      "target_model": "MiniMax/speech-2.8-hd",
+      "auth_route": "aliyun_bailian_proxy_to_minimax",
+      "reference_audio_used": true,
+      "reference_audio_id": "reference_audio_1",
+      "prosody_version": "V3_emotion_rich",
+      "voice_setting": {
+        "voice_id": "oldBMinimax20260528010200",
+        "speed": 1.0,
+        "pitch": 0,
+        "emotion": "happy",
+        "vol": 1
+      },
+      "same_voice_id_required": true,
+      "timbre_change_allowed": false,
+      "generation_call": {
+        "ok": true,
+        "http_status_code": 200,
+        "base_resp_status_code": 0,
+        "base_resp_status_msg": "success",
+        "trace_id": "0666564731fe10300e41985ee8135ccb",
+        "elapsed_seconds": 8.482,
+        "sample_path": "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V3_emotion_rich.mp3"
+      },
+      "error_sanitized": "",
+      "audio_validation": {
+        "passed": true,
+        "ffprobe": {
+          "passed": true,
+          "duration_seconds": 15.66,
+          "codec_name": "mp3",
+          "sample_rate": 32000,
+          "channels": 1,
+          "bit_rate": "128876",
+          "file_size_bytes": 252276
+        },
+        "decode": {
+          "passed": true,
+          "stderr_tail": ""
+        },
+        "non_silent_check": {
+          "passed": true,
+          "mean_volume_db": "-22.6"
+        },
+        "non_silent": true
+      },
+      "non_silent": true,
+      "status": "generated"
+    }
+  ]
+}

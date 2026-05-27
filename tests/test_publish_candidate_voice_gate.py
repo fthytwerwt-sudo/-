@@ -204,7 +204,7 @@ class PublishCandidateVoiceGateTests(unittest.TestCase):
             result["old_b_voice_replacement_validation"],
             "old_b_reference_anchor_detected_not_formal_route",
         )
-        self.assertEqual(result["next_route"], "route_b_migrate_old_b_to_minimax")
+        self.assertEqual(result["next_route"], "old_b_to_minimax_via_aliyun_bailian")
         self.assertEqual(result["old_qwen_role"], "reference_anchor_only")
 
     def test_old_b_to_minimax_lock_blocks_without_reference_audio_url_or_generated_voice(self) -> None:
@@ -228,20 +228,24 @@ class PublishCandidateVoiceGateTests(unittest.TestCase):
         self.assertIn("reference_audio_url_or_upload_authorization_missing", result["blocked_reasons"])
         self.assertIn("generated_minimax_voice_id_missing", result["blocked_reasons"])
 
-    def test_old_b_to_minimax_lock_blocks_after_upload_authorization_without_minimax_auth(self) -> None:
+    def test_old_b_to_minimax_lock_does_not_require_official_minimax_key_for_bailian_route(self) -> None:
         result = route_module.validate_old_b_to_minimax_voice_lock(
             {
                 "old_b_to_minimax_voice_lock": {
-                    "status": "pending_minimax_official_auth",
+                    "status": "pending_user_review",
                     "target_provider": "minimax",
                     "target_model": "MiniMax/speech-2.8-hd",
-                    "requires_file_id": True,
+                    "auth_route": "aliyun_bailian_proxy_to_minimax",
+                    "requires_file_id": False,
+                    "requires_audio_url": True,
+                    "current_audio_url_available": True,
                     "current_file_id_available": False,
                     "reference_audio_upload_authorized": True,
                     "official_minimax_api_key_available": False,
+                    "generated_minimax_voice_id": "oldBMinimax20260528010200",
                     "system_voice_substitution_allowed": False,
                     "old_qwen_formal_route_allowed": False,
-                    "human_voice_review_status": "pending_minimax_official_auth",
+                    "human_voice_review_status": "pending_user_review",
                 }
             },
             _summary(),
@@ -249,11 +253,13 @@ class PublishCandidateVoiceGateTests(unittest.TestCase):
 
         self.assertEqual(
             result["old_b_to_minimax_voice_lock_validation"],
-            "blocked_need_minimax_official_auth",
+            "blocked_old_b_to_minimax_voice_lock",
         )
-        self.assertIn("minimax_official_api_key_missing", result["blocked_reasons"])
-        self.assertIn("minimax_file_id_missing", result["blocked_reasons"])
-        self.assertIn("generated_minimax_voice_id_missing", result["blocked_reasons"])
+        self.assertEqual(result["auth_route"], "aliyun_bailian_proxy_to_minimax")
+        self.assertNotIn("minimax_official_api_key_missing", result["blocked_reasons"])
+        self.assertNotIn("minimax_file_id_missing", result["blocked_reasons"])
+        self.assertNotIn("generated_minimax_voice_id_missing", result["blocked_reasons"])
+        self.assertIn("human_voice_review_status_not_user_confirmed", result["blocked_reasons"])
 
     def test_old_b_to_minimax_lock_rejects_system_voice_even_if_male(self) -> None:
         result = route_module.validate_old_b_to_minimax_voice_lock(

@@ -1,0 +1,323 @@
+{
+  "task_result": {
+    "status": "completed_with_old_b_minimax_samples_via_bailian",
+    "video_generated": false,
+    "audio_generated": true,
+    "tts_api_called": true,
+    "copy_changed": false,
+    "current_video_modified": false
+  },
+  "created_at": "2026-05-27T17:00:28.123099+00:00",
+  "output_dir": "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200",
+  "auth_route_recheck": {
+    "previous_blocker": "minimax_official_api_key_missing",
+    "user_correction": "use_aliyun_bailian_api_key",
+    "should_require_minimax_official_key": false,
+    "selected_auth_route": "aliyun_bailian_proxy_to_minimax",
+    "aliyun_bailian_auth_available": true,
+    "detected_env_name": "authorized_runtime_config:[auth].api_key",
+    "detected_source": "authorized_runtime_config:formal_api_demo.local.toml",
+    "api_key_printed": false,
+    "api_key_written": false
+  },
+  "route_arbitration": {
+    "old_qwen_role": "reference_anchor_only",
+    "minimax_role": "final_generation_provider",
+    "auth_route": "aliyun_bailian_proxy_to_minimax",
+    "selected_route": "old_b_to_minimax_via_aliyun_bailian",
+    "system_voice_candidates_allowed": false,
+    "old_qwen_formal_route_allowed": false
+  },
+  "aliyun_bailian_auth_check": {
+    "auth_key_present": true,
+    "detected_env_name": "authorized_runtime_config:[auth].api_key",
+    "detected_source": "authorized_runtime_config:formal_api_demo.local.toml",
+    "authorized_runtime_config_checked": true,
+    "authorized_runtime_config_exists": true,
+    "authorized_runtime_config_in_repo": false,
+    "api_key_printed": false,
+    "api_key_written": false,
+    "can_call_bailian_proxy": true
+  },
+  "bailian_minimax_clone_capability": {
+    "supports_minimax_tts": true,
+    "supports_reference_audio": true,
+    "supports_voice_clone": true,
+    "accepts_local_file": false,
+    "requires_audio_url": true,
+    "supports_file_upload": false,
+    "returns_voice_id": false,
+    "accepts_requested_voice_id": true,
+    "generated_voice_id_source": "input.voice_id accepted; output.voice_id not echoed in the 20260528 call",
+    "evidence_path": [
+      "https://help.aliyun.com/zh/model-studio/mini-clone-api"
+    ],
+    "evidence_summary": "阿里百炼 MiniMax 语音克隆 API 使用 DashScope endpoint，input.action=voice_clone，audio_url 必须是 http/https URL；本轮成功响应返回 output.demo_audio，但未回显 output.voice_id，因此使用请求体 input.voice_id 作为 generated_minimax_voice_id。"
+  },
+  "reference_audio_probe": [
+    {
+      "path": "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+      "exists": true,
+      "decode_ok": true,
+      "size_bytes": 783404,
+      "channels": 1,
+      "sample_rate": 24000,
+      "frames": 391680,
+      "duration_seconds": 16.32,
+      "sample_width_bytes": 2,
+      "format": "wav"
+    },
+    {
+      "path": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
+      "exists": true,
+      "decode_ok": true,
+      "size_bytes": 652844,
+      "channels": 1,
+      "sample_rate": 24000,
+      "frames": 326400,
+      "duration_seconds": 13.6,
+      "sample_width_bytes": 2,
+      "format": "wav"
+    }
+  ],
+  "reference_audio_inputs": [
+    {
+      "reference_audio_id": "reference_audio_1",
+      "local_path": "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+      "uploaded": true,
+      "object_key": "video-factory/temp/old-b-to-minimax-bailian-20260528_010200/old_b_to_minimax_bailian/reference_audio/reference_audio_1_B_15秒文案_停顿梗感.wav",
+      "audio_url_redacted": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/temp/old-b-to-minimax-bailian-20260528_010200/old_b_to_minimax_bailian/reference_audio/reference_audio_1_B_15%E7%A7%92%E6%96%87%E6%A1%88_%E5%81%9C%E9%A1%BF%E6%A2%97%E6%84%9F.wav?[REDACTED_SIGNED_QUERY]",
+      "audio_url_logged": false,
+      "file_id": null
+    },
+    {
+      "reference_audio_id": "reference_audio_2",
+      "local_path": "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav",
+      "uploaded": true,
+      "object_key": "video-factory/temp/old-b-to-minimax-bailian-20260528_010200/old_b_to_minimax_bailian/reference_audio/reference_audio_2_语音样本2_声音复刻试听_15秒.wav",
+      "audio_url_redacted": "https://zvip1-video-beijing.oss-cn-beijing.aliyuncs.com/video-factory/temp/old-b-to-minimax-bailian-20260528_010200/old_b_to_minimax_bailian/reference_audio/reference_audio_2_%E8%AF%AD%E9%9F%B3%E6%A0%B7%E6%9C%AC2_%E5%A3%B0%E9%9F%B3%E5%A4%8D%E5%88%BB%E8%AF%95%E5%90%AC_15%E7%A7%92.wav?[REDACTED_SIGNED_QUERY]",
+      "audio_url_logged": false,
+      "file_id": null
+    }
+  ],
+  "upload_strategy": {
+    "selected": "upload_to_user_controlled_oss",
+    "reason": "百炼 MiniMax clone 需要 audio_url；项目已有用户可控 OSS 配置时上传参考音频并生成签名 URL，报告只写脱敏 URL。",
+    "audio_url_created": true,
+    "file_id_created": false,
+    "reference_audio_committed_to_git": false
+  },
+  "generated_samples": [
+    {
+      "sample_id": "V1_identity_match",
+      "goal": "尽量贴旧 B 音色",
+      "speed": 1.0,
+      "emotion": "neutral",
+      "pause_style": "保持旧 B 停顿感",
+      "text": "朋友们，现在做带货，最贵的不是拍视频。\n最贵的是前面测错商品的成本。\n所以我不会让 AI 直接说哪个品能爆。\n我会先让它把商品卡拆成表，把风险写出来，再决定要不要继续测。",
+      "sample_path": "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V1_identity_match.mp3",
+      "generated_voice_id": "oldBMinimax20260528010200",
+      "generated_minimax_voice_id": "oldBMinimax20260528010200",
+      "target_provider": "minimax",
+      "target_model": "MiniMax/speech-2.8-hd",
+      "auth_route": "aliyun_bailian_proxy_to_minimax",
+      "reference_audio_used": true,
+      "reference_audio_id": "reference_audio_1",
+      "prosody_version": "V1_identity_match",
+      "voice_setting": {
+        "voice_id": "oldBMinimax20260528010200",
+        "speed": 1.0,
+        "pitch": 0,
+        "emotion": "neutral",
+        "vol": 1
+      },
+      "same_voice_id_required": true,
+      "timbre_change_allowed": false,
+      "generation_call": {
+        "ok": true,
+        "request_id": "ed9c91d2-e270-9074-af36-b985115a359b",
+        "base_resp_status_code": 0,
+        "base_resp_status_msg": "success",
+        "elapsed_seconds": 11.613
+      },
+      "audio_validation": {
+        "passed": true,
+        "ffprobe": {
+          "passed": true,
+          "duration_seconds": 15.697,
+          "codec_name": "mp3",
+          "sample_rate": 32000,
+          "channels": 1,
+          "bit_rate": "97232",
+          "file_size_bytes": 190788
+        },
+        "decode": {
+          "passed": true,
+          "stderr_tail": ""
+        },
+        "non_silent_check": {
+          "passed": true,
+          "mean_volume_db": "-22.2"
+        },
+        "non_silent": true
+      },
+      "non_silent": true,
+      "status": "generated"
+    },
+    {
+      "sample_id": "V2_prosody_optimized",
+      "goal": "音色不变，优化停顿、句尾、上扬",
+      "speed": 1.02,
+      "emotion": "neutral",
+      "pause_style": "语义边界更清楚",
+      "text": "朋友们，现在做带货，最贵的不是拍视频。\n\n最贵的是，前面测错商品的成本。\n\n所以我不会让 AI 直接说，哪个品能爆。\n我会先让它把商品卡拆成表，把风险写出来，再决定要不要继续测。",
+      "sample_path": "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V2_prosody_optimized.mp3",
+      "generated_voice_id": "oldBMinimax20260528010200",
+      "generated_minimax_voice_id": "oldBMinimax20260528010200",
+      "target_provider": "minimax",
+      "target_model": "MiniMax/speech-2.8-hd",
+      "auth_route": "aliyun_bailian_proxy_to_minimax",
+      "reference_audio_used": true,
+      "reference_audio_id": "reference_audio_1",
+      "prosody_version": "V2_prosody_optimized",
+      "voice_setting": {
+        "voice_id": "oldBMinimax20260528010200",
+        "speed": 1.02,
+        "pitch": 0,
+        "emotion": "neutral",
+        "vol": 1
+      },
+      "same_voice_id_required": true,
+      "timbre_change_allowed": false,
+      "generation_call": {
+        "ok": true,
+        "http_status_code": 200,
+        "base_resp_status_code": 0,
+        "base_resp_status_msg": "success",
+        "trace_id": "0666563d3a4b62daa2a65459f91cc7e6",
+        "elapsed_seconds": 5.814,
+        "sample_path": "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V2_prosody_optimized.mp3"
+      },
+      "error_sanitized": "",
+      "audio_validation": {
+        "passed": true,
+        "ffprobe": {
+          "passed": true,
+          "duration_seconds": 16.236,
+          "codec_name": "mp3",
+          "sample_rate": 32000,
+          "channels": 1,
+          "bit_rate": "128845",
+          "file_size_bytes": 261492
+        },
+        "decode": {
+          "passed": true,
+          "stderr_tail": ""
+        },
+        "non_silent_check": {
+          "passed": true,
+          "mean_volume_db": "-23.0"
+        },
+        "non_silent": true
+      },
+      "non_silent": true,
+      "status": "generated"
+    },
+    {
+      "sample_id": "V3_emotion_rich",
+      "goal": "音色不变，增加轻吐槽、判断感、自然起伏",
+      "speed": 1.0,
+      "emotion": "happy",
+      "pause_style": "关键句更有空间",
+      "text": "朋友们，现在做带货，最贵的不是拍视频。\n\n最贵的是，前面测错商品的成本。\n所以我不会让 AI 直接说，哪个品能爆。\n\n我会先让它把商品卡拆成表，把风险写出来，再决定要不要继续测。",
+      "sample_path": "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V3_emotion_rich.mp3",
+      "generated_voice_id": "oldBMinimax20260528010200",
+      "generated_minimax_voice_id": "oldBMinimax20260528010200",
+      "target_provider": "minimax",
+      "target_model": "MiniMax/speech-2.8-hd",
+      "auth_route": "aliyun_bailian_proxy_to_minimax",
+      "reference_audio_used": true,
+      "reference_audio_id": "reference_audio_1",
+      "prosody_version": "V3_emotion_rich",
+      "voice_setting": {
+        "voice_id": "oldBMinimax20260528010200",
+        "speed": 1.0,
+        "pitch": 0,
+        "emotion": "happy",
+        "vol": 1
+      },
+      "same_voice_id_required": true,
+      "timbre_change_allowed": false,
+      "generation_call": {
+        "ok": true,
+        "http_status_code": 200,
+        "base_resp_status_code": 0,
+        "base_resp_status_msg": "success",
+        "trace_id": "0666564731fe10300e41985ee8135ccb",
+        "elapsed_seconds": 8.482,
+        "sample_path": "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V3_emotion_rich.mp3"
+      },
+      "error_sanitized": "",
+      "audio_validation": {
+        "passed": true,
+        "ffprobe": {
+          "passed": true,
+          "duration_seconds": 15.66,
+          "codec_name": "mp3",
+          "sample_rate": 32000,
+          "channels": 1,
+          "bit_rate": "128876",
+          "file_size_bytes": 252276
+        },
+        "decode": {
+          "passed": true,
+          "stderr_tail": ""
+        },
+        "non_silent_check": {
+          "passed": true,
+          "mean_volume_db": "-22.6"
+        },
+        "non_silent": true
+      },
+      "non_silent": true,
+      "status": "generated"
+    }
+  ],
+  "old_b_to_minimax_voice_lock": {
+    "status": "pending_user_review",
+    "old_b_reference_audio_path": [
+      "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+      "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav"
+    ],
+    "old_b_reference_voice_masked_id": "qwen-t...ac19",
+    "target_provider": "minimax",
+    "target_model": "MiniMax/speech-2.8-hd",
+    "auth_route": "aliyun_bailian_proxy_to_minimax",
+    "generated_minimax_voice_id": "oldBMinimax20260528010200",
+    "timbre_similarity_required": true,
+    "prosody_optimization_allowed": true,
+    "emotion_optimization_allowed": true,
+    "timbre_change_allowed": false,
+    "system_voice_substitution_allowed": false,
+    "human_voice_review_required": true,
+    "human_voice_review_status": "pending_user_review"
+  },
+  "status_boundary": {
+    "full_narration_regenerated": false,
+    "current_video_modified": false,
+    "copy_changed": false,
+    "voice_validation": "not_advanced",
+    "send_ready": false
+  },
+  "blocked_detail": {
+    "blocked_reason": [],
+    "next_required_user_action": "试听 V1/V2/V3，选择一个或全部拒绝。",
+    "forbidden_fallback": [
+      "MiniMax 系统音色候选",
+      "旧 Qwen 正式路线",
+      "macOS say",
+      "Serena",
+      "本地 TTS"
+    ]
+  }
+}
