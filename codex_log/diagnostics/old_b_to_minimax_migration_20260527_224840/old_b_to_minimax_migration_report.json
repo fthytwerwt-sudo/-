@@ -181,9 +181,9 @@
   },
   "git_sync_status": {
     "current_branch": "main",
-    "commit_sha": null,
-    "pushed": false,
-    "remote_head_verified": false,
-    "completed_allowed": false
+    "commit_sha": "reported_in_final_response_after_commit",
+    "pushed": "reported_in_final_response_after_push",
+    "remote_head_verified": "reported_in_final_response_after_push",
+    "completed_allowed": "final_response_only_after_remote_verify"
   }
 }
