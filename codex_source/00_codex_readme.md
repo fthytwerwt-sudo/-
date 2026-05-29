@@ -222,6 +222,8 @@ route_decision
 
 `workflow_route_decision（工作流归位判断）` 来自 `codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md`。它不替代 `route_decision`、`state_action_router` 或 `process_boot_gate`；它只负责让 Codex 先归位到文案测试、素材证据、审美剪辑、质量复审、数据复盘或机制修补中的一条工作流。
 
+审美剪辑流进入剪辑前必须选择 `editing_profile（剪辑参数包）`。剪辑参数包结构、默认包、注册表、选择规则和覆盖规则见 `codex_source/23_剪辑参数包与镜头选择标准_editing_profile_and_shot_selection_rules.md`；每条 `script_to_shot_execution_map（文案到镜头执行表）` 必须写明 `profile_id（参数包编号）`。
+
 `process_boot_report（流程启动报告）` 模板：
 
 ```text

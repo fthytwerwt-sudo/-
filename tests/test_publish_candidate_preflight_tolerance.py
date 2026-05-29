@@ -41,6 +41,32 @@ def _line_group(index: int, **overrides: object) -> dict:
 
 
 class PublishCandidateToleranceTests(unittest.TestCase):
+    def test_editing_profile_id_missing_blocks(self) -> None:
+        result = preflight_module.editing_profile_preflight({"line_groups": []}, None)
+        self.assertEqual(result["status"], "blocked")
+        self.assertIn("profile_id_missing_in_script_to_shot_execution_map", result["blocked_reasons"])
+
+    def test_placeholder_profile_without_inheritance_blocks(self) -> None:
+        execution_map = {
+            "profile_id": "ecommerce_profile_v1",
+            "profile_registry": {
+                "ecommerce_profile_v1": {
+                    "video_type": "ecommerce",
+                    "status": "placeholder_pending_detail",
+                    "parent_profile": "none",
+                    "fill_later": True,
+                }
+            },
+        }
+        result = preflight_module.editing_profile_preflight(execution_map, None)
+        self.assertEqual(result["status"], "blocked")
+        self.assertIn("profile_placeholder_used_without_inheritance", result["blocked_reasons"])
+
+    def test_default_editing_profile_valid_passes(self) -> None:
+        result = preflight_module.editing_profile_preflight({"profile_id": "default_general_content_v1"}, None)
+        self.assertEqual(result["status"], "passed")
+        self.assertFalse(result["profile_detail_pending"])
+
     def test_near_equivalent_one_non_core_line_allowed(self) -> None:
         groups = [_line_group(index) for index in range(1, 21)]
         groups[3].update(

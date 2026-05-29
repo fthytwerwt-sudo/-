@@ -1,0 +1,242 @@
+{
+  "request_id": "20260529_editing_profile_system_pre_supply_request",
+  "created_at": "2026-05-29T22:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "editing_profile_system_scaffold_20260529",
+  "task_type": "project_file_change",
+  "project_stage": "formal_operation_active",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "auto",
+  "mandatory_for_every_task": true,
+  "participation_level": "readonly_pre_supply",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_blocked_not_deepseek_conclusion",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "requires_real_deepseek_participation": false,
+  "current_goal": "搭建《视频工厂》editing_profile_system（剪辑参数包系统）基础架子：schema/default profile/profile registry/selection rule/override rule，并最小接入 aesthetic_editing_flow、execution_rules、publish_candidate_preflight_suite、fixture/test/log；不生成视频音频，不改最终文案，不推进内容或发布状态。",
+  "current_step": "before_write_gate",
+  "known_context": [
+    "workflow_route_decision 已接入，material_parse_pack 复用标准已接入。",
+    "本轮只做系统架子，不细化电商、教学、日常完整参数。",
+    "当前工作区已有 unrelated dirty / untracked backlog，本轮必须 path-limited staging。",
+    "当前分支为 codex/editing-profile-system。"
+  ],
+  "missing_context": [
+    "DeepSeek participation status is unknown before safe runner attempt.",
+    "真实剪辑任务尚未运行，后续真实效果仍需验证。",
+    "当前三类细分 profile 仅允许占位继承，不允许填满参数。"
+  ],
+  "candidate_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "scripts/发片候选预检套件_publish_candidate_preflight_suite.py",
+    "codex_source/fixtures/publish_candidate_preflight_suite_cases.json",
+    "tests/test_publish_candidate_preflight_tolerance.py",
+    "codex_log/latest.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    "本地运行配置_local_runtime/",
+    "dist/latest_review_pack/",
+    "dist/",
+    "素材录制/",
+    "GPT 数据源/"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files.",
+    "DeepSeek must not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is stable or completed.",
+    "generate_video",
+    "generate_audio",
+    "modify_final_copy",
+    "promote_content_validation",
+    "promote_send_ready",
+    "promote_voice_validation",
+    "promote_visual_master_locked",
+    "promote_current_data_goal_anchor_ready",
+    "read_or_print_secrets",
+    "overwrite_or_commit_unrelated_dirty_changes"
+  ],
+  "blocked_if": [
+    "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md unreadable",
+    "codex_source/01_execution_rules.md unreadable",
+    "new editing profile file cannot be placed under codex_source",
+    "completion requires generating video or audio",
+    "completion requires full ecommerce/tutorial/daily profile parameters",
+    "completion requires promoting content_validation/send_ready/voice_validation/visual_master_locked/current_data_goal_anchor_ready",
+    "unrelated dirty files cannot be isolated",
+    "secret scan fails",
+    "push or remote HEAD verification fails"
+  ],
+  "must_read_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "scripts/发片候选预检套件_publish_candidate_preflight_suite.py",
+    "codex_log/latest.md",
+    "codex_source/13_execution_lane_and_parallel_rules.md",
+    "project_source/20_codex_multi_agent_routing_note_for_gpt_project.md"
+  ],
+  "will_modify_files": [
+    "codex_source/23_剪辑参数包与镜头选择标准_editing_profile_and_shot_selection_rules.md",
+    "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/00_codex_readme.md",
+    "scripts/发片候选预检套件_publish_candidate_preflight_suite.py",
+    "codex_source/fixtures/publish_candidate_preflight_suite_cases.json",
+    "tests/test_publish_candidate_preflight_tolerance.py",
+    "codex_log/latest.md",
+    "codex_log/20260529_剪辑参数包系统_editing_profile_system.md"
+  ],
+  "questions_for_deepseek": [
+    "Identify missing sync points for adding editing_profile_system without changing video/content status.",
+    "Check whether aesthetic_editing_flow should require editing_profile_selected and profile_id in script_to_shot_execution_map.",
+    "Check risks in adding a lightweight editing_profile_preflight to the publish_candidate_preflight_suite.",
+    "List forbidden status fields that must remain unchanged this round."
+  ],
+  "deep_supply_mode": {
+    "enabled": true,
+    "file_scope": "listed_files_only",
+    "content_loading_policy": "load_small_relevant_text_files_and_exact_snippets_only",
+    "codex_minimal_review_policy": "Codex must re-read and verify original files before writing.",
+    "output_required": [
+      "must_read_file_map",
+      "risk_and_conflict_report",
+      "missing_or_uncertain_files",
+      "codex_next_input",
+      "deepseek_participation_report",
+      "token_usage_expectation_check"
+    ]
+  },
+  "expected_output": [
+    "file_map",
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "status_promotion_risk_check",
+    "editing_profile_gate_risk_check",
+    "token_usage_expectation_check"
+  ],
+  "return_to_codex": {
+    "read_status_required": true,
+    "impact_check_required": true,
+    "write_scope": [
+      "codex_source/23_剪辑参数包与镜头选择标准_editing_profile_and_shot_selection_rules.md",
+      "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+      "codex_source/01_execution_rules.md",
+      "codex_source/00_codex_readme.md",
+      "scripts/发片候选预检套件_publish_candidate_preflight_suite.py",
+      "codex_source/fixtures/publish_candidate_preflight_suite_cases.json",
+      "tests/test_publish_candidate_preflight_tolerance.py",
+      "codex_log/latest.md",
+      "codex_log/20260529_剪辑参数包系统_editing_profile_system.md"
+    ],
+    "output_dir": "codex_log/deepseek_supply/20260529_editing_profile_system_pre_supply",
+    "verification_required": [
+      "json_parse",
+      "py_compile",
+      "unit_tests",
+      "git_diff_check",
+      "secret_scan",
+      "remote_head_verification"
+    ]
+  },
+  "file_scope": {
+    "candidate_files": [
+      "AGENTS.md",
+      "codex_source/00_codex_readme.md",
+      "codex_source/01_execution_rules.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+      "GPT数据源/05_文案路由规则.md",
+      "GPT数据源/07_AI知识类视频价值规则.md",
+      "scripts/发片候选预检套件_publish_candidate_preflight_suite.py",
+      "codex_log/latest.md"
+    ],
+    "must_prefetch_files": [
+      "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+      "codex_source/01_execution_rules.md",
+      "scripts/发片候选预检套件_publish_candidate_preflight_suite.py",
+      "codex_log/latest.md"
+    ],
+    "optional_prefetch_files": [
+      "codex_source/00_codex_readme.md",
+      "codex_source/19_project_state_action_router.md",
+      "GPT数据源/05_文案路由规则.md",
+      "GPT数据源/07_AI知识类视频价值规则.md"
+    ],
+    "forbidden_files": [
+      ".env",
+      ".env.local",
+      "本地运行配置_local_runtime/",
+      "dist/latest_review_pack/",
+      "dist/",
+      "素材录制/"
+    ],
+    "secret_files_forbidden": true
+  },
+  "content_loading_policy": {
+    "read_only": true,
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 9,
+    "max_chars_per_file": 1600,
+    "max_total_chars": 14000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "do_not_read_secret_files": true,
+    "do_not_modify_files": true
+  },
+  "codex_minimal_review_policy": {
+    "will_modify_files": [
+      "codex_source/23_剪辑参数包与镜头选择标准_editing_profile_and_shot_selection_rules.md",
+      "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+      "codex_source/01_execution_rules.md",
+      "codex_source/00_codex_readme.md",
+      "scripts/发片候选预检套件_publish_candidate_preflight_suite.py",
+      "codex_source/fixtures/publish_candidate_preflight_suite_cases.json",
+      "tests/test_publish_candidate_preflight_tolerance.py",
+      "codex_log/latest.md",
+      "codex_log/20260529_剪辑参数包系统_editing_profile_system.md"
+    ],
+    "conflict_or_uncertain_files": [
+      "codex_log/latest.md",
+      "dist/deepseek_readonly_explorer/latest_prefetch_context_pack.md",
+      "package.json",
+      "GPT数据源/01_项目系统提示词.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md"
+    ],
+    "safety_sensitive_files": [
+      ".env",
+      ".env.local",
+      "本地运行配置_local_runtime/",
+      "dist/",
+      "素材录制/"
+    ]
+  },
+  "output_required": [
+    "relevant_file_bundle",
+    "exact_snippet_pack",
+    "dependency_map",
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "token_usage_expectation_check"
+  ],
+  "fallback_policy": "fallback_local_only is allowed only as a local context pack and must be marked not_deepseek_conclusion."
+}

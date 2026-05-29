@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 GATES = [
     "material_parse_pack_reuse_preflight",
+    "editing_profile_preflight",
     "line_level_alignment_preflight",
     "line_visual_tolerance_preflight",
     "near_equivalent_material_substitution_preflight",
@@ -37,6 +38,7 @@ GATES = [
 
 REPORT_FILENAMES = {
     "material_parse_pack_reuse_preflight": "material_parse_pack_reuse_report",
+    "editing_profile_preflight": "editing_profile_preflight_report",
     "line_level_alignment_preflight": "line_level_alignment_report",
     "line_visual_tolerance_preflight": "line_visual_tolerance_report",
     "near_equivalent_material_substitution_preflight": "near_equivalent_material_substitution_report",
@@ -83,6 +85,8 @@ REVIEW_PACK_REQUIRED_PREFLIGHT_REPORTS = [
     "publish_candidate_preflight_report.md",
     "material_parse_pack_reuse_report.json",
     "material_parse_pack_reuse_report.md",
+    "editing_profile_preflight_report.json",
+    "editing_profile_preflight_report.md",
     "line_level_alignment_report.json",
     "line_visual_tolerance_report.json",
     "near_equivalent_material_substitution_report.json",
@@ -185,6 +189,34 @@ LINE_VISUAL_TOLERANCE_RULE = {
     ],
 }
 
+DEFAULT_EDITING_PROFILE_ID = "default_general_content_v1"
+DEFAULT_PROFILE_REGISTRY = {
+    "default_general_content_v1": {
+        "video_type": "general_content",
+        "status": "active_default",
+        "parent_profile": "none",
+        "fill_later": False,
+    },
+    "ecommerce_profile_v1": {
+        "video_type": "ecommerce",
+        "status": "placeholder_pending_detail",
+        "parent_profile": DEFAULT_EDITING_PROFILE_ID,
+        "fill_later": True,
+    },
+    "tutorial_profile_v1": {
+        "video_type": "tutorial_or_tool_process",
+        "status": "placeholder_pending_detail",
+        "parent_profile": DEFAULT_EDITING_PROFILE_ID,
+        "fill_later": True,
+    },
+    "daily_vlog_profile_v1": {
+        "video_type": "daily_vlog",
+        "status": "placeholder_pending_detail",
+        "parent_profile": DEFAULT_EDITING_PROFILE_ID,
+        "fill_later": True,
+    },
+}
+
 
 def read_json(path: Path | None, label: str) -> tuple[Any | None, list[str]]:
     if path is None:
@@ -246,6 +278,49 @@ def line_groups_from_timeline(timeline: Any) -> list[dict[str, Any]]:
     return []
 
 
+def get_nested(data: Any, *keys: str) -> Any:
+    current = data
+    for key in keys:
+        if not isinstance(current, dict):
+            return None
+        current = current.get(key)
+    return current
+
+
+def editing_profile_id_from_map(execution_map: Any) -> str:
+    if not isinstance(execution_map, dict):
+        return ""
+    candidates = [
+        execution_map.get("profile_id"),
+        get_nested(execution_map, "editing_profile", "profile_id"),
+        get_nested(execution_map, "script_to_shot_execution_map", "profile_id"),
+        get_nested(execution_map, "metadata", "profile_id"),
+    ]
+    for candidate in candidates:
+        if isinstance(candidate, str) and candidate.strip():
+            return candidate.strip()
+    return ""
+
+
+def profile_registry_from_map(execution_map: Any) -> dict[str, dict[str, Any]]:
+    registry = DEFAULT_PROFILE_REGISTRY
+    candidates = []
+    if isinstance(execution_map, dict):
+        candidates = [
+            execution_map.get("profile_registry"),
+            get_nested(execution_map, "editing_profile_system", "profile_registry"),
+            get_nested(execution_map, "script_to_shot_execution_map", "profile_registry"),
+        ]
+    for candidate in candidates:
+        if isinstance(candidate, dict):
+            return {
+                str(profile_id): profile
+                for profile_id, profile in candidate.items()
+                if isinstance(profile_id, str) and isinstance(profile, dict)
+            }
+    return registry
+
+
 def flatten_text(value: Any) -> str:
     if value is None:
         return ""
@@ -282,6 +357,75 @@ def blocked_report(gate_name: str, reasons: list[str], **extra: Any) -> dict[str
         "warnings": extra.pop("warnings", []),
         **extra,
     }
+
+
+def editing_profile_preflight(execution_map: Any, path: Path | None) -> dict[str, Any]:
+    reasons: list[str] = []
+    warnings = [
+        "This gate checks editing_profile structure only; it does not validate real aesthetic quality.",
+        "placeholder_pending_detail profiles must inherit default_general_content_v1 until their full parameters are filled.",
+    ]
+    if execution_map is None:
+        reasons.append("script_to_shot_execution_map_missing")
+        reasons.append("editing_profile_missing")
+        return blocked_report(
+            "editing_profile_preflight",
+            reasons,
+            checked_input=rel(path) if path else "",
+            default_profile_id=DEFAULT_EDITING_PROFILE_ID,
+            profile_registry=DEFAULT_PROFILE_REGISTRY,
+            warnings=warnings,
+        )
+    if not isinstance(execution_map, dict):
+        return blocked_report(
+            "editing_profile_preflight",
+            ["script_to_shot_execution_map_invalid", "editing_profile_missing"],
+            checked_input=rel(path) if path else "",
+            default_profile_id=DEFAULT_EDITING_PROFILE_ID,
+            profile_registry=DEFAULT_PROFILE_REGISTRY,
+            warnings=warnings,
+        )
+
+    profile_id = editing_profile_id_from_map(execution_map)
+    registry = profile_registry_from_map(execution_map)
+    selected_profile = registry.get(profile_id) if profile_id else None
+    profile_detail_pending = False
+
+    if not profile_id:
+        reasons.append("profile_id_missing_in_script_to_shot_execution_map")
+    elif selected_profile is None:
+        reasons.append("profile_id_not_found_in_profile_registry")
+        reasons.append("editing_profile_missing")
+    else:
+        status = str(selected_profile.get("status") or "")
+        parent_profile = str(selected_profile.get("parent_profile") or "")
+        if status == "placeholder_pending_detail":
+            profile_detail_pending = True
+            if parent_profile != DEFAULT_EDITING_PROFILE_ID:
+                reasons.append("profile_placeholder_used_without_inheritance")
+
+    conflict = execution_map.get("profile_conflicts_with_user_instruction")
+    if truthy(conflict):
+        reasons.append("profile_conflicts_with_user_instruction")
+
+    return blocked_report(
+        "editing_profile_preflight",
+        reasons,
+        checked_input=rel(path) if path else "",
+        profile_id=profile_id,
+        selected_profile=selected_profile or {},
+        default_profile_id=DEFAULT_EDITING_PROFILE_ID,
+        profile_detail_pending=profile_detail_pending,
+        profile_registry=registry,
+        blocked_if=[
+            "editing_profile_missing",
+            "profile_id_missing_in_script_to_shot_execution_map",
+            "profile_placeholder_used_without_inheritance",
+            "profile_conflicts_with_user_instruction",
+        ],
+        check_depth="implemented",
+        warnings=warnings,
+    )
 
 
 def line_level_alignment_preflight(timeline: Any, path: Path | None) -> dict[str, Any]:
@@ -958,6 +1102,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     locked_copy, _ = read_json(args.locked_copy_contract, "locked_copy_contract")
     content_route, _ = read_json(args.content_route_card, "content_route_card")
     summary, _ = read_json(args.summary_json, "summary_json")
+    script_to_shot_execution_map, _ = read_json(args.script_to_shot_execution_map, "script_to_shot_execution_map")
 
     reports = [
         run_material_parse_pack_reuse_gate(
@@ -966,6 +1111,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             script_to_shot_execution_map=args.script_to_shot_execution_map,
             material_usage_ledger=args.material_usage_ledger,
         ),
+        editing_profile_preflight(script_to_shot_execution_map, args.script_to_shot_execution_map),
         line_level_alignment_preflight(timeline, args.script_to_timeline_map),
         line_visual_tolerance_preflight(timeline, args.script_to_timeline_map),
         near_equivalent_material_substitution_preflight(timeline, args.script_to_timeline_map),

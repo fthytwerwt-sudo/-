@@ -3,6 +3,30 @@
   "purpose": "Minimum blocked cases for publish_candidate_preflight_suite no-render validation.",
   "cases": [
     {
+      "case_id": "profile_id_missing_blocks",
+      "input_signal": "script_to_shot_execution_map is present but missing profile_id before editing",
+      "expected_gate": "editing_profile_preflight",
+      "expected_status": "blocked",
+      "expected_reason": "profile_id_missing_in_script_to_shot_execution_map",
+      "must_not_write": ["completed", "send_ready_true", "content_validation_passed"]
+    },
+    {
+      "case_id": "placeholder_profile_without_inheritance_blocks",
+      "input_signal": "placeholder_pending_detail profile is selected but does not inherit default_general_content_v1",
+      "expected_gate": "editing_profile_preflight",
+      "expected_status": "blocked",
+      "expected_reason": "profile_placeholder_used_without_inheritance",
+      "must_not_write": ["completed", "send_ready_true", "content_validation_passed"]
+    },
+    {
+      "case_id": "default_profile_valid_passes",
+      "input_signal": "script_to_shot_execution_map declares profile_id=default_general_content_v1",
+      "expected_gate": "editing_profile_preflight",
+      "expected_status": "passed",
+      "expected_reason": "default_profile_valid",
+      "must_not_write": ["send_ready_true", "content_validation_passed", "voice_validation_passed"]
+    },
+    {
       "case_id": "line_level_mapping_missing_blocks",
       "input_signal": "script_to_timeline_map missing or only paragraph-level mapping before video export",
       "expected_gate": "line_level_alignment_preflight",

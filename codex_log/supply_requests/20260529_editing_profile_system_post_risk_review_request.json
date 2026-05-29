@@ -1,0 +1,158 @@
+{
+  "request_id": "20260529_editing_profile_system_post_risk_review_request",
+  "created_at": "2026-05-29T22:30:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "editing_profile_system_scaffold_20260529_post_risk_review",
+  "task_type": "project_file_change",
+  "project_stage": "formal_operation_active",
+  "trigger_reason": "mandatory_post_risk_review",
+  "action": "auto",
+  "mandatory_for_every_task": true,
+  "participation_level": "readonly_post_risk_review",
+  "pre_supply_required": false,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_blocked_not_deepseek_conclusion",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "requires_real_deepseek_participation": false,
+  "current_goal": "执行后复核 editing_profile_system 架子接入是否遗漏入口、脚本、fixture、测试或日志，是否误推进 content_validation/send_ready/voice_validation/visual_master_locked/current_data_goal_anchor_ready，是否混入 unrelated dirty changes。",
+  "current_step": "post_write_risk_review_before_commit",
+  "known_context": [
+    "已新增 editing_profile_system 文档。",
+    "已更新 aesthetic_editing_flow、execution_rules、codex readme 短引用。",
+    "已接入 editing_profile_preflight 到 publish_candidate_preflight_suite。",
+    "已新增 3 个 fixture case 和 3 个 unit tests。",
+    "已更新 latest 和 dated log。",
+    "验证已通过：py_compile、unittest、JSON parse、git diff --check。"
+  ],
+  "missing_context": [
+    "尚未完成 stage / secret scan / commit / push / remote verification。",
+    "后续真实剪辑任务尚未验证真实审美效果。"
+  ],
+  "candidate_files": [
+    "codex_source/23_剪辑参数包与镜头选择标准_editing_profile_and_shot_selection_rules.md",
+    "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/00_codex_readme.md",
+    "scripts/发片候选预检套件_publish_candidate_preflight_suite.py",
+    "codex_source/fixtures/publish_candidate_preflight_suite_cases.json",
+    "tests/test_publish_candidate_preflight_tolerance.py",
+    "codex_log/latest.md",
+    "codex_log/20260529_剪辑参数包系统_editing_profile_system.md"
+  ],
+  "must_read_files": [
+    "codex_source/23_剪辑参数包与镜头选择标准_editing_profile_and_shot_selection_rules.md",
+    "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+    "codex_source/01_execution_rules.md",
+    "scripts/发片候选预检套件_publish_candidate_preflight_suite.py",
+    "codex_source/fixtures/publish_candidate_preflight_suite_cases.json",
+    "tests/test_publish_candidate_preflight_tolerance.py",
+    "codex_log/latest.md",
+    "codex_log/20260529_剪辑参数包系统_editing_profile_system.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    "本地运行配置_local_runtime/",
+    "dist/latest_review_pack/",
+    "dist/",
+    "素材录制/",
+    "GPT 数据源/"
+  ],
+  "expected_output": [
+    "risk_and_conflict_report",
+    "status_promotion_risk_check",
+    "unrelated_dirty_risk_check",
+    "missing_sync_check",
+    "codex_next_input",
+    "token_usage_expectation_check"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files.",
+    "DeepSeek must not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is stable or completed.",
+    "Do not claim editing profile system is fully validated by real videos.",
+    "Do not promote content_validation/send_ready/voice_validation/visual_master_locked/current_data_goal_anchor_ready.",
+    "Do not read or print secrets.",
+    "Do not include unrelated dirty changes."
+  ],
+  "blocked_if": [
+    "Forbidden status promotion appears in modified files.",
+    "Profile placeholders are expanded into full ecommerce/tutorial/daily parameter sets.",
+    "aesthetic_editing_flow does not require editing_profile_selected.",
+    "script_to_shot_execution_map does not require profile_id.",
+    "preflight gate cannot block missing profile_id.",
+    "latest or dated log missing status boundary.",
+    "secret scan fails.",
+    "unrelated dirty files cannot be isolated."
+  ],
+  "return_to_codex": {
+    "read_status_required": true,
+    "impact_check_required": true,
+    "output_dir": "codex_log/deepseek_supply/20260529_editing_profile_system_post_risk_review",
+    "verification_required": [
+      "secret_scan",
+      "path_limited_stage",
+      "commit",
+      "push",
+      "remote_head_verification"
+    ]
+  },
+  "file_scope": {
+    "candidate_files": [
+      "codex_source/23_剪辑参数包与镜头选择标准_editing_profile_and_shot_selection_rules.md",
+      "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+      "codex_source/01_execution_rules.md",
+      "codex_source/00_codex_readme.md",
+      "scripts/发片候选预检套件_publish_candidate_preflight_suite.py",
+      "codex_source/fixtures/publish_candidate_preflight_suite_cases.json",
+      "tests/test_publish_candidate_preflight_tolerance.py",
+      "codex_log/latest.md",
+      "codex_log/20260529_剪辑参数包系统_editing_profile_system.md"
+    ],
+    "must_prefetch_files": [
+      "codex_source/23_剪辑参数包与镜头选择标准_editing_profile_and_shot_selection_rules.md",
+      "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+      "codex_source/01_execution_rules.md",
+      "scripts/发片候选预检套件_publish_candidate_preflight_suite.py",
+      "codex_log/latest.md"
+    ],
+    "optional_prefetch_files": [
+      "codex_source/00_codex_readme.md",
+      "codex_source/fixtures/publish_candidate_preflight_suite_cases.json",
+      "tests/test_publish_candidate_preflight_tolerance.py",
+      "codex_log/20260529_剪辑参数包系统_editing_profile_system.md"
+    ],
+    "forbidden_files": [
+      ".env",
+      ".env.local",
+      "本地运行配置_local_runtime/",
+      "dist/latest_review_pack/",
+      "dist/",
+      "素材录制/"
+    ],
+    "secret_files_forbidden": true
+  },
+  "content_loading_policy": {
+    "read_only": true,
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 9,
+    "max_chars_per_file": 1600,
+    "max_total_chars": 14000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "do_not_read_secret_files": true,
+    "do_not_modify_files": true
+  },
+  "output_required": [
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "token_usage_expectation_check"
+  ],
+  "fallback_policy": "fallback_local_only is allowed only as a local context pack and must be marked not_deepseek_conclusion."
+}

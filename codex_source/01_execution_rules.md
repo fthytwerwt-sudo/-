@@ -291,6 +291,24 @@ material_parse_pack
 
 `duplicate_material_check（素材重复使用检查）` 必须输出：`total_segments / total_line_groups / repeated_segment_count / repeated_core_evidence_count / consecutive_duplicate_count / theme_only_match_count / cannot_support_selected_count / report_not_cited_count / final_decision`。
 
+`editing_profile_gate（剪辑参数包闸门）`：
+
+剪辑阶段进入 `editing_decision_pack（剪辑决策包）`、`script_to_shot_execution_map（文案到镜头执行表）` 或 `publish_candidate_preflight_suite（发片候选预检套件）` 前，必须先选择一个 `editing_profile（剪辑参数包）`。
+
+`required_before（前置要求）`：
+
+- `editing_decision_pack（剪辑决策包）`
+- `script_to_shot_execution_map（文案到镜头执行表）`
+- `publish_candidate_preflight_suite（发片候选预检套件）`
+
+`script_to_shot_execution_map（文案到镜头执行表）` 必须写明 `profile_id（参数包编号）`，并按所选 `editing_profile（剪辑参数包）` 生成单条镜头安排。默认参数包、占位参数包和覆盖规则见 `codex_source/23_剪辑参数包与镜头选择标准_editing_profile_and_shot_selection_rules.md`。
+
+`blocked_if（阻断条件）`：
+
+- `editing_profile_missing（缺剪辑参数包）`
+- `profile_id_missing（缺参数包编号）`
+- `profile_placeholder_used_without_default_inheritance（占位参数包没有继承默认参数）`
+
 阻断条件：
 
 - `material_parse_pack_missing（缺素材解析包）`
@@ -331,6 +349,8 @@ python scripts/发片候选预检套件_publish_candidate_preflight_suite.py --n
 ```
 
 `material_parse_pack_reuse_preflight（素材解析包复用预检）` 是发片候选预检套件的前置 gate；它检查 `material_parse_pack / source_segment_inventory / script_to_shot_execution_map / material_usage_ledger / duplicate_material_check`，并阻断二次解析、重复素材、主题相近硬配、`cannot_support` 误用和句组未引用素材报告。
+
+`editing_profile_preflight（剪辑参数包预检）` 是剪辑参数前置 gate；它检查 `script_to_shot_execution_map（文案到镜头执行表）` 是否包含 `profile_id（参数包编号）`、该 `profile_id` 是否存在于 `profile_registry（参数包注册表）`，以及 `placeholder_pending_detail（占位，待细化）` profile 是否继承 `default_general_content_v1（默认通用内容参数包）`。
 
 原十二个必需 gate：
 
