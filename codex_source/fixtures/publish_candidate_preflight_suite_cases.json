@@ -27,6 +27,14 @@
       "must_not_write": ["send_ready_true", "content_validation_passed", "voice_validation_passed"]
     },
     {
+      "case_id": "daily_tutorial_profile_valid",
+      "input_signal": "script_to_shot_execution_map declares profile_id=daily_tutorial_profile_v1",
+      "expected_gate": "editing_profile_preflight",
+      "expected_status": "passed",
+      "expected_reason": "daily_tutorial_profile_recognized",
+      "must_not_write": ["send_ready_true", "content_validation_passed", "voice_validation_passed"]
+    },
+    {
       "case_id": "line_level_mapping_missing_blocks",
       "input_signal": "script_to_timeline_map missing or only paragraph-level mapping before video export",
       "expected_gate": "line_level_alignment_preflight",

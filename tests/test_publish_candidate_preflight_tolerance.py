@@ -67,6 +67,13 @@ class PublishCandidateToleranceTests(unittest.TestCase):
         self.assertEqual(result["status"], "passed")
         self.assertFalse(result["profile_detail_pending"])
 
+    def test_daily_tutorial_editing_profile_valid_passes(self) -> None:
+        result = preflight_module.editing_profile_preflight({"profile_id": "daily_tutorial_profile_v1"}, None)
+        self.assertEqual(result["status"], "passed")
+        self.assertEqual(result["selected_profile"]["video_type"], "daily_tutorial")
+        self.assertEqual(result["selected_profile"]["status"], "draft_profile_ready_for_first_real_video_test")
+        self.assertFalse(result["profile_detail_pending"])
+
     def test_near_equivalent_one_non_core_line_allowed(self) -> None:
         groups = [_line_group(index) for index in range(1, 21)]
         groups[3].update(

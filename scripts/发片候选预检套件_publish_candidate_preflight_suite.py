@@ -203,6 +203,12 @@ DEFAULT_PROFILE_REGISTRY = {
         "parent_profile": DEFAULT_EDITING_PROFILE_ID,
         "fill_later": True,
     },
+    "daily_tutorial_profile_v1": {
+        "video_type": "daily_tutorial",
+        "status": "draft_profile_ready_for_first_real_video_test",
+        "parent_profile": DEFAULT_EDITING_PROFILE_ID,
+        "fill_later": False,
+    },
     "tutorial_profile_v1": {
         "video_type": "tutorial_or_tool_process",
         "status": "placeholder_pending_detail",

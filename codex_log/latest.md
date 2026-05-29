@@ -1,5 +1,19 @@
 # Latest
 
+## 20260529｜日常化教学剪辑参数包接入
+
+- `task_result.status = mechanism_connected_not_video_delivery`
+- `target_delivery = daily_tutorial_editing_profile_scaffold`
+- `已确认` 本轮参考 `GPT数据源/05_文案路由规则.md（文案路由规则）` 的组织方式整理 `codex_source/23_剪辑参数包与镜头选择标准_editing_profile_and_shot_selection_rules.md`，只复用结构，不复制文案规则内容。
+- `已新增` `daily_tutorial_profile_v1（日常化教学剪辑参数包）`，状态为 `draft_profile_ready_for_first_real_video_test（草案参数包，等待第一条真实视频验证）`，继承 `default_general_content_v1`。
+- `已确认` `daily_tutorial（日常化教学）` 与 `daily_vlog（日常 / Vlog）` 分开；`daily_vlog_profile_v1` 仍为 `placeholder_pending_detail` 占位，未被覆盖。
+- `已保留` `ecommerce_profile_v1 / tutorial_profile_v1 / daily_vlog_profile_v1` 为占位，本轮未填满电商 / 教学 / 日常 Vlog 完整参数。
+- `已接入` 入口 / 预检 / 测试：`aesthetic_editing_flow` 命中日常化教学时优先选择 `daily_tutorial_profile_v1`；`publish_candidate_preflight_suite` registry 可识别该 profile；fixture / unit test 增加 `daily_tutorial_profile_valid`。
+- `DeepSeek`：前置供料任务卡 safe runner 返回 `blocked_invalid_context_pack`，因此前置供料不写 DeepSeek 真实参与；执行后风险复核任务卡通过 safe runner，`deepseek_actual_participation = deepseek_passed`，`fallback_status = not_used`，`api_key_printed = false`，`api_key_written = false`，`env_file_read = false`。本轮不写 DeepSeek 长期稳定。
+- `验证`：`py_compile` passed；`python3 -m unittest tests.test_publish_candidate_preflight_tolerance tests.test_material_parse_pack_reuse_gate` 13/13 passed；fixture / supply JSON parse passed；`git diff --check` passed。当前未生成视频、未生成音频、未重新解析真实素材、未改最终文案、未改当前候选片、未推进 `content_validation / send_ready / voice_validation / visual_master_locked / current_data_goal_anchor_ready`。
+- `待验证` 后续需要用第一条真实日常化教学视频、真实素材链、真实 `script_to_shot_execution_map` 和审片结果验证该 profile 是否足够；本轮不写成“日常化教学剪辑效果已验证稳定”。
+- `日志`：`codex_log/20260529_daily_tutorial_editing_profile.md`
+
 ## 20260529｜剪辑参数包系统架子接入
 
 - `task_result.status = mechanism_connected_not_video_delivery`

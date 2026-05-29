@@ -295,6 +295,8 @@ material_parse_pack
 
 剪辑阶段进入 `editing_decision_pack（剪辑决策包）`、`script_to_shot_execution_map（文案到镜头执行表）` 或 `publish_candidate_preflight_suite（发片候选预检套件）` 前，必须先选择一个 `editing_profile（剪辑参数包）`。
 
+若任务明确命中 `daily_tutorial（日常化教学）`，优先选择 `daily_tutorial_profile_v1（日常化教学剪辑参数包）`；它是 `draft_profile_ready_for_first_real_video_test（等待第一条真实视频验证的草案参数包）`，不得写成已验证稳定。
+
 `required_before（前置要求）`：
 
 - `editing_decision_pack（剪辑决策包）`
@@ -351,6 +353,8 @@ python scripts/发片候选预检套件_publish_candidate_preflight_suite.py --n
 `material_parse_pack_reuse_preflight（素材解析包复用预检）` 是发片候选预检套件的前置 gate；它检查 `material_parse_pack / source_segment_inventory / script_to_shot_execution_map / material_usage_ledger / duplicate_material_check`，并阻断二次解析、重复素材、主题相近硬配、`cannot_support` 误用和句组未引用素材报告。
 
 `editing_profile_preflight（剪辑参数包预检）` 是剪辑参数前置 gate；它检查 `script_to_shot_execution_map（文案到镜头执行表）` 是否包含 `profile_id（参数包编号）`、该 `profile_id` 是否存在于 `profile_registry（参数包注册表）`，以及 `placeholder_pending_detail（占位，待细化）` profile 是否继承 `default_general_content_v1（默认通用内容参数包）`。
+
+`daily_tutorial_profile_v1（日常化教学剪辑参数包）` 可通过结构性识别，但该通过只代表 registry / profile_id 有效，不代表真实日常化教学剪辑效果通过。
 
 原十二个必需 gate：
 

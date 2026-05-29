@@ -60,9 +60,9 @@ workflow_route_decision:
 
 ### 3.3 aesthetic_editing_flow（审美剪辑流）
 
-- `input_signal（输入信号）`：剪辑更好、像作品、不像 demo、节奏不顺、卡片不好看、字幕 / 卡片挡画面、画面不可读、做成可发布候选片。
+- `input_signal（输入信号）`：剪辑更好、像作品、不像 demo、节奏不顺、卡片不好看、字幕 / 卡片挡画面、画面不可读、做成可发布候选片、日常化教学剪辑。
 - `must_read（必须读取）`：`material_parse_pack（素材解析包）`、`source_segment_inventory（素材片段清单）`、`codex_source/23_剪辑参数包与镜头选择标准_editing_profile_and_shot_selection_rules.md`、`GPT数据源/07_AI知识类视频价值规则.md`、`GPT数据源/08_当前正式事实.md`、`codex_source/00_codex_readme.md`、`codex_source/01_execution_rules.md`、`codex_source/19_project_state_action_router.md`、`codex_source/21_codex_judgment_permission_matrix.md`。
-- `required_handoff（必须交接件）`：`material_parse_pack_reuse_gate（素材解析包复用闸门）`、`editing_profile_selected（已选择剪辑参数包）`、`script_to_shot_execution_map（文案到镜头执行表）`、`profile_id_in_script_to_shot_execution_map（文案到镜头执行表中的参数包编号）`、`material_usage_ledger（素材使用台账）`、`duplicate_material_check（素材重复使用检查）`、`editing_inference_function_output（剪辑推理结果）`、`editing_decision_pack（剪辑决策包）`、`visual_readability_report（画面可读性报告）`、`review_pack（审片包）`。
+- `required_handoff（必须交接件）`：`material_parse_pack_reuse_gate（素材解析包复用闸门）`、`editing_profile_selected（已选择剪辑参数包）`、日常化教学命中时选择 `daily_tutorial_profile_v1（日常化教学剪辑参数包）`、`script_to_shot_execution_map（文案到镜头执行表）`、`profile_id_in_script_to_shot_execution_map（文案到镜头执行表中的参数包编号）`、`material_usage_ledger（素材使用台账）`、`duplicate_material_check（素材重复使用检查）`、`editing_inference_function_output（剪辑推理结果）`、`editing_decision_pack（剪辑决策包）`、`visual_readability_report（画面可读性报告）`、`review_pack（审片包）`。
 - `forbidden_status（禁止状态）`：使用第 2 节统一禁止状态。
 - `blocked_if（阻断条件）`：缺 `material_parse_pack（素材解析包）`、解析包过期、剪辑阶段需要重新解析原始素材、缺 `source_segment_inventory（素材片段清单）`、缺 `editing_profile（剪辑参数包）`、占位参数包未继承 `default_general_content_v1（默认通用内容参数包）`、单条镜头表未写 `profile_id（参数包编号）`、缺 `script_to_shot_execution_map（文案到镜头执行表）`、缺 `material_usage_ledger（素材使用台账）`、缺 `duplicate_material_check（素材重复使用检查）`、同一素材片段无 `reuse_reason（复用理由）` 重复使用、连续重复使用同一素材片段、主题相近素材冒充直接证据、选用了 `cannot_support（不能支撑）` 的素材、句组未引用素材报告、缺 line_group 级文案画面对齐、核心证据不可读、字幕 / 卡片 high severity overlap、卡片替代真实证据、只能产出技术预览却要写完成。
 
