@@ -1,5 +1,19 @@
 # Latest
 
+## 20260529｜一次素材解析复用标准接入
+
+- `task_result.status = mechanism_connected_not_video_delivery`
+- `target_delivery = material_parse_pack_reuse_standard + no-render gate`
+- `已确认` 本轮制定“一次素材解析，后续剪辑复用解析包”标准，并接入执行链：`material_parse_pack -> source_segment_inventory -> script_to_shot_execution_map -> material_usage_ledger -> duplicate_material_check -> editing_decision_pack -> render / assembly`。
+- `已确认` 原始素材只解析一次；剪辑阶段只能读取同一份 `material_parse_pack（素材解析包）`，不得重新解析原始素材作为主要判断来源。
+- `已确认` `material_parse_pack（素材解析包）` 已定义必填字段、`reuse_policy` 和 `stale_if（过期条件）`；解析包缺失、过期或关键证据字段不足时必须 blocked。
+- `已确认` 新增 no-render 脚本：`scripts/素材解析包复用闸门_material_parse_pack_reuse_gate.py`；并接入 `scripts/发片候选预检套件_publish_candidate_preflight_suite.py` 的 `material_parse_pack_reuse_preflight`。
+- `已确认` `duplicate_material_check（素材重复使用检查）` 阻断：缺解析包 / 缺片段清单 / 缺文案到镜头执行表 / 缺素材使用台账 / 无理由重复同一片段 / 连续重复片段 / 核心证据复用证明不同主张 / 主题相近硬配 / 选用 `cannot_support` 素材 / 句组未引用素材报告。
+- `已确认` fixture 与测试新增：`codex_source/fixtures/素材解析包复用闸门_material_parse_pack_reuse_gate_cases.json`、`tests/test_material_parse_pack_reuse_gate.py`，覆盖 JSON parse、缺解析包、无理由重复片段、`cannot_support` 选中、主题相近硬配。
+- `已确认` 本轮未生成视频、未生成音频、未重新解析真实素材、未改最终文案、未推进 `content_validation / send_ready / voice_validation / visual_master_locked / current_data_goal_anchor_ready`。
+- `待验证` 后续真实剪辑任务仍需用真实 `material_parse_pack / source_segment_inventory / script_to_shot_execution_map / material_usage_ledger` 跑 gate，才能判断该标准是否稳定生效；本轮不写成“剪辑问题已解决”或“素材复用机制长期稳定”。
+- `日志`：`codex_log/20260529_一次素材解析复用标准_material_parse_pack_reuse.md`
+
 ## 20260528｜锁定旧 B 迁移 MiniMax 声音并只替换当前候选片音轨
 
 - `task_result.status = completed_with_locked_b_voice_audio_replacement`

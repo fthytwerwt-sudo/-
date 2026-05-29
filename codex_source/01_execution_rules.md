@@ -250,12 +250,61 @@ status = blocked
 
 `material_evidence_preflight_gate（素材证据预检闸门）`：
 
+- 视频执行前必须先通过 `material_parse_pack_reuse_gate（素材解析包复用闸门）`，确认剪辑只消费同一份一次性解析结果。
 - 视频执行前必须从 `material_detail_report（素材细节报告）` 生成 `material_evidence_contract.json（素材证据契约）`。
 - 每个 `line_group（句组）` 必须通过 `line_group_evidence_gate_report.json（句组证据闸门报告）` 绑定素材证据、卡片承接或明确无需视觉证明。
 - 视频生成前必须生成 `auto_storyboard_preflight_report.json（自动分镜预检报告）`。
 - `auto_edit_allowed` 不是 `true` 时，不得执行剪辑 / 装配 / `full.mp4` 生成。
 - `blocked_no_evidence_count / high_mismatch_risk_count / privacy_high_selected_count / data_sentence_without_source_count / judgment_sentence_hard_mapped_to_recording_count / action_sentence_without_card_or_direct_visual_count / selected_material_in_cannot_support_count / card_required_unresolved_count` 任一大于 0，必须 blocked。
-- 默认可运行脚本为 `scripts/素材证据闸门_material_evidence_gate.py`；默认第四期数据成果卡生成入口已提供 `--preflight-only`，用于证明 no-render 预检会被调用。
+- 默认可运行脚本为 `scripts/素材解析包复用闸门_material_parse_pack_reuse_gate.py` 与 `scripts/素材证据闸门_material_evidence_gate.py`；默认第四期数据成果卡生成入口已提供 `--preflight-only`，用于证明 no-render 预检会被调用。
+
+## 0A-4a. material_parse_pack_reuse_gate 素材解析包复用闸门
+
+原始素材只允许在 `material_evidence_flow（素材证据流）` 里解析一次。剪辑阶段只能消费同一份 `material_parse_pack（素材解析包）` 与它引用的 `source_segment_inventory（素材片段清单）`、`material_detail_report（素材细节报告）` 和 `material_evidence_contract（素材证据契约）`，不得重新解析原始素材作为主要判断来源。
+
+默认链路：
+
+```text
+material_parse_pack
+-> source_segment_inventory
+-> script_to_shot_execution_map
+-> material_usage_ledger
+-> duplicate_material_check
+-> editing_decision_pack
+-> render / assembly only if passed
+```
+
+`material_parse_pack（素材解析包）` 必填字段：`parse_pack_id / material_root / source_files / material_index_path / material_detail_report_path / contact_sheet_paths / source_segment_inventory_path / parse_timestamp / parse_scope / skill_used / reuse_policy / stale_if`。
+
+`stale_if（过期条件）` 至少包含：原始素材文件新增 / 删除 / 重命名；素材文件大小或修改时间变化；文案目标变化导致旧解析无法支撑；用户要求重新审计；素材报告缺关键时间码或关键证据字段。
+
+剪辑阶段 `editing_parse_reuse_rule（解析复用规则）`：
+
+- 剪辑阶段不得重新解析原始素材作为主要判断来源。
+- 剪辑阶段必须读取 `material_parse_pack（素材解析包）`。
+- 剪辑阶段必须从 `source_segment_inventory（素材片段清单）` 选择片段。
+- 剪辑阶段必须生成 `script_to_shot_execution_map（文案到镜头执行表）`。
+- 剪辑阶段必须生成 `material_usage_ledger（素材使用台账）`。
+- 剪辑阶段必须通过 `duplicate_material_check（素材重复使用检查）`。
+
+允许的轻量检查仅限：文件是否存在、`ffprobe` 基础信息是否仍可读、抽帧路径是否存在、报告引用路径是否存在。禁止重新扫素材后绕过 `material_detail_report（素材细节报告）`、重新判断素材能证明什么、用新理解覆盖素材报告、因剪辑方便选主题相近素材，或不写 `reuse_reason（复用理由）` 就重复使用素材。
+
+`duplicate_material_check（素材重复使用检查）` 必须输出：`total_segments / total_line_groups / repeated_segment_count / repeated_core_evidence_count / consecutive_duplicate_count / theme_only_match_count / cannot_support_selected_count / report_not_cited_count / final_decision`。
+
+阻断条件：
+
+- `material_parse_pack_missing（缺素材解析包）`
+- `material_parse_pack_stale（素材解析包过期）`
+- `source_segment_inventory_missing（缺素材片段清单）`
+- `script_to_shot_execution_map_missing（缺文案到镜头执行表）`
+- `material_usage_ledger_missing（缺素材使用台账）`
+- `duplicate_material_check_missing（缺素材重复使用检查）`
+- `same_segment_reused_without_reuse_reason（同一素材片段重复使用但无理由）`
+- `consecutive_duplicate_segment_used（连续重复使用同一素材片段）`
+- `core_evidence_reused_for_different_claim（核心证据被拿去证明不同主张）`
+- `theme_only_match_used_as_direct_evidence（主题相近素材冒充直接证据）`
+- `cannot_support_material_selected（选用了不能支撑该文案点的素材）`
+- `material_report_not_cited_by_line_group（句组没有引用素材报告）`
 
 `edgeguard_black_border_gate（EdgeGuard 黑边 / 灰边 / 边缘残留闸门）`：
 
@@ -281,7 +330,9 @@ status = blocked
 python scripts/发片候选预检套件_publish_candidate_preflight_suite.py --no-render --output-dir <preflight_output_dir> ...
 ```
 
-十二个必需 gate：
+`material_parse_pack_reuse_preflight（素材解析包复用预检）` 是发片候选预检套件的前置 gate；它检查 `material_parse_pack / source_segment_inventory / script_to_shot_execution_map / material_usage_ledger / duplicate_material_check`，并阻断二次解析、重复素材、主题相近硬配、`cannot_support` 误用和句组未引用素材报告。
+
+原十二个必需 gate：
 
 1. `line_level_alignment_preflight（逐句文案画面对齐预检）`：检查 `script_to_timeline_map` 是否为 `line_group` 级，且每组含 `line_group_id / line_ids / narration_text / required_material / source_timecode / expected_visual / actual_visual_observed / allowed_visuals / forbidden_visuals / evidence_strength / alignment_status / mismatch_reason / repair_action`。
 2. `line_visual_tolerance_preflight（文案画面一致性容差预检）`：检查近似素材替代比例最多约 `5%`、连续近似替代最多 1 个句组、核心证据错位为 0、全程漂移为 false。
@@ -294,7 +345,7 @@ python scripts/发片候选预检套件_publish_candidate_preflight_suite.py --n
 9. `visual_evidence_readability_preflight（视觉证据可读性预检）`：检查核心证据窗口、源比例 / 授权、无遮蔽、无 whiteout / black block / gray residue，字幕和卡片不遮挡证据。
 10. `locked_copy_diff_preflight（锁定文案差异预检）`：比较 `locked_title / locked_opening_line / locked_final_script` 与实际字幕、TTS 文本、卡片文本，只允许非语义格式变化。
 11. `publish_candidate_user_standard_preflight（候选可发布用户标准预检）`：按用户标准区分可接受小瑕疵和重大缺陷；`publish_candidate_ready_for_human_review` 不等于 `send_ready`。
-12. `completion_truth_preflight（完成真实性预检）`：检查必交付清单、十二个子报告、review_pack 包含关系、媒体探针（若生成媒体）、日志更新和禁止状态推进。
+12. `completion_truth_preflight（完成真实性预检）`：检查必交付清单、素材解析包复用报告、十二个子报告、review_pack 包含关系、媒体探针（若生成媒体）、日志更新和禁止状态推进。
 
 阻断规则：
 
@@ -306,7 +357,7 @@ blocked_if:
   - only_file_exists_or_field_exists_without_semantic_or_declared_validation
 ```
 
-`completion_truth_check（完成真实性检查）` 必须读取 `publish_candidate_preflight_report.json`。`full.mp4` 存在、`script_to_timeline_map` 存在、`tts_prosody_anchor_map` 存在或 `technical_validation` 通过，都不能替代十二闸门报告。
+`completion_truth_check（完成真实性检查）` 必须读取 `publish_candidate_preflight_report.json`。`full.mp4` 存在、`script_to_timeline_map` 存在、`tts_prosody_anchor_map` 存在或 `technical_validation` 通过，都不能替代 `material_parse_pack_reuse_report（素材解析包复用报告）` 和十二闸门报告。
 
 MiniMax 正片候选语音硬规则：后续 `publish_candidate / formal_operation_publish_candidate / ready_for_human_review` 默认必须走 MiniMax `speech-2.8-hd` 或百炼代理 `MiniMax/speech-2.8-hd`。阿里 Qwen TTS、Serena、macOS say、本地低质 TTS 或未授权 fallback 均不得作为正片候选完成条件；只能 blocked 或标记为 `internal_diagnostic_only`。
 

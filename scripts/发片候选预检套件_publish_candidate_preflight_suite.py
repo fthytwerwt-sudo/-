@@ -14,11 +14,13 @@ from 正片候选TTS路线_publish_candidate_tts_route import (
     validate_b_voice_feel_minimax_route,
     validate_publish_candidate_tts_route,
 )
+from 素材解析包复用闸门_material_parse_pack_reuse_gate import run_material_parse_pack_reuse_gate
 
 
 ROOT = Path(__file__).resolve().parents[1]
 
 GATES = [
+    "material_parse_pack_reuse_preflight",
     "line_level_alignment_preflight",
     "line_visual_tolerance_preflight",
     "near_equivalent_material_substitution_preflight",
@@ -34,6 +36,7 @@ GATES = [
 ]
 
 REPORT_FILENAMES = {
+    "material_parse_pack_reuse_preflight": "material_parse_pack_reuse_report",
     "line_level_alignment_preflight": "line_level_alignment_report",
     "line_visual_tolerance_preflight": "line_visual_tolerance_report",
     "near_equivalent_material_substitution_preflight": "near_equivalent_material_substitution_report",
@@ -78,6 +81,8 @@ FORBIDDEN_ACTIONS = [
 REVIEW_PACK_REQUIRED_PREFLIGHT_REPORTS = [
     "publish_candidate_preflight_report.json",
     "publish_candidate_preflight_report.md",
+    "material_parse_pack_reuse_report.json",
+    "material_parse_pack_reuse_report.md",
     "line_level_alignment_report.json",
     "line_visual_tolerance_report.json",
     "near_equivalent_material_substitution_report.json",
@@ -955,6 +960,12 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     summary, _ = read_json(args.summary_json, "summary_json")
 
     reports = [
+        run_material_parse_pack_reuse_gate(
+            material_parse_pack=args.material_parse_pack,
+            source_segment_inventory=args.source_segment_inventory,
+            script_to_shot_execution_map=args.script_to_shot_execution_map,
+            material_usage_ledger=args.material_usage_ledger,
+        ),
         line_level_alignment_preflight(timeline, args.script_to_timeline_map),
         line_visual_tolerance_preflight(timeline, args.script_to_timeline_map),
         near_equivalent_material_substitution_preflight(timeline, args.script_to_timeline_map),
@@ -1024,6 +1035,10 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--tts-prosody-anchor-map", type=Path, help="tts_prosody_anchor_map JSON.")
     parser.add_argument("--locked-copy-contract", type=Path, help="locked_copy_contract JSON.")
     parser.add_argument("--content-route-card", type=Path, help="content_route_card_v2 JSON.")
+    parser.add_argument("--material-parse-pack", type=Path, help="material_parse_pack JSON.")
+    parser.add_argument("--source-segment-inventory", type=Path, help="source_segment_inventory JSON.")
+    parser.add_argument("--script-to-shot-execution-map", type=Path, help="script_to_shot_execution_map JSON.")
+    parser.add_argument("--material-usage-ledger", type=Path, help="material_usage_ledger JSON.")
     parser.add_argument("--fixture-cases", type=Path, help="Fixture cases JSON for blocked-case validation.")
     parser.add_argument("--output-dir", type=Path, required=True, help="Directory for aggregate and child reports.")
     parser.add_argument("--allow-blocked-exit-zero", action="store_true", help="Write blocked reports but return 0 for no-render demonstrations.")

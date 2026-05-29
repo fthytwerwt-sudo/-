@@ -51,8 +51,11 @@
 - `output_root（输出目录）`
 
 ## default_outputs
+- `material_parse_pack.json（素材解析包；后续剪辑唯一可消费的一次性解析结果）`
 - `material_index.json（素材索引）`
 - `material_detail_report.md（素材细节报告）`
+- `source_segment_inventory.json（素材片段清单）`
+- `material_evidence_contract.json（素材证据契约，可由素材细节报告生成）`
 - `dated_log.md（日期日志）`
 - `latest.md update（最新日志更新）`
 - `contact_sheet（联系表 / 抽帧图，仅本地审计辅助，默认不提交 Git）`
@@ -67,9 +70,11 @@
 7. 基于 contact sheet 和关键帧，按时间码解析可见内容、用户动作、可读文字和不确定点。
 8. 判断素材能证明什么、不能证明什么，以及是否足以支撑目标内容方向。
 9. 检查平台风险和隐私风险，并给出可规避建议。
-10. 生成 `material_index.json`、`material_detail_report.md` 和 dated log。
-11. 更新 `codex_log/latest.md`，但不得推进内容、发布或数据目标状态。
-12. 做 JSON parse、Markdown 非空、核心脚本 py_compile、Git source media 未 staged 等验证。
+10. 生成 `material_parse_pack.json（素材解析包）` 和 `source_segment_inventory.json（素材片段清单）`，把本次一次性解析结果锁成后续剪辑唯一输入。
+11. 生成或保证可生成 `material_evidence_contract.json`，让后续剪辑可以逐句引用素材证据，而不是只给 ChatGPT 阅读。
+12. 生成 `material_index.json`、`material_detail_report.md` 和 dated log。
+13. 更新 `codex_log/latest.md`，但不得推进内容、发布或数据目标状态。
+14. 做 JSON parse、Markdown 非空、核心脚本 py_compile、Git source media 未 staged 等验证。
 
 ## required_checks
 1. 目录存在性检查
@@ -83,7 +88,10 @@
 9. 隐私风险判断
 10. ChatGPT 写稿建议
 11. 状态边界检查：不推进 `content_validation / send_ready / publish_candidate / current_data_goal_anchor ready`
-12. Git 检查：不提交原始视频素材
+12. 素材解析包字段检查：`parse_pack_id / source_files / material_detail_report_path / source_segment_inventory_path / reuse_policy / stale_if`
+13. 素材片段清单字段检查：`segment_id / material_id / source_file / timecode_start / timecode_end / can_support / cannot_support / evidence_strength`
+14. 素材证据契约字段检查：`can_support / cannot_support / best_use / not_allowed_use / privacy_risk / public_safe`
+15. Git 检查：不提交原始视频素材
 
 ## technical_probe_fields
 每个素材至少记录：
@@ -136,6 +144,108 @@
 - `best_use`
 - `not_allowed_use`
 - `needs_reshoot`
+
+## material_parse_pack_schema
+每轮素材审计必须把原始素材的一次性解析结果落成 `material_parse_pack（素材解析包）`；后续剪辑阶段只能读取该解析包和它引用的结构化产物，不得重新解析原始素材作为主要判断来源。
+
+```text
+material_parse_pack:
+  parse_pack_id:
+  material_root:
+  source_files:
+    - path:
+      size:
+      mtime:
+      material_id:
+  material_index_path:
+  material_detail_report_path:
+  contact_sheet_paths:
+  source_segment_inventory_path:
+  parse_timestamp:
+  parse_scope:
+  skill_used: skills/视频素材解析_video_material_audit/SKILL.md
+  reuse_policy: reuse_only
+  stale_if:
+    - source_file_added_deleted_or_renamed
+    - source_file_size_or_mtime_changed
+    - script_target_changed_and_pack_cannot_support
+    - user_requested_reaudit
+    - missing_key_timecode_or_evidence_fields
+```
+
+`source_segment_inventory（素材片段清单）` 至少包含：
+
+```text
+source_segment_inventory:
+  segments:
+    - segment_id:
+      material_id:
+      source_file:
+      timecode_start:
+      timecode_end:
+      visible_content:
+      readable_text:
+      user_action:
+      evidence_strength:
+      can_support:
+      cannot_support:
+      best_use:
+      not_allowed_use:
+      privacy_risk:
+      platform_risk:
+      public_safe:
+```
+
+硬规则：
+
+- 原始素材只解析一次；同一轮后续剪辑不得重新扫素材后覆盖本报告判断。
+- `material_parse_pack` 缺失、过期或缺关键时间码 / 证据字段时，后续剪辑必须 blocked。
+- 文案目标变化导致旧解析包无法支撑时，必须 blocked 或重新进入素材审计；不得在剪辑阶段临时补理解。
+- contact sheet 只作为审计证据引用，不是剪辑阶段重新判断素材能证明什么的入口。
+
+## material_evidence_contract_schema
+后续视频执行默认需要从本报告生成：
+
+```text
+material_evidence_contract:
+  material_id:
+  source_file:
+  timecode_start:
+  timecode_end:
+  visible_content:
+  readable_text:
+  user_action:
+  evidence_claims:
+    - claim_id:
+      claim_text:
+      claim_type:
+        - data_visible
+        - workflow_step
+        - ui_action
+        - ai_judgment_visible
+        - report_structure_visible
+        - result_page_visible
+        - background_context_only
+      evidence_strength:
+        - direct
+        - partial
+        - weak
+        - not_evidence
+      can_support:
+      cannot_support:
+      best_use:
+      not_allowed_use:
+  platform_risk:
+  privacy_risk:
+  public_safe:
+```
+
+硬规则：
+
+- `background_context_only` 不能当 direct evidence。
+- `privacy_risk = high` 的素材不得默认入片。
+- `cannot_support` 中明确禁止的文案点不得绑定该素材。
+- 后续 `line_group_evidence_gate` 必须能引用这里的 `material_id / timecode / claim_id`。
 
 ## platform_risk_signals
 - 全自动

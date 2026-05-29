@@ -1,0 +1,142 @@
+{
+  "schema": "material_parse_pack_reuse_gate_cases.v1",
+  "purpose": "Minimum no-render fixtures for one-time material_parse_pack reuse and duplicate material blocking.",
+  "cases": [
+    {
+      "case_id": "material_parse_pack_missing_blocks",
+      "expected_status": "blocked",
+      "expected_reason": "material_parse_pack_missing",
+      "inputs": {
+        "material_parse_pack": null,
+        "source_segment_inventory": {},
+        "script_to_shot_execution_map": {},
+        "material_usage_ledger": {}
+      }
+    },
+    {
+      "case_id": "duplicate_segment_without_reuse_reason_blocks",
+      "expected_status": "blocked",
+      "expected_reason": "same_segment_reused_without_reuse_reason",
+      "inputs": {
+        "source_segment_inventory": {
+          "segments": [
+            {
+              "segment_id": "seg_demo_001",
+              "material_id": "material_01",
+              "source_file": "__SOURCE_FILE__",
+              "timecode_start": "00:00",
+              "timecode_end": "00:10",
+              "evidence_strength": "direct",
+              "is_core_evidence": false
+            }
+          ]
+        },
+        "script_to_shot_execution_map": {
+          "line_groups": [
+            {
+              "line_group_id": "LG01",
+              "segment_id": "seg_demo_001",
+              "material_report_ref": "material_detail_report.md#material_01",
+              "evidence_match_status": "direct_match"
+            },
+            {
+              "line_group_id": "LG02",
+              "segment_id": "seg_demo_001",
+              "material_report_ref": "material_detail_report.md#material_01",
+              "evidence_match_status": "direct_match"
+            }
+          ]
+        },
+        "material_usage_ledger": {
+          "usages": [
+            {
+              "line_group_id": "LG01",
+              "segment_id": "seg_demo_001"
+            },
+            {
+              "line_group_id": "LG02",
+              "segment_id": "seg_demo_001"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "cannot_support_material_selected_blocks",
+      "expected_status": "blocked",
+      "expected_reason": "cannot_support_material_selected",
+      "inputs": {
+        "source_segment_inventory": {
+          "segments": [
+            {
+              "segment_id": "seg_weak_001",
+              "material_id": "material_02",
+              "source_file": "__SOURCE_FILE__",
+              "timecode_start": "00:00",
+              "timecode_end": "00:10",
+              "evidence_strength": "weak",
+              "cannot_support": ["核心判断"]
+            }
+          ]
+        },
+        "script_to_shot_execution_map": {
+          "line_groups": [
+            {
+              "line_group_id": "LG01",
+              "segment_id": "seg_weak_001",
+              "material_report_ref": "material_detail_report.md#material_02",
+              "support_status": "cannot_support"
+            }
+          ]
+        },
+        "material_usage_ledger": {
+          "usages": [
+            {
+              "line_group_id": "LG01",
+              "segment_id": "seg_weak_001",
+              "support_status": "cannot_support"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "theme_only_match_as_direct_evidence_blocks",
+      "expected_status": "blocked",
+      "expected_reason": "theme_only_match_used_as_direct_evidence",
+      "inputs": {
+        "source_segment_inventory": {
+          "segments": [
+            {
+              "segment_id": "seg_theme_001",
+              "material_id": "material_03",
+              "source_file": "__SOURCE_FILE__",
+              "timecode_start": "00:00",
+              "timecode_end": "00:10",
+              "evidence_strength": "weak"
+            }
+          ]
+        },
+        "script_to_shot_execution_map": {
+          "line_groups": [
+            {
+              "line_group_id": "LG01",
+              "segment_id": "seg_theme_001",
+              "material_report_ref": "material_detail_report.md#material_03",
+              "evidence_match_status": "theme_only_match"
+            }
+          ]
+        },
+        "material_usage_ledger": {
+          "usages": [
+            {
+              "line_group_id": "LG01",
+              "segment_id": "seg_theme_001",
+              "theme_only_match": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
