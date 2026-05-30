@@ -1,0 +1,64 @@
+{
+  "task_id": "20260531_remotion_ffmpeg_ass_aliyun_toolchain_audit",
+  "task_name": "Remotion / FFmpeg / ASS / 阿里 API 剪辑升级工具链审计",
+  "status": "toolchain_audit_completed_no_video_no_api",
+  "project_route": "video_factory",
+  "report_path": "codex_log/toolchain_audit/20260531_Remotion_FFmpeg_ASS_阿里API剪辑工具链审计_remotion_ffmpeg_ass_aliyun_toolchain_audit/toolchain_audit_report.md",
+  "dated_log_path": "codex_log/20260531_Remotion_FFmpeg_ASS_阿里API剪辑工具链审计_remotion_ffmpeg_ass_aliyun_toolchain_audit.md",
+  "reference_analysis_report_path": "codex_log/reference_analysis/20260531_剪辑参考深度重解析_deep_editing_reference_reparse/deep_reference_reparse_report.md",
+  "editing_decision_pack_path": "codex_log/reference_analysis/20260531_剪辑参考深度重解析_deep_editing_reference_reparse/editing_decision_pack_for_next_round.md",
+  "tool_checks": {
+    "node": {
+      "status": "installed",
+      "version": "v25.6.1"
+    },
+    "npm": {
+      "status": "installed",
+      "version": "11.9.0"
+    },
+    "pnpm": {
+      "status": "missing"
+    },
+    "remotion": {
+      "status": "not_installed_not_runnable",
+      "npm_list_remotion": "empty",
+      "npm_list_remotion_scope": "empty",
+      "local_cli": "missing",
+      "config_found": false,
+      "app_dir_found": false
+    },
+    "ffmpeg": {
+      "status": "installed",
+      "version": "8.1",
+      "path": "/opt/homebrew/bin/ffmpeg",
+      "libass_enabled": false,
+      "ass_or_subtitles_filter_found": false
+    },
+    "ffprobe": {
+      "status": "installed",
+      "version": "8.1",
+      "path": "/opt/homebrew/bin/ffprobe"
+    },
+    "python": {
+      "version": "3.9.6",
+      "pillow": "installed_11.3.0",
+      "opencv": "missing",
+      "numpy": "missing",
+      "pysubs2": "missing",
+      "cairosvg": "missing"
+    }
+  },
+  "api_boundary": {
+    "external_api_called": false,
+    "secret_read": false,
+    "aliyun_api_decision": "auxiliary_assets_only_not_evidence"
+  },
+  "status_boundary": {
+    "video_generated": false,
+    "current_video_modified": false,
+    "dependency_installed": false,
+    "content_validation_changed": false,
+    "send_ready_changed": false,
+    "publish_status_changed": false
+  }
+}
