@@ -1,0 +1,19 @@
+{
+  "request_id": "20260530_editing_reference_parse_pre_supply",
+  "project": "video_factory",
+  "task_type": "editing_reference_analysis",
+  "source_reference_folder": "/Users/fan/Documents/视频工厂/素材录制/剪辑参考",
+  "selected_reference_video": "/Users/fan/Documents/视频工厂/素材录制/剪辑参考/ScreenRecording_05-24-2026 21-12-50_1.MP4",
+  "requested_outputs": [
+    "must_read_file_map",
+    "risk_and_conflict_report",
+    "editing_reference_contract_risks",
+    "codex_next_input"
+  ],
+  "external_api_call_allowed": false,
+  "reason_external_api_forbidden": "The user-provided execution prompt forbids video/image/TTS/external paid API calls in this round.",
+  "deepseek_actual_participation": "not_attempted_policy_constraint",
+  "fallback_status": "fallback_local_only",
+  "not_deepseek_conclusion": true,
+  "token_usage_expectation_check": "no_token_decrement_expected"
+}

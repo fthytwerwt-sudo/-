@@ -1,0 +1,54 @@
+{
+  "analysis_id": "20260530_editing_reference_parse",
+  "status": "reference_analysis_completed_with_decode_warning",
+  "source_folder": "/Users/fan/Documents/视频工厂/素材录制/剪辑参考",
+  "selected_reference_video": "/Users/fan/Documents/视频工厂/素材录制/剪辑参考/ScreenRecording_05-24-2026 21-12-50_1.MP4",
+  "source_video_profile": {
+    "duration_seconds": 416.740114,
+    "width": 1180,
+    "height": 2556,
+    "fps": 60.0,
+    "video_codec": "hevc",
+    "audio_present": true,
+    "audio_codec": "aac",
+    "audio_channels": 2,
+    "ffprobe_readable": true,
+    "strict_decode_status": "failed_non_monotonic_dts",
+    "frame_sampling_status": "passed"
+  },
+  "artifacts": {
+    "main_report": "codex_log/reference_analysis/20260530_剪辑参考解析_editing_reference_parse/reference_editing_analysis_report.md",
+    "dated_log": "codex_log/20260530_剪辑参考解析_editing_reference_parse.md",
+    "sampled_frame_dir": "codex_log/reference_analysis/20260530_剪辑参考解析_editing_reference_parse/frames_sample_5s",
+    "sampled_frame_count": 83,
+    "scene_frame_dir": "codex_log/reference_analysis/20260530_剪辑参考解析_editing_reference_parse/scene_frames",
+    "scene_change_frame_count": 16,
+    "manual_keyframe_count": 17,
+    "contact_sheet_5s": "codex_log/reference_analysis/20260530_剪辑参考解析_editing_reference_parse/contact_sheets/contact_sheet_5s.jpg",
+    "keyframe_contact_sheet": "codex_log/reference_analysis/20260530_剪辑参考解析_editing_reference_parse/contact_sheets/keyframe_contact_sheet.jpg"
+  },
+  "status_boundaries": {
+    "video_generated": false,
+    "audio_generated": false,
+    "current_video_modified": false,
+    "source_material_modified": false,
+    "external_api_called": false,
+    "secret_read": false,
+    "content_validation_promoted": false,
+    "send_ready_promoted": false,
+    "publish_status_promoted": false,
+    "voice_validation_promoted": false,
+    "visual_master_locked_promoted": false
+  },
+  "deepseek_supply_gate": {
+    "supply_request": "codex_log/supply_requests/20260530_editing_reference_parse_pre_supply_request.json",
+    "deepseek_actual_participation": "not_attempted_policy_constraint",
+    "fallback_status": "fallback_local_only",
+    "not_deepseek_conclusion": true,
+    "reason": "The execution prompt forbids external API calls in this round."
+  },
+  "repository_update_recommendation": {
+    "should_update_core_rules_now": false,
+    "reason": "This round validates one reference analysis pass and proposes draft fields; it does not prove a stable editing mechanism across real Video Factory production tasks."
+  }
+}
