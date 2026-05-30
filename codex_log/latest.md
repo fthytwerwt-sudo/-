@@ -1,5 +1,24 @@
 # Latest
 
+## 20260531｜剪辑参考深度重解析与整套剪辑语言迁移方案
+
+- `task_result.status = completed_reference_analysis_artifact_synced`
+- `target_delivery = whole_video_editing_system_map + subtitle_system_breakdown + split_screen_system_breakdown + screen_design_system + transition_and_rhythm_map + non_human_migration_plan + current_vs_reference_gap_report + editing_decision_pack_for_next_round`
+- `已确认` 本轮按用户新附件重新深度解析 `/Users/fan/Documents/视频工厂/素材录制/剪辑参考/ScreenRecording_05-24-2026 21-12-50_1.MP4`，不生成新正片、不修改当前正片、不调用视频 / 图片 / TTS / 外部 API，不读取 secret，不直接改核心机制文件。
+- `已确认` 上轮报告已复审：其 contract、抽帧和粗剪辑动作有效，但缺整片剪辑系统、字幕系统、分屏系统、屏幕设计系统、转场顺滑机制、非真人迁移和当前差距判断；本轮已补齐。
+- `已确认` 参考不是“小元素升级”，而是整套剪辑语言变化：`is_this_a_minor_element_upgrade = false`，`is_this_a_full_editing_method_change = true`。
+- `已确认` 参考里的真人 / 主播 / PiP 只抽象为 `human_bridge_function（人感桥接功能）`，不得写成《视频工厂》默认真人实拍路线。
+- `推荐默认迁移`：`low_density_bridge_card + voice_and_subtitle_bridge`；小向导 / 元素娃娃只作边缘辅助，`API 生成真人` 仅在开头 / 转折 / 结尾经 route decision 条件触发。
+- `已确认` 字幕系统应作为注意力引导层，不只是底部转写；分屏只在 before/after、prompt/result、source/output、option A/B 等比较场景使用；屏幕设计优先 `active_evidence_window + clean evidence container + one_claim_one_highlight`。
+- `当前视频对比`：`dist/latest_review_pack/full.mp4`、`summary.json`、`review_manifest.md` 可读；对比结论为 `partial_observable_comparison`，最高优先级差距是缺统一屏幕语言和字幕桥接。该对比不推进当前视频状态。
+- `DeepSeek`：本轮执行单禁止外部 API / secret，因此只创建供料任务卡并标记 `deepseek_actual_participation = not_attempted_policy_constraint`、`fallback_status = fallback_local_only`、`not_deepseek_conclusion = true`。
+- `状态边界`：未推进 `content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked`；未生成视频、音频，未改 source video、current review pack 或核心规则。
+- `验证`：`ffprobe_reference = passed`；参考视频完整 decode 可跑完但持续报 `non monotonically increasing dts`，仅作为视觉 / 剪辑参考，不作为干净交付媒体源；复用并重审上轮 `83` 张 5 秒采样帧、`16` 张 scene-change 帧、`17` 张人工关键帧和 contact sheets；当前视频 probe 为 `149.993s / 720x1280 / h264 / aac`。
+- `报告`：`codex_log/reference_analysis/20260531_剪辑参考深度重解析_deep_editing_reference_reparse/deep_reference_reparse_report.md`
+- `剪辑决策包`：`codex_log/reference_analysis/20260531_剪辑参考深度重解析_deep_editing_reference_reparse/editing_decision_pack_for_next_round.md`
+- `manifest`：`codex_log/reference_analysis/20260531_剪辑参考深度重解析_deep_editing_reference_reparse/analysis_manifest.json`
+- `日志`：`codex_log/20260531_剪辑参考深度重解析_deep_editing_reference_reparse.md`
+
 ## 20260530｜剪辑参考视频解析与 vNext 剪辑决策包草案
 
 - `task_result.status = reference_analysis_completed_with_decode_warning`
