@@ -1,0 +1,79 @@
+{
+  "status": "passed_for_internal_reference_migration_clip",
+  "generated_at_local": "2026-06-01T01:17:48+08:00",
+  "scope": "internal_reference_migration_validation_clip",
+  "branch_required": "codex/guided-proof-video-upgrade-20260531",
+  "source_material": {
+    "full_mp4": "dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/full.mp4",
+    "narration_wav": "dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/narration.wav",
+    "captions_srt": "dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/captions.srt",
+    "source_sha256_after_run": "81787e6b0bc6ae0923e5b9cf8f564730d0af3a09406f65f74c331065e43642a6",
+    "source_overwrite_check": "passed_no_output_written_to_source_path"
+  },
+  "selected_segment": {
+    "start_timecode": "00:03:40.988",
+    "end_timecode": "00:04:22.060",
+    "duration_seconds": 41.072,
+    "caption_entries": "76-93"
+  },
+  "outputs": {
+    "before_original_segment": {
+      "path": "dist/guided_proof_reference_migration_new_fourth_episode_20260601_010425/before_original_segment.mp4",
+      "sha256": "ef12e2f1b291feb6201024a46836147bda8d0ad7a3232da2efa9b6607cb2bbe8",
+      "duration_seconds": 41.1,
+      "width": 1920,
+      "height": 1080,
+      "fps": "30/1",
+      "video_codec": "h264",
+      "audio_codec": "aac",
+      "decode_check": "passed"
+    },
+    "after_reference_migration_segment": {
+      "path": "dist/guided_proof_reference_migration_new_fourth_episode_20260601_010425/after_reference_migration_segment.mp4",
+      "sha256": "a148a70658439fd093f9a3402de921f0eaadaaea511e11d27d93571abf9c2ca3",
+      "duration_seconds": 41.130667,
+      "width": 1920,
+      "height": 1080,
+      "fps": "30/1",
+      "video_codec": "h264",
+      "audio_codec": "aac",
+      "decode_check": "passed"
+    },
+    "before_after_contact_sheet": {
+      "path": "dist/guided_proof_reference_migration_new_fourth_episode_20260601_010425/before_after_contact_sheet.jpg",
+      "visual_overlap_check": "passed_no_high_severity_overlap_seen_in_sample_sheet"
+    }
+  },
+  "checks": {
+    "toolchain_check": {
+      "command": "npm run vf:toolchain:check",
+      "remotion_ready": true,
+      "ffmpeg_ready": true,
+      "ass_ready": false,
+      "python_visual_ready": true,
+      "minimum_guided_proof_ready": true,
+      "blocked_if": []
+    },
+    "remotion_render": "passed",
+    "ffprobe_before": "passed",
+    "ffprobe_after": "passed",
+    "duration_check": "passed_30_to_45_seconds",
+    "aspect_ratio_check": "passed_16_9",
+    "resolution_check": "passed_1920x1080",
+    "audio_check": "passed_audio_present",
+    "source_file_unchanged_check": "passed_no_source_overwrite_command_or_output_path",
+    "formal_status_promotion_check": "passed_no_content_validation_send_ready_publish_status_change"
+  },
+  "state_boundaries": {
+    "technical_validation": "passed_for_internal_reference_migration_clip",
+    "content_validation": "pending_user_chatgpt_review",
+    "send_ready": false,
+    "publish_candidate": false,
+    "voice_validation": "not_changed",
+    "visual_master_locked": false
+  },
+  "remaining_blockers": [
+    "content_and_aesthetic_approval_pending_user_chatgpt_review",
+    "full_video_extension_requires_separate_locked_task"
+  ]
+}

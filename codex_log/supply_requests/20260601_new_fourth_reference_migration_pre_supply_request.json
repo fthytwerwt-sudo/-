@@ -1,0 +1,40 @@
+{
+  "request_id": "20260601_new_fourth_reference_migration_pre_supply",
+  "project_route": "video_factory",
+  "task": "new_fourth_episode_guided_proof_reference_migration_validation_clip",
+  "created_at_local": "2026-06-01T01:04:25+08:00",
+  "deepseek_role": "readonly_supply_layer",
+  "intended_outputs": [
+    "must_read_file_map",
+    "risk_and_conflict_report",
+    "reference_migration_checks",
+    "codex_next_input"
+  ],
+  "actual_participation": {
+    "attempted": false,
+    "reason": "local deepseek command not found in current environment",
+    "fallback_status": "fallback_local_only",
+    "not_deepseek_conclusion": true,
+    "token_usage_expectation_check": "no_token_decrement_observed"
+  },
+  "task_boundaries": {
+    "branch_required": "codex/guided-proof-video-upgrade-20260531",
+    "not_formal_publish_candidate": true,
+    "content_validation_must_remain": "pending_user_chatgpt_review",
+    "send_ready_must_remain": false,
+    "external_api_allowed": false,
+    "secret_read_allowed": false,
+    "source_material_overwrite_allowed": false
+  },
+  "source_materials": [
+    "dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/full.mp4",
+    "dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/narration.wav",
+    "dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/captions.srt",
+    "dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/review_manifest.md"
+  ],
+  "reference_inputs": [
+    "codex_log/reference_analysis/20260531_剪辑参考深度重解析_deep_editing_reference_reparse/deep_reference_reparse_report.md",
+    "codex_log/reference_analysis/20260531_剪辑参考深度重解析_deep_editing_reference_reparse/editing_decision_pack_for_next_round.md",
+    "codex_log/reference_analysis/20260531_剪辑参考深度重解析_deep_editing_reference_reparse/analysis_manifest.json"
+  ]
+}
