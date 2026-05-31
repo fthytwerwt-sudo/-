@@ -1,5 +1,19 @@
 # Latest
 
+## 20260601｜对标文案学习与说人话判断标准落库
+
+- `task_result.status = mechanism_connected_not_video_delivery`
+- `target_delivery = copy_reference_learning_standard + entry_sync`
+- `已确认` 本轮读取用户提供的 5 篇外部对标账号文案，并新增长期机制文件：`GPT数据源/15_对标文案学习与说人话判断标准_copy_reference_learning_and_plain_language_standard.md`。
+- `已确认` 新文件只保存结构化学习卡和判断标准，不保存外部文案全文；5 篇文案被作为 `reference_pack（参考包）`、`copywriting_style_learning_reference（文案学习参考）`、`plain_language_and_visual_sense_standard_source（说人话与画面感标准来源）` 使用。
+- `已确认` 新增标准覆盖：`plain_language_standard（说人话标准）`、`visual_sense_standard（画面感标准）`、`focus_allocation_rule（重点分配规则）`、`rhythm_standard（节奏标准）`、五篇逐篇学习卡、用户账号迁移边界和最终落稿前检查清单。
+- `已确认` 已同步入口：`GPT数据源/03_总索引与阅读顺序.md`、`GPT数据源/04_选题与文案规则.md`、`GPT数据源/05_文案路由规则.md`、`GPT数据源/07_AI知识类视频价值规则.md`。
+- `已确认` 本轮只修文案学习机制与入口引用；未生成新视频，未生成下一条正式视频执行 prompt，未改最终文案，未改视频 / 音频 / TTS / 剪辑脚本 / API 配置 / `dist/latest_review_pack/`。
+- `未推进` 不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked / current_data_goal_anchor_ready`。
+- `待验证` 该标准是否适合用户账号，仍需后续发布后数据、人审反馈和真实文案回审校准；不得写成用户最终风格已确定或对标风格已被数据验证。
+- `DeepSeek`：已创建前置供料任务卡与执行后风险复核任务卡并运行 safe runner，前置供料与 post-risk review 均为 `deepseek_actual_participation = deepseek_passed`，`fallback_status = not_used`，`api_key_printed = false`，`api_key_written = false`。
+- `日志证据`：`codex_log/supply_requests/20260601_对标文案学习标准_pre_supply_request.json`、`codex_log/deepseek_supply/20260601_copy_reference_learning_standard_pre_supply/latest_supply_pack.md`、`codex_log/supply_requests/20260601_对标文案学习标准_post_risk_review_request.json`、`codex_log/deepseek_supply/20260601_copy_reference_learning_standard_post_risk_review/latest_supply_pack.md`
+
 ## 20260529｜一次素材解析复用标准接入
 
 - `task_result.status = mechanism_connected_not_video_delivery`

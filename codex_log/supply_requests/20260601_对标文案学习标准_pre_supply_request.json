@@ -1,0 +1,224 @@
+{
+  "request_id": "20260601_copy_reference_learning_standard_pre_supply_request",
+  "created_at": "2026-06-01T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "copy_reference_learning_and_plain_language_standard",
+  "task_type": "project_file_change + mechanism_or_route_fix + copywriting",
+  "project_stage": "formal_operation_active",
+  "operation_stage": "mechanism_repair_needed",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "auto",
+  "mandatory_for_every_task": true,
+  "participation_level": "readonly_pre_supply",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "把用户提供的 5 篇外部对标账号文案保真落成《视频工厂》后续文案判断机制与学习标准，新增长期机制文件并接入文案入口。",
+  "current_step": "before_write_gate",
+  "known_context": [
+    "用户本轮明确说明 pasted text 是执行 prompt，桌面 RTF 是 prompt 中提到的 5 篇对标文案。",
+    "本轮不是写新视频文案，不生成下一条正式视频执行 prompt，不推进任何视频状态。",
+    "现有 GPT数据源/04_选题与文案规则.md 已有 reference_copy_voice_mechanism，GPT数据源/05_文案路由规则.md 已有 reference_copy_voice_gate；本轮应补长期高保真学习标准，不重复替换旧机制。",
+    "AGENTS.md 要求 route_decision、large_task_gate、workflow_route_decision、state_action_router 和 DeepSeek supply gate 先于文件写入。"
+  ],
+  "missing_context": [
+    "DeepSeek runtime provider key availability is unknown before safe runner attempt.",
+    "External reference copy is readable from /Users/fan/Desktop/文案.rtf, but full raw text must not be copied into repo."
+  ],
+  "candidate_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/13_execution_lane_and_parallel_rules.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/20_reference_to_execution_contract.md",
+    "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+    "codex_log/latest.md",
+    "codex_log/current_operation_target.md",
+    "review_loop/operation_records_index.md",
+    "codex_log/current_data_goal_anchor.md",
+    "GPT数据源/03_总索引与阅读顺序.md",
+    "GPT数据源/04_选题与文案规则.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md"
+  ],
+  "must_read_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/13_execution_lane_and_parallel_rules.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/20_reference_to_execution_contract.md",
+    "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+    "codex_log/latest.md",
+    "codex_log/current_operation_target.md",
+    "review_loop/operation_records_index.md",
+    "codex_log/current_data_goal_anchor.md",
+    "GPT数据源/03_总索引与阅读顺序.md",
+    "GPT数据源/04_选题与文案规则.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md"
+  ],
+  "optional_files": [
+    "GPT数据源/08_当前正式事实.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md",
+    "GPT数据源/14_数据目标执行总线_data_goal_execution_bus.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    "dist/latest_review_pack",
+    "素材录制/",
+    "GPT 数据源/",
+    "public/",
+    "/Users/fan/Desktop/文案.rtf"
+  ],
+  "expected_output": [
+    "file_map",
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "status_promotion_risk_check",
+    "duplicate_mechanism_risk_check"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files.",
+    "DeepSeek must not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is stable or completed.",
+    "Do not copy the 5 external reference scripts into repo as raw full text.",
+    "Do not generate a new formal video execution prompt.",
+    "Do not modify media outputs, TTS scripts, editing scripts, API config, dist/latest_review_pack, content_validation, send_ready, publish status, voice_validation, final_voice_validated, visual_master_locked, or current_data_goal_anchor ready status."
+  ],
+  "blocked_if": [
+    "5 external reference scripts are unreadable",
+    "AGENTS.md, codex_source/00_codex_readme.md, or codex_log/latest.md missing or unreadable",
+    "existing equivalent high-fidelity mechanism file already exists and merge target cannot be determined",
+    "write scope expands beyond copy mechanism and entry references",
+    "raw external scripts must be copied at length to complete the task",
+    "git diff contains unrelated dirty files that cannot be isolated"
+  ],
+  "return_to_codex": {
+    "read_status_required": true,
+    "impact_check_required": true,
+    "write_scope": [
+      "GPT数据源/15_对标文案学习与说人话判断标准_copy_reference_learning_and_plain_language_standard.md",
+      "GPT数据源/03_总索引与阅读顺序.md",
+      "GPT数据源/04_选题与文案规则.md",
+      "GPT数据源/05_文案路由规则.md",
+      "GPT数据源/07_AI知识类视频价值规则.md",
+      "codex_log/latest.md",
+      "codex_log/supply_requests/20260601_对标文案学习标准_pre_supply_request.json"
+    ],
+    "output_dir": "codex_log/deepseek_supply/20260601_copy_reference_learning_standard_pre_supply",
+    "verification_required": [
+      "keyword_check",
+      "path_reference_check",
+      "no_raw_full_copy_check",
+      "no_forbidden_status_promotion_check",
+      "git_diff_check",
+      "secret_scan"
+    ]
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "deep_file_prefetch",
+      "post_risk_review"
+    ]
+  },
+  "file_scope": {
+    "candidate_files": [
+      "AGENTS.md",
+      "codex_source/00_codex_readme.md",
+      "codex_source/13_execution_lane_and_parallel_rules.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/20_reference_to_execution_contract.md",
+      "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+      "codex_log/latest.md",
+      "codex_log/current_operation_target.md",
+      "review_loop/operation_records_index.md",
+      "codex_log/current_data_goal_anchor.md",
+      "GPT数据源/03_总索引与阅读顺序.md",
+      "GPT数据源/04_选题与文案规则.md",
+      "GPT数据源/05_文案路由规则.md",
+      "GPT数据源/07_AI知识类视频价值规则.md",
+      "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md"
+    ],
+    "must_prefetch_files": [
+      "AGENTS.md",
+      "GPT数据源/03_总索引与阅读顺序.md",
+      "GPT数据源/04_选题与文案规则.md",
+      "GPT数据源/05_文案路由规则.md",
+      "GPT数据源/07_AI知识类视频价值规则.md",
+      "codex_log/latest.md"
+    ],
+    "optional_prefetch_files": [
+      "codex_source/00_codex_readme.md",
+      "codex_source/13_execution_lane_and_parallel_rules.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/20_reference_to_execution_contract.md",
+      "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+      "codex_log/current_operation_target.md",
+      "review_loop/operation_records_index.md",
+      "codex_log/current_data_goal_anchor.md",
+      "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md"
+    ],
+    "forbidden_files": [
+      ".env",
+      ".env.local",
+      "dist/latest_review_pack",
+      "素材录制/",
+      "GPT 数据源/",
+      "public/",
+      "/Users/fan/Desktop/文案.rtf"
+    ],
+    "secret_files_forbidden": true
+  },
+  "content_loading_policy": {
+    "read_only": true,
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 10,
+    "max_chars_per_file": 1400,
+    "max_total_chars": 16000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "do_not_read_secret_files": true,
+    "do_not_read_external_raw_reference_file": true,
+    "do_not_modify_files": true
+  },
+  "codex_minimal_review_policy": {
+    "will_modify_files": [
+      "GPT数据源/15_对标文案学习与说人话判断标准_copy_reference_learning_and_plain_language_standard.md",
+      "GPT数据源/03_总索引与阅读顺序.md",
+      "GPT数据源/04_选题与文案规则.md",
+      "GPT数据源/05_文案路由规则.md",
+      "GPT数据源/07_AI知识类视频价值规则.md",
+      "codex_log/latest.md"
+    ],
+    "conflict_or_uncertain_files": [
+      "GPT数据源/04_选题与文案规则.md",
+      "GPT数据源/05_文案路由规则.md"
+    ],
+    "safety_sensitive_files": [
+      "GPT数据源/08_当前正式事实.md",
+      "codex_log/current_data_goal_anchor.md",
+      "dist/latest_review_pack"
+    ]
+  },
+  "output_required": [
+    "relevant_file_bundle",
+    "exact_snippet_pack",
+    "dependency_map",
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "token_usage_expectation_check"
+  ]
+}
