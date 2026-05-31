@@ -1,0 +1,5 @@
+numpy
+opencv-python
+pillow
+pysubs2
+cairosvg

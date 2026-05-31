@@ -3,7 +3,20 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "scripts": {
+    "check": "node -e \"const fs = require('node:fs'); const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8')); if (!pkg.scripts || !pkg.scripts.check) throw new Error('check script missing'); if (!pkg.dependencies || !pkg.dependencies['ffmpeg-static']) throw new Error('ffmpeg-static dependency declaration missing'); console.log('npm check passed: package metadata valid');\"",
+    "vf:remotion:still": "remotion still remotion/index.tsx GuidedProofToolchainStill dist/toolchain_validation/remotion_still.png",
+    "vf:remotion:render5s": "remotion render remotion/index.tsx GuidedProofToolchain5s dist/toolchain_validation/remotion_5s.mp4",
+    "vf:toolchain:check": "python3 scripts/视频剪辑工具链自检_check_guided_proof_toolchain.py"
+  },
   "dependencies": {
-    "ffmpeg-static": "^5.2.0"
+    "@remotion/captions": "4.0.469",
+    "@remotion/cli": "4.0.469",
+    "@remotion/media": "4.0.469",
+    "@remotion/renderer": "4.0.469",
+    "ffmpeg-static": "^5.2.0",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "remotion": "4.0.469"
   }
 }
