@@ -1,0 +1,845 @@
+# DeepSeek supply controller latest_supply_pack
+
+- `supply_id`: `supply_20260601T171005Z`
+- `request_id`: `20260602_latest_4_editing_references_post_risk_review`
+- `request_validation_status`: `passed`
+- `task_type`: `reference_analysis_only`
+- `trigger_reason`: `mandatory_post_risk_review`
+- `action`: `risk_report`
+- `supply_source`: `deepseek_passed`
+- `context_pack_validation`: `passed`
+- `deepseek_generation_status`: `passed`
+- `fallback_status`: `not_used`
+- `pipeline_status`: `usable`
+- `multi_agent_runtime_validation`: `not_started`
+- `not_deepseek_conclusion`: `false`
+- `deepseek_actual_participation`: `deepseek_passed`
+- `blocked_reason`: `none`
+- `token_usage_observed_or_user_check_required`: `token_decrement_expected`
+- `env_file_read`: `false`
+- `process_env_key_allowed`: `true`
+- `process_env_key_present`: `true`
+- `api_key_printed`: `false`
+- `api_key_written`: `false`
+
+## request_state（请求状态）
+
+```json
+{
+  "request_file": "/Users/fan/Documents/视频工厂/codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/deepseek_post_risk_review_request.json",
+  "current_goal": "Post-risk review for generated latest 4 editing reference analysis reports.",
+  "requires_real_deepseek_participation": false,
+  "safe_loader_policy": {},
+  "runtime_provider": {
+    "runtime_provider_status": "ready",
+    "runtime_provider_auto_load_enabled": true,
+    "runtime_provider_key_source": "project_env",
+    "runtime_provider_key_source_path": ".env",
+    "runtime_provider_version": "20260515"
+  },
+  "data_goal_anchor": {},
+  "current_stage_goal": "",
+  "main_bottleneck": "",
+  "primary_variable": "",
+  "forbidden_variables": [],
+  "success_metric": "",
+  "failure_metric": "",
+  "post_publish_validation_metric": "",
+  "current_step": "after writing analysis reports before completion claim",
+  "known_context": [
+    "Reports have been generated under the bounded analysis directory",
+    "No formal mechanism file should be changed",
+    "content_validation must remain not_applicable and send_ready false"
+  ],
+  "missing_context": [
+    "DeepSeek may return blocked_invalid_context_pack; do not treat fallback/block as passed"
+  ],
+  "decision_needed": "Check status-promotion, forbidden-change, missed-output and fallback-mislabel risks."
+}
+```
+
+## deepseek_supply_gate（DeepSeek 供料闸门）
+
+```json
+{
+  "mandatory_for_every_task": true,
+  "supply_request_created": true,
+  "deepseek_call_required": true,
+  "deepseek_call_attempted": true,
+  "deepseek_actual_participation": "deepseek_passed",
+  "supply_source": "deepseek_passed",
+  "fallback_status": "not_used",
+  "not_deepseek_conclusion": false,
+  "blocked_reason": "none",
+  "token_usage_expected": "token_decrement_expected_if_deepseek_real_call_succeeds",
+  "token_usage_observed_or_user_check_required": "token_decrement_expected",
+  "fallback_not_completion": true,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true
+}
+```
+
+## deepseek_readiness_check（DeepSeek 就绪检查）
+
+```json
+{
+  "required": true,
+  "runtime_provider": {
+    "runtime_provider_status": "ready",
+    "runtime_provider_auto_load_enabled": true,
+    "runtime_provider_key_source": "project_env",
+    "runtime_provider_key_source_path": ".env",
+    "runtime_provider_version": "20260515"
+  },
+  "env_file_read": "false",
+  "process_env_key_allowed": "true",
+  "process_env_key_present": "true",
+  "safe_call_mode": "process_env_only",
+  "request_validation_status": "passed",
+  "supply_source": "deepseek_passed",
+  "fallback_status": "not_used",
+  "not_deepseek_conclusion": false,
+  "context_pack_validation": "passed",
+  "deepseek_actual_participation": "deepseek_passed",
+  "blocked_reason": "none",
+  "completion_rule": [
+    "deepseek_passed 才能写 DeepSeek 真实参与。",
+    "fallback_local_only 必须写 not_deepseek_conclusion = true。",
+    "missing_process_env_key 必须写 blocked_missing_process_env_api_key。",
+    "token 未观察到减少时，不得写 DeepSeek 已深度参与。",
+    "不得把 fallback 写成 DeepSeek 稳定供料。"
+  ]
+}
+```
+
+## deepseek_participation_report（DeepSeek 参与报告）
+
+```json
+{
+  "deepseek_call_real": true,
+  "deepseek_actual_participation": "deepseek_passed",
+  "supply_source": "deepseek_passed",
+  "fallback_status": "not_used",
+  "not_deepseek_conclusion": false,
+  "blocked_reason": "none",
+  "token_usage_expectation_check": {
+    "token_usage_expectation": "token_decrement_expected_if_deepseek_real_call_succeeds",
+    "expected_to_decrease": true,
+    "observed_token_usage": "not_available_user_check_required",
+    "token_usage_observed_or_user_check_required": "token_decrement_expected",
+    "cannot_claim_deepseek_deep_participation_if_token_not_decreased": true,
+    "fallback_local_only_token_rule": "fallback_local_only 不应减少 DeepSeek token，也不能写 DeepSeek 已深度参与。"
+  },
+  "codex_original_file_review_required": true,
+  "deepseek_may_write_files": false,
+  "deepseek_may_decide_project_facts": false,
+  "multi_agent_runtime_validation": "not_started"
+}
+```
+
+## token_usage_expectation_check（token 使用预期检查）
+
+```json
+{
+  "token_usage_expectation": "token_decrement_expected_if_deepseek_real_call_succeeds",
+  "expected_to_decrease": true,
+  "observed_token_usage": "not_available_user_check_required",
+  "token_usage_observed_or_user_check_required": "token_decrement_expected",
+  "cannot_claim_deepseek_deep_participation_if_token_not_decreased": true,
+  "fallback_local_only_token_rule": "fallback_local_only 不应减少 DeepSeek token，也不能写 DeepSeek 已深度参与。"
+}
+```
+
+## task（任务）
+
+Use this supply_request task card as the only current task context. Do not infer missing project state from memory.
+{
+  "request_id": "20260602_latest_4_editing_references_post_risk_review",
+  "task_id": "latest_4_editing_references_deep_parse",
+  "mandatory_for_every_task": true,
+  "participation_level": "mandatory_by_default",
+  "pre_supply_required": false,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_decrement_expected_if_deepseek_real_call_succeeds",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "Post-risk review for generated latest 4 editing reference analysis reports.",
+  "current_step": "after writing analysis reports before completion claim",
+  "known_context": [
+    "Reports have been generated under the bounded analysis directory",
+    "No formal mechanism file should be changed",
+    "content_validation must remain not_applicable and send_ready false"
+  ],
+  "missing_context": [
+    "DeepSeek may return blocked_invalid_context_pack; do not treat fallback/block as passed"
+  ],
+  "decision_needed": "Check status-promotion, forbidden-change, missed-output and fallback-mislabel risks.",
+  "expected_output": [
+    "status_promotion_risk",
+    "forbidden_change_risk",
+    "missed_sync_files",
+    "fallback_mislabel_risk",
+    "remaining_work"
+  ],
+  "codex_next_input": "",
+  "return_to_codex": {
+    "output_dir": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/deepseek_post_risk_review",
+    "status_field": "deepseek_post_risk_review"
+  },
+  "stop_condition": "",
+  "blocked_if": [
+    "content_validation promoted",
+    "send_ready promoted",
+    "formal mechanism files changed",
+    "source videos modified",
+    "required report missing",
+    "fallback mislabeled as DeepSeek conclusion"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files or edit repository files",
+    "DeepSeek must not decide project facts or promote project status",
+    "fallback_local_only is not a DeepSeek conclusion",
+    "Do not claim multi-agent runtime is stable or passed"
+  ],
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "post_risk_review"
+    ]
+  },
+  "file_scope": {
+    "candidate_files": [
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/route_and_status_boundary.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_to_execution_contract.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_video_inventory.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_role_classification.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_01_timeline_full_parse.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_02_timeline_full_parse.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_03_timeline_full_parse.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_04_timeline_full_parse.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/split_screen_system_map.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/keyword_subtitle_icon_map.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/editing_action_taxonomy.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/rhythm_transition_profile.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_editing_mechanism_draft.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/quantitative_quality_standards_draft.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/migration_notes_for_new_fourth_episode.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/analysis_manifest.json"
+    ],
+    "must_prefetch_files": [
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/analysis_manifest.json",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/route_and_status_boundary.md"
+    ],
+    "optional_prefetch_files": [
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/deepseek_pre_supply/latest_supply_pack.md"
+    ],
+    "forbidden_files": [
+      ".env",
+      ".env.local",
+      ".git/",
+      "GPT数据源/",
+      "codex_source/",
+      "dist/latest_review_pack/"
+    ],
+    "secret_files_forbidden": true
+  },
+  "content_loading_policy": {
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 18,
+    "max_chars_per_file": 4000,
+    "max_total_chars": 50000,
+    "truncate_policy": "front_and_status_sections",
+    "redaction_policy": "no_secret_files_no_env_values"
+  },
+  "output_required": [
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "token_usage_expectation_check"
+  ]
+}
+
+## files_considered（已考虑文件）
+
+```json
+[
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/analysis_manifest.json",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/route_and_status_boundary.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_to_execution_contract.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_video_inventory.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_role_classification.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_01_timeline_full_parse.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_02_timeline_full_parse.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_03_timeline_full_parse.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_04_timeline_full_parse.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/split_screen_system_map.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/keyword_subtitle_icon_map.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/editing_action_taxonomy.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/rhythm_transition_profile.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_editing_mechanism_draft.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/quantitative_quality_standards_draft.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/migration_notes_for_new_fourth_episode.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/deepseek_pre_supply/latest_supply_pack.md"
+]
+```
+
+## files_recommended（建议读取文件）
+
+```json
+[
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/analysis_manifest.json",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/route_and_status_boundary.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_to_execution_contract.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_video_inventory.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_role_classification.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_01_timeline_full_parse.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_02_timeline_full_parse.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_03_timeline_full_parse.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_04_timeline_full_parse.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/split_screen_system_map.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/keyword_subtitle_icon_map.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/editing_action_taxonomy.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/rhythm_transition_profile.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_editing_mechanism_draft.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/quantitative_quality_standards_draft.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/migration_notes_for_new_fourth_episode.md",
+  "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/deepseek_pre_supply/latest_supply_pack.md"
+]
+```
+
+## risks（风险）
+
+```json
+[
+  "No status promotion detected: content_validation remains not_applicable, send_ready false, no promotion to formal_operation_active or completed.",
+  "No forbidden changes detected: all outputs are within the bounded analysis directory; formal mechanism files are untouched.",
+  "No missed sync files: all 16 candidate files appear present in the directory; no required report is missing.",
+  "No fallback mislabel: the manifest explicitly shows formal_mechanism_updated=false and no fallback usage; the full decode failure is correctly labelled as reference-only warning, not misrepresented as DeepSeek conclusion.",
+  "Remaining work: analysis reports are complete pending user review; no additional DeepSeek action required.",
+  "content_validation promoted",
+  "send_ready promoted",
+  "formal mechanism files changed",
+  "source videos modified",
+  "required report missing",
+  "fallback mislabeled as DeepSeek conclusion"
+]
+```
+
+## missing_files（缺失文件）
+
+```json
+[]
+```
+
+## deepseek_depth_validation（DeepSeek 深度供料校验）
+
+```json
+{
+  "enabled": true,
+  "modes": [
+    "post_risk_review"
+  ],
+  "missing_modes": [
+    "mid_task_incremental_supply",
+    "deep_file_prefetch"
+  ],
+  "relevant_file_bundle_exists": true,
+  "exact_snippet_pack_exists": true,
+  "deepseek_actual_required": false,
+  "supply_source": "deepseek_passed",
+  "status": "failed_insufficient_depth",
+  "not_long_term_runtime_validation": true
+}
+```
+
+## relevant_file_bundle（相关文件内容包）
+
+```json
+[
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/analysis_manifest.json",
+    "file_role": "current_log_or_request_source",
+    "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+    "content_excerpt": "\"deepseek_pre_supply_request\": \"codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/deepseek_pre_supply_request.json\",\n    \"deepseek_pre_supply_pack\": \"codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/deepseek_pre_supply/latest_supply_pack.md\",\n  \"content_validation\": \"not_applicable\",\n  \"send_ready\": false,\n    \"deepseek\": \"blocked_invalid_context_pack_not_deepseek_conclusion\"",
+    "excerpt_range_or_marker": "lines:120-124",
+    "confidence": "high"
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/route_and_status_boundary.md",
+    "file_role": "current_log_or_request_source",
+    "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+    "content_excerpt": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`\n  parallel_reason: one integrator owns one shared report directory and one manifest; no Codex subagent was explicitly requested by user\n  write_owner: Codex integrator only\n  integration_owner: Codex\n  - content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked\n  - content_validation = passed\n  - send_ready = true\ninput_signal: user_provided_reference_videos + attached Codex execution order\n| `GPT数据源/01_项目系统提示词.md` | `read_ok` | reference, DeepSeek and video execution rules |\n| `GPT数据源/11_项目状态动作总控器_机制推理层.md` | `read_ok` | router and DeepSeek gate |\n| `codex_source/17_deepseek_supply_controller_protocol.md` | `read_ok` | DeepSeek safe runner boundary |\n| `codex_source/18_deepseek_supply_request_schema.md` | `read_ok` | supply request schema |\n| `codex_source/19_project_state_action_router.md` | `read_ok` | Codex-side router |\n| `codex_source/20_reference_to_execution_contract.md` | `read_ok` | Codex-side reference contract |",
+    "excerpt_range_or_marker": "lines:6-21",
+    "confidence": "high"
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_to_execution_contract.md",
+    "file_role": "current_log_or_request_source",
+    "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+    "content_excerpt": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "excerpt_range_or_marker": "lines:6-8",
+    "confidence": "high"
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_video_inventory.md",
+    "file_role": "current_log_or_request_source",
+    "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+    "content_excerpt": "# 参考视频清单 Reference Video Inventory\n\n- `reference_dir`: `/Users/fan/Documents/视频工厂/素材录制/剪辑参考/最新剪辑参考`\n- `reference_count`: `4`\n- `probe_tool`: `ffprobe + video-metadata-probe + OpenCV sampling`\n- `full_decode_note`: `video-metadata-probe full decode reported validation_status=failed for all four; OpenCV frame sampling and ffprobe metadata succeeded. Treat as reference-analysis media, not clean delivery media.`\n\n## reference_01｜ScreenRecording_06-01-2026 23-49-21_1.MP4\n\n| field | value |\n| --- | --- |\n| `absolute_path` | `/Users/fan/Documents/视频工厂/素材录制/剪辑参考/最新剪辑参考/ScreenRecording_06-01-2026 23-49-21_1.MP4` |\n| `duration` | `345.826712` |\n| `resolution` | `1180x2556` |\n| `fps` | `60.091` |\n| `video_codec` | `hevc` |\n| `audio_codec` | `aac` |\n| `has_audio` | `True` |\n| `audio_channels` | `2` |\n| `file_size` | `602909645` |\n| `probe_status` | `passed` |\n| `opencv_opened` | `True` |\n| `sample_frame_count_5s` | `71` |\n| `scene_candidate_count` | `24` |\n| `possible_dense_text_sample_ratio` | `0.0` |\n| `possible_split_screen_sample_ratio` | `0.915` |\n| `media_artifact_dir` | `dist/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_01` |\n\n## reference_02｜ScreenRecording_06-02-2026 00-03-59_1.MP4\n\n| field | value |\n| --- | --- |\n| `absolute_path` | `/Users/fan/Documents/视频工厂/素材录制/剪辑参考/最新剪辑参考/ScreenRecording_06-02-2026 00-03-59_1.MP4` |\n| `duration` | `200.392404` |\n| `resolution` | `1180x2556` |\n| `fps` | `60.098` |\n| `video_codec` | `hevc` |\n| `audio_codec` | `aac` |\n| `has_audio` | `True` |\n| `audio_channels` | `2` |\n| `file_size` | `285137536` |\n| `probe_status` | `passed` |\n| `opencv_opened` | `True` |\n| `sample_frame_count_5s` | `42` |\n| `scene_candidate_count` | `24` |\n| `possible_dense_text_sample_ratio` | `0.0` |\n| `possible_split_screen_sample_ratio` | `0.333` |\n| `media_artifact_dir` | `dist/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_02` |\n\n## reference_03｜ScreenRecording_06-02-2026 00-07-32_1.mov\n\n| field | value |\n| --- | --- |\n| `absolute_path` | `/Users/fan/Documents/视频工厂/素材录制/剪辑参考/最新剪辑参考/ScreenRecording_06-02-2026 00-07-32_1.mov` |\n| `duration` | `363.745034` |\n| `resolution` | `1180x2556` |\n| `fps` | `60.094` |\n| `video_codec` | `hevc` |\n| `audio_codec` | `aac` |\n| `has_audio` | `True` |\n| `audio_channels` | `2` |\n| `file_size` | `324891990` |\n| `probe_status` | `passed` |\n| `opencv_opened` | `True` |\n| `sample_frame_count_5s` | `74` |\n| `scene_candidate_count` | `24` |\n| `possible_dense_text_sample_ratio` | `0.0` |\n| `possible_split_screen_sample_ratio` | `0.946` |\n| `media_artifact_dir` | `dist/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_03` |\n\n## reference_04｜ScreenRecording_06-02-2026 00-16-59_1.mov\n\n| field | value |\n| --- | --- |\n| `absolute_path` | `/Users/fan/Documents/视频工厂/素材录制/剪辑参考/最新剪辑参考/ScreenRecording_06-02-2026 00-16-59_1.mov` |\n| `duration` | `294.198344` |\n| `resolution` | `1180x2556` |\n| `fps` | `60.096` |\n| `video_codec` | `hevc` |\n| `audio_codec` | `aac` |\n| `has_audio` | `True` |\n| `audio_channels` | `2` |\n| `file_size` | `393875813` |\n| `probe_status` | `passed` |\n| `opencv_opened` | `True` |\n| `sample_frame_count_5s` | `60` |\n| `scene_candidate_count` | `24` |\n| `possible_dense_text_sample_ratio` | `0.0` |\n| `possible_split_screen_sample_ratio` | `0.85` |\n| `media_artifact_dir` | `dist/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_04` |",
+    "excerpt_range_or_marker": "lines:1-90",
+    "confidence": "high"
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_role_classification.md",
+    "file_role": "current_log_or_request_source",
+    "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+    "content_excerpt": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "excerpt_range_or_marker": "lines:6-8",
+    "confidence": "high"
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_01_timeline_full_parse.md",
+    "file_role": "current_log_or_request_source",
+    "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+    "content_excerpt": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "excerpt_range_or_marker": "lines:6-8",
+    "confidence": "high"
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_02_timeline_full_parse.md",
+    "file_role": "current_log_or_request_source",
+    "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+    "content_excerpt": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "excerpt_range_or_marker": "lines:6-8",
+    "confidence": "high"
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_03_timeline_full_parse.md",
+    "file_role": "current_log_or_request_source",
+    "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+    "content_excerpt": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "excerpt_range_or_marker": "lines:6-8",
+    "confidence": "high"
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_04_timeline_full_parse.md",
+    "file_role": "current_log_or_request_source",
+    "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+    "content_excerpt": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "excerpt_range_or_marker": "lines:6-8",
+    "confidence": "high"
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/split_screen_system_map.md",
+    "file_role": "current_log_or_request_source",
+    "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+    "content_excerpt": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "excerpt_range_or_marker": "lines:6-8",
+    "confidence": "high"
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/keyword_subtitle_icon_map.md",
+    "file_role": "current_log_or_request_source",
+    "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+    "content_excerpt": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "excerpt_range_or_marker": "lines:6-8",
+    "confidence": "high"
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/editing_action_taxonomy.md",
+    "file_role": "current_log_or_request_source",
+    "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+    "content_excerpt": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "excerpt_range_or_marker": "lines:6-8",
+    "confidence": "high"
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/rhythm_transition_profile.md",
+    "file_role": "current_log_or_request_source",
+    "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+    "content_excerpt": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "excerpt_range_or_marker": "lines:6-8",
+    "confidence": "high"
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_editing_mechanism_draft.md",
+    "file_role": "current_log_or_request_source",
+    "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+    "content_excerpt": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "excerpt_range_or_marker": "lines:6-8",
+    "confidence": "high"
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/quantitative_quality_standards_draft.md",
+    "file_role": "current_log_or_request_source",
+    "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+    "content_excerpt": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "excerpt_range_or_marker": "lines:6-8",
+    "confidence": "high"
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/migration_notes_for_new_fourth_episode.md",
+    "file_role": "current_log_or_request_source",
+    "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+    "content_excerpt": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`\n- 不能把本轮 draft 写成 `content_validation = passed`。",
+    "excerpt_range_or_marker": "lines:6-9",
+    "confidence": "high"
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/deepseek_pre_supply/latest_supply_pack.md",
+    "file_role": "current_log_or_request_source",
+    "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+    "content_excerpt": "# DeepSeek supply controller latest_supply_pack\n- `deepseek_generation_status`: `blocked_invalid_context_pack`\n- `not_deepseek_conclusion`: `true`\n- `deepseek_actual_participation`: `not_attempted_policy_violation`\n  \"request_file\": \"/Users/fan/Documents/视频工厂/codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/deepseek_pre_supply_request.json\",\n  \"requires_real_deepseek_participation\": false,\n    \"content_validation and send_ready must not be promoted\"\n    \"DeepSeek token usage cannot be observed directly by Codex\",\n  \"decision_needed\": \"Flag risks in treating reference mechanics as project rules, and list files Codex must keep read-only.\"\n## deepseek_supply_gate（DeepSeek 供料闸门）\n  \"supply_request_created\": true,\n  \"deepseek_call_required\": true,\n  \"deepseek_call_attempted\": false,\n  \"deepseek_actual_participation\": \"not_attempted_policy_violation\",\n  \"not_deepseek_conclusion\": true,\n  \"token_usage_expected\": \"token_decrement_expected_if_deepseek_real_call_succeeds\",\n  \"deepseek_must_not_be_skipped_by_codex_discretion\": true\n## deepseek_readiness_check（DeepSeek 就绪检查）\n  \"not_deepseek_conclusion\": true,\n  \"deepseek_actual_participation\": \"not_attempted_policy_violation\",\n    \"deepseek_passed 才能写 DeepSeek 真实参与。\",\n    \"fallback_local_only 必须写 not_deepseek_conclusion = true。\",\n    \"token 未观察到减少时，不得写 DeepSeek 已深度参与。\",\n    \"不得把 fallback 写成 DeepSeek 稳定供料。\"\n## deepseek_participation_report（DeepSeek 参与报告）\n  \"deepseek_call_real\": false,\n  \"deepseek_actual_participation\": \"not_attempted_policy_violation\",\n  \"not_deepseek_conclusion\": true,\n  \"token_usage_expectation_check\": {\n    \"token_usage_expectation\": \"token_decrement_expected_if_deepseek_real_call_succeeds\",\n    \"cannot_claim_deepseek_deep_participation_if_token_not_decreased\": true,\n    \"fallback_local_only_token_rule\": \"fallback_local_only 不应减少 DeepSeek token，也不能写 DeepSeek 已深度参与。\"\n  \"deepseek_may_write_files\": false,\n  \"deepseek_may_decide_project_facts\": false,\n## token_usage_expectation_check（token 使用预期检查）\n  \"token_usage_expectation\": \"token_decrement_expected_if_deepseek_real_call_succeeds\",\n  \"cannot_claim_deepseek_deep_participation_if_token_not_decreased\": true,\n  \"fallback_local_only_token_rule\": \"fallback_local_only 不应减少 DeepSeek token，也不能写 DeepSeek 已深度参与。\"\nUse this supply_request task card as the only current task context. Do not infer missing project state from memory.\n  \"token_usage_expectation\": \"token_decrement_expected_if_deepseek_real_call_succeeds\",\n  \"user_explicit_deepseek_required\": false,\n  \"deepseek_must_not_be_skipped_by_codex_discretion\": true,\n    \"content_validation and send_ready must not be promoted\"\n    \"DeepSeek token usage cannot be observed directly by Codex\"\n  \"decision_needed\": \"Flag risks in treating reference mechanics as project rules, and list files Codex must keep read-only.\",\n    \"codex_next_input\",\n    \"token_usage_expectation_check\"\n  \"codex_next_input\": \"\",\n    \"output_dir\": \"codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/deepseek_pre_supply\",\n    \"status_field\": \"deepseek_participation_report\"\n    \"DeepSeek must not write files or edit repository files\",\n    \"DeepSeek must not decide project facts or promote project status\",\n    \"fallback_local_only is not a DeepSeek conclusion\",\n    \"risk_and_conflict_report\",\n    \"missing_or_uncertain_files\",\n    \"codex_next_input\",\n    \"token_usage_expectation_check\"\n## deepseek_depth_validation（DeepSeek 深度供料校验）\n  \"deepseek_actual_required\": false,\n    \"why_relevant\": \"included_by_supply_request_file_scope_or_context_files\",\n    \"content_excerpt\": \"- 需要 GPT Project 上传包地址时，必须先读取 `codex_log/current_local_artifact_paths.md` 或由 Codex 本地审计后给出。\\n  - `Codex（唯一写入执行层 / Integrator）`\\n  - `DeepSeek（每轮默认只读供料层 / Explorer）`\\n- 当前最高机制入口已包含 `Project State Action Router（项目状态动作总控器）`：命中复杂任务、机制修补、文案执行、视频执行、复盘、数据回填、GPT Project 静态包同步或 Codex 执行结果回审时，先读 `GPT数据源/11_项目状态动作总控器_机制推理层.md` 与 `codex_source/19_project_state_action_router.md`，输出 `state_acti\n...[truncated]",
+    "excerpt_range_or_marker": "selected_relevant_lines",
+    "confidence": "high"
+  }
+]
+```
+
+## exact_snippet_pack（关键原文片段包）
+
+```json
+[
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/analysis_manifest.json",
+    "snippet": "\"deepseek_pre_supply_request\": \"codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/deepseek_pre_supply_request.json\",\n    \"deepseek_pre_supply_pack\": \"codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/deepseek_pre_supply/latest_supply_pack.md\",\n  \"content_validation\": \"not_applicable\",\n  \"send_ready\": false,\n    \"deepseek\": \"blocked_invalid_context_pack_not_deepseek_conclusion\"",
+    "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+    "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+    "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/route_and_status_boundary.md",
+    "snippet": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`\n  parallel_reason: one integrator owns one shared report directory and one manifest; no Codex subagent was explicitly requested by user\n  write_owner: Codex integrator only\n  integration_owner: Codex\n  - content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked\n  - content_validation = passed",
+    "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+    "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+    "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_to_execution_contract.md",
+    "snippet": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+    "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+    "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_video_inventory.md",
+    "snippet": "# 参考视频清单 Reference Video Inventory\n\n- `reference_dir`: `/Users/fan/Documents/视频工厂/素材录制/剪辑参考/最新剪辑参考`\n- `reference_count`: `4`\n- `probe_tool`: `ffprobe + video-metadata-probe + OpenCV sampling`\n- `full_decode_note`: `video-metadata-probe full decode reported validation_status=failed for all four; OpenCV frame sampling and ffprobe metadata succeeded. Treat as reference-analysis media, not clean delivery media.`\n\n## reference_01｜ScreenRecording_06-01-2026 23-49-21_1.MP4",
+    "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+    "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+    "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_role_classification.md",
+    "snippet": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+    "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+    "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_01_timeline_full_parse.md",
+    "snippet": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+    "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+    "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_02_timeline_full_parse.md",
+    "snippet": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+    "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+    "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_03_timeline_full_parse.md",
+    "snippet": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+    "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+    "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_04_timeline_full_parse.md",
+    "snippet": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+    "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+    "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/split_screen_system_map.md",
+    "snippet": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+    "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+    "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/keyword_subtitle_icon_map.md",
+    "snippet": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+    "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+    "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/editing_action_taxonomy.md",
+    "snippet": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+    "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+    "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/rhythm_transition_profile.md",
+    "snippet": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+    "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+    "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_editing_mechanism_draft.md",
+    "snippet": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+    "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+    "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/quantitative_quality_standards_draft.md",
+    "snippet": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`",
+    "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+    "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+    "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/migration_notes_for_new_fourth_episode.md",
+    "snippet": "- `content_validation = not_applicable（本轮不做内容验证）`\n- `send_ready = false（不可发送）`\n- `deepseek_actual_participation = not_attempted_policy_violation / blocked_invalid_context_pack`\n- 不能把本轮 draft 写成 `content_validation = passed`。",
+    "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+    "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+    "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+  },
+  {
+    "path": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/deepseek_pre_supply/latest_supply_pack.md",
+    "snippet": "# DeepSeek supply controller latest_supply_pack\n- `deepseek_generation_status`: `blocked_invalid_context_pack`\n- `not_deepseek_conclusion`: `true`\n- `deepseek_actual_participation`: `not_attempted_policy_violation`\n  \"request_file\": \"/Users/fan/Documents/视频工厂/codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/deepseek_pre_supply_request.json\",\n  \"requires_real_deepseek_participation\": false,\n    \"content_validation and send_ready must not be promoted\"\n    \"DeepSeek token usage cannot be observed directly by Codex\",",
+    "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+    "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+    "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+  }
+]
+```
+
+## dependency_map（依赖映射）
+
+```json
+[
+  {
+    "source_file": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/analysis_manifest.json",
+    "depends_on": [],
+    "dependency_type": "readonly_context",
+    "impact": "update_together_if_deep_file_supply_contract_changes"
+  },
+  {
+    "source_file": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/route_and_status_boundary.md",
+    "depends_on": [],
+    "dependency_type": "readonly_context",
+    "impact": "update_together_if_deep_file_supply_contract_changes"
+  },
+  {
+    "source_file": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_to_execution_contract.md",
+    "depends_on": [],
+    "dependency_type": "readonly_context",
+    "impact": "update_together_if_deep_file_supply_contract_changes"
+  },
+  {
+    "source_file": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_video_inventory.md",
+    "depends_on": [],
+    "dependency_type": "readonly_context",
+    "impact": "update_together_if_deep_file_supply_contract_changes"
+  },
+  {
+    "source_file": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_role_classification.md",
+    "depends_on": [],
+    "dependency_type": "readonly_context",
+    "impact": "update_together_if_deep_file_supply_contract_changes"
+  },
+  {
+    "source_file": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_01_timeline_full_parse.md",
+    "depends_on": [],
+    "dependency_type": "readonly_context",
+    "impact": "update_together_if_deep_file_supply_contract_changes"
+  },
+  {
+    "source_file": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_02_timeline_full_parse.md",
+    "depends_on": [],
+    "dependency_type": "readonly_context",
+    "impact": "update_together_if_deep_file_supply_contract_changes"
+  },
+  {
+    "source_file": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_03_timeline_full_parse.md",
+    "depends_on": [],
+    "dependency_type": "readonly_context",
+    "impact": "update_together_if_deep_file_supply_contract_changes"
+  },
+  {
+    "source_file": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_04_timeline_full_parse.md",
+    "depends_on": [],
+    "dependency_type": "readonly_context",
+    "impact": "update_together_if_deep_file_supply_contract_changes"
+  },
+  {
+    "source_file": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/split_screen_system_map.md",
+    "depends_on": [],
+    "dependency_type": "readonly_context",
+    "impact": "update_together_if_deep_file_supply_contract_changes"
+  },
+  {
+    "source_file": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/keyword_subtitle_icon_map.md",
+    "depends_on": [],
+    "dependency_type": "readonly_context",
+    "impact": "update_together_if_deep_file_supply_contract_changes"
+  },
+  {
+    "source_file": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/editing_action_taxonomy.md",
+    "depends_on": [],
+    "dependency_type": "readonly_context",
+    "impact": "update_together_if_deep_file_supply_contract_changes"
+  },
+  {
+    "source_file": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/rhythm_transition_profile.md",
+    "depends_on": [],
+    "dependency_type": "readonly_context",
+    "impact": "update_together_if_deep_file_supply_contract_changes"
+  },
+  {
+    "source_file": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_editing_mechanism_draft.md",
+    "depends_on": [],
+    "dependency_type": "readonly_context",
+    "impact": "update_together_if_deep_file_supply_contract_changes"
+  },
+  {
+    "source_file": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/quantitative_quality_standards_draft.md",
+    "depends_on": [],
+    "dependency_type": "readonly_context",
+    "impact": "update_together_if_deep_file_supply_contract_changes"
+  },
+  {
+    "source_file": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/migration_notes_for_new_fourth_episode.md",
+    "depends_on": [],
+    "dependency_type": "readonly_context",
+    "impact": "update_together_if_deep_file_supply_contract_changes"
+  },
+  {
+    "source_file": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/deepseek_pre_supply/latest_supply_pack.md",
+    "depends_on": [],
+    "dependency_type": "readonly_context",
+    "impact": "update_together_if_deep_file_supply_contract_changes"
+  }
+]
+```
+
+## risk_delta_report（增量风险报告）
+
+```json
+[]
+```
+
+## missing_or_uncertain_files（缺失或不确定文件）
+
+```json
+[
+  {
+    "path_or_query": "DeepSeek may return blocked_invalid_context_pack; do not treat fallback/block as passed",
+    "reason": "request_missing_context",
+    "blocked_if_missing": false
+  }
+]
+```
+
+## editing_decision_pack（剪辑决策包）
+
+```json
+null
+```
+
+## execution_supply_pack（执行供料包）
+
+```json
+null
+```
+
+## post_risk_review（执行后风险复核）
+
+```json
+{
+  "status_promotion_risk": "check_required_no_forbidden_status_promotion",
+  "forbidden_change_risk": "check_required_no_env_media_or_latest_review_pack_change",
+  "missed_sync_files": "check_required_docs_scripts_schema_fixture_logs_package_paths",
+  "fallback_mislabel_risk": "none_observed",
+  "remaining_work": "Codex must run validation, sync logs/package/path index, and report token check boundary."
+}
+```
+
+## codex_next_input（给 Codex 的下一步输入）
+
+```json
+{
+  "read_first": [
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/analysis_manifest.json",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/route_and_status_boundary.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_to_execution_contract.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_video_inventory.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_role_classification.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_01_timeline_full_parse.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_02_timeline_full_parse.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_03_timeline_full_parse.md"
+  ],
+  "use_as": "readonly_supply_pack",
+  "warning": "DeepSeek generated the pack, but Codex must still verify original files.",
+  "post_risk_review_required": true,
+  "status_promotion_risk": "check_required_no_forbidden_status_promotion",
+  "forbidden_change_risk": "check_required_no_env_media_or_latest_review_pack_change",
+  "missed_sync_files": "check_required_docs_scripts_schema_fixture_logs_package_paths",
+  "fallback_mislabel_risk": "none_observed",
+  "remaining_work": "Codex must run validation, sync logs/package/path index, and report token check boundary.",
+  "recommended_child_tasks": [
+    "update_deep_file_supply_contract",
+    "update_controller_schema_fixture",
+    "run_validation_and_truth_check"
+  ],
+  "files_codex_must_review": [],
+  "files_codex_can_trust_from_deepseek_unless_conflict": [
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/analysis_manifest.json",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/route_and_status_boundary.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_to_execution_contract.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_video_inventory.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_role_classification.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_01_timeline_full_parse.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_02_timeline_full_parse.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_03_timeline_full_parse.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_04_timeline_full_parse.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/split_screen_system_map.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/keyword_subtitle_icon_map.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/editing_action_taxonomy.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/rhythm_transition_profile.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_editing_mechanism_draft.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/quantitative_quality_standards_draft.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/migration_notes_for_new_fourth_episode.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/deepseek_pre_supply/latest_supply_pack.md"
+  ],
+  "blocked_conditions": [
+    "deepseek_actual_required_but_not_deepseek_passed",
+    "relevant_file_bundle_missing",
+    "exact_snippet_pack_missing",
+    "validation_failed_files_not_reviewed_by_codex"
+  ]
+}
+```
+
+## not_allowed（禁止事项）
+
+```json
+[
+  "Do not treat fallback_local_only as a DeepSeek conclusion.",
+  "Do not claim DeepSeek is stable production supply.",
+  "Do not claim multi-agent runtime is running.",
+  "Do not let DeepSeek write files or decide project facts.",
+  "Do not read .env, API keys, media files, or dist/latest_review_pack/.",
+  "Do not call Aliyun or other real generation APIs in mechanism-only tests."
+]
+```

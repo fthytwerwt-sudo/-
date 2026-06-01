@@ -1,0 +1,148 @@
+{
+  "request_id": "20260602_latest_4_editing_references_post_risk_review",
+  "created_at": "2026-06-02T01:12:00+08:00",
+  "project_route": "video_factory",
+  "project_stage": "formal_operation_active",
+  "operation_stage": "reference_analysis_only",
+  "task_id": "latest_4_editing_references_deep_parse",
+  "task_type": "reference_analysis_only",
+  "trigger_reason": "mandatory_post_risk_review",
+  "action": "risk_report",
+  "mandatory_for_every_task": true,
+  "participation_level": "mandatory_by_default",
+  "pre_supply_required": false,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_decrement_expected_if_deepseek_real_call_succeeds",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "Post-risk review for generated latest 4 editing reference analysis reports.",
+  "current_step": "after writing analysis reports before completion claim",
+  "known_context": [
+    "Reports have been generated under the bounded analysis directory",
+    "No formal mechanism file should be changed",
+    "content_validation must remain not_applicable and send_ready false"
+  ],
+  "missing_context": [
+    "DeepSeek may return blocked_invalid_context_pack; do not treat fallback/block as passed"
+  ],
+  "decision_needed": "Check status-promotion, forbidden-change, missed-output and fallback-mislabel risks.",
+  "candidate_files": [
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/route_and_status_boundary.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_to_execution_contract.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_video_inventory.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_role_classification.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_01_timeline_full_parse.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_02_timeline_full_parse.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_03_timeline_full_parse.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_04_timeline_full_parse.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/split_screen_system_map.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/keyword_subtitle_icon_map.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/editing_action_taxonomy.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/rhythm_transition_profile.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_editing_mechanism_draft.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/quantitative_quality_standards_draft.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/migration_notes_for_new_fourth_episode.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/analysis_manifest.json"
+  ],
+  "must_read_files": [
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/analysis_manifest.json",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/route_and_status_boundary.md"
+  ],
+  "optional_files": [
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/deepseek_pre_supply/latest_supply_pack.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    ".git/",
+    "GPT数据源/",
+    "codex_source/",
+    "dist/latest_review_pack/",
+    "/Users/fan/Documents/视频工厂/素材录制/剪辑参考/最新剪辑参考"
+  ],
+  "expected_output": [
+    "status_promotion_risk",
+    "forbidden_change_risk",
+    "missed_sync_files",
+    "fallback_mislabel_risk",
+    "remaining_work"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files or edit repository files",
+    "DeepSeek must not decide project facts or promote project status",
+    "fallback_local_only is not a DeepSeek conclusion",
+    "Do not claim multi-agent runtime is stable or passed"
+  ],
+  "blocked_if": [
+    "content_validation promoted",
+    "send_ready promoted",
+    "formal mechanism files changed",
+    "source videos modified",
+    "required report missing",
+    "fallback mislabeled as DeepSeek conclusion"
+  ],
+  "return_to_codex": {
+    "output_dir": "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/deepseek_post_risk_review",
+    "status_field": "deepseek_post_risk_review"
+  },
+  "content_loading_policy": {
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 18,
+    "max_chars_per_file": 4000,
+    "max_total_chars": 50000,
+    "truncate_policy": "front_and_status_sections",
+    "redaction_policy": "no_secret_files_no_env_values"
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "post_risk_review"
+    ]
+  },
+  "file_scope": {
+    "candidate_files": [
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/route_and_status_boundary.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_to_execution_contract.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_video_inventory.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_role_classification.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_01_timeline_full_parse.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_02_timeline_full_parse.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_03_timeline_full_parse.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_04_timeline_full_parse.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/split_screen_system_map.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/keyword_subtitle_icon_map.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/editing_action_taxonomy.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/rhythm_transition_profile.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_editing_mechanism_draft.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/quantitative_quality_standards_draft.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/migration_notes_for_new_fourth_episode.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/analysis_manifest.json"
+    ],
+    "must_prefetch_files": [
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/analysis_manifest.json",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/route_and_status_boundary.md"
+    ],
+    "optional_prefetch_files": [
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/deepseek_pre_supply/latest_supply_pack.md"
+    ],
+    "forbidden_files": [
+      ".env",
+      ".env.local",
+      ".git/",
+      "GPT数据源/",
+      "codex_source/",
+      "dist/latest_review_pack/"
+    ],
+    "secret_files_forbidden": true
+  },
+  "output_required": [
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "token_usage_expectation_check"
+  ]
+}
