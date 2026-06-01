@@ -1,5 +1,17 @@
 # Latest
 
+## 20260601｜对标文案原文级 reference 改为 Google Drive 路线
+
+- `task_result.status = mechanism_route_corrected_not_video_delivery`
+- `target_delivery = google_drive_raw_reference_route + entry_sync`
+- `已确认` 5 篇对标账号文案原文级 reference 默认保存在 Google Drive；GitHub 仓库不建立本地 raw 原文文件体系，不保存第三方原文全文，不建立复杂本地 reference manifest。
+- `已确认` 已更新 `GPT数据源/15_对标文案学习与说人话判断标准_copy_reference_learning_and_plain_language_standard.md`：新增 `原文级 reference 读取规则`，并将 `/Users/fan/Desktop/文案.rtf` 降级为 `historical_import_source_path（历史导入来源）`，不再作为后续默认读取路径。
+- `已确认` 已更新 `GPT数据源/03_总索引与阅读顺序.md`：命中 `对标原文 / 原文级 reference / 强贴对标语气` 时，先读 15 号标准；如需全文参考，由 ChatGPT / GPT Project 从 Google Drive 读取原文后桥接进当轮任务，不从 GitHub 读取第三方全文。
+- `已确认` 仓库只保存学习卡、判断标准、迁移边界和读取规则；Codex 默认不知道 Google Drive 原文，如需使用，必须由 ChatGPT 桥接进执行单或由用户当轮提供可读内容 / 链接。
+- `未推进` 本轮未生成视频、未生成下一条正式视频执行 prompt，未推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`。
+- `DeepSeek`：已创建前置供料任务卡与执行后风险复核任务卡并运行 safe runner，前置供料与 post-risk review 均为 `deepseek_actual_participation = deepseek_passed`，`fallback_status = not_used`，`api_key_printed = false`，`api_key_written = false`。
+- `日志证据`：`codex_log/supply_requests/20260601_Google_Drive_原文级reference路线_pre_supply_request.json`、`codex_log/deepseek_supply/20260601_google_drive_raw_reference_route_pre_supply/latest_supply_pack.md`、`codex_log/supply_requests/20260601_Google_Drive_原文级reference路线_post_risk_review_request.json`、`codex_log/deepseek_supply/20260601_google_drive_raw_reference_route_post_risk_review/latest_supply_pack.md`
+
 ## 20260601｜对标文案学习与说人话判断标准落库
 
 - `task_result.status = mechanism_connected_not_video_delivery`

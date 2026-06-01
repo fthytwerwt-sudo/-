@@ -1,0 +1,149 @@
+{
+  "request_id": "20260601_google_drive_raw_reference_route_post_risk_review_request",
+  "created_at": "2026-06-01T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "google_drive_raw_reference_route_for_copy_reference_standard",
+  "task_type": "project_file_change + mechanism_or_route_fix + copywriting_reference_governance",
+  "project_stage": "formal_operation_active",
+  "operation_stage": "mechanism_repair_needed",
+  "trigger_reason": "mandatory_post_risk_review",
+  "action": "risk_report",
+  "mandatory_for_every_task": true,
+  "participation_level": "readonly_post_risk_review",
+  "pre_supply_required": false,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "复核本轮 Google Drive 原文级 reference 路线修正是否仍存在本地 raw / manifest 残留、第三方全文入库、状态晋级、入口遗漏或写入范围扩大。",
+  "current_step": "post_write_risk_review",
+  "known_context": [
+    "15 号文件已新增原文级 reference 读取规则。",
+    "15 号文件已将 /Users/fan/Desktop/文案.rtf 降级为 historical_import_source_path。",
+    "03 总索引已补充原文级 reference 路线：先读 15 号标准，再由 ChatGPT / GPT Project 读取 Google Drive 原文。",
+    "latest 已记录本轮路线修正。",
+    "本轮未创建本地 raw reference 文件或 reference manifest。"
+  ],
+  "missing_context": [
+    "Google Drive concrete URL or file id is not provided in this task.",
+    "DeepSeek must not read raw external /Users/fan/Desktop/文案.rtf during post review."
+  ],
+  "candidate_files": [
+    "codex_log/latest.md",
+    "GPT数据源/03_总索引与阅读顺序.md",
+    "GPT数据源/15_对标文案学习与说人话判断标准_copy_reference_learning_and_plain_language_standard.md"
+  ],
+  "must_read_files": [
+    "codex_log/latest.md",
+    "GPT数据源/03_总索引与阅读顺序.md",
+    "GPT数据源/15_对标文案学习与说人话判断标准_copy_reference_learning_and_plain_language_standard.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    "dist/latest_review_pack",
+    "public/",
+    "GPT数据源/reference_manifests/",
+    "GPT数据源/raw_reference/",
+    "GPT数据源/本地参考原文_local_reference/",
+    "/Users/fan/Desktop/文案.rtf"
+  ],
+  "expected_output": [
+    "risk_and_conflict_report",
+    "raw_reference_route_check",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "status_promotion_risk_check"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files.",
+    "DeepSeek must not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is stable or completed.",
+    "Do not copy the 5 external reference scripts into repo as raw full text.",
+    "Do not create local raw reference files.",
+    "Do not create a local reference manifest system.",
+    "Do not generate a new formal video execution prompt.",
+    "Do not modify media outputs, TTS scripts, editing scripts, API config, dist/latest_review_pack, content_validation, send_ready, publish status, voice_validation, final_voice_validated, visual_master_locked, or current_data_goal_anchor ready status."
+  ],
+  "blocked_if": [
+    "third-party full text is detected in changed files",
+    "local raw reference or reference manifest is created",
+    "GPT数据源/15_对标文案学习与说人话判断标准_copy_reference_learning_and_plain_language_standard.md no longer preserves existing learning cards",
+    "status fields are promoted",
+    "write scope expands beyond allowed files"
+  ],
+  "return_to_codex": {
+    "read_status_required": true,
+    "impact_check_required": true,
+    "write_scope": [
+      "GPT数据源/15_对标文案学习与说人话判断标准_copy_reference_learning_and_plain_language_standard.md",
+      "GPT数据源/03_总索引与阅读顺序.md",
+      "codex_log/latest.md",
+      "codex_log/supply_requests/20260601_Google_Drive_原文级reference路线_pre_supply_request.json",
+      "codex_log/supply_requests/20260601_Google_Drive_原文级reference路线_post_risk_review_request.json"
+    ],
+    "output_dir": "codex_log/deepseek_supply/20260601_google_drive_raw_reference_route_post_risk_review",
+    "verification_required": [
+      "keyword_check",
+      "path_reference_check",
+      "no_raw_full_copy_check",
+      "no_local_raw_reference_files_check",
+      "no_forbidden_status_promotion_check",
+      "git_diff_check",
+      "secret_scan"
+    ]
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "deep_file_prefetch",
+      "mid_task_incremental_supply",
+      "post_risk_review"
+    ]
+  },
+  "file_scope": {
+    "candidate_files": [
+      "codex_log/latest.md",
+      "GPT数据源/03_总索引与阅读顺序.md",
+      "GPT数据源/15_对标文案学习与说人话判断标准_copy_reference_learning_and_plain_language_standard.md"
+    ],
+    "must_prefetch_files": [
+      "codex_log/latest.md",
+      "GPT数据源/03_总索引与阅读顺序.md",
+      "GPT数据源/15_对标文案学习与说人话判断标准_copy_reference_learning_and_plain_language_standard.md"
+    ],
+    "forbidden_files": [
+      ".env",
+      ".env.local",
+      "dist/latest_review_pack",
+      "public/",
+      "GPT数据源/reference_manifests/",
+      "GPT数据源/raw_reference/",
+      "GPT数据源/本地参考原文_local_reference/",
+      "/Users/fan/Desktop/文案.rtf"
+    ],
+    "secret_files_forbidden": true
+  },
+  "content_loading_policy": {
+    "read_only": true,
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 3,
+    "max_chars_per_file": 2200,
+    "max_total_chars": 10000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "do_not_read_secret_files": true,
+    "do_not_read_external_raw_reference_file": true,
+    "do_not_modify_files": true
+  },
+  "output_required": [
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "token_usage_expectation_check"
+  ]
+}

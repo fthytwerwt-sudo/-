@@ -58,10 +58,41 @@
 
 - `source_type = external_reference_copy（外部对标文案）`
 - `source_count = 5`
-- `source_readonly_path = /Users/fan/Desktop/文案.rtf`
+- `historical_import_source_path = /Users/fan/Desktop/文案.rtf（历史导入来源，仅说明本文件最初从哪里提取学习卡；不作为后续默认读取路径）`
+- `raw_reference_default_source = Google Drive（原文级 reference 默认来源）`
 - `repo_storage_policy = no_raw_full_copy（不在仓库保存外部文案全文）`
 
 本文件只记录每篇文案的结构、功能、节奏、学习点和不可照抄边界。必要时可用极短表达作为机制示例，但不得大段搬运外部文案。
+
+### 2.1A 原文级 reference 读取规则
+
+`已确认` 5 篇对标账号文案的原文级 reference 默认保存在 Google Drive，不在 GitHub 仓库建立本地 raw 原文文件体系，也不建立本地 reference manifest 体系。
+
+GitHub 仓库只保存：
+
+- 结构化学习卡。
+- 说人话、画面感、重点分配和节奏判断标准。
+- 迁移到《视频工厂》的边界。
+- 原文级 reference 的读取规则。
+
+后续需要原文级参考时，默认路线是：
+
+```text
+ChatGPT / GPT Project
+-> 读取 Google Drive 中的原文级 reference
+-> 将必要的摘录、判断或执行约束桥接进当轮任务
+-> Codex 只按执行单和仓库规则落地，不凭本地摘要硬猜原文
+```
+
+硬规则：
+
+- 原文全文不进入 GitHub。
+- 不创建 `raw_reference`、`本地参考原文_local_reference` 或同类本地 raw 目录。
+- 不创建复杂本地 `reference_manifest`；如未来确需指针，只能是极简 Google Drive 指针规则，且不得包含第三方全文。
+- ChatGPT 需要原文级参考时，读取 Google Drive 原文。
+- 无法读取 Google Drive 时，必须要求用户提供原文、链接或当轮摘录；不得凭本文件学习卡硬猜原文细节。
+- Codex 默认不知道 Google Drive 原文；如 Codex 需要使用原文级 reference，必须由 ChatGPT 桥接到执行单，或由用户当轮提供可读内容 / 链接。
+- `/Users/fan/Desktop/文案.rtf` 只作为本文件历史导入来源记录，不再作为后续默认 reference 读取路径。
 
 ### 2.2 五篇主题概述
 
