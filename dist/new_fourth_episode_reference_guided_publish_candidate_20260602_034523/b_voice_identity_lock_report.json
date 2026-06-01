@@ -1,0 +1,81 @@
+{
+  "status": "passed",
+  "user_voice_selection_confirmation": {
+    "selected_voice_id": "oldBMinimax20260528010200",
+    "selected_sample_version": "V2_prosody_optimized",
+    "selected_sample_path": "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V2_prosody_optimized.mp3",
+    "selected_sample_source": "刚刚 Codex 生成的 V2 试听样本",
+    "user_confirmed": true,
+    "future_changes_scope": "micro_tuning_only_same_voice_id"
+  },
+  "b_voice_identity_lock": {
+    "status": "user_confirmed",
+    "b_voice_identity_lock_status": "user_confirmed",
+    "old_b_to_minimax_voice_lock_status": "user_confirmed",
+    "expected_b_minimax_voice_id": "oldBMinimax20260528010200",
+    "generated_minimax_voice_id": "oldBMinimax20260528010200",
+    "selected_sample_version": "V2_prosody_optimized",
+    "selected_sample_path": "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V2_prosody_optimized.mp3",
+    "selected_prosody_version": "V2_prosody_optimized",
+    "selected_sample_source": "codex_generated_old_b_to_minimax_bailian_v2_sample",
+    "target_provider": "minimax",
+    "target_model": "MiniMax/speech-2.8-hd",
+    "auth_route": "aliyun_bailian_proxy_to_minimax",
+    "old_b_reference_voice_masked_id": "qwen-t...ac19",
+    "old_qwen_role": "reference_anchor_only",
+    "old_qwen_formal_route_allowed": false,
+    "actual_gender_direction": "male_or_male_leaning",
+    "required_gender_direction": "male_or_male_leaning",
+    "locked_voice_setting": {
+      "voice_id": "oldBMinimax20260528010200",
+      "speed": 1.02,
+      "pitch": 0,
+      "emotion": "neutral",
+      "vol": 1
+    },
+    "actual_voice_setting": {
+      "voice_id": "oldBMinimax20260528010200",
+      "speed": 1.02,
+      "pitch": 0,
+      "emotion": "neutral",
+      "vol": 1
+    },
+    "timbre_similarity_required": true,
+    "timbre_change_allowed": false,
+    "system_voice_substitution_allowed": false,
+    "prosody_micro_tuning_allowed": true,
+    "emotion_micro_tuning_allowed": true,
+    "speed_micro_tuning_allowed": true,
+    "prosody_optimization_allowed": true,
+    "emotion_optimization_allowed": true,
+    "human_voice_review_required": true,
+    "human_voice_review_status": "user_confirmed",
+    "requires_audio_url": false,
+    "requires_file_id": false,
+    "current_audio_url_available": true,
+    "reference_audio_upload_authorized": true
+  },
+  "selected_sample_validation": {
+    "passed": true,
+    "ffprobe": {
+      "passed": true,
+      "duration_seconds": 16.236,
+      "codec_name": "mp3",
+      "sample_rate": 32000,
+      "channels": 1,
+      "bit_rate": "128845",
+      "file_size_bytes": 261492
+    },
+    "decode": {
+      "passed": true,
+      "stderr_tail": ""
+    },
+    "non_silent_check": {
+      "passed": true,
+      "mean_volume_db": "-23.0"
+    },
+    "non_silent": true
+  },
+  "previous_migration_report": "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/old_b_to_minimax_bailian_report.json",
+  "migration_report_voice_id": "oldBMinimax20260528010200"
+}

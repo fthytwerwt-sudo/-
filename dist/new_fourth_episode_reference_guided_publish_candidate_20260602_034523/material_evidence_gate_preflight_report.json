@@ -1,0 +1,21 @@
+{
+  "schema": "material_evidence_gate_preflight.v1",
+  "gate_name": "material_evidence_gate_preflight",
+  "status": "passed",
+  "check_depth": "implemented_no_render",
+  "blocked_reasons": [],
+  "warnings": [],
+  "checked_inputs": {
+    "material_detail_report": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/material_detail_report.md",
+    "script_to_timeline_map": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/script_to_timeline_map.json",
+    "content_route_card": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/content_route_card_v2.json"
+  },
+  "auto_edit_allowed": true,
+  "total_line_groups": 245,
+  "high_risk_line_groups": [],
+  "output_files": [
+    "material_evidence_contract.json",
+    "line_group_evidence_gate_report.json",
+    "auto_storyboard_preflight_report.json"
+  ]
+}

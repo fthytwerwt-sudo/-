@@ -8,6 +8,12 @@
 
 ## 对应对象
 
+- 20260602 新第四期新增完整参考引导候选片：`dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/full.mp4`
+- 20260602 新第四期 review pack：`dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523`
+- 20260602 新第四期状态：`publish_candidate_ready_for_human_review`
+- 20260602 新第四期边界：`content_validation = pending_user_chatgpt_review`，`send_ready = false`，`voice_validation = pending_user_chatgpt_review`，`visual_master_locked = false`
+- 20260602 新第四期不替换 legacy v3.1 / `dist/latest_review_pack/` 当前复审对象，不覆盖当前运营数据目标。
+
 - 当前最新复审对象：`dist/latest_review_pack/`
 - 当前 round 指向：`20260430_AI做PPT踩坑_成品候选_v31_visual_route_fix`
 - 当前视频基线：`v3.1`

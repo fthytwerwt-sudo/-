@@ -1,0 +1,19 @@
+{
+  "schema": "locked_copy_diff_preflight.v1",
+  "gate_name": "locked_copy_diff_preflight",
+  "status": "passed",
+  "check_depth": "structural_check_only",
+  "blocked_reasons": [],
+  "warnings": [
+    "Allowed punctuation, line breaks, subtitle segmentation, and TTS pause marker changes are normalized before comparison."
+  ],
+  "checked_input": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/locked_copy_contract.json",
+  "compare": {
+    "locked_title_present": true,
+    "locked_opening_line_present": true,
+    "locked_final_script_present": true,
+    "actual_subtitle_text_present": true,
+    "actual_tts_text_present": true,
+    "actual_card_text_present": true
+  }
+}

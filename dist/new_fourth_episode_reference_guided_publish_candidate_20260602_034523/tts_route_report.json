@@ -1,0 +1,178 @@
+{
+  "schema": "publish_candidate_voice_gate.v1",
+  "gate_name": "publish_candidate_voice_gate",
+  "status": "passed",
+  "check_depth": "structural_check_only",
+  "blocked_reasons": [],
+  "warnings": [
+    "B 方案仅保留为 voice_feel_reference；正片候选必须使用 MiniMax speech-2.8-hd 或 MiniMax/speech-2.8-hd。",
+    "本 gate 只检查 TTS 路线与音频存在性字段；真实听感仍需要用户 / ChatGPT 人工复审。"
+  ],
+  "checked_input": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/tts_prosody_anchor_map.json",
+  "required_provider": "minimax",
+  "required_model": [
+    "MiniMax/speech-2.8-hd",
+    "speech-2.8-hd"
+  ],
+  "authorization_policy": {
+    "per_video_user_authorization_required": false,
+    "meaning": "MiniMax route 在本地 runtime / 百炼代理 / 官方 API 中配置可用后，后续正片候选默认直接调用。",
+    "not_meaning": "不代表可以打印、提交、绕过或伪造 API key / token / secret。"
+  },
+  "actual_tts_provider": "minimax",
+  "actual_tts_model": "MiniMax/speech-2.8-hd",
+  "selected_route": "aliyun_bailian_proxy_to_minimax",
+  "is_minimax_speech_2_8_hd": true,
+  "minimax_authorization_source_masked": "authorized_runtime_config:formal_api_demo.local.toml",
+  "api_key_printed": false,
+  "api_key_written": false,
+  "audio_present": true,
+  "non_silent": true,
+  "fallback_tts_used": false,
+  "fallback_reason": "",
+  "macos_say_used": false,
+  "local_low_quality_tts_used": false,
+  "tts_route_report_present": true,
+  "b_voice_scheme_role": {
+    "status": "old_b_to_minimax_voice_user_confirmed",
+    "meaning": "旧阿里 / Qwen B 只作为 reference anchor；正式 B 方案声音已迁移并锁定为用户确认的 MiniMax 声音身份",
+    "not_allowed": "不得恢复旧 Qwen 为正式默认路线，不得用 MiniMax 系统 voice_id、voice_feel_tags 或男声候选冒充旧 B",
+    "next_route": "old_b_to_minimax_via_aliyun_bailian",
+    "confirmed_voice_id": "oldBMinimax20260528010200",
+    "confirmed_sample_version": "V2_prosody_optimized",
+    "confirmed_sample_path": "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V2_prosody_optimized.mp3"
+  },
+  "b_voice_feel_reflected": true,
+  "voice_feel_tags": [
+    "b_pacing_feel",
+    "game_guide_feeling",
+    "light_companion",
+    "low_pressure",
+    "natural_spoken_chinese",
+    "not_broadcast",
+    "not_childish_cute_voice",
+    "not_customer_service",
+    "not_sales",
+    "subtle_pause_joke_rhythm"
+  ],
+  "missing_b_voice_feel_tags": [],
+  "old_aliyun_qwen_b_voice_route": {
+    "status": "reference_anchor_only_for_minimax_migration",
+    "role": "reference_anchor_only",
+    "provider": "aliyun_bailian",
+    "api_route_family": "aliyun_qwen_realtime_websocket_voice_clone",
+    "request_method": "WEBSOCKET",
+    "model": "qwen3-tts-vc-realtime-2026-01-15",
+    "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+    "voice_identity_kind": "aliyun_qwen_custom_voice_masked",
+    "custom_voice_masked_id": "qwen-t...ac19",
+    "voice_resolution": "list_existing_custom_voices_match_suffix_ac19",
+    "create_model": "qwen-voice-enrollment",
+    "create_custom_voice_called_in_20260427_trial": false,
+    "reference_audio_paths": [
+      "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+      "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav"
+    ],
+    "evidence_paths": [
+      "codex_log/20260427_十五秒文案语速停顿试配.md",
+      "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/run_summary.json",
+      "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_voice_clone_tts_request_debug_sanitized.json",
+      "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/custom_voice_list_debug_sanitized.json",
+      "scripts/语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis.py",
+      "scripts/生成新第四期选品初筛源比例无遮挡B语音修复候选片_generate_new_fourth_selection_source_ratio_no_mask_b_voice_fix_candidate.py"
+    ],
+    "publish_candidate_completion_status": "not_selected_as_formal_route_user_current_instruction",
+    "formal_route_selected": false
+  },
+  "old_b_forbidden_replacement_rule": {
+    "status": "active",
+    "system_voice_candidates_cannot_replace_old_b": true,
+    "old_b_voice_route": {
+      "status": "reference_anchor_only_for_minimax_migration",
+      "role": "reference_anchor_only",
+      "provider": "aliyun_bailian",
+      "api_route_family": "aliyun_qwen_realtime_websocket_voice_clone",
+      "request_method": "WEBSOCKET",
+      "model": "qwen3-tts-vc-realtime-2026-01-15",
+      "target_model": "qwen3-tts-vc-realtime-2026-01-15",
+      "voice_identity_kind": "aliyun_qwen_custom_voice_masked",
+      "custom_voice_masked_id": "qwen-t...ac19",
+      "voice_resolution": "list_existing_custom_voices_match_suffix_ac19",
+      "create_model": "qwen-voice-enrollment",
+      "create_custom_voice_called_in_20260427_trial": false,
+      "reference_audio_paths": [
+        "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_15秒文案_停顿梗感.wav",
+        "dist/voice_trials/20260426_语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis/语音样本2_声音复刻试听_15秒.wav"
+      ],
+      "evidence_paths": [
+        "codex_log/20260427_十五秒文案语速停顿试配.md",
+        "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/run_summary.json",
+        "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/B_voice_clone_tts_request_debug_sanitized.json",
+        "dist/voice_trials/20260427_十五秒文案语速停顿试配_15s_copy_pacing_trial/custom_voice_list_debug_sanitized.json",
+        "scripts/语音样本2复刻与文案风格解析_voice_sample2_clone_style_analysis.py",
+        "scripts/生成新第四期选品初筛源比例无遮挡B语音修复候选片_generate_new_fourth_selection_source_ratio_no_mask_b_voice_fix_candidate.py"
+      ],
+      "publish_candidate_completion_status": "not_selected_as_formal_route_user_current_instruction",
+      "formal_route_selected": false
+    },
+    "forbidden_voice_ids": [
+      "Chinese (Mandarin)_Gentle_Youth",
+      "Chinese (Mandarin)_Gentleman",
+      "Chinese (Mandarin)_Sincere_Adult",
+      "female-shaonv",
+      "female-shaonv-jingpin",
+      "female-tianmei",
+      "female-yujie",
+      "male-qn-daxuesheng",
+      "male-qn-qingse"
+    ],
+    "forbidden_replacement_rule": [
+      "female-tianmei cannot replace old B",
+      "female-shaonv cannot replace old B",
+      "female-shaonv-jingpin cannot replace old B",
+      "female-yujie cannot replace old B",
+      "MiniMax male or neutral system voice candidates cannot directly replace old B",
+      "Only a MiniMax voice cloned or generated from the old-B reference audio and confirmed by user can become new B"
+    ]
+  },
+  "old_b_to_minimax_migration_route": {
+    "status": "user_confirmed",
+    "selected_route": "old_b_to_minimax_via_aliyun_bailian",
+    "old_qwen_role": "reference_anchor_only",
+    "minimax_role": "final_generation_provider",
+    "auth_route": "aliyun_bailian_proxy_to_minimax",
+    "should_require_minimax_official_key": false,
+    "target_provider": "minimax",
+    "target_model": "MiniMax/speech-2.8-hd",
+    "system_voice_candidates_allowed": false,
+    "old_qwen_formal_route_allowed": false,
+    "requires_reference_audio_access": true,
+    "current_bailian_proxy_requires_audio_url": true,
+    "bailian_minimax_voice_clone_supported": true,
+    "bailian_minimax_reference_audio_supported": true,
+    "bailian_minimax_requires_audio_url": true,
+    "bailian_minimax_accepts_local_file": false,
+    "bailian_minimax_returns_voice_id": true,
+    "official_minimax_api_key_required": false,
+    "reference_audio_upload_authorization_received": true,
+    "reference_audio_upload_requires_user_authorization": false,
+    "latest_generated_minimax_voice_id": "oldBMinimax20260528010200",
+    "confirmed_minimax_voice_id": "oldBMinimax20260528010200",
+    "confirmed_sample_version": "V2_prosody_optimized",
+    "confirmed_sample_path": "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V2_prosody_optimized.mp3",
+    "confirmed_sample_scope": "exact_codex_generated_v2_sample_not_generic_v2_direction",
+    "latest_review_report": "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/old_b_to_minimax_bailian_report.json",
+    "blocked_if": [
+      "aliyun_bailian_auth_missing",
+      "bailian_proxy_minimax_voice_clone_call_failed",
+      "bailian_proxy_does_not_support_minimax_voice_clone",
+      "bailian_proxy_requires_audio_url_missing",
+      "generated_minimax_voice_id_missing",
+      "system_voice_candidate_used_as_old_b",
+      "old_qwen_route_selected_as_formal_route"
+    ]
+  },
+  "publish_candidate_context": true,
+  "voice_route_validation": "passed_minimax",
+  "full_video_can_only_be_internal_diagnostic": false
+}

@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "frame_count": 6,
+  "frames": [
+    {
+      "path": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/frame_samples_local_only/sample_01_00000s.jpg",
+      "seconds": 0.8,
+      "bright_ratio": 0.0271,
+      "dark_ratio": 0.0
+    },
+    {
+      "path": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/frame_samples_local_only/sample_02_00018s.jpg",
+      "seconds": 18.0,
+      "bright_ratio": 0.1503,
+      "dark_ratio": 0.033
+    },
+    {
+      "path": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/frame_samples_local_only/sample_03_00074s.jpg",
+      "seconds": 74.0,
+      "bright_ratio": 0.5113,
+      "dark_ratio": 0.004
+    },
+    {
+      "path": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/frame_samples_local_only/sample_04_00222s.jpg",
+      "seconds": 222.689,
+      "bright_ratio": 0.5125,
+      "dark_ratio": 0.0041
+    },
+    {
+      "path": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/frame_samples_local_only/sample_05_00413s.jpg",
+      "seconds": 413.565,
+      "bright_ratio": 0.5093,
+      "dark_ratio": 0.004
+    },
+    {
+      "path": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/frame_samples_local_only/sample_06_00624s.jpg",
+      "seconds": 624.254,
+      "bright_ratio": 0.5115,
+      "dark_ratio": 0.004
+    }
+  ],
+  "blank_or_blackout_detected": false
+}

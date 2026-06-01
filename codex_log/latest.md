@@ -1,5 +1,25 @@
 # Latest
 
+## 20260602｜新第四期参考引导完整候选片生成
+
+- `task_result.status = publish_candidate_ready_for_human_review`
+- `target_delivery = new_fourth_reference_guided_full_publish_candidate`
+- `branch = main`
+- `已确认` 用户本轮明确允许直接使用新第四期原始素材做剪辑；本轮不再以“素材授权不足”作为阻断理由。
+- `已确认` 已生成完整横屏 16:9 / 1920x1080 候选片，不是 30-45 秒验证片、silent preview、technical preview 或 Markdown route card。
+- `full_video = dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/full.mp4`
+- `review_pack = dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523`
+- `review_manifest = dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/review_manifest.md`
+- `reference_deviation_check = dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/reference_deviation_check.json`
+- `publish_candidate_preflight_report = dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/publish_candidate_preflight_report.json`
+- `已确认` 参考迁移口径：`primary_reference = reference_03`，`secondary_reference = reference_04`，`support_reference = reference_01`，`reference_02 = keyword_subtitle_phone_packaging_only_not_main_style`。
+- `已确认` 本轮迁移了全片 `active_evidence_window`、字幕视线引导、功能关键词 badge 和低密度 bridge 提示；`guided_split_screen` 因多数句组不构成真实 A/B、source/output 或 before/after 对比，已按规则不强行迁移。
+- `已确认` `publish_candidate_preflight_suite` 14 项 gate 全部 passed；`ffprobe / ffmpeg decode / audio_present / non_silent / subtitles_present / JSON parse / secret scan` 均 passed。
+- `已确认` 抽帧复核发现 overlay 已覆盖全片，不再只停留在开头帧；仍需用户 / ChatGPT 做最终观感复审。
+- `未推进` 不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`；本轮状态仍为候选片待人工复审。
+- `DeepSeek`：已创建执行前供料任务卡并运行 safe runner；结果为 `blocked_invalid_context_pack`，`deepseek_actual_participation = not_attempted_policy_violation`，`not_deepseek_conclusion = true`；本轮结论来自 Codex 本地复核与预检结果，不写 DeepSeek 已深度参与。
+- `日志`：`codex_log/20260602_新第四期参考引导完整候选片_new_fourth_reference_guided_publish_candidate.md`
+
 ## 20260601｜素材证据闸门选择性恢复并接回预检套件
 
 - `task_result.status = mechanism_connected_not_video_delivery`

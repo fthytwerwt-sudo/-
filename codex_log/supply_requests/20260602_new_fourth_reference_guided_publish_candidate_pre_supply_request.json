@@ -1,0 +1,208 @@
+{
+  "request_id": "20260602_new_fourth_reference_guided_publish_candidate_pre_supply",
+  "created_at": "2026-06-02T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "new_fourth_reference_guided_publish_candidate_execution",
+  "task_type": "video_sample_or_assembly + review_diagnosis_audit + code_debug + project_file_change",
+  "project_stage": "formal_operation_active",
+  "operation_stage": "operation_next_variable_decision_or_blocked_video_execution",
+  "current_operation_target_path": "codex_log/current_operation_target.md",
+  "operation_records_index_path": "review_loop/operation_records_index.md",
+  "current_data_goal_anchor_path": "codex_log/current_data_goal_anchor.md",
+  "current_data_goal_anchor_status": "partial_data_recorded",
+  "legacy_previous_stage": "gray_test",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "risk_report",
+  "mandatory_for_every_task": true,
+  "participation_level": "deep_file_prefetch",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "Determine whether the new fourth episode can be edited into a complete reference-guided publish candidate using the new fourth episode source materials, or must be blocked as blocked_publish_candidate_unavailable.",
+  "current_step": "preflight before generating or claiming any complete reference-guided publish candidate",
+  "known_context": [
+    "User supplied an execution prompt requiring a full publish candidate based on the latest four editing-reference analyses, not a 30-45s validation segment.",
+    "User clarified that Codex may directly use source materials under 素材录制/新第四期 for editing.",
+    "Allowed final statuses are publish_candidate_ready_for_human_review or blocked_publish_candidate_unavailable.",
+    "Current branch is codex/restore-material-evidence-gate-20260601 and is origin/main plus one material evidence gate restoration commit.",
+    "Reference analysis commit is 191f02f431f424af42979830c3194305fb7b5e93 on codex/guided-proof-video-upgrade-20260531; current branch does not contain the reference_analysis directory.",
+    "Existing full candidate dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322/full.mp4 is technically valid but visual_changed=false and audio_track_replaced_only=true.",
+    "Existing guided reference migration media is a 41s segment proof, not a complete publish candidate.",
+    "current_data_goal_anchor has anchor_instance_status=partial_data_recorded and says next_video_execution_prompt=not_generated_this_round.",
+    "Must not promote content_validation, send_ready, publish_status_success, voice_validation, final_voice_validated, or visual_master_locked."
+  ],
+  "missing_context": [
+    "Whether a complete active_evidence_window_map exists for all required line groups after the latest reference analysis.",
+    "Whether a complete subtitle_safe_zone_plan exists for the full new fourth episode after the latest reference analysis.",
+    "Whether split_screen_use_reason exists for every proposed split-screen use and proves a real comparison relationship.",
+    "Whether the reference analysis draft is accepted enough to drive a full publish candidate despite its own migration note preferring a 30-45s validation segment.",
+    "Whether current data_goal_anchor partial_data_recorded blocks formal full video execution despite the user-provided execution prompt."
+  ],
+  "candidate_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/13_execution_lane_and_parallel_rules.md",
+    "project_source/20_codex_multi_agent_routing_note_for_gpt_project.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_log/latest.md",
+    "codex_log/current_data_goal_anchor.md",
+    "GPT数据源/00_项目总述.md",
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/03_总索引与阅读顺序.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/08_当前正式事实.md",
+    "GPT数据源/10_OPC一人公司闭环与多AI协作机制.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+    "codex_log/script_preflight/新第四期_选品初筛_20260524_231118/00_locked_copy_contract_candidate.md",
+    "codex_log/script_preflight/新第四期_选品初筛_20260524_231118/02_script_to_timeline_map.json",
+    "codex_log/script_preflight/新第四期_选品初筛_20260524_231118/04_content_route_card_v2.json",
+    "codex_log/script_preflight/新第四期_选品初筛_20260524_231118/08_editing_decision_pack.md",
+    "codex_log/material_audit/新第四期_20260524_001649/00_material_inventory.md",
+    "codex_log/material_audit/新第四期_20260524_001649/05_timeline_segment_map.md",
+    "codex_log/material_audit/新第四期_20260524_001649/06_evidence_anchor_report.md",
+    "codex_log/material_audit/新第四期_20260524_001649/07_missing_and_risk_report.md",
+    "dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322/summary.json",
+    "dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322/review_manifest.md",
+    "dist/new_fourth_episode_selection_publish_candidate_rerun_20260526_231105/script_to_timeline_map.json",
+    "dist/guided_proof_reference_migration_new_fourth_episode_20260601_010425/after_reference_migration_segment.mp4"
+  ],
+  "must_read_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_log/latest.md",
+    "codex_log/current_data_goal_anchor.md",
+    "codex_log/script_preflight/新第四期_选品初筛_20260524_231118/02_script_to_timeline_map.json",
+    "codex_log/material_audit/新第四期_20260524_001649/06_evidence_anchor_report.md",
+    "dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322/summary.json",
+    "dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322/review_manifest.md"
+  ],
+  "optional_files": [
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/analysis_manifest.json",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/migration_notes_for_new_fourth_episode.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_editing_mechanism_draft.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_to_execution_contract.md"
+  ],
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "deep_file_prefetch",
+      "post_risk_review"
+    ]
+  },
+  "file_scope": {
+    "candidate_files": [
+      "AGENTS.md",
+      "codex_source/00_codex_readme.md",
+      "codex_log/current_data_goal_anchor.md",
+      "codex_log/script_preflight/新第四期_选品初筛_20260524_231118/02_script_to_timeline_map.json",
+      "codex_log/material_audit/新第四期_20260524_001649/06_evidence_anchor_report.md",
+      "dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322/summary.json",
+      "dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322/review_manifest.md"
+    ],
+    "must_prefetch_files": [
+      "codex_log/current_data_goal_anchor.md",
+      "dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322/review_manifest.md",
+      "dist/new_fourth_episode_selection_publish_candidate_voice_locked_20260528_031322/summary.json"
+    ],
+    "optional_prefetch_files": [
+      "codex_log/script_preflight/新第四期_选品初筛_20260524_231118/02_script_to_timeline_map.json",
+      "codex_log/material_audit/新第四期_20260524_001649/06_evidence_anchor_report.md"
+    ],
+    "forbidden_files": [
+      ".env",
+      ".env.local",
+      "本地运行配置_local_runtime",
+      "/Users/fan/.config/video-factory/formal_api_demo.local.toml",
+      "素材录制/新第四期/*.mp4"
+    ],
+    "secret_files_forbidden": true
+  },
+  "content_loading_policy": {
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 12,
+    "max_chars_per_file": 8000,
+    "max_total_chars": 40000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "redaction_policy": "no_secrets_or_api_keys"
+  },
+  "output_required": [
+    "relevant_file_bundle",
+    "exact_snippet_pack",
+    "dependency_map",
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "token_usage_expectation_check"
+  ],
+  "codex_minimal_review_policy": {
+    "codex_must_review": [
+      "will_modify_files",
+      "conflict_or_uncertain_files",
+      "validation_failed_files",
+      "safety_sensitive_files"
+    ],
+    "codex_should_not_default_deep_read_all": true
+  },
+  "will_modify_files": [
+    "codex_log/20260602_新第四期参考引导完整候选片阻断_*.md",
+    "dist/new_fourth_episode_reference_guided_publish_candidate_blocked_20260602/*"
+  ],
+  "conflict_or_uncertain_files": [
+    "codex_log/current_data_goal_anchor.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/*"
+  ],
+  "validation_failed_files": [],
+  "safety_sensitive_files": [
+    "本地运行配置_local_runtime",
+    "/Users/fan/.config/video-factory/formal_api_demo.local.toml"
+  ],
+  "forbidden_paths": [
+    ".git",
+    "dist/latest_review_pack",
+    "素材录制/新第四期/*.mp4",
+    "本地运行配置_local_runtime",
+    "/Users/fan/.config/video-factory/formal_api_demo.local.toml"
+  ],
+  "expected_output": [
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "not_deepseek_conclusion_if_fallback"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files.",
+    "DeepSeek must not decide project facts.",
+    "Do not read or expose API keys, tokens, secrets, .env, or local runtime config values.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime or 多 agent runtime is running just because a DeepSeek supply request exists.",
+    "Do not approve publish_candidate_ready_for_human_review without Codex verification.",
+    "Do not promote content_validation, send_ready, publish_status_success, voice_validation, final_voice_validated, or visual_master_locked."
+  ],
+  "blocked_if": [
+    "Secret value appears in output.",
+    "Fallback is reported as real DeepSeek participation.",
+    "Risk report claims content validation passed.",
+    "Reference-guided full candidate requires technical preview downgrade.",
+    "Required publish candidate inputs are missing and cannot be generated from current source materials and locked copy."
+  ],
+  "return_to_codex": {
+    "output_dir": "codex_log/deepseek_supply/20260602_new_fourth_reference_guided_publish_candidate_pre_supply",
+    "required_fields": [
+      "deepseek_actual_participation",
+      "fallback_status",
+      "not_deepseek_conclusion",
+      "token_usage_observed_or_user_check_required",
+      "risk_and_conflict_report",
+      "missing_or_uncertain_files",
+      "codex_next_input"
+    ]
+  }
+}

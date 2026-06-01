@@ -1,0 +1,46 @@
+{
+  "schema": "material_parse_pack.v1",
+  "parse_pack_id": "new_fourth_reference_guided_20260602_034941",
+  "material_root": "素材录制/新第四期",
+  "source_files": [
+    {
+      "path": "素材录制/新第四期/内建视网膜显示器 2026-05-23 20-57-41.mp4",
+      "size_bytes": 992116084,
+      "mtime": 1779543315
+    },
+    {
+      "path": "素材录制/新第四期/内建视网膜显示器 2026-05-23 21-28-53.mp4",
+      "size_bytes": 23248230,
+      "mtime": 1779543015
+    },
+    {
+      "path": "素材录制/新第四期/内建视网膜显示器 2026-05-23 22-44-33.mp4",
+      "size_bytes": 242137410,
+      "mtime": 1779547702
+    },
+    {
+      "path": "素材录制/新第四期/内建视网膜显示器 2026-05-23 22-51-40.mp4",
+      "size_bytes": 106182950,
+      "mtime": 1779547991
+    }
+  ],
+  "material_index_path": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/material_index.json",
+  "material_detail_report_path": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/material_detail_report.md",
+  "contact_sheet_paths": [
+    "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/reference_guided_overlay.png"
+  ],
+  "source_segment_inventory_path": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/source_segment_inventory.json",
+  "script_to_shot_execution_map_path": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/script_to_shot_execution_map.json",
+  "material_usage_ledger_path": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/material_usage_ledger.json",
+  "parse_timestamp": "2026-06-02T03:49:41+0800",
+  "parse_scope": "reuse_existing_new_fourth_material_assembly_plus_line_group_segments",
+  "skill_used": "skills/视频素材解析_video_material_audit/SKILL.md",
+  "reuse_policy": "single_parse_reuse",
+  "stale_if": [
+    "source_file_added_deleted_or_renamed",
+    "source_file_size_or_mtime_changed",
+    "script_target_changed_and_pack_cannot_support",
+    "user_requested_reaudit",
+    "missing_key_timecode_or_evidence_fields"
+  ]
+}

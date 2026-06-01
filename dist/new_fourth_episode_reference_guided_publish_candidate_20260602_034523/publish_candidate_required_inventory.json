@@ -1,0 +1,17 @@
+{
+  "schema": "publish_candidate_required_inventory.v1",
+  "status": "ready_for_preflight",
+  "required": {
+    "full_video": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/full.mp4",
+    "complete_audio": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/narration.wav",
+    "complete_subtitles": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/captions.srt",
+    "review_pack": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523",
+    "locked_copy_contract": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/locked_copy_contract.json",
+    "script_to_timeline_map": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/script_to_timeline_map.json",
+    "material_parse_pack": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/material_parse_pack.json",
+    "source_segment_inventory": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/source_segment_inventory.json",
+    "active_evidence_window_map": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/active_evidence_window_map.json",
+    "subtitle_safe_zone_plan": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/subtitle_safe_zone_plan.json",
+    "reference_deviation_check": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/reference_deviation_check.json"
+  }
+}

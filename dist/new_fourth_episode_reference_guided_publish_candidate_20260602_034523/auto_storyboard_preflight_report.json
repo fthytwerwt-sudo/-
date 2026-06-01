@@ -1,0 +1,29 @@
+{
+  "schema": "auto_storyboard_preflight_report.v1",
+  "auto_storyboard_preflight_report": {
+    "auto_edit_allowed": true,
+    "video_execution_blocked": false,
+    "total_line_groups": 245,
+    "total_line_groups_checked": 245,
+    "direct_match_count": 71,
+    "proxy_match_count": 170,
+    "card_required_count": 0,
+    "card_required_resolved_count": 4,
+    "blocked_no_evidence_count": 0,
+    "high_mismatch_risk_count": 0,
+    "privacy_high_selected_count": 0,
+    "data_sentence_without_source_count": 0,
+    "judgment_sentence_hard_mapped_to_recording_count": 0,
+    "action_sentence_without_card_or_direct_visual_count": 0,
+    "selected_material_in_cannot_support_count": 0,
+    "card_required_unresolved_count": 0,
+    "blocked_reasons": [],
+    "high_risk_line_groups": [],
+    "card_required_resolved_groups": [
+      "LG001",
+      "LG155",
+      "LG207",
+      "LG241"
+    ]
+  }
+}

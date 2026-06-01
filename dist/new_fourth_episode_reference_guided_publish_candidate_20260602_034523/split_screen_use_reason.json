@@ -1,0 +1,1468 @@
+{
+  "schema": "split_screen_use_reason.v1",
+  "line_groups": [
+    {
+      "line_group_id": "LG001",
+      "guided_split_screen": false,
+      "reason": "bridge card, no true comparison relation"
+    },
+    {
+      "line_group_id": "LG002",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG003",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG004",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG005",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG006",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG007",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG008",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG009",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG010",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG011",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG012",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG013",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG014",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG015",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG016",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG017",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG018",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG019",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG020",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG021",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG022",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG023",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG024",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG025",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG026",
+      "guided_split_screen": false,
+      "reason": "bridge card, no true comparison relation"
+    },
+    {
+      "line_group_id": "LG027",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG028",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG029",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG030",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG031",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG032",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG033",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG034",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG035",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG036",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG037",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG038",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG039",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG040",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG041",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG042",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG043",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG044",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG045",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG046",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG047",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG048",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG049",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG050",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG051",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG052",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG053",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG054",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG055",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG056",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG057",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG058",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG059",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG060",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG061",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG062",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG063",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG064",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG065",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG066",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG067",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG068",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG069",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG070",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG071",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG072",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG073",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG074",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG075",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG076",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG077",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG078",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG079",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG080",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG081",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG082",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG083",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG084",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG085",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG086",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG087",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG088",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG089",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG090",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG091",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG092",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG093",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG094",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG095",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG096",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG097",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG098",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG099",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG100",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG101",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG102",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG103",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG104",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG105",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG106",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG107",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG108",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG109",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG110",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG111",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG112",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG113",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG114",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG115",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG116",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG117",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG118",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG119",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG120",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG121",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG122",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG123",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG124",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG125",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG126",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG127",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG128",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG129",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG130",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG131",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG132",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG133",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG134",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG135",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG136",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG137",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG138",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG139",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG140",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG141",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG142",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG143",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG144",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG145",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG146",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG147",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG148",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG149",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG150",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG151",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG152",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG153",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG154",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG155",
+      "guided_split_screen": false,
+      "reason": "bridge card, no true comparison relation"
+    },
+    {
+      "line_group_id": "LG156",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG157",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG158",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG159",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG160",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG161",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG162",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG163",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG164",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG165",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG166",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG167",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG168",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG169",
+      "guided_split_screen": false,
+      "reason": "bridge card, no true comparison relation"
+    },
+    {
+      "line_group_id": "LG170",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG171",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG172",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG173",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG174",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG175",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG176",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG177",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG178",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG179",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG180",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG181",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG182",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG183",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG184",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG185",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG186",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG187",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG188",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG189",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG190",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG191",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG192",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG193",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG194",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG195",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG196",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG197",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG198",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG199",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG200",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG201",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG202",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG203",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG204",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG205",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG206",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG207",
+      "guided_split_screen": false,
+      "reason": "bridge card, no true comparison relation"
+    },
+    {
+      "line_group_id": "LG208",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG209",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG210",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG211",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG212",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG213",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG214",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG215",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG216",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG217",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG218",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG219",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG220",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG221",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG222",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG223",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG224",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG225",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG226",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG227",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG228",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG229",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG230",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG231",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG232",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG233",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG234",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG235",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG236",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG237",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG238",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG239",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG240",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG241",
+      "guided_split_screen": false,
+      "reason": "bridge card, no true comparison relation"
+    },
+    {
+      "line_group_id": "LG242",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG243",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG244",
+      "guided_split_screen": false,
+      "reason": "no stable before_after_prompt_result_or_option_ab relation for this full-line group",
+      "blocked_if_forced": "fake_split_screen_similarity"
+    },
+    {
+      "line_group_id": "LG245",
+      "guided_split_screen": false,
+      "reason": "bridge card, no true comparison relation"
+    }
+  ]
+}

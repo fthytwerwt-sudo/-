@@ -1,0 +1,10 @@
+{
+  "schema": "candidate_status_boundary.v1",
+  "status": "preserved",
+  "content_validation": "pending_user_chatgpt_review",
+  "send_ready": false,
+  "publish_status": "not_promoted_by_this_run",
+  "voice_validation": "pending_user_chatgpt_review",
+  "final_voice_validated": false,
+  "visual_master_locked": false
+}

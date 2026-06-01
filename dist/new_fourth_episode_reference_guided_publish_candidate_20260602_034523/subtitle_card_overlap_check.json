@@ -1,0 +1,10 @@
+{
+  "schema": "subtitle_card_overlap_check.reference_guided.v1",
+  "status": "passed",
+  "high_severity_overlap": false,
+  "subtitle_strategy": "sidecar_srt_and_embedded_mov_text",
+  "burned_in_caption_background": false,
+  "reference_overlay_blocks_core_material": false,
+  "cards_cover_core_material": false,
+  "evidence_obstruction": false
+}

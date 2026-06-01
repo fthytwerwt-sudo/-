@@ -1,0 +1,8 @@
+{
+  "selected_voice_id": "oldBMinimax20260528010200",
+  "selected_sample_version": "V2_prosody_optimized",
+  "selected_sample_path": "codex_log/diagnostics/old_b_to_minimax_bailian_20260528_010200/samples/V2_prosody_optimized.mp3",
+  "selected_sample_source": "刚刚 Codex 生成的 V2 试听样本",
+  "user_confirmed": true,
+  "future_changes_scope": "micro_tuning_only_same_voice_id"
+}

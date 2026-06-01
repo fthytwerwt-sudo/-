@@ -1,0 +1,2658 @@
+{
+  "schema": "subtitle_safe_zone_plan.v1",
+  "line_groups": [
+    {
+      "line_group_id": "LG001",
+      "safe_zone": "sidecar_subtitle_no_burned_caption",
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG002",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG003",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG004",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG005",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG006",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG007",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG008",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG009",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG010",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG011",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG012",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG013",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG014",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG015",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG016",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG017",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG018",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG019",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG020",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG021",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG022",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG023",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG024",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG025",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG026",
+      "safe_zone": "sidecar_subtitle_no_burned_caption",
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG027",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG028",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG029",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG030",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG031",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG032",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG033",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG034",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG035",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG036",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG037",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG038",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG039",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG040",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG041",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG042",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG043",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG044",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG045",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG046",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG047",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG048",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG049",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG050",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG051",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG052",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG053",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG054",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG055",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG056",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG057",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG058",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG059",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG060",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG061",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG062",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG063",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG064",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG065",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG066",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG067",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG068",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG069",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG070",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG071",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG072",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG073",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG074",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG075",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG076",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG077",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG078",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG079",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG080",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG081",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG082",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG083",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG084",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG085",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG086",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG087",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG088",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG089",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG090",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG091",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG092",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG093",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG094",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG095",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG096",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG097",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG098",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG099",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG100",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG101",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG102",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG103",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG104",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG105",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG106",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG107",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG108",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG109",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG110",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG111",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG112",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG113",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG114",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG115",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG116",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG117",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG118",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG119",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG120",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG121",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG122",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG123",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG124",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG125",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG126",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG127",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG128",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG129",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG130",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG131",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG132",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG133",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG134",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG135",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG136",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG137",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG138",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG139",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG140",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG141",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG142",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG143",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG144",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG145",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG146",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG147",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG148",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG149",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG150",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG151",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG152",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG153",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG154",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG155",
+      "safe_zone": "sidecar_subtitle_no_burned_caption",
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG156",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG157",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG158",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG159",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG160",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG161",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG162",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG163",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG164",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG165",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG166",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG167",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG168",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG169",
+      "safe_zone": "sidecar_subtitle_no_burned_caption",
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG170",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG171",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG172",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG173",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG174",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG175",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG176",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG177",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG178",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG179",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG180",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG181",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG182",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG183",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG184",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG185",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG186",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG187",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG188",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG189",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG190",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG191",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG192",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG193",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG194",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG195",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG196",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG197",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG198",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG199",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG200",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG201",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG202",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG203",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG204",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG205",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG206",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG207",
+      "safe_zone": "sidecar_subtitle_no_burned_caption",
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG208",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG209",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG210",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG211",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG212",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG213",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG214",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG215",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG216",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG217",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG218",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG219",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG220",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG221",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG222",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG223",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG224",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG225",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG226",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG227",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG228",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG229",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG230",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG231",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG232",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG233",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG234",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG235",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG236",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG237",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG238",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG239",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG240",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG241",
+      "safe_zone": "sidecar_subtitle_no_burned_caption",
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG242",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG243",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG244",
+      "safe_zone": "sidecar_mov_text_no_burned_subtitle",
+      "overlay_reserved_bottom": {
+        "x": 112,
+        "y": 884,
+        "w": 950,
+        "h": 56
+      },
+      "overlap_risk": "low"
+    },
+    {
+      "line_group_id": "LG245",
+      "safe_zone": "sidecar_subtitle_no_burned_caption",
+      "overlap_risk": "low"
+    }
+  ]
+}

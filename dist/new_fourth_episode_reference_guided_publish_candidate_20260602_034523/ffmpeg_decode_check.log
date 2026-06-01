@@ -1,0 +1,5 @@
+$ /opt/homebrew/bin/ffmpeg -v error -i /Users/fan/Documents/视频工厂/dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/full.mp4 -f null -
+
+STDOUT:
+
+STDERR:

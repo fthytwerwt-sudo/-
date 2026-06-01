@@ -1,0 +1,25 @@
+{
+  "schema": "material_index.v1",
+  "materials": [
+    {
+      "material_id": "material_001",
+      "source_path": "素材录制/新第四期/内建视网膜显示器 2026-05-23 20-57-41.mp4",
+      "name": "新第四期商品卡浏览素材 V001"
+    },
+    {
+      "material_id": "material_002",
+      "source_path": "素材录制/新第四期/内建视网膜显示器 2026-05-23 21-28-53.mp4",
+      "name": "新第四期候选方向浏览素材 V002"
+    },
+    {
+      "material_id": "material_003",
+      "source_path": "素材录制/新第四期/内建视网膜显示器 2026-05-23 22-44-33.mp4",
+      "name": "新第四期候选表与字段素材 V003"
+    },
+    {
+      "material_id": "material_004",
+      "source_path": "素材录制/新第四期/内建视网膜显示器 2026-05-23 22-51-40.mp4",
+      "name": "新第四期复查表与边界素材 V004"
+    }
+  ]
+}

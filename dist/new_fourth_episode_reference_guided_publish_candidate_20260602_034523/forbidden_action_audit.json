@@ -1,0 +1,27 @@
+{
+  "schema": "forbidden_action_preflight.v1",
+  "gate_name": "forbidden_action_preflight",
+  "status": "passed",
+  "check_depth": "implemented",
+  "blocked_reasons": [],
+  "warnings": [],
+  "detected_forbidden_actions": [],
+  "forbidden_actions": [
+    "changed_locked_title",
+    "changed_locked_opening_line",
+    "changed_locked_final_script_semantics",
+    "removed_required_judgment_card",
+    "removed_required_boundary_card",
+    "changed_tts_route_without_authorization",
+    "used_fallback_without_authorization",
+    "added_default_mask_or_whiteout",
+    "changed_source_ratio_without_authorization",
+    "card_replaced_user_recording_evidence",
+    "generated_technical_preview_as_delivery",
+    "wrote_completed_with_missing_inventory",
+    "advanced_content_validation",
+    "advanced_send_ready",
+    "advanced_voice_validation",
+    "advanced_visual_master_locked"
+  ]
+}

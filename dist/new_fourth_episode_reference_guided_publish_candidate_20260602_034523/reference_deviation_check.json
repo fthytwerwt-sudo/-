@@ -1,0 +1,24 @@
+{
+  "schema": "reference_deviation_check.v1",
+  "status": "passed_with_warnings",
+  "primary_reference": "reference_03",
+  "secondary_reference": "reference_04",
+  "support_reference": "reference_01",
+  "not_used_reference": "reference_02_main_style_not_used_keyword_packaging_only",
+  "close_to_reference": [
+    "reference_03: clean evidence container and workflow proof framing",
+    "reference_04: persistent active evidence window and attention guidance",
+    "reference_01: borrowed pacing language lightly; no copied assets"
+  ],
+  "intentionally_not_migrated": [
+    "No creator face, avatars, platform UI chrome, logo, stickers, or external fonts copied.",
+    "Guided split screen is not forced because most full-line groups are not true A/B, source/output, or before/after comparisons.",
+    "Reference mechanism remains execution-specific; draft reference rules are not promoted into formal project rules."
+  ],
+  "copied_asset_check": "passed_no_reference_asset_copied",
+  "fake_similarity_risk": "medium_controlled_by_evidence_window_only_not_color_packaging_only",
+  "warnings": [
+    "This is a full reference-guided candidate for human review, not a declaration that the reference draft is a formal long-term mechanism.",
+    "User/ChatGPT visual review is still required before send_ready."
+  ]
+}

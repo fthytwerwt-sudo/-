@@ -1,0 +1,13 @@
+{
+  "schema": "not_allowed_to_copy_asset_list.v1",
+  "items": [
+    "reference_creator_face",
+    "reference_platform_ui_chrome",
+    "reference_logo",
+    "reference_font",
+    "reference_sticker",
+    "third_party_material_frames",
+    "third_party_audio"
+  ],
+  "status": "enforced_by_original_overlay_only"
+}

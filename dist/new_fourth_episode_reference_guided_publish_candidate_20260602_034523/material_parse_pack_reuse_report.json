@@ -1,0 +1,47 @@
+{
+  "schema": "material_parse_pack_reuse_gate.v1",
+  "gate_name": "material_parse_pack_reuse_preflight",
+  "status": "passed",
+  "check_depth": "implemented_no_render_no_media_parse",
+  "blocked_reasons": [],
+  "checked_inputs": {
+    "material_parse_pack": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/material_parse_pack.json",
+    "source_segment_inventory": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/source_segment_inventory.json",
+    "script_to_shot_execution_map": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/script_to_shot_execution_map.json",
+    "material_usage_ledger": "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/material_usage_ledger.json"
+  },
+  "material_parse_pack": {
+    "missing_required_fields": [],
+    "missing_stale_if": [],
+    "parse_pack_id": "new_fourth_reference_guided_20260602_034941",
+    "stale_files": [],
+    "reuse_policy": "single_parse_reuse"
+  },
+  "editing_parse_reuse_rule": {
+    "raw_media_reparse_allowed": false,
+    "allowed_light_checks": [
+      "file_exists",
+      "ffprobe_basic_info_readable",
+      "contact_sheet_path_exists",
+      "report_reference_path_exists"
+    ],
+    "not_allowed": [
+      "reparse_raw_media_as_primary_judgment_source",
+      "override_material_detail_report_with_new_interpretation",
+      "theme_only_match_as_direct_evidence",
+      "same_segment_reuse_without_reuse_reason"
+    ]
+  },
+  "duplicate_material_check": {
+    "total_segments": 238,
+    "total_line_groups": 238,
+    "repeated_segment_count": 0,
+    "repeated_core_evidence_count": 0,
+    "consecutive_duplicate_count": 0,
+    "theme_only_match_count": 0,
+    "cannot_support_selected_count": 0,
+    "report_not_cited_count": 0,
+    "repeated_segment_ids": [],
+    "final_decision": "passed"
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "schema": "publish_candidate_preflight_suite.v2",
+  "no_render": false,
+  "overall_status": "passed",
+  "status": "passed",
+  "failed_gates": [],
+  "required_gates": [
+    "material_parse_pack_reuse_preflight",
+    "material_evidence_gate_preflight",
+    "line_level_alignment_preflight",
+    "line_visual_tolerance_preflight",
+    "near_equivalent_material_substitution_preflight",
+    "tts_route_and_prosody_preflight",
+    "publish_candidate_voice_gate",
+    "b_voice_feel_minimax_preflight",
+    "card_decision_preflight",
+    "forbidden_action_preflight",
+    "visual_evidence_readability_preflight",
+    "locked_copy_diff_preflight",
+    "publish_candidate_user_standard_preflight",
+    "completion_truth_preflight"
+  ],
+  "gate_reports": {
+    "material_parse_pack_reuse_preflight": {
+      "status": "passed",
+      "json": "material_parse_pack_reuse_report.json",
+      "md": "material_parse_pack_reuse_report.md"
+    },
+    "material_evidence_gate_preflight": {
+      "status": "passed",
+      "json": "material_evidence_gate_preflight_report.json",
+      "md": "material_evidence_gate_preflight_report.md"
+    },
+    "line_level_alignment_preflight": {
+      "status": "passed",
+      "json": "line_level_alignment_report.json",
+      "md": "line_level_alignment_report.md"
+    },
+    "line_visual_tolerance_preflight": {
+      "status": "passed",
+      "json": "line_visual_tolerance_report.json",
+      "md": "line_visual_tolerance_report.md"
+    },
+    "near_equivalent_material_substitution_preflight": {
+      "status": "passed",
+      "json": "near_equivalent_material_substitution_report.json",
+      "md": "near_equivalent_material_substitution_report.md"
+    },
+    "tts_route_and_prosody_preflight": {
+      "status": "passed",
+      "json": "tts_route_and_prosody_report.json",
+      "md": "tts_route_and_prosody_report.md"
+    },
+    "publish_candidate_voice_gate": {
+      "status": "passed",
+      "json": "tts_route_report.json",
+      "md": "tts_route_report.md"
+    },
+    "b_voice_feel_minimax_preflight": {
+      "status": "passed",
+      "json": "b_voice_feel_minimax_report.json",
+      "md": "b_voice_feel_minimax_report.md"
+    },
+    "card_decision_preflight": {
+      "status": "passed",
+      "json": "card_decision_preflight_report.json",
+      "md": "card_decision_preflight_report.md"
+    },
+    "forbidden_action_preflight": {
+      "status": "passed",
+      "json": "forbidden_action_audit.json",
+      "md": "forbidden_action_audit.md"
+    },
+    "visual_evidence_readability_preflight": {
+      "status": "passed",
+      "json": "visual_evidence_readability_report.json",
+      "md": "visual_evidence_readability_report.md"
+    },
+    "locked_copy_diff_preflight": {
+      "status": "passed",
+      "json": "locked_copy_diff_report.json",
+      "md": "locked_copy_diff_report.md"
+    },
+    "publish_candidate_user_standard_preflight": {
+      "status": "passed",
+      "json": "publish_candidate_user_standard_report.json",
+      "md": "publish_candidate_user_standard_report.md"
+    },
+    "completion_truth_preflight": {
+      "status": "passed",
+      "json": "completion_truth_preflight_report.json",
+      "md": "completion_truth_preflight_report.md"
+    }
+  },
+  "review_pack_required_preflight_reports": [
+    "publish_candidate_preflight_report.json",
+    "publish_candidate_preflight_report.md",
+    "material_parse_pack_reuse_report.json",
+    "material_parse_pack_reuse_report.md",
+    "material_evidence_gate_preflight_report.json",
+    "material_evidence_gate_preflight_report.md",
+    "material_evidence_contract.json",
+    "line_group_evidence_gate_report.json",
+    "auto_storyboard_preflight_report.json",
+    "line_level_alignment_report.json",
+    "line_visual_tolerance_report.json",
+    "near_equivalent_material_substitution_report.json",
+    "tts_route_and_prosody_report.json",
+    "tts_route_report.json",
+    "tts_route_report.md",
+    "b_voice_feel_minimax_report.json",
+    "card_decision_preflight_report.json",
+    "forbidden_action_audit.json",
+    "visual_evidence_readability_report.json",
+    "locked_copy_diff_report.json",
+    "publish_candidate_user_standard_report.json",
+    "completion_truth_preflight_report.json"
+  ],
+  "fixture_validation": null,
+  "completion_rule": {
+    "any_required_gate_failed": "blocked",
+    "any_required_gate_missing": "continue_or_blocked",
+    "only_docs_updated_but_no_script_or_report_wiring": "partial_completed",
+    "full_mp4_exists_means_completed": false,
+    "technical_validation_means_content_validation": false,
+    "publish_candidate_ready_for_human_review_means_send_ready": false,
+    "old_qwen_b_voice_route_means_publish_candidate": false
+  }
+}

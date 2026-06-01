@@ -8,6 +8,21 @@
 
 正式运营不等于内容通过、商业验证成立、数据飞轮跑通或 `send_ready = true`。
 
+## 0B. 20260602 新第四期参考引导候选片补充入口
+
+- `已确认` 本轮新增新第四期完整参考引导候选片：`dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/full.mp4`。
+- `review_pack`: `dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523`
+- `review_manifest`: `dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/review_manifest.md`
+- `summary`: `dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/summary.json`
+- `reference_deviation_check`: `dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/reference_deviation_check.json`
+- `publish_candidate_preflight_report`: `dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/publish_candidate_preflight_report.json`
+- `status`: `publish_candidate_ready_for_human_review`
+- `content_validation`: `pending_user_chatgpt_review`
+- `send_ready`: `false`
+- `voice_validation`: `pending_user_chatgpt_review`
+- `visual_master_locked`: `false`
+- `边界` 本补充入口不替换下方 legacy v3.1 / `dist/latest_review_pack/` 当前复审对象，不覆盖当前运营数据目标。
+
 ## legacy_previous_publish_target 旧发布目标口径
 
 - `已确认` 本文件记录《视频工厂》当前复审 / publish target 入口。
