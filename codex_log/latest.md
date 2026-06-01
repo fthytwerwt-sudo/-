@@ -1,5 +1,18 @@
 # Latest
 
+## 20260601｜素材证据闸门选择性恢复并接回预检套件
+
+- `task_result.status = mechanism_connected_not_video_delivery`
+- `target_delivery = material_evidence_gate_restored_and_connected_to_publish_candidate_preflight_suite`
+- `branch = codex/restore-material-evidence-gate-20260601`
+- `已确认` 本轮从 `stash@{0}^3` 只选择性恢复 3 个目标文件：`scripts/素材证据闸门_material_evidence_gate.py`、`tests/test_material_evidence_gate.py`、`codex_source/fixtures/素材证据闸门_material_evidence_gate_cases.json`。
+- `已确认` 没有整包 `git stash apply`，没有恢复整个 `stash@{0}^3`，没有提交 `public/` 或 `dist/` 内容。
+- `已确认` `scripts/发片候选预检套件_publish_candidate_preflight_suite.py` 已新增 `material_evidence_gate_preflight`，并调用素材证据闸门输出 `material_evidence_contract.json`、`line_group_evidence_gate_report.json` 与 `auto_storyboard_preflight_report.json`。
+- `已确认` 若素材证据闸门失败或 `auto_edit_allowed != true`，整体 `publish_candidate_preflight_suite` 必须 `blocked`，不得继续冒充发片候选预检通过。
+- `已确认` 本轮未生成视频、未剪辑媒体、未调用 TTS / 视频 / 图片生成 API，未推进 `content_validation / send_ready / voice_validation / final_voice_validated / visual_master_locked`。
+- `DeepSeek`：已创建执行前供料任务卡并运行 safe runner；结果为 `deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`api_key_printed = false`、`api_key_written = false`；token 使用只能写 `token_decrement_expected / not_available_user_check_required`，不写用户 token 面板已确认。
+- `日志`：`codex_log/20260601_restore_material_evidence_gate.md`
+
 ## 20260601｜对标文案原文级 reference 改为 Google Drive 路线
 
 - `task_result.status = mechanism_route_corrected_not_video_delivery`

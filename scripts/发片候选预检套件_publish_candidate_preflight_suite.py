@@ -15,12 +15,14 @@ from 正片候选TTS路线_publish_candidate_tts_route import (
     validate_publish_candidate_tts_route,
 )
 from 素材解析包复用闸门_material_parse_pack_reuse_gate import run_material_parse_pack_reuse_gate
+from 素材证据闸门_material_evidence_gate import run_material_evidence_gate
 
 
 ROOT = Path(__file__).resolve().parents[1]
 
 GATES = [
     "material_parse_pack_reuse_preflight",
+    "material_evidence_gate_preflight",
     "line_level_alignment_preflight",
     "line_visual_tolerance_preflight",
     "near_equivalent_material_substitution_preflight",
@@ -37,6 +39,7 @@ GATES = [
 
 REPORT_FILENAMES = {
     "material_parse_pack_reuse_preflight": "material_parse_pack_reuse_report",
+    "material_evidence_gate_preflight": "material_evidence_gate_preflight_report",
     "line_level_alignment_preflight": "line_level_alignment_report",
     "line_visual_tolerance_preflight": "line_visual_tolerance_report",
     "near_equivalent_material_substitution_preflight": "near_equivalent_material_substitution_report",
@@ -83,6 +86,11 @@ REVIEW_PACK_REQUIRED_PREFLIGHT_REPORTS = [
     "publish_candidate_preflight_report.md",
     "material_parse_pack_reuse_report.json",
     "material_parse_pack_reuse_report.md",
+    "material_evidence_gate_preflight_report.json",
+    "material_evidence_gate_preflight_report.md",
+    "material_evidence_contract.json",
+    "line_group_evidence_gate_report.json",
+    "auto_storyboard_preflight_report.json",
     "line_level_alignment_report.json",
     "line_visual_tolerance_report.json",
     "near_equivalent_material_substitution_report.json",
@@ -282,6 +290,105 @@ def blocked_report(gate_name: str, reasons: list[str], **extra: Any) -> dict[str
         "warnings": extra.pop("warnings", []),
         **extra,
     }
+
+
+def resolve_repo_path(value: Any) -> Path | None:
+    if value in (None, ""):
+        return None
+    path = Path(str(value))
+    if path.is_absolute():
+        return path
+    return ROOT / path
+
+
+def material_report_from_parse_pack(path: Path | None) -> tuple[Path | None, list[str]]:
+    pack, errors = read_json(path, "material_parse_pack")
+    if errors:
+        return None, errors
+    if not isinstance(pack, dict):
+        return None, ["material_parse_pack_invalid"]
+    material_report = resolve_repo_path(pack.get("material_detail_report_path"))
+    if material_report is None:
+        return None, ["material_detail_report_path_missing_in_parse_pack"]
+    return material_report, []
+
+
+def material_evidence_gate_preflight(
+    *,
+    material_report: Path | None,
+    material_parse_pack: Path | None,
+    timeline: Path | None,
+    content_route_card: Path | None,
+    output_dir: Path,
+) -> dict[str, Any]:
+    reasons: list[str] = []
+    resolved_material_report = material_report
+    parse_pack_errors: list[str] = []
+    if resolved_material_report is None:
+        resolved_material_report, parse_pack_errors = material_report_from_parse_pack(material_parse_pack)
+        reasons.extend(parse_pack_errors)
+    if resolved_material_report is None:
+        reasons.append("material_detail_report_missing")
+    elif not resolved_material_report.exists():
+        reasons.append(f"material_detail_report_missing:{rel(resolved_material_report)}")
+    if timeline is None:
+        reasons.append("script_to_timeline_map_missing")
+    elif not timeline.exists():
+        reasons.append(f"script_to_timeline_map_missing:{rel(timeline)}")
+    if reasons:
+        return blocked_report(
+            "material_evidence_gate_preflight",
+            reasons,
+            check_depth="implemented_no_render",
+            checked_inputs={
+                "material_detail_report": rel(resolved_material_report) if resolved_material_report else "",
+                "material_parse_pack": rel(material_parse_pack) if material_parse_pack else "",
+                "script_to_timeline_map": rel(timeline) if timeline else "",
+                "content_route_card": rel(content_route_card) if content_route_card else "",
+            },
+        )
+
+    try:
+        result = run_material_evidence_gate(
+            material_report=resolved_material_report,
+            timeline=timeline,
+            content_route_card=content_route_card,
+            output_dir=output_dir,
+        )
+    except Exception as exc:
+        return blocked_report(
+            "material_evidence_gate_preflight",
+            [f"material_evidence_gate_error:{exc}"],
+            check_depth="implemented_no_render",
+            checked_inputs={
+                "material_detail_report": rel(resolved_material_report),
+                "script_to_timeline_map": rel(timeline),
+                "content_route_card": rel(content_route_card) if content_route_card else "",
+            },
+        )
+
+    preflight = result.get("auto_storyboard_preflight_report", {}).get("auto_storyboard_preflight_report", {})
+    blocked_reasons = list(preflight.get("blocked_reasons") or [])
+    if preflight.get("auto_edit_allowed") is not True:
+        blocked_reasons.append("material_evidence_auto_edit_not_allowed")
+    return blocked_report(
+        "material_evidence_gate_preflight",
+        blocked_reasons,
+        check_depth="implemented_no_render",
+        checked_inputs={
+            "material_detail_report": rel(resolved_material_report),
+            "script_to_timeline_map": rel(timeline),
+            "content_route_card": rel(content_route_card) if content_route_card else "",
+        },
+        auto_edit_allowed=bool(preflight.get("auto_edit_allowed")),
+        total_line_groups=preflight.get("total_line_groups", 0),
+        high_risk_line_groups=preflight.get("high_risk_line_groups", []),
+        output_files=[
+            "material_evidence_contract.json",
+            "line_group_evidence_gate_report.json",
+            "auto_storyboard_preflight_report.json",
+        ],
+    )
 
 
 def line_level_alignment_preflight(timeline: Any, path: Path | None) -> dict[str, Any]:
@@ -966,6 +1073,13 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             script_to_shot_execution_map=args.script_to_shot_execution_map,
             material_usage_ledger=args.material_usage_ledger,
         ),
+        material_evidence_gate_preflight(
+            material_report=args.material_detail_report,
+            material_parse_pack=args.material_parse_pack,
+            timeline=args.script_to_timeline_map,
+            content_route_card=args.content_route_card,
+            output_dir=output_dir,
+        ),
         line_level_alignment_preflight(timeline, args.script_to_timeline_map),
         line_visual_tolerance_preflight(timeline, args.script_to_timeline_map),
         near_equivalent_material_substitution_preflight(timeline, args.script_to_timeline_map),
@@ -1035,6 +1149,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--tts-prosody-anchor-map", type=Path, help="tts_prosody_anchor_map JSON.")
     parser.add_argument("--locked-copy-contract", type=Path, help="locked_copy_contract JSON.")
     parser.add_argument("--content-route-card", type=Path, help="content_route_card_v2 JSON.")
+    parser.add_argument("--material-detail-report", type=Path, help="material_detail_report Markdown.")
     parser.add_argument("--material-parse-pack", type=Path, help="material_parse_pack JSON.")
     parser.add_argument("--source-segment-inventory", type=Path, help="source_segment_inventory JSON.")
     parser.add_argument("--script-to-shot-execution-map", type=Path, help="script_to_shot_execution_map JSON.")

@@ -1,0 +1,136 @@
+{
+  "material_report_md": "# fixture material report\n\n### material_01\n\n```yaml\nfile_name: demo_workflow.mp4\n```\n\n| timecode | visible_content | user_action | readable_text | possible_copy_value | evidence_strength | platform_risk | privacy_risk | uncertainty |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| 00:00-00:10 | 配置页和字段模板清晰可见 | 点击配置入口 | review_config.yaml / 字段 / 模板 | 支撑配置、字段、模板和用户动作 | high | low | low | clear |\n\nmaterial_01:\n\n- `can_support`: 配置步骤；字段模板；点击配置入口；拆任务流程\n- `cannot_support`: 商业闭环成立；方向已经成功\n- `best_use`: process evidence\n- `not_allowed_use`: 不得证明商业结果\n\n### material_02\n\n```yaml\nfile_name: weak_background.mp4\n```\n\n| timecode | visible_content | user_action | readable_text | possible_copy_value | evidence_strength | platform_risk | privacy_risk | uncertainty |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| 00:00-00:10 | 模糊聊天背景 | 停留阅读 | 看不清 | 只能作为背景 | low | low | low | blurry |\n\nmaterial_02:\n\n- `can_support`: 背景上下文\n- `cannot_support`: 点击生成；真实数据来源；核心判断\n- `best_use`: background only\n- `not_allowed_use`: 不得当作直接证据\n\n### material_03\n\n```yaml\nfile_name: privacy_risk.mp4\n```\n\n| timecode | visible_content | user_action | readable_text | possible_copy_value | evidence_strength | platform_risk | privacy_risk | uncertainty |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| 00:30-00:40 | 本地路径和账号名可见 | 滚动 | /Users/name/token-like sidebar | 可见敏感路径 | high | medium | high | sensitive |\n\nmaterial_03:\n\n- `can_support`: 内部执行单存在\n- `cannot_support`: 公开视频可直接使用\n- `best_use`: internal only\n- `not_allowed_use`: 不得默认入片\n",
+  "cases": [
+    {
+      "case_id": "direct_match_process_material",
+      "line_groups": [
+        {
+          "line_group_id": "lg_direct",
+          "narration_text": "第一步，是配置字段和模板。",
+          "required_material": "material_01",
+          "source_timecode": "00:00-00:10",
+          "visual_role": "middle_evidence",
+          "card_role": "none"
+        }
+      ]
+    },
+    {
+      "case_id": "proxy_match_transition_background",
+      "line_groups": [
+        {
+          "line_group_id": "lg_proxy",
+          "narration_text": "这时候先把背景交代清楚。",
+          "required_material": "material_02",
+          "source_timecode": "00:00-00:10",
+          "visual_role": "background",
+          "card_role": "none"
+        }
+      ]
+    },
+    {
+      "case_id": "card_required_for_unproved_judgment",
+      "line_groups": [
+        {
+          "line_group_id": "lg_card_required",
+          "narration_text": "这个判断不能直接说明方向已经成功。",
+          "required_material": "material_02",
+          "source_timecode": "00:00-00:10",
+          "visual_role": "middle_evidence",
+          "card_role": "none"
+        }
+      ]
+    },
+    {
+      "case_id": "card_required_resolved_for_judgment",
+      "line_groups": [
+        {
+          "line_group_id": "lg_card_resolved",
+          "narration_text": "这个判断不能直接判方向失败。",
+          "required_material": "generated_card",
+          "source_timecode": "card",
+          "visual_role": "judgment_card",
+          "card_role": "judgment_card"
+        }
+      ]
+    },
+    {
+      "case_id": "blocked_no_evidence",
+      "line_groups": [
+        {
+          "line_group_id": "lg_no_evidence",
+          "narration_text": "这条视频播放 100，收藏 20。",
+          "required_material": "material_99",
+          "source_timecode": "00:00-00:10",
+          "visual_role": "middle_evidence",
+          "card_role": "none"
+        }
+      ]
+    },
+    {
+      "case_id": "selected_material_in_cannot_support",
+      "line_groups": [
+        {
+          "line_group_id": "lg_cannot_support",
+          "narration_text": "这证明商业闭环成立。",
+          "required_material": "material_01",
+          "source_timecode": "00:00-00:10",
+          "visual_role": "middle_evidence",
+          "card_role": "none"
+        }
+      ]
+    },
+    {
+      "case_id": "privacy_high_selected",
+      "line_groups": [
+        {
+          "line_group_id": "lg_privacy",
+          "narration_text": "这里可以看到内部执行单。",
+          "required_material": "material_03",
+          "source_timecode": "00:30-00:40",
+          "visual_role": "middle_evidence",
+          "card_role": "none"
+        }
+      ]
+    },
+    {
+      "case_id": "data_sentence_without_source",
+      "line_groups": [
+        {
+          "line_group_id": "lg_data_no_source",
+          "narration_text": "播放 143，完播率 4.05%。",
+          "required_material": "generated_card",
+          "source_timecode": "card",
+          "visual_role": "data_result_card",
+          "card_role": "data_result_card",
+          "data_source_status": "missing"
+        }
+      ]
+    },
+    {
+      "case_id": "action_sentence_hard_mapped_to_recording",
+      "line_groups": [
+        {
+          "line_group_id": "lg_action_hard_mapped",
+          "narration_text": "我点击生成按钮，系统马上跑出结果。",
+          "required_material": "material_02",
+          "source_timecode": "00:00-00:10",
+          "visual_role": "middle_evidence",
+          "card_role": "none"
+        }
+      ]
+    },
+    {
+      "case_id": "render_blocked_when_auto_edit_false",
+      "line_groups": [
+        {
+          "line_group_id": "lg_render_blocked",
+          "narration_text": "这条视频播放 100，收藏 20。",
+          "required_material": "material_99",
+          "source_timecode": "00:00-00:10",
+          "visual_role": "middle_evidence",
+          "card_role": "none"
+        }
+      ]
+    }
+  ]
+}
