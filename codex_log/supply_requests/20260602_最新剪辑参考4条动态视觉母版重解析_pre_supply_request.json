@@ -1,0 +1,166 @@
+{
+  "request_id": "20260602_latest_4_dynamic_visual_master_reparse_pre_supply",
+  "created_at": "2026-06-02T00:00:00+08:00",
+  "project_route": "video_factory",
+  "project_stage": "formal_operation_active",
+  "operation_stage": "reference_analysis_only",
+  "task_id": "latest_4_dynamic_visual_master_reparse",
+  "task_type": "reference_analysis_only",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "editing_decision_pack",
+  "mandatory_for_every_task": true,
+  "participation_level": "mandatory_by_default",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_decrement_expected_if_deepseek_real_call_succeeds",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "Reparse the 4 latest editing reference videos from source video files for dynamic visual master, frame-level motion, visual language, first-impression layout, and side-by-side deviation preparation. Do not generate or modify new fourth episode video.",
+  "current_step": "before writing dynamic visual master analysis package",
+  "known_context": [
+    "Source reference videos are under /Users/fan/Documents/视频工厂/素材录制/剪辑参考/最新剪辑参考",
+    "Previous deep parse from commit 191f02f431f424af42979830c3194305fb7b5e93 is now low trust and diagnostic only",
+    "This round may write only codex_log/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse, dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse, scripts/最新剪辑参考动态视觉母版重解析_generate_dynamic_visual_evidence.py, codex_log/supply_requests, codex_log/deepseek_supply, and codex_log/latest.md",
+    "content_validation, send_ready, publish_status_success, voice_validation, final_voice_validated, and visual_master_locked must not be promoted"
+  ],
+  "missing_context": [
+    "OCR may be unavailable locally; do not invent exact subtitle or small UI text if unreadable",
+    "DeepSeek token usage cannot be observed directly by Codex",
+    "This round is not allowed to re-edit the new fourth episode"
+  ],
+  "decision_needed": "Flag risks in treating old mechanism-oriented parse as visual master, and list required source-video evidence for dynamic visual master parsing.",
+  "candidate_files": [
+    "AGENTS.md",
+    "GPT数据源/00_项目总述.md",
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/03_总索引与阅读顺序.md",
+    "GPT数据源/06_当前主线锚点_API生成真人_用户录制素材_少量PPT_云端剪辑.md",
+    "GPT数据源/08_当前正式事实.md",
+    "GPT数据源/10_OPC一人公司闭环与多AI协作机制.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/13_execution_lane_and_parallel_rules.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/20_reference_to_execution_contract.md",
+    "project_source/20_codex_multi_agent_routing_note_for_gpt_project.md",
+    "codex_log/latest.md"
+  ],
+  "must_read_files": [
+    "AGENTS.md",
+    "GPT数据源/08_当前正式事实.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+    "codex_source/20_reference_to_execution_contract.md",
+    "codex_source/13_execution_lane_and_parallel_rules.md",
+    "project_source/20_codex_multi_agent_routing_note_for_gpt_project.md",
+    "codex_log/latest.md"
+  ],
+  "optional_files": [
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_01_timeline_full_parse.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_role_classification.md",
+    "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_to_execution_contract.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    ".git/",
+    "dist/latest_review_pack/",
+    "/Users/fan/Documents/视频工厂/素材录制/剪辑参考/最新剪辑参考"
+  ],
+  "expected_output": [
+    "file_map",
+    "risk_report",
+    "context_summary",
+    "missing_files",
+    "codex_next_input",
+    "token_usage_expectation_check"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files or edit repository files",
+    "DeepSeek must not decide project facts or promote project status",
+    "fallback_local_only is not a DeepSeek conclusion",
+    "Do not claim multi-agent runtime is stable or passed",
+    "Do not claim visual_master_locked or content_validation passed"
+  ],
+  "blocked_if": [
+    "reference video directory is missing",
+    "reference count is not 4",
+    "ffprobe, ffmpeg single-frame extraction, or OpenCV sampling cannot inspect videos",
+    "analysis requires changing source videos or new fourth episode media",
+    "analysis would modify formal mechanism files or dist/latest_review_pack"
+  ],
+  "return_to_codex": {
+    "output_dir": "codex_log/deepseek_supply/20260602_latest_4_dynamic_visual_master_reparse_pre_supply",
+    "status_field": "deepseek_participation_report"
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "deep_file_prefetch",
+      "post_risk_review"
+    ]
+  },
+  "file_scope": {
+    "candidate_files": [
+      "AGENTS.md",
+      "GPT数据源/08_当前正式事实.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+      "codex_source/20_reference_to_execution_contract.md",
+      "codex_source/13_execution_lane_and_parallel_rules.md",
+      "project_source/20_codex_multi_agent_routing_note_for_gpt_project.md",
+      "codex_log/latest.md"
+    ],
+    "must_prefetch_files": [
+      "AGENTS.md",
+      "GPT数据源/08_当前正式事实.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+      "codex_source/20_reference_to_execution_contract.md"
+    ],
+    "optional_prefetch_files": [
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_01_timeline_full_parse.md",
+      "codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/reference_role_classification.md"
+    ],
+    "forbidden_files": [
+      ".env",
+      ".env.local",
+      ".git/",
+      "dist/latest_review_pack/",
+      "/Users/fan/Documents/视频工厂/素材录制/剪辑参考/最新剪辑参考"
+    ],
+    "secret_files_forbidden": true
+  },
+  "content_loading_policy": {
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 12,
+    "max_chars_per_file": 5000,
+    "max_total_chars": 30000,
+    "truncate_policy": "front_and_relevant_snippets",
+    "redaction_policy": "no_secret_files_no_env_values"
+  },
+  "output_required": [
+    "relevant_file_bundle",
+    "exact_snippet_pack",
+    "dependency_map",
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "token_usage_expectation_check"
+  ],
+  "status_boundary": {
+    "video_render_allowed": false,
+    "validation_clip_allowed": false,
+    "new_fourth_episode_modification_allowed": false,
+    "formal_mechanism_update_allowed": false,
+    "dist_latest_review_pack_update_allowed": false,
+    "content_validation": "not_applicable",
+    "send_ready": false,
+    "not_deepseek_conclusion_if_fallback": true
+  }
+}

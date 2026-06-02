@@ -1,0 +1,437 @@
+{
+  "analysis_id": "20260602_latest_4_dynamic_visual_master_reparse",
+  "source_dir": "/Users/fan/Documents/视频工厂/素材录制/剪辑参考/最新剪辑参考",
+  "log_dir": "codex_log/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse",
+  "dist_dir": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse",
+  "reference_count": 4,
+  "ffprobe_available": true,
+  "ffmpeg_available": true,
+  "opencv_version": "4.13.0",
+  "references": {
+    "reference_01": {
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/剪辑参考/最新剪辑参考/ScreenRecording_06-01-2026 23-49-21_1.MP4",
+      "metadata": {
+        "duration_seconds": 345.826712,
+        "width": 1180,
+        "height": 2556,
+        "fps": 60.090792555395986,
+        "video_codec": "hevc",
+        "audio_present": true,
+        "audio_codec": "aac",
+        "audio_channels": 2
+      },
+      "ffprobe_json": "codex_log/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/metadata/reference_01_ffprobe.json",
+      "probe_video_report": "codex_log/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/metadata/reference_01_video_metadata_probe.md",
+      "probe_video_skill_status": {
+        "status": "passed",
+        "returncode": 0
+      },
+      "ffmpeg_smoke": {
+        "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/ffmpeg_smoke/reference_01/t0001s.jpg",
+        "status": "passed",
+        "returncode": 0,
+        "stderr": ""
+      },
+      "sampling": {
+        "opencv": {
+          "opencv_opened": true,
+          "frame_count": 20782,
+          "fps": 60.090792555395986,
+          "width": 1180,
+          "height": 2556
+        },
+        "frames_5s_count": 70,
+        "frames_5s_dir": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_01/frames_5s",
+        "frame_metrics_5s_csv": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_01/frame_metrics_5s.csv",
+        "scene_candidate_count": 28,
+        "scene_candidates_csv": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_01/scene_change_candidates.csv",
+        "scene_candidates_dir": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_01/scene_candidates",
+        "contact_sheets": [
+          "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_01/contact_sheet_5s_page_01.jpg",
+          "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_01/contact_sheet_5s_page_02.jpg",
+          "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_01/contact_sheet_5s_page_03.jpg",
+          "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_01/contact_sheet_5s_page_04.jpg"
+        ],
+        "scene_contact_sheet": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_01/contact_sheet_scene_candidates.jpg",
+        "dynamic_1s_clips": [
+          {
+            "label": "opening_first_impression",
+            "timestamp": 0.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_01/dynamic_1s_clips/opening_first_impression_t0000s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "opening_after_first_second",
+            "timestamp": 3.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_01/dynamic_1s_clips/opening_after_first_second_t0003s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "first_layout_split_or_large_change",
+            "timestamp": 62.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_01/dynamic_1s_clips/first_layout_split_or_large_change_t0062s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "subtitle_or_keyword_highlight_change",
+            "timestamp": 60.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_01/dynamic_1s_clips/subtitle_or_keyword_highlight_change_t0060s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "evidence_window_change",
+            "timestamp": 140.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_01/dynamic_1s_clips/evidence_window_change_t0140s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "bridge_reset_change",
+            "timestamp": 64.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_01/dynamic_1s_clips/bridge_reset_change_t0064s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "density_layer_change",
+            "timestamp": 110.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_01/dynamic_1s_clips/density_layer_change_t0110s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "late_section_change",
+            "timestamp": 302.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_01/dynamic_1s_clips/late_section_change_t0302s.mp4",
+            "status": "passed",
+            "stderr": ""
+          }
+        ]
+      }
+    },
+    "reference_02": {
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/剪辑参考/最新剪辑参考/ScreenRecording_06-02-2026 00-03-59_1.MP4",
+      "metadata": {
+        "duration_seconds": 200.392404,
+        "width": 1180,
+        "height": 2556,
+        "fps": 60.09780927191976,
+        "video_codec": "hevc",
+        "audio_present": true,
+        "audio_codec": "aac",
+        "audio_channels": 2
+      },
+      "ffprobe_json": "codex_log/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/metadata/reference_02_ffprobe.json",
+      "probe_video_report": "codex_log/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/metadata/reference_02_video_metadata_probe.md",
+      "probe_video_skill_status": {
+        "status": "passed",
+        "returncode": 0
+      },
+      "ffmpeg_smoke": {
+        "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/ffmpeg_smoke/reference_02/t0001s.jpg",
+        "status": "passed",
+        "returncode": 0,
+        "stderr": ""
+      },
+      "sampling": {
+        "opencv": {
+          "opencv_opened": true,
+          "frame_count": 12043,
+          "fps": 60.09780927191976,
+          "width": 1180,
+          "height": 2556
+        },
+        "frames_5s_count": 41,
+        "frames_5s_dir": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_02/frames_5s",
+        "frame_metrics_5s_csv": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_02/frame_metrics_5s.csv",
+        "scene_candidate_count": 27,
+        "scene_candidates_csv": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_02/scene_change_candidates.csv",
+        "scene_candidates_dir": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_02/scene_candidates",
+        "contact_sheets": [
+          "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_02/contact_sheet_5s_page_01.jpg",
+          "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_02/contact_sheet_5s_page_02.jpg",
+          "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_02/contact_sheet_5s_page_03.jpg"
+        ],
+        "scene_contact_sheet": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_02/contact_sheet_scene_candidates.jpg",
+        "dynamic_1s_clips": [
+          {
+            "label": "opening_first_impression",
+            "timestamp": 0.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_02/dynamic_1s_clips/opening_first_impression_t0000s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "opening_after_first_second",
+            "timestamp": 3.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_02/dynamic_1s_clips/opening_after_first_second_t0003s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "first_layout_split_or_large_change",
+            "timestamp": 6.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_02/dynamic_1s_clips/first_layout_split_or_large_change_t0006s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "subtitle_or_keyword_highlight_change",
+            "timestamp": 92.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_02/dynamic_1s_clips/subtitle_or_keyword_highlight_change_t0092s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "evidence_window_change",
+            "timestamp": 196.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_02/dynamic_1s_clips/evidence_window_change_t0196s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "bridge_reset_change",
+            "timestamp": 106.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_02/dynamic_1s_clips/bridge_reset_change_t0106s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "density_layer_change",
+            "timestamp": 192.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_02/dynamic_1s_clips/density_layer_change_t0192s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "late_section_change",
+            "timestamp": 168.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_02/dynamic_1s_clips/late_section_change_t0168s.mp4",
+            "status": "passed",
+            "stderr": ""
+          }
+        ]
+      }
+    },
+    "reference_03": {
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/剪辑参考/最新剪辑参考/ScreenRecording_06-02-2026 00-07-32_1.mov",
+      "metadata": {
+        "duration_seconds": 363.745034,
+        "width": 1180,
+        "height": 2556,
+        "fps": 60.094017172337324,
+        "video_codec": "hevc",
+        "audio_present": true,
+        "audio_codec": "aac",
+        "audio_channels": 2
+      },
+      "ffprobe_json": "codex_log/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/metadata/reference_03_ffprobe.json",
+      "probe_video_report": "codex_log/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/metadata/reference_03_video_metadata_probe.md",
+      "probe_video_skill_status": {
+        "status": "passed",
+        "returncode": 0
+      },
+      "ffmpeg_smoke": {
+        "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/ffmpeg_smoke/reference_03/t0001s.jpg",
+        "status": "passed",
+        "returncode": 0,
+        "stderr": ""
+      },
+      "sampling": {
+        "opencv": {
+          "opencv_opened": true,
+          "frame_count": 21860,
+          "fps": 60.094017172337324,
+          "width": 1180,
+          "height": 2556
+        },
+        "frames_5s_count": 74,
+        "frames_5s_dir": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_03/frames_5s",
+        "frame_metrics_5s_csv": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_03/frame_metrics_5s.csv",
+        "scene_candidate_count": 28,
+        "scene_candidates_csv": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_03/scene_change_candidates.csv",
+        "scene_candidates_dir": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_03/scene_candidates",
+        "contact_sheets": [
+          "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_03/contact_sheet_5s_page_01.jpg",
+          "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_03/contact_sheet_5s_page_02.jpg",
+          "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_03/contact_sheet_5s_page_03.jpg",
+          "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_03/contact_sheet_5s_page_04.jpg"
+        ],
+        "scene_contact_sheet": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_03/contact_sheet_scene_candidates.jpg",
+        "dynamic_1s_clips": [
+          {
+            "label": "opening_first_impression",
+            "timestamp": 0.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_03/dynamic_1s_clips/opening_first_impression_t0000s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "opening_after_first_second",
+            "timestamp": 3.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_03/dynamic_1s_clips/opening_after_first_second_t0003s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "first_layout_split_or_large_change",
+            "timestamp": 16.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_03/dynamic_1s_clips/first_layout_split_or_large_change_t0016s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "subtitle_or_keyword_highlight_change",
+            "timestamp": 20.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_03/dynamic_1s_clips/subtitle_or_keyword_highlight_change_t0020s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "evidence_window_change",
+            "timestamp": 296.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_03/dynamic_1s_clips/evidence_window_change_t0296s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "bridge_reset_change",
+            "timestamp": 130.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_03/dynamic_1s_clips/bridge_reset_change_t0130s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "density_layer_change",
+            "timestamp": 128.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_03/dynamic_1s_clips/density_layer_change_t0128s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "late_section_change",
+            "timestamp": 352.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_03/dynamic_1s_clips/late_section_change_t0352s.mp4",
+            "status": "passed",
+            "stderr": ""
+          }
+        ]
+      }
+    },
+    "reference_04": {
+      "source_path": "/Users/fan/Documents/视频工厂/素材录制/剪辑参考/最新剪辑参考/ScreenRecording_06-02-2026 00-16-59_1.mov",
+      "metadata": {
+        "duration_seconds": 294.198344,
+        "width": 1180,
+        "height": 2556,
+        "fps": 60.09584881718481,
+        "video_codec": "hevc",
+        "audio_present": true,
+        "audio_codec": "aac",
+        "audio_channels": 2
+      },
+      "ffprobe_json": "codex_log/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/metadata/reference_04_ffprobe.json",
+      "probe_video_report": "codex_log/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/metadata/reference_04_video_metadata_probe.md",
+      "probe_video_skill_status": {
+        "status": "passed",
+        "returncode": 0
+      },
+      "ffmpeg_smoke": {
+        "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/ffmpeg_smoke/reference_04/t0001s.jpg",
+        "status": "passed",
+        "returncode": 0,
+        "stderr": ""
+      },
+      "sampling": {
+        "opencv": {
+          "opencv_opened": true,
+          "frame_count": 17681,
+          "fps": 60.09584881718481,
+          "width": 1180,
+          "height": 2556
+        },
+        "frames_5s_count": 60,
+        "frames_5s_dir": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_04/frames_5s",
+        "frame_metrics_5s_csv": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_04/frame_metrics_5s.csv",
+        "scene_candidate_count": 28,
+        "scene_candidates_csv": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_04/scene_change_candidates.csv",
+        "scene_candidates_dir": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_04/scene_candidates",
+        "contact_sheets": [
+          "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_04/contact_sheet_5s_page_01.jpg",
+          "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_04/contact_sheet_5s_page_02.jpg",
+          "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_04/contact_sheet_5s_page_03.jpg"
+        ],
+        "scene_contact_sheet": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_04/contact_sheet_scene_candidates.jpg",
+        "dynamic_1s_clips": [
+          {
+            "label": "opening_first_impression",
+            "timestamp": 0.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_04/dynamic_1s_clips/opening_first_impression_t0000s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "opening_after_first_second",
+            "timestamp": 3.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_04/dynamic_1s_clips/opening_after_first_second_t0003s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "first_layout_split_or_large_change",
+            "timestamp": 282.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_04/dynamic_1s_clips/first_layout_split_or_large_change_t0282s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "subtitle_or_keyword_highlight_change",
+            "timestamp": 278.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_04/dynamic_1s_clips/subtitle_or_keyword_highlight_change_t0278s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "evidence_window_change",
+            "timestamp": 228.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_04/dynamic_1s_clips/evidence_window_change_t0228s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "bridge_reset_change",
+            "timestamp": 230.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_04/dynamic_1s_clips/bridge_reset_change_t0230s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "density_layer_change",
+            "timestamp": 272.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_04/dynamic_1s_clips/density_layer_change_t0272s.mp4",
+            "status": "passed",
+            "stderr": ""
+          },
+          {
+            "label": "late_section_change",
+            "timestamp": 274.0,
+            "path": "dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/reference_04/dynamic_1s_clips/late_section_change_t0274s.mp4",
+            "status": "passed",
+            "stderr": ""
+          }
+        ]
+      }
+    }
+  },
+  "status_boundary": {
+    "video_rendered": false,
+    "new_fourth_episode_modified": false,
+    "formal_mechanism_updated": false,
+    "content_validation": "not_applicable",
+    "send_ready": false
+  }
+}

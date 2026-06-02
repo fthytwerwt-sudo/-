@@ -1,5 +1,25 @@
 # Latest
 
+## 20260602｜最新 4 条剪辑参考动态视觉母版重解析
+
+- `task_result.status = dynamic_visual_master_parse_completed_pending_user_chatgpt_review`
+- `target_delivery = latest_4_dynamic_visual_master_reparse_reference_analysis_only`
+- `branch = main`
+- `route_decision.project_route = video_factory`
+- `route_decision.task_type = review_diagnosis_audit + reference_analysis_only + local_file_governance + project_file_change`
+- `route_decision.selected_state = dynamic_visual_master_parse`
+- `已确认` 本轮只从源视频重解析 4 条最新剪辑参考的动态视觉母版、第一眼视觉、构图、字体 / 字幕 / 高亮、运动转场、密度层级和注意力路径；不是生成视频、不是验证片、不是完整候选片、不是回炉新第四期。
+- `source_dir = /Users/fan/Documents/视频工厂/素材录制/剪辑参考/最新剪辑参考`
+- `analysis_dir = codex_log/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/`
+- `media_evidence_dir = dist/reference_analysis/20260602_最新剪辑参考4条动态视觉母版重解析_latest_4_dynamic_visual_master_reparse/`
+- `已确认` 4/4 源视频完成 `ffprobe`、video-metadata-probe、ffmpeg 单帧抽取、OpenCV 打开与 5s 抽帧；每条均生成 scene candidate frames、1 秒动态证据 clips 和 contact sheets。
+- `已确认` 上一轮 `codex_log/reference_analysis/20260602_最新剪辑参考4条深度解析_latest_4_editing_references_deep_parse/` 降级为 `failed_prior_parse / low_trust_reference_summary / diagnostic_reference_only`；旧报告只作为失败样本，不作为本轮主视觉判断。
+- `已确认` 本轮重新分类：`reference_03 = primary_teaching_dynamic_visual_master`，`reference_04 = primary_long_text_evidence_window_master`，`reference_01 = support_result_montage_and_comparison_master`，`reference_02 = support_phone_keyword_badge_packaging`。
+- `已确认` 本轮核心发现：可迁移的是黑底 / 深灰舞台、主持人 reset、证据窗口、黄绿读线、关键词 badge、密度重置和注意力路径；不可复制竖屏平台壳、互动栏、真人脸、第三方 app / logo / UI / 字体 / 片段素材。
+- `未推进` 不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`；不修改新第四期，不修改源视频，不修改 `GPT数据源/` 正式机制，不修改 `codex_source/` 正式规则，不修改 `dist/latest_review_pack/`。
+- `DeepSeek pre-supply`：已创建供料请求并运行 safe runner；runtime provider 找到授权且 `api_key_printed = false / api_key_written = false`，但 controller 输出 `blocked_invalid_context_pack`，因此 `deepseek_actual_participation = not_attempted_policy_violation`，`fallback_status = fallback_local_only`，`not_deepseek_conclusion = true`。
+- `日志证据`：`codex_log/supply_requests/20260602_最新剪辑参考4条动态视觉母版重解析_pre_supply_request.json`、`codex_log/deepseek_supply/20260602_latest_4_dynamic_visual_master_reparse_pre_supply/latest_supply_pack.md`。
+
 ## 20260602｜需求不确定澄清闸门与 GPT Project 资料同步包
 
 - `task_result.status = mechanism_route_corrected_not_video_delivery`
