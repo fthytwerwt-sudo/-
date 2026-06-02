@@ -1,5 +1,32 @@
 # Latest
 
+## 20260603｜第五期 Codex 赚钱主题完整正片候选片
+
+- `task_result.status = publish_candidate_ready_for_human_review`
+- `target_delivery = fifth_episode_codex_money_publish_candidate`
+- `branch = main`
+- `route_decision.project_route = video_factory`
+- `route_decision.task_type = video_sample_or_assembly + project_file_change + review_diagnosis_audit`
+- `large_task_gate.triggered = true`
+- `full_video = dist/fifth_episode_codex_money_publish_candidate_20260603/full.mp4`
+- `full_video_absolute_path = /Users/fan/Documents/视频工厂/dist/fifth_episode_codex_money_publish_candidate_20260603/full.mp4`
+- `review_pack = dist/fifth_episode_codex_money_publish_candidate_20260603/review_pack/`
+- `review_manifest = dist/fifth_episode_codex_money_publish_candidate_20260603/review_manifest.md`
+- `summary_json = dist/fifth_episode_codex_money_publish_candidate_20260603/summary.json`
+- `publish_candidate_preflight_report = dist/fifth_episode_codex_money_publish_candidate_20260603/publish_candidate_preflight_report.json`
+- `已确认` 已按 locked title / locked opening line / locked final script 生成完整横屏 16:9 / 1920x1080 正片候选片；不是技术预览、不是 silent preview、不是 route card、不是局部片段。
+- `已确认` TTS 完整音轨已生成：`actual_tts_provider = minimax`、`actual_tts_model = MiniMax/speech-2.8-hd`、`actual_voice_id_or_voice_route = oldBMinimax20260528010200`、`tts_audio_path = dist/fifth_episode_codex_money_publish_candidate_20260603/audio/tts_full.wav`、`tts_duration = 203.646s`、`audio_present = true`、`non_silent = true`。
+- `已确认` 已生成 `subtitles/final.srt` 与 `subtitles/final.ass`，并通过本地 overlay 方式烧录字幕；`subtitle_card_overlap_check = passed`，`high_severity_overlap_count = 0`。
+- `已确认` 已生成本地标题卡 / 判断卡 / 三栏卡 / 过渡卡 / 金句卡 / CTA 卡 / 总结卡；`visual_api_generation_used = false`、`api_human_used = false`、`local_card_generation_used = true`。
+- `已确认` M01-M05 均按 Shot Map 和素材证据契约使用：M01/M05 只做执行纪律 / QA 证据；M02 只做候选池和多项目可能性；M03/M04 只做问题入口与判断框架画面承载；不写商品已经赚钱、商业验证通过、账号跑通或 vlog 跑通。
+- `已确认` `script_to_timeline_map` 覆盖 41 个 line_group；`line_level_alignment_preflight = passed`、`mismatch_count = 0`、`unresolved_mismatch_count = 0`。
+- `已确认` `publish_candidate_preflight_report.status = passed`；`video_metadata_probe` 通过：`duration = 203.647s`、`resolution = 1920x1080`、`audio_codec = aac`、`decodable = true`、`validation_status = passed`。
+- `DeepSeek pre-supply`：已创建供料请求并运行 safe runner；runtime provider 找到授权且 `api_key_printed = false / api_key_written = false`，但 controller 输出 `blocked_invalid_context_pack`，因此 `deepseek_actual_participation = not_attempted_policy_violation`、`fallback_status = not_used`、`not_deepseek_conclusion = true`；本轮风险结论来自 Codex 本地复核。
+- `DeepSeek post-risk review`：已创建后置风险复核任务卡并运行 safe runner；runtime provider 找到授权且 `api_key_printed = false / api_key_written = false`，但 controller 同样输出 `blocked_invalid_context_pack`，因此 `deepseek_actual_participation = not_attempted_policy_violation`、`fallback_status = not_used`、`not_deepseek_conclusion = true`；不写 DeepSeek passed。
+- `未推进` 不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`；不修改源素材；不修改 `dist/latest_review_pack/`。
+- `Git policy`：`dist/` 当前被本地 exclude，媒体文件不提交 Git；已同步 `codex_log/current_local_artifact_paths.md` 记录本地绝对路径。
+- `日志证据`：`codex_log/20260603_第五期Codex赚钱主题正片执行.md`、`codex_log/supply_requests/20260603_第五期Codex赚钱主题正片_pre_supply_request.json`、`dist/fifth_episode_codex_money_publish_candidate_20260603/`。
+
 ## 20260603｜第五期录制素材 5 个视频细节解析
 
 - `task_result.status = completed_material_audit_pending_chatgpt_copy_judgement`

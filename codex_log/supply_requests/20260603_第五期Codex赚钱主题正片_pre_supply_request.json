@@ -1,0 +1,105 @@
+{
+  "request_id": "20260603_fifth_episode_codex_money_publish_candidate_pre_supply",
+  "project_route": "video_factory",
+  "task_type": "video_sample_or_assembly",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "assembly_decision_pack",
+  "mandatory_for_every_task": true,
+  "participation_level": "readonly_supply",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "DeepSeek should provide a compact risk and assembly checklist; Codex remains the only write/integration layer.",
+  "fallback_allowed": false,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "Generate a complete publish-candidate video for the fifth episode: Codex 到底能不能帮普通人赚钱？",
+  "current_step": "Before media generation, verify locked-copy, source-material evidence limits, TTS route, subtitle/timeline gates, and no visual API generation.",
+  "known_context": [
+    "Locked final script must be used without semantic rewrite.",
+    "Allowed visuals are user recordings M01-M05 plus local program-generated cards.",
+    "Visual generation API and API-generated human hosts are forbidden.",
+    "Formal TTS route is MiniMax/Bailian speech-2.8-hd with oldBMinimax20260528010200 voice lock.",
+    "Do not promote content_validation, send_ready, publish_status_success, voice_validation, final_voice_validated, or visual_master_locked."
+  ],
+  "missing_context": [
+    "DeepSeek should flag any remaining conflict between current_data_goal_anchor and this user-provided locked execution order.",
+    "DeepSeek should flag any shot-map evidence misuse risk before Codex assembles the video."
+  ],
+  "candidate_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "GPT数据源/04_选题与文案规则.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "codex_log/current_data_goal_anchor.md",
+    "codex_log/material_audit/20260603_第五期素材细节解析/material_detail_report.md",
+    "codex_log/material_audit/20260603_第五期素材细节解析/timecode_evidence_map.json",
+    "codex_log/material_audit/20260603_第五期素材细节解析/material_evidence_contract.json"
+  ],
+  "must_read_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "GPT数据源/04_选题与文案规则.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "codex_log/current_data_goal_anchor.md",
+    "codex_log/material_audit/20260603_第五期素材细节解析/material_detail_report.md",
+    "codex_log/material_audit/20260603_第五期素材细节解析/timecode_evidence_map.json",
+    "codex_log/material_audit/20260603_第五期素材细节解析/material_evidence_contract.json"
+  ],
+  "optional_files": [
+    "codex_log/latest.md",
+    "codex_source/14_locked_reference_inheritance_rules.md",
+    "codex_source/locked_reference_registry.md",
+    "codex_source/15_v31视觉路由规则_v31_visual_routing_rules.md"
+  ],
+  "forbidden_paths": [
+    "dist/latest_review_pack",
+    "素材录制/第五期/*.mp4",
+    "GPT 数据源"
+  ],
+  "expected_output": [
+    "risk_report",
+    "assembly_decision_pack",
+    "missing_files"
+  ],
+  "not_allowed": [
+    "写文件",
+    "write files",
+    "拍板项目事实",
+    "decide project facts",
+    "fallback 本地兜底不得写成 DeepSeek 结论",
+    "do not claim multi-agent runtime unless actually used"
+  ],
+  "blocked_if": [
+    "MiniMax/Bailian TTS route is unavailable.",
+    "M01-M05 source files are missing.",
+    "Locked script must be rewritten to fit the edit.",
+    "Any source material is used as proof of money earned or commercial validation.",
+    "A required preflight gate would be failed."
+  ],
+  "return_to_codex": {
+    "format": "compact_json_plus_md_summary",
+    "codex_decision_authority": "Codex integrates and verifies; DeepSeek is readonly supply only."
+  },
+  "segments": [
+    "L01-L08: topic and core boundary",
+    "L09-L21: three current projects and honest non-profit status",
+    "L22-L34: one-person trial capacity and execution-cost thesis",
+    "L35-L41: low-pressure stance and comment CTA"
+  ],
+  "visual_asset_requirements": [
+    "Use local cards for title/judgment/three-column/transition/quote/CTA/summary.",
+    "Use M01/M05 only for execution discipline and QA evidence.",
+    "Use M02 only for candidate pool and multi-project possibility.",
+    "Use M03/M04 only for question entrance and candidate judgement framework, not final ecommerce lesson."
+  ],
+  "assembly_slots": [
+    "Generate full.mp4 1920x1080 horizontal with TTS and burned subtitles.",
+    "Generate SRT/ASS, script_to_timeline_map, TTS prosody map, card decision, preflight reports, review_pack."
+  ]
+}

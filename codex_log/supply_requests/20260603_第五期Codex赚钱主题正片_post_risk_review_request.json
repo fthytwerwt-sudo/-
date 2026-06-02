@@ -1,0 +1,76 @@
+{
+  "request_id": "20260603_fifth_episode_codex_money_publish_candidate_post_risk_review",
+  "project_route": "video_factory",
+  "task_type": "review_diagnosis_audit",
+  "trigger_reason": "mandatory_post_risk_review",
+  "action": "risk_report",
+  "mandatory_for_every_task": true,
+  "participation_level": "readonly_risk_review",
+  "pre_supply_required": false,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "DeepSeek should review compact final-output facts and flag status promotion, TTS route, copy drift, evidence misuse, and preflight gaps.",
+  "fallback_allowed": false,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "Post-risk review for the generated fifth-episode publish candidate.",
+  "current_step": "After full.mp4, TTS, subtitles, timeline, review_pack, and preflight reports were generated locally.",
+  "known_context": [
+    "full.mp4 exists at dist/fifth_episode_codex_money_publish_candidate_20260603/full.mp4",
+    "summary.json reports 203.647s, 1920x1080, audio_present=true, non_silent=true",
+    "TTS route is minimax / MiniMax/speech-2.8-hd / oldBMinimax20260528010200",
+    "publish_candidate_preflight_report.status=passed",
+    "content_validation/send_ready/publish_status_success/voice_validation/final_voice_validated/visual_master_locked were not promoted"
+  ],
+  "missing_context": [
+    "DeepSeek should flag if this post-risk request lacks enough compact evidence to run a safe review."
+  ],
+  "candidate_files": [
+    "codex_log/20260603_第五期Codex赚钱主题正片执行.md",
+    "codex_log/latest.md",
+    "codex_log/current_local_artifact_paths.md",
+    "dist/fifth_episode_codex_money_publish_candidate_20260603/summary.json",
+    "dist/fifth_episode_codex_money_publish_candidate_20260603/publish_candidate_preflight_report.json"
+  ],
+  "must_read_files": [
+    "codex_log/20260603_第五期Codex赚钱主题正片执行.md",
+    "dist/fifth_episode_codex_money_publish_candidate_20260603/summary.json",
+    "dist/fifth_episode_codex_money_publish_candidate_20260603/publish_candidate_preflight_report.json"
+  ],
+  "optional_files": [
+    "dist/fifth_episode_codex_money_publish_candidate_20260603/line_level_alignment_preflight_report.json",
+    "dist/fifth_episode_codex_money_publish_candidate_20260603/tts_route_and_prosody_preflight_report.json",
+    "dist/fifth_episode_codex_money_publish_candidate_20260603/locked_copy_diff_preflight_report.json"
+  ],
+  "forbidden_paths": [
+    "dist/latest_review_pack",
+    "素材录制/第五期/*.mp4",
+    ".env",
+    "config/formal_api_demo.local.toml"
+  ],
+  "expected_output": [
+    "risk_report",
+    "missing_files",
+    "blocked_if_any"
+  ],
+  "not_allowed": [
+    "写文件",
+    "write files",
+    "拍板项目事实",
+    "decide project facts",
+    "fallback 本地兜底不得写成 DeepSeek 结论",
+    "do not claim multi-agent runtime unless actually used",
+    "do not inspect secrets"
+  ],
+  "blocked_if": [
+    "request context is too large or invalid",
+    "DeepSeek would need to inspect media binary files",
+    "DeepSeek would need secret files",
+    "fallback would be reported as real participation"
+  ],
+  "return_to_codex": {
+    "format": "compact_json_plus_md_summary",
+    "codex_decision_authority": "Codex integrates and verifies; DeepSeek is readonly risk review only."
+  }
+}

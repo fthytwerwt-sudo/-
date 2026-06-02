@@ -280,6 +280,50 @@
 - `boundary（边界）`: 本路径只是本地 DeepSeek 活体测试产物，不是 GPT Project 上传包；不代表 `multi-agent runtime（多 agent 运行时）` 已稳定跑通，不代表当前视频内容验证通过，不代表可发送状态已通过，不代表发布状态推进。
 - `secret_policy（密钥策略）`: key 来源仅记录为 `.env` 文件名；key 值未打印、未写入、未提交；controller / explorer 侧 `env_file_read = false`。
 
+## 11A. 第五期 Codex 赚钱主题正片候选片
+
+- `artifact_id（产物编号）`: `fifth_episode_codex_money_publish_candidate_20260603`
+- `中文名称`: `第五期 Codex 到底能不能帮普通人赚钱 完整正片候选片`
+- `purpose（用途）`: `正式正片候选片 / 待人工复审`
+- `canonical_local_path（首选本地路径）`:
+  `/Users/fan/Documents/视频工厂/dist/fifth_episode_codex_money_publish_candidate_20260603/full.mp4`
+- `path_exists（路径是否存在）`: `true`
+- `review_pack（审片包目录）`:
+  `/Users/fan/Documents/视频工厂/dist/fifth_episode_codex_money_publish_candidate_20260603/review_pack/`
+- `review_manifest（审片入口）`:
+  `/Users/fan/Documents/视频工厂/dist/fifth_episode_codex_money_publish_candidate_20260603/review_manifest.md`
+- `summary_json（状态摘要）`:
+  `/Users/fan/Documents/视频工厂/dist/fifth_episode_codex_money_publish_candidate_20260603/summary.json`
+- `publish_candidate_preflight_report（发片候选预检报告）`:
+  `/Users/fan/Documents/视频工厂/dist/fifth_episode_codex_money_publish_candidate_20260603/publish_candidate_preflight_report.json`
+- `tts_audio_path（TTS 音频）`:
+  `/Users/fan/Documents/视频工厂/dist/fifth_episode_codex_money_publish_candidate_20260603/audio/tts_full.wav`
+- `srt_path（SRT 字幕）`:
+  `/Users/fan/Documents/视频工厂/dist/fifth_episode_codex_money_publish_candidate_20260603/subtitles/final.srt`
+- `ass_path（ASS 字幕）`:
+  `/Users/fan/Documents/视频工厂/dist/fifth_episode_codex_money_publish_candidate_20260603/subtitles/final.ass`
+- `contact_sheet（审片联系表）`:
+  `/Users/fan/Documents/视频工厂/dist/fifth_episode_codex_money_publish_candidate_20260603/review_pack/contact_sheet.jpg`
+- `keyframes_dir（关键帧目录）`:
+  `/Users/fan/Documents/视频工厂/dist/fifth_episode_codex_money_publish_candidate_20260603/review_pack/keyframes/`
+- `verified_at（验证时间）`: `2026-06-03 CST`
+- `duration_seconds（时长）`: `203.647`
+- `resolution（分辨率）`: `1920x1080`
+- `audio_present（有音轨）`: `true`
+- `non_silent（非静音）`: `true`
+- `subtitles_present（字幕存在）`: `true`
+- `tts_provider（TTS 提供方）`: `minimax`
+- `tts_model（TTS 模型）`: `MiniMax/speech-2.8-hd`
+- `voice_id_or_route（声音 ID / 路线）`: `oldBMinimax20260528010200`
+- `source_materials_used（使用素材）`: `M01, M02, M03, M04, M05`
+- `visual_api_generation_used（视觉生成 API）`: `false`
+- `api_human_used（API 生成人）`: `false`
+- `local_card_generation_used（本地卡片生成）`: `true`
+- `preflight_status（预检状态）`: `passed`
+- `remaining_blockers（剩余阻断）`: `none`
+- `git_media_policy（Git 媒体策略）`: `dist/ 当前被本地 exclude；大媒体文件不提交 Git，本文件记录本地首选路径。`
+- `boundary（边界）`: 本路径证明本机已生成完整正片候选片并通过技术 / 对齐 / TTS / 字幕 / 预检；不代表 `content_validation = passed`，不代表 `send_ready = true`，不代表发布成功，不代表声音验证、最终声音验证或视觉母版已通过。
+
 ## 12. 最后更新时间
 
-- `2026-06-02 16:49 CST`
+- `2026-06-03 CST`
