@@ -1,0 +1,208 @@
+{
+  "request_id": "20260602_ambiguous_goal_clarification_gate_pre_supply",
+  "created_at": "2026-06-02T16:49:44+08:00",
+  "project_route": "video_factory",
+  "task_id": "ambiguous_goal_clarification_gate_mechanism_patch",
+  "task_type": "project_file_change + mechanism_or_route_fix + gpt_project_static_package_sync",
+  "project_stage": "formal_operation_active",
+  "operation_stage": "mechanism_repair_needed",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "file_map",
+  "mandatory_for_every_task": true,
+  "participation_level": "readonly_pre_supply",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "新增需求不确定阻断与澄清闸门，覆盖 1:1、像对标、高级感、不是一回事、按这个效果做等高歧义 reference 目标，并生成 GPT Project 资料同步包。",
+  "current_step": "before_write_gate",
+  "known_context": [
+    "当前项目为《视频工厂｜OPC 一人公司 AI 闭环验证系统》。",
+    "本轮只做机制修补与 GPT Project 资料同步包，不生成视频、不剪辑、不推进内容状态。",
+    "已有 Reference-to-Execution Contract 与 Project State Action Router，但缺更上游的 ambiguous_goal_clarification_needed 和 ambiguous_reference_goal_gate。",
+    "本轮允许修改 03、11、12、codex_source 19/20、latest、current_local_artifact_paths、供料日志和 GPT Project 同步包。"
+  ],
+  "missing_context": [
+    "没有需要 DeepSeek 判断的外部 reference 原件。",
+    "DeepSeek 只能做文件地图、风险冲突和遗漏同步检查，不能替代 Codex 原文件复核。"
+  ],
+  "candidate_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/20_reference_to_execution_contract.md",
+    "codex_log/latest.md",
+    "codex_log/current_local_artifact_paths.md",
+    "GPT数据源/03_总索引与阅读顺序.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/08_当前正式事实.md",
+    "codex_log/current_data_goal_anchor.md"
+  ],
+  "must_read_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/20_reference_to_execution_contract.md",
+    "codex_log/latest.md",
+    "codex_log/current_local_artifact_paths.md",
+    "GPT数据源/03_总索引与阅读顺序.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/08_当前正式事实.md",
+    "codex_log/current_data_goal_anchor.md"
+  ],
+  "optional_files": [
+    "codex_source/13_execution_lane_and_parallel_rules.md",
+    "project_source/20_codex_multi_agent_routing_note_for_gpt_project.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    ".env.*",
+    "dist/latest_review_pack",
+    "public/",
+    "素材录制/",
+    "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/",
+    "GPT 数据源/"
+  ],
+  "expected_output": [
+    "file_map",
+    "risk_and_conflict_report",
+    "existing_mechanism_overlap_check",
+    "gpt_project_sync_package_scope_check",
+    "codex_next_input",
+    "status_promotion_risk_check"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files.",
+    "DeepSeek must not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is stable or completed.",
+    "Do not generate or modify video, audio, image, subtitle, timeline, TTS, or dist/latest_review_pack media outputs.",
+    "Do not promote content validation, send readiness, publish success status, voice validation, final voice validation, visual master lock, or current data goal anchor readiness.",
+    "Do not include public/ or unrelated dirty files in commit.",
+    "Do not write the new mechanism as long-term stable; it remains pending validation in future real tasks."
+  ],
+  "blocked_if": [
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md is unreadable",
+    "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md is unreadable",
+    "existing similar rules conflict and cannot be merged",
+    "write scope expands into video code or media outputs",
+    "GPT Project sync package cannot be generated or manifest is missing",
+    "forbidden status promotion is required",
+    "git diff contains unrelated dirty files that cannot be isolated"
+  ],
+  "return_to_codex": {
+    "read_status_required": true,
+    "impact_check_required": true,
+    "write_scope": [
+      "GPT数据源/03_总索引与阅读顺序.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/20_reference_to_execution_contract.md",
+      "codex_log/latest.md",
+      "codex_log/current_local_artifact_paths.md",
+      "codex_log/supply_requests/20260602_需求不确定澄清闸门_pre_supply_request.json",
+      "dist/gpt_project_sync_packages/20260602_需求不确定澄清闸门_ambiguous_goal_clarification_gate/"
+    ],
+    "output_dir": "codex_log/deepseek_supply/20260602_ambiguous_goal_clarification_gate_pre_supply",
+    "verification_required": [
+      "keyword_check",
+      "no_forbidden_status_promotion_check",
+      "sync_package_manifest_check",
+      "media_absence_check",
+      "secret_scan",
+      "git_diff_check"
+    ]
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "deep_file_prefetch",
+      "mid_task_incremental_supply",
+      "post_risk_review"
+    ]
+  },
+  "file_scope": {
+    "candidate_files": [
+      "AGENTS.md",
+      "codex_source/00_codex_readme.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/20_reference_to_execution_contract.md",
+      "codex_log/latest.md",
+      "codex_log/current_local_artifact_paths.md",
+      "GPT数据源/03_总索引与阅读顺序.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md"
+    ],
+    "must_prefetch_files": [
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/20_reference_to_execution_contract.md",
+      "GPT数据源/03_总索引与阅读顺序.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md"
+    ],
+    "forbidden_files": [
+      ".env",
+      ".env.local",
+      ".env.*",
+      "dist/latest_review_pack",
+      "public/",
+      "素材录制/",
+      "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/",
+      "GPT 数据源/"
+    ],
+    "secret_files_forbidden": true
+  },
+  "content_loading_policy": {
+    "read_only": true,
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 8,
+    "max_chars_per_file": 2200,
+    "max_total_chars": 18000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "do_not_read_secret_files": true,
+    "do_not_read_media_files": true,
+    "do_not_modify_files": true
+  },
+  "codex_minimal_review_policy": {
+    "will_modify_files": [
+      "GPT数据源/03_总索引与阅读顺序.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/20_reference_to_execution_contract.md",
+      "codex_log/latest.md",
+      "codex_log/current_local_artifact_paths.md"
+    ],
+    "conflict_or_uncertain_files": [
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/20_reference_to_execution_contract.md"
+    ],
+    "safety_sensitive_files": [
+      "GPT数据源/08_当前正式事实.md",
+      "codex_log/current_data_goal_anchor.md",
+      "dist/latest_review_pack"
+    ]
+  },
+  "output_required": [
+    "relevant_file_bundle",
+    "exact_snippet_pack",
+    "dependency_map",
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "token_usage_expectation_check"
+  ]
+}

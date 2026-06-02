@@ -1,0 +1,169 @@
+{
+  "request_id": "20260602_ambiguous_goal_clarification_gate_post_risk_review",
+  "created_at": "2026-06-02T16:49:44+08:00",
+  "project_route": "video_factory",
+  "task_id": "ambiguous_goal_clarification_gate_mechanism_patch",
+  "task_type": "project_file_change + mechanism_or_route_fix + gpt_project_static_package_sync",
+  "project_stage": "formal_operation_active",
+  "operation_stage": "mechanism_repair_needed",
+  "trigger_reason": "mandatory_post_risk_review",
+  "action": "risk_report",
+  "mandatory_for_every_task": true,
+  "participation_level": "readonly_post_risk_review",
+  "pre_supply_required": false,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "复核本轮需求不确定澄清闸门、参考目标歧义闸门和 GPT Project 资料同步包是否有入口遗漏、状态越权、媒体/secret 混入或同步包路径问题。",
+  "current_step": "post_write_risk_review",
+  "known_context": [
+    "本轮应已更新 03、11、12、codex_source 19/20、latest、current_local_artifact_paths。",
+    "本轮应已生成 dist/gpt_project_sync_packages/20260602_需求不确定澄清闸门_ambiguous_goal_clarification_gate/。",
+    "本轮不应生成视频、音频、图片或修改 dist/latest_review_pack。",
+    "本轮不应推进任何内容、发送、发布、声音或视觉母版状态。"
+  ],
+  "missing_context": [
+    "用户是否已经上传 GPT Project UI 不在本轮可验证范围，必须保持未上传边界。",
+    "新机制的长期有效性必须等待未来真实任务验证。"
+  ],
+  "candidate_files": [
+    "GPT数据源/03_总索引与阅读顺序.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/20_reference_to_execution_contract.md",
+    "codex_log/latest.md",
+    "codex_log/current_local_artifact_paths.md",
+    "dist/gpt_project_sync_packages/20260602_需求不确定澄清闸门_ambiguous_goal_clarification_gate/上传说明_UPLOAD_MANIFEST.md",
+    "dist/gpt_project_sync_packages/20260602_需求不确定澄清闸门_ambiguous_goal_clarification_gate/同步说明_SYNC_SUMMARY.md",
+    "dist/gpt_project_sync_packages/20260602_需求不确定澄清闸门_ambiguous_goal_clarification_gate/状态边界_STATUS_BOUNDARY.md"
+  ],
+  "must_read_files": [
+    "GPT数据源/03_总索引与阅读顺序.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/20_reference_to_execution_contract.md",
+    "codex_log/latest.md",
+    "codex_log/current_local_artifact_paths.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    ".env.*",
+    "dist/latest_review_pack",
+    "public/",
+    "素材录制/",
+    "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/"
+  ],
+  "expected_output": [
+    "risk_and_conflict_report",
+    "missed_sync_files",
+    "status_promotion_risk",
+    "sync_package_safety_check",
+    "codex_next_input"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files.",
+    "DeepSeek must not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is stable or completed.",
+    "Do not claim the user uploaded the GPT Project package.",
+    "Do not claim the new mechanism is long-term stable.",
+    "Do not promote content validation, send readiness, publish success status, voice validation, final voice validation, visual master lock, or current data goal anchor readiness.",
+    "Do not include media, public/, secret files, API key, token, or unrelated historical logs in sync package."
+  ],
+  "blocked_if": [
+    "ambiguous_goal_clarification_needed is missing from 11 and codex_source/19",
+    "ambiguous_reference_goal_gate is missing from 12 and codex_source/20",
+    "default clarification template is missing",
+    "GPT Project sync package has no upload manifest",
+    "sync package includes media or secret-like files",
+    "current_local_artifact_paths does not record the new package",
+    "latest does not record the new package and status boundary",
+    "forbidden status fields are promoted"
+  ],
+  "return_to_codex": {
+    "read_status_required": true,
+    "impact_check_required": true,
+    "write_scope": [
+      "GPT数据源/03_总索引与阅读顺序.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/20_reference_to_execution_contract.md",
+      "codex_log/latest.md",
+      "codex_log/current_local_artifact_paths.md",
+      "codex_log/supply_requests/20260602_需求不确定澄清闸门_pre_supply_request.json",
+      "codex_log/supply_requests/20260602_需求不确定澄清闸门_post_risk_review_request.json",
+      "dist/gpt_project_sync_packages/20260602_需求不确定澄清闸门_ambiguous_goal_clarification_gate/"
+    ],
+    "output_dir": "codex_log/deepseek_supply/20260602_ambiguous_goal_clarification_gate_post_risk_review",
+    "verification_required": [
+      "keyword_check",
+      "no_forbidden_status_promotion_check",
+      "sync_package_manifest_check",
+      "media_absence_check",
+      "secret_scan",
+      "git_diff_check"
+    ]
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "post_risk_review"
+    ]
+  },
+  "file_scope": {
+    "candidate_files": [
+      "GPT数据源/03_总索引与阅读顺序.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/20_reference_to_execution_contract.md",
+      "codex_log/latest.md",
+      "codex_log/current_local_artifact_paths.md"
+    ],
+    "must_prefetch_files": [
+      "GPT数据源/03_总索引与阅读顺序.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/20_reference_to_execution_contract.md",
+      "codex_log/latest.md",
+      "codex_log/current_local_artifact_paths.md"
+    ],
+    "forbidden_files": [
+      ".env",
+      ".env.local",
+      ".env.*",
+      "dist/latest_review_pack",
+      "public/",
+      "素材录制/",
+      "dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/"
+    ],
+    "secret_files_forbidden": true
+  },
+  "content_loading_policy": {
+    "read_only": true,
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 7,
+    "max_chars_per_file": 2200,
+    "max_total_chars": 18000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "do_not_read_secret_files": true,
+    "do_not_read_media_files": true,
+    "do_not_modify_files": true
+  },
+  "output_required": [
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "token_usage_expectation_check"
+  ]
+}

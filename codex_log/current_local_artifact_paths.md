@@ -191,6 +191,34 @@
 - `boundary（边界）`：
   本路径只证明本地静态上传包已生成且路径存在，不代表用户已经上传到 GPT Project UI，也不代表 GPT Project UI 已同步成功；GitHub main 仍是主事实源；本包不代表当前视频内容验证通过，不代表 `send_ready = true`，不代表 `publish_status_success` 推进，不代表 `voice_validation`、`final_voice_validated` 或 `visual_master_locked` 已通过。本包记录正式运营阶段迁移、V001/V002/V003 运营记录统一、DeepSeek 执行前供料与执行后风险复核均为 `deepseek_passed`、`fallback_count = 0`、`blocked_count = 0`；但不代表最终运营复盘完成，也不代表下一条正式文案已决定。
 
+## 9A. GPT Project 资料同步包路径
+
+- `gpt_project_sync_package_latest（GPT Project 资料同步包最新路径）`：
+  `/Users/fan/Documents/视频工厂/dist/gpt_project_sync_packages/20260602_需求不确定澄清闸门_ambiguous_goal_clarification_gate/`
+- `gpt_project_sync_package_task（同步包任务）`：`ambiguous_goal_clarification_gate`
+- `gpt_project_sync_package_path_exists（路径是否存在）`：`true`
+- `gpt_project_sync_package_upload_manifest（上传说明路径）`：
+  `/Users/fan/Documents/视频工厂/dist/gpt_project_sync_packages/20260602_需求不确定澄清闸门_ambiguous_goal_clarification_gate/上传说明_UPLOAD_MANIFEST.md`
+- `gpt_project_sync_package_upload_manifest_exists（上传说明是否存在）`：`true`
+- `gpt_project_sync_package_generated_at（生成时间）`：`2026-06-02 16:49 CST`
+- `gpt_project_sync_package_status（同步包状态）`：`current_latest_sync_package_pending_user_upload`
+- `gpt_project_sync_package_contains（本包包含）`：
+  - `上传说明_UPLOAD_MANIFEST.md`
+  - `同步说明_SYNC_SUMMARY.md`
+  - `变更文件清单_CHANGED_FILES.md`
+  - `本轮机制补丁_MECHANISM_PATCH.md`
+  - `状态边界_STATUS_BOUNDARY.md`
+  - `项目入口文件_PROJECT_ENTRY_FILES/03_总索引与阅读顺序.md`
+  - `项目入口文件_PROJECT_ENTRY_FILES/11_项目状态动作总控器_机制推理层.md`
+  - `项目入口文件_PROJECT_ENTRY_FILES/12_参考到执行落地契约_reference_to_execution_contract.md`
+  - `项目入口文件_PROJECT_ENTRY_FILES/01_项目系统提示词.md`
+  - `Codex执行层镜像_CODEX_MIRROR_FILES/19_project_state_action_router.md`
+  - `Codex执行层镜像_CODEX_MIRROR_FILES/20_reference_to_execution_contract.md`
+- `upload_policy（上传策略）`：
+  本轮如用户要同步需求不确定澄清闸门到 GPT Project，优先使用本节 `gpt_project_sync_package_latest` 指向的资料同步包；它只同步本轮新增机制，不替代 GitHub main 当前事实源。
+- `boundary（边界）`：
+  本路径只证明本地资料同步包已生成且包含上传说明，不代表用户已经上传到 GPT Project UI，也不代表 GPT Project UI 已同步成功；本包不包含视频、图片、音频、源素材、`dist/latest_review_pack/`、secret、API key、token、无关 `public/` 文件或大量历史日志；本包不代表内容验证、发送状态、发布成功口径、声音验证、最终声音验证、视觉母版或当前数据目标锚点 ready 推进。
+
 ## 10. DeepSeek runtime provider 验证产物
 
 - `artifact_id（产物编号）`: `deepseek_runtime_provider_validation`
@@ -254,4 +282,4 @@
 
 ## 12. 最后更新时间
 
-- `2026-05-15 20:35 CST`
+- `2026-06-02 16:49 CST`

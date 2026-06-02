@@ -1,5 +1,26 @@
 # Latest
 
+## 20260602｜需求不确定澄清闸门与 GPT Project 资料同步包
+
+- `task_result.status = mechanism_route_corrected_not_video_delivery`
+- `target_delivery = ambiguous_goal_clarification_gate + ambiguous_reference_goal_gate + gpt_project_sync_package`
+- `branch = main`
+- `route_decision.project_route = video_factory`
+- `route_decision.task_type = mechanism_or_route_fix + project_file_change + gpt_project_static_package_sync`
+- `route_decision.selected_state = mechanism_repair_needed + gpt_project_sync_needed + deepseek_supply_required`
+- `已确认` 本轮只修《视频工厂》机制入口、reference 契约和 GPT Project 资料同步包；不是修视频、不是重新剪辑、不是生成新片、不是生成下一条正式视频执行 prompt。
+- `已确认` 已新增 `ambiguous_goal_clarification_needed（需求不确定，需要澄清）`，覆盖 `1:1 / 像对标 / 高级感 / 按这个效果做 / 不是一回事 / 完全不像 / 感觉不像 / 差点意思 / 最高价值片子` 等高歧义目标；目标层级未锁定前不得直接下发 Codex。
+- `已确认` 已新增 `ambiguous_reference_goal_gate（参考目标歧义闸门）`；reference 目标含糊时，必须先确认视觉观感、剪辑节奏、构图布局、字幕字体、动效、信息密度、证明方式、内容结构、情绪人感或整体观感，再进入 `Reference-to-Execution Contract`。
+- `已确认` 已写入 ChatGPT / GPT Project 默认澄清模板：用户确认前不下发 Codex；若用户要求不追问直接做，也必须写清默认假设、风险、允许变化项和阻断条件。
+- `gpt_project_sync_package = dist/gpt_project_sync_packages/20260602_需求不确定澄清闸门_ambiguous_goal_clarification_gate/`
+- `gpt_project_sync_package_upload_manifest = dist/gpt_project_sync_packages/20260602_需求不确定澄清闸门_ambiguous_goal_clarification_gate/上传说明_UPLOAD_MANIFEST.md`
+- `已确认` 同步包只包含上传说明、同步说明、变更清单、机制补丁、状态边界、项目入口机制文件副本和 Codex 执行层镜像；不包含视频、图片、音频、源素材、`dist/latest_review_pack/`、secret、API key、token、无关 `public/` 文件或大量历史日志。
+- `未推进` 不推进内容验证、可发送状态、发布成功口径、声音验证、最终声音验证、视觉母版或当前数据目标锚点 ready；不把本机制写成长期稳定。
+- `待验证` 本机制是否能在后续真实 reference / 视频任务中稳定阻断误下发，仍需后续真实任务验证。
+- `DeepSeek pre-supply`：已创建执行前供料任务卡并运行 safe runner；结果为 `deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`api_key_printed = false`、`api_key_written = false`。
+- `DeepSeek post-risk review`：已创建执行后风险复核任务卡并运行 safe runner；请求校验通过，但供料控制器返回 `blocked_invalid_context_pack`，`deepseek_actual_participation = not_attempted_policy_violation`，`not_deepseek_conclusion = true`；本轮后置风险结论来自 Codex 本地验证，不写 DeepSeek 已深度参与。
+- `日志证据`：`codex_log/supply_requests/20260602_需求不确定澄清闸门_pre_supply_request.json`、`codex_log/deepseek_supply/20260602_ambiguous_goal_clarification_gate_pre_supply/latest_supply_pack.md`、`codex_log/supply_requests/20260602_需求不确定澄清闸门_post_risk_review_request.json`、`codex_log/deepseek_supply/20260602_ambiguous_goal_clarification_gate_post_risk_review/latest_supply_pack.md`
+
 ## 20260602｜新第四期参考引导完整候选片生成
 
 - `task_result.status = publish_candidate_ready_for_human_review`
