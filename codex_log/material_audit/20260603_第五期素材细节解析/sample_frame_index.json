@@ -1,0 +1,2248 @@
+{
+  "project": "视频工厂",
+  "material_batch": "第五期",
+  "source_dir": "/Users/fan/Documents/视频工厂/素材录制/第五期",
+  "materials": [
+    {
+      "material_id": "M01",
+      "file_name": "内建视网膜显示器 2026-05-18 01-43-46.mp4",
+      "file_path": "/Users/fan/Documents/视频工厂/素材录制/第五期/内建视网膜显示器 2026-05-18 01-43-46.mp4",
+      "relative_path": "素材录制/第五期/内建视网膜显示器 2026-05-18 01-43-46.mp4",
+      "file_size_bytes": 80370009,
+      "duration_seconds": 46.0,
+      "width": 2794,
+      "height": 1690,
+      "fps": 30.022,
+      "frame_count": 1381,
+      "audio_present": false,
+      "can_open_with_opencv": true,
+      "sampled_frame_count": 46,
+      "scene_candidate_seconds": [
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0,
+        6.0,
+        7.0,
+        9.0,
+        10.0,
+        12.0,
+        13.0,
+        14.0,
+        15.0,
+        16.0,
+        19.0,
+        20.0,
+        21.0,
+        23.0,
+        24.0,
+        25.0,
+        26.0,
+        27.0,
+        28.0,
+        29.0,
+        33.0,
+        34.0,
+        35.0
+      ],
+      "contact_sheet_paths": [
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M01_contact_sheet_p01.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M01_contact_sheet_p02.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M01_contact_sheet_p03.jpg"
+      ],
+      "technical_observation": {
+        "brightness_mean_range": [
+          119.57,
+          243.29
+        ],
+        "blur_laplacian_var_range": [
+          40.72,
+          1620.8
+        ],
+        "max_scene_diff": 111.24,
+        "black_screen_suspected": false,
+        "frozen_frame_suspected": false,
+        "heavy_blur_suspected": false
+      },
+      "sampled_frames": [
+        {
+          "time_seconds": 0.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_000s.jpg",
+          "brightness_mean": 219.86,
+          "blur_laplacian_var": 1620.8,
+          "scene_diff_from_previous": null
+        },
+        {
+          "time_seconds": 1.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_001s.jpg",
+          "brightness_mean": 220.05,
+          "blur_laplacian_var": 1473.99,
+          "scene_diff_from_previous": 10.54
+        },
+        {
+          "time_seconds": 2.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_002s.jpg",
+          "brightness_mean": 221.43,
+          "blur_laplacian_var": 1091.42,
+          "scene_diff_from_previous": 9.0
+        },
+        {
+          "time_seconds": 3.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_003s.jpg",
+          "brightness_mean": 221.68,
+          "blur_laplacian_var": 1052.91,
+          "scene_diff_from_previous": 8.06
+        },
+        {
+          "time_seconds": 4.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_004s.jpg",
+          "brightness_mean": 220.87,
+          "blur_laplacian_var": 1191.32,
+          "scene_diff_from_previous": 8.8
+        },
+        {
+          "time_seconds": 5.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_005s.jpg",
+          "brightness_mean": 221.46,
+          "blur_laplacian_var": 1083.48,
+          "scene_diff_from_previous": 9.19
+        },
+        {
+          "time_seconds": 6.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_006s.jpg",
+          "brightness_mean": 221.05,
+          "blur_laplacian_var": 1177.51,
+          "scene_diff_from_previous": 8.92
+        },
+        {
+          "time_seconds": 7.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_007s.jpg",
+          "brightness_mean": 220.88,
+          "blur_laplacian_var": 1251.6,
+          "scene_diff_from_previous": 10.07
+        },
+        {
+          "time_seconds": 8.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_008s.jpg",
+          "brightness_mean": 220.92,
+          "blur_laplacian_var": 1255.02,
+          "scene_diff_from_previous": 0.16
+        },
+        {
+          "time_seconds": 9.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_009s.jpg",
+          "brightness_mean": 235.96,
+          "blur_laplacian_var": 208.91,
+          "scene_diff_from_previous": 41.03
+        },
+        {
+          "time_seconds": 10.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_010s.jpg",
+          "brightness_mean": 232.13,
+          "blur_laplacian_var": 347.74,
+          "scene_diff_from_previous": 10.52
+        },
+        {
+          "time_seconds": 11.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_011s.jpg",
+          "brightness_mean": 236.45,
+          "blur_laplacian_var": 405.74,
+          "scene_diff_from_previous": 5.16
+        },
+        {
+          "time_seconds": 12.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_012s.jpg",
+          "brightness_mean": 235.27,
+          "blur_laplacian_var": 532.44,
+          "scene_diff_from_previous": 25.76
+        },
+        {
+          "time_seconds": 13.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_013s.jpg",
+          "brightness_mean": 223.01,
+          "blur_laplacian_var": 1110.59,
+          "scene_diff_from_previous": 40.09
+        },
+        {
+          "time_seconds": 14.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_014s.jpg",
+          "brightness_mean": 220.81,
+          "blur_laplacian_var": 1448.61,
+          "scene_diff_from_previous": 13.49
+        },
+        {
+          "time_seconds": 15.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_015s.jpg",
+          "brightness_mean": 238.3,
+          "blur_laplacian_var": 243.93,
+          "scene_diff_from_previous": 38.49
+        },
+        {
+          "time_seconds": 16.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_016s.jpg",
+          "brightness_mean": 235.57,
+          "blur_laplacian_var": 414.84,
+          "scene_diff_from_previous": 11.22
+        },
+        {
+          "time_seconds": 17.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_017s.jpg",
+          "brightness_mean": 235.53,
+          "blur_laplacian_var": 421.67,
+          "scene_diff_from_previous": 0.74
+        },
+        {
+          "time_seconds": 18.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_018s.jpg",
+          "brightness_mean": 238.15,
+          "blur_laplacian_var": 446.32,
+          "scene_diff_from_previous": 3.43
+        },
+        {
+          "time_seconds": 19.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_019s.jpg",
+          "brightness_mean": 237.13,
+          "blur_laplacian_var": 454.83,
+          "scene_diff_from_previous": 21.49
+        },
+        {
+          "time_seconds": 20.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_020s.jpg",
+          "brightness_mean": 238.55,
+          "blur_laplacian_var": 138.17,
+          "scene_diff_from_previous": 27.7
+        },
+        {
+          "time_seconds": 21.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_021s.jpg",
+          "brightness_mean": 236.35,
+          "blur_laplacian_var": 382.18,
+          "scene_diff_from_previous": 27.45
+        },
+        {
+          "time_seconds": 22.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_022s.jpg",
+          "brightness_mean": 237.94,
+          "blur_laplacian_var": 420.07,
+          "scene_diff_from_previous": 3.45
+        },
+        {
+          "time_seconds": 23.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_023s.jpg",
+          "brightness_mean": 240.66,
+          "blur_laplacian_var": 93.47,
+          "scene_diff_from_previous": 21.01
+        },
+        {
+          "time_seconds": 24.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_024s.jpg",
+          "brightness_mean": 221.6,
+          "blur_laplacian_var": 1355.38,
+          "scene_diff_from_previous": 37.17
+        },
+        {
+          "time_seconds": 25.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_025s.jpg",
+          "brightness_mean": 220.91,
+          "blur_laplacian_var": 1196.45,
+          "scene_diff_from_previous": 14.8
+        },
+        {
+          "time_seconds": 26.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_026s.jpg",
+          "brightness_mean": 243.29,
+          "blur_laplacian_var": 103.52,
+          "scene_diff_from_previous": 37.3
+        },
+        {
+          "time_seconds": 27.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_027s.jpg",
+          "brightness_mean": 177.19,
+          "blur_laplacian_var": 40.72,
+          "scene_diff_from_previous": 73.25
+        },
+        {
+          "time_seconds": 28.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_028s.jpg",
+          "brightness_mean": 119.57,
+          "blur_laplacian_var": 140.44,
+          "scene_diff_from_previous": 108.06
+        },
+        {
+          "time_seconds": 29.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_029s.jpg",
+          "brightness_mean": 120.45,
+          "blur_laplacian_var": 200.58,
+          "scene_diff_from_previous": 34.97
+        },
+        {
+          "time_seconds": 30.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_030s.jpg",
+          "brightness_mean": 120.47,
+          "blur_laplacian_var": 220.54,
+          "scene_diff_from_previous": 0.91
+        },
+        {
+          "time_seconds": 31.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_031s.jpg",
+          "brightness_mean": 120.48,
+          "blur_laplacian_var": 223.19,
+          "scene_diff_from_previous": 0.11
+        },
+        {
+          "time_seconds": 32.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_032s.jpg",
+          "brightness_mean": 120.42,
+          "blur_laplacian_var": 219.96,
+          "scene_diff_from_previous": 0.22
+        },
+        {
+          "time_seconds": 33.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_033s.jpg",
+          "brightness_mean": 227.05,
+          "blur_laplacian_var": 176.28,
+          "scene_diff_from_previous": 111.24
+        },
+        {
+          "time_seconds": 34.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_034s.jpg",
+          "brightness_mean": 239.6,
+          "blur_laplacian_var": 232.45,
+          "scene_diff_from_previous": 29.46
+        },
+        {
+          "time_seconds": 35.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_035s.jpg",
+          "brightness_mean": 222.39,
+          "blur_laplacian_var": 727.2,
+          "scene_diff_from_previous": 31.78
+        },
+        {
+          "time_seconds": 36.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_036s.jpg",
+          "brightness_mean": 222.11,
+          "blur_laplacian_var": 755.23,
+          "scene_diff_from_previous": 7.43
+        },
+        {
+          "time_seconds": 37.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_037s.jpg",
+          "brightness_mean": 222.49,
+          "blur_laplacian_var": 773.28,
+          "scene_diff_from_previous": 7.72
+        },
+        {
+          "time_seconds": 38.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_038s.jpg",
+          "brightness_mean": 222.49,
+          "blur_laplacian_var": 769.85,
+          "scene_diff_from_previous": 0.24
+        },
+        {
+          "time_seconds": 39.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_039s.jpg",
+          "brightness_mean": 222.49,
+          "blur_laplacian_var": 771.94,
+          "scene_diff_from_previous": 0.04
+        },
+        {
+          "time_seconds": 40.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_040s.jpg",
+          "brightness_mean": 222.5,
+          "blur_laplacian_var": 771.51,
+          "scene_diff_from_previous": 0.21
+        },
+        {
+          "time_seconds": 41.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_041s.jpg",
+          "brightness_mean": 222.5,
+          "blur_laplacian_var": 770.65,
+          "scene_diff_from_previous": 0.03
+        },
+        {
+          "time_seconds": 42.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_042s.jpg",
+          "brightness_mean": 222.5,
+          "blur_laplacian_var": 771.74,
+          "scene_diff_from_previous": 0.22
+        },
+        {
+          "time_seconds": 43.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_043s.jpg",
+          "brightness_mean": 222.49,
+          "blur_laplacian_var": 771.68,
+          "scene_diff_from_previous": 0.01
+        },
+        {
+          "time_seconds": 44.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_044s.jpg",
+          "brightness_mean": 222.5,
+          "blur_laplacian_var": 769.74,
+          "scene_diff_from_previous": 0.02
+        },
+        {
+          "time_seconds": 45.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_045s.jpg",
+          "brightness_mean": 222.6,
+          "blur_laplacian_var": 770.11,
+          "scene_diff_from_previous": 0.17
+        }
+      ]
+    },
+    {
+      "material_id": "M02",
+      "file_name": "内建视网膜显示器 2026-05-31 23-52-10.mp4",
+      "file_path": "/Users/fan/Documents/视频工厂/素材录制/第五期/内建视网膜显示器 2026-05-31 23-52-10.mp4",
+      "relative_path": "素材录制/第五期/内建视网膜显示器 2026-05-31 23-52-10.mp4",
+      "file_size_bytes": 261930288,
+      "duration_seconds": 86.833,
+      "width": 3420,
+      "height": 1992,
+      "fps": 30.012,
+      "frame_count": 2606,
+      "audio_present": false,
+      "can_open_with_opencv": true,
+      "sampled_frame_count": 88,
+      "scene_candidate_seconds": [
+        2.0,
+        3.0,
+        4.0,
+        5.0,
+        8.0,
+        9.0,
+        10.0,
+        11.0,
+        12.0,
+        13.0,
+        14.0,
+        15.0,
+        16.0,
+        17.0,
+        19.0,
+        20.0,
+        21.0,
+        29.0,
+        38.0,
+        39.0,
+        40.0,
+        42.0,
+        43.0,
+        44.0,
+        45.0,
+        46.0,
+        47.0,
+        48.0,
+        56.0,
+        57.0,
+        58.0,
+        62.0,
+        64.0,
+        67.0,
+        68.0,
+        69.0,
+        70.0,
+        71.0,
+        72.0,
+        73.0,
+        77.0,
+        78.0,
+        79.0,
+        80.0,
+        81.0,
+        82.0,
+        84.0,
+        85.0,
+        86.0,
+        86.833
+      ],
+      "contact_sheet_paths": [
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M02_contact_sheet_p01.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M02_contact_sheet_p02.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M02_contact_sheet_p03.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M02_contact_sheet_p04.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M02_contact_sheet_p05.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M02_contact_sheet_p06.jpg"
+      ],
+      "technical_observation": {
+        "brightness_mean_range": [
+          94.53,
+          246.02
+        ],
+        "blur_laplacian_var_range": [
+          23.01,
+          805.97
+        ],
+        "max_scene_diff": 148.53,
+        "black_screen_suspected": false,
+        "frozen_frame_suspected": false,
+        "heavy_blur_suspected": false
+      },
+      "sampled_frames": [
+        {
+          "time_seconds": 0.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_000s.jpg",
+          "brightness_mean": 224.21,
+          "blur_laplacian_var": 769.23,
+          "scene_diff_from_previous": null
+        },
+        {
+          "time_seconds": 1.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_001s.jpg",
+          "brightness_mean": 224.33,
+          "blur_laplacian_var": 778.65,
+          "scene_diff_from_previous": 4.67
+        },
+        {
+          "time_seconds": 2.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_002s.jpg",
+          "brightness_mean": 240.15,
+          "blur_laplacian_var": 124.11,
+          "scene_diff_from_previous": 29.3
+        },
+        {
+          "time_seconds": 3.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_003s.jpg",
+          "brightness_mean": 94.53,
+          "blur_laplacian_var": 133.22,
+          "scene_diff_from_previous": 148.53
+        },
+        {
+          "time_seconds": 4.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_004s.jpg",
+          "brightness_mean": 188.23,
+          "blur_laplacian_var": 431.6,
+          "scene_diff_from_previous": 126.93
+        },
+        {
+          "time_seconds": 5.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_005s.jpg",
+          "brightness_mean": 172.68,
+          "blur_laplacian_var": 541.36,
+          "scene_diff_from_previous": 45.17
+        },
+        {
+          "time_seconds": 6.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_006s.jpg",
+          "brightness_mean": 172.65,
+          "blur_laplacian_var": 563.3,
+          "scene_diff_from_previous": 2.78
+        },
+        {
+          "time_seconds": 7.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_007s.jpg",
+          "brightness_mean": 174.1,
+          "blur_laplacian_var": 562.73,
+          "scene_diff_from_previous": 4.46
+        },
+        {
+          "time_seconds": 8.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_008s.jpg",
+          "brightness_mean": 172.08,
+          "blur_laplacian_var": 560.01,
+          "scene_diff_from_previous": 10.21
+        },
+        {
+          "time_seconds": 9.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_009s.jpg",
+          "brightness_mean": 175.33,
+          "blur_laplacian_var": 546.39,
+          "scene_diff_from_previous": 8.13
+        },
+        {
+          "time_seconds": 10.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_010s.jpg",
+          "brightness_mean": 175.76,
+          "blur_laplacian_var": 554.64,
+          "scene_diff_from_previous": 11.14
+        },
+        {
+          "time_seconds": 11.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_011s.jpg",
+          "brightness_mean": 132.18,
+          "blur_laplacian_var": 63.35,
+          "scene_diff_from_previous": 77.02
+        },
+        {
+          "time_seconds": 12.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_012s.jpg",
+          "brightness_mean": 116.51,
+          "blur_laplacian_var": 32.65,
+          "scene_diff_from_previous": 59.62
+        },
+        {
+          "time_seconds": 13.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_013s.jpg",
+          "brightness_mean": 139.33,
+          "blur_laplacian_var": 164.08,
+          "scene_diff_from_previous": 45.19
+        },
+        {
+          "time_seconds": 14.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_014s.jpg",
+          "brightness_mean": 242.59,
+          "blur_laplacian_var": 26.88,
+          "scene_diff_from_previous": 107.15
+        },
+        {
+          "time_seconds": 15.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_015s.jpg",
+          "brightness_mean": 246.02,
+          "blur_laplacian_var": 173.1,
+          "scene_diff_from_previous": 15.81
+        },
+        {
+          "time_seconds": 16.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_016s.jpg",
+          "brightness_mean": 245.11,
+          "blur_laplacian_var": 198.13,
+          "scene_diff_from_previous": 12.16
+        },
+        {
+          "time_seconds": 17.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_017s.jpg",
+          "brightness_mean": 245.45,
+          "blur_laplacian_var": 192.33,
+          "scene_diff_from_previous": 11.88
+        },
+        {
+          "time_seconds": 18.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_018s.jpg",
+          "brightness_mean": 245.44,
+          "blur_laplacian_var": 197.97,
+          "scene_diff_from_previous": 0.44
+        },
+        {
+          "time_seconds": 19.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_019s.jpg",
+          "brightness_mean": 131.29,
+          "blur_laplacian_var": 194.46,
+          "scene_diff_from_previous": 114.54
+        },
+        {
+          "time_seconds": 20.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_020s.jpg",
+          "brightness_mean": 191.34,
+          "blur_laplacian_var": 683.93,
+          "scene_diff_from_previous": 96.72
+        },
+        {
+          "time_seconds": 21.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_021s.jpg",
+          "brightness_mean": 185.78,
+          "blur_laplacian_var": 652.85,
+          "scene_diff_from_previous": 38.62
+        },
+        {
+          "time_seconds": 22.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_022s.jpg",
+          "brightness_mean": 185.66,
+          "blur_laplacian_var": 677.3,
+          "scene_diff_from_previous": 2.47
+        },
+        {
+          "time_seconds": 23.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_023s.jpg",
+          "brightness_mean": 185.67,
+          "blur_laplacian_var": 679.36,
+          "scene_diff_from_previous": 1.81
+        },
+        {
+          "time_seconds": 24.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_024s.jpg",
+          "brightness_mean": 185.55,
+          "blur_laplacian_var": 678.25,
+          "scene_diff_from_previous": 1.96
+        },
+        {
+          "time_seconds": 25.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_025s.jpg",
+          "brightness_mean": 186.31,
+          "blur_laplacian_var": 675.17,
+          "scene_diff_from_previous": 2.65
+        },
+        {
+          "time_seconds": 26.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_026s.jpg",
+          "brightness_mean": 186.14,
+          "blur_laplacian_var": 674.91,
+          "scene_diff_from_previous": 2.06
+        },
+        {
+          "time_seconds": 27.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_027s.jpg",
+          "brightness_mean": 185.4,
+          "blur_laplacian_var": 673.1,
+          "scene_diff_from_previous": 2.4
+        },
+        {
+          "time_seconds": 28.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_028s.jpg",
+          "brightness_mean": 184.92,
+          "blur_laplacian_var": 671.37,
+          "scene_diff_from_previous": 2.91
+        },
+        {
+          "time_seconds": 29.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_029s.jpg",
+          "brightness_mean": 180.19,
+          "blur_laplacian_var": 656.2,
+          "scene_diff_from_previous": 12.04
+        },
+        {
+          "time_seconds": 30.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_030s.jpg",
+          "brightness_mean": 177.59,
+          "blur_laplacian_var": 658.8,
+          "scene_diff_from_previous": 5.11
+        },
+        {
+          "time_seconds": 31.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_031s.jpg",
+          "brightness_mean": 179.3,
+          "blur_laplacian_var": 656.76,
+          "scene_diff_from_previous": 2.5
+        },
+        {
+          "time_seconds": 32.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_032s.jpg",
+          "brightness_mean": 178.68,
+          "blur_laplacian_var": 663.86,
+          "scene_diff_from_previous": 3.32
+        },
+        {
+          "time_seconds": 33.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_033s.jpg",
+          "brightness_mean": 178.79,
+          "blur_laplacian_var": 660.93,
+          "scene_diff_from_previous": 2.52
+        },
+        {
+          "time_seconds": 34.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_034s.jpg",
+          "brightness_mean": 178.83,
+          "blur_laplacian_var": 670.02,
+          "scene_diff_from_previous": 2.11
+        },
+        {
+          "time_seconds": 35.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_035s.jpg",
+          "brightness_mean": 178.98,
+          "blur_laplacian_var": 670.45,
+          "scene_diff_from_previous": 1.86
+        },
+        {
+          "time_seconds": 36.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_036s.jpg",
+          "brightness_mean": 179.75,
+          "blur_laplacian_var": 667.5,
+          "scene_diff_from_previous": 1.94
+        },
+        {
+          "time_seconds": 37.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_037s.jpg",
+          "brightness_mean": 179.66,
+          "blur_laplacian_var": 668.59,
+          "scene_diff_from_previous": 0.22
+        },
+        {
+          "time_seconds": 38.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_038s.jpg",
+          "brightness_mean": 154.3,
+          "blur_laplacian_var": 150.14,
+          "scene_diff_from_previous": 84.7
+        },
+        {
+          "time_seconds": 39.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_039s.jpg",
+          "brightness_mean": 148.86,
+          "blur_laplacian_var": 121.32,
+          "scene_diff_from_previous": 54.9
+        },
+        {
+          "time_seconds": 40.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_040s.jpg",
+          "brightness_mean": 186.61,
+          "blur_laplacian_var": 805.97,
+          "scene_diff_from_previous": 86.1
+        },
+        {
+          "time_seconds": 41.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_041s.jpg",
+          "brightness_mean": 185.61,
+          "blur_laplacian_var": 795.4,
+          "scene_diff_from_previous": 5.82
+        },
+        {
+          "time_seconds": 42.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_042s.jpg",
+          "brightness_mean": 163.79,
+          "blur_laplacian_var": 158.19,
+          "scene_diff_from_previous": 81.8
+        },
+        {
+          "time_seconds": 43.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_043s.jpg",
+          "brightness_mean": 243.17,
+          "blur_laplacian_var": 56.3,
+          "scene_diff_from_previous": 84.82
+        },
+        {
+          "time_seconds": 44.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_044s.jpg",
+          "brightness_mean": 245.85,
+          "blur_laplacian_var": 177.79,
+          "scene_diff_from_previous": 14.34
+        },
+        {
+          "time_seconds": 45.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_045s.jpg",
+          "brightness_mean": 232.27,
+          "blur_laplacian_var": 239.09,
+          "scene_diff_from_previous": 24.87
+        },
+        {
+          "time_seconds": 46.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_046s.jpg",
+          "brightness_mean": 159.03,
+          "blur_laplacian_var": 38.36,
+          "scene_diff_from_previous": 102.11
+        },
+        {
+          "time_seconds": 47.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_047s.jpg",
+          "brightness_mean": 186.87,
+          "blur_laplacian_var": 652.51,
+          "scene_diff_from_previous": 72.18
+        },
+        {
+          "time_seconds": 48.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_048s.jpg",
+          "brightness_mean": 183.55,
+          "blur_laplacian_var": 712.01,
+          "scene_diff_from_previous": 15.89
+        },
+        {
+          "time_seconds": 49.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_049s.jpg",
+          "brightness_mean": 183.47,
+          "blur_laplacian_var": 719.36,
+          "scene_diff_from_previous": 0.41
+        },
+        {
+          "time_seconds": 50.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_050s.jpg",
+          "brightness_mean": 183.35,
+          "blur_laplacian_var": 714.27,
+          "scene_diff_from_previous": 2.01
+        },
+        {
+          "time_seconds": 51.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_051s.jpg",
+          "brightness_mean": 183.6,
+          "blur_laplacian_var": 719.42,
+          "scene_diff_from_previous": 1.86
+        },
+        {
+          "time_seconds": 52.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_052s.jpg",
+          "brightness_mean": 184.54,
+          "blur_laplacian_var": 724.13,
+          "scene_diff_from_previous": 2.35
+        },
+        {
+          "time_seconds": 53.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_053s.jpg",
+          "brightness_mean": 183.95,
+          "blur_laplacian_var": 722.11,
+          "scene_diff_from_previous": 1.59
+        },
+        {
+          "time_seconds": 54.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_054s.jpg",
+          "brightness_mean": 183.71,
+          "blur_laplacian_var": 710.36,
+          "scene_diff_from_previous": 2.35
+        },
+        {
+          "time_seconds": 55.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_055s.jpg",
+          "brightness_mean": 183.69,
+          "blur_laplacian_var": 704.24,
+          "scene_diff_from_previous": 2.18
+        },
+        {
+          "time_seconds": 56.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_056s.jpg",
+          "brightness_mean": 117.72,
+          "blur_laplacian_var": 162.52,
+          "scene_diff_from_previous": 100.67
+        },
+        {
+          "time_seconds": 57.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_057s.jpg",
+          "brightness_mean": 160.46,
+          "blur_laplacian_var": 73.65,
+          "scene_diff_from_previous": 79.3
+        },
+        {
+          "time_seconds": 58.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_058s.jpg",
+          "brightness_mean": 173.03,
+          "blur_laplacian_var": 550.46,
+          "scene_diff_from_previous": 68.42
+        },
+        {
+          "time_seconds": 59.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_059s.jpg",
+          "brightness_mean": 171.99,
+          "blur_laplacian_var": 563.21,
+          "scene_diff_from_previous": 6.09
+        },
+        {
+          "time_seconds": 60.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m00s.jpg",
+          "brightness_mean": 172.06,
+          "blur_laplacian_var": 555.88,
+          "scene_diff_from_previous": 5.67
+        },
+        {
+          "time_seconds": 61.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m01s.jpg",
+          "brightness_mean": 173.45,
+          "blur_laplacian_var": 548.1,
+          "scene_diff_from_previous": 7.49
+        },
+        {
+          "time_seconds": 62.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m02s.jpg",
+          "brightness_mean": 170.31,
+          "blur_laplacian_var": 547.59,
+          "scene_diff_from_previous": 9.34
+        },
+        {
+          "time_seconds": 63.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m03s.jpg",
+          "brightness_mean": 170.18,
+          "blur_laplacian_var": 548.81,
+          "scene_diff_from_previous": 5.13
+        },
+        {
+          "time_seconds": 64.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m04s.jpg",
+          "brightness_mean": 169.75,
+          "blur_laplacian_var": 549.77,
+          "scene_diff_from_previous": 12.43
+        },
+        {
+          "time_seconds": 65.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m05s.jpg",
+          "brightness_mean": 169.14,
+          "blur_laplacian_var": 551.5,
+          "scene_diff_from_previous": 7.34
+        },
+        {
+          "time_seconds": 66.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m06s.jpg",
+          "brightness_mean": 171.25,
+          "blur_laplacian_var": 555.11,
+          "scene_diff_from_previous": 7.46
+        },
+        {
+          "time_seconds": 67.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m07s.jpg",
+          "brightness_mean": 150.81,
+          "blur_laplacian_var": 128.01,
+          "scene_diff_from_previous": 84.82
+        },
+        {
+          "time_seconds": 68.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m08s.jpg",
+          "brightness_mean": 127.94,
+          "blur_laplacian_var": 160.29,
+          "scene_diff_from_previous": 50.16
+        },
+        {
+          "time_seconds": 69.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m09s.jpg",
+          "brightness_mean": 127.4,
+          "blur_laplacian_var": 167.48,
+          "scene_diff_from_previous": 9.82
+        },
+        {
+          "time_seconds": 70.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m10s.jpg",
+          "brightness_mean": 181.68,
+          "blur_laplacian_var": 23.01,
+          "scene_diff_from_previous": 82.76
+        },
+        {
+          "time_seconds": 71.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m11s.jpg",
+          "brightness_mean": 159.49,
+          "blur_laplacian_var": 138.16,
+          "scene_diff_from_previous": 68.47
+        },
+        {
+          "time_seconds": 72.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m12s.jpg",
+          "brightness_mean": 109.86,
+          "blur_laplacian_var": 191.57,
+          "scene_diff_from_previous": 86.66
+        },
+        {
+          "time_seconds": 73.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m13s.jpg",
+          "brightness_mean": 109.28,
+          "blur_laplacian_var": 182.66,
+          "scene_diff_from_previous": 20.88
+        },
+        {
+          "time_seconds": 74.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m14s.jpg",
+          "brightness_mean": 110.55,
+          "blur_laplacian_var": 182.04,
+          "scene_diff_from_previous": 4.93
+        },
+        {
+          "time_seconds": 75.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m15s.jpg",
+          "brightness_mean": 110.47,
+          "blur_laplacian_var": 180.18,
+          "scene_diff_from_previous": 1.07
+        },
+        {
+          "time_seconds": 76.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m16s.jpg",
+          "brightness_mean": 110.47,
+          "blur_laplacian_var": 179.14,
+          "scene_diff_from_previous": 1.1
+        },
+        {
+          "time_seconds": 77.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m17s.jpg",
+          "brightness_mean": 154.87,
+          "blur_laplacian_var": 26.42,
+          "scene_diff_from_previous": 63.9
+        },
+        {
+          "time_seconds": 78.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m18s.jpg",
+          "brightness_mean": 188.54,
+          "blur_laplacian_var": 582.4,
+          "scene_diff_from_previous": 104.38
+        },
+        {
+          "time_seconds": 79.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m19s.jpg",
+          "brightness_mean": 185.58,
+          "blur_laplacian_var": 572.37,
+          "scene_diff_from_previous": 13.03
+        },
+        {
+          "time_seconds": 80.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m20s.jpg",
+          "brightness_mean": 184.17,
+          "blur_laplacian_var": 566.28,
+          "scene_diff_from_previous": 8.62
+        },
+        {
+          "time_seconds": 81.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m21s.jpg",
+          "brightness_mean": 181.3,
+          "blur_laplacian_var": 567.7,
+          "scene_diff_from_previous": 8.82
+        },
+        {
+          "time_seconds": 82.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m22s.jpg",
+          "brightness_mean": 187.1,
+          "blur_laplacian_var": 564.35,
+          "scene_diff_from_previous": 14.88
+        },
+        {
+          "time_seconds": 83.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m23s.jpg",
+          "brightness_mean": 182.92,
+          "blur_laplacian_var": 561.06,
+          "scene_diff_from_previous": 7.38
+        },
+        {
+          "time_seconds": 84.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m24s.jpg",
+          "brightness_mean": 179.7,
+          "blur_laplacian_var": 558.4,
+          "scene_diff_from_previous": 9.02
+        },
+        {
+          "time_seconds": 85.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m25s.jpg",
+          "brightness_mean": 148.73,
+          "blur_laplacian_var": 145.23,
+          "scene_diff_from_previous": 84.64
+        },
+        {
+          "time_seconds": 86.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m26s.jpg",
+          "brightness_mean": 171.45,
+          "blur_laplacian_var": 173.79,
+          "scene_diff_from_previous": 72.01
+        },
+        {
+          "time_seconds": 86.833,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M02/M02_01m26s.jpg",
+          "brightness_mean": 187.11,
+          "blur_laplacian_var": 781.35,
+          "scene_diff_from_previous": 65.72
+        }
+      ]
+    },
+    {
+      "material_id": "M03",
+      "file_name": "内建视网膜显示器 2026-06-01 00-21-27.mp4",
+      "file_path": "/Users/fan/Documents/视频工厂/素材录制/第五期/内建视网膜显示器 2026-06-01 00-21-27.mp4",
+      "relative_path": "素材录制/第五期/内建视网膜显示器 2026-06-01 00-21-27.mp4",
+      "file_size_bytes": 17403996,
+      "duration_seconds": 10.133,
+      "width": 3420,
+      "height": 1980,
+      "fps": 30.099,
+      "frame_count": 305,
+      "audio_present": false,
+      "can_open_with_opencv": true,
+      "sampled_frame_count": 12,
+      "scene_candidate_seconds": [
+        1.0,
+        6.0,
+        7.0
+      ],
+      "contact_sheet_paths": [
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M03_contact_sheet_p01.jpg"
+      ],
+      "technical_observation": {
+        "brightness_mean_range": [
+          224.16,
+          238.57
+        ],
+        "blur_laplacian_var_range": [
+          44.54,
+          884.28
+        ],
+        "max_scene_diff": 24.4,
+        "black_screen_suspected": false,
+        "frozen_frame_suspected": false,
+        "heavy_blur_suspected": false
+      },
+      "sampled_frames": [
+        {
+          "time_seconds": 0.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M03/M03_000s.jpg",
+          "brightness_mean": 224.16,
+          "blur_laplacian_var": 884.28,
+          "scene_diff_from_previous": null
+        },
+        {
+          "time_seconds": 1.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M03/M03_001s.jpg",
+          "brightness_mean": 237.47,
+          "blur_laplacian_var": 164.11,
+          "scene_diff_from_previous": 24.4
+        },
+        {
+          "time_seconds": 2.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M03/M03_002s.jpg",
+          "brightness_mean": 237.37,
+          "blur_laplacian_var": 206.52,
+          "scene_diff_from_previous": 3.31
+        },
+        {
+          "time_seconds": 3.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M03/M03_003s.jpg",
+          "brightness_mean": 236.89,
+          "blur_laplacian_var": 197.99,
+          "scene_diff_from_previous": 0.86
+        },
+        {
+          "time_seconds": 4.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M03/M03_004s.jpg",
+          "brightness_mean": 236.86,
+          "blur_laplacian_var": 194.98,
+          "scene_diff_from_previous": 0.46
+        },
+        {
+          "time_seconds": 5.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M03/M03_005s.jpg",
+          "brightness_mean": 237.35,
+          "blur_laplacian_var": 202.97,
+          "scene_diff_from_previous": 0.97
+        },
+        {
+          "time_seconds": 6.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M03/M03_006s.jpg",
+          "brightness_mean": 238.57,
+          "blur_laplacian_var": 44.54,
+          "scene_diff_from_previous": 9.73
+        },
+        {
+          "time_seconds": 7.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M03/M03_007s.jpg",
+          "brightness_mean": 225.43,
+          "blur_laplacian_var": 826.64,
+          "scene_diff_from_previous": 23.08
+        },
+        {
+          "time_seconds": 8.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M03/M03_008s.jpg",
+          "brightness_mean": 224.29,
+          "blur_laplacian_var": 833.06,
+          "scene_diff_from_previous": 4.91
+        },
+        {
+          "time_seconds": 9.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M03/M03_009s.jpg",
+          "brightness_mean": 224.28,
+          "blur_laplacian_var": 833.49,
+          "scene_diff_from_previous": 0.07
+        },
+        {
+          "time_seconds": 10.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M03/M03_010s.jpg",
+          "brightness_mean": 224.29,
+          "blur_laplacian_var": 832.59,
+          "scene_diff_from_previous": 0.02
+        },
+        {
+          "time_seconds": 10.133,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M03/M03_010s.jpg",
+          "brightness_mean": 224.29,
+          "blur_laplacian_var": 832.68,
+          "scene_diff_from_previous": 0.01
+        }
+      ]
+    },
+    {
+      "material_id": "M04",
+      "file_name": "内建视网膜显示器 2026-06-01 00-23-10.mp4",
+      "file_path": "/Users/fan/Documents/视频工厂/素材录制/第五期/内建视网膜显示器 2026-06-01 00-23-10.mp4",
+      "relative_path": "素材录制/第五期/内建视网膜显示器 2026-06-01 00-23-10.mp4",
+      "file_size_bytes": 212669361,
+      "duration_seconds": 80.333,
+      "width": 3420,
+      "height": 1994,
+      "fps": 30.012,
+      "frame_count": 2411,
+      "audio_present": false,
+      "can_open_with_opencv": true,
+      "sampled_frame_count": 82,
+      "scene_candidate_seconds": [
+        2.0,
+        3.0,
+        7.0,
+        8.0,
+        9.0,
+        10.0,
+        11.0,
+        13.0,
+        14.0,
+        16.0,
+        17.0,
+        18.0,
+        19.0,
+        21.0,
+        24.0,
+        25.0,
+        26.0,
+        30.0,
+        31.0,
+        32.0,
+        33.0,
+        35.0,
+        36.0,
+        37.0,
+        38.0,
+        45.0,
+        46.0,
+        47.0,
+        48.0,
+        53.0,
+        54.0,
+        55.0,
+        56.0,
+        61.0,
+        62.0,
+        76.0,
+        77.0,
+        80.0,
+        80.333
+      ],
+      "contact_sheet_paths": [
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M04_contact_sheet_p01.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M04_contact_sheet_p02.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M04_contact_sheet_p03.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M04_contact_sheet_p04.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M04_contact_sheet_p05.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M04_contact_sheet_p06.jpg"
+      ],
+      "technical_observation": {
+        "brightness_mean_range": [
+          220.08,
+          243.59
+        ],
+        "blur_laplacian_var_range": [
+          223.98,
+          1377.62
+        ],
+        "max_scene_diff": 42.11,
+        "black_screen_suspected": false,
+        "frozen_frame_suspected": false,
+        "heavy_blur_suspected": false
+      },
+      "sampled_frames": [
+        {
+          "time_seconds": 0.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_000s.jpg",
+          "brightness_mean": 221.79,
+          "blur_laplacian_var": 1134.34,
+          "scene_diff_from_previous": null
+        },
+        {
+          "time_seconds": 1.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_001s.jpg",
+          "brightness_mean": 221.8,
+          "blur_laplacian_var": 1146.62,
+          "scene_diff_from_previous": 0.24
+        },
+        {
+          "time_seconds": 2.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_002s.jpg",
+          "brightness_mean": 240.99,
+          "blur_laplacian_var": 223.98,
+          "scene_diff_from_previous": 35.94
+        },
+        {
+          "time_seconds": 3.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_003s.jpg",
+          "brightness_mean": 240.13,
+          "blur_laplacian_var": 299.01,
+          "scene_diff_from_previous": 18.11
+        },
+        {
+          "time_seconds": 4.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_004s.jpg",
+          "brightness_mean": 240.24,
+          "blur_laplacian_var": 323.21,
+          "scene_diff_from_previous": 1.41
+        },
+        {
+          "time_seconds": 5.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_005s.jpg",
+          "brightness_mean": 239.89,
+          "blur_laplacian_var": 317.41,
+          "scene_diff_from_previous": 0.57
+        },
+        {
+          "time_seconds": 6.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_006s.jpg",
+          "brightness_mean": 238.74,
+          "blur_laplacian_var": 306.41,
+          "scene_diff_from_previous": 1.43
+        },
+        {
+          "time_seconds": 7.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_007s.jpg",
+          "brightness_mean": 239.36,
+          "blur_laplacian_var": 339.8,
+          "scene_diff_from_previous": 24.43
+        },
+        {
+          "time_seconds": 8.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_008s.jpg",
+          "brightness_mean": 243.59,
+          "blur_laplacian_var": 390.77,
+          "scene_diff_from_previous": 19.43
+        },
+        {
+          "time_seconds": 9.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_009s.jpg",
+          "brightness_mean": 221.55,
+          "blur_laplacian_var": 1258.96,
+          "scene_diff_from_previous": 35.17
+        },
+        {
+          "time_seconds": 10.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_010s.jpg",
+          "brightness_mean": 220.53,
+          "blur_laplacian_var": 1353.18,
+          "scene_diff_from_previous": 9.91
+        },
+        {
+          "time_seconds": 11.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_011s.jpg",
+          "brightness_mean": 220.54,
+          "blur_laplacian_var": 1366.42,
+          "scene_diff_from_previous": 8.24
+        },
+        {
+          "time_seconds": 12.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_012s.jpg",
+          "brightness_mean": 220.6,
+          "blur_laplacian_var": 1360.29,
+          "scene_diff_from_previous": 0.12
+        },
+        {
+          "time_seconds": 13.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_013s.jpg",
+          "brightness_mean": 237.79,
+          "blur_laplacian_var": 225.49,
+          "scene_diff_from_previous": 37.56
+        },
+        {
+          "time_seconds": 14.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_014s.jpg",
+          "brightness_mean": 236.22,
+          "blur_laplacian_var": 385.93,
+          "scene_diff_from_previous": 19.93
+        },
+        {
+          "time_seconds": 15.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_015s.jpg",
+          "brightness_mean": 235.99,
+          "blur_laplacian_var": 385.04,
+          "scene_diff_from_previous": 1.28
+        },
+        {
+          "time_seconds": 16.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_016s.jpg",
+          "brightness_mean": 238.39,
+          "blur_laplacian_var": 385.36,
+          "scene_diff_from_previous": 28.05
+        },
+        {
+          "time_seconds": 17.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_017s.jpg",
+          "brightness_mean": 238.4,
+          "blur_laplacian_var": 370.42,
+          "scene_diff_from_previous": 16.49
+        },
+        {
+          "time_seconds": 18.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_018s.jpg",
+          "brightness_mean": 238.38,
+          "blur_laplacian_var": 396.33,
+          "scene_diff_from_previous": 25.25
+        },
+        {
+          "time_seconds": 19.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_019s.jpg",
+          "brightness_mean": 238.21,
+          "blur_laplacian_var": 393.83,
+          "scene_diff_from_previous": 11.47
+        },
+        {
+          "time_seconds": 20.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_020s.jpg",
+          "brightness_mean": 237.51,
+          "blur_laplacian_var": 400.89,
+          "scene_diff_from_previous": 1.16
+        },
+        {
+          "time_seconds": 21.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_021s.jpg",
+          "brightness_mean": 236.94,
+          "blur_laplacian_var": 397.18,
+          "scene_diff_from_previous": 25.92
+        },
+        {
+          "time_seconds": 22.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_022s.jpg",
+          "brightness_mean": 236.21,
+          "blur_laplacian_var": 414.42,
+          "scene_diff_from_previous": 7.38
+        },
+        {
+          "time_seconds": 23.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_023s.jpg",
+          "brightness_mean": 235.76,
+          "blur_laplacian_var": 422.08,
+          "scene_diff_from_previous": 0.94
+        },
+        {
+          "time_seconds": 24.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_024s.jpg",
+          "brightness_mean": 237.2,
+          "blur_laplacian_var": 431.45,
+          "scene_diff_from_previous": 28.33
+        },
+        {
+          "time_seconds": 25.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_025s.jpg",
+          "brightness_mean": 238.49,
+          "blur_laplacian_var": 315.67,
+          "scene_diff_from_previous": 22.91
+        },
+        {
+          "time_seconds": 26.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_026s.jpg",
+          "brightness_mean": 221.83,
+          "blur_laplacian_var": 1376.71,
+          "scene_diff_from_previous": 36.57
+        },
+        {
+          "time_seconds": 27.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_027s.jpg",
+          "brightness_mean": 220.57,
+          "blur_laplacian_var": 1377.62,
+          "scene_diff_from_previous": 4.57
+        },
+        {
+          "time_seconds": 28.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_028s.jpg",
+          "brightness_mean": 220.58,
+          "blur_laplacian_var": 1356.05,
+          "scene_diff_from_previous": 0.22
+        },
+        {
+          "time_seconds": 29.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_029s.jpg",
+          "brightness_mean": 220.55,
+          "blur_laplacian_var": 1364.8,
+          "scene_diff_from_previous": 0.17
+        },
+        {
+          "time_seconds": 30.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_030s.jpg",
+          "brightness_mean": 236.89,
+          "blur_laplacian_var": 438.38,
+          "scene_diff_from_previous": 39.83
+        },
+        {
+          "time_seconds": 31.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_031s.jpg",
+          "brightness_mean": 235.32,
+          "blur_laplacian_var": 432.49,
+          "scene_diff_from_previous": 13.75
+        },
+        {
+          "time_seconds": 32.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_032s.jpg",
+          "brightness_mean": 238.69,
+          "blur_laplacian_var": 980.61,
+          "scene_diff_from_previous": 27.54
+        },
+        {
+          "time_seconds": 33.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_033s.jpg",
+          "brightness_mean": 220.33,
+          "blur_laplacian_var": 1355.17,
+          "scene_diff_from_previous": 31.35
+        },
+        {
+          "time_seconds": 34.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_034s.jpg",
+          "brightness_mean": 220.11,
+          "blur_laplacian_var": 1352.98,
+          "scene_diff_from_previous": 0.84
+        },
+        {
+          "time_seconds": 35.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_035s.jpg",
+          "brightness_mean": 236.36,
+          "blur_laplacian_var": 357.82,
+          "scene_diff_from_previous": 41.53
+        },
+        {
+          "time_seconds": 36.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_036s.jpg",
+          "brightness_mean": 235.38,
+          "blur_laplacian_var": 476.73,
+          "scene_diff_from_previous": 23.67
+        },
+        {
+          "time_seconds": 37.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_037s.jpg",
+          "brightness_mean": 229.49,
+          "blur_laplacian_var": 1100.65,
+          "scene_diff_from_previous": 34.73
+        },
+        {
+          "time_seconds": 38.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_038s.jpg",
+          "brightness_mean": 220.68,
+          "blur_laplacian_var": 1360.79,
+          "scene_diff_from_previous": 20.66
+        },
+        {
+          "time_seconds": 39.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_039s.jpg",
+          "brightness_mean": 220.56,
+          "blur_laplacian_var": 1362.59,
+          "scene_diff_from_previous": 0.55
+        },
+        {
+          "time_seconds": 40.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_040s.jpg",
+          "brightness_mean": 220.55,
+          "blur_laplacian_var": 1358.27,
+          "scene_diff_from_previous": 0.06
+        },
+        {
+          "time_seconds": 41.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_041s.jpg",
+          "brightness_mean": 220.55,
+          "blur_laplacian_var": 1364.26,
+          "scene_diff_from_previous": 0.02
+        },
+        {
+          "time_seconds": 42.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_042s.jpg",
+          "brightness_mean": 220.55,
+          "blur_laplacian_var": 1363.44,
+          "scene_diff_from_previous": 0.04
+        },
+        {
+          "time_seconds": 43.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_043s.jpg",
+          "brightness_mean": 220.54,
+          "blur_laplacian_var": 1367.3,
+          "scene_diff_from_previous": 0.15
+        },
+        {
+          "time_seconds": 44.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_044s.jpg",
+          "brightness_mean": 220.56,
+          "blur_laplacian_var": 1362.1,
+          "scene_diff_from_previous": 0.14
+        },
+        {
+          "time_seconds": 45.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_045s.jpg",
+          "brightness_mean": 235.64,
+          "blur_laplacian_var": 419.31,
+          "scene_diff_from_previous": 41.27
+        },
+        {
+          "time_seconds": 46.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_046s.jpg",
+          "brightness_mean": 233.64,
+          "blur_laplacian_var": 476.45,
+          "scene_diff_from_previous": 20.47
+        },
+        {
+          "time_seconds": 47.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_047s.jpg",
+          "brightness_mean": 232.85,
+          "blur_laplacian_var": 1058.1,
+          "scene_diff_from_previous": 33.72
+        },
+        {
+          "time_seconds": 48.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_048s.jpg",
+          "brightness_mean": 220.25,
+          "blur_laplacian_var": 1342.75,
+          "scene_diff_from_previous": 24.65
+        },
+        {
+          "time_seconds": 49.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_049s.jpg",
+          "brightness_mean": 220.08,
+          "blur_laplacian_var": 1358.88,
+          "scene_diff_from_previous": 0.55
+        },
+        {
+          "time_seconds": 50.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_050s.jpg",
+          "brightness_mean": 220.08,
+          "blur_laplacian_var": 1357.95,
+          "scene_diff_from_previous": 0.04
+        },
+        {
+          "time_seconds": 51.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_051s.jpg",
+          "brightness_mean": 220.08,
+          "blur_laplacian_var": 1358.6,
+          "scene_diff_from_previous": 0.01
+        },
+        {
+          "time_seconds": 52.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_052s.jpg",
+          "brightness_mean": 220.08,
+          "blur_laplacian_var": 1356.07,
+          "scene_diff_from_previous": 0.02
+        },
+        {
+          "time_seconds": 53.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_053s.jpg",
+          "brightness_mean": 236.29,
+          "blur_laplacian_var": 407.27,
+          "scene_diff_from_previous": 42.11
+        },
+        {
+          "time_seconds": 54.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_054s.jpg",
+          "brightness_mean": 234.64,
+          "blur_laplacian_var": 509.3,
+          "scene_diff_from_previous": 22.38
+        },
+        {
+          "time_seconds": 55.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_055s.jpg",
+          "brightness_mean": 236.01,
+          "blur_laplacian_var": 485.95,
+          "scene_diff_from_previous": 29.93
+        },
+        {
+          "time_seconds": 56.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_056s.jpg",
+          "brightness_mean": 236.07,
+          "blur_laplacian_var": 504.62,
+          "scene_diff_from_previous": 9.32
+        },
+        {
+          "time_seconds": 57.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_057s.jpg",
+          "brightness_mean": 235.98,
+          "blur_laplacian_var": 509.08,
+          "scene_diff_from_previous": 0.36
+        },
+        {
+          "time_seconds": 58.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_058s.jpg",
+          "brightness_mean": 235.54,
+          "blur_laplacian_var": 517.39,
+          "scene_diff_from_previous": 0.81
+        },
+        {
+          "time_seconds": 59.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_059s.jpg",
+          "brightness_mean": 235.9,
+          "blur_laplacian_var": 505.29,
+          "scene_diff_from_previous": 0.89
+        },
+        {
+          "time_seconds": 60.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_01m00s.jpg",
+          "brightness_mean": 235.95,
+          "blur_laplacian_var": 502.87,
+          "scene_diff_from_previous": 0.45
+        },
+        {
+          "time_seconds": 61.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_01m01s.jpg",
+          "brightness_mean": 223.34,
+          "blur_laplacian_var": 1281.88,
+          "scene_diff_from_previous": 36.64
+        },
+        {
+          "time_seconds": 62.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_01m02s.jpg",
+          "brightness_mean": 220.62,
+          "blur_laplacian_var": 1356.34,
+          "scene_diff_from_previous": 9.5
+        },
+        {
+          "time_seconds": 63.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_01m03s.jpg",
+          "brightness_mean": 220.56,
+          "blur_laplacian_var": 1363.09,
+          "scene_diff_from_previous": 0.28
+        },
+        {
+          "time_seconds": 64.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_01m04s.jpg",
+          "brightness_mean": 220.57,
+          "blur_laplacian_var": 1360.49,
+          "scene_diff_from_previous": 0.12
+        },
+        {
+          "time_seconds": 65.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_01m05s.jpg",
+          "brightness_mean": 220.56,
+          "blur_laplacian_var": 1363.4,
+          "scene_diff_from_previous": 0.02
+        },
+        {
+          "time_seconds": 66.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_01m06s.jpg",
+          "brightness_mean": 220.57,
+          "blur_laplacian_var": 1361.29,
+          "scene_diff_from_previous": 0.02
+        },
+        {
+          "time_seconds": 67.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_01m07s.jpg",
+          "brightness_mean": 220.56,
+          "blur_laplacian_var": 1363.65,
+          "scene_diff_from_previous": 0.02
+        },
+        {
+          "time_seconds": 68.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_01m08s.jpg",
+          "brightness_mean": 220.57,
+          "blur_laplacian_var": 1360.98,
+          "scene_diff_from_previous": 0.02
+        },
+        {
+          "time_seconds": 69.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_01m09s.jpg",
+          "brightness_mean": 220.56,
+          "blur_laplacian_var": 1363.12,
+          "scene_diff_from_previous": 0.02
+        },
+        {
+          "time_seconds": 70.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_01m10s.jpg",
+          "brightness_mean": 220.57,
+          "blur_laplacian_var": 1360.62,
+          "scene_diff_from_previous": 0.02
+        },
+        {
+          "time_seconds": 71.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_01m11s.jpg",
+          "brightness_mean": 220.55,
+          "blur_laplacian_var": 1367.08,
+          "scene_diff_from_previous": 0.14
+        },
+        {
+          "time_seconds": 72.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_01m12s.jpg",
+          "brightness_mean": 220.63,
+          "blur_laplacian_var": 1366.32,
+          "scene_diff_from_previous": 0.12
+        },
+        {
+          "time_seconds": 73.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_01m13s.jpg",
+          "brightness_mean": 220.56,
+          "blur_laplacian_var": 1362.45,
+          "scene_diff_from_previous": 0.13
+        },
+        {
+          "time_seconds": 74.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_01m14s.jpg",
+          "brightness_mean": 220.56,
+          "blur_laplacian_var": 1364.22,
+          "scene_diff_from_previous": 0.11
+        },
+        {
+          "time_seconds": 75.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_01m15s.jpg",
+          "brightness_mean": 220.57,
+          "blur_laplacian_var": 1366.31,
+          "scene_diff_from_previous": 0.1
+        },
+        {
+          "time_seconds": 76.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_01m16s.jpg",
+          "brightness_mean": 226.24,
+          "blur_laplacian_var": 653.25,
+          "scene_diff_from_previous": 15.92
+        },
+        {
+          "time_seconds": 77.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_01m17s.jpg",
+          "brightness_mean": 236.39,
+          "blur_laplacian_var": 423.45,
+          "scene_diff_from_previous": 35.03
+        },
+        {
+          "time_seconds": 78.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_01m18s.jpg",
+          "brightness_mean": 236.32,
+          "blur_laplacian_var": 452.23,
+          "scene_diff_from_previous": 4.01
+        },
+        {
+          "time_seconds": 79.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_01m19s.jpg",
+          "brightness_mean": 237.5,
+          "blur_laplacian_var": 469.14,
+          "scene_diff_from_previous": 1.4
+        },
+        {
+          "time_seconds": 80.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_01m20s.jpg",
+          "brightness_mean": 230.81,
+          "blur_laplacian_var": 1072.79,
+          "scene_diff_from_previous": 29.05
+        },
+        {
+          "time_seconds": 80.333,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M04/M04_01m20s.jpg",
+          "brightness_mean": 223.02,
+          "blur_laplacian_var": 1312.2,
+          "scene_diff_from_previous": 19.33
+        }
+      ]
+    },
+    {
+      "material_id": "M05",
+      "file_name": "内建视网膜显示器 2026-06-02 23-25-03.mp4",
+      "file_path": "/Users/fan/Documents/视频工厂/素材录制/第五期/内建视网膜显示器 2026-06-02 23-25-03.mp4",
+      "relative_path": "素材录制/第五期/内建视网膜显示器 2026-06-02 23-25-03.mp4",
+      "file_size_bytes": 105246889,
+      "duration_seconds": 44.8,
+      "width": 3420,
+      "height": 1998,
+      "fps": 30.022,
+      "frame_count": 1345,
+      "audio_present": false,
+      "can_open_with_opencv": true,
+      "sampled_frame_count": 45,
+      "scene_candidate_seconds": [
+        2.0,
+        3.0,
+        9.0,
+        10.0,
+        15.0,
+        16.0,
+        20.0,
+        21.0,
+        23.0,
+        24.0,
+        25.0,
+        37.0,
+        38.0,
+        39.0,
+        42.0,
+        43.0,
+        44.0
+      ],
+      "contact_sheet_paths": [
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M05_contact_sheet_p01.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M05_contact_sheet_p02.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M05_contact_sheet_p03.jpg"
+      ],
+      "technical_observation": {
+        "brightness_mean_range": [
+          221.74,
+          243.27
+        ],
+        "blur_laplacian_var_range": [
+          25.39,
+          1046.81
+        ],
+        "max_scene_diff": 35.42,
+        "black_screen_suspected": false,
+        "frozen_frame_suspected": false,
+        "heavy_blur_suspected": false
+      },
+      "sampled_frames": [
+        {
+          "time_seconds": 0.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_000s.jpg",
+          "brightness_mean": 221.77,
+          "blur_laplacian_var": 986.01,
+          "scene_diff_from_previous": null
+        },
+        {
+          "time_seconds": 1.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_001s.jpg",
+          "brightness_mean": 221.78,
+          "blur_laplacian_var": 999.71,
+          "scene_diff_from_previous": 0.24
+        },
+        {
+          "time_seconds": 2.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_002s.jpg",
+          "brightness_mean": 241.4,
+          "blur_laplacian_var": 210.27,
+          "scene_diff_from_previous": 35.42
+        },
+        {
+          "time_seconds": 3.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_003s.jpg",
+          "brightness_mean": 239.03,
+          "blur_laplacian_var": 250.41,
+          "scene_diff_from_previous": 16.73
+        },
+        {
+          "time_seconds": 4.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_004s.jpg",
+          "brightness_mean": 238.92,
+          "blur_laplacian_var": 269.92,
+          "scene_diff_from_previous": 0.99
+        },
+        {
+          "time_seconds": 5.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_005s.jpg",
+          "brightness_mean": 238.83,
+          "blur_laplacian_var": 265.81,
+          "scene_diff_from_previous": 0.15
+        },
+        {
+          "time_seconds": 6.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_006s.jpg",
+          "brightness_mean": 240.14,
+          "blur_laplacian_var": 279.51,
+          "scene_diff_from_previous": 1.79
+        },
+        {
+          "time_seconds": 7.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_007s.jpg",
+          "brightness_mean": 240.2,
+          "blur_laplacian_var": 276.91,
+          "scene_diff_from_previous": 1.29
+        },
+        {
+          "time_seconds": 8.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_008s.jpg",
+          "brightness_mean": 240.27,
+          "blur_laplacian_var": 277.76,
+          "scene_diff_from_previous": 0.37
+        },
+        {
+          "time_seconds": 9.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_009s.jpg",
+          "brightness_mean": 240.39,
+          "blur_laplacian_var": 65.58,
+          "scene_diff_from_previous": 19.73
+        },
+        {
+          "time_seconds": 10.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_010s.jpg",
+          "brightness_mean": 239.78,
+          "blur_laplacian_var": 218.61,
+          "scene_diff_from_previous": 17.99
+        },
+        {
+          "time_seconds": 11.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_011s.jpg",
+          "brightness_mean": 239.33,
+          "blur_laplacian_var": 231.59,
+          "scene_diff_from_previous": 1.55
+        },
+        {
+          "time_seconds": 12.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_012s.jpg",
+          "brightness_mean": 239.37,
+          "blur_laplacian_var": 230.04,
+          "scene_diff_from_previous": 0.13
+        },
+        {
+          "time_seconds": 13.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_013s.jpg",
+          "brightness_mean": 241.81,
+          "blur_laplacian_var": 242.44,
+          "scene_diff_from_previous": 2.59
+        },
+        {
+          "time_seconds": 14.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_014s.jpg",
+          "brightness_mean": 241.83,
+          "blur_laplacian_var": 247.79,
+          "scene_diff_from_previous": 0.5
+        },
+        {
+          "time_seconds": 15.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_015s.jpg",
+          "brightness_mean": 226.14,
+          "blur_laplacian_var": 828.91,
+          "scene_diff_from_previous": 31.38
+        },
+        {
+          "time_seconds": 16.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_016s.jpg",
+          "brightness_mean": 221.79,
+          "blur_laplacian_var": 1044.49,
+          "scene_diff_from_previous": 12.64
+        },
+        {
+          "time_seconds": 17.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_017s.jpg",
+          "brightness_mean": 221.74,
+          "blur_laplacian_var": 1020.32,
+          "scene_diff_from_previous": 0.23
+        },
+        {
+          "time_seconds": 18.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_018s.jpg",
+          "brightness_mean": 221.74,
+          "blur_laplacian_var": 1019.72,
+          "scene_diff_from_previous": 0.03
+        },
+        {
+          "time_seconds": 19.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_019s.jpg",
+          "brightness_mean": 221.75,
+          "blur_laplacian_var": 1018.43,
+          "scene_diff_from_previous": 0.14
+        },
+        {
+          "time_seconds": 20.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_020s.jpg",
+          "brightness_mean": 243.27,
+          "blur_laplacian_var": 188.79,
+          "scene_diff_from_previous": 34.93
+        },
+        {
+          "time_seconds": 21.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_021s.jpg",
+          "brightness_mean": 241.84,
+          "blur_laplacian_var": 197.54,
+          "scene_diff_from_previous": 11.26
+        },
+        {
+          "time_seconds": 22.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_022s.jpg",
+          "brightness_mean": 241.4,
+          "blur_laplacian_var": 212.64,
+          "scene_diff_from_previous": 1.12
+        },
+        {
+          "time_seconds": 23.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_023s.jpg",
+          "brightness_mean": 242.06,
+          "blur_laplacian_var": 25.39,
+          "scene_diff_from_previous": 17.22
+        },
+        {
+          "time_seconds": 24.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_024s.jpg",
+          "brightness_mean": 234.55,
+          "blur_laplacian_var": 663.6,
+          "scene_diff_from_previous": 24.85
+        },
+        {
+          "time_seconds": 25.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_025s.jpg",
+          "brightness_mean": 221.87,
+          "blur_laplacian_var": 1046.81,
+          "scene_diff_from_previous": 24.94
+        },
+        {
+          "time_seconds": 26.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_026s.jpg",
+          "brightness_mean": 221.75,
+          "blur_laplacian_var": 1018.41,
+          "scene_diff_from_previous": 0.64
+        },
+        {
+          "time_seconds": 27.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_027s.jpg",
+          "brightness_mean": 221.75,
+          "blur_laplacian_var": 1017.54,
+          "scene_diff_from_previous": 0.03
+        },
+        {
+          "time_seconds": 28.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_028s.jpg",
+          "brightness_mean": 221.76,
+          "blur_laplacian_var": 1015.79,
+          "scene_diff_from_previous": 0.03
+        },
+        {
+          "time_seconds": 29.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_029s.jpg",
+          "brightness_mean": 221.75,
+          "blur_laplacian_var": 1018.29,
+          "scene_diff_from_previous": 0.03
+        },
+        {
+          "time_seconds": 30.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_030s.jpg",
+          "brightness_mean": 221.75,
+          "blur_laplacian_var": 1018.01,
+          "scene_diff_from_previous": 0.02
+        },
+        {
+          "time_seconds": 31.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_031s.jpg",
+          "brightness_mean": 222.09,
+          "blur_laplacian_var": 954.12,
+          "scene_diff_from_previous": 5.9
+        },
+        {
+          "time_seconds": 32.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_032s.jpg",
+          "brightness_mean": 222.05,
+          "blur_laplacian_var": 979.08,
+          "scene_diff_from_previous": 5.05
+        },
+        {
+          "time_seconds": 33.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_033s.jpg",
+          "brightness_mean": 222.05,
+          "blur_laplacian_var": 980.44,
+          "scene_diff_from_previous": 0.02
+        },
+        {
+          "time_seconds": 34.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_034s.jpg",
+          "brightness_mean": 222.04,
+          "blur_laplacian_var": 977.45,
+          "scene_diff_from_previous": 0.15
+        },
+        {
+          "time_seconds": 35.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_035s.jpg",
+          "brightness_mean": 222.05,
+          "blur_laplacian_var": 979.49,
+          "scene_diff_from_previous": 0.14
+        },
+        {
+          "time_seconds": 36.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_036s.jpg",
+          "brightness_mean": 222.06,
+          "blur_laplacian_var": 979.15,
+          "scene_diff_from_previous": 0.08
+        },
+        {
+          "time_seconds": 37.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_037s.jpg",
+          "brightness_mean": 230.87,
+          "blur_laplacian_var": 94.2,
+          "scene_diff_from_previous": 28.27
+        },
+        {
+          "time_seconds": 38.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_038s.jpg",
+          "brightness_mean": 230.1,
+          "blur_laplacian_var": 66.52,
+          "scene_diff_from_previous": 11.16
+        },
+        {
+          "time_seconds": 39.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_039s.jpg",
+          "brightness_mean": 223.99,
+          "blur_laplacian_var": 953.34,
+          "scene_diff_from_previous": 27.2
+        },
+        {
+          "time_seconds": 40.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_040s.jpg",
+          "brightness_mean": 221.91,
+          "blur_laplacian_var": 979.3,
+          "scene_diff_from_previous": 7.67
+        },
+        {
+          "time_seconds": 41.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_041s.jpg",
+          "brightness_mean": 221.78,
+          "blur_laplacian_var": 973.36,
+          "scene_diff_from_previous": 0.34
+        },
+        {
+          "time_seconds": 42.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_042s.jpg",
+          "brightness_mean": 235.21,
+          "blur_laplacian_var": 159.83,
+          "scene_diff_from_previous": 30.08
+        },
+        {
+          "time_seconds": 43.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_043s.jpg",
+          "brightness_mean": 235.38,
+          "blur_laplacian_var": 332.17,
+          "scene_diff_from_previous": 18.99
+        },
+        {
+          "time_seconds": 44.0,
+          "path": "dist/material_audit/20260603_第五期素材细节解析/keyframes/M05/M05_044s.jpg",
+          "brightness_mean": 241.8,
+          "blur_laplacian_var": 43.84,
+          "scene_diff_from_previous": 26.22
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,332 @@
+{
+  "project": "视频工厂",
+  "material_batch": "第五期",
+  "source_dir": "/Users/fan/Documents/视频工厂/素材录制/第五期",
+  "expected_video_count": 5,
+  "actual_video_count": 5,
+  "status": "proceed_with_available_materials",
+  "materials": [
+    {
+      "material_id": "M01",
+      "file_name": "内建视网膜显示器 2026-05-18 01-43-46.mp4",
+      "file_path": "/Users/fan/Documents/视频工厂/素材录制/第五期/内建视网膜显示器 2026-05-18 01-43-46.mp4",
+      "relative_path": "素材录制/第五期/内建视网膜显示器 2026-05-18 01-43-46.mp4",
+      "file_size_bytes": 80370009,
+      "duration_seconds": 46.0,
+      "width": 2794,
+      "height": 1690,
+      "fps": 30.022,
+      "frame_count": 1381,
+      "audio_present": false,
+      "can_open_with_opencv": true,
+      "sampled_frame_count": 46,
+      "scene_candidate_seconds": [
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0,
+        6.0,
+        7.0,
+        9.0,
+        10.0,
+        12.0,
+        13.0,
+        14.0,
+        15.0,
+        16.0,
+        19.0,
+        20.0,
+        21.0,
+        23.0,
+        24.0,
+        25.0,
+        26.0,
+        27.0,
+        28.0,
+        29.0,
+        33.0,
+        34.0,
+        35.0
+      ],
+      "contact_sheet_paths": [
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M01_contact_sheet_p01.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M01_contact_sheet_p02.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M01_contact_sheet_p03.jpg"
+      ],
+      "technical_observation": {
+        "brightness_mean_range": [
+          119.57,
+          243.29
+        ],
+        "blur_laplacian_var_range": [
+          40.72,
+          1620.8
+        ],
+        "max_scene_diff": 111.24,
+        "black_screen_suspected": false,
+        "frozen_frame_suspected": false,
+        "heavy_blur_suspected": false
+      }
+    },
+    {
+      "material_id": "M02",
+      "file_name": "内建视网膜显示器 2026-05-31 23-52-10.mp4",
+      "file_path": "/Users/fan/Documents/视频工厂/素材录制/第五期/内建视网膜显示器 2026-05-31 23-52-10.mp4",
+      "relative_path": "素材录制/第五期/内建视网膜显示器 2026-05-31 23-52-10.mp4",
+      "file_size_bytes": 261930288,
+      "duration_seconds": 86.833,
+      "width": 3420,
+      "height": 1992,
+      "fps": 30.012,
+      "frame_count": 2606,
+      "audio_present": false,
+      "can_open_with_opencv": true,
+      "sampled_frame_count": 88,
+      "scene_candidate_seconds": [
+        2.0,
+        3.0,
+        4.0,
+        5.0,
+        8.0,
+        9.0,
+        10.0,
+        11.0,
+        12.0,
+        13.0,
+        14.0,
+        15.0,
+        16.0,
+        17.0,
+        19.0,
+        20.0,
+        21.0,
+        29.0,
+        38.0,
+        39.0,
+        40.0,
+        42.0,
+        43.0,
+        44.0,
+        45.0,
+        46.0,
+        47.0,
+        48.0,
+        56.0,
+        57.0,
+        58.0,
+        62.0,
+        64.0,
+        67.0,
+        68.0,
+        69.0,
+        70.0,
+        71.0,
+        72.0,
+        73.0,
+        77.0,
+        78.0,
+        79.0,
+        80.0,
+        81.0,
+        82.0,
+        84.0,
+        85.0,
+        86.0,
+        86.833
+      ],
+      "contact_sheet_paths": [
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M02_contact_sheet_p01.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M02_contact_sheet_p02.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M02_contact_sheet_p03.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M02_contact_sheet_p04.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M02_contact_sheet_p05.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M02_contact_sheet_p06.jpg"
+      ],
+      "technical_observation": {
+        "brightness_mean_range": [
+          94.53,
+          246.02
+        ],
+        "blur_laplacian_var_range": [
+          23.01,
+          805.97
+        ],
+        "max_scene_diff": 148.53,
+        "black_screen_suspected": false,
+        "frozen_frame_suspected": false,
+        "heavy_blur_suspected": false
+      }
+    },
+    {
+      "material_id": "M03",
+      "file_name": "内建视网膜显示器 2026-06-01 00-21-27.mp4",
+      "file_path": "/Users/fan/Documents/视频工厂/素材录制/第五期/内建视网膜显示器 2026-06-01 00-21-27.mp4",
+      "relative_path": "素材录制/第五期/内建视网膜显示器 2026-06-01 00-21-27.mp4",
+      "file_size_bytes": 17403996,
+      "duration_seconds": 10.133,
+      "width": 3420,
+      "height": 1980,
+      "fps": 30.099,
+      "frame_count": 305,
+      "audio_present": false,
+      "can_open_with_opencv": true,
+      "sampled_frame_count": 12,
+      "scene_candidate_seconds": [
+        1.0,
+        6.0,
+        7.0
+      ],
+      "contact_sheet_paths": [
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M03_contact_sheet_p01.jpg"
+      ],
+      "technical_observation": {
+        "brightness_mean_range": [
+          224.16,
+          238.57
+        ],
+        "blur_laplacian_var_range": [
+          44.54,
+          884.28
+        ],
+        "max_scene_diff": 24.4,
+        "black_screen_suspected": false,
+        "frozen_frame_suspected": false,
+        "heavy_blur_suspected": false
+      }
+    },
+    {
+      "material_id": "M04",
+      "file_name": "内建视网膜显示器 2026-06-01 00-23-10.mp4",
+      "file_path": "/Users/fan/Documents/视频工厂/素材录制/第五期/内建视网膜显示器 2026-06-01 00-23-10.mp4",
+      "relative_path": "素材录制/第五期/内建视网膜显示器 2026-06-01 00-23-10.mp4",
+      "file_size_bytes": 212669361,
+      "duration_seconds": 80.333,
+      "width": 3420,
+      "height": 1994,
+      "fps": 30.012,
+      "frame_count": 2411,
+      "audio_present": false,
+      "can_open_with_opencv": true,
+      "sampled_frame_count": 82,
+      "scene_candidate_seconds": [
+        2.0,
+        3.0,
+        7.0,
+        8.0,
+        9.0,
+        10.0,
+        11.0,
+        13.0,
+        14.0,
+        16.0,
+        17.0,
+        18.0,
+        19.0,
+        21.0,
+        24.0,
+        25.0,
+        26.0,
+        30.0,
+        31.0,
+        32.0,
+        33.0,
+        35.0,
+        36.0,
+        37.0,
+        38.0,
+        45.0,
+        46.0,
+        47.0,
+        48.0,
+        53.0,
+        54.0,
+        55.0,
+        56.0,
+        61.0,
+        62.0,
+        76.0,
+        77.0,
+        80.0,
+        80.333
+      ],
+      "contact_sheet_paths": [
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M04_contact_sheet_p01.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M04_contact_sheet_p02.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M04_contact_sheet_p03.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M04_contact_sheet_p04.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M04_contact_sheet_p05.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M04_contact_sheet_p06.jpg"
+      ],
+      "technical_observation": {
+        "brightness_mean_range": [
+          220.08,
+          243.59
+        ],
+        "blur_laplacian_var_range": [
+          223.98,
+          1377.62
+        ],
+        "max_scene_diff": 42.11,
+        "black_screen_suspected": false,
+        "frozen_frame_suspected": false,
+        "heavy_blur_suspected": false
+      }
+    },
+    {
+      "material_id": "M05",
+      "file_name": "内建视网膜显示器 2026-06-02 23-25-03.mp4",
+      "file_path": "/Users/fan/Documents/视频工厂/素材录制/第五期/内建视网膜显示器 2026-06-02 23-25-03.mp4",
+      "relative_path": "素材录制/第五期/内建视网膜显示器 2026-06-02 23-25-03.mp4",
+      "file_size_bytes": 105246889,
+      "duration_seconds": 44.8,
+      "width": 3420,
+      "height": 1998,
+      "fps": 30.022,
+      "frame_count": 1345,
+      "audio_present": false,
+      "can_open_with_opencv": true,
+      "sampled_frame_count": 45,
+      "scene_candidate_seconds": [
+        2.0,
+        3.0,
+        9.0,
+        10.0,
+        15.0,
+        16.0,
+        20.0,
+        21.0,
+        23.0,
+        24.0,
+        25.0,
+        37.0,
+        38.0,
+        39.0,
+        42.0,
+        43.0,
+        44.0
+      ],
+      "contact_sheet_paths": [
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M05_contact_sheet_p01.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M05_contact_sheet_p02.jpg",
+        "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M05_contact_sheet_p03.jpg"
+      ],
+      "technical_observation": {
+        "brightness_mean_range": [
+          221.74,
+          243.27
+        ],
+        "blur_laplacian_var_range": [
+          25.39,
+          1046.81
+        ],
+        "max_scene_diff": 35.42,
+        "black_screen_suspected": false,
+        "frozen_frame_suspected": false,
+        "heavy_blur_suspected": false
+      }
+    }
+  ],
+  "source_video_modification": "none_read_only_probe_and_frame_extraction_only",
+  "technical_validation_boundary": "metadata/open/decode checks only; not content_validation"
+}

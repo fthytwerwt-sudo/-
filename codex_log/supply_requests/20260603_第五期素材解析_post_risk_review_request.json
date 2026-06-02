@@ -1,0 +1,183 @@
+{
+  "request_id": "20260603_fifth_material_audit_post_risk_review",
+  "created_at": "2026-06-03T00:00:00+08:00",
+  "project_route": "video_factory",
+  "project_stage": "formal_operation_active",
+  "operation_stage": "material_audit_completed_pending_chatgpt_copy_judgement",
+  "no_multi_agent_runtime_claim": true,
+  "task_id": "fifth_episode_material_detail_audit",
+  "task_type": "review_diagnosis_audit + local_file_governance + project_file_change",
+  "trigger_reason": "mandatory_post_risk_review",
+  "action": "risk_report",
+  "mandatory_for_every_task": true,
+  "participation_level": "post_risk_review",
+  "pre_supply_required": false,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "Review the completed fifth-episode material audit for risks before commit. Confirm reports remain material-only and do not promote final copy, TTS, video assembly, generation API, content_validation, send_ready, or source video modification.",
+  "current_step": "post-risk review after report generation and before git commit/push",
+  "known_context": [
+    "Codex generated material reports under codex_log/material_audit/20260603_第五期素材细节解析.",
+    "Codex generated keyframes, contact sheets, and evidence clips under dist/material_audit/20260603_第五期素材细节解析.",
+    "5 source videos under 素材录制/第五期 were used read-only and all are audio_present=false.",
+    "The reports mark M04 as the main product-threshold judgement frame, M03 as question entry, M02 as candidate media pool, and M01/M05 as execution/QA gate examples.",
+    "No final copy, TTS, final video, generation API, or source video modification should be claimed."
+  ],
+  "missing_context": [
+    "DeepSeek cannot inspect the actual source video binaries; local visual evidence and metadata remain Codex-owned.",
+    "Local OCR was unavailable, so small UI text and numeric thresholds remain partial or uncertain.",
+    "DeepSeek token usage cannot be observed directly by Codex."
+  ],
+  "decision_needed": "Flag any contradiction, status promotion, missing evidence, privacy risk, source modification risk, or secret exposure risk in the completed material audit pack.",
+  "candidate_files": [
+    "AGENTS.md",
+    "codex_log/latest.md",
+    "codex_log/material_audit/20260603_第五期素材细节解析/material_detail_report.md",
+    "codex_log/material_audit/20260603_第五期素材细节解析/timecode_evidence_map.json",
+    "codex_log/material_audit/20260603_第五期素材细节解析/chatgpt_handoff_brief.md",
+    "codex_log/material_audit/20260603_第五期素材细节解析/missing_or_uncertain_points.md",
+    "codex_log/material_audit/20260603_第五期素材细节解析/reshoot_suggestions.md",
+    "codex_log/material_audit/20260603_第五期素材细节解析/material_evidence_contract.json",
+    "codex_log/material_audit/20260603_第五期素材细节解析/final_self_check.json"
+  ],
+  "must_read_files": [
+    "codex_log/latest.md",
+    "codex_log/material_audit/20260603_第五期素材细节解析/material_detail_report.md",
+    "codex_log/material_audit/20260603_第五期素材细节解析/timecode_evidence_map.json",
+    "codex_log/material_audit/20260603_第五期素材细节解析/chatgpt_handoff_brief.md",
+    "codex_log/material_audit/20260603_第五期素材细节解析/missing_or_uncertain_points.md",
+    "codex_log/material_audit/20260603_第五期素材细节解析/material_evidence_contract.json",
+    "codex_log/material_audit/20260603_第五期素材细节解析/final_self_check.json"
+  ],
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "post_risk_review"
+    ]
+  },
+  "file_scope": {
+    "candidate_files": [
+      "codex_log/latest.md",
+      "codex_log/material_audit/20260603_第五期素材细节解析/material_detail_report.md",
+      "codex_log/material_audit/20260603_第五期素材细节解析/timecode_evidence_map.json",
+      "codex_log/material_audit/20260603_第五期素材细节解析/chatgpt_handoff_brief.md",
+      "codex_log/material_audit/20260603_第五期素材细节解析/missing_or_uncertain_points.md",
+      "codex_log/material_audit/20260603_第五期素材细节解析/reshoot_suggestions.md",
+      "codex_log/material_audit/20260603_第五期素材细节解析/material_evidence_contract.json",
+      "codex_log/material_audit/20260603_第五期素材细节解析/final_self_check.json"
+    ],
+    "must_prefetch_files": [
+      "codex_log/latest.md",
+      "codex_log/material_audit/20260603_第五期素材细节解析/material_detail_report.md",
+      "codex_log/material_audit/20260603_第五期素材细节解析/chatgpt_handoff_brief.md",
+      "codex_log/material_audit/20260603_第五期素材细节解析/material_evidence_contract.json",
+      "codex_log/material_audit/20260603_第五期素材细节解析/final_self_check.json"
+    ],
+    "optional_prefetch_files": [
+      "codex_log/material_audit/20260603_第五期素材细节解析/timecode_evidence_map.json",
+      "codex_log/material_audit/20260603_第五期素材细节解析/missing_or_uncertain_points.md",
+      "codex_log/material_audit/20260603_第五期素材细节解析/reshoot_suggestions.md"
+    ],
+    "forbidden_files": [
+      ".env",
+      ".env.local",
+      ".git/",
+      "本地运行配置_local_runtime",
+      "dist/latest_review_pack/",
+      "/Users/fan/Documents/视频工厂/素材录制/第五期",
+      "public/"
+    ],
+    "secret_files_forbidden": true
+  },
+  "content_loading_policy": {
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 10,
+    "max_chars_per_file": 9000,
+    "max_total_chars": 42000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "redaction_policy": "no_secrets_or_api_keys_no_media_files"
+  },
+  "output_required": [
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "token_usage_expectation_check"
+  ],
+  "will_modify_files": [
+    "codex_log/supply_requests/20260603_第五期素材解析_post_risk_review_request.json",
+    "codex_log/deepseek_supply/20260603_fifth_material_audit_post_risk_review/*"
+  ],
+  "conflict_or_uncertain_files": [
+    "codex_log/material_audit/20260603_第五期素材细节解析/timecode_evidence_map.json",
+    "codex_log/material_audit/20260603_第五期素材细节解析/missing_or_uncertain_points.md"
+  ],
+  "validation_failed_files": [],
+  "safety_sensitive_files": [
+    "素材录制/第五期/*.mp4",
+    "dist/material_audit/20260603_第五期素材细节解析/keyframes/*",
+    "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/*",
+    "dist/material_audit/20260603_第五期素材细节解析/evidence_clips/*"
+  ],
+  "forbidden_paths": [
+    ".git",
+    ".env",
+    ".env.local",
+    "本地运行配置_local_runtime",
+    "dist/latest_review_pack",
+    "素材录制/第五期/*.mp4",
+    "public/"
+  ],
+  "expected_output": [
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "not_deepseek_conclusion_if_fallback"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files.",
+    "DeepSeek must not decide project facts.",
+    "Do not read or expose API keys, tokens, secrets, .env, or local runtime config values.",
+    "Do not inspect or ingest source video binary files through DeepSeek.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime or 多 agent runtime is running just because a DeepSeek supply request exists.",
+    "Do not write final copy or suggest completed video delivery.",
+    "Do not promote content_validation, send_ready, publish_status_success, voice_validation, final_voice_validated, or visual_master_locked."
+  ],
+  "blocked_if": [
+    "Secret value appears in output.",
+    "Fallback is reported as real DeepSeek participation.",
+    "Risk report claims content validation passed.",
+    "Source videos were modified, moved, deleted, renamed, uploaded, or staged.",
+    "Material report lacks timecodes, can_support/cannot_support, uncertainty markings, or privacy redaction.",
+    "Report claims final copy, TTS, video assembly, publish candidate, content validation, or send ready."
+  ],
+  "return_to_codex": {
+    "output_dir": "codex_log/deepseek_supply/20260603_fifth_material_audit_post_risk_review",
+    "required_fields": [
+      "deepseek_actual_participation",
+      "fallback_status",
+      "not_deepseek_conclusion",
+      "token_usage_observed_or_user_check_required",
+      "risk_and_conflict_report",
+      "missing_or_uncertain_files",
+      "codex_next_input"
+    ]
+  },
+  "status_boundary": {
+    "video_render_allowed": false,
+    "final_copy_allowed": false,
+    "tts_allowed": false,
+    "external_api_allowed": false,
+    "source_video_modification_allowed": false,
+    "dist_latest_review_pack_update_allowed": false,
+    "content_validation": "not_applicable",
+    "send_ready": false,
+    "not_deepseek_conclusion_if_fallback": true
+  }
+}

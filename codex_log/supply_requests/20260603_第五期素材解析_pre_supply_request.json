@@ -1,0 +1,216 @@
+{
+  "request_id": "20260603_fifth_material_audit_pre_supply",
+  "created_at": "2026-06-03T00:00:00+08:00",
+  "project_route": "video_factory",
+  "project_stage": "formal_operation_active",
+  "operation_stage": "material_audit_needed",
+  "no_multi_agent_runtime_claim": true,
+  "task_id": "fifth_episode_material_detail_audit",
+  "task_type": "review_diagnosis_audit + local_file_governance + project_file_change",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "risk_report",
+  "mandatory_for_every_task": true,
+  "participation_level": "deep_file_prefetch",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "Audit the 5 videos under /Users/fan/Documents/视频工厂/素材录制/第五期 and produce detailed material reports for ChatGPT. Do not write final copy, generate TTS, edit video, call generation APIs, or modify source videos.",
+  "current_step": "pre-supply before metadata probing, frame extraction, and material report generation",
+  "known_context": [
+    "User provided pasted text that is a Codex execution prompt for fifth-episode material audit.",
+    "Source directory found: /Users/fan/Documents/视频工厂/素材录制/第五期.",
+    "Expected material count is 5 videos.",
+    "This round is material_evidence_flow: report source material details for ChatGPT final copywriting; Codex does not write final script.",
+    "Allowed report outputs are under codex_log/material_audit/20260603_第五期素材细节解析 and dist/material_audit/20260603_第五期素材细节解析.",
+    "content_validation, send_ready, publish_status_success, voice_validation, final_voice_validated, and visual_master_locked must not be promoted."
+  ],
+  "missing_context": [
+    "Local OCR availability is limited; small UI text may need to be marked unreadable_text or uncertain_need_human_check.",
+    "DeepSeek token usage cannot be observed directly by Codex.",
+    "Whether all five videos have readable key pages and whether sensitive values appear must be determined by local visual inspection."
+  ],
+  "decision_needed": "Flag route, privacy, evidence, and status-promotion risks for a material-only audit; remind Codex not to treat technical metadata as content evidence or final copy.",
+  "candidate_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/13_execution_lane_and_parallel_rules.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/20_reference_to_execution_contract.md",
+    "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+    "project_source/20_codex_multi_agent_routing_note_for_gpt_project.md",
+    "codex_log/latest.md",
+    "GPT数据源/00_项目总述.md",
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/03_总索引与阅读顺序.md",
+    "GPT数据源/04_选题与文案规则.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/06_当前主线锚点_API生成真人_用户录制素材_少量PPT_云端剪辑.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/08_当前正式事实.md",
+    "GPT数据源/10_OPC一人公司闭环与多AI协作机制.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md"
+  ],
+  "must_read_files": [
+    "AGENTS.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+    "codex_log/latest.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/08_当前正式事实.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md"
+  ],
+  "optional_files": [
+    "GPT数据源/04_选题与文案规则.md",
+    "codex_source/13_execution_lane_and_parallel_rules.md",
+    "project_source/20_codex_multi_agent_routing_note_for_gpt_project.md"
+  ],
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "deep_file_prefetch",
+      "post_risk_review"
+    ]
+  },
+  "file_scope": {
+    "candidate_files": [
+      "AGENTS.md",
+      "codex_source/00_codex_readme.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+      "codex_log/latest.md",
+      "GPT数据源/05_文案路由规则.md",
+      "GPT数据源/07_AI知识类视频价值规则.md",
+      "GPT数据源/08_当前正式事实.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md"
+    ],
+    "must_prefetch_files": [
+      "AGENTS.md",
+      "codex_source/00_codex_readme.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+      "GPT数据源/05_文案路由规则.md",
+      "GPT数据源/07_AI知识类视频价值规则.md"
+    ],
+    "optional_prefetch_files": [
+      "codex_log/latest.md",
+      "GPT数据源/08_当前正式事实.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md"
+    ],
+    "forbidden_files": [
+      ".env",
+      ".env.local",
+      ".git/",
+      "本地运行配置_local_runtime",
+      "dist/latest_review_pack/",
+      "/Users/fan/Documents/视频工厂/素材录制/第五期"
+    ],
+    "secret_files_forbidden": true
+  },
+  "content_loading_policy": {
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 12,
+    "max_chars_per_file": 8000,
+    "max_total_chars": 40000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "redaction_policy": "no_secrets_or_api_keys_no_media_files"
+  },
+  "output_required": [
+    "relevant_file_bundle",
+    "exact_snippet_pack",
+    "dependency_map",
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "token_usage_expectation_check"
+  ],
+  "codex_minimal_review_policy": {
+    "codex_must_review": [
+      "will_modify_files",
+      "conflict_or_uncertain_files",
+      "validation_failed_files",
+      "safety_sensitive_files"
+    ],
+    "codex_should_not_default_deep_read_all": true
+  },
+  "will_modify_files": [
+    "codex_log/supply_requests/20260603_第五期素材解析_pre_supply_request.json",
+    "codex_log/deepseek_supply/20260603_fifth_material_audit_pre_supply/*",
+    "codex_log/material_audit/20260603_第五期素材细节解析/*",
+    "dist/material_audit/20260603_第五期素材细节解析/*",
+    "codex_log/latest.md"
+  ],
+  "conflict_or_uncertain_files": [
+    "skills/视频素材解析_video_material_audit/SKILL.md",
+    "/Users/fan/.codex/attachments/651f20aa-8344-40ee-a695-b1aa229dac8c/pasted-text.txt"
+  ],
+  "validation_failed_files": [],
+  "safety_sensitive_files": [
+    "素材录制/第五期/*.mp4"
+  ],
+  "forbidden_paths": [
+    ".git",
+    ".env",
+    ".env.local",
+    "本地运行配置_local_runtime",
+    "dist/latest_review_pack",
+    "素材录制/第五期/*.mp4",
+    "public/"
+  ],
+  "expected_output": [
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "not_deepseek_conclusion_if_fallback"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files.",
+    "DeepSeek must not decide project facts.",
+    "Do not read or expose API keys, tokens, secrets, .env, or local runtime config values.",
+    "Do not inspect or ingest source video binary files through DeepSeek.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime or 多 agent runtime is running just because a DeepSeek supply request exists.",
+    "Do not write final copy or suggest completed video delivery.",
+    "Do not promote content_validation, send_ready, publish_status_success, voice_validation, final_voice_validated, or visual_master_locked."
+  ],
+  "blocked_if": [
+    "Secret value appears in output.",
+    "Fallback is reported as real DeepSeek participation.",
+    "Risk report claims content validation passed.",
+    "Source videos would need to be modified, moved, deleted, renamed, or uploaded.",
+    "Material report lacks timecodes, can_support/cannot_support, uncertainty markings, or privacy redaction."
+  ],
+  "return_to_codex": {
+    "output_dir": "codex_log/deepseek_supply/20260603_fifth_material_audit_pre_supply",
+    "required_fields": [
+      "deepseek_actual_participation",
+      "fallback_status",
+      "not_deepseek_conclusion",
+      "token_usage_observed_or_user_check_required",
+      "risk_and_conflict_report",
+      "missing_or_uncertain_files",
+      "codex_next_input"
+    ]
+  },
+  "status_boundary": {
+    "video_render_allowed": false,
+    "final_copy_allowed": false,
+    "tts_allowed": false,
+    "external_api_allowed": false,
+    "source_video_modification_allowed": false,
+    "dist_latest_review_pack_update_allowed": false,
+    "content_validation": "not_applicable",
+    "send_ready": false,
+    "not_deepseek_conclusion_if_fallback": true
+  }
+}

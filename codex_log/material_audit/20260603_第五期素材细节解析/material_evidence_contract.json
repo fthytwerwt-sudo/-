@@ -1,0 +1,48 @@
+{
+  "contract_id": "20260603_fifth_material_audit_evidence_contract",
+  "project": "视频工厂",
+  "scope": "fifth_episode_material_audit",
+  "source_videos": {
+    "source_dir": "/Users/fan/Documents/视频工厂/素材录制/第五期",
+    "expected_count": 5,
+    "actual_count": 5,
+    "source_modification_allowed": false,
+    "source_modification_observed": false
+  },
+  "allowed_use": [
+    "ChatGPT material handoff",
+    "timecode evidence lookup",
+    "candidate product judgement framing",
+    "execution quality gate examples",
+    "internal audit evidence"
+  ],
+  "forbidden_use": [
+    "final copy approval",
+    "publish candidate delivery",
+    "content_validation promotion",
+    "send_ready promotion",
+    "commercial validation claim",
+    "product efficacy claim",
+    "secret or raw sensitive value exposure"
+  ],
+  "evidence_status": {
+    "ffprobe_completed": true,
+    "video_metadata_probe_completed": true,
+    "opencv_frame_sampling_completed": true,
+    "contact_sheets_created": true,
+    "evidence_clips_created": true,
+    "keyframe_jpeg_count": 270,
+    "contact_sheet_count": 19,
+    "evidence_clip_count": 19,
+    "audio_present_any_source": false,
+    "ocr_completed": false,
+    "human_final_judgement_completed": false
+  },
+  "handoff_policy": {
+    "confirmed_items_can_be_used": true,
+    "partial_items_require_paraphrase": true,
+    "uncertain_items_require_recheck": true,
+    "raw_full_screen_text_should_not_be_republished": true,
+    "brand_or_person_like_assets_require_authorization_check": true
+  }
+}

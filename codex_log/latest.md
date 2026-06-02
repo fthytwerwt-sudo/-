@@ -1,5 +1,27 @@
 # Latest
 
+## 20260603｜第五期录制素材 5 个视频细节解析
+
+- `task_result.status = completed_material_audit_pending_chatgpt_copy_judgement`
+- `target_delivery = fifth_episode_material_evidence_flow`
+- `branch = main`
+- `route_decision.project_route = video_factory`
+- `route_decision.task_type = review_diagnosis_audit + local_file_governance + project_file_change`
+- `route_decision.selected_state = material_audit_needed + deepseek_supply_required + mandatory_commit_push_required`
+- `workflow_route_decision.workflow_type = material_evidence_flow`
+- `source_dir = /Users/fan/Documents/视频工厂/素材录制/第五期`
+- `analysis_dir = codex_log/material_audit/20260603_第五期素材细节解析/`
+- `media_evidence_dir = dist/material_audit/20260603_第五期素材细节解析/`
+- `已确认` 本轮从粘贴文本中的 Codex 执行 prompt 接手，只做第五期 5 个录制视频的素材细节解析、时间码证据、关键帧、contact sheet、短证据片段和 ChatGPT 交接摘要；不是写最终文案、不是剪辑成片、不是 TTS、不是发片候选。
+- `已确认` 5/5 源视频均完成 `ffprobe`、`video-metadata-probe`、OpenCV 抽帧与 contact sheet；全部可解码，全部 `audio_present = false`。
+- `已确认` 已生成 `material_inventory.json`、`timecode_evidence_map.json`、`sample_frame_index.json`、`material_detail_report.md`、`chatgpt_handoff_brief.md`、`missing_or_uncertain_points.md`、`reshoot_suggestions.md`、`material_evidence_contract.json` 和 `final_self_check.json`。
+- `已确认` 已生成 270 张 keyframe JPEG、19 张 contact sheets、19 个 3 秒 evidence clips；源视频未修改、未移动、未删除、未上传。
+- `核心判断`：M04 是候选商品 / 单独立项判断框架主轴；M03 是用户问题入口；M02 是候选媒体池例子；M01/M05 是执行流程、no fallback、contact sheet 和 frame review 闸门证据。
+- `未推进` 不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`；不调用图片 / 视频 / TTS 生成 API；不修改 `dist/latest_review_pack/`。
+- `DeepSeek pre-supply`：已创建供料请求并运行 safe runner；结果为 `deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`not_deepseek_conclusion = false`、`api_key_printed = false`、`api_key_written = false`，token 使用只能写 `token_decrement_expected / not_available_user_check_required`。
+- `DeepSeek post-risk review`：已创建执行后风险复核任务卡并运行 safe runner；结果为 `deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`not_deepseek_conclusion = false`、`api_key_printed = false`、`api_key_written = false`；复核提醒本地绝对路径只适合内部交接，M01/M04 小字与阈值不得逐字过度引用。
+- `日志证据`：`codex_log/supply_requests/20260603_第五期素材解析_pre_supply_request.json`、`codex_log/deepseek_supply/20260603_fifth_material_audit_pre_supply/latest_supply_pack.md`、`codex_log/supply_requests/20260603_第五期素材解析_post_risk_review_request.json`、`codex_log/deepseek_supply/20260603_fifth_material_audit_post_risk_review/latest_supply_pack.md`、`codex_log/material_audit/20260603_第五期素材细节解析/material_detail_report.md`。
+
 ## 20260602｜最新 4 条剪辑参考动态视觉母版重解析
 
 - `task_result.status = dynamic_visual_master_parse_completed_pending_user_chatgpt_review`

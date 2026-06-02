@@ -1,0 +1,465 @@
+{
+  "project": "视频工厂",
+  "material_batch": "第五期",
+  "audit_id": "20260603_第五期素材细节解析",
+  "source_dir": "/Users/fan/Documents/视频工厂/素材录制/第五期",
+  "audit_scope": "material_evidence_flow_only",
+  "status": "completed_material_audit_pending_chatgpt_copy_judgement",
+  "global_boundaries": {
+    "final_copy_written": false,
+    "video_assembled": false,
+    "tts_generated": false,
+    "generation_api_called": false,
+    "source_videos_modified": false,
+    "content_validation_promoted": false,
+    "send_ready_promoted": false
+  },
+  "evidence_dirs": {
+    "keyframes": "dist/material_audit/20260603_第五期素材细节解析/keyframes",
+    "contact_sheets": "dist/material_audit/20260603_第五期素材细节解析/contact_sheets",
+    "evidence_clips": "dist/material_audit/20260603_第五期素材细节解析/evidence_clips"
+  },
+  "materials": [
+    {
+      "material_id": "M01",
+      "relative_path": "素材录制/第五期/内建视网膜显示器 2026-05-18 01-43-46.mp4",
+      "duration_seconds": 46.0,
+      "audio_present": false,
+      "content_summary": "ChatGPT/Codex execution page recording. Main visible theme is product image/video generation workflow for a kitchen cleaning spray/product intro package, including DeepSeek gate, qwen image edit route, generated visual card review, and task checklist.",
+      "segments": [
+        {
+          "timecode": "00:00-00:08",
+          "status": "已确认",
+          "observation": "Screen shows a Codex-style execution page with shell/context lines, including repo/branch checks and local skills context. This supports a workflow-process setup shot.",
+          "can_support": [
+            "Codex execution environment setup evidence",
+            "repo/safety-check style workflow demonstration"
+          ],
+          "cannot_support": [
+            "final product result quality",
+            "publish-ready status"
+          ],
+          "evidence_strength": "medium",
+          "evidence_assets": [
+            "dist/material_audit/20260603_第五期素材细节解析/evidence_clips/M01_000s_route_context.mp4",
+            "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M01_contact_sheet_p01.jpg"
+          ],
+          "privacy_note": "No raw secret value confirmed in readable area; keep cropped if reused."
+        },
+        {
+          "timecode": "00:16-00:23",
+          "status": "已确认",
+          "observation": "Visible text says DeepSeek two-stage check passed and generation should continue with image edit max / same real reference image; failures must block and fallback is not allowed. It also shows qwen-image-edit-max generation in progress/success records.",
+          "can_support": [
+            "no-fallback execution discipline",
+            "DeepSeek gate / API generation route process",
+            "qwen-image-edit-max route evidence"
+          ],
+          "cannot_support": [
+            "the generated images are aesthetically approved",
+            "the product video is complete"
+          ],
+          "evidence_strength": "high",
+          "evidence_assets": [
+            "dist/material_audit/20260603_第五期素材细节解析/evidence_clips/M01_016s_deepseek_no_fallback.mp4",
+            "dist/material_audit/20260603_第五期素材细节解析/keyframes/M01/M01_016s.jpg"
+          ],
+          "privacy_note": "Do not quote full API identifiers beyond model/route names already visible; no key value is visible."
+        },
+        {
+          "timecode": "00:27-00:32",
+          "status": "已确认",
+          "observation": "A contact sheet / preview page shows multiple kitchen cleaning spray product-card visuals with titles such as 厨房清洁好帮手, 免拆洗 让清洁更轻松, 喷瓶装厨房清洁剂, 点商品卡看详情.",
+          "can_support": [
+            "product-card visual output review",
+            "kitchen cleaning spray product concept evidence",
+            "before handing to aesthetic review"
+          ],
+          "cannot_support": [
+            "actual ecommerce listing correctness",
+            "final brand or label accuracy",
+            "conversion performance"
+          ],
+          "evidence_strength": "high",
+          "evidence_assets": [
+            "dist/material_audit/20260603_第五期素材细节解析/evidence_clips/M01_027s_product_card_sheet.mp4",
+            "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M01_contact_sheet_p02.jpg"
+          ],
+          "privacy_note": "If a brand/product label is used in copy, verify source authorization and exact wording separately."
+        },
+        {
+          "timecode": "00:33-00:45",
+          "status": "部分成立",
+          "observation": "Right-side progress panel shows completed/in-progress tasks around hard constraints, DeepSeek, runner/validator/tests, generation, validators, update latest, commit and push. Some small task text is partially unreadable.",
+          "can_support": [
+            "workflow checklist / execution discipline",
+            "multi-step generation task still in progress"
+          ],
+          "cannot_support": [
+            "all checklist items finished",
+            "remote sync completed in that prior task"
+          ],
+          "evidence_strength": "medium",
+          "evidence_assets": [
+            "dist/material_audit/20260603_第五期素材细节解析/evidence_clips/M01_033s_task_checklist.mp4",
+            "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M01_contact_sheet_p03.jpg"
+          ],
+          "privacy_note": "Small UI text should be treated as uncertain unless rechecked in source video."
+        }
+      ]
+    },
+    {
+      "material_id": "M02",
+      "relative_path": "素材录制/第五期/内建视网膜显示器 2026-05-31 23-52-10.mp4",
+      "duration_seconds": 86.833,
+      "audio_present": false,
+      "content_summary": "Finder/QuickTime-style browsing of multiple local candidate media assets: slicer/food product clip, kitchen oil cleaner clip, zongzi clip, digital human image, wedding/bride demo. This is useful as a candidate-media browsing and visual inventory record.",
+      "segments": [
+        {
+          "timecode": "00:03-00:15",
+          "status": "已确认",
+          "observation": "Vertical product-video preview shows kitchen slicer / cucumber and potato slicing visuals.",
+          "can_support": [
+            "slicer product candidate visual reference",
+            "food-prep tool visual example",
+            "local generated media browsing evidence"
+          ],
+          "cannot_support": [
+            "audio/TTS quality",
+            "sales conversion",
+            "final product listing truth"
+          ],
+          "evidence_strength": "high",
+          "evidence_assets": [
+            "dist/material_audit/20260603_第五期素材细节解析/evidence_clips/M02_003s_slicer_preview.mp4",
+            "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M02_contact_sheet_p01.jpg"
+          ],
+          "privacy_note": "No private face/identity confirmation in this segment."
+        },
+        {
+          "timecode": "00:20-00:38",
+          "status": "已确认",
+          "observation": "Oil cleaner / kitchen cleaning spray candidate video preview appears, including product bottle and dirty kitchen surface / foam cleaning visuals.",
+          "can_support": [
+            "kitchen oil-cleaner visual candidate",
+            "cleaning product physical-effect demo reference",
+            "candidate media review evidence"
+          ],
+          "cannot_support": [
+            "actual cleaning efficacy",
+            "brand authenticity",
+            "ready-to-publish claim"
+          ],
+          "evidence_strength": "high",
+          "evidence_assets": [
+            "dist/material_audit/20260603_第五期素材细节解析/evidence_clips/M02_020s_cleaner_candidate.mp4",
+            "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M02_contact_sheet_p02.jpg"
+          ],
+          "privacy_note": "Use as visual candidate only; do not turn into efficacy claim without product evidence."
+        },
+        {
+          "timecode": "00:39-00:56",
+          "status": "部分成立",
+          "observation": "Finder browsing shows folders/files around the oil-cleaner candidate and related media. Some filenames and preview metadata are readable, but not enough to prove which files are final outputs.",
+          "can_support": [
+            "local asset library browsing",
+            "candidate set exists across multiple folders"
+          ],
+          "cannot_support": [
+            "final selected candidate identity",
+            "full folder lineage"
+          ],
+          "evidence_strength": "medium",
+          "evidence_assets": [
+            "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M02_contact_sheet_p03.jpg",
+            "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M02_contact_sheet_p04.jpg"
+          ],
+          "privacy_note": "Filenames may expose internal naming; redact if screenshots are public."
+        },
+        {
+          "timecode": "00:57-01:07",
+          "status": "已确认",
+          "observation": "Vertical zongzi / rice dumpling video candidate appears, including package/opening, steaming or food close-up, and unwrapping/filling visuals.",
+          "can_support": [
+            "food-product candidate visual reference",
+            "short ecommerce-food scene candidate",
+            "local visual inventory"
+          ],
+          "cannot_support": [
+            "product taste/quality claim",
+            "sales readiness"
+          ],
+          "evidence_strength": "high",
+          "evidence_assets": [
+            "dist/material_audit/20260603_第五期素材细节解析/evidence_clips/M02_057s_zongzi_candidate.mp4",
+            "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M02_contact_sheet_p04.jpg"
+          ],
+          "privacy_note": "No direct private identity evidence visible."
+        },
+        {
+          "timecode": "01:10-01:13",
+          "status": "已确认",
+          "observation": "Generated woman / digital human style image is opened in image viewer.",
+          "can_support": [
+            "digital-human image candidate evidence",
+            "visual style inventory for human-facing assets"
+          ],
+          "cannot_support": [
+            "identity authenticity",
+            "voice or motion quality"
+          ],
+          "evidence_strength": "medium",
+          "evidence_assets": [
+            "dist/material_audit/20260603_第五期素材细节解析/evidence_clips/M02_070s_digital_human_image.mp4",
+            "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M02_contact_sheet_p05.jpg"
+          ],
+          "privacy_note": "Treat as generated/person-like asset; avoid implying a real person's identity."
+        },
+        {
+          "timecode": "01:17-01:25",
+          "status": "已确认",
+          "observation": "Wedding/bride demo clip appears with bride, bouquet, veil and dress close-ups.",
+          "can_support": [
+            "wedding-demo visual candidate",
+            "soft portrait/event style reference"
+          ],
+          "cannot_support": [
+            "specific client or real wedding identity",
+            "commercial deliverability"
+          ],
+          "evidence_strength": "medium",
+          "evidence_assets": [
+            "dist/material_audit/20260603_第五期素材细节解析/evidence_clips/M02_077s_wedding_demo.mp4",
+            "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M02_contact_sheet_p06.jpg"
+          ],
+          "privacy_note": "If reused publicly, confirm model/portrait rights and synthetic/real status."
+        }
+      ]
+    },
+    {
+      "material_id": "M03",
+      "relative_path": "素材录制/第五期/内建视网膜显示器 2026-06-01 00-21-27.mp4",
+      "duration_seconds": 10.133,
+      "audio_present": false,
+      "content_summary": "Short ChatGPT/browser segment showing a media metadata/status report for a candidate clip and a user question about which candidate products can enter independent project setup.",
+      "segments": [
+        {
+          "timecode": "00:01-00:06",
+          "status": "部分成立",
+          "observation": "Visible metadata-style report references a candidate around kitchen cleaning spray/oil-cleaner route. Readable fields include duration around 15.041667s, fps 24, audio_present=false, and technical validation passed / decodable. Some resolution text is partially unreadable.",
+          "can_support": [
+            "candidate clip metadata screen evidence",
+            "technical validation is separate from content validation",
+            "audio missing in that displayed candidate"
+          ],
+          "cannot_support": [
+            "content validation passed",
+            "final publish readiness",
+            "exact resolution without rechecking source file"
+          ],
+          "evidence_strength": "medium",
+          "evidence_assets": [
+            "dist/material_audit/20260603_第五期素材细节解析/evidence_clips/M03_001s_candidate_metadata.mp4",
+            "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M03_contact_sheet_p01.jpg"
+          ],
+          "privacy_note": "Do not quote partially readable filenames as confirmed facts."
+        },
+        {
+          "timecode": "00:07-00:10",
+          "status": "已确认",
+          "observation": "User question is visible: asks for help judging what kind of candidate products have a path to viability and can enter a single-project / independent setup stage.",
+          "can_support": [
+            "strategic product-threshold question",
+            "handoff into business criteria analysis"
+          ],
+          "cannot_support": [
+            "the actual final answer to the question",
+            "any candidate being approved"
+          ],
+          "evidence_strength": "high",
+          "evidence_assets": [
+            "dist/material_audit/20260603_第五期素材细节解析/evidence_clips/M03_007s_user_question.mp4"
+          ],
+          "privacy_note": "User wording can be summarized; no need to publish full screen."
+        }
+      ]
+    },
+    {
+      "material_id": "M04",
+      "relative_path": "素材录制/第五期/内建视网膜显示器 2026-06-01 00-23-10.mp4",
+      "duration_seconds": 80.333,
+      "audio_present": false,
+      "content_summary": "Long ChatGPT/browser answer about monetizable product / independent project threshold. The strongest usable value is a decision framework: sample sufficiency, product visual strength, money signal, cost threshold, content replicability, supply/fulfillment control.",
+      "segments": [
+        {
+          "timecode": "00:02-00:08",
+          "status": "已确认",
+          "observation": "Main conclusion says the judgement is not generic 'there is a video product', but whether a candidate product/material set has enough evidence to enter independent project setup.",
+          "can_support": [
+            "route-level business judgement framing",
+            "single-product project threshold topic",
+            "do-not-overgeneralize warning"
+          ],
+          "cannot_support": [
+            "any specific product has passed the threshold",
+            "a final commercial conclusion"
+          ],
+          "evidence_strength": "high",
+          "evidence_assets": [
+            "dist/material_audit/20260603_第五期素材细节解析/evidence_clips/M04_002s_monetizable_product_conclusion.mp4",
+            "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M04_contact_sheet_p01.jpg"
+          ],
+          "privacy_note": "No raw sensitive value confirmed."
+        },
+        {
+          "timecode": "00:13-00:25",
+          "status": "部分成立",
+          "observation": "Criteria around sample count and usable material appear: at least multiple videos/materials, enough usable visual duration, and not relying on a single isolated image. Exact thresholds are partially unreadable.",
+          "can_support": [
+            "sample sufficiency criterion",
+            "usable visual duration criterion",
+            "material richness criterion"
+          ],
+          "cannot_support": [
+            "exact numeric threshold unless rechecked",
+            "automatic project approval"
+          ],
+          "evidence_strength": "medium",
+          "evidence_assets": [
+            "dist/material_audit/20260603_第五期素材细节解析/evidence_clips/M04_013s_sample_count_criteria.mp4",
+            "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M04_contact_sheet_p02.jpg"
+          ],
+          "privacy_note": "Mark small numeric thresholds as uncertain_need_human_check."
+        },
+        {
+          "timecode": "00:30-00:37",
+          "status": "部分成立",
+          "observation": "Criteria around money signal / commercial signal appear, including clicks, inquiries, orders, commission or cost-covering logic. Some text and numbers are too small to confirm.",
+          "can_support": [
+            "commercial signal should precede independent project setup",
+            "cost-covering logic matters",
+            "data-driven product judgement"
+          ],
+          "cannot_support": [
+            "exact 30-day commission threshold",
+            "current product profitability"
+          ],
+          "evidence_strength": "medium",
+          "evidence_assets": [
+            "dist/material_audit/20260603_第五期素材细节解析/evidence_clips/M04_030s_money_signal_criteria.mp4",
+            "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M04_contact_sheet_p03.jpg"
+          ],
+          "privacy_note": "Do not expose platform/account data as raw proof."
+        },
+        {
+          "timecode": "00:53-01:01",
+          "status": "已确认",
+          "observation": "Criteria around content replicability and supply/fulfillment control appear: not one lucky result, content path can be reused, and product risk/inventory/returns/shop score need checking.",
+          "can_support": [
+            "replicable content criterion",
+            "supply and fulfillment risk gate",
+            "anti-one-off-success warning"
+          ],
+          "cannot_support": [
+            "specific supplier is safe",
+            "all product risk checks have been done"
+          ],
+          "evidence_strength": "high",
+          "evidence_assets": [
+            "dist/material_audit/20260603_第五期素材细节解析/evidence_clips/M04_053s_replicable_content_criteria.mp4",
+            "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M04_contact_sheet_p04.jpg"
+          ],
+          "privacy_note": "Any supplier/account details should be redacted in public outputs."
+        },
+        {
+          "timecode": "01:16-01:20",
+          "status": "部分成立",
+          "observation": "Closing summary states that a product should enter independent setup only after real-scene evidence shows someone clicks/asks/buys, the content structure can be reused, cost can be covered, and supply has no obvious hard issue. Some exact wording is partially unreadable.",
+          "can_support": [
+            "handoff summary for product-threshold rules",
+            "next ChatGPT framework seed"
+          ],
+          "cannot_support": [
+            "data already proves success",
+            "full rule text as verbatim quote"
+          ],
+          "evidence_strength": "medium",
+          "evidence_assets": [
+            "dist/material_audit/20260603_第五期素材细节解析/evidence_clips/M04_076s_handoff_summary.mp4",
+            "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M04_contact_sheet_p06.jpg"
+          ],
+          "privacy_note": "Use paraphrase, not raw full-screen text."
+        }
+      ]
+    },
+    {
+      "material_id": "M05",
+      "relative_path": "素材录制/第五期/内建视网膜显示器 2026-06-02 23-25-03.mp4",
+      "duration_seconds": 44.8,
+      "audio_present": false,
+      "content_summary": "ChatGPT/browser thread around Remotion/render/contact-sheet visual QA for an anchor sticker/candidate. Strongest point: a frame-review loop catches a timeline/shot mismatch and requires rerender, so render success alone is not visual pass.",
+      "segments": [
+        {
+          "timecode": "00:02-00:14",
+          "status": "已确认",
+          "observation": "Text mentions opening a 3x4 contact sheet for visual sanity check instead of relying only on logs.",
+          "can_support": [
+            "visual QA via contact sheet",
+            "manual sanity check after render",
+            "render log is insufficient"
+          ],
+          "cannot_support": [
+            "candidate is visually approved",
+            "final publish-ready status"
+          ],
+          "evidence_strength": "high",
+          "evidence_assets": [
+            "dist/material_audit/20260603_第五期素材细节解析/evidence_clips/M05_002s_contact_sheet_sanity.mp4",
+            "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M05_contact_sheet_p01.jpg"
+          ],
+          "privacy_note": "Internal file paths may appear; keep as audit evidence unless redacted."
+        },
+        {
+          "timecode": "00:10-00:13",
+          "status": "已确认",
+          "observation": "The visible analysis says a frame review found a serious issue around shot_04/shot_05 exit timing because one shot borrowed into another; structural conclusion is retracted until shot-level windows are fixed.",
+          "can_support": [
+            "frame review caught visual/timeline mismatch",
+            "self-repair audit behavior",
+            "shot-level verification need"
+          ],
+          "cannot_support": [
+            "the first render passed",
+            "final timeline is fixed yet"
+          ],
+          "evidence_strength": "high",
+          "evidence_assets": [
+            "dist/material_audit/20260603_第五期素材细节解析/evidence_clips/M05_010s_frame_review_issue.mp4",
+            "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M05_contact_sheet_p01.jpg"
+          ],
+          "privacy_note": "This should be used as process evidence, not as a public-facing claim."
+        },
+        {
+          "timecode": "00:21-00:24",
+          "status": "已确认",
+          "observation": "Text says timeline was corrected: shot_04 placed inside storyboard window, shot_05 no longer cuts to background, and a new render/check file is being produced before frame validation.",
+          "can_support": [
+            "timeline fix and rerender loop",
+            "visual validation before completion",
+            "no-completion-before-recheck rule"
+          ],
+          "cannot_support": [
+            "rerender already passed",
+            "final content/aesthetic validation"
+          ],
+          "evidence_strength": "high",
+          "evidence_assets": [
+            "dist/material_audit/20260603_第五期素材细节解析/evidence_clips/M05_021s_timeline_fix_rerender.mp4",
+            "dist/material_audit/20260603_第五期素材细节解析/contact_sheets/M05_contact_sheet_p02.jpg"
+          ],
+          "privacy_note": "Use as internal QA loop evidence."
+        }
+      ]
+    }
+  ]
+}
