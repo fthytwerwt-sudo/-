@@ -23,6 +23,25 @@
 - `日志证据`：`codex_log/20260604_社交编辑感卡片机制_social_editorial_card_mechanism.md`、`codex_log/supply_requests/20260604_社交编辑感卡片机制_social_editorial_card_pre_supply_request.json`、`codex_log/supply_requests/20260604_社交编辑感卡片机制_social_editorial_card_post_risk_review_request.json`、`dist/deepseek_supply_controller/20260604_social_editorial_card_pre_supply/latest_supply_pack.md`、`dist/deepseek_supply_controller/20260604_social_editorial_card_post_risk_review/latest_supply_pack.md`。
 - `待验证` 后续真实视频执行时，仍需按具体 locked copy、素材证据、line_group、subtitle overlap 和 HyperFrames runtime 状态逐片复核；本机制通过不代表后续任意卡片自动美观通过。
 
+## 20260603｜locked_copy_diff_preflight 锁定文案差异预检修复
+
+- `task_result.status = completed_preflight_gate_repaired`
+- `target_delivery = locked_copy_diff_preflight_repair`
+- `branch = main`
+- `route_decision.project_route = video_factory`
+- `route_decision.task_type = code_execution_debug + mechanism_repair + project_file_change`
+- `route_decision.selected_state = locked_copy_diff_preflight_required + self_repair_audit_required + mandatory_commit_push_required`
+- `已确认` 已修复 `locked_copy_diff_preflight（锁定文案差异预检）`：不再只信任 summary / content_route / tts_map 摘要字段，改为读取并比较真实文本输出层。
+- `已确认` 新增对 `script_to_timeline_map.line_groups[].narration_text`、`TTS route report segment_reports[].tts_text`、`final.srt`、`final.ass`、burned subtitle overlay source / function output text、`card_placement_decision.card_groups[].card_text` 和 title card text 的检查。
+- `已确认` 任一 locked copy 子检查缺失或失败，都会让 `locked_copy_diff_preflight.status = blocked`，并通过总 suite 的 `failed_gates` 阻断 `publish_candidate_preflight_report`。
+- `已确认` 已新增回归测试：`test_locked_copy_subtitle_truncation_blocks` 和 `test_locked_copy_split_subtitle_full_text_passes`。
+- `验证通过` `python3 -m py_compile scripts/发片候选预检套件_publish_candidate_preflight_suite.py`。
+- `验证通过` `python3 -m unittest tests.test_publish_candidate_preflight_tolerance`，共 6 个测试通过。
+- `验证通过` `python3 -m unittest tests.test_publish_candidate_voice_gate tests.test_minimax_b_voice_identity_lock tests.test_publish_candidate_preflight_tolerance`，共 28 个测试通过。
+- `只读复核` 使用新闸门读取第五期现有候选片产物，结果为 `status = blocked`，failed_subchecks 包含 `subtitle_copy_match / ass_copy_match / burned_subtitle_copy_match / card_text_semantic_match`，能抓到旧问题：`有人整理素材。有人做下一版测试。` 被字幕截断。
+- `未推进` 本轮未修第五期视频、未重生成字幕、未重生成 TTS、未修改卡片、未修改最终文案、未推进 `content_validation / send_ready / publish_status_success / voice_validation / visual_master_locked`。
+- `日志证据`：`codex_log/20260603_locked_copy_diff_preflight_repair.md`、`codex_log/copy_lock_audit/20260603_locked_copy_drift_audit.md`。
+
 ## 20260603｜第五期 Codex 赚钱主题完整正片候选片
 
 - `task_result.status = publish_candidate_ready_for_human_review`
