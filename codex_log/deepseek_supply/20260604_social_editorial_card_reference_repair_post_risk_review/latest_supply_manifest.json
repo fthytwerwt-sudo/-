@@ -1,0 +1,380 @@
+{
+  "supply_id": "supply_20260603T191757Z",
+  "generated_at_utc": "2026-06-03T19:18:28.887052+00:00",
+  "request_id": "20260604_social_editorial_card_reference_repair_post_risk_review",
+  "request_file": "/Users/fan/Documents/视频工厂/codex_log/supply_requests/20260604_社交编辑感卡片参考图补修_post_risk_review_request.json",
+  "request_validation_status": "passed",
+  "current_goal": "Review the narrow repair for social_editorial_card_v1 reference image path and DeepSeek post-risk-review bookkeeping. Check that the old local-only reference path is no longer claimed as remote readable, the repo reference path is used, the previous blocked_invalid_context_pack is not rewritten as passed, and no forbidden video/status changes were introduced.",
+  "requires_real_deepseek_participation": false,
+  "safe_loader_policy": {},
+  "runtime_provider": {
+    "runtime_provider_status": "ready",
+    "runtime_provider_auto_load_enabled": true,
+    "runtime_provider_key_source": "project_env",
+    "runtime_provider_key_source_path": ".env",
+    "runtime_provider_version": "20260515"
+  },
+  "data_goal_anchor": {},
+  "current_stage_goal": "",
+  "main_bottleneck": "",
+  "primary_variable": "",
+  "forbidden_variables": [],
+  "success_metric": "",
+  "failure_metric": "",
+  "post_publish_validation_metric": "",
+  "current_step": "after reference path repair and before commit/push",
+  "known_context": [
+    "The previous approved visual reference path was local-only: 素材录制/卡盘参考/ChatGPT Image 2026年6月4日 02_29_58.png.",
+    "The repair copies the local PNG into references/card_style/social_editorial_card_v1_reference.png with sha256 c5c675fee86989a63f1e9369d97b212d409adc1f91f250b921a61164883e531c.",
+    "The previous post-risk request 20260604_social_editorial_card_post_risk_review returned blocked_invalid_context_pack and must remain not_deepseek_conclusion=true.",
+    "This repair does not rewrite the main social_editorial_card_v1 mechanism, does not generate video, and does not modify dist/latest_review_pack."
+  ],
+  "missing_context": [
+    "DeepSeek cannot read binary image pixels; Codex owns file existence, sha256, and remote HEAD verification.",
+    "Remote readability can only be verified by Codex after commit and push.",
+    "Token usage observation still requires user-side check if needed."
+  ],
+  "decision_needed": "",
+  "task_type": "project_file_modification_task + mechanism_repair_task + validation_sync_repair_task",
+  "trigger_reason": "mandatory_post_risk_review",
+  "action": "risk_report",
+  "supply_source": "blocked",
+  "context_pack_validation": "blocked_invalid_context_pack",
+  "fallback_status": "not_used",
+  "pipeline_status": "blocked",
+  "multi_agent_runtime_validation": "not_started",
+  "not_deepseek_conclusion": true,
+  "deepseek_actual_participation": "not_attempted_policy_violation",
+  "blocked_reason": "invalid_context_pack",
+  "deepseek_supply_gate": {
+    "mandatory_for_every_task": true,
+    "supply_request_created": true,
+    "deepseek_call_required": true,
+    "deepseek_call_attempted": false,
+    "deepseek_actual_participation": "not_attempted_policy_violation",
+    "supply_source": "blocked",
+    "fallback_status": "not_used",
+    "not_deepseek_conclusion": true,
+    "blocked_reason": "invalid_context_pack",
+    "token_usage_expected": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+    "token_usage_observed_or_user_check_required": "user_check_required",
+    "fallback_not_completion": true,
+    "deepseek_must_not_be_skipped_by_codex_discretion": true
+  },
+  "deepseek_readiness_check": {
+    "required": true,
+    "runtime_provider": {
+      "runtime_provider_status": "ready",
+      "runtime_provider_auto_load_enabled": true,
+      "runtime_provider_key_source": "project_env",
+      "runtime_provider_key_source_path": ".env",
+      "runtime_provider_version": "20260515"
+    },
+    "env_file_read": "false",
+    "process_env_key_allowed": "true",
+    "process_env_key_present": "true",
+    "safe_call_mode": "process_env_only",
+    "request_validation_status": "passed",
+    "supply_source": "blocked",
+    "fallback_status": "not_used",
+    "not_deepseek_conclusion": true,
+    "context_pack_validation": "blocked_invalid_context_pack",
+    "deepseek_actual_participation": "not_attempted_policy_violation",
+    "blocked_reason": "invalid_context_pack",
+    "completion_rule": [
+      "deepseek_passed 才能写 DeepSeek 真实参与。",
+      "fallback_local_only 必须写 not_deepseek_conclusion = true。",
+      "missing_process_env_key 必须写 blocked_missing_process_env_api_key。",
+      "token 未观察到减少时，不得写 DeepSeek 已深度参与。",
+      "不得把 fallback 写成 DeepSeek 稳定供料。"
+    ]
+  },
+  "deepseek_participation_report": {
+    "deepseek_call_real": false,
+    "deepseek_actual_participation": "not_attempted_policy_violation",
+    "supply_source": "blocked",
+    "fallback_status": "not_used",
+    "not_deepseek_conclusion": true,
+    "blocked_reason": "invalid_context_pack",
+    "token_usage_expectation_check": {
+      "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+      "expected_to_decrease": false,
+      "observed_token_usage": "not_available_user_check_required",
+      "token_usage_observed_or_user_check_required": "user_check_required",
+      "cannot_claim_deepseek_deep_participation_if_token_not_decreased": true,
+      "fallback_local_only_token_rule": "fallback_local_only 不应减少 DeepSeek token，也不能写 DeepSeek 已深度参与。"
+    },
+    "codex_original_file_review_required": true,
+    "deepseek_may_write_files": false,
+    "deepseek_may_decide_project_facts": false,
+    "multi_agent_runtime_validation": "not_started"
+  },
+  "token_usage_expectation_check": {
+    "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+    "expected_to_decrease": false,
+    "observed_token_usage": "not_available_user_check_required",
+    "token_usage_observed_or_user_check_required": "user_check_required",
+    "cannot_claim_deepseek_deep_participation_if_token_not_decreased": true,
+    "fallback_local_only_token_rule": "fallback_local_only 不应减少 DeepSeek token，也不能写 DeepSeek 已深度参与。"
+  },
+  "post_risk_review": {
+    "status_promotion_risk": "check_required_no_forbidden_status_promotion",
+    "forbidden_change_risk": "check_required_no_env_media_or_latest_review_pack_change",
+    "missed_sync_files": "check_required_docs_scripts_schema_fixture_logs_package_paths",
+    "fallback_mislabel_risk": "present",
+    "remaining_work": "Codex must run validation, sync logs/package/path index, and report token check boundary."
+  },
+  "env_file_read": "false",
+  "process_env_key_allowed": "true",
+  "process_env_key_present": "true",
+  "api_key_printed": "false",
+  "api_key_written": "false",
+  "codex_next_input": {
+    "read_first": [
+      "codex_log/latest.md",
+      "codex_log/20260604_社交编辑感卡片参考图与DeepSeek后置复核补修.md",
+      "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/05_文案路由规则.md",
+      "codex_log/20260604_社交编辑感卡片机制_social_editorial_card_mechanism.md"
+    ],
+    "use_as": "readonly_supply_pack",
+    "warning": "This pack is local fallback, not a DeepSeek conclusion.",
+    "post_risk_review_required": true,
+    "status_promotion_risk": "check_required_no_forbidden_status_promotion",
+    "forbidden_change_risk": "check_required_no_env_media_or_latest_review_pack_change",
+    "missed_sync_files": "check_required_docs_scripts_schema_fixture_logs_package_paths",
+    "fallback_mislabel_risk": "present",
+    "remaining_work": "Codex must run validation, sync logs/package/path index, and report token check boundary.",
+    "recommended_child_tasks": [
+      "update_deep_file_supply_contract",
+      "update_controller_schema_fixture",
+      "run_validation_and_truth_check"
+    ],
+    "files_codex_must_review": [
+      "codex_log/supply_requests/20260604_社交编辑感卡片参考图补修_post_risk_review_request.json",
+      "codex_log/deepseek_supply/20260604_social_editorial_card_reference_repair_post_risk_review/*",
+      "references/card_style/social_editorial_card_v1_reference.png"
+    ],
+    "files_codex_can_trust_from_deepseek_unless_conflict": [
+      "codex_log/latest.md",
+      "codex_log/20260604_社交编辑感卡片参考图与DeepSeek后置复核补修.md",
+      "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/05_文案路由规则.md",
+      "codex_log/20260604_社交编辑感卡片机制_social_editorial_card_mechanism.md"
+    ],
+    "blocked_conditions": [
+      "deepseek_actual_required_but_not_deepseek_passed",
+      "relevant_file_bundle_missing",
+      "exact_snippet_pack_missing",
+      "validation_failed_files_not_reviewed_by_codex"
+    ]
+  },
+  "editing_decision_pack": null,
+  "execution_supply_pack": null,
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "post_risk_review"
+    ]
+  },
+  "content_loading_policy": {
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 6,
+    "max_chars_per_file": 7000,
+    "max_total_chars": 26000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "redaction_policy": "no_secrets_or_api_keys_no_media_files"
+  },
+  "codex_minimal_review_policy": {},
+  "deepseek_depth_validation": {
+    "enabled": true,
+    "modes": [
+      "post_risk_review"
+    ],
+    "missing_modes": [
+      "deep_file_prefetch",
+      "mid_task_incremental_supply"
+    ],
+    "relevant_file_bundle_exists": true,
+    "exact_snippet_pack_exists": true,
+    "deepseek_actual_required": false,
+    "supply_source": "blocked",
+    "status": "failed_insufficient_depth",
+    "not_long_term_runtime_validation": true
+  },
+  "relevant_file_bundle": [
+    {
+      "path": "codex_log/latest.md",
+      "file_role": "current_log_or_request_source",
+      "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+      "content_excerpt": "## 20260604｜社交编辑感卡片参考图与 DeepSeek 后置复核补修\n- `target_delivery = social_editorial_card_v1_reference_and_deepseek_post_review_repair`\n- `DeepSeek previous post-risk review`：旧请求 `20260604_social_editorial_card_post_risk_review` 返回 `blocked_invalid_context_pack`，保留为未通过记录，不改写成 passed。\n- `DeepSeek repaired post-risk review`：已新增更窄的补修复核请求 `codex_log/supply_requests/20260604_社交编辑感卡片参考图补修_post_risk_review_request.json`，只复核参考图入库、旧路径降权、状态边界、secret 和媒体路径风险。\n- `未推进` 本轮不生成视频，不修改 `dist/latest_review_pack/`，不推进 `content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked`。\n- `日志证据`：`codex_log/20260604_社交编辑感卡片参考图与DeepSeek后置复核补修.md`。\n- `reference_path_corrected_by = codex_log/20260604_社交编辑感卡片参考图与DeepSeek后置复核补修.md`\n- `已确认` 卡片视觉质量只是 `pre-publish human quality gate（发布前人工质量闸门）`，不推进 `content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked`。\n- `DeepSeek pre-supply`：已创建供料请求并运行 safe runner；结果为 `deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`not_deepseek_conclusion = false`、`api_key_printed = false`、`api_key_written = false`；token 使用只能写 `token_decrement_expected / not_available_user_check_required`。\n- `DeepSeek post-risk review`：已创建执行后风险复核任务卡并运行 safe runner；controller 返回 `blocked_invalid_context_pack`，因此 `deepseek_actual_participation = not_attempted_policy_violation`、`not_deepseek_conclusion = true`，后置风险复核由 Codex 本地验证继续完成；`api_key_printed = false`、`api_key_written = false`。\n- `Codex local validation`：JSON 解析通过；机制关键词 grep 通过；禁止状态推进窄匹配无命中；`git diff --check` 通过；secret scan 通过；媒体 / `dist/latest_review_pack/` / `public/` 路径变更检查无命中；`package.json` 当前无 test script，未运行 npm test。\n- `日志证据`：`codex_log/20260604_社交编辑感卡片机制_social_editorial_card_mechanism.md`、`codex_log/supply_requests/20260604_社交编辑感卡片机制_social_editorial_card_pre_supply_request.json`、`codex_log/supply_requests/20260604_社交编辑感卡片机制_social_editorial_card_post_risk_review_request.json`、`dist/deepseek_supply_controller/20260604_social_editorial_card_pre_supply/latest_supply_pack.md`、`dist/deepseek_supply_controller/20260604_social_editorial_card_post_risk_review/latest_supply_pack.md`。\n- `待验证` 后续真实视频执行时，仍需按具体 locked copy、素材证据、line_group、subtitle overlap 和 HyperFrames runtime 状态逐片复核；本机制通过不代表后续任意卡片自动美观通过。\n- `只读复核` 使用新闸门读取第五期现有候选片产物，结果为 `status = blocked`，failed_subchecks 包含 `subtitle_copy_match / ass_copy_match / burned_subtitle_copy_match / card_text_semantic_match`，能抓到旧问题：`有人整理素材。有人做下一版测试。` 被字幕截断。\n- `未推进` 本轮未修第五期视频、未重生成字幕、未重生成 TTS、未修改卡片、未修改最终文案、未推进 `content_validation / send_ready / publish_status_success / voice_validation / visual_master_locked`。\n## 20260603｜第五期 Codex 赚钱主题完整正片候选片\n- `DeepSeek pre-supply`：已创建供料请求并运行 safe runner；runtime provider 找到授权且 `api_key_printed = false / api_key_written = false`，但 controller 输出 `blocked_invalid_context_pack`，因此 `deepseek_actual_participation = not_attempted_policy_violation`、`fallback_status = not_used`、`not_deepseek_conclusion = true`；本轮风险结论来自 Codex 本地复核。\n- `DeepSeek post-risk review`：已创建后置风险复核任务卡并运行 safe runner；runtime provider 找到授权且 `api_key_printed = false / api_key_written = false`，但 controller 同样输出 `blocked_invalid_context_pack`，因此 `deepseek_actual_participation = not_attempted_policy_violation`、`fallback_status = not_used`、`not_deepseek_conclusion = true`；不写 DeepSeek passed。\n- `未推进` 不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`；不修改源素材；不修改 `dist/latest_review_pack/`。\n- `日志证据`：`codex_log/20260603_第五期Codex赚钱主题正片执行.md`、`codex_log/supply_requests/20260603_第五期Codex赚钱主题正片_pre_supply_request.json`、`dist/fifth_episode_codex_money_publish_candidate_20260603/`。\n- `route_decision.selected_state = material_audit_needed + deepseek_supply_required + mandatory_commit_push_required`\n- `已确认` 本轮从粘贴文本中的 Codex 执行 prompt 接手，只做第五期 5 个录制视频的素材细节解析、时间码证据、关键帧、contact sheet、短证据片段和 ChatGPT 交接摘要；不是写最终文案、不是剪辑成片、不是 TTS、不是发片候选。\n- `未推进` 不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`；不调用图片 / 视频 / TTS 生成 API；不修改 `dist/latest_review_pack/`。\n- `DeepSeek pre-supply`：已创建供料请求并运行 safe runner；结果为 `deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`not_deepseek_conclusion = false`、`api_key_printed = false`、`api_key_written = false`，token 使用只能写 `token_decrement_expected / not_available_user_check_required`。\n- `DeepSeek post-risk review`：已创建执行后风险复核任务卡并运行 safe runner；结果为 `deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`not_deepseek_conclusion = false`、`api_key_printed = false`、`api_key_written = false`；复核提醒本地绝对路径只适合内部交接，M01/M04 小字与阈值不得逐字过度引用。\n- `日志证据`：`codex_log/supply_requests/20260603_第五期素材解析_pre_supply_request.json`、`codex_log/deepseek_supply/20260603_fifth_material_audit_pre_supply/latest_supply_pack.md`、`codex_log/supply_requests/20260603_第五期素材解析_post_risk_review_request.json`、`codex_log/deepseek_supply/20260603_fifth_material_audit_post_risk_review/latest_supply_pack.md`、`codex_log/material_audit/20260603_第五期素材细节解析/material_detail_report.md`。\n- `未推进` 不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`；不修改新第四期，不修改源视频，不修改 `GPT数据源/` 正式机制，不修改 `codex_source/` 正式规则，不修改 `dist/latest_review_pack/`。\n- `DeepSeek pre-supply`：已创建供料请求并运行 safe runner；runtime provider 找到授权且 `api_key_printed = false / api_key_written = false`，但 controller 输出 `blocked_invalid_context_pack`，因此 `deepseek_actual_participation = not_attempted_policy_violation`，`fallback_status = fallback_local_only`，`not_deepseek_conclusion = true`。\n- `日志证据`：`codex_log/supply_requests/20260602_最新剪辑参考4条动态视觉母版重解析_pre_supply_request.json`、`codex_log/deepseek_supply/20260602_latest_4_dynamic_visual_master_reparse_pre_supply/latest_supply_pack.md`。\n- `route_decision.selected_state = mechanism_repair_needed + gpt_project_sync_needed + deepseek_supply_required`\n- `已确认` 已新增 `ambiguous_goal_clarification_needed（需求不确定，需要澄清）`，覆盖 `1:1 / 像对标 / 高级感 / 按这个效果做 / 不是一回事 / 完全不像 / 感觉不像 / 差点意思 / 最高价值片子` 等高歧义目标；目标层级未锁定前不得直接下发 Codex。\n- `已确认` 已写入 ChatGPT / GPT Project 默认澄清模板：用户确认前不下发 Codex；若用户要求不追问直接做，也必须写清默认假设、风险、允许变化项和阻断条件。\n- `已确认` 同步包只包含上传说明、同步说明、变更清单、机制补丁、状态边界、项目入口机制文件副本和 Codex 执行层镜像；不包含视频、图片、音频、源素材、`dist/latest_review_pack/`、secret、API key、token、无关 `public/` 文件或大量历史日志。\n- `DeepSeek pre-supply`：已创建执行前供料任务卡并运行 safe runner；结果为 `deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`api_key_printed = false`、`api_key_written = false`。\n- `DeepSeek post-risk review`：已创建执行后风险复核任务卡并运行 safe runner；请求校验通过，但供料控制器返回 `blocked_invalid_context_pack`，`deepseek_actual_participation = not_attempted_policy_violation`，`not_deepseek_conclusion = true`；本轮后置风险结论来自 Codex 本地验证，不写 DeepSeek 已深度参与。\n- `日志证据`：`codex_log/supply_requests/20260602_需求不确定澄清闸门_pre_supply_request.json`、`codex_log/deepseek_supply/20260602_ambiguous_goal_clarification_gate_pre_supply/latest_supply_pack.md`、`codex_l\n...[truncated]",
+      "excerpt_range_or_marker": "selected_relevant_lines",
+      "confidence": "high"
+    },
+    {
+      "path": "codex_log/20260604_社交编辑感卡片参考图与DeepSeek后置复核补修.md",
+      "file_role": "current_log_or_request_source",
+      "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+      "content_excerpt": "# 20260604｜社交编辑感卡片参考图与 DeepSeek 后置复核补修\n- `target_delivery = social_editorial_card_v1_reference_and_deepseek_post_review_repair`\n  deepseek_post_risk_review:\n    request_file: codex_log/supply_requests/20260604_社交编辑感卡片机制_social_editorial_card_post_risk_review_request.json\n    error: controller blocked before real DeepSeek call\n## DeepSeek 后置复核补修\n- `previous_request = codex_log/supply_requests/20260604_社交编辑感卡片机制_social_editorial_card_post_risk_review_request.json`\n- `previous_deepseek_actual_participation = not_attempted_policy_violation`\n- `previous_not_deepseek_conclusion = true`\n- `repaired_request = codex_log/supply_requests/20260604_社交编辑感卡片参考图补修_post_risk_review_request.json`\n- `repaired_output_dir = codex_log/deepseek_supply/20260604_social_editorial_card_reference_repair_post_risk_review`\n- 本轮不推进 `content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked`。",
+      "excerpt_range_or_marker": "selected_relevant_lines",
+      "confidence": "high"
+    },
+    {
+      "path": "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+      "file_role": "project_mechanism_source",
+      "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+      "content_excerpt": "本文件负责把用户目标、`reference（参考）`、样片、原感稿、外部资料、视觉 / 声音 / 文案 / 剪辑参考，转换成 Codex 可执行函数字段和可验证标准。\n- Codex 需要根据 reference 生成或修改产物。\n如果触发条件成立，ChatGPT 不得把 reference 原样平移给 Codex，必须先生成本契约字段。\n缺这些字段，不得进入 Codex 成片执行。\n- `reference_id`：能复核的参考编号、文件名、路径、用户描述或外部资料标题。\n`function_fields（执行函数字段）` 用来让 Codex 在执行前知道：输入信号是什么、该做什么、为什么做、怎么验收、失败时怎么回退。\n- `function_fields_filled`：Codex 已知道执行动作、理由、验证规则和阻断条件。\n- `no_forbidden_status_promotion`：没有推进 `content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked`。\n- `DeepSeek（只读供料层）`：可帮助压缩文字化资料、列风险和文件地图，但不替代 contract。\n- `Codex（唯一写入执行层 / Integrator）`：按 contract 执行、偏离检查、验证、日志和 Git 收尾。\n**凡是用户给 reference / 样片 / 原感稿 / 外部资料并要求 Codex 落地，必须先判断 reference 目标是否清楚；目标含糊时先过 `ambiguous_reference_goal_gate（参考目标歧义闸门）`，目标清楚后再生成 `Reference-to-Execution Contract（参考到执行落地契约）`；没有契约，不进入执行。**",
+      "excerpt_range_or_marker": "lines:5-15",
+      "confidence": "high"
+    },
+    {
+      "path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "file_role": "project_mechanism_source",
+      "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+      "content_excerpt": "| `formal_operation_delivery_blocked（正式运营交付阻断）` | 当前链路无法按正式运营基线生成可发布候选片 | 停止当前视频执行线，回写交付边界和停止线 | `AGENTS.md`、Codex 执行规则、当前正式事实、latest、dated log | 不得写阶段完成、内容推进、send_ready 或内容通过 | 当前线 blocked，禁止状态未推进 | 把不合格写成部分完成 |\n| `copy_iteration_system_required（需要文案迭代系统）` | 用户要求记录文案版本、根据数据判断文案改哪一层、或让 ChatGPT 汇报文案好坏 | 运行 `scripts/文案迭代决策系统_copy_iteration_decision_system.py`，生成 registry、V003 raw、结构拆解、决策、brief 和 latest report | `latest_operation_decision_report.json`、`final_user_operation_result.md`、`copy_registry.json`、V003 copy record、V003 structure map | 不得改 raw 原文，不得由 Codex 最终定稿，不得生成正式下一条视频执行 prompt | `latest_copy_iteration_report` 和 `V003_next_copy_revision_brief` 均存在且验证通过 | 只写概念、缺脚本、缺 ChatGPT 可读报告 |\n| `ambiguous_goal_clarification_needed（需求不确定，需要澄清）` | 用户说 `1:1`、像对标、最高价值片子、高级感、不是一回事、按这个效果做、完全不像、差点意思、感觉不像 / 不对但未说明层级，或给 reference 但未说明要继承视觉、节奏、结构、语气、证明方式还是整体观感 | 停止直接下发 Codex；先拆出 2-5 个可能含义，锁定唯一主目标或默认优先级；如用户要求不追问直接做，必须写清默认假设、风险、允许变化项和阻断条件 | 本文件、`12_参考到执行落地契约_reference_to_execution_contract.md`、当前正式事实、必要 reference 描述 | 不得用 ChatGPT 自己的解释替用户拍板；不得把机制分析草案当视觉还原标准；不得把“有分屏 / 有高亮 / 有字幕”写成“像参考”；不得在未澄清时下发完整 Codex 成片执行单 | 用户确认目标层级，或已显式写清默认假设、风险、允许变化项和阻断条件；若进入执行，执行单能回指到澄清结果 | 未澄清就下发执行单；用机制名替代用户要的观感；用户反馈“不是一回事”后仍继续局部修补 |\n| `social_editorial_card_visual_gate_required（社交编辑感卡片视觉闸门必需）` | 判断卡、总结卡、结果差卡或 Prompt 尾卡进入正式运营横屏视频执行，或用户反馈卡片不美观 / 像 PPT / 像机械 UI / 比例错 | 运行 `card_visual_quality_gate`、`card_content_boundary_gate`、`card_failure_route` 和 `card_feedback_update`；按 `social_editorial_card_v1` 复核 16:9、社交编辑感、证据窗口和 locked copy | `05_文案路由规则.md`、`07_AI知识类视频价值规则.md`、`12_参考到执行落地契约...md`、`codex_source/21_codex_judgment_permission_matrix.md`、approved visual reference | 不得把 9:16 / PPT / 机械 UI / 静态 fallback 冒充完成；不得推进内容验证或 send_ready | 卡片通过或失败路由清楚，latest / dated log / fixture 回写完成 | 视觉好看写成内容通过，或缺失败路由仍写 completed |\n| `repair_session_required（修片会话卡必需）` | 修片、发布前修复或重生成既有候选片 | 读取或创建 `current_repair_session`，从 latest / review pack / summary / manifest 恢复上一轮状态，锁本轮唯一主修问题，执行后更新 remaining_blockers | `codex_log/latest.md`、当前 review pack、`summary.json`、`review_manifest.md`、本轮执行单 | 不得从 prompt 猜上一轮状态，不得无人审推进 send_ready，不得一次混修多个最高优先级问题 | 状态卡存在，目标对象、锁定目标、已知问题、主修问题、验证项和剩余阻断清楚 | target_candidate 不明、上一轮状态不可恢复、locked_goal 冲突 |\n| `deepseek_supply_required（DeepSeek 供料必需）` | 任一 Codex 任务进入执行前 | 创建 `supply_request`，优先通过 `DeepSeek runtime provider` 运行执行前供料，输出 `deepseek_supply_gate` | DeepSeek 协议、request schema、controller、Codex 执行规则、runtime provider、safe runner | 不得由 Codex 主观跳过，不得让 controller / explorer 直接读取 `.env`，不得把缺 key 或 fallback 写成 passed | 供料来源、provider 状态、参与状态、token 检查、Codex 下一步输入清楚；provider 缺 key 时写 `runtime_setup_required` | 未建任务卡却继续写文件，或用 fallback 冒充 DeepSeek |\n| `deepseek_runtime_provider_ready（DeepSeek 运行时供应商就绪）` | runtime doctor 通过，且真实 DeepSeek 调用 passed | 允许需要 DeepSeek 的任务通过 safe runner 注入子进程 env | provider、doctor、safe runner、controller、explorer、participation report | 不得打印 / 写入 / 提交 key，不得让 DeepSeek 写文件 | `runtime_provider.status = ready`、`can_call_deepseek = true`、`api_key_printed = false`、`api_key_written = false` | key 泄露、provider 状态缺失或真实调用未通过 |\n| `deepseek_runtime_provider_setup_required（DeepSeek 运行时供应商需要安装）` | provider 找不到 key source，或 key source 被 Git 跟踪风险命中 | 进入一次性 setup 流程，指向 `.env.local`、`.env` 或本地未跟踪授权文件 | setup 脚本、本地授权说明、`.gitignore` | 不得重复每轮只报 process env 缺 key，不得写真实参与 | 输出 `runtime_setup_required` 和补一次即可的配置说明 | 继续 fallback 并写 completed |\n| `deepseek_multi_task_supply_required（DeepSeek 多任务供料必需）` | 大任务、多个供料 request，或用户要求 2-3 个任务分别报告 | 使用 multi-task runner 逐个 request 运行，并生成 per-task report + combined report | multi-task runner、request files、combined report | 不得只给一个总报告，不得用 fallback 冒充任一任务 passed | 每个 request 有 `participation_report.json`，combined report 统计清楚 | 少任一任务报告或统计不完整 |\n| `deepseek_multi_task_supply_passed（DeepSeek 多任务供料通过）` | combined report 显示 `deepseek_passed_count >= 2`、`fallback_count = 0`、`blocked_count = 0` | Codex 可继续整合供料并同步 runtime provider 口径 | combined report、per-task reports、doctor report | 不得写 multi-agent runtime 已跑通，不得推进内容 / 发布 / 声音 / 视觉状态 | 多任务真实供料本地技术验证通过 | 把技术验证写成长期稳定或内容通过 |\n| `deepseek_multi_task_supply_blocked（DeepSeek 多任务供料阻断）` | 任一 required request fallback 或 blocked，且用户要求 DeepSeek 必须参与 | 停止写 completed，修 provider / request / network / schema 后重跑 | combined report、blocked task report、controller manifest | 不得把未通过任务吞掉，不得继续写 completed | blocked 原因清楚并有修复路径 | `fallback_count > 0` 或 `blocked_count > 0` 仍写完成 |\n| `deepseek_pre_supply_missing（DeepSeek 执行前供料缺失）` | 进入写入前没有供料包 / 任务卡 | `create_supply_request` + `run_deepseek_pre_supply`，无法真实调用则写 fallback / blocked | DeepSeek 协议、controller 输出、latest supply pack | 不得写 DeepSeek 真实参与 | `file_map / risk_report / context_summary / missing_files / codex_next_input` 已存在或 blocked 原因清楚 | 用本地判断冒充 DeepSeek |\n| `deepseek_post_review_missing（DeepSeek 执行后复核缺失）` | Codex 已修改但未做 DeepSeek 风险复核 | `run_deepseek_post_risk_review` | diff、修改文件、DeepSeek 协议、latest supply pack | 不得推进状态或写 completed | `status_promotion_risk / forbidden_change_risk / missed_sync_files / fallback_mislabel_risk / remaining_work` 已检查 | 缺执行后复核却写完成 |\n| `deepseek_claim_without_token_usage（无 token 证据声称 DeepSeek 参与）` | token 未观察到减少或未真实调用却写 DeepSeek 深度参与 | 标记 `fallback_local_only` 或 blocked，要求用户检查 token 用量 | controller 输出、用户 token 面板 / 运行日志 | 不得写 `deepseek_passed` 或 DeepSeek 深度参与完成 | `token_usage_expectation_check` 清楚 | token 没减少仍写参与完成 |\n| `codex_vertical_completion_missing（Codex 二次补全缺失）` | 只改协议或单文件，未同步脚本 / schema / fixture / 日志 / 上传包 | `run_codex_vertical_completion` | route_decision、影响面检查、schema、fixtures、日志、路径索引 | 不得把点状修改写完成 | 必交付清单、影响面、验证、同步回写完成 | 只写规则、不接脚本和验收链 |\n| `data_goal_anchor_needed（需要数据目标锚点）` | 文案修改、视频执行、剪辑、编排、DeepSeek 供料或复盘任务缺 `data_goal_anchor` | `create_data_goal_anchor` 或回读 13 / 14 / review_loop 后补齐锚点 | 13 数据飞轮、14 数据目标执行总线、当前 video_goal / post_publish_review / data_flywheel_memory | 不得进入视频执行，不得改写目标 | 锚点字段齐全，主短板、主变量、禁止变量和验证指标明确 | 缺锚点仍执行 |\n| `current_data_goal_anchor_required（需要当前数据目标锚点）` | 命中文案修改、下一条视频、视频执行、剪辑、编排、DeepSeek 供料或 GPT Project 同步 | 读取或创建 `codex_log/current_data_goal_anchor.md` | 13、14、`codex_log/current_data_goal_anchor.md`、current_gray_test_target、current_publish_target | 不得从多张卡现场拼锚点后直接执行 | 当前实例路径、状态、缺失字段和阻断规则明确 | 缺当前实例入口仍进入正式执行 |\n| `current_data_goal_anchor_ready（当前数据目标锚点 ready）` | 当前实例锚点字段齐全且人审允许进入执行 | 允许进入 Codex 执行前置供料和 `data_goal_alignment_check` | `codex_log/current_data_goal_anchor.md`、13、14、05、17、18 | 不得改写 locked fields | 所有 locked fields、指标和禁止变量齐全 | ready 字段不全或未经确认 |\n| `data_goal_execution_bus_needed（需要数据目标执行总线）` | 目标已定义但未接到 DeepSeek、Codex、剪辑、装配或复盘链路 | 读取 / 更新 `14_数据目标执行总线` 并同步入口、执行规则、schema、fixture、日志 | 13、14、05、07、10、01、03、codex_source/01、17、18、19 | 不得只写说明，不得把机制写成已跑通 | 总线字段、阻断、验收和同步入口完成 | 只补 13，不接执行链 |\n| `codex_execution_structure_drift_risk（Codex 执行结构漂移风险）` | Codex 可能按素材、画面或旧流程自由发挥 | `run_data_goal_alignment_check` 并限制 Codex 只能调整结构 | 14 数据目标执行总线、Codex 执行规则、内容路由规则 | 不得改写目标、主短板、主变量、禁止变量或验证指标 | 调整项与不破坏主变量理由写清 | 用剪辑顺 / 画面好看替代目标对齐 |\n| `reference_contract_needed（需要参考到执行契约）` | 用户给 reference / 样片 / 参考图 / 参考视频 / 参考声音 / 原感稿 / 外部研究结果，或说“按照这个效果做” | 先生成 `Reference-to-Execution Contract（参考到\n...[truncated]",
+      "excerpt_range_or_marker": "lines:41-62",
+      "confidence": "high"
+    },
+    {
+      "path": "GPT数据源/05_文案路由规则.md",
+      "file_role": "project_mechanism_source",
+      "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+      "content_excerpt": "用户提供录屏 / 桌面素材进入正式视频执行时，必须优先应用 `source_native_no_mask_visual_rule（源素材比例 + 无遮挡视觉规则）`。该规则优先于旧固定横屏交付口径：除非用户本轮明确指定横屏 16:9 / 1920x1080，Codex 不得为了统一比例强行补灰边、白边、黑边、letterbox、pillarbox 或 padding bands。\n`已确认` 用户提供素材时，默认执行规则是“用户给什么素材，就优先使用什么素材本身”。除非用户本轮明确授权，Codex 不得为了隐私、美观、比例、字幕、卡片或平台风险主动遮挡、洗白、模糊或重塑用户素材。\nCodex 执行视频时不得重新定稿。允许做素材映射、字幕分句、TTS 停顿、剪辑节奏、卡片位置、证据窗口和导出参数；不允许改标题、选题、开头句、核心判断、人味表达、语义或视觉标题卡标题。若需要改文案，必须输出 `copy_change_request（文案修改请求）`，等待 ChatGPT / 用户确认。\n文案进入视频执行链路后，GPT prompt 只代表本轮 `prompt_delta（增量目标）`，不代表完整流程源。Codex 必须先跑 `process_boot_gate（流程启动闸门）`，输出 `process_boot_report（流程启动报告）`，再决定能否进入素材映射、TTS、字幕、卡片、时间线或审片包执行。\n- 若组件判断需要改 locked 文案语义，Codex 只能输出 `copy_change_request（文案修改请求）` 或 blocked。\n- `publish_candidate_ready_for_human_review（可发布候选片，待人工复审）` 不等于 `send_ready = true`；`send_ready` 必须等待用户或 ChatGPT 最终确认。\n3. `Codex（执行代理）` 做素材技术检查与细节证据报告。\n4. `ChatGPT（最终落稿与复审入口）` 基于参考包、用户素材和 `Codex（执行代理）` 细节报告写最终落稿。\n5. `Codex（执行代理）` 按最终稿执行视频、字幕、声音、卡片和审片包。\n   - 执行完成后回到 `ChatGPT（最终落稿与复审入口）` 复审；`publish_candidate` 不等于 `send_ready`。\n- 没有 `primary_variable（主验证变量）`，不得生成 Codex 执行 prompt。\n- 没有 `next_video_execution_prompt（下一条视频执行 prompt）`，Codex 不得进入视频执行。\n- ChatGPT 读取 `V003_next_copy_revision_brief.md` 后负责最终判断、汇报和改稿；Codex 只负责记录、结构化、生成报告和验证。\n## 3B. `Codex（执行代理）` 素材细节汇报标准\n`Codex（执行代理）` 检查素材时，必须按“给 `ChatGPT（最终落稿与复审入口）` 写最终稿”的标准汇报。\n- 示例包括：`Codex 在屏幕上打字`、点击确认、搜索商品、翻商品卡、记录商品名、价格、佣金、销量信号、店铺分、商品分、风险，写入云盘表格，最后回到聊天框给结论。\n- 不得写成商品一定能卖、商业闭环成立、内容已验证成功或 `send_ready = true`。\n- 如果文案说 Codex 自动操作电脑，但素材没有操作电脑画面，必须 blocked 或退回改写。\n- 如果文案说 Codex 生成表格，但没有表格、云盘、文件或结果画面，必须 blocked 或退回改写。\n本闸门与 `locked_copy_contract（锁定文案契约）` 不冲突：它只负责执行前密度标注和证据检查，不授权 Codex 自行改写最终文案。需要改语义时，Codex 只能输出 `copy_change_request（文案修改请求）` 或 blocked。\n本闸门不授权 `Codex（执行代理）` 自行重写锁定最终文案。命中阻断时，Codex 只能输出 `copy_change_request（文案修改请求）`、退回 ChatGPT 改稿或 blocked，不得把机制检查改写成新第四期最终稿。\n  - 最终稿先讲 Codex 是什么，而不是先讲用户为什么卡住。\nCodex 只能检查和退回，不能自行把最终文案改成新稿。命中本闸门阻断时，只能输出 `copy_change_request（文案修改请求）`、退回 ChatGPT 改稿或 blocked。\n通过本闸门不代表 `content_validation（内容验证）` 通过，只代表文案话语不再明显报告腔。\n本闸门与 `copy_granularity_mixture_gate（文案颗粒度配比闸门）`、`reference_copy_voice_gate（对标文案话语闸门）` 配合使用：前者补长期学习标准，后两者分别检查句子密度、素材颗粒度和反报告腔。三者都不授权 `Codex（执行代理）` 自行改写锁定最终文案。\n- Codex 不得先定人物次数、卡片数量、PPT 数量，再把文案塞进去。\n- HyperFrames 只能强化判断卡 / 总结卡等卡片动效与观感，不得替代中段真实录屏证据、不得改写 locked copy、不得新增素材中没有的数据结论、不得把画面好看写成 `content_validation（内容验证）` 通过。\n- 开头固定机制，不固定素材；Codex / ChatGPT 必须先判断开头路线，再执行开头。\n- 不得把判断卡写成 `content_validation（内容验证）` 通过证据。\n- 不得把总结卡写成 `content_validation（内容验证）` 通过证据。\n- Codex 不得先固定总结卡 / 反转卡位置，再把文案塞进去。\n本机制只补卡片执行判断、视觉质量、失败路由和反馈回写；不生成完整视频，不推进 `content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked`。\n    - card visual quality does not advance content_validation\n一条最终文案交给 `Codex（执行代理）` 后，不得直接进入“生成视频”。\n- Codex 拿到最终文案后，不能直接生成视频。\n- 不得把图片好看写成 `content_validation（内容验证）` 通过。\n这类素材仍属于 `用户录制素材`，仍承担中段真实证据主体。变化只发生在 Codex 的中段剪辑职责：Codex 不再默认把“二次放大 / 裁切 / 重新运镜”当成可读性增强的默认动作。\n只有以下情况，Codex 才允许重新判断是否需要辅助放大、定格或卡片：\n    - 不得把画面好看写成 content_validation 通过\n- Codex 选择皮肤时必须记录 `skin_selection_reason（皮肤选择理由）`、`visual_tokens（视觉 token）`、`card_text_source（卡片文案来源）` 与 `card_text_semantic_match（语义一致性）`。\n- 皮肤好看只允许作为 `hyperframes_visual_quality_gate（HyperFrames 视觉质量闸门）` 的一部分，不得写成 `content_validation（内容验证）` 通过或发送状态推进。\n- HyperFrames 视觉优化完成后，推进 `content_validation（内容验证）`、`send_ready（可发送状态）` 或 `publish_status_success（发布成功口径）`。",
+      "excerpt_range_or_marker": "lines:13-54",
+      "confidence": "high"
+    },
+    {
+      "path": "codex_log/20260604_社交编辑感卡片机制_social_editorial_card_mechanism.md",
+      "file_role": "current_log_or_request_source",
+      "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+      "content_excerpt": "- `reference_path_corrected_by = codex_log/20260604_社交编辑感卡片参考图与DeepSeek后置复核补修.md`\n- 本轮没有推进 `content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked`。\n- Codex 不得改写 locked copy；卡片文案需要语义修改时，必须输出 `copy_change_request（文案修改请求）`。\n## DeepSeek 供料\n- `pre_supply_request = codex_log/supply_requests/20260604_社交编辑感卡片机制_social_editorial_card_pre_supply_request.json`\n- `pre_supply_pack = dist/deepseek_supply_controller/20260604_social_editorial_card_pre_supply/latest_supply_pack.md`\n- `deepseek_actual_participation = deepseek_passed`\n- `not_deepseek_conclusion = false`\n- `token_usage_expectation_check = token_decrement_expected / not_available_user_check_required`\n- `post_risk_review_request = codex_log/supply_requests/20260604_社交编辑感卡片机制_social_editorial_card_post_risk_review_request.json`\n- `post_risk_review_pack = dist/deepseek_supply_controller/20260604_social_editorial_card_post_risk_review/latest_supply_pack.md`\n- `post_risk_review.deepseek_actual_participation = not_attempted_policy_violation`\n- `post_risk_review.not_deepseek_conclusion = true`\n- `post_risk_review_next_action = Codex local validation for status promotion / forbidden change / missed sync / fixture JSON / secret scan`\n## Codex 本地验证\n- `json_validation = passed`：`codex_source/fixtures/mechanism_inference_function_cases.json` 与本轮两份 `codex_log/supply_requests/*.json` 均可解析。\n- 后续真实视频执行时，仍需按具体 locked copy、素材证据、line_group、subtitle overlap 和 HyperFrames runtime 状态逐片复核。",
+      "excerpt_range_or_marker": "lines:13-29",
+      "confidence": "high"
+    }
+  ],
+  "exact_snippet_pack": [
+    {
+      "path": "codex_log/latest.md",
+      "snippet": "## 20260604｜社交编辑感卡片参考图与 DeepSeek 后置复核补修\n- `target_delivery = social_editorial_card_v1_reference_and_deepseek_post_review_repair`\n- `DeepSeek previous post-risk review`：旧请求 `20260604_social_editorial_card_post_risk_review` 返回 `blocked_invalid_context_pack`，保留为未通过记录，不改写成 passed。\n- `DeepSeek repaired post-risk review`：已新增更窄的补修复核请求 `codex_log/supply_requests/20260604_社交编辑感卡片参考图补修_post_risk_review_request.json`，只复核参考图入库、旧路径降权、状态边界、secret 和媒体路径风险。\n- `未推进` 本轮不生成视频，不修改 `dist/latest_review_pack/`，不推进 `content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked`。\n- `日志证据`：`codex_log/20260604_社交编辑感卡片参考图与DeepSeek后置复核补修.md`。\n- `reference_path_corrected_by = codex_log/20260604_社交编辑感卡片参考图与DeepSeek后置复核补修.md`\n- `已确认` 卡片视觉质量只是 `pre-publish human quality gate（发布前人工质量闸门）`，不推进 `content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked`。",
+      "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+      "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+      "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+    },
+    {
+      "path": "codex_log/20260604_社交编辑感卡片参考图与DeepSeek后置复核补修.md",
+      "snippet": "# 20260604｜社交编辑感卡片参考图与 DeepSeek 后置复核补修\n- `target_delivery = social_editorial_card_v1_reference_and_deepseek_post_review_repair`\n  deepseek_post_risk_review:\n    request_file: codex_log/supply_requests/20260604_社交编辑感卡片机制_social_editorial_card_post_risk_review_request.json\n    error: controller blocked before real DeepSeek call\n## DeepSeek 后置复核补修\n- `previous_request = codex_log/supply_requests/20260604_社交编辑感卡片机制_social_editorial_card_post_risk_review_request.json`\n- `previous_deepseek_actual_participation = not_attempted_policy_violation`",
+      "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+      "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+      "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+    },
+    {
+      "path": "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+      "snippet": "本文件负责把用户目标、`reference（参考）`、样片、原感稿、外部资料、视觉 / 声音 / 文案 / 剪辑参考，转换成 Codex 可执行函数字段和可验证标准。\n- Codex 需要根据 reference 生成或修改产物。\n如果触发条件成立，ChatGPT 不得把 reference 原样平移给 Codex，必须先生成本契约字段。\n缺这些字段，不得进入 Codex 成片执行。\n- `reference_id`：能复核的参考编号、文件名、路径、用户描述或外部资料标题。\n`function_fields（执行函数字段）` 用来让 Codex 在执行前知道：输入信号是什么、该做什么、为什么做、怎么验收、失败时怎么回退。\n- `function_fields_filled`：Codex 已知道执行动作、理由、验证规则和阻断条件。\n- `no_forbidden_status_promotion`：没有推进 `content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked`。",
+      "why_it_matters": "project_mechanism_source for DeepSeek deep file supply mode",
+      "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+      "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+    },
+    {
+      "path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "snippet": "| `formal_operation_delivery_blocked（正式运营交付阻断）` | 当前链路无法按正式运营基线生成可发布候选片 | 停止当前视频执行线，回写交付边界和停止线 | `AGENTS.md`、Codex 执行规则、当前正式事实、latest、dated log | 不得写阶段完成、内容推进、send_ready 或内容通过 | 当前线 blocked，禁止状态未推进 | 把不合格写成部分完成 |\n| `copy_iteration_system_required（需要文案迭代系统）` | 用户要求记录文案版本、根据数据判断文案改哪一层、或让 ChatGPT 汇报文案好坏 | 运行 `scripts/文案迭代决策系统_copy_iteration_decision_system.py`，生成 registry、V003 raw、结构拆解、决策、brief 和 latest report | `latest_operation_decision_report.json`、`final_user_operation_result.md`、`copy_registry.json`、V003 copy record、V003 structure map | 不得改 raw 原文，不得由 Codex 最终定稿，不得生成正式下一条视频执行 prompt | `latest_copy_iteration_report` 和 `V003_next_copy_revision_brief` 均存在且验证通过 | 只写概念、缺脚本、缺 ChatGPT 可读报告 |\n| `ambiguous_goal_clarification_needed（需求不确定，需要澄清）` | 用户说 `1:1`、像对标、最高价值片子、高级感、不是一回事、按这个效果做、完全不像、差点意思、感觉不像 / 不对但未说明层级，或给 reference 但未说明要继承视觉、节奏、结构、语气、证明方式还是整体观感 | 停止直接下发 Codex；先拆出 2-5 个可能含义，锁定唯一主目标或默认优先级；如用户要求不追问直接做，必须写清默认假设、风险、允许变化项和阻断条件 | 本文件、`12_参考到执行落地契约_reference_to_execution_contract.md`、当前正式事实、必要 reference 描述 | 不得用 ChatGPT 自己的解释替用户拍板；不得把机制分析草案当视觉还原标准；不得把“有分屏 / 有高亮 / 有字幕”写成“像参考”；不得在未澄清时下发完整 Codex 成片执行单 | 用户确认目标层级，或已显式写清默认假设、风险、允许变化项和阻断条件；若进入执行，执行单能回指到澄清结果 | 未澄清就下发执行单；用机制名替代用户要的观感；用户反馈“不是一回事”后仍继续局部修补 |\n| `social_editorial_card_visual_gate_required（社交编辑感卡片视觉闸门必需）` | 判断卡、总结卡、结果差卡或 Prompt 尾卡进入正式运营横屏视频执行，或用户反馈卡片不美观 / 像 PPT / 像机械 UI / 比例错 | 运行 `card_visual_quality_gate`、`card_content_boundary_gate`、`card_failure_route` 和 `card_feedback_update`；按 `social_editorial_card_v1` 复核 16:9、社交编辑感、证据窗口和 locked copy | `05_文案路由规则.md`、`07_AI知识类视频价值规则.md`、`12_参考到执行落地契约...md`、`codex_source/21_codex_judgment_permission_matrix.md`、approved visual reference | 不得把 9:16 / PPT / 机械 UI / 静态 fallback 冒充完成；不得推进内容验证或 send_ready | 卡片通过或失败路由清楚，latest / dated log / fixture 回写完成 | 视觉好看写成内容通过，或缺失败路由仍写 completed |\n| `repair_session_required（修片会话卡必需）` | 修片、发布前修复或重生成既有候选片 | 读取或创建 `current_repair_session`，从 latest / review pack / summary / manifest 恢复上一轮状态，锁本轮唯一主修问题，执行后更新 remaining_blockers | `codex_log/latest.md`、当前 review pack、`summary.json`、`review_manifest.md`、本轮执行单 | 不得从 prompt 猜上一轮状态，不得无人审推进 send_ready，不得一次混修多个最高优先级问题 | 状态卡存在，目标对象、锁定目标、已知问题、主修问题、验证项和剩余阻断清楚 | target_candidate 不明、上一轮状态不可恢复、locked_goal 冲突 |\n| `deepseek_supply_required（DeepSeek 供料必需）` | 任一 Codex 任务进入执行前 | 创建 `supply_request`，优先通过 `DeepSeek runtime provider` 运行执行前供料，输出 `deepseek_supply_gate` | DeepSeek 协议、request schema、controller、Codex 执行规则、runtime provider、safe runner | 不得由 Codex 主观跳过，不得让 controller / explorer 直接读取 `.env`，不得把缺 key 或 fallback 写成 passed | 供料来源、provider 状态、参与状态、token 检查、Codex 下一步输入清楚；provider 缺 key 时写 `runtime_setup_required` | 未建任务卡却继续写文件，或用 fallback 冒充 DeepSeek |\n| `deepseek_runtime_provider_ready（DeepSeek 运行时供应商就绪）` | runtime doctor 通过，且真实 DeepSeek 调用 passed | 允许需要 DeepSeek 的任务通过 safe runner 注入子进程 env | provider、doctor、safe runner、controller、explorer、participation report | 不得打印 / 写入 / 提交 key，不得让 DeepSeek 写文件 | `runtime_provider.status = ready`、`can_call_deepseek = true`、`api_key_printed = false`、`api_key_written = false` | key 泄露、provider 状态缺失或真实调用未通过 |\n| `deepseek_runtime_provider_setup_required（DeepSeek 运行时供应商需要安装）` | provider 找不到 key source，或 key source 被 Git 跟踪风险命中 | 进入一次性 setup 流程，指向 `.env.local`、`.env` 或本地未跟踪授权文件 | setup 脚本、本地授权说明、`.gitignore` | 不得重复每轮只报 process env 缺 key，不得写真实参与 | 输出 `runtime_setup_required` 和补一次即可的配置说明 | 继续 fallback 并写 completed |",
+      "why_it_matters": "project_mechanism_source for DeepSeek deep file supply mode",
+      "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+      "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+    },
+    {
+      "path": "GPT数据源/05_文案路由规则.md",
+      "snippet": "用户提供录屏 / 桌面素材进入正式视频执行时，必须优先应用 `source_native_no_mask_visual_rule（源素材比例 + 无遮挡视觉规则）`。该规则优先于旧固定横屏交付口径：除非用户本轮明确指定横屏 16:9 / 1920x1080，Codex 不得为了统一比例强行补灰边、白边、黑边、letterbox、pillarbox 或 padding bands。\n`已确认` 用户提供素材时，默认执行规则是“用户给什么素材，就优先使用什么素材本身”。除非用户本轮明确授权，Codex 不得为了隐私、美观、比例、字幕、卡片或平台风险主动遮挡、洗白、模糊或重塑用户素材。\nCodex 执行视频时不得重新定稿。允许做素材映射、字幕分句、TTS 停顿、剪辑节奏、卡片位置、证据窗口和导出参数；不允许改标题、选题、开头句、核心判断、人味表达、语义或视觉标题卡标题。若需要改文案，必须输出 `copy_change_request（文案修改请求）`，等待 ChatGPT / 用户确认。\n文案进入视频执行链路后，GPT prompt 只代表本轮 `prompt_delta（增量目标）`，不代表完整流程源。Codex 必须先跑 `process_boot_gate（流程启动闸门）`，输出 `process_boot_report（流程启动报告）`，再决定能否进入素材映射、TTS、字幕、卡片、时间线或审片包执行。\n- 若组件判断需要改 locked 文案语义，Codex 只能输出 `copy_change_request（文案修改请求）` 或 blocked。\n- `publish_candidate_ready_for_human_review（可发布候选片，待人工复审）` 不等于 `send_ready = true`；`send_ready` 必须等待用户或 ChatGPT 最终确认。\n3. `Codex（执行代理）` 做素材技术检查与细节证据报告。\n4. `ChatGPT（最终落稿与复审入口）` 基于参考包、用户素材和 `Codex（执行代理）` 细节报告写最终落稿。",
+      "why_it_matters": "project_mechanism_source for DeepSeek deep file supply mode",
+      "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+      "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+    },
+    {
+      "path": "codex_log/20260604_社交编辑感卡片机制_social_editorial_card_mechanism.md",
+      "snippet": "- `reference_path_corrected_by = codex_log/20260604_社交编辑感卡片参考图与DeepSeek后置复核补修.md`\n- 本轮没有推进 `content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked`。\n- Codex 不得改写 locked copy；卡片文案需要语义修改时，必须输出 `copy_change_request（文案修改请求）`。\n## DeepSeek 供料\n- `pre_supply_request = codex_log/supply_requests/20260604_社交编辑感卡片机制_social_editorial_card_pre_supply_request.json`\n- `pre_supply_pack = dist/deepseek_supply_controller/20260604_social_editorial_card_pre_supply/latest_supply_pack.md`\n- `deepseek_actual_participation = deepseek_passed`\n- `not_deepseek_conclusion = false`",
+      "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+      "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+      "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+    }
+  ],
+  "dependency_map": [
+    {
+      "source_file": "codex_log/latest.md",
+      "depends_on": [],
+      "dependency_type": "readonly_context",
+      "impact": "update_together_if_deep_file_supply_contract_changes"
+    },
+    {
+      "source_file": "codex_log/20260604_社交编辑感卡片参考图与DeepSeek后置复核补修.md",
+      "depends_on": [],
+      "dependency_type": "readonly_context",
+      "impact": "update_together_if_deep_file_supply_contract_changes"
+    },
+    {
+      "source_file": "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+      "depends_on": [],
+      "dependency_type": "project_mechanism_mirrors_codex_execution_surface",
+      "impact": "update_together_if_deep_file_supply_contract_changes"
+    },
+    {
+      "source_file": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "depends_on": [],
+      "dependency_type": "project_mechanism_mirrors_codex_execution_surface",
+      "impact": "update_together_if_deep_file_supply_contract_changes"
+    },
+    {
+      "source_file": "GPT数据源/05_文案路由规则.md",
+      "depends_on": [],
+      "dependency_type": "project_mechanism_mirrors_codex_execution_surface",
+      "impact": "update_together_if_deep_file_supply_contract_changes"
+    },
+    {
+      "source_file": "codex_log/20260604_社交编辑感卡片机制_social_editorial_card_mechanism.md",
+      "depends_on": [],
+      "dependency_type": "readonly_context",
+      "impact": "update_together_if_deep_file_supply_contract_changes"
+    }
+  ],
+  "risk_delta_report": [
+    {
+      "risk_type": "fallback_mislabel_risk",
+      "path": "deepseek_supply_pack",
+      "evidence": "supply_source is not deepseek_passed",
+      "severity": "high",
+      "suggested_codex_action": "do_not_claim_completed_if_user_required_deepseek"
+    }
+  ],
+  "missing_or_uncertain_files": [
+    {
+      "path_or_query": "DeepSeek cannot read binary image pixels; Codex owns file existence, sha256, and remote HEAD verification.",
+      "reason": "request_missing_context",
+      "blocked_if_missing": false
+    },
+    {
+      "path_or_query": "Remote readability can only be verified by Codex after commit and push.",
+      "reason": "request_missing_context",
+      "blocked_if_missing": false
+    },
+    {
+      "path_or_query": "Token usage observation still requires user-side check if needed.",
+      "reason": "request_missing_context",
+      "blocked_if_missing": false
+    }
+  ],
+  "not_allowed": [
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim DeepSeek is stable production supply.",
+    "Do not claim multi-agent runtime is running.",
+    "Do not let DeepSeek write files or decide project facts.",
+    "Do not read .env, API keys, media files, or dist/latest_review_pack/.",
+    "Do not call Aliyun or other real generation APIs in mechanism-only tests."
+  ],
+  "files": {
+    "latest_supply_pack_md": "codex_log/deepseek_supply/20260604_social_editorial_card_reference_repair_post_risk_review/latest_supply_pack.md",
+    "latest_supply_pack_json": "codex_log/deepseek_supply/20260604_social_editorial_card_reference_repair_post_risk_review/latest_supply_pack.json",
+    "latest_supply_manifest_json": "codex_log/deepseek_supply/20260604_social_editorial_card_reference_repair_post_risk_review/latest_supply_manifest.json",
+    "explorer_pack": "dist/deepseek_readonly_explorer/latest_prefetch_context_pack.md"
+  }
+}

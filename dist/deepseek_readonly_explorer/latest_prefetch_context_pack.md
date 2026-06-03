@@ -7,7 +7,7 @@
 - `fallback_status`: `not_used`
 - `pipeline_status`: `blocked`
 - `multi_agent_runtime_validation`: `not_started`
-- `validated_at_utc`: `2026-06-03T18:47:37.140046+00:00`
+- `validated_at_utc`: `2026-06-03T19:17:57.101822+00:00`
 - `base_url`: `https://api.deepseek.com`
 - `model`: `deepseek-v4-flash`
 - `scope`: `readonly_explorer_minimal_api_validation`
@@ -27,24 +27,24 @@
   {
     "attempt_index": 1,
     "mode": "single_call_safe",
-    "prompt_size_chars": 28549,
-    "context_size_chars": 18160,
-    "failure_reason": "empty_content",
+    "prompt_size_chars": 35857,
+    "context_size_chars": 18130,
+    "failure_reason": "finish_reason_length",
     "finish_reason": "length"
   },
   {
     "attempt_index": 2,
     "mode": "compressed_retry",
-    "prompt_size_chars": 19444,
-    "context_size_chars": 9134,
+    "prompt_size_chars": 26725,
+    "context_size_chars": 9137,
     "failure_reason": "finish_reason_length",
     "finish_reason": "length"
   },
   {
     "attempt_index": 3,
     "mode": "minimal_retry",
-    "prompt_size_chars": 14011,
-    "context_size_chars": 3734,
+    "prompt_size_chars": 21257,
+    "context_size_chars": 3736,
     "failure_reason": "finish_reason_length",
     "finish_reason": "length"
   }

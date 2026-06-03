@@ -251,6 +251,10 @@ card_visual_reference_contract:
       - user_approved_visual_reference
       - repo_locked_reference
     exact_reference_available:
+    repo_reference_path:
+    historical_local_source_path:
+    remote_reference_status:
+    local_reference_only_allowed_for_default_claim: false
     reference_path_or_description:
     reference_role: visual_quality_anchor_only
     blocked_if_reference_missing:
@@ -318,7 +322,7 @@ card_visual_reference_contract:
     - no_forbidden_status_promotion
 ```
 
-已确认参考图：`素材录制-卡片参考-ChatGPT Image 2026年6月4日 02_29_58` 只锁视觉方向，不锁具体文案、具体人物、具体图标、具体排版位置或任何第三方可识别资产。
+已确认参考图：`素材录制-卡片参考-ChatGPT Image 2026年6月4日 02_29_58` 只锁视觉方向，不锁具体文案、具体人物、具体图标、具体排版位置或任何第三方可识别资产。默认 repo reference path 为 `references/card_style/social_editorial_card_v1_reference.png`；旧本地来源 `素材录制/卡盘参考/ChatGPT Image 2026年6月4日 02_29_58.png` 只可写为 `historical_local_source_path（历史本地来源路径）`，不得在未进入远端 main 时写成 remote readable reference。
 
 ## 8. Deviation Check（偏离检查）
 

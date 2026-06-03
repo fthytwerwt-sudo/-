@@ -1,0 +1,166 @@
+{
+  "request_id": "20260604_social_editorial_card_reference_repair_post_risk_review",
+  "created_at": "2026-06-04T00:00:00+08:00",
+  "project_route": "video_factory",
+  "project_stage": "formal_operation_active",
+  "operation_stage": "mechanism_reference_repair",
+  "no_multi_agent_runtime_claim": true,
+  "task_id": "social_editorial_card_v1_reference_and_post_review_repair",
+  "task_type": "project_file_modification_task + mechanism_repair_task + validation_sync_repair_task",
+  "trigger_reason": "mandatory_post_risk_review",
+  "action": "risk_report",
+  "mandatory_for_every_task": true,
+  "participation_level": "readonly_post_risk_review",
+  "pre_supply_required": false,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_usage_should_decrease_if_real_deepseek_called; otherwise mark fallback_local_only_or_runtime_setup_required",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "Review the narrow repair for social_editorial_card_v1 reference image path and DeepSeek post-risk-review bookkeeping. Check that the old local-only reference path is no longer claimed as remote readable, the repo reference path is used, the previous blocked_invalid_context_pack is not rewritten as passed, and no forbidden video/status changes were introduced.",
+  "current_step": "after reference path repair and before commit/push",
+  "known_context": [
+    "The previous approved visual reference path was local-only: 素材录制/卡盘参考/ChatGPT Image 2026年6月4日 02_29_58.png.",
+    "The repair copies the local PNG into references/card_style/social_editorial_card_v1_reference.png with sha256 c5c675fee86989a63f1e9369d97b212d409adc1f91f250b921a61164883e531c.",
+    "The previous post-risk request 20260604_social_editorial_card_post_risk_review returned blocked_invalid_context_pack and must remain not_deepseek_conclusion=true.",
+    "This repair does not rewrite the main social_editorial_card_v1 mechanism, does not generate video, and does not modify dist/latest_review_pack."
+  ],
+  "missing_context": [
+    "DeepSeek cannot read binary image pixels; Codex owns file existence, sha256, and remote HEAD verification.",
+    "Remote readability can only be verified by Codex after commit and push.",
+    "Token usage observation still requires user-side check if needed."
+  ],
+  "candidate_files": [
+    "codex_log/latest.md",
+    "codex_log/20260604_社交编辑感卡片机制_social_editorial_card_mechanism.md",
+    "codex_log/20260604_社交编辑感卡片参考图与DeepSeek后置复核补修.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md"
+  ],
+  "must_read_files": [
+    "codex_log/latest.md",
+    "codex_log/20260604_社交编辑感卡片参考图与DeepSeek后置复核补修.md",
+    "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "GPT数据源/05_文案路由规则.md"
+  ],
+  "optional_files": [
+    "codex_log/20260604_社交编辑感卡片机制_social_editorial_card_mechanism.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    ".git/",
+    "dist/latest_review_pack/",
+    "*.mp4",
+    "*.mov",
+    "*.mp3",
+    "*.wav",
+    "public/"
+  ],
+  "expected_output": [
+    "risk_and_conflict_report",
+    "reference_path_claim_check",
+    "deepseek_previous_blocked_status_check",
+    "status_promotion_risk_check",
+    "forbidden_media_or_latest_review_pack_change_check",
+    "codex_next_input",
+    "not_deepseek_conclusion_if_fallback"
+  ],
+  "not_allowed": [
+    "DeepSeek must not write files.",
+    "DeepSeek must not decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime is stable or completed.",
+    "Do not claim the old local-only reference path is remote readable.",
+    "Do not rewrite blocked_invalid_context_pack as passed unless this repaired request actually passes.",
+    "Do not print, write, or commit API key / token / secret.",
+    "Do not promote content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked."
+  ],
+  "blocked_if": [
+    "final_reference_path missing from docs",
+    "old local-only reference path still claimed as remote readable",
+    "previous blocked_invalid_context_pack rewritten as DeepSeek passed",
+    "content_validation, send_ready, publish_status, voice_validation, final_voice_validated, or visual_master_locked is promoted",
+    "dist/latest_review_pack or video/media outputs are modified",
+    "secret scan fails",
+    "unrelated public/ is staged"
+  ],
+  "return_to_codex": {
+    "read_status_required": true,
+    "impact_check_required": true,
+    "write_scope": [
+      "references/card_style/social_editorial_card_v1_reference.png",
+      "codex_log/latest.md",
+      "codex_log/20260604_社交编辑感卡片机制_social_editorial_card_mechanism.md",
+      "codex_log/20260604_社交编辑感卡片参考图与DeepSeek后置复核补修.md",
+      "codex_log/supply_requests/20260604_社交编辑感卡片参考图补修_post_risk_review_request.json",
+      "codex_log/deepseek_supply/20260604_social_editorial_card_reference_repair_post_risk_review/",
+      "GPT数据源/05_文案路由规则.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md"
+    ],
+    "output_dir": "codex_log/deepseek_supply/20260604_social_editorial_card_reference_repair_post_risk_review",
+    "verification_required": [
+      "json_validation",
+      "reference_path_grep",
+      "old_local_path_remote_claim_check",
+      "no_forbidden_status_promotion_check",
+      "secret_scan",
+      "media_path_check",
+      "remote_head_verification_after_push"
+    ]
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "post_risk_review"
+    ]
+  },
+  "file_scope": {
+    "candidate_files": [
+      "codex_log/latest.md",
+      "codex_log/20260604_社交编辑感卡片参考图与DeepSeek后置复核补修.md",
+      "GPT数据源/05_文案路由规则.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md"
+    ],
+    "must_prefetch_files": [
+      "codex_log/latest.md",
+      "codex_log/20260604_社交编辑感卡片参考图与DeepSeek后置复核补修.md",
+      "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md"
+    ],
+    "optional_prefetch_files": [
+      "GPT数据源/05_文案路由规则.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md"
+    ],
+    "forbidden_files": [
+      ".env",
+      ".env.local",
+      ".git/",
+      "dist/latest_review_pack/",
+      "public/"
+    ],
+    "secret_files_forbidden": true
+  },
+  "content_loading_policy": {
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 6,
+    "max_chars_per_file": 7000,
+    "max_total_chars": 26000,
+    "truncate_policy": "head_and_relevant_snippets",
+    "redaction_policy": "no_secrets_or_api_keys_no_media_files"
+  },
+  "will_modify_files": [
+    "codex_log/supply_requests/20260604_社交编辑感卡片参考图补修_post_risk_review_request.json",
+    "codex_log/deepseek_supply/20260604_social_editorial_card_reference_repair_post_risk_review/*"
+  ],
+  "safety_sensitive_files": [
+    "references/card_style/social_editorial_card_v1_reference.png"
+  ],
+  "fallback_policy": "If this repaired request is blocked, keep deepseek_post_risk_review_status = blocked_invalid_context_pack_pending_fix and do not write DeepSeek passed."
+}

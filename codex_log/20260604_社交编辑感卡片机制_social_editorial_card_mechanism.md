@@ -8,7 +8,15 @@
 - `large_task_gate.triggered = true`
 - `write_lane = serial_only`
 - `visual_reference_image_readable = true`
-- `approved_visual_reference = 素材录制/卡盘参考/ChatGPT Image 2026年6月4日 02_29_58.png`
+- `approved_visual_reference = references/card_style/social_editorial_card_v1_reference.png`
+- `historical_local_source_path = 素材录制/卡盘参考/ChatGPT Image 2026年6月4日 02_29_58.png`
+- `reference_path_corrected_by = codex_log/20260604_社交编辑感卡片参考图与DeepSeek后置复核补修.md`
+
+## 20260604 补修说明
+
+- 上一版日志中的 `素材录制/卡盘参考/ChatGPT Image 2026年6月4日 02_29_58.png` 只在本地存在，未进入 `origin/main`，不能继续作为 remote readable reference。
+- 已改为 repo 内固定参考路径：`references/card_style/social_editorial_card_v1_reference.png`。
+- 旧路径只保留为 `historical_local_source_path（历史本地来源路径）`，不得再写成远端可读默认路径。
 
 ## 已确认
 

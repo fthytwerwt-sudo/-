@@ -1,5 +1,27 @@
 # Latest
 
+## 20260604｜社交编辑感卡片参考图与 DeepSeek 后置复核补修
+
+- `task_result.status = reference_and_post_risk_review_repair_completed_no_video_generation`
+- `target_delivery = social_editorial_card_v1_reference_and_deepseek_post_review_repair`
+- `branch = main`
+- `route_decision.project_route = video_factory`
+- `route_decision.task_type = project_file_modification_task + mechanism_repair_task + validation_sync_repair_task`
+- `large_task_gate.triggered = true`
+- `write_lane = serial_only`
+- `documented_old_reference_path = 素材录制/卡盘参考/ChatGPT Image 2026年6月4日 02_29_58.png`
+- `documented_old_reference_remote_status = missing_on_origin_main`
+- `final_reference_path = references/card_style/social_editorial_card_v1_reference.png`
+- `final_reference_sha256 = c5c675fee86989a63f1e9369d97b212d409adc1f91f250b921a61164883e531c`
+- `visual_reference_status = repo_locked_reference`
+- `historical_local_source_path = 素材录制/卡盘参考/ChatGPT Image 2026年6月4日 02_29_58.png`
+- `DeepSeek previous post-risk review`：旧请求 `20260604_social_editorial_card_post_risk_review` 返回 `blocked_invalid_context_pack`，保留为未通过记录，不改写成 passed。
+- `DeepSeek repaired post-risk review`：已新增并运行更窄的补修复核请求 `codex_log/supply_requests/20260604_社交编辑感卡片参考图补修_post_risk_review_request.json`；请求校验通过，但 controller 仍返回 `blocked_invalid_context_pack`，因此 `deepseek_post_risk_review_status = blocked_invalid_context_pack_pending_fix`、`deepseek_actual_participation = not_attempted_policy_violation`、`not_deepseek_conclusion = true`，不写 passed。
+- `DeepSeek repaired output`：`codex_log/deepseek_supply/20260604_social_editorial_card_reference_repair_post_risk_review/latest_supply_pack.md`。
+- `Codex local validation`：JSON 解析通过；reference path grep 通过；禁止状态推进窄匹配无命中；secret scan 无命中；`git diff --check` 通过；除允许新增的 `references/card_style/social_editorial_card_v1_reference.png` 外，本轮不提交视频 / 音频媒体，不提交 `dist/latest_review_pack/` 或 `public/`。
+- `未推进` 本轮不生成视频，不修改 `dist/latest_review_pack/`，不推进 `content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked`。
+- `日志证据`：`codex_log/20260604_社交编辑感卡片参考图与DeepSeek后置复核补修.md`。
+
 ## 20260604｜16:9 社交编辑感卡片机制补丁
 
 - `task_result.status = mechanism_repair_completed_no_video_generation`
@@ -10,7 +32,9 @@
 - `large_task_gate.triggered = true`
 - `write_lane = serial_only`
 - `visual_reference_image_readable = true`
-- `approved_visual_reference = 素材录制/卡盘参考/ChatGPT Image 2026年6月4日 02_29_58.png`
+- `approved_visual_reference = references/card_style/social_editorial_card_v1_reference.png`
+- `historical_local_source_path = 素材录制/卡盘参考/ChatGPT Image 2026年6月4日 02_29_58.png`
+- `reference_path_corrected_by = codex_log/20260604_社交编辑感卡片参考图与DeepSeek后置复核补修.md`
 - `已确认` 已新增 `social_editorial_card_v1（社交编辑感卡片 V1）`：正式运营卡片默认横屏 `horizontal_16_9 / 1920x1080`，抖音风负责停留感，Ins 风负责干净质感，少量原创体素 / 像素 / 手绘点缀只做记忆点。
 - `已确认` 已补 `judgment_card / summary_card / result_diff_card / prompt_tail_card` 的职责、视觉规则、文本密度、通过 / 失败标准、证据边界和 `copy_change_request` 边界。
 - `已确认` `card_placement_decision` 不固定旧 shot、不固定模板位置；`card_budget_gate` 按信息簇插卡，不按句子机械插卡；卡片密度不得高于真实录屏证据密度。
