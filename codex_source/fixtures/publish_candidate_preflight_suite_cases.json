@@ -171,6 +171,22 @@
       "must_not_write": ["completed", "send_ready_true", "content_validation_passed"]
     },
     {
+      "case_id": "locked_copy_subtitle_truncates_six_lines_blocks",
+      "input_signal": "locked_final_script has six short lines, but final subtitle / burned subtitle source keeps only the first four lines",
+      "expected_gate": "locked_copy_diff_preflight",
+      "expected_status": "blocked",
+      "expected_reason": "subtitle_truncates_locked_copy",
+      "must_not_write": ["completed", "publish_candidate_ready_for_human_review_true", "send_ready_true", "content_validation_passed"]
+    },
+    {
+      "case_id": "locked_copy_split_subtitle_full_text_passes",
+      "input_signal": "locked_final_script is split across multiple subtitle cues, but every semantic line is present in final.srt/final.ass/burned subtitle source",
+      "expected_gate": "locked_copy_diff_preflight",
+      "expected_status": "passed",
+      "expected_reason": "allowed_subtitle_segmentation_diff",
+      "must_not_write": ["send_ready_true", "content_validation_passed"]
+    },
+    {
       "case_id": "full_mp4_exists_but_preflight_missing_not_completed",
       "input_signal": "full.mp4 exists but one or more required preflight reports are missing",
       "expected_gate": "completion_truth_preflight",

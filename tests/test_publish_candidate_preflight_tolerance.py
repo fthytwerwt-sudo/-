@@ -40,6 +40,49 @@ def _line_group(index: int, **overrides: object) -> dict:
     return group
 
 
+def _six_line_locked_copy() -> dict:
+    return {
+        "locked_title": "Codex 到底能不能帮普通人赚钱？",
+        "locked_opening_line": "有人选品。",
+        "locked_final_script": "\n".join(
+            [
+                "有人选品。",
+                "有人剪视频。",
+                "有人看数据。",
+                "有人复盘。",
+                "有人整理素材。",
+                "有人做下一版测试。",
+            ]
+        ),
+        "allowed_copy_changes": ["标点", "换行", "字幕分句", "TTS 停顿"],
+        "forbidden_copy_changes": ["删除句子", "改核心判断", "改标题"],
+        "copy_change_request_required_if_needed": True,
+    }
+
+
+def _locked_copy_full_payload() -> dict:
+    locked = _six_line_locked_copy()
+    script = locked["locked_final_script"]
+    return {
+        "timeline": {"line_groups": [{"line_group_id": "L25", "narration_text": script}]},
+        "tts_route_report": {"segment_reports": [{"line_group_id": "L25", "tts_text": script}]},
+        "card_placement": {
+            "card_groups": [
+                {
+                    "line_group_id": "L01",
+                    "card_role": "title_card",
+                    "card_text": {"title": locked["locked_title"], "subtitle": "真实测试"},
+                },
+                {
+                    "line_group_id": "L25",
+                    "card_role": "judgment_card",
+                    "card_text": {"title": "有人复盘", "subtitle": "有人整理素材"},
+                },
+            ]
+        },
+    }
+
+
 class PublishCandidateToleranceTests(unittest.TestCase):
     def test_near_equivalent_one_non_core_line_allowed(self) -> None:
         groups = [_line_group(index) for index in range(1, 21)]
@@ -107,6 +150,80 @@ class PublishCandidateToleranceTests(unittest.TestCase):
         self.assertEqual(result["status"], "passed")
         self.assertTrue(result["publish_candidate_ready_for_human_review"])
         self.assertFalse(result["send_ready_allowed"])
+
+    def test_locked_copy_subtitle_truncation_blocks(self) -> None:
+        locked = _six_line_locked_copy()
+        payload = _locked_copy_full_payload()
+        truncated_subtitle = "\n".join(
+            [
+                "有人选品。",
+                "有人剪视频。",
+                "有人看数据。",
+                "有人复盘。",
+            ]
+        )
+
+        result = preflight_module.locked_copy_diff_preflight(
+            locked,
+            {},
+            {},
+            {},
+            None,
+            timeline=payload["timeline"],
+            tts_route_report=payload["tts_route_report"],
+            final_srt_text=truncated_subtitle,
+            final_ass_text=f"Dialogue: 0,0:00:00.00,0:00:04.00,Default,,0,0,0,,{truncated_subtitle}",
+            burned_subtitle_text=truncated_subtitle,
+            card_placement=payload["card_placement"],
+        )
+
+        self.assertEqual(result["status"], "blocked")
+        self.assertIn("subtitle_copy_match", result["failed_subchecks"])
+        subtitle_result = result["subchecks"]["subtitle_copy_match"]
+        self.assertEqual(subtitle_result["failure_type"], "subtitle_truncates_locked_copy")
+        self.assertEqual(subtitle_result["missing_text"], "有人整理素材。有人做下一版测试。")
+
+    def test_locked_copy_split_subtitle_full_text_passes(self) -> None:
+        locked = _six_line_locked_copy()
+        payload = _locked_copy_full_payload()
+        split_srt = """1
+00:00:00,000 --> 00:00:02,000
+有人选品。
+有人剪视频。
+
+2
+00:00:02,000 --> 00:00:04,000
+有人看数据。
+有人复盘。
+
+3
+00:00:04,000 --> 00:00:06,000
+有人整理素材。
+有人做下一版测试。
+"""
+        split_ass = (
+            "Dialogue: 0,0:00:00.00,0:00:06.00,Default,,0,0,0,,"
+            "有人选品。\\N有人剪视频。\\N有人看数据。\\N有人复盘。\\N有人整理素材。\\N有人做下一版测试。"
+        )
+
+        result = preflight_module.locked_copy_diff_preflight(
+            locked,
+            {},
+            {},
+            {},
+            None,
+            timeline=payload["timeline"],
+            tts_route_report=payload["tts_route_report"],
+            final_srt_text=split_srt,
+            final_ass_text=split_ass,
+            burned_subtitle_text=locked["locked_final_script"],
+            card_placement=payload["card_placement"],
+        )
+
+        self.assertEqual(result["status"], "passed")
+        self.assertEqual(result["subchecks"]["subtitle_copy_match"]["status"], "passed")
+        self.assertEqual(result["subchecks"]["ass_copy_match"]["status"], "passed")
+        self.assertEqual(result["subchecks"]["burned_subtitle_copy_match"]["status"], "passed")
 
 
 if __name__ == "__main__":

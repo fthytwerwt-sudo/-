@@ -205,6 +205,17 @@ def read_json(path: Path | None, label: str) -> tuple[Any | None, list[str]]:
         return None, [f"{label}_json_parse_error:{exc}"]
 
 
+def read_text(path: Path | None, label: str) -> tuple[str, list[str]]:
+    if path is None:
+        return "", [f"{label}_missing"]
+    if not path.exists():
+        return "", [f"{label}_missing:{rel(path)}"]
+    try:
+        return path.read_text(encoding="utf-8"), []
+    except UnicodeDecodeError as exc:
+        return "", [f"{label}_decode_error:{exc}"]
+
+
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -267,9 +278,286 @@ def flatten_text(value: Any) -> str:
 
 
 def normalize_copy(text: str) -> str:
+    text = str(text)
     text = re.sub(r"<break[^>]*>", "", text, flags=re.I)
-    text = re.sub(r"[\s，。！？；：,.!?;:、\"'“”‘’（）()【】\[\]《》<>-]+", "", text)
+    text = re.sub(r"\b(pause|break|silence)\s*[:=]?\s*\d+(\.\d+)?s?\b", "", text, flags=re.I)
+    text = re.sub(r"(停顿|停顿时长|静音)\s*[:=：]?\s*\d+(\.\d+)?秒?", "", text)
+    text = text.replace("≠", "不等于").replace("＝", "等于").replace("=", "等于")
+    text = re.sub(r"[\s，。！？；：,.!?;:、\"'“”‘’（）()【】\[\]《》<>《》「」『』\-—_/\\\\|·]+", "", text)
     return text.lower()
+
+
+def compact_copy(text: str) -> str:
+    return re.sub(r"\s+", "", str(text or "").strip())
+
+
+def sentence_units(text: str) -> list[str]:
+    units: list[str] = []
+    for line in str(text or "").replace("\r\n", "\n").split("\n"):
+        line = line.strip()
+        if not line:
+            continue
+        parts = re.findall(r"[^。！？!?；;]+[。！？!?；;]?", line)
+        if not parts:
+            parts = [line]
+        units.extend(part.strip() for part in parts if part.strip())
+    return units
+
+
+def extract_timeline_narration(timeline: Any) -> str:
+    return "\n".join(flatten_text(group.get("narration_text")) for group in line_groups_from_timeline(timeline))
+
+
+def parse_srt_text(text: str) -> str:
+    lines: list[str] = []
+    for raw in str(text or "").splitlines():
+        line = raw.strip()
+        if not line:
+            continue
+        if line.isdigit():
+            continue
+        if "-->" in line:
+            continue
+        lines.append(line)
+    return "\n".join(lines)
+
+
+def parse_ass_text(text: str) -> str:
+    lines: list[str] = []
+    for raw in str(text or "").splitlines():
+        line = raw.strip()
+        if not line.startswith("Dialogue:"):
+            continue
+        fields = line.split(",", 9)
+        dialogue_text = fields[-1] if fields else line
+        dialogue_text = re.sub(r"\{[^}]*\}", "", dialogue_text)
+        dialogue_text = dialogue_text.replace(r"\N", "\n").replace(r"\n", "\n").replace(r"\h", " ")
+        lines.append(dialogue_text)
+    return "\n".join(lines)
+
+
+def extract_tts_input_text(tts_map: Any, tts_route_report: Any) -> str:
+    texts: list[str] = []
+    if isinstance(tts_route_report, dict):
+        reports = tts_route_report.get("segment_reports")
+        if isinstance(reports, list):
+            for item in reports:
+                if isinstance(item, dict):
+                    text = item.get("tts_text") or item.get("text") or item.get("narration_text")
+                    if text:
+                        texts.append(flatten_text(text))
+        if not texts:
+            text = tts_route_report.get("actual_tts_text") or tts_route_report.get("tts_text")
+            if text:
+                texts.append(flatten_text(text))
+    if not texts and isinstance(tts_map, dict):
+        anchors = tts_map.get("anchors")
+        if isinstance(anchors, list):
+            for item in anchors:
+                if isinstance(item, dict):
+                    text = item.get("tts_text") or item.get("narration_text")
+                    if text:
+                        texts.append(flatten_text(text))
+        if not texts:
+            text = tts_map.get("actual_tts_text") or tts_map.get("tts_text")
+            if text:
+                texts.append(flatten_text(text))
+    return "\n".join(texts)
+
+
+def card_text_entries(card_placement: Any) -> list[dict[str, Any]]:
+    if not isinstance(card_placement, dict):
+        return []
+    groups = card_placement.get("card_groups")
+    if groups is None:
+        groups = card_placement.get("cards")
+    if not isinstance(groups, list):
+        return []
+    entries: list[dict[str, Any]] = []
+    for index, group in enumerate(groups):
+        if not isinstance(group, dict):
+            continue
+        card_text = group.get("card_text")
+        values: list[str] = []
+        if isinstance(card_text, dict):
+            for key in ["title", "subtitle", "body", "footer"]:
+                if card_text.get(key):
+                    values.append(flatten_text(card_text.get(key)))
+            columns = card_text.get("columns")
+            if isinstance(columns, list):
+                values.extend(flatten_text(item) for item in columns)
+        elif card_text:
+            values.append(flatten_text(card_text))
+        entries.append(
+            {
+                "index": index,
+                "line_group_id": str(group.get("line_group_id") or group.get("id") or ""),
+                "card_role": str(group.get("card_role") or group.get("type") or ""),
+                "text_values": [value for value in values if value],
+            }
+        )
+    return entries
+
+
+def timeline_text_by_group(timeline: Any) -> dict[str, str]:
+    bound: dict[str, str] = {}
+    for index, group in enumerate(line_groups_from_timeline(timeline), start=1):
+        group_id = str(group.get("line_group_id") or group.get("id") or f"group_{index}")
+        bound[group_id] = flatten_text(group.get("narration_text"))
+    return bound
+
+
+def primary_title_card_text(card_placement: Any) -> str:
+    entries = card_text_entries(card_placement)
+    if not entries:
+        return ""
+    title_cards = [entry for entry in entries if "title_card" in entry["card_role"]]
+    if not title_cards:
+        return ""
+    first = title_cards[0]
+    return "\n".join(first["text_values"])
+
+
+def compare_locked_text(
+    *,
+    subcheck: str,
+    locked_text: str,
+    actual_text: str,
+    missing_reason: str,
+    diff_type_when_equal: str,
+) -> dict[str, Any]:
+    locked_norm = normalize_copy(locked_text)
+    actual_norm = normalize_copy(actual_text)
+    if not actual_norm:
+        return {
+            "status": "blocked",
+            "diff_type": "missing_actual_text",
+            "allowed": False,
+            "failure_type": missing_reason,
+            "missing_text": compact_copy(locked_text),
+        }
+    if locked_norm == actual_norm:
+        return {
+            "status": "passed",
+            "diff_type": diff_type_when_equal,
+            "allowed": True,
+            "failure_type": "",
+            "missing_text": "",
+        }
+
+    missing_units = [unit for unit in sentence_units(locked_text) if normalize_copy(unit) and normalize_copy(unit) not in actual_norm]
+    failure_type = "unauthorized_semantic_copy_change"
+    failure_prefix = {
+        "subtitle_copy_match": "subtitle",
+        "ass_copy_match": "ass",
+        "tts_input_copy_match": "tts_input",
+        "script_to_timeline_match": "script_to_timeline",
+    }.get(subcheck, subcheck.replace("_match", ""))
+    if actual_norm and locked_norm.startswith(actual_norm):
+        failure_type = f"{failure_prefix}_truncates_locked_copy"
+    elif missing_units:
+        failure_type = f"{failure_prefix}_missing_locked_copy_text"
+    return {
+        "status": "blocked",
+        "diff_type": "unauthorized_semantic_copy_change",
+        "allowed": False,
+        "failure_type": failure_type,
+        "missing_text": compact_copy("".join(missing_units)),
+        "missing_units": missing_units,
+        "locked_normalized_length": len(locked_norm),
+        "actual_normalized_length": len(actual_norm),
+    }
+
+
+def compare_opening_prefix(locked_opening: str, actual_text: str, failure_type: str) -> dict[str, Any]:
+    opening_norm = normalize_copy(locked_opening)
+    actual_norm = normalize_copy(actual_text)
+    if not opening_norm:
+        return {"status": "blocked", "diff_type": "missing_locked_opening_line", "allowed": False, "failure_type": "locked_opening_line_missing"}
+    if not actual_norm:
+        return {"status": "blocked", "diff_type": "missing_actual_text", "allowed": False, "failure_type": failure_type}
+    if actual_norm.startswith(opening_norm):
+        return {"status": "passed", "diff_type": "allowed_linebreak_diff", "allowed": True, "failure_type": ""}
+    return {
+        "status": "blocked",
+        "diff_type": "unauthorized_opening_line_change",
+        "allowed": False,
+        "failure_type": failure_type,
+        "actual_start": actual_text[:80],
+    }
+
+
+def compare_title_card(locked_title: str, card_placement: Any) -> dict[str, Any]:
+    title_text = primary_title_card_text(card_placement)
+    title_norm = normalize_copy(locked_title)
+    actual_norm = normalize_copy(title_text)
+    if not title_norm:
+        return {"status": "blocked", "diff_type": "missing_locked_title", "allowed": False, "failure_type": "locked_title_missing"}
+    if not actual_norm:
+        return {"status": "blocked", "diff_type": "title_card_text_missing", "allowed": False, "failure_type": "title_card_text_missing"}
+    if title_norm in actual_norm:
+        return {"status": "passed", "diff_type": "allowed_card_context_with_locked_title", "allowed": True, "failure_type": "", "actual_title_card_text": title_text}
+    return {
+        "status": "blocked",
+        "diff_type": "unauthorized_title_change",
+        "allowed": False,
+        "failure_type": "unauthorized_title_change",
+        "actual_title_card_text": title_text,
+    }
+
+
+def validate_card_text_semantics(locked_script: str, locked_title: str, locked_opening: str, timeline: Any, card_placement: Any) -> dict[str, Any]:
+    entries = card_text_entries(card_placement)
+    if not entries:
+        return {"status": "blocked", "diff_type": "card_text_source_missing", "allowed": False, "failure_type": "card_text_source_missing", "overreach": []}
+
+    locked_norm = normalize_copy("\n".join([locked_script, locked_title, locked_opening]))
+    bound_text = timeline_text_by_group(timeline)
+    overreach: list[dict[str, Any]] = []
+    checked: list[dict[str, Any]] = []
+    claim_signals = ["赚钱", "不赚钱", "保本", "90", "自动化", "结果", "结论", "生产力", "成本", "转化", "跑通"]
+
+    for entry in entries:
+        group_norm = normalize_copy(bound_text.get(entry["line_group_id"], ""))
+        matched_value_count = 0
+        unmatched_values: list[str] = []
+        for value in entry["text_values"]:
+            value_norm = normalize_copy(value)
+            if not value_norm:
+                continue
+            if value_norm in locked_norm or (group_norm and value_norm in group_norm):
+                matched_value_count += 1
+                continue
+            is_short_label = len(value_norm) <= 12 and not any(signal in value for signal in claim_signals)
+            has_bound_match = matched_value_count > 0
+            if is_short_label or has_bound_match:
+                continue
+            unmatched_values.append(value)
+        if unmatched_values:
+            overreach.append(
+                {
+                    "line_group_id": entry["line_group_id"],
+                    "card_role": entry["card_role"],
+                    "unmatched_text": unmatched_values,
+                }
+            )
+        checked.append(
+            {
+                "line_group_id": entry["line_group_id"],
+                "card_role": entry["card_role"],
+                "text_value_count": len(entry["text_values"]),
+                "matched_value_count": matched_value_count,
+            }
+        )
+
+    return {
+        "status": "blocked" if overreach else "passed",
+        "diff_type": "generated_card_overreach" if overreach else "allowed_non_semantic_card_labels_or_locked_excerpts",
+        "allowed": not overreach,
+        "failure_type": "generated_card_overreach" if overreach else "",
+        "overreach": overreach,
+        "checked_cards": checked,
+    }
 
 
 def truthy(value: Any) -> bool:
@@ -863,7 +1151,20 @@ def visual_evidence_readability_preflight(content_route: Any, summary: Any) -> d
     )
 
 
-def locked_copy_diff_preflight(locked_copy: Any, summary: Any, content_route: Any, tts_map: Any, path: Path | None) -> dict[str, Any]:
+def locked_copy_diff_preflight(
+    locked_copy: Any,
+    summary: Any,
+    content_route: Any,
+    tts_map: Any,
+    path: Path | None,
+    *,
+    timeline: Any = None,
+    tts_route_report: Any = None,
+    final_srt_text: str = "",
+    final_ass_text: str = "",
+    burned_subtitle_text: str = "",
+    card_placement: Any = None,
+) -> dict[str, Any]:
     reasons: list[str] = []
     if not isinstance(locked_copy, dict):
         return blocked_report("locked_copy_diff_preflight", ["locked_copy_contract_missing"], checked_input=rel(path) if path else "")
@@ -879,25 +1180,70 @@ def locked_copy_diff_preflight(locked_copy: Any, summary: Any, content_route: An
         reasons.append("locked_final_script_missing")
 
     payloads = [summary, content_route, tts_map]
-    actual_subtitle = ""
-    actual_tts = ""
-    actual_card = ""
+    fallback_subtitle = ""
+    fallback_tts = ""
+    fallback_card = ""
     for payload in payloads:
         if isinstance(payload, dict):
-            actual_subtitle = actual_subtitle or flatten_text(payload.get("actual_subtitle_text") or payload.get("subtitle_text"))
-            actual_tts = actual_tts or flatten_text(payload.get("actual_tts_text") or payload.get("tts_text"))
-            actual_card = actual_card or flatten_text(payload.get("actual_card_text") or payload.get("card_text"))
+            fallback_subtitle = fallback_subtitle or flatten_text(payload.get("actual_subtitle_text") or payload.get("subtitle_text"))
+            fallback_tts = fallback_tts or flatten_text(payload.get("actual_tts_text") or payload.get("tts_text"))
+            fallback_card = fallback_card or flatten_text(payload.get("actual_card_text") or payload.get("card_text"))
 
-    if not actual_subtitle:
-        reasons.append("actual_subtitle_text_missing")
-    if not actual_tts:
-        reasons.append("actual_tts_text_missing")
-    if locked_script and actual_subtitle and normalize_copy(locked_script) != normalize_copy(actual_subtitle):
-        reasons.append("semantic_diff_detected:subtitle")
-    if locked_script and actual_tts and normalize_copy(locked_script) != normalize_copy(actual_tts):
-        reasons.append("semantic_diff_detected:tts")
-    if locked_title and actual_card and normalize_copy(locked_title) not in normalize_copy(actual_card + locked_title):
-        reasons.append("card_text_changes_core_claim")
+    timeline_text = extract_timeline_narration(timeline)
+    tts_input_text = extract_tts_input_text(tts_map, tts_route_report) or fallback_tts
+    srt_text = parse_srt_text(final_srt_text) or fallback_subtitle
+    ass_text = parse_ass_text(final_ass_text)
+    burned_text = burned_subtitle_text
+    if card_placement is None and fallback_card:
+        card_placement = {"card_groups": [{"card_role": "unknown", "card_text": fallback_card}]}
+
+    subchecks = {
+        "script_to_timeline_match": compare_locked_text(
+            subcheck="script_to_timeline_match",
+            locked_text=locked_script,
+            actual_text=timeline_text,
+            missing_reason="script_to_timeline_map_narration_text_missing",
+            diff_type_when_equal="allowed_linebreak_diff",
+        ),
+        "tts_input_copy_match": compare_locked_text(
+            subcheck="tts_input_copy_match",
+            locked_text=locked_script,
+            actual_text=tts_input_text,
+            missing_reason="tts_input_text_missing",
+            diff_type_when_equal="allowed_tts_pause_diff",
+        ),
+        "subtitle_copy_match": compare_locked_text(
+            subcheck="subtitle_copy_match",
+            locked_text=locked_script,
+            actual_text=srt_text,
+            missing_reason="final_srt_text_missing",
+            diff_type_when_equal="allowed_subtitle_segmentation_diff",
+        ),
+        "ass_copy_match": compare_locked_text(
+            subcheck="ass_copy_match",
+            locked_text=locked_script,
+            actual_text=ass_text,
+            missing_reason="final_ass_text_missing",
+            diff_type_when_equal="allowed_subtitle_segmentation_diff",
+        ),
+        "burned_subtitle_copy_match": compare_locked_text(
+            subcheck="subtitle_copy_match",
+            locked_text=locked_script,
+            actual_text=burned_text,
+            missing_reason="burned_subtitle_source_text_missing",
+            diff_type_when_equal="allowed_subtitle_segmentation_diff",
+        ),
+        "opening_line_diff_check": compare_opening_prefix(
+            locked_opening,
+            "\n".join([timeline_text, tts_input_text, srt_text, ass_text]),
+            "unauthorized_opening_line_change",
+        ),
+        "title_diff_check": compare_title_card(locked_title, card_placement),
+        "card_text_semantic_match": validate_card_text_semantics(locked_script, locked_title, locked_opening, timeline, card_placement),
+    }
+
+    failed_subchecks = sorted(name for name, result in subchecks.items() if result.get("status") != "passed")
+    reasons.extend(f"{name}:{subchecks[name].get('failure_type') or subchecks[name].get('diff_type')}" for name in failed_subchecks)
 
     return blocked_report(
         "locked_copy_diff_preflight",
@@ -907,12 +1253,20 @@ def locked_copy_diff_preflight(locked_copy: Any, summary: Any, content_route: An
             "locked_title_present": bool(locked_title),
             "locked_opening_line_present": bool(locked_opening),
             "locked_final_script_present": bool(locked_script),
-            "actual_subtitle_text_present": bool(actual_subtitle),
-            "actual_tts_text_present": bool(actual_tts),
-            "actual_card_text_present": bool(actual_card),
+            "script_to_timeline_narration_text_present": bool(timeline_text),
+            "actual_tts_text_present": bool(tts_input_text),
+            "final_srt_text_present": bool(srt_text),
+            "final_ass_text_present": bool(ass_text),
+            "burned_subtitle_source_text_present": bool(burned_text),
+            "actual_card_text_present": bool(card_text_entries(card_placement)),
         },
-        check_depth="structural_check_only",
-        warnings=["Allowed punctuation, line breaks, subtitle segmentation, and TTS pause marker changes are normalized before comparison."],
+        subchecks=subchecks,
+        failed_subchecks=failed_subchecks,
+        check_depth="implemented_locked_copy_diff",
+        warnings=[
+            "Allowed punctuation, line breaks, subtitle segmentation, and TTS pause marker changes are normalized before comparison.",
+            "Missing/truncated locked script units in timeline, TTS input, SRT, ASS, burned subtitle source, or card text block publish candidate completion.",
+        ],
     )
 
 
@@ -1062,9 +1416,14 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
 
     timeline, _ = read_json(args.script_to_timeline_map, "script_to_timeline_map")
     tts_map, _ = read_json(args.tts_prosody_anchor_map, "tts_prosody_anchor_map")
+    tts_route_report, _ = read_json(args.tts_route_report, "tts_route_report")
     locked_copy, _ = read_json(args.locked_copy_contract, "locked_copy_contract")
     content_route, _ = read_json(args.content_route_card, "content_route_card")
+    card_placement, _ = read_json(args.card_placement_decision, "card_placement_decision")
     summary, _ = read_json(args.summary_json, "summary_json")
+    final_srt_text, _ = read_text(args.final_srt, "final_srt")
+    final_ass_text, _ = read_text(args.final_ass, "final_ass")
+    burned_subtitle_text, _ = read_text(args.burned_subtitle_text, "burned_subtitle_text")
 
     reports = [
         run_material_parse_pack_reuse_gate(
@@ -1089,7 +1448,19 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         card_decision_preflight(content_route, args.content_route_card),
         forbidden_action_preflight(summary, content_route, locked_copy, tts_map),
         visual_evidence_readability_preflight(content_route, summary),
-        locked_copy_diff_preflight(locked_copy, summary, content_route, tts_map, args.locked_copy_contract),
+        locked_copy_diff_preflight(
+            locked_copy,
+            summary,
+            content_route,
+            tts_map,
+            args.locked_copy_contract,
+            timeline=timeline,
+            tts_route_report=tts_route_report,
+            final_srt_text=final_srt_text,
+            final_ass_text=final_ass_text,
+            burned_subtitle_text=burned_subtitle_text,
+            card_placement=card_placement,
+        ),
         publish_candidate_user_standard_preflight(summary),
     ]
     reports.append(completion_truth_preflight(reports, args.review_pack, summary))
@@ -1147,8 +1518,13 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--summary-json", type=Path, help="Candidate summary.json.")
     parser.add_argument("--script-to-timeline-map", type=Path, help="script_to_timeline_map JSON.")
     parser.add_argument("--tts-prosody-anchor-map", type=Path, help="tts_prosody_anchor_map JSON.")
+    parser.add_argument("--tts-route-report", type=Path, help="Actual TTS route report JSON containing segment input text.")
     parser.add_argument("--locked-copy-contract", type=Path, help="locked_copy_contract JSON.")
     parser.add_argument("--content-route-card", type=Path, help="content_route_card_v2 JSON.")
+    parser.add_argument("--card-placement-decision", type=Path, help="card_placement_decision JSON containing actual card text.")
+    parser.add_argument("--final-srt", type=Path, help="Final SRT subtitle file.")
+    parser.add_argument("--final-ass", type=Path, help="Final ASS subtitle file.")
+    parser.add_argument("--burned-subtitle-text", type=Path, help="Text file with exact burned subtitle overlay source / function output.")
     parser.add_argument("--material-detail-report", type=Path, help="material_detail_report Markdown.")
     parser.add_argument("--material-parse-pack", type=Path, help="material_parse_pack JSON.")
     parser.add_argument("--source-segment-inventory", type=Path, help="source_segment_inventory JSON.")
