@@ -241,11 +241,13 @@ codex_must_do:
   - 先通过 card_budget_gate 控制主卡数量，再通过 cluster_merge_rule 把同一文案功能的 1-5 个 line_group 合并成一个信息簇
   - 判断 data_result_card 是否有真实数据、AI 判断、下一步变量和验证指标支撑
   - 判断是否要求 HyperFrames 动效基线
+  - 判断是否套用 `social_editorial_card_v1`，并填写 aspect_ratio、style_tokens、visual_reference、card_visual_quality_gate、card_failure_route
 codex_must_not_do:
   - 不得先固定旧 shot、旧 template 或旧 reference 时间点
   - 不得让卡片抢中段真实证据窗口
   - 不得看到一句数据、判断或总结就插一张卡
   - 不得把指标名称、缺失字段或推测写成 data_result_card 的真实数据
+  - 不得把 9:16 竖屏卡片、PPT、机械游戏 UI、工程面板或静态 fallback 写成当前默认卡片完成
 change_request_if:
   - 卡片文案需要语义改写才能承载
 blocked_if:
@@ -255,12 +257,14 @@ blocked_if:
   - cluster_merge_rule missing
   - data_result_card selected without real_metric_values or clear data source
   - HyperFrames required but runtime missing and no user authorization for fallback
+  - social_editorial_card_v1 visual gate failed and no repair path selected
 record_to:
   - content_route_card V2.card_placement_decision
   - script_to_timeline_map.card_text_if_any
 validation_rule:
   - 每张卡片必须有 copy_function、evidence_dependency、interrupt_risk 和 blocked_if
   - 若总卡数超预算，优先保留 data_result_card、key_judgment_card、ending_summary_card、boundary_card，再保留 process_summary_card
+  - 判断卡 / 总结卡 / 结果差卡 / Prompt 尾卡都必须说明需要或不需要，prompt 未提不是不需要理由
 ```
 
 ### 4.2A data_result_card（数据成果卡）
@@ -301,19 +305,23 @@ codex_must_do:
   - 判断是否需要强化核心判断句 / 关键定性句
   - 若选择 judgment_card，默认触发 hyperframes_card_motion_baseline
   - 绑定 line_group_id 与 copy_function = core_claim / judgment / boundary_statement
+  - 按 social_editorial_card_v1 检查 16:9、大字主判断、1-2 行主信息、1-2 个重点词和少量点缀
 codex_must_not_do:
   - 不得改写判断句语义
   - 不得把 judgment_card 写成真实证据、平台数据或 content_validation 通过
+  - 不得做成 PPT 标题页、机械控制面板、大字报或信息列表
 change_request_if:
   - 判断句本身需要改写、缩短或换语气
 blocked_if:
   - judgment_card 会打断证据窗口
   - HyperFrames runtime missing and HyperFrames required
+  - card_visual_quality_gate failed
 record_to:
   - card_placement_decision.card_plan
   - hyperframes_card_motion_baseline
 validation_rule:
   - 加与不加都必须说明依据；加卡必须通过 card_text_semantic_match
+  - 1 秒内看清核心判断，3 秒内明白这张卡在定性
 ```
 
 ### 4.4 summary_card（总结卡）
@@ -325,19 +333,23 @@ codex_must_do:
   - 判断是否需要收束观点、给最小行动、帮助观众记住本条内容
   - 若选择 summary_card，默认触发 hyperframes_card_motion_baseline
   - 如果结尾一句话已自然收住，可不强插，但必须说明理由
+  - 按 social_editorial_card_v1 控制为 1 个主结论、最多 3 条轻要点、最多 1 条低压行动
 codex_must_not_do:
   - 不得每条视频固定强插 summary_card
   - 不得替代 Prompt 尾卡职责
   - 不得写成内容通过或可发送证据
+  - 不得做成课程总结 PPT、复盘报告页、dashboard 或强卖课结尾
 change_request_if:
   - 结尾句需要语义重写才能成立
 blocked_if:
   - summary_card 会覆盖关键证据、字幕或 OCR
   - HyperFrames required but unavailable
+  - card_visual_quality_gate failed
 record_to:
   - content_route_card V2.card_placement_decision.summary_card_usage
 validation_rule:
   - evidence_window_closed = true，且不新增素材里没有的数据结论
+  - 观众能记住一句核心结论，且不压过结尾口播
 ```
 
 ### 4.5 result_diff_card（结果差卡）
@@ -348,18 +360,23 @@ codex_permission: must_decide_and_execute
 codex_must_do:
   - 判断是否需要翻译前后差异、普通做法 vs 改进做法
   - 只呈现素材已经证明的可感知差异
+  - 按 social_editorial_card_v1 检查左右对比 / VS / 分区是否一眼能看懂
 codex_must_not_do:
   - 不得新增素材里没有的数据结论
   - 不得冒充真实平台数据或密集 dashboard
+  - 不得用结果差卡替代真实前后对比素材
 change_request_if:
   - 口播结果差和素材证据不一致
 blocked_if:
   - result_diff_is_claimed_but_evidence_missing
+  - data_source_unclear
+  - card_visual_quality_gate failed
 record_to:
   - card_placement_decision.card_plan
   - material_evidence
 validation_rule:
   - 差异必须回指素材、截图、时间码或真实数据来源
+  - before_side / after_side 各最多 3 点，结论最多 1 句
 ```
 
 ### 4.6 boundary_card（边界卡）
@@ -416,16 +433,59 @@ codex_permission: must_decide_and_execute
 codex_must_do:
   - 判断是否需要低压承接 prompt / 工作包 / 资料包入口
   - 保持 1-2 行核心提示，不承担主叙事
+  - 按 social_editorial_card_v1 检查尾卡轻 CTA、低压承接和主叙事结束状态
 codex_must_not_do:
   - 不得做第二个主结尾、强卖课 CTA 或完整教程页
+  - 不得把 Prompt 尾卡做成新的主内容或强关注广告页
 change_request_if:
   - 尾卡文字需要新增文案语义
 blocked_if:
   - prompt_tail_card 抢 summary_card 或 result_diff_card 的职责
+  - main_story_not_finished
+  - card_visual_quality_gate failed
 record_to:
   - content_route_card V2.prompt_tail_card_usage
 validation_rule:
   - prompt_tail_card 只引用，不做主结论
+```
+
+### 4.7A social_editorial_card_v1（社交编辑感卡片视觉权限）
+
+```text
+judgment_object: social_editorial_card_v1
+codex_permission: must_decide_and_execute / must_decide_and_block / must_escalate_to_chatgpt_or_user
+codex_must_do:
+  - 判断卡片默认是否为 horizontal_16_9 / 1920x1080
+  - 对 judgment_card / summary_card / result_diff_card / prompt_tail_card 运行 card_visual_quality_gate
+  - 对卡片文案运行 card_content_boundary_gate 和 locked_copy_semantic_match
+  - 对卡片密度运行 card_budget_gate 和 cluster_merge_rule
+  - 对真实录屏窗口运行 evidence_window_protection_check
+  - 记录 approved visual reference 是否可读；不可读时只能基于文字契约执行并标明 visual_reference_image_readable=false
+codex_must_not_do:
+  - 不得复用官方 Minecraft logo / fonts / textures / models / sounds 或可识别官方资产
+  - 不得照抄参考图中的具体文案、人物形象、图标或固定排版位置
+  - 不得把机械游戏 UI、科幻 HUD、工程后台、PPT 或低质模板当成社交编辑感
+  - 不得把卡片视觉更好看写成 content_validation、send_ready 或 visual_master_locked 推进
+change_request_if:
+  - locked copy 太长、语义不适合卡片或必须改文案才能排版
+  - 需要新增素材里没有的数据、结果差、平台指标或结论
+blocked_if:
+  - card_ratio_mismatch
+  - card_evidence_interruption
+  - card_text_semantic_mismatch and cannot restore locked copy
+  - HyperFrames required but runtime missing and no user authorization for static fallback
+  - official_or_third_party_asset_required
+escalate_if:
+  - card_aesthetic_issue needs final human taste judgment
+  - approved visual reference cannot be compared and user requires exact visual judgment
+record_to:
+  - content_route_card V2.card_placement_decision.social_editorial_card_style
+  - card_execution_report.card_visual_quality_gate
+  - card_failure_route
+  - card_feedback_update
+validation_rule:
+  - pass 只代表 pre-publish human quality gate，不代表内容验证通过
+  - failed card route must be blocked / human_review_required / merge_or_drop / copy_change_request, not completed
 ```
 
 ### 4.8 script_to_timeline_map（文案到时间线映射）

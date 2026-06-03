@@ -1,0 +1,108 @@
+{
+  "request_id": "20260604_social_editorial_card_post_risk_review",
+  "created_at": "2026-06-04T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "social_editorial_card_v1_mechanism_post_risk_review",
+  "task_type": "mechanism_repair_task",
+  "trigger_reason": "mandatory_post_risk_review",
+  "action": "risk_report",
+  "mandatory_for_every_task": true,
+  "participation_level": "default_required",
+  "pre_supply_required": false,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "requires_real_deepseek_participation": false,
+  "allow_process_env_api_key": true,
+  "disable_env_file": true,
+  "safe_call_mode": "project_runtime_provider",
+  "current_goal": "复核 social_editorial_card_v1 机制补丁是否存在状态偷换、遗漏同步、旧 9:16 残留或禁止改动风险。",
+  "current_step": "post_risk_review_after_mechanism_edit",
+  "known_context": [
+    "本轮已修改机制文件、fixture、latest 和 dated log。",
+    "本轮未生成视频，未修改 dist/latest_review_pack，未推进 content_validation / send_ready / visual_master_locked。",
+    "存在 untracked public/，不属于本轮提交范围。"
+  ],
+  "missing_context": [
+    "最终 git commit / push / remote HEAD verification 尚未完成。",
+    "最终 secret scan 与 grep check 尚未完成。"
+  ],
+  "decision_needed": "检查 Codex 是否还需要补同步入口、阻断状态字段或 fixture 验证。",
+  "candidate_files": [
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/03_总索引与阅读顺序.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+    "codex_source/21_codex_judgment_permission_matrix.md",
+    "codex_source/fixtures/mechanism_inference_function_cases.json",
+    "codex_log/latest.md",
+    "codex_log/20260604_社交编辑感卡片机制_social_editorial_card_mechanism.md"
+  ],
+  "must_read_files": [
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "codex_source/21_codex_judgment_permission_matrix.md",
+    "codex_source/fixtures/mechanism_inference_function_cases.json"
+  ],
+  "optional_files": [
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/03_总索引与阅读顺序.md",
+    "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+    "codex_log/latest.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "*.mp4",
+    "*.mov",
+    "*.mp3",
+    "*.wav",
+    "public/",
+    "视频工厂归档+删除"
+  ],
+  "max_context_files": 10,
+  "max_context_chars": 32000,
+  "expected_output": [
+    "status_promotion_risk",
+    "forbidden_change_risk",
+    "missed_sync_files",
+    "fallback_mislabel_risk",
+    "remaining_work"
+  ],
+  "output_format": "json_object",
+  "codex_next_input": "Codex should fix any missing sync or validation issue before commit.",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_supply_controller/20260604_social_editorial_card_post_risk_review",
+    "latest_supply_pack_md": "latest_supply_pack.md",
+    "latest_supply_pack_json": "latest_supply_pack.json",
+    "latest_supply_manifest_json": "latest_supply_manifest.json"
+  },
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback_local_only 写成 DeepSeek 结论。",
+    "不得写 multi-agent runtime / 多 agent 运行时已跑通。",
+    "不得读取、输出或复述 API key / secret / token。",
+    "不得推进 content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked。"
+  ],
+  "stop_condition": "输出执行后风险复核，或明确 blocked / fallback 边界。",
+  "blocked_if": [
+    "forbidden_status_promotion_detected",
+    "required_sync_file_missing",
+    "fixture_json_invalid",
+    "secret_or_key_output_detected",
+    "unrelated_dirty_files_need_commit"
+  ],
+  "fallback_policy": "fallback_local_only 可用于补充本地复核，但不得写成 DeepSeek 结论。"
+}

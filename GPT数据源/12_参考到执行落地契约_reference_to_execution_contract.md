@@ -215,6 +215,11 @@ copywriting_task:
 visual_task:
   must produce visual_reference_contract before image / card / layout generation
 
+card_visual_reference_task:
+  must produce card_visual_reference_contract before judgment_card / summary_card / result_diff_card / prompt_tail_card generation or validation
+  must bind social_editorial_card_v1 when user confirms 16:9 Douyin + Ins social editorial direction
+  must separate reference quality points from copied text / copied character / copied layout
+
 voice_task:
   must produce voice_reference_contract before TTS / voice validation
 
@@ -227,8 +232,93 @@ quality_review_task:
 - `editing_task（剪辑任务）`：先说明 reference 的节奏、切点、证据窗口、不能偏离的观感，再决定放大、裁切、定格、插卡或不动。
 - `copywriting_task（文案任务）`：先提取原感、句式、情绪、信息层级和不可丢失的用户目标，再写成稿。
 - `visual_task（视觉任务）`：先锁视觉外壳职责、密度、角色权重、卡片层级和禁用效果，再生成图片 / 卡片 / layout。
+- `card_visual_reference_task（卡片视觉参考任务）`：先锁 `social_editorial_card_v1（社交编辑感卡片 V1）` 的横屏比例、信息密度、字体层级、社交编辑感、证据保护和失败路由，再生成或验收判断卡 / 总结卡 / 结果差卡 / Prompt 尾卡。
 - `voice_task（声音任务）`：先拆 `tts_pacing_reference（TTS 节奏参考）` 与 `tts_voice_reference（TTS 音色参考）`，不得把候选音色写成最终通过。
 - `quality_review_task（质量复审任务）`：先用 reference contract 定义 pass / fail 的对照点，再做质量判断。
+
+## 7A. card_visual_reference_contract（卡片视觉参考契约）
+
+当用户给出或确认卡片视觉参考图、卡片 reference、卡片样片或“按这个卡片效果做”时，必须先输出本契约，再进入卡片生成或卡片验收。
+
+```text
+card_visual_reference_contract:
+  reference_anchor:
+    reference_id:
+    reference_type:
+      - card_visual_reference
+      - social_editorial_card_reference
+    source_layer:
+      - user_approved_visual_reference
+      - repo_locked_reference
+    exact_reference_available:
+    reference_path_or_description:
+    reference_role: visual_quality_anchor_only
+    blocked_if_reference_missing:
+  effect_targets:
+    aspect_ratio_default: horizontal_16_9
+    resolution_default: 1920x1080
+    forbidden_default: vertical_9_16
+    visual_feel:
+      - douyin_retention_feel
+      - instagram_clean_editorial_feel
+      - low_saturation_quality
+      - social_short_video_component
+    typography_hierarchy:
+      main_claim_readable_within_1s: true
+      supporting_text_understandable_within_3s: true
+      highlight_words_max: 2
+    decorative_weight:
+      allowed_minor_elements:
+        - original_voxel_character
+        - pixel_heart
+        - doodle_line
+        - rounded_pill_tag
+      must_not_dominate_main_information: true
+    must_not_feel_like:
+      - ppt_page
+      - engineering_dashboard
+      - mechanical_game_ui
+      - cyber_hud
+      - cheap_template
+  function_fields:
+    target_cards:
+      - judgment_card
+      - summary_card
+      - result_diff_card
+      - prompt_tail_card
+    card_placement_decision_required: true
+    card_budget_gate_required: true
+    evidence_window_protection_required: true
+    locked_copy_semantic_match_required: true
+    hyperframes_runtime_gate_required_if_judgment_or_summary_selected: true
+    static_fallback_requires_user_authorization: true
+    copy_change_request_required_if_text_needs_semantic_rewrite: true
+  deviation_check:
+    differs_from_reference_where:
+    acceptable_variation:
+      - different_copy
+      - different_character
+      - different_icon
+      - different_layout_position
+      - locally_adjusted_card_count
+    unacceptable_deviation:
+      - vertical_9_16_default
+      - ppt_feel
+      - mechanical_game_ui
+      - dashboard_feel
+      - main_information_not_readable
+      - evidence_window_covered
+      - copied_third_party_asset
+  done_when:
+    - reference_anchor_locked
+    - effect_targets_filled
+    - function_fields_filled
+    - card_visual_quality_gate_done
+    - card_content_boundary_gate_done
+    - no_forbidden_status_promotion
+```
+
+已确认参考图：`素材录制-卡片参考-ChatGPT Image 2026年6月4日 02_29_58` 只锁视觉方向，不锁具体文案、具体人物、具体图标、具体排版位置或任何第三方可识别资产。
 
 ## 8. Deviation Check（偏离检查）
 

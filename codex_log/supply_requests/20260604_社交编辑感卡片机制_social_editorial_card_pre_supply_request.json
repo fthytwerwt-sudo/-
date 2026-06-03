@@ -1,0 +1,140 @@
+{
+  "request_id": "20260604_social_editorial_card_pre_supply",
+  "created_at": "2026-06-04T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "social_editorial_card_v1_mechanism_repair",
+  "task_type": "mechanism_repair_task",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "file_map",
+  "mandatory_for_every_task": true,
+  "participation_level": "default_required",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "requires_real_deepseek_participation": false,
+  "allow_process_env_api_key": true,
+  "disable_env_file": true,
+  "safe_call_mode": "project_runtime_provider",
+  "runtime_provider": {
+    "provider_name": "deepseek_runtime_provider",
+    "auto_load_enabled": true,
+    "inject_to_child_process_only": true,
+    "never_print_key": true,
+    "never_write_key": true,
+    "blocked_if_provider_not_ready": false
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "file_scope": [
+      "GPT数据源/01_项目系统提示词.md",
+      "GPT数据源/03_总索引与阅读顺序.md",
+      "GPT数据源/05_文案路由规则.md",
+      "GPT数据源/07_AI知识类视频价值规则.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+      "codex_source/21_codex_judgment_permission_matrix.md",
+      "codex_source/fixtures/mechanism_inference_function_cases.json",
+      "codex_log/latest.md"
+    ],
+    "content_loading_policy": "load_relevant_card_mechanism_sections_only",
+    "codex_minimal_review_policy": [
+      "Codex must re-read original files before editing.",
+      "Codex must verify fixture JSON after editing.",
+      "Codex must verify no forbidden status promotion."
+    ],
+    "output_required": [
+      "relevant_file_bundle",
+      "exact_snippet_pack",
+      "dependency_map",
+      "risk_and_conflict_report",
+      "missing_or_uncertain_files",
+      "codex_next_input"
+    ]
+  },
+  "current_goal": "找出 16:9 社交编辑感卡片机制应补到哪些入口，并提示旧 9:16 / PPT / 机械 UI / HyperFrames 死锁等风险。",
+  "current_step": "pre_supply_before_mechanism_edit",
+  "known_context": [
+    "本轮只补机制，不生成完整视频。",
+    "当前正式运营默认横屏 16:9 / 1920x1080。",
+    "用户已确认 social_editorial_card_v1：抖音停留感 + Ins 干净感 + 少量体素可爱点缀。",
+    "卡片不得替代中段真实录屏证据，不得改写 locked copy，不得推进 content_validation / send_ready / visual_master_locked。"
+  ],
+  "missing_context": [
+    "DeepSeek runtime token usage evidence until safe runner returns.",
+    "Post-edit risk review until edits are complete."
+  ],
+  "decision_needed": "确认机制补丁应如何落在 card_placement_decision / card_visual_quality_gate / card_failure_route / card_feedback_update 和 fixture 中。",
+  "candidate_files": [
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+    "codex_source/21_codex_judgment_permission_matrix.md",
+    "codex_source/fixtures/mechanism_inference_function_cases.json",
+    "codex_log/latest.md"
+  ],
+  "must_read_files": [
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+    "codex_source/21_codex_judgment_permission_matrix.md"
+  ],
+  "optional_files": [
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/03_总索引与阅读顺序.md",
+    "codex_log/latest.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "*.mp4",
+    "*.mov",
+    "*.mp3",
+    "*.wav",
+    "public/",
+    "视频工厂归档+删除"
+  ],
+  "max_context_files": 9,
+  "max_context_chars": 30000,
+  "expected_output": [
+    "impact_risk_notes",
+    "must_update_files",
+    "conflict_or_old_residue",
+    "fixture_update_hint",
+    "status_boundary_check"
+  ],
+  "output_format": "json_object",
+  "codex_next_input": "Codex should add local mechanism patches only, keep status boundaries unchanged, validate JSON/grep, then commit/push/readback.",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_supply_controller/20260604_social_editorial_card_pre_supply",
+    "latest_supply_pack_md": "latest_supply_pack.md",
+    "latest_supply_pack_json": "latest_supply_pack.json",
+    "latest_supply_manifest_json": "latest_supply_manifest.json"
+  },
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback_local_only 写成 DeepSeek 结论。",
+    "不得写 multi-agent runtime / 多 agent 运行时已跑通。",
+    "不得读取、输出或复述 API key / secret / token。",
+    "不得推进 content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked。"
+  ],
+  "stop_condition": "DeepSeek 真实调用返回 deepseek_passed，或 safe runner 输出 runtime_setup_required / fallback boundary。",
+  "blocked_if": [
+    "key_file_or_secret_needed",
+    "forbidden_path_required",
+    "required_mechanism_file_missing",
+    "status_promotion_required"
+  ],
+  "fallback_policy": "fallback_local_only 可用于继续本轮机制补丁，但最终报告必须写 not_deepseek_conclusion=true。"
+}

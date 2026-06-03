@@ -2,7 +2,7 @@
   "schema": "mechanism_inference_function_cases_v1",
   "description": "Minimum fixture cases for editing_inference_function, content_route_inference_function, and quality_issue_classifier in 视频工厂 OPC project.",
   "created_at": "2026-05-12T00:00:00+08:00",
-  "updated_at": "2026-05-27T00:00:00+08:00",
+  "updated_at": "2026-06-04T00:00:00+08:00",
   "project_route": "video_factory",
   "status_boundary": {
     "content_validation": "not_changed",
@@ -1941,6 +1941,66 @@
         "publish_candidate_required_inventory",
         "remaining_work_check",
         "completion_state = continue_or_blocked"
+      ]
+    },
+    {
+      "case_id": "social_editorial_card_v1_preflight_requires_16_9_quality_and_no_status_promotion",
+      "function_name": "social_editorial_card_v1_gate",
+      "case_type": "mechanism_repair_flow",
+      "input_signal": [
+        "用户确认 16:9 横屏抖音风 + Ins 风社交编辑感卡片方向。",
+        "本轮只补判断卡、总结卡、结果差卡和 Prompt 引用尾卡机制，不生成视频。"
+      ],
+      "observed_evidence": {
+        "task_type": "mechanism_repair_task",
+        "approved_visual_reference_id": "素材录制-卡片参考-ChatGPT Image 2026年6月4日 02_29_58",
+        "visual_reference_image_readable": true,
+        "default_aspect_ratio": "horizontal_16_9",
+        "forbidden_default": "vertical_9_16",
+        "card_types": [
+          "judgment_card",
+          "summary_card",
+          "result_diff_card",
+          "prompt_tail_card"
+        ],
+        "status_promotion_allowed": false
+      },
+      "expected_state_inference": [
+        "social_editorial_card_visual_gate_required",
+        "mechanism_repair_needed",
+        "card_decision_preflight_required"
+      ],
+      "expected_action_policy": [
+        "write_social_editorial_card_v1_contract",
+        "require_card_placement_decision_without_fixed_old_shot",
+        "require_card_budget_gate_by_information_cluster",
+        "require_card_visual_quality_gate",
+        "require_card_failure_route",
+        "require_card_feedback_update",
+        "do_not_generate_video"
+      ],
+      "validation_rule": [
+        "卡片默认必须是 horizontal_16_9 / 1920x1080。",
+        "judgment_card / summary_card / result_diff_card / prompt_tail_card 必须说明职责和失败标准。",
+        "卡片只辅助理解，不能替代真实录屏证据。",
+        "卡片不得改写 locked copy。",
+        "卡片视觉质量通过不推进 content_validation / send_ready / visual_master_locked。"
+      ],
+      "blocked_if": [
+        "card_ratio_mismatch",
+        "card_aesthetic_issue_unresolved",
+        "card_evidence_interruption",
+        "card_text_semantic_mismatch",
+        "HyperFrames_required_but_runtime_missing_without_user_authorization",
+        "content_validation_promoted_without_user_confirmation",
+        "send_ready_promoted_without_user_confirmation",
+        "visual_master_locked_promoted_without_user_confirmation"
+      ],
+      "expected_feedback_update": [
+        "card_feedback_update.latest",
+        "card_feedback_update.dated_log",
+        "card_feedback_update.fixture",
+        "review_note = card visual quality is pre-publish human quality gate, not content_validation"
       ]
     }
   ]

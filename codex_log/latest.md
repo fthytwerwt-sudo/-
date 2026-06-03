@@ -1,5 +1,28 @@
 # Latest
 
+## 20260604｜16:9 社交编辑感卡片机制补丁
+
+- `task_result.status = mechanism_repair_completed_no_video_generation`
+- `target_delivery = social_editorial_card_v1_mechanism`
+- `branch = main`
+- `route_decision.project_route = video_factory`
+- `route_decision.task_type = project_file_modification_task + mechanism_repair_task + routing_repair_task`
+- `large_task_gate.triggered = true`
+- `write_lane = serial_only`
+- `visual_reference_image_readable = true`
+- `approved_visual_reference = 素材录制/卡盘参考/ChatGPT Image 2026年6月4日 02_29_58.png`
+- `已确认` 已新增 `social_editorial_card_v1（社交编辑感卡片 V1）`：正式运营卡片默认横屏 `horizontal_16_9 / 1920x1080`，抖音风负责停留感，Ins 风负责干净质感，少量原创体素 / 像素 / 手绘点缀只做记忆点。
+- `已确认` 已补 `judgment_card / summary_card / result_diff_card / prompt_tail_card` 的职责、视觉规则、文本密度、通过 / 失败标准、证据边界和 `copy_change_request` 边界。
+- `已确认` `card_placement_decision` 不固定旧 shot、不固定模板位置；`card_budget_gate` 按信息簇插卡，不按句子机械插卡；卡片密度不得高于真实录屏证据密度。
+- `已确认` 已补 `card_visual_quality_gate / card_content_boundary_gate / card_failure_route / card_feedback_update`，覆盖比例错配、PPT 感、机械 UI、卡片过密、证据遮挡、locked copy 语义错配、HyperFrames runtime 缺失和 reference 偏离。
+- `已确认` 卡片视觉质量只是 `pre-publish human quality gate（发布前人工质量闸门）`，不推进 `content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked`。
+- `已确认` 卡片只能辅助理解，不得替代中段真实录屏证据，不得新增素材里没有的数据、结论、平台指标或结果差；不得复用官方 Minecraft logo、字体、texture、model、sound 或可识别官方资产。
+- `DeepSeek pre-supply`：已创建供料请求并运行 safe runner；结果为 `deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`not_deepseek_conclusion = false`、`api_key_printed = false`、`api_key_written = false`；token 使用只能写 `token_decrement_expected / not_available_user_check_required`。
+- `DeepSeek post-risk review`：已创建执行后风险复核任务卡并运行 safe runner；controller 返回 `blocked_invalid_context_pack`，因此 `deepseek_actual_participation = not_attempted_policy_violation`、`not_deepseek_conclusion = true`，后置风险复核由 Codex 本地验证继续完成；`api_key_printed = false`、`api_key_written = false`。
+- `Codex local validation`：JSON 解析通过；机制关键词 grep 通过；禁止状态推进窄匹配无命中；`git diff --check` 通过；secret scan 通过；媒体 / `dist/latest_review_pack/` / `public/` 路径变更检查无命中；`package.json` 当前无 test script，未运行 npm test。
+- `日志证据`：`codex_log/20260604_社交编辑感卡片机制_social_editorial_card_mechanism.md`、`codex_log/supply_requests/20260604_社交编辑感卡片机制_social_editorial_card_pre_supply_request.json`、`codex_log/supply_requests/20260604_社交编辑感卡片机制_social_editorial_card_post_risk_review_request.json`、`dist/deepseek_supply_controller/20260604_social_editorial_card_pre_supply/latest_supply_pack.md`、`dist/deepseek_supply_controller/20260604_social_editorial_card_post_risk_review/latest_supply_pack.md`。
+- `待验证` 后续真实视频执行时，仍需按具体 locked copy、素材证据、line_group、subtitle overlap 和 HyperFrames runtime 状态逐片复核；本机制通过不代表后续任意卡片自动美观通过。
+
 ## 20260603｜第五期 Codex 赚钱主题完整正片候选片
 
 - `task_result.status = publish_candidate_ready_for_human_review`
