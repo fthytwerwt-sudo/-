@@ -1,0 +1,138 @@
+{
+  "request_id": "20260604_latest_sent_video_raw_copy_addon_post_risk_review",
+  "created_at": "2026-06-04T23:08:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "latest_sent_video_raw_copy_addon",
+  "task_type": "copy_iteration_addon_post_risk_review",
+  "trigger_reason": "mandatory_post_risk_review",
+  "action": "risk_report",
+  "mandatory_for_every_task": true,
+  "participation_level": "default_required",
+  "pre_supply_required": false,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "requires_real_deepseek_participation": false,
+  "no_multi_agent_runtime_claim": true,
+  "allow_process_env_api_key": true,
+  "disable_env_file": true,
+  "safe_call_mode": "project_runtime_provider",
+  "runtime_provider": {
+    "provider_name": "deepseek_runtime_provider",
+    "auto_load_enabled": true,
+    "inject_to_child_process_only": true,
+    "never_print_key": true,
+    "never_write_key": true,
+    "blocked_if_provider_not_ready": false
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "file_scope": [
+      "codex_log/latest.md",
+      "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_发布后运营数据记录_post_publish_operation_record.md",
+      "review_loop/copy_iteration/copy_registry.json",
+      "review_loop/copy_iteration/V005/V005_copy_v1_record.json",
+      "review_loop/copy_iteration/V005/V005_copy_structure_map.json",
+      "review_loop/copy_iteration/V005/V005_copy_notes.md",
+      "codex_log/20260604_最新发送视频raw_copy新增记录_copy_iteration_addon.md"
+    ],
+    "content_loading_policy": "load_changed_copy_iteration_files_only",
+    "codex_minimal_review_policy": [
+      "Verify V005 binding, not V003/V004.",
+      "Verify raw_copy preserved and not overwritten by notes.",
+      "Verify no next formal copy or next video execution prompt is generated.",
+      "Verify no forbidden status is advanced."
+    ],
+    "output_required": [
+      "binding_risk_check",
+      "raw_copy_preservation_check",
+      "status_promotion_check",
+      "commit_scope_check",
+      "codex_next_input"
+    ]
+  },
+  "current_goal": "执行后风险复核：检查 V005 raw_copy 新增记录是否只绑定最新发送视频，是否未改写 raw_copy，是否未生成下一版正式文案或下一条视频执行 prompt，是否未推进禁止状态。",
+  "current_step": "post_risk_review_after_copy_iteration_write",
+  "known_context": [
+    "V005 copy_iteration files have been created under review_loop/copy_iteration/V005/.",
+    "copy_registry.json has been appended with V005.",
+    "V005 operation record has been appended with 文案版本记录.",
+    "codex_log/latest.md and dated log have been updated.",
+    "public/ remains unrelated untracked and must not be staged."
+  ],
+  "missing_context": [
+    "Final JSON validation, git diff check, staged secret scan, commit, push, and remote HEAD verification are still pending."
+  ],
+  "decision_needed": "Identify any risk that this task polluted previous data intake, rewrote raw_copy, bound to the wrong video, or promoted forbidden statuses.",
+  "candidate_files": [
+    "codex_log/latest.md",
+    "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_发布后运营数据记录_post_publish_operation_record.md",
+    "review_loop/copy_iteration/copy_registry.json",
+    "review_loop/copy_iteration/V005/V005_copy_v1_record.json",
+    "review_loop/copy_iteration/V005/V005_copy_structure_map.json",
+    "review_loop/copy_iteration/V005/V005_copy_notes.md",
+    "codex_log/20260604_最新发送视频raw_copy新增记录_copy_iteration_addon.md"
+  ],
+  "must_read_files": [
+    "review_loop/copy_iteration/V005/V005_copy_v1_record.json",
+    "review_loop/copy_iteration/copy_registry.json",
+    "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_发布后运营数据记录_post_publish_operation_record.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    ".env.*",
+    ".git/",
+    "GPT数据源/",
+    "codex_source/",
+    "scripts/",
+    "dist/",
+    "public/",
+    "*.mp4",
+    "*.mov",
+    "*.mp3",
+    "*.wav"
+  ],
+  "max_context_files": 8,
+  "max_context_chars": 30000,
+  "expected_output": [
+    "binding_risk_check",
+    "raw_copy_preservation_check",
+    "forbidden_status_promotion_check",
+    "previous_task_pollution_check",
+    "codex_next_input"
+  ],
+  "output_format": "json_object",
+  "codex_next_input": "Codex should fix any identified risk, then validate JSON, git diff, secret scan, path-limited stage, commit, push, and verify remote HEAD.",
+  "return_to_codex": {
+    "output_dir": "codex_log/deepseek_supply/20260604_latest_sent_video_raw_copy_addon_post_risk_review",
+    "latest_supply_pack_md": "latest_supply_pack.md",
+    "latest_supply_pack_json": "latest_supply_pack.json",
+    "latest_supply_manifest_json": "latest_supply_manifest.json"
+  },
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback_local_only 写成 DeepSeek 结论。",
+    "不得写 multi-agent runtime / 多 agent 运行时已跑通。",
+    "不得读取、输出或复述 API key / secret / token。",
+    "不得改写 raw_copy。",
+    "不得生成下一版正式文案。",
+    "不得生成下一条正式视频执行 prompt。",
+    "不得推进 content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked。"
+  ],
+  "stop_condition": "DeepSeek 真实调用返回 deepseek_passed，或 safe runner 输出 runtime_setup_required / fallback boundary。",
+  "blocked_if": [
+    "key_file_or_secret_needed",
+    "forbidden_path_required",
+    "V005_binding_conflict",
+    "raw_copy_rewrite_detected",
+    "status_promotion_detected",
+    "next_video_execution_prompt_detected"
+  ],
+  "fallback_policy": "fallback_local_only 可用于继续本轮验证，但最终报告必须写 not_deepseek_conclusion=true。"
+}

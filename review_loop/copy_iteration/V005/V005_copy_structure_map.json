@@ -1,0 +1,78 @@
+{
+  "video_id": "V005",
+  "copy_version": "v1",
+  "source_path": "review_loop/copy_iteration/V005/V005_copy_v1_raw.md",
+  "structure_version": "copy_structure_map_v1",
+  "task_mode": "additional_task_after_latest_sent_video_data_intake",
+  "structure_map": [
+    {
+      "section_id": "S01",
+      "function": "opening_hook",
+      "summary": "Codex 能不能帮普通人赚钱"
+    },
+    {
+      "section_id": "S02",
+      "function": "core_judgment",
+      "summary": "能，但不是打开就赚钱"
+    },
+    {
+      "section_id": "S03",
+      "function": "credibility_setup",
+      "summary": "用户使用 Codex 约 3 个月，基本每天使用"
+    },
+    {
+      "section_id": "S04",
+      "function": "three_project_examples",
+      "summary": "抖音电商自动化、当前账号视频流程、日常 vlog 三个项目"
+    },
+    {
+      "section_id": "S05",
+      "function": "honest_boundary",
+      "summary": "三个项目目前没有真正赚钱，电商目前保本"
+    },
+    {
+      "section_id": "S06",
+      "function": "real_value_reframe",
+      "summary": "Codex 不能替你赚钱，但能让一个人同时试更多赚钱可能"
+    },
+    {
+      "section_id": "S07",
+      "function": "one_person_team_reframe",
+      "summary": "以前需要小团队，现在一个人靠 AI 先撑起执行链"
+    },
+    {
+      "section_id": "S08",
+      "function": "risk_boundary",
+      "summary": "方向错、产品不行、内容没人看、转化不成立，仍然不赚钱"
+    },
+    {
+      "section_id": "S09",
+      "function": "personal_method",
+      "summary": "用 AI 压低执行成本，多试几个项目，多博概率"
+    },
+    {
+      "section_id": "S10",
+      "function": "closing_cta",
+      "summary": "让观众评论想看哪个方向，后续用真实项目讲"
+    }
+  ],
+  "preliminary_observations": {
+    "possible_revision_layers_after_data": [
+      "opening_packaging",
+      "bridge_3_8s",
+      "middle_structure",
+      "duration_density",
+      "cta_clarity"
+    ],
+    "must_wait_for_operation_data_before_decision": true,
+    "current_data_window": "between_24h_and_72h_snapshot",
+    "not_final_review_window": true,
+    "human_review_required": true
+  },
+  "not_allowed": [
+    "不得改写 raw_copy",
+    "不得生成下一版正式文案",
+    "不得生成下一条视频执行 prompt",
+    "不得把结构观察写成最终复盘结论"
+  ]
+}

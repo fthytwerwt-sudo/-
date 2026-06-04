@@ -123,6 +123,19 @@
 - `whether_platform_will_continue_distribution_before_72h`
 - `whether_V005_should_replace_V003_or_V004_as_current_operation_target_requires_human_confirmation`
 
+## 文案版本记录
+
+- `copy_version`: `v1`
+- `raw_copy_path`: `review_loop/copy_iteration/V005/V005_copy_v1_raw.md`
+- `copy_record_path`: `review_loop/copy_iteration/V005/V005_copy_v1_record.json`
+- `copy_structure_map_path`: `review_loop/copy_iteration/V005/V005_copy_structure_map.json`
+- `copy_notes_path`: `review_loop/copy_iteration/V005/V005_copy_notes.md`
+- `copy_status`: `raw_copy_recorded_for_future_revision`
+- `task_mode`: `additional_task_after_data_intake`
+- `source_status`: `user_provided_in_chat`
+- `raw_copy_preserved`: true
+- `note`: 本轮只保真记录原文，后续需结合 24h / 72h / 7d 数据和用户 / ChatGPT 人审判断文案修改层级；当前不生成下一版正式文案，不生成下一条视频执行 prompt。
+
 ## 下一步
 
 等待用户 / ChatGPT 确认标题与封面文字关系，并补后续 72h / 7d 数据、3s 留存、主页访问、私信、有效私信、有效咨询和清晰需求客户字段；本轮不进入最终复盘结论。

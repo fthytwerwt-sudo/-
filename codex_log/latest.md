@@ -1,5 +1,34 @@
 # Latest
 
+## 20260604｜最新发送视频 raw_copy 新增记录
+
+- `task_result.status = latest_sent_video_raw_copy_recorded_pending_human_review`
+- `task_mode = additional_task_after_latest_sent_video_data_intake`
+- `branch = main`
+- `previous_task = latest_sent_video_data_intake`
+- `previous_task_commit_sha = 1a9f77f933b4a0bb8dd34378844d8fafc5b96311`
+- `git_status_before = only unrelated untracked public/`
+- `identified_video_id = V005`
+- `video_id_status = confirmed`
+- `identified_video_title = codex`
+- `visible_thumbnail_text = 还是不赚钱`
+- `linked_operation_record_path = review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_发布后运营数据记录_post_publish_operation_record.md`
+- `linked_snapshot_path = review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_between_24h_and_72h_snapshot.json`
+- `raw_copy_path = review_loop/copy_iteration/V005/V005_copy_v1_raw.md`
+- `copy_record_path = review_loop/copy_iteration/V005/V005_copy_v1_record.json`
+- `structure_map_path = review_loop/copy_iteration/V005/V005_copy_structure_map.json`
+- `copy_notes_path = review_loop/copy_iteration/V005/V005_copy_notes.md`
+- `copy_registry_path = review_loop/copy_iteration/copy_registry.json`
+- `raw_copy_preserved = true`
+- `raw_copy_modified = false`
+- `raw_copy_sha256 = ddda203f37f86443723c76b63899ad2fdc5adfcc2b8b10e350bea607fff44fa4`
+- `structure_observation_only = true`
+- `DeepSeek pre-supply`: `deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`not_deepseek_conclusion = false`、`api_key_printed = false`、`api_key_written = false`
+- `DeepSeek post-risk review`: `deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`not_deepseek_conclusion = false`、`api_key_printed = false`、`api_key_written = false`
+- `validation`: JSON passed；`git_diff_check` passed；禁止状态检查仅命中边界文字，未发生状态推进。
+- `未推进` 不生成下一版正式文案；不生成下一条正式视频执行 prompt；不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`；不覆盖上一轮数据回填任务。
+- `日志证据`: `codex_log/20260604_最新发送视频raw_copy新增记录_copy_iteration_addon.md`
+
 ## 20260604｜最新发送视频数据截图回填
 
 - `task_result.status = latest_sent_video_operation_data_intake_completed_pending_human_review`

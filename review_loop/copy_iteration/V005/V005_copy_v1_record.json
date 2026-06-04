@@ -1,0 +1,71 @@
+{
+  "video_id": "V005",
+  "video_id_status": "confirmed",
+  "video_title": "codex",
+  "video_title_status": "extracted_from_screenshot_with_medium_confidence",
+  "visible_thumbnail_text": "还是不赚钱",
+  "copy_id": "V005_copy_v1",
+  "copy_version": "v1",
+  "copy_role": "latest_sent_video_raw_copy",
+  "raw_copy_path": "review_loop/copy_iteration/V005/V005_copy_v1_raw.md",
+  "source_status": "user_provided_in_chat",
+  "raw_copy_preserved": true,
+  "raw_copy_must_not_be_overwritten": true,
+  "raw_copy_modified": false,
+  "raw_copy_char_count": 1195,
+  "raw_copy_sha256": "ddda203f37f86443723c76b63899ad2fdc5adfcc2b8b10e350bea607fff44fa4",
+  "linked_operation_record_path": "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_发布后运营数据记录_post_publish_operation_record.md",
+  "linked_snapshot_paths": [
+    "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_between_24h_and_72h_snapshot.json"
+  ],
+  "linked_screenshot_manifest_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/V005_截图清单_screenshot_manifest.md",
+  "publish_platform": "抖音",
+  "publish_time_visible": "2026-06-03 04:14",
+  "visible_video_duration": "00:03:23",
+  "review_window": "between_24h_and_72h",
+  "snapshot_label": "between_24h_and_72h_snapshot",
+  "task_mode": "additional_task_after_latest_sent_video_data_intake",
+  "previous_task_dependency": {
+    "depends_on_latest_sent_video_id": true,
+    "latest_sent_video_id_source": [
+      "review_loop/operation_records_index.md",
+      "codex_log/latest.md",
+      "V005 operation record",
+      "V005 snapshot JSON"
+    ],
+    "must_not_rerun_screenshot_intake": true,
+    "must_not_write_into_previous_video_by_default": true,
+    "previous_task_completed_and_pushed": true,
+    "previous_task_commit_sha": "1a9f77f933b4a0bb8dd34378844d8fafc5b96311"
+  },
+  "copy_length_observation": {
+    "raw_copy_char_count": 1195,
+    "visible_published_duration": "00:03:23",
+    "approx_duration_if_spoken": "与截图可见时长 00:03:23 同一量级；仅记录长度事实，不判断节奏好坏",
+    "needs_human_review": true
+  },
+  "binding_status": "bound_to_confirmed_latest_sent_video_id",
+  "human_review_required": true,
+  "not_allowed": [
+    "不得把 raw_copy 改写后覆盖原文",
+    "不得直接生成下一版正式文案",
+    "不得生成下一条正式视频执行 prompt",
+    "不得把文案问题写成最终复盘结论",
+    "不得覆盖或回滚上一轮数据回填任务",
+    "不得推进 content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked"
+  ],
+  "status_boundary": {
+    "formal_copy_revision_allowed": false,
+    "next_formal_copy_generated": false,
+    "next_formal_video_execution_prompt_generated": false,
+    "content_validation_advanced": false,
+    "send_ready_advanced": false,
+    "publish_status_success_advanced": false,
+    "voice_validation_advanced": false,
+    "final_voice_validated_advanced": false,
+    "visual_master_locked_advanced": false,
+    "commercial_validation_claimed": false
+  },
+  "created_at_utc": "2026-06-04T15:06:59+00:00",
+  "updated_at_utc": "2026-06-04T15:06:59+00:00"
+}

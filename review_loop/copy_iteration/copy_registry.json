@@ -1,7 +1,7 @@
 {
   "registry_version": "copy_iteration_registry_v1",
   "system_name": "copy_iteration_decision_system",
-  "updated_at_utc": "2026-05-17T13:45:22.648882+00:00",
+  "updated_at_utc": "2026-06-04T15:06:59+00:00",
   "records": [
     {
       "video_id": "V002",
@@ -53,11 +53,35 @@
       "linked_operation_record": "review_loop/records/V004_全自动制作方式_public_ai_video_20260517/V004_发布后运营数据记录_post_publish_operation_record.md",
       "linked_data_snapshot": "review_loop/records/V004_全自动制作方式_public_ai_video_20260517/V004_interim_17h_snapshot.json",
       "publish_status": "published_in_formal_operation",
-      "operation_record_status": "latest_operation_sample_pre_24h",
-      "data_window": "pre_24h / interim_17h_snapshot",
-      "current_revision_status": "recorded_latest_sample_pre_24h_only"
-    }
-  ],
+        "operation_record_status": "latest_operation_sample_pre_24h",
+        "data_window": "pre_24h / interim_17h_snapshot",
+        "current_revision_status": "recorded_latest_sample_pre_24h_only"
+      },
+      {
+        "video_id": "V005",
+        "video_id_status": "confirmed",
+        "copy_id": "V005_copy_v1",
+        "copy_version": "v1",
+        "copy_role": "latest_sent_video_raw_copy",
+        "version": "v1_raw",
+        "source_type": "user_provided_in_chat",
+        "source_status": "raw_source_locked",
+        "copy_record_path": "review_loop/copy_iteration/V005/V005_copy_v1_record.json",
+        "record_path": "review_loop/copy_iteration/V005/V005_copy_v1_record.json",
+        "raw_copy_path": "review_loop/copy_iteration/V005/V005_copy_v1_raw.md",
+        "structure_map_path": "review_loop/copy_iteration/V005/V005_copy_structure_map.json",
+        "copy_notes_path": "review_loop/copy_iteration/V005/V005_copy_notes.md",
+        "linked_operation_record_path": "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_发布后运营数据记录_post_publish_operation_record.md",
+        "linked_operation_record": "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_发布后运营数据记录_post_publish_operation_record.md",
+        "linked_data_snapshot": "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_between_24h_and_72h_snapshot.json",
+        "publish_status": "published_in_formal_operation_data_intake_only",
+        "operation_record_status": "latest_operation_sample_between_24h_and_72h_recorded",
+        "data_window": "between_24h_and_72h_snapshot",
+        "task_mode": "additional_task",
+        "created_at": "2026-06-04T15:06:59+00:00",
+        "current_revision_status": "raw_copy_recorded_for_future_revision_pending_human_review"
+      }
+    ],
   "status_boundary": {
     "formal_copy_revision_allowed": false,
     "current_data_goal_anchor_ready": false,
