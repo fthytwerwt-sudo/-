@@ -1,5 +1,43 @@
 # Latest
 
+## 20260604｜最新发送视频数据截图回填
+
+- `task_result.status = latest_sent_video_operation_data_intake_completed_pending_human_review`
+- `target_video_policy = latest_sent_video_only`
+- `branch = main`
+- `route_decision.project_route = video_factory`
+- `route_decision.task_type = data_review_loop + review_diagnosis_audit + project_file_change`
+- `large_task_gate.triggered = true`
+- `write_lane = serial_only`
+- `source_dir = /Users/fan/Desktop/数据`
+- `source_file_count = 4`
+- `image_file_count = 4`
+- `matched_existing_record = false`
+- `new_record_created = true`
+- `identified_video_id = V005`
+- `identified_video_title = codex`
+- `visible_thumbnail_text = 还是不赚钱`
+- `title_confidence = medium`
+- `publish_time_visible = 2026-06-03 04:14`
+- `publish_time_confidence = high`
+- `video_duration_visible = 00:03:23`
+- `snapshot_label = between_24h_and_72h_snapshot`
+- `review_window = between_24h_and_72h`
+- `inferred_hours_after_publish = 约 42 小时 13-15 分`
+- `record_path = review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_发布后运营数据记录_post_publish_operation_record.md`
+- `structured_snapshot_path = review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_between_24h_and_72h_snapshot.json`
+- `screenshot_manifest_path = review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/V005_截图清单_screenshot_manifest.md`
+- `已确认` 本轮未写入 V003；未写入 V004；V004 发布时间 / 时长与本轮截图不匹配。
+- `已确认` 已归档 4 张原始 PNG，不裁切、不压缩、不覆盖。
+- `已确认` 已提取播放量 1514、平均播放时长 8 秒、完播率 0.62%、2s 跳出率 54.68%、5s 完播率 22.45%、推荐页 96.1%、点赞 50、收藏 12、评论 1、分享 2、性别分布男 97% / 女 3% 等可见字段。
+- `缺失字段`：24h final、72h final、7d final、3s 留存、主页访问、私信、有效私信、有效咨询、清晰需求客户、评论质量、商业信号等。
+- `不确定字段`：页面标题 `codex` 与封面文字 `还是不赚钱` 的关系、年龄精确分布、完整地区分布、是否切换 current_operation_target。
+- `current_data_goal_anchor`：仅新增 `latest_sent_video_data_intake` 保守段，不写 ready，不改主短板 / 主变量 / 禁止变量 / 成功失败指标。
+- `DeepSeek pre-supply`：已创建并运行安全供料请求；runtime provider 就绪且未打印/写入 key，但 controller 返回 `blocked_invalid_context_pack`，因此 `pre_supply.deepseek_actual_participation = not_attempted_policy_violation`、`pre_supply.not_deepseek_conclusion = true`。
+- `DeepSeek post-risk review`：已创建并运行执行后风险复核请求；结果为 `post_risk_review.deepseek_actual_participation = deepseek_passed`、`post_risk_review.not_deepseek_conclusion = false`、`fallback_status = not_used`、`api_key_printed = false`、`api_key_written = false`。
+- `未推进` 不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked / current_data_goal_anchor ready`；不生成下一条正式视频执行 prompt；不做最终复盘结论。
+- `日志证据`：`codex_log/20260604_最新发送视频数据回填_operation_data_intake.md`、`codex_log/supply_requests/20260604_最新发送视频数据回填_pre_supply_request.json`、`codex_log/supply_requests/20260604_最新发送视频数据回填_post_risk_review_request.json`、`codex_log/deepseek_supply/20260604_latest_sent_video_data_intake_pre_supply/latest_supply_pack.md`、`codex_log/deepseek_supply/20260604_latest_sent_video_data_intake_post_risk_review/latest_supply_pack.md`。
+
 ## 20260604｜社交编辑感卡片参考图与 DeepSeek 后置复核补修
 
 - `task_result.status = reference_and_post_risk_review_repair_completed_no_video_generation`

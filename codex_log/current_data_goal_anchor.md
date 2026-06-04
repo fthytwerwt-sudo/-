@@ -24,6 +24,29 @@
 - `已确认` 项目当前阶段已迁移为 `formal_operation_active（正式运营中）`；旧 `gray_test` 只作为 `legacy_previous_term（历史兼容术语）`。
 - `待验证` 7d 数据和需求侧字段尚未补齐，本文件不能被写成正式数据驱动执行已 ready。
 
+## 1A. latest_sent_video_data_intake（最新发送视频数据录入）
+
+```yaml
+latest_sent_video_data_intake:
+  video_id: "V005"
+  video_title_visible: "codex"
+  visible_thumbnail_text: "还是不赚钱"
+  title_confirmation_status: "uncertain_need_human_check"
+  record_path: "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_发布后运营数据记录_post_publish_operation_record.md"
+  structured_snapshot_path: "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_between_24h_and_72h_snapshot.json"
+  screenshot_manifest_path: "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/V005_截图清单_screenshot_manifest.md"
+  snapshot_label: "between_24h_and_72h_snapshot"
+  review_window: "between_24h_and_72h"
+  data_recorded_status: "partial_between_24h_and_72h_snapshot_recorded"
+  latest_sent_video: true
+  matched_existing_record: false
+  human_review_required: true
+  current_operation_target_switch_required_human_review: true
+  anchor_instance_status_changed: false
+  anchor_instance_status_ready_written: false
+  note: "用户本轮明确要求回填最新发送视频数据；旧 current_operation_target 不自动吸收本轮数据。V005 只作为最新发送视频独立运营记录进入记录池，等待后续 72h / 7d 和需求侧字段。"
+```
+
 ## 2. current_data_goal_anchor（当前数据目标锚点）
 
 ```yaml

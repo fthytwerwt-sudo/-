@@ -1,0 +1,532 @@
+{
+  "supply_id": "supply_20260604T145219Z",
+  "generated_at_utc": "2026-06-04T14:52:56.365747+00:00",
+  "request_id": "20260604_latest_sent_video_data_intake_post_risk_review",
+  "request_file": "/Users/fan/Documents/视频工厂/codex_log/supply_requests/20260604_最新发送视频数据回填_post_risk_review_request.json",
+  "request_validation_status": "passed",
+  "current_goal": "执行后复核 V005 最新发送视频数据回填是否误写 V003/V004、是否把约 42 小时截图写成 24h/72h/7d final、是否推进禁止状态、是否遗漏 JSON/manifest/ChatGPT 输入/索引/current_data_goal_anchor/latest/log。",
+  "requires_real_deepseek_participation": false,
+  "safe_loader_policy": {},
+  "runtime_provider": {
+    "runtime_provider_status": "ready",
+    "runtime_provider_auto_load_enabled": true,
+    "runtime_provider_key_source": "project_env",
+    "runtime_provider_key_source_path": ".env",
+    "runtime_provider_version": "20260515"
+  },
+  "data_goal_anchor": {},
+  "current_stage_goal": "",
+  "main_bottleneck": "",
+  "primary_variable": "",
+  "forbidden_variables": [],
+  "success_metric": "",
+  "failure_metric": "",
+  "post_publish_validation_metric": "",
+  "current_step": "post_risk_review_after_operation_record_write",
+  "known_context": [
+    "已新建 V005，不匹配 V003/V004。",
+    "本轮截图为 2026-06-04 22:27-22:29，发布时间为 2026-06-03 04:14，推断约 42 小时。",
+    "V005 只记录 between_24h_and_72h_snapshot，不写 24h final、72h final 或 7d final。",
+    "current_data_goal_anchor 仅追加 latest_sent_video_data_intake 保守段，不写 ready。",
+    "public/ 是 unrelated dirty，必须保持不提交。"
+  ],
+  "missing_context": [
+    "DeepSeek token usage evidence until safe runner returns.",
+    "Final git commit/push/readback until Codex validation completes."
+  ],
+  "decision_needed": "确认是否存在误写旧记录、字段硬猜、状态推进、secret 或 unrelated dirty 混入风险。",
+  "task": "Use this supply_request task card as the only current task context. Do not infer missing project state from memory.\n{\n  \"request_id\": \"20260604_latest_sent_video_data_intake_post_risk_review\",\n  \"task_id\": \"latest_sent_video_operation_data_intake\",\n  \"mandatory_for_every_task\": true,\n  \"participation_level\": \"default_required\",\n  \"pre_supply_required\": false,\n  \"post_review_required\": true,\n  \"codex_vertical_completion_required\": true,\n  \"token_usage_expectation\": \"token_should_decrease_if_real_call\",\n  \"fallback_allowed\": true,\n  \"fallback_not_completion\": true,\n  \"user_explicit_deepseek_required\": false,\n  \"deepseek_must_not_be_skipped_by_codex_discretion\": true,\n  \"current_goal\": \"执行后复核 V005 最新发送视频数据回填是否误写 V003/V004、是否把约 42 小时截图写成 24h/72h/7d final、是否推进禁止状态、是否遗漏 JSON/manifest/ChatGPT 输入/索引/current_data_goal_anchor/latest/log。\",\n  \"current_step\": \"post_risk_review_after_operation_record_write\",\n  \"known_context\": [\n    \"已新建 V005，不匹配 V003/V004。\",\n    \"本轮截图为 2026-06-04 22:27-22:29，发布时间为 2026-06-03 04:14，推断约 42 小时。\",\n    \"V005 只记录 between_24h_and_72h_snapshot，不写 24h final、72h final 或 7d final。\",\n    \"current_data_goal_anchor 仅追加 latest_sent_video_data_intake 保守段，不写 ready。\",\n    \"public/ 是 unrelated dirty，必须保持不提交。\"\n  ],\n  \"missing_context\": [\n    \"DeepSeek token usage evidence until safe runner returns.\",\n    \"Final git commit/push/readback until Codex validation completes.\"\n  ],\n  \"decision_needed\": \"确认是否存在误写旧记录、字段硬猜、状态推进、secret 或 unrelated dirty 混入风险。\",\n  \"expected_output\": [\n    \"old_record_pollution_check\",\n    \"final_status_boundary_check\",\n    \"missing_field_check\",\n    \"commit_scope_risk\",\n    \"codex_next_input\"\n  ],\n  \"codex_next_input\": \"Codex should run final JSON validation, git diff --check, forbidden status grep, staged secret scan, path-limited commit, push, and remote HEAD verification.\",\n  \"return_to_codex\": {\n    \"output_dir\": \"codex_log/deepseek_supply/20260604_latest_sent_video_data_intake_post_risk_review\",\n    \"latest_supply_pack_md\": \"latest_supply_pack.md\",\n    \"latest_supply_pack_json\": \"latest_supply_pack.json\",\n    \"latest_supply_manifest_json\": \"latest_supply_manifest.json\"\n  },\n  \"stop_condition\": \"DeepSeek 真实调用返回 deepseek_passed，或 safe runner 输出 runtime_setup_required / fallback boundary。\",\n  \"blocked_if\": [\n    \"key_file_or_secret_needed\",\n    \"forbidden_path_required\",\n    \"old_video_record_polluted\",\n    \"status_promotion_required\",\n    \"secret_scan_required_before_commit\"\n  ],\n  \"not_allowed\": [\n    \"DeepSeek 不得写文件。\",\n    \"DeepSeek 不得拍板项目事实。\",\n    \"不得把 fallback_local_only 写成 DeepSeek 结论。\",\n    \"不得写 multi-agent runtime / 多 agent 运行时已跑通。\",\n    \"不得读取、输出或复述 API key / secret / token。\",\n    \"不得把最新发送视频数据默认写入 V003 / V004。\",\n    \"不得生成下一条正式视频执行 prompt。\",\n    \"不得推进 content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked / current_data_goal_anchor ready。\"\n  ],\n  \"allow_process_env_api_key\": true,\n  \"disable_env_file\": true,\n  \"requires_real_deepseek_participation\": false,\n  \"safe_call_mode\": \"project_runtime_provider\",\n  \"deep_supply_mode\": {\n    \"enabled\": true,\n    \"file_scope\": [\n      \"review_loop/operation_records_index.md\",\n      \"codex_log/current_data_goal_anchor.md\",\n      \"codex_log/latest.md\",\n      \"codex_log/20260604_最新发送视频数据回填_operation_data_intake.md\",\n      \"review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_发布后运营数据记录_post_publish_operation_record.md\",\n      \"review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_between_24h_and_72h_snapshot.json\",\n      \"review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_chatgpt_review_input.md\",\n      \"review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/V005_截图清单_screenshot_manifest.md\"\n    ],\n    \"content_loading_policy\": \"load_v005_operation_data_intake_outputs_only\",\n    \"codex_minimal_review_policy\": [\n      \"Codex must validate JSON.\",\n      \"Codex must verify V003 and V004 files were not modified.\",\n      \"Codex must verify no forbidden status promotion.\",\n      \"Codex must run staged secret scan before commit.\"\n    ],\n    \"output_required\": [\n      \"risk_and_conflict_report\",\n      \"old_record_pollution_check\",\n      \"forbidden_status_promotion_check\",\n      \"missing_or_uncertain_files\",\n      \"codex_next_input\"\n    ]\n  }\n}",
+  "task_type": "operation_data_intake_post_risk_review",
+  "trigger_reason": "mandatory_post_risk_review",
+  "requested_action": "risk_report",
+  "action": "risk_report",
+  "max_rounds": 1,
+  "supply_source": "deepseek_passed",
+  "not_deepseek_conclusion": false,
+  "deepseek_actual_participation": "deepseek_passed",
+  "blocked_reason": "none",
+  "deepseek_supply_gate": {
+    "mandatory_for_every_task": true,
+    "supply_request_created": true,
+    "deepseek_call_required": true,
+    "deepseek_call_attempted": true,
+    "deepseek_actual_participation": "deepseek_passed",
+    "supply_source": "deepseek_passed",
+    "fallback_status": "not_used",
+    "not_deepseek_conclusion": false,
+    "blocked_reason": "none",
+    "token_usage_expected": "token_should_decrease_if_real_call",
+    "token_usage_observed_or_user_check_required": "token_decrement_expected",
+    "fallback_not_completion": true,
+    "deepseek_must_not_be_skipped_by_codex_discretion": true
+  },
+  "deepseek_readiness_check": {
+    "required": true,
+    "runtime_provider": {
+      "runtime_provider_status": "ready",
+      "runtime_provider_auto_load_enabled": true,
+      "runtime_provider_key_source": "project_env",
+      "runtime_provider_key_source_path": ".env",
+      "runtime_provider_version": "20260515"
+    },
+    "env_file_read": "false",
+    "process_env_key_allowed": "true",
+    "process_env_key_present": "true",
+    "safe_call_mode": "process_env_only",
+    "request_validation_status": "passed",
+    "supply_source": "deepseek_passed",
+    "fallback_status": "not_used",
+    "not_deepseek_conclusion": false,
+    "context_pack_validation": "passed",
+    "deepseek_actual_participation": "deepseek_passed",
+    "blocked_reason": "none",
+    "completion_rule": [
+      "deepseek_passed 才能写 DeepSeek 真实参与。",
+      "fallback_local_only 必须写 not_deepseek_conclusion = true。",
+      "missing_process_env_key 必须写 blocked_missing_process_env_api_key。",
+      "token 未观察到减少时，不得写 DeepSeek 已深度参与。",
+      "不得把 fallback 写成 DeepSeek 稳定供料。"
+    ]
+  },
+  "deepseek_participation_report": {
+    "deepseek_call_real": true,
+    "deepseek_actual_participation": "deepseek_passed",
+    "supply_source": "deepseek_passed",
+    "fallback_status": "not_used",
+    "not_deepseek_conclusion": false,
+    "blocked_reason": "none",
+    "token_usage_expectation_check": {
+      "token_usage_expectation": "token_should_decrease_if_real_call",
+      "expected_to_decrease": true,
+      "observed_token_usage": "not_available_user_check_required",
+      "token_usage_observed_or_user_check_required": "token_decrement_expected",
+      "cannot_claim_deepseek_deep_participation_if_token_not_decreased": true,
+      "fallback_local_only_token_rule": "fallback_local_only 不应减少 DeepSeek token，也不能写 DeepSeek 已深度参与。"
+    },
+    "codex_original_file_review_required": true,
+    "deepseek_may_write_files": false,
+    "deepseek_may_decide_project_facts": false,
+    "multi_agent_runtime_validation": "not_started"
+  },
+  "token_usage_expectation_check": {
+    "token_usage_expectation": "token_should_decrease_if_real_call",
+    "expected_to_decrease": true,
+    "observed_token_usage": "not_available_user_check_required",
+    "token_usage_observed_or_user_check_required": "token_decrement_expected",
+    "cannot_claim_deepseek_deep_participation_if_token_not_decreased": true,
+    "fallback_local_only_token_rule": "fallback_local_only 不应减少 DeepSeek token，也不能写 DeepSeek 已深度参与。"
+  },
+  "post_risk_review": {
+    "status_promotion_risk": "check_required_no_forbidden_status_promotion",
+    "forbidden_change_risk": "check_required_no_env_media_or_latest_review_pack_change",
+    "missed_sync_files": "check_required_docs_scripts_schema_fixture_logs_package_paths",
+    "fallback_mislabel_risk": "none_observed",
+    "remaining_work": "Codex must run validation, sync logs/package/path index, and report token check boundary."
+  },
+  "env_file_read": "false",
+  "process_env_key_allowed": "true",
+  "process_env_key_present": "true",
+  "api_key_printed": "false",
+  "api_key_written": "false",
+  "context_pack_validation": "passed",
+  "deepseek_generation_status": "passed_with_retries",
+  "fallback_status": "not_used",
+  "pipeline_status": "usable",
+  "multi_agent_runtime_validation": "not_started",
+  "files_considered": [
+    "review_loop/operation_records_index.md",
+    "codex_log/current_data_goal_anchor.md",
+    "codex_log/latest.md",
+    "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_between_24h_and_72h_snapshot.json",
+    "codex_log/20260604_最新发送视频数据回填_operation_data_intake.md",
+    "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_发布后运营数据记录_post_publish_operation_record.md",
+    "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_chatgpt_review_input.md",
+    "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/V005_截图清单_screenshot_manifest.md"
+  ],
+  "files_recommended": [
+    "review_loop/operation_records_index.md",
+    "codex_log/current_data_goal_anchor.md",
+    "codex_log/20260604_最新发送视频数据回填_operation_data_intake.md",
+    "codex_log/latest.md",
+    "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_between_24h_and_72h_snapshot.json",
+    "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_发布后运营数据记录_post_publish_operation_record.md",
+    "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_chatgpt_review_input.md",
+    "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/V005_截图清单_screenshot_manifest.md"
+  ],
+  "risks": [
+    "potential_dirty_public_directory: public/ is unrelated and must not be staged.",
+    "missing_secret_scan: staged files may contain secrets; required before commit.",
+    "none_detected_yet: V003/V004 files not modified per known_context.",
+    "forbidden_path_required",
+    "secret_scan_required_before_commit"
+  ],
+  "missing_files": [],
+  "deep_supply_mode": {
+    "enabled": true,
+    "file_scope": [
+      "review_loop/operation_records_index.md",
+      "codex_log/current_data_goal_anchor.md",
+      "codex_log/latest.md",
+      "codex_log/20260604_最新发送视频数据回填_operation_data_intake.md",
+      "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_发布后运营数据记录_post_publish_operation_record.md",
+      "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_between_24h_and_72h_snapshot.json",
+      "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_chatgpt_review_input.md",
+      "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/V005_截图清单_screenshot_manifest.md"
+    ],
+    "content_loading_policy": "load_v005_operation_data_intake_outputs_only",
+    "codex_minimal_review_policy": [
+      "Codex must validate JSON.",
+      "Codex must verify V003 and V004 files were not modified.",
+      "Codex must verify no forbidden status promotion.",
+      "Codex must run staged secret scan before commit."
+    ],
+    "output_required": [
+      "risk_and_conflict_report",
+      "old_record_pollution_check",
+      "forbidden_status_promotion_check",
+      "missing_or_uncertain_files",
+      "codex_next_input"
+    ]
+  },
+  "content_loading_policy": {},
+  "codex_minimal_review_policy": {},
+  "deepseek_depth_validation": {
+    "enabled": false,
+    "modes": [],
+    "missing_modes": [
+      "post_risk_review",
+      "deep_file_prefetch",
+      "mid_task_incremental_supply"
+    ],
+    "relevant_file_bundle_exists": true,
+    "exact_snippet_pack_exists": true,
+    "deepseek_actual_required": false,
+    "supply_source": "deepseek_passed",
+    "status": "failed_insufficient_depth",
+    "not_long_term_runtime_validation": true
+  },
+  "relevant_file_bundle": [
+    {
+      "path": "review_loop/operation_records_index.md",
+      "file_role": "readonly_context",
+      "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+      "content_excerpt": "- `next_required_data`: 如需重测同类选题，应先规避平台风险表达，再观察正常分发样本；V002 最新补充数据仍缺截图复核。\n- `formal_operation_active` 不等于 `content_validation = passed`。\n- `formal_operation_active` 不等于 `send_ready = true`。",
+      "excerpt_range_or_marker": "selected_relevant_lines",
+      "confidence": "high"
+    },
+    {
+      "path": "codex_log/current_data_goal_anchor.md",
+      "file_role": "current_log_or_request_source",
+      "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+      "content_excerpt": "- 给 ChatGPT / GPT Project / Codex / DeepSeek 提供稳定的当前锚点入口。\n- 防止 Codex 每次从 `video_goal_card`、`post_publish_review_card`、`data_flywheel_memory` 和 `content_structure_feedback_card` 里现场拼锚点。\n      note: \"本轮不得进入正式 Codex 视频执行。\"\n      - \"DeepSeek supply request\"\n      - \"content_validation\"\n      - \"send_ready\"\n1. 命中文案修改、下一条视频、视频执行、剪辑、编排、DeepSeek 供料或 GPT Project 静态包同步时，必须先读取本文件。\n4. Codex 可归档截图和整理早期数据，但不得改写本文件里已锁定的数据目标字段。\n5. 缺 `data_goal_alignment_check（数据目标对齐检查）` 时，不得写 Codex 视频执行完成。\n- `不适用` 本轮不做内容复审，不推进 `content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked`。",
+      "excerpt_range_or_marker": "lines:9-18",
+      "confidence": "high"
+    },
+    {
+      "path": "codex_log/latest.md",
+      "file_role": "current_log_or_request_source",
+      "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+      "content_excerpt": "- `DeepSeek pre-supply`：已创建并运行安全供料请求；runtime provider 就绪且未打印/写入 key，但 controller 返回 `blocked_invalid_context_pack`，因此 `deepseek_actual_participation = not_attempted_policy_violation`、`not_deepseek_conclusion = true`，本轮结论来自 Codex 本地原文件复核与截图可视识别。\n- `未推进` 不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked / current_data_goal_anchor ready`；不生成下一条正式视频执行 prompt；不做最终复盘结论。\n- `日志证据`：`codex_log/20260604_最新发送视频数据回填_operation_data_intake.md`、`codex_log/supply_requests/20260604_最新发送视频数据回填_pre_supply_request.json`、`codex_log/deepseek_supply/20260604_latest_sent_video_data_intake_pre_supply/latest_supply_pack.md`。\n## 20260604｜社交编辑感卡片参考图与 DeepSeek 后置复核补修\n- `target_delivery = social_editorial_card_v1_reference_and_deepseek_post_review_repair`\n- `DeepSeek previous post-risk review`：旧请求 `20260604_social_editorial_card_post_risk_review` 返回 `blocked_invalid_context_pack`，保留为未通过记录，不改写成 passed。\n- `DeepSeek repaired post-risk review`：已新增并运行更窄的补修复核请求 `codex_log/supply_requests/20260604_社交编辑感卡片参考图补修_post_risk_review_request.json`；请求校验通过，但 controller 仍返回 `blocked_invalid_context_pack`，因此 `deepseek_post_risk_review_status = blocked_i\n...[truncated]",
+      "excerpt_range_or_marker": "lines:36-43",
+      "confidence": "high"
+    },
+    {
+      "path": "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_between_24h_and_72h_snapshot.json",
+      "file_role": "readonly_context",
+      "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+      "content_excerpt": "\"content_validation_advanced\": false,\n    \"send_ready_advanced\": false,",
+      "excerpt_range_or_marker": "lines:418-419",
+      "confidence": "high"
+    },
+    {
+      "path": "codex_log/20260604_最新发送视频数据回填_operation_data_intake.md",
+      "file_role": "current_log_or_request_source",
+      "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+      "content_excerpt": "- `codex_log/supply_requests/20260604_最新发送视频数据回填_pre_supply_request.json`\n- `codex_log/deepseek_supply/20260604_latest_sent_video_data_intake_pre_supply/`\n## 8. DeepSeek supply gate\n- `supply_request`: `codex_log/supply_requests/20260604_最新发送视频数据回填_pre_supply_request.json`\n- `deepseek_pre_supply_pack`: `codex_log/deepseek_supply/20260604_latest_sent_video_data_intake_pre_supply/latest_supply_pack.md`\n- `deepseek_actual_participation`: `not_attempted_policy_violation`\n- `not_deepseek_conclusion`: true\n- `Codex conclusion source`: `local_file_review_and_visual_screenshot_read`\n- `content_validation_advanced`: false\n- `send_ready_advanced`: false\n- `json_validation`: passed for V005 snapshot and DeepSeek supply JSON files",
+      "excerpt_range_or_marker": "lines:118-128",
+      "confidence": "high"
+    },
+    {
+      "path": "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_发布后运营数据记录_post_publish_operation_record.md",
+      "file_role": "readonly_context",
+      "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+      "content_excerpt": "- 不能推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked / current_data_goal_anchor ready`。",
+      "excerpt_range_or_marker": "lines:97-97",
+      "confidence": "high"
+    },
+    {
+      "path": "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_chatgpt_review_input.md",
+      "file_role": "readonly_context",
+      "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+      "content_excerpt": "# V005 ChatGPT 复盘输入\n\n## 本轮数据状态\n\n- `video_id`: `V005`\n- `target_video_policy`: `latest_sent_video_only`\n- `identified_video_title`: `codex`\n- `visible_thumbnail_text`: `还是不赚钱`\n- `publish_platform`: 抖音\n- `publish_time_visible`: `2026-06-03 04:14`\n- `video_duration_visible`: `00:03:23`\n- `snapshot_label`: `between_24h_and_72h_snapshot`\n- `review_window`: `between_24h_and_72h`\n- `inferred_hours_after_publish`: `约 42 小时 13-15 分`\n- `structured_snapshot_path`: `review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_between_24h_and_72h_snapshot.json`\n- `record_path`: `review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_发布后运营数据记录_post_publish_operation_record.md`\n- `human_review_required`: true\n\n## 已确认字段\n\n| metric | value | source_status |\n| --- | --- | --- |\n| play_count | 1514 | extracted_from_screenshot |\n| average_watch_time | 8秒 | extracted_from_screenshot |\n| average_play_ratio | 4.01% | extracted_from_screenshot |\n| completion_rate | 0.62% | extracted_from_screenshot |\n| two_second_bounce_rate | 54.68% | extracted_from_screenshot |\n| five_second_completion_rate | 22.45% | extracted_from_screenshot |\n| cover_click_rate | 7.14% | extracted_from_screenshot",
+      "excerpt_range_or_marker": "lines:1-29",
+      "confidence": "high"
+    },
+    {
+      "path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/V005_截图清单_screenshot_manifest.md",
+      "file_role": "readonly_context",
+      "why_relevant": "included_by_supply_request_file_scope_or_context_files",
+      "content_excerpt": "# V005 截图清单 screenshot_manifest\n\n## snapshot\n\n- `video_id`: `V005`\n- `snapshot_label`: `between_24h_and_72h_snapshot`\n- `review_window`: `between_24h_and_72h`\n- `capture_time_from_uploaded_filenames`: `2026-06-04 22:27-22:29`\n- `publish_time_visible`: `2026-06-03 04:14`\n- `inferred_hours_after_publish`: `约 42 小时 13-15 分`\n- `screenshot_archive_status`: `archived_to_repo`\n- `latest_sent_video`: true\n- `matched_existing_record`: false\n\n## archived_files\n\n| original_file | archive_path | snapshot_label | data_type | extraction_status | note |\n| ------------- | ------------ | -------------- | --------- | ----------------- | ---- |\n| `ScreenShot_2026-06-04_222701_816.png` | `review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/platform_metrics/V005_between_24h_and_72h_snapshot_platform_metrics_20260604_222701.png` | `between_24h_and_72h_snapshot` | platform_metrics | partially_extracted_from_screenshot | 总览页；含播放、互动、粉丝播放占比、作品状态、发布时间、时长 |\n| `wechat_longscreenshot_2026-06-04_222803_913.png` | `review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/traffic_source/V005_between_24h_and_72h_snapshot_traffic_so",
+      "excerpt_range_or_marker": "lines:1-20",
+      "confidence": "high"
+    }
+  ],
+  "exact_snippet_pack": [
+    {
+      "path": "review_loop/operation_records_index.md",
+      "snippet": "- `next_required_data`: 如需重测同类选题，应先规避平台风险表达，再观察正常分发样本；V002 最新补充数据仍缺截图复核。\n- `formal_operation_active` 不等于 `content_validation = passed`。\n- `formal_operation_active` 不等于 `send_ready = true`。",
+      "why_it_matters": "readonly_context for DeepSeek deep file supply mode",
+      "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+      "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+    },
+    {
+      "path": "codex_log/current_data_goal_anchor.md",
+      "snippet": "- 给 ChatGPT / GPT Project / Codex / DeepSeek 提供稳定的当前锚点入口。\n- 防止 Codex 每次从 `video_goal_card`、`post_publish_review_card`、`data_flywheel_memory` 和 `content_structure_feedback_card` 里现场拼锚点。\n      note: \"本轮不得进入正式 Codex 视频执行。\"\n      - \"DeepSeek supply request\"\n      - \"content_validation\"\n      - \"send_ready\"\n1. 命中文案修改、下一条视频、视频执行、剪辑、编排、DeepSeek 供料或 GPT Project 静态包同步时，必须先读取本文件。\n4. Codex 可归档截图和整理早期数据，但不得改写本文件里已锁定的数据目标字段。",
+      "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+      "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+      "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+    },
+    {
+      "path": "codex_log/latest.md",
+      "snippet": "- `DeepSeek pre-supply`：已创建并运行安全供料请求；runtime provider 就绪且未打印/写入 key，但 controller 返回 `blocked_invalid_context_pack`，因此 `deepseek_actual_participation = not_attempted_policy_violation`、`not_deepseek_conclusion = true`，本轮结论来自 Codex 本地原文件复核与截图可视识别。\n- `未推进` 不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked / current_data_goal_anchor ready`；不生成下一条正式视频执行 prompt；不做最终复盘结论。\n- `日志证据`：`codex_log/20260604_最新发送视频数据回填_operation_data_intake.md`、`codex_log/supply_requests/20260604_最新发送视频数据回填_pre_supply_request.json`、`codex_log/deepseek_supply/20260604_latest_sent_video_data_intake_pre_supply/latest_supply_pack.md`。\n## 20260604｜社交编辑感卡片参考图与 DeepSeek 后置复核补修\n- `target_delivery = social_editorial_card_v1_reference_and_deepseek_post_review_repair`\n- `DeepSeek previous post-risk review`：旧请求 `20260604_social_editorial_card_post_risk_review` 返回 `blocked_invalid_context_pack`，保留为未通过记录，不改写成 passed。\n- `DeepSeek repaired post-risk review`：已新增并运行更窄的补修复核请求 `codex_log/supply_requests/20260604_社交编辑感卡片参考图补修_post_risk_review_request.json`；请求校验通过，但 controller 仍返回 `blocked_invalid_context_pack`，因此 `deepseek_post_risk_review_status = blocked_i\n...[truncated]",
+      "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+      "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+      "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+    },
+    {
+      "path": "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_between_24h_and_72h_snapshot.json",
+      "snippet": "\"content_validation_advanced\": false,\n    \"send_ready_advanced\": false,",
+      "why_it_matters": "readonly_context for DeepSeek deep file supply mode",
+      "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+      "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+    },
+    {
+      "path": "codex_log/20260604_最新发送视频数据回填_operation_data_intake.md",
+      "snippet": "- `codex_log/supply_requests/20260604_最新发送视频数据回填_pre_supply_request.json`\n- `codex_log/deepseek_supply/20260604_latest_sent_video_data_intake_pre_supply/`\n## 8. DeepSeek supply gate\n- `supply_request`: `codex_log/supply_requests/20260604_最新发送视频数据回填_pre_supply_request.json`\n- `deepseek_pre_supply_pack`: `codex_log/deepseek_supply/20260604_latest_sent_video_data_intake_pre_supply/latest_supply_pack.md`\n- `deepseek_actual_participation`: `not_attempted_policy_violation`\n- `not_deepseek_conclusion`: true\n- `Codex conclusion source`: `local_file_review_and_visual_screenshot_read`",
+      "why_it_matters": "current_log_or_request_source for DeepSeek deep file supply mode",
+      "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+      "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+    },
+    {
+      "path": "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_发布后运营数据记录_post_publish_operation_record.md",
+      "snippet": "- 不能推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked / current_data_goal_anchor ready`。",
+      "why_it_matters": "readonly_context for DeepSeek deep file supply mode",
+      "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+      "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+    },
+    {
+      "path": "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_chatgpt_review_input.md",
+      "snippet": "# V005 ChatGPT 复盘输入\n\n## 本轮数据状态\n\n- `video_id`: `V005`\n- `target_video_policy`: `latest_sent_video_only`\n- `identified_video_title`: `codex`\n- `visible_thumbnail_text`: `还是不赚钱`",
+      "why_it_matters": "readonly_context for DeepSeek deep file supply mode",
+      "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+      "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+    },
+    {
+      "path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/V005_截图清单_screenshot_manifest.md",
+      "snippet": "# V005 截图清单 screenshot_manifest\n\n## snapshot\n\n- `video_id`: `V005`\n- `snapshot_label`: `between_24h_and_72h_snapshot`\n- `review_window`: `between_24h_and_72h`\n- `capture_time_from_uploaded_filenames`: `2026-06-04 22:27-22:29`",
+      "why_it_matters": "readonly_context for DeepSeek deep file supply mode",
+      "codex_should_use_for": "minimal_review_before_write_or_conflict_check",
+      "risk_if_ignored": "Codex may keep defaulting to broad self-read or miss fallback / status boundary."
+    }
+  ],
+  "dependency_map": [
+    {
+      "source_file": "review_loop/operation_records_index.md",
+      "depends_on": [],
+      "dependency_type": "readonly_context",
+      "impact": "update_together_if_deep_file_supply_contract_changes"
+    },
+    {
+      "source_file": "codex_log/current_data_goal_anchor.md",
+      "depends_on": [],
+      "dependency_type": "readonly_context",
+      "impact": "update_together_if_deep_file_supply_contract_changes"
+    },
+    {
+      "source_file": "codex_log/latest.md",
+      "depends_on": [],
+      "dependency_type": "readonly_context",
+      "impact": "update_together_if_deep_file_supply_contract_changes"
+    },
+    {
+      "source_file": "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_between_24h_and_72h_snapshot.json",
+      "depends_on": [],
+      "dependency_type": "readonly_context",
+      "impact": "update_together_if_deep_file_supply_contract_changes"
+    },
+    {
+      "source_file": "codex_log/20260604_最新发送视频数据回填_operation_data_intake.md",
+      "depends_on": [],
+      "dependency_type": "readonly_context",
+      "impact": "update_together_if_deep_file_supply_contract_changes"
+    },
+    {
+      "source_file": "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_发布后运营数据记录_post_publish_operation_record.md",
+      "depends_on": [],
+      "dependency_type": "readonly_context",
+      "impact": "update_together_if_deep_file_supply_contract_changes"
+    },
+    {
+      "source_file": "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_chatgpt_review_input.md",
+      "depends_on": [],
+      "dependency_type": "readonly_context",
+      "impact": "update_together_if_deep_file_supply_contract_changes"
+    },
+    {
+      "source_file": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/V005_截图清单_screenshot_manifest.md",
+      "depends_on": [],
+      "dependency_type": "readonly_context",
+      "impact": "update_together_if_deep_file_supply_contract_changes"
+    }
+  ],
+  "risk_and_conflict_report": {
+    "risks": [
+      "potential_dirty_public_directory: public/ is unrelated and must not be staged.",
+      "missing_secret_scan: staged files may contain secrets; required before commit."
+    ],
+    "conflicts": [
+      "none_detected_yet: V003/V004 files not modified per known_context."
+    ],
+    "blocked_if": [
+      "forbidden_path_required",
+      "secret_scan_required_before_commit"
+    ]
+  },
+  "risk_delta_report": [],
+  "missing_or_uncertain_files": [
+    {
+      "path_or_query": "DeepSeek token usage evidence until safe runner returns.",
+      "reason": "request_missing_context",
+      "blocked_if_missing": false
+    },
+    {
+      "path_or_query": "Final git commit/push/readback until Codex validation completes.",
+      "reason": "request_missing_context",
+      "blocked_if_missing": false
+    }
+  ],
+  "editing_decision_pack": null,
+  "execution_supply_pack": null,
+  "codex_next_input": {
+    "read_first": [
+      "review_loop/operation_records_index.md",
+      "codex_log/current_data_goal_anchor.md",
+      "codex_log/20260604_最新发送视频数据回填_operation_data_intake.md",
+      "codex_log/latest.md",
+      "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_between_24h_and_72h_snapshot.json",
+      "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_发布后运营数据记录_post_publish_operation_record.md",
+      "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_chatgpt_review_input.md",
+      "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/V005_截图清单_screenshot_manifest.md"
+    ],
+    "use_as": "readonly_supply_pack",
+    "warning": "DeepSeek generated the pack, but Codex must still verify original files.",
+    "post_risk_review_required": true,
+    "status_promotion_risk": "check_required_no_forbidden_status_promotion",
+    "forbidden_change_risk": "check_required_no_env_media_or_latest_review_pack_change",
+    "missed_sync_files": "check_required_docs_scripts_schema_fixture_logs_package_paths",
+    "fallback_mislabel_risk": "none_observed",
+    "remaining_work": "Codex must run validation, sync logs/package/path index, and report token check boundary.",
+    "recommended_child_tasks": [
+      "update_deep_file_supply_contract",
+      "update_controller_schema_fixture",
+      "run_validation_and_truth_check"
+    ],
+    "files_codex_must_review": [],
+    "files_codex_can_trust_from_deepseek_unless_conflict": [
+      "review_loop/operation_records_index.md",
+      "codex_log/current_data_goal_anchor.md",
+      "codex_log/latest.md",
+      "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_between_24h_and_72h_snapshot.json",
+      "codex_log/20260604_最新发送视频数据回填_operation_data_intake.md",
+      "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_发布后运营数据记录_post_publish_operation_record.md",
+      "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_chatgpt_review_input.md",
+      "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/V005_截图清单_screenshot_manifest.md"
+    ],
+    "blocked_conditions": [
+      "deepseek_actual_required_but_not_deepseek_passed",
+      "relevant_file_bundle_missing",
+      "exact_snippet_pack_missing",
+      "validation_failed_files_not_reviewed_by_codex"
+    ]
+  },
+  "not_allowed": [
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim DeepSeek is stable production supply.",
+    "Do not claim multi-agent runtime is running.",
+    "Do not let DeepSeek write files or decide project facts.",
+    "Do not read .env, API keys, media files, or dist/latest_review_pack/.",
+    "Do not call Aliyun or other real generation APIs in mechanism-only tests."
+  ],
+  "explorer_status": {
+    "validation_status": "passed",
+    "api_validation": "passed",
+    "deepseek_generation_status": "passed_with_retries",
+    "context_pack_validation": "passed",
+    "fallback_status": "not_used",
+    "pipeline_status": "passed",
+    "multi_agent_runtime_validation": "not_started",
+    "validated_at_utc": "2026-06-04T14:52:19.295477+00:00",
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-v4-flash",
+    "scope": "readonly_explorer_minimal_api_validation",
+    "env_file_read": "false",
+    "process_env_key_allowed": "true",
+    "process_env_key_present": "true",
+    "safe_call_mode": "process_env_only",
+    "deepseek_actual_participation": "deepseek_passed",
+    "api_key_printed": "false",
+    "api_key_written": "false",
+    "context_truncated": "true",
+    "truncated_files": "[\"review_loop/operation_records_index.md\", \"codex_log/current_data_goal_anchor.md\", \"codex_log/latest.md\", \"review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_between_24h_and_72h_snapshot.json\"]"
+  },
+  "explorer_returncode": 0,
+  "explorer_pack_path": "dist/deepseek_readonly_explorer/latest_prefetch_context_pack.md",
+  "output_dir": "codex_log/deepseek_supply/20260604_latest_sent_video_data_intake_post_risk_review",
+  "sections": {
+    "prefetch_context_pack": {
+      "confirmed": [
+        "V005 is a new record, not matching V003/V004.",
+        "Snapshot is between 24h and 72h, not written as final."
+      ],
+      "pending_verification": [
+        "operation_records_index.md does not reference V003/V004 under V005.",
+        "current_data_goal_anchor does not set ready or promote forbidden status."
+      ],
+      "source_summary": [
+        "Loaded 4 truncated files: index, anchor, latest, V005 JSON.",
+        "All confirmed context aligns with known_context."
+      ]
+    },
+    "must_read_file_map": {
+      "required_files": [
+        "review_loop/operation_records_index.md",
+        "codex_log/current_data_goal_anchor.md"
+      ],
+      "optional_files": [
+        "codex_log/20260604_最新发送视频数据回填_operation_data_intake.md"
+      ],
+      "reason": "Verify index only lists V005 under V005 section, anchor does not set ready."
+    },
+    "risk_and_conflict_report": {
+      "risks": [
+        "potential_dirty_public_directory: public/ is unrelated and must not be staged.",
+        "missing_secret_scan: staged files may contain secrets; required before commit."
+      ],
+      "conflicts": [
+        "none_detected_yet: V003/V004 files not modified per known_context."
+      ],
+      "blocked_if": [
+        "forbidden_path_required",
+        "secret_scan_required_before_commit"
+      ]
+    },
+    "candidate_summary": {
+      "summary": "No old_record_pollution or forbidden_status_promotion found.",
+      "recommended_next_step": "Codex: run secret scan, git diff --check, validate JSON, commit only allowed paths.",
+      "not_allowed": [
+        "Do not write files.",
+        "Do not promote statuses like ready or final."
+      ]
+    }
+  }
+}

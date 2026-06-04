@@ -21,6 +21,7 @@
 | V002 | 自动流的最简单流程 | `review_loop/records/V002_自动流的最简单流程_douyin_policy_notice/V002_发布后复盘记录_post_publish_review_record.md` | `policy_limited_abnormal_operation_sample` | 保留历史 39 / 5 / 8；新增用户补充 56 / 6 / 9（user_provided_in_chat / no_screenshot_yet）；不是正常自然分发样本 |
 | V003 | 以后会分享实用的，每天会给大家看我是怎么优化的，这个视频只用3个小时写出来的本地文件 | `review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_发布后灰度数据记录_post_publish_gray_test_record.md` | `current_operation_target` | 已录入约 37 小时、约 65 小时和 72h 后 / 7d 前数据；7d 未完成 |
 | V004 | 不能做得说很好，但确实方便 如果这条没有人看，我直接公开我全自动的制作方式 | `review_loop/records/V004_全自动制作方式_public_ai_video_20260517/V004_发布后运营数据记录_post_publish_operation_record.md` | `latest_operation_sample_pre_24h` | 已录入 interim_17h_snapshot；不是 24h / 72h / 7d final；等待人审确认是否切换 current_operation_target |
+| V005 | codex（封面文字：还是不赚钱，待人审确认） | `review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_发布后运营数据记录_post_publish_operation_record.md` | `latest_operation_sample_between_24h_and_72h_recorded` | 已录入 between_24h_and_72h_snapshot（约 42 小时）；不是 24h / 72h / 7d final；等待后续 72h / 7d 数据和人审 |
 
 ## 3. per_record_boundary
 
@@ -52,6 +53,13 @@
 - `what_cannot_be_concluded`: 不能判断方向失败、内容通过、商业成立、平台充分验证或下一轮正式变量；不能把 V004 的 0 收藏写成内容无价值已确认。
 - `next_required_data`: V004 24h / 72h / 7d 数据、3s 留存、单条视频主页访问、私信、有效私信、有效咨询、清晰需求客户；并需用户 / ChatGPT 确认是否替换 V003 为新的 current_operation_target。
 
+### V005
+
+- `operation_record_status`: `latest_operation_sample_between_24h_and_72h_recorded`
+- `what_can_be_concluded`: 用户最新发送视频已独立建档；截图显示发布时间 `2026-06-03 04:14`、作品状态正常、时长 `00:03:23`，并已录入约 42 小时窗口的数据。
+- `what_cannot_be_concluded`: 不能写成 24h final、72h final 或 7d final；不能判断内容通过、方向成立、商业验证成立或平台充分验证；不能自动替换 V003 / V004 为 current_operation_target。
+- `next_required_data`: V005 72h / 7d 数据、3s 留存、单条视频主页访问、私信、有效私信、有效咨询、清晰需求客户；并需用户 / ChatGPT 确认页面标题 `codex` 与封面文字 `还是不赚钱` 的关系。
+
 ## 4. status_boundary
 
 - `formal_operation_active` 只说明项目进入真实发布与数据回流阶段。
@@ -64,4 +72,4 @@
 
 ## 5. next_target
 
-V003 补齐 7d 数据和需求侧字段后，进入 `operation_review`；V004 先等待 24h / 72h / 7d 数据和人审确认是否切换当前运营目标。复盘只用于判断下一轮唯一运营变量，不直接生成下一条正式视频执行 prompt。
+V003 补齐 7d 数据和需求侧字段后，进入 `operation_review`；V004 先等待 24h / 72h / 7d 数据和人审确认是否切换当前运营目标；V005 已作为最新发送视频独立记录进入记录池，等待后续 72h / 7d 数据、需求侧字段和人审确认。复盘只用于判断下一轮唯一运营变量，不直接生成下一条正式视频执行 prompt。

@@ -1,0 +1,143 @@
+{
+  "request_id": "20260604_latest_sent_video_data_intake_pre_supply",
+  "created_at": "2026-06-04T22:39:51+08:00",
+  "project_route": "video_factory",
+  "task_id": "latest_sent_video_operation_data_intake",
+  "task_type": "operation_data_intake",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "file_map",
+  "mandatory_for_every_task": true,
+  "participation_level": "default_required",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "requires_real_deepseek_participation": false,
+  "allow_process_env_api_key": true,
+  "disable_env_file": true,
+  "safe_call_mode": "project_runtime_provider",
+  "runtime_provider": {
+    "provider_name": "deepseek_runtime_provider",
+    "auto_load_enabled": true,
+    "inject_to_child_process_only": true,
+    "never_print_key": true,
+    "never_write_key": true,
+    "blocked_if_provider_not_ready": false
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "file_scope": [
+      "AGENTS.md",
+      "codex_source/00_codex_readme.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+      "codex_log/current_operation_target.md",
+      "review_loop/operation_records_index.md",
+      "codex_log/current_data_goal_anchor.md",
+      "review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md",
+      "GPT数据源/14_数据目标执行总线_data_goal_execution_bus.md"
+    ],
+    "content_loading_policy": "load_operation_data_intake_sections_only",
+    "codex_minimal_review_policy": [
+      "Codex must re-read original files before editing.",
+      "Codex must not write latest sent video screenshots into V003 or V004 unless title and publish time fully match.",
+      "Codex must mark missing and uncertain fields explicitly.",
+      "Codex must not promote content_validation, send_ready, publish_status_success, voice_validation, final_voice_validated, visual_master_locked, or current_data_goal_anchor ready."
+    ],
+    "output_required": [
+      "relevant_file_bundle",
+      "risk_and_conflict_report",
+      "missing_or_uncertain_files",
+      "codex_next_input"
+    ]
+  },
+  "current_goal": "扫描 /Users/fan/Desktop/数据 下 4 张 PNG 截图，作为用户最新发送视频的运营数据证据处理；若未匹配 V003/V004，创建下一个可用 video_id 的 pending title 记录，并完成截图归档、字段提取、缺失/不确定标记、JSON、manifest、ChatGPT 复盘输入、索引、current_data_goal_anchor、latest 与 dated log。",
+  "current_step": "pre_supply_before_operation_record_write",
+  "known_context": [
+    "用户明确本轮 target_video = latest_sent_video，不回填到 V003，不回填到 V004，除非截图明确显示与已有记录标题/发布时间完全匹配。",
+    "现有 operation_records_index 最高编号为 V004，review_loop/records/ 未发现 V005 或更高编号。",
+    "本轮截图目录存在：/Users/fan/Desktop/数据，包含 4 张 PNG。",
+    "本轮只做 operation_data_intake，不做复盘结论、不生成下一条正式视频执行 prompt、不改文案、不生成视频。",
+    "当前工作区有 unrelated dirty：public/ 未跟踪，必须保持不提交。"
+  ],
+  "missing_context": [
+    "截图 OCR/人工识别尚未完成。",
+    "标题、发布时间、时间窗和部分数字可能需要标记 uncertain_need_human_check。",
+    "DeepSeek token usage evidence until safe runner returns.",
+    "Post-edit risk review until edits are complete."
+  ],
+  "decision_needed": "识别是否存在旧记录匹配风险、编号选择风险、时间窗误写风险、禁止状态推进风险和缺失字段边界。",
+  "candidate_files": [
+    "review_loop/operation_records_index.md",
+    "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_发布后灰度数据记录_post_publish_gray_test_record.md",
+    "review_loop/records/V004_全自动制作方式_public_ai_video_20260517/V004_发布后运营数据记录_post_publish_operation_record.md",
+    "review_loop/screenshots/V004_全自动制作方式_public_ai_video_20260517/V004_截图清单_screenshot_manifest.md",
+    "codex_log/current_data_goal_anchor.md",
+    "codex_log/latest.md",
+    "review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md"
+  ],
+  "must_read_files": [
+    "review_loop/operation_records_index.md",
+    "codex_log/current_data_goal_anchor.md",
+    "review_loop/01_截图数据录入规则_screenshot_data_intake_rules.md",
+    "codex_log/latest.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    ".env.*",
+    ".git/",
+    "GPT数据源/",
+    "codex_source/",
+    "scripts/",
+    "dist/",
+    "public/",
+    "*.mp4",
+    "*.mov",
+    "*.mp3",
+    "*.wav"
+  ],
+  "max_context_files": 11,
+  "max_context_chars": 30000,
+  "expected_output": [
+    "operation_record_targeting_risks",
+    "must_update_files",
+    "old_record_pollution_risk",
+    "status_promotion_risk_check",
+    "codex_next_input"
+  ],
+  "output_format": "json_object",
+  "codex_next_input": "Codex should create/update only the latest_sent_video operation data record, archive screenshots under the selected V00X path, mark missing/uncertain fields, validate JSON and diff, then path-limited commit/push/readback.",
+  "return_to_codex": {
+    "output_dir": "codex_log/deepseek_supply/20260604_latest_sent_video_data_intake_pre_supply",
+    "latest_supply_pack_md": "latest_supply_pack.md",
+    "latest_supply_pack_json": "latest_supply_pack.json",
+    "latest_supply_manifest_json": "latest_supply_manifest.json"
+  },
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback_local_only 写成 DeepSeek 结论。",
+    "不得写 multi-agent runtime / 多 agent 运行时已跑通。",
+    "不得读取、输出或复述 API key / secret / token。",
+    "不得把最新发送视频数据默认写入 V003 / V004。",
+    "不得生成下一条正式视频执行 prompt。",
+    "不得推进 content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked / current_data_goal_anchor ready。"
+  ],
+  "stop_condition": "DeepSeek 真实调用返回 deepseek_passed，或 safe runner 输出 runtime_setup_required / fallback boundary。",
+  "blocked_if": [
+    "key_file_or_secret_needed",
+    "forbidden_path_required",
+    "operation_records_index_missing",
+    "current_data_goal_anchor_missing",
+    "status_promotion_required",
+    "old_video_record_must_absorb_new_data"
+  ],
+  "fallback_policy": "fallback_local_only 可用于继续本轮数据录入，但最终报告必须写 not_deepseek_conclusion=true。"
+}

@@ -1,0 +1,430 @@
+{
+  "video_id": "V005",
+  "video_title": "codex",
+  "video_title_status": "extracted_from_screenshot_with_medium_confidence",
+  "visible_thumbnail_text": "还是不赚钱",
+  "visible_thumbnail_text_status": "extracted_from_screenshot",
+  "publish_platform": "抖音",
+  "publish_time_visible": "2026-06-03 04:14",
+  "publish_time_status": "extracted_from_screenshot",
+  "work_status": "作品状态正常",
+  "work_status_source_status": "extracted_from_screenshot",
+  "video_duration_visible": "00:03:23",
+  "video_duration_status": "extracted_from_screenshot",
+  "capture_time_if_known": "2026-06-04 22:27-22:29",
+  "capture_time_from_uploaded_filenames": [
+    "ScreenShot_2026-06-04_222701_816.png",
+    "wechat_longscreenshot_2026-06-04_222803_913.png",
+    "wechat_longscreenshot_2026-06-04_222911_916.png",
+    "ScreenShot_2026-06-04_222931_100.png"
+  ],
+  "inferred_hours_after_publish": "约 42 小时 13-15 分",
+  "review_window": "between_24h_and_72h",
+  "snapshot_label": "between_24h_and_72h_snapshot",
+  "exact_24h_capture": false,
+  "exact_72h_capture": false,
+  "not_7d_final": true,
+  "latest_sent_video": true,
+  "matched_existing_record": false,
+  "matched_existing_record_note": "V004 publish_time_visible=2026-05-17 04:08 and duration=02:26; current screenshots show 2026-06-03 04:14 and duration=00:03:23.",
+  "recording_status": "operation_data_intake",
+  "human_review_required": true,
+  "source_status": "screenshot_archived_to_repo_and_codex_visual_read",
+  "screenshot_archive_status": "archived_to_repo",
+  "source_screenshots": [
+    {
+      "original_file": "/Users/fan/Desktop/数据/ScreenShot_2026-06-04_222701_816.png",
+      "archive_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/platform_metrics/V005_between_24h_and_72h_snapshot_platform_metrics_20260604_222701.png",
+      "snapshot_label": "between_24h_and_72h_snapshot",
+      "data_type": "platform_metrics",
+      "extraction_status": "partially_extracted_from_screenshot"
+    },
+    {
+      "original_file": "/Users/fan/Desktop/数据/wechat_longscreenshot_2026-06-04_222803_913.png",
+      "archive_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/traffic_source/V005_between_24h_and_72h_snapshot_traffic_source_20260604_222803.png",
+      "snapshot_label": "between_24h_and_72h_snapshot",
+      "data_type": "traffic_source",
+      "extraction_status": "partially_extracted_from_screenshot"
+    },
+    {
+      "original_file": "/Users/fan/Desktop/数据/wechat_longscreenshot_2026-06-04_222911_916.png",
+      "archive_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/audience_profile/V005_between_24h_and_72h_snapshot_audience_profile_20260604_222911.png",
+      "snapshot_label": "between_24h_and_72h_snapshot",
+      "data_type": "audience_profile",
+      "extraction_status": "partially_extracted_from_screenshot"
+    },
+    {
+      "original_file": "/Users/fan/Desktop/数据/ScreenShot_2026-06-04_222931_100.png",
+      "archive_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/comments/V005_between_24h_and_72h_snapshot_comment_hot_words_20260604_222931.png",
+      "snapshot_label": "between_24h_and_72h_snapshot",
+      "data_type": "comments",
+      "extraction_status": "partially_extracted_from_screenshot"
+    }
+  ],
+  "metrics": {
+    "platform_metrics": {
+      "play_count": {
+        "value": 1514,
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/platform_metrics/V005_between_24h_and_72h_snapshot_platform_metrics_20260604_222701.png",
+        "confidence": "high",
+        "note": "总览页播放量。"
+      },
+      "average_watch_time": {
+        "value": "8秒",
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/traffic_source/V005_between_24h_and_72h_snapshot_traffic_source_20260604_222803.png",
+        "confidence": "high",
+        "note": "流量分析页平均播放时长。"
+      },
+      "average_play_ratio": {
+        "value": "4.01%",
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/traffic_source/V005_between_24h_and_72h_snapshot_traffic_source_20260604_222803.png",
+        "confidence": "high",
+        "note": "流量分析页平均播放占比。"
+      },
+      "completion_rate": {
+        "value": "0.62%",
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/traffic_source/V005_between_24h_and_72h_snapshot_traffic_source_20260604_222803.png",
+        "confidence": "high",
+        "note": "流量分析页完播率。"
+      },
+      "two_second_bounce_rate": {
+        "value": "54.68%",
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/traffic_source/V005_between_24h_and_72h_snapshot_traffic_source_20260604_222803.png",
+        "confidence": "high",
+        "note": "流量分析页 2s 跳出率。"
+      },
+      "three_second_retention": {
+        "value": null,
+        "source_status": "missing",
+        "source_screenshot_path": null,
+        "confidence": "not_applicable",
+        "note": "截图未提供 3s 留存。"
+      },
+      "five_second_completion_rate": {
+        "value": "22.45%",
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/traffic_source/V005_between_24h_and_72h_snapshot_traffic_source_20260604_222803.png",
+        "confidence": "high",
+        "note": "流量分析页 5s 完播率。"
+      },
+      "cover_click_rate": {
+        "value": "7.14%",
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/traffic_source/V005_between_24h_and_72h_snapshot_traffic_source_20260604_222803.png",
+        "confidence": "high",
+        "note": "流量分析页封面点击率。"
+      },
+      "recommendation_page": {
+        "value": "96.1%",
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/traffic_source/V005_between_24h_and_72h_snapshot_traffic_source_20260604_222803.png",
+        "confidence": "high",
+        "note": "流量来源：推荐页。"
+      },
+      "profile_page": {
+        "value": "2.2%",
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/traffic_source/V005_between_24h_and_72h_snapshot_traffic_source_20260604_222803.png",
+        "confidence": "high",
+        "note": "流量来源：个人主页。"
+      },
+      "friend_page": {
+        "value": null,
+        "source_status": "missing",
+        "source_screenshot_path": null,
+        "confidence": "not_applicable",
+        "note": "截图未显示朋友页字段。"
+      },
+      "search_page": {
+        "value": "1.2%",
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/traffic_source/V005_between_24h_and_72h_snapshot_traffic_source_20260604_222803.png",
+        "confidence": "high",
+        "note": "流量来源：搜索。"
+      },
+      "message_page": {
+        "value": "0.1%",
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/traffic_source/V005_between_24h_and_72h_snapshot_traffic_source_20260604_222803.png",
+        "confidence": "high",
+        "note": "流量来源：消息页。"
+      },
+      "other_page": {
+        "value": "0.4%",
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/traffic_source/V005_between_24h_and_72h_snapshot_traffic_source_20260604_222803.png",
+        "confidence": "high",
+        "note": "流量来源：其他。"
+      }
+    },
+    "interaction": {
+      "like_count": {
+        "value": 50,
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/platform_metrics/V005_between_24h_and_72h_snapshot_platform_metrics_20260604_222701.png",
+        "confidence": "high",
+        "note": "总览页点赞量。"
+      },
+      "like_rate": {
+        "value": "3.30%",
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/traffic_source/V005_between_24h_and_72h_snapshot_traffic_source_20260604_222803.png",
+        "confidence": "high",
+        "note": "流量分析页点赞率。"
+      },
+      "favorite_count": {
+        "value": 12,
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/platform_metrics/V005_between_24h_and_72h_snapshot_platform_metrics_20260604_222701.png",
+        "confidence": "high",
+        "note": "总览页收藏量。"
+      },
+      "favorite_rate": {
+        "value": "0.79%",
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/traffic_source/V005_between_24h_and_72h_snapshot_traffic_source_20260604_222803.png",
+        "confidence": "high",
+        "note": "流量分析页收藏率。"
+      },
+      "comment_count": {
+        "value": 1,
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/platform_metrics/V005_between_24h_and_72h_snapshot_platform_metrics_20260604_222701.png",
+        "confidence": "high",
+        "note": "总览页评论量。"
+      },
+      "comment_rate": {
+        "value": "0.07%",
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/traffic_source/V005_between_24h_and_72h_snapshot_traffic_source_20260604_222803.png",
+        "confidence": "high",
+        "note": "流量分析页评论率。"
+      },
+      "share_count": {
+        "value": 2,
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/platform_metrics/V005_between_24h_and_72h_snapshot_platform_metrics_20260604_222701.png",
+        "confidence": "high",
+        "note": "总览页分享量。"
+      },
+      "share_rate": {
+        "value": "0.13%",
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/traffic_source/V005_between_24h_and_72h_snapshot_traffic_source_20260604_222803.png",
+        "confidence": "high",
+        "note": "流量分析页分享率。"
+      },
+      "danmu_count": {
+        "value": 0,
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/platform_metrics/V005_between_24h_and_72h_snapshot_platform_metrics_20260604_222701.png",
+        "confidence": "high",
+        "note": "总览页弹幕量，流量分析页也显示视频未收到弹幕。"
+      },
+      "not_interested_rate": {
+        "value": "0.00%",
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/traffic_source/V005_between_24h_and_72h_snapshot_traffic_source_20260604_222803.png",
+        "confidence": "high",
+        "note": "流量分析页不感兴趣率。"
+      }
+    },
+    "account_growth": {
+      "new_follow_count": {
+        "value": 0,
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/audience_profile/V005_between_24h_and_72h_snapshot_audience_profile_20260604_222911.png",
+        "confidence": "high",
+        "note": "观众分析页涨粉量。"
+      },
+      "unfollow_count": {
+        "value": 0,
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/audience_profile/V005_between_24h_and_72h_snapshot_audience_profile_20260604_222911.png",
+        "confidence": "high",
+        "note": "观众分析页脱粉量。"
+      },
+      "fan_play_ratio": {
+        "value": "0.1%",
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/platform_metrics/V005_between_24h_and_72h_snapshot_platform_metrics_20260604_222701.png",
+        "confidence": "high",
+        "note": "总览页粉丝播放占比。"
+      },
+      "profile_visit_count": {
+        "value": null,
+        "source_status": "missing",
+        "source_screenshot_path": null,
+        "confidence": "not_applicable",
+        "note": "截图未提供单条视频主页访问量。"
+      }
+    },
+    "demand_or_leads": {
+      "dm_count": {
+        "value": null,
+        "source_status": "missing",
+        "source_screenshot_path": null,
+        "confidence": "not_applicable",
+        "note": "未提供私信截图。"
+      },
+      "effective_dm_count": {
+        "value": null,
+        "source_status": "missing",
+        "source_screenshot_path": null,
+        "confidence": "not_applicable",
+        "note": "未提供有效私信判断材料。"
+      },
+      "effective_consult_count": {
+        "value": null,
+        "source_status": "missing",
+        "source_screenshot_path": null,
+        "confidence": "not_applicable",
+        "note": "未提供咨询截图或人工确认。"
+      },
+      "clear_need_customer_count": {
+        "value": null,
+        "source_status": "missing",
+        "source_screenshot_path": null,
+        "confidence": "not_applicable",
+        "note": "未提供清晰需求客户材料。"
+      },
+      "lead_score_if_visible": {
+        "value": null,
+        "source_status": "not_applicable",
+        "source_screenshot_path": null,
+        "confidence": "not_applicable",
+        "note": "截图不包含客资评分。"
+      }
+    },
+    "audience_profile": {
+      "gender_distribution": {
+        "value": {
+          "male": "97%",
+          "female": "3%"
+        },
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/audience_profile/V005_between_24h_and_72h_snapshot_audience_profile_20260604_222911.png",
+        "confidence": "high",
+        "note": "观众分析页性别分布。"
+      },
+      "age_distribution": {
+        "value": "bar_chart_visible_without_exact_labels",
+        "source_status": "uncertain_need_human_check",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/audience_profile/V005_between_24h_and_72h_snapshot_audience_profile_20260604_222911.png",
+        "confidence": "low",
+        "note": "年龄柱状图可见，但各柱精确数值未标注，不能硬猜。"
+      },
+      "region_distribution": {
+        "value": {
+          "partial_visible_rows": [
+            "广东 14.12%",
+            "贵州 0.69%",
+            "甘肃 0.54%",
+            "海南 0.23%",
+            "香港 0.23%",
+            "台湾 0.15%",
+            "青海 0.15%"
+          ],
+          "obscured_or_scrolled_rows": true
+        },
+        "source_status": "uncertain_need_human_check",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/audience_profile/V005_between_24h_and_72h_snapshot_audience_profile_20260604_222911.png",
+        "confidence": "medium",
+        "note": "地区表部分行可见，部分行被遮挡或不完整，完整地区分布需人工确认。"
+      },
+      "interest_distribution": {
+        "value": {
+          "汽车": "20.00%",
+          "随拍": "20.00%",
+          "时尚": "20.00%",
+          "电影": "20.00%",
+          "二次元": "20.00%"
+        },
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/audience_profile/V005_between_24h_and_72h_snapshot_audience_profile_20260604_222911.png",
+        "confidence": "high",
+        "note": "观众分析页受众兴趣分布。"
+      },
+      "active_distribution": {
+        "value": {
+          "低活": "0%",
+          "轻度": "2%",
+          "中度": "9%",
+          "重度": "83%",
+          "未知": "6%"
+        },
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/audience_profile/V005_between_24h_and_72h_snapshot_audience_profile_20260604_222911.png",
+        "confidence": "high",
+        "note": "观众分析页活跃分布。"
+      }
+    },
+    "comments": {
+      "comment_hot_words": {
+        "value": [
+          "你说",
+          "赚钱",
+          "运气"
+        ],
+        "source_status": "extracted_from_screenshot",
+        "source_screenshot_path": "review_loop/screenshots/V005_codex最新发送视频_latest_sent_video_20260603/between_24h_and_72h_snapshot/comments/V005_between_24h_and_72h_snapshot_comment_hot_words_20260604_222931.png",
+        "confidence": "high",
+        "note": "评论热词页前三。"
+      }
+    }
+  },
+  "missing_fields": [
+    "24h_final_data",
+    "72h_final_data",
+    "7d_final_data",
+    "three_second_retention",
+    "friend_page",
+    "profile_visit_count",
+    "dm_count",
+    "effective_dm_count",
+    "effective_consult_count",
+    "clear_need_customer_count",
+    "comment_body_or_comment_quality",
+    "paid_or_commercial_signal",
+    "full_region_distribution",
+    "exact_age_distribution_values",
+    "platform_capture_time_explicit_on_page"
+  ],
+  "uncertain_fields": [
+    "video_title_codex_vs_thumbnail_text_still_not_making_money",
+    "exact_review_window_from_platform_page",
+    "age_distribution_exact_values",
+    "region_distribution_complete_rows",
+    "whether_platform_will_continue_distribution_before_72h",
+    "whether_V005_should_replace_V003_or_V004_as_current_operation_target_requires_human_confirmation"
+  ],
+  "not_allowed_conclusions": [
+    "不得写内容通过",
+    "不得写商业验证成立",
+    "不得生成下一条正式视频执行 prompt",
+    "不得推进 current_data_goal_anchor ready",
+    "不得把本轮约 42 小时截图写成 24h final / 72h final / 7d final",
+    "不得把播放量高写成方向成立",
+    "不得把收藏高写成内容通过"
+  ],
+  "status_boundary": {
+    "latest_operation_sample_between_24h_and_72h_recorded": true,
+    "current_operation_target_switched": false,
+    "content_validation_advanced": false,
+    "send_ready_advanced": false,
+    "publish_status_success_advanced": false,
+    "voice_validation_advanced": false,
+    "final_voice_validated_advanced": false,
+    "visual_master_locked_advanced": false,
+    "current_data_goal_anchor_ready": false,
+    "next_formal_video_execution_prompt_generated": false,
+    "operation_review_conclusion_generated": false,
+    "commercial_validation_claimed": false,
+    "previous_video_data_polluted": false
+  }
+}
