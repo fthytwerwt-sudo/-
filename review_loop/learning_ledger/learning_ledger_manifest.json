@@ -1,0 +1,50 @@
+{
+  "schema": "operation_learning_ledger.manifest.v1",
+  "generated_at": "2026-06-05T17:13:16+00:00",
+  "ledger_dir": "review_loop/learning_ledger",
+  "required_outputs": [
+    "review_loop/learning_ledger/README.md",
+    "review_loop/learning_ledger/metric_event_log.jsonl",
+    "review_loop/learning_ledger/episode_variable_registry.json",
+    "review_loop/learning_ledger/episode_signal_summary.md",
+    "review_loop/learning_ledger/operation_learning_memory.md",
+    "review_loop/learning_ledger/current_copy_revision_handoff.md",
+    "review_loop/learning_ledger/next_episode_bet_card.md",
+    "review_loop/learning_ledger/first_closed_loop_report.md",
+    "review_loop/learning_ledger/latest_operation_learning_report.json",
+    "review_loop/learning_ledger/latest_operation_learning_report.md",
+    "review_loop/learning_ledger/learning_ledger_manifest.json"
+  ],
+  "required_next_copy_inputs": [
+    "review_loop/learning_ledger/next_episode_bet_card.md",
+    "review_loop/learning_ledger/current_copy_revision_handoff.md",
+    "review_loop/learning_ledger/operation_learning_memory.md",
+    "review_loop/copy_iteration/V005/V005_copy_structure_map.json"
+  ],
+  "machine_readable_outputs": [
+    "review_loop/learning_ledger/metric_event_log.jsonl",
+    "review_loop/learning_ledger/episode_variable_registry.json",
+    "review_loop/learning_ledger/latest_operation_learning_report.json",
+    "review_loop/learning_ledger/learning_ledger_manifest.json"
+  ],
+  "markdown_outputs": [
+    "review_loop/learning_ledger/README.md",
+    "review_loop/learning_ledger/episode_signal_summary.md",
+    "review_loop/learning_ledger/operation_learning_memory.md",
+    "review_loop/learning_ledger/current_copy_revision_handoff.md",
+    "review_loop/learning_ledger/next_episode_bet_card.md",
+    "review_loop/learning_ledger/first_closed_loop_report.md",
+    "review_loop/learning_ledger/latest_operation_learning_report.md"
+  ],
+  "closed_loop_completion_requirements": {
+    "metric_event_log": "review_loop/learning_ledger/metric_event_log.jsonl",
+    "episode_variable_registry": "review_loop/learning_ledger/episode_variable_registry.json",
+    "next_episode_bet_card": "review_loop/learning_ledger/next_episode_bet_card.md",
+    "current_copy_revision_handoff": "review_loop/learning_ledger/current_copy_revision_handoff.md",
+    "operation_learning_memory": "review_loop/learning_ledger/operation_learning_memory.md"
+  },
+  "not_generated": [
+    "formal_next_video_execution_prompt",
+    "full_next_episode_script"
+  ]
+}

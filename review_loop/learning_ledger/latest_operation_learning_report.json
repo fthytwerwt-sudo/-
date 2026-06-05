@@ -1,0 +1,69 @@
+{
+  "schema": "operation_learning_ledger.latest_report.v1",
+  "generated_at": "2026-06-05T17:13:16+00:00",
+  "status": "learning_ledger_generated_pending_git_sync",
+  "closed_loop_artifacts_generated": true,
+  "closed_loop_completion_claim_allowed_by_artifacts": true,
+  "included_episodes": [
+    "V001",
+    "V002",
+    "V003",
+    "V004",
+    "V005"
+  ],
+  "latest_learning_sample": "V005",
+  "V005_learning_result": {
+    "good_signals": [
+      "play_count=1514",
+      "like_count=50",
+      "like_rate=3.30%",
+      "cover_click_rate=7.14%",
+      "recommendation_page=96.1%"
+    ],
+    "bad_signals": [
+      "average_watch_time=8秒",
+      "completion_rate=0.62%",
+      "two_second_bounce_rate=54.68%",
+      "five_second_completion_rate=22.45%",
+      "favorite_rate=0.79%"
+    ],
+    "missing_signals": [
+      "3s_retention",
+      "profile_visit_count",
+      "dm_count",
+      "effective_dm_count",
+      "effective_consult_count",
+      "clear_need_customer_count"
+    ],
+    "uncertain_signals": [
+      "whether_V005_should_replace_current_operation_target",
+      "exact_review_window_from_platform_page"
+    ],
+    "preliminary_learning": "V005 更像题眼和封面包装打开流量，不是内容承接全面变好；下一期保留大题眼，只改前 0-8 秒承接并压到具体证明场景。",
+    "not_allowed_conclusions": [
+      "不能写内容通过",
+      "不能写方向成立",
+      "不能写商业验证成立"
+    ]
+  },
+  "ChatGPT_creative_judgment_responsibility": {
+    "must_output_next_time": [
+      "押什么",
+      "不押什么",
+      "为什么",
+      "验证什么",
+      "继承 V005 哪个有效信号",
+      "修复 V005 哪个失败信号"
+    ],
+    "must_not_output_only": "泛泛建议或纯数据解释",
+    "required_inputs": [
+      "review_loop/learning_ledger/next_episode_bet_card.md",
+      "review_loop/learning_ledger/current_copy_revision_handoff.md",
+      "review_loop/learning_ledger/operation_learning_memory.md",
+      "review_loop/copy_iteration/V005/V005_copy_structure_map.json"
+    ]
+  },
+  "event_count": 29,
+  "V005_event_count": 17,
+  "episode_registry_count": 5
+}

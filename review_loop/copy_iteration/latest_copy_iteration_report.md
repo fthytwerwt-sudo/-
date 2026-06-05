@@ -12,6 +12,32 @@
 - `V002` / `V002_copy_v1`：`policy_limited_abnormal_operation_sample`，`recorded_abnormal_sample_reference_only`
 - `V003` / `V003_copy_v1`：`current_operation_target`，`low_confidence_prepare_only`
 - `V004` / `V004_copy_v1`：`latest_operation_sample_pre_24h`，`recorded_latest_sample_pre_24h_only`
+- `V005` / `V005_copy_v1`：`latest_operation_sample_between_24h_and_72h_recorded`，`entered_learning_ledger_for_low_confidence_prepare`
+
+## 当前最新可学习样本
+
+- V005 已进入 learning ledger。
+- V005 是当前最新发送视频样本。
+- 当前不自动把 V005 写成 current_operation_target ready。
+- 但下一次文案低置信度准备必须读取 V005 的学习结果。
+
+## ChatGPT 下一步读取
+
+- `review_loop/learning_ledger/next_episode_bet_card.md`
+- `review_loop/learning_ledger/current_copy_revision_handoff.md`
+- `review_loop/learning_ledger/operation_learning_memory.md`
+- `review_loop/copy_iteration/V005/V005_copy_structure_map.json`
+
+## 当前允许
+
+- 低置信度准备下一期选题和开头方案。
+- 只围绕下一期创作下注卡展开。
+
+## 当前不允许
+
+- 正式下一条视频执行 prompt。
+- 完整正式文案。
+- 内容状态推进。
 
 ## 保留项
 - 核心观点：目标不是 KPI 表，而是下一步动作判断系统。
@@ -36,6 +62,10 @@
 
 ## ChatGPT 下一步读取
 - `review_loop/copy_iteration/V003/V003_next_copy_revision_brief.md`
+- `review_loop/learning_ledger/next_episode_bet_card.md`
+- `review_loop/learning_ledger/current_copy_revision_handoff.md`
+- `review_loop/learning_ledger/operation_learning_memory.md`
+- `review_loop/copy_iteration/V005/V005_copy_structure_map.json`
 
 ## 状态边界
 - content_validation_advanced: `false`

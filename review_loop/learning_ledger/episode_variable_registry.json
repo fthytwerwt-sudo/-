@@ -1,0 +1,91 @@
+{
+  "schema": "operation_learning_ledger.episode_variable_registry.v1",
+  "generated_at": "2026-06-05T17:13:16+00:00",
+  "source_files": {
+    "operation_records_index": "review_loop/operation_records_index.md",
+    "copy_registry": "review_loop/copy_iteration/copy_registry.json"
+  },
+  "markdown_field_extraction_policy": {
+    "structured_snapshot_json_wins": true,
+    "markdown_extract_may_not_override_structured_json": true,
+    "V001_markdown_extract_disabled": true
+  },
+  "episodes": [
+    {
+      "video_id": "V001",
+      "role": "historical_reference_only",
+      "action": "mark_historical_incomplete",
+      "deep_backfill": false,
+      "normal_attribution_eligible": false,
+      "markdown_metric_extract_allowed": false,
+      "learning_use": "历史边界和旧流程对照，不生成假指标。"
+    },
+    {
+      "video_id": "V002",
+      "role": "policy_limited_abnormal_sample",
+      "action": "record_interest_signal_but_exclude_from_normal_attribution",
+      "deep_backfill": false,
+      "normal_attribution_eligible": false,
+      "normal_attribution_excluded_reason": "policy_limited_abnormal_sample",
+      "copy_id": "V002_copy_v1",
+      "learning_use": "可提示兴趣和平台风险表达，不能当正常自然分发样本归因。"
+    },
+    {
+      "video_id": "V003",
+      "role": "previous_current_operation_target",
+      "action": "use_existing_post_72h_pre_7d_snapshot",
+      "deep_backfill": false,
+      "copy_id": "V003_copy_v1",
+      "snapshot_path": "review_loop/records/V003_本地文件优化实用分享_latest_practical_video_20260514/V003_post_72h_pre_7d_snapshot.json",
+      "normal_attribution_eligible": true,
+      "attribution_confidence": "low",
+      "known_signal": "留存相对 V005 更好但入口弱，仍缺 7d 和需求侧字段。"
+    },
+    {
+      "video_id": "V004",
+      "role": "latest_sample_pre_24h_before_V005",
+      "action": "use_existing_interim_17h_snapshot",
+      "deep_backfill": false,
+      "copy_id": "V004_copy_v1",
+      "snapshot_path": "review_loop/records/V004_全自动制作方式_public_ai_video_20260517/V004_interim_17h_snapshot.json",
+      "normal_attribution_eligible": true,
+      "attribution_confidence": "low",
+      "known_signal": "早期入口弱，收藏为 0，不足以判方向失败。"
+    },
+    {
+      "video_id": "V005",
+      "role": "latest_sent_video_current_learning_sample",
+      "action": "use_existing_between_24h_and_72h_snapshot_and_raw_copy",
+      "deep_backfill": false,
+      "copy_id": "V005_copy_v1",
+      "primary_variable_guess": "topic_eye_and_packaging",
+      "attribution_confidence": "medium_low",
+      "known_changed_elements": [
+        "Codex 赚钱题眼",
+        "封面文字：还是不赚钱",
+        "真实三项目经历",
+        "诚实边界：Codex 解决执行成本，不是赚钱结果"
+      ],
+      "known_effective_signals": [
+        "播放显著提升",
+        "点赞绝对量和点赞率提升",
+        "封面点击率出现明显信号"
+      ],
+      "known_failed_or_weak_signals": [
+        "2s 跳出仍高",
+        "平均观看只有 8 秒",
+        "5s 完播下降",
+        "收藏率低于 V003"
+      ],
+      "not_allowed_conclusions": [
+        "不能写内容通过",
+        "不能写方向成立",
+        "不能写商业验证成立"
+      ],
+      "human_contribution_note": "当前最强有效信号主要来自用户自己的选题 / 题眼 / 包装判断，系统必须捕捉并机制化，而不是把功劳归给自动复盘系统。",
+      "snapshot_path": "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_between_24h_and_72h_snapshot.json",
+      "structure_map_path": "review_loop/copy_iteration/V005/V005_copy_structure_map.json",
+      "copy_notes_path": "review_loop/copy_iteration/V005/V005_copy_notes.md"
+    }
+  ]
+}

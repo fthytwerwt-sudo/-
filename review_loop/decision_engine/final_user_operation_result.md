@@ -44,9 +44,20 @@
 ## 文案迭代入口
 - 最新文案迭代报告：`review_loop/copy_iteration/latest_copy_iteration_report.md`
 - V003 下一版文案修改简报：`review_loop/copy_iteration/V003/V003_next_copy_revision_brief.md`
+- 运营学习台账：`review_loop/learning_ledger/operation_learning_memory.md`
+- 下一期创作下注卡：`review_loop/learning_ledger/next_episode_bet_card.md`
+- 当前文案修改交接卡：`review_loop/learning_ledger/current_copy_revision_handoff.md`
 - 当前下一步不是正式做新片，也不是直接改成最终稿。
-- 只允许低置信度准备 V003 的开头 0-3 秒和 3-8 秒承接。
-- 具体文案改稿由 ChatGPT 读取 `V003_next_copy_revision_brief.md` 后完成；Codex 只负责记录、结构化和报告。
+- 只允许低置信度准备下一期选题 / 开头 / 3-8 秒承接，并且必须围绕 `next_episode_bet_card` 展开。
+- 具体文案改稿由 ChatGPT 读取 learning ledger、下注卡和交接卡后完成；Codex 只负责记录、结构化和报告。
+
+## learning_loop_update
+
+- V005 已进入最新学习样本。
+- 原报告只到 V004，已补充第一次闭环学习台账。
+- 当前正式执行仍 blocked / not ready。
+- 但低置信度创作准备不再只看 V003 brief，而必须读取 learning ledger 和 next_episode_bet_card。
+- 本更新不代表 V005 内容通过、方向成立或商业验证成立。
 
 ## 用户不用看的中间过程已由系统处理
 系统已经读取四期记录、分类样本、标准化指标、检查阈值、排除异常样本、生成样本归纳，并自动阻断了下一期正式执行。

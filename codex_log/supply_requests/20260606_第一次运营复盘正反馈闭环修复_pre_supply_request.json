@@ -1,0 +1,161 @@
+{
+  "request_id": "20260606_first_operation_feedback_loop_closure_pre_supply",
+  "created_at": "2026-06-06T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "first_operation_feedback_loop_closure",
+  "task_type": "mechanism_repair_task_review_loop_repair_copy_feedback_loop_repair",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "risk_report",
+  "mandatory_for_every_task": true,
+  "participation_level": "default_required",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "requires_real_deepseek_participation": false,
+  "allow_process_env_api_key": true,
+  "disable_env_file": true,
+  "safe_call_mode": "project_runtime_provider",
+  "runtime_provider": {
+    "provider_name": "deepseek_runtime_provider",
+    "auto_load_enabled": true,
+    "inject_to_child_process_only": true,
+    "never_print_key": true,
+    "never_write_key": true,
+    "blocked_if_provider_not_ready": false
+  },
+  "deep_supply_mode": {
+    "enabled": true,
+    "file_scope": [
+      "review_loop/operation_records_index.md",
+      "review_loop/decision_engine/latest_operation_decision_report.md",
+      "review_loop/decision_engine/latest_operation_decision_report.json",
+      "review_loop/decision_engine/final_user_operation_result.md",
+      "review_loop/copy_iteration/copy_registry.json",
+      "review_loop/copy_iteration/latest_copy_iteration_report.md",
+      "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_发布后运营数据记录_post_publish_operation_record.md",
+      "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_between_24h_and_72h_snapshot.json",
+      "review_loop/copy_iteration/V005/V005_copy_structure_map.json",
+      "review_loop/copy_iteration/V005/V005_copy_notes.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md",
+      "GPT数据源/14_数据目标执行总线_data_goal_execution_bus.md"
+    ],
+    "content_loading_policy": "load_operation_review_and_copy_feedback_loop_files_only",
+    "codex_minimal_review_policy": [
+      "Codex must prefer structured snapshot JSON over Markdown field extraction.",
+      "Codex must not deep-backfill old screenshots.",
+      "Codex must preserve raw_copy files.",
+      "Codex must not promote content_validation or send_ready.",
+      "Codex must path-limit stage and leave unrelated public/ untracked."
+    ],
+    "output_required": [
+      "risk_and_conflict_report",
+      "must_read_file_map",
+      "markdown_extraction_risk",
+      "copy_feedback_loop_gap_check",
+      "codex_next_input"
+    ]
+  },
+  "current_goal": "第一次修复《视频工厂》运营复盘到文案层的正反馈闭环：用现有 V001-V005 记录生成 learning ledger、next_episode_bet_card、current_copy_revision_handoff，并把 ChatGPT 创作判断责任写入机制。不是旧数据深补，不生成正式下一期文案或视频执行 prompt。",
+  "current_step": "before_file_write",
+  "known_context": [
+    "review_loop/learning_ledger/ currently missing.",
+    "latest_operation_decision_report currently handles V001-V004 and blocks formal next episode execution.",
+    "latest_copy_iteration_report currently remains centered on V003.",
+    "V005 has operation record, between_24h_and_72h snapshot, raw copy, structure map, and notes.",
+    "V005 has stronger play, like, cover click, and recommendation entrance signals than V003/V004, while retention and favorite rate remain weak.",
+    "User feedback says current review reports are too generic and do not create positive feedback into next topic/copy decisions."
+  ],
+  "missing_context": [
+    "DeepSeek token usage evidence until safe runner returns.",
+    "Post-write validation and git remote readback until Codex completes."
+  ],
+  "decision_needed": "Identify risks before Codex writes the operation learning ledger and mechanism bridge files.",
+  "candidate_files": [
+    "review_loop/operation_records_index.md",
+    "review_loop/decision_engine/latest_operation_decision_report.md",
+    "review_loop/decision_engine/latest_operation_decision_report.json",
+    "review_loop/decision_engine/final_user_operation_result.md",
+    "review_loop/copy_iteration/copy_registry.json",
+    "review_loop/copy_iteration/latest_copy_iteration_report.md",
+    "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_发布后运营数据记录_post_publish_operation_record.md",
+    "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_between_24h_and_72h_snapshot.json",
+    "review_loop/copy_iteration/V005/V005_copy_structure_map.json",
+    "review_loop/copy_iteration/V005/V005_copy_notes.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md",
+    "GPT数据源/14_数据目标执行总线_data_goal_execution_bus.md"
+  ],
+  "must_read_files": [
+    "review_loop/operation_records_index.md",
+    "review_loop/decision_engine/latest_operation_decision_report.md",
+    "review_loop/copy_iteration/latest_copy_iteration_report.md",
+    "review_loop/records/V005_codex最新发送视频_latest_sent_video_20260603/V005_between_24h_and_72h_snapshot.json",
+    "review_loop/copy_iteration/V005/V005_copy_structure_map.json"
+  ],
+  "optional_files": [
+    "codex_log/latest.md",
+    "codex_log/current_data_goal_anchor.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    ".env.*",
+    ".git/",
+    "dist/",
+    "public/",
+    "review_loop/copy_iteration/*/*_copy_v1_raw.md",
+    "*.mp4",
+    "*.mov",
+    "*.mp3",
+    "*.wav",
+    "*.png",
+    "*.jpg",
+    "*.jpeg"
+  ],
+  "max_context_files": 13,
+  "max_context_chars": 36000,
+  "expected_output": [
+    "risk_and_conflict_report",
+    "must_read_file_map",
+    "copy_layer_handoff_gap",
+    "forbidden_status_promotion_check",
+    "codex_next_input"
+  ],
+  "output_format": "json_object",
+  "codex_next_input": "Codex should create the ledger system, generate machine-readable JSON/JSONL plus Markdown handoff files, update reports and mechanism entries, run tests/JSON validation/git diff check/secret scan, then path-limited commit/push/readback.",
+  "return_to_codex": {
+    "output_dir": "codex_log/deepseek_supply/20260606_first_operation_feedback_loop_pre_supply",
+    "latest_supply_pack_md": "latest_supply_pack.md",
+    "latest_supply_pack_json": "latest_supply_pack.json",
+    "latest_supply_manifest_json": "latest_supply_manifest.json"
+  },
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback_local_only 写成 DeepSeek 结论。",
+    "不得写 multi-agent runtime / 多 agent 运行时已跑通。",
+    "不得读取、输出或复述 API key / secret / token。",
+    "不得深度补旧视频缺失数据。",
+    "不得修改 raw_copy 原文。",
+    "不得生成下一期完整正式文案。",
+    "不得生成下一条正式视频执行 prompt。",
+    "不得推进 content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked / current_data_goal_anchor ready。"
+  ],
+  "blocked_if": [
+    "key_file_or_secret_needed",
+    "forbidden_path_required",
+    "V005_snapshot_missing",
+    "copy_registry_missing",
+    "raw_copy_modification_required",
+    "formal_script_generation_required",
+    "status_promotion_required",
+    "secret_scan_required_before_commit"
+  ],
+  "fallback_policy": "fallback_local_only 可用于继续本轮本地验证，但最终报告必须写 not_deepseek_conclusion=true。"
+}

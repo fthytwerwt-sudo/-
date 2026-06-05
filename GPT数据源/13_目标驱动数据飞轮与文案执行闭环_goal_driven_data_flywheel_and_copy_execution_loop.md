@@ -15,6 +15,27 @@
 - 系统判断 `blocked_for_formal_next_episode_execution` 时，只允许低置信度准备，不允许进入正式视频执行。
 - `operation_decision_system` 落地只代表决策系统可运行，不代表内容成功、方向成立、商业验证成立或数据飞轮真实跑通。
 
+## 0A-0. operation_learning_ledger gate（运营学习台账闸门）
+
+数据飞轮不能只输出运营报告。
+
+每次复盘必须写入：
+
+- `review_loop/learning_ledger/operation_learning_memory.md`
+- `review_loop/learning_ledger/next_episode_bet_card.md`
+- `review_loop/learning_ledger/current_copy_revision_handoff.md`
+
+否则数据没有进入文案层，不算闭环完成。
+
+ChatGPT 在下一次选题和文案判断中必须承担建设性判断责任：
+
+- 必须给出下一期创作下注。
+- 必须写清押什么、不押什么、为什么、验证什么。
+- 必须说明继承上一期什么有效信号、修复上一期什么失败信号。
+- 不得只输出泛泛建议或纯数据解释。
+
+Codex 的责任不是定稿下一期文案，而是把复盘结果写成文案层可读取的交接物。缺 `next_episode_bet_card` 或 `current_copy_revision_handoff` 时，不得写复盘闭环完成。
+
 ## 0A-1. copy_iteration_decision gate（文案迭代决策闸门）
 
 数据反馈到文案之前，必须先输出 `copy_iteration_decision（文案迭代决策）`，不能只靠 ChatGPT / Codex 临场判断“改开头还是改方向”。

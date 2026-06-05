@@ -1,5 +1,41 @@
 # Latest
 
+## 20260606｜第一次运营复盘正反馈闭环修复
+
+- `task_result.status = first_operation_feedback_loop_closure_completed_pending_git_sync`
+- `branch = main`
+- `project_route = video_factory`
+- `route_decision.task_type = mechanism_repair_task + review_loop_repair_task + copy_feedback_loop_repair_task + validation_sync_repair_task`
+- `large_task_gate.triggered = true`
+- `lane = audit_lane -> standard_lane`
+- `parallel = serial_only`
+- `本轮不是旧数据回填`：不深度补旧截图，不重新 OCR 旧视频，不补齐旧视频缺失数据。
+- `本轮核心修复`：把复盘系统从报告终点升级为 `数据回填 -> 指标好坏留痕 -> 单期变量登记 -> 跨期学习台账 -> 下一期创作下注卡 -> 文案层交接卡 -> ChatGPT 写下一期文案前强制读取 -> 下一期发布后验证下注`。
+- `learning_ledger_dir = review_loop/learning_ledger/`
+- `metric_event_log = review_loop/learning_ledger/metric_event_log.jsonl`
+- `episode_variable_registry = review_loop/learning_ledger/episode_variable_registry.json`
+- `episode_signal_summary = review_loop/learning_ledger/episode_signal_summary.md`
+- `operation_learning_memory = review_loop/learning_ledger/operation_learning_memory.md`
+- `next_episode_bet_card = review_loop/learning_ledger/next_episode_bet_card.md`
+- `current_copy_revision_handoff = review_loop/learning_ledger/current_copy_revision_handoff.md`
+- `latest_operation_learning_report = review_loop/learning_ledger/latest_operation_learning_report.json`
+- `script = scripts/运营学习台账系统_operation_learning_ledger_system.py`
+- `tests = tests/test_operation_learning_ledger_system.py`
+- `V005 已进入第一次闭环`：V005 当前作为 `latest_sent_video_current_learning_sample`，使用 existing `between_24h_and_72h_snapshot` 与 raw_copy / structure map，不深补旧数据。
+- `V005 good signals`：play_count 1514、like_count 50、like_rate 3.30%、cover_click_rate 7.14%、recommendation_page 96.1%。
+- `V005 weak/bad signals`：average_watch_time 8秒、completion_rate 0.62%、two_second_bounce_rate 54.68%、five_second_completion_rate 22.45%、favorite_rate 0.79%。
+- `V005 missing signals`：3s_retention、profile_visit_count、dm_count、effective_dm_count、effective_consult_count、clear_need_customer_count。
+- `preliminary_learning`：V005 更像“用户选题 / 题眼 / 包装打开流量”，不是内容承接全面变好；下一期保留大题眼，只优先修 0-8 秒承接，并压到具体证明场景。
+- `ChatGPT creative judgment responsibility`：已写入 learning ledger 和 GPT 数据源机制入口；下次写文案前必须输出创作下注，不能只给泛泛建议或纯数据解释。
+- `copy_layer_handoff`：下次文案必须读取 `next_episode_bet_card.md`、`current_copy_revision_handoff.md`、`operation_learning_memory.md`、`review_loop/copy_iteration/V005/V005_copy_structure_map.json`。
+- `report_sync`：`latest_copy_iteration_report.md`、`latest_operation_decision_report.md`、`final_user_operation_result.md` 已补 learning_loop_update。
+- `mechanism_sync`：`GPT数据源/11` 新增 `operation_learning_ledger_required`；`GPT数据源/13` 增加 learning ledger gate；`GPT数据源/14` 增加 `bridge_to_copy_learning_memory`。
+- `DeepSeek pre-supply`：已创建供料任务卡并运行 safe runner；runtime provider ready，key 未打印 / 未写入，但 controller 返回 `blocked_invalid_context_pack`，因此本轮标记 `fallback_local_only`、`not_deepseek_conclusion = true`。
+- `validation`：py_compile passed；system_run passed，生成 29 条 metric event 与 11 个必需 ledger 输出；unittest passed（10 tests）；JSON validation passed；git diff check passed；staged forbidden path check passed；staged secret scan passed；staged forbidden status promotion check passed。
+- `Git sync`：commit / push / remote HEAD readback 待本轮 Git 收尾完成。
+- `未推进`：不生成下一条正式视频执行 prompt；不生成下一期完整正式文案；不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked / current_data_goal_anchor ready`；不把 V005 写成内容通过、方向成立或商业验证成立。
+- `日志证据`: `codex_log/20260606_第一次运营复盘正反馈闭环修复.md`
+
 ## 20260604｜最新发送视频 raw_copy 新增记录
 
 - `task_result.status = latest_sent_video_raw_copy_recorded_pending_human_review`

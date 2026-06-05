@@ -30,3 +30,16 @@
 - latest_copy_iteration_report: `review_loop/copy_iteration/latest_copy_iteration_report.md`
 - next_copy_revision_brief: `review_loop/copy_iteration/V003/V003_next_copy_revision_brief.md`
 - boundary: 当前只允许 ChatGPT 读取 brief 后低置信度准备开头和 3-8 秒承接，不生成正式下一条视频执行 prompt。
+
+## learning_loop_update
+
+- V005 已进入最新学习样本。
+- 原报告只到 V004，已补充第一次闭环学习台账。
+- 当前正式执行仍 blocked / not ready。
+- 低置信度创作准备不再只看 V003 brief，而必须读取 learning ledger 和 next_episode_bet_card。
+- 必读入口：
+  - `review_loop/learning_ledger/next_episode_bet_card.md`
+  - `review_loop/learning_ledger/current_copy_revision_handoff.md`
+  - `review_loop/learning_ledger/operation_learning_memory.md`
+  - `review_loop/copy_iteration/V005/V005_copy_structure_map.json`
+- 边界：本更新不生成正式下一条视频执行 prompt，不推进内容通过、方向成立或商业验证成立。
