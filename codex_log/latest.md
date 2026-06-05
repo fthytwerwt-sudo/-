@@ -2,7 +2,7 @@
 
 ## 20260606｜第一次运营复盘正反馈闭环修复
 
-- `task_result.status = first_operation_feedback_loop_closure_completed_pending_git_sync`
+- `task_result.status = first_operation_feedback_loop_closure_completed_git_synced`
 - `branch = main`
 - `project_route = video_factory`
 - `route_decision.task_type = mechanism_repair_task + review_loop_repair_task + copy_feedback_loop_repair_task + validation_sync_repair_task`
@@ -32,7 +32,16 @@
 - `mechanism_sync`：`GPT数据源/11` 新增 `operation_learning_ledger_required`；`GPT数据源/13` 增加 learning ledger gate；`GPT数据源/14` 增加 `bridge_to_copy_learning_memory`。
 - `DeepSeek pre-supply`：已创建供料任务卡并运行 safe runner；runtime provider ready，key 未打印 / 未写入，但 controller 返回 `blocked_invalid_context_pack`，因此本轮标记 `fallback_local_only`、`not_deepseek_conclusion = true`。
 - `validation`：py_compile passed；system_run passed，生成 29 条 metric event 与 11 个必需 ledger 输出；unittest passed（10 tests）；JSON validation passed；git diff check passed；staged forbidden path check passed；staged secret scan passed；staged forbidden status promotion check passed。
-- `Git sync`：commit / push / remote HEAD readback 待本轮 Git 收尾完成。
+- `git_sync_status`:
+  - `current_branch = main`
+  - `operation_closure_commit_sha = ecd127d89e7d7f68fc5670d10c1c34c0eae14793`
+  - `pushed = true`
+  - `remote_head_verified = true`
+  - `remote_head_sha = ecd127d89e7d7f68fc5670d10c1c34c0eae14793`
+  - `remote_readback_scope = learning_ledger + operation_learning_ledger_script + operation_learning_ledger_tests`
+  - `unrelated_dirty_files = public/`
+  - `secret_scan = passed`
+  - `completed_allowed = true`
 - `未推进`：不生成下一条正式视频执行 prompt；不生成下一期完整正式文案；不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked / current_data_goal_anchor ready`；不把 V005 写成内容通过、方向成立或商业验证成立。
 - `日志证据`: `codex_log/20260606_第一次运营复盘正反馈闭环修复.md`
 
