@@ -26,3 +26,11 @@
 - `review_loop/learning_ledger/current_copy_revision_handoff.md`
 - `review_loop/learning_ledger/episode_signal_summary.md`
 - `review_loop/copy_iteration/V005/V005_copy_structure_map.json`
+
+## 文案机制学习
+
+- 仓库机制词不能直接进入口播。
+- “开头 / 中段 / 承接 / 变量 / 指标”属于分析层，不属于最终表达层。
+- 下一次写稿必须先判断内容类型。
+- 如果是经验口播，必须先讲人的麻烦，再讲 AI 接手的一段具体工作。
+- 复盘数据进入文案前，必须先翻译成“这期保留什么、只改什么、不改什么、用人话怎么说”。
