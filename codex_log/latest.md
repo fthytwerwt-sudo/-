@@ -67,6 +67,8 @@
 - `git_sync_status`:
   - `current_branch = main`
   - `copy_prewrite_gate_repair_commit_sha = aee34b159e75cb448812b391b35096747bdaf788`
+  - `git_sync_tail_cleanup_commit_sha = efd092e21752271a4f8e1fcf4e83fd22caa8c0dd`
+  - `remote_contains_tail_cleanup_commit = true`
   - `pushed = true`
   - `remote_head_verified = true`
   - `remote_head_sha = aee34b159e75cb448812b391b35096747bdaf788`
