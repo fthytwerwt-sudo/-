@@ -2,7 +2,7 @@
 
 ## 20260606｜文案前置判断机制升级
 
-- `task_result.status = copy_prewrite_gate_repair_completed_git_sync_required`
+- `task_result.status = copy_prewrite_gate_repair_completed_git_synced`
 - `branch = main`
 - `project_route = video_factory`
 - `route_decision.task_type = mechanism_or_route_fix + project_file_change + copy_mechanism_repair + validation_sync_repair`
@@ -20,6 +20,16 @@
 - `plain_language_boundary`：`开头 / 中段 / 承接 / 变量 / 指标 / 机制 / 文案层 / 数据闭环 / 字幕断句 / 文案画面对齐` 不得裸进最终口播；复盘数据必须先翻译成“保留什么、只改什么、不改什么、用人话怎么说”。
 - `DeepSeek pre-supply`：当前无可调用 DeepSeek 工具入口，本轮标记 `fallback_local_only`、`not_deepseek_conclusion = true`、`token_usage_expectation_check = not_observable`。
 - `validation`：grep `copy_type_router` passed；grep `plain_language_translation_gate` passed；grep `human_problem_first_gate` passed；grep `prewrite_copy_decision_card` passed；`git diff --check` passed；forbidden path diff check passed。
+- `git_sync_status`:
+  - `current_branch = main`
+  - `copy_prewrite_gate_repair_commit_sha = aee34b159e75cb448812b391b35096747bdaf788`
+  - `pushed = true`
+  - `remote_head_verified = true`
+  - `remote_head_sha = aee34b159e75cb448812b391b35096747bdaf788`
+  - `remote_readback_scope = copy_prewrite_gate_repair mechanism files + learning ledger + logs`
+  - `unrelated_dirty_files = public/`
+  - `secret_scan = passed`
+  - `completed_allowed = true`
 - `unrelated_dirty_files = public/`
 - `未推进`：不生成下一期正式文案；不生成下一条正式视频执行 prompt；不修改 raw_copy；不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`；不修改 `dist/`、`public/`、`review_loop/records/`、`review_loop/screenshots/`。
 - `日志证据`: `codex_log/20260606_文案前置判断机制升级_copy_prewrite_gate_repair.md`

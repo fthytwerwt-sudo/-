@@ -2,7 +2,7 @@
 
 ## 1. task_status
 
-- `task_result.status = copy_prewrite_gate_repair_completed_git_sync_required`
+- `task_result.status = copy_prewrite_gate_repair_completed_git_synced`
 - `project_route = video_factory`
 - `current_phase = formal_operation_active`
 - `task_type = mechanism_or_route_fix + project_file_change + copy_mechanism_repair + validation_sync_repair`
@@ -72,7 +72,15 @@
 - 未推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked`。
 - 未修改 `dist/`、`public/`、`review_loop/records/`、`review_loop/screenshots/`。
 
-## 9. git_sync_note
+## 9. git_sync_status
 
-- 本轮仍需 path-limited stage、staged secret scan、commit、push 和 remote HEAD readback 后，最终才允许在 Codex 回报中写 `completed_allowed = true`。
+- `current_branch = main`
+- `copy_prewrite_gate_repair_commit_sha = aee34b159e75cb448812b391b35096747bdaf788`
+- `pushed = true`
+- `remote_head_verified = true`
+- `remote_head_sha = aee34b159e75cb448812b391b35096747bdaf788`
+- `remote_readback_scope = copy_prewrite_gate_repair mechanism files + learning ledger + logs`
 - `unrelated_dirty_files = public/`
+- `secret_scan = passed`
+- `completed_allowed = true`
+- `tail_cleanup_note = 本文件与 codex_log/latest.md 的状态收尾将单独 path-limited commit / push / remote HEAD readback`
