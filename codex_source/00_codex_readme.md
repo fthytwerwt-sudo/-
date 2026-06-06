@@ -108,6 +108,31 @@ Codex 后续默认先读：
 - 输出降级建议时必须写清原目标为什么做不到、缺少哪一层能力、降级会损失什么、是否需要用户授权。
 - 用户明确授权前，任务状态必须是 `blocked`，不是 `completed`。
 
+## 0A-2a. requirement alignment gate for repair / modification prompts
+
+Codex 接到 GPT / ChatGPT 下发的“修复 / 修改 / 纠偏 / 需求不清楚 / 调整机制 / 改执行方式 / 改判断标准 / 改失败反馈路由”类 prompt 时，必须先检查 prompt 是否已经包含 `requirement_alignment_needed（需求对齐必需）` 的五层确认结果。
+
+五层确认结果至少包括：
+
+1. `目标层`：本轮到底服务什么结果，本轮不解决什么。
+2. `机制层`：什么情况触发、禁止、降级；旧机制如何处理。
+3. `流程层`：确认后怎么执行，ChatGPT 判断什么，Codex 执行什么，用户确认什么。
+4. `判断标准层`：什么算通过，什么算失败；技术、内容、审美、人感和状态推进分开。
+5. `反馈层`：失败后回目标层、机制层、流程层、素材层、reference 层、验收层，还是路线重判。
+
+如果缺少五层确认，且本轮会修改项目机制、执行方式、判断标准、失败反馈路由、视频修复流程或旧机制优先级，Codex 必须输出 `blocked_need_requirement_alignment` 或 `requirement_alignment_request（需求对齐请求）`，不得自行猜用户真正要改哪一层。
+
+如果任务是正常执行或正常做视频，且已有 `locked_copy_contract`、`content_route_card V2`、`material_evidence_gate`、`process_boot_gate`、`publish_candidate_preflight_suite` 等前置项齐全，并且用户没有提出问题、修改或机制冲突，Codex 不得因为本机制额外阻断。
+
+Codex 还必须检查：
+
+- 新需求是否和旧执行方式冲突。
+- 旧机制是否需要降权、替换、保留为历史或只作为 fallback。
+- 如果不处理冲突，是否会导致 Codex 继续按旧流程执行。
+- 商品案例是否只是解释示例，不得迁移成《视频工厂》当前正式主线。
+
+本机制只用于减少错下发、减少旧机制冲突和减少 Codex 按旧流程乱跑；它不替代 `process_boot_gate`、`locked_copy_contract`、`material_evidence_gate`、`publish_candidate_preflight_suite` 或 `Completion Relay Gate`。
+
 ## 0A-3. locked copy and line-level visual alignment gate
 
 正式运营视频执行前必须先建立 `locked_copy_contract（锁定文案契约）`。它是 ChatGPT / 用户确认后的文案源头，至少包含：

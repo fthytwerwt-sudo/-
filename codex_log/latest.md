@@ -1,5 +1,34 @@
 # Latest
 
+## 20260606｜需求确认机制升级
+
+- `task_result.status = requirement_alignment_gate_repair_pending_git_sync`
+- `branch = main`
+- `project_route = video_factory`
+- `route_decision.task_type = mechanism_repair_task + project_file_change + gpt_project_coordination_rule_update`
+- `large_task_gate.triggered = true`
+- `lane = audit_lane -> standard_lane`
+- `parallel = serial_only`
+- `新增 / 补强机制`：`requirement_alignment_needed（需求对齐必需）`，用于问题、修改、修复、纠偏、需求不清楚、机制调整、执行方式变化、判断标准变化或失败反馈路由变化时，先做五层需求确认，再决定是否下发 Codex。
+- `触发边界`：用户反馈“不对 / 不顺 / 怪 / 差点意思”，或提出需要改、修一下、优化、纠偏、调整机制、改执行方式、需求不清楚，或新需求可能和旧流程 / 旧机制 / 旧默认执行方式冲突。
+- `不触发边界`：正常执行、正常做视频、已确认流程且无异常反馈时不触发；本机制用于减少错下发、减少旧机制冲突、减少 Codex 按旧流程乱跑，不是增加常规流程负担。
+- `五层确认链`：`目标层 -> 机制层 -> 流程层 -> 判断标准层 -> 反馈层`。
+- `冲突提醒`：新需求与旧执行方式冲突时，GPT Project / ChatGPT 必须提醒旧机制是降权、替换、保留为历史，还是只作为 fallback；不处理冲突时，Codex 可能继续按旧流程执行。
+- `商品案例边界`：商品案例只作为用户解释问题 / 修改 / 新旧流程冲突的示例，不写成《视频工厂》当前正式主线。
+- `DeepSeek pre-supply`：当前无可调用 DeepSeek 工具入口，本轮标记 `fallback_local_only`、`not_deepseek_conclusion = true`、`token_usage_expectation_check = not_observable`。
+- `validation`：grep `requirement_alignment_needed` passed；grep `正常执行 / 正常做视频` passed；grep 五层字段 passed；商品案例误写检查 passed；forbidden status promotion scoped diff check passed；`git diff --check` passed；secret scan passed。
+- `git_sync_status`:
+  - `current_branch = main`
+  - `requirement_alignment_gate_commit_sha = pending_final_report`
+  - `pushed = pending_final_report`
+  - `remote_head_verified = pending_final_report`
+  - `remote_head_sha = pending_final_report`
+  - `unrelated_dirty_files = public/`
+  - `secret_scan = passed`
+  - `completed_allowed = false_until_push_and_remote_head_verified`
+- `未推进`：本轮不生成视频；不生成正式文案；不生成下一条视频执行 prompt；不修改 `dist/`、`public/`、`review_loop/records/`、`review_loop/screenshots/`；不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked / current_data_goal_anchor ready`。
+- `日志证据`: `codex_log/20260606_需求确认机制升级_requirement_alignment_gate.md`
+
 ## 20260606｜文案前置判断机制升级
 
 - `task_result.status = copy_prewrite_gate_repair_completed_git_synced`
