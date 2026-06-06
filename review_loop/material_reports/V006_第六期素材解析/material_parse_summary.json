@@ -1,0 +1,302 @@
+{
+  "task_status": "completed_material_audit_only",
+  "blocked_or_completed": "completed",
+  "source_directory": "/Users/fan/Documents/视频工厂/素材录制/第六期",
+  "video_count_expected": 5,
+  "video_count_found": 5,
+  "skill_used": [
+    "video-metadata-probe",
+    "skills/视频素材解析_video_material_audit/SKILL.md",
+    "memory: video-factory-readonly-audit-pack"
+  ],
+  "route_decision": {
+    "project_route": "video_factory",
+    "task_type": [
+      "review_diagnosis_audit",
+      "local_file_governance"
+    ],
+    "responsibility_layer": [
+      "validation_layer",
+      "execution_layer"
+    ],
+    "large_task_gate": {
+      "triggered": true,
+      "lane_recommendation": "serial_only",
+      "write_owner": "Codex",
+      "read_only_lanes": [
+        "local frame inspection",
+        "metadata probe"
+      ],
+      "integration_owner": "Codex"
+    },
+    "deepseek_supply_gate": {
+      "runtime_ready": true,
+      "task_specific_supply_request_created": false,
+      "fallback_status": "fallback_local_only_for_this_task",
+      "not_deepseek_conclusion": true,
+      "reason": "User required only the four material report outputs; no task-specific supply pack was written."
+    }
+  },
+  "videos": [
+    {
+      "material_id": "M01",
+      "file_name": "内建视网膜显示器 2026-06-01 00-21-27.mp4",
+      "path": "/Users/fan/Documents/视频工厂/素材录制/第六期/内建视网膜显示器 2026-06-01 00-21-27.mp4",
+      "size_bytes": 17403996,
+      "duration_seconds": 10.13,
+      "resolution": "3420x1980",
+      "fps": 30,
+      "video_codec": "h264",
+      "audio_present": false,
+      "decodable": true,
+      "content_summary": "ChatGPT output for a candidate product/video technical check, including product name, backend model, real_api_called=true, video duration/size/fps/audio_present=false, and an explicit boundary that this is not publish_ready_candidate or content/commercial pass.",
+      "best_segments": [
+        "00:04-00:08 technical pass vs content/business boundary"
+      ],
+      "can_support": [
+        "technical_validation_is_not_content_validation",
+        "candidate_product_judgment_requires_boundaries",
+        "Codex can structure candidate checks"
+      ],
+      "cannot_support": [
+        "product has passed commercial validation",
+        "candidate is publish ready",
+        "Codex directly made money"
+      ],
+      "privacy_or_secret_risk": "low_to_medium_product_name_visible",
+      "platform_risk": "low",
+      "public_safe": "conditional"
+    },
+    {
+      "material_id": "M02",
+      "file_name": "内建视网膜显示器 2026-06-02 23-25-03.mp4",
+      "path": "/Users/fan/Documents/视频工厂/素材录制/第六期/内建视网膜显示器 2026-06-02 23-25-03.mp4",
+      "size_bytes": 105246889,
+      "duration_seconds": 44.8,
+      "resolution": "3420x1998",
+      "fps": 30,
+      "video_codec": "h264",
+      "audio_present": false,
+      "decodable": true,
+      "content_summary": "ChatGPT/Codex output for an 18s anchor sticker candidate: render output, ffprobe/decode check, 12 key frames, 3x4 contact sheet, visual frame review finding shot_04/shot_05 exit overlap, timeline correction, rerender, and report/file outputs.",
+      "best_segments": [
+        "00:06-00:20 contact sheet and shot_04/shot_05 issue",
+        "00:20-00:28 timeline correction and rerender"
+      ],
+      "can_support": [
+        "material_review_cost_reduction",
+        "execution_cost_reduction",
+        "multi_step_task_progress",
+        "system_iteration_after_issue_detection"
+      ],
+      "cannot_support": [
+        "final visual quality passed",
+        "publish candidate is ready",
+        "multi project parallelism by itself"
+      ],
+      "privacy_or_secret_risk": "low_internal_paths_and_filenames_visible",
+      "platform_risk": "low",
+      "public_safe": "conditional"
+    },
+    {
+      "material_id": "M03",
+      "file_name": "内建视网膜显示器 2026-06-06 23-55-00.mp4",
+      "path": "/Users/fan/Documents/视频工厂/素材录制/第六期/内建视网膜显示器 2026-06-06 23-55-00.mp4",
+      "size_bytes": 254731917,
+      "duration_seconds": 86.93,
+      "resolution": "3420x1984",
+      "fps": 30,
+      "video_codec": "h264",
+      "audio_present": false,
+      "decodable": true,
+      "content_summary": "V005 post-publish operation data intake and raw copy material: screenshots, platform metrics, records, snapshot JSON, ChatGPT review input, manifests, operation index, data goal anchor, latest log, DeepSeek risk review, git sync, next target requiring human/ChatGPT review and later 72h/7d data, plus raw copy about Codex not directly making money and running 3 projects.",
+      "best_segments": [
+        "00:18-00:38 files_changed, validation, git sync, next_target",
+        "00:50-00:66 data window and final conclusion boundary",
+        "00:76-00:86 raw copy with three projects and not-making-money boundary"
+      ],
+      "can_support": [
+        "data_review_cost_reduction",
+        "judgment_cost_reduction",
+        "reporting_cost_reduction_partial",
+        "multi_project_parallel_partial",
+        "Codex cannot replace human judgment",
+        "Codex does not prove commercial success"
+      ],
+      "cannot_support": [
+        "PDF or PPT boss report already generated",
+        "three projects are fully automated and stable",
+        "commercial validation established",
+        "next video prompt should be generated now"
+      ],
+      "privacy_or_secret_risk": "medium_platform_data_paths_commit_sha_and_raw_copy_visible",
+      "platform_risk": "medium_if_platform_data_is_public_without_review",
+      "public_safe": "needs_human_redaction_review"
+    },
+    {
+      "material_id": "M04",
+      "file_name": "内建视网膜显示器 2026-06-07 00-31-56.mp4",
+      "path": "/Users/fan/Documents/视频工厂/素材录制/第六期/内建视网膜显示器 2026-06-07 00-31-56.mp4",
+      "size_bytes": 90417103,
+      "duration_seconds": 31.43,
+      "resolution": "3420x1988",
+      "fps": 30,
+      "video_codec": "h264",
+      "audio_present": false,
+      "decodable": true,
+      "content_summary": "ChatGPT/Codex output for generating an 18s image/sticker candidate: text accuracy check for Chinese sticker text, local static file server, Remotion render, ffprobe/decode/review pack plan, sticker previews on checkerboard, approved_for_video=false boundary, path-limited staging, and process checker status.",
+      "best_segments": [
+        "00:05-00:18 text accuracy, local server, render validation",
+        "00:18-00:23 sticker previews with approved_for_video=false",
+        "00:23-00:31 path-limited staging and system boundary"
+      ],
+      "can_support": [
+        "execution_cost_reduction",
+        "system_iteration",
+        "material_asset_review",
+        "candidate_boundary_management"
+      ],
+      "cannot_support": [
+        "all assets approved for final video",
+        "content validation passed",
+        "no human review needed"
+      ],
+      "privacy_or_secret_risk": "low_to_medium_internal_paths_localhost_and_workflow_visible",
+      "platform_risk": "low",
+      "public_safe": "conditional"
+    },
+    {
+      "material_id": "M05",
+      "file_name": "内建视网膜显示器 2026-06-07 01-55-20.mp4",
+      "path": "/Users/fan/Documents/视频工厂/素材录制/第六期/内建视网膜显示器 2026-06-07 01-55-20.mp4",
+      "size_bytes": 53222450,
+      "duration_seconds": 16.62,
+      "resolution": "3420x2214",
+      "fps": 30,
+      "video_codec": "h264",
+      "audio_present": true,
+      "audio_codec": "aac",
+      "audio_channels": 2,
+      "audio_note": "Audio exists but was not transcribed; silence detected at 0-2.23s and 13.34-16.63s.",
+      "decodable": true,
+      "content_summary": "Finder/QuickTime desktop review of an 18s candidate video; visible ChatGPT project sidebar with multiple projects, Finder selected candidate MP4, QuickTime playback showing gym/beach/cloud clips and sticker overlay such as 推上去.",
+      "best_segments": [
+        "00:00-00:03 multi-project workspace background",
+        "00:06-00:09 candidate video playback with sticker overlay"
+      ],
+      "can_support": [
+        "human_review_still_required",
+        "candidate_media_exists",
+        "multi_project_workspace_background",
+        "generated_sticker_seen_in_video_partial"
+      ],
+      "cannot_support": [
+        "candidate is publish ready",
+        "audio content claims because not transcribed",
+        "Codex fully replaces human review"
+      ],
+      "privacy_or_secret_risk": "medium_account_project_names_finder_info_and_possible_bystanders_visible",
+      "platform_risk": "medium_if_public_space_or_people_are_unredacted",
+      "public_safe": "needs_human_redaction_review"
+    }
+  ],
+  "strongest_evidence_topics": [
+    {
+      "topic": "Codex lowers data review and judgment cost",
+      "segments": [
+        "M03 00:18-00:38",
+        "M03 00:50-00:66"
+      ],
+      "evidence_strength": "direct_match"
+    },
+    {
+      "topic": "Codex lowers material review and execution cost",
+      "segments": [
+        "M02 00:06-00:28",
+        "M04 00:05-00:23"
+      ],
+      "evidence_strength": "direct_match"
+    },
+    {
+      "topic": "Codex supports a multi-project personal workflow",
+      "segments": [
+        "M03 00:76-00:86",
+        "M05 00:00-00:03"
+      ],
+      "evidence_strength": "partial_support"
+    },
+    {
+      "topic": "Codex cannot replace human judgment or prove business success",
+      "segments": [
+        "M03 00:30-00:38",
+        "M03 00:76-00:86",
+        "M01 00:04-00:08",
+        "M04 00:18-00:23"
+      ],
+      "evidence_strength": "direct_match"
+    }
+  ],
+  "best_script_candidates": [
+    {
+      "candidate": "Codex did not directly make me money, but it made fewer things require me staring at them manually.",
+      "supporting_segments": [
+        "M03 00:76-00:86",
+        "M02 00:06-00:28",
+        "M03 00:18-00:38"
+      ]
+    },
+    {
+      "candidate": "One person can keep several projects moving when Codex turns messy work into checklists, reports, and next actions.",
+      "supporting_segments": [
+        "M05 00:00-00:03",
+        "M03 00:18-00:38",
+        "M04 00:23-00:31"
+      ]
+    },
+    {
+      "candidate": "The most important gain is not automatic money, but lower execution cost, lower review cost, and clearer boundaries.",
+      "supporting_segments": [
+        "M01 00:04-00:08",
+        "M02 00:12-00:28",
+        "M04 00:18-00:23",
+        "M03 00:30-00:38"
+      ]
+    }
+  ],
+  "missing_or_weak_evidence": [
+    "No visible PDF/PPT/boss-ready exported report; only Markdown/ChatGPT-style report materials are visible.",
+    "No direct footage of three Codex sessions running simultaneously across three projects; multi-project evidence is partial.",
+    "No quantified before/after time saving metric.",
+    "No final commercial result or revenue evidence; materials explicitly warn against that claim.",
+    "M05 audio exists but is not transcribed and cannot support spoken claims."
+  ],
+  "privacy_or_secret_risks": [
+    "No visible API key/token/secret found in inspected frames.",
+    "M03 contains platform data screenshots, local paths, file names, commit SHA, and raw copy text.",
+    "M05 contains ChatGPT account/sidebar, browser tabs, Finder file details, and public gym footage with possible bystanders.",
+    "M01 contains product name and model/generation status."
+  ],
+  "platform_risks": [
+    "Do not present early platform screenshots as final performance proof.",
+    "Do not imply automated publishing, one-click money, or fully unattended operation.",
+    "Review M05 public-space footage for privacy/portrait risk before publication."
+  ],
+  "recommended_next_action_for_chatgpt": "Use M03 00:76-00:86 as the topic hook, then prove it with M03 00:18-00:38, M02 00:06-00:28, and M04 00:05-00:23. Write the theme as personal operational efficiency, not commercial success. Downgrade PDF/PPT/boss-report claims unless new footage is provided.",
+  "blocked_if_any": [],
+  "output_files": {
+    "material_detail_report": "review_loop/material_reports/V006_第六期素材解析/material_detail_report.md",
+    "material_evidence_map": "review_loop/material_reports/V006_第六期素材解析/material_evidence_map.md",
+    "next_copy_material_handoff": "review_loop/material_reports/V006_第六期素材解析/next_copy_material_handoff.md",
+    "material_parse_summary_json": "review_loop/material_reports/V006_第六期素材解析/material_parse_summary.json"
+  },
+  "status_boundary": {
+    "did_not_generate_video": true,
+    "did_not_generate_formal_script": true,
+    "did_not_generate_next_video_execution_prompt": true,
+    "did_not_advance_content_validation": true,
+    "did_not_advance_send_ready": true,
+    "did_not_advance_voice_validation": true,
+    "did_not_advance_visual_master_locked": true,
+    "did_not_modify_source_media": true
+  }
+}
