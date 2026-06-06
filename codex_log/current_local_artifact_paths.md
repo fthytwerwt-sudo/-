@@ -112,7 +112,13 @@
 - `gpt_project_upload_package_manifest_exists（上传说明清单是否存在）`：`true`
 - `gpt_project_upload_package_verified_at（验证时间）`：`2026-06-06 20:57 CST`
 - `gpt_project_upload_package_based_on_commit（上传包基于 commit）`：`6d9fd8a6f2838c56d74f770456d683a80a17698b`
-- `gpt_project_upload_package_status（上传包状态）`：`current_latest_sync_package_pending_user_upload`
+- `gpt_project_upload_package_status（上传包状态）`：`current_latest_sync_package_pending_user_upload_git_synced`
+- `gpt_project_upload_package_git_sync_status（上传包 Git 同步状态）`：`full_gpt_project_sync_package_generated_git_synced`
+- `gpt_project_upload_package_generation_commit_sha（完整包生成提交）`：`4b535efbaf2143bca9d826a1411974e5c363a9fe`
+- `gpt_project_upload_package_pushed（是否已推送）`：`true`
+- `gpt_project_upload_package_remote_head_verified（远端最新提交是否已验证）`：`true`
+- `gpt_project_upload_package_remote_head_sha（远端最新提交编号）`：`4b535efbaf2143bca9d826a1411974e5c363a9fe`
+- `user_uploaded_to_gpt_project_ui（用户是否已上传 GPT Project UI）`：`false / not_claimed`
 - `gpt_project_upload_package_contains（本包包含）`：
   - `project_entry/AGENTS.md`
   - `上传说明_UPLOAD_MANIFEST.md`
@@ -176,7 +182,8 @@
 - `gpt_project_sync_package_upload_manifest_exists（上传说明是否存在）`：`true`
 - `gpt_project_sync_package_generated_at（生成时间）`：`2026-06-06 20:57 CST`
 - `gpt_project_sync_package_based_on_commit（同步包基于 commit）`：`6d9fd8a6f2838c56d74f770456d683a80a17698b`
-- `gpt_project_sync_package_status（同步包状态）`：`current_latest_sync_package_pending_user_upload`
+- `gpt_project_sync_package_status（同步包状态）`：`current_latest_sync_package_pending_user_upload_git_synced`
+- `gpt_project_sync_package_git_sync_status（同步包 Git 同步状态）`：`full_gpt_project_sync_package_generated_git_synced`
 - `upload_policy（上传策略）`：
   本轮如用户要同步完整 GPT Project 项目资料，优先使用本节 `gpt_project_sync_package_latest` 指向的资料同步包；它不替代 GitHub main 当前事实源。
 - `boundary（边界）`：

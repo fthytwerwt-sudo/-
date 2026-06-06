@@ -63,10 +63,16 @@
 ## Git 状态
 
 - `branch = main`
-- `commit_sha = pending_final_report`
-- `pushed = pending_final_report`
-- `remote_head_verified = pending_final_report`
+- `git_sync_status = full_gpt_project_sync_package_generated_git_synced`
+- `current_branch = main`
+- `commit_sha = 4b535efbaf2143bca9d826a1411974e5c363a9fe`
+- `pushed = true`
+- `remote_head_verified = true`
+- `remote_head_sha = 4b535efbaf2143bca9d826a1411974e5c363a9fe`
 - `unrelated_dirty_files = public/reference_migration_20260601_010425/source_segment.mp4`
+- `secret_scan = passed`
+- `completed_allowed = true`
+- `user_uploaded_to_gpt_project_ui = false / not_claimed`
 
 ## 未推进项
 

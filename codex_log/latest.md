@@ -2,7 +2,7 @@
 
 ## 20260606｜完整 GPT Project 同步包重新生成
 
-- `task_result.status = full_gpt_project_sync_package_generated_pending_git_sync`
+- `task_result.status = full_gpt_project_sync_package_generated_git_synced`
 - `branch = main`
 - `project_route = video_factory`
 - `route_decision.task_type = gpt_project_sync_package_update + project_file_change + local_file_governance`
@@ -11,9 +11,20 @@
 - `new_package_path = /Users/fan/Documents/视频工厂/dist/gpt_project_sync_packages/20260606_完整GPTProject同步包_full_project_sync_package/`
 - `upload_manifest_path = /Users/fan/Documents/视频工厂/dist/gpt_project_sync_packages/20260606_完整GPTProject同步包_full_project_sync_package/上传说明_UPLOAD_MANIFEST.md`
 - `package_source_commit = 6d9fd8a6f2838c56d74f770456d683a80a17698b`
+- `package_generation_commit_sha = 4b535efbaf2143bca9d826a1411974e5c363a9fe`
+- `git_sync_status`:
+  - `current_branch = main`
+  - `commit_sha = 4b535efbaf2143bca9d826a1411974e5c363a9fe`
+  - `pushed = true`
+  - `remote_head_verified = true`
+  - `remote_head_sha = 4b535efbaf2143bca9d826a1411974e5c363a9fe`
+  - `unrelated_dirty_files = public/reference_migration_20260601_010425/source_segment.mp4`
+  - `secret_scan = passed`
+  - `completed_allowed = true`
 - `package_scope`：`GPT数据源/00-15` 全套主读入口、`codex_log/latest.md`、`codex_log/current_local_artifact_paths.md`、当前运营入口、当前数据目标锚点、运营记录索引、关键 Codex 入口镜像和上传说明。
 - `ready_for_user_upload = true_after_manifest_and_path_verification`
 - `upload_boundary`：本地完整包已生成，不代表用户已上传 GPT Project UI，也不代表 GPT Project UI 已同步成功；GitHub main 仍是主事实源。
+- `user_uploaded_to_gpt_project_ui = false / not_claimed`
 - `未推进`：不生成视频；不生成正式文案；不生成下一条视频执行 prompt；不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked / current_data_goal_anchor ready`。
 
 ## 20260606｜需求确认机制 GPT Project 同步包生成
