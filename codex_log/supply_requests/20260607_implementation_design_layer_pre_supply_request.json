@@ -1,0 +1,223 @@
+{
+  "request_id": "20260607_implementation_design_layer_pre_supply",
+  "created_at": "2026-06-07T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "20260607_implementation_design_layer_mechanism_upgrade",
+  "task_type": "mechanism_or_route_fix",
+  "project_stage": "formal_operation_active",
+  "operation_stage": "mechanism_repair_and_gpt_project_sync",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "context_summary",
+  "mandatory_for_every_task": true,
+  "participation_level": "mandatory_by_default",
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "Add implementation_design_layer before Codex execution and generate a GPT Project sync package without changing media or status fields.",
+  "current_step": "Pre-write supply for impact map, insertion points, risk conflicts, and verification checklist.",
+  "known_context": [
+    "The current project route is video_factory.",
+    "This is a mechanism repair and GPT Project sync package task.",
+    "Existing requirement_alignment_needed currently uses a five-layer chain.",
+    "The new implementation_design_layer must sit between mechanism layer and process layer.",
+    "Codex is the only write integrator; DeepSeek is readonly supply.",
+    "Local package generation must not be reported as user upload to GPT Project UI."
+  ],
+  "missing_context": [
+    "Whether all affected GPT Project side and Codex side files already mention implementation_design_layer.",
+    "Whether card visual route files need only bounded examples or deeper rewrites."
+  ],
+  "decision_needed": "Return exact insertion point suggestions, conflicts, missing files, and validation risks for implementing implementation_design_layer.",
+  "candidate_files": [
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/03_总索引与阅读顺序.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/20_reference_to_execution_contract.md",
+    "codex_source/21_codex_judgment_permission_matrix.md",
+    "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+    "codex_log/current_local_artifact_paths.md",
+    "codex_log/latest.md"
+  ],
+  "must_read_files": [
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/03_总索引与阅读顺序.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_log/current_local_artifact_paths.md"
+  ],
+  "optional_files": [
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+    "codex_source/20_reference_to_execution_contract.md",
+    "codex_source/21_codex_judgment_permission_matrix.md",
+    "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    ".env.*",
+    ".env.swp",
+    ".git/",
+    "dist/latest_review_pack/",
+    "public/",
+    "*.mp4",
+    "*.mov",
+    "*.mp3",
+    "*.wav",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.gif",
+    "*.webp"
+  ],
+  "max_context_files": 13,
+  "max_context_chars": 36000,
+  "deep_supply_mode": {
+    "enabled": true,
+    "mode": [
+      "deep_file_prefetch",
+      "post_risk_review"
+    ]
+  },
+  "file_scope": {
+    "candidate_files": [
+      "GPT数据源/01_项目系统提示词.md",
+      "GPT数据源/03_总索引与阅读顺序.md",
+      "GPT数据源/05_文案路由规则.md",
+      "GPT数据源/07_AI知识类视频价值规则.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+      "codex_source/00_codex_readme.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/20_reference_to_execution_contract.md",
+      "codex_source/21_codex_judgment_permission_matrix.md",
+      "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+      "codex_log/current_local_artifact_paths.md",
+      "codex_log/latest.md"
+    ],
+    "must_prefetch_files": [
+      "GPT数据源/01_项目系统提示词.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "codex_source/00_codex_readme.md",
+      "codex_source/19_project_state_action_router.md",
+      "codex_log/current_local_artifact_paths.md"
+    ],
+    "optional_prefetch_files": [
+      "GPT数据源/03_总索引与阅读顺序.md",
+      "GPT数据源/05_文案路由规则.md",
+      "GPT数据源/07_AI知识类视频价值规则.md",
+      "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+      "codex_source/20_reference_to_execution_contract.md",
+      "codex_source/21_codex_judgment_permission_matrix.md",
+      "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md"
+    ],
+    "forbidden_files": [
+      ".env",
+      ".env.local",
+      "dist/latest_review_pack/",
+      "public/"
+    ],
+    "secret_files_forbidden": true
+  },
+  "content_loading_policy": {
+    "include_file_content": true,
+    "include_exact_snippets": true,
+    "max_file_count": 13,
+    "max_chars_per_file": 4000,
+    "max_total_chars": 36000,
+    "truncate_policy": "headings_and_relevant_lines_first",
+    "redaction_policy": "never_include_api_key_or_secret"
+  },
+  "codex_minimal_review_policy": {
+    "codex_must_review": [
+      "will_modify_files",
+      "conflict_or_uncertain_files",
+      "validation_failed_files",
+      "safety_sensitive_files"
+    ],
+    "codex_should_not_default_deep_read_all": true
+  },
+  "will_modify_files": [
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/03_总索引与阅读顺序.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/20_reference_to_execution_contract.md",
+    "codex_source/21_codex_judgment_permission_matrix.md",
+    "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+    "codex_log/20260607_实现设计层机制升级_implementation_design_layer.md",
+    "codex_log/latest.md",
+    "codex_log/current_local_artifact_paths.md",
+    "dist/gpt_project_sync_packages/20260607_实现设计层机制升级_implementation_design_layer/"
+  ],
+  "conflict_or_uncertain_files": [
+    "public/"
+  ],
+  "validation_failed_files": [],
+  "safety_sensitive_files": [
+    "codex_log/current_local_artifact_paths.md",
+    "dist/gpt_project_sync_packages/20260607_实现设计层机制升级_implementation_design_layer/"
+  ],
+  "output_required": [
+    "impact_file_map",
+    "exact_snippet_pack",
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "token_usage_expectation_check"
+  ],
+  "expected_output": [
+    "impact_file_map",
+    "exact_snippet_pack",
+    "risk_and_conflict_report",
+    "missing_or_uncertain_files",
+    "codex_next_input",
+    "token_usage_expectation_check"
+  ],
+  "output_format": "deepseek_supply_pack_json_and_markdown",
+  "codex_next_input": "Codex should implement the implementation_design_layer in both GPT Project side and Codex side files, generate a local sync package, keep user upload pending, avoid media/status promotion, and path-limit Git sync.",
+  "return_to_codex": {
+    "output_dir": "dist/deepseek_supply_controller/implementation_design_layer_20260607_pre_supply",
+    "pack_md": "dist/deepseek_supply_controller/implementation_design_layer_20260607_pre_supply/latest_supply_pack.md",
+    "pack_json": "dist/deepseek_supply_controller/implementation_design_layer_20260607_pre_supply/latest_supply_pack.json",
+    "manifest": "dist/deepseek_supply_controller/implementation_design_layer_20260607_pre_supply/latest_supply_manifest.json"
+  },
+  "not_allowed": [
+    "DeepSeek 不得写文件。",
+    "DeepSeek 不得拍板项目事实。",
+    "不得把 fallback_local_only 本地兜底写成 DeepSeek 结论。",
+    "不得写 multi-agent runtime 多 agent 运行时已跑通。",
+    "不得读取 .env、API key、token、secret 或媒体文件。",
+    "不得修改或读取 dist/latest_review_pack 媒体产物。",
+    "不得把 image2 写成已确认可用。",
+    "不得把 HyperFrames 最小 runtime 写成卡片审美长期稳定通过。"
+  ],
+  "stop_condition": "DeepSeek supply pack or safe fallback provenance exists before file edits.",
+  "blocked_if": [
+    "candidate file matches forbidden path",
+    "fallback is labeled as deepseek_passed",
+    "required insertion points are missing",
+    "public/ unrelated dirty path cannot be isolated"
+  ],
+  "fallback_policy": "Fallback is allowed for this mechanism task but must remain fallback_local_only and not_deepseek_conclusion.",
+  "requires_real_deepseek_participation": false,
+  "allow_process_env_api_key": true,
+  "disable_env_file": true,
+  "safe_deepseek_process_env_test": true
+}
