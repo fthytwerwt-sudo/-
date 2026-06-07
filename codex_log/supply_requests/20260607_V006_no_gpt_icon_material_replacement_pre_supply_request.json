@@ -1,0 +1,163 @@
+{
+  "request_id": "20260607_V006_no_gpt_icon_material_replacement_pre_supply",
+  "created_at": "2026-06-07T17:30:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "V006_no_gpt_icon_material_replacement_publish_candidate_regeneration",
+  "task_type": "video_repair_execution + publish_candidate_regeneration + platform_risk_material_replacement + locked_copy_video_execution",
+  "project_stage": "formal_operation_active",
+  "trigger_reason": "mandatory_pre_supply",
+  "action": "assembly_decision_pack",
+  "mandatory_for_every_task": true,
+  "participation_level": "mandatory_by_default",
+  "no_multi_agent_runtime_claim": true,
+  "pre_supply_required": true,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "使用第六期新录制素材替换上一版包含 GPT / ChatGPT / OpenAI 图标风险的旧素材，保留锁定文案和画面对照主结构，重新输出可发布候选片或阻断。",
+  "current_step": "执行前供料：复核必读文件、旧 V006 审片包、锁定文案、素材替换边界、平台风险阻断条件。",
+  "known_context": [
+    "用户锁定本轮不改文案、不改选题、不改画面对照表主结构。",
+    "上一版 V006 候选片目录为 dist/V006_codex_real_use_rant_publish_candidate_20260607_034319。",
+    "用户指定新素材目录 /Users/fan/Documents/视频工厂/素材录制-第六期 当前不存在；执行单允许 fallback 到 /Users/fan/Documents/视频工厂/素材录制/第六期。",
+    "本轮最大风险是最终片仍露 GPT / ChatGPT / OpenAI 图标、favicon、安装下载注册绕过画面或 secret/token。",
+    "正式运营视频交付只能是 publish_candidate_ready_for_human_review 或 blocked_publish_candidate_unavailable。"
+  ],
+  "missing_context": [
+    "DeepSeek 不读取媒体文件，无法直接判定帧级图标风险。",
+    "新素材帧级扫描、字幕卡片重叠检查、TTS 非静音验证必须由 Codex 本地执行。",
+    "用户人工审美复审尚未发生，不能推进 send_ready 或 content_validation。"
+  ],
+  "candidate_files": [
+    "AGENTS.md",
+    "codex_log/latest.md",
+    "codex_source/00_codex_readme.md",
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/04_选题与文案规则.md",
+    "GPT数据源/05_文案路由规则.md",
+    "GPT数据源/07_AI知识类视频价值规则.md",
+    "GPT数据源/08_当前正式事实.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "GPT数据源/15_对标文案学习与说人话判断标准_copy_reference_learning_and_plain_language_standard.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/21_codex_judgment_permission_matrix.md",
+    "codex_log/current_data_goal_anchor.md",
+    "dist/V006_codex_real_use_rant_publish_candidate_20260607_034319/review_manifest.md",
+    "dist/V006_codex_real_use_rant_publish_candidate_20260607_034319/summary.json",
+    "dist/V006_codex_real_use_rant_publish_candidate_20260607_034319/locked_copy_contract.md",
+    "dist/V006_codex_real_use_rant_publish_candidate_20260607_034319/script_to_timeline_map.json",
+    "dist/V006_codex_real_use_rant_publish_candidate_20260607_034319/material_evidence_contract.md",
+    "dist/V006_codex_real_use_rant_publish_candidate_20260607_034319/publish_candidate_preflight_report.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".git/",
+    "dist/latest_review_pack/",
+    "public/",
+    "*.mp4",
+    "*.mov",
+    "*.m4v",
+    "*.mp3",
+    "*.wav",
+    "*.m4a",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.webp",
+    "/Users/fan/Documents/视频工厂归档+删除"
+  ],
+  "max_context_files": 18,
+  "max_context_chars": 30000,
+  "expected_output": [
+    "context_summary",
+    "risk_conflict_report",
+    "must_preserve",
+    "must_block_if",
+    "codex_next_input"
+  ],
+  "not_allowed": [
+    "不得读取媒体文件或图片帧。",
+    "不得读取 .env、API key、token 或密钥文件。",
+    "不得写文件、不得拍板项目事实。",
+    "不得把 fallback_local_only 写成 DeepSeek 结论。",
+    "不得声明 multi-agent runtime / 多 agent 运行时已经参与或跑通。",
+    "不得推进 content_validation、send_ready、publish_status_success、voice_validation、final_voice_validated 或 visual_master_locked。",
+    "不得建议使用旧 GPT / ChatGPT / OpenAI 图标风险素材入片。",
+    "不得建议文案改写。"
+  ],
+  "blocked_if": [
+    "候选文件命中 forbidden_paths。",
+    "必须读取媒体文件才能输出结论。",
+    "需要把技术预览当成完成。",
+    "需要改写锁定文案才能完成。",
+    "token 未观察到减少却声称 DeepSeek 已深度参与。"
+  ],
+  "segments": [
+    {
+      "segment_id": "opening_boundary",
+      "function": "platform_safe_opening_and_overhype_boundary",
+      "primary_carrier_candidate": "new_user_recording_or_card"
+    },
+    {
+      "segment_id": "chopper_failure_case",
+      "function": "failure_analysis_not_success_case",
+      "primary_carrier_candidate": "new_chopper_recording"
+    },
+    {
+      "segment_id": "video_review_and_data_review",
+      "function": "repeated_work_reduction_and_human_review_boundary",
+      "primary_carrier_candidate": "new_user_recording"
+    }
+  ],
+  "visual_asset_requirements": [
+    {
+      "segment_id": "opening_boundary",
+      "required_asset_type": "screen_recording_or_judgment_card",
+      "evidence_role": "context_and_boundary",
+      "must_avoid": "GPT / ChatGPT / OpenAI icon, favicon, install/download/register/bypass UI"
+    },
+    {
+      "segment_id": "chopper_failure_case",
+      "required_asset_type": "screen_recording",
+      "evidence_role": "failure_or_candidate_only",
+      "must_avoid": "success claim or product proof overclaim"
+    },
+    {
+      "segment_id": "video_review_and_data_review",
+      "required_asset_type": "screen_recording",
+      "evidence_role": "workflow evidence",
+      "must_avoid": "secret/token/account-private details"
+    }
+  ],
+  "assembly_slots": [
+    {
+      "segment_id": "opening_boundary",
+      "primary_carrier": "new safe recording or card",
+      "secondary_carrier": "burned subtitle",
+      "transition": "short direct opening"
+    },
+    {
+      "segment_id": "chopper_failure_case",
+      "primary_carrier": "new chopper failure/candidate recording",
+      "secondary_carrier": "subtitle plus optional boundary card",
+      "transition": "do not imply success"
+    },
+    {
+      "segment_id": "video_review_and_data_review",
+      "primary_carrier": "new review/data recording",
+      "secondary_carrier": "subtitle and low-obstruction cards",
+      "transition": "protect evidence readability"
+    }
+  ],
+  "return_to_codex": {
+    "output_dir": "codex_log/deepseek_supply/20260607_V006_no_gpt_icon_material_replacement_pre_supply",
+    "pack_md": "codex_log/deepseek_supply/20260607_V006_no_gpt_icon_material_replacement_pre_supply/latest_supply_pack.md",
+    "pack_json": "codex_log/deepseek_supply/20260607_V006_no_gpt_icon_material_replacement_pre_supply/latest_supply_pack.json",
+    "manifest": "codex_log/deepseek_supply/20260607_V006_no_gpt_icon_material_replacement_pre_supply/latest_supply_manifest.json"
+  }
+}

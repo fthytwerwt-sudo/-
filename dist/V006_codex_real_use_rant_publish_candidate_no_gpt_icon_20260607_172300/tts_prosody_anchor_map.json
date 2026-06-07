@@ -1,0 +1,205 @@
+{
+  "status": "ready",
+  "target_provider": "minimax",
+  "target_model": "MiniMax/speech-2.8-hd",
+  "target_voice_id": "oldBMinimax20260528010200",
+  "style": [
+    "自然口语",
+    "轻吐槽",
+    "低压",
+    "不要播音腔",
+    "不要销售腔"
+  ],
+  "anchors": [
+    {
+      "line_group_id": "lg_001",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_002",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_003",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_004",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_005",
+      "pause_after_seconds": 0.16,
+      "emphasis": "boundary"
+    },
+    {
+      "line_group_id": "lg_006",
+      "pause_after_seconds": 0.16,
+      "emphasis": "boundary"
+    },
+    {
+      "line_group_id": "lg_007",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_008",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_009",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_010",
+      "pause_after_seconds": 0.16,
+      "emphasis": "boundary"
+    },
+    {
+      "line_group_id": "lg_011",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_012",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_013",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_014",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_015",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_016",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_017",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_018",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_019",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_020",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_021",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_022",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_023",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_024",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_025",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_026",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_027",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_028",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_029",
+      "pause_after_seconds": 0.16,
+      "emphasis": "boundary"
+    },
+    {
+      "line_group_id": "lg_030",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_031",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_032",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_033",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_034",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_035",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_036",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_037",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    },
+    {
+      "line_group_id": "lg_038",
+      "pause_after_seconds": 0.16,
+      "emphasis": "normal"
+    }
+  ]
+}

@@ -1,5 +1,46 @@
 # Latest
 
+## 20260607｜V006 第六期新素材无 GPT 图标正片候选重做
+
+- `task_result.status = publish_candidate_ready_for_human_review`
+- `branch = main`
+- `project_route = video_factory`
+- `route_decision.task_type = video_sample_or_assembly + video_repair_execution + publish_candidate_regeneration + platform_risk_material_replacement + locked_copy_video_execution`
+- `large_task_gate.triggered = true`
+- `lane = standard_lane`
+- `parallel = serial_only`
+- `old_candidate_dir = /Users/fan/Documents/视频工厂/dist/V006_codex_real_use_rant_publish_candidate_20260607_034319`
+- `new_output_dir = /Users/fan/Documents/视频工厂/dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300`
+- `full_mp4 = /Users/fan/Documents/视频工厂/dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/full.mp4`
+- `review_manifest = /Users/fan/Documents/视频工厂/dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/review_manifest.md`
+- `summary = /Users/fan/Documents/视频工厂/dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/summary.json`
+- `new_material_dir_requested = /Users/fan/Documents/视频工厂/素材录制-第六期`
+- `new_material_dir_actual = /Users/fan/Documents/视频工厂/素材录制/第六期`
+- `new_material_dir_fallback_used = true`
+- `old_material_reused = false`
+- `new_material_used = true`
+- `final_used_materials = M04(2026-06-07 16:58:12) + M05(2026-06-07 17:00:57) + M06(2026-06-07 17:03:36) + generated_cards`
+- `locked_copy_changed = false`
+- `line_group_count = 38`
+- `replaced_line_groups = 38`
+- `line_group_replacement_failed = []`
+- `tts_route = reused_previous_minimax_narration`
+- `actual_tts_provider = minimax`
+- `actual_tts_model = MiniMax/speech-2.8-hd`
+- `actual_voice_id = oldBMinimax20260528010200`
+- `gpt_icon_exposure_check = passed_final_sampled_frames_no_gpt_chatgpt_openai_icon_or_favicon_detected`
+- `privacy_platform_risk_report = passed_no_secret_or_token_visible_project_paths_partial_human_review_required`
+- `remaining_card_visual_deviation = true`
+- `technical_validation`: `passed`，`ffprobe` 显示 `1920x1080 / 290.993s / h264 / AAC audio / decodable = true`
+- `audio_validation`: `passed_non_silent`，`mean_volume = -16.2 dB`，`max_volume = -1.5 dB`
+- `DeepSeek pre-supply`：已创建 `codex_log/supply_requests/20260607_V006_no_gpt_icon_material_replacement_pre_supply_request.json` 并通过 safe runner 真实调用；`deepseek_actual_participation = deepseek_passed`，`fallback_status = not_used`，`api_key_printed = false`，`api_key_written = false`。
+- `DeepSeek post-risk-review`：已创建 `codex_log/supply_requests/20260607_V006_no_gpt_icon_material_replacement_post_risk_review_request.json` 并尝试 safe runner；控制器返回 `blocked_invalid_context_pack`，`deepseek_actual_participation = not_attempted_policy_violation`，`not_deepseek_conclusion = true`；后置风险结论来自 Codex 本地验证。
+- `post_risk_local_review = /Users/fan/Documents/视频工厂/dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/post_risk_local_review.md`
+- `visual_verdict`: `.omx/state/V006_no_gpt_icon/ralph-progress.json`，`score = 92`，`verdict = pass`
+- `日志证据`: `codex_log/20260607_V006第六期新素材无GPT图标候选片重做.md`
+- `同步边界`：本 V006 候选不替换 `dist/latest_review_pack/` legacy v3.1 当前复审对象，不覆盖当前运营数据目标；仅作为第六期新素材重做候选片入口。
+- `未推进`：不推进 `content_validation / send_ready / publish_status_success / voice_validation / final_voice_validated / visual_master_locked / current_data_goal_anchor ready`。
+
 ## 20260606｜完整 GPT Project 同步包重新生成
 
 - `task_result.status = full_gpt_project_sync_package_generated_git_synced`

@@ -1,0 +1,77 @@
+{
+  "source_dir": "/Users/fan/Documents/视频工厂/素材录制/第六期",
+  "materials": [
+    {
+      "material_id": "M01",
+      "file_name": "内建视网膜显示器 2026-06-01 00-21-27.mp4",
+      "path": "/Users/fan/Documents/视频工厂/素材录制/第六期/内建视网膜显示器 2026-06-01 00-21-27.mp4",
+      "duration": 10.133,
+      "resolution": "3420x1980",
+      "fps": "4575/152",
+      "audio": false,
+      "decode_status": "sample_frames_extracted",
+      "sampled_frame_count": 7,
+      "contact_sheet": "/Users/fan/Documents/视频工厂/dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/source_frame_scan/sheets/M01_contact_sheet.jpg"
+    },
+    {
+      "material_id": "M02",
+      "file_name": "内建视网膜显示器 2026-06-02 23-25-03.mp4",
+      "path": "/Users/fan/Documents/视频工厂/素材录制/第六期/内建视网膜显示器 2026-06-02 23-25-03.mp4",
+      "duration": 44.8,
+      "resolution": "3420x1998",
+      "fps": "6725/224",
+      "audio": false,
+      "decode_status": "sample_frames_extracted",
+      "sampled_frame_count": 24,
+      "contact_sheet": "/Users/fan/Documents/视频工厂/dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/source_frame_scan/sheets/M02_contact_sheet.jpg"
+    },
+    {
+      "material_id": "M03",
+      "file_name": "内建视网膜显示器 2026-06-06 23-55-00.mp4",
+      "path": "/Users/fan/Documents/视频工厂/素材录制/第六期/内建视网膜显示器 2026-06-06 23-55-00.mp4",
+      "duration": 86.933,
+      "resolution": "3420x1984",
+      "fps": "39135/1304",
+      "audio": false,
+      "decode_status": "sample_frames_extracted",
+      "sampled_frame_count": 45,
+      "contact_sheet": "/Users/fan/Documents/视频工厂/dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/source_frame_scan/sheets/M03_contact_sheet.jpg"
+    },
+    {
+      "material_id": "M04",
+      "file_name": "内建视网膜显示器 2026-06-07 16-58-12_1.mp4",
+      "path": "/Users/fan/Documents/视频工厂/素材录制/第六期/内建视网膜显示器 2026-06-07 16-58-12_1.mp4",
+      "duration": 27.867,
+      "resolution": "3420x1998",
+      "fps": "12555/418",
+      "audio": false,
+      "decode_status": "sample_frames_extracted",
+      "sampled_frame_count": 15,
+      "contact_sheet": "/Users/fan/Documents/视频工厂/dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/source_frame_scan/sheets/M04_contact_sheet.jpg"
+    },
+    {
+      "material_id": "M05",
+      "file_name": "内建视网膜显示器 2026-06-07 17-00-57.mp4",
+      "path": "/Users/fan/Documents/视频工厂/素材录制/第六期/内建视网膜显示器 2026-06-07 17-00-57.mp4",
+      "duration": 26.7,
+      "resolution": "3420x1998",
+      "fps": "8020/267",
+      "audio": false,
+      "decode_status": "sample_frames_extracted",
+      "sampled_frame_count": 15,
+      "contact_sheet": "/Users/fan/Documents/视频工厂/dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/source_frame_scan/sheets/M05_contact_sheet.jpg"
+    },
+    {
+      "material_id": "M06",
+      "file_name": "内建视网膜显示器 2026-06-07 17-03-36.mp4",
+      "path": "/Users/fan/Documents/视频工厂/素材录制/第六期/内建视网膜显示器 2026-06-07 17-03-36.mp4",
+      "duration": 47.7,
+      "resolution": "3420x1978",
+      "fps": "14320/477",
+      "audio": false,
+      "decode_status": "sample_frames_extracted",
+      "sampled_frame_count": 25,
+      "contact_sheet": "/Users/fan/Documents/视频工厂/dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/source_frame_scan/sheets/M06_contact_sheet.jpg"
+    }
+  ]
+}

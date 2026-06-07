@@ -8,6 +8,33 @@
 
 正式运营不等于内容通过、商业验证成立、数据飞轮跑通或 `send_ready = true`。
 
+## 0B-20260607. V006 第六期新素材无 GPT 图标候选片补充入口
+
+- `已确认` 本轮新增 V006 第六期新素材重做正片候选片：`dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/full.mp4`。
+- `review_pack`: `dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300`
+- `review_manifest`: `dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/review_manifest.md`
+- `summary`: `dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/summary.json`
+- `script_to_timeline_map`: `dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/script_to_timeline_map.json`
+- `gpt_icon_exposure_check`: `dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/gpt_icon_exposure_check.md`
+- `privacy_platform_risk_report`: `dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/privacy_platform_risk_report.md`
+- `publish_candidate_preflight_report`: `dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/publish_candidate_preflight_report.md`
+- `status`: `publish_candidate_ready_for_human_review`
+- `old_candidate_dir`: `dist/V006_codex_real_use_rant_publish_candidate_20260607_034319`
+- `new_material_dir_requested`: `/Users/fan/Documents/视频工厂/素材录制-第六期`
+- `new_material_dir_actual`: `/Users/fan/Documents/视频工厂/素材录制/第六期`
+- `new_material_dir_fallback_used`: `true`
+- `old_material_reused`: `false`
+- `new_material_used`: `true`
+- `locked_copy_changed`: `false`
+- `gpt_icon_exposure_check_status`: `passed_final_sampled_frames_no_gpt_chatgpt_openai_icon_or_favicon_detected`
+- `content_validation`: `pending_user_chatgpt_review`
+- `send_ready`: `false`
+- `voice_validation`: `pending_user_chatgpt_review / not_advanced`
+- `final_voice_validated`: `false`
+- `visual_master_locked`: `false`
+- `remaining_card_visual_deviation`: `true`
+- `边界` 本补充入口不替换下方 legacy v3.1 / `dist/latest_review_pack/` 当前复审对象，不覆盖当前运营数据目标，不写内容通过或可发送。
+
 ## 0B. 20260602 新第四期参考引导候选片补充入口
 
 - `已确认` 本轮新增新第四期完整参考引导候选片：`dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/full.mp4`。

@@ -1,0 +1,9 @@
+{
+  "path": "/Users/fan/Documents/视频工厂/dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/narration.wav",
+  "duration_seconds": 290.993,
+  "volumedetect": {
+    "mean_volume": "-16.2 dB",
+    "max_volume": "-1.5 dB"
+  },
+  "non_silent": true
+}

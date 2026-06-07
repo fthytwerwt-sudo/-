@@ -1,0 +1,95 @@
+{
+  "request_id": "20260607_V006_no_gpt_icon_material_replacement_post_risk_review",
+  "created_at": "2026-06-07T17:55:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "V006_no_gpt_icon_material_replacement_publish_candidate_regeneration_post_review",
+  "task_type": "video_repair_execution_post_risk_review",
+  "project_stage": "formal_operation_active",
+  "trigger_reason": "mandatory_post_risk_review",
+  "action": "risk_report",
+  "mandatory_for_every_task": true,
+  "participation_level": "mandatory_by_default",
+  "no_multi_agent_runtime_claim": true,
+  "pre_supply_required": false,
+  "post_review_required": true,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "token_should_decrease_if_real_call",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": true,
+  "current_goal": "对 V006 第六期新素材无 GPT 图标重做候选片执行后做只读风险复核，确认报告完整、状态未误推进、旧素材未声明入片、同步口径无冲突。",
+  "current_step": "执行后风险复核：读取本轮非媒体审片报告、summary、manifest、同步口径文件和 git diff 范围。",
+  "known_context": [
+    "本轮输出目录为 dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300。",
+    "full.mp4、narration.wav 等媒体文件不得交给 DeepSeek 读取。",
+    "Codex 本地已做 ffprobe、ffmpeg decode、volumedetect 和抽帧人工目检。",
+    "本轮已同步 codex_log/latest.md、codex_log/current_publish_target.md、codex_log/current_publish_target_light_evidence.md、GPT数据源/08_当前正式事实.md。"
+  ],
+  "missing_context": [
+    "DeepSeek 不读取媒体文件，不能替代本地视觉抽帧和用户最终观感复审。",
+    "用户尚未人工复审 full.mp4。"
+  ],
+  "candidate_files": [
+    "codex_log/latest.md",
+    "codex_log/current_publish_target.md",
+    "codex_log/current_publish_target_light_evidence.md",
+    "GPT数据源/08_当前正式事实.md",
+    "dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/review_manifest.md",
+    "dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/summary.json",
+    "dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/script_to_timeline_map.json",
+    "dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/material_replacement_report.md",
+    "dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/gpt_icon_exposure_check.md",
+    "dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/privacy_platform_risk_report.md",
+    "dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/publish_candidate_preflight_report.md",
+    "dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/completion_truth_report.md"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.*",
+    ".git/",
+    "dist/latest_review_pack/",
+    "public/",
+    "*.mp4",
+    "*.mov",
+    "*.m4v",
+    "*.mp3",
+    "*.wav",
+    "*.m4a",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.webp",
+    "/Users/fan/Documents/视频工厂归档+删除"
+  ],
+  "max_context_files": 12,
+  "max_context_chars": 30000,
+  "expected_output": [
+    "risk_conflict_report",
+    "missing_sync_check",
+    "forbidden_status_promotion_check",
+    "codex_next_input"
+  ],
+  "not_allowed": [
+    "不得读取媒体文件或图片帧。",
+    "不得读取 .env、API key、token 或密钥文件。",
+    "不得写文件、不得拍板项目事实。",
+    "不得把 fallback_local_only 写成 DeepSeek 结论。",
+    "不得声明 multi-agent runtime / 多 agent 运行时已经参与或跑通。",
+    "不得推进 content_validation、send_ready、publish_status_success、voice_validation、final_voice_validated 或 visual_master_locked。",
+    "不得建议把技术验证写成内容通过。"
+  ],
+  "blocked_if": [
+    "候选文件命中 forbidden_paths。",
+    "必须读取媒体文件才能输出结论。",
+    "发现状态误推进但 Codex 仍要写完成。",
+    "发现审片包缺关键报告但 Codex 仍要写完成。",
+    "token 未观察到减少却声称 DeepSeek 已深度参与。"
+  ],
+  "return_to_codex": {
+    "output_dir": "codex_log/deepseek_supply/20260607_V006_no_gpt_icon_material_replacement_post_risk_review",
+    "pack_md": "codex_log/deepseek_supply/20260607_V006_no_gpt_icon_material_replacement_post_risk_review/latest_supply_pack.md",
+    "pack_json": "codex_log/deepseek_supply/20260607_V006_no_gpt_icon_material_replacement_post_risk_review/latest_supply_pack.json",
+    "manifest": "codex_log/deepseek_supply/20260607_V006_no_gpt_icon_material_replacement_post_risk_review/latest_supply_manifest.json"
+  }
+}

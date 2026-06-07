@@ -8,6 +8,15 @@
 
 ## 对应对象
 
+- 20260607 V006 第六期新素材无 GPT 图标重做候选片：`dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/full.mp4`
+- 20260607 V006 review pack：`dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300`
+- 20260607 V006 review manifest：`dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/review_manifest.md`
+- 20260607 V006 summary：`dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/summary.json`
+- 20260607 V006 图标专项检查：`dist/V006_codex_real_use_rant_publish_candidate_no_gpt_icon_20260607_172300/gpt_icon_exposure_check.md`
+- 20260607 V006 状态：`publish_candidate_ready_for_human_review`
+- 20260607 V006 边界：`old_material_reused = false`，`locked_copy_changed = false`，`content_validation = pending_user_chatgpt_review`，`send_ready = false`，`voice_validation = pending_user_chatgpt_review / not_advanced`，`visual_master_locked = false`
+- 20260607 V006 不替换 legacy v3.1 / `dist/latest_review_pack/` 当前复审对象，不覆盖当前运营数据目标。
+
 - 20260602 新第四期新增完整参考引导候选片：`dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523/full.mp4`
 - 20260602 新第四期 review pack：`dist/new_fourth_episode_reference_guided_publish_candidate_20260602_034523`
 - 20260602 新第四期状态：`publish_candidate_ready_for_human_review`
