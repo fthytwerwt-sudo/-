@@ -315,6 +315,7 @@ card_visual_reference_contract:
     copy_change_request_required_if_text_needs_semantic_rewrite: true
     card_visual_implementation_example:
       preferred_visual_base_route_candidate: image2_visual_base_route_candidate
+      default_card_execution_route_after_user_approval: image2_visual_base_route_candidate -> codex_post_overlay_locked_copy -> optional HyperFrames_motion_wrapper
       image2_boundary: 只负责主视觉 / 底图 / 构图 / 质感 / 社交编辑感；本轮用户人工反馈样张审美可过关，但不得写成长期稳定通过。
       text_authority_route: Codex 后期叠准确 locked copy；HTML/CSS/PIL 可作为 exact_text_fallback。
       hyperframes_boundary: 仅作为 optional motion_wrapper / auxiliary_motion_route / card_motion_layer；只有 motion_wrapper_route = HyperFrames_motion_wrapper 时才检查 runtime gate。
@@ -395,6 +396,7 @@ done_when:
 - `user_goal_preserved`：用户真正想要的效果没有被表面风格覆盖。
 - `no_forbidden_status_promotion`：没有推进 `content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked`。
 - `remaining_deviation_list_empty_or_explained`：剩余偏离为空，或已解释为什么暂时接受 / 待用户复审。
+- `default_card_execution_route_after_user_approval` 只表示 20260609 最小真实链路样张经用户人工审美复审通过，可作为后续默认卡片执行路线；不得写成 `image2_long_term_stable_passed = true`、`visual_master_locked = true` 或内容通过。
 
 ## 10. 与现有机制的关系
 

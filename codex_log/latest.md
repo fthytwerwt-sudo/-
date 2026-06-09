@@ -1,5 +1,24 @@
 # Latest
 
+## 20260609｜卡片最小真实链路用户通过与默认路线确认
+
+- `task_result.status = card_minimal_chain_user_approved_default_route_recorded`
+- `branch = main`
+- `project_route = video_factory`
+- `route_decision.task_type = mechanism_or_route_fix + project_file_change + user_review_result_sync`
+- `本轮不是视频生成`：不生成新图片、不生成新视频、不修改 `dist/latest_review_pack/`、不修改 `public/`、不替换现有视频卡片。
+- `user_feedback = 这轮我看了，我觉得是可以通过的，以后都这样。`
+- `user_aesthetic_review = passed`
+- `user_default_route_confirmation = true`
+- `source_artifact_dir = 本地隔离区_local_quarantine/20260609_card_minimal_real_chain_test/`
+- `confirmed_minimal_chain_outputs`：`01_image2_visual_base_raw.png`、`02_locked_copy_overlay_final.png`、`03_hyperframes_motion_wrapper_optional.mp4`、`card_chain_report.md`、`card_chain_summary.json`。
+- `default_card_execution_route_after_user_approval`：`image2_visual_base_route_candidate -> codex_post_overlay_locked_copy -> optional HyperFrames_motion_wrapper`。
+- `fallback_route`：`HTML/CSS/PIL_exact_text_layer` 只承担准确文字 fallback；不得冒充 HyperFrames 动效。
+- `required_checks`：`locked_copy_diff_check / readability_check / social_editorial_card_v1_check / evidence_window_protection / subtitle_card_overlap_check / card_visual_quality_gate / publish_candidate_preflight_when_entering_real_video_chain`。
+- `状态边界`：`image2_long_term_stable_passed = false`，`content_validation = not_advanced`，`send_ready = false`，`visual_master_locked = false`，`publish_candidate = not_advanced`，`current_data_goal_anchor_ready = not_advanced`。
+- `dated_log = codex_log/20260609_card_minimal_chain_user_approved_default_route.md`
+- `git_sync_status`：本轮用户通过回写随本次提交同步到 `main`；最终 SHA 以 Codex final report 为准。
+
 ## 20260609｜image2 卡片路线冲突修补
 
 - `task_result.status = image2_card_route_conflict_repair_completed_git_synced`

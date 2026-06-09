@@ -772,6 +772,7 @@ validation_rule:
 卡片视觉的权限边界：
 
 - `image2_visual_base_route_candidate` 可作为卡片主视觉底图候选，负责主视觉 / 底图 / 构图 / 质感 / 社交编辑感；本轮用户人工反馈样张审美可过关，但不得写成长期稳定通过。
+- `default_card_execution_route_after_user_approval = image2_visual_base_route_candidate -> codex_post_overlay_locked_copy -> optional HyperFrames_motion_wrapper`：20260609 最小真实链路样张经用户人工通过后，后续卡片默认按该路线下发；该字段不代表 image2 长期稳定通过、视觉母版锁定或内容验证通过。
 - `image2_visual_only_not_text_authority = true`：image2 不负责最终 locked copy 文字准确性，不得改写语义、不得新增事实、不得替代证据。
 - Codex 可以后期叠准确 locked copy；HTML/CSS 截图或 PIL 可作为 `exact_text_fallback（准确文字 fallback）`，不得冒充 HyperFrames 动效。
 - HyperFrames 降级为可选 `motion_wrapper / auxiliary_motion_route / card_motion_layer`；最小 runtime 通过只代表动效能力，不等于卡片审美长期稳定。
@@ -783,6 +784,7 @@ validation_rule:
 
 - `codex_permission = must_decide_and_execute`：Codex 必须判断 `visual_base_route / text_authority_route / motion_wrapper_route`。
 - `visual_base_route = image2_visual_base_route_candidate`：默认可作为主视觉底图候选。
+- `default_card_execution_route_after_user_approval`：后续默认先走 image2 主视觉底图，再由 Codex 后期叠准确 locked copy，HyperFrames 仅作可选轻动效包装。
 - `text_authority_route = codex_post_overlay_locked_copy / HTML-CSS-PIL_exact_text_layer`：负责准确文字层。
 - `motion_wrapper_route = HyperFrames_motion_wrapper` 仅在需要动效包装时选择。
 - `minimal_runtime_validation = passed`：当前已通过 `npx --yes hyperframes@0.6.12 render` 完成最小判断卡 / 总结卡真实动效验证。
