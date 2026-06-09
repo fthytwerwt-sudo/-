@@ -294,7 +294,14 @@ card_visual_reference_contract:
     card_budget_gate_required: true
     evidence_window_protection_required: true
     locked_copy_semantic_match_required: true
-    hyperframes_runtime_gate_required_if_judgment_or_summary_selected: true
+    card_visual_route_selected_required: true
+    visual_base_route_required: true
+    text_authority_route_required: true
+    motion_wrapper_route_required: true
+    hyperframes_runtime_gate_required_if_motion_wrapper_selected: true
+    image2_visual_only_not_text_authority: true
+    post_overlay_locked_copy_check_required: true
+    exact_text_fallback_required_if_image2_text_unstable: true
     implementation_design_layer_required: true
     implementation_design_layer_fields:
       - target_effect
@@ -307,11 +314,12 @@ card_visual_reference_contract:
     static_fallback_requires_user_authorization: true
     copy_change_request_required_if_text_needs_semantic_rewrite: true
     card_visual_implementation_example:
-      preferred_route: HyperFrames
-      hyperframes_boundary: 仅在 runtime 可用且能满足卡片质感时使用；最小 runtime 通过不等于审美稳定通过。
-      fallback_route_a: image2 / 图片生成能力；必须先做只读或最小能力探测，未探测通过不得写可用。
-      fallback_route_b: HTML/CSS 截图或 PIL 生成 1920x1080 静态卡片；只能作为已授权 fallback，不得冒充 HyperFrames 动效。
-      blocked_route: 静态卡片也无法达到审美底线、会改 locked copy、遮挡证据或缺用户授权降级时 blocked。
+      preferred_visual_base_route_candidate: image2_visual_base_route_candidate
+      image2_boundary: 只负责主视觉 / 底图 / 构图 / 质感 / 社交编辑感；本轮用户人工反馈样张审美可过关，但不得写成长期稳定通过。
+      text_authority_route: Codex 后期叠准确 locked copy；HTML/CSS/PIL 可作为 exact_text_fallback。
+      hyperframes_boundary: 仅作为 optional motion_wrapper / auxiliary_motion_route / card_motion_layer；只有 motion_wrapper_route = HyperFrames_motion_wrapper 时才检查 runtime gate。
+      exact_text_fallback: HTML/CSS 截图或 PIL 生成 1920x1080 准确文字层；不得冒充 HyperFrames 动效。
+      blocked_route: image2 文字无法移除或准确覆盖、会改 locked copy、生成素材没有的数据 / 结论、遮挡证据、偏离 social_editorial_card_v1、复用第三方资产或缺用户授权降级时 blocked。
   deviation_check:
     differs_from_reference_where:
     acceptable_variation:

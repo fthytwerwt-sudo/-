@@ -322,7 +322,7 @@ if input_signal includes judgment_card / 判断卡 / summary_card / 总结卡 / 
   action = read codex_source/21_codex_judgment_permission_matrix.md, produce codex_judgment_permission_gate, and decide execute / change_request / blocked / escalation boundary before editing or status claim
 
 if card_placement_decision selects judgment_card or summary_card:
-  action = require hyperframes_card_motion_baseline, hyperframes_runtime_gate, hyperframes_visual_quality_gate, subtitle_card_overlap_check, card_text_semantic_match, and evidence_window_not_interrupted; if HyperFrames runtime is missing and no fallback is authorized, blocked
+  action = require card_visual_route_selected, visual_base_route, text_authority_route, motion_wrapper_route, post_overlay_locked_copy_check, card_visual_quality_gate, subtitle_card_overlap_check, card_text_semantic_match, and evidence_window_not_interrupted; if motion_wrapper_route = HyperFrames_motion_wrapper, require hyperframes_card_motion_baseline and hyperframes_runtime_gate; if HyperFrames motion wrapper runtime is missing and no fallback is authorized, block only the motion wrapper route
 
 if state = quality_review_needed:
   action = run quality_issue_classifier before changing assets or status wording
@@ -778,7 +778,7 @@ content_route_inference_function:
 - `forbidden_variables_avoided（内容路由 / 时间线避开的禁止变量）`、`forbidden_visuals_by_goal（剪辑按目标禁用的画面）` 与 `forbidden_variable_avoided（装配避开的禁止变量）` 必须全部能追溯到同一组 `data_goal_anchor.forbidden_variables`；字段名不同不代表语义可分叉。
 - 若素材来自 FocuSee，缺 `focusee_middle_editing_decision（FocuSee 中段剪辑判断）` 时，不得进入中段剪辑或视频执行。
 - 涉及总结卡、反转卡、结果差卡或 Prompt 尾卡时，缺 `card_placement_decision（卡片位置判断）` 不得进入视频执行。
-- 涉及判断卡或总结卡时，`card_placement_decision（卡片位置判断）` 必须填写 `hyperframes_required / hyperframes_motion_type / hyperframes_runtime_status / hyperframes_visual_quality_gate`；HyperFrames 必需但 runtime 不存在且未授权降级时必须 blocked。
+- 涉及判断卡或总结卡时，`card_placement_decision（卡片位置判断）` 必须填写 `card_visual_route_selected / visual_base_route / text_authority_route / motion_wrapper_route / post_overlay_locked_copy_check / card_visual_quality_gate`；只有 `motion_wrapper_route = HyperFrames_motion_wrapper` 时才填写 `hyperframes_motion_type / hyperframes_runtime_status / hyperframes_visual_quality_gate`，HyperFrames runtime 不存在且未授权降级时只阻断该动效包装路线。
 - 不得先定人物次数、PPT 数量或尾卡数量，再把文案硬塞进去。
 - 涉及开头时，不得绕过 `opening_route_decision（开头路由判断）` 直接生成开头。
 - 涉及高情绪 / 抖音抓眼 / 梗图 GIF / 抽象动效开头时，不得只输出路线判断，必须输出 `opening_visual_hook_spec（开头视觉钩子规格）`；静态两行标题页不得默认通过。

@@ -582,6 +582,48 @@ def run_card_decision(
     }
 
 
+def evaluate_card_visual_route(route: dict[str, Any]) -> dict[str, Any]:
+    """Validate route-layer card decisions without generating media."""
+    visual_base_route = route.get("visual_base_route")
+    text_authority_route = route.get("text_authority_route")
+    motion_wrapper_route = route.get("motion_wrapper_route", "none")
+    hyperframes_runtime_status = route.get("hyperframes_runtime_status")
+    image2_text_status = route.get("image2_generated_text_status", "not_used_for_final_text")
+    overlay_available = bool(route.get("post_overlay_locked_copy_check"))
+    social_style_status = route.get("social_editorial_card_v1_status", "pass")
+
+    blocked_reasons: list[str] = []
+    human_review_required = False
+
+    if visual_base_route == "image2_visual_base_route_candidate" and image2_text_status == "mismatch" and not overlay_available:
+        blocked_reasons.append("image2_text_semantic_mismatch_unfixable")
+    if route.get("generated_fake_data_or_claim"):
+        blocked_reasons.append("generated_fake_data_or_claim")
+    if route.get("evidence_window_covered"):
+        blocked_reasons.append("evidence_window_covered")
+    if route.get("third_party_asset_detected"):
+        blocked_reasons.append("third_party_asset_detected")
+    if social_style_status == "deviation":
+        human_review_required = True
+        blocked_reasons.append("social_editorial_card_v1_deviation")
+    if not route.get("post_overlay_readability_check", True):
+        blocked_reasons.append("post_overlay_readability_check_missing")
+    if motion_wrapper_route == "HyperFrames_motion_wrapper" and hyperframes_runtime_status in {"missing", "not_found", "not_verified", None}:
+        blocked_reasons.append("hyperframes_motion_wrapper_selected_but_runtime_missing")
+
+    return {
+        "card_visual_route_selected": True,
+        "visual_base_route": visual_base_route,
+        "text_authority_route": text_authority_route,
+        "motion_wrapper_route": motion_wrapper_route,
+        "image2_visual_only_not_text_authority": visual_base_route == "image2_visual_base_route_candidate",
+        "hyperframes_runtime_gate_required": motion_wrapper_route == "HyperFrames_motion_wrapper",
+        "blocked": bool(blocked_reasons),
+        "blocked_reasons": blocked_reasons,
+        "human_review_required": human_review_required,
+    }
+
+
 def load_line_groups(path: Path) -> list[dict[str, Any]]:
     payload = read_json(path)
     if isinstance(payload, dict):

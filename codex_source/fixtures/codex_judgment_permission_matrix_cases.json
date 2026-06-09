@@ -30,21 +30,93 @@
       }
     },
     {
-      "case_id": "judgment_card_hyperframes_required_runtime_missing_case",
+      "case_id": "hyperframes_motion_wrapper_selected_runtime_missing_should_block",
       "input": {
         "judgment_object": "judgment_card",
         "card_placement_decision": "selects_judgment_card",
+        "visual_base_route": "image2_visual_base_route_candidate",
+        "text_authority_route": "codex_post_overlay_locked_copy",
+        "motion_wrapper_route": "HyperFrames_motion_wrapper",
         "hyperframes_runtime_status": "missing"
       },
       "expected": {
         "codex_permission": "must_decide_and_block",
-        "hyperframes_required": true,
+        "hyperframes_runtime_gate_required": true,
         "status": "blocked",
         "completed": false,
+        "blocked_if": [
+          "hyperframes_motion_wrapper_selected_but_runtime_missing"
+        ],
         "must_not": [
           "use_static_card_as_hyperframes",
           "claim_hyperframes_integrated",
           "advance_content_validation"
+        ]
+      }
+    },
+    {
+      "case_id": "image2_visual_base_route_without_hyperframes_should_not_block",
+      "input": {
+        "judgment_object": "judgment_card",
+        "card_placement_decision": "selects_judgment_card",
+        "visual_base_route": "image2_visual_base_route_candidate",
+        "text_authority_route": "codex_post_overlay_locked_copy",
+        "motion_wrapper_route": "none",
+        "hyperframes_runtime_status": "missing",
+        "image2_generated_text_status": "mismatch",
+        "post_overlay_locked_copy_check": true
+      },
+      "expected": {
+        "codex_permission": "must_decide_and_execute",
+        "hyperframes_runtime_gate_required": false,
+        "image2_visual_only_not_text_authority": true,
+        "completed": false,
+        "status": "route_valid_pending_visual_quality_gate",
+        "must_not": [
+          "block_non_motion_image2_route_due_to_hyperframes_missing",
+          "use_image2_generated_text_as_final_locked_copy",
+          "advance_content_validation"
+        ]
+      }
+    },
+    {
+      "case_id": "image2_generated_text_mismatch_requires_overlay_or_block",
+      "input": {
+        "judgment_object": "judgment_card",
+        "visual_base_route": "image2_visual_base_route_candidate",
+        "text_authority_route": "codex_post_overlay_locked_copy",
+        "motion_wrapper_route": "none",
+        "image2_generated_text_status": "mismatch",
+        "post_overlay_locked_copy_check": false
+      },
+      "expected": {
+        "codex_permission": "must_decide_and_block",
+        "status": "blocked",
+        "blocked_if": [
+          "image2_text_semantic_mismatch_unfixable"
+        ],
+        "must_not": [
+          "use_image2_generated_text_as_final_locked_copy",
+          "change_locked_copy_meaning"
+        ]
+      }
+    },
+    {
+      "case_id": "social_editorial_card_v1_deviation_should_block_or_human_review_required",
+      "input": {
+        "judgment_object": "social_editorial_card_v1",
+        "visual_base_route": "image2_visual_base_route_candidate",
+        "social_editorial_card_v1_status": "deviation"
+      },
+      "expected": {
+        "codex_permission": "must_escalate_to_chatgpt_or_user",
+        "status": "human_review_required",
+        "blocked_if": [
+          "social_editorial_card_v1_deviation"
+        ],
+        "must_not": [
+          "change_social_editorial_card_v1_without_confirmation",
+          "advance_visual_master_locked"
         ]
       }
     },

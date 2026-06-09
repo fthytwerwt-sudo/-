@@ -1984,6 +1984,8 @@
         "judgment_card / summary_card / result_diff_card / prompt_tail_card 必须说明职责和失败标准。",
         "卡片只辅助理解，不能替代真实录屏证据。",
         "卡片不得改写 locked copy。",
+        "image2 只负责主视觉底图，最终文字必须后期叠准确 locked copy。",
+        "HyperFrames 仅在 motion_wrapper_route = HyperFrames_motion_wrapper 时触发 runtime gate。",
         "卡片视觉质量通过不推进 content_validation / send_ready / visual_master_locked。"
       ],
       "blocked_if": [
@@ -1991,7 +1993,13 @@
         "card_aesthetic_issue_unresolved",
         "card_evidence_interruption",
         "card_text_semantic_mismatch",
-        "HyperFrames_required_but_runtime_missing_without_user_authorization",
+        "image2_text_semantic_mismatch_unfixable",
+        "generated_fake_data_or_claim",
+        "evidence_window_covered",
+        "third_party_asset_detected",
+        "social_editorial_card_v1_deviation",
+        "post_overlay_readability_check_missing",
+        "hyperframes_motion_wrapper_selected_but_runtime_missing_without_user_authorization",
         "content_validation_promoted_without_user_confirmation",
         "send_ready_promoted_without_user_confirmation",
         "visual_master_locked_promoted_without_user_confirmation"

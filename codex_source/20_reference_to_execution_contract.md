@@ -89,10 +89,10 @@ implementation_design_layer:
 
 卡片视觉示例：
 
-1. 首选路线：HyperFrames。仅当 runtime 可用且能满足目标卡片质感时使用；最小 runtime 通过不等于审美稳定通过。
-2. 替代路线 A：`image2 / 图片生成能力`。必须先做能力探测，未探测通过不得写成可用。
-3. 替代路线 B：HTML/CSS 截图或 PIL 生成 1920x1080 静态卡片。只能作为 fallback，不能冒充 HyperFrames 动效。
-4. 阻断线：fallback 会损失目标效果且未获用户授权、静态卡片仍像 PPT / 机械 UI、必须改 locked copy 语义、遮挡证据或无法做偏离检查时 blocked。
+1. 主视觉底图候选：`image2_visual_base_route_candidate`。负责主视觉 / 底图 / 构图 / 质感 / 社交编辑感；本轮用户人工反馈样张审美可过关，但不得写成长期稳定通过。
+2. 文字权威路线：`codex_post_overlay_locked_copy`；HTML/CSS 截图或 PIL 生成 1920x1080 准确文字层可作为 `exact_text_fallback`。image2 不负责最终 locked copy 文字准确性。
+3. 动效包装路线：HyperFrames 只作为 optional `motion_wrapper / auxiliary_motion_route / card_motion_layer`；只有 `motion_wrapper_route = HyperFrames_motion_wrapper` 时才触发 runtime gate，不能冒充主视觉路线或内容验证。
+4. 阻断线：fallback 会损失目标效果且未获用户授权、image2 文字无法准确覆盖、静态卡片仍像 PPT / 机械 UI、必须改 locked copy 语义、遮挡证据、使用第三方资产或无法做偏离检查时 blocked。
 
 ## 4. Ambiguous Reference Goal Gate（参考目标歧义闸门）
 

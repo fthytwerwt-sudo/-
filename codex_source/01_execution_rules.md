@@ -794,12 +794,15 @@ route_decision:
     blocked_by_permission_boundary:
   hyperframes_card_motion_gate:
     hyperframes_card_motion_baseline_read:
-    judgment_card_hyperframes_required:
-    summary_card_hyperframes_required:
-    hyperframes_runtime_gate:
-    hyperframes_runtime_status:
+    card_visual_route_selected:
+    visual_base_route:
+    text_authority_route:
+    motion_wrapper_route:
+    post_overlay_locked_copy_check:
+    hyperframes_runtime_gate_if_motion_wrapper_selected:
+    hyperframes_runtime_status_if_motion_wrapper_selected:
     fallback_static_card_authorized_by_user:
-    blocked_if_hyperframes_required_but_missing:
+    blocked_if_hyperframes_motion_wrapper_selected_but_missing:
 ```
 
 若任何关键文件 `missing（文件不存在）` 或 `unreadable（无法读取）`，必须输出 blocked，不得继续执行。
@@ -1027,7 +1030,7 @@ hyperframes_visual_quality_gate:
     - visual_tokens_recorded
     - selected_skin_is_not_sharp_judgment
   blocked_if:
-    - HyperFrames required but unavailable
+    - HyperFrames motion_wrapper selected but unavailable
     - fallback static card used without user authorization
     - card changes locked copy meaning
     - card blocks evidence
@@ -1043,7 +1046,7 @@ hyperframes_visual_quality_gate:
 hyperframes_runtime_status = missing / not_found / not_verified
 runtime_execution = 待验证
 actual_video_execution_with_hyperframes = blocked_until_runtime_available
-future_video_execution_blocked_if_hyperframes_required_but_missing = true
+future_video_execution_blocked_if_motion_wrapper_selected_but_hyperframes_missing = true
 ```
 
 当 `card_placement_decision（卡片位置判断）` 选择 `judgment_card（判断卡）` 或 `summary_card（总结卡）` 时，Codex 必须在以下 allowed locked skins 中选择一个：

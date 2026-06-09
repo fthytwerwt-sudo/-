@@ -85,6 +85,66 @@ class CardDecisionGateTests(unittest.TestCase):
         candidate = report["fourth_episode_card_decision_dry_run"]["add_data_result_card_candidate"]
         self.assertEqual(candidate["selected_or_dropped"], "candidate_blocked_data_source_unclear")
 
+    def test_image2_visual_base_route_without_hyperframes_should_not_block(self):
+        report = self.module.evaluate_card_visual_route(
+            {
+                "visual_base_route": "image2_visual_base_route_candidate",
+                "text_authority_route": "codex_post_overlay_locked_copy",
+                "motion_wrapper_route": "none",
+                "hyperframes_runtime_status": "missing",
+                "image2_generated_text_status": "mismatch",
+                "post_overlay_locked_copy_check": True,
+                "post_overlay_readability_check": True,
+                "social_editorial_card_v1_status": "pass",
+            }
+        )
+        self.assertFalse(report["hyperframes_runtime_gate_required"])
+        self.assertFalse(report["blocked"])
+        self.assertTrue(report["image2_visual_only_not_text_authority"])
+
+    def test_hyperframes_motion_wrapper_selected_runtime_missing_should_block(self):
+        report = self.module.evaluate_card_visual_route(
+            {
+                "visual_base_route": "image2_visual_base_route_candidate",
+                "text_authority_route": "codex_post_overlay_locked_copy",
+                "motion_wrapper_route": "HyperFrames_motion_wrapper",
+                "hyperframes_runtime_status": "missing",
+                "post_overlay_locked_copy_check": True,
+                "post_overlay_readability_check": True,
+                "social_editorial_card_v1_status": "pass",
+            }
+        )
+        self.assertTrue(report["hyperframes_runtime_gate_required"])
+        self.assertIn("hyperframes_motion_wrapper_selected_but_runtime_missing", report["blocked_reasons"])
+
+    def test_image2_generated_text_mismatch_requires_overlay_or_block(self):
+        report = self.module.evaluate_card_visual_route(
+            {
+                "visual_base_route": "image2_visual_base_route_candidate",
+                "text_authority_route": "codex_post_overlay_locked_copy",
+                "motion_wrapper_route": "none",
+                "image2_generated_text_status": "mismatch",
+                "post_overlay_locked_copy_check": False,
+                "post_overlay_readability_check": True,
+                "social_editorial_card_v1_status": "pass",
+            }
+        )
+        self.assertIn("image2_text_semantic_mismatch_unfixable", report["blocked_reasons"])
+
+    def test_social_editorial_card_v1_deviation_should_block_or_human_review_required(self):
+        report = self.module.evaluate_card_visual_route(
+            {
+                "visual_base_route": "image2_visual_base_route_candidate",
+                "text_authority_route": "codex_post_overlay_locked_copy",
+                "motion_wrapper_route": "none",
+                "post_overlay_locked_copy_check": True,
+                "post_overlay_readability_check": True,
+                "social_editorial_card_v1_status": "deviation",
+            }
+        )
+        self.assertTrue(report["human_review_required"])
+        self.assertIn("social_editorial_card_v1_deviation", report["blocked_reasons"])
+
 
 if __name__ == "__main__":
     unittest.main()

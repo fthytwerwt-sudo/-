@@ -1,5 +1,23 @@
 # Latest
 
+## 20260609｜image2 卡片路线冲突修补
+
+- `task_result.status = image2_card_route_conflict_repair_completed_pending_git_sync`
+- `branch = main`
+- `project_route = video_factory`
+- `route_decision.task_type = mechanism_or_route_fix + project_file_change + fixture_test_sync`
+- `本轮不是视频生成`：不生成图片、不生成视频、不修改 `dist/latest_review_pack/`、不修改 `public/`、不替换现有视频卡片。
+- `只读冲突审计结论已吸收`：旧机制把 `judgment_card / summary_card` 与 HyperFrames 无条件强绑定；本轮已改为条件触发。
+- `image2 新定位`：`image2_visual_base_route_candidate（主视觉底图候选）`，负责主视觉 / 底图 / 构图 / 质感 / 社交编辑感；用户已人工反馈样张审美可过关，但不得写成长期稳定通过。
+- `text_authority_route`：`codex_post_overlay_locked_copy` 为准确 locked copy 文字层；`HTML/CSS/PIL_exact_text_layer` 保留为 `exact_text_fallback（准确文字 fallback）`。
+- `HyperFrames 新定位`：从主视觉默认路线降级为 optional `motion_wrapper / auxiliary_motion_route / card_motion_layer`；只有 `motion_wrapper_route = HyperFrames_motion_wrapper` 时才触发 runtime gate。
+- `保留机制`：`social_editorial_card_v1`、横屏 `16:9 / 1920x1080`、`card_budget_gate`、`cluster_merge_rule`、`card_placement_decision`、`evidence_window_protection`、locked copy 语义保护。
+- `新增阻断`：`image2_text_semantic_mismatch_unfixable`、`generated_fake_data_or_claim`、`evidence_window_covered`、`third_party_asset_detected`、`social_editorial_card_v1_deviation`、`post_overlay_readability_check_missing`、`hyperframes_motion_wrapper_selected_but_runtime_missing`。
+- `fixtures/tests`：更新 Codex 判断权限 fixture 和机制推理 fixture；新增 card decision route tests，覆盖 image2 无 HyperFrames 不阻断、HyperFrames motion wrapper 缺 runtime 阻断、image2 文字错配需叠字或阻断、social_editorial_card_v1 偏离需阻断或 human review。
+- `dated_log = codex_log/20260609_image2卡片路线冲突修补_image2_card_route_conflict_repair.md`
+- `状态边界`：`image2_visual_probe_user_aesthetic_passed = true`，`image2_primary_visual_route_candidate = partial`，`hyperframes_primary_visual_route = downgraded`，`hyperframes_motion_wrapper = active`，`image2_long_term_stable_passed = false`。
+- `未推进`：`content_validation = not_advanced`，`send_ready = false`，`visual_master_locked = false`，`current_data_goal_anchor_ready = not_advanced`。
+
 ## 20260607｜实现设计层机制升级与 GPT Project 同步包
 
 - `task_result.status = implementation_design_layer_repair_completed_package_validation_passed_pending_git_sync`
