@@ -2,7 +2,7 @@
 
 ## 20260609｜image2 卡片路线冲突修补
 
-- `task_result.status = image2_card_route_conflict_repair_completed_pending_git_sync`
+- `task_result.status = image2_card_route_conflict_repair_completed_git_synced`
 - `branch = main`
 - `project_route = video_factory`
 - `route_decision.task_type = mechanism_or_route_fix + project_file_change + fixture_test_sync`
@@ -17,6 +17,7 @@
 - `dated_log = codex_log/20260609_image2卡片路线冲突修补_image2_card_route_conflict_repair.md`
 - `状态边界`：`image2_visual_probe_user_aesthetic_passed = true`，`image2_primary_visual_route_candidate = partial`，`hyperframes_primary_visual_route = downgraded`，`hyperframes_motion_wrapper = active`，`image2_long_term_stable_passed = false`。
 - `未推进`：`content_validation = not_advanced`，`send_ready = false`，`visual_master_locked = false`，`current_data_goal_anchor_ready = not_advanced`。
+- `git_sync_status`：本轮机制修补已 commit、push 到 `main`，并完成 remote HEAD verification；最终 SHA 以 Codex final report 为准。
 
 ## 20260607｜实现设计层机制升级与 GPT Project 同步包
 

@@ -4,11 +4,12 @@
 
 - `project_route = video_factory`
 - `task_type = mechanism_or_route_fix + project_file_change + fixture_test_sync`
-- `task_result.status = image2_card_route_conflict_repair_completed_pending_git_sync`
+- `task_result.status = image2_card_route_conflict_repair_completed_git_synced`
 - `scope = card_visual_route_mechanism_only`
 - `no_image_generated = true`
 - `no_video_generated = true`
 - `dist_latest_review_pack_modified = false`
+- `git_sync_status = completed_with_remote_head_verification`
 
 ## 修补原因
 
