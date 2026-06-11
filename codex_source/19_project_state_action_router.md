@@ -87,6 +87,8 @@ P0:
   - status_conflict
   - old_branch_or_old_source_residue
   - technical_preview_not_delivery
+  - completion_truth_preflight_router
+  - voice_route_conflict_gate
   - publish_candidate_required
   - formal_operation_delivery_blocked
   - missing_gray_test_data
@@ -99,6 +101,7 @@ P1:
   - Codex partial completion risk
   - workflow_route_decision_missing
   - workflow_entry_routing_index_needed
+  - material_delta_type_router
   - ambiguous_goal_clarification_needed
   - reference_contract_needed
   - missing inference function
@@ -352,6 +355,9 @@ if input_signal includes 黑边 / 灰边 / 左侧阴影 / 顶部阴影 / 边缘�
 if input_signal includes 做视频 / 产视频 / 发片候选 / 运营内容 / 下一条视频 / 发布候选:
   action = require delivery_baseline_gate and resolve to publish_candidate_ready_for_human_review or blocked_publish_candidate_unavailable
 
+if input_signal includes 新增素材 / 补了素材 / 素材录好了 / 新素材路径 / 重新剪 / 重做中段 / 替换素材:
+  action = trigger material_delta_type_router（素材增量类型路由器）; default material_delta_type = additive_merge（补充合并） unless user explicitly says only new material, old material should be discarded, or A replaces B; require latest_log / current_candidate / locked_copy / old_material_inventory / new_material_inventory / material_parse_pack / latest_review_issues / current_data_goal_anchor; output material_delta_type / material_delta_reason / old_context_required / replacement_scope / blocked_if_unclear / selected_next_gate; block as unclear_blocked if old candidate, locked copy, material inventory, or old-new relationship is unclear
+
 if input_signal includes 发片候选 / 候选片 / 修片 / 视频执行 / 重新生成 / 发布前修复 / final_script_to_video / TTS / subtitle / card / timeline / review_pack / privacy_mask / aspect_ratio / visual_evidence:
   action = trigger process_boot_required; prompt is prompt_delta only; require process_boot_report before execution
 
@@ -366,6 +372,12 @@ if input_signal includes 修片 / 修复片 / repair_candidate / pre_publish_fix
 
 if output includes technical_preview / silent preview / 无音轨视频 / 横屏技术包 / JSON route card / Markdown route card:
   action = mark technical_preview_not_delivery; treat as internal_diagnostic_only; cannot satisfy formal operation delivery
+
+if input_signal includes 做视频 / 发片候选 / 完整成片 / 修片 / 重新导出 / 视频执行 or codex is about to write completed or output includes full.mp4 only / route card / preflight package / technical_preview:
+  action = trigger completion_truth_preflight_router（完成真实性预检路由器） before any completed（已完成） claim; require publish_candidate_required_inventory / publish_candidate_preflight_suite / locked_copy_diff_preflight / line_level_alignment_preflight / tts_route_and_prosody_preflight / card_decision_preflight / visual_evidence_readability_preflight / forbidden_action_preflight / completion_truth_check / review_pack / git_sync_status; output completion_status / completed_allowed / internal_diagnostic_only / blocked_reason / missing_required_outputs / selected_next_gate; block or mark internal_diagnostic_only if publish candidate baseline, preflight, review pack, audio, subtitles, evidence, cards, or completion truth report is missing
+
+if input_signal includes 声音 / TTS / B 方案声音 / 旧声音 / Qwen / 阿里 / 百炼 / MiniMax / 恢复以前声音 or codex will generate/replace audio or judge voice pass:
+  action = trigger voice_route_conflict_gate（声音路线冲突闸门）; set old_qwen_role = reference_anchor_only（仅参考锚点）, formal_tts_provider = MiniMax（MiniMax 语音）, formal_voice_id = oldBMinimax20260528010200, system_voice_substitution_allowed = false; require GPT数据源/08_当前正式事实.md / codex_source/00_codex_readme.md / codex_source/01_execution_rules.md / codex_source/21_codex_judgment_permission_matrix.md / codex_log/latest.md / 20260611_conflict_map.md / 20260611_vector_ingestion_blacklist.md; output old_qwen_role / formal_tts_provider / formal_voice_id / old_qwen_as_formal_provider_allowed / system_voice_substitution_allowed / voice_validation_allowed / blocked_if_conflict / selected_next_gate; block old Qwen formal provider restoration, MiniMax system voice substitution, old female candidate substitution, voice pass without user listening confirmation, or final_voice_validated without actual audio validation
 
 if state = no_degrade_completion_required:
   action = check exact target, required deliverables, real verification, sync status, and completion truth; if any required item is missing, continue or blocked instead of degraded completion
@@ -413,8 +425,11 @@ if state = blocked_need_user_input:
 - `operation_review`：必须有足够数据再判断阶段门槛、短板层和下一轮唯一运营变量。
 - `operation_next_variable_decision`：只在运营复盘完成后选择下一轮唯一变量；缺 7d、需求侧字段或人审时只能保留 draft。
 - `legacy_gray_test_data_intake`：只作为历史兼容别名，不得作为新数据默认路由。
+- `material_delta_type_router（素材增量类型路由器）`：新增素材 / 补素材 / 新素材路径 / 重新剪 / 重做中段 / 替换素材任务必须先分型；默认 `additive_merge（补充合并）`，只有用户明确只用新素材或指定替换范围时才允许 `exclusive_new_only（只用新增素材）` / `replacement_merge（替换合并）`，不清楚则 `unclear_blocked（不清楚则阻断）`。
 - `material_audit_needed`：先判断素材用途、证据强度和缺口，不直接生成或改动媒体。
 - `voice_review_needed`：只做声音问题归因和候选复审，不写最终声音通过，不调用 TTS / voice cloning API。
+- `completion_truth_preflight_router（完成真实性预检路由器）`：视频执行、发片候选、修片、重新导出或任何 `completed（已完成）` 声明前必须触发；`technical_preview（技术预览）`、`full.mp4 exists（视频文件存在）`、route card、preflight package 只能作为证据，不能替代完成真实性。
+- `voice_route_conflict_gate（声音路线冲突闸门）`：声音 / TTS / B 方案 / Qwen / 阿里 / 百炼 / MiniMax 相关任务必须先裁决旧 Qwen / 阿里 B 只作 `reference_anchor_only（仅参考锚点）`，当前正式声音锁仍为 MiniMax + `oldBMinimax20260528010200`。
 - `ambiguous_goal_clarification_needed`：用户说 `1:1`、像对标、高级感、按这个效果做、不是一回事、完全不像、感觉不像、差点意思但未锁目标层级时触发；必须先澄清视觉观感、剪辑节奏、构图布局、字幕字体、动效、信息密度、证明方式、内容结构、情绪人感或整体观感，不得把机制分析草案当正式执行标准。
 - `reference_contract_needed`：只把 reference / 样片 / 目标效果转换为 `reference_anchor`、`effect_targets`、`function_fields`、`deviation_check`、`done_when`；若 reference 目标有歧义，先触发 `ambiguous_goal_clarification_needed`，不得直接执行媒体、文案终稿或状态推进。
 - `deepseek_supply_required`：每轮默认成立；不得由 Codex 主观跳过 DeepSeek 供料闸门。

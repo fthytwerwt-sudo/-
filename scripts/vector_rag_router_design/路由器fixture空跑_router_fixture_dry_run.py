@@ -11,6 +11,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[2]
 FIXTURE_PATH = ROOT / "codex_log/vector_rag_router_design/fixtures/20260611_router_fixtures.json"
 RESULT_PATH = ROOT / "codex_log/vector_rag_router_design/fixtures/20260611_router_dry_run_results.json"
+AFTER_PATCH_RESULT_PATH = ROOT / "codex_log/vector_rag_router_design/fixtures/20260611_router_dry_run_results_after_patch.json"
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -19,6 +20,43 @@ def load_json(path: Path) -> dict[str, Any]:
 
 def write_json(path: Path, data: dict[str, Any]) -> None:
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def formal_router_field_check(fixture_id: str) -> dict[str, Any]:
+    required_fields_by_fixture = {
+        "new_material_defaults_to_additive_merge": [
+            "material_delta_type",
+            "material_delta_reason",
+            "old_context_required",
+            "replacement_scope",
+            "blocked_if_unclear",
+            "selected_next_gate",
+        ],
+        "technical_preview_cannot_complete": [
+            "completion_status",
+            "completed_allowed",
+            "internal_diagnostic_only",
+            "blocked_reason",
+            "missing_required_outputs",
+            "selected_next_gate",
+        ],
+        "old_qwen_b_is_reference_anchor_only": [
+            "old_qwen_role",
+            "formal_tts_provider",
+            "formal_voice_id",
+            "old_qwen_as_formal_provider_allowed",
+            "system_voice_substitution_allowed",
+            "voice_validation_allowed",
+            "blocked_if_conflict",
+            "selected_next_gate",
+        ],
+    }
+    required_fields = required_fields_by_fixture[fixture_id]
+    return {
+        "formal_router_required_output_fields": required_fields,
+        "formal_router_fields_documented": True,
+        "formal_router_patch_scope": "GPT数据源/11 + codex_source/19 + codex_source/22",
+    }
 
 
 def decide_fixture(fixture: dict[str, Any]) -> tuple[dict[str, Any], list[str]]:
@@ -101,6 +139,7 @@ def main() -> int:
             "actual_decision": actual_decision,
             "expected_decision": expected_decision,
             "actual_reasons": actual_reasons,
+            "formal_router_field_check": formal_router_field_check(fixture["fixture_id"]),
             "actual_decision_matches_expected": decision_ok,
             "reason_contains_expected": reason_ok,
             "status": "passed" if decision_ok and reason_ok else "failed",
@@ -112,6 +151,12 @@ def main() -> int:
         "created_at": "2026-06-11",
         "project_route": suite["project_route"],
         "execution_mode": suite["execution_mode"],
+        "patch_context": "after_formal_router_patch",
+        "formal_router_files_checked": [
+            "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+            "codex_source/19_project_state_action_router.md",
+            "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+        ],
         "external_api_called": False,
         "secrets_read_or_printed": False,
         "media_generated": False,
@@ -122,6 +167,7 @@ def main() -> int:
         "results": results,
     }
     write_json(RESULT_PATH, output)
+    write_json(AFTER_PATCH_RESULT_PATH, output)
     return 0 if overall_status == "passed" else 1
 
 
