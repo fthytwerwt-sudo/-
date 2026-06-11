@@ -27,7 +27,11 @@ read_proof_report:
   conflicts_found:
   conflict_arbitration:
   blocked_if_unread:
-  gate_status: passed | blocked_missing_read | blocked_conflict_unresolved | blocked_source_not_found | blocked_stale_source
+  diagnostic_allowed:
+  real_execution_allowed:
+  missing_report_items:
+  execution_required_missing_items:
+  gate_status: passed | blocked_missing_read | blocked_conflict_unresolved | blocked_source_not_found | blocked_stale_source | blocked_required_input_missing
   read_items:
     - item_id:
       source_path:
@@ -49,6 +53,10 @@ pre_execution_read_gate:
   missing_required_files:
   missing_required_sections:
   conflicts_found:
+  missing_report_items:
+  execution_required_missing_items:
+  diagnostic_allowed:
+  real_execution_allowed:
   gate_status:
   execution_allowed:
   blocked_reason:
@@ -66,13 +74,23 @@ pre_execution_read_gate:
 | technical preview 被当 completed | `blocked_conflict_unresolved` | `false` |
 | old Qwen / 阿里 B 被当正式 TTS provider | `blocked_conflict_unresolved` | `false` |
 | 旧规则高于当前正式事实 | `blocked_stale_source` | `false` |
+| `MISSING_REPORT:` 出现在 `execution_required_items` 或 `forbidden_to_skip` | `blocked_required_input_missing` | `false` |
+
+当 `blocked_required_input_missing` 触发时：
+
+```yaml
+diagnostic_allowed: true
+real_execution_allowed: false
+execution_allowed: false
+blocked_reason: execution-required input is represented only by MISSING_REPORT
+```
 
 ## 6. proof_level_rules（证明级别规则）
 
 - `file_read`: 已读取全文。
 - `section_read`: 已读取指定章节。
 - `schema_checked`: 已检查 JSON / fixture / schema 结构。
-- `metadata_checked`: 只允许用于 Git 状态、missing report、review pack pointer、路径指针等元数据。
+- `metadata_checked`: 只允许用于 Git 状态、review pack pointer、路径指针等元数据；如果对象是 `MISSING_REPORT:`，只能证明缺失已识别，不能证明真实输入已读取。
 - `insufficient`: 不足以继续执行，必须进入 blocked。
 
 ## 7. failure_handling（失败处理）

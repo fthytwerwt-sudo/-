@@ -98,3 +98,10 @@ pre_execution_read_contract_gate:
 - `git_sync_status_at_report_write（报告写入时 Git 状态）`: `pending_final_closeout`
 - `stage_mode（暂存方式）`: `path_limited`
 - `note（说明）`: 实际 commit SHA、push 和 remote HEAD verification 以最终对话回报为准。
+
+## 9. 20260612 missing_report_boundary_patch（缺失报告执行边界补丁摘要）
+
+- `MISSING_REPORT（缺失报告）` 只能证明缺失已识别，不能证明真实文件、真实章节、真实 schema 或真实 metadata 已经存在。
+- 当 `MISSING_REPORT:` 出现在 `execution_required_items（执行必需项）` 或 `forbidden_to_skip（禁止跳过项）` 中时，`diagnostic_allowed=true`，但 `real_execution_allowed=false`、`execution_allowed=false`。
+- 新增素材缺旧素材清单 / 新素材清单 / 素材解析包时，读取契约只能输出诊断 / 阻断报告，不能进入真实剪辑、TTS、导出或发片候选完成。
+- `pre_execution_read_contract_gate（执行前读取契约闸门）` 建议最小接入正式 Router，只做入口引用，不把 fixture 逻辑塞进正式规则。

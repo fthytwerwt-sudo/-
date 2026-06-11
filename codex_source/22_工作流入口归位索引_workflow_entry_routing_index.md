@@ -56,7 +56,7 @@ workflow_route_decision:
 
 - `input_signal（输入信号）`：用户给素材、录屏、截图、时间码、素材审计、素材能否支撑文案、隐私 / 平台风险、给 ChatGPT 写素材报告；用户说新增素材 / 补了素材 / 素材录好了 / 给新素材路径 / 替换素材但未说明旧素材是否废弃。
 - `must_read（必须读取）`：`skills/视频素材解析_video_material_audit/SKILL.md`、`GPT数据源/05_文案路由规则.md`、`GPT数据源/07_AI知识类视频价值规则.md`、`codex_source/00_codex_readme.md`、`codex_source/01_execution_rules.md`。
-- `required_handoff（必须交接件）`：`material_delta_type_router_output（素材增量类型路由器输出）`、`material_parse_pack（素材解析包）`、`source_segment_inventory（素材片段清单）`、`material_detail_report（素材细节报告）`、`material_evidence_contract（素材证据契约）`、`line_visual_alignment_report（文案画面对齐报告）`、`missing_material_or_blocked_report（缺素材或阻断报告）`。
+- `required_handoff（必须交接件）`：`material_delta_type_router_output（素材增量类型路由器输出）`、`pre_execution_read_gate_output（执行前读取闸门输出）`、`material_parse_pack（素材解析包）`、`source_segment_inventory（素材片段清单）`、`material_detail_report（素材细节报告）`、`material_evidence_contract（素材证据契约）`、`line_visual_alignment_report（文案画面对齐报告）`、`missing_material_or_blocked_report（缺素材或阻断报告）`。
 - `forbidden_status（禁止状态）`：使用第 2 节统一禁止状态。
 - `blocked_if（阻断条件）`：素材 skill 未读取、`material_parse_pack（素材解析包）` 未生成、`source_segment_inventory（素材片段清单）` 缺失、时间码缺失、关键页面 / 按钮 / 输入框 / 结果不可见、证据只能证明弱相关、需要补录却被要求继续剪、素材报告被当成最终文案；新增素材和旧素材关系不清、旧候选片 / 锁稿 / 旧素材清单缺失却要直接剪辑。
 
@@ -64,7 +64,7 @@ workflow_route_decision:
 
 - `input_signal（输入信号）`：剪辑更好、像作品、不像 demo、节奏不顺、卡片不好看、字幕 / 卡片挡画面、画面不可读、做成可发布候选片；重新剪、重做中段、新素材进入剪辑。
 - `must_read（必须读取）`：`material_parse_pack（素材解析包）`、`source_segment_inventory（素材片段清单）`、`GPT数据源/07_AI知识类视频价值规则.md`、`GPT数据源/08_当前正式事实.md`、`codex_source/00_codex_readme.md`、`codex_source/01_execution_rules.md`、`codex_source/19_project_state_action_router.md`、`codex_source/21_codex_judgment_permission_matrix.md`。
-- `required_handoff（必须交接件）`：`material_parse_pack_reuse_gate（素材解析包复用闸门）`、`script_to_shot_execution_map（文案到镜头执行表）`、`material_usage_ledger（素材使用台账）`、`duplicate_material_check（素材重复使用检查）`、`editing_inference_function_output（剪辑推理结果）`、`editing_decision_pack（剪辑决策包）`、`visual_readability_report（画面可读性报告）`、`review_pack（审片包）`。
+- `required_handoff（必须交接件）`：`pre_execution_read_gate_output（执行前读取闸门输出）`、`material_parse_pack_reuse_gate（素材解析包复用闸门）`、`script_to_shot_execution_map（文案到镜头执行表）`、`material_usage_ledger（素材使用台账）`、`duplicate_material_check（素材重复使用检查）`、`editing_inference_function_output（剪辑推理结果）`、`editing_decision_pack（剪辑决策包）`、`visual_readability_report（画面可读性报告）`、`review_pack（审片包）`。
 - `forbidden_status（禁止状态）`：使用第 2 节统一禁止状态。
 - `blocked_if（阻断条件）`：缺 `material_parse_pack（素材解析包）`、解析包过期、剪辑阶段需要重新解析原始素材、缺 `source_segment_inventory（素材片段清单）`、缺 `script_to_shot_execution_map（文案到镜头执行表）`、缺 `material_usage_ledger（素材使用台账）`、缺 `duplicate_material_check（素材重复使用检查）`、同一素材片段无 `reuse_reason（复用理由）` 重复使用、连续重复使用同一素材片段、主题相近素材冒充直接证据、选用了 `cannot_support（不能支撑）` 的素材、句组未引用素材报告、缺 line_group 级文案画面对齐、核心证据不可读、字幕 / 卡片 high severity overlap、卡片替代真实证据、只能产出技术预览却要写完成。
 
@@ -72,7 +72,7 @@ workflow_route_decision:
 
 - `input_signal（输入信号）`：复审、审片、质量问题、像 demo、不舒服、不合格、不顺、不美观、技术验证、内容验证、send_ready、remaining_blockers；technical_preview（技术预览）、full.mp4 exists（视频文件存在）、route card exists（路由卡存在）、preflight package exists（执行前补全包存在）、声音 / TTS / B 方案 / 旧 Qwen / 阿里 / 百炼 / MiniMax 冲突。
 - `must_read（必须读取）`：`codex_log/latest.md`、`GPT数据源/08_当前正式事实.md`、`GPT数据源/07_AI知识类视频价值规则.md`、`dist/latest_review_pack/summary.json`、`dist/latest_review_pack/review_manifest.md`、`codex_source/19_project_state_action_router.md`。
-- `required_handoff（必须交接件）`：`completion_truth_preflight_router_output（完成真实性预检路由器输出）`、`voice_route_conflict_gate_output（声音路线冲突闸门输出）`、`quality_issue_classifier_output（质量短板分类结果）`、`technical_validation（技术验证）`、`content_validation_boundary（内容验证边界）`、`remaining_blockers（剩余阻断）`。
+- `required_handoff（必须交接件）`：`pre_execution_read_gate_output（执行前读取闸门输出）`、`completion_truth_preflight_router_output（完成真实性预检路由器输出）`、`voice_route_conflict_gate_output（声音路线冲突闸门输出）`、`quality_issue_classifier_output（质量短板分类结果）`、`technical_validation（技术验证）`、`content_validation_boundary（内容验证边界）`、`remaining_blockers（剩余阻断）`。
 - `forbidden_status（禁止状态）`：使用第 2 节统一禁止状态。
 - `blocked_if（阻断条件）`：把技术验证写成内容验证、用户未确认却推进 send_ready、声音 / 视觉 / 内容状态边界不清、缺审片包或关键媒体证据却要裁决可发；`technical_preview（技术预览）`、`full.mp4`、route card 或 preflight package 冒充 `completed（已完成）`；旧 Qwen / 阿里 B 或 MiniMax 系统音色替代当前声音锁。
 

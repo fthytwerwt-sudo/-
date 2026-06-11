@@ -61,6 +61,38 @@ mandatory_read_manifest:
 | RAG 召回结果冲突 | 必须标记 `conflict_arbitration_required=true`，冲突未解不得执行 |
 | 关键路径不存在 | 必须生成 missing report 或直接 blocked，不得静默跳过 |
 
+## 4A. missing_report_execution_boundary（缺失报告执行边界）
+
+`MISSING_REPORT（缺失报告）` 只表示系统知道某个必需输入缺失。它不等于真实文件已读、不等于真实证据存在、不等于可以执行。
+
+允许用于：
+
+- `diagnostic_report（诊断报告）`
+- `blocked_report（阻断报告）`
+- `missing_input_list（缺失输入清单）`
+- `next_step_request（下一步补齐请求）`
+- `safe_next_step（安全下一步）`
+
+禁止用于：
+
+- `real_video_execution（真实视频执行）`
+- `editing_execution（剪辑执行）`
+- `tts_generation（TTS 生成）`
+- `media_export（媒体导出）`
+- `publish_candidate_completion（可发布候选片完成）`
+- `content_validation_passed（内容验证通过）`
+- `send_ready（可发送）`
+- `voice_validation_passed（声音验证通过）`
+
+如果执行必需项只由 `MISSING_REPORT:` 表示，则：
+
+```yaml
+diagnostic_allowed: true
+real_execution_allowed: false
+execution_allowed: false
+gate_status: blocked_required_input_missing
+```
+
 ## 5. authority_rules（权威规则）
 
 读取项必须带 `authority_level（权威等级）` 和 `status_label（状态标签）`。默认优先级为：
@@ -90,6 +122,7 @@ mandatory_read_manifest:
 - technical preview 被用作 completed 证明。
 - 新增素材被默认当成 exclusive_new_only。
 - old Qwen / 阿里 B 被恢复成正式 TTS provider。
+- `execution_required_items（执行必需项）` 或 `forbidden_to_skip（禁止跳过项）` 中任一项只由 `MISSING_REPORT:` 表示。
 
 ## 7. done_when（完成标准）
 
@@ -98,5 +131,5 @@ mandatory_read_manifest:
 1. 所有 must-read 项都有明确 `source_path`。
 2. 所有 must-read 项都有 `required_section` 与 `required_read_depth`。
 3. 所有禁止跳过项都列入 `forbidden_to_skip`。
-4. 缺失项要么 blocked，要么以 missing report 形式进入读取证明。
+4. 缺失项可以以 missing report 形式进入读取证明，但只能放行诊断 / 阻断报告，不能放行真实执行。
 5. Router 明确输出 `source_arbitration_required` 和 `conflict_arbitration_required`。

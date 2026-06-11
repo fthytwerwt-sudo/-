@@ -8,10 +8,12 @@
   "embedding_generated": false,
   "vector_written": false,
   "media_content_read": false,
-  "fixture_count": 3,
-  "passed_count": 3,
+  "fixture_count": 4,
+  "passed_count": 4,
   "failed_count": 0,
   "missing_read_block_test": "passed",
+  "missing_report_boundary_test": "passed",
+  "positive_control_test": "passed",
   "overall_status": "passed",
   "results": [
     {
@@ -215,13 +217,21 @@
           "new_material_inventory",
           "material_parse_pack"
         ],
-        "done_when": "已证明新增素材默认 additive_merge，且旧上下文缺失会 blocked。",
+        "done_when": "已证明新增素材默认 additive_merge；若旧/新素材清单或素材解析包只有 MISSING_REPORT，则只允许诊断，真实剪辑执行 blocked。",
         "blocked_if": [
           "old candidate context missing",
           "locked copy missing",
-          "old or new material inventory missing",
-          "material parse pack missing",
+          "old or new material inventory only represented by MISSING_REPORT",
+          "material parse pack only represented by MISSING_REPORT",
           "user delta unclear"
+        ],
+        "execution_required_items": [
+          "current_candidate_summary",
+          "review_manifest",
+          "locked_copy_contract_rule",
+          "old_material_inventory",
+          "new_material_inventory",
+          "material_parse_pack"
         ],
         "user_prompt_summary": "用户新增几个素材，要求重新剪；未声明只用新增素材，未声明旧素材全部废弃。",
         "generated_by": "router_or_rag_bridge"
@@ -230,13 +240,29 @@
       "read_proof_generated": true,
       "read_proof_report": {
         "manifest_id": "mrm_20260612_new_material_read_contract",
-        "all_required_files_read": true,
+        "all_required_files_read": false,
         "all_required_sections_read": true,
-        "missing_required_items": [],
+        "missing_required_items": [
+          "old_material_inventory",
+          "new_material_inventory",
+          "material_parse_pack"
+        ],
+        "missing_report_items": [
+          "old_material_inventory",
+          "new_material_inventory",
+          "material_parse_pack"
+        ],
+        "execution_required_missing_items": [
+          "old_material_inventory",
+          "new_material_inventory",
+          "material_parse_pack"
+        ],
         "conflicts_found": [],
         "conflict_arbitration": "repo_wins",
         "blocked_if_unread": true,
-        "gate_status": "passed",
+        "diagnostic_allowed": true,
+        "real_execution_allowed": false,
+        "gate_status": "blocked_required_input_missing",
         "read_items": [
           {
             "item_id": "latest_log",
@@ -283,7 +309,7 @@
             "source_path": "dist/latest_review_pack/summary.json",
             "required_section": "current candidate pointer",
             "read_status": "read_ok",
-            "evidence_summary": "metadata or missing-report pointer checked in simulated proof",
+            "evidence_summary": "metadata pointer checked in simulated proof",
             "decision_supported": "old_context_required",
             "missing_or_conflict": false,
             "proof_level": "metadata_checked"
@@ -293,7 +319,7 @@
             "source_path": "dist/latest_review_pack/review_manifest.md",
             "required_section": "review pack manifest",
             "read_status": "read_ok",
-            "evidence_summary": "metadata or missing-report pointer checked in simulated proof",
+            "evidence_summary": "metadata pointer checked in simulated proof",
             "decision_supported": "old_context_required",
             "missing_or_conflict": false,
             "proof_level": "metadata_checked"
@@ -312,8 +338,8 @@
             "item_id": "old_material_inventory",
             "source_path": "MISSING_REPORT:old_material_inventory_required_if_absent",
             "required_section": "old material inventory or explicit missing report",
-            "read_status": "read_ok",
-            "evidence_summary": "metadata or missing-report pointer checked in simulated proof",
+            "read_status": "missing_report_only",
+            "evidence_summary": "MISSING_REPORT checked; required input is still absent and cannot unlock real execution",
             "decision_supported": "blocked_if_old_context_missing",
             "missing_or_conflict": true,
             "proof_level": "metadata_checked"
@@ -322,8 +348,8 @@
             "item_id": "new_material_inventory",
             "source_path": "MISSING_REPORT:new_material_inventory_required_if_absent",
             "required_section": "new material inventory or explicit missing report",
-            "read_status": "read_ok",
-            "evidence_summary": "metadata or missing-report pointer checked in simulated proof",
+            "read_status": "missing_report_only",
+            "evidence_summary": "MISSING_REPORT checked; required input is still absent and cannot unlock real execution",
             "decision_supported": "additive_merge",
             "missing_or_conflict": true,
             "proof_level": "metadata_checked"
@@ -332,8 +358,8 @@
             "item_id": "material_parse_pack",
             "source_path": "MISSING_REPORT:material_parse_pack_required_if_absent",
             "required_section": "material parse pack or explicit missing report",
-            "read_status": "read_ok",
-            "evidence_summary": "metadata or missing-report pointer checked in simulated proof",
+            "read_status": "missing_report_only",
+            "evidence_summary": "MISSING_REPORT checked; required input is still absent and cannot unlock real execution",
             "decision_supported": "blocked_if_material_evidence_missing",
             "missing_or_conflict": true,
             "proof_level": "metadata_checked"
@@ -343,7 +369,7 @@
             "source_path": "codex_log/current_data_goal_anchor.md",
             "required_section": "current data goal anchor",
             "read_status": "read_ok",
-            "evidence_summary": "metadata or missing-report pointer checked in simulated proof",
+            "evidence_summary": "metadata pointer checked in simulated proof",
             "decision_supported": "current_context_required",
             "missing_or_conflict": true,
             "proof_level": "metadata_checked"
@@ -353,34 +379,74 @@
       "pre_execution_read_gate": {
         "mandatory_read_manifest_loaded": true,
         "read_proof_report_loaded": true,
-        "all_required_files_read": true,
-        "missing_required_files": [],
+        "all_required_files_read": false,
+        "missing_required_files": [
+          "old_material_inventory",
+          "new_material_inventory",
+          "material_parse_pack"
+        ],
         "missing_required_sections": [],
         "conflicts_found": [],
-        "gate_status": "passed",
-        "execution_allowed": true,
-        "blocked_reason": null
+        "missing_report_items": [
+          "old_material_inventory",
+          "new_material_inventory",
+          "material_parse_pack"
+        ],
+        "execution_required_missing_items": [
+          "old_material_inventory",
+          "new_material_inventory",
+          "material_parse_pack"
+        ],
+        "diagnostic_allowed": true,
+        "real_execution_allowed": false,
+        "gate_status": "blocked_required_input_missing",
+        "execution_allowed": false,
+        "blocked_reason": "execution-required input is represented only by MISSING_REPORT"
       },
-      "missing_required_items": [],
+      "missing_required_items": [
+        "old_material_inventory",
+        "new_material_inventory",
+        "material_parse_pack"
+      ],
+      "missing_report_items": [
+        "old_material_inventory",
+        "new_material_inventory",
+        "material_parse_pack"
+      ],
+      "execution_required_missing_items": [
+        "old_material_inventory",
+        "new_material_inventory",
+        "material_parse_pack"
+      ],
       "conflicts_found": [],
-      "gate_status": "passed",
-      "execution_allowed": true,
+      "gate_status": "blocked_required_input_missing",
+      "diagnostic_allowed": true,
+      "real_execution_allowed": false,
+      "execution_allowed": false,
       "actual_decision": {
         "material_delta_type": "additive_merge",
         "old_context_required": true,
         "exclusive_new_only_allowed": false,
-        "blocked_if_old_context_missing": true
+        "blocked_if_old_context_missing": true,
+        "diagnostic_allowed": true,
+        "real_execution_allowed": false,
+        "execution_allowed": false,
+        "gate_status": "blocked_required_input_missing"
       },
       "expected_decision": {
         "material_delta_type": "additive_merge",
         "old_context_required": true,
         "exclusive_new_only_allowed": false,
-        "blocked_if_old_context_missing": true
+        "blocked_if_old_context_missing": true,
+        "diagnostic_allowed": true,
+        "real_execution_allowed": false,
+        "execution_allowed": false,
+        "gate_status": "blocked_required_input_missing"
       },
       "expected_decision_matches": true,
       "missing_read_negative_check": {
         "missing_item_id": "old_material_inventory",
-        "gate_status": "blocked_missing_read",
+        "gate_status": "blocked_required_input_missing",
         "execution_allowed": false,
         "blocked_as_expected": true
       },
@@ -528,12 +594,12 @@
           },
           {
             "item_id": "review_pack_or_missing_report",
-            "source_path": "MISSING_REPORT:review_pack_required_for_completion",
-            "required_section": "review pack or explicit missing report",
-            "why_required": "确认没有审片包不能完成",
+            "source_path": "dist/latest_review_pack/review_manifest.md",
+            "required_section": "review pack manifest pointer",
+            "why_required": "确认审片包指针存在；即使存在，也不能替代 completion_truth_preflight",
             "expected_decision_supported": "completion_status=blocked_publish_candidate_unavailable",
             "authority_level": "current_runtime_evidence",
-            "status_label": "pending_validation",
+            "status_label": "confirmed_by_repo",
             "conflict_tags": [
               "completion_truth_conflict"
             ],
@@ -580,6 +646,18 @@
           "git sync not verified",
           "technical validation treated as content validation"
         ],
+        "execution_required_items": [
+          "execution_rules",
+          "formal_facts",
+          "gpt_state_router",
+          "codex_state_router",
+          "judgment_permission_matrix",
+          "workflow_entry_index",
+          "publish_candidate_preflight_suite",
+          "completion_truth_check_rule",
+          "review_pack_or_missing_report",
+          "git_sync_status"
+        ],
         "user_prompt_summary": "当前只有 technical_preview / full.mp4 / route card，Codex 准备写 completed。",
         "generated_by": "router_or_rag_bridge"
       },
@@ -590,12 +668,16 @@
         "all_required_files_read": true,
         "all_required_sections_read": true,
         "missing_required_items": [],
+        "missing_report_items": [],
+        "execution_required_missing_items": [],
         "conflicts_found": [
           "technical_preview_vs_completed",
           "full_mp4_exists_vs_completion_truth"
         ],
         "conflict_arbitration": "router_blocks",
         "blocked_if_unread": true,
+        "diagnostic_allowed": true,
+        "real_execution_allowed": false,
         "gate_status": "blocked_conflict_unresolved",
         "read_items": [
           {
@@ -680,10 +762,10 @@
           },
           {
             "item_id": "review_pack_or_missing_report",
-            "source_path": "MISSING_REPORT:review_pack_required_for_completion",
-            "required_section": "review pack or explicit missing report",
+            "source_path": "dist/latest_review_pack/review_manifest.md",
+            "required_section": "review pack manifest pointer",
             "read_status": "read_ok",
-            "evidence_summary": "metadata or missing-report pointer checked in simulated proof",
+            "evidence_summary": "metadata pointer checked in simulated proof",
             "decision_supported": "completion_status=blocked_publish_candidate_unavailable",
             "missing_or_conflict": true,
             "proof_level": "metadata_checked"
@@ -693,7 +775,7 @@
             "source_path": "GIT_STATUS_CHECK:commit_push_remote_head",
             "required_section": "commit / push / remote HEAD verification",
             "read_status": "read_ok",
-            "evidence_summary": "metadata or missing-report pointer checked in simulated proof",
+            "evidence_summary": "metadata pointer checked in simulated proof",
             "decision_supported": "blocked_if_git_unsynced",
             "missing_or_conflict": true,
             "proof_level": "metadata_checked"
@@ -710,28 +792,44 @@
           "technical_preview_vs_completed",
           "full_mp4_exists_vs_completion_truth"
         ],
+        "missing_report_items": [],
+        "execution_required_missing_items": [],
+        "diagnostic_allowed": true,
+        "real_execution_allowed": false,
         "gate_status": "blocked_conflict_unresolved",
         "execution_allowed": false,
         "blocked_reason": "unresolved or router-blocked conflict"
       },
       "missing_required_items": [],
+      "missing_report_items": [],
+      "execution_required_missing_items": [],
       "conflicts_found": [
         "technical_preview_vs_completed",
         "full_mp4_exists_vs_completion_truth"
       ],
       "gate_status": "blocked_conflict_unresolved",
+      "diagnostic_allowed": true,
+      "real_execution_allowed": false,
       "execution_allowed": false,
       "actual_decision": {
         "completed_allowed": false,
         "completion_status": "blocked_publish_candidate_unavailable",
         "internal_diagnostic_only": true,
-        "blocked_if_completion_truth_missing": true
+        "blocked_if_completion_truth_missing": true,
+        "diagnostic_allowed": true,
+        "real_execution_allowed": false,
+        "execution_allowed": false,
+        "gate_status": "blocked_conflict_unresolved"
       },
       "expected_decision": {
         "completed_allowed": false,
         "completion_status": "blocked_publish_candidate_unavailable",
         "internal_diagnostic_only": true,
-        "blocked_if_completion_truth_missing": true
+        "blocked_if_completion_truth_missing": true,
+        "diagnostic_allowed": true,
+        "real_execution_allowed": false,
+        "execution_allowed": false,
+        "gate_status": "blocked_conflict_unresolved"
       },
       "expected_decision_matches": true,
       "missing_read_negative_check": {
@@ -910,14 +1008,23 @@
           "judgment_permission_matrix",
           "conflict_map",
           "vector_blacklist",
-          "voice_lock_rule_or_report",
-          "user_voice_confirmation_or_missing_report"
+          "voice_lock_rule_or_report"
         ],
         "done_when": "已证明旧 Qwen / 阿里 B 仅作参考锚点，正式声音锁仍是 MiniMax + oldBMinimax20260528010200。",
         "blocked_if": [
           "old Qwen restored as formal provider",
           "MiniMax system voice substituted for old B",
           "user listening confirmation missing but voice_validation passed"
+        ],
+        "execution_required_items": [
+          "formal_facts",
+          "latest_log",
+          "gpt_state_router",
+          "codex_state_router",
+          "judgment_permission_matrix",
+          "conflict_map",
+          "vector_blacklist",
+          "voice_lock_rule_or_report"
         ],
         "user_prompt_summary": "用户提到旧 Qwen / 阿里 B、MiniMax 和恢复以前声音，Codex 准备生成或替换音轨。",
         "generated_by": "router_or_rag_bridge"
@@ -929,12 +1036,18 @@
         "all_required_files_read": true,
         "all_required_sections_read": true,
         "missing_required_items": [],
+        "missing_report_items": [
+          "user_voice_confirmation_or_missing_report"
+        ],
+        "execution_required_missing_items": [],
         "conflicts_found": [
           "old_qwen_aliyun_b_vs_minimax_voice_lock",
           "missing_user_voice_confirmation"
         ],
         "conflict_arbitration": "router_blocks",
         "blocked_if_unread": true,
+        "diagnostic_allowed": true,
+        "real_execution_allowed": false,
         "gate_status": "blocked_conflict_unresolved",
         "read_items": [
           {
@@ -1021,8 +1134,8 @@
             "item_id": "user_voice_confirmation_or_missing_report",
             "source_path": "MISSING_REPORT:user_voice_confirmation_missing",
             "required_section": "user listening confirmation or explicit missing report",
-            "read_status": "read_ok",
-            "evidence_summary": "metadata or missing-report pointer checked in simulated proof",
+            "read_status": "missing_report_only",
+            "evidence_summary": "MISSING_REPORT checked; required input is still absent and cannot unlock real execution",
             "decision_supported": "voice_validation_allowed=false",
             "missing_or_conflict": true,
             "proof_level": "metadata_checked"
@@ -1039,16 +1152,28 @@
           "old_qwen_aliyun_b_vs_minimax_voice_lock",
           "missing_user_voice_confirmation"
         ],
+        "missing_report_items": [
+          "user_voice_confirmation_or_missing_report"
+        ],
+        "execution_required_missing_items": [],
+        "diagnostic_allowed": true,
+        "real_execution_allowed": false,
         "gate_status": "blocked_conflict_unresolved",
         "execution_allowed": false,
         "blocked_reason": "unresolved or router-blocked conflict"
       },
       "missing_required_items": [],
+      "missing_report_items": [
+        "user_voice_confirmation_or_missing_report"
+      ],
+      "execution_required_missing_items": [],
       "conflicts_found": [
         "old_qwen_aliyun_b_vs_minimax_voice_lock",
         "missing_user_voice_confirmation"
       ],
       "gate_status": "blocked_conflict_unresolved",
+      "diagnostic_allowed": true,
+      "real_execution_allowed": false,
       "execution_allowed": false,
       "actual_decision": {
         "old_qwen_role": "reference_anchor_only",
@@ -1056,7 +1181,11 @@
         "formal_voice_id": "oldBMinimax20260528010200",
         "old_qwen_as_formal_provider_allowed": false,
         "system_voice_substitution_allowed": false,
-        "voice_validation_allowed": false
+        "voice_validation_allowed": false,
+        "diagnostic_allowed": true,
+        "real_execution_allowed": false,
+        "execution_allowed": false,
+        "gate_status": "blocked_conflict_unresolved"
       },
       "expected_decision": {
         "old_qwen_role": "reference_anchor_only",
@@ -1064,11 +1193,409 @@
         "formal_voice_id": "oldBMinimax20260528010200",
         "old_qwen_as_formal_provider_allowed": false,
         "system_voice_substitution_allowed": false,
-        "voice_validation_allowed": false
+        "voice_validation_allowed": false,
+        "diagnostic_allowed": true,
+        "real_execution_allowed": false,
+        "execution_allowed": false,
+        "gate_status": "blocked_conflict_unresolved"
       },
       "expected_decision_matches": true,
       "missing_read_negative_check": {
         "missing_item_id": "voice_lock_rule_or_report",
+        "gate_status": "blocked_missing_read",
+        "execution_allowed": false,
+        "blocked_as_expected": true
+      },
+      "pass_or_fail": "passed"
+    },
+    {
+      "fixture_id": "new_material_all_required_present_positive_control",
+      "fixture_name": "new_material_all_required_present_positive_control（新增素材必需项齐全正向对照）",
+      "mandatory_read_manifest_generated": true,
+      "mandatory_read_manifest": {
+        "manifest_id": "mrm_20260612_new_material_positive_control",
+        "task_type": "material_delta_task",
+        "workflow_type": "aesthetic_editing_flow",
+        "route_decision_source": "material_delta_type_router",
+        "source_arbitration_required": true,
+        "conflict_arbitration_required": false,
+        "must_read_items": [
+          {
+            "item_id": "latest_log",
+            "source_path": "codex_log/latest.md",
+            "required_section": "latest relevant date section",
+            "why_required": "确认最近状态、候选片和机制落库事实",
+            "expected_decision_supported": "old_context_required",
+            "authority_level": "current_runtime_evidence",
+            "status_label": "confirmed_by_repo",
+            "conflict_tags": [
+              "prompt_boundary_conflict"
+            ],
+            "required_read_depth": "section_only",
+            "blocked_if_missing": true,
+            "blocked_if_conflict": true,
+            "simulated_proof_level": "section_read"
+          },
+          {
+            "item_id": "gpt_state_router",
+            "source_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+            "required_section": "material_delta_type_router",
+            "why_required": "确认新增素材默认补充合并",
+            "expected_decision_supported": "material_delta_type=additive_merge",
+            "authority_level": "canonical_current",
+            "status_label": "confirmed_by_repo",
+            "conflict_tags": [
+              "material_delta_conflict"
+            ],
+            "required_read_depth": "section_only",
+            "blocked_if_missing": true,
+            "blocked_if_conflict": true,
+            "simulated_proof_level": "section_read"
+          },
+          {
+            "item_id": "codex_state_router",
+            "source_path": "codex_source/19_project_state_action_router.md",
+            "required_section": "material_delta_type_router",
+            "why_required": "确认 Codex 侧执行前动作策略",
+            "expected_decision_supported": "old_context_required",
+            "authority_level": "canonical_current",
+            "status_label": "confirmed_by_repo",
+            "conflict_tags": [
+              "material_delta_conflict"
+            ],
+            "required_read_depth": "section_only",
+            "blocked_if_missing": true,
+            "blocked_if_conflict": true,
+            "simulated_proof_level": "section_read"
+          },
+          {
+            "item_id": "workflow_entry_index",
+            "source_path": "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+            "required_section": "new material / aesthetic editing flow",
+            "why_required": "确认任务进入正确 workflow",
+            "expected_decision_supported": "workflow_type=aesthetic_editing_flow",
+            "authority_level": "canonical_current",
+            "status_label": "confirmed_by_repo",
+            "conflict_tags": [],
+            "required_read_depth": "section_only",
+            "blocked_if_missing": true,
+            "blocked_if_conflict": true,
+            "simulated_proof_level": "section_read"
+          },
+          {
+            "item_id": "current_candidate_summary",
+            "source_path": "dist/latest_review_pack/summary.json",
+            "required_section": "current candidate pointer",
+            "why_required": "确认当前候选片上下文",
+            "expected_decision_supported": "old_context_required",
+            "authority_level": "current_runtime_evidence",
+            "status_label": "confirmed_by_repo",
+            "conflict_tags": [],
+            "required_read_depth": "metadata_only",
+            "blocked_if_missing": true,
+            "blocked_if_conflict": true,
+            "simulated_proof_level": "metadata_checked"
+          },
+          {
+            "item_id": "review_manifest",
+            "source_path": "dist/latest_review_pack/review_manifest.md",
+            "required_section": "review pack manifest",
+            "why_required": "确认审片包和旧候选证据",
+            "expected_decision_supported": "old_context_required",
+            "authority_level": "current_runtime_evidence",
+            "status_label": "confirmed_by_repo",
+            "conflict_tags": [],
+            "required_read_depth": "metadata_only",
+            "blocked_if_missing": true,
+            "blocked_if_conflict": true,
+            "simulated_proof_level": "metadata_checked"
+          },
+          {
+            "item_id": "locked_copy_contract_rule",
+            "source_path": "codex_source/01_execution_rules.md",
+            "required_section": "locked_copy_contract",
+            "why_required": "确认不能擅自改锁稿",
+            "expected_decision_supported": "locked_copy_required",
+            "authority_level": "canonical_current",
+            "status_label": "confirmed_by_repo",
+            "conflict_tags": [
+              "completion_truth_conflict"
+            ],
+            "required_read_depth": "section_only",
+            "blocked_if_missing": true,
+            "blocked_if_conflict": true,
+            "simulated_proof_level": "section_read"
+          },
+          {
+            "item_id": "old_material_inventory",
+            "source_path": "codex_log/material_audit/20260603_第五期素材细节解析/material_inventory.json",
+            "required_section": "material inventory JSON",
+            "why_required": "新增素材不能默认替代旧素材",
+            "expected_decision_supported": "blocked_if_old_context_missing",
+            "authority_level": "current_runtime_evidence",
+            "status_label": "confirmed_by_repo",
+            "conflict_tags": [
+              "material_delta_conflict"
+            ],
+            "required_read_depth": "metadata_only",
+            "blocked_if_missing": true,
+            "blocked_if_conflict": true,
+            "simulated_proof_level": "schema_checked"
+          },
+          {
+            "item_id": "new_material_inventory",
+            "source_path": "review_loop/material_reports/V006_第六期素材解析/material_parse_summary.json",
+            "required_section": "new material parse summary JSON",
+            "why_required": "确认新增素材边界",
+            "expected_decision_supported": "additive_merge",
+            "authority_level": "current_runtime_evidence",
+            "status_label": "confirmed_by_repo",
+            "conflict_tags": [
+              "material_delta_conflict"
+            ],
+            "required_read_depth": "metadata_only",
+            "blocked_if_missing": true,
+            "blocked_if_conflict": true,
+            "simulated_proof_level": "schema_checked"
+          },
+          {
+            "item_id": "material_parse_pack",
+            "source_path": "review_loop/material_reports/V006_第六期素材解析/material_detail_report.md",
+            "required_section": "material detail report",
+            "why_required": "确认素材证据是否足够支持剪辑",
+            "expected_decision_supported": "blocked_if_material_evidence_missing",
+            "authority_level": "current_runtime_evidence",
+            "status_label": "confirmed_by_repo",
+            "conflict_tags": [
+              "material_delta_conflict"
+            ],
+            "required_read_depth": "metadata_only",
+            "blocked_if_missing": true,
+            "blocked_if_conflict": true,
+            "simulated_proof_level": "section_read"
+          },
+          {
+            "item_id": "current_data_goal_anchor",
+            "source_path": "codex_log/current_data_goal_anchor.md",
+            "required_section": "current data goal anchor",
+            "why_required": "确认当前数据目标不被新素材改动误覆盖",
+            "expected_decision_supported": "current_context_required",
+            "authority_level": "current_auxiliary",
+            "status_label": "partial",
+            "conflict_tags": [
+              "data_goal_conflict"
+            ],
+            "required_read_depth": "metadata_only",
+            "blocked_if_missing": false,
+            "blocked_if_conflict": true,
+            "simulated_proof_level": "metadata_checked"
+          }
+        ],
+        "optional_read_items": [
+          {
+            "source_path": "codex_log/material_audit/",
+            "why_optional": "如存在更细素材审计报告，可补充读取。"
+          }
+        ],
+        "forbidden_to_skip": [
+          "latest_log",
+          "gpt_state_router",
+          "codex_state_router",
+          "workflow_entry_index",
+          "current_candidate_summary",
+          "review_manifest",
+          "locked_copy_contract_rule",
+          "old_material_inventory",
+          "new_material_inventory",
+          "material_parse_pack"
+        ],
+        "done_when": "已证明所有执行必需输入均为真实文件 / 章节 / schema / metadata 时，才允许进入真实执行。",
+        "blocked_if": [
+          "any execution-required input is missing or only represented by MISSING_REPORT"
+        ],
+        "execution_required_items": [
+          "current_candidate_summary",
+          "review_manifest",
+          "locked_copy_contract_rule",
+          "old_material_inventory",
+          "new_material_inventory",
+          "material_parse_pack"
+        ],
+        "user_prompt_summary": "用户新增素材并要求重新剪；旧素材清单、新素材清单、material_parse_pack、locked_copy、review_pack、current_candidate 均存在且无冲突。",
+        "generated_by": "router_or_rag_bridge"
+      },
+      "required_items_count": 11,
+      "read_proof_generated": true,
+      "read_proof_report": {
+        "manifest_id": "mrm_20260612_new_material_positive_control",
+        "all_required_files_read": true,
+        "all_required_sections_read": true,
+        "missing_required_items": [],
+        "missing_report_items": [],
+        "execution_required_missing_items": [],
+        "conflicts_found": [],
+        "conflict_arbitration": "repo_wins",
+        "blocked_if_unread": true,
+        "diagnostic_allowed": true,
+        "real_execution_allowed": true,
+        "gate_status": "passed",
+        "read_items": [
+          {
+            "item_id": "latest_log",
+            "source_path": "codex_log/latest.md",
+            "required_section": "latest relevant date section",
+            "read_status": "read_ok",
+            "evidence_summary": "required section read in simulated proof",
+            "decision_supported": "old_context_required",
+            "missing_or_conflict": true,
+            "proof_level": "section_read"
+          },
+          {
+            "item_id": "gpt_state_router",
+            "source_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+            "required_section": "material_delta_type_router",
+            "read_status": "read_ok",
+            "evidence_summary": "required section read in simulated proof",
+            "decision_supported": "material_delta_type=additive_merge",
+            "missing_or_conflict": true,
+            "proof_level": "section_read"
+          },
+          {
+            "item_id": "codex_state_router",
+            "source_path": "codex_source/19_project_state_action_router.md",
+            "required_section": "material_delta_type_router",
+            "read_status": "read_ok",
+            "evidence_summary": "required section read in simulated proof",
+            "decision_supported": "old_context_required",
+            "missing_or_conflict": true,
+            "proof_level": "section_read"
+          },
+          {
+            "item_id": "workflow_entry_index",
+            "source_path": "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+            "required_section": "new material / aesthetic editing flow",
+            "read_status": "read_ok",
+            "evidence_summary": "required section read in simulated proof",
+            "decision_supported": "workflow_type=aesthetic_editing_flow",
+            "missing_or_conflict": false,
+            "proof_level": "section_read"
+          },
+          {
+            "item_id": "current_candidate_summary",
+            "source_path": "dist/latest_review_pack/summary.json",
+            "required_section": "current candidate pointer",
+            "read_status": "read_ok",
+            "evidence_summary": "metadata pointer checked in simulated proof",
+            "decision_supported": "old_context_required",
+            "missing_or_conflict": false,
+            "proof_level": "metadata_checked"
+          },
+          {
+            "item_id": "review_manifest",
+            "source_path": "dist/latest_review_pack/review_manifest.md",
+            "required_section": "review pack manifest",
+            "read_status": "read_ok",
+            "evidence_summary": "metadata pointer checked in simulated proof",
+            "decision_supported": "old_context_required",
+            "missing_or_conflict": false,
+            "proof_level": "metadata_checked"
+          },
+          {
+            "item_id": "locked_copy_contract_rule",
+            "source_path": "codex_source/01_execution_rules.md",
+            "required_section": "locked_copy_contract",
+            "read_status": "read_ok",
+            "evidence_summary": "required section read in simulated proof",
+            "decision_supported": "locked_copy_required",
+            "missing_or_conflict": true,
+            "proof_level": "section_read"
+          },
+          {
+            "item_id": "old_material_inventory",
+            "source_path": "codex_log/material_audit/20260603_第五期素材细节解析/material_inventory.json",
+            "required_section": "material inventory JSON",
+            "read_status": "read_ok",
+            "evidence_summary": "schema / script interface checked in simulated proof",
+            "decision_supported": "blocked_if_old_context_missing",
+            "missing_or_conflict": true,
+            "proof_level": "schema_checked"
+          },
+          {
+            "item_id": "new_material_inventory",
+            "source_path": "review_loop/material_reports/V006_第六期素材解析/material_parse_summary.json",
+            "required_section": "new material parse summary JSON",
+            "read_status": "read_ok",
+            "evidence_summary": "schema / script interface checked in simulated proof",
+            "decision_supported": "additive_merge",
+            "missing_or_conflict": true,
+            "proof_level": "schema_checked"
+          },
+          {
+            "item_id": "material_parse_pack",
+            "source_path": "review_loop/material_reports/V006_第六期素材解析/material_detail_report.md",
+            "required_section": "material detail report",
+            "read_status": "read_ok",
+            "evidence_summary": "required section read in simulated proof",
+            "decision_supported": "blocked_if_material_evidence_missing",
+            "missing_or_conflict": true,
+            "proof_level": "section_read"
+          },
+          {
+            "item_id": "current_data_goal_anchor",
+            "source_path": "codex_log/current_data_goal_anchor.md",
+            "required_section": "current data goal anchor",
+            "read_status": "read_ok",
+            "evidence_summary": "metadata pointer checked in simulated proof",
+            "decision_supported": "current_context_required",
+            "missing_or_conflict": true,
+            "proof_level": "metadata_checked"
+          }
+        ]
+      },
+      "pre_execution_read_gate": {
+        "mandatory_read_manifest_loaded": true,
+        "read_proof_report_loaded": true,
+        "all_required_files_read": true,
+        "missing_required_files": [],
+        "missing_required_sections": [],
+        "conflicts_found": [],
+        "missing_report_items": [],
+        "execution_required_missing_items": [],
+        "diagnostic_allowed": true,
+        "real_execution_allowed": true,
+        "gate_status": "passed",
+        "execution_allowed": true,
+        "blocked_reason": null
+      },
+      "missing_required_items": [],
+      "missing_report_items": [],
+      "execution_required_missing_items": [],
+      "conflicts_found": [],
+      "gate_status": "passed",
+      "diagnostic_allowed": true,
+      "real_execution_allowed": true,
+      "execution_allowed": true,
+      "actual_decision": {
+        "material_delta_type": "additive_merge",
+        "old_context_required": true,
+        "exclusive_new_only_allowed": false,
+        "diagnostic_allowed": true,
+        "real_execution_allowed": true,
+        "execution_allowed": true,
+        "gate_status": "passed"
+      },
+      "expected_decision": {
+        "material_delta_type": "additive_merge",
+        "old_context_required": true,
+        "exclusive_new_only_allowed": false,
+        "diagnostic_allowed": true,
+        "real_execution_allowed": true,
+        "execution_allowed": true,
+        "gate_status": "passed"
+      },
+      "expected_decision_matches": true,
+      "missing_read_negative_check": {
+        "missing_item_id": "material_parse_pack",
         "gate_status": "blocked_missing_read",
         "execution_allowed": false,
         "blocked_as_expected": true
