@@ -1,0 +1,112 @@
+{
+  "schema": "video_factory_router_fixtures.v1",
+  "created_at": "2026-06-11",
+  "project_route": "video_factory",
+  "execution_mode": "offline_router_fixture_dry_run",
+  "not_implemented": [
+    "rag_runtime",
+    "vector_index",
+    "skill_registry_runtime",
+    "external_api_call",
+    "media_generation"
+  ],
+  "fixtures": [
+    {
+      "fixture_id": "new_material_defaults_to_additive_merge",
+      "title": "新增素材默认 additive_merge",
+      "task_signal": {
+        "user_added_material": true,
+        "user_explicitly_said_replace_old_material": false,
+        "user_explicitly_said_only_new_material": false,
+        "old_candidate_exists": true,
+        "locked_copy_exists": true,
+        "latest_review_issues_exist": true
+      },
+      "required_retrieval_set": [
+        "latest_log",
+        "current_candidate",
+        "locked_copy",
+        "old_material_inventory",
+        "new_material_inventory",
+        "latest_review_issues",
+        "current_data_goal_anchor"
+      ],
+      "expected_router_decision": {
+        "workflow_type": "aesthetic_editing_flow",
+        "material_delta_type": "additive_merge",
+        "exclusive_new_only_allowed": false,
+        "requires_full_context_rebuild": true,
+        "blocked": false
+      },
+      "expected_reason_contains": [
+        "new material is additive unless replacement or only-new scope is explicit",
+        "old candidate, locked copy, and latest review remain part of context"
+      ]
+    },
+    {
+      "fixture_id": "technical_preview_cannot_complete",
+      "title": "technical_preview 不能冒充 completed",
+      "task_signal": {
+        "artifact_type": "technical_preview",
+        "full_mp4_exists": true,
+        "publish_candidate_preflight_suite_passed": false,
+        "completion_truth_preflight_passed": false,
+        "review_pack_complete": false,
+        "user_final_review_confirmed": false
+      },
+      "required_retrieval_set": [
+        "current_formal_facts",
+        "publish_candidate_delivery_baseline",
+        "publish_candidate_preflight_suite_rule",
+        "completion_truth_check_rule",
+        "latest_review_pack_manifest"
+      ],
+      "expected_router_decision": {
+        "workflow_type": "quality_review_flow",
+        "completion_status": "blocked_publish_candidate_unavailable",
+        "completed_allowed": false,
+        "internal_diagnostic_only": true,
+        "blocked": true
+      },
+      "expected_reason_contains": [
+        "technical_preview is internal diagnostic only",
+        "full.mp4 or field existence cannot replace preflight and completion truth"
+      ]
+    },
+    {
+      "fixture_id": "old_qwen_b_is_reference_anchor_only",
+      "title": "旧 Qwen / 阿里 B 只能作为 reference_anchor",
+      "task_signal": {
+        "old_qwen_b_voice_lineage_found": true,
+        "old_qwen_provider": "aliyun_bailian",
+        "old_qwen_model": "qwen3-tts-vc-realtime-2026-01-15",
+        "old_qwen_masked_voice_id": "qwen-t...ac19",
+        "current_formal_provider": "minimax",
+        "current_formal_model": "MiniMax/speech-2.8-hd",
+        "current_expected_b_minimax_voice_id": "oldBMinimax20260528010200",
+        "user_confirmed_voice_lock": true,
+        "system_voice_substitution_requested": false
+      },
+      "required_retrieval_set": [
+        "current_formal_facts",
+        "b_voice_identity_lock",
+        "old_qwen_b_lineage",
+        "publish_candidate_voice_gate_rule",
+        "tts_route_and_prosody_preflight_rule"
+      ],
+      "expected_router_decision": {
+        "workflow_type": "quality_review_flow",
+        "old_qwen_role": "reference_anchor_only",
+        "formal_tts_provider": "minimax",
+        "formal_voice_id": "oldBMinimax20260528010200",
+        "old_qwen_as_formal_provider_allowed": false,
+        "system_voice_substitution_allowed": false,
+        "blocked": false
+      },
+      "expected_reason_contains": [
+        "old Qwen / Aliyun B is lineage and reference anchor only",
+        "current formal voice lock remains MiniMax + oldBMinimax20260528010200"
+      ]
+    }
+  ]
+}

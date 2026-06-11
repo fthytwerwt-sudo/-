@@ -1,0 +1,94 @@
+{
+  "schema": "video_factory_router_dry_run_results.v1",
+  "created_at": "2026-06-11",
+  "project_route": "video_factory",
+  "execution_mode": "offline_router_fixture_dry_run",
+  "external_api_called": false,
+  "secrets_read_or_printed": false,
+  "media_generated": false,
+  "fixture_count": 3,
+  "passed_count": 3,
+  "failed_count": 0,
+  "overall_status": "passed",
+  "results": [
+    {
+      "fixture_id": "new_material_defaults_to_additive_merge",
+      "title": "新增素材默认 additive_merge",
+      "actual_decision": {
+        "workflow_type": "aesthetic_editing_flow",
+        "material_delta_type": "additive_merge",
+        "exclusive_new_only_allowed": false,
+        "requires_full_context_rebuild": true,
+        "blocked": false
+      },
+      "expected_decision": {
+        "workflow_type": "aesthetic_editing_flow",
+        "material_delta_type": "additive_merge",
+        "exclusive_new_only_allowed": false,
+        "requires_full_context_rebuild": true,
+        "blocked": false
+      },
+      "actual_reasons": [
+        "new material is additive unless replacement or only-new scope is explicit",
+        "old candidate, locked copy, and latest review remain part of context"
+      ],
+      "actual_decision_matches_expected": true,
+      "reason_contains_expected": true,
+      "status": "passed"
+    },
+    {
+      "fixture_id": "technical_preview_cannot_complete",
+      "title": "technical_preview 不能冒充 completed",
+      "actual_decision": {
+        "workflow_type": "quality_review_flow",
+        "completion_status": "blocked_publish_candidate_unavailable",
+        "completed_allowed": false,
+        "internal_diagnostic_only": true,
+        "blocked": true
+      },
+      "expected_decision": {
+        "workflow_type": "quality_review_flow",
+        "completion_status": "blocked_publish_candidate_unavailable",
+        "completed_allowed": false,
+        "internal_diagnostic_only": true,
+        "blocked": true
+      },
+      "actual_reasons": [
+        "technical_preview is internal diagnostic only",
+        "full.mp4 or field existence cannot replace preflight and completion truth"
+      ],
+      "actual_decision_matches_expected": true,
+      "reason_contains_expected": true,
+      "status": "passed"
+    },
+    {
+      "fixture_id": "old_qwen_b_is_reference_anchor_only",
+      "title": "旧 Qwen / 阿里 B 只能作为 reference_anchor",
+      "actual_decision": {
+        "workflow_type": "quality_review_flow",
+        "old_qwen_role": "reference_anchor_only",
+        "formal_tts_provider": "minimax",
+        "formal_voice_id": "oldBMinimax20260528010200",
+        "old_qwen_as_formal_provider_allowed": false,
+        "system_voice_substitution_allowed": false,
+        "blocked": false
+      },
+      "expected_decision": {
+        "workflow_type": "quality_review_flow",
+        "old_qwen_role": "reference_anchor_only",
+        "formal_tts_provider": "minimax",
+        "formal_voice_id": "oldBMinimax20260528010200",
+        "old_qwen_as_formal_provider_allowed": false,
+        "system_voice_substitution_allowed": false,
+        "blocked": false
+      },
+      "actual_reasons": [
+        "old Qwen / Aliyun B is lineage and reference anchor only",
+        "current formal voice lock remains MiniMax + oldBMinimax20260528010200"
+      ],
+      "actual_decision_matches_expected": true,
+      "reason_contains_expected": true,
+      "status": "passed"
+    }
+  ]
+}
