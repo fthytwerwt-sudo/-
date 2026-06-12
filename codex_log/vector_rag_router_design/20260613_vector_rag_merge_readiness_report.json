@@ -1,0 +1,45 @@
+{
+  "phase": "phase_7_merge_readiness",
+  "generated_at": "2026-06-13T00:50:06+08:00",
+  "project": "video_factory",
+  "repo": "fthytwerwt-sudo/-",
+  "branch": "feature/vector-rag-router-design-20260611",
+  "collection": "video_factory_docs_test",
+  "selected_embedding_model": "text-embedding-v4",
+  "technical_validation": {
+    "embedding": true,
+    "dashvector": true,
+    "single_write_readback": true,
+    "minimal_ingestion": true,
+    "retrieval_readback": true,
+    "original_file_trace": true,
+    "read_proof": true
+  },
+  "content_validation": {
+    "repo_as_source_of_truth": true,
+    "vector_as_retrieval_layer_only": true,
+    "vector_result_not_final_fact": true,
+    "missing_report_not_execution_permission": true,
+    "content_validation_status_not_promoted": true
+  },
+  "risk_check": {
+    "secret_printed": false,
+    "secret_committed": false,
+    "blacklist_ingested": false,
+    "stale_vector_cache_risk": "managed_by_content_hash_and_batch_id",
+    "misexecution_risk": "gated_by_readback_and_read_proof",
+    "cost_risk": "minimal_calls_only: smoke=2, ingestion=261, validation=5"
+  },
+  "vector_stats_after_run": {
+    "stats_success": true,
+    "vector_count": "262"
+  },
+  "merge_recommendation": "ready_for_main_review",
+  "official_docs_consulted": [
+    "https://www.alibabacloud.com/help/doc-detail/2510320.html",
+    "https://www.alibabacloud.com/help/en/vrs/latest/retrieve-doc",
+    "https://help.aliyun.com/zh/document_detail/2510223.html"
+  ],
+  "not_main_merged": true,
+  "rag_runtime_completed_claim": false
+}

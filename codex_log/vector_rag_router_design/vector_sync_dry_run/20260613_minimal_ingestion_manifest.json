@@ -1,0 +1,2658 @@
+{
+  "phase": "phase_3_dry_run_ingestion_manifest",
+  "generated_at": "2026-06-13T00:44:34+08:00",
+  "project": "video_factory",
+  "repo": "fthytwerwt-sudo/-",
+  "branch": "feature/vector-rag-router-design-20260611",
+  "commit_sha": "62579e7aca271cf3dc632b52554c60488ac63ca3",
+  "dry_run_only": true,
+  "external_api_called": false,
+  "embedding_generated": false,
+  "dashvector_written": false,
+  "scanned_file_count": 13,
+  "allowed_file_count": 13,
+  "blocked_file_count": 0,
+  "planned_chunk_count": 261,
+  "estimated_embedding_call_count": 261,
+  "risk_files": [],
+  "priority_ingestion_files": [
+    "AGENTS.md",
+    "codex_log/latest.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+    "GPT数据源/08_当前正式事实.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "codex_log/vector_rag_router_design/20260611_read_contract_strategy_report.md",
+    "codex_log/vector_rag_router_design/20260611_read_contract_missing_report_boundary_patch_report.md",
+    "codex_log/vector_rag_router_design/20260611_vector_sync_policy.md",
+    "codex_log/vector_rag_router_design/20260611_vector_ingestion_whitelist.md",
+    "codex_log/vector_rag_router_design/20260611_vector_ingestion_blacklist.md",
+    "scripts/probe_dashscope_embedding_dimension.py"
+  ],
+  "required_metadata_fields": [
+    "project",
+    "repo",
+    "branch",
+    "file_path",
+    "section_title",
+    "chunk_index",
+    "content_hash",
+    "source_type",
+    "updated_at",
+    "batch_id"
+  ],
+  "metadata_schema_complete": true,
+  "chunks": [
+    {
+      "id": "vf_9f55d20e9445721eb063142569470c83eb580786",
+      "file_path": "AGENTS.md",
+      "section_title": "多项目仓库入口规则",
+      "chunk_index": 0,
+      "content_hash": "cdd7eca23367966a4083894440d0e45e45a51f2caaaaf29d4c869099a90a0f41",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 11
+    },
+    {
+      "id": "vf_c213f9f365bb7f4f1b90e159187457fea29aa652",
+      "file_path": "AGENTS.md",
+      "section_title": "多项目仓库入口规则 > 1. 当前仓库身份",
+      "chunk_index": 1,
+      "content_hash": "a2ac63b2ae0089b09de5b6c4e14cbe685de2e364ee1d6c9e442f3419914b9243",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 248
+    },
+    {
+      "id": "vf_372a6c4df4e48e00eb76a641008f891c538799bf",
+      "file_path": "AGENTS.md",
+      "section_title": "多项目仓库入口规则 > 2. 默认项目分流规则",
+      "chunk_index": 2,
+      "content_hash": "bbaebc63dc02d98b84901d0dd1b3c9c541aadc0291e4686fbf69976426f2c645",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 14
+    },
+    {
+      "id": "vf_82bf40a645cf8c9ad12a1df40d164d2d3e851025",
+      "file_path": "AGENTS.md",
+      "section_title": "多项目仓库入口规则 > 2. 默认项目分流规则 > 2.1 永远先读",
+      "chunk_index": 3,
+      "content_hash": "761780b4069ce88d2570fc842d99c0f92c96e7b8920d159a57baacbf3908e3d8",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 41
+    },
+    {
+      "id": "vf_e32af26315aab6bce6ccea7f68982e6bcd81c1f0",
+      "file_path": "AGENTS.md",
+      "section_title": "多项目仓库入口规则 > 2. 默认项目分流规则 > 2.2 《视频工厂》命中规则",
+      "chunk_index": 4,
+      "content_hash": "a20cfb20c7dfde43e9705a75168e4a0165dd5f862246c2ae0096c62fdb40d98c",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 3596
+    },
+    {
+      "id": "vf_521868fd7c6d3dce991eed5725f7ee38cff01cfc",
+      "file_path": "AGENTS.md",
+      "section_title": "多项目仓库入口规则 > 2. 默认项目分流规则 > 2.2 《视频工厂》命中规则",
+      "chunk_index": 5,
+      "content_hash": "0798e5acb37f29671ed4dceea3b61a5fd80625da195a0fd30676f6823ace3894",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 2612
+    },
+    {
+      "id": "vf_3351e13e0ccbc45fd35fbc87ca15dd81346e64b4",
+      "file_path": "AGENTS.md",
+      "section_title": "多项目仓库入口规则 > 2. 默认项目分流规则 > 2.2A 视频修改必须同步口径规则",
+      "chunk_index": 6,
+      "content_hash": "f041dde1e1943770df1a887f439a4a8f86811c6ee8b74535289dd6ca0f09bec4",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 746
+    },
+    {
+      "id": "vf_85210a5d889ad8215e99190a420bab392edf1ba6",
+      "file_path": "AGENTS.md",
+      "section_title": "多项目仓库入口规则 > 2. 默认项目分流规则 > 2.2B 《视频工厂》旧口径降权规则",
+      "chunk_index": 7,
+      "content_hash": "4899a22eff1920f571c92fabc5ffbddeaa712244ff84296015adca064e2d2745",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 1640
+    },
+    {
+      "id": "vf_8997aefc48f104c488d7144414c66da80b290908",
+      "file_path": "AGENTS.md",
+      "section_title": "多项目仓库入口规则 > 2. 默认项目分流规则 > 2.2C 《视频工厂》单工作区硬规则 single_workspace_rule",
+      "chunk_index": 8,
+      "content_hash": "a3538e666d757497e744b5fc37b0f7b70bd95d72a3c6428b77b3d90f9e484692",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 3528
+    },
+    {
+      "id": "vf_5b7f9ea437cf8745857c32bd6d8a853fa49930ce",
+      "file_path": "AGENTS.md",
+      "section_title": "多项目仓库入口规则 > 2. 默认项目分流规则 > 2.2C 《视频工厂》单工作区硬规则 single_workspace_rule",
+      "chunk_index": 9,
+      "content_hash": "d7f4c913d78ec1237a1e74c4966d7e5c122cf29183632a13e97af98e5d5d759e",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 2102
+    },
+    {
+      "id": "vf_8702bfbfc8b094177caaf9fdcb2af15e48114623",
+      "file_path": "AGENTS.md",
+      "section_title": "多项目仓库入口规则 > 2. 默认项目分流规则 > 2.3 `AI 直播前台验证项目` 命中规则",
+      "chunk_index": 10,
+      "content_hash": "2f1c9be85035f96665e7ad29694de01323f7c135d806d012af8c12455a6c7209",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 481
+    },
+    {
+      "id": "vf_e31a3a768a7da8c3401f0619541d88c51a748fc5",
+      "file_path": "AGENTS.md",
+      "section_title": "多项目仓库入口规则 > 2. 默认项目分流规则 > 2.4 未命中时的阻断规则",
+      "chunk_index": 11,
+      "content_hash": "4c13167888ee51ae54cee33c719d666b8ef81804987ecc8cf1c6736a0d7e00b8",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 115
+    },
+    {
+      "id": "vf_d7e9b4de5d91632d0c592aa70c22df2303caa49e",
+      "file_path": "AGENTS.md",
+      "section_title": "多项目仓库入口规则 > 2. 默认项目分流规则 > 2.5 双命中或冲突命中",
+      "chunk_index": 12,
+      "content_hash": "2a6bc9a1cd239c9673cbbdad1d6c7f8bb08f3a21b67469e443e0218ff73454d6",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 245
+    },
+    {
+      "id": "vf_596391db82c2af31c658ddc14bc8d8402bfed1dd",
+      "file_path": "AGENTS.md",
+      "section_title": "多项目仓库入口规则 > 2.6 Codex 执行前路由闸门 route_decision_gate",
+      "chunk_index": 13,
+      "content_hash": "86b4ee9536518f45a4a08c76a2bbf7566e47488cef058b7120b43c90bda3f5bb",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 2220
+    },
+    {
+      "id": "vf_3fc0a13885ffe73edacbe549b28e0889518acaab",
+      "file_path": "AGENTS.md",
+      "section_title": "多项目仓库入口规则 > 2.6 Codex 执行前路由闸门 route_decision_gate > 2.6A 大任务闸门 large_task_gate",
+      "chunk_index": 14,
+      "content_hash": "73c9afa4d8fcdae23af2ae3fad2d9c96d79d4c9173595e8f12c3e8fe43711dc9",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 1200
+    },
+    {
+      "id": "vf_a1278af817fa1e63c27085e70125ba9efabeddde",
+      "file_path": "AGENTS.md",
+      "section_title": "多项目仓库入口规则 > 3. 文件与目录命名规则",
+      "chunk_index": 15,
+      "content_hash": "dc59615e866e8d9662041fd073ea80f5f6f165ceec4be215776b7ec80a4c947d",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 828
+    },
+    {
+      "id": "vf_6eecfe34a2fff9d8e798588fc5f5d4e3135e7ee7",
+      "file_path": "AGENTS.md",
+      "section_title": "多项目仓库入口规则 > 4. 默认修改权限规则",
+      "chunk_index": 16,
+      "content_hash": "98bede5dec99f8dddfae898acc087b2c5cf243fb339e1297fea814605caa49c1",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 260
+    },
+    {
+      "id": "vf_8b429f4c0cfa63c613faed12b3fdf30f85cba705",
+      "file_path": "AGENTS.md",
+      "section_title": "多项目仓库入口规则 > 5. 默认执行规则",
+      "chunk_index": 17,
+      "content_hash": "3f9f2c6212ebff163bda9a073d65946078dd909e9c2ad190b143f254847d9558",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 511
+    },
+    {
+      "id": "vf_303c52b83e3bcf342f141cd00146cea384884582",
+      "file_path": "AGENTS.md",
+      "section_title": "多项目仓库入口规则 > 5. 默认执行规则 > 5A. mandatory_commit_push_gate（强制提交推送闸门）",
+      "chunk_index": 18,
+      "content_hash": "77dfb5f48d11afc369acb1858e3ed54a9c3a3a6a3d03cebc87af21fa1134b424",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 2306
+    },
+    {
+      "id": "vf_8950e2454a8553ac2b263ac7e7d04071570a4967",
+      "file_path": "AGENTS.md",
+      "section_title": "多项目仓库入口规则 > 6. 诚实状态标记规则",
+      "chunk_index": 19,
+      "content_hash": "bc48edfc8d06d32b53c1c8b373d3f7b2c32dc37bb94494338160e8fbf1174838",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 104
+    },
+    {
+      "id": "vf_db5c3a9134227bd7b725927f8f5b1885fabeff19",
+      "file_path": "AGENTS.md",
+      "section_title": "多项目仓库入口规则 > 7. 表达规则",
+      "chunk_index": 20,
+      "content_hash": "5c20273a328dc5d78b2451332f53fd4a674f27770d4ff5a5e1ca62bdb5f92b4e",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 153
+    },
+    {
+      "id": "vf_753518c1c9630e53c6d169ae4a1cf401d70de212",
+      "file_path": "AGENTS.md",
+      "section_title": "多项目仓库入口规则 > 8. 最终汇报与交接口径",
+      "chunk_index": 21,
+      "content_hash": "42d2a0731a8c57a572fbc8ad3da89c9f21b689fe0ba5ad729c6cffd55d2d90bd",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 120
+    },
+    {
+      "id": "vf_8cd214811368e0fd3207af8c9a83e82cce183485",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest",
+      "chunk_index": 0,
+      "content_hash": "99d2b516c2626f8ed3be3947d18fafe04375d2ba212e8e0257d6f66dc08d52c5",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 8
+    },
+    {
+      "id": "vf_17e6458e6834bad2dc443d273c840ff5f5183140",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260609｜卡片最小真实链路用户通过与默认路线确认",
+      "chunk_index": 1,
+      "content_hash": "21db051f2ec75de0f2fdadbc47a41943059cd8d9b0e3bdabf079282834db460a",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 1639
+    },
+    {
+      "id": "vf_bca97d9d2c6e3f2a7cf7ab4300d3b3787aa52c5c",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260609｜image2 卡片路线冲突修补",
+      "chunk_index": 2,
+      "content_hash": "9676f45c6a836e0acd54df3459d6258be01e59d352c381d3e2d0b2829c369cf5",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 2109
+    },
+    {
+      "id": "vf_ef9243fdc42e6950b4a7e39cd5c945392e69b714",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260607｜实现设计层机制升级与 GPT Project 同步包",
+      "chunk_index": 3,
+      "content_hash": "5a7a9a90a75da65e96b29eea74c8293364859b3fe905602abd41d903826ba289",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 3032
+    },
+    {
+      "id": "vf_40f440223bbdd5d50c7998f1de168fccc456c6a6",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260607｜V006 第六期新素材无 GPT 图标正片候选重做",
+      "chunk_index": 4,
+      "content_hash": "06de9cb255518a4c14b6fe5c70bce4ccf500271cd71d645c7dd8adda8594a53d",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 3358
+    },
+    {
+      "id": "vf_ae1bf93465e78ad4542622f7d9052f3fd6702824",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260606｜完整 GPT Project 同步包重新生成",
+      "chunk_index": 5,
+      "content_hash": "5ffb8a1282c4b2234d8c6c97582aeec73f490e1fc5c2286900ce82459e2ba170",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 2038
+    },
+    {
+      "id": "vf_cd3bce698107caee548b8b6a1127862f2c0ce1a7",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260606｜需求确认机制 GPT Project 同步包生成",
+      "chunk_index": 6,
+      "content_hash": "50e2d058c296c9b6f2829f2e50659227991b648315062afe9970d4ac8a6eee8b",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 1199
+    },
+    {
+      "id": "vf_2fdb0f5adbbe9cc177e9137d628c81224a1d80b7",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260606｜需求确认机制升级",
+      "chunk_index": 7,
+      "content_hash": "0e72bee70e90c2e66a0c8c68462a183302fa641f3e8459b49c390954a263dcf1",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 2190
+    },
+    {
+      "id": "vf_b5ba8f792a0f8c54b3aead9c2ac72b476f3a81f0",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260606｜文案前置判断机制升级",
+      "chunk_index": 8,
+      "content_hash": "74901c9b052996b948c83ba021540afccd02d5fb7b9a363cae697477a6f8e2da",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 2809
+    },
+    {
+      "id": "vf_6d36f2ffc1b713a12a07d69732c4fa2d38eb94ba",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260606｜第一次运营复盘正反馈闭环修复",
+      "chunk_index": 9,
+      "content_hash": "e9912dc8030373dc55be950fd44ca93d86eb7e10f5fc2f43fe7105de512b0d15",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 3558
+    },
+    {
+      "id": "vf_21b53e7616ffab81a387553c7fff76c5008366b1",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260606｜第一次运营复盘正反馈闭环修复",
+      "chunk_index": 10,
+      "content_hash": "f23c2dbceb6216c38bfbdea190b95abf6945fcc7aef5d8c936ca1d8657a85064",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 520
+    },
+    {
+      "id": "vf_832f4752002260c1da2879863de00ab7745ff008",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260604｜最新发送视频 raw_copy 新增记录",
+      "chunk_index": 11,
+      "content_hash": "d9e53f6f2dd6778ee968437251b9927142e0c1b3159558a5ac8566b0932f8b68",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 2074
+    },
+    {
+      "id": "vf_24233b9f926adc157c50d17d05ca8e0e8ac382dd",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260604｜最新发送视频数据截图回填",
+      "chunk_index": 12,
+      "content_hash": "69ec358249478a133f826ab2564485398aa44972c90a6b68db86d58a54c07676",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 2937
+    },
+    {
+      "id": "vf_74e12ac8959186dbd57b02643c82a3f287a08c57",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260604｜社交编辑感卡片参考图与 DeepSeek 后置复核补修",
+      "chunk_index": 13,
+      "content_hash": "3359687691008e44a29b8cc99f0f24b884e2341f08c80a1940ed5c5d396efa7e",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 2083
+    },
+    {
+      "id": "vf_3dcbf2b25b35de818a52f8d0bb3963e939edd0db",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260604｜16:9 社交编辑感卡片机制补丁",
+      "chunk_index": 14,
+      "content_hash": "3075987ee3f3e02d9e244baafc1c2ef7afece8d135c80f3665cabdfa2d65dd84",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 2929
+    },
+    {
+      "id": "vf_dc5961c520e3a6747ea0ef78b76b5bbf26c73164",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260603｜locked_copy_diff_preflight 锁定文案差异预检修复",
+      "chunk_index": 15,
+      "content_hash": "74c79fea750a00034032a70c4d6be587580e0752ff3dcd9f5988b178bb2363da",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 1937
+    },
+    {
+      "id": "vf_23991456721d23ee7787b6adc080c2be2d4ec150",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260603｜第五期 Codex 赚钱主题完整正片候选片",
+      "chunk_index": 16,
+      "content_hash": "fd87c6e858f0aecdf83c4b9aea1dad0a5016d7a9021002009936cb730dc03b6d",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 3379
+    },
+    {
+      "id": "vf_2715fba3f6e919a2cf4ef88e532e7aa399cf0ce3",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260603｜第五期录制素材 5 个视频细节解析",
+      "chunk_index": 17,
+      "content_hash": "23977cbddadfaff1017dbb88098f9888ccec4df397d8d6feff124d5677adbdcc",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 2595
+    },
+    {
+      "id": "vf_95aa207abefac247bf09ec96f206c58fd6cdf704",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260602｜最新 4 条剪辑参考动态视觉母版重解析",
+      "chunk_index": 18,
+      "content_hash": "0f0eaad7fcc50b5bd7547a38e594bb7d9d37dca2f2bf8023173164e8f4ef1780",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 2317
+    },
+    {
+      "id": "vf_75ce9054622bcf98c58d853e68e73b8b8ad238ff",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260602｜需求不确定澄清闸门与 GPT Project 资料同步包",
+      "chunk_index": 19,
+      "content_hash": "a8fceb578397f289115826ac336094e32e0a780db9689490dfc3e627a5b51f29",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 2383
+    },
+    {
+      "id": "vf_d74f7caf64668dbdde8d54422b071413ccfb596f",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260602｜新第四期参考引导完整候选片生成",
+      "chunk_index": 20,
+      "content_hash": "2319d89689ef698c1d8374aa892aaf1a06aada5f2e9deb459fc60a1a1306a83a",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 1995
+    },
+    {
+      "id": "vf_efd5ecf6a85254aac66d46401cfabb0dbefa7873",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260601｜素材证据闸门选择性恢复并接回预检套件",
+      "chunk_index": 21,
+      "content_hash": "63688ecaae782aa7d0f6f09204020fd646ae0e26f89a51b8d6164ebabf50f21e",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 1356
+    },
+    {
+      "id": "vf_deab967cae11967d88b821d7a68257fbd2adb2aa",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260601｜对标文案原文级 reference 改为 Google Drive 路线",
+      "chunk_index": 22,
+      "content_hash": "5de63b417d606aef8631f6137387c5875c0eea429a4106228f4e551a6dc559da",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 1551
+    },
+    {
+      "id": "vf_75c4876cebe26388bd355df34aca352587ee32de",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260601｜对标文案学习与说人话判断标准落库",
+      "chunk_index": 23,
+      "content_hash": "9491c9c6aa38f08054e1acaae0fa2b4a768f5023423555311173a11661681a1f",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 1675
+    },
+    {
+      "id": "vf_7bc7e2acdec7b3864ccc69626913f57025ab3408",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260529｜一次素材解析复用标准接入",
+      "chunk_index": 24,
+      "content_hash": "0431ea993cf58f9a517cb086167920bdda2034b81e9dd7b25bc067c3f1a83f00",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 1515
+    },
+    {
+      "id": "vf_4c3054d1e50b777d121571dc5e0eeba67df4ae83",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260528｜锁定旧 B 迁移 MiniMax 声音并只替换当前候选片音轨",
+      "chunk_index": 25,
+      "content_hash": "b068dac80de548a93a04223d34c0aef48a01b4f6e9dabd2e09cf280b43c13ce5",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 2657
+    },
+    {
+      "id": "vf_9944fdc96e5f6bcbb67bbeeeca01ec9e9124f54d",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260528｜旧 B 通过阿里百炼代理迁移到 MiniMax 试听样本",
+      "chunk_index": 26,
+      "content_hash": "92c702042d728cf1e6652fd536724ab0414ef91b227d2af058b4794085a6a6dc",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 2209
+    },
+    {
+      "id": "vf_e03c3fc39fef56c624d87882d3694ad00029beab",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260527｜旧 B 到 MiniMax 迁移上传授权解阻检查",
+      "chunk_index": 27,
+      "content_hash": "64380aac27cd9c08185c816a9ff1b991ce8394d94b5dc4f3f6df9c6c9c6c1038",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 1980
+    },
+    {
+      "id": "vf_33553f8962da6d0429fea4fd5e7484d32e9ec54f",
+      "file_path": "codex_log/latest.md",
+      "section_title": "Latest > 20260527｜旧 B 到 MiniMax 声音迁移审计",
+      "chunk_index": 28,
+      "content_hash": "ac26603c441c8268ab52147ebc577566d35642329ac858c2aa5e51f6d2bead95",
+      "source_type": "latest_log",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 154
+    },
+    {
+      "id": "vf_fe2d0fbf73f182796464dc72e2a8348ad92ca831",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口",
+      "chunk_index": 0,
+      "content_hash": "fe9bdddd660069b7faa9d5dc6c23d71627fa78f2f77b6b3e3263c7398ebc1447",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 18
+    },
+    {
+      "id": "vf_5a614f8a9743e1c59c6beac0aad70f7556c97f0b",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 0A. 2026-05-15 formal_operation current entry",
+      "chunk_index": 1,
+      "content_hash": "9439ba533dc85955f0b73653f1cbdc0916e4836500d3c3c36c84928b4ec06f90",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 461
+    },
+    {
+      "id": "vf_a8a6731b032ef999cf8ac2630be253205009dd2a",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 0A-1. formal_operation delivery baseline gate",
+      "chunk_index": 2,
+      "content_hash": "a1381c3b580e9b30bd0dd4e4e941c4a04b3c8fe2dbefb31c6977614376e014bf",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 910
+    },
+    {
+      "id": "vf_81233cb4bf3eb4ff06667edf12d7c5f1893c0abc",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 0A-1a. MiniMax B voice identity lock",
+      "chunk_index": 3,
+      "content_hash": "f072b74cc8e071bbbc3cd8e4d14197a69cd5003c861f5e98af3a318ab9e04741",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 1079
+    },
+    {
+      "id": "vf_074269f55c792d8c143d7a0f74cf89fe9e046585",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 0A-1b. Old Aliyun / Qwen B voice reference override",
+      "chunk_index": 4,
+      "content_hash": "9feb3af98cbd9a620767d3a25425db7c7ab7712acf40395d5a21b853b0baa616",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 1303
+    },
+    {
+      "id": "vf_284d5f688180ffd86fbcf52a64d522c7b0b5cbcd",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 0A-2. user_feedback_boundary and no_degrade_completion gate",
+      "chunk_index": 5,
+      "content_hash": "e6e4dfe109a7fe7a628d787ad5099d44ba40679282ee0e46c2f9be6f5845f539",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 2092
+    },
+    {
+      "id": "vf_986d414171b6d5f0bb13b4e1ccfc574f5eeb07f8",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 0A-2a. requirement alignment gate for repair / modification prompts",
+      "chunk_index": 6,
+      "content_hash": "b462d06fd4984e692e129dea7ce7abb780c86ea16200685d5474fa6117eb87de",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 1197
+    },
+    {
+      "id": "vf_4e9262b8099743a0378a555ddd1e502fa1598b7f",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 0A-2b. implementation_design_required gate（实现设计层必需）",
+      "chunk_index": 7,
+      "content_hash": "afcb44cf08aa488cc3157281e70e038fe03cde6724be5feea8f00b3c429e07e3",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 1638
+    },
+    {
+      "id": "vf_9854cae91230be7c04dcf9a9710ad8265d0184d1",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 0A-3. locked copy and line-level visual alignment gate",
+      "chunk_index": 8,
+      "content_hash": "6f28b6f2e1bc13ca2345168d84293e9cc9f7552fa0b934d4fd2e25c4469bbd60",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 1358
+    },
+    {
+      "id": "vf_385291e8b3d4801016cf88227b3d16e67ee91506",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 0A-4. material evidence preflight gate",
+      "chunk_index": 9,
+      "content_hash": "2bb8131591f2352a220df5d665de70c29d0474ae9e14196e8312f5e13daa2662",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 761
+    },
+    {
+      "id": "vf_a789680fba3c9c4fae67f5d28dda38ad5416603a",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 0A-5. EdgeGuard black border gate",
+      "chunk_index": 10,
+      "content_hash": "cd65a6aeb2c64527f8e5b4e96bf05e3efc0c73195b0a15500e45ced7469218d5",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 656
+    },
+    {
+      "id": "vf_5b54447cde8ce635f4b6eb8302ab8dc51bb09217",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 0A-6. process_boot_gate（流程启动闸门）",
+      "chunk_index": 11,
+      "content_hash": "0aa1b03bf63b2e50953121e28c5c55a719afea7c8dc641e9f84240f6d4d94546",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 3579
+    },
+    {
+      "id": "vf_f9ec0190673b52436d9ac801b435b0cafb3c0f5f",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 0A-6. process_boot_gate（流程启动闸门）",
+      "chunk_index": 12,
+      "content_hash": "9f3d0f601578679295d96db05baaad74322d6c3e5a42432e6468189b85f500a8",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 1600
+    },
+    {
+      "id": "vf_9fe7feae8ff249191641b43eb368121a75bac701",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 0A-7. publish_candidate_preflight_suite（发片候选预检套件）",
+      "chunk_index": 13,
+      "content_hash": "a8701931dcb8c1f0d8679316a01fd2d107160b7b25028e5ced51def271e5bbf8",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 3311
+    },
+    {
+      "id": "vf_8e1c775cc8e9d111c01490a0c9801766349ec735",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 1. 这份文件是什么",
+      "chunk_index": 14,
+      "content_hash": "4be125b2b7ad54ae90f26d9a133b028c7d4eee898fdb2bb3c61a1f849ce8721a",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 269
+    },
+    {
+      "id": "vf_7890883424eb8d574bc43ad9ffdecda14e9d2456",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 2. `codex_source/` 负责什么",
+      "chunk_index": 15,
+      "content_hash": "74d4ddf3cb29ea9f2f21dd0ebcc4d35678a22f8557f0a1a0a12e7e02afc06b95",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 362
+    },
+    {
+      "id": "vf_c16595084844f572100aff129946cade56af34b2",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 3. 新会话最小接手入口",
+      "chunk_index": 16,
+      "content_hash": "fda7bd723e2269c0cd43a208e9787bafa15bd70cb1e27aa59ed0bb95f1a5d947",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 3228
+    },
+    {
+      "id": "vf_94c34bdafe89ae72eb3169f77e29029860c7490a",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 3A-0. Project State Action Router 执行入口",
+      "chunk_index": 17,
+      "content_hash": "cf81f206ad0cbfa4d2943ee654a6a72bd644a54f7620e6927cc15e4e5a91f9e4",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 587
+    },
+    {
+      "id": "vf_47235310b671d364e93012031872cf1745c0597f",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 3A-1. Reference-to-Execution Contract 执行入口",
+      "chunk_index": 18,
+      "content_hash": "738566461328562ad9c13c7927b5c9c8e61994ec4058d5b51a158318cddffc8e",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 649
+    },
+    {
+      "id": "vf_d3014ba7a66e8d767d7571517e60a86c2b6e7079",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 3A-2. 目标驱动数据飞轮与文案执行闭环入口",
+      "chunk_index": 19,
+      "content_hash": "1f73ca103bbd8253e5fd6a7aef485e44f96e73cf2e2b5022023910e3ef6272a8",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 1946
+    },
+    {
+      "id": "vf_03a56cca2133ddf69793121950db99fdb2cc97e9",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 3A. OPC 上位身份与多 AI 协作入口",
+      "chunk_index": 20,
+      "content_hash": "d83a669470791d7c3e171ed736edf14a68b13ac28f575e2f90cfa75e456a622b",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 3570
+    },
+    {
+      "id": "vf_d771fae11db5b0db0ee8031bb7a4bc04a3f5574d",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 3A. OPC 上位身份与多 AI 协作入口",
+      "chunk_index": 21,
+      "content_hash": "1e8adf6a0328d30cab21c2dfab5cc17d708b58e7287b8ec75285829b124ae173",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 1173
+    },
+    {
+      "id": "vf_55b0d8ff71243ebbdca5fc6dd600e9ad3425e6c5",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 3B. ChatGPT -> Codex 补全接力入口",
+      "chunk_index": 22,
+      "content_hash": "847bbed31b46ea2c05bd328913fa1248128f4ff0f0e92d8177742630f7fcec12",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 3502
+    },
+    {
+      "id": "vf_ebea697cd7c23eea091f486d5aaedb9fc1fe6128",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 3B. ChatGPT -> Codex 补全接力入口",
+      "chunk_index": 23,
+      "content_hash": "8f82b249d89939fe09ecf38811464cca09f69f9b31f9107c2059fb8ca04ed90a",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 3577
+    },
+    {
+      "id": "vf_dd2dfb0d9a3339f9fbabce22688272a368a11010",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 3B. ChatGPT -> Codex 补全接力入口",
+      "chunk_index": 24,
+      "content_hash": "36aa6ebc747ddc2411ac1305a60cbc350819a6f37023243f6cbe7acadc109999",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 2916
+    },
+    {
+      "id": "vf_8b075d85b0859c2547db27f8a5481bf3df3a303b",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 4. 当前正式默认主线",
+      "chunk_index": 25,
+      "content_hash": "9ee248ccf56d7ff046f3e0c4e7140f01568ca6c831a30c9be7e50c3226ca3952",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 336
+    },
+    {
+      "id": "vf_214016afc43eaefb83dec4549ef9d6569bab9e59",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 4A. 当前项目中心价值",
+      "chunk_index": 26,
+      "content_hash": "9ceb08a02f38ac18515de457bc4b05640a95bb74070a75b4392f4d1ef719c12f",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 204
+    },
+    {
+      "id": "vf_0c6a0b3c95926748ebeeb35f774d8c281f4cdb95",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 5. 当前主读取分支",
+      "chunk_index": 27,
+      "content_hash": "3f485157687e332c539220c074f7a75aa7a612e058981fb728398aba429e587a",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 173
+    },
+    {
+      "id": "vf_50a4b925cc7e31a2620de35784d53e07314281a1",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 5A. 执行层默认同步补丁",
+      "chunk_index": 28,
+      "content_hash": "0b286c8327b3ce44608f3ffed3e09e4de7427d7ae6216abf18c35cee7e15e36b",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 483
+    },
+    {
+      "id": "vf_afd660182143bdc5daabe752e8bc8dc9795a10eb",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 5B. 视频修改必须同步口径规则",
+      "chunk_index": 29,
+      "content_hash": "eaa48569140096886eadda411f63b479f6173178b7135f35f3341623b0baccc9",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 744
+    },
+    {
+      "id": "vf_7f9383448d2074b09961d88b60af00b85bf689ee",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 5C. 旧口径与归档读取规则",
+      "chunk_index": 30,
+      "content_hash": "0246006d4744ed6fb9c55bc416cb33b9d0f9b01f22e8528591c46d246f416de8",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 850
+    },
+    {
+      "id": "vf_0815207d3f29f4f9023bc33e388aadd274799313",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 6. GPT 数据源与仓库不同步时的硬规则",
+      "chunk_index": 31,
+      "content_hash": "2d4dabc655c6d379802d1c96a9f40f9f78b8197e679003413517f0fc1060fe3a",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 603
+    },
+    {
+      "id": "vf_1cfee2aa845417090444b55c034b1a7d5090827f",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 7. v3.1 视觉路由入口补丁",
+      "chunk_index": 32,
+      "content_hash": "7c90ea77a167b4c473b769fc122f0df46b78d1c1671e11833f76d236ccb67b65",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 279
+    },
+    {
+      "id": "vf_84f16ced8283a364da2f0c419ef995b1477ebdf3",
+      "file_path": "codex_source/00_codex_readme.md",
+      "section_title": "codex_source 总入口 > 8. 入口一句话",
+      "chunk_index": 33,
+      "content_hash": "2086e55bc4b757c6625edca247ed54319b031d4b4969604804de150e15db26a2",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 1525
+    },
+    {
+      "id": "vf_51054ccf2008f50d3cab5d37b14d8934284d58d0",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器",
+      "chunk_index": 0,
+      "content_hash": "7df04b346b8f38ee66e7e915f6b972090b64d9f454b50d042052f5d3992f0abe",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 39
+    },
+    {
+      "id": "vf_e0896e9862b32441062b468531047b001ca7e873",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 0A. formal_operation current route",
+      "chunk_index": 1,
+      "content_hash": "5774993a4dbfd89cdc5416b2229cdc9bbd9f2ef8a0a8d4da6d09c8de3ac13baf",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 339
+    },
+    {
+      "id": "vf_f97426581f54bbc16e1ecdbaf0daf1ee602a68ab",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 1. 文件定位",
+      "chunk_index": 2,
+      "content_hash": "0944fd705a192237d52c547c695e51d2e2597b9fd7aa0c96cddc6c4c9a92de6c",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 473
+    },
+    {
+      "id": "vf_27b8ec257a224fe21feaa228f322cd25b24161e1",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 2. 每轮执行前必须输出 state_action_router",
+      "chunk_index": 3,
+      "content_hash": "176413fc7ac8b5d516d25bd74b7ffa577e5df15933edcf4d90d787f39890c45c",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 1457
+    },
+    {
+      "id": "vf_ae22f767407200d773c7f85bca0f2b54de30b084",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 3. 触发优先级",
+      "chunk_index": 4,
+      "content_hash": "fc92cc8d4937deeddf7af1d7fdfa0e4be956875da0eb9fa627e613ad6ff98433",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 1151
+    },
+    {
+      "id": "vf_9266f9ff2bab07e082433e265c1f97829b4efa4b",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 4. Codex 动作策略",
+      "chunk_index": 5,
+      "content_hash": "39cf349c6e1c690a524f09bc49c18372b86ddb9bdacdabae67285a11f6fd9fb7",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 3426
+    },
+    {
+      "id": "vf_bfb09ee05f12755c1bbc2991b000f96f079f94c1",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 4. Codex 动作策略",
+      "chunk_index": 6,
+      "content_hash": "976f00b33c75e9373ea147dc61821df7393adb0a20213d10f3d360b015ac5f3e",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 3312
+    },
+    {
+      "id": "vf_17fa81352362ae1f4b69a808a64544fbf230e362",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 4. Codex 动作策略",
+      "chunk_index": 7,
+      "content_hash": "f892a416c7cd07cfaeaa44106f1464220be65b8c4d95fc51db743dabba66e70c",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 3407
+    },
+    {
+      "id": "vf_03c54cf83f67c6d318700db1a93b03e1bf965ea3",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 4. Codex 动作策略",
+      "chunk_index": 8,
+      "content_hash": "3c49edcb71daadb4fcdb735489a8890b1c8d064e4a1493931a73f3bee78f52fe",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 3533
+    },
+    {
+      "id": "vf_11d70787976357a544bc5e85b96127396675a262",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 4. Codex 动作策略",
+      "chunk_index": 9,
+      "content_hash": "85c5972b3953d2a92ee4299db4d776ab2fcd47780e66e3a9dfa4a16a540e593f",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 3541
+    },
+    {
+      "id": "vf_6262b6a3a56c6a32a0aad65ff2690acbcc3d9375",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 4. Codex 动作策略",
+      "chunk_index": 10,
+      "content_hash": "0cb1e99877b7f749ee6fd3f6c628b35be5a0cbe593ec13c76de95185fd9d3e92",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 3569
+    },
+    {
+      "id": "vf_cdd60fa04ac7ee378238fa9dc63b4fd1566a9f1a",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 4. Codex 动作策略",
+      "chunk_index": 11,
+      "content_hash": "6da6d28e443e422b280ef7503a913364bf433274c4cc53383072b9677ce92425",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 3230
+    },
+    {
+      "id": "vf_19e04d32b01b5746c6fda9d70d249b91849c8e6f",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 4. Codex 动作策略",
+      "chunk_index": 12,
+      "content_hash": "eb4b41a9b161dedb3c9e05df75a3d5667638d0d14066e166f9b6575b73ec4b5f",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 3477
+    },
+    {
+      "id": "vf_357297b74c2e518fb46d8c1c2ee201061bd43c99",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 4. Codex 动作策略",
+      "chunk_index": 13,
+      "content_hash": "b3973a0c9b36f4b660ff504f608614c7d25daf5291d10e42c5b2d7bd20107a0a",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 3579
+    },
+    {
+      "id": "vf_f0528649d2b27ba7cf14df4f4157d6dfac124b6a",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 4. Codex 动作策略",
+      "chunk_index": 14,
+      "content_hash": "413f95b7be420ace0b78d67e8f0af607332e2f5d0f3951d910080ce3788a0f1b",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 3547
+    },
+    {
+      "id": "vf_9f3b79e6a8150076fc4e236edbe036ac6bf3fa4f",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 4. Codex 动作策略",
+      "chunk_index": 15,
+      "content_hash": "e14b381436130f13437fadea0898921acddb0632afba44dad6fdab5d04b6bf65",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 3324
+    },
+    {
+      "id": "vf_313c33fc5a009cf3fefcb08267e494624d766dcc",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 4. Codex 动作策略",
+      "chunk_index": 16,
+      "content_hash": "b10b9e75e3a16279863f5eb765f43f04684de348242ba80318b94e8edc15feda",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 1430
+    },
+    {
+      "id": "vf_65f93cc67bfae830dc7fc2335154d688e01bc034",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 4. Codex 动作策略 > 4-1. 目标驱动数据飞轮执行侧规则",
+      "chunk_index": 17,
+      "content_hash": "b67a36a46c625dafb61c7d082f832cbc596a7f68aef99d28a77add16850e19a4",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 2384
+    },
+    {
+      "id": "vf_209eb4825bc138e7c06e977495f419584ee4a670",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 4A. 三大机制推理函数执行侧调用规则",
+      "chunk_index": 18,
+      "content_hash": "63bb13b7180a8cd271e3c667245201ec6c47f651667a61be8508e2b40102035c",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 122
+    },
+    {
+      "id": "vf_d2245cbe58f1809825dfb649f80b04cfe1da145e",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 4A. 三大机制推理函数执行侧调用规则 > 4A.0 script_anchor_extraction_function（文案锚点提取函数）",
+      "chunk_index": 19,
+      "content_hash": "240fbdb2ef443aeab86f8ac6144acf29827fc0b558601efdc9289fbd0b0bff20",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 2493
+    },
+    {
+      "id": "vf_e5ce147ca2ffc5fef407e90c01900ddd4cdf0eff",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 4A. 三大机制推理函数执行侧调用规则 > 4A.1 editing_inference_function（剪辑推理函数）",
+      "chunk_index": 20,
+      "content_hash": "1735f8e2dfc7a59fa99886d44386e24812c85afc9d547786401b42b59bcb65f8",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 3298
+    },
+    {
+      "id": "vf_79de5aa491fd6ea65f529bdfc585c07b191300e6",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 4A. 三大机制推理函数执行侧调用规则 > 4A.2 content_route_inference_function（内容路由推理函数）",
+      "chunk_index": 21,
+      "content_hash": "986aab554785cdcf8744aba8d8fe966ff72f70bbefd8b4065a98cbeeb9f8d4d4",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 3593
+    },
+    {
+      "id": "vf_52de0a183be1ad5a5818f9635a93688631d160e8",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 4A. 三大机制推理函数执行侧调用规则 > 4A.2 content_route_inference_function（内容路由推理函数）",
+      "chunk_index": 22,
+      "content_hash": "2b09b65e987e53a022d33fb2f0d9a94d4044d045dbe1cf56087cc2dca4bb3adf",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 2232
+    },
+    {
+      "id": "vf_427f4ae66bd9f89594b88dc976bbdb85b4385d61",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 4A. 三大机制推理函数执行侧调用规则 > 4A.3 quality_issue_classifier（质量短板分类器）",
+      "chunk_index": 23,
+      "content_hash": "14d8131a0fa07e56214c0b8d1a673a09520ba82f4514b57792516d1347df42c0",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 1030
+    },
+    {
+      "id": "vf_bab05e08d5b740f4811366f4d757c9e84dfcf5a8",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 4A. 三大机制推理函数执行侧调用规则 > 4A.4 与 Completion Relay Gate 的关系",
+      "chunk_index": 24,
+      "content_hash": "9e75b9f657bb9dd206df6e8a50bb95e6addeaf974063f87531063986189f44f9",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 732
+    },
+    {
+      "id": "vf_8082636c0403624c666a66daf787e25b0e957d90",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 5. 事实源裁决规则",
+      "chunk_index": 25,
+      "content_hash": "bd5fdf07a8027ce9abc7e23fb0ad221cff15288690b8fb73497d9991f4fc4d03",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 1505
+    },
+    {
+      "id": "vf_355a4dea13a5c5177aa2bb1041471a390b4483c4",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 6. 与 Completion Relay Gate 联动",
+      "chunk_index": 26,
+      "content_hash": "42852cf00e35fb59c9a64e59097028b8d1dc546023320ed525b285df70f88c59",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 1315
+    },
+    {
+      "id": "vf_9c766094a220873dbc1c3f1de5224283aa887b9c",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 7. completion_state_inference 执行口径",
+      "chunk_index": 27,
+      "content_hash": "a2b5ec3fe07cf86855cae3a2d484db24b49b73c4db8045618eabf6de57628229",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 918
+    },
+    {
+      "id": "vf_5bc26acc321fa0be04bcb2a7bef9373fa5685cf4",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 8. feedback_update 执行口径",
+      "chunk_index": 28,
+      "content_hash": "4aad1f88cc82c0038eee1d162564072da6e889dad2e29908be4e84a73d566c69",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 396
+    },
+    {
+      "id": "vf_c0c3cc9bd5238c10ce825ab3aa12642e3dc842b7",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 9. 本轮禁止状态推进",
+      "chunk_index": 29,
+      "content_hash": "2371703688db62357dadd4ff2b1dd5feef9fc022d118bce0200561c708ed02d8",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 359
+    },
+    {
+      "id": "vf_93eaacdfebd1bfa7236da9aa420c469bb6abf8cf",
+      "file_path": "codex_source/19_project_state_action_router.md",
+      "section_title": "Project State Action Router 项目状态动作总控器 > 10. 一句话规则",
+      "chunk_index": 30,
+      "content_hash": "23e7ca93f49182861365979ae86a866e6cce467c295e3b13ff4e244a25bda30a",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 216
+    },
+    {
+      "id": "vf_ef34d66ba380b8aaf99b86417e690fee17f6e7c1",
+      "file_path": "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+      "section_title": "工作流入口归位索引 Workflow Entry Routing Index",
+      "chunk_index": 0,
+      "content_hash": "d38a368a5b63c261dbce73db463269bef70ad43806f7c7181a83aae9a0f2e72a",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 40
+    },
+    {
+      "id": "vf_7284a2f2400fdd6872b75ee0da95e52c8ebced45",
+      "file_path": "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+      "section_title": "工作流入口归位索引 Workflow Entry Routing Index > 1. 用途",
+      "chunk_index": 1,
+      "content_hash": "d4616f581b6f016c30ce5690f57d3cfe9d860c3e44d5375497ff3b03d0fd8d95",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 330
+    },
+    {
+      "id": "vf_ff730a564533be02cfe2968f6b7889d744cee6ff",
+      "file_path": "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+      "section_title": "工作流入口归位索引 Workflow Entry Routing Index > 2. 每轮必须输出 workflow_route_decision",
+      "chunk_index": 2,
+      "content_hash": "a0293ce01411328332c790e127480767126460b1de9a05381a148f09314f2d2a",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 687
+    },
+    {
+      "id": "vf_3715c3cd0c6b805acea386f8b682ec964733bd79",
+      "file_path": "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+      "section_title": "工作流入口归位索引 Workflow Entry Routing Index > 3. 工作流归位表",
+      "chunk_index": 3,
+      "content_hash": "1e9327d9cb2c347114f70fa9c2e17e6d9ad53b1ebd65570cc145fb524a9ab0a1",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 12
+    },
+    {
+      "id": "vf_814894be7efdaeed5b5431b49c7f5c69df6d8d66",
+      "file_path": "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+      "section_title": "工作流入口归位索引 Workflow Entry Routing Index > 3. 工作流归位表 > 3.1 copy_testing_flow（文案测试流）",
+      "chunk_index": 4,
+      "content_hash": "7a6127388d0843a3f00a0b1194c463b0e255ba1d8f9732101bb2efbf863101e2",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 620
+    },
+    {
+      "id": "vf_de95d2fdd66a61e3a8ac3a8ece8104c8fdf096ba",
+      "file_path": "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+      "section_title": "工作流入口归位索引 Workflow Entry Routing Index > 3. 工作流归位表 > 3.2 material_evidence_flow（素材证据流）",
+      "chunk_index": 5,
+      "content_hash": "928154cb87dfcf00289010bf01d92402603daec3d92b791a7bea85e7f9b73e13",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 950
+    },
+    {
+      "id": "vf_36fcd9af5e5df3794dcd3d1a618cbd523a00bf8d",
+      "file_path": "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+      "section_title": "工作流入口归位索引 Workflow Entry Routing Index > 3. 工作流归位表 > 3.3 aesthetic_editing_flow（审美剪辑流）",
+      "chunk_index": 6,
+      "content_hash": "ee588c21ab4ac547c023a55b4f5de15ad4d2c7e36a5bd3df9d6e44509221f531",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 1251
+    },
+    {
+      "id": "vf_e5ae54609558366161df97d28853ccf2612156a5",
+      "file_path": "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+      "section_title": "工作流入口归位索引 Workflow Entry Routing Index > 3. 工作流归位表 > 3.4 quality_review_flow（质量复审流）",
+      "chunk_index": 7,
+      "content_hash": "e4be6f99e88eddd88bc55e67b3327aa4906e9fd7b955b6349233ff6e49e49c02",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 1085
+    },
+    {
+      "id": "vf_d3505d37dd40937f20fc0707aa43dceafc9e3115",
+      "file_path": "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+      "section_title": "工作流入口归位索引 Workflow Entry Routing Index > 3. 工作流归位表 > 3.5 data_review_flow（数据复盘流）",
+      "chunk_index": 8,
+      "content_hash": "19f5914133774ecc5ad6eac66981fa84fad13533982bef4973fbc7637175f4be",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 603
+    },
+    {
+      "id": "vf_8275c226becbb6a39dc66a6b1421ef182a980007",
+      "file_path": "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+      "section_title": "工作流入口归位索引 Workflow Entry Routing Index > 3. 工作流归位表 > 3.6 mechanism_repair_flow（机制修补流）",
+      "chunk_index": 9,
+      "content_hash": "5278db79814322771c3b9c3d1bbf31de81396357fb6b3a19d755a9ace990286c",
+      "source_type": "runtime_gate",
+      "authority_level": "canonical_current",
+      "char_count": 694
+    },
+    {
+      "id": "vf_b2b1cda417cf43699e3d94bc6337430b8a11ff77",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实",
+      "chunk_index": 0,
+      "content_hash": "6f27747e205ba2405d16255c19fc0e2affe36ea39583d29c76759b28edcd3b90",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 8
+    },
+    {
+      "id": "vf_7f02c4c1865f151fece24f5aff03a28245378fc3",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 0A. 2026-05-15 正式运营阶段事实",
+      "chunk_index": 1,
+      "content_hash": "c8f67e01518ab0bef7c25054cfd02f3309bbc32c3c3c4373f947dca293c50aae",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 1230
+    },
+    {
+      "id": "vf_010f8f47490d322330f32e88eb5979e784bdb2ce",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 0A-20260607. V006 第六期新素材无 GPT 图标候选片事实",
+      "chunk_index": 2,
+      "content_hash": "4f27a3df304f8bd1d543f25900ad2760a403529931f0248f9bbfad1b5454f5a7",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 1189
+    },
+    {
+      "id": "vf_c2661e027152914f0505bb5d4807e7a3b5030fad",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 0B. 2026-05-16 用户反馈边界与禁止降级完成事实",
+      "chunk_index": 3,
+      "content_hash": "0604dba080a2bd66ee2f0b7992e6bb25ad710b2ee1da86994ba4d74b12f63b85",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 396
+    },
+    {
+      "id": "vf_4b304634292008802b341fe94354d8250b39100a",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 0C. 2026-05-16 锁定文案契约与已发布不回炉事实",
+      "chunk_index": 4,
+      "content_hash": "fc23c15bcad579c2197c539bf41bdeef6845bd6478956a3fea4896fcf6243afe",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 891
+    },
+    {
+      "id": "vf_292124ddfede661a15a9f0ae67b532680d46a8e1",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 0D. 2026-05-16 运营决策系统落地事实",
+      "chunk_index": 5,
+      "content_hash": "89d41391784d032189328b707d6070f46ebf0d61fd9b16af08f3bc08d3b7861c",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 973
+    },
+    {
+      "id": "vf_05ea7765eefc224a2156d001aed914550611a81b",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 0E. 2026-05-16 Codex 判断权限表与 HyperFrames 卡片基线事实",
+      "chunk_index": 6,
+      "content_hash": "2fff4b77d4949775d2513a9e87bdcd41d79ca71986efe2e7ca2ccbc4f04bfd12",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 1523
+    },
+    {
+      "id": "vf_2189504b1aac38caea36866537ab854cb5a8e863",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 0E-1. 2026-05-16 HyperFrames 最小卡片用户通过与视觉皮肤锁定事实",
+      "chunk_index": 7,
+      "content_hash": "d0a1ad4c4efffd2264df44e730fd07cec1bbd28717b2d36c4e9e416ac230a8a5",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 1188
+    },
+    {
+      "id": "vf_42af1e6b6da27cdf9e3d21c5d20c1edfe875889b",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 0F. 2026-05-25 MiniMax 默认正片候选 TTS 路线事实",
+      "chunk_index": 8,
+      "content_hash": "20296c4edbdd66d06d49aa3e49c7207394f3641471178eac00138ae7d2eed808",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 1121
+    },
+    {
+      "id": "vf_73698fb653c4c9e46ea961a9fcd463de1c5fdfff",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 0G. 2026-05-26 三项候选片判断机制事实",
+      "chunk_index": 9,
+      "content_hash": "bae78467f93a1613a07ac210bcc78a4023c8ebfd50fcaffab0cf930e50678d5c",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 2075
+    },
+    {
+      "id": "vf_b88fa81435a0bf3dc3f809987ffc0dd01540b0cf",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 0H. 2026-05-27 MiniMax B 声音身份锁候选事实",
+      "chunk_index": 10,
+      "content_hash": "02865ecf60cde77ba145c0853dac84bc63ffd9169072d6c193f26e260d2b8d0d",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 1183
+    },
+    {
+      "id": "vf_d3dc59150b0c2823ebf978a092598069c87ddc51",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 0I. 2026-05-27 B 声音本体重审与男声/偏男候选事实",
+      "chunk_index": 11,
+      "content_hash": "7e914ac6591e62c98e01262fb31a5548763934f71da24ccaeb71f7b876676b03",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 1549
+    },
+    {
+      "id": "vf_7dce97aa2c3a0c44dd5bb96af5014a790858d02c",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 0J. 2026-05-27 旧阿里 / Qwen B 方案声音恢复审计事实",
+      "chunk_index": 12,
+      "content_hash": "1a5a1bb62c2d37b0fd650ac053609f42e0cd3a106faecc8871adec3b221b9165",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 1601
+    },
+    {
+      "id": "vf_8ccc98ff041a06f8ce5d2d9d5bdb9640a2163054",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 0K. 2026-05-27 旧 B 到 MiniMax 迁移事实",
+      "chunk_index": 13,
+      "content_hash": "f0084bf6d2d5d84d0a1ae1744f9da4150526d7129b5f19acf59f4f53a4c3b866",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 1682
+    },
+    {
+      "id": "vf_b44bce8b7ba573d378802a94cab791c7f91cef02",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 0L. 2026-05-27 旧 B 到 MiniMax 迁移上传授权解阻事实",
+      "chunk_index": 14,
+      "content_hash": "963cf646a45306140ee91364dee718f7b5c28143ab67fddeae6c50d31fc56bac",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 1078
+    },
+    {
+      "id": "vf_bbf16e62a381df989b63fe373a433c706410bc24",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 0M. 2026-05-28 旧 B 通过阿里百炼代理迁移到 MiniMax 待试听事实",
+      "chunk_index": 15,
+      "content_hash": "458e7a5d887f84c2f5ddfd8aa6c25ef6f79099c58052163250763c201a121e17",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 1590
+    },
+    {
+      "id": "vf_6bc1798214d74fb38d64e20032057222f1a4b09f",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 0N. 2026-05-28 旧 B 迁移 MiniMax 声音锁定与当前候选片音轨替换事实",
+      "chunk_index": 16,
+      "content_hash": "750ffe1b558e32427072121516fb69838c0c6d152fe7dd387f9f04b429e5dbf5",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 2176
+    },
+    {
+      "id": "vf_621ad13c5030f24e0cce180f0df3de95f985daae",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 0O. 2026-06-02 新第四期参考引导完整候选片事实",
+      "chunk_index": 17,
+      "content_hash": "7538a49860ef737f07aec5c342b9f41e7c155908342fa1b291b78344792f45ef",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 1382
+    },
+    {
+      "id": "vf_3ae8be57369c14974bb72c0f91e1152fcc751e79",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 1. 使用方式",
+      "chunk_index": 18,
+      "content_hash": "453ece305f8a9c868854dece9db402fe978a4a5ca7c5c8445466a03cc59ab8e9",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 81
+    },
+    {
+      "id": "vf_5b29b252da9d5cee2813717bb86f4de334452e83",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 1A. OPC 口径升级事实",
+      "chunk_index": 19,
+      "content_hash": "7e22484d242641121d31a1f903365fe13e0ccbc1654b357de643a4bd1e3de796",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 3068
+    },
+    {
+      "id": "vf_a822cd4e742ce915b9a2def05e7d5aca4b947582",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 2. `已确认`",
+      "chunk_index": 20,
+      "content_hash": "bc5302991929c09214f9e6624664189e15f8c91a67f0eaebb3c319f6e765653a",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 11
+    },
+    {
+      "id": "vf_59e00b097e5859064918e33f606390a3ea7690f1",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 2. `已确认` > 2.1 当前资料包身份",
+      "chunk_index": 21,
+      "content_hash": "395765639c82c76f69fe768e59a5d4822521257ad10a2fbff1b3e24edc31b2e3",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 228
+    },
+    {
+      "id": "vf_cb14185e62cbdec4d1a81fe0619fb44e3392f476",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 2. `已确认` > 2.2 当前唯一正式主需求",
+      "chunk_index": 22,
+      "content_hash": "842fdd2b7c491b24597eab4e17e695596878f5efb5cecba42be13aa615eeca38",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 74
+    },
+    {
+      "id": "vf_7cfb6a6a7a29b6fbb14861eb83c3cdff5a4a8047",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 2. `已确认` > 2.3 当前项目中心价值",
+      "chunk_index": 23,
+      "content_hash": "b7f808e4225cece3843a53cfa075fad9143b5ad8539f60748e2c961cd584cbfa",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 217
+    },
+    {
+      "id": "vf_b8dce3f75b0735d2846885dac9deb6e495854993",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 2. `已确认` > 2.4 当前 vNext 默认口径",
+      "chunk_index": 24,
+      "content_hash": "5452f0cd576574c49f835f2fd57f95f785df2306b278250452160eee1b8c8ffc",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 791
+    },
+    {
+      "id": "vf_79afa4b2f32dd52deeaf78dddcf1d79eb3392cdb",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 2. `已确认` > 2.5 当前仓库工作台事实",
+      "chunk_index": 25,
+      "content_hash": "fe22e2a0fdc7e29528dcfbaa0fe9bef256dd3db44bfcff5aa104b17e9bafdf1b",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 182
+    },
+    {
+      "id": "vf_77f878322db7dc986612ff5666eb978ee178c08b",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 2. `已确认` > 2.6 历史通过样片 / 历史口径",
+      "chunk_index": 26,
+      "content_hash": "09d95584dbf0474805f2069eec5d8a406037d41352b1a8cdee5e4bfbd477c528",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 452
+    },
+    {
+      "id": "vf_9a06872af3853379ae8f49a6099df8470d38e7f6",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 2. `已确认` > 2.7 round34 历史中段参考状态",
+      "chunk_index": 27,
+      "content_hash": "9d631532da2f21f5f1bf9b371727f7c71e31870b6259ecd8b6788c2a36c484d8",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 1615
+    },
+    {
+      "id": "vf_9b37ee96cdab4d667d04524df545c953396fdd18",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 2. `已确认` > 2.7A 《我用 AI 做 PPT 踩过的坑》v3 用户复审后状态",
+      "chunk_index": 28,
+      "content_hash": "b000de260287521701592cee86801fc0ab1c14c6a0613533db11da40182f391d",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 1219
+    },
+    {
+      "id": "vf_d19da3266833952db87bd8dcb3da2a07832ab356",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 2. `已确认` > 2.7B 《我用 AI 做 PPT 踩过的坑》v3.1 legacy_previous_baseline 状态",
+      "chunk_index": 29,
+      "content_hash": "2d9bbb7ece481c4e01617c1b653aa58398deca17a8af2e0686a3bc0975ce130e",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 2913
+    },
+    {
+      "id": "vf_f3fea506eef1c4cf8cf9cc6e96391ac385f67224",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 2. `已确认` > 2.8 历史 vNext 分支状态",
+      "chunk_index": 30,
+      "content_hash": "3ffc9f9d9d2abc488026dc7660b894fd8452ea865b1f39fe1d30000736f88996",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 316
+    },
+    {
+      "id": "vf_0d75b5ff7d2be097d99fdb359774735ef54044bd",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 2. `已确认` > 2.9 用户语音样本参考锚点",
+      "chunk_index": 31,
+      "content_hash": "a53c87f6698eadab5fabf29ed42d197e066ca6baae141c0d121d8b0cff003cf2",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 873
+    },
+    {
+      "id": "vf_def18f6c6719af556df25fbcb9003d0e4058e0fc",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 2. `已确认` > 2.10 当前文案流程与 B 版声音暂定口径",
+      "chunk_index": 32,
+      "content_hash": "4b54d11bf71af7ce630e9b46e421e2139e0867c6538cb2d701607bc948d54034",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 988
+    },
+    {
+      "id": "vf_8fad3e6558a9bea1cd39442e4c5edef16dee601d",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 2. `已确认` > 2.11 目标驱动数据飞轮与文案执行闭环机制",
+      "chunk_index": 33,
+      "content_hash": "2fd216c012ce68d9e22b097833615c86cb89b75371a4a4b831acbe612786fb8e",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 1211
+    },
+    {
+      "id": "vf_904ef96a3c14788c7f91f606d5732cb29550394f",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 3. `部分成立`",
+      "chunk_index": 34,
+      "content_hash": "c9b601de936314834906be9babfbb4e2e6ab829aa08f7e6e50e675c4e114f0e7",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 188
+    },
+    {
+      "id": "vf_ffd5135ef7ebb28e421bc89826188750463693bf",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 4. `待验证`",
+      "chunk_index": 35,
+      "content_hash": "56ec409082dbcbcc32ac3b16c5f1fe13c29fa84d8aaf6465aa6893ee28774d40",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 895
+    },
+    {
+      "id": "vf_d08aa5c0d61cc9740c379435eb035eafee0427d6",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 5. `推测`",
+      "chunk_index": 36,
+      "content_hash": "b0836ab72b024024c307d5e90564e3318135c9c125b206768399d2d1459e2789",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 40
+    },
+    {
+      "id": "vf_54b25e44f48f670aa92a01c53862c39eefb8f697",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 6. 当前明确不是事实的说法",
+      "chunk_index": 37,
+      "content_hash": "4310cc7d051b1e52f5a2147533ac2fe427a381f07991f306335819c2fe43c4d5",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 737
+    },
+    {
+      "id": "vf_8ebc462a58a4776d7757a319566009bac2eb122f",
+      "file_path": "GPT数据源/08_当前正式事实.md",
+      "section_title": "当前正式事实 > 7. 一句话规则",
+      "chunk_index": 38,
+      "content_hash": "2a4ff86bba41e83ac1d5614e08c76fab41774bc0a6bf66fd0a339394690bcb93",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 457
+    },
+    {
+      "id": "vf_23e2751cc49c2780e276ba2111d02252604420a8",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层",
+      "chunk_index": 0,
+      "content_hash": "1186749fc5d49426ed14f5754012620b012e08f2a6c28ac1d13b86f1e94f78c0",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 17
+    },
+    {
+      "id": "vf_9d0f94ec7865448c070c1a85c3cb79ab0d6e1f09",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 0A. formal_operation current route",
+      "chunk_index": 1,
+      "content_hash": "a240572de2c60300f54460a7c1a390303c187ee14c83d0f3eebf0e31f79fc24c",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 286
+    },
+    {
+      "id": "vf_4344750ad862cd033925ef0953fe8f086bd61f5c",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 1. 文件定位",
+      "chunk_index": 2,
+      "content_hash": "c322bb9f4e4ed13c8f91d4896301255fe6911113a8c4d77bca06926698a27731",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 444
+    },
+    {
+      "id": "vf_b0421ef051a9befebb7e643f678a1751f17eb25e",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 2. project_state_table（项目状态表）",
+      "chunk_index": 3,
+      "content_hash": "df7c8168a2019c3117489d2d5dd171f8fcfcdbcffaaea5d6d423126562ed42fc",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 3555
+    },
+    {
+      "id": "vf_39b465e8a3ea638cb99919568e995a8dfa44f5e1",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 2. project_state_table（项目状态表）",
+      "chunk_index": 4,
+      "content_hash": "8cd1766cf305a3defca27b6ed0a3bd9085713b7fc018430c621ec60c30b6ac92",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 3276
+    },
+    {
+      "id": "vf_7aa963bfba26cc5ffae2ab4499006d00024dce01",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 2. project_state_table（项目状态表）",
+      "chunk_index": 5,
+      "content_hash": "1fdb896e80e138503869e12b08d4bf1b9e4c385698207d3987685557541ac7b7",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 3224
+    },
+    {
+      "id": "vf_7bebe3303c83b7d959fe4a6b4093848c87444324",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 2. project_state_table（项目状态表）",
+      "chunk_index": 6,
+      "content_hash": "3d2d0048ed625d925f4275c00ed342f9cc9465a2bb0750a6af97e2bce483eb77",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 3170
+    },
+    {
+      "id": "vf_ad90ac3775ef75445545c11bde62918e0646e0ce",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 2. project_state_table（项目状态表）",
+      "chunk_index": 7,
+      "content_hash": "0fded2f69a9d0d2ef654df6787231876b87079f24aaa3ad6282dcdce8cc17fe7",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 3594
+    },
+    {
+      "id": "vf_b8544195a911c511ff23ca158d47c179078aab5b",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 2. project_state_table（项目状态表）",
+      "chunk_index": 8,
+      "content_hash": "ca2e2fee21da0cb79de963d4d9688e901cd72004fd9079ebc478b04e8e804e98",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 3521
+    },
+    {
+      "id": "vf_426b9ff0f661cfff4c7251104a18ed77447f5cc6",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 2. project_state_table（项目状态表）",
+      "chunk_index": 9,
+      "content_hash": "7fabbbec179139426d6dbd5070abeb632b194082a0506c52b053643412ad593d",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 3445
+    },
+    {
+      "id": "vf_1d6fcc80c104c4e0e76003dab2a1d7a0d4b20214",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 2. project_state_table（项目状态表）",
+      "chunk_index": 10,
+      "content_hash": "f46bce2e7699a86013bf850b7799bedc75c67932d9229f281f1f630ff3aaf072",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 2167
+    },
+    {
+      "id": "vf_677fc205e5a985cc251b3e8f1d70cf0c9d9957b8",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 3. fact_source_arbitration_table（事实源裁决表）",
+      "chunk_index": 11,
+      "content_hash": "e074be2554235b458b9b7c5f1b0434c23d6748a9c180b073d9cff2bd1bc5ab67",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 1151
+    },
+    {
+      "id": "vf_d36152e17a444232c3e15e1c18ec058bcaa65073",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 3A. mandatory_commit_push_gate（强制提交推送闸门）",
+      "chunk_index": 12,
+      "content_hash": "16f0c816147cc24f3a9dc15bd251e650942aaddc88bd0e965e6767113c39d639",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 2011
+    },
+    {
+      "id": "vf_30a4f172f739ac46a181d891e00cfa5cddd169f2",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 4. trigger_routing_table（触发路由表）",
+      "chunk_index": 13,
+      "content_hash": "d171325da153fc06bb285e08e3f4ad5ccd721b39bb82ad3f15dcdf22caa48dd4",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 3348
+    },
+    {
+      "id": "vf_39c78b785f291ea93c648e0c5f204dc3d526f7db",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 4. trigger_routing_table（触发路由表）",
+      "chunk_index": 14,
+      "content_hash": "2b51783f6494535aa0c63cf883997de90017cfcb2b813d03799cd24519a1a1d8",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 3575
+    },
+    {
+      "id": "vf_e5207829919e45f6925e39a3cac8ca1a1f84816f",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 4. trigger_routing_table（触发路由表）",
+      "chunk_index": 15,
+      "content_hash": "8b99f9376fb5bd5332ff0c47726a850f1f8e6289860747976b0b3b26d34169d5",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 3476
+    },
+    {
+      "id": "vf_97a17685c2d62448df36ae784cc9195b04101e7b",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 4. trigger_routing_table（触发路由表）",
+      "chunk_index": 16,
+      "content_hash": "dc60eb13b8f8378535e532f0a41b121731914df6d57fc9b236108815920ffcee",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 1281
+    },
+    {
+      "id": "vf_34bb676e0b6b81cec468849bc93fed958644e1d5",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 4A. data_goal_copy_revision 与 content_structure_feedback 触发规则",
+      "chunk_index": 17,
+      "content_hash": "82a4afb62f27e7985281f8d3308f0d34ef4c88993605e6f696aa22618d9b6bfb",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 64
+    },
+    {
+      "id": "vf_36b4c54ba1e910eb062bf7d91780a439dca82cf5",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 4A. data_goal_copy_revision 与 content_structure_feedback 触发规则 > data_goal_copy_revision_needed",
+      "chunk_index": 18,
+      "content_hash": "f71e0fdafd551b996eb0efcec340392b956507f7e6cb825718acd87d483a1642",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 623
+    },
+    {
+      "id": "vf_6c56f08ab187ae7bf04fec6c783d60e389e5a70b",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 4A. data_goal_copy_revision 与 content_structure_feedback 触发规则 > copy_iteration_system_required",
+      "chunk_index": 19,
+      "content_hash": "1b695281eee87713d81be54ccde9ac69c9acbf93f4384dc1b0ee024712555559",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 957
+    },
+    {
+      "id": "vf_c34306b047b2c1f687ba7424f00e87b6a133a93c",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 4A. data_goal_copy_revision 与 content_structure_feedback 触发规则 > ambiguous_goal_clarification_needed（需求不确定澄清闸门）",
+      "chunk_index": 20,
+      "content_hash": "08653c2dcfe931314f3aa86ab38c785193971ad44a4c2f523d3664eeba0ce702",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 1148
+    },
+    {
+      "id": "vf_59976ab5af4394938ff9c0aa9a300db49330d915",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 4A. data_goal_copy_revision 与 content_structure_feedback 触发规则 > requirement_alignment_needed（问题 / 修改 / 需求不清时的需求对齐闸门）",
+      "chunk_index": 21,
+      "content_hash": "a177013c126e0a78b225c9eddd12515a9ab6cc45a84522d7b78226079d99fab6",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 3081
+    },
+    {
+      "id": "vf_19a396a404a863dcd441b5d83d57ae98f16075a2",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 4A. data_goal_copy_revision 与 content_structure_feedback 触发规则 > mandatory_deepseek_supply_loop",
+      "chunk_index": 22,
+      "content_hash": "78355131415b59eb290bd49f2dedc76aba04906a39c852ed53fb386c82ad1e71",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 2609
+    },
+    {
+      "id": "vf_51593c33118fab98a6f8e6676063c23ffbb531c9",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 4A. data_goal_copy_revision 与 content_structure_feedback 触发规则 > content_structure_feedback_needed",
+      "chunk_index": 23,
+      "content_hash": "480e8104183649d4bacfc05d09c3f942345628cb33b907aaa8c79f42e6ebffbf",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 494
+    },
+    {
+      "id": "vf_938febc1a21ab51847f5d55b8c291ffe5dbceae7",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 4A. data_goal_copy_revision 与 content_structure_feedback 触发规则 > single_primary_variable 与 next_video_execution_prompt 执行边界",
+      "chunk_index": 24,
+      "content_hash": "85cc872e7fb2572bfb33f4236823a7a627af44061d7df367d75d521fc136e2be",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 530
+    },
+    {
+      "id": "vf_67d45ec78ffa21663dde5ace6ee048d5d9260f09",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 4A. data_goal_copy_revision 与 content_structure_feedback 触发规则 > formal_operation_delivery_baseline（正式运营交付基线）",
+      "chunk_index": 25,
+      "content_hash": "f7581540b08db7d84fe8cb86df370e296a48d2e6688317d45c272335b91d320b",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 2073
+    },
+    {
+      "id": "vf_3bfc19201e840b67975319d75f60d82364981def",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 4A. data_goal_copy_revision 与 content_structure_feedback 触发规则 > user_feedback_boundary and no_degrade_completion states",
+      "chunk_index": 26,
+      "content_hash": "20d273bb07a2f52f6aaa2945a24131cd79cb658cde100aa30cc956ed1f8b51a1",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 3509
+    },
+    {
+      "id": "vf_b6099bc7299bf0eb786ce9220d7ae92410f03a8c",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 4B. data_goal_execution_bus（数据目标执行总线）状态动作规则",
+      "chunk_index": 27,
+      "content_hash": "033316db957d52a7d327844634f74a824e8d9b83786fa254778148bb6d977b0a",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 1909
+    },
+    {
+      "id": "vf_0915fb684e49e26cab1831d27dcf34ec2dc72bdd",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 5. mechanism_inference_template（机制推理统一模板）",
+      "chunk_index": 28,
+      "content_hash": "877f7d8158252a14af8fb08a12f2ad275443a678c794a4d0e8dea3c25aaea3e4",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 643
+    },
+    {
+      "id": "vf_37f1ab2306baf9c4671567f9cf111979ecf13441",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 5A. core_inference_functions（三大机制推理函数）",
+      "chunk_index": 29,
+      "content_hash": "7024cf4aabc31bea59f9b7a67962e98b8aed728a23e9d3ca5d131dd891b15c59",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 590
+    },
+    {
+      "id": "vf_179dcbd6cdc697fddd53e6fb2e92a56740eb54b7",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 5A. core_inference_functions（三大机制推理函数） > 5A.0 script_anchor_extraction_function（文案锚点提取函数）",
+      "chunk_index": 30,
+      "content_hash": "1a15c3bb24d4ed8aaa41e0845d6f4f4e3fd80107b5e24efb6607b12370433567",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 2436
+    },
+    {
+      "id": "vf_c92868a6c02c1bac2b4ba3ba027b08fcf11b1fe8",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 5A. core_inference_functions（三大机制推理函数） > 5A.1 editing_inference_function（剪辑推理函数）",
+      "chunk_index": 31,
+      "content_hash": "a35994b4aaf07d66809bba80f5306d51a6ce1e29df6e6863c71805ba0c220a58",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 3513
+    },
+    {
+      "id": "vf_d19809835a6bff2b0884f077a9bfe366f0aa3696",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 5A. core_inference_functions（三大机制推理函数） > 5A.1 editing_inference_function（剪辑推理函数）",
+      "chunk_index": 32,
+      "content_hash": "2cf419d3e02f447f33cd3a89377c113172d1f986abacc63321095f520d82d6d6",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 450
+    },
+    {
+      "id": "vf_56df2e5b39ccb600aa3a0d6ef7f0709f6ee7bb64",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 5A. core_inference_functions（三大机制推理函数） > 5A.2 content_route_inference_function（内容路由推理函数）",
+      "chunk_index": 33,
+      "content_hash": "579a960c59e2839f66875983b23a820c35f1be4aac8c8bca19301ab8b9ffbbc3",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 3577
+    },
+    {
+      "id": "vf_74d2dddb0295d3e52f94eeeb61880776508c004f",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 5A. core_inference_functions（三大机制推理函数） > 5A.2 content_route_inference_function（内容路由推理函数）",
+      "chunk_index": 34,
+      "content_hash": "d6d8300621d1f8d3dce69699fb3fa01ecbb74f7e35bb382831fe3821350251ec",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 3586
+    },
+    {
+      "id": "vf_b2f549cc9dda9cd058bfcd908b72b0ac7f0c71a4",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 5A. core_inference_functions（三大机制推理函数） > 5A.2 content_route_inference_function（内容路由推理函数）",
+      "chunk_index": 35,
+      "content_hash": "cd710ee15d1d4452245b463a111284b9d8efc81ba121f76c51fb6c629462f3a7",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 3227
+    },
+    {
+      "id": "vf_eb9a8fe24c2a5c1f3bce2e707fcbf222348b219e",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 5A. core_inference_functions（三大机制推理函数） > 5A.2B social_editorial_card_v1（社交编辑感卡片 V1 机制闸门）",
+      "chunk_index": 36,
+      "content_hash": "9cc07008582b89e59eb27f469378c59a6ce6c7c8709cc6b1dcd5e7d44434f629",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 3510
+    },
+    {
+      "id": "vf_03f6599629956c665787bbe50fb1ddeb17d734da",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 5A. core_inference_functions（三大机制推理函数） > 5A.2B social_editorial_card_v1（社交编辑感卡片 V1 机制闸门）",
+      "chunk_index": 37,
+      "content_hash": "2f5e21f1b5406782994d89361d9fadf5963031ead8b85f7c019cbe869cf77cb5",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 501
+    },
+    {
+      "id": "vf_79426be8892cd319a956b096d71c9b114192fa14",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 5A. core_inference_functions（三大机制推理函数） > 5A.3 quality_issue_classifier（质量短板分类器）",
+      "chunk_index": 38,
+      "content_hash": "6e0c2031d31b62906c7ee44c85f11b34ba1a5a47303ae45ebefdf1ea0cc2dedc",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 2583
+    },
+    {
+      "id": "vf_8d10ed2ba1b4d2b09054f7c55f61aa1845b0bbb4",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 6. completion_state_inference（完成状态判断）",
+      "chunk_index": 39,
+      "content_hash": "0b89ebbfc855e26d584561358d4d89faab4e52759d59d02087471c3ee85fc59c",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 2001
+    },
+    {
+      "id": "vf_7d78d4738c7b2abad70c4a1a3c953d2867e8d74a",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 7. feedback_update_rule（反馈更新机制）",
+      "chunk_index": 40,
+      "content_hash": "822556e52192d76670f90b520493b733b286d712e5d7035ef6344f20387622e2",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 1092
+    },
+    {
+      "id": "vf_c1e1e1e58c767729c1c4799475148b9fed0f5aa2",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 8. seed_state（当前项目初始状态）",
+      "chunk_index": 41,
+      "content_hash": "b8ab2983093fb62c37e6303af708cc2e460d76d27e5c0d449e8e6529ba0d3f76",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 1022
+    },
+    {
+      "id": "vf_8ea182c382017ebfa3f89deb5924c925199535ac",
+      "file_path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "section_title": "项目状态动作总控器与机制推理层 > 9. 一句话规则",
+      "chunk_index": 42,
+      "content_hash": "a54999c03ce13d9859fa1dcdcf76768e32837f2439113a7fb7c9c81d8d2d7e38",
+      "source_type": "formal_rule",
+      "authority_level": "canonical_current",
+      "char_count": 290
+    },
+    {
+      "id": "vf_c84419d64f45283050c07ecb733fd43dfb288a7e",
+      "file_path": "codex_log/vector_rag_router_design/20260611_read_contract_strategy_report.md",
+      "section_title": "20260611 Read Contract Strategy Report（读取契约策略报告）",
+      "chunk_index": 0,
+      "content_hash": "b14e13d4a8ef3d077bc03ccf6c306f6edca0ec93eaeae05372d30e732ccdf5e2",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 50
+    },
+    {
+      "id": "vf_d95fd32dfb1cffd760ed58c9f8270cfaf7a2b78a",
+      "file_path": "codex_log/vector_rag_router_design/20260611_read_contract_strategy_report.md",
+      "section_title": "20260611 Read Contract Strategy Report（读取契约策略报告） > 1. execution_status（执行状态）",
+      "chunk_index": 1,
+      "content_hash": "182862534aed3a6f3fb695273c1d139480248d9527d028d658fa326c3e27602f",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 437
+    },
+    {
+      "id": "vf_7607c61fc5a3b0480e59b2791704b2c82b754d67",
+      "file_path": "codex_log/vector_rag_router_design/20260611_read_contract_strategy_report.md",
+      "section_title": "20260611 Read Contract Strategy Report（读取契约策略报告） > 2. files_created（新增文件）",
+      "chunk_index": 2,
+      "content_hash": "8fe51ca6067235fe89c1816eb800d13d0144c6ca832f0d17de0abe97797654dd",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 770
+    },
+    {
+      "id": "vf_591ec418ce234cb11ebdcce86d02235647031cb0",
+      "file_path": "codex_log/vector_rag_router_design/20260611_read_contract_strategy_report.md",
+      "section_title": "20260611 Read Contract Strategy Report（读取契约策略报告） > 3. core_design（核心设计）",
+      "chunk_index": 3,
+      "content_hash": "77ed24b74305874a5e52b1ce908787eb7bebcded225ef5432146215b5020258c",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 338
+    },
+    {
+      "id": "vf_65892661fec52a69f31ddb46aade8f0c8fe43f96",
+      "file_path": "codex_log/vector_rag_router_design/20260611_read_contract_strategy_report.md",
+      "section_title": "20260611 Read Contract Strategy Report（读取契约策略报告） > 4. fixture_results（测试用例结果）",
+      "chunk_index": 4,
+      "content_hash": "a40e165425683f45024127d6c45305c2ab4c351a67d31c97d9bc1d4c306cf074",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 610
+    },
+    {
+      "id": "vf_650e815539389ef6ee2839e23294b7809210c092",
+      "file_path": "codex_log/vector_rag_router_design/20260611_read_contract_strategy_report.md",
+      "section_title": "20260611 Read Contract Strategy Report（读取契约策略报告） > 5. key_decisions（关键判断）",
+      "chunk_index": 5,
+      "content_hash": "0742483f769c26e1602ec3735fc288aa51b980580bbc4eda8a9c0ccfbf13c44d",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 456
+    },
+    {
+      "id": "vf_879065ea49285ed940bff77a0f7996880ca6dea4",
+      "file_path": "codex_log/vector_rag_router_design/20260611_read_contract_strategy_report.md",
+      "section_title": "20260611 Read Contract Strategy Report（读取契约策略报告） > 6. safety_boundary（安全边界）",
+      "chunk_index": 6,
+      "content_hash": "f6167df67a8f2e391952c4cc33726ab05a1e630f09d428aa4513faaca523f8c1",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 186
+    },
+    {
+      "id": "vf_5f0c9c4e8bff7991022cf46643752575a7298502",
+      "file_path": "codex_log/vector_rag_router_design/20260611_read_contract_strategy_report.md",
+      "section_title": "20260611 Read Contract Strategy Report（读取契约策略报告） > 7. formal_patch_recommendation（正式补丁建议）",
+      "chunk_index": 7,
+      "content_hash": "027f30e5342d669f64fc8089a06b5aad24835d735bdf6cdcfdd6eb5a52a6c33c",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 439
+    },
+    {
+      "id": "vf_e57796e1048ca7700f65747c6e0aa1e14066134a",
+      "file_path": "codex_log/vector_rag_router_design/20260611_read_contract_strategy_report.md",
+      "section_title": "20260611 Read Contract Strategy Report（读取契约策略报告） > 8. git_sync（Git 同步）",
+      "chunk_index": 8,
+      "content_hash": "ee8f19fbf4c7876ebf93d3bf46279f52d79431371e034a1a0afe6a83d1990cdc",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 207
+    },
+    {
+      "id": "vf_1e82d374c014a8bf3c1aea9508c6f1ae6febd7aa",
+      "file_path": "codex_log/vector_rag_router_design/20260611_read_contract_strategy_report.md",
+      "section_title": "20260611 Read Contract Strategy Report（读取契约策略报告） > 9. 20260612 missing_report_boundary_patch（缺失报告执行边界补丁摘要）",
+      "chunk_index": 9,
+      "content_hash": "144e9e852251b01f152f3c2757ccbd467735aa98c17cc8d00868fe73f59f16a6",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 479
+    },
+    {
+      "id": "vf_8226dbb67563f1c31aad5bf4a856b5fc0b38a85d",
+      "file_path": "codex_log/vector_rag_router_design/20260611_read_contract_missing_report_boundary_patch_report.md",
+      "section_title": "20260611 Missing Report Execution Boundary Patch Report",
+      "chunk_index": 0,
+      "content_hash": "3accae75986528b5304cb24fef8f3bbe1dde43ca321c3cef2bef4d02aa5a52a5",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 57
+    },
+    {
+      "id": "vf_674ad746d8cd6747e9cd26bae5bbac377876cbf1",
+      "file_path": "codex_log/vector_rag_router_design/20260611_read_contract_missing_report_boundary_patch_report.md",
+      "section_title": "20260611 Missing Report Execution Boundary Patch Report > 1. execution_status（执行状态）",
+      "chunk_index": 1,
+      "content_hash": "c7fcdf5806dbe669b2f73ff76f94f6433009839251684858d65427ea36904edd",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 468
+    },
+    {
+      "id": "vf_ff7f2fb6f158d764ded583dfa644c73612ad0265",
+      "file_path": "codex_log/vector_rag_router_design/20260611_read_contract_missing_report_boundary_patch_report.md",
+      "section_title": "20260611 Missing Report Execution Boundary Patch Report > 2. patch_summary（补丁摘要）",
+      "chunk_index": 2,
+      "content_hash": "27d16a935fee4e2a1e40e4d7c96591b87816382f7a3eb4352156381fe992bde2",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 439
+    },
+    {
+      "id": "vf_4e6e923b142aa7a8a4cbce06bca1ffa480caad8c",
+      "file_path": "codex_log/vector_rag_router_design/20260611_read_contract_missing_report_boundary_patch_report.md",
+      "section_title": "20260611 Missing Report Execution Boundary Patch Report > 3. files_changed（修改文件）",
+      "chunk_index": 3,
+      "content_hash": "c3440c2975a4d3962c5e68d76ce93b7462e361b27cf8ff6a59d80c97f355d4af",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 1331
+    },
+    {
+      "id": "vf_48a1f66ceb0388a7064462b051214af1b6fbd425",
+      "file_path": "codex_log/vector_rag_router_design/20260611_read_contract_missing_report_boundary_patch_report.md",
+      "section_title": "20260611 Missing Report Execution Boundary Patch Report > 4. fixture_regression（测试用例回归）",
+      "chunk_index": 4,
+      "content_hash": "e8fa2298b955004c40883cf9370e103a1ad2a238d64d2067b2acfdd2d5049260",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 874
+    },
+    {
+      "id": "vf_aa3d652b72372cf5fe62770ea80c725d34db3dc9",
+      "file_path": "codex_log/vector_rag_router_design/20260611_read_contract_missing_report_boundary_patch_report.md",
+      "section_title": "20260611 Missing Report Execution Boundary Patch Report > 5. router_wiring_status（Router 接线状态）",
+      "chunk_index": 5,
+      "content_hash": "7171482afa7c98bddd6078295aedc006e54b84f3d49b2daf00bf2eaaf84d4928",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 373
+    },
+    {
+      "id": "vf_c5526bcb012efae6f178910ced099b25d3fddb58",
+      "file_path": "codex_log/vector_rag_router_design/20260611_read_contract_missing_report_boundary_patch_report.md",
+      "section_title": "20260611 Missing Report Execution Boundary Patch Report > 6. safety_boundary（安全边界）",
+      "chunk_index": 6,
+      "content_hash": "14c1bace0eaa0485990971cd79b0973d4175b3e69d1bb252b933842b2c64ab4b",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 178
+    },
+    {
+      "id": "vf_4f84450a7ae7e8ffae6287b5faab59d2e23af711",
+      "file_path": "codex_log/vector_rag_router_design/20260611_read_contract_missing_report_boundary_patch_report.md",
+      "section_title": "20260611 Missing Report Execution Boundary Patch Report > 7. git_sync（Git 同步）",
+      "chunk_index": 7,
+      "content_hash": "711a0ab394a2f2472ebf1d91081f9dc938ba361881c836a8639f57b10666dd3b",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 209
+    },
+    {
+      "id": "vf_3780098668267afa7aab61d95d01ea3432e31495",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_sync_policy.md",
+      "section_title": "20260611 向量同步策略 Vector Sync Policy",
+      "chunk_index": 0,
+      "content_hash": "5c5ca01d36d3b29b4ee3aefaf0a05217b7c35a6e3850f4f52673b6c279fd4f00",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 36
+    },
+    {
+      "id": "vf_b58cdb052bfd9462494bb924f0c04fed03abb860",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_sync_policy.md",
+      "section_title": "20260611 向量同步策略 Vector Sync Policy > 1. status_boundary（状态边界）",
+      "chunk_index": 1,
+      "content_hash": "333c68fe5c379733ab79b917d3c2e77de8a3b6cd386edee764c3125cd85800fb",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 503
+    },
+    {
+      "id": "vf_acf083a311878f3a3a04a84b85e4e1aab342e5c5",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_sync_policy.md",
+      "section_title": "20260611 向量同步策略 Vector Sync Policy > 2. source_of_truth_policy（事实源策略）",
+      "chunk_index": 2,
+      "content_hash": "d9b9c756c7832ef5304115baea75b864eaace855014c9729d1bf1b89f295eb1e",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 517
+    },
+    {
+      "id": "vf_505ae04346dee29b7bc53213fa8089daadead373",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_sync_policy.md",
+      "section_title": "20260611 向量同步策略 Vector Sync Policy > 3. collection_policy（集合隔离策略）",
+      "chunk_index": 3,
+      "content_hash": "e318a41a2b99a445fe302bcc3eb2dc7f5eb86b1ce657843ccd8cde2d41c34262",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 546
+    },
+    {
+      "id": "vf_e04bba5f2c6569ba86bd093716bc3aed4d5bf42f",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_sync_policy.md",
+      "section_title": "20260611 向量同步策略 Vector Sync Policy > 4. sync_modes（同步模式）",
+      "chunk_index": 4,
+      "content_hash": "bc1f1ea9ed683823bbea2e99183ee94c269d96c1e0ac37cc3d960a2b543833ea",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 598
+    },
+    {
+      "id": "vf_2b4d705a2a8797231667ab982107e83c6a405d6d",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_sync_policy.md",
+      "section_title": "20260611 向量同步策略 Vector Sync Policy > 5. commit_first_policy（先 Git 后向量同步）",
+      "chunk_index": 5,
+      "content_hash": "e10bc97b66d589f6c9b63c282d5fc49f1c82e4d9c6a059ba97b17a66d11dcc05",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 448
+    },
+    {
+      "id": "vf_40e6af7a62473daa0fe9a6550b03d2b6362f6240",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_sync_policy.md",
+      "section_title": "20260611 向量同步策略 Vector Sync Policy > 6. metadata_required（必须元数据）",
+      "chunk_index": 6,
+      "content_hash": "940f20b6906b6d844f298b635362435fe35f2aee4fddd19916c0dfa62e1b6a0c",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 797
+    },
+    {
+      "id": "vf_d6c200960063ff4da02261c0566aeda478b92e48",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_sync_policy.md",
+      "section_title": "20260611 向量同步策略 Vector Sync Policy > 7. ingestion_scope（入库范围）",
+      "chunk_index": 7,
+      "content_hash": "1c99677a029f169e646be5dd7d6447c3495fb4baed93f31a874caee29ba20b53",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 861
+    },
+    {
+      "id": "vf_d9e0f9f5a8d5af8e3819a0e6e7f2ad007d8df925",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_sync_policy.md",
+      "section_title": "20260611 向量同步策略 Vector Sync Policy > 8. demote_delete_policy（降权 / 删除策略）",
+      "chunk_index": 8,
+      "content_hash": "4af6e9743e8eed088a00b1045ca35af940bd799772ebfd0606cf02c7a7229b8f",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 437
+    },
+    {
+      "id": "vf_80eafd66ccf8bf77c02fdf46bb41f8ca4f043ab2",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_sync_policy.md",
+      "section_title": "20260611 向量同步策略 Vector Sync Policy > 9. sync_report_schema（同步报告结构）",
+      "chunk_index": 9,
+      "content_hash": "1ea5ab4d112dbe76d7e31f654ce4491db7606a47663ce97575574ac88720a229",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 594
+    },
+    {
+      "id": "vf_143fb5fa87743a00e7522322eca5411283dc4705",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_sync_policy.md",
+      "section_title": "20260611 向量同步策略 Vector Sync Policy > 10. formal_patch_recommendation（正式补丁建议）",
+      "chunk_index": 10,
+      "content_hash": "9b6b926654917082cbe2a4c963649a48f628b53f2d243ce17d936a32d9728f36",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 371
+    },
+    {
+      "id": "vf_773501104b5deede220bc365da9036f53bd989dd",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_ingestion_whitelist.md",
+      "section_title": "20260611 Vector Ingestion Whitelist",
+      "chunk_index": 0,
+      "content_hash": "f604c839c36a318b0ac8db7850973edd03480d48310d253289865076e487d826",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 37
+    },
+    {
+      "id": "vf_59a03d3aebf6587e372e79c642ee248c3687fbe0",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_ingestion_whitelist.md",
+      "section_title": "20260611 Vector Ingestion Whitelist > 0. purpose",
+      "chunk_index": 1,
+      "content_hash": "8f7ba4ee00411cdb79d6ad495ec8c7fb500128b891d554c4ea48a6fcd6de0ab8",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 369
+    },
+    {
+      "id": "vf_d9de3809e83858fa1b6b5087de553c03b4b37960",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_ingestion_whitelist.md",
+      "section_title": "20260611 Vector Ingestion Whitelist > 1. default_metadata_schema",
+      "chunk_index": 2,
+      "content_hash": "50a1055ecee75bc0b288716a061334ac5845f1bc92ae9b185df42699e65ebc03",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 767
+    },
+    {
+      "id": "vf_f180ad9621da2e231d70efcd33e27e0ee93a13ec",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_ingestion_whitelist.md",
+      "section_title": "20260611 Vector Ingestion Whitelist > 2. priority_1_canonical_current_sources",
+      "chunk_index": 3,
+      "content_hash": "cc6ba0eb0996a0ff25a1ead09ee18b1796de014acd1a96b90a45de4912616937",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 1787
+    },
+    {
+      "id": "vf_036d50d953afb0a2cbd3fba4eee934a3678e5ebc",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_ingestion_whitelist.md",
+      "section_title": "20260611 Vector Ingestion Whitelist > 3. priority_2_execution_and_validation_sources",
+      "chunk_index": 4,
+      "content_hash": "e1fe5902f7753ac90753ca70839ceb5bf2cee7af88d8a09a55c310c522fedbc3",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 1576
+    },
+    {
+      "id": "vf_9c3186c9be47fe52a6ddae864427bbabcfca8cc0",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_ingestion_whitelist.md",
+      "section_title": "20260611 Vector Ingestion Whitelist > 4. priority_3_latest_state_and_review_sources",
+      "chunk_index": 5,
+      "content_hash": "b83851e2a5e9ed09b77e673dbcf116f87ca4f6aaf0516961ebf406c009894323",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 1606
+    },
+    {
+      "id": "vf_6e2c3078bd69802ca56552f60afb21eb8c532393",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_ingestion_whitelist.md",
+      "section_title": "20260611 Vector Ingestion Whitelist > 5. priority_4_domain_rules",
+      "chunk_index": 6,
+      "content_hash": "9c4adb5485944f50566f0f4c14f4b95eb3b69c600820cec11100f6ffbcb8cf71",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 736
+    },
+    {
+      "id": "vf_c92c303ab65af91d5e44edac42bb3e826ab03e98",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_ingestion_whitelist.md",
+      "section_title": "20260611 Vector Ingestion Whitelist > 6. reference_only_sources",
+      "chunk_index": 7,
+      "content_hash": "a6f2002cf4e891a272405406dd52f066208f92c67ed56b62cc58aa22fd986cab",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 875
+    },
+    {
+      "id": "vf_e0b9e59fbc616751f63349a08a033144026fe76e",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_ingestion_whitelist.md",
+      "section_title": "20260611 Vector Ingestion Whitelist > 7. chunking_policy",
+      "chunk_index": 8,
+      "content_hash": "eba8511d286cf2c7897da0b89e1bd6a83c780a2c1d248df4c8b24d21ea27a6b9",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 542
+    },
+    {
+      "id": "vf_1d16f3770851ae7ea9ec17d344657544d70232ed",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_ingestion_whitelist.md",
+      "section_title": "20260611 Vector Ingestion Whitelist > 8. retrieval_priority",
+      "chunk_index": 9,
+      "content_hash": "96ffcdad15ceeeeddadf420ee157570edbe61aa056f4aa1fed3c97c7cc00ef33",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 488
+    },
+    {
+      "id": "vf_b8b49431abb6d5fe7f9b73eb08054d701e9f65d5",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_ingestion_whitelist.md",
+      "section_title": "20260611 Vector Ingestion Whitelist > 9. material_delta_metadata",
+      "chunk_index": 10,
+      "content_hash": "862470f5c2fb762d51725da422c42ff3547f1a8836e16f2fb8cf5f9b4c3bf2ff",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 797
+    },
+    {
+      "id": "vf_c71ec794504df31f7f87fd419eec1fd0850fa541",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_ingestion_blacklist.md",
+      "section_title": "20260611 Vector Ingestion Blacklist",
+      "chunk_index": 0,
+      "content_hash": "00a77d4afd9ca6ce8ce1864b95b57a99d1ef54c653bddc28739c4ff5a43f36c4",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 37
+    },
+    {
+      "id": "vf_b5c8fd533dce33b8c5f5e45d9d300d35ca52c339",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_ingestion_blacklist.md",
+      "section_title": "20260611 Vector Ingestion Blacklist > 0. purpose",
+      "chunk_index": 1,
+      "content_hash": "f2e498080a6dfec061eca06ff31ccb4a0d53aacf80fe8a8ac0197be39a2b3c3a",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 237
+    },
+    {
+      "id": "vf_ec0d3a755007c98aa6b0e7645e5ee0929f4a4eda",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_ingestion_blacklist.md",
+      "section_title": "20260611 Vector Ingestion Blacklist > 1. hard_do_not_index",
+      "chunk_index": 2,
+      "content_hash": "22141aafc143bb44843119dab1257a0fecd1fd9d2eb333957e4ad0f83cdd1566",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 1106
+    },
+    {
+      "id": "vf_8e836295e9725f1d84e3763cf383730b6bfb7c1d",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_ingestion_blacklist.md",
+      "section_title": "20260611 Vector Ingestion Blacklist > 2. deprecated_do_not_use_by_default",
+      "chunk_index": 3,
+      "content_hash": "b80fa9573881697338745fdc98bdc815c9bb7db3a283570459f6980b48a2b573",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 1448
+    },
+    {
+      "id": "vf_42ed038172ceb62394c38d3231d5eabeb1c2747a",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_ingestion_blacklist.md",
+      "section_title": "20260611 Vector Ingestion Blacklist > 3. legacy_demote_only",
+      "chunk_index": 4,
+      "content_hash": "53765b53929d41f6ae6a07d26c22ae520c3bfbe513a1a466d57d1308ca82fb91",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 805
+    },
+    {
+      "id": "vf_9059136bd6fd4b05fa070a71937e748bf179598f",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_ingestion_blacklist.md",
+      "section_title": "20260611 Vector Ingestion Blacklist > 4. conflict_pending_do_not_auto_promote",
+      "chunk_index": 5,
+      "content_hash": "c84405a4d7c0e7cf7bddf7074a9b645f0dbf7c643e09e1581fbec96d4ba764ae",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 892
+    },
+    {
+      "id": "vf_b7fa094f227b68f6f27e6e8c6531236c6f6ad456",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_ingestion_blacklist.md",
+      "section_title": "20260611 Vector Ingestion Blacklist > 5. source_path_filters",
+      "chunk_index": 6,
+      "content_hash": "7abfdd9e9124395683e62054d5a9736a06d4499bbb72a3eed49bf456db2d3c7a",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 749
+    },
+    {
+      "id": "vf_14f6f727d4b6fdac7bf95debf0e30ffa8143164a",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_ingestion_blacklist.md",
+      "section_title": "20260611 Vector Ingestion Blacklist > 6. sensitive_text_filters",
+      "chunk_index": 7,
+      "content_hash": "aff8b62702fbe261c0404fd83ea5480eb240515e347764bcd68559bcf3fd89a0",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 580
+    },
+    {
+      "id": "vf_47b8df57d745a2706815c38d9e0ef2a6ff550d06",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_ingestion_blacklist.md",
+      "section_title": "20260611 Vector Ingestion Blacklist > 7. anti_noise_rules",
+      "chunk_index": 8,
+      "content_hash": "c3dbbd67c36f34174eebcc0ca70527a6b97bea03e3ea6d5c58c71a9fd8c0f83d",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 433
+    },
+    {
+      "id": "vf_5d0df034fb76264b3ae99a8e573564bfc5c0f2ab",
+      "file_path": "codex_log/vector_rag_router_design/20260611_vector_ingestion_blacklist.md",
+      "section_title": "20260611 Vector Ingestion Blacklist > 8. blacklisted_completion_shortcuts",
+      "chunk_index": 9,
+      "content_hash": "91fbb91f0d96dbaef9ee20724337f4cf03ee0a032fb848351922ee9d2c3fdaa4",
+      "source_type": "rag_strategy",
+      "authority_level": "current_auxiliary",
+      "char_count": 497
+    },
+    {
+      "id": "vf_b8ab6523874eab7164d2c6361d0d307e3f5107b4",
+      "file_path": "scripts/probe_dashscope_embedding_dimension.py",
+      "section_title": "python:module_header",
+      "chunk_index": 0,
+      "content_hash": "edff22c39968c486948ee861c33af3b94945fde0e1caa9f24e31070a6c20c09f",
+      "source_type": "runtime_script",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 1211
+    },
+    {
+      "id": "vf_ea8b1ca23304b8ee48a7ddcd69dd7eb0f1daf173",
+      "file_path": "scripts/probe_dashscope_embedding_dimension.py",
+      "section_title": "python:constants_and_endpoints",
+      "chunk_index": 1,
+      "content_hash": "3f5b1673243290f3fe96ec43fe922c587b0abb4efb0e3133ab8a0c9e1d0fbf80",
+      "source_type": "runtime_script",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 689
+    },
+    {
+      "id": "vf_a144065defe763b7b9d32dff771a4f667d590639",
+      "file_path": "scripts/probe_dashscope_embedding_dimension.py",
+      "section_title": "python:safety_and_blocked_conditions",
+      "chunk_index": 2,
+      "content_hash": "2faf875df21e6354008c9b897c8225f27852215d9d817ed876c24f5f06111ce8",
+      "source_type": "runtime_script",
+      "authority_level": "current_runtime_evidence",
+      "char_count": 1435
+    }
+  ]
+}

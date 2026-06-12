@@ -1,0 +1,57 @@
+{
+  "phase": "phase_1_smoke_write_query_readback",
+  "started_at": "2026-06-13T00:44:32+08:00",
+  "finished_at": "2026-06-13T00:44:34+08:00",
+  "key_found": true,
+  "dashscope_key_source_type": "local_runtime_config",
+  "dashscope_key_variable_name": "[auth].api_key",
+  "dashvector_api_key_present": true,
+  "key_value_printed": false,
+  "selected_embedding_model": "text-embedding-v4",
+  "embedding_dimension": 1024,
+  "query_embedding_dimension": 1024,
+  "dashvector_collection": {
+    "collection": "video_factory_docs_test",
+    "collection_exists": true,
+    "dimension_actual": 1024,
+    "metric_actual": "cosine",
+    "dtype_actual": "FLOAT",
+    "dimension_ok": true,
+    "metric_ok": true,
+    "dtype_ok": true
+  },
+  "smoke_test_id": "video_factory_rag_smoke_test_20260613_001",
+  "smoke_docs_written": 1,
+  "upsert_success": true,
+  "query_success": true,
+  "topk_target_id_retrieved": true,
+  "retrieved_ids": [
+    "video_factory_rag_smoke_test_20260613_001"
+  ],
+  "query_docs": [
+    {
+      "id": "video_factory_rag_smoke_test_20260613_001",
+      "score": 0.16439128,
+      "fields": {
+        "chunk_index": 0,
+        "file_path": "(smoke_test)",
+        "section_title": "dashvector_minimal_write_readback",
+        "is_smoke_test": true,
+        "batch_id": "20260613_smoke_test",
+        "repo": "fthytwerwt-sudo/-",
+        "project": "video_factory",
+        "source_type": "smoke_test",
+        "branch": "feature/vector-rag-router-design-20260611",
+        "commit_sha": "62579e7aca271cf3dc632b52554c60488ac63ca3",
+        "updated_at": "2026-06-13T00:44:32+08:00",
+        "authority_level": "diagnostic_only",
+        "content_hash": "c46848eed76a17340663ad0edcd2861b1fb16f91f84cda804eb02290e61e50a0"
+      },
+      "content_preview": "这是视频工厂向量库最小写入测试，用于验证 Codex 能把一条测试资料写入 DashVector 并查询回来。"
+    }
+  ],
+  "vector_values_printed": false,
+  "dashvector_collection_created": false,
+  "dashvector_collection_deleted": false,
+  "project_docs_uploaded": false
+}

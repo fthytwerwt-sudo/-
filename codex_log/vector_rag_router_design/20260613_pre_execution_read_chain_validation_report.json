@@ -1,0 +1,87 @@
+{
+  "phase": "phase_6_pre_execution_read_chain_validation",
+  "generated_at": "2026-06-13T00:50:05+08:00",
+  "query": "MISSING_REPORT 能不能放行真实执行？",
+  "retrieve_success": true,
+  "readback_success": true,
+  "read_proof_report": [
+    {
+      "id": "vf_1e82d374c014a8bf3c1aea9508c6f1ae6febd7aa",
+      "source_file_path": "codex_log/vector_rag_router_design/20260611_read_contract_strategy_report.md",
+      "section_title": "20260611 Read Contract Strategy Report（读取契约策略报告） > 9. 20260612 missing_report_boundary_patch（缺失报告执行边界补丁摘要）",
+      "content_hash": "144e9e852251b01f152f3c2757ccbd467735aa98c17cc8d00868fe73f59f16a6",
+      "score": 0.30809414,
+      "source_type": "rag_strategy",
+      "readback_result": {
+        "readback_status": "passed",
+        "source_file_path": "codex_log/vector_rag_router_design/20260611_read_contract_strategy_report.md",
+        "section_title": "20260611 Read Contract Strategy Report（读取契约策略报告） > 9. 20260612 missing_report_boundary_patch（缺失报告执行边界补丁摘要）",
+        "content_hash": "144e9e852251b01f152f3c2757ccbd467735aa98c17cc8d00868fe73f59f16a6",
+        "chunk_index": 9
+      }
+    },
+    {
+      "id": "vf_8226dbb67563f1c31aad5bf4a856b5fc0b38a85d",
+      "source_file_path": "codex_log/vector_rag_router_design/20260611_read_contract_missing_report_boundary_patch_report.md",
+      "section_title": "20260611 Missing Report Execution Boundary Patch Report",
+      "content_hash": "3accae75986528b5304cb24fef8f3bbe1dde43ca321c3cef2bef4d02aa5a52a5",
+      "score": 0.35862428,
+      "source_type": "rag_strategy",
+      "readback_result": {
+        "readback_status": "passed",
+        "source_file_path": "codex_log/vector_rag_router_design/20260611_read_contract_missing_report_boundary_patch_report.md",
+        "section_title": "20260611 Missing Report Execution Boundary Patch Report",
+        "content_hash": "3accae75986528b5304cb24fef8f3bbe1dde43ca321c3cef2bef4d02aa5a52a5",
+        "chunk_index": 0
+      }
+    },
+    {
+      "id": "vf_ff7f2fb6f158d764ded583dfa644c73612ad0265",
+      "source_file_path": "codex_log/vector_rag_router_design/20260611_read_contract_missing_report_boundary_patch_report.md",
+      "section_title": "20260611 Missing Report Execution Boundary Patch Report > 2. patch_summary（补丁摘要）",
+      "content_hash": "27d16a935fee4e2a1e40e4d7c96591b87816382f7a3eb4352156381fe992bde2",
+      "score": 0.3652423,
+      "source_type": "rag_strategy",
+      "readback_result": {
+        "readback_status": "passed",
+        "source_file_path": "codex_log/vector_rag_router_design/20260611_read_contract_missing_report_boundary_patch_report.md",
+        "section_title": "20260611 Missing Report Execution Boundary Patch Report > 2. patch_summary（补丁摘要）",
+        "content_hash": "27d16a935fee4e2a1e40e4d7c96591b87816382f7a3eb4352156381fe992bde2",
+        "chunk_index": 2
+      }
+    },
+    {
+      "id": "vf_e31a3a768a7da8c3401f0619541d88c51a748fc5",
+      "source_file_path": "AGENTS.md",
+      "section_title": "多项目仓库入口规则 > 2. 默认项目分流规则 > 2.4 未命中时的阻断规则",
+      "content_hash": "4c13167888ee51ae54cee33c719d666b8ef81804987ecc8cf1c6736a0d7e00b8",
+      "score": 0.42934632,
+      "source_type": "formal_rule",
+      "readback_result": {
+        "readback_status": "passed",
+        "source_file_path": "AGENTS.md",
+        "section_title": "多项目仓库入口规则 > 2. 默认项目分流规则 > 2.4 未命中时的阻断规则",
+        "content_hash": "4c13167888ee51ae54cee33c719d666b8ef81804987ecc8cf1c6736a0d7e00b8",
+        "chunk_index": 11
+      }
+    },
+    {
+      "id": "vf_5f0c9c4e8bff7991022cf46643752575a7298502",
+      "source_file_path": "codex_log/vector_rag_router_design/20260611_read_contract_strategy_report.md",
+      "section_title": "20260611 Read Contract Strategy Report（读取契约策略报告） > 7. formal_patch_recommendation（正式补丁建议）",
+      "content_hash": "027f30e5342d669f64fc8089a06b5aad24835d735bdf6cdcfdd6eb5a52a6c33c",
+      "score": 0.43980867,
+      "source_type": "rag_strategy",
+      "readback_result": {
+        "readback_status": "passed",
+        "source_file_path": "codex_log/vector_rag_router_design/20260611_read_contract_strategy_report.md",
+        "section_title": "20260611 Read Contract Strategy Report（读取契约策略报告） > 7. formal_patch_recommendation（正式补丁建议）",
+        "content_hash": "027f30e5342d669f64fc8089a06b5aad24835d735bdf6cdcfdd6eb5a52a6c33c",
+        "chunk_index": 7
+      }
+    }
+  ],
+  "gate_decision": "blocked_real_execution_not_allowed_if_missing_report_only",
+  "minimal_pre_execution_read_chain_verified": true,
+  "all_tasks_auto_rag_integrated": false
+}

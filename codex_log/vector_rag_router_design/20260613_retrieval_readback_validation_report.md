@@ -1,0 +1,45 @@
+# 20260613 Retrieval Readback Validation Report
+
+- all_queries_success: `true`
+- all_readback_success: `true`
+- vector_values_printed: `false`
+
+## 当前项目状态是什么？
+
+- id=`vf_8950e2454a8553ac2b263ac7e7d04071570a4967`; source_file_path=`AGENTS.md`; section_title=`多项目仓库入口规则 > 6. 诚实状态标记规则`; content_hash=`bc48edfc8d06d32b53c1c8b373d3f7b2c32dc37bb94494338160e8fbf1174838`; score=`0.41540712`; readback=`passed`
+- id=`vf_214016afc43eaefb83dec4549ef9d6569bab9e59`; source_file_path=`codex_source/00_codex_readme.md`; section_title=`codex_source 总入口 > 4A. 当前项目中心价值`; content_hash=`9ceb08a02f38ac18515de457bc4b05640a95bb74070a75b4392f4d1ef719c12f`; score=`0.42247552`; readback=`passed`
+- id=`vf_51054ccf2008f50d3cab5d37b14d8934284d58d0`; source_file_path=`codex_source/19_project_state_action_router.md`; section_title=`Project State Action Router 项目状态动作总控器`; content_hash=`7df04b346b8f38ee66e7e915f6b972090b64d9f454b50d042052f5d3992f0abe`; score=`0.42724264`; readback=`passed`
+- id=`vf_7cfb6a6a7a29b6fbb14861eb83c3cdff5a4a8047`; source_file_path=`GPT数据源/08_当前正式事实.md`; section_title=`当前正式事实 > 2. `已确认` > 2.3 当前项目中心价值`; content_hash=`b7f808e4225cece3843a53cfa075fad9143b5ad8539f60748e2c961cd584cbfa`; score=`0.43600094`; readback=`passed`
+- id=`vf_23e2751cc49c2780e276ba2111d02252604420a8`; source_file_path=`GPT数据源/11_项目状态动作总控器_机制推理层.md`; section_title=`项目状态动作总控器与机制推理层`; content_hash=`1186749fc5d49426ed14f5754012620b012e08f2a6c28ac1d13b86f1e94f78c0`; score=`0.45484114`; readback=`passed`
+
+## Codex 执行前必须先读哪些文件？
+
+- id=`vf_fe2d0fbf73f182796464dc72e2a8348ad92ca831`; source_file_path=`codex_source/00_codex_readme.md`; section_title=`codex_source 总入口`; content_hash=`fe9bdddd660069b7faa9d5dc6c23d71627fa78f2f77b6b3e3263c7398ebc1447`; score=`0.31394202`; readback=`passed`
+- id=`vf_8e1c775cc8e9d111c01490a0c9801766349ec735`; source_file_path=`codex_source/00_codex_readme.md`; section_title=`codex_source 总入口 > 1. 这份文件是什么`; content_hash=`4be125b2b7ad54ae90f26d9a133b028c7d4eee898fdb2bb3c61a1f849ce8721a`; score=`0.3208984`; readback=`passed`
+- id=`vf_7890883424eb8d574bc43ad9ffdecda14e9d2456`; source_file_path=`codex_source/00_codex_readme.md`; section_title=`codex_source 总入口 > 2. `codex_source/` 负责什么`; content_hash=`74d4ddf3cb29ea9f2f21dd0ebcc4d35678a22f8557f0a1a0a12e7e02afc06b95`; score=`0.34160078`; readback=`passed`
+- id=`vf_7284a2f2400fdd6872b75ee0da95e52c8ebced45`; source_file_path=`codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md`; section_title=`工作流入口归位索引 Workflow Entry Routing Index > 1. 用途`; content_hash=`d4616f581b6f016c30ce5690f57d3cfe9d860c3e44d5375497ff3b03d0fd8d95`; score=`0.35525942`; readback=`passed`
+- id=`vf_59e00b097e5859064918e33f606390a3ea7690f1`; source_file_path=`GPT数据源/08_当前正式事实.md`; section_title=`当前正式事实 > 2. `已确认` > 2.1 当前资料包身份`; content_hash=`395765639c82c76f69fe768e59a5d4822521257ad10a2fbff1b3e24edc31b2e3`; score=`0.36695433`; readback=`passed`
+
+## MISSING_REPORT 能不能放行真实执行？
+
+- id=`vf_1e82d374c014a8bf3c1aea9508c6f1ae6febd7aa`; source_file_path=`codex_log/vector_rag_router_design/20260611_read_contract_strategy_report.md`; section_title=`20260611 Read Contract Strategy Report（读取契约策略报告） > 9. 20260612 missing_report_boundary_patch（缺失报告执行边界补丁摘要）`; content_hash=`144e9e852251b01f152f3c2757ccbd467735aa98c17cc8d00868fe73f59f16a6`; score=`0.30809414`; readback=`passed`
+- id=`vf_8226dbb67563f1c31aad5bf4a856b5fc0b38a85d`; source_file_path=`codex_log/vector_rag_router_design/20260611_read_contract_missing_report_boundary_patch_report.md`; section_title=`20260611 Missing Report Execution Boundary Patch Report`; content_hash=`3accae75986528b5304cb24fef8f3bbe1dde43ca321c3cef2bef4d02aa5a52a5`; score=`0.35862428`; readback=`passed`
+- id=`vf_ff7f2fb6f158d764ded583dfa644c73612ad0265`; source_file_path=`codex_log/vector_rag_router_design/20260611_read_contract_missing_report_boundary_patch_report.md`; section_title=`20260611 Missing Report Execution Boundary Patch Report > 2. patch_summary（补丁摘要）`; content_hash=`27d16a935fee4e2a1e40e4d7c96591b87816382f7a3eb4352156381fe992bde2`; score=`0.3652423`; readback=`passed`
+- id=`vf_e31a3a768a7da8c3401f0619541d88c51a748fc5`; source_file_path=`AGENTS.md`; section_title=`多项目仓库入口规则 > 2. 默认项目分流规则 > 2.4 未命中时的阻断规则`; content_hash=`4c13167888ee51ae54cee33c719d666b8ef81804987ecc8cf1c6736a0d7e00b8`; score=`0.42934632`; readback=`passed`
+- id=`vf_5f0c9c4e8bff7991022cf46643752575a7298502`; source_file_path=`codex_log/vector_rag_router_design/20260611_read_contract_strategy_report.md`; section_title=`20260611 Read Contract Strategy Report（读取契约策略报告） > 7. formal_patch_recommendation（正式补丁建议）`; content_hash=`027f30e5342d669f64fc8089a06b5aad24835d735bdf6cdcfdd6eb5a52a6c33c`; score=`0.43980867`; readback=`passed`
+
+## 向量入库白名单和黑名单是什么？
+
+- id=`vf_773501104b5deede220bc365da9036f53bd989dd`; source_file_path=`codex_log/vector_rag_router_design/20260611_vector_ingestion_whitelist.md`; section_title=`20260611 Vector Ingestion Whitelist`; content_hash=`f604c839c36a318b0ac8db7850973edd03480d48310d253289865076e487d826`; score=`0.28951037`; readback=`passed`
+- id=`vf_d6c200960063ff4da02261c0566aeda478b92e48`; source_file_path=`codex_log/vector_rag_router_design/20260611_vector_sync_policy.md`; section_title=`20260611 向量同步策略 Vector Sync Policy > 7. ingestion_scope（入库范围）`; content_hash=`1c99677a029f169e646be5dd7d6447c3495fb4baed93f31a874caee29ba20b53`; score=`0.2943526`; readback=`passed`
+- id=`vf_c71ec794504df31f7f87fd419eec1fd0850fa541`; source_file_path=`codex_log/vector_rag_router_design/20260611_vector_ingestion_blacklist.md`; section_title=`20260611 Vector Ingestion Blacklist`; content_hash=`00a77d4afd9ca6ce8ce1864b95b57a99d1ef54c653bddc28739c4ff5a43f36c4`; score=`0.32065338`; readback=`passed`
+- id=`vf_2b4d705a2a8797231667ab982107e83c6a405d6d`; source_file_path=`codex_log/vector_rag_router_design/20260611_vector_sync_policy.md`; section_title=`20260611 向量同步策略 Vector Sync Policy > 5. commit_first_policy（先 Git 后向量同步）`; content_hash=`e10bc97b66d589f6c9b63c282d5fc49f1c82e4d9c6a059ba97b17a66d11dcc05`; score=`0.4186828`; readback=`passed`
+- id=`video_factory_rag_smoke_test_20260613_001`; source_file_path=`(smoke_test)`; section_title=`dashvector_minimal_write_readback`; content_hash=`c46848eed76a17340663ad0edcd2861b1fb16f91f84cda804eb02290e61e50a0`; score=`0.42291045`; readback=`passed`
+
+## 视频工厂当前主线是什么？
+
+- id=`vf_85210a5d889ad8215e99190a420bab392edf1ba6`; source_file_path=`AGENTS.md`; section_title=`多项目仓库入口规则 > 2. 默认项目分流规则 > 2.2B 《视频工厂》旧口径降权规则`; content_hash=`4899a22eff1920f571c92fabc5ffbddeaa712244ff84296015adca064e2d2745`; score=`0.39254332`; readback=`passed`
+- id=`vf_8e1c775cc8e9d111c01490a0c9801766349ec735`; source_file_path=`codex_source/00_codex_readme.md`; section_title=`codex_source 总入口 > 1. 这份文件是什么`; content_hash=`4be125b2b7ad54ae90f26d9a133b028c7d4eee898fdb2bb3c61a1f849ce8721a`; score=`0.39888644`; readback=`passed`
+- id=`vf_4344750ad862cd033925ef0953fe8f086bd61f5c`; source_file_path=`GPT数据源/11_项目状态动作总控器_机制推理层.md`; section_title=`项目状态动作总控器与机制推理层 > 1. 文件定位`; content_hash=`c322bb9f4e4ed13c8f91d4896301255fe6911113a8c4d77bca06926698a27731`; score=`0.40215194`; readback=`passed`
+- id=`vf_e32af26315aab6bce6ccea7f68982e6bcd81c1f0`; source_file_path=`AGENTS.md`; section_title=`多项目仓库入口规则 > 2. 默认项目分流规则 > 2.2 《视频工厂》命中规则`; content_hash=`a20cfb20c7dfde43e9705a75168e4a0165dd5f862246c2ae0096c62fdb40d98c`; score=`0.41106546`; readback=`passed`
+- id=`vf_8997aefc48f104c488d7144414c66da80b290908`; source_file_path=`AGENTS.md`; section_title=`多项目仓库入口规则 > 2. 默认项目分流规则 > 2.2C 《视频工厂》单工作区硬规则 single_workspace_rule`; content_hash=`a3538e666d757497e744b5fc37b0f7b70bd95d72a3c6428b77b3d90f9e484692`; score=`0.4123296`; readback=`passed`

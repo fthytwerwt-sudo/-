@@ -1,5 +1,31 @@
 # Latest
 
+## 20260613｜Vector RAG 最小链路验证与合并评审就绪
+
+- `task_result.status = vector_rag_minimal_chain_ready_for_main_review`
+- `branch = feature/vector-rag-router-design-20260611`
+- `project_route = video_factory`
+- `route_decision.task_type = code_debug + mechanism_or_route_fix + review_diagnosis_audit`
+- `large_task_gate.triggered = true`
+- `lane = standard_lane`
+- `parallel = serial_only`
+- `本轮不是视频执行`：不生成视频 / 音频 / 图片，不修改 `dist/latest_review_pack/`，不推进 `content_validation / send_ready / voice_validation / final_voice_validated / visual_master_locked`。
+- `embedding_model = text-embedding-v4`
+- `embedding_dimension = 1024`
+- `dashvector_collection = video_factory_docs_test`
+- `collection_config_verified = dimension 1024 / metric Cosine / dtype FLOAT`
+- `phase_1_single_write_readback = passed`：固定测试 id `video_factory_rag_smoke_test_20260613_001` 写入 1 条并通过 top_k 查询回读。
+- `phase_2_ingestion_policy_check = passed`：已复核 whitelist / blacklist / source priority / chunking / metadata / rebuild strategy。
+- `phase_3_dry_run_manifest = passed`：扫描 13 个最小资料文件，允许 13 个，阻断 0 个，计划 chunk 261 个，预计 embedding 调用 261 次。
+- `phase_4_minimal_real_ingestion = passed`：只入库最小正式资料包，写入 261 个 chunks；未全仓入库，未入库 `.env*`、本地配置、secret、媒体、`public/`、cache。
+- `phase_5_retrieval_readback = passed`：5 个问题均能检索到 chunks，并通过 `source_file_path / section_title / content_hash` 回读原文件。
+- `phase_6_pre_execution_read_chain = passed`：已验证 `query -> retrieve -> readback -> read_proof -> gate decision` 最小链路；`MISSING_REPORT` 仍只能诊断 / 阻断，不能放行真实执行。
+- `phase_7_merge_recommendation = ready_for_main_review`
+- `状态边界`：向量库只是 `retrieval_index / cache_layer`，仓库文件仍是 `source_of_truth`；不得把向量结果当最终事实，不得写成完整 RAG runtime 已自动接入，不得自动合并 main。
+- `secret_safety`：`key_value_printed = false`，`vector_values_printed = false`，`secret_committed = false`。
+- `reports`：`codex_log/vector_rag_router_design/20260613_vector_rag_merge_readiness_report.md`、`codex_log/vector_rag_router_design/20260613_vector_rag_smoke_test_report.md`、`codex_log/vector_rag_router_design/20260613_retrieval_readback_validation_report.md`。
+- `git_sync_status`：本条记录待随本轮 path-limited commit / push / remote readback 完成后，以 Codex final report 为准。
+
 ## 20260609｜卡片最小真实链路用户通过与默认路线确认
 
 - `task_result.status = card_minimal_chain_user_approved_default_route_recorded`

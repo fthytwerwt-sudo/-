@@ -1,0 +1,28 @@
+{
+  "phase": "phase_2_ingestion_policy_check",
+  "generated_at": "2026-06-13T00:44:34+08:00",
+  "status": "passed",
+  "checks": {
+    "whitelist_present": true,
+    "blacklist_present": true,
+    "source_priority_present": true,
+    "chunking_strategy_present": true,
+    "metadata_strategy_present": true,
+    "rebuild_strategy_present": true,
+    "hard_blacklist_present": true,
+    "runtime_required_metadata_superset_present": true
+  },
+  "required_metadata_fields": [
+    "project",
+    "repo",
+    "branch",
+    "file_path",
+    "section_title",
+    "chunk_index",
+    "content_hash",
+    "source_type",
+    "updated_at",
+    "batch_id"
+  ],
+  "note": "实际入库脚本使用用户指定 metadata 字段，并保留既有 source_path/heading_path 策略的语义。"
+}

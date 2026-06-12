@@ -1,0 +1,249 @@
+{
+  "phase": "phase_4_minimal_real_docs_ingestion",
+  "generated_at": "2026-06-13T00:49:58+08:00",
+  "batch_id": "20260613_minimal_formal_docs",
+  "selected_embedding_model": "text-embedding-v4",
+  "embedding_dimension": 1024,
+  "target_collection": "video_factory_docs_test",
+  "input_file_count": 13,
+  "chunks_written": 261,
+  "dashvector_collection_created": false,
+  "dashvector_collection_deleted": false,
+  "full_repo_ingestion": false,
+  "blacklist_ingested": false,
+  "secret_ingested": false,
+  "vector_values_printed": false,
+  "batches": [
+    {
+      "batch_start": 0,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 10,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 20,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 30,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 40,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 50,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 60,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 70,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 80,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 90,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 100,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 110,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 120,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 130,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 140,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 150,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 160,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 170,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 180,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 190,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 200,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 210,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 220,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 230,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 240,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 250,
+      "batch_size": 10,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    },
+    {
+      "batch_start": 260,
+      "batch_size": 1,
+      "success": true,
+      "http_status": 200,
+      "code": 0,
+      "request_id_present": true
+    }
+  ],
+  "ingested_files": [
+    "AGENTS.md",
+    "codex_log/latest.md",
+    "codex_source/00_codex_readme.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+    "GPT数据源/08_当前正式事实.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "codex_log/vector_rag_router_design/20260611_read_contract_strategy_report.md",
+    "codex_log/vector_rag_router_design/20260611_read_contract_missing_report_boundary_patch_report.md",
+    "codex_log/vector_rag_router_design/20260611_vector_sync_policy.md",
+    "codex_log/vector_rag_router_design/20260611_vector_ingestion_whitelist.md",
+    "codex_log/vector_rag_router_design/20260611_vector_ingestion_blacklist.md",
+    "scripts/probe_dashscope_embedding_dimension.py"
+  ]
+}
