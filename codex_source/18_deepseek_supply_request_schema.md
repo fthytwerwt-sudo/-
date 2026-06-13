@@ -17,11 +17,11 @@ legacy_previous_stage: "gray_test"
 
 ## 1. 文件定位
 
-本文件定义《视频工厂》里 `DeepSeek supply request（DeepSeek 供料请求任务卡）` 的标准结构。
+本文件定义《视频工厂》里 `DeepSeek supply request（DeepSeek 供料请求任务卡）` 的标准结构。该任务卡只在 RAG-first 供料仲裁后、确实需要 DeepSeek 推理 / 风险补位时使用。
 
 它解决的问题是：
 
-- DeepSeek 每次供料前必须知道当前任务
+- DeepSeek 条件触发前必须知道当前任务
 - 这个“知道”来自 Codex / controller 显式传入的任务卡
 - 不靠长期记忆
 - 不靠猜测
@@ -36,18 +36,18 @@ legacy_previous_stage: "gray_test"
 
 ## 2. 使用规则
 
-Codex 每轮任务在 `route_decision（路由判断）` 后、写入或执行前，必须先生成或选择一张 `supply_request（供料请求任务卡）`。
+Codex 每轮任务在 `route_decision（路由判断）` 后、写入或执行前，必须先完成 `supply_source_arbitration（供料来源仲裁）`，判断 RAG / embedding / vector database 是否已有可用项目内召回。
 
-当前默认机制为 `mandatory_deepseek_supply_loop（强制 DeepSeek 供料循环）`：
+当前默认机制为 `rag_first_fallback_triggered（RAG 优先，DeepSeek 条件触发）`：
 
-- `mandatory_for_every_task = true（每轮任务强制）`
-- `participation_level = mandatory_by_default（默认强制参与）`
-- `pre_supply_required = true（执行前供料必需）`
-- `post_review_required = true（执行后风险复核必需）`
+- `mandatory_for_every_task = false（DeepSeek 不再每轮任务强制）`
+- `participation_level = rag_first_fallback_triggered（RAG 优先，DeepSeek 条件触发）`
+- `pre_supply_required = conditional（执行前 DeepSeek 供料条件触发）`
+- `post_review_required = conditional（执行后 DeepSeek 风险复核条件触发）`
 - `codex_vertical_completion_required = true（Codex 二次补全必需）`
-- `deepseek_must_not_be_skipped_by_codex_discretion = true（Codex 不得凭主观判断跳过）`
+- `deepseek_must_not_be_skipped_by_codex_discretion = false（RAG 充分且无触发条件时可不调用 DeepSeek，但必须记录原因）`
 
-如果 DeepSeek 无法真实调用，任务卡仍必须进入 controller 并如实输出 `fallback_local_only（本地兜底）` 或 blocked 原因；fallback 不得写成 DeepSeek 真实参与。
+如果 DeepSeek 被触发但无法真实调用，任务卡必须进入 controller 并如实输出 `fallback_local_only（本地兜底）` 或 blocked 原因；fallback 不得写成 DeepSeek 真实参与。
 
 推荐运行方式：
 
@@ -60,7 +60,7 @@ python3 scripts/deepseek_supply_controller.py \
 
 ## 3. request identity（请求身份）
 
-任务卡必须包含：
+DeepSeek 条件触发时，任务卡必须包含：
 
 - `request_id（请求编号）`
 - `created_at（创建时间）`
@@ -73,8 +73,8 @@ python3 scripts/deepseek_supply_controller.py \
 
 `trigger_reason` 只允许：
 
-- `mandatory_pre_supply`
-- `mandatory_post_risk_review`
+- `fallback_pre_supply`
+- `fallback_post_risk_review`
 - `mid_task_incremental_supply`
 - `missing_context`
 - `rule_conflict`
@@ -100,9 +100,9 @@ python3 scripts/deepseek_supply_controller.py \
 
 ## 4. task state（任务状态）
 
-任务卡必须包含：
+DeepSeek 条件触发时，任务卡必须包含：
 
-- `mandatory_for_every_task（是否每轮任务强制）`
+- `mandatory_for_every_task（是否每轮任务强制；默认 false）`
 - `participation_level（参与级别）`
 - `pre_supply_required（执行前供料是否必需）`
 - `post_review_required（执行后复核是否必需）`
@@ -123,10 +123,11 @@ python3 scripts/deepseek_supply_controller.py \
 - `missing_context` 可以为空数组，但字段必须存在。
 - `decision_needed` 可以为空字符串，但字段必须存在。
 - 不允许让 DeepSeek 自己猜当前任务阶段。
+- 不允许把 DeepSeek 任务卡当作资料库、向量库、长期记忆或完成证明。
 
 ## 4B. deep_supply_mode（深度文件供料模式字段）
 
-当任务涉及机制修补、多文件规则同步、schema / fixture / runner 接入、用户明确要求 DeepSeek 深度参与，或 Codex 预计会修改 3 个以上文件时，任务卡必须启用：
+只有任务涉及 RAG 召回为空、低置信、互相冲突、高风险机制修补、用户明确要求 DeepSeek 深度参与，或 Codex 回读原文件后仍无法裁决时，任务卡才启用：
 
 ```yaml
 deep_supply_mode:
@@ -137,7 +138,7 @@ deep_supply_mode:
     - post_risk_review
 ```
 
-`file_scope（文件范围）` 必须说明 DeepSeek / controller 可接收哪些文件内容：
+`file_scope（文件范围）` 必须说明 DeepSeek / controller 可接收哪些经过筛选的文件内容；不得把全仓或资料库职责转交给 DeepSeek：
 
 ```yaml
 file_scope:
@@ -148,7 +149,7 @@ file_scope:
   secret_files_forbidden: true
 ```
 
-`content_loading_policy（内容加载策略）` 必须说明是否给 DeepSeek 文件内容和关键片段：
+`content_loading_policy（内容加载策略）` 必须说明是否给 DeepSeek 文件内容和关键片段。默认应优先传 RAG 召回结果和 Codex 已回读片段，而不是让 DeepSeek 承担原始检索：
 
 ```yaml
 content_loading_policy:

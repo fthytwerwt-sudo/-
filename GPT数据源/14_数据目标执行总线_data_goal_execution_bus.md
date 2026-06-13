@@ -2,7 +2,7 @@
 
 ## 0A. formal_operation bus mode
 
-当前总线服务 `formal_operation_active（正式运营中）`：DeepSeek 供料、Codex 执行、发布后数据回流和运营复盘，都必须围绕 `operation_records` 与 `current_data_goal_anchor` 工作。
+当前总线服务 `formal_operation_active（正式运营中）`：RAG / DeepSeek 供料仲裁、Codex 执行、发布后数据回流和运营复盘，都必须围绕 `operation_records` 与 `current_data_goal_anchor` 工作。
 
 旧 `gray_test` 只作为历史兼容别名；新数据默认进入 `operation_data_intake`。当前锚点仍是 `partial_data_recorded`，不能写 `ready`。
 
@@ -111,7 +111,7 @@ bridge_to_copy_learning_memory:
 
 本文件定义 `data_goal_execution_bus（数据目标执行总线）`。
 
-它解决的问题是：把项目架构、文案、DeepSeek 供料、Codex 剪辑编排、发布后复盘统一锚定到 `data_goal_anchor（数据目标锚点）`。
+它解决的问题是：把项目架构、文案、RAG / DeepSeek 供料仲裁、Codex 剪辑编排、发布后复盘统一锚定到 `data_goal_anchor（数据目标锚点）`。
 
 当前实例锚点的优先读取来源是：
 
@@ -137,9 +137,9 @@ bridge_to_copy_learning_memory:
 ```yaml
 data_goal_execution_bus:
   purpose:
-    - "把项目架构、文案、DeepSeek 供料、Codex 剪辑编排、发布复盘统一锚定到数据目标。"
+    - "把项目架构、文案、RAG / DeepSeek 供料仲裁、Codex 剪辑编排、发布复盘统一锚定到数据目标。"
     - "防止 Codex 只按素材、画面顺序或旧视频流程自由发挥。"
-    - "防止 DeepSeek 泛泛供料，不回答本轮数据目标相关风险。"
+    - "防止资料召回脱离本轮数据目标，防止 DeepSeek 被误用成资料库或默认文件读取器。"
 
   architecture_principle:
     data_goal_sets_direction:
@@ -175,14 +175,17 @@ data_goal_execution_bus:
         - success_metric
         - failure_metric
         - post_publish_validation_metric
-    deepseek_supplies_context_and_risk:
-      meaning: "DeepSeek 负责只读供料和风险提醒。"
-      rule: "DeepSeek 不写文件、不拍板项目事实、不替代 Codex 验证。"
+    rag_retrieves_context:
+      meaning: "RAG / embedding / vector database 负责项目内资料召回。"
+      rule: "RAG 输出 chunk、metadata、source、版本和召回结果；不得把召回结果写成完成证明。"
+    deepseek_supplies_reasoning_and_risk:
+      meaning: "DeepSeek 负责推理补位和风险提醒。"
+      rule: "DeepSeek 不写文件、不拍板项目事实、不替代 RAG 召回或 Codex 验证。"
 ```
 
 ## 3. upstream_anchor（上游锚点）
 
-任何正式文案、视频执行、剪辑、装配、DeepSeek 供料、发布后复盘任务，必须先确认以下锚点是否存在。
+任何正式文案、视频执行、剪辑、装配、RAG / DeepSeek 供料仲裁、发布后复盘任务，必须先确认以下锚点是否存在。
 
 ```yaml
 data_goal_anchor:

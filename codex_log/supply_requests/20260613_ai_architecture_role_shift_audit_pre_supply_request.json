@@ -1,0 +1,92 @@
+{
+  "request_id": "20260613_ai_architecture_role_shift_audit_pre_supply_request",
+  "created_at": "2026-06-13T00:00:00+08:00",
+  "project_route": "video_factory",
+  "task_id": "ai_architecture_role_shift_audit",
+  "task_type": "review_diagnosis_audit + mechanism_or_route_fix + project_file_change",
+  "trigger_reason": "rule_conflict",
+  "action": "risk_report",
+  "mandatory_for_every_task": false,
+  "participation_level": "rag_first_fallback_triggered",
+  "pre_supply_required": false,
+  "post_review_required": false,
+  "codex_vertical_completion_required": true,
+  "token_usage_expectation": "real_deepseek_not_called_by_policy; token_usage_not_expected_to_change",
+  "fallback_allowed": true,
+  "fallback_not_completion": true,
+  "user_explicit_deepseek_required": false,
+  "deepseek_must_not_be_skipped_by_codex_discretion": false,
+  "current_goal": "Audit AI execution architecture role placement and move project knowledge retrieval toward embedding + vector database + RAG.",
+  "current_step": "Local-only audit and minimal documentation patch; do not call DeepSeek, Aliyun, DashScope, DashVector, or OpenAI APIs.",
+  "known_context": [
+    "User explicitly says DeepSeek should not act as knowledge base, vector database, file reader, or long-term memory.",
+    "Project already has vector RAG design reports and minimal RAG chain validation.",
+    "Audit found mandatory DeepSeek supply wording in formal entries before the minimal patch."
+  ],
+  "missing_context": [],
+  "decision_needed": "Identify role misplacement and produce minimal RAG-first documentation patch.",
+  "candidate_files": [
+    "AGENTS.md",
+    "GPT数据源/01_项目系统提示词.md",
+    "GPT数据源/03_总索引与阅读顺序.md",
+    "GPT数据源/08_当前正式事实.md",
+    "GPT数据源/10_OPC一人公司闭环与多AI协作机制.md",
+    "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+    "GPT数据源/14_数据目标执行总线_data_goal_execution_bus.md",
+    "codex_source/13_execution_lane_and_parallel_rules.md",
+    "codex_source/17_deepseek_supply_controller_protocol.md",
+    "codex_source/18_deepseek_supply_request_schema.md",
+    "project_source/20_codex_multi_agent_routing_note_for_gpt_project.md"
+  ],
+  "must_read_files": [
+    "AGENTS.md",
+    "codex_log/latest.md",
+    "codex_log/vector_rag_router_design/20260611_deepseek_rag_boundary_strategy.md",
+    "codex_log/vector_rag_router_design/20260613_vector_rag_merge_readiness_report.md"
+  ],
+  "optional_files": [
+    "scripts/vector_sync/README.md",
+    "scripts/vector_sync/最小RAG链路验证_minimal_rag_chain_validation.py"
+  ],
+  "forbidden_paths": [
+    ".env",
+    ".env.local",
+    ".env.*",
+    "dist/latest_review_pack",
+    "public",
+    "*.mp4",
+    "*.mov",
+    "*.wav",
+    "*.mp3",
+    "*.png",
+    "*.jpg",
+    "*.jpeg"
+  ],
+  "expected_output": [
+    "AI role map",
+    "RAG execution architecture",
+    "DeepSeek positioning",
+    "Vector retrieval plan",
+    "Codex execution rules",
+    "Audit report",
+    "CURRENT_STATUS update"
+  ],
+  "not_allowed": [
+    "Do not let DeepSeek write files.",
+    "Do not let DeepSeek decide project facts.",
+    "Do not treat fallback_local_only as a DeepSeek conclusion.",
+    "Do not claim multi-agent runtime stability.",
+    "Do not read or print secrets."
+  ],
+  "blocked_if": [
+    "Project route unclear.",
+    "Current source files unreadable.",
+    "Real API key required to continue.",
+    "Patch would require runtime refactor."
+  ],
+  "return_to_codex": {
+    "fallback_status": "fallback_local_only",
+    "not_deepseek_conclusion": true,
+    "reason": "User constraints prohibit real DeepSeek/API calls for this audit."
+  }
+}

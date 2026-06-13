@@ -1,5 +1,30 @@
 # Latest
 
+## 20260613｜AI 执行架构换位审计与 RAG-first 供料归位
+
+- `task_result.status = ai_architecture_role_shift_audit_completed_with_minimal_document_patch`
+- `branch = main`
+- `project_route = video_factory`
+- `route_decision.task_type = review_diagnosis_audit + mechanism_or_route_fix + project_file_change`
+- `large_task_gate.triggered = true`
+- `lane = audit_lane -> standard_lane`
+- `parallel = read_parallel for audit / serial_only for writes`
+- `deepseek_participation = fallback_local_only`
+- `not_deepseek_conclusion = true`
+- `external_api_called = false`
+- `secret_read_or_printed = false`
+- `本轮不是视频执行`：不生成视频 / 音频 / 图片，不修改 `dist/latest_review_pack/`，不推进 `content_validation / send_ready / voice_validation / final_voice_validated / visual_master_locked`。
+- `审计结论 = 部分成立`：项目已经有 20260611 / 20260613 的 RAG / DashVector 最小链路和边界设计，但正式入口仍残留 DeepSeek 每轮默认资料供料、深度文件供料和 mandatory loop 的旧口径。
+- `DeepSeek 新定位`：推理、总结、改写、风险复核、冲突二次意见和外部深度供料；不作为资料库、向量库、默认文件读取器或长期记忆层。
+- `RAG 新定位`：embedding + vector database + retrieval manifest 负责项目内资料召回，输出 chunk、metadata、source、版本、readback 和 retrieval gap；召回结果不得写成完成证明。
+- `Codex 新定位`：唯一写入执行层，负责回读仓库原文件、改代码 / 文档、跑验证、写报告、更新状态和 Git 收尾；不得替用户 / GPT 拍板业务验收。
+- `新增文档`：`docs/AI_ROLE_MAP.md`、`docs/RAG_EXECUTION_ARCHITECTURE.md`、`docs/DEEPSEEK_POSITIONING.md`、`docs/VECTOR_RETRIEVAL_PLAN.md`、`docs/CODEX_EXECUTION_RULES.md`。
+- `新增报告`：`reports/ai_architecture_role_shift_audit.md`。
+- `新增状态`：`CURRENT_STATUS.md`、`codex_log/supply_requests/20260613_ai_architecture_role_shift_audit_pre_supply_request.json`。
+- `最小补丁`：`AGENTS.md`、`GPT数据源/01_项目系统提示词.md`、`GPT数据源/03_总索引与阅读顺序.md`、`GPT数据源/08_当前正式事实.md`、`GPT数据源/10_OPC一人公司闭环与多AI协作机制.md`、`GPT数据源/11_项目状态动作总控器_机制推理层.md`、`GPT数据源/14_数据目标执行总线_data_goal_execution_bus.md`、`codex_source/13_execution_lane_and_parallel_rules.md`、`codex_source/17_deepseek_supply_controller_protocol.md`、`codex_source/18_deepseek_supply_request_schema.md`、`project_source/20_codex_multi_agent_routing_note_for_gpt_project.md`。
+- `next_codex_goal_recommendation = RAG-first execution healthcheck`：输入任务 query，输出 retrieval manifest、source readback、retrieval gap、DeepSeek trigger decision 和 Codex execution permission。
+- `git_sync_status`：待随本轮 path-limited commit / push / remote readback 完成后，以 Codex final report 为准。
+
 ## 20260613｜Vector RAG 最小链路验证与合并评审就绪
 
 - `task_result.status = vector_rag_minimal_chain_ready_for_main_review`
