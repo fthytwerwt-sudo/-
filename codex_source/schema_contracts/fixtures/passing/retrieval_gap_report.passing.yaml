@@ -1,0 +1,13 @@
+contract_name: RetrievalGapReport
+schema_version: "0.1"
+fixture_only: true
+task_id: vf_schema_contract_fixture_20260614_001
+rag_empty: false
+rag_low_confidence: false
+source_conflict: false
+missing_source_path: false
+missing_content_hash: false
+legacy_source_hit: false
+retrieval_gap_summary: "No retrieval gap in fixture."
+blocked_if_unresolved: false
+deepseek_trigger_recommended: false

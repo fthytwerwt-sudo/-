@@ -1,0 +1,75 @@
+contract_name: CompletionTruthCheck
+version: "0.1"
+status: draft
+project_route: video_factory
+purpose: "Prevent local-only, fallback, retrieval-only, technical-preview, or unsynced results from being reported as completed."
+required_fields:
+  task_id:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Task id being checked for completion."
+    blocked_if_missing: true
+  technical_validation:
+    type: enum
+    required: true
+    allowed_values: [passed, failed, partial, not_applicable]
+    description: "Technical validation result for this task."
+    blocked_if_missing: true
+  content_validation_boundary_check:
+    type: enum
+    required: true
+    allowed_values: [not_advanced, human_review_required, not_applicable]
+    description: "Confirms content validation was not improperly advanced."
+    blocked_if_missing: true
+  forbidden_status_promotion_check:
+    type: enum
+    required: true
+    allowed_values: [passed_no_forbidden_status_promoted, failed_forbidden_status_promoted]
+    description: "Result of forbidden status promotion scan."
+    blocked_if_missing: true
+  source_readback_passed:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "Whether source readback passed where required."
+    blocked_if_missing: true
+  validation_artifacts:
+    type: list[string]
+    required: true
+    allowed_values: []
+    description: "Validation evidence files or commands."
+    blocked_if_missing: true
+  remaining_blockers:
+    type: list[string]
+    required: true
+    allowed_values: []
+    description: "Known blockers remaining after validation."
+    blocked_if_missing: true
+  completion_claim_allowed:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "Whether final response may claim completion."
+    blocked_if_missing: true
+  not_allowed_completion_claims:
+    type: list[string]
+    required: true
+    allowed_values: [runtime_enabled, sandbox_created, minimal_router_prototype_created, content_validation_passed, send_ready_true, voice_validation_passed, visual_master_locked, publish_candidate_ready, deepseek_real_participation, no_blockers_if_blocked]
+    description: "Claims forbidden by this check."
+    blocked_if_missing: true
+optional_fields:
+  git_sync_status:
+    type: string
+    required: false
+    allowed_values: []
+    description: "Commit/push/readback result when applicable."
+    blocked_if_missing: false
+input_from: [WriteExecutorHandoff, validation_artifacts, repo_readback]
+output_to: [latest.md, final_report, sandbox_entry_decision]
+blocked_if_missing: true
+must_not_do: [claim_completion_without_validation, promote_content_status, claim_remote_sync_without_readback]
+validation_notes:
+  - "For schema-contract tasks, content_validation_boundary_check must be not_advanced or not_applicable."
+  - "Completion claim requires validation artifacts and remote readback when git sync is required."
+trace_fields: [task_id, commit_sha, source_paths, content_hashes]

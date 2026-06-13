@@ -1,0 +1,51 @@
+contract_name: WriteExecutorHandoff
+schema_version: "0.1"
+fixture_only: true
+handoff_id: vf_handoff_fixture_20260614_001
+task_id: vf_schema_contract_fixture_20260614_001
+executor_type: codex
+active_write_executor: codex
+allowed_files:
+  - codex_source/schema_contracts/
+  - codex_log/framework_adapter/20260614_schema_contract_fix_plan.md
+  - codex_log/latest.md
+forbidden_files:
+  - pyproject.toml
+  - requirements.txt
+  - package.json
+  - compose.yaml
+  - docker-compose.yml
+  - dist/
+  - public/
+  - .env*
+forbidden_status_fields:
+  - content_validation
+  - send_ready
+  - voice_validation
+  - final_voice_validated
+  - visual_master_locked
+  - current_data_goal_anchor_ready
+  - publish_candidate_ready
+  - runtime_enabled
+  - sandbox_created
+  - minimal_router_prototype_created
+source_readback:
+  readback_status: passed
+  source_of_truth_confirmed: true
+retrieval_manifest:
+  retrieval_provider: static_fixture
+  readback_required: true
+deepseek_trigger_decision:
+  deepseek_triggered: false
+  not_deepseek_conclusion: true
+human_review_required: false
+exact_changes_requested:
+  - create_schema_drafts
+  - create_passing_and_blocked_fixtures
+  - update_latest
+validation_required:
+  - static_schema_presence_check
+  - fixture_required_field_check
+  - forbidden_status_scan
+git_sync_required: true
+remote_readback_required: true

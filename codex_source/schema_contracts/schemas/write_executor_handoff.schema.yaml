@@ -1,0 +1,111 @@
+contract_name: WriteExecutorHandoff
+version: "0.1"
+status: draft
+project_route: video_factory
+purpose: "Package a no-runtime write request for the current active write executor while preserving allowed files, forbidden fields, validation, and git sync boundaries."
+required_fields:
+  handoff_id:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Stable handoff id."
+    blocked_if_missing: true
+  task_id:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Task id linked to upstream contracts."
+    blocked_if_missing: true
+  executor_type:
+    type: enum
+    required: true
+    allowed_values: [codex, trae, future_ide_agent]
+    description: "Executor type selected for write execution."
+    blocked_if_missing: true
+  active_write_executor:
+    type: enum
+    required: true
+    allowed_values: [codex]
+    description: "Currently active write executor."
+    blocked_if_missing: true
+  allowed_files:
+    type: list[string]
+    required: true
+    allowed_values: []
+    description: "Files or directories the executor may modify."
+    blocked_if_missing: true
+  forbidden_files:
+    type: list[string]
+    required: true
+    allowed_values: []
+    description: "Files, directories, or patterns forbidden for this task."
+    blocked_if_missing: true
+  forbidden_status_fields:
+    type: list[string]
+    required: true
+    allowed_values: [content_validation, send_ready, voice_validation, final_voice_validated, visual_master_locked, current_data_goal_anchor_ready, publish_candidate_ready, runtime_enabled, sandbox_created, minimal_router_prototype_created]
+    description: "Status fields that must not be promoted."
+    blocked_if_missing: true
+  source_readback:
+    type: object
+    required: true
+    allowed_values: []
+    description: "SourceReadback summary or reference."
+    blocked_if_missing: true
+  retrieval_manifest:
+    type: object
+    required: true
+    allowed_values: []
+    description: "RetrievalManifest summary or reference."
+    blocked_if_missing: true
+  deepseek_trigger_decision:
+    type: object
+    required: true
+    allowed_values: []
+    description: "DeepSeekTriggerDecision summary or reference."
+    blocked_if_missing: true
+  human_review_required:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "Whether a human review interrupt is required before write."
+    blocked_if_missing: true
+  exact_changes_requested:
+    type: list[string]
+    required: true
+    allowed_values: []
+    description: "Concrete changes requested from the executor."
+    blocked_if_missing: true
+  validation_required:
+    type: list[string]
+    required: true
+    allowed_values: []
+    description: "Validation commands or static checks required."
+    blocked_if_missing: true
+  git_sync_required:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "Whether commit and push are required."
+    blocked_if_missing: true
+  remote_readback_required:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "Whether remote ref readback is required."
+    blocked_if_missing: true
+optional_fields:
+  completion_truth_check:
+    type: object
+    required: false
+    allowed_values: []
+    description: "CompletionTruthCheck reference when available."
+    blocked_if_missing: false
+input_from: [WorkflowRouteDecision, RetrievalManifest, SourceReadback, DeepSeekTriggerDecision, BlockedIfCheck, HumanReviewInterrupt]
+output_to: [active_write_executor, CompletionTruthCheck]
+blocked_if_missing: true
+must_not_do: [let_runtime_write, bypass_allowed_files, bypass_human_review, skip_git_sync_when_required]
+validation_notes:
+  - "In current state, active_write_executor must remain codex."
+  - "Any future executor needs a separate validation task."
+trace_fields: [task_id, handoff_id, commit_sha, source_paths, content_hashes]

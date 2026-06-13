@@ -1,0 +1,24 @@
+contract_name: CompletionTruthCheck
+schema_version: "0.1"
+fixture_only: true
+task_id: vf_schema_contract_fixture_20260614_001
+technical_validation: passed
+content_validation_boundary_check: not_advanced
+forbidden_status_promotion_check: passed_no_forbidden_status_promoted
+source_readback_passed: true
+validation_artifacts:
+  - git diff --check
+  - static_schema_presence_check
+  - fixture_required_field_check
+remaining_blockers: []
+completion_claim_allowed: true
+not_allowed_completion_claims:
+  - runtime_enabled
+  - sandbox_created
+  - minimal_router_prototype_created
+  - content_validation_passed
+  - send_ready_true
+  - voice_validation_passed
+  - visual_master_locked
+  - publish_candidate_ready
+  - deepseek_real_participation

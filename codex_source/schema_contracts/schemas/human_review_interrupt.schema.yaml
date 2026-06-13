@@ -1,0 +1,69 @@
+contract_name: HumanReviewInterrupt
+version: "0.1"
+status: draft
+project_route: video_factory
+purpose: "Define human review interruption before status promotion, sandbox entry, runtime enablement, source conflict resolution, or executor switch."
+required_fields:
+  task_id:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Task id requiring or skipping review."
+    blocked_if_missing: true
+  interrupt_required:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "Whether review interrupt is required."
+    blocked_if_missing: true
+  interrupt_reason:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Reason for interrupt or not_required."
+    blocked_if_missing: true
+  reviewer:
+    type: enum
+    required: true
+    allowed_values: [user, chatgpt, codex_self_check, not_required]
+    description: "Reviewer responsible for resume decision."
+    blocked_if_missing: true
+  review_question:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Question that must be answered before resume."
+    blocked_if_missing: true
+  allowed_user_responses:
+    type: list[string]
+    required: true
+    allowed_values: [approve, reject, revise, continue_design_only, keep_blocked, not_required]
+    description: "Allowed resume responses."
+    blocked_if_missing: true
+  resume_condition:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Condition that allows continuation."
+    blocked_if_missing: true
+  forbidden_auto_resume:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "Whether auto resume is forbidden."
+    blocked_if_missing: true
+optional_fields:
+  review_artifacts:
+    type: list[string]
+    required: false
+    allowed_values: []
+    description: "Files or reports required for review."
+    blocked_if_missing: false
+input_from: [BlockedIfCheck, DeepSeekTriggerDecision, workflow_policy]
+output_to: [WriteExecutorHandoff, sandbox_entry_decision]
+blocked_if_missing: true
+must_not_do: [auto_resume_status_promotion, auto_resume_sandbox, auto_resume_executor_switch]
+validation_notes:
+  - "If interrupt_required=true, forbidden_auto_resume must be true."
+  - "Sandbox entry must have explicit human approval in a later task."
+trace_fields: [task_id, handoff_id]

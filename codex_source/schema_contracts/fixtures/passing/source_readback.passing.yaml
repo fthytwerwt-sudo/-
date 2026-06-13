@@ -1,0 +1,12 @@
+contract_name: SourceReadback
+schema_version: "0.1"
+fixture_only: true
+task_id: vf_schema_contract_fixture_20260614_001
+source_path: codex_log/framework_adapter/20260613_schema_contract_gap_review.md
+expected_content_hash: hash_fixture_gap_review_001
+current_content_hash: hash_fixture_gap_review_001
+commit_sha: "0000000000000000000000000000000000000001"
+readback_status: passed
+matched_excerpt: "schema_contract_gap_review_report fixture excerpt"
+conflict_reason: ""
+source_of_truth_confirmed: true

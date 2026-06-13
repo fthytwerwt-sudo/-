@@ -1,0 +1,11 @@
+contract_name: HumanReviewInterrupt
+schema_version: "0.1"
+fixture_only: true
+task_id: vf_schema_contract_fixture_20260614_001
+interrupt_required: false
+interrupt_reason: not_required
+reviewer: not_required
+review_question: not_required
+allowed_user_responses: [not_required]
+resume_condition: "Static schema contract task remains inside allowed files and does not enter sandbox."
+forbidden_auto_resume: false

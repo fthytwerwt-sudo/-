@@ -1,0 +1,16 @@
+contract_name: WorkflowRouteDecision
+schema_version: "0.1"
+fixture_only: true
+task_id: vf_schema_contract_fixture_20260614_001
+project_route: video_factory
+task_type: [schema_contract_fix_plan, adapter_design_review_only, mechanism_repair_flow, project_file_change]
+workflow_route_decision: mechanism_repair_flow
+responsibility_layer: [mechanism_fix_layer, validation_layer, sync_layer]
+large_task_gate:
+  triggered: true
+  reason: "More than three schema/fixture files are created."
+  lane_recommendation: serial_only_for_writes
+execution_permission: write_schema_fixtures_index_report_latest_only
+allowed_next_steps: [schema_contract_static_validation]
+forbidden_next_steps: [dependency_install, sandbox_intake, minimal_router_prototype, runtime_enablement, full_migration, video_execution, status_promotion]
+reasoning_summary: "The task repairs schema contracts only and stays in mechanism_repair_flow."

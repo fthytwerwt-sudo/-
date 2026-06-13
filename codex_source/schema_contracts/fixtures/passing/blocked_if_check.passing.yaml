@@ -1,0 +1,12 @@
+contract_name: BlockedIfCheck
+schema_version: "0.1"
+fixture_only: true
+task_id: vf_schema_contract_fixture_20260614_001
+workflow_type: mechanism_repair_flow
+blocked: false
+blocked_reasons: []
+severity: none
+blocking_files: []
+required_fix_before_continue: []
+allowed_fallback: none
+human_review_required: false

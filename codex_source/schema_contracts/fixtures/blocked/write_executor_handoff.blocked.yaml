@@ -1,0 +1,32 @@
+contract_name: WriteExecutorHandoff
+schema_version: "0.1"
+fixture_only: true
+handoff_id: vf_handoff_fixture_20260614_blocked_001
+task_id: vf_schema_contract_fixture_20260614_blocked_001
+executor_type: future_ide_agent
+active_write_executor: codex
+allowed_files:
+  - codex_source/schema_contracts/
+forbidden_files:
+  - package.json
+forbidden_status_fields:
+  - runtime_enabled
+source_readback:
+  readback_status: conflict
+  source_of_truth_confirmed: false
+retrieval_manifest:
+  readback_required: true
+deepseek_trigger_decision:
+  deepseek_triggered: true
+  not_deepseek_conclusion: false
+human_review_required: true
+exact_changes_requested:
+  - enable_runtime
+validation_required: []
+git_sync_required: true
+remote_readback_required: true
+blocked: true
+blocked_reasons:
+  - executor_type_not_authorized
+  - source_readback_conflict
+  - runtime_enablement_forbidden

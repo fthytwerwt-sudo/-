@@ -1,0 +1,13 @@
+contract_name: WorkflowRouteDecision
+schema_version: "0.1"
+fixture_only: true
+task_id: vf_schema_contract_fixture_20260614_blocked_001
+project_route: video_factory
+workflow_route_decision: mechanism_repair_flow
+blocked: true
+blocked_reasons:
+  - missing_task_type
+  - missing_execution_permission
+  - forbidden_next_step_contains_sandbox_intake
+forbidden_next_steps: [sandbox_intake]
+resume_policy: "Do not continue until task_type and execution_permission are explicit."

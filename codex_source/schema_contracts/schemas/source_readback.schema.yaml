@@ -1,0 +1,75 @@
+contract_name: SourceReadback
+version: "0.1"
+status: draft
+project_route: video_factory
+purpose: "Confirm that every retrieved source still exists in the repo and that repo files remain source_of_truth."
+required_fields:
+  task_id:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Task id shared with retrieval manifest."
+    blocked_if_missing: true
+  source_path:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Repository path read from disk or remote source."
+    blocked_if_missing: true
+  expected_content_hash:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Hash expected from retrieval metadata."
+    blocked_if_missing: true
+  current_content_hash:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Hash observed during readback."
+    blocked_if_missing: true
+  commit_sha:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Commit sha for the readback context."
+    blocked_if_missing: true
+  readback_status:
+    type: enum
+    required: true
+    allowed_values: [passed, failed, conflict, missing]
+    description: "Source readback result."
+    blocked_if_missing: true
+  matched_excerpt:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Short non-sensitive excerpt or fixture marker."
+    blocked_if_missing: true
+  conflict_reason:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Conflict or empty string when passed."
+    blocked_if_missing: true
+  source_of_truth_confirmed:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "Whether repo source confirmed the evidence."
+    blocked_if_missing: true
+optional_fields:
+  line_range:
+    type: string
+    required: false
+    allowed_values: []
+    description: "Optional line range for evidence."
+    blocked_if_missing: false
+input_from: [RetrievalManifest, repo_files]
+output_to: [RetrievalGapReport, BlockedIfCheck, CompletionTruthCheck]
+blocked_if_missing: true
+must_not_do: [use_rag_summary_as_source, use_deepseek_summary_as_source, skip_repo_readback]
+validation_notes:
+  - "source_of_truth_confirmed must be true before write handoff can pass."
+  - "conflict or missing readback must feed RetrievalGapReport."
+trace_fields: [task_id, source_path, expected_content_hash, current_content_hash, commit_sha]

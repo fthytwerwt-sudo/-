@@ -1,0 +1,16 @@
+contract_name: DeepSeekTriggerDecision
+schema_version: "0.1"
+fixture_only: true
+task_id: vf_schema_contract_fixture_20260614_blocked_001
+deepseek_triggered: true
+trigger_reasons: [source_conflict]
+not_deepseek_conclusion: false
+fallback_status: fallback_local_only
+token_usage_observed_or_user_check_required: user_check_required
+input_package_required: true
+allowed_deepseek_roles: [reasoning_reviewer]
+forbidden_deepseek_actions: [write_files, commit, push, replace_source_of_truth]
+blocked: true
+blocked_reasons:
+  - fallback_local_only_cannot_be_deepseek_conclusion
+  - token_usage_not_observed

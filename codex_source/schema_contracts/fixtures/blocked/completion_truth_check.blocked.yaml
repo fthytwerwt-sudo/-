@@ -1,0 +1,20 @@
+contract_name: CompletionTruthCheck
+schema_version: "0.1"
+fixture_only: true
+task_id: vf_schema_contract_fixture_20260614_blocked_001
+technical_validation: partial
+content_validation_boundary_check: human_review_required
+forbidden_status_promotion_check: failed_forbidden_status_promoted
+source_readback_passed: false
+validation_artifacts: []
+remaining_blockers:
+  - source_readback_failed
+  - forbidden_status_promotion_detected
+completion_claim_allowed: false
+not_allowed_completion_claims:
+  - no_blockers_if_blocked
+  - runtime_enabled
+blocked: true
+blocked_reasons:
+  - validation_artifacts_missing
+  - completion_claim_not_allowed

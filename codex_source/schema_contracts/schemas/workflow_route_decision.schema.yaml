@@ -1,0 +1,87 @@
+contract_name: WorkflowRouteDecision
+version: "0.1"
+status: draft
+project_route: video_factory
+purpose: "Normalize task routing into a workflow, responsibility layer, and execution permission before any runtime, write, or status action."
+required_fields:
+  task_id:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Stable id for one task decision chain."
+    blocked_if_missing: true
+  project_route:
+    type: enum
+    required: true
+    allowed_values: [video_factory, live_frontend, unrouted]
+    description: "Repository project route selected by AGENTS.md."
+    blocked_if_missing: true
+  task_type:
+    type: list[string]
+    required: true
+    allowed_values: [project_file_change, copywriting, video_sample_or_assembly, review_diagnosis_audit, code_debug, external_research_bridge, mechanism_or_route_fix, local_file_governance, data_review_loop, schema_contract_fix_plan, adapter_design_review_only, mechanism_repair_flow]
+    description: "Task type labels for downstream gates."
+    blocked_if_missing: true
+  workflow_route_decision:
+    type: enum
+    required: true
+    allowed_values: [copy_testing_flow, material_evidence_flow, aesthetic_editing_flow, quality_review_flow, data_review_flow, mechanism_repair_flow]
+    description: "One of the six video_factory workflows."
+    blocked_if_missing: true
+  responsibility_layer:
+    type: list[string]
+    required: true
+    allowed_values: [entry_routing_layer, project_judgment_layer, execution_layer, validation_layer, sync_layer, mechanism_fix_layer, multi_agent_lane_layer]
+    description: "Layer that owns this task."
+    blocked_if_missing: true
+  large_task_gate:
+    type: object
+    required: true
+    allowed_values: []
+    description: "Large-task decision with reason, lane, and parallel policy."
+    blocked_if_missing: true
+  execution_permission:
+    type: enum
+    required: true
+    allowed_values: [blocked, read_only, write_schema_fixtures_index_report_latest_only, add_report_and_latest_only, design_files_only]
+    description: "Explicit permission for the current round."
+    blocked_if_missing: true
+  allowed_next_steps:
+    type: list[string]
+    required: true
+    allowed_values: [schema_contract_static_validation, schema_contract_fix_plan, design_review_only, blocked]
+    description: "Next steps allowed by this decision."
+    blocked_if_missing: true
+  forbidden_next_steps:
+    type: list[string]
+    required: true
+    allowed_values: [dependency_install, sandbox_intake, minimal_router_prototype, runtime_enablement, full_migration, video_execution, status_promotion]
+    description: "Next steps explicitly disallowed."
+    blocked_if_missing: true
+  reasoning_summary:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Short evidence-based reason for the route."
+    blocked_if_missing: true
+optional_fields:
+  confidence:
+    type: enum
+    required: false
+    allowed_values: [high, medium, low]
+    description: "Confidence in route decision."
+    blocked_if_missing: false
+  must_read_files:
+    type: list[string]
+    required: false
+    allowed_values: []
+    description: "Files required before execution."
+    blocked_if_missing: false
+input_from: [AGENTS.md, user_task, codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md]
+output_to: [retrieval_manifest, blocked_if_check, state_action_router]
+blocked_if_missing: true
+must_not_do: [write_without_permission, install_dependency, create_sandbox, enable_runtime, promote_status]
+validation_notes:
+  - "Route decision must be emitted before any file modification."
+  - "For this task, execution_permission must stay limited to schema/index/report/latest writes."
+trace_fields: [task_id, workflow_route_decision, project_route]

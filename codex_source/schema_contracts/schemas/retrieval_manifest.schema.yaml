@@ -1,0 +1,105 @@
+contract_name: RetrievalManifest
+version: "0.1"
+status: draft
+project_route: video_factory
+purpose: "Record RAG/DashVector retrieval evidence and mark vector hits as cache/index results, not source_of_truth or completion proof."
+required_fields:
+  task_id:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Task id shared with route and readback."
+    blocked_if_missing: true
+  workflow_type:
+    type: enum
+    required: true
+    allowed_values: [copy_testing_flow, material_evidence_flow, aesthetic_editing_flow, quality_review_flow, data_review_flow, mechanism_repair_flow]
+    description: "Workflow that requested retrieval."
+    blocked_if_missing: true
+  retrieval_queries:
+    type: list[string]
+    required: true
+    allowed_values: []
+    description: "Queries sent to the retrieval layer."
+    blocked_if_missing: true
+  retrieval_provider:
+    type: enum
+    required: true
+    allowed_values: [dashvector, static_fixture]
+    description: "Provider used for retrieval."
+    blocked_if_missing: true
+  embedding_model:
+    type: enum
+    required: true
+    allowed_values: [text-embedding-v4, fixture_only]
+    description: "Embedding model expected for current DashVector path."
+    blocked_if_missing: true
+  vector_collection:
+    type: enum
+    required: true
+    allowed_values: [video_factory_docs_test, fixture_only]
+    description: "Vector collection used or fixture marker."
+    blocked_if_missing: true
+  retrieved_chunks:
+    type: list[object]
+    required: true
+    allowed_values: []
+    description: "Retrieved chunks with ids, source paths, hashes, and scores."
+    blocked_if_missing: true
+  source_paths:
+    type: list[string]
+    required: true
+    allowed_values: []
+    description: "Repo paths that must be read back."
+    blocked_if_missing: true
+  content_hashes:
+    type: list[string]
+    required: true
+    allowed_values: []
+    description: "Hashes associated with retrieved source chunks."
+    blocked_if_missing: true
+  commit_sha:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Commit sha associated with the indexed evidence."
+    blocked_if_missing: true
+  authority_level:
+    type: enum
+    required: true
+    allowed_values: [current_repo_source, current_log, draft_design, historical_reference, fixture_only]
+    description: "Authority level of retrieved evidence."
+    blocked_if_missing: true
+  readback_required:
+    type: boolean
+    required: true
+    allowed_values: [true]
+    description: "Whether repo source readback is mandatory."
+    blocked_if_missing: true
+  vector_result_not_completion_proof:
+    type: boolean
+    required: true
+    allowed_values: [true]
+    description: "Prevents vector hit from being used as completion proof."
+    blocked_if_missing: true
+optional_fields:
+  top_k:
+    type: integer
+    required: false
+    allowed_values: []
+    description: "Retrieval result limit."
+    blocked_if_missing: false
+  score_threshold:
+    type: number
+    required: false
+    allowed_values: []
+    description: "Minimum score threshold."
+    blocked_if_missing: false
+input_from: [WorkflowRouteDecision, DashVector, static_fixture]
+output_to: [SourceReadback, RetrievalGapReport, DeepSeekTriggerDecision]
+blocked_if_missing: true
+must_not_do: [replace_source_of_truth, prove_completion, switch_to_chroma_by_default, require_secret_in_fixture]
+validation_notes:
+  - "Every source_path must be handed to SourceReadback before write execution."
+  - "readback_required and vector_result_not_completion_proof must remain true."
+trace_fields: [task_id, source_paths, content_hashes, commit_sha]

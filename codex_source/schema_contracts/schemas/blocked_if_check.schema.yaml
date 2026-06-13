@@ -1,0 +1,75 @@
+contract_name: BlockedIfCheck
+version: "0.1"
+status: draft
+project_route: video_factory
+purpose: "Convert workflow and contract blockers into one structured execution gate."
+required_fields:
+  task_id:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Task id being checked."
+    blocked_if_missing: true
+  workflow_type:
+    type: enum
+    required: true
+    allowed_values: [copy_testing_flow, material_evidence_flow, aesthetic_editing_flow, quality_review_flow, data_review_flow, mechanism_repair_flow]
+    description: "Workflow whose blockers are evaluated."
+    blocked_if_missing: true
+  blocked:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "Whether execution is blocked."
+    blocked_if_missing: true
+  blocked_reasons:
+    type: list[string]
+    required: true
+    allowed_values: []
+    description: "Machine-readable blocker reasons."
+    blocked_if_missing: true
+  severity:
+    type: enum
+    required: true
+    allowed_values: [none, low, medium, high, critical]
+    description: "Highest blocker severity."
+    blocked_if_missing: true
+  blocking_files:
+    type: list[string]
+    required: true
+    allowed_values: []
+    description: "Files involved in the blocker."
+    blocked_if_missing: true
+  required_fix_before_continue:
+    type: list[string]
+    required: true
+    allowed_values: []
+    description: "Required fixes before continuing."
+    blocked_if_missing: true
+  allowed_fallback:
+    type: enum
+    required: true
+    allowed_values: [none, local_readonly_review, report_only, human_review_only]
+    description: "Allowed fallback, if any."
+    blocked_if_missing: true
+  human_review_required:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "Whether human review must interrupt."
+    blocked_if_missing: true
+optional_fields:
+  blocked_source_contract:
+    type: string
+    required: false
+    allowed_values: []
+    description: "Contract that emitted the blocker."
+    blocked_if_missing: false
+input_from: [WorkflowRouteDecision, RetrievalManifest, SourceReadback, RetrievalGapReport, DeepSeekTriggerDecision]
+output_to: [HumanReviewInterrupt, WriteExecutorHandoff, sandbox_entry_decision]
+blocked_if_missing: true
+must_not_do: [replace_structured_blocker_with_narrative, allow_fallback_as_completion, continue_when_blocked]
+validation_notes:
+  - "blocked=true requires at least one blocked_reasons item."
+  - "blocked=false requires severity=none."
+trace_fields: [task_id, workflow_type, source_path]

@@ -1,0 +1,75 @@
+contract_name: DeepSeekTriggerDecision
+version: "0.1"
+status: draft
+project_route: video_factory
+purpose: "Decide whether DeepSeek enters as a conditional read-only reviewer after RAG and source readback."
+required_fields:
+  task_id:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Task id shared with upstream contracts."
+    blocked_if_missing: true
+  deepseek_triggered:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "Whether DeepSeek review is triggered."
+    blocked_if_missing: true
+  trigger_reasons:
+    type: list[string]
+    required: true
+    allowed_values: [rag_empty, rag_low_confidence, source_conflict, mechanism_conflict, high_risk_execution, pre_execution_risk_review, post_execution_discrepancy_review, user_explicit_request, external_deep_reasoning_needed, none]
+    description: "Reasons for triggering or none."
+    blocked_if_missing: true
+  not_deepseek_conclusion:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "Marks local or Codex-only conclusions as not DeepSeek conclusions."
+    blocked_if_missing: true
+  fallback_status:
+    type: enum
+    required: true
+    allowed_values: [not_needed, fallback_local_only, runtime_setup_required, blocked_missing_process_env_key, blocked_invalid_key, blocked_network_or_timeout, not_attempted_policy_violation]
+    description: "Fallback or blocker status when DeepSeek is not truly called."
+    blocked_if_missing: true
+  token_usage_observed_or_user_check_required:
+    type: enum
+    required: true
+    allowed_values: [not_applicable, observed, user_check_required]
+    description: "Token usage evidence boundary."
+    blocked_if_missing: true
+  input_package_required:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "Whether a supply/review input package must be created."
+    blocked_if_missing: true
+  allowed_deepseek_roles:
+    type: list[string]
+    required: true
+    allowed_values: [reasoning_reviewer, risk_auditor, conflict_second_opinion, fallback_context_synthesizer, external_deep_supply_optional]
+    description: "Allowed DeepSeek roles."
+    blocked_if_missing: true
+  forbidden_deepseek_actions:
+    type: list[string]
+    required: true
+    allowed_values: [write_files, edit_files, commit, push, replace_source_of_truth, prove_completion, promote_status]
+    description: "Actions DeepSeek must never perform."
+    blocked_if_missing: true
+optional_fields:
+  input_package_path:
+    type: string
+    required: false
+    allowed_values: []
+    description: "Path to input package when required."
+    blocked_if_missing: false
+input_from: [RetrievalGapReport, user_task, risk_policy]
+output_to: [BlockedIfCheck, HumanReviewInterrupt, WriteExecutorHandoff]
+blocked_if_missing: true
+must_not_do: [claim_deepseek_without_call, use_fallback_as_deepseek_result, let_deepseek_write]
+validation_notes:
+  - "If deepseek_triggered=false, fallback_status should be not_needed unless an attempted call failed."
+  - "If triggered and not called, not_deepseek_conclusion must be true."
+trace_fields: [task_id]

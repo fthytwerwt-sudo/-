@@ -1,0 +1,81 @@
+contract_name: CrossContractTrace
+version: "0.1"
+status: draft
+project_route: video_factory
+purpose: "Provide shared trace fields so one adapter decision chain can be audited across route, retrieval, readback, blocker, handoff, completion, and git sync."
+required_fields:
+  task_id:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Shared id for all contracts in one task."
+    blocked_if_missing: true
+  handoff_id:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Shared id for write executor handoff when a handoff exists."
+    blocked_if_missing: true
+  commit_sha:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Commit sha associated with source or final sync; use fixture value for examples."
+    blocked_if_missing: true
+  source_paths:
+    type: list[string]
+    required: true
+    allowed_values: []
+    description: "Source paths referenced by retrieval/readback/handoff."
+    blocked_if_missing: true
+  content_hashes:
+    type: list[string]
+    required: true
+    allowed_values: []
+    description: "Content hashes referenced by retrieval/readback."
+    blocked_if_missing: true
+  workflow_type:
+    type: enum
+    required: true
+    allowed_values: [copy_testing_flow, material_evidence_flow, aesthetic_editing_flow, quality_review_flow, data_review_flow, mechanism_repair_flow]
+    description: "Workflow trace label."
+    blocked_if_missing: true
+  executor_type:
+    type: enum
+    required: true
+    allowed_values: [codex, trae, future_ide_agent, none]
+    description: "Executor type in the trace."
+    blocked_if_missing: true
+  runtime_enabled:
+    type: boolean
+    required: true
+    allowed_values: [false]
+    description: "Runtime enablement flag; must remain false for current design stage."
+    blocked_if_missing: true
+  sandbox_created:
+    type: boolean
+    required: true
+    allowed_values: [false]
+    description: "Sandbox creation flag; must remain false for current design stage."
+    blocked_if_missing: true
+  minimal_router_prototype_created:
+    type: boolean
+    required: true
+    allowed_values: [false]
+    description: "Prototype creation flag; must remain false for current design stage."
+    blocked_if_missing: true
+optional_fields:
+  schema_version:
+    type: string
+    required: false
+    allowed_values: []
+    description: "Schema version label for the trace."
+    blocked_if_missing: false
+input_from: [all_schema_contracts]
+output_to: [schema_contracts_index, CompletionTruthCheck, final_report]
+blocked_if_missing: true
+must_not_do: [use_trace_to_enable_runtime, omit_task_id, omit_commit_or_source_reference]
+validation_notes:
+  - "Fixtures should reuse one passing task_id and one blocked task_id across contracts."
+  - "runtime_enabled, sandbox_created, and minimal_router_prototype_created remain false until a later authorized task."
+trace_fields: [task_id, handoff_id, commit_sha, source_paths, content_hashes, workflow_type, executor_type]

@@ -1,0 +1,18 @@
+contract_name: RetrievalGapReport
+schema_version: "0.1"
+fixture_only: true
+task_id: vf_schema_contract_fixture_20260614_blocked_001
+rag_empty: true
+rag_low_confidence: true
+source_conflict: true
+missing_source_path: true
+missing_content_hash: true
+legacy_source_hit: true
+retrieval_gap_summary: "Retrieval is empty or conflicts with repo readback."
+blocked_if_unresolved: true
+deepseek_trigger_recommended: true
+blocked: true
+blocked_reasons:
+  - rag_empty
+  - source_conflict
+  - missing_source_path

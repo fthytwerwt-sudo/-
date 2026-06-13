@@ -1,0 +1,16 @@
+contract_name: BlockedIfCheck
+schema_version: "0.1"
+fixture_only: true
+task_id: vf_schema_contract_fixture_20260614_blocked_001
+workflow_type: mechanism_repair_flow
+blocked: true
+blocked_reasons:
+  - forbidden_path_modified
+  - runtime_enablement_requested
+severity: critical
+blocking_files:
+  - package.json
+required_fix_before_continue:
+  - remove_forbidden_path_change
+allowed_fallback: report_only
+human_review_required: true

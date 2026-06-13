@@ -1,0 +1,15 @@
+contract_name: HumanReviewInterrupt
+schema_version: "0.1"
+fixture_only: true
+task_id: vf_schema_contract_fixture_20260614_blocked_001
+interrupt_required: true
+interrupt_reason: sandbox_entry_requested
+reviewer: user
+review_question: "Approve sandbox entry after schema validation?"
+allowed_user_responses: [approve, reject, revise, keep_blocked]
+resume_condition: "User explicitly approves a later sandbox task."
+forbidden_auto_resume: true
+blocked: true
+blocked_reasons:
+  - sandbox_requires_human_review
+  - forbidden_auto_resume

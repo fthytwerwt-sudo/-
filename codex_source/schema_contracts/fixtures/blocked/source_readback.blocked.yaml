@@ -1,0 +1,16 @@
+contract_name: SourceReadback
+schema_version: "0.1"
+fixture_only: true
+task_id: vf_schema_contract_fixture_20260614_blocked_001
+source_path: codex_log/framework_adapter/20260613_schema_contract_gap_review.md
+expected_content_hash: hash_fixture_expected
+current_content_hash: hash_fixture_current_conflict
+commit_sha: "0000000000000000000000000000000000000001"
+readback_status: conflict
+matched_excerpt: ""
+conflict_reason: "current_content_hash does not match expected_content_hash"
+source_of_truth_confirmed: false
+blocked: true
+blocked_reasons:
+  - source_readback_conflict
+  - source_of_truth_not_confirmed

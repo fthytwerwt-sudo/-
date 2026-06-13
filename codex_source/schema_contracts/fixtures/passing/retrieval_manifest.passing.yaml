@@ -1,0 +1,24 @@
+contract_name: RetrievalManifest
+schema_version: "0.1"
+fixture_only: true
+task_id: vf_schema_contract_fixture_20260614_001
+workflow_type: mechanism_repair_flow
+retrieval_queries:
+  - "schema contract gap review current adapter status"
+retrieval_provider: static_fixture
+embedding_model: fixture_only
+vector_collection: fixture_only
+retrieved_chunks:
+  - chunk_id: fixture_chunk_001
+    source_path: codex_log/framework_adapter/20260613_schema_contract_gap_review.md
+    content_hash: hash_fixture_gap_review_001
+    retrieval_score: 0.99
+    authority_level: current_log
+source_paths:
+  - codex_log/framework_adapter/20260613_schema_contract_gap_review.md
+content_hashes:
+  - hash_fixture_gap_review_001
+commit_sha: "0000000000000000000000000000000000000001"
+authority_level: current_log
+readback_required: true
+vector_result_not_completion_proof: true

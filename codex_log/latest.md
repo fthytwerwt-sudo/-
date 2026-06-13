@@ -1,5 +1,35 @@
 # Latest
 
+## 20260614｜Schema Contract Fix Plan
+
+- `task_result.status = schema_contract_fix_plan_completed_static_draft`
+- `branch = main`
+- `project_route = video_factory`
+- `route_decision.task_type = schema_contract_fix_plan + adapter_design_review_only + mechanism_repair_flow + project_file_change`
+- `workflow_route_decision = mechanism_repair_flow`
+- `large_task_gate.triggered = true`
+- `execution_permission = write_schema_fixtures_index_report_latest_only`
+- `deepseek_triggered = false`
+- `not_deepseek_conclusion = true`
+- `external_api_called = false`
+- `schemas_created = 10`
+- `passing_fixtures_created = 9`
+- `blocked_fixtures_created = 9`
+- `cross_contract_trace_schema_created = true`
+- `schema_contract_index_created = true`
+- `schema_static_validation = passed`
+- `runtime_enabled = false`
+- `sandbox_created = false`
+- `minimal_router_prototype_created = false`
+- `dependency_installed = false`
+- `external_code_copied = false`
+- `active_write_executor = codex`
+- `sandbox_entry_allowed_now = false`
+- `next_safe_step = schema_contract_static_validation`
+- `generated_report = codex_log/framework_adapter/20260614_schema_contract_fix_plan.md`
+- `禁止推进`：未推进 `content_validation / send_ready / voice_validation / final_voice_validated / visual_master_locked / current_data_goal_anchor_ready / publish_candidate_ready / runtime_enabled / sandbox_created / minimal_router_prototype_created`。
+- `修改范围`：只新增 schema contracts、fixtures、schema index、fix plan 报告并更新 latest；未修改 `pyproject.toml / requirements.txt / package.json / compose.yaml / docker-compose.yml / dist / public / media / .env*`。
+
 ## 20260613｜Schema Contract Gap Review
 
 - `task_result.status = schema_contract_gap_review_completed`

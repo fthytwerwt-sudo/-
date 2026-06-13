@@ -1,0 +1,12 @@
+contract_name: DeepSeekTriggerDecision
+schema_version: "0.1"
+fixture_only: true
+task_id: vf_schema_contract_fixture_20260614_001
+deepseek_triggered: false
+trigger_reasons: [none]
+not_deepseek_conclusion: true
+fallback_status: not_needed
+token_usage_observed_or_user_check_required: not_applicable
+input_package_required: false
+allowed_deepseek_roles: [reasoning_reviewer, risk_auditor, conflict_second_opinion]
+forbidden_deepseek_actions: [write_files, edit_files, commit, push, replace_source_of_truth, prove_completion, promote_status]

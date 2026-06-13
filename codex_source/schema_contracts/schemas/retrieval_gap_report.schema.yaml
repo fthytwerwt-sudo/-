@@ -1,0 +1,81 @@
+contract_name: RetrievalGapReport
+version: "0.1"
+status: draft
+project_route: video_factory
+purpose: "Turn retrieval/readback failures into explicit blockers or DeepSeek trigger recommendations."
+required_fields:
+  task_id:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Task id shared with retrieval and readback."
+    blocked_if_missing: true
+  rag_empty:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "Whether retrieval returned no usable hits."
+    blocked_if_missing: true
+  rag_low_confidence:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "Whether retrieval confidence is below the task threshold."
+    blocked_if_missing: true
+  source_conflict:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "Whether retrieval conflicts with repo readback."
+    blocked_if_missing: true
+  missing_source_path:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "Whether a retrieved item lacks source path."
+    blocked_if_missing: true
+  missing_content_hash:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "Whether a retrieved item lacks content hash."
+    blocked_if_missing: true
+  legacy_source_hit:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "Whether only demoted or historical sources were retrieved."
+    blocked_if_missing: true
+  retrieval_gap_summary:
+    type: string
+    required: true
+    allowed_values: []
+    description: "Concise summary of retrieval gaps."
+    blocked_if_missing: true
+  blocked_if_unresolved:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "Whether unresolved gaps must block execution."
+    blocked_if_missing: true
+  deepseek_trigger_recommended:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "Whether DeepSeek conditional review is recommended."
+    blocked_if_missing: true
+optional_fields:
+  confidence_score:
+    type: number
+    required: false
+    allowed_values: []
+    description: "Optional aggregate confidence score."
+    blocked_if_missing: false
+input_from: [RetrievalManifest, SourceReadback]
+output_to: [DeepSeekTriggerDecision, BlockedIfCheck]
+blocked_if_missing: true
+must_not_do: [treat_missing_report_as_permission, ignore_conflict, proceed_on_low_confidence_without_policy]
+validation_notes:
+  - "Any true source_conflict must either block or recommend DeepSeek review."
+  - "blocked_if_unresolved=true means write handoff cannot pass until resolved."
+trace_fields: [task_id, source_paths, content_hashes]
