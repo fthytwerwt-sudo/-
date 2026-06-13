@@ -10,7 +10,7 @@
 2. 什么时候可以并发，什么时候必须保持串行
 3. 允许并发时，最稳的并发结构是什么
 4. ChatGPT 命中这类任务时，默认该输出什么
-5. RAG-first 供料仲裁、DeepSeek 条件触发和多 agent 并发的边界怎么分
+5. DeepSeek 默认供料和多 agent 并发的边界怎么分
 6. 完整执行规则和模板正文应该去哪里读
 
 它不负责：
@@ -86,22 +86,21 @@ GPT Project 下发给 Codex 时，必须提醒 Codex 输出：
 - `remaining_work_check`
 - `sync_back_check`
 
-## 2C. RAG-first 供料仲裁不是并发可选项
+## 2C. DeepSeek 默认供料不是并发可选项
 
-供料来源仲裁当前不是“需要时才想一下”的并发可选项，而是每轮 Codex 任务默认要先判断的资料入口。默认顺序是 RAG / embedding / vector database 先召回项目内资料，DeepSeek 只在召回不足、冲突、风险复核、外部深供料或用户明确要求时补位：
+DeepSeek 当前不是“需要时才叫一下”的并发可选项，而是每轮 Codex 任务默认进入的只读供料层：
 
 1. Codex 先输出 `route_decision（路由判断）`。
-2. Codex 再输出 `supply_source_arbitration_gate（供料来源仲裁闸门）`。
-3. Codex 优先创建或读取 `retrieval_manifest（检索清单）` 与 `source_readback（来源回读）`。
-4. RAG 召回为空、低置信、互相冲突、需要外部深度供料、风险复核或用户明确要求时，才创建或选择 `supply_request（供料请求任务卡）`。
-5. DeepSeek 真实触发时再执行 `run_deepseek_pre_supply（执行前 DeepSeek 供料）` 或 `run_deepseek_post_risk_review（执行后 DeepSeek 风险复核）`。
+2. Codex 再输出 `deepseek_supply_gate（DeepSeek 供料闸门）`。
+3. Codex 必须创建或选择 `supply_request（供料请求任务卡）`。
+4. 执行前默认尝试 `run_deepseek_pre_supply（执行前 DeepSeek 供料）`。
+5. Codex 修改后默认执行 `run_deepseek_post_risk_review（执行后 DeepSeek 风险复核）`。
 6. Codex 负责最终整合、补全、验证和写入。
 
 边界：
 
-- RAG 负责项目内资料召回，DeepSeek 负责推理补位和风险提醒。
-- DeepSeek 不作为资料库、向量库、长期记忆层或默认文件读取器；不写文件、不 commit、不 push、不拍板项目事实。
-- DeepSeek 条件触发不等于自动开启多写手并发。
+- DeepSeek 只读供料，不写文件、不 commit、不 push、不拍板项目事实。
+- DeepSeek 默认供料不等于自动开启多写手并发。
 - `fallback_local_only（本地兜底）` 不得写成 DeepSeek 结论。
 - token 未观察到减少时，不得写 DeepSeek 已深度参与。
 - 本机制写入不代表 `multi-agent runtime（多 agent 运行时）` 已稳定跑通。

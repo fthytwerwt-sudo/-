@@ -1,5 +1,29 @@
 # Latest
 
+## 20260613｜AI 架构换位越界补丁受控回滚
+
+- `task_result.status = ai_architecture_role_shift_controlled_rollback_completed`
+- `branch = main`
+- `project_route = video_factory`
+- `route_decision.task_type = mechanism_or_route_fix + project_file_change + review_diagnosis_audit`
+- `rollback_base_commit = c61973caf71cdb1d0e59266d0c7ac422d79c79b2`
+- `selected_option = B`
+- `formal_mechanism_files_restored = true`
+- `formal_mechanism_files_restored_list`：`AGENTS.md`、`GPT数据源/01_项目系统提示词.md`、`GPT数据源/03_总索引与阅读顺序.md`、`GPT数据源/08_当前正式事实.md`、`GPT数据源/10_OPC一人公司闭环与多AI协作机制.md`、`GPT数据源/11_项目状态动作总控器_机制推理层.md`、`GPT数据源/14_数据目标执行总线_data_goal_execution_bus.md`、`codex_source/13_execution_lane_and_parallel_rules.md`、`codex_source/17_deepseek_supply_controller_protocol.md`、`codex_source/18_deepseek_supply_request_schema.md`、`project_source/20_codex_multi_agent_routing_note_for_gpt_project.md`。
+- `reports_retained = true`
+- `reports_retained_list`：`reports/ai_architecture_role_shift_audit.md`、`reports/ai_architecture_role_shift_change_review.md`。
+- `docs_converted_to_draft = true`
+- `docs_converted_to_draft_list`：`docs/AI_ROLE_MAP.md`、`docs/RAG_EXECUTION_ARCHITECTURE.md`、`docs/DEEPSEEK_POSITIONING.md`、`docs/VECTOR_RETRIEVAL_PLAN.md`、`docs/CODEX_EXECUTION_RULES.md`。
+- `CURRENT_STATUS_top_level_removed_or_draft = true`
+- `CURRENT_STATUS_moved_to = reports/drafts/20260613_current_status_ai_architecture_role_shift_draft.md`
+- `rag_first_healthcheck_executed = false`
+- `deepseek_called = false`
+- `dashvector_written = false`
+- `external_api_called = false`
+- `secret_committed = false`
+- `本轮不是视频执行`：不生成视频 / 音频 / 图片，不修改 `public/`、`dist/` 或媒体产物，不推进 `content_validation / send_ready / voice_validation / final_voice_validated / visual_master_locked`。
+- `next_step = 用户确认后再另起 RAG-first 机制修补 / healthcheck 任务`
+
 ## 20260613｜AI 执行架构换位审计与 RAG-first 供料归位
 
 - `task_result.status = ai_architecture_role_shift_audit_completed_with_minimal_document_patch`

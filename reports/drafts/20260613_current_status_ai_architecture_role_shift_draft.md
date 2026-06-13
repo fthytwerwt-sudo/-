@@ -1,5 +1,9 @@
 # Current Status（当前状态）
 
+> document_status: draft_status_snapshot（状态草案快照）
+> authority_level: report_reference_only（仅作报告参考，不是当前正式状态入口）
+> source_of_truth: codex_log/latest.md（正式状态以 latest 为准）
+
 ## 2026-06-13 AI 执行架构换位审计
 
 - `project_route`: `video_factory`

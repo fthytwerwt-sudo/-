@@ -1,8 +1,12 @@
 # DeepSeek Positioning（DeepSeek 定位）
 
+> document_status: draft_architecture_proposal（架构草案 / 待确认提案）
+> authority_level: proposal_only（仅供后续机制修补参考，不是当前正式执行规则）
+> active_runtime_rule: false（当前不作为 Codex 默认执行规则）
+
 ## 1. status
 
-- `document_status`: `active_architecture_guidance`
+- `document_status`: `draft_architecture_proposal`
 - `created_at`: `2026-06-13`
 - `project_route`: `video_factory`
 

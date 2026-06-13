@@ -79,27 +79,27 @@
 
 ---
 
-## 3B. RAG-first 供料仲裁与 DeepSeek 边界
+## 3B. DeepSeek 每轮默认只读供料层边界
 
-`已确认` 《视频工厂》的默认资料供料定位是：
+`已确认` DeepSeek 在《视频工厂》中的默认定位是：
 
-`RAG / embedding / vector database（项目内资料召回层） -> DeepSeek fallback / risk reasoning（推理与风险补位层）`
+`mandatory readonly explorer（每轮默认只读探索器） / 供料层`
 
 适用结构：
 - `read_parallel（只读并发）`
 - `explore_plus_integrate（探索 + 单点整合）`
-- `serial_only（串行执行）` 下也必须先过 `supply_source_arbitration_gate（供料来源仲裁闸门）`
+- `serial_only（串行执行）` 下也必须先过 `deepseek_supply_gate（DeepSeek 供料闸门）`
 
-DeepSeek 默认不是资料库、向量库、文件读取器或长期记忆层。每轮 Codex 任务都应先判断 RAG 是否已有可用召回证据；只有 RAG 召回为空、低置信、互相冲突、需要外部深度供料、风险复核或用户明确要求时，才创建 `supply_request（供料请求任务卡）` 并尝试 DeepSeek 只读推理 / 风险供料。是否开启 Codex native subagent 或多写手并发另行按 lane / parallel 判断。
+DeepSeek 默认供料不是“是否并发”的判断项。每轮 Codex 任务都要先创建 `supply_request（供料请求任务卡）`，并尝试执行前供料和执行后风险复核；是否开启 Codex native subagent 或多写手并发另行按 lane / parallel 判断。
 
-RAG / DeepSeek 供料仲裁可以输出：
-- `retrieval_manifest（检索清单）`
-- `source_readback（来源回读）`
-- `retrieval_gap_report（检索缺口报告）`
-- `deepseek_trigger_decision（DeepSeek 触发判断）`
+DeepSeek 可以输出：
+- `prefetch_context_pack（预读取上下文包）`
+- `must_read_file_map（必读文件地图）`
 - `risk_and_conflict_report（风险与冲突报告）`
-- `token_usage_expectation_check（token 使用预期检查，仅在 DeepSeek 真实触发时需要）`
-- `post_risk_review（执行后风险复核，条件触发）`
+- `candidate_summary（候选摘要）`
+- `deepseek_participation_report（DeepSeek 参与报告）`
+- `token_usage_expectation_check（token 使用预期检查）`
+- `post_risk_review（执行后风险复核）`
 
 DeepSeek 不得：
 - 修改仓库文件
@@ -108,7 +108,6 @@ DeepSeek 不得：
 - 把外部资料升级成 `已确认`
 - 把 `fallback_local_only（本地兜底）` 写成 DeepSeek 结论
 - 在 token 未观察到减少时写 DeepSeek 已深度参与
-- 替代 RAG 的项目内资料召回
 - 替代 Codex 的原文件复核、验证、日志和 Git 收尾
 
 任何写入仍由 Codex `integrator（统一执行者）` 执行。
