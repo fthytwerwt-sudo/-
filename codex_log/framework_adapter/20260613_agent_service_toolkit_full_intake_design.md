@@ -17,6 +17,19 @@
 
 This round does not install dependencies, does not copy external project code, does not modify `pyproject.toml`, `package.json`, `compose.yaml`, `docker-compose.yml`, `dist/`, `public/`, media assets, or formal video / voice / visual / publish status.
 
+## 1A. 20260613 hard conflict patch note
+
+`已确认` 后续硬冲突补丁只修当前入口会误导 adapter 接入的机制表述，不启用 runtime、不安装依赖、不创建 sandbox、不进入 minimal router prototype。
+
+Current active boundaries after patch:
+
+- `RAG / DashVector first`: retrieval/cache layer first.
+- `GitHub / repo source_readback`: repo files remain source_of_truth.
+- `DeepSeek`: conditional reviewer / risk auditor / conflict second opinion, not every-round default file supplier.
+- `active_write_executor = codex`: current writer; `trae / future_ide_agent` are future candidates only.
+- `agent-service-toolkit runtime`: route / retrieve / readback / validate / block / interrupt / handoff only; no direct write, commit, or push.
+- `next_safe_step`: only `option_a_design_review_only` until schema / contract gap review is complete.
+
 ## 2. current_formal_state_check
 
 ### 2.1 Formal entry conflict
@@ -214,7 +227,7 @@ Exit criteria:
 - every workflow has `input_signal / must_read / retrieval_query / handoff / blocked_if / human_review_point / write_executor_handoff / completion_truth_check`;
 - no schema grants direct file write to runtime.
 
-### Phase 2: Sandbox intake, no write
+### Phase 2: Future only after schema / contract gap review - sandbox intake, no write
 
 Goal:
 
@@ -235,7 +248,7 @@ Blocked if:
 - requires `GITHUB_PAT`;
 - tries to edit formal mechanism files.
 
-### Phase 3: Minimal router prototype
+### Phase 3: Future only after schema / contract gap review - minimal router prototype
 
 Goal:
 
@@ -597,7 +610,7 @@ Completion requires:
 - log sync records the true state;
 - no forbidden status field is advanced.
 
-Only after this loop is proven should the project enter sandbox install or minimal router prototype.
+Only after schema / contract gap review and explicit human approval should the project enter sandbox install or minimal router prototype.
 
 ## 11. formal_patch_proposal_if_needed
 
@@ -618,7 +631,7 @@ Patch goals:
 4. Keep DashVector as retrieval/cache layer, not fact source.
 5. Add human review and completion truth checks before runtime enablement.
 
-This round does not apply that patch.
+The 20260613 hard-conflict patch applies only the minimum current-entry corrections needed to prevent later adapter misrouting. It still does not enable runtime, sandbox install, or migration.
 
 ## 12. next_stage_execution_prompt_draft
 
@@ -640,7 +653,7 @@ This round does not apply that patch.
 1. 输出 route_decision。
 2. 复审 adapter contract 是否完整。
 3. 输出 schema list：WorkflowRouteDecision / RetrievalManifest / SourceReadback / RetrievalGapReport / DeepSeekTriggerDecision / BlockedIfCheck / HumanReviewInterrupt / WriteExecutorHandoff / CompletionTruthCheck。
-4. 判断是否可以进入 option_b_sandbox_intake_no_write。
+4. 输出 schema_contract_gap_list，并保持 next_safe_step = option_a_design_review_only；不得在本轮判断进入 option_b / option_c。
 
 【禁止】
 - 不安装依赖。
@@ -652,7 +665,7 @@ This round does not apply that patch.
 【输出】
 - adapter_design_review_report
 - schema_contract_gap_list
-- sandbox_no_write_entry_conditions
+- blocked_conditions_before_sandbox_or_minimal_router
 - next_safe_step
 ```
 
@@ -662,7 +675,7 @@ This round does not apply that patch.
 
 Reason:
 
-- Formal mechanism still contains old DeepSeek mandatory-loop language.
+- Formal mechanism has only received a hard-conflict wording patch; schema / contract gap review is still missing.
 - RAG-first docs are still draft/proposal, not active runtime rule.
 - No adapter schemas exist yet.
 - No no-write sandbox has been created.

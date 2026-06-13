@@ -90,13 +90,18 @@ GPT Project 上传包地址规则：
 - 当前视频四件套主线 `API 生成真人 + 用户录制素材 + 少量 PPT + 云端剪辑` 是内容化输出默认执行载体，不是每条内容不可变死流程。
 - 当前多 AI 协作默认架构为：
   - `ChatGPT（总控脑 / 判断层）`
-  - `Codex（唯一写入执行层 / Integrator）`
-  - `DeepSeek（每轮默认只读供料层 / Explorer）`
+  - `write_executor（写入执行器边界）`
+    - `active_write_executor = codex（当前激活写入执行器）`
+    - `executor_type = codex / trae / future_ide_agent（未来候选执行器类型）`
+    - `trae` 与 `future_ide_agent` 当前只作为 future candidate，未启用、未授权、未验证。
+  - `Vector RAG / DashVector（检索索引 / 缓存层）`
+  - `DeepSeek（条件触发的只读审查 / 风险复核 / 冲突二次意见）`
   - `Perplexity（外部研究层）`
 - 当前最高机制入口已包含 `Project State Action Router（项目状态动作总控器）`：命中复杂任务、机制修补、文案执行、视频执行、复盘、数据回填、GPT Project 静态包同步或 Codex 执行结果回审时，先读 `GPT数据源/11_项目状态动作总控器_机制推理层.md` 与 `codex_source/19_project_state_action_router.md`，输出 `state_action_router（项目状态动作总控器）` 后再执行。
 - 当前最高机制入口已包含 `Reference-to-Execution Contract（参考到执行落地契约）`：命中 reference / 样片 / 参考图 / 参考视频 / 参考声音 / 参考效果 / 原感稿 / 外部资料 / “按这个做”时，先读 `GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md` 与 `codex_source/20_reference_to_execution_contract.md`，输出 `reference_to_execution_contract（参考到执行契约）` 后再执行。
-- `DeepSeek（每轮默认只读供料层 / Explorer）` 每轮默认做执行前供料和执行后风险复核，输出上下文压缩、必读文件地图、风险冲突报告、遗漏同步检查和 Codex 下一步输入；不写文件、不拍板项目事实。
-- `Codex（唯一写入执行层 / Integrator）` 默认负责复核原文件、整合 DeepSeek 供料、补齐受影响文件 / 字段 / 脚本 / schema / fixture / 日志 / 上传包、验证、日志和 Git 收尾。
+- 当前供料 / 检索默认顺序为：`Vector RAG / DashVector retrieval（向量检索） -> GitHub / 仓库原文件 readback（事实回读） -> DeepSeek trigger decision（是否需要 DeepSeek 条件审查）`。
+- `DeepSeek（条件触发的只读审查层）` 只在 `rag_empty / rag_low_confidence / source_conflict / mechanism_conflict / high_risk_execution / pre_execution_risk_review / post_execution_discrepancy_review / user_explicit_request / external_deep_reasoning_needed` 等条件成立时参与；不作为每轮默认文件供应商、默认项目记忆或默认执行入口；不写文件、不拍板项目事实。
+- `active_write_executor = codex` 当前负责复核原文件、整合 RAG / readback / 必要 DeepSeek 审查结果、补齐受影响文件 / 字段 / 脚本 / schema / fixture / 日志 / 上传包、验证、日志和 Git 收尾。未来如需启用 `trae` 或其他 IDE agent，必须另做执行器契约验证，不得由外部 runtime 直接写入。
 - Codex 收到 ChatGPT 完整执行单、横向补全包、多文件机制修补或“不要只做一半 / 执行到底”类任务时，必须触发 `Completion Relay Gate（补全接力闸门）`，先生成 `required_output_inventory（必须交付清单）` 与 `child_task_graph（子任务树）`，再执行并做 `remaining_work_check（剩余工作检查）`。
 - `reference（参考）`、`reference_quality_sample（参考质量样片）`、`locked reference（锁定参考）`、`visual route（视觉路由）` 当前默认锁的是质量机制，不锁死每条内容的固定流程。
 - reference 仍用于防止质量漂移，locked reference 仍用于质量继承，visual route 仍用于防止卡片外壳混用；但不能把它们理解为每条内容都必须机械照搬同一流程。
@@ -327,10 +332,10 @@ GPT Project 上传包地址规则：
    - 必须从 `entry_routing_layer（入口路由层）`、`project_judgment_layer（项目判断层）`、`execution_layer（执行落地层）`、`validation_layer（验收复审层）`、`sync_layer（同步回写层）`、`mechanism_fix_layer（机制修补层）`、`multi_agent_lane_layer（多执行器 / 多 lane 层）` 中选择。
 4. `large_task_gate（大任务闸门）`
    - 每次执行前必须判断是否触发；触发后必须读取 lane / parallel 规则并输出 lane / parallel 判断。
-5. `deepseek_supply_gate（DeepSeek 供料闸门）`
-   - 每轮任务默认必须创建 `supply_request（供料请求任务卡）` 并尝试 DeepSeek 只读供料；不得由 Codex 凭主观判断跳过。
-   - 必须输出 `deepseek_participation_report（DeepSeek 参与报告）`、`token_usage_expectation_check（token 使用预期检查）`、`fallback_status（fallback 状态）` 和 `not_deepseek_conclusion（是否不是 DeepSeek 结论）`。
-   - 若未真实调用 DeepSeek，必须写 `fallback_local_only` 或 blocked 原因；token 未观察到减少时，不得写 DeepSeek 已深度参与。
+5. `supply_source_arbitration（供料来源裁决）`
+   - 每轮任务默认先判断 `Vector RAG / DashVector retrieval -> GitHub / 仓库原文件 readback -> DeepSeek trigger decision`，不得把 DeepSeek 当作每轮默认文件供应商或项目记忆。
+   - 必须输出 `retrieval_manifest（检索清单）`、`source_readback_status（事实源回读状态）`、`deepseek_trigger_decision（DeepSeek 触发判断）` 和 `not_deepseek_conclusion（是否不是 DeepSeek 结论）`。
+   - 只有 DeepSeek 被条件触发或用户明确要求时，才需要创建 `supply_request（供料请求任务卡）` 并输出 `deepseek_participation_report（DeepSeek 参与报告）`、`token_usage_expectation_check（token 使用预期检查）`、`fallback_status（fallback 状态）`；token 未观察到减少时，不得写 DeepSeek 已深度参与。
 6. `must_read_files（本轮必读文件）`
    - 必须列出本轮执行前要读的文件，并说明为什么要读；不允许只读 `AGENTS.md` 就开始执行。
 7. `read_status（读取状态）`

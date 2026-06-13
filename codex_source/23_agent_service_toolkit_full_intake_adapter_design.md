@@ -17,6 +17,8 @@ It is not an install guide. It is not a migration guide. It is not a runtime ena
 - `main_flow_replaced`: `false`
 - `active_write_executor`: `codex`
 - `future_write_executor_types`: `trae / future_ide_agent`
+- `schema_contract_gap_review_required`: `true`
+- `next_safe_step`: `option_a_design_review_only`
 
 ## 3. canonical_design_files
 
@@ -82,3 +84,7 @@ Do not choose:
 - `full_migration`
 - `main_runtime_replace`
 - `dependency_install_in_main`
+- `option_b_minimal_router_prototype`
+- `option_c_external_framework_sandbox_install`
+
+Before any sandbox or prototype, first complete `schema_contract_gap_review（schema / contract 缺口复审）`.

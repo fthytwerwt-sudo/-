@@ -86,21 +86,22 @@ GPT Project 下发给 Codex 时，必须提醒 Codex 输出：
 - `remaining_work_check`
 - `sync_back_check`
 
-## 2C. DeepSeek 默认供料不是并发可选项
+## 2C. RAG-first 供料裁决与 DeepSeek 条件审查
 
-DeepSeek 当前不是“需要时才叫一下”的并发可选项，而是每轮 Codex 任务默认进入的只读供料层：
+DeepSeek 当前不是每轮默认文件供应商，也不是并发写手。GPT Project 侧应提醒 Codex 先做 `supply_source_arbitration（供料来源裁决）`：
 
 1. Codex 先输出 `route_decision（路由判断）`。
-2. Codex 再输出 `deepseek_supply_gate（DeepSeek 供料闸门）`。
-3. Codex 必须创建或选择 `supply_request（供料请求任务卡）`。
-4. 执行前默认尝试 `run_deepseek_pre_supply（执行前 DeepSeek 供料）`。
-5. Codex 修改后默认执行 `run_deepseek_post_risk_review（执行后 DeepSeek 风险复核）`。
-6. Codex 负责最终整合、补全、验证和写入。
+2. Codex 再输出 `retrieval_manifest（检索清单）`、`source_readback_status（事实源回读状态）` 和 `retrieval_gap_report（检索缺口报告）`。
+3. Codex 判断 `deepseek_trigger_decision（DeepSeek 触发判断）`。
+4. 只有 `rag_empty / rag_low_confidence / source_conflict / mechanism_conflict / high_risk_execution / user_explicit_request` 等条件成立时，才创建或选择 `supply_request（供料请求任务卡）` 并触发 DeepSeek。
+5. Codex 修改后只有在 DeepSeek 已参与、高风险执行或执行结果与 readback 冲突时，才默认执行 `run_deepseek_post_risk_review（执行后 DeepSeek 风险复核）`。
+6. 当前 `active_write_executor = codex` 负责最终整合、补全、验证和写入；未来 `trae / future_ide_agent` 只作为候选，不得写成已启用。
 
 边界：
 
 - DeepSeek 只读供料，不写文件、不 commit、不 push、不拍板项目事实。
-- DeepSeek 默认供料不等于自动开启多写手并发。
+- DeepSeek 条件审查不等于自动开启多写手并发。
+- DashVector / Vector RAG 是默认检索索引 / 缓存层，检索结果仍不得替代 GitHub / 仓库原文件事实。
 - `fallback_local_only（本地兜底）` 不得写成 DeepSeek 结论。
 - token 未观察到减少时，不得写 DeepSeek 已深度参与。
 - 本机制写入不代表 `multi-agent runtime（多 agent 运行时）` 已稳定跑通。

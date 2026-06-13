@@ -15,6 +15,22 @@ legacy_previous_stage: "gray_test"
 
 这些字段只说明当前运营上下文，不代表内容验证通过、商业验证成立或数据飞轮跑通。
 
+## 0B. 2026-06-13 adapter hard-conflict patch
+
+`已确认` 当前新任务不再默认每轮强制创建 DeepSeek `supply_request（供料请求任务卡）`。
+
+默认链路改为：
+
+```text
+Vector RAG / DashVector retrieval_manifest
+-> GitHub / repo source_readback
+-> retrieval_gap_report
+-> deepseek_trigger_decision
+-> if true: create supply_request
+```
+
+本 schema 仍保留旧 `mandatory_*` 字段用于历史兼容、显式 DeepSeek 任务和高风险条件触发任务；字段存在不代表每轮必须为 true。
+
 ## 1. 文件定位
 
 本文件定义《视频工厂》里 `DeepSeek supply request（DeepSeek 供料请求任务卡）` 的标准结构。
@@ -36,18 +52,27 @@ legacy_previous_stage: "gray_test"
 
 ## 2. 使用规则
 
-Codex 每轮任务在 `route_decision（路由判断）` 后、写入或执行前，必须先生成或选择一张 `supply_request（供料请求任务卡）`。
+Codex 每轮任务在 `route_decision（路由判断）` 后、写入或执行前，必须先完成 `supply_source_arbitration（供料来源裁决）`，输出 `retrieval_manifest / source_readback_status / retrieval_gap_report / deepseek_trigger_decision`。
 
-当前默认机制为 `mandatory_deepseek_supply_loop（强制 DeepSeek 供料循环）`：
+只有以下情况才生成或选择一张 `supply_request（供料请求任务卡）`：
+
+- `deepseek_trigger_decision = true`
+- 用户明确要求 DeepSeek 参与
+- 高风险执行需要 DeepSeek 风险复核
+- RAG 为空、低置信度或与仓库原文件冲突
+- 机制冲突需要二次意见
+- 历史兼容任务需要复核旧 DeepSeek 供料包
+
+旧默认机制 `mandatory_deepseek_supply_loop（强制 DeepSeek 供料循环）` 已降级为历史兼容字段组：
 
 - `mandatory_for_every_task = true（每轮任务强制）`
 - `participation_level = mandatory_by_default（默认强制参与）`
 - `pre_supply_required = true（执行前供料必需）`
 - `post_review_required = true（执行后风险复核必需）`
 - `codex_vertical_completion_required = true（Codex 二次补全必需）`
-- `deepseek_must_not_be_skipped_by_codex_discretion = true（Codex 不得凭主观判断跳过）`
+- `deepseek_must_not_be_skipped_by_codex_discretion = true（仅当 DeepSeek 已被条件触发或用户明确要求时，不得凭主观判断跳过）`
 
-如果 DeepSeek 无法真实调用，任务卡仍必须进入 controller 并如实输出 `fallback_local_only（本地兜底）` 或 blocked 原因；fallback 不得写成 DeepSeek 真实参与。
+如果 DeepSeek 已被触发但无法真实调用，任务卡必须进入 controller 并如实输出 `fallback_local_only（本地兜底）` 或 blocked 原因；fallback 不得写成 DeepSeek 真实参与。若 `deepseek_trigger_decision = false`，不得为了满足旧 schema 伪造 DeepSeek 供料。
 
 推荐运行方式：
 
@@ -76,6 +101,14 @@ python3 scripts/deepseek_supply_controller.py \
 - `mandatory_pre_supply`
 - `mandatory_post_risk_review`
 - `mid_task_incremental_supply`
+- `rag_empty`
+- `rag_low_confidence`
+- `source_conflict`
+- `mechanism_conflict`
+- `high_risk_execution`
+- `pre_execution_risk_review`
+- `post_execution_discrepancy_review`
+- `external_deep_reasoning_needed`
 - `missing_context`
 - `rule_conflict`
 - `stale_context_risk`

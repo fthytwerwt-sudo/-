@@ -147,11 +147,14 @@ if state = ambiguous_goal_clarification_needed:
 if state = implementation_design_needed:
   action = require implementation_design_layer before Codex execution; verify target_effect / codex_capability_boundary / confirmed_capabilities / unverified_capabilities / preferred_execution_route / fallback_routes / capability_probe_tasks / done_when / blocked_if; if missing and this task affects tool choice, execution route, visual quality, API calls, fallback, validation, or project mechanism, output blocked_need_implementation_design_layer or implementation_design_request instead of guessing
 
-if state = deepseek_supply_required:
-  action = create_supply_request, run_deepseek_pre_supply, and read supply pack before file modification
+if state = supply_source_arbitration_required:
+  action = create retrieval_manifest, run repo source_readback, create retrieval_gap_report, and decide deepseek_trigger_decision before file modification
+
+if state = deepseek_review_conditionally_required:
+  action = create_supply_request, run DeepSeek review / risk audit / conflict second opinion, and read review pack before high-risk file modification
 
 if state = deepseek_deep_file_supply_required:
-  action = create_supply_request with deep_supply_mode enabled, run deep_file_prefetch, require relevant_file_bundle / exact_snippet_pack / dependency_map / risk_and_conflict_report / codex_next_input, then let Codex continue with minimal necessary review
+  action = only after deepseek_trigger_decision = true, create_supply_request with deep_supply_mode enabled, run deep_file_prefetch, require relevant_file_bundle / exact_snippet_pack / dependency_map / risk_and_conflict_report / codex_next_input, then let active_write_executor continue with source readback
 
 if state = deepseek_mid_task_incremental_supply_required:
   action = create incremental_supply_request with current_child_task, files_already_read, will_modify_files, conflict_points, and failed_validation_logs; run mid_task_incremental_supply before continuing
@@ -436,8 +439,9 @@ if state = blocked_need_user_input:
 - `pre_execution_read_contract_gate（执行前读取契约闸门）`：RAG / Router 生成 `mandatory_read_manifest（强制必读清单）` 后，Codex 执行前必须输出 `read_proof_report（读取证明报告）`；若执行必需项只由 `MISSING_REPORT（缺失报告）` 表示，只允许诊断 / 缺失清单 / 阻断报告，不允许真实剪辑、TTS、导出或 completed 判断。
 - `ambiguous_goal_clarification_needed`：用户说 `1:1`、像对标、高级感、按这个效果做、不是一回事、完全不像、感觉不像、差点意思但未锁目标层级时触发；必须先澄清视觉观感、剪辑节奏、构图布局、字幕字体、动效、信息密度、证明方式、内容结构、情绪人感或整体观感，不得把机制分析草案当正式执行标准。
 - `reference_contract_needed`：只把 reference / 样片 / 目标效果转换为 `reference_anchor`、`effect_targets`、`function_fields`、`deviation_check`、`done_when`；若 reference 目标有歧义，先触发 `ambiguous_goal_clarification_needed`，不得直接执行媒体、文案终稿或状态推进。
-- `deepseek_supply_required`：每轮默认成立；不得由 Codex 主观跳过 DeepSeek 供料闸门。
-- `deepseek_pre_supply_missing`：写入前必须先补 `supply_request` 和执行前供料；无法真实调用时写 fallback / blocked。
+- `supply_source_arbitration_required`：每轮默认成立；必须先输出 `retrieval_manifest / source_readback_status / retrieval_gap_report / deepseek_trigger_decision`。
+- `deepseek_review_conditionally_required`：仅在 `rag_empty / rag_low_confidence / source_conflict / mechanism_conflict / high_risk_execution / user_explicit_request` 等条件成立时触发；不得把 DeepSeek 当每轮默认文件供应商。
+- `deepseek_pre_supply_missing`：仅当 DeepSeek 已被条件触发或用户明确要求时成立；写入前必须先补 `supply_request` 和审查包，无法真实调用时写 fallback / blocked。
 - `deepseek_post_review_missing`：修改后必须复核状态偷换、禁止修改、遗漏同步、fallback 误标和剩余工作。
 - `deepseek_claim_without_token_usage`：token 未观察到减少时不得写 DeepSeek 已深度参与。
 - `codex_vertical_completion_missing`：只写文档不算完成，必须补脚本、schema、fixture、日志、上传包和验证链。
@@ -964,7 +968,7 @@ quality_issue_classifier:
 5. 用户本轮明确指令，只对本轮有效；若要成为下一聊天事实，必须写回仓库。
 6. GPT Project 静态上传包，只是协作包，不是实时事实库。
 7. DeepSeek / Perplexity 输出只做供料或研究参考，不直接拍板项目事实。
-8. DeepSeek 每轮默认供料包是 Codex 执行输入，但仍必须由 Codex 复核原文件后落地。
+8. Vector RAG / DashVector 检索和仓库原文件 readback 是默认执行输入；DeepSeek 只在条件触发时提供审查 / 风险复核 / 冲突二次意见，且仍必须由当前 `active_write_executor` 复核原文件后落地。
 
 必须裁决的冲突：
 
@@ -973,7 +977,7 @@ quality_issue_classifier:
 | GPT Project static package vs GitHub main | GitHub main wins |
 | User current explicit instruction vs repo old fact | current instruction guides this round; sync to repo to become durable fact |
 | DeepSeek supply vs original repo files | original repo files win |
-| DeepSeek mandatory supply vs Codex discretion | mandatory supply wins; Codex cannot skip without blocked reason |
+| DeepSeek conditional trigger vs Codex discretion | trigger decision wins; if DeepSeek is triggered or user-required, Codex cannot skip without blocked reason |
 | fallback_local_only vs DeepSeek conclusion | fallback is not DeepSeek conclusion |
 | token not decreased vs DeepSeek participation claim | no deep participation claim without token evidence or user check |
 | Perplexity reference vs repo formal facts | repo formal facts win |
@@ -1028,7 +1032,7 @@ Codex 收尾时必须按以下四态判断：
 
 | completion_state | 可写条件 | 不可写条件 |
 | --- | --- | --- |
-| `completed` | 仓库写明的目标、产物、验证、同步、回报全部完成；DeepSeek 参与报告 / token 检查边界写清；若本轮改了仓库文件，则相关文件已显式 stage、commit 已创建、push 已成功、远端 HEAD 已校验、unrelated dirty files 未被提交、secret scan 通过；无禁止状态推进；无剩余 must-fix | 任一 required item 未完成；DeepSeek 被跳过且无 blocked 原因；fallback 被写成 DeepSeek 结论；internal diagnostic、local-only output、partial result、技术预览、无声视频、比例错误视频被当成交付；本地改动未 commit / 未 push / 未远端校验 |
+| `completed` | 仓库写明的目标、产物、验证、同步、回报全部完成；供料来源裁决、DeepSeek 触发判断及必要参与报告 / token 检查边界写清；若本轮改了仓库文件，则相关文件已显式 stage、commit 已创建、push 已成功、远端 HEAD 已校验、unrelated dirty files 未被提交、secret scan 通过；无禁止状态推进；无剩余 must-fix | 任一 required item 未完成；DeepSeek 已触发或用户要求但被跳过且无 blocked 原因；fallback 被写成 DeepSeek 结论；internal diagnostic、local-only output、partial result、技术预览、无声视频、比例错误视频被当成交付；本地改动未 commit / 未 push / 未远端校验 |
 | `partial_completed` | 仅用于用户明确接受的分阶段任务，且已完成项可验证、未完成项已列入 remaining_work_check；或本地改动完成但 push / remote verification 未完成且 reason = `local_changes_done_but_not_pushed` | 完整交付任务不得用它替代 blocked；不得对用户写成已完成；不得在仓库文件改动未完成 Git 收尾时伪装 completed |
 | `blocked` | 缺关键文件、缺用户输入、需要 secret / API、需要修改禁止状态、证据不足、push 失败、当前分支不明、unrelated dirty files 无法隔离、secret scan failed、remote HEAD 无法校验 | 不得用猜测继续 |
 | `continue` | 无 blocked，仍有必交付项 | Codex 必须继续执行，不得结束 |
@@ -1063,4 +1067,4 @@ Codex 收尾时必须按以下四态判断：
 
 ## 10. 一句话规则
 
-**Codex 每轮先用 `state_action_router` 判状态和动作，再进入 `deepseek_supply_gate（DeepSeek 供料闸门）`，最后用 `Completion Relay Gate` 把动作做完；没有状态动作判断不得执行，没有 DeepSeek 参与报告 / token 检查边界不得写 DeepSeek 深度参与，没有补全接力复核不得写 completed。**
+**Codex 每轮先用 `state_action_router` 判状态和动作，再进入 `supply_source_arbitration（供料来源裁决）`，按 Vector RAG / DashVector 检索、仓库原文件 readback 和 `deepseek_trigger_decision` 决定是否需要 DeepSeek 条件审查，最后用 `Completion Relay Gate` 把动作做完；没有状态动作判断不得执行，没有触发判断不得写 DeepSeek 缺席或参与，没有补全接力复核不得写 completed。**

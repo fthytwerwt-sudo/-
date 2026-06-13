@@ -1,5 +1,30 @@
 # Latest
 
+## 20260613｜Adapter 设计硬冲突最小补丁
+
+- `task_result.status = adapter_design_hard_conflict_patch_completed`
+- `branch = main`
+- `project_route = video_factory`
+- `route_decision.task_type = adapter_design_review_only + hard_conflict_patch_only + mechanism_repair_flow`
+- `workflow_route_decision = mechanism_repair_flow`
+- `large_task_gate.triggered = true`
+- `execution_permission = allowed_files_minimal_patch_only`
+- `deepseek_triggered = false`
+- `not_deepseek_conclusion = true`
+- `external_api_called = false`
+- `install_or_migration = false`
+- `runtime_enabled = false`
+- `sandbox_created = false`
+- `minimal_router_prototype_created = false`
+- `deepseek_position_after_patch`: DeepSeek 从每轮默认文件 / 上下文供应商降为条件触发的只读审查、风险复核和冲突二次意见；默认先走 Vector RAG / DashVector 检索与仓库原文件 readback。
+- `write_executor_boundary_after_patch`: 当前 `active_write_executor = codex`；`executor_type = trae / future_ide_agent` 只作为未来候选，未启用、未授权、未验证；外部 runtime 不得直接写仓库、commit 或 push。
+- `dashvector_boundary_after_patch`: DashVector / Vector RAG 是 retrieval_index / cache_layer，不替代 GitHub / 仓库原文件 source_of_truth；上游 Chroma / OpenAIEmbeddings 只作结构参考，不作为当前默认检索实现。
+- `agent_service_toolkit_boundary_after_patch`: LangGraph / FastAPI / GitHub MCP / agent-service-toolkit runtime 只允许 route / retrieve / readback / validate / block / interrupt / handoff；实际文件写入由 `active_write_executor` 执行。
+- `next_safe_step = option_a_design_review_only`
+- `schema_contract_gap_review_required_before_next_stage = true`
+- `禁止推进`：未推进 `content_validation / send_ready / voice_validation / final_voice_validated / visual_master_locked / current_data_goal_anchor_ready / publish_candidate_ready`。
+- `修改范围`：只改允许清单内入口、机制和 adapter 设计文件；未修改 `pyproject.toml / requirements.txt / package.json / compose.yaml / docker-compose.yml / dist / public / media / .env*`。
+
 ## 20260613｜Agent Service Toolkit 完整接入适配设计
 
 - `task_result.status = agent_service_toolkit_full_intake_adapter_design_completed`
