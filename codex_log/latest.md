@@ -1,5 +1,37 @@
 # Latest
 
+## 20260613｜Agent Service Toolkit 完整接入适配设计
+
+- `task_result.status = agent_service_toolkit_full_intake_adapter_design_completed`
+- `branch = main`
+- `project_route = video_factory`
+- `external_framework = JoshuaC215/agent-service-toolkit`
+- `route_decision.task_type = mechanism_repair_flow + external_framework_adapter_design + project_architecture_design + deepseek_positioning_repair`
+- `workflow_route_decision = mechanism_repair_flow`
+- `large_task_gate.triggered = true`
+- `execution_permission = design_files_only`
+- `deepseek_triggered = false`
+- `not_deepseek_conclusion = true`
+- `external_api_called = true_public_github_readonly`
+- `full_intake_plan_created = true`
+- `module_keep_disable_prune_matrix_created = true`
+- `dashvector_adapter_plan_created = true`
+- `deepseek_positioning_plan_created = true`
+- `write_executor_abstraction_plan_created = true`
+- `workflow_runtime_mapping_created = true`
+- `closed_loop_definition_created = true`
+- `next_stage_execution_prompt_draft_created = true`
+- `active_write_executor_current = codex`
+- `write_executor_abstraction_target = executor_type: codex / trae / future_ide_agent`
+- `agent_service_toolkit_phase_1_policy`: FastAPI and LangGraph can be design targets; Streamlit, GitHub MCP write tools, Postgres checkpoint, long-term Store, Chroma formal retrieval and Docker runtime remain disabled / draft-only until closed-loop proof.
+- `dashvector_policy`: current Alibaba embedding + DashVector route remains the main retrieval path; upstream Chroma RAG is only structural reference.
+- `deepseek_policy`: DeepSeek should move from default file/context supplier to conditional reasoning reviewer, risk auditor, conflict second opinion, fallback context synthesizer and optional external deep supply.
+- `formal_patch_applied = false`
+- `formal_patch_proposal_created = true`
+- `本轮不是安装 / 迁移 / 视频执行`：未安装依赖，未复制外部代码，未修改 `pyproject.toml / package.json / compose.yaml / docker-compose.yml`，未修改 `dist/` 或 `public/`，未生成视频 / 音频 / 图片，未推进 `content_validation / send_ready / voice_validation / final_voice_validated / visual_master_locked / current_data_goal_anchor_ready`。
+- `新增设计文件`：`codex_log/framework_adapter/20260613_agent_service_toolkit_full_intake_design.md`、`codex_log/framework_adapter/20260613_deepseek_positioning_for_rag_first_adapter.md`、`codex_log/framework_adapter/20260613_write_executor_abstraction_plan.md`、`codex_source/23_agent_service_toolkit_full_intake_adapter_design.md`。
+- `next_stage_recommendation = option_a_design_review_only`
+
 ## 20260613｜AI 架构换位越界补丁受控回滚
 
 - `task_result.status = ai_architecture_role_shift_controlled_rollback_completed`
