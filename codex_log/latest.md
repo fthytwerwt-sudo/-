@@ -1,5 +1,35 @@
 # Latest
 
+## 20260614｜Schema Contract Static Validation
+
+- `task_result.status = schema_contract_static_validation_passed_install_preflight_ready`
+- `branch = main`
+- `project_route = video_factory`
+- `route_decision.task_type = schema_contract_static_validation + schema_contract_fix_if_needed + install_preflight_gate_review + mechanism_repair_flow`
+- `workflow_route_decision = mechanism_repair_flow`
+- `large_task_gate.triggered = true`
+- `execution_permission = validate_and_patch_schema_contract_files_only`
+- `deepseek_triggered = false`
+- `not_deepseek_conclusion = true`
+- `external_api_called = false`
+- `static_validation = passed`
+- `schemas_checked = 10`
+- `passing_fixtures_checked = 9`
+- `blocked_fixtures_checked = 9`
+- `fixes_applied = workflow_route_decision_allowed_values_updated_for_static_validation`
+- `install_preflight_ready = true`
+- `sandbox_entry_allowed_this_round = false`
+- `next_safe_step = sandbox_intake_no_write_prompt`
+- `runtime_enabled = false`
+- `sandbox_created = false`
+- `minimal_router_prototype_created = false`
+- `dependency_installed = false`
+- `external_code_copied = false`
+- `active_write_executor = codex`
+- `generated_report = codex_log/framework_adapter/20260614_schema_contract_static_validation.md`
+- `禁止推进`：未推进 `content_validation / send_ready / voice_validation / final_voice_validated / visual_master_locked / publish_candidate_ready / runtime_enabled / sandbox_created / minimal_router_prototype_created`。
+- `修改范围`：只修补 `codex_source/schema_contracts/` 内 schema/fixture/index，新增 static validation 报告并更新 latest；未修改 `pyproject.toml / requirements.txt / package.json / compose.yaml / docker-compose.yml / dist / public / media / .env*`。
+
 ## 20260614｜Schema Contract Fix Plan
 
 - `task_result.status = schema_contract_fix_plan_completed_static_draft`

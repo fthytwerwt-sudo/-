@@ -19,7 +19,7 @@ required_fields:
   task_type:
     type: list[string]
     required: true
-    allowed_values: [project_file_change, copywriting, video_sample_or_assembly, review_diagnosis_audit, code_debug, external_research_bridge, mechanism_or_route_fix, local_file_governance, data_review_loop, schema_contract_fix_plan, adapter_design_review_only, mechanism_repair_flow]
+    allowed_values: [project_file_change, copywriting, video_sample_or_assembly, review_diagnosis_audit, code_debug, external_research_bridge, mechanism_or_route_fix, local_file_governance, data_review_loop, schema_contract_fix_plan, schema_contract_static_validation, schema_contract_fix_if_needed, install_preflight_gate_review, adapter_design_review_only, mechanism_repair_flow]
     description: "Task type labels for downstream gates."
     blocked_if_missing: true
   workflow_route_decision:
@@ -43,13 +43,13 @@ required_fields:
   execution_permission:
     type: enum
     required: true
-    allowed_values: [blocked, read_only, write_schema_fixtures_index_report_latest_only, add_report_and_latest_only, design_files_only]
+    allowed_values: [blocked, read_only, write_schema_fixtures_index_report_latest_only, validate_and_patch_schema_contract_files_only, add_report_and_latest_only, design_files_only]
     description: "Explicit permission for the current round."
     blocked_if_missing: true
   allowed_next_steps:
     type: list[string]
     required: true
-    allowed_values: [schema_contract_static_validation, schema_contract_fix_plan, design_review_only, blocked]
+    allowed_values: [schema_contract_static_validation, schema_contract_fix_plan, sandbox_intake_no_write_prompt, design_review_only, blocked]
     description: "Next steps allowed by this decision."
     blocked_if_missing: true
   forbidden_next_steps:

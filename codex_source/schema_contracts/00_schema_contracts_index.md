@@ -73,29 +73,42 @@ Sandbox remains blocked unless all are true in a later task:
 7. write handoff keeps `active_write_executor = codex`;
 8. completion truth check forbids status promotion and false completion claims.
 
-## 6. why sandbox is still not allowed
+## 6. install preflight status
 
-`sandbox_entry_allowed_now = false`
+2026-06-14 static validation outcome:
+
+```text
+schema_contract_static_validation = passed
+install_preflight_ready = true
+```
+
+This means the schema contract layer is ready for a later no-write sandbox intake prompt. It does not mean sandbox has been created, runtime has been enabled, dependencies have been installed, or external code has been copied.
+
+## 7. why sandbox is still not created in this stage
+
+`sandbox_entry_allowed_this_round = false`
 
 Reasons:
 
-- these schemas are draft contracts, not runtime code;
-- fixtures are static examples, not integration tests;
+- this round is static validation only;
+- no install task has been authorized;
 - no adapter service has been installed or run;
-- no sandbox path has been authorized;
+- no sandbox path has been created;
 - no minimal router prototype has been created;
 - no external code has been copied;
 - no dependency has been installed.
 
-## 7. next validation stage
+## 8. next stage
 
 Next safe stage:
 
 ```text
-schema_contract_static_validation
+sandbox_intake_no_write_prompt
 ```
 
-Minimum validation checklist:
+The next prompt must remain no-write unless the user explicitly authorizes installation in a separate task.
+
+Static validation checklist now passed:
 
 1. 10 schema files exist.
 2. 18 fixture files exist.
