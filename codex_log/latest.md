@@ -1,5 +1,46 @@
 # Latest
 
+## 20260614｜External Framework Full Intake Design
+
+```yaml
+task_result.status（任务结果状态）: external_framework_full_intake_design_completed
+project_route（项目路由）: video_factory
+external_framework（外部框架）: JoshuaC215/agent-service-toolkit
+execution_permission（执行权限）: design_report_and_latest_only
+workflow_route_decision（工作流归位判断）: mechanism_repair_flow
+large_task_gate.triggered（大任务闸门是否触发）: true
+deepseek_triggered（是否触发 DeepSeek）: false
+not_deepseek_conclusion（不是 DeepSeek 结论）: true
+install_executed（是否已安装）: false
+sandbox_created（是否创建沙盒）: false
+runtime_enabled（是否启用运行时）: false
+external_code_copied（是否复制外部代码）: false
+frontend_policy（前端策略）: disabled_by_default
+frontend_started（是否启动前端）: false
+write_executor_policy（写入执行器策略）: executor_abstraction_required
+active_write_executor（当前激活写入执行器）: codex
+future_executor_candidates（未来候选执行器）:
+  - trae
+  - future_ide_agent
+retrieval_policy（检索策略）: coexist_then_decide
+current_project_retrieval（当前项目检索）: DashVector
+upstream_retrieval（上游检索）: Chroma / RAG example
+cleaning_layer_status（清洗层状态）: basic_ingestion_only
+generated_report（生成报告）: codex_log/framework_adapter/20260614_external_framework_full_intake_design.md
+next_safe_step（下一步安全动作）: sandbox_install_probe_prompt_after_user_confirmation
+```
+
+- `full_intake_plan_completed（完整接入计划已完成）`: true
+- `sandbox_install_scope_completed（沙盒安装范围已完成）`: true
+- `module_keep_disable_prune_matrix_completed（模块矩阵已完成）`: true
+- `executor_abstraction_patch_plan_completed（执行器抽象修补方案已完成）`: true
+- `retrieval_coexistence_plan_completed（检索并存方案已完成）`: true
+- `cleaning_layer_gap_audit_completed（清洗层缺口审计已完成）`: true
+- `closed_loop_probe_plan_completed（闭环探测计划已完成）`: true
+- `upstream_read_status（上游读取状态）`: `read_ok_with_api_tree_fallback`；GitHub API tree endpoint 返回 403，但 raw URLs 与 codeload tarball stream 已完成指定文件 / 目录回读。
+- `禁止推进`：未推进 `content_validation / send_ready / voice_validation / final_voice_validated / visual_master_locked / publish_candidate_ready / runtime_enabled / sandbox_created / minimal_router_prototype_created`。
+- `修改范围`：只新增 framework adapter 设计报告并更新 `codex_log/latest.md`；未修改 `AGENTS.md / GPT数据源 / codex_source / pyproject.toml / requirements.txt / package.json / compose.yaml / docker-compose.yml / dist / public / media / .env*`。
+
 ## 20260614｜Schema Contract Static Validation
 
 - `task_result.status = schema_contract_static_validation_passed_install_preflight_ready`
