@@ -1,5 +1,43 @@
 # Latest
 
+## 20260614｜Agent Service Toolkit Sandbox Install Probe
+
+```yaml
+task_result.status（任务结果状态）: sandbox_install_probe_blocked
+project_route（项目路由）: video_factory
+external_framework（外部框架）: JoshuaC215/agent-service-toolkit
+execution_permission（执行权限）: sandbox_install_probe_only
+active_write_executor（当前激活写入执行器）: codex
+deepseek_triggered（是否触发 DeepSeek）: false
+not_deepseek_conclusion（不是 DeepSeek 结论）: true
+sandbox_workspace_created（沙盒工作区是否创建）: true
+sandbox_workspace（沙盒工作区）: /Users/fan/Documents/视频工厂_sandbox/agent-service-toolkit_probe_20260614
+upstream_project_downloaded（上游项目是否下载）: true
+upstream_commit（上游提交）: 5b3945f48e41a193816d7710b275eb89b90568ee
+dependency_probe_result（依赖探测结果）: blocked_uv_required_but_missing_and_install_not_authorized
+minimal_import_probe_result（最小导入探测结果）: partial_static_compile_passed_runtime_imports_blocked_by_missing_dependencies
+install_executed_in_main_repo（是否在主仓库安装）: false
+dependency_installed_in_sandbox（是否在沙盒安装依赖）: false
+main_repo_dependency_modified（主仓库依赖是否被修改）: false
+external_code_copied_to_main（是否复制外部代码到主线）: false
+frontend_started（是否启动前端）: false
+docker_started（是否启动 Docker）: false
+postgres_started（是否启动 Postgres）: false
+service_server_started（是否启动服务端）: false
+runtime_enabled（是否启用正式运行时）: false
+sandbox_runtime_probe_only（仅沙盒运行探测）: true
+generated_report（生成报告）: codex_log/framework_adapter/20260614_sandbox_install_probe.md
+next_safe_step（下一步安全动作）: authorize_uv_install_or_provide_existing_uv_then_rerun_sandbox_dependency_probe
+```
+
+- `sandbox_workspace_created_or_blocked_with_reason（沙盒工作区已创建或阻断原因清楚）`: true
+- `upstream_project_downloaded_or_blocked_with_reason（上游项目已下载或阻断原因清楚）`: true
+- `dependency_probe_completed_or_blocked_with_reason（依赖探测已完成或阻断原因清楚）`: true
+- `minimal_import_probe_completed_or_blocked_with_reason（最小导入探测已完成或阻断原因清楚）`: true
+- `blocked_reason（阻断原因）`: 当前 PATH 中没有 `uv`，且本轮不允许自动全局安装 `uv`；已用 Codex bundled Python 3.12.13 做只读依赖解析和 `compileall src`。
+- `禁止推进`：未推进 `content_validation / send_ready / voice_validation / final_voice_validated / visual_master_locked / publish_candidate_ready / runtime_enabled`。
+- `修改范围`：只新增 sandbox install probe 报告并更新 `codex_log/latest.md`；未修改 `AGENTS.md / GPT数据源 / codex_source / pyproject.toml / requirements.txt / package.json / compose.yaml / docker-compose.yml / dist / public / media / .env*`。
+
 ## 20260614｜External Framework Full Intake Design
 
 ```yaml
