@@ -1,5 +1,50 @@
 # Latest
 
+## 20260614｜Goal Mode Sandbox Install Completion
+
+```yaml
+task_result.status（任务结果状态）: goal_mode_sandbox_install_completed
+project_route（项目路由）: video_factory
+external_framework（外部框架）: JoshuaC215/agent-service-toolkit
+execution_permission（执行权限）: goal_mode_sandbox_install_only
+active_write_executor（当前激活写入执行器）: codex
+deepseek_triggered（是否触发 DeepSeek）: false
+not_deepseek_conclusion（不是 DeepSeek 结论）: true
+uv_available（uv 是否可用）: true
+uv_path（uv 路径）: /Users/fan/.local/bin/uv
+uv_version（uv 版本）: uv 0.11.21 (5aa65dd7a 2026-06-11 aarch64-apple-darwin)
+path_persistence_fixed（PATH 是否已持久化修复）: false
+sandbox_workspace（沙盒工作区）: /Users/fan/Documents/视频工厂_sandbox/agent-service-toolkit_probe_20260614
+partial_venv_cleanup_done（残缺 .venv 是否已清理）: true
+sandbox_dependency_sync_result（沙盒依赖同步结果）: completed
+sandbox_venv_usable（沙盒 .venv 是否可用）: true
+sandbox_python_runtime（沙盒 Python 运行时）: CPython 3.13.14
+sandbox_packages_installed（沙盒已安装包数量）: 241
+uv_pip_check（uv 依赖一致性检查）: passed
+compile_probe_result（编译探测结果）: passed
+minimal_import_probe_result（最小导入探测结果）: passed_with_pythonpath_and_inline_fake_model
+install_executed_in_main_repo（是否在主仓库安装）: false
+main_repo_dependency_modified（主仓库依赖是否被修改）: false
+external_code_copied_to_main（是否复制外部代码到主线）: false
+frontend_started（是否启动前端）: false
+docker_started（是否启动 Docker）: false
+postgres_started（是否启动 Postgres）: false
+service_server_started（是否启动服务端）: false
+runtime_enabled（是否启用正式运行时）: false
+sandbox_runtime_probe_only（仅沙盒运行探测）: true
+generated_report（生成报告）: codex_log/framework_adapter/20260614_goal_mode_sandbox_install_completion.md
+next_safe_step（下一步安全动作）: sandbox_no_service_closed_loop_import_or_service_contract_probe_after_user_confirmation
+```
+
+- `uv_available（uv 可用）`: true
+- `sandbox_dependency_sync_completed（沙盒依赖同步完成）`: true
+- `sandbox_venv_usable（沙盒 .venv 可用）`: true
+- `compile_probe_passed（编译探测通过）`: true
+- `minimal_import_probe_done（最小导入探测已完成）`: true
+- `blocked_if_any（如有阻断）`: null
+- `禁止推进`：未推进 `content_validation / send_ready / voice_validation / final_voice_validated / visual_master_locked / publish_candidate_ready / runtime_enabled`。
+- `修改范围`：只新增 goal mode sandbox install completion 报告并更新 `codex_log/latest.md`；未修改 `AGENTS.md / GPT数据源 / codex_source / pyproject.toml / requirements.txt / package.json / compose.yaml / docker-compose.yml / dist / public / media / .env*`。
+
 ## 20260614｜UV Install And Sandbox Dependency Probe
 
 ```yaml
