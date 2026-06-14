@@ -1,5 +1,54 @@
 # Latest
 
+## 20260614｜Stability Proof Closed Loop Probe
+
+```yaml
+task_result.status（任务结果状态）: stability_proof_closed_loop_probe_completed
+project_route（项目路由）: video_factory
+external_framework（外部框架）: JoshuaC215/agent-service-toolkit
+execution_permission（执行权限）: sandbox_fake_model_no_service_stability_probe_only
+active_write_executor（当前激活写入执行器）: codex
+deepseek_triggered（是否触发 DeepSeek）: false
+not_deepseek_conclusion（不是 DeepSeek 结论）: true
+sandbox_workspace（沙盒工作区）: /Users/fan/Documents/视频工厂_sandbox/agent-service-toolkit_probe_20260614
+sandbox_graph_probe_result（沙盒图调用探测结果）: passed
+positive_stability_test_result（正向稳定性测试结果）: passed
+negative_block_test_result（负向阻断测试结果）: passed
+determinism_check_result（确定性检查结果）: passed
+source_readback_verified（原文回读是否验证）: true
+completion_truth_check_verified（完成真实性检查是否验证）: true
+executor_handoff_boundary_verified（执行器边界是否验证）: true
+stability_gain_decision（稳定性提升判断）: proven_within_sandbox_fake_model_no_service_scope
+stability_gain_proven（稳定性提升是否已证明）: true
+proven_scope（已证明范围）: sandbox_fake_model_no_service_graph_probe_only
+not_proven_scope（未证明范围）:
+  - formal_video_factory_runtime
+  - real_llm_provider
+  - DashVector runtime adapter
+  - FastAPI service contract
+  - Chroma ingestion
+  - production persistence
+main_repo_dependency_modified（主仓库依赖是否被修改）: false
+external_code_copied_to_main（是否复制外部代码到主线）: false
+frontend_started（是否启动前端）: false
+docker_started（是否启动 Docker）: false
+fastapi_service_started（是否启动 FastAPI 服务）: false
+postgres_started（是否启动 Postgres）: false
+chroma_ingestion_script_run（是否运行 Chroma 入库脚本）: false
+external_api_called（是否调用外部 API）: false
+runtime_enabled（是否启用正式运行时）: false
+sandbox_runtime_probe_only（仅沙盒运行探测）: true
+generated_report（生成报告）: codex_log/framework_adapter/20260614_stability_proof_closed_loop_probe.md
+next_safe_step（下一步安全动作）: formal_adapter_patch_plan_after_user_confirmation
+```
+
+- `stability_proof_scope（稳定性证明范围）`: 只证明 sandbox / fake fixture / no service / no external API 下，LangGraph 能把“能不能写完成”的检查链固定成确定性节点。
+- `positive_stability_test（正向稳定性测试）`: 同一输入连续 3 次输出完全一致；3 个正向 JSON 的 SHA-256 均为 `dc9cc8aeaa858bb9c9bc5f3b48f8e5f0a4d0c3d6270a7a4b7fed573486f04090`。
+- `negative_block_test（负向阻断测试）`: 缺失 `missing_source` 时稳定输出 `blocked_reason=source_readback_missing`，执行器 `can_write=false`，完成声明 `completion_claim_allowed=false`。
+- `source_readback（原文回读）`: 正向回读到 `project_rule / latest_status / codex_report` 的 `source_id + chunk_id + exact_excerpt`；负向缺来源时明确阻断。
+- `completion_truth_check（完成真实性检查）`: 技术验证只写 `passed_for_sandbox_graph_probe`，内容验证保持 `not_evaluated_not_promoted`，未推进正式状态。
+- `修改范围`：主仓库只新增本轮稳定性证明报告并更新 `codex_log/latest.md`；sandbox 临时脚本和输出留在 `/Users/fan/Documents/视频工厂_sandbox/agent-service-toolkit_probe_20260614/video_factory_probe/`，未复制进主线。
+
 ## 20260614｜LangGraph / RAG / Cleaning Integration Probe
 
 ```yaml
