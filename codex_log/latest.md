@@ -1,5 +1,54 @@
 # Latest
 
+## 20260614｜LangGraph / RAG / Cleaning Integration Probe
+
+```yaml
+task_result.status（任务结果状态）: langgraph_rag_cleaning_integration_probe_completed
+project_route（项目路由）: video_factory
+external_framework（外部框架）: JoshuaC215/agent-service-toolkit
+execution_permission（执行权限）: sandbox_architecture_probe_report_only
+active_write_executor（当前激活写入执行器）: codex
+deepseek_triggered（是否触发 DeepSeek）: false
+not_deepseek_conclusion（不是 DeepSeek 结论）: true
+sandbox_workspace（沙盒工作区）: /Users/fan/Documents/视频工厂_sandbox/agent-service-toolkit_probe_20260614
+sandbox_install_ready（沙盒安装就绪）: true
+uv_path（uv 路径）: /Users/fan/.local/bin/uv
+uv_pip_check（uv 依赖一致性检查）: passed_checked_241_packages
+compile_probe_result（编译探测结果）: passed
+minimal_import_probe_result（最小导入探测结果）: passed
+pytest_collect_only_result（pytest 收集探测结果）: passed_128_tests_collected
+langgraph_probe_done（LangGraph 探测完成）: true
+langchain_position_audit_done（LangChain 定位审计完成）: true
+rag_probe_done（RAG 探测完成）: true
+cleaning_layer_slot_done（清洗层位置设计完成）: true
+cleaning_layer_status（清洗层状态）: basic_ingestion_only
+retrieval_policy（检索策略）: coexist_then_decide
+current_project_retrieval（当前项目检索）: DashVector
+upstream_retrieval（上游检索）: Chroma / RAG example
+source_readback_required（是否必须原文回读）: true
+retrieval_result_not_completion_proof（检索结果不是完成证明）: true
+install_executed_in_main_repo（是否在主仓库安装）: false
+main_repo_dependency_modified（主仓库依赖是否被修改）: false
+external_code_copied_to_main（是否复制外部代码到主线）: false
+frontend_started（是否启动前端）: false
+docker_started（是否启动 Docker）: false
+postgres_started（是否启动 Postgres）: false
+service_server_started（是否启动服务端）: false
+chroma_ingestion_script_run（是否运行 Chroma 入库脚本）: false
+external_api_called（是否调用外部 API）: false
+runtime_enabled（是否启用正式运行时）: false
+sandbox_runtime_probe_only（仅沙盒运行探测）: true
+generated_report（生成报告）: codex_log/framework_adapter/20260614_langgraph_rag_cleaning_integration_probe.md
+next_safe_step（下一步安全动作）: sandbox_fake_model_no_service_graph_invoke_probe_after_user_confirmation
+```
+
+- `langgraph_structure_audit（LangGraph 结构审计）`: 已确认上游以 LangGraph 作为主编排层，注册 10 个 agent；`rag-assistant`、`research-assistant`、supervisor、interrupt、knowledge-base agent 均可静态取图，GitHub MCP agent 保持 deferred / unloaded。
+- `langchain_position_fit_audit（LangChain 定位审计）`: 已确认 LangChain 更适合作为模型、工具、retriever、loader 适配层，不替代视频工厂状态路由和完成真实性检查。
+- `rag_mechanism_probe（RAG 机制探测）`: 已确认上游 RAG 使用 Chroma + OpenAIEmbeddings + PDF/DOCX loader；当前工具输出只拼接 `page_content`，不保留 source/page/chunk metadata 到模型上下文。
+- `cleaning_layer_gap_audit（清洗层缺口审计）`: 结论为 `basic_ingestion_only`；后续必须补 `video_factory_cleaning_adapter`，覆盖 secret scan、metadata 标准化、去重、chunk quality、source readback、retrieval manifest。
+- `禁止推进`：未推进 `content_validation / send_ready / voice_validation / final_voice_validated / visual_master_locked / publish_candidate_ready / runtime_enabled`。
+- `修改范围`：只新增 LangGraph/RAG/cleaning integration probe 报告并更新 `codex_log/latest.md`；未修改 `AGENTS.md / GPT数据源 / codex_source / pyproject.toml / requirements.txt / package.json / compose.yaml / docker-compose.yml / dist / public / media / .env*`。
+
 ## 20260614｜Goal Mode Sandbox Install Completion
 
 ```yaml
