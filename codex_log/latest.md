@@ -1,5 +1,46 @@
 # Latest
 
+## 20260614｜UV Install And Sandbox Dependency Probe
+
+```yaml
+task_result.status（任务结果状态）: uv_install_and_sandbox_dependency_probe_blocked
+project_route（项目路由）: video_factory
+external_framework（外部框架）: JoshuaC215/agent-service-toolkit
+execution_permission（执行权限）: install_uv_user_level_then_rerun_sandbox_dependency_probe
+active_write_executor（当前激活写入执行器）: codex
+deepseek_triggered（是否触发 DeepSeek）: false
+not_deepseek_conclusion（不是 DeepSeek 结论）: true
+uv_found_before（安装前是否找到 uv）: false
+uv_installed（是否安装 uv）: true
+uv_install_method（uv 安装方式）: standalone_installer
+uv_available_after（安装后 uv 是否可用）: true
+uv_path_after_install（安装后 uv 路径）: /Users/fan/.local/bin/uv
+uv_version_after_install（安装后 uv 版本）: uv 0.11.21 (5aa65dd7a 2026-06-11 aarch64-apple-darwin)
+shell_profile_modified（是否修改 shell 配置）: false
+sandbox_workspace（沙盒工作区）: /Users/fan/Documents/视频工厂_sandbox/agent-service-toolkit_probe_20260614
+sandbox_dependency_probe_result（沙盒依赖探测结果）: blocked_uv_sync_download_stalled_or_timed_out_in_sandbox
+minimal_import_probe_result（最小导入探测结果）: blocked_not_run_because_uv_sync_interrupted_before_usable_dependency_environment
+install_executed_in_main_repo（是否在主仓库安装）: false
+main_repo_dependency_modified（主仓库依赖是否被修改）: false
+external_code_copied_to_main（是否复制外部代码到主线）: false
+frontend_started（是否启动前端）: false
+docker_started（是否启动 Docker）: false
+postgres_started（是否启动 Postgres）: false
+service_server_started（是否启动服务端）: false
+runtime_enabled（是否启用正式运行时）: false
+sandbox_runtime_probe_only（仅沙盒运行探测）: true
+generated_report（生成报告）: codex_log/framework_adapter/20260614_uv_install_and_sandbox_dependency_probe.md
+next_safe_step（下一步安全动作）: rerun_uv_sync_frozen_in_same_sandbox_with_longer_network_window_or_preseed_uv_cache
+```
+
+- `uv_checked（uv 已检查）`: true
+- `uv_available_after_install_or_preexisting（uv 已存在或安装后可用）`: true
+- `sandbox_dependency_probe_completed_or_blocked_with_reason（沙盒依赖探测完成或阻断原因清楚）`: true
+- `minimal_import_probe_completed_or_blocked_with_reason（最小导入探测完成或阻断原因清楚）`: true
+- `blocked_reason（阻断原因）`: `uv sync --frozen` 在 sandbox 依赖下载 / 同步阶段长时间无完成信号，最后 60 秒无输出；已中断并记录现场，未改 lock，未写 secret。
+- `禁止推进`：未推进 `content_validation / send_ready / voice_validation / final_voice_validated / visual_master_locked / publish_candidate_ready / runtime_enabled`。
+- `修改范围`：只新增 uv install + sandbox dependency probe 报告并更新 `codex_log/latest.md`；未修改 `AGENTS.md / GPT数据源 / codex_source / pyproject.toml / requirements.txt / package.json / compose.yaml / docker-compose.yml / dist / public / media / .env*`。
+
 ## 20260614｜Agent Service Toolkit Sandbox Install Probe
 
 ```yaml
