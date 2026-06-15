@@ -1,5 +1,44 @@
 # Latest
 
+## 20260614｜Agent Service Toolkit Sandbox Branch Context
+
+```yaml
+task_result.status（任务结果状态）: adapter_branch_context_created
+project_route（项目路由）: video_factory
+external_framework（外部框架）: JoshuaC215/agent-service-toolkit
+execution_permission（执行权限）: create_and_push_adapter_branch_update_branch_latest_only
+active_write_executor（当前激活写入执行器）: codex
+deepseek_triggered（是否触发 DeepSeek）: false
+not_deepseek_conclusion（不是 DeepSeek 结论）: true
+branch_name（分支名）: adapter/agent-service-toolkit-sandbox
+branch_source（分支来源）: origin/main
+branch_source_commit（分支来源提交）: 42954b677af5c8a21252d282f2a4846ce278a4dd
+branch_purpose（分支用途）: agent-service-toolkit sandbox integration and adapter experiments
+current_branch（当前分支）: adapter/agent-service-toolkit-sandbox
+remote_branch_created（远端分支是否创建）: true
+sandbox_workspace（沙盒工作区）: /Users/fan/Documents/视频工厂_sandbox/agent-service-toolkit_probe_20260614
+sandbox_upstream_commit（沙盒上游提交）: 5b3945f48e41a193816d7710b275eb89b90568ee
+main_branch_modified_this_round（本轮是否修改 main 分支）: false
+install_executed_in_main_repo（是否在主仓库安装）: false
+main_repo_dependency_modified（主仓库依赖是否被修改）: false
+external_code_copied_to_main（是否复制外部代码到主线）: false
+sandbox_files_committed（是否提交沙盒文件）: false
+frontend_started（是否启动前端）: false
+docker_started（是否启动 Docker）: false
+postgres_started（是否启动 Postgres）: false
+fastapi_service_started（是否启动 FastAPI 服务）: false
+chroma_ingestion_script_run（是否运行 Chroma 入库脚本）: false
+external_api_called（是否调用外部 API）: false
+runtime_enabled（是否启用正式运行时）: false
+generated_report（生成报告）: codex_log/framework_adapter/20260614_agent_service_toolkit_sandbox_branch_context.md
+next_safe_step（下一步安全动作）: continue_agent_service_toolkit_adapter_work_on_adapter_branch
+```
+
+- `branch_context（分支上下文）`: 本分支只承载 `agent-service-toolkit` 沙盒接入、adapter、RAG、LangGraph、DashVector、清洗层和服务契约实验；不是 main 合并，也不是正式 runtime 启用。
+- `sandbox_submission_policy（沙盒提交策略）`: 不提交 `.venv`、外部源码副本、`video_factory_probe` 临时脚本 / 输出、`.env` 或任何 secret。
+- `main_policy（main 分支策略）`: main 只接收确认后的正式结果；本轮没有修改 main 分支指针，也没有把沙盒文件纳入主仓库。
+- `forbidden_without_new_authorization（未经新授权禁止事项）`: 不合并 main，不启用 runtime，不启动 FastAPI / Docker / Postgres / Streamlit，不调用真实外部 API，不写 secret。
+
 ## 20260614｜Stability Proof Closed Loop Probe
 
 ```yaml
