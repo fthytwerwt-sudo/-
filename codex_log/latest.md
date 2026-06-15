@@ -1,5 +1,39 @@
 # Latest
 
+## 20260615｜Formal Adapter Patch Plan
+
+```yaml
+task_result.status（任务结果状态）: formal_adapter_patch_plan_completed
+project_route（项目路由）: video_factory
+branch（分支）: adapter/agent-service-toolkit-sandbox
+execution_permission（执行权限）: plan_report_only
+runtime_enabled（是否启用正式运行时）: false
+main_branch_modified（是否修改 main）: false
+external_api_called（是否调用外部 API）: false
+workflow_mapping_completed（workflow 映射是否完成）: true
+unmapped_workflow_register_created（未归位 workflow 登记是否创建）: true
+data_architecture_preservation_plan_created（数据与架构保真计划是否创建）: true
+candidate_new_workflow（候选新增 workflow）: adapter_infrastructure_flow（适配基础设施流，候选，未启用）
+candidate_new_workflow_enabled（候选新增 workflow 是否启用）: false
+upstream_code_copied（是否复制上游源码）: false
+dependency_installed（是否安装依赖）: false
+service_started（是否启动服务）: false
+chroma_ingestion_run（是否运行 Chroma 入库）: false
+active_write_executor（当前激活写入执行器）: codex
+deepseek_triggered（是否触发 DeepSeek）: false
+not_deepseek_conclusion（不是 DeepSeek 结论）: true
+generated_report（生成报告）: codex_log/framework_adapter/20260615_formal_adapter_patch_plan.md
+next_safe_step（下一步安全动作）: contract_and_schema_patch_plan_after_user_confirmation
+```
+
+- `workflow_inventory（workflow 盘点）`: 已按 `codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md` 复核 6 类现有 workflow；本轮主承载线为 `mechanism_repair_flow（机制修补流）`。
+- `workflow_adapter_mapping（workflow 适配映射）`: `copy_testing_flow / material_evidence_flow / aesthetic_editing_flow / quality_review_flow / data_review_flow` 均为 partial fit；`mechanism_repair_flow` 为本轮 direct fit；`adapter_infrastructure_flow（适配基础设施流）` 只登记为 candidate，不启用、不写入正式入口。
+- `upstream_capability_map（上游能力地图）`: LangGraph 保留为 `workflow_runtime_layer（工作流运行层）`；LangChain 保留为 `adapter_layer（模型 / 工具 / 检索适配层）`；DashVector 保留为当前项目主检索路线；Chroma 只作为 sandbox 学习 / 并存评估对象。
+- `data_architecture_preservation_plan（数据与架构保真计划）`: 必须保留 `current_data_goal_anchor / operation_records / review_loop / data_goal_execution_bus / retrieval_manifest / source_readback / completion_truth_check / write_executor_handoff / human_review_boundary`。
+- `disabled_by_default（默认禁用）`: Streamlit frontend、Docker / Postgres / Mongo persistence、GitHub MCP agent、raw Chroma ingestion、LangSmith / Langfuse external telemetry、supervisor / hierarchy agents as formal workflow。
+- `contracts_needed_before_code（写 adapter 代码前需补契约）`: `graph_runtime_adapter_contract`、`retrieval_manifest_schema`、`source_readback_map_schema`、`cleaning_adapter_contract`、`service_contract_no_write_probe`、`completion_truth_check_node_contract`。
+- `禁止推进`: 未启用 runtime，未修改 main，未安装依赖，未启动 FastAPI / Docker / Postgres / Streamlit，未运行 Chroma ingestion，未调用外部 API，未复制上游源码，未推进视频 / 声音 / 视觉 / 发布状态。
+
 ## 20260614｜Agent Service Toolkit Sandbox Branch Context
 
 ```yaml
