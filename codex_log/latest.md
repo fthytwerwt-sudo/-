@@ -1,5 +1,48 @@
 # Latest
 
+## 20260616｜Agent Service Toolkit Full Integration Master Plan
+
+```yaml
+task_result.status（任务结果状态）: full_integration_master_plan_completed
+project_route（项目路由）: video_factory
+branch（分支）: adapter/agent-service-toolkit-sandbox
+execution_permission（执行权限）: master_plan_report_only
+goal_mode（Goal 模式）: active_for_plan_delivery_only
+runtime_enabled（是否启用正式运行时）: false
+main_branch_modified（是否修改 main）: false
+external_api_called（是否调用外部 API）: false
+dependency_installed（是否安装依赖）: false
+service_started（是否启动服务）: false
+chroma_ingestion_run（是否运行 Chroma 入库）: false
+upstream_code_copied（是否复制上游源码）: false
+full_workflow_inventory_completed（workflow 全量盘点是否完成）: true
+toolkit_capability_inventory_completed（toolkit 能力盘点是否完成）: true
+integration_decision_matrix_created（接入分类矩阵是否创建）: true
+direct_embed_list_created（可直接嵌入清单是否创建）: true
+adapter_required_list_created（需要适配清单是否创建）: true
+project_change_required_list_created（需要项目机制改动清单是否创建）: true
+disable_or_quarantine_list_created（默认禁用 / 隔离清单是否创建）: true
+data_architecture_master_plan_created（数据与架构保真总计划是否创建）: true
+one_shot_integration_route_created（一次性接入路线是否创建）: true
+user_decision_board_created（用户决策板是否创建）: true
+candidate_new_workflow（候选新增 workflow）: adapter_infrastructure_flow（适配基础设施流，候选，未启用）
+candidate_new_workflow_enabled（候选新增 workflow 是否启用）: false
+active_write_executor（当前激活写入执行器）: codex
+deepseek_triggered（是否触发 DeepSeek）: false
+not_deepseek_conclusion（是否不是 DeepSeek 结论）: true
+generated_report（生成报告）: codex_log/framework_adapter/20260616_agent_service_toolkit_full_integration_master_plan.md
+next_safe_step（下一步安全动作）: user_chatgpt_review_then_contract_schema_phase_after_confirmation
+```
+
+- `full_workflow_inventory（workflow 全量盘点）`: 已盘点 6 类正式 workflow 与 15 个原生 router / gate / bus / candidate 面；本轮承载线仍为 `mechanism_repair_flow（机制修补流）`，`adapter_infrastructure_flow（适配基础设施流）` 只作为 candidate，不启用。
+- `integration_classification_matrix（接入分类矩阵）`: 已按 `direct_embed / adapter_required / project_change_required / disable_by_default / unmapped_quarantine / do_not_import / future_candidate` 七类归位上游能力。
+- `direct_embed（可直接嵌入）`: human review interrupt pattern、completion truth check deterministic node、write executor handoff shape、pre-execution read contract gate、client/test contract shape、Pydantic/schema pattern。
+- `adapter_required（需要适配）`: LangGraph runtime、LangChain model/tool、RAG assistant、Chroma sandbox output、DashVector formal route、source_readback、cleaning layer、FastAPI service、runtime memory、upstream schema mapping。
+- `disable_or_quarantine（默认禁用 / 隔离）`: Streamlit、Docker Compose、Postgres / Mongo、GitHub MCP、LangSmith / Langfuse、supervisor / hierarchy agents、safeguard / Groq real call、raw Chroma ingestion、page_content-only RAG context、knowledge-base-agent。
+- `data_architecture_master_plan（数据与架构保真总计划）`: DashVector 保留主线；Chroma 只做 sandbox；Git/repo/codex_log/review_loop 仍是事实源；`source_readback + human_review + completion_truth_check` 仍是完成真值链；runtime 不得直接写仓库。
+- `one_shot_integration_route（一口气接入路线）`: 只作为后续 Goal Mode 分阶段路线；必须先经用户 / ChatGPT 复审，再进入 contract / schema / fixture / no-service graph / retrieval-cleaning probe / authorized service probe / main merge candidate review。
+- `禁止推进`: 未启用 runtime，未修改 main，未安装依赖，未启动 FastAPI / Docker / Postgres / Streamlit，未运行 Chroma ingestion，未调用外部 API，未复制上游源码，未推进视频 / 声音 / 视觉 / 发布 / 发送状态。
+
 ## 20260615｜Formal Adapter Patch Plan
 
 ```yaml
