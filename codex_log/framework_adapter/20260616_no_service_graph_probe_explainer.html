@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>No-Service Graph Probe 解释页｜这次 Codex 到底验证了什么</title>
+  <style>
+    :root {
+      --ink: #17202a;
+      --muted: #5b6470;
+      --page: #f7f8fb;
+      --panel: #ffffff;
+      --line: #d8dee8;
+      --blue: #2457a6;
+      --green: #1f7a5c;
+      --red: #b13d35;
+      --yellow: #916a00;
+      --cyan: #0f6f7d;
+      --soft-blue: #eef5ff;
+      --soft-green: #edf8f3;
+      --soft-red: #fff1ef;
+      --soft-yellow: #fff8e6;
+      --shadow: 0 14px 34px rgba(23, 32, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--page);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.65;
+    }
+
+    a {
+      color: var(--blue);
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 20px 72px;
+    }
+
+    .hero {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 34px;
+      border-radius: 8px;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      line-height: 1.22;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 920px;
+      font-size: clamp(34px, 5vw, 58px);
+    }
+
+    h2 {
+      font-size: 28px;
+    }
+
+    h3 {
+      font-size: 19px;
+    }
+
+    .hero-summary {
+      max-width: 900px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .quick-truth {
+      margin-top: 24px;
+      padding: 18px 20px;
+      border: 1px solid #9bb9e8;
+      border-left: 6px solid var(--blue);
+      background: var(--soft-blue);
+      border-radius: 8px;
+      font-size: 19px;
+      font-weight: 750;
+    }
+
+    .section {
+      margin-top: 30px;
+      padding: 28px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 8px 22px rgba(23, 32, 42, 0.04);
+    }
+
+    .section-lead {
+      margin: 10px 0 0;
+      color: var(--muted);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: #ffffff;
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+
+    .tag {
+      display: inline-block;
+      margin: 0 6px 8px 0;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #f7f9fc;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .tag.ok {
+      border-color: #91cdb7;
+      background: var(--soft-green);
+      color: var(--green);
+    }
+
+    .tag.block {
+      border-color: #e3aca6;
+      background: var(--soft-red);
+      color: var(--red);
+    }
+
+    .tag.warn {
+      border-color: #e1c36f;
+      background: var(--soft-yellow);
+      color: var(--yellow);
+    }
+
+    .diagram-wrap {
+      overflow-x: auto;
+      margin-top: 18px;
+      padding-bottom: 6px;
+    }
+
+    svg {
+      display: block;
+      min-width: 980px;
+      max-width: 100%;
+      height: auto;
+      background: #fbfcff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .node-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .node-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: #fbfcff;
+    }
+
+    .node-card ul,
+    .bug-card ul {
+      margin: 10px 0 0;
+      padding-left: 20px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 980px;
+      border-collapse: collapse;
+      background: #ffffff;
+    }
+
+    th,
+    td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f1f5fb;
+      font-size: 13px;
+      color: #394759;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .guardrail {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .guardrail-item {
+      border: 1px solid #e3aca6;
+      border-left: 6px solid var(--red);
+      border-radius: 8px;
+      padding: 16px;
+      background: var(--soft-red);
+    }
+
+    .bug-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .bug-card {
+      border: 1px solid #e1c36f;
+      border-radius: 8px;
+      padding: 16px;
+      background: var(--soft-yellow);
+    }
+
+    details {
+      margin-top: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 14px 16px;
+      font-weight: 750;
+      color: var(--blue);
+    }
+
+    .details-body {
+      padding: 0 16px 16px;
+      color: var(--muted);
+    }
+
+    .timeline {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .step-num {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #ffffff;
+      font-weight: 800;
+    }
+
+    .glossary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .term {
+      border-top: 3px solid var(--cyan);
+      padding: 12px 0 0;
+    }
+
+    code {
+      color: #1c3f7d;
+      background: #eef3fb;
+      border: 1px solid #d8e2f2;
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.92em;
+    }
+
+    .evidence-list {
+      columns: 2 260px;
+      margin: 18px 0 0;
+      padding-left: 20px;
+    }
+
+    .footer-note {
+      margin-top: 26px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 18px 12px 46px;
+      }
+
+      .hero,
+      .section {
+        padding: 22px 16px;
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+
+      .quick-truth {
+        font-size: 17px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero" id="hero_summary">
+      <p class="eyebrow">结论先看｜hero_summary（顶部摘要）</p>
+      <h1>No-Service Graph Probe 解释页｜这次 Codex 到底验证了什么</h1>
+      <p class="hero-summary">
+        这轮是 <code>no_service_graph_probe（无服务图探测）</code>：Codex 没有启动服务，没有安装依赖，也没有真实调用向量库或外部 API。
+        它做的是用 <code>fake_graph_runner_no_dependency（无依赖假图运行器）</code> 把冻结的契约样例串起来，确认“路由、清洗、检索清单、原文回读、交接、完成真实性检查”这条链路可以被检查。
+        这不是 <code>runtime（运行时）</code> 接入完成，也不是 <code>LangGraph（图运行框架）</code> 已经可用。
+        下一步安全动作是 <code>retrieval_cleaning_adapter_probe_after_user_chatgpt_review（用户 / ChatGPT 复审后进入检索与清洗适配探测）</code>。
+      </p>
+      <div class="quick-truth" id="one_sentence_truth">
+        one_sentence_truth（一句话真相）：这轮证明的是：契约链路能被 fake graph 跑通；没有证明正式 LangGraph runtime 已经可用。
+      </div>
+    </section>
+
+    <section class="section" id="status_cards">
+      <h2>status_cards（状态卡片）</h2>
+      <p class="section-lead">这几张卡片专门防止“状态偷换”：每个状态都写清楚它代表什么，也写清楚它不代表什么。</p>
+      <div class="card-grid">
+        <article class="card">
+          <strong>technical_validation（技术验证）</strong>
+          <span class="tag ok">status（状态）: passed_for_no_service_fake_graph_probe_only（仅限无服务假图探测通过）</span>
+          <p><b>meaning（含义）:</b> 7 个 fake graph 节点可以按冻结 fixture 跑通，9 个阻断场景也能被识别。</p>
+          <p><b>not_meaning（不代表什么）:</b> 不代表正式运行时、正式服务、真实检索或视频内容质量已经通过。</p>
+        </article>
+        <article class="card">
+          <strong>content_validation（内容验证）</strong>
+          <span class="tag warn">status（状态）: not_advanced（未推进）</span>
+          <p><b>meaning（含义）:</b> 本轮只解释技术契约探测，不评判视频内容、人感、审美、声音或发布质量。</p>
+          <p><b>not_meaning（不代表什么）:</b> 不代表内容质量已经达标，也不代表可以发送或发布。</p>
+        </article>
+        <article class="card">
+          <strong>runtime_validation（运行时验证）</strong>
+          <span class="tag block">status（状态）: not_enabled（未启用）</span>
+          <p><b>meaning（含义）:</b> <code>langgraph_available（LangGraph 是否可用）</code> 为 false（不可用），本轮使用 fake runner。</p>
+          <p><b>not_meaning（不代表什么）:</b> 不代表正式 LangGraph runtime 已经能跑。</p>
+        </article>
+        <article class="card">
+          <strong>main_branch_status（main 主分支状态）</strong>
+          <span class="tag ok">status（状态）: untouched（未修改）</span>
+          <p><b>meaning（含义）:</b> 本轮工作在 <code>adapter/agent-service-toolkit-sandbox（适配沙盒分支）</code>。</p>
+          <p><b>not_meaning（不代表什么）:</b> 不代表 main（主分支）已经合并或进入正式适配。</p>
+        </article>
+        <article class="card">
+          <strong>external_api_status（外部 API 状态）</strong>
+          <span class="tag ok">status（状态）: not_called（未调用）</span>
+          <p><b>meaning（含义）:</b> 没有真实调用 DashVector（正式主检索路线）、Chroma（沙盒向量库）或任何外部接口。</p>
+          <p><b>not_meaning（不代表什么）:</b> 不代表真实检索链路已经验证完成。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="graph_flow_diagram">
+      <h2>graph_flow_diagram（图流程图）</h2>
+      <p class="section-lead">这张图说明 fake graph 跑过的 7 个节点。它像一次“排练”：排练能证明台词和走位能被检查，但不能证明正式剧场已经开演。</p>
+      <div class="diagram-wrap" aria-label="7 个图节点流程图">
+        <svg viewBox="0 0 1180 260" role="img" aria-labelledby="flowTitle flowDesc">
+          <title id="flowTitle">No-Service Graph Probe 7 节点流程图</title>
+          <desc id="flowDesc">从路由判断到完成真实性检查的 7 个 fake graph 节点。</desc>
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#2457a6"></path>
+            </marker>
+          </defs>
+          <rect x="24" y="64" width="130" height="96" rx="8" fill="#eef5ff" stroke="#9bb9e8"></rect>
+          <text x="89" y="98" text-anchor="middle" font-size="13" font-weight="700" fill="#17202a">route</text>
+          <text x="89" y="122" text-anchor="middle" font-size="12" fill="#394759">路由判断</text>
+
+          <line x1="154" y1="112" x2="188" y2="112" stroke="#2457a6" stroke-width="3" marker-end="url(#arrow)"></line>
+          <rect x="192" y="64" width="130" height="96" rx="8" fill="#edf8f3" stroke="#91cdb7"></rect>
+          <text x="257" y="98" text-anchor="middle" font-size="13" font-weight="700" fill="#17202a">cleaning</text>
+          <text x="257" y="122" text-anchor="middle" font-size="12" fill="#394759">清洗适配</text>
+
+          <line x1="322" y1="112" x2="356" y2="112" stroke="#2457a6" stroke-width="3" marker-end="url(#arrow)"></line>
+          <rect x="360" y="64" width="130" height="96" rx="8" fill="#fff8e6" stroke="#e1c36f"></rect>
+          <text x="425" y="98" text-anchor="middle" font-size="13" font-weight="700" fill="#17202a">manifest</text>
+          <text x="425" y="122" text-anchor="middle" font-size="12" fill="#394759">检索清单</text>
+
+          <line x1="490" y1="112" x2="524" y2="112" stroke="#2457a6" stroke-width="3" marker-end="url(#arrow)"></line>
+          <rect x="528" y="64" width="130" height="96" rx="8" fill="#eef5ff" stroke="#9bb9e8"></rect>
+          <text x="593" y="98" text-anchor="middle" font-size="13" font-weight="700" fill="#17202a">readback</text>
+          <text x="593" y="122" text-anchor="middle" font-size="12" fill="#394759">原文回读</text>
+
+          <line x1="658" y1="112" x2="692" y2="112" stroke="#2457a6" stroke-width="3" marker-end="url(#arrow)"></line>
+          <rect x="696" y="64" width="130" height="96" rx="8" fill="#f7f9fc" stroke="#c9d2df"></rect>
+          <text x="761" y="98" text-anchor="middle" font-size="13" font-weight="700" fill="#17202a">gap report</text>
+          <text x="761" y="122" text-anchor="middle" font-size="12" fill="#394759">缺口报告</text>
+
+          <line x1="826" y1="112" x2="860" y2="112" stroke="#2457a6" stroke-width="3" marker-end="url(#arrow)"></line>
+          <rect x="864" y="64" width="130" height="96" rx="8" fill="#edf8f3" stroke="#91cdb7"></rect>
+          <text x="929" y="98" text-anchor="middle" font-size="13" font-weight="700" fill="#17202a">handoff</text>
+          <text x="929" y="122" text-anchor="middle" font-size="12" fill="#394759">执行器交接</text>
+
+          <line x1="994" y1="112" x2="1028" y2="112" stroke="#2457a6" stroke-width="3" marker-end="url(#arrow)"></line>
+          <rect x="1032" y="64" width="130" height="96" rx="8" fill="#fff1ef" stroke="#e3aca6"></rect>
+          <text x="1097" y="98" text-anchor="middle" font-size="13" font-weight="700" fill="#17202a">truth check</text>
+          <text x="1097" y="122" text-anchor="middle" font-size="12" fill="#394759">真实性检查</text>
+
+          <text x="590" y="210" text-anchor="middle" font-size="14" fill="#5b6470">所有节点都只读 fixture（验证样例）和仓库原文件；没有服务、没有外部 API、没有直接写仓库。</text>
+        </svg>
+      </div>
+
+      <details open>
+        <summary>展开看细节：7 个 graph_nodes（图节点）分别检查什么</summary>
+        <div class="details-body">
+          <div class="node-grid">
+            <article class="node-card">
+              <h3>route_decision_node（路由判断节点）</h3>
+              <ul>
+                <li><b>检查什么:</b> 项目路由、workflow 归位、runtime 是否允许写仓库。</li>
+                <li><b>防什么 bug:</b> 防止 LangGraph（图运行框架）替代 Project State Action Router（项目状态动作总控器）。</li>
+                <li><b>通过后代表什么:</b> 本轮可以按机制修补流做 no-service probe。</li>
+                <li><b>不代表什么:</b> 不代表正式 runtime 已接管项目路由。</li>
+              </ul>
+            </article>
+            <article class="node-card">
+              <h3>cleaning_adapter_node（清洗适配节点）</h3>
+              <ul>
+                <li><b>检查什么:</b> secret_scan_before_ingestion（入库前密钥扫描）、metadata（元数据）、source_path（来源路径）、chunk_id（切片编号）。</li>
+                <li><b>防什么 bug:</b> 防止清洗后丢掉来源，导致后面无法回读原文。</li>
+                <li><b>通过后代表什么:</b> fixture 里的清洗样例保留了追溯字段。</li>
+                <li><b>不代表什么:</b> 不代表真实文档清洗器已经处理过生产数据。</li>
+              </ul>
+            </article>
+            <article class="node-card">
+              <h3>retrieval_manifest_node（检索清单节点）</h3>
+              <ul>
+                <li><b>检查什么:</b> provider（检索来源）、source_path（来源路径）、chunk_id（切片编号）、source_readback_required（必须原文回读）。</li>
+                <li><b>防什么 bug:</b> 防止只拿 page_content（正文片段）就当事实。</li>
+                <li><b>通过后代表什么:</b> DashVector fixture 能表达完整检索清单。</li>
+                <li><b>不代表什么:</b> 不代表已经真实调用 DashVector。</li>
+              </ul>
+            </article>
+            <article class="node-card">
+              <h3>source_readback_node（原文回读节点）</h3>
+              <ul>
+                <li><b>检查什么:</b> 检索命中能否回到当前分支原文件。</li>
+                <li><b>防什么 bug:</b> 防止旧摘要、旧分支、旧口径冒充当前事实。</li>
+                <li><b>通过后代表什么:</b> 本地 fixture 指向的源文件存在且可读。</li>
+                <li><b>不代表什么:</b> 不代表所有未来资料都能自动回读。</li>
+              </ul>
+            </article>
+            <article class="node-card">
+              <h3>retrieval_gap_report_node（检索缺口报告节点）</h3>
+              <ul>
+                <li><b>检查什么:</b> gap_status（缺口状态）是否为 none（无缺口）。</li>
+                <li><b>防什么 bug:</b> 防止低置信度、空检索或冲突检索被静默放行。</li>
+                <li><b>通过后代表什么:</b> 本轮 fixture 没有制造检索缺口。</li>
+                <li><b>不代表什么:</b> 不代表真实 RAG（检索增强生成）永远无缺口。</li>
+              </ul>
+            </article>
+            <article class="node-card">
+              <h3>executor_handoff_node（执行器交接节点）</h3>
+              <ul>
+                <li><b>检查什么:</b> active_write_executor（当前激活写入执行器）仍是 Codex；service 和 memory 都不能写仓库。</li>
+                <li><b>防什么 bug:</b> 防止 service（服务）或 runtime memory（运行时记忆）绕过 Codex 写文件。</li>
+                <li><b>通过后代表什么:</b> 写入边界在 fixture 中被保留。</li>
+                <li><b>不代表什么:</b> 不代表 FastAPI 服务已经可以启动。</li>
+              </ul>
+            </article>
+            <article class="node-card">
+              <h3>completion_truth_check_node（完成真实性检查节点）</h3>
+              <ul>
+                <li><b>检查什么:</b> required_outputs_exist（必交付物存在）、source_readback_passed（原文回读通过）、forbidden_status_promotion_scan（禁止状态推进扫描）。</li>
+                <li><b>防什么 bug:</b> 防止技术成功、文件存在、sandbox 成功被包装成最终完成。</li>
+                <li><b>通过后代表什么:</b> 本轮 no-service probe 的完成声明有边界。</li>
+                <li><b>不代表什么:</b> 不代表内容、声音、视觉、发布状态被推进。</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="section" id="blocked_cases_table">
+      <h2>blocked_cases_table（阻断案例表）</h2>
+      <p class="section-lead">这 9 个 blocked case（阻断场景）是本轮最重要的防错网。它们证明系统遇到危险偷换时会停下来，而不是继续往“已完成”方向写。</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>case（场景）</th>
+              <th>plain_meaning（人话解释）</th>
+              <th>bug_prevented（防住的 bug）</th>
+              <th>expected_block_reason（预期阻断理由）</th>
+              <th>why_it_matters（为什么重要）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>graph_direct_write_blocked（图运行时直接写仓库被阻断）</code></td>
+              <td>graph 想自己改文件。</td>
+              <td>防止 runtime 越权写仓库。</td>
+              <td><code>graph_attempted_direct_repo_write（图试图直接写仓库）</code></td>
+              <td>写入只能交给 active_write_executor = Codex（当前激活写入执行器）。</td>
+            </tr>
+            <tr>
+              <td><code>graph_missing_source_readback_blocked（缺原文回读被阻断）</code></td>
+              <td>检索到了内容，但没有回到原文件确认。</td>
+              <td>防止摘要或缓存被当成事实。</td>
+              <td><code>missing_source_readback_required（缺少必需原文回读）</code></td>
+              <td>视频工厂事实必须能回指仓库原文。</td>
+            </tr>
+            <tr>
+              <td><code>retrieval_page_content_only_blocked（只保留 page_content 检索内容被阻断）</code></td>
+              <td>只留下正文片段，没有来源路径和切片编号。</td>
+              <td>防止 RAG 输出变成无来源“口说无凭”。</td>
+              <td><code>page_content_only（只有正文内容）</code></td>
+              <td>没有 source_path / chunk_id，就无法审计。</td>
+            </tr>
+            <tr>
+              <td><code>chroma_replace_dashvector_blocked（Chroma 替代 DashVector 被阻断）</code></td>
+              <td>Chroma sandbox 想升级成主检索路线。</td>
+              <td>防止沙盒工具覆盖正式路线。</td>
+              <td><code>chroma_sandbox_attempted_to_replace_dashvector（Chroma 沙盒试图替代 DashVector）</code></td>
+              <td>DashVector 仍是正式主检索路线，Chroma 只能对照学习。</td>
+            </tr>
+            <tr>
+              <td><code>service_write_repo_blocked（服务直接写仓库被阻断）</code></td>
+              <td>服务输出想直接改 repo。</td>
+              <td>防止 FastAPI / service 绕过 Codex。</td>
+              <td><code>service_attempted_write_repo（服务试图写仓库）</code></td>
+              <td>service 只能 route / retrieve / validate / block / handoff。</td>
+            </tr>
+            <tr>
+              <td><code>memory_replace_repo_fact_blocked（运行时记忆替代仓库事实被阻断）</code></td>
+              <td>memory store 想当项目事实源。</td>
+              <td>防止运行态缓存覆盖 Git / codex_log / review_loop。</td>
+              <td><code>memory_attempted_repo_fact_replacement（记忆试图替代仓库事实）</code></td>
+              <td>仓库事实优先，memory 只能当临时缓存。</td>
+            </tr>
+            <tr>
+              <td><code>sandbox_as_runtime_blocked（沙盒成功冒充正式运行时成功被阻断）</code></td>
+              <td>sandbox 跑通被说成正式 runtime 跑通。</td>
+              <td>防止实验结果升级成正式能力。</td>
+              <td><code>sandbox_success_claimed_as_formal_runtime（沙盒成功被声明为正式运行时成功）</code></td>
+              <td>沙盒只说明学习 / 探测，不说明正式接入。</td>
+            </tr>
+            <tr>
+              <td><code>technical_as_content_blocked（技术成功冒充内容成功被阻断）</code></td>
+              <td>技术检查通过，被说成内容质量通过。</td>
+              <td>防止把工程探测偷换成内容验收。</td>
+              <td><code>technical_success_claimed_as_content_success（技术成功被声明为内容成功）</code></td>
+              <td>技术、内容、审美、声音、发布状态必须分开。</td>
+            </tr>
+            <tr>
+              <td><code>rag_as_fact_blocked（RAG 摘要冒充仓库事实被阻断）</code></td>
+              <td>检索摘要没回读原文，却被当事实使用。</td>
+              <td>防止 RAG 幻觉进入项目事实。</td>
+              <td><code>rag_result_claimed_as_fact_without_source_readback（RAG 结果未原文回读却被当事实）</code></td>
+              <td>任何检索结果都必须经过 source_readback_map（原文回读映射）。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="status_promotion_guardrail">
+      <h2>status_promotion_guardrail（状态偷换护栏）</h2>
+      <p class="section-lead">这里是本页面最该反复看的部分：它规定哪些“看起来像成功”的东西不能被偷换成更高层级的成功。</p>
+      <div class="guardrail">
+        <div class="guardrail-item">
+          <h3><code>sandbox_success（沙盒成功）</code> 不等于 <code>formal_runtime_&#115;uccess（正式运行时成功）</code></h3>
+          <p>沙盒只能证明局部探测成立，不能证明正式 LangGraph runtime 已经接入。</p>
+        </div>
+        <div class="guardrail-item">
+          <h3><code>technical_validation（技术验证）</code> 不等于 <code>content_validation（内容验证）</code></h3>
+          <p>技术链路可检查，不代表视频内容、人感、审美、声音或发布质量达标。</p>
+        </div>
+        <div class="guardrail-item">
+          <h3><code>RAG_result（检索增强生成结果）</code> 不等于 <code>repo_fact（仓库事实）</code></h3>
+          <p>RAG 只是候选信息，必须经 source_readback（原文回读）确认。</p>
+        </div>
+        <div class="guardrail-item">
+          <h3><code>HTML_report_created（HTML 报告已创建）</code> 不等于 <code>mechanism_verified（机制已验证）</code></h3>
+          <p>本页只是解释产物，不是机制长期稳定通过证明。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="current_bugs_to_fix">
+      <h2>current_bugs_to_fix（当前还要修的 bug / 缺口）</h2>
+      <p class="section-lead">这些不是本轮失败，而是下一阶段进入真实 adapter 前必须继续补的缺口。</p>
+      <div class="bug-grid">
+        <article class="bug-card">
+          <h3>retrieval_cleaning_adapter_probe_not_done（检索与清洗适配探测未完成）</h3>
+          <ul>
+            <li><b>current_status（当前状态）:</b> pending_after_user_chatgpt_review（等待用户 / ChatGPT 复审后进入）。</li>
+            <li><b>risk（风险）:</b> 真实清洗链路可能丢失来源元数据。</li>
+            <li><b>must_fix（必须修什么）:</b> 验证 retrieval_manifest、source_readback_map、cleaning_adapter 的真实桥接。</li>
+            <li><b>blocked_if（什么情况必须阻断）:</b> 无法保留 source_path / chunk_id / line_range。</li>
+          </ul>
+        </article>
+        <article class="bug-card">
+          <h3>langgraph_not_available（LangGraph 当前不可用）</h3>
+          <ul>
+            <li><b>current_status（当前状态）:</b> unavailable_in_local_probe（本地探测不可用）。</li>
+            <li><b>risk（风险）:</b> fake runner 不能代表正式 LangGraph 行为。</li>
+            <li><b>must_fix（必须修什么）:</b> 后续授权阶段再做 LangGraph no-service runtime probe。</li>
+            <li><b>blocked_if（什么情况必须阻断）:</b> 需要安装依赖却未获授权。</li>
+          </ul>
+        </article>
+        <article class="bug-card">
+          <h3>source_metadata_preservation_not_real_verified（来源元数据保真未真实验证）</h3>
+          <ul>
+            <li><b>current_status（当前状态）:</b> fixture_only_verified（仅 fixture 验证）。</li>
+            <li><b>risk（风险）:</b> 真实文档切片后可能无法回读。</li>
+            <li><b>must_fix（必须修什么）:</b> 用本地 fake inputs 验证 metadata_standardization（元数据标准化）。</li>
+            <li><b>blocked_if（什么情况必须阻断）:</b> chunk 缺 source_path 或 chunk_id。</li>
+          </ul>
+        </article>
+        <article class="bug-card">
+          <h3>service_no_write_probe_not_done（服务不写仓库探测未完成）</h3>
+          <ul>
+            <li><b>current_status（当前状态）:</b> contract_fixture_only（仅契约样例）。</li>
+            <li><b>risk（风险）:</b> 服务层未来可能越权写文件或提交。</li>
+            <li><b>must_fix（必须修什么）:</b> 授权后做 service no-write probe（服务不写仓库探测）。</li>
+            <li><b>blocked_if（什么情况必须阻断）:</b> service 尝试 write_repo / commit / push。</li>
+          </ul>
+        </article>
+        <article class="bug-card">
+          <h3>main_merge_not_allowed_yet（暂不允许合并 main）</h3>
+          <ul>
+            <li><b>current_status（当前状态）:</b> adapter_branch_only（仅 adapter 分支）。</li>
+            <li><b>risk（风险）:</b> 过早合并会把 sandbox 结论误写成正式接入。</li>
+            <li><b>must_fix（必须修什么）:</b> 完成后续 retrieval / cleaning / service 探测并经人工复审。</li>
+            <li><b>blocked_if（什么情况必须阻断）:</b> 缺用户确认或远端证据未核验。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="next_step_map">
+      <h2>next_step_map（下一步路线图）</h2>
+      <p class="section-lead">
+        下一步是 <code>retrieval_cleaning_adapter_probe_after_user_chatgpt_review（用户 / ChatGPT 复审后进入检索与清洗适配探测）</code>，
+        因为 no-service graph 已经证明“契约检查链”能串起来，但还没证明真实检索和清洗桥接不会丢来源。
+      </p>
+      <div class="timeline">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div><b>先验证 retrieval_manifest（检索清单）:</b> 每条检索结果必须带 provider（来源）、source_path（来源路径）、chunk_id（切片编号）、score（匹配分数）和 source_readback_required（必须原文回读）。</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div><b>再验证 source_readback_map（原文回读映射）:</b> 检索命中必须回到当前分支原文件，不能只信摘要。</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div><b>再验证 cleaning_adapter（清洗适配器）:</b> 清洗、去重、切片、规范化不能破坏来源追溯。</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div><b>secret_scan（密钥扫描）必须在入库前完成:</b> 发现 secret-like content（疑似密钥内容）必须阻断，不能进入向量库。</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div><b>Chroma（沙盒向量库）不能替代 DashVector（正式主检索路线）:</b> Chroma 只能作为 sandbox / 对照。</div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div><b>runtime（运行时）和 service（服务）不能绕过 Codex 写仓库:</b> 后续任何服务输出都必须变成 handoff（交接），由 Codex 执行和提交。</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="glossary">
+      <h2>glossary（术语表）</h2>
+      <div class="glossary">
+        <div class="term"><b>no_service_graph_probe（无服务图探测）:</b> 不启动服务，只用本地脚本和样例验证图节点契约。</div>
+        <div class="term"><b>fake_graph_runner_no_dependency（无依赖假图运行器）:</b> 不依赖 LangGraph 的模拟执行器，用来验证节点顺序和阻断规则。</div>
+        <div class="term"><b>LangGraph（图运行框架）:</b> 用于图式 workflow 编排的上游能力，本轮没有实际启用。</div>
+        <div class="term"><b>runtime（运行时）:</b> 真正执行 workflow 的运行环境；本轮状态是未启用。</div>
+        <div class="term"><b>service（服务）:</b> 如 FastAPI 后端服务；本轮没有启动，未来也不得直接写仓库。</div>
+        <div class="term"><b>retrieval_manifest（检索清单）:</b> 记录检索来源、source_path、chunk_id、score 等字段的清单。</div>
+        <div class="term"><b>source_readback_map（原文回读映射）:</b> 把检索结果映射回仓库原文的证据表。</div>
+        <div class="term"><b>cleaning_adapter（清洗适配器）:</b> 把源文件安全加载、扫描、规范化、切片并保留元数据的桥接层。</div>
+        <div class="term"><b>fixture（验证样例）:</b> 用来测试通过或阻断规则的静态样例。</div>
+        <div class="term"><b>schema（结构契约）:</b> 规定字段、硬规则和阻断条件的结构文件。</div>
+        <div class="term"><b>DashVector（正式主检索路线）:</b> 当前视频工厂保留的主向量检索路线。</div>
+        <div class="term"><b>Chroma（沙盒向量库）:</b> 上游本地向量库，只能作为 sandbox / 对照。</div>
+        <div class="term"><b>RAG（检索增强生成）:</b> 先检索再生成的技术路线；检索结果不是仓库事实。</div>
+        <div class="term"><b>completion_truth_check（完成真实性检查）:</b> 防止假完成、状态误推进和检索摘要冒充事实的最终检查。</div>
+      </div>
+    </section>
+
+    <section class="section" id="evidence_links">
+      <h2>evidence_links（证据来源）</h2>
+      <p class="section-lead">本 HTML 只引用本地仓库文件，不依赖外部链接或 CDN。</p>
+      <ul class="evidence-list">
+        <li><code>AGENTS.md</code></li>
+        <li><code>codex_log/latest.md</code></li>
+        <li><code>codex_source/00_codex_readme.md</code></li>
+        <li><code>codex_log/framework_adapter/20260616_no_service_graph_probe_report.md</code></li>
+        <li><code>codex_source/schema_contracts/probes/no_service_graph_probe.py</code></li>
+        <li><code>codex_log/framework_adapter/20260616_contract_schema_phase_validation_report.md</code></li>
+        <li><code>codex_log/framework_adapter/20260616_user_decision_record_and_contract_scope.md</code></li>
+        <li><code>codex_source/schema_contracts/00_schema_contracts_index.md</code></li>
+        <li><code>codex_source/13_execution_lane_and_parallel_rules.md</code></li>
+        <li><code>project_source/20_codex_multi_agent_routing_note_for_gpt_project.md</code></li>
+      </ul>
+      <p class="footer-note">
+        本页面是 explanation artifact（解释型产物）：它帮助用户看懂 20260616 no-service graph probe 的结果和边界，但不新增 runtime 能力、不修改 schema / fixture、不推进 main、不代表机制长期稳定通过。
+      </p>
+    </section>
+  </main>
+</body>
+</html>
