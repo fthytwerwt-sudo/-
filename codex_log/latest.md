@@ -1,5 +1,44 @@
 # Latest
 
+## 20260616｜No-Service Graph Probe
+
+```yaml
+task_result.status（任务结果状态）: no_service_graph_probe_completed
+project_route（项目路由）: video_factory
+branch（分支）: adapter/agent-service-toolkit-sandbox
+execution_permission（执行权限）: no_service_graph_probe_only
+goal_mode（Goal 模式）: active_for_no_service_graph_probe
+probe_runner_type（探测运行器类型）: fake_graph_runner_no_dependency
+langgraph_available（LangGraph 是否可用）: false
+passing_path_passed（通过路径是否通过）: true
+blocked_paths_passed（阻断路径是否全部通过）: true
+graph_nodes_tested（图节点是否已测试）: true
+source_readback_preserved（是否保留原文回读）: true
+retrieval_manifest_preserved（是否保留检索清单）: true
+active_write_executor_preserved（是否保留当前激活写入执行器）: true
+completion_truth_check_preserved（是否保留完成真实性检查）: true
+runtime_enabled（是否启用正式运行时）: false
+main_branch_modified（是否修改 main）: false
+external_api_called（是否调用外部 API）: false
+dependency_installed（是否安装依赖）: false
+service_started（是否启动服务）: false
+DashVector_real_call（是否真实调用 DashVector）: false
+Chroma_ingestion_run（是否运行 Chroma 入库）: false
+runtime_direct_repo_write_allowed（是否允许 runtime 直接写仓库）: false
+service_can_write_repo（service 是否能写仓库）: false
+memory_replaces_repo_facts（memory 是否替代仓库事实）: false
+Chroma_replaces_DashVector（Chroma 是否替代 DashVector）: false
+generated_report（生成报告）: codex_log/framework_adapter/20260616_no_service_graph_probe_report.md
+generated_probe_script（生成探测脚本）: codex_source/schema_contracts/probes/no_service_graph_probe.py
+next_safe_step（下一步安全动作）: retrieval_cleaning_adapter_probe_after_user_chatgpt_review
+```
+
+- `probe_runner（探测运行器）`: 本地未检测到 `langgraph`，本轮按阶段边界使用 `fake_graph_runner_no_dependency`，只读冻结 schema / fixture，不安装依赖，不启动正式 runtime。
+- `passing_path（通过路径）`: 已模拟 `route_decision_node -> cleaning_adapter_node -> retrieval_manifest_node -> source_readback_node -> retrieval_gap_report_node -> executor_handoff_node -> completion_truth_check_node`，通过路径检查结果为 passed。
+- `blocked_paths（阻断路径）`: 已覆盖并通过 9 个阻断场景：graph 直接写仓库、缺原文回读、page_content-only 检索、Chroma 替代 DashVector、service 写仓库、memory 替代仓库事实、sandbox 冒充正式 runtime、技术验证冒充内容验证、RAG 摘要冒充事实。
+- `preserved_boundaries（保留边界）`: DashVector 仍是主检索路线；Chroma 仍只作 sandbox / 对照；`source_readback + active_write_executor + completion_truth_check` 仍是完成真值链；service / runtime 不得直接写仓库。
+- `禁止推进`: 未修改 main，未启用 runtime，未启动 FastAPI / Docker / Postgres / Streamlit，未运行 Chroma ingestion，未真实调用 DashVector，未调用外部 API，未安装依赖，未推进视频 / 声音 / 视觉 / 发布 / 发送状态。
+
 ## 20260616｜Contract Schema Phase Completion
 
 ```yaml
