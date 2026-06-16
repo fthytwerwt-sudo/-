@@ -1,5 +1,29 @@
 # Latest
 
+## 20260617｜Main Merge Completed for Adapter Branch Candidate
+
+```yaml
+task_result.status（任务结果状态）: main_merge_completed（main 合并已完成）
+project_route（项目路由）: video_factory（视频工厂）
+source_branch（来源分支）: adapter/agent-service-toolkit-sandbox
+target_branch（目标分支）: main
+merge_commit（合并提交）: 129433f3e1240edd7cb79411a24928e78a17bc88
+merged_scope（合并范围）: adapter_integration_candidate_code_schema_fixture_probe_reports（适配候选代码 / schema / fixture / probe / 报告）
+runtime_enabled（是否启用正式运行时）: false（未启用）
+service_started（是否启动正式服务）: false（未启动）
+external_api_called（是否调用外部 API）: false（未调用）
+media_generated（是否生成媒体）: false（未生成）
+content_validation_status（内容验证状态）: not_promoted（未推进）
+send_ready（可发送状态）: false（未开启）
+production_readiness_status（生产可用状态）: not_claimed（未声称）
+generated_report（生成报告）: codex_log/framework_adapter/20260617_main_merge_completed_report.md
+next_safe_step（下一步安全动作）: post_merge_readback_and_isolated_runtime_hardening（合并后回读确认与隔离运行时加固）
+```
+
+- `merge_scope（合并范围）`: 仅把 adapter 分支候选代码、契约、fixture、probe、报告和状态日志纳入 main。
+- `validation_scope（验证范围）`: 合并前与合并后均通过本地 no-render / service-boundary probe；未启动长驻服务，未访问外部服务，未生成媒体。
+- `status_boundary（状态边界）`: main 已包含候选链，不等于正式运行时部署，不等于真实服务部署，不等于内容、发送、声音、视觉或发布状态推进。
+
 ## 20260617｜Branch-Local Runtime Service Probe
 
 ```yaml
