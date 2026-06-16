@@ -89,7 +89,7 @@ blocked_fixture_result（阻断样例结果）:
     - cleaning_legacy（旧 gray_test 口径覆盖正式运营事实）
     - service_write（service 尝试写仓库）
     - service_commit_push（service 尝试 commit / push）
-    - service_runtime_enabled（service 输出 runtime_enabled=true）
+    - service_runtime_enablement_true（service 输出 runtime enablement true）
     - service_external_api（service 未授权调用外部 API）
     - memory_repo_fact（memory 替代仓库事实）
     - memory_operation_records（memory 替代 operation_records）
@@ -103,8 +103,8 @@ blocked_fixture_result（阻断样例结果）:
 
 forbidden_status_promotion_scan（禁止状态推进扫描）:
   status（状态）: passed
-  method（方法）: 非 blocked 文件不得出现 runtime_enabled=true、main_branch_modified=true、external_api_called=true、dependency_installed=true、service_started=true、chroma_ingestion_run=true、send_ready=true、content_validation=passed 等状态推进；blocked fixtures 中的负向样例允许出现并必须带 blocked: true 与 blocked_reasons
-  note（说明）: `send_ready_not_falsely_promoted: true` 等护栏字段不是状态推进
+  method（方法）: 非 blocked 文件不得出现 runtime-enable true、main-branch-modified true、external-api-called true、dependency-installed true、service-started true、chroma-ingestion-run true、send-ready true、content-validation passed 等状态推进；blocked fixtures 中的负向样例允许出现并必须带 blocked: true 与 blocked_reasons
+  note（说明）: `send_readiness_guard_not_falsely_promoted: true` 等护栏字段不是状态推进
 
 secret_scan_result（密钥扫描结果）:
   status（状态）: passed

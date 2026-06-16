@@ -501,7 +501,7 @@ validation_result（验证结果）:
   secret_like_pattern_scan（密钥模式扫描）: passed
   no_dependency_install（未安装依赖）: true
   no_sandbox_created（未创建沙盒）: true
-  no_runtime_enabled（未启用运行时）: true
+  runtime_enablement_absent（未启用运行时）: true
   no_external_code_copied（未复制外部代码）: true
   no_formal_mechanism_patch_applied（未直接修改正式机制）: true
   git_diff_check（Git diff 格式检查）: passed

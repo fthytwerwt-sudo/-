@@ -16,7 +16,9 @@ from .workflow_registry import REQUIRED_WORKFLOWS, validate_required_workflows
 from .workflow_router import route_task
 
 
-EXPECTED_BRANCH = "adapter/agent-service-toolkit-sandbox"
+ADAPTER_BRANCH = "adapter/agent-service-toolkit-sandbox"
+MAIN_BRANCH = "main"
+ALLOWED_BRANCHES = (ADAPTER_BRANCH, MAIN_BRANCH)
 
 
 def current_branch() -> str:
@@ -39,11 +41,11 @@ def selected_samples(sample: str) -> dict[str, str]:
 
 def build_result(sample: str) -> dict[str, Any]:
     branch = current_branch()
-    if branch != EXPECTED_BRANCH:
+    if branch not in ALLOWED_BRANCHES:
         return {
             "final_status": "blocked",
             "blocked_reason": "branch_mismatch",
-            "expected_branch": EXPECTED_BRANCH,
+            "expected_branches": list(ALLOWED_BRANCHES),
             "actual_branch": branch,
         }
 
@@ -92,6 +94,7 @@ def build_result(sample: str) -> dict[str, Any]:
     result: dict[str, Any] = {
         "runner_name": "no_render_adapter_runner",
         "branch": branch,
+        "validation_context": "adapter_branch" if branch == ADAPTER_BRANCH else "main_post_merge_validation",
         "project_route": "video_factory",
         "sample_argument": sample,
         "final_status": final_status,
@@ -134,9 +137,14 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         result = build_result(args.sample)
-        if result.get("final_status") != "blocked":
+        if result.get("final_status") != "blocked" and result.get("branch") == ADAPTER_BRANCH:
             paths = write_round2_artifacts(result)
             result["artifact_generation"] = {"status": "generated", "paths": paths}
+        elif result.get("final_status") != "blocked":
+            result["artifact_generation"] = {
+                "status": "skipped_main_post_merge_validation_no_write",
+                "paths": artifact_paths(),
+            }
         print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
         return 0 if result.get("final_status") != "blocked" else 2
     except Exception as exc:  # pragma: no cover - CLI boundary.

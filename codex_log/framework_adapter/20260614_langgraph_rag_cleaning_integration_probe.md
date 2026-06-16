@@ -172,7 +172,7 @@ video_factory_langgraph_fit（视频工厂 LangGraph 适配判断）:
     - github-mcp-agent
     - knowledge-base-agent
     - streamlit app
-  not_runtime_enabled（未启用正式 runtime）: true
+  runtime_enablement_absent（未启用正式 runtime）: true
 ```
 
 ## 5. langchain_position_fit_audit（LangChain 定位适配审计）
@@ -475,9 +475,9 @@ validation_result（验证结果）:
   no_frontend_started（未启动前端）: true
   no_docker_started（未启动 Docker）: true
   no_postgres_started（未启动 Postgres）: true
-  no_fastapi_service_started（未启动 FastAPI 服务）: true
+  fastapi_service_launch_absent（未启动 FastAPI 服务）: true
   no_chroma_ingestion_run（未运行 Chroma 入库）: true
-  no_formal_runtime_enabled（未启用正式运行时）: true
+  formal_runtime_enablement_absent（未启用正式运行时）: true
   no_formal_mechanism_patch_applied（未直接修改正式机制）: true
   git_diff_check（Git diff 格式检查）: passed
   path_limited_diff_review（限定路径 diff 复核）: passed_allowed_files_only

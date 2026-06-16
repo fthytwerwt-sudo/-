@@ -135,7 +135,7 @@
 ### 9. CompletionTruthCheck
 
 - `contract_role`: 判断是否允许声称完成，并防止技术预览、RAG 召回、fallback、local-only 输出冒充完成。
-- `required_fields`: `task_id`, `technical_validation`, `content_validation_boundary_check`, `forbidden_status_promotion_check`, `source_readback_passed`, `validation_artifacts`, `remaining_blockers`, `completion_claim_allowed`, `not_allowed_completion_claims`.
+- `required_fields`: `task_id`, `technical_validation`, `content_boundary_check`, `forbidden_status_promotion_check`, `source_readback_ok`, `validation_artifacts`, `remaining_blockers`, `completion_claim_allowed`, `not_allowed_completion_claims`.
 - `optional_fields`: `git_sync_status`, `remote_readback_status`, `human_review_status`, `runtime_enabled_check`.
 - `input_from`: `WriteExecutorHandoff` result, validation artifacts, repo readback, status scan.
 - `output_to`: `latest.md`, final report, sandbox decision.

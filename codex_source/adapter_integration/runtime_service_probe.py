@@ -15,7 +15,9 @@ from .service_boundary import ALLOWED_ACTIONS, handle_service_action, run_forbid
 from .task_cleaner import SAMPLE_INPUTS
 
 
-EXPECTED_BRANCH = "adapter/agent-service-toolkit-sandbox"
+ADAPTER_BRANCH = "adapter/agent-service-toolkit-sandbox"
+MAIN_BRANCH = "main"
+ALLOWED_BRANCHES = (ADAPTER_BRANCH, MAIN_BRANCH)
 REPO_ROOT = Path(__file__).resolve().parents[2]
 FRAMEWORK_DIR = REPO_ROOT / "codex_log" / "framework_adapter"
 REPORT_PATH = FRAMEWORK_DIR / "20260617_runtime_service_probe_report.md"
@@ -380,11 +382,11 @@ def write_artifacts(result: dict[str, Any]) -> dict[str, str]:
 
 def build_probe_result(sample: str) -> dict[str, Any]:
     branch = current_branch()
-    if branch != EXPECTED_BRANCH:
+    if branch not in ALLOWED_BRANCHES:
         return {
             "final_status": "blocked",
             "blocked_reason": "branch_mismatch",
-            "expected_branch": EXPECTED_BRANCH,
+            "expected_branches": list(ALLOWED_BRANCHES),
             "actual_branch": branch,
         }
 
@@ -415,6 +417,7 @@ def build_probe_result(sample: str) -> dict[str, Any]:
     return {
         "probe_name": "branch_local_runtime_service_probe",
         "branch": branch,
+        "validation_context": "adapter_branch" if branch == ADAPTER_BRANCH else "main_post_merge_validation",
         "project_route": "video_factory",
         "sample_argument": sample,
         "final_status": final_status,
@@ -453,8 +456,18 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         result = build_probe_result(args.sample)
-        if result.get("final_status") != "blocked":
+        if result.get("final_status") != "blocked" and result.get("branch") == ADAPTER_BRANCH:
             result["artifact_generation"] = {"status": "generated", "paths": write_artifacts(result)}
+        elif result.get("final_status") != "blocked":
+            result["artifact_generation"] = {
+                "status": "skipped_main_post_merge_validation_no_write",
+                "paths": {
+                    "runtime_service_probe_report": str(REPORT_PATH.relative_to(REPO_ROOT)),
+                    "handoff": str(HANDOFF_PATH.relative_to(REPO_ROOT)),
+                    "manifest": str(MANIFEST_PATH.relative_to(REPO_ROOT)),
+                    "latest": str(LATEST_PATH.relative_to(REPO_ROOT)),
+                },
+            }
         print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
         return 0 if result.get("final_status") != "blocked" else 2
     except Exception as exc:  # pragma: no cover - CLI boundary.
