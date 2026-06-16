@@ -1,0 +1,79 @@
+contract_name: RuntimeMemoryBoundary
+version: "0.1"
+status: draft
+project_route: video_factory
+purpose: "Define allowed and forbidden uses of runtime memory before any LangGraph/FastAPI memory persistence is evaluated."
+allowed_memory_use:
+  - thread_state
+  - temporary_interrupt_state
+  - local_runtime_context
+  - non_authoritative_cache
+forbidden_memory_use:
+  - project_fact_source
+  - operation_records_replacement
+  - current_data_goal_anchor_replacement
+  - review_loop_replacement
+  - GitHub_repo_fact_replacement
+required_field_names:
+  - memory_boundary_id
+  - allowed_memory_use
+  - forbidden_memory_use
+  - repo_facts_win
+  - authoritative_sources
+  - memory_can_replace_repo_facts
+  - blocked_if
+required_fields:
+  memory_boundary_id:
+    type: string
+    required: true
+    description: "运行时记忆边界编号；用于追踪 memory boundary probe。"
+    blocked_if_missing: true
+  allowed_memory_use:
+    type: list[string]
+    required: true
+    allowed_values: [thread_state, temporary_interrupt_state, local_runtime_context, non_authoritative_cache]
+    description: "允许的记忆用途；只允许线程状态、临时中断、本地上下文和非权威缓存。"
+    blocked_if_missing: true
+  forbidden_memory_use:
+    type: list[string]
+    required: true
+    allowed_values: [project_fact_source, operation_records_replacement, current_data_goal_anchor_replacement, review_loop_replacement, GitHub_repo_fact_replacement]
+    description: "禁止的记忆用途；不得替代项目事实、运营记录、数据目标锚点、复盘闭环或 GitHub 仓库事实。"
+    blocked_if_missing: true
+  repo_facts_win:
+    type: boolean
+    required: true
+    allowed_values: [true]
+    description: "仓库事实优先；必须为 true。"
+    blocked_if_missing: true
+  authoritative_sources:
+    type: list[string]
+    required: true
+    allowed_values: [Git_repo, codex_log, review_loop, GPT数据源, dist_latest_review_pack]
+    description: "权威来源；memory 不在权威来源内。"
+    blocked_if_missing: true
+  memory_can_replace_repo_facts:
+    type: boolean
+    required: true
+    allowed_values: [false]
+    description: "memory 是否能替代仓库事实；必须为 false。"
+    blocked_if_missing: true
+  blocked_if:
+    type: list[string]
+    required: true
+    description: "阻断条件；memory 试图替代仓库事实、运营记录或数据目标锚点必须阻断。"
+    blocked_if_missing: true
+hard_rules:
+  repo_facts_win（仓库事实优先）: true
+blocked_cases_required:
+  - memory store replaces GitHub file fact
+  - memory store replaces operation_records
+  - memory store replaces current_data_goal_anchor
+input_from: [GraphRuntimeAdapter, local_fixture]
+output_to: [CompletionTruthCheckNode, WriteExecutorHandoff]
+blocked_if_missing: true
+must_not_do: [replace_repo_facts, replace_operation_records, replace_current_data_goal_anchor, replace_review_loop]
+validation_notes:
+  - "Runtime memory can assist interrupts but cannot become project source of truth."
+  - "Any conflict between memory and repo facts must resolve in favor of repo facts."
+trace_fields: [memory_boundary_id, authoritative_sources, repo_facts_win]

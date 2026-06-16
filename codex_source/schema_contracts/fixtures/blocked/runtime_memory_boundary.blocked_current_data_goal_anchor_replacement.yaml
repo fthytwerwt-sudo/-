@@ -1,0 +1,22 @@
+contract_name: RuntimeMemoryBoundary
+schema_version: "0.1"
+fixture_only: true
+fixture_name（样例名称）: runtime_memory_boundary.blocked_current_data_goal_anchor_replacement
+case_type（样例类型）: blocked
+purpose（用途）: 覆盖 memory store 试图替代 current_data_goal_anchor 的阻断场景。
+input_summary（输入摘要）: runtime memory 把 current_data_goal_anchor 写成 ready。
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: 当前数据目标锚点必须由 repo source_readback 决定，memory 不能推进 ready。
+memory_boundary_id: runtime_memory_boundary_fixture_20260616_data_goal_anchor_blocked
+allowed_memory_use: [thread_state, non_authoritative_cache]
+forbidden_memory_use: [project_fact_source, operation_records_replacement, current_data_goal_anchor_replacement, review_loop_replacement, GitHub_repo_fact_replacement]
+repo_facts_win: true
+authoritative_sources: [Git_repo, codex_log, review_loop]
+memory_can_replace_repo_facts: false
+memory_attempted_current_data_goal_anchor_replacement: true
+blocked_if:
+  - memory replaces current_data_goal_anchor
+blocked: true
+blocked_reasons:
+  - memory_attempted_current_data_goal_anchor_replacement
+resume_policy: "Read current_data_goal_anchor from repo source."

@@ -1,105 +1,136 @@
 contract_name: RetrievalManifest
-version: "0.1"
+version: "0.2"
 status: draft
 project_route: video_factory
-purpose: "Record RAG/DashVector retrieval evidence and mark vector hits as cache/index results, not source_of_truth or completion proof."
+purpose: "Record DashVector, Chroma sandbox, GitHub source readback, or local fixture retrieval evidence while keeping RAG results as non-authoritative until repo source_readback passes."
+required_field_names:
+  - provider
+  - query
+  - source_path
+  - source_id
+  - chunk_id
+  - page_or_line_range
+  - content_hash
+  - commit_sha
+  - score
+  - authority_level
+  - status_label
+  - source_readback_required
+  - gap_status
 required_fields:
-  task_id:
+  provider:
+    type: enum
+    required: true
+    allowed_values: [DashVector, Chroma_sandbox, GitHub_source_readback, local_fixture]
+    description: "检索来源；Chroma_sandbox 只能作为 sandbox / 对照，不能替代 DashVector。"
+    blocked_if_missing: true
+  query:
     type: string
     required: true
-    allowed_values: []
-    description: "Task id shared with route and readback."
+    description: "检索问题；必须能回指本轮 route_decision 或 fixture 目的。"
     blocked_if_missing: true
-  workflow_type:
-    type: enum
+  source_path:
+    type: string
     required: true
-    allowed_values: [copy_testing_flow, material_evidence_flow, aesthetic_editing_flow, quality_review_flow, data_review_flow, mechanism_repair_flow]
-    description: "Workflow that requested retrieval."
+    description: "来源路径；必须能用于当前分支 source_readback。"
     blocked_if_missing: true
-  retrieval_queries:
-    type: list[string]
+  source_id:
+    type: string
     required: true
-    allowed_values: []
-    description: "Queries sent to the retrieval layer."
+    description: "来源编号；用于连接 source_readback_map。"
     blocked_if_missing: true
-  retrieval_provider:
-    type: enum
+  chunk_id:
+    type: string
     required: true
-    allowed_values: [dashvector, static_fixture]
-    description: "Provider used for retrieval."
+    description: "切片编号；禁止只有 page_content 而缺 chunk_id。"
     blocked_if_missing: true
-  embedding_model:
-    type: enum
+  page_or_line_range:
+    type: string
     required: true
-    allowed_values: [text-embedding-v4, fixture_only]
-    description: "Embedding model expected for current DashVector path."
+    description: "页码或行号范围；用于原文回读定位。"
     blocked_if_missing: true
-  vector_collection:
-    type: enum
+  content_hash:
+    type: string
     required: true
-    allowed_values: [video_factory_docs_test, fixture_only]
-    description: "Vector collection used or fixture marker."
-    blocked_if_missing: true
-  retrieved_chunks:
-    type: list[object]
-    required: true
-    allowed_values: []
-    description: "Retrieved chunks with ids, source paths, hashes, and scores."
-    blocked_if_missing: true
-  source_paths:
-    type: list[string]
-    required: true
-    allowed_values: []
-    description: "Repo paths that must be read back."
-    blocked_if_missing: true
-  content_hashes:
-    type: list[string]
-    required: true
-    allowed_values: []
-    description: "Hashes associated with retrieved source chunks."
+    description: "内容哈希；用于确认检索内容和回读内容未漂移。"
     blocked_if_missing: true
   commit_sha:
     type: string
     required: true
-    allowed_values: []
-    description: "Commit sha associated with the indexed evidence."
+    description: "提交编号；用于标记检索证据对应的仓库版本。"
+    blocked_if_missing: true
+  score:
+    type: number
+    required: true
+    description: "匹配分数；低置信度必须进入 gap_status。"
     blocked_if_missing: true
   authority_level:
     type: enum
     required: true
-    allowed_values: [current_repo_source, current_log, draft_design, historical_reference, fixture_only]
-    description: "Authority level of retrieved evidence."
+    allowed_values: [current_repo_source, current_log, draft_design, historical_reference, sandbox_reference, fixture_only]
+    description: "事实权重；RAG 命中本身不是事实。"
     blocked_if_missing: true
-  readback_required:
+  status_label:
+    type: enum
+    required: true
+    allowed_values: [current, draft, sandbox_only, historical_reference, fixture_only, blocked]
+    description: "状态标记；旧口径和 sandbox 结果不得冒充当前事实。"
+    blocked_if_missing: true
+  source_readback_required:
     type: boolean
     required: true
     allowed_values: [true]
-    description: "Whether repo source readback is mandatory."
+    description: "是否必须原文回读；必须为 true。"
     blocked_if_missing: true
-  vector_result_not_completion_proof:
-    type: boolean
+  gap_status:
+    type: enum
     required: true
-    allowed_values: [true]
-    description: "Prevents vector hit from being used as completion proof."
+    allowed_values: [none, low_confidence, missing_metadata, missing_source_path, missing_chunk_id, source_conflict, legacy_override_attempt, blocked]
+    description: "缺口状态；metadata 缺失、冲突或旧口径覆盖必须 blocked。"
     blocked_if_missing: true
+allowed_providers:
+  - DashVector
+  - Chroma_sandbox
+  - GitHub_source_readback
+  - local_fixture
+hard_rules:
+  RAG_result_is_not_fact（RAG 结果不是事实）: true
+  source_readback_required（必须原文回读）: true
+  Chroma_cannot_replace_DashVector（Chroma 不得替代 DashVector）: true
+blocked_cases_required:
+  - only body text without source_path
+  - page_content without chunk_id
+  - provider is Chroma_sandbox but tries to replace DashVector
+  - retrieval result is claimed as fact
+legacy_compatibility_fields:
+  task_id: "Legacy 0.1 fixture trace id."
+  workflow_type: "Legacy workflow field retained for old fixtures."
+  retrieval_queries: "Legacy list of queries."
+  retrieval_provider: "Legacy provider field; map dashvector -> DashVector, static_fixture -> local_fixture."
+  embedding_model: "Legacy embedding model field."
+  vector_collection: "Legacy vector collection field."
+  retrieved_chunks: "Legacy chunk list."
+  source_paths: "Legacy source path list."
+  content_hashes: "Legacy content hash list."
+  readback_required: "Legacy alias of source_readback_required."
+  vector_result_not_completion_proof: "Legacy hard rule alias."
 optional_fields:
   top_k:
     type: integer
     required: false
-    allowed_values: []
     description: "Retrieval result limit."
     blocked_if_missing: false
   score_threshold:
     type: number
     required: false
-    allowed_values: []
     description: "Minimum score threshold."
     blocked_if_missing: false
-input_from: [WorkflowRouteDecision, DashVector, static_fixture]
-output_to: [SourceReadback, RetrievalGapReport, DeepSeekTriggerDecision]
+input_from: [WorkflowRouteDecision, DashVector, Chroma_sandbox, GitHub_source_readback, local_fixture]
+output_to: [SourceReadbackMap, RetrievalGapReport, DeepSeekTriggerDecision, CompletionTruthCheckNode]
 blocked_if_missing: true
-must_not_do: [replace_source_of_truth, prove_completion, switch_to_chroma_by_default, require_secret_in_fixture]
+must_not_do: [replace_source_of_truth, prove_completion, switch_to_chroma_by_default, accept_page_content_only, require_secret_in_fixture]
 validation_notes:
-  - "Every source_path must be handed to SourceReadback before write execution."
-  - "readback_required and vector_result_not_completion_proof must remain true."
-trace_fields: [task_id, source_paths, content_hashes, commit_sha]
+  - "Every source_path must be handed to SourceReadbackMap before write execution."
+  - "source_readback_required must remain true."
+  - "RAG result is cache/index evidence, not source_of_truth or completion proof."
+trace_fields: [provider, query, source_path, source_id, chunk_id, content_hash, commit_sha]

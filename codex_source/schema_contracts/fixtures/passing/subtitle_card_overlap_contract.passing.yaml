@@ -1,0 +1,17 @@
+contract_name: subtitle_card_overlap_contract
+schema_version: 1
+fixture_only: true
+fixture_name（样例名称）: subtitle_card_overlap_contract_passing
+case_type（样例类型）: passing
+purpose（用途）: "证明字幕、卡片与核心证据区不冲突。"
+input_summary（输入摘要）: "字幕在底部轻量区域，卡片为独立段，证据区保持可读。"
+expected_result（预期结果）: pass
+why_pass_or_block（为什么通过或阻断）: "overlap_severity 为 low，且 repair_action 不需要阻断。"
+sample:
+  subtitle_region: bottom_safe_band
+  card_region: separate_card_scene
+  evidence_region: center_prompt_result_area
+  overlap_severity: low
+  repair_action: none_required
+  blocked_if_high_severity_overlap: true
+  blocked: false

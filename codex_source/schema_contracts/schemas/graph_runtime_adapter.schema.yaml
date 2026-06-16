@@ -1,0 +1,96 @@
+contract_name: GraphRuntimeAdapter
+version: "0.1"
+status: draft
+project_route: video_factory
+purpose: "Define the no-write adapter contract for LangGraph runtime nodes before any formal adapter code or runtime enablement."
+required_field_names:
+  - graph_id
+  - workflow_route_decision
+  - allowed_nodes
+  - forbidden_nodes
+  - input_contract
+  - output_contract
+  - source_readback_required
+  - executor_handoff_required
+  - runtime_write_allowed
+  - blocked_if
+  - completion_truth_check_required
+required_fields:
+  graph_id:
+    type: string
+    required: true
+    description: "图编号；用于追踪具体 graph contract，不代表 runtime 已启用。"
+    blocked_if_missing: true
+  workflow_route_decision:
+    type: enum
+    required: true
+    allowed_values: [copy_testing_flow, material_evidence_flow, aesthetic_editing_flow, quality_review_flow, data_review_flow, mechanism_repair_flow]
+    description: "workflow 归位判断；LangGraph 必须服从视频工厂现有 workflow。"
+    blocked_if_missing: true
+  allowed_nodes:
+    type: list[string]
+    required: true
+    allowed_values: [route, clean, retrieve, source_readback, validate, block, interrupt, handoff, completion_truth_check]
+    description: "允许节点；只允许路由、清洗、检索、回读、验证、阻断、中断、交接和完成真实性检查。"
+    blocked_if_missing: true
+  forbidden_nodes:
+    type: list[string]
+    required: true
+    allowed_values: [write_repo, commit, push, edit_main, enable_runtime_status, promote_content_status, call_external_api]
+    description: "禁止节点；明确 runtime 不得写仓库、提交、推送、改 main、推进状态或调用外部 API。"
+    blocked_if_missing: true
+  input_contract:
+    type: object
+    required: true
+    description: "输入契约；必须来自 route_decision、workflow_route_decision、retrieval_manifest 或 fixture。"
+    blocked_if_missing: true
+  output_contract:
+    type: object
+    required: true
+    description: "输出契约；必须输出 blocked / handoff / validation / truth_check，而不是直接写仓库。"
+    blocked_if_missing: true
+  source_readback_required:
+    type: boolean
+    required: true
+    allowed_values: [true]
+    description: "是否必须原文回读；涉及仓库事实时必须为 true。"
+    blocked_if_missing: true
+  executor_handoff_required:
+    type: boolean
+    required: true
+    allowed_values: [true]
+    description: "是否必须交给执行器；写入仍由 active_write_executor = codex 执行。"
+    blocked_if_missing: true
+  runtime_write_allowed:
+    type: boolean
+    required: true
+    allowed_values: [false]
+    description: "runtime 是否允许写仓库；必须为 false。"
+    blocked_if_missing: true
+  blocked_if:
+    type: list[string]
+    required: true
+    description: "阻断条件；任何试图写仓库、缺回读或缺完成真实性检查都必须 blocked。"
+    blocked_if_missing: true
+  completion_truth_check_required:
+    type: boolean
+    required: true
+    allowed_values: [true]
+    description: "是否必须完成真实性检查；completed claim 前必须为 true。"
+    blocked_if_missing: true
+hard_rules:
+  runtime_write_allowed（runtime 是否允许写仓库）: false
+  cannot_replace_project_router（不得替代项目状态路由）: true
+  cannot_promote_status（不得推进状态）: true
+blocked_cases_required:
+  - graph tries to write repo directly
+  - graph missing source_readback
+  - graph outputs completed without completion_truth_check
+input_from: [ProjectStateActionRouter, WorkflowRouteDecision, RetrievalManifest, static_fixture]
+output_to: [SourceReadbackMap, ServiceContractNoWrite, CompletionTruthCheckNode, WriteExecutorHandoff]
+blocked_if_missing: true
+must_not_do: [replace_project_router, write_repo, commit, push, edit_main, promote_status, claim_runtime_enabled]
+validation_notes:
+  - "LangGraph is workflow_runtime_layer only; it cannot replace Project State Action Router."
+  - "Every graph that could affect repo facts must require source_readback and executor handoff."
+trace_fields: [graph_id, workflow_route_decision, source_paths, content_hashes, commit_sha]

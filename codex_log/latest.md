@@ -1,5 +1,326 @@
 # Latest
 
+## 20260617｜Branch-Local Runtime Service Probe
+
+```yaml
+task_result.status（任务结果状态）: branch_local_runtime_service_probe_completed（分支内运行时 / 服务探测完成）
+project_route（项目路由）: video_factory（视频工厂）
+branch（分支）: adapter/agent-service-toolkit-sandbox
+execution_permission（执行权限）: branch_local_runtime_service_probe_only（只允许分支内运行时 / 服务探测）
+runtime_entry（运行时入口）: codex_source/adapter_integration/runtime_entry.py
+service_boundary（服务边界）: codex_source/adapter_integration/service_boundary.py
+probe_script（探测脚本）: codex_source/adapter_integration/runtime_service_probe.py
+generated_report（生成报告）: codex_log/framework_adapter/20260617_runtime_service_probe_report.md
+samples_total（样例总数）: 6
+samples_runtime_routed（运行时已路由样例数）: 6
+service_boundary_passed（服务边界是否通过）: true（通过）
+repo_write_attempted（是否尝试写仓库）: false（否）
+runtime_enabled_for_production（是否启用生产运行时）: false（否）
+service_started_for_production（是否启动生产服务）: false（否）
+main_branch_modified（是否修改 main 主分支）: false（否）
+external_api_called（是否调用外部 API）: false（否）
+media_generated（是否生成媒体）: false（否）
+next_safe_step（下一步安全动作）: user_review_then_isolated_runtime_hardening_or_main_merge_candidate_review（用户回审后进入隔离运行时加固或 main 合并候选复审）
+```
+
+- `runtime_scope（运行时范围）`: 本轮只证明 adapter 分支内 runtime entry 与 in-process service boundary 可以调用候选链。
+- `service_boundary（服务边界）`: 仅允许 route / validate / block / handoff；写仓库、提交、推送、改 main、外部调用、媒体生成和正式完成声明均被阻断。
+- `status_boundary（状态边界）`: 不代表正式接入完成，不代表生产可用，不代表 main 可合并，不代表内容验证通过，不代表可发送。
+- `禁止推进`: 未修改 main，未启动生产服务，未开放公网端口，未安装依赖，未真实调用 DashVector，未运行 Chroma 入库，未调用 TTS，未读取真实媒体，未生成视频 / 音频 / 字幕 / 卡片。
+
+## 20260617｜Round 2 Branch-Local Adapter Integration Candidate
+
+```yaml
+task_result.status（任务结果状态）: adapter_branch_integration_candidate_ready_for_runtime_probe
+project_route（项目路由）: video_factory（视频工厂）
+branch（分支）: adapter/agent-service-toolkit-sandbox
+execution_permission（执行权限）: adapter_branch_candidate_no_render_only（只允许分支内无渲染候选接入）
+stopline（停止线）: adapter_branch_integration_candidate_ready_for_runtime_probe
+workflow_registry（工作流注册表）: six_required_workflows_registered（6 个必需 workflow 已注册）
+samples_total（样例总数）: 6
+samples_routed（已路由样例数）: 6
+editing_workflow_probe（剪辑 workflow 探测）: passed
+completion_truth_guards（完成真实性检查）: passed
+runtime_enabled（是否启用正式运行时）: false（未启用）
+service_started（是否启动服务）: false（未启动）
+main_branch_modified（是否修改 main 主分支）: false（未修改）
+external_api_called（是否调用外部 API）: false（未调用）
+media_generated（是否生成媒体）: false（未生成）
+tts_called（是否调用 TTS）: false（未调用）
+real_media_read（是否读取真实媒体）: false（未读取）
+Chroma_ingestion_run（是否运行 Chroma 入库）: false（未运行）
+DashVector_real_call（是否真实调用 DashVector）: false（未调用）
+content_validation_status（内容验证状态）: not_promoted（未推进）
+send_ready（可发送状态）: false（未开启）
+generated_report（生成报告）: codex_log/framework_adapter/20260617_round2_branch_local_adapter_integration_candidate_report.md
+current_handoff（当前交接）: codex_log/framework_adapter/current_adapter_integration_handoff.md
+context_manifest（上下文清单）: codex_log/framework_adapter/20260617_adapter_integration_context_manifest.json
+next_safe_step（下一步安全动作）: review_branch_candidate_then_separate_runtime_probe_request（先回审分支候选，再另行授权运行时探测）
+```
+
+- `candidate_scope（候选范围）`: 本轮只新增 branch-local adapter candidate 代码链，覆盖 workflow registry、TaskPacket、task cleaner、workflow router、contract validator、editing no-render runner、completion truth 和 no-render CLI。
+- `sample_route（样例路由）`: 6 个指定样例均已路由到对应候选 workflow；其中剪辑样例会复用既有剪辑 no-render probe。
+- `status_boundary（状态边界）`: 本轮不代表正式接入完成、不代表生产可用、不代表 main 可合并、不代表 runtime 已启用、不代表 service 已启动。
+- `禁止推进`: 未修改 main，未启用 runtime，未启动 FastAPI / Docker / Postgres / Streamlit，未运行 Chroma ingestion，未真实调用 DashVector，未调用外部 API，未调用 TTS，未读取真实媒体，未生成视频，未推进内容 / 发送 / 发布状态。
+
+## 20260616｜Editing Workflow No-Render Probe
+
+```yaml
+task_result.status（任务结果状态）: editing_workflow_no_render_probe_completed（剪辑工作流无渲染探测已完成）
+project_route（项目路由）: video_factory（视频工厂）
+branch（分支）: adapter/agent-service-toolkit-sandbox
+execution_permission（执行权限）: no_render_probe_only（只允许无渲染探测）
+workflow_route_decision（workflow 归位判断）: mechanism_repair_flow（机制修补流）
+probe_script（探测脚本）: codex_source/schema_contracts/probes/editing_workflow_no_render_probe.py
+generated_report（生成报告）: codex_log/framework_adapter/20260616_editing_workflow_no_render_probe_report.md
+schema_contracts_passed（schema 契约检查是否通过）: true（通过）
+passing_path_passed（通过路径是否通过）: true（通过）
+blocked_cases_passed（阻断样例是否通过）: true（通过）
+forbidden_status_promotion_scan（禁止状态推进扫描）: passed（通过）
+runtime_enabled（是否启用正式运行时）: false（未启用）
+service_started（是否启动服务）: false（未启动）
+main_branch_modified（是否修改 main 主分支）: false（未修改）
+external_api_called（是否调用外部 API）: false（未调用）
+dependency_installed（是否安装依赖）: false（未安装）
+media_generated（是否生成媒体）: false（未生成）
+tts_called（是否调用 TTS）: false（未调用）
+real_media_read（是否读取真实媒体）: false（未读取）
+Chroma_ingestion_run（是否运行 Chroma 入库）: false（未运行）
+DashVector_real_call（是否真实调用 DashVector）: false（未调用）
+whole_codebase_adapter_readiness（整体代码接入就绪度）: not_claimed（未声称）
+next_safe_step（下一步安全动作）: user_chatgpt_review_then_controlled_integration_plan（用户 / ChatGPT 回审后，再制定受控接入计划）
+```
+
+- `probe_scope（探测范围）`: 本轮只读取剪辑 workflow schema 与静态 fixture，运行本地无渲染 probe，不安装依赖，不启动 runtime / service。
+- `passing_path（通过路径）`: 已验证锁定文案、逐句时间线、TTS 路由、卡片重叠、审片包、媒体探针和候选片 / 阻断收口的静态契约链。
+- `blocked_cases（阻断样例）`: 已覆盖缺文案到时间线映射、技术预览冒充完成、画面错位、字幕卡片高重叠、TTS 未授权降级、审片包缺失、媒体探针无效、候选片状态偷换 8 类阻断。
+- `status_boundary（状态边界）`: probe 通过不等于真实剪辑已执行，不等于视频已生成，不等于 TTS 已调用，不等于正式 runtime 已启用，不等于 service 可启动，不等于 main 可合并。
+- `禁止推进`: 未修改 main，未启用 runtime，未启动 FastAPI / Docker / Postgres / Streamlit，未运行 Chroma ingestion，未真实调用 DashVector，未调用外部 API，未安装依赖，未执行真实剪辑、视频、声音、视觉或发布状态推进。
+
+## 20260616｜Workflow-First Pre-Integration Audit + Editing Contract Patch
+
+```yaml
+task_result.status（任务结果状态）: workflow_first_pre_integration_audit_and_editing_contract_patch_completed（工作流优先正式接入前审核与剪辑契约补丁已完成）
+project_route（项目路由）: video_factory（视频工厂）
+branch（分支）: adapter/agent-service-toolkit-sandbox
+execution_permission（执行权限）: latest_schema_fixture_report_only（只允许 latest / schema / fixture / report）
+formal_integration_allowed_now（当前是否允许正式接入整个项目）: false（不允许）
+runtime_enabled（是否启用运行时）: false（未启用）
+service_started（是否启动服务）: false（未启动）
+main_branch_modified（是否修改 main 主分支）: false（未修改）
+external_api_called（是否调用外部 API）: false（未调用）
+dependency_installed（是否安装依赖）: false（未安装）
+Chroma_ingestion_run（是否运行 Chroma 入库）: false（未运行）
+DashVector_real_call（是否真实调用 DashVector）: false（未调用）
+editing_contract_family_created（剪辑契约家族是否创建）: true（已创建）
+latest_sync_repaired（latest 同步缺口是否修复）: true（已修复）
+generated_reports（生成报告）:
+  - codex_log/framework_adapter/20260616_workflow_first_pre_integration_audit_report.md（工作流优先正式接入前审核报告）
+  - codex_log/framework_adapter/20260616_workflow_first_pre_integration_matrix.md（工作流优先正式接入前接入表）
+  - codex_log/framework_adapter/20260616_editing_workflow_contract_patch_report.md（剪辑工作流契约补丁报告）
+next_safe_step（下一步安全动作）: user_chatgpt_review_then_editing_workflow_no_render_probe（用户 / ChatGPT 回审后，再做剪辑工作流无渲染探测）
+```
+
+- `stopline（停止线）`: 本轮仍停在 `pre_formal_integration_stopline（正式接入前停止线）`，只修复 latest 同步并补剪辑 workflow 契约家族。
+- `workflow_first_audit（工作流优先审核）`: `20260616_workflow_first_pre_integration_audit_report.md` 和 `20260616_workflow_first_pre_integration_matrix.md` 已确认 `editing_execution_workflow（剪辑执行工作流）` 是正式接入前关键缺口。
+- `editing_contract_patch（剪辑契约补丁）`: 新增 `editing_execution / timeline_assembly / subtitle_card_overlap / tts_route / review_pack / media_probe / publish_candidate_or_blocked` 7 类 schema，并补 passing / blocked fixtures。
+- `status_boundary（状态边界）`: 报告生成、schema 落地、fixture 通过，都不等于正式接入整个项目，不等于机制长期稳定，不等于 runtime 已启用，不等于 service 可启动，不等于 main 可合并。
+- `禁止推进`: 未修改 main，未启用 runtime，未启动 FastAPI / Docker / Postgres / Streamlit，未运行 Chroma ingestion，未真实调用 DashVector，未调用外部 API，未安装依赖，未执行剪辑、视频、声音、视觉或发布状态推进。
+
+## 20260616｜No-Service Graph Probe
+
+```yaml
+task_result.status（任务结果状态）: no_service_graph_probe_completed
+project_route（项目路由）: video_factory
+branch（分支）: adapter/agent-service-toolkit-sandbox
+execution_permission（执行权限）: no_service_graph_probe_only
+goal_mode（Goal 模式）: active_for_no_service_graph_probe
+probe_runner_type（探测运行器类型）: fake_graph_runner_no_dependency
+langgraph_available（LangGraph 是否可用）: false
+passing_path_passed（通过路径是否通过）: true
+blocked_paths_passed（阻断路径是否全部通过）: true
+graph_nodes_tested（图节点是否已测试）: true
+source_readback_preserved（是否保留原文回读）: true
+retrieval_manifest_preserved（是否保留检索清单）: true
+active_write_executor_preserved（是否保留当前激活写入执行器）: true
+completion_truth_check_preserved（是否保留完成真实性检查）: true
+runtime_enabled（是否启用正式运行时）: false
+main_branch_modified（是否修改 main）: false
+external_api_called（是否调用外部 API）: false
+dependency_installed（是否安装依赖）: false
+service_started（是否启动服务）: false
+DashVector_real_call（是否真实调用 DashVector）: false
+Chroma_ingestion_run（是否运行 Chroma 入库）: false
+runtime_direct_repo_write_allowed（是否允许 runtime 直接写仓库）: false
+service_can_write_repo（service 是否能写仓库）: false
+memory_replaces_repo_facts（memory 是否替代仓库事实）: false
+Chroma_replaces_DashVector（Chroma 是否替代 DashVector）: false
+generated_report（生成报告）: codex_log/framework_adapter/20260616_no_service_graph_probe_report.md
+generated_probe_script（生成探测脚本）: codex_source/schema_contracts/probes/no_service_graph_probe.py
+next_safe_step（下一步安全动作）: retrieval_cleaning_adapter_probe_after_user_chatgpt_review
+```
+
+- `probe_runner（探测运行器）`: 本地未检测到 `langgraph`，本轮按阶段边界使用 `fake_graph_runner_no_dependency`，只读冻结 schema / fixture，不安装依赖，不启动正式 runtime。
+- `passing_path（通过路径）`: 已模拟 `route_decision_node -> cleaning_adapter_node -> retrieval_manifest_node -> source_readback_node -> retrieval_gap_report_node -> executor_handoff_node -> completion_truth_check_node`，通过路径检查结果为 passed。
+- `blocked_paths（阻断路径）`: 已覆盖并通过 9 个阻断场景：graph 直接写仓库、缺原文回读、page_content-only 检索、Chroma 替代 DashVector、service 写仓库、memory 替代仓库事实、sandbox 冒充正式 runtime、技术验证冒充内容验证、RAG 摘要冒充事实。
+- `preserved_boundaries（保留边界）`: DashVector 仍是主检索路线；Chroma 仍只作 sandbox / 对照；`source_readback + active_write_executor + completion_truth_check` 仍是完成真值链；service / runtime 不得直接写仓库。
+- `禁止推进`: 未修改 main，未启用 runtime，未启动 FastAPI / Docker / Postgres / Streamlit，未运行 Chroma ingestion，未真实调用 DashVector，未调用外部 API，未安装依赖，未推进视频 / 声音 / 视觉 / 发布 / 发送状态。
+
+## 20260616｜Contract Schema Phase Completion
+
+```yaml
+task_result.status（任务结果状态）: contract_schema_phase_completed
+project_route（项目路由）: video_factory
+branch（分支）: adapter/agent-service-toolkit-sandbox
+execution_permission（执行权限）: contracts_schemas_fixtures_only
+goal_mode（Goal 模式）: active_for_contract_schema_phase
+user_decision_record_created（用户决策记录是否创建）: true
+approved_contract_scope_created（已确认契约范围是否创建）: true
+schema_families_created（schema 家族是否创建）: true
+fixture_families_created（fixture 家族是否创建）: true
+schema_contract_index_updated（schema 契约索引是否更新）: true
+validation_report_created（验证报告是否创建）: true
+runtime_enabled（是否启用正式运行时）: false
+main_branch_modified（是否修改 main）: false
+external_api_called（是否调用外部 API）: false
+dependency_installed（是否安装依赖）: false
+service_started（是否启动服务）: false
+chroma_ingestion_run（是否运行 Chroma 入库）: false
+DashVector_real_call（是否真实调用 DashVector）: false
+runtime_code_written（是否写 runtime 代码）: false
+active_write_executor（当前激活写入执行器）: codex
+deepseek_triggered（是否触发 DeepSeek）: false
+not_deepseek_conclusion（是否不是 DeepSeek 结论）: true
+generated_reports（生成报告）:
+  - codex_log/framework_adapter/20260616_user_decision_record_and_contract_scope.md
+  - codex_log/framework_adapter/20260616_contract_schema_phase_validation_report.md
+next_safe_step（下一步安全动作）: no_service_graph_probe_after_user_chatgpt_review
+```
+
+- `user_decision_record（用户决策记录）`: 已落地 7 个确认决策：`adapter_infrastructure_flow` 继续只做 candidate；Chroma 只作 sandbox；FastAPI 只做 no-write probe；Streamlit / GitHub MCP 默认禁用；runtime memory 不替代仓库事实；Codex Goal Mode 只允许分阶段执行。
+- `approved_contract_scope（已确认契约范围）`: 已确认并落地 `graph_runtime_adapter / retrieval_manifest / source_readback_map / cleaning_adapter / service_contract_no_write / runtime_memory_boundary / completion_truth_check_node` 7 类契约范围。
+- `schema_families（schema 家族）`: 新增 6 个 schema 文件，更新 `retrieval_manifest.schema.yaml`；更新后 schema 总数为 16。
+- `fixture_families（fixture 家族）`: 新增 34 个 fixture，更新 2 个历史 fixture；更新后 passing fixture 总数为 16，blocked fixture 总数为 36。本轮目标检查覆盖 8 个 passing fixture 与 27 个 blocked fixture。
+- `schema_contract_index（schema 契约索引）`: 已更新 20260616 adapter contract phase，明确 schema 落地不等于 runtime 接入、fixture 通过不等于服务可用、Chroma fixture 不等于替代 DashVector。
+- `validation_report（验证报告）`: YAML 解析通过，必填字段检查通过，passing / blocked fixture 检查通过，secret scan 通过，禁止路径扫描通过，无 runtime 代码写入。
+- `禁止推进`: 未启用 runtime，未启动 FastAPI / Docker / Postgres / Streamlit，未运行 Chroma ingestion，未真实调用 DashVector，未调用外部 API，未安装依赖，未修改 main，未推进视频 / 声音 / 视觉 / 发布 / 发送状态。
+
+## 20260616｜Agent Service Toolkit Full Integration Master Plan
+
+```yaml
+task_result.status（任务结果状态）: full_integration_master_plan_completed
+project_route（项目路由）: video_factory
+branch（分支）: adapter/agent-service-toolkit-sandbox
+execution_permission（执行权限）: master_plan_report_only
+goal_mode（Goal 模式）: active_for_plan_delivery_only
+runtime_enabled（是否启用正式运行时）: false
+main_branch_modified（是否修改 main）: false
+external_api_called（是否调用外部 API）: false
+dependency_installed（是否安装依赖）: false
+service_started（是否启动服务）: false
+chroma_ingestion_run（是否运行 Chroma 入库）: false
+upstream_code_copied（是否复制上游源码）: false
+full_workflow_inventory_completed（workflow 全量盘点是否完成）: true
+toolkit_capability_inventory_completed（toolkit 能力盘点是否完成）: true
+integration_decision_matrix_created（接入分类矩阵是否创建）: true
+direct_embed_list_created（可直接嵌入清单是否创建）: true
+adapter_required_list_created（需要适配清单是否创建）: true
+project_change_required_list_created（需要项目机制改动清单是否创建）: true
+disable_or_quarantine_list_created（默认禁用 / 隔离清单是否创建）: true
+data_architecture_master_plan_created（数据与架构保真总计划是否创建）: true
+one_shot_integration_route_created（一次性接入路线是否创建）: true
+user_decision_board_created（用户决策板是否创建）: true
+candidate_new_workflow（候选新增 workflow）: adapter_infrastructure_flow（适配基础设施流，候选，未启用）
+candidate_new_workflow_enabled（候选新增 workflow 是否启用）: false
+active_write_executor（当前激活写入执行器）: codex
+deepseek_triggered（是否触发 DeepSeek）: false
+not_deepseek_conclusion（是否不是 DeepSeek 结论）: true
+generated_report（生成报告）: codex_log/framework_adapter/20260616_agent_service_toolkit_full_integration_master_plan.md
+next_safe_step（下一步安全动作）: user_chatgpt_review_then_contract_schema_phase_after_confirmation
+```
+
+- `full_workflow_inventory（workflow 全量盘点）`: 已盘点 6 类正式 workflow 与 15 个原生 router / gate / bus / candidate 面；本轮承载线仍为 `mechanism_repair_flow（机制修补流）`，`adapter_infrastructure_flow（适配基础设施流）` 只作为 candidate，不启用。
+- `integration_classification_matrix（接入分类矩阵）`: 已按 `direct_embed / adapter_required / project_change_required / disable_by_default / unmapped_quarantine / do_not_import / future_candidate` 七类归位上游能力。
+- `direct_embed（可直接嵌入）`: human review interrupt pattern、completion truth check deterministic node、write executor handoff shape、pre-execution read contract gate、client/test contract shape、Pydantic/schema pattern。
+- `adapter_required（需要适配）`: LangGraph runtime、LangChain model/tool、RAG assistant、Chroma sandbox output、DashVector formal route、source_readback、cleaning layer、FastAPI service、runtime memory、upstream schema mapping。
+- `disable_or_quarantine（默认禁用 / 隔离）`: Streamlit、Docker Compose、Postgres / Mongo、GitHub MCP、LangSmith / Langfuse、supervisor / hierarchy agents、safeguard / Groq real call、raw Chroma ingestion、page_content-only RAG context、knowledge-base-agent。
+- `data_architecture_master_plan（数据与架构保真总计划）`: DashVector 保留主线；Chroma 只做 sandbox；Git/repo/codex_log/review_loop 仍是事实源；`source_readback + human_review + completion_truth_check` 仍是完成真值链；runtime 不得直接写仓库。
+- `one_shot_integration_route（一口气接入路线）`: 只作为后续 Goal Mode 分阶段路线；必须先经用户 / ChatGPT 复审，再进入 contract / schema / fixture / no-service graph / retrieval-cleaning probe / authorized service probe / main merge candidate review。
+- `禁止推进`: 未启用 runtime，未修改 main，未安装依赖，未启动 FastAPI / Docker / Postgres / Streamlit，未运行 Chroma ingestion，未调用外部 API，未复制上游源码，未推进视频 / 声音 / 视觉 / 发布 / 发送状态。
+
+## 20260615｜Formal Adapter Patch Plan
+
+```yaml
+task_result.status（任务结果状态）: formal_adapter_patch_plan_completed
+project_route（项目路由）: video_factory
+branch（分支）: adapter/agent-service-toolkit-sandbox
+execution_permission（执行权限）: plan_report_only
+runtime_enabled（是否启用正式运行时）: false
+main_branch_modified（是否修改 main）: false
+external_api_called（是否调用外部 API）: false
+workflow_mapping_completed（workflow 映射是否完成）: true
+unmapped_workflow_register_created（未归位 workflow 登记是否创建）: true
+data_architecture_preservation_plan_created（数据与架构保真计划是否创建）: true
+candidate_new_workflow（候选新增 workflow）: adapter_infrastructure_flow（适配基础设施流，候选，未启用）
+candidate_new_workflow_enabled（候选新增 workflow 是否启用）: false
+upstream_code_copied（是否复制上游源码）: false
+dependency_installed（是否安装依赖）: false
+service_started（是否启动服务）: false
+chroma_ingestion_run（是否运行 Chroma 入库）: false
+active_write_executor（当前激活写入执行器）: codex
+deepseek_triggered（是否触发 DeepSeek）: false
+not_deepseek_conclusion（不是 DeepSeek 结论）: true
+generated_report（生成报告）: codex_log/framework_adapter/20260615_formal_adapter_patch_plan.md
+next_safe_step（下一步安全动作）: contract_and_schema_patch_plan_after_user_confirmation
+```
+
+- `workflow_inventory（workflow 盘点）`: 已按 `codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md` 复核 6 类现有 workflow；本轮主承载线为 `mechanism_repair_flow（机制修补流）`。
+- `workflow_adapter_mapping（workflow 适配映射）`: `copy_testing_flow / material_evidence_flow / aesthetic_editing_flow / quality_review_flow / data_review_flow` 均为 partial fit；`mechanism_repair_flow` 为本轮 direct fit；`adapter_infrastructure_flow（适配基础设施流）` 只登记为 candidate，不启用、不写入正式入口。
+- `upstream_capability_map（上游能力地图）`: LangGraph 保留为 `workflow_runtime_layer（工作流运行层）`；LangChain 保留为 `adapter_layer（模型 / 工具 / 检索适配层）`；DashVector 保留为当前项目主检索路线；Chroma 只作为 sandbox 学习 / 并存评估对象。
+- `data_architecture_preservation_plan（数据与架构保真计划）`: 必须保留 `current_data_goal_anchor / operation_records / review_loop / data_goal_execution_bus / retrieval_manifest / source_readback / completion_truth_check / write_executor_handoff / human_review_boundary`。
+- `disabled_by_default（默认禁用）`: Streamlit frontend、Docker / Postgres / Mongo persistence、GitHub MCP agent、raw Chroma ingestion、LangSmith / Langfuse external telemetry、supervisor / hierarchy agents as formal workflow。
+- `contracts_needed_before_code（写 adapter 代码前需补契约）`: `graph_runtime_adapter_contract`、`retrieval_manifest_schema`、`source_readback_map_schema`、`cleaning_adapter_contract`、`service_contract_no_write_probe`、`completion_truth_check_node_contract`。
+- `禁止推进`: 未启用 runtime，未修改 main，未安装依赖，未启动 FastAPI / Docker / Postgres / Streamlit，未运行 Chroma ingestion，未调用外部 API，未复制上游源码，未推进视频 / 声音 / 视觉 / 发布状态。
+
+## 20260614｜Agent Service Toolkit Sandbox Branch Context
+
+```yaml
+task_result.status（任务结果状态）: adapter_branch_context_created
+project_route（项目路由）: video_factory
+external_framework（外部框架）: JoshuaC215/agent-service-toolkit
+execution_permission（执行权限）: create_and_push_adapter_branch_update_branch_latest_only
+active_write_executor（当前激活写入执行器）: codex
+deepseek_triggered（是否触发 DeepSeek）: false
+not_deepseek_conclusion（不是 DeepSeek 结论）: true
+branch_name（分支名）: adapter/agent-service-toolkit-sandbox
+branch_source（分支来源）: origin/main
+branch_source_commit（分支来源提交）: 42954b677af5c8a21252d282f2a4846ce278a4dd
+branch_purpose（分支用途）: agent-service-toolkit sandbox integration and adapter experiments
+current_branch（当前分支）: adapter/agent-service-toolkit-sandbox
+remote_branch_created（远端分支是否创建）: true
+sandbox_workspace（沙盒工作区）: /Users/fan/Documents/视频工厂_sandbox/agent-service-toolkit_probe_20260614
+sandbox_upstream_commit（沙盒上游提交）: 5b3945f48e41a193816d7710b275eb89b90568ee
+main_branch_modified_this_round（本轮是否修改 main 分支）: false
+install_executed_in_main_repo（是否在主仓库安装）: false
+main_repo_dependency_modified（主仓库依赖是否被修改）: false
+external_code_copied_to_main（是否复制外部代码到主线）: false
+sandbox_files_committed（是否提交沙盒文件）: false
+frontend_started（是否启动前端）: false
+docker_started（是否启动 Docker）: false
+postgres_started（是否启动 Postgres）: false
+fastapi_service_started（是否启动 FastAPI 服务）: false
+chroma_ingestion_script_run（是否运行 Chroma 入库脚本）: false
+external_api_called（是否调用外部 API）: false
+runtime_enabled（是否启用正式运行时）: false
+generated_report（生成报告）: codex_log/framework_adapter/20260614_agent_service_toolkit_sandbox_branch_context.md
+next_safe_step（下一步安全动作）: continue_agent_service_toolkit_adapter_work_on_adapter_branch
+```
+
+- `branch_context（分支上下文）`: 本分支只承载 `agent-service-toolkit` 沙盒接入、adapter、RAG、LangGraph、DashVector、清洗层和服务契约实验；不是 main 合并，也不是正式 runtime 启用。
+- `sandbox_submission_policy（沙盒提交策略）`: 不提交 `.venv`、外部源码副本、`video_factory_probe` 临时脚本 / 输出、`.env` 或任何 secret。
+- `main_policy（main 分支策略）`: main 只接收确认后的正式结果；本轮没有修改 main 分支指针，也没有把沙盒文件纳入主仓库。
+- `forbidden_without_new_authorization（未经新授权禁止事项）`: 不合并 main，不启用 runtime，不启动 FastAPI / Docker / Postgres / Streamlit，不调用真实外部 API，不写 secret。
+
 ## 20260614｜Stability Proof Closed Loop Probe
 
 ```yaml
@@ -1635,7 +1956,7 @@ next_safe_step（下一步安全动作）: sandbox_install_probe_prompt_after_us
 
 - `已确认` 本轮只做 V002《自动流的最简单流程》原始文案补录、用户补充数据补录、文案迭代记录补齐、系统重跑和日志更新；不生成新视频，不生成正式下一条视频执行 prompt，不推进 `content_validation / send_ready / current_data_goal_anchor ready`。
 - `route_decision（路由判断）`：`project_route = video_factory`；`task_type = project_file_change + data_backfill + copy_iteration_record_backfill + operation_decision_rerun + copy_iteration_rerun`；`large_task_gate = triggered`；`lane = standard_lane`；`parallel = serial_only`；`write_owner = Codex Integrator only`。
-- `state_action_router（状态动作总控器）`：`input_signal = 用户指出 V002 原始文案未登记并补充 56/6/9 数据`；`inferred_state = copy_version_record_missing + V002_metric_backfill_needed + abnormal_sample_boundary_required`；`selected_action = 新增 V002 copy_iteration 记录、补录用户数据、重跑运营 / 文案迭代系统`；`forbidden_action = normal_distribution_attribution / content_validation passed / direction established / next formal prompt / ready promotion`。
+- `state_action_router（状态动作总控器）`：`input_signal = 用户指出 V002 原始文案未登记并补充 56/6/9 数据`；`inferred_state = copy_version_record_missing + V002_metric_backfill_needed + abnormal_sample_boundary_required`；`selected_action = 新增 V002 copy_iteration 记录、补录用户数据、重跑运营 / 文案迭代系统`；`forbidden_action = normal_distribution_attribution / content validation pass claim / direction established / next formal prompt / ready promotion`。
 - `DeepSeek`：已创建供料任务卡 `codex_log/supply_requests/20260517_V002_copy_and_metric_backfill_pre_supply_request.json`；真实供料通过，`deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`api_key_printed = false`、`api_key_written = false`、`env_file_read = false`。
 - `已新增` V002 文案记录目录：`review_loop/copy_iteration/V002/`，包含 `V002_copy_v1_raw.md`、`V002_copy_v1_record.json`、`V002_copy_structure_map.json`、`V002_copy_iteration_decision.json`、`V002_next_copy_revision_brief.md`。
 - `raw copy`：用户本轮提供的第二期原始文案已保真写入；`raw_copy_modified = false`，疑似错字只在 record 中标记，不改 raw。
@@ -1695,7 +2016,7 @@ next_safe_step（下一步安全动作）: sandbox_install_probe_prompt_after_us
 
 - `已确认` 本轮基于第三期素材审计报告和 V003 文案迭代简报，生成 `low_confidence_review_candidate（低置信度审片候选）/ internal_review_pack（内部审片包）`；不是正式发布候选片，不生成正式下一条视频执行 prompt。
 - `route_decision（路由判断）`：`project_route = video_factory`；`task_type = low_confidence_review_candidate_video + material_execution + copy_iteration_candidate + project_file_change + code_debug`；`current_project_state = formal_operation_active + copy_iteration_prepare + material_audit_ready + formal_next_execution_blocked`；`execution_permission = low_confidence_internal_review_candidate_only`；`large_task_gate = triggered`；`lane = standard_lane`；`parallel = serial_only`。
-- `state_action_router（状态动作总控器）`：`input_signal = 用户要求按照真实复盘现场型结构执行`；`inferred_state = low_confidence_review_candidate_allowed`；`selected_action = 基于 locked copy、material_03 和判断卡生成内部审片候选包`；`forbidden_action = publish_candidate promotion / send_ready / content_validation passed / ready status promotion`。
+- `state_action_router（状态动作总控器）`：`input_signal = 用户要求按照真实复盘现场型结构执行`；`inferred_state = low_confidence_review_candidate_allowed`；`selected_action = 基于 locked copy、material_03 和判断卡生成内部审片候选包`；`forbidden_action = publish_candidate promotion / send-ready claim / content validation pass claim / ready status promotion`。
 - `DeepSeek`：已创建执行前供料任务卡 `codex_log/supply_requests/20260517_third_episode_real_review_scene_candidate_pre_supply_request.json` 和执行后风险复核任务卡 `codex_log/supply_requests/20260517_third_episode_real_review_scene_candidate_post_risk_review_request.json`；两次真实调用均通过，`deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`api_key_printed = false`、`api_key_written = false`、`env_file_read = false`。
 - `使用素材`：主素材 `material_03 / /Users/fan/Documents/视频工厂/素材录制/第三期/v004 2026-05-16 23-22-13.mp4`；辅助素材 `material_01 / /Users/fan/Documents/视频工厂/素材录制/第三期/第二期 2026-05-15 23-15-27.mp4`；`material_02_used = false`。
 - `已生成` 审片包目录：`dist/third_episode_real_review_scene_candidate/`。
@@ -2947,7 +3268,7 @@ next_safe_step（下一步安全动作）: sandbox_install_probe_prompt_after_us
 - `已确认` round34 旧 817M 本地大包未恢复；但 `dist/latest_review_pack/middle_preview.mp4`、`cut_contact_sheet.jpg`、`problem_windows/30_32s.mp4`、`problem_windows/30_32s_frames.jpg` 均仍存在，并已在路径索引恢复为 `path_exists = true`。
 - `已确认` PR #47 已先合并到 `codex/user-readable-map`，合并提交：`20d9419e0a9ad048075a2138c610472df93051be`。
 - `已确认` 本轮从合并后的主读取分支创建清库分支：`codex/pre-upgrade-delete-old-assets-20260504`。
-- `已确认` 本轮不生成视频，不修改当前发布 / 灰度状态，不把 `content_validation` 写成 `passed`，不把 `send_ready` 写成 `true`。
+- `已确认` 本轮不生成视频，不修改当前发布 / 灰度状态，不把内容验证字段写成最终通过，不把发送状态写成开启。
 - `已确认` 当前唯一固定素材锚点收束为：`v31_element_doll_opening_anchor（v3.1 元素娃娃开头锚点）`。
 - `已确认` `v31_element_doll_opening_preview（v3.1 元素娃娃开头预览）` 只保留开头预览证据，不代表元素娃娃继续做全片主持。
 - `已确认` PR #46 未合并、未关闭、未删除；当前只作为未来流程 / 教学 / 操作拆解类视频升级方向资料，不作为当前 reference。
@@ -2973,7 +3294,7 @@ next_safe_step（下一步安全动作）: sandbox_install_probe_prompt_after_us
 - `已确认` 已先输出 `cleanup_audit（清理审计）`，再删除 `.DS_Store` Finder 临时文件。
 - `部分成立` 删除前原计划排除冻结 / 保护范围，但 `find -delete` 的执行行为导致部分受保护目录内 `.DS_Store` 也被删除；被额外影响的对象仅为 Finder 临时元数据，不是业务文件。
 - `已确认` 本轮未生成视频、未修改 `dist/latest_review_pack/` 当前结构地图文件、未修改 `codex_log/current_publish_target.md` 状态字段、未删除任何核心 reference 或 blocked_unknown。
-- `已确认` `content_validation` 未写成 `passed`，`send_ready` 未写成 `true`，`voice_validation` 未写成 `final`，当前 v3.1 发布 / 灰度状态未修改。
+- `已确认` 内容验证字段未写成最终通过，发送状态未写成开启，`voice_validation` 未写成 `final`，当前 v3.1 发布 / 灰度状态未修改。
 - `治理报告`：`治理_reports/20260504_元素娃娃开头保留与旧资产清理_keep_element_doll_cleanup_old_assets/元素娃娃开头保留与旧资产清理报告_keep_element_doll_cleanup_old_assets_report.md`
 - `下一个目标`：用户 / ChatGPT 复审本轮 PR，确认元素娃娃开头路径索引补充无误、旧资产清理未误删；通过后再进入项目升级前的机制收口。
 
@@ -3034,7 +3355,7 @@ next_safe_step（下一步安全动作）: sandbox_install_probe_prompt_after_us
 - `已确认` 已写入 `single_workspace_rule`：以后唯一正式工作区是 `/Users/fan/Documents/视频工厂`；新分支只能在此目录内创建 / 切换；不得默认创建 `/Users/fan/Documents/视频工厂_*` 外部工作区或外部 `git worktree add`。
 - `已确认` `codex_log/current_local_artifact_paths.md` 已改为内部路径优先；所有 `canonical_local_path` 均指向 `/Users/fan/Documents/视频工厂` 内部；旧外部路径只保留为 `historical_source_path` 说明。
 - `已确认` 本轮未生成视频 / 音频 / 图片，未写新文案，未处理 HyperFrames 卡片边界任务，未修改 v3.1 正片内容，未修改 `dist/latest_review_pack` 既有产物内容。
-- `已确认` `content_validation` 未改成 `passed`，`send_ready` 未改成 `true`，本轮未永久删除未回收文件。
+- `已确认` 内容验证字段未改成最终通过，发送状态未改成开启，本轮未永久删除未回收文件。
 - `审计报告`：`治理_reports/20260502_单工作区清理归档_single_workspace_cleanup_archive/单工作区清理归档报告_single_workspace_cleanup_archive_report.md`
 - `下一个目标`：用户确认两个 blocked superpowers 历史 worktree 后，另起一轮处理剩余 worktree；后续所有《视频工厂》任务只允许在 `/Users/fan/Documents/视频工厂` 内执行。
 
@@ -3078,7 +3399,7 @@ next_safe_step（下一步安全动作）: sandbox_install_probe_prompt_after_us
 
 - `已确认` 本轮只做 v3.1 发布后灰度测试指标体系 V1 落仓库，并接入既有 `review_loop/`；未写新文案、未生成视频、未生成音频、未重新装配全片、未修改 v3.1 视频产物。
 - `已确认` 当前工作分支：`codex/v31-gray-test-metrics-v1-20260502`。
-- `已确认` 当前状态仍为：`publish_status = gray_test_published`、`gray_test_status = active`、`current_phase = post_publish_gray_test`、`content_validation = gray_testing_not_final_passed`。
+- `已确认` 当前状态仍为：`publish_status = gray_test_published`、`gray_test_status = active`、`current_phase = post_publish_gray_test`；内容状态标签仍为 `gray_testing_not_final_passed`。
 - `已确认` 新增指标体系文件：`review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`。
 - `已确认` 当前灰度测试目标文件：`codex_log/current_gray_test_target.md` 已更新为 24h / 72h / 7 天观察。
 - `已确认` 当前 v3.1 单条记录：`review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md` 已补入 7 天播放目标、三类字段和四个复盘问题。
@@ -3113,8 +3434,8 @@ next_safe_step（下一步安全动作）: sandbox_install_probe_prompt_after_us
 - `已确认` 当前发布状态已写入：`publish_status = gray_test_published（v3.1 已发片，进入灰度测试）`。
 - `已确认` 当前灰度状态已写入：`gray_test_status = active（灰度测试中）`。
 - `已确认` 当前发布后复盘要求已写入：`post_publish_review_required = true`。
-- `已确认` 当前内容状态已写入：`content_validation = gray_testing_not_final_passed（灰度测试中，不等于内容最终通过）`。
-- `已确认` 仍保持：`send_ready = false`、`visual_master_locked = false`、`voice_validation = pending_user_chatgpt_review`、`final_voice_validated = false`、`technical_upgrade_next = true`。
+- `已确认` 当前内容状态已写入为 `gray_testing_not_final_passed（灰度测试中，不等于内容最终通过）`。
+- `已确认` 仍保持：`technical_upgrade_next = true`；`send_ready = false`、`visual_master_locked = false`、`voice_validation = pending_user_chatgpt_review`、`final_voice_validated = false`。
 - `已确认` 发布后复盘默认接入既有 `review_loop/`，不新建独立灰度系统。
 - `已确认` 新增当前灰度测试目标文件：`codex_log/current_gray_test_target.md`。
 - `已确认` 新增 v3.1 单条灰度测试记录：`review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`。
@@ -3145,7 +3466,7 @@ next_safe_step（下一步安全动作）: sandbox_install_probe_prompt_after_us
 - `已确认` 后续升级 / 修改 / 技术优化 / GPT 文案侧回炉默认基于：`future_iteration_base = v3.1`。
 - `已确认` v3 只保留为历史候选 / 对照，不再作为后续默认修改基础。
 - `已确认` v3.1 仍不可发送：`send_ready = false`。
-- `已确认` v3.1 内容没有写成通过：`content_validation = pending_user_chatgpt_review_or_not_passed_copywriting_side`。
+- `已确认` v3.1 内容没有写成通过，内容状态标签为 `pending_user_chatgpt_review_or_not_passed_copywriting_side`。
 - `已确认` PR #7 B 版 `PR7_B_骚萌反应页.png` 是后续骚萌卡唯一执行参考；读不到 PR #7 B 必须 blocked，不得回退 PR #7 A。
 - `已确认` PR #7 A 只保留为历史 / candidate 对照，不能再作为任何后续骚萌卡执行参考。
 - `已确认` PR #22 / PR #23 / PR #24 均已写入降噪口径：不得直接合并，不得覆盖当前 v3.1 基线。
@@ -3155,7 +3476,7 @@ next_safe_step（下一步安全动作）: sandbox_install_probe_prompt_after_us
 - `已确认` 本轮只做仓库清理、旧口径归档、入口口径重写和执行噪音删除；不生成 v3.1，不生成新视频，不生成新音频，不重新装配全片。
 - `已确认` 已从 `codex/user-readable-map` 创建清理分支：`codex/repo-cleanup-old-context-20260502`。
 - `已确认` 当前入口继续写明 v3 技术层为 `v3_technical_milestone = reached_for_current_stage`，技术线未锁定，下一步仍需技术升级。
-- `已确认` v3 内容未过线，主要在 GPT 文案侧；`content_validation = not_passed_user_review_gpt_copywriting_side`，`send_ready = false`，`visual_master_locked = false`。
+- `已确认` v3 内容未过线，主要在 GPT 文案侧；内容状态标签为 `not_passed_user_review_gpt_copywriting_side`，`send_ready = false`，`visual_master_locked = false`。
 - `已确认` PR #7 B 仍是后续骚萌卡执行参考；读不到 PR #7 B 必须 blocked，不得回退 PR #7 A。
 - `已确认` PR #7 A 已降权为历史 / candidate 对照；v3 生成时的 PR #7 A 痕迹已在 metadata 中标为 `legacy_generation_candidate_references`，不再放在可继承候选参考字段里。
 - `已确认` 新增归档目录：`归档_archive/旧口径_old_context_20260502/`，归档 PR #22 原始待复审口径、PR #23 原始 PR #7 A 优先判断、可爱卡片旧 route suggestion。
@@ -3168,8 +3489,8 @@ next_safe_step（下一步安全动作）: sandbox_install_probe_prompt_after_us
 - `已确认` 本轮只做仓库口径回写、reference registry 修补、v3.1 视觉路由前置规则同步和主读取分支回流；未生成 v3.1、未生成新视频、未生成新音频、未重新装配全片。
 - `已确认` 用户已复审《我用 AI 做 PPT 踩过的坑》v3：技术层只能写为 `v3_technical_milestone = reached_for_current_stage（当前阶段技术里程碑达成）`，不得写成技术线最终锁定。
 - `已确认` 下一步仍需要 `technical_upgrade_next = true（技术升级）`，`technical_baseline_locked = false（技术基线未锁定）`。
-- `已确认` v3 内容未过线，主要问题在 GPT 文案侧；状态写为 `content_validation = not_passed_user_review_gpt_copywriting_side`，不得写 `passed` 或仅写 `pending_user_chatgpt_review`。
-- `已确认` `send_ready = false`，`visual_master_locked = false`，`visual_master_candidate = true`。
+- `已确认` v3 内容未过线，主要问题在 GPT 文案侧；内容状态标签为 `not_passed_user_review_gpt_copywriting_side`，不得写最终通过或仅写 `pending_user_chatgpt_review`。
+- `已确认` `visual_master_candidate = true`；`send_ready = false`，`visual_master_locked = false`。
 - `已确认` PR #7 B 版 `PR7_B_骚萌反应页.png` 已写为后续骚萌卡执行参考；读不到 PR #7 B 必须 `blocked`，不得回退 PR #7 A。
 - `已确认` PR #7 A 保留为历史 / candidate 对照，不删除、不升级 locked、不再作为下一轮 v3.1 后续骚萌卡执行参考。
 - `已确认` 新增 route-level locked references：`sassy_card_pr7_b_visual_locked_20260501`、`cute_prompt_card_route_locked_20260501`、`cute_info_card_route_locked_20260501`。

@@ -1,0 +1,26 @@
+contract_name: GraphRuntimeAdapter
+schema_version: "0.1"
+fixture_only: true
+fixture_name（样例名称）: graph_runtime_adapter.blocked_missing_source_readback
+case_type（样例类型）: blocked
+purpose（用途）: 覆盖 graph 缺 source_readback 的阻断场景。
+input_summary（输入摘要）: graph 使用 retrieval output，但未要求回读当前分支原文。
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: retrieval result 不是事实，source_readback_required 缺失会破坏 truth check。
+graph_id: graph_runtime_adapter_fixture_20260616_blocked_missing_source_readback
+workflow_route_decision: material_evidence_flow
+allowed_nodes: [route, retrieve, validate, handoff]
+forbidden_nodes: [write_repo, commit, push, edit_main, enable_runtime_status, promote_content_status, call_external_api]
+input_contract:
+  retrieval_manifest_required: true
+output_contract:
+  may_output: [executor_handoff]
+source_readback_required: false
+executor_handoff_required: true
+runtime_write_allowed: false
+completion_truth_check_required: true
+blocked: true
+blocked_reasons:
+  - missing_source_readback_required
+  - retrieval_result_would_be_used_without_readback
+resume_policy: "Add source_readback node before any handoff or completion claim."

@@ -261,7 +261,7 @@ validation_result（验证结果）:
   no_env_or_secret_written（未写入 env 或 secret）: true
   no_frontend_started（未启动前端）: true
   no_docker_started（未启动 Docker）: true
-  no_formal_runtime_enabled（未启用正式运行时）: true
+  formal_runtime_enablement_absent（未启用正式运行时）: true
   latest_updated（latest 已更新）: true
   git_diff_check（Git diff 格式检查）: passed
   forbidden_path_scan（禁止路径扫描）: passed

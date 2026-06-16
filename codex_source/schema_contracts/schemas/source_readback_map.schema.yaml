@@ -1,0 +1,85 @@
+contract_name: SourceReadbackMap
+version: "0.1"
+status: draft
+project_route: video_factory
+purpose: "Map retrieval_manifest entries back to current branch source files and decide whether the exact source can be used as project fact."
+required_field_names:
+  - readback_id
+  - retrieval_manifest_id
+  - source_path
+  - source_ref
+  - line_range
+  - exact_excerpt
+  - readback_status
+  - conflict_found
+  - can_use_as_fact
+  - blocked_if
+required_fields:
+  readback_id:
+    type: string
+    required: true
+    description: "回读编号；用于追踪一次 source_readback_map。"
+    blocked_if_missing: true
+  retrieval_manifest_id:
+    type: string
+    required: true
+    description: "检索清单编号；必须回指 retrieval_manifest。"
+    blocked_if_missing: true
+  source_path:
+    type: string
+    required: true
+    description: "来源路径；必须是当前分支可读仓库文件。"
+    blocked_if_missing: true
+  source_ref:
+    type: string
+    required: true
+    description: "来源分支 / commit；不得用旧分支或旧口径冒充当前事实。"
+    blocked_if_missing: true
+  line_range:
+    type: string
+    required: true
+    description: "行号范围；必须足以定位 exact_excerpt。"
+    blocked_if_missing: true
+  exact_excerpt:
+    type: string
+    required: true
+    description: "原文摘录；用于证明不是向量摘要或 agent 改写。"
+    blocked_if_missing: true
+  readback_status:
+    type: enum
+    required: true
+    allowed_values: [passed, missing_source, conflict_found, stale_source, blocked]
+    description: "回读状态；无法回读、冲突或旧口径必须 blocked。"
+    blocked_if_missing: true
+  conflict_found:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "是否发现冲突；冲突时 can_use_as_fact 必须为 false。"
+    blocked_if_missing: true
+  can_use_as_fact:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "能否作为事实；只有当前分支原文回读通过且无冲突时可为 true。"
+    blocked_if_missing: true
+  blocked_if:
+    type: list[string]
+    required: true
+    description: "阻断条件；无法回读、冲突或旧口径覆盖必须阻断。"
+    blocked_if_missing: true
+hard_rules:
+  must_read_current_branch_source（必须回读当前分支原文件）: true
+  vector_summary_not_enough（向量摘要不够）: true
+blocked_cases_required:
+  - retrieval hit cannot read original source
+  - readback source conflicts with retrieval summary
+  - old branch or old context is used as current fact
+input_from: [RetrievalManifest]
+output_to: [RetrievalGapReport, CompletionTruthCheckNode, WriteExecutorHandoff]
+blocked_if_missing: true
+must_not_do: [use_vector_summary_as_fact, use_old_branch_as_current_fact, ignore_source_conflict]
+validation_notes:
+  - "The exact_excerpt is a small proof pointer, not a license to copy large source passages."
+  - "can_use_as_fact must be false whenever conflict_found is true."
+trace_fields: [readback_id, retrieval_manifest_id, source_path, source_ref, line_range]

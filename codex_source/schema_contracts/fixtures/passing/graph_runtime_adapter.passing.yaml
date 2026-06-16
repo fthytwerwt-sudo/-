@@ -1,0 +1,29 @@
+contract_name: GraphRuntimeAdapter
+schema_version: "0.1"
+fixture_only: true
+fixture_name（样例名称）: graph_runtime_adapter.passing
+case_type（样例类型）: passing
+purpose（用途）: 验证 LangGraph 只作为 no-write workflow runtime adapter，不替代项目路由，不直接写仓库。
+input_summary（输入摘要）: mechanism_repair_flow 下的 fake no-service graph，只执行 route / retrieve / source_readback / handoff / completion_truth_check。
+expected_result（预期结果）: passed
+why_pass_or_block（为什么通过或阻断）: runtime_write_allowed 为 false，source_readback 与 executor_handoff 均为必需，完成真实性检查已启用。
+graph_id: graph_runtime_adapter_fixture_20260616_passing
+workflow_route_decision: mechanism_repair_flow
+allowed_nodes: [route, clean, retrieve, source_readback, validate, block, interrupt, handoff, completion_truth_check]
+forbidden_nodes: [write_repo, commit, push, edit_main, enable_runtime_status, promote_content_status, call_external_api]
+input_contract:
+  route_decision_required: true
+  workflow_route_decision_required: true
+  retrieval_manifest_required: true
+output_contract:
+  may_output: [blocked_report, executor_handoff, completion_truth_check]
+  may_not_output: [repo_write, commit, runtime_enabled_status]
+source_readback_required: true
+executor_handoff_required: true
+runtime_write_allowed: false
+blocked_if:
+  - graph tries to write repo directly
+  - graph missing source_readback
+  - graph outputs completed without completion_truth_check
+completion_truth_check_required: true
+blocked: false

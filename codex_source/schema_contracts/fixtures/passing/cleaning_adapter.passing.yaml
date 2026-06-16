@@ -1,0 +1,39 @@
+contract_name: CleaningAdapter
+schema_version: "0.1"
+fixture_only: true
+fixture_name（样例名称）: cleaning_adapter.passing
+case_type（样例类型）: passing
+purpose（用途）: 验证清洗适配输出保留 source_path / chunk_id / source_readback_index。
+input_summary（输入摘要）: 当前 schema index markdown 作为 local_fixture，被安全加载、扫描、切片并输出 retrieval_manifest。
+expected_result（预期结果）: passed
+why_pass_or_block（为什么通过或阻断）: secret scan 通过，metadata 完整，chunk 可以回读原文。
+cleaning_job_id: cleaning_adapter_fixture_20260616_passing
+source_manifest_registration:
+  source_path: codex_source/schema_contracts/00_schema_contracts_index.md
+  source_id: schema_contracts_index
+  authority_level: current_repo_source
+  status_label: current
+file_type_router: markdown
+safe_loader_selection: safe_text_loader
+secret_scan_before_ingestion: passed
+content_normalization: preserve_semantics
+metadata_standardization:
+  source_path: codex_source/schema_contracts/00_schema_contracts_index.md
+  chunk_id: cleaning_adapter_chunk_001
+  page_or_line_range: "1-40"
+deduplication:
+  duplicate_found: false
+chunking_policy:
+  chunk_size_policy: source_readback_preserving
+chunk_quality_check: passed
+source_readback_index:
+  source_path: codex_source/schema_contracts/00_schema_contracts_index.md
+  line_range: "1-40"
+retrieval_manifest_output:
+  provider: local_fixture
+  source_readback_required: true
+blocked_if:
+  - source file cannot be read safely
+  - secret-like content detected before ingestion
+  - chunk metadata cannot preserve source readback
+blocked: false

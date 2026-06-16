@@ -1,0 +1,29 @@
+contract_name: CompletionTruthCheckNode
+schema_version: "0.1"
+fixture_only: true
+fixture_name（样例名称）: completion_truth_check.technical_as_content_blocked
+case_type（样例类型）: blocked
+purpose（用途）: 覆盖技术验证通过被写成内容通过的阻断场景。
+input_summary（输入摘要）: technical_validation=passed，但 content_validation 被误推进。
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: 技术成功不能冒充内容成功，内容验证需要人工复审。
+truth_check_id: completion_truth_check_fixture_20260616_technical_as_content
+user_goal_met: false
+required_outputs_exist: true
+source_readback_passed: true
+blocked_cases_checked: true
+forbidden_status_promotion_scan: failed
+runtime_not_falsely_enabled: true
+content_validation_not_falsely_promoted: false
+ready_status_not_falsely_promoted: true
+voice_validation_not_falsely_promoted: true
+visual_master_not_falsely_locked: true
+external_api_claim_verified: verified_no_external_api
+git_sync_verified: false
+completion_claim_allowed: false
+blocked_if:
+  - technical success claimed as content success
+blocked: true
+blocked_reasons:
+  - technical_success_claimed_as_content_success
+resume_policy: "Restore content_validation boundary and require human review."

@@ -1,0 +1,24 @@
+contract_name: SourceReadbackMap
+schema_version: "0.1"
+fixture_only: true
+fixture_name（样例名称）: source_readback_missing.blocked
+case_type（样例类型）: blocked
+purpose（用途）: 覆盖检索命中但无法回读原文件的阻断场景。
+input_summary（输入摘要）: retrieval_manifest 指向不存在的 source_path。
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: source_path 无法读取，不能作为事实或完成证明。
+readback_id: source_readback_map_fixture_20260616_missing
+retrieval_manifest_id: retrieval_manifest_missing_source
+source_path: codex_source/schema_contracts/missing_file.md
+source_ref: adapter/agent-service-toolkit-sandbox@0000000000000000000000000000000000000001
+line_range: "1-20"
+exact_excerpt: ""
+readback_status: missing_source
+conflict_found: false
+can_use_as_fact: false
+blocked_if:
+  - source missing
+blocked: true
+blocked_reasons:
+  - source_file_unreadable
+resume_policy: "Locate current branch source file or block retrieval use."

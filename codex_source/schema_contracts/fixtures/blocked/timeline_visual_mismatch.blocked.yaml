@@ -1,0 +1,23 @@
+contract_name: timeline_assembly_contract
+schema_version: 1
+fixture_only: true
+fixture_name（样例名称）: timeline_visual_mismatch
+case_type（样例类型）: blocked
+purpose（用途）: "覆盖时间线画面错位阻断。"
+input_summary（输入摘要）: "line_group 需要 prompt 结果画面，但实际选择 unrelated_dashboard。"
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: "画面职责和证据职责不一致，属于弱相关素材冒充直接证据。"
+sample:
+  line_group_id: lg_002
+  source_segment_id: seg_009
+  source_timecode: "00:02:00.000-00:02:05.000"
+  timeline_slot: "00:00:10.000-00:00:15.000"
+  visual_role: direct_evidence
+  evidence_role: prompt_result_screen
+  actual_visual: unrelated_dashboard
+  forbidden_visuals:
+    - unrelated_dashboard
+  blocked_if_visual_mismatch: true
+  blocked: true
+  blocked_reasons:
+    - timeline_visual_mismatch

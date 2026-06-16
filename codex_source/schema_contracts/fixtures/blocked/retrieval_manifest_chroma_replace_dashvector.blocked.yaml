@@ -1,0 +1,27 @@
+contract_name: RetrievalManifest
+schema_version: "0.2"
+fixture_only: true
+fixture_name（样例名称）: retrieval_manifest_chroma_replace_dashvector.blocked
+case_type（样例类型）: blocked
+purpose（用途）: 覆盖 provider 是 Chroma 但试图替代 DashVector 的阻断场景。
+input_summary（输入摘要）: Chroma_sandbox fixture 把 status_label 写成 current 并声明 replace_DashVector=true。
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: Chroma 已确认只做 sandbox / 对照，不能替代 DashVector 主路线。
+provider: Chroma_sandbox
+query: "chroma replace dashvector blocked example"
+source_path: codex_log/framework_adapter/20260616_agent_service_toolkit_full_integration_master_plan.md
+source_id: full_integration_master_plan
+chunk_id: chroma_replace_dashvector_chunk_001
+page_or_line_range: "384-410"
+content_hash: hash_fixture_chroma_replace_001
+commit_sha: "0000000000000000000000000000000000000001"
+score: 0.93
+authority_level: sandbox_reference
+status_label: current
+source_readback_required: true
+gap_status: blocked
+replace_DashVector: true
+blocked: true
+blocked_reasons:
+  - chroma_sandbox_attempted_to_replace_dashvector
+resume_policy: "Keep Chroma as sandbox_only and restore DashVector as main route."

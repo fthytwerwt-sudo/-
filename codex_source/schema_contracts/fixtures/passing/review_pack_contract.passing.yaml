@@ -1,0 +1,21 @@
+contract_name: review_pack_contract
+schema_version: 1
+fixture_only: true
+fixture_name（样例名称）: review_pack_contract_passing
+case_type（样例类型）: passing
+purpose（用途）: "证明候选片必须带完整审片包，而不是只有媒体路径。"
+input_summary（输入摘要）: "full_video_path、summary_report、preflight_reports、media_probe、remaining_blockers 和 human_review_required 均存在。"
+expected_result（预期结果）: pass
+why_pass_or_block（为什么通过或阻断）: "审片包完整，仍要求人工复审，不把文件存在写成最终完成。"
+sample:
+  full_video_path: dist/review_pack_fixture/full.mp4
+  summary_report: dist/review_pack_fixture/summary.md
+  preflight_reports:
+    - line_group_alignment_report
+    - subtitle_card_overlap_report
+    - tts_route_report
+  media_probe: media_probe_fixture
+  remaining_blockers: []
+  human_review_required: true
+  blocked_if_missing_review_pack: true
+  blocked: false

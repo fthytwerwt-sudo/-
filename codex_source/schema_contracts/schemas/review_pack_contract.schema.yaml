@@ -1,0 +1,38 @@
+contract_name: review_pack_contract
+version: 1
+status: draft_contract_only
+project_route: video_factory
+purpose: "约束候选片或阻断结果必须带审片包，不允许只有媒体文件、报告或路径就声明交付完成。"
+owner_layer: quality_review_flow
+required_field_names:
+  - full_video_path
+  - summary_report
+  - preflight_reports
+  - media_probe
+  - remaining_blockers
+  - human_review_required
+  - blocked_if_missing_review_pack
+required_fields:
+  full_video_path: "完整视频路径；阻断状态可写 not_applicable 并说明原因。"
+  summary_report: "审片总报告。"
+  preflight_reports: "剪辑、字幕、TTS、媒体探针等预检报告集合。"
+  media_probe: "媒体探针结果。"
+  remaining_blockers: "剩余阻断项。"
+  human_review_required: "是否需要人工复审。"
+  blocked_if_missing_review_pack: "缺审片包或审片包关键字段时阻断。"
+hard_rules:
+  media_file_alone_is_delivery: false
+  report_only_is_delivery: false
+  human_review_required_for_candidate: true
+  runtime_write_allowed: false
+blocked_if:
+  - review_pack_missing
+  - media_probe_missing
+  - summary_report_missing
+  - remaining_blockers_unknown
+  - candidate_without_human_review_boundary
+fixtures_required:
+  passing:
+    - fixtures/passing/review_pack_contract.passing.yaml
+  blocked:
+    - fixtures/blocked/review_pack_missing.blocked.yaml

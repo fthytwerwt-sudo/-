@@ -1,0 +1,20 @@
+contract_name: RuntimeMemoryBoundary
+schema_version: "0.1"
+fixture_only: true
+fixture_name（样例名称）: runtime_memory_boundary.passing
+case_type（样例类型）: passing
+purpose（用途）: 验证 runtime memory 只作为非权威线程状态和中断缓存。
+input_summary（输入摘要）: memory 用于 temporary_interrupt_state，不参与项目事实裁决。
+expected_result（预期结果）: passed
+why_pass_or_block（为什么通过或阻断）: repo_facts_win 为 true，memory_can_replace_repo_facts 为 false。
+memory_boundary_id: runtime_memory_boundary_fixture_20260616_passing
+allowed_memory_use: [thread_state, temporary_interrupt_state, local_runtime_context, non_authoritative_cache]
+forbidden_memory_use: [project_fact_source, operation_records_replacement, current_data_goal_anchor_replacement, review_loop_replacement, GitHub_repo_fact_replacement]
+repo_facts_win: true
+authoritative_sources: [Git_repo, codex_log, review_loop, GPT数据源, dist_latest_review_pack]
+memory_can_replace_repo_facts: false
+blocked_if:
+  - memory replaces repo facts
+  - memory replaces operation_records
+  - memory replaces current_data_goal_anchor
+blocked: false

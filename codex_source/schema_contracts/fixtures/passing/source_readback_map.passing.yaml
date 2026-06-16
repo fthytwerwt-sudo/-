@@ -1,0 +1,23 @@
+contract_name: SourceReadbackMap
+schema_version: "0.1"
+fixture_only: true
+fixture_name（样例名称）: source_readback_map.passing
+case_type（样例类型）: passing
+purpose（用途）: 验证 retrieval_manifest 能回读当前分支原文并作为事实依据。
+input_summary（输入摘要）: retrieval_manifest 指向当前 schema index，回读当前分支行号范围。
+expected_result（预期结果）: passed
+why_pass_or_block（为什么通过或阻断）: source_ref 为当前 adapter 分支，readback_status passed，can_use_as_fact true。
+readback_id: source_readback_map_fixture_20260616_passing
+retrieval_manifest_id: retrieval_manifest_dashvector_fixture
+source_path: codex_source/schema_contracts/00_schema_contracts_index.md
+source_ref: adapter/agent-service-toolkit-sandbox@0000000000000000000000000000000000000001
+line_range: "1-40"
+exact_excerpt: "This directory defines draft schema contracts and static fixtures"
+readback_status: passed
+conflict_found: false
+can_use_as_fact: true
+blocked_if:
+  - source missing
+  - source conflict
+  - stale source
+blocked: false

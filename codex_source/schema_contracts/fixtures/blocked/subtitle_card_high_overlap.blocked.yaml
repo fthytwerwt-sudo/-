@@ -1,0 +1,20 @@
+contract_name: subtitle_card_overlap_contract
+schema_version: 1
+fixture_only: true
+fixture_name（样例名称）: subtitle_card_high_overlap
+case_type（样例类型）: blocked
+purpose（用途）: "覆盖字幕卡片高重叠阻断。"
+input_summary（输入摘要）: "字幕和解释卡同时覆盖核心证据区域，关键页面不可读。"
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: "overlap_severity 为 high，且 repair_action 不可执行。"
+sample:
+  subtitle_region: center_bottom
+  card_region: center_overlay
+  evidence_region: center_prompt_result_area
+  overlap_severity: high
+  repair_action: blocked_unrepairable_without_layout_change
+  blocked_if_high_severity_overlap: true
+  blocked: true
+  blocked_reasons:
+    - subtitle_card_high_overlap
+    - evidence_region_unreadable

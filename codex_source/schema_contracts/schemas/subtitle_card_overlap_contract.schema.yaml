@@ -1,0 +1,39 @@
+contract_name: subtitle_card_overlap_contract
+version: 1
+status: draft_contract_only
+project_route: video_factory
+purpose: "约束字幕、卡片和核心证据区域的空间关系，防止文字层遮挡关键 UI、数据、按钮或画面证据。"
+owner_layer: aesthetic_editing_flow
+required_field_names:
+  - subtitle_region
+  - card_region
+  - evidence_region
+  - overlap_severity
+  - repair_action
+  - blocked_if_high_severity_overlap
+required_fields:
+  subtitle_region: "字幕区域，至少包含位置、尺寸或屏幕区域描述。"
+  card_region: "卡片区域，至少包含位置、尺寸或屏幕区域描述。"
+  evidence_region: "核心证据区域，必须说明被保护的 UI / 数据 / 文本 / 图像范围。"
+  overlap_severity: "重叠严重程度，可为 none / low / medium / high。"
+  repair_action: "修复动作，例如移动字幕、改卡片时段、拆成独立卡片、阻断。"
+  blocked_if_high_severity_overlap: "high severity 重叠无法修复时必须阻断。"
+allowed_overlap_severity:
+  - none
+  - low
+  - medium
+  - high
+hard_rules:
+  high_severity_overlap_allowed: false
+  evidence_region_must_remain_readable: true
+  runtime_write_allowed: false
+blocked_if:
+  - overlap_severity_high
+  - evidence_region_unreadable
+  - repair_action_missing
+  - subtitle_card_three_layer_text_collision
+fixtures_required:
+  passing:
+    - fixtures/passing/subtitle_card_overlap_contract.passing.yaml
+  blocked:
+    - fixtures/blocked/subtitle_card_high_overlap.blocked.yaml

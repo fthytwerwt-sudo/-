@@ -1,0 +1,23 @@
+contract_name: RetrievalManifest
+schema_version: "0.2"
+fixture_only: true
+fixture_name（样例名称）: retrieval_manifest_dashvector_fixture.passing
+case_type（样例类型）: passing
+purpose（用途）: 验证 DashVector 主路线检索结果可转换为包含 source_path / chunk_id / source_readback_required 的检索清单。
+input_summary（输入摘要）: DashVector fixture 返回当前仓库 schema contract source chunk。
+expected_result（预期结果）: passed
+why_pass_or_block（为什么通过或阻断）: provider 为 DashVector，metadata 完整，source_readback_required 为 true，gap_status 为 none。
+provider: DashVector
+query: "contract schema phase required source_readback"
+source_path: codex_source/schema_contracts/00_schema_contracts_index.md
+source_id: schema_contracts_index
+chunk_id: schema_contracts_index_chunk_001
+page_or_line_range: "1-40"
+content_hash: hash_fixture_dashvector_001
+commit_sha: "0000000000000000000000000000000000000001"
+score: 0.98
+authority_level: current_repo_source
+status_label: current
+source_readback_required: true
+gap_status: none
+blocked: false

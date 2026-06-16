@@ -1,0 +1,27 @@
+contract_name: editing_execution_contract
+schema_version: 1
+fixture_only: true
+fixture_name（样例名称）: editing_execution_contract_passing
+case_type（样例类型）: passing
+purpose（用途）: "证明剪辑执行输入、输出、审片包和完成真实性检查齐全时，可以进入候选片待人工复审口径。"
+input_summary（输入摘要）: "锁定文案、line_group 时间线映射、TTS 韵律锚点、卡片位置、素材证据、素材台账和数据目标锚点均存在。"
+expected_result（预期结果）: pass
+why_pass_or_block（为什么通过或阻断）: "所有必需输入与必需输出齐全，最终状态只到人工复审候选，不推进发送或内容最终判断。"
+sample:
+  locked_copy_contract: present
+  script_to_timeline_map: line_group_level
+  tts_prosody_anchor_map: present
+  card_placement_decision: present
+  material_evidence_contract: present
+  material_usage_ledger: present
+  data_goal_anchor: present
+  outputs:
+    timeline: present
+    subtitle: present
+    audio: present
+    cards: present
+    review_pack: present
+    validation_report: present
+    completion_truth_check: present
+  final_state: publish_candidate_ready_for_human_review
+  blocked: false

@@ -1,0 +1,21 @@
+contract_name: RuntimeMemoryBoundary
+schema_version: "0.1"
+fixture_only: true
+fixture_name（样例名称）: runtime_memory_boundary.blocked_repo_fact_replacement
+case_type（样例类型）: blocked
+purpose（用途）: 覆盖 memory store 试图替代 GitHub / repo 文件事实的阻断场景。
+input_summary（输入摘要）: memory 声称 runtime 状态 enabled，且与 latest.md 当前事实冲突。
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: Git / repo / codex_log 事实优先，memory 不可作项目事实源。
+memory_boundary_id: runtime_memory_boundary_fixture_20260616_repo_fact_blocked
+allowed_memory_use: [thread_state, non_authoritative_cache]
+forbidden_memory_use: [project_fact_source, operation_records_replacement, current_data_goal_anchor_replacement, review_loop_replacement, GitHub_repo_fact_replacement]
+repo_facts_win: false
+authoritative_sources: [Git_repo, codex_log, review_loop]
+memory_can_replace_repo_facts: true
+blocked_if:
+  - memory replaces repo facts
+blocked: true
+blocked_reasons:
+  - memory_attempted_repo_fact_replacement
+resume_policy: "Read repo source and discard memory fact claim."

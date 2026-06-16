@@ -1,0 +1,19 @@
+contract_name: media_probe_contract
+schema_version: 1
+fixture_only: true
+fixture_name（样例名称）: media_probe_contract_passing
+case_type（样例类型）: passing
+purpose（用途）: "证明媒体探针字段齐全且媒体有效。"
+input_summary（输入摘要）: "视频存在、有音频、非静音、有字幕、分辨率和时长有效、解码通过。"
+expected_result（预期结果）: pass
+why_pass_or_block（为什么通过或阻断）: "所有媒体基础字段均为有效状态。"
+sample:
+  video_exists: true
+  audio_present: true
+  non_silent: true
+  subtitle_present: true
+  resolution: 1920x1080
+  duration: "00:01:12.000"
+  decode_passed: true
+  blocked_if_media_invalid: true
+  blocked: false

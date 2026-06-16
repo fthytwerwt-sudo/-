@@ -1,0 +1,22 @@
+contract_name: ServiceContractNoWrite
+schema_version: "0.1"
+fixture_only: true
+fixture_name（样例名称）: service_contract_no_write_attempt_write.blocked
+case_type（样例类型）: blocked
+purpose（用途）: 覆盖 service 尝试写文件的阻断场景。
+input_summary（输入摘要）: service action 包含 write_repo。
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: service 只能 route / retrieve / validate / block / interrupt / handoff。
+service_contract_id: service_contract_no_write_fixture_20260616_attempt_write
+allowed_actions: [route, validate, write_repo]
+forbidden_actions: [write_repo, commit, push, edit_main, enable_runtime_status, call_external_api_without_authorization]
+active_write_executor: codex
+service_can_write_repo: true
+external_api_authorized: false
+output_must_be_handoff: false
+blocked_if:
+  - service attempts write_repo
+blocked: true
+blocked_reasons:
+  - service_attempted_write_repo
+resume_policy: "Convert service output into no-write handoff for Codex."

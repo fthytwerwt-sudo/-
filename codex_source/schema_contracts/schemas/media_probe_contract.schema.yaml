@@ -1,0 +1,42 @@
+contract_name: media_probe_contract
+version: 1
+status: draft_contract_only
+project_route: video_factory
+purpose: "约束媒体探针必须确认视频存在、音频非静音、字幕存在、分辨率和时长有效、解码通过。"
+owner_layer: quality_review_flow
+required_field_names:
+  - video_exists
+  - audio_present
+  - non_silent
+  - subtitle_present
+  - resolution
+  - duration
+  - decode_passed
+  - blocked_if_media_invalid
+required_fields:
+  video_exists: "视频文件是否存在。"
+  audio_present: "是否有音频轨。"
+  non_silent: "音频是否非静音。"
+  subtitle_present: "是否有字幕或可核验字幕层。"
+  resolution: "分辨率。"
+  duration: "时长。"
+  decode_passed: "是否解码通过。"
+  blocked_if_media_invalid: "媒体缺失、静音、无字幕、分辨率 / 时长无效或解码失败时阻断。"
+hard_rules:
+  silent_video_as_candidate_allowed: false
+  subtitle_missing_as_candidate_allowed: false
+  decode_failure_allowed: false
+  runtime_write_allowed: false
+blocked_if:
+  - video_missing
+  - audio_missing
+  - audio_silent
+  - subtitle_missing
+  - resolution_invalid
+  - duration_invalid
+  - decode_failed
+fixtures_required:
+  passing:
+    - fixtures/passing/media_probe_contract.passing.yaml
+  blocked:
+    - fixtures/blocked/media_probe_invalid.blocked.yaml

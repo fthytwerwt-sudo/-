@@ -1,0 +1,25 @@
+contract_name: GraphRuntimeAdapter
+schema_version: "0.1"
+fixture_only: true
+fixture_name（样例名称）: graph_runtime_adapter.blocked_completed_without_truth_check
+case_type（样例类型）: blocked
+purpose（用途）: 覆盖 graph 输出 completed 但没有 completion_truth_check 的阻断场景。
+input_summary（输入摘要）: graph 输出 completed=true，但未运行 completion_truth_check_node。
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: completed claim 前必须检查必交付物、source_readback、状态推进和 Git 同步。
+graph_id: graph_runtime_adapter_fixture_20260616_blocked_completed_without_truth_check
+workflow_route_decision: quality_review_flow
+allowed_nodes: [route, retrieve, source_readback, handoff]
+forbidden_nodes: [write_repo, commit, push, edit_main, enable_runtime_status, promote_content_status, call_external_api]
+input_contract:
+  source_readback_required: true
+output_contract:
+  attempted_claim: completed
+source_readback_required: true
+executor_handoff_required: true
+runtime_write_allowed: false
+completion_truth_check_required: false
+blocked: true
+blocked_reasons:
+  - completed_claim_without_completion_truth_check
+resume_policy: "Run completion_truth_check_node before any completed claim."

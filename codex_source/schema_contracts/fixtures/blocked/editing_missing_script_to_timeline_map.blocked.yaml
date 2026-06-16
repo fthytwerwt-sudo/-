@@ -1,0 +1,16 @@
+contract_name: editing_execution_contract
+schema_version: 1
+fixture_only: true
+fixture_name（样例名称）: editing_missing_script_to_timeline_map
+case_type（样例类型）: blocked
+purpose（用途）: "覆盖缺文案到时间线映射时必须阻断。"
+input_summary（输入摘要）: "锁定文案存在，但 script_to_timeline_map 缺失，无法证明逐句画面承接。"
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: "缺必需输入，不能进入剪辑执行或候选片收口。"
+sample:
+  locked_copy_contract: present
+  script_to_timeline_map: missing
+  material_evidence_contract: present
+  blocked: true
+  blocked_reasons:
+    - missing_script_to_timeline_map
