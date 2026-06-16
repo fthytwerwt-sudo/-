@@ -1,5 +1,33 @@
 # Latest
 
+## 20260617｜Branch-Local Runtime Service Probe
+
+```yaml
+task_result.status（任务结果状态）: branch_local_runtime_service_probe_completed（分支内运行时 / 服务探测完成）
+project_route（项目路由）: video_factory（视频工厂）
+branch（分支）: adapter/agent-service-toolkit-sandbox
+execution_permission（执行权限）: branch_local_runtime_service_probe_only（只允许分支内运行时 / 服务探测）
+runtime_entry（运行时入口）: codex_source/adapter_integration/runtime_entry.py
+service_boundary（服务边界）: codex_source/adapter_integration/service_boundary.py
+probe_script（探测脚本）: codex_source/adapter_integration/runtime_service_probe.py
+generated_report（生成报告）: codex_log/framework_adapter/20260617_runtime_service_probe_report.md
+samples_total（样例总数）: 6
+samples_runtime_routed（运行时已路由样例数）: 6
+service_boundary_passed（服务边界是否通过）: true（通过）
+repo_write_attempted（是否尝试写仓库）: false（否）
+runtime_enabled_for_production（是否启用生产运行时）: false（否）
+service_started_for_production（是否启动生产服务）: false（否）
+main_branch_modified（是否修改 main 主分支）: false（否）
+external_api_called（是否调用外部 API）: false（否）
+media_generated（是否生成媒体）: false（否）
+next_safe_step（下一步安全动作）: user_review_then_isolated_runtime_hardening_or_main_merge_candidate_review（用户回审后进入隔离运行时加固或 main 合并候选复审）
+```
+
+- `runtime_scope（运行时范围）`: 本轮只证明 adapter 分支内 runtime entry 与 in-process service boundary 可以调用候选链。
+- `service_boundary（服务边界）`: 仅允许 route / validate / block / handoff；写仓库、提交、推送、改 main、外部调用、媒体生成和正式完成声明均被阻断。
+- `status_boundary（状态边界）`: 不代表正式接入完成，不代表生产可用，不代表 main 可合并，不代表内容验证通过，不代表可发送。
+- `禁止推进`: 未修改 main，未启动生产服务，未开放公网端口，未安装依赖，未真实调用 DashVector，未运行 Chroma 入库，未调用 TTS，未读取真实媒体，未生成视频 / 音频 / 字幕 / 卡片。
+
 ## 20260617｜Round 2 Branch-Local Adapter Integration Candidate
 
 ```yaml

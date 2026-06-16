@@ -4,12 +4,15 @@
 handoff_date: 2026-06-17
 project_route: video_factory
 branch: adapter/agent-service-toolkit-sandbox
-current_stopline: adapter_branch_integration_candidate_ready_for_runtime_probe
-current_status: adapter_branch_integration_candidate_ready_for_runtime_probe
-meaning: branch-local no-render adapter candidate is ready for a later runtime probe request
-allowed_next_state: runtime_probe_design_or_runtime_probe_request_after_review
-runtime_enabled: false
-service_started: false
+current_status: branch_local_runtime_service_probe_completed
+current_stopline: branch_local_runtime_service_probe_completed
+meaning: branch-local runtime entry and in-process service boundary probe completed only
+next_allowed_state: isolated_runtime_hardening_or_main_merge_candidate_review_after_user_authorization
+runtime_entry: codex_source/adapter_integration/runtime_entry.py
+service_boundary: codex_source/adapter_integration/service_boundary.py
+runtime_service_probe: codex_source/adapter_integration/runtime_service_probe.py
+runtime_enabled_for_production: false
+service_started_for_production: false
 main_branch_modified: false
 external_api_called: false
 media_generated: false
@@ -23,19 +26,17 @@ send_ready: false
 
 ## handoff_summary
 
-- Six adapter candidate workflows are registered.
-- Six required sample inputs route to distinct workflows.
-- `editing_execution_workflow` runs only the existing no-render schema / fixture validation chain.
-- Completion truth guards block false completion claims and keep the stopline at branch-local candidate readiness.
+- Six sample inputs pass through the runtime entry.
+- The in-process service boundary allows route / validate / block / handoff only.
+- Forbidden service actions are blocked without repository writes, external calls, or media generation.
 
 ## next_safe_step
 
 ```yaml
-recommendation: review this branch-local candidate, then authorize a separate runtime probe prompt if desired
+recommendation: user_review_then_isolated_runtime_hardening_or_main_merge_candidate_review
 blocked_before_next_phase_if:
-  - branch is not adapter/agent-service-toolkit-sandbox
-  - no-render runner does not pass
-  - any runtime or service startup is requested without a new explicit task
+  - runtime requires dependency installation
+  - service requires persistent port or public network
   - any external API, TTS, Chroma ingestion, DashVector real call, or real media read is required
   - any middle state is claimed as final delivery
 ```

@@ -11,10 +11,12 @@ It provides:
 - contract validator that reuses the existing editing workflow no-render probe
 - no-render editing runner
 - completion truth guards for false completion claims
+- branch-local runtime entry and in-process service boundary probe
 - CLI runner:
 
 ```bash
 python3 -m codex_source.adapter_integration.no_render_adapter_runner --sample all
+python3 -m codex_source.adapter_integration.runtime_service_probe --sample all
 ```
 
 Boundaries:
@@ -26,7 +28,8 @@ Boundaries:
 - no real DashVector call
 - no Chroma ingestion
 - no runtime enablement
-- no service startup
+- no long-running service startup
+- no public port
 - no main branch modification
 
 The only valid stopline for this directory is:
