@@ -1,0 +1,35 @@
+{
+  "artifacts": {
+    "handoff": "codex_log/framework_adapter/current_adapter_integration_handoff.md",
+    "latest": "codex_log/latest.md",
+    "manifest": "codex_log/framework_adapter/20260617_adapter_integration_context_manifest.json",
+    "round2_report": "codex_log/framework_adapter/20260617_round2_branch_local_adapter_integration_candidate_report.md"
+  },
+  "boundaries": {
+    "chroma_ingestion_run": false,
+    "content_validation_status": "not_promoted",
+    "dashvector_real_call": false,
+    "external_api_called": false,
+    "main_branch_modified": false,
+    "media_generated": false,
+    "real_media_read": false,
+    "runtime_enabled": false,
+    "send_ready": false,
+    "service_started": false,
+    "tts_called": false
+  },
+  "branch": "adapter/agent-service-toolkit-sandbox",
+  "final_status": "adapter_branch_integration_candidate_ready_for_runtime_probe",
+  "manifest_date": "2026-06-17",
+  "must_run_validation": [
+    "python3 -m py_compile codex_source/adapter_integration/*.py",
+    "python3 codex_source/schema_contracts/probes/editing_workflow_no_render_probe.py",
+    "python3 -m codex_source.adapter_integration.no_render_adapter_runner --sample all",
+    "git diff --check"
+  ],
+  "project_route": "video_factory",
+  "registered_workflows": 6,
+  "samples_routed": 6,
+  "samples_total": 6,
+  "stopline": "adapter_branch_integration_candidate_ready_for_runtime_probe"
+}

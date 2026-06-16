@@ -1,5 +1,40 @@
 # Latest
 
+## 20260617｜Round 2 Branch-Local Adapter Integration Candidate
+
+```yaml
+task_result.status（任务结果状态）: adapter_branch_integration_candidate_ready_for_runtime_probe
+project_route（项目路由）: video_factory（视频工厂）
+branch（分支）: adapter/agent-service-toolkit-sandbox
+execution_permission（执行权限）: adapter_branch_candidate_no_render_only（只允许分支内无渲染候选接入）
+stopline（停止线）: adapter_branch_integration_candidate_ready_for_runtime_probe
+workflow_registry（工作流注册表）: six_required_workflows_registered（6 个必需 workflow 已注册）
+samples_total（样例总数）: 6
+samples_routed（已路由样例数）: 6
+editing_workflow_probe（剪辑 workflow 探测）: passed
+completion_truth_guards（完成真实性检查）: passed
+runtime_enabled（是否启用正式运行时）: false（未启用）
+service_started（是否启动服务）: false（未启动）
+main_branch_modified（是否修改 main 主分支）: false（未修改）
+external_api_called（是否调用外部 API）: false（未调用）
+media_generated（是否生成媒体）: false（未生成）
+tts_called（是否调用 TTS）: false（未调用）
+real_media_read（是否读取真实媒体）: false（未读取）
+Chroma_ingestion_run（是否运行 Chroma 入库）: false（未运行）
+DashVector_real_call（是否真实调用 DashVector）: false（未调用）
+content_validation_status（内容验证状态）: not_promoted（未推进）
+send_ready（可发送状态）: false（未开启）
+generated_report（生成报告）: codex_log/framework_adapter/20260617_round2_branch_local_adapter_integration_candidate_report.md
+current_handoff（当前交接）: codex_log/framework_adapter/current_adapter_integration_handoff.md
+context_manifest（上下文清单）: codex_log/framework_adapter/20260617_adapter_integration_context_manifest.json
+next_safe_step（下一步安全动作）: review_branch_candidate_then_separate_runtime_probe_request（先回审分支候选，再另行授权运行时探测）
+```
+
+- `candidate_scope（候选范围）`: 本轮只新增 branch-local adapter candidate 代码链，覆盖 workflow registry、TaskPacket、task cleaner、workflow router、contract validator、editing no-render runner、completion truth 和 no-render CLI。
+- `sample_route（样例路由）`: 6 个指定样例均已路由到对应候选 workflow；其中剪辑样例会复用既有剪辑 no-render probe。
+- `status_boundary（状态边界）`: 本轮不代表正式接入完成、不代表生产可用、不代表 main 可合并、不代表 runtime 已启用、不代表 service 已启动。
+- `禁止推进`: 未修改 main，未启用 runtime，未启动 FastAPI / Docker / Postgres / Streamlit，未运行 Chroma ingestion，未真实调用 DashVector，未调用外部 API，未调用 TTS，未读取真实媒体，未生成视频，未推进内容 / 发送 / 发布状态。
+
 ## 20260616｜Editing Workflow No-Render Probe
 
 ```yaml
