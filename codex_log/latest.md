@@ -1,5 +1,39 @@
 # Latest
 
+## 20260616｜Editing Workflow No-Render Probe
+
+```yaml
+task_result.status（任务结果状态）: editing_workflow_no_render_probe_completed（剪辑工作流无渲染探测已完成）
+project_route（项目路由）: video_factory（视频工厂）
+branch（分支）: adapter/agent-service-toolkit-sandbox
+execution_permission（执行权限）: no_render_probe_only（只允许无渲染探测）
+workflow_route_decision（workflow 归位判断）: mechanism_repair_flow（机制修补流）
+probe_script（探测脚本）: codex_source/schema_contracts/probes/editing_workflow_no_render_probe.py
+generated_report（生成报告）: codex_log/framework_adapter/20260616_editing_workflow_no_render_probe_report.md
+schema_contracts_passed（schema 契约检查是否通过）: true（通过）
+passing_path_passed（通过路径是否通过）: true（通过）
+blocked_cases_passed（阻断样例是否通过）: true（通过）
+forbidden_status_promotion_scan（禁止状态推进扫描）: passed（通过）
+runtime_enabled（是否启用正式运行时）: false（未启用）
+service_started（是否启动服务）: false（未启动）
+main_branch_modified（是否修改 main 主分支）: false（未修改）
+external_api_called（是否调用外部 API）: false（未调用）
+dependency_installed（是否安装依赖）: false（未安装）
+media_generated（是否生成媒体）: false（未生成）
+tts_called（是否调用 TTS）: false（未调用）
+real_media_read（是否读取真实媒体）: false（未读取）
+Chroma_ingestion_run（是否运行 Chroma 入库）: false（未运行）
+DashVector_real_call（是否真实调用 DashVector）: false（未调用）
+whole_codebase_adapter_readiness（整体代码接入就绪度）: not_claimed（未声称）
+next_safe_step（下一步安全动作）: user_chatgpt_review_then_controlled_integration_plan（用户 / ChatGPT 回审后，再制定受控接入计划）
+```
+
+- `probe_scope（探测范围）`: 本轮只读取剪辑 workflow schema 与静态 fixture，运行本地无渲染 probe，不安装依赖，不启动 runtime / service。
+- `passing_path（通过路径）`: 已验证锁定文案、逐句时间线、TTS 路由、卡片重叠、审片包、媒体探针和候选片 / 阻断收口的静态契约链。
+- `blocked_cases（阻断样例）`: 已覆盖缺文案到时间线映射、技术预览冒充完成、画面错位、字幕卡片高重叠、TTS 未授权降级、审片包缺失、媒体探针无效、候选片状态偷换 8 类阻断。
+- `status_boundary（状态边界）`: probe 通过不等于真实剪辑已执行，不等于视频已生成，不等于 TTS 已调用，不等于正式 runtime 已启用，不等于 service 可启动，不等于 main 可合并。
+- `禁止推进`: 未修改 main，未启用 runtime，未启动 FastAPI / Docker / Postgres / Streamlit，未运行 Chroma ingestion，未真实调用 DashVector，未调用外部 API，未安装依赖，未执行真实剪辑、视频、声音、视觉或发布状态推进。
+
 ## 20260616｜Workflow-First Pre-Integration Audit + Editing Contract Patch
 
 ```yaml

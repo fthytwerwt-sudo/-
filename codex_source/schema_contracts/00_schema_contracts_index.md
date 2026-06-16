@@ -149,6 +149,58 @@ status_boundary（状态边界）:
   - 本阶段不启动 service，不合并 main，不调用外部 API
 ```
 
+## 20260616｜Editing Workflow No-Render Probe
+
+```yaml
+schema_contract_index_update（schema 契约索引更新）:
+  phase（阶段）: editing_workflow_no_render_probe（剪辑工作流无渲染探测）
+  status（状态）: no_render_probe_passed（无渲染探测通过）
+  project_route（项目路由）: video_factory
+  branch（分支）: adapter/agent-service-toolkit-sandbox
+  probe_script（探测脚本）: probes/editing_workflow_no_render_probe.py
+  report（报告）: codex_log/framework_adapter/20260616_editing_workflow_no_render_probe_report.md
+  runtime_enabled（是否启用正式运行时）: false
+  service_started（是否启动服务）: false
+  media_generated（是否生成媒体）: false
+  external_api_called（是否调用外部 API）: false
+  main_branch_modified（是否修改 main）: false
+```
+
+本阶段新增剪辑 workflow 的本地无渲染 probe，用于验证 7 类剪辑契约家族和 15 个 passing / blocked fixture 能否形成可检查的静态链路。它不读取真实媒体、不调用 TTS、不调用 FFmpeg、不启动 service、不启用 runtime、不运行 Chroma 入库、不真实调用 DashVector。
+
+### 2C.1 probe_inputs（探测输入）
+
+| input family | files |
+|---|---|
+| `schemas` | `editing_execution_contract.schema.yaml`、`timeline_assembly_contract.schema.yaml`、`subtitle_card_overlap_contract.schema.yaml`、`tts_route_contract.schema.yaml`、`review_pack_contract.schema.yaml`、`media_probe_contract.schema.yaml`、`publish_candidate_or_blocked_contract.schema.yaml` |
+| `passing fixtures` | `editing_execution_contract.passing.yaml`、`timeline_assembly_contract.passing.yaml`、`subtitle_card_overlap_contract.passing.yaml`、`tts_route_contract.passing.yaml`、`review_pack_contract.passing.yaml`、`media_probe_contract.passing.yaml`、`publish_candidate_or_blocked_contract.passing.yaml` |
+| `blocked fixtures` | `editing_missing_script_to_timeline_map.blocked.yaml`、`editing_technical_preview_as_completed.blocked.yaml`、`timeline_visual_mismatch.blocked.yaml`、`subtitle_card_high_overlap.blocked.yaml`、`tts_fallback_unauthorized.blocked.yaml`、`review_pack_missing.blocked.yaml`、`media_probe_invalid.blocked.yaml`、`publish_candidate_state_promotion.blocked.yaml` |
+
+### 2C.2 probe_result（探测结果）
+
+```yaml
+probe_result（探测结果）:
+  schema_contracts_passed（schema 契约检查是否通过）: true
+  passing_path_passed（通过路径是否通过）: true
+  blocked_cases_passed（阻断样例是否通过）: true
+  blocked_case_count（阻断样例数量）: 8
+  forbidden_status_promotion_scan（禁止状态推进扫描）: passed
+```
+
+### 2C.3 status_boundary（状态边界）
+
+```yaml
+status_boundary（状态边界）:
+  - no-render probe 通过不等于真实剪辑已执行
+  - no-render probe 通过不等于视频已生成
+  - no-render probe 通过不等于 TTS 已调用
+  - no-render probe 通过不等于真实媒体探针已执行
+  - no-render probe 通过不等于 runtime 接入
+  - no-render probe 通过不等于 service 可启动
+  - no-render probe 通过不等于 main 可合并
+  - no-render probe 通过不等于整体代码接入已经就绪
+```
+
 ## 3. contract responsibilities
 
 | order | contract | responsibility | schema |
