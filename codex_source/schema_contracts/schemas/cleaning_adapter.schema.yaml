@@ -1,0 +1,118 @@
+contract_name: CleaningAdapter
+version: "0.1"
+status: draft
+project_route: video_factory
+purpose: "Define the pre-ingestion cleaning contract required before any document can enter retrieval fixtures, Chroma sandbox, or future DashVector adapter flow."
+required_steps:
+  - source_manifest_registration
+  - file_type_router
+  - safe_loader_selection
+  - secret_scan_before_ingestion
+  - content_normalization
+  - metadata_standardization
+  - deduplication
+  - chunking_policy
+  - chunk_quality_check
+  - source_readback_index
+  - retrieval_manifest_output
+required_field_names:
+  - cleaning_job_id
+  - source_manifest_registration
+  - file_type_router
+  - safe_loader_selection
+  - secret_scan_before_ingestion
+  - content_normalization
+  - metadata_standardization
+  - deduplication
+  - chunking_policy
+  - chunk_quality_check
+  - source_readback_index
+  - retrieval_manifest_output
+  - blocked_if
+required_fields:
+  cleaning_job_id:
+    type: string
+    required: true
+    description: "清洗任务编号；用于追踪清洗到检索清单输出的链路。"
+    blocked_if_missing: true
+  source_manifest_registration:
+    type: object
+    required: true
+    description: "源文件登记；必须记录 source_path、source_id、authority_level 和 status_label。"
+    blocked_if_missing: true
+  file_type_router:
+    type: string
+    required: true
+    description: "文件类型路由；未知类型不得强行加载。"
+    blocked_if_missing: true
+  safe_loader_selection:
+    type: string
+    required: true
+    description: "安全加载器选择；必须避免执行型或不受控解析器。"
+    blocked_if_missing: true
+  secret_scan_before_ingestion:
+    type: enum
+    required: true
+    allowed_values: [passed, blocked_secret_like_content_detected]
+    description: "入库前密钥扫描；发现 secret-like 内容必须阻断。"
+    blocked_if_missing: true
+  content_normalization:
+    type: string
+    required: true
+    description: "正文规范化；不能改变事实含义。"
+    blocked_if_missing: true
+  metadata_standardization:
+    type: object
+    required: true
+    description: "元数据标准化；必须保留 source_path、chunk_id、page_or_line_range。"
+    blocked_if_missing: true
+  deduplication:
+    type: object
+    required: true
+    description: "去重；重复 chunk 必须有记录。"
+    blocked_if_missing: true
+  chunking_policy:
+    type: object
+    required: true
+    description: "切片策略；必须能回指原文。"
+    blocked_if_missing: true
+  chunk_quality_check:
+    type: enum
+    required: true
+    allowed_values: [passed, blocked_missing_metadata, blocked_low_quality_chunk]
+    description: "切片质量检查；无 metadata 或低质量 chunk 必须阻断。"
+    blocked_if_missing: true
+  source_readback_index:
+    type: object
+    required: true
+    description: "原文回读索引；必须为后续 source_readback_map 提供定位。"
+    blocked_if_missing: true
+  retrieval_manifest_output:
+    type: object
+    required: true
+    description: "检索清单输出；清洗结果必须输出 retrieval_manifest 所需字段。"
+    blocked_if_missing: true
+  blocked_if:
+    type: list[string]
+    required: true
+    description: "阻断条件；安全读取失败、secret、metadata 缺失、unsupported parser 或 legacy override 必须阻断。"
+    blocked_if_missing: true
+blocked_if:
+  - source file cannot be read safely
+  - secret-like content detected before ingestion
+  - chunk metadata cannot preserve source readback
+  - document type requires unsupported parser
+  - legacy source tries to override current fact
+blocked_cases_required:
+  - secret-like content
+  - no metadata
+  - chunk missing source_path
+  - legacy gray_test overrides formal operation facts
+input_from: [source_manifest, local_fixture]
+output_to: [RetrievalManifest, SourceReadbackMap]
+blocked_if_missing: true
+must_not_do: [ingest_secret_like_content, drop_source_path, drop_chunk_id, let_legacy_source_override_current_fact]
+validation_notes:
+  - "Cleaning adapter is a contract and fixture layer only; it does not run Chroma ingestion."
+  - "Every chunk must preserve source_readback metadata before retrieval output."
+trace_fields: [cleaning_job_id, source_path, source_id, chunk_id, content_hash]

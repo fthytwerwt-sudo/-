@@ -1,0 +1,26 @@
+contract_name: GraphRuntimeAdapter
+schema_version: "0.1"
+fixture_only: true
+fixture_name（样例名称）: graph_runtime_adapter.blocked_runtime_write
+case_type（样例类型）: blocked
+purpose（用途）: 覆盖 graph 试图直接写仓库的阻断场景。
+input_summary（输入摘要）: graph 节点包含 write_repo，并试图修改 codex_log/latest.md。
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: runtime_write_allowed 必须为 false，写入只能交给 active_write_executor = codex。
+graph_id: graph_runtime_adapter_fixture_20260616_blocked_runtime_write
+workflow_route_decision: mechanism_repair_flow
+allowed_nodes: [route, retrieve, validate]
+forbidden_nodes: [write_repo, commit, push, edit_main, enable_runtime_status, promote_content_status, call_external_api]
+input_contract:
+  route_decision_required: true
+output_contract:
+  attempted_action: write_repo
+source_readback_required: true
+executor_handoff_required: true
+runtime_write_allowed: true
+completion_truth_check_required: true
+blocked: true
+blocked_reasons:
+  - runtime_write_allowed_true
+  - graph_attempted_direct_repo_write
+resume_policy: "Stop graph execution and convert output to write_executor_handoff for Codex."

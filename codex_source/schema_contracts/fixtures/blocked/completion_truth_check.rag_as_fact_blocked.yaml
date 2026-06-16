@@ -1,0 +1,29 @@
+contract_name: CompletionTruthCheckNode
+schema_version: "0.1"
+fixture_only: true
+fixture_name（样例名称）: completion_truth_check.rag_as_fact_blocked
+case_type（样例类型）: blocked
+purpose（用途）: 覆盖 RAG 摘要被写成事实的阻断场景。
+input_summary（输入摘要）: retrieval summary 未经过 source_readback，被用于完成声明。
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: RAG result is not fact，必须先 source_readback。
+truth_check_id: completion_truth_check_fixture_20260616_rag_as_fact
+user_goal_met: false
+required_outputs_exist: true
+source_readback_passed: false
+blocked_cases_checked: true
+forbidden_status_promotion_scan: passed
+runtime_not_falsely_enabled: true
+content_validation_not_falsely_promoted: true
+send_ready_not_falsely_promoted: true
+voice_validation_not_falsely_promoted: true
+visual_master_not_falsely_locked: true
+external_api_claim_verified: verified_no_external_api
+git_sync_verified: false
+completion_claim_allowed: false
+blocked_if:
+  - RAG result claimed as source fact
+blocked: true
+blocked_reasons:
+  - rag_result_claimed_as_fact_without_source_readback
+resume_policy: "Run source_readback_map and re-check."

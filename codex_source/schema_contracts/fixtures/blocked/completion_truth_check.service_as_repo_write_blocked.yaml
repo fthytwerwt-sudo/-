@@ -1,0 +1,29 @@
+contract_name: CompletionTruthCheckNode
+schema_version: "0.1"
+fixture_only: true
+fixture_name（样例名称）: completion_truth_check.service_as_repo_write_blocked
+case_type（样例类型）: blocked
+purpose（用途）: 覆盖 service 输出被写成仓库写入完成的阻断场景。
+input_summary（输入摘要）: service 返回 handoff，但报告声称 repo write completed。
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: service / runtime 不得直接写仓库，写入必须由 Codex 完成并 Git 验证。
+truth_check_id: completion_truth_check_fixture_20260616_service_as_repo_write
+user_goal_met: false
+required_outputs_exist: true
+source_readback_passed: true
+blocked_cases_checked: true
+forbidden_status_promotion_scan: passed
+runtime_not_falsely_enabled: true
+content_validation_not_falsely_promoted: true
+send_ready_not_falsely_promoted: true
+voice_validation_not_falsely_promoted: true
+visual_master_not_falsely_locked: true
+external_api_claim_verified: verified_no_external_api
+git_sync_verified: false
+completion_claim_allowed: false
+blocked_if:
+  - service output claimed as repo write
+blocked: true
+blocked_reasons:
+  - service_output_claimed_as_repo_write
+resume_policy: "Convert service result to Codex write_executor_handoff."

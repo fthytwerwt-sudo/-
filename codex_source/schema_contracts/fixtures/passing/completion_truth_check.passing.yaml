@@ -1,17 +1,41 @@
 contract_name: CompletionTruthCheck
 schema_version: "0.1"
 fixture_only: true
+fixture_name（样例名称）: completion_truth_check.passing
+case_type（样例类型）: passing
+purpose（用途）: 验证完成真实性检查在必交付物、source_readback、状态扫描和 Git 同步均通过时允许完成声明。
+input_summary（输入摘要）: schema / fixture 静态验证任务完成，未启 runtime，未推进内容 / 声音 / 视觉 / 发布状态。
+expected_result（预期结果）: passed
+why_pass_or_block（为什么通过或阻断）: 必交付物存在，source_readback 通过，禁止状态推进扫描通过，Git 同步可验证。
 task_id: vf_schema_contract_fixture_20260614_001
+truth_check_id: completion_truth_check_fixture_20260616_passing
+user_goal_met: true
+required_outputs_exist: true
+blocked_cases_checked: true
 technical_validation: passed
 content_validation_boundary_check: not_advanced
 forbidden_status_promotion_check: passed_no_forbidden_status_promoted
+forbidden_status_promotion_scan: passed
 source_readback_passed: true
+runtime_not_falsely_enabled: true
+content_validation_not_falsely_promoted: true
+send_ready_not_falsely_promoted: true
+voice_validation_not_falsely_promoted: true
+visual_master_not_falsely_locked: true
+external_api_claim_verified: verified_no_external_api
+git_sync_verified: true
 validation_artifacts:
   - git diff --check
   - static_schema_presence_check
   - fixture_required_field_check
 remaining_blockers: []
 completion_claim_allowed: true
+blocked_if:
+  - completed claimed without required outputs
+  - technical success claimed as content success
+  - sandbox success claimed as formal runtime
+  - RAG result claimed as source fact
+  - service output claimed as repo write
 not_allowed_completion_claims:
   - runtime_enabled
   - sandbox_created
@@ -22,3 +46,4 @@ not_allowed_completion_claims:
   - visual_master_locked
   - publish_candidate_ready
   - deepseek_real_participation
+blocked: false

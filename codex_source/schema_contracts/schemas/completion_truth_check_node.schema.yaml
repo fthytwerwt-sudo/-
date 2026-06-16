@@ -1,0 +1,144 @@
+contract_name: CompletionTruthCheckNode
+version: "0.1"
+status: draft
+project_route: video_factory
+purpose: "Define the graph/service completion truth check node that prevents false completion, false runtime enablement, or status promotion before final reporting."
+required_checks:
+  - user_goal_met
+  - required_outputs_exist
+  - source_readback_passed
+  - blocked_cases_checked
+  - forbidden_status_promotion_scan
+  - runtime_not_falsely_enabled
+  - content_validation_not_falsely_promoted
+  - send_ready_not_falsely_promoted
+  - voice_validation_not_falsely_promoted
+  - visual_master_not_falsely_locked
+  - external_api_claim_verified
+  - git_sync_verified
+required_field_names:
+  - truth_check_id
+  - user_goal_met
+  - required_outputs_exist
+  - source_readback_passed
+  - blocked_cases_checked
+  - forbidden_status_promotion_scan
+  - runtime_not_falsely_enabled
+  - content_validation_not_falsely_promoted
+  - send_ready_not_falsely_promoted
+  - voice_validation_not_falsely_promoted
+  - visual_master_not_falsely_locked
+  - external_api_claim_verified
+  - git_sync_verified
+  - completion_claim_allowed
+  - blocked_if
+required_fields:
+  truth_check_id:
+    type: string
+    required: true
+    description: "完成真实性检查编号；用于追踪完成声明前的 truth check。"
+    blocked_if_missing: true
+  user_goal_met:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "用户目标是否达成；未达成不得声明 completed。"
+    blocked_if_missing: true
+  required_outputs_exist:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "必交付物是否存在；缺交付物不得声明完成。"
+    blocked_if_missing: true
+  source_readback_passed:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "原文回读是否通过；RAG 摘要不能替代。"
+    blocked_if_missing: true
+  blocked_cases_checked:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "阻断样例是否检查；未检查不得声明完成。"
+    blocked_if_missing: true
+  forbidden_status_promotion_scan:
+    type: enum
+    required: true
+    allowed_values: [passed, failed]
+    description: "禁止状态推进扫描；失败时必须阻断。"
+    blocked_if_missing: true
+  runtime_not_falsely_enabled:
+    type: boolean
+    required: true
+    allowed_values: [true]
+    description: "runtime 未被误写启用；必须为 true。"
+    blocked_if_missing: true
+  content_validation_not_falsely_promoted:
+    type: boolean
+    required: true
+    allowed_values: [true]
+    description: "内容验证未被误推进；必须为 true。"
+    blocked_if_missing: true
+  send_ready_not_falsely_promoted:
+    type: boolean
+    required: true
+    allowed_values: [true]
+    description: "send_ready 未被误推进；必须为 true。"
+    blocked_if_missing: true
+  voice_validation_not_falsely_promoted:
+    type: boolean
+    required: true
+    allowed_values: [true]
+    description: "声音验证未被误推进；必须为 true。"
+    blocked_if_missing: true
+  visual_master_not_falsely_locked:
+    type: boolean
+    required: true
+    allowed_values: [true]
+    description: "视觉母版未被误锁定；必须为 true。"
+    blocked_if_missing: true
+  external_api_claim_verified:
+    type: enum
+    required: true
+    allowed_values: [not_applicable, verified_no_external_api, verified_authorized_call, failed_unverified_claim]
+    description: "外部 API 声称是否已验证；本轮应为 verified_no_external_api 或 not_applicable。"
+    blocked_if_missing: true
+  git_sync_verified:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "Git 同步是否已验证；需要 commit/push 的任务必须远端回读。"
+    blocked_if_missing: true
+  completion_claim_allowed:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "是否允许完成声明；任何阻断场景必须为 false。"
+    blocked_if_missing: true
+  blocked_if:
+    type: list[string]
+    required: true
+    description: "阻断条件；缺必交付物、技术冒充内容、sandbox 冒充 runtime、RAG 冒充事实、service 冒充写入都必须阻断。"
+    blocked_if_missing: true
+blocked_if:
+  - completed claimed without required outputs
+  - technical success claimed as content success
+  - sandbox success claimed as formal runtime
+  - RAG result claimed as source fact
+  - service output claimed as repo write
+blocked_cases_required:
+  - sandbox success is claimed as formal runtime
+  - technical validation is claimed as content validation
+  - file existence is claimed as task completion
+  - RAG summary is claimed as source fact
+  - service output is claimed as repo write
+input_from: [GraphRuntimeAdapter, SourceReadbackMap, ServiceContractNoWrite, RuntimeMemoryBoundary, validation_artifacts]
+output_to: [latest.md, final_report, next_phase_decision]
+blocked_if_missing: true
+must_not_do: [claim_completion_without_required_outputs, promote_content_status, claim_sandbox_as_runtime, claim_rag_as_fact, claim_service_output_as_repo_write]
+validation_notes:
+  - "Technical success is not content success."
+  - "Sandbox success is not formal runtime enablement."
+  - "A file existing is not enough to claim the user's goal is met."
+trace_fields: [truth_check_id, source_path, commit_sha, validation_artifacts]

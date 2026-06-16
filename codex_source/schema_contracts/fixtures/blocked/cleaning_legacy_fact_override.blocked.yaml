@@ -1,0 +1,40 @@
+contract_name: CleaningAdapter
+schema_version: "0.1"
+fixture_only: true
+fixture_name（样例名称）: cleaning_legacy_fact_override.blocked
+case_type（样例类型）: blocked
+purpose（用途）: 覆盖 legacy gray_test 旧口径试图覆盖正式运营事实的阻断场景。
+input_summary（输入摘要）: 旧 gray_test 文档被标为 current，并试图覆盖 formal_operation_active。
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: legacy source 只能作 historical_reference，不能覆盖当前正式运营事实。
+cleaning_job_id: cleaning_adapter_fixture_20260616_legacy_override
+source_manifest_registration:
+  source_path: codex_log/current_gray_test_target.md
+  source_id: legacy_gray_test_target
+  authority_level: historical_reference
+  status_label: historical_reference
+file_type_router: markdown
+safe_loader_selection: safe_text_loader
+secret_scan_before_ingestion: passed
+content_normalization: preserve_semantics
+metadata_standardization:
+  source_path: codex_log/current_gray_test_target.md
+  chunk_id: legacy_gray_test_chunk_001
+  page_or_line_range: "1-20"
+deduplication:
+  duplicate_found: false
+chunking_policy:
+  chunk_size_policy: source_readback_preserving
+chunk_quality_check: passed
+source_readback_index:
+  source_path: codex_log/current_gray_test_target.md
+  line_range: "1-20"
+retrieval_manifest_output:
+  provider: local_fixture
+  status_label: current
+blocked_if:
+  - legacy source tries to override current fact
+blocked: true
+blocked_reasons:
+  - legacy_gray_test_attempted_to_override_formal_operation_fact
+resume_policy: "Mark legacy source as historical_reference and require current source readback."

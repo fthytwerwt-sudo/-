@@ -1,0 +1,22 @@
+contract_name: ServiceContractNoWrite
+schema_version: "0.1"
+fixture_only: true
+fixture_name（样例名称）: service_contract_no_write.passing
+case_type（样例类型）: passing
+purpose（用途）: 验证 FastAPI/service contract 只输出 no-write handoff。
+input_summary（输入摘要）: service 只执行 route / validate / handoff，不启动真实服务，不写仓库。
+expected_result（预期结果）: passed
+why_pass_or_block（为什么通过或阻断）: service_can_write_repo 为 false，active_write_executor 为 codex，输出必须是 handoff。
+service_contract_id: service_contract_no_write_fixture_20260616_passing
+allowed_actions: [route, retrieve, validate, block, interrupt, handoff]
+forbidden_actions: [write_repo, commit, push, edit_main, enable_runtime_status, call_external_api_without_authorization]
+active_write_executor: codex
+service_can_write_repo: false
+external_api_authorized: false
+output_must_be_handoff: true
+blocked_if:
+  - service attempts write_repo
+  - service attempts commit or push
+  - service outputs runtime_enabled true
+  - service calls external API without authorization
+blocked: false

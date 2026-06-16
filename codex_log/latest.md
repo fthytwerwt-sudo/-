@@ -1,5 +1,44 @@
 # Latest
 
+## 20260616｜Contract Schema Phase Completion
+
+```yaml
+task_result.status（任务结果状态）: contract_schema_phase_completed
+project_route（项目路由）: video_factory
+branch（分支）: adapter/agent-service-toolkit-sandbox
+execution_permission（执行权限）: contracts_schemas_fixtures_only
+goal_mode（Goal 模式）: active_for_contract_schema_phase
+user_decision_record_created（用户决策记录是否创建）: true
+approved_contract_scope_created（已确认契约范围是否创建）: true
+schema_families_created（schema 家族是否创建）: true
+fixture_families_created（fixture 家族是否创建）: true
+schema_contract_index_updated（schema 契约索引是否更新）: true
+validation_report_created（验证报告是否创建）: true
+runtime_enabled（是否启用正式运行时）: false
+main_branch_modified（是否修改 main）: false
+external_api_called（是否调用外部 API）: false
+dependency_installed（是否安装依赖）: false
+service_started（是否启动服务）: false
+chroma_ingestion_run（是否运行 Chroma 入库）: false
+DashVector_real_call（是否真实调用 DashVector）: false
+runtime_code_written（是否写 runtime 代码）: false
+active_write_executor（当前激活写入执行器）: codex
+deepseek_triggered（是否触发 DeepSeek）: false
+not_deepseek_conclusion（是否不是 DeepSeek 结论）: true
+generated_reports（生成报告）:
+  - codex_log/framework_adapter/20260616_user_decision_record_and_contract_scope.md
+  - codex_log/framework_adapter/20260616_contract_schema_phase_validation_report.md
+next_safe_step（下一步安全动作）: no_service_graph_probe_after_user_chatgpt_review
+```
+
+- `user_decision_record（用户决策记录）`: 已落地 7 个确认决策：`adapter_infrastructure_flow` 继续只做 candidate；Chroma 只作 sandbox；FastAPI 只做 no-write probe；Streamlit / GitHub MCP 默认禁用；runtime memory 不替代仓库事实；Codex Goal Mode 只允许分阶段执行。
+- `approved_contract_scope（已确认契约范围）`: 已确认并落地 `graph_runtime_adapter / retrieval_manifest / source_readback_map / cleaning_adapter / service_contract_no_write / runtime_memory_boundary / completion_truth_check_node` 7 类契约范围。
+- `schema_families（schema 家族）`: 新增 6 个 schema 文件，更新 `retrieval_manifest.schema.yaml`；更新后 schema 总数为 16。
+- `fixture_families（fixture 家族）`: 新增 34 个 fixture，更新 2 个历史 fixture；更新后 passing fixture 总数为 16，blocked fixture 总数为 36。本轮目标检查覆盖 8 个 passing fixture 与 27 个 blocked fixture。
+- `schema_contract_index（schema 契约索引）`: 已更新 20260616 adapter contract phase，明确 schema 落地不等于 runtime 接入、fixture 通过不等于服务可用、Chroma fixture 不等于替代 DashVector。
+- `validation_report（验证报告）`: YAML 解析通过，必填字段检查通过，passing / blocked fixture 检查通过，secret scan 通过，禁止路径扫描通过，无 runtime 代码写入。
+- `禁止推进`: 未启用 runtime，未启动 FastAPI / Docker / Postgres / Streamlit，未运行 Chroma ingestion，未真实调用 DashVector，未调用外部 API，未安装依赖，未修改 main，未推进视频 / 声音 / 视觉 / 发布 / 发送状态。
+
 ## 20260616｜Agent Service Toolkit Full Integration Master Plan
 
 ```yaml

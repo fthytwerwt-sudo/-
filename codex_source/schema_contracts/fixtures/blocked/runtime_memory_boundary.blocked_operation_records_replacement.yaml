@@ -1,0 +1,22 @@
+contract_name: RuntimeMemoryBoundary
+schema_version: "0.1"
+fixture_only: true
+fixture_name（样例名称）: runtime_memory_boundary.blocked_operation_records_replacement
+case_type（样例类型）: blocked
+purpose（用途）: 覆盖 memory store 试图替代 operation_records 的阻断场景。
+input_summary（输入摘要）: memory cache 声称运营记录已更新，但 review_loop 未回读。
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: operation_records 只能由 review_loop / repo 文件事实确认。
+memory_boundary_id: runtime_memory_boundary_fixture_20260616_operation_records_blocked
+allowed_memory_use: [thread_state, non_authoritative_cache]
+forbidden_memory_use: [project_fact_source, operation_records_replacement, current_data_goal_anchor_replacement, review_loop_replacement, GitHub_repo_fact_replacement]
+repo_facts_win: true
+authoritative_sources: [Git_repo, review_loop]
+memory_can_replace_repo_facts: false
+memory_attempted_operation_records_replacement: true
+blocked_if:
+  - memory replaces operation_records
+blocked: true
+blocked_reasons:
+  - memory_attempted_operation_records_replacement
+resume_policy: "Read review_loop operation records before any data claim."

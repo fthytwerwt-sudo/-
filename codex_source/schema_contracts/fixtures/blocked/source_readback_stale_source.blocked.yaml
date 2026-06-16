@@ -1,0 +1,24 @@
+contract_name: SourceReadbackMap
+schema_version: "0.1"
+fixture_only: true
+fixture_name（样例名称）: source_readback_stale_source.blocked
+case_type（样例类型）: blocked
+purpose（用途）: 覆盖引用旧分支 / 旧口径作为当前事实的阻断场景。
+input_summary（输入摘要）: source_ref 指向 legacy gray_test old context。
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: 旧口径只能作历史参考，不能覆盖正式运营事实或当前 adapter branch 事实。
+readback_id: source_readback_map_fixture_20260616_stale
+retrieval_manifest_id: retrieval_manifest_legacy_source
+source_path: 归档_archive/旧口径_old_context/example.md
+source_ref: legacy_gray_test_old_context
+line_range: "1-20"
+exact_excerpt: "legacy gray_test status"
+readback_status: stale_source
+conflict_found: true
+can_use_as_fact: false
+blocked_if:
+  - old branch or old context is used as current fact
+blocked: true
+blocked_reasons:
+  - stale_source_attempted_as_current_fact
+resume_policy: "Use current branch source or mark as historical_reference only."

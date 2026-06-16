@@ -1,0 +1,23 @@
+contract_name: ServiceContractNoWrite
+schema_version: "0.1"
+fixture_only: true
+fixture_name（样例名称）: service_contract_no_write_attempt_commit_push.blocked
+case_type（样例类型）: blocked
+purpose（用途）: 覆盖 service 尝试 commit / push 的阻断场景。
+input_summary（输入摘要）: service output 包含 commit 和 push action。
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: Git 收尾必须由 Codex path-limited stage/commit/push/readback 执行。
+service_contract_id: service_contract_no_write_fixture_20260616_attempt_commit_push
+allowed_actions: [route, validate, commit, push]
+forbidden_actions: [write_repo, commit, push, edit_main, enable_runtime_status, call_external_api_without_authorization]
+active_write_executor: codex
+service_can_write_repo: false
+external_api_authorized: false
+output_must_be_handoff: false
+blocked_if:
+  - service attempts commit or push
+blocked: true
+blocked_reasons:
+  - service_attempted_commit
+  - service_attempted_push
+resume_policy: "Remove git actions from service contract."

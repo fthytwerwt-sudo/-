@@ -1,0 +1,29 @@
+contract_name: CompletionTruthCheckNode
+schema_version: "0.1"
+fixture_only: true
+fixture_name（样例名称）: completion_truth_check.file_exists_as_done_blocked
+case_type（样例类型）: blocked
+purpose（用途）: 覆盖文件存在被写成任务完成的阻断场景。
+input_summary（输入摘要）: schema file exists，但 validation report / latest / git sync 缺失。
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: 文件存在不是任务完成，必须满足必交付清单和验证。
+truth_check_id: completion_truth_check_fixture_20260616_file_exists_as_done
+user_goal_met: false
+required_outputs_exist: false
+source_readback_passed: true
+blocked_cases_checked: false
+forbidden_status_promotion_scan: passed
+runtime_not_falsely_enabled: true
+content_validation_not_falsely_promoted: true
+send_ready_not_falsely_promoted: true
+voice_validation_not_falsely_promoted: true
+visual_master_not_falsely_locked: true
+external_api_claim_verified: verified_no_external_api
+git_sync_verified: false
+completion_claim_allowed: false
+blocked_if:
+  - completed claimed without required outputs
+blocked: true
+blocked_reasons:
+  - file_exists_but_required_outputs_missing
+resume_policy: "Generate validation report, latest update, commit, push, and remote HEAD readback."

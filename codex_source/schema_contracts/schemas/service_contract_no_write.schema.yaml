@@ -1,0 +1,91 @@
+contract_name: ServiceContractNoWrite
+version: "0.1"
+status: draft
+project_route: video_factory
+purpose: "Define the FastAPI/service boundary for future probes: services may route, retrieve, validate, block, interrupt, and hand off, but never write the repo."
+allowed_actions:
+  - route
+  - retrieve
+  - validate
+  - block
+  - interrupt
+  - handoff
+forbidden_actions:
+  - write_repo
+  - commit
+  - push
+  - edit_main
+  - enable_runtime_status
+  - call_external_api_without_authorization
+required_field_names:
+  - service_contract_id
+  - allowed_actions
+  - forbidden_actions
+  - active_write_executor
+  - service_can_write_repo
+  - external_api_authorized
+  - output_must_be_handoff
+  - blocked_if
+required_fields:
+  service_contract_id:
+    type: string
+    required: true
+    description: "服务契约编号；用于区分未来 no-write service probe。"
+    blocked_if_missing: true
+  allowed_actions:
+    type: list[string]
+    required: true
+    allowed_values: [route, retrieve, validate, block, interrupt, handoff]
+    description: "允许动作；service 只可做无写入动作。"
+    blocked_if_missing: true
+  forbidden_actions:
+    type: list[string]
+    required: true
+    allowed_values: [write_repo, commit, push, edit_main, enable_runtime_status, call_external_api_without_authorization]
+    description: "禁止动作；service 不得写仓库、提交、推送、改 main、推进状态或未授权调用外部 API。"
+    blocked_if_missing: true
+  active_write_executor:
+    type: enum
+    required: true
+    allowed_values: [codex]
+    description: "当前激活写入执行器；必须是 codex。"
+    blocked_if_missing: true
+  service_can_write_repo:
+    type: boolean
+    required: true
+    allowed_values: [false]
+    description: "服务是否能写仓库；必须为 false。"
+    blocked_if_missing: true
+  external_api_authorized:
+    type: boolean
+    required: true
+    allowed_values: [true, false]
+    description: "外部 API 是否授权；未授权时 service 必须阻断外部调用。"
+    blocked_if_missing: true
+  output_must_be_handoff:
+    type: boolean
+    required: true
+    allowed_values: [true]
+    description: "输出是否必须交接；service 输出不能直接冒充 repo write。"
+    blocked_if_missing: true
+  blocked_if:
+    type: list[string]
+    required: true
+    description: "阻断条件；尝试写文件、commit/push、runtime_enabled=true 或未授权 API 都必须阻断。"
+    blocked_if_missing: true
+hard_rules:
+  active_write_executor（当前激活写入执行器）: codex
+  service_can_write_repo（服务是否能写仓库）: false
+blocked_cases_required:
+  - service attempts to write file
+  - service attempts commit or push
+  - service outputs runtime_enabled true
+  - service calls external API without authorization
+input_from: [GraphRuntimeAdapter, local_fixture]
+output_to: [WriteExecutorHandoff, CompletionTruthCheckNode]
+blocked_if_missing: true
+must_not_do: [write_repo, commit, push, edit_main, enable_runtime_status, call_external_api_without_authorization]
+validation_notes:
+  - "A passing service fixture does not authorize service start."
+  - "Service output must become a handoff for active_write_executor = codex."
+trace_fields: [service_contract_id, active_write_executor, service_can_write_repo]

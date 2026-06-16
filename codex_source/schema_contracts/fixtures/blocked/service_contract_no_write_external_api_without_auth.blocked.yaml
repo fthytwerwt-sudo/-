@@ -1,0 +1,22 @@
+contract_name: ServiceContractNoWrite
+schema_version: "0.1"
+fixture_only: true
+fixture_name（样例名称）: service_contract_no_write_external_api_without_auth.blocked
+case_type（样例类型）: blocked
+purpose（用途）: 覆盖 service 未授权调用外部 API 的阻断场景。
+input_summary（输入摘要）: service action 包含 call_external_api_without_authorization。
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: 本轮禁止外部 API；未来也必须显式授权。
+service_contract_id: service_contract_no_write_fixture_20260616_external_api
+allowed_actions: [route, validate, call_external_api_without_authorization]
+forbidden_actions: [write_repo, commit, push, edit_main, enable_runtime_status, call_external_api_without_authorization]
+active_write_executor: codex
+service_can_write_repo: false
+external_api_authorized: false
+output_must_be_handoff: false
+blocked_if:
+  - service calls external API without authorization
+blocked: true
+blocked_reasons:
+  - external_api_without_authorization
+resume_policy: "Remove external API action or obtain explicit authorization in a later task."

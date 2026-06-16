@@ -1,0 +1,24 @@
+contract_name: SourceReadbackMap
+schema_version: "0.1"
+fixture_only: true
+fixture_name（样例名称）: source_readback_conflict.blocked
+case_type（样例类型）: blocked
+purpose（用途）: 覆盖回读文件与检索摘要冲突的阻断场景。
+input_summary（输入摘要）: retrieval summary 声称 runtime enabled，但当前原文显示 runtime_enabled=false。
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: 当前分支原文胜出，检索摘要冲突必须进入 gap report。
+readback_id: source_readback_map_fixture_20260616_conflict
+retrieval_manifest_id: retrieval_manifest_conflict
+source_path: codex_log/latest.md
+source_ref: adapter/agent-service-toolkit-sandbox@0000000000000000000000000000000000000001
+line_range: "1-60"
+exact_excerpt: "runtime_enabled（是否启用正式运行时）: false"
+readback_status: conflict_found
+conflict_found: true
+can_use_as_fact: false
+blocked_if:
+  - source conflict
+blocked: true
+blocked_reasons:
+  - retrieval_summary_conflicts_with_source_readback
+resume_policy: "Use current branch source readback and block conflicting retrieval summary."
