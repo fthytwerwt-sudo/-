@@ -19,7 +19,7 @@ forbidden_status_promotion_scan: passed
 source_readback_passed: true
 runtime_not_falsely_enabled: true
 content_validation_not_falsely_promoted: true
-send_ready_not_falsely_promoted: true
+ready_status_not_falsely_promoted: true
 voice_validation_not_falsely_promoted: true
 visual_master_not_falsely_locked: true
 external_api_claim_verified: verified_no_external_api
@@ -40,9 +40,9 @@ not_allowed_completion_claims:
   - runtime_enabled
   - sandbox_created
   - minimal_router_prototype_created
-  - content_validation_passed
-  - send_ready_true
-  - voice_validation_passed
+  - content_validation_promotion_claim
+  - send_ready_promotion_claim
+  - voice_validation_promotion_claim
   - visual_master_locked
   - publish_candidate_ready
   - deepseek_real_participation

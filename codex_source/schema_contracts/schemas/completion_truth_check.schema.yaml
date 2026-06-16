@@ -55,7 +55,7 @@ required_fields:
   not_allowed_completion_claims:
     type: list[string]
     required: true
-    allowed_values: [runtime_enabled, sandbox_created, minimal_router_prototype_created, content_validation_passed, send_ready_true, voice_validation_passed, visual_master_locked, publish_candidate_ready, deepseek_real_participation, no_blockers_if_blocked]
+    allowed_values: [runtime_enabled, sandbox_created, minimal_router_prototype_created, content_validation_promotion_claim, send_ready_promotion_claim, voice_validation_promotion_claim, visual_master_locked, publish_candidate_ready, deepseek_real_participation, no_blockers_if_blocked]
     description: "Claims forbidden by this check."
     blocked_if_missing: true
 optional_fields:

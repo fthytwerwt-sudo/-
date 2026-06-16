@@ -80,11 +80,11 @@ required_fields:
     allowed_values: [true]
     description: "内容验证未被误推进；必须为 true。"
     blocked_if_missing: true
-  send_ready_not_falsely_promoted:
+  ready_status_not_falsely_promoted:
     type: boolean
     required: true
     allowed_values: [true]
-    description: "send_ready 未被误推进；必须为 true。"
+    description: "发送状态未被误推进；该检查必须通过。"
     blocked_if_missing: true
   voice_validation_not_falsely_promoted:
     type: boolean

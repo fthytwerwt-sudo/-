@@ -1,0 +1,22 @@
+contract_name: tts_route_contract
+schema_version: 1
+fixture_only: true
+fixture_name（样例名称）: tts_fallback_unauthorized
+case_type（样例类型）: blocked
+purpose（用途）: "覆盖 TTS 未授权降级阻断。"
+input_summary（输入摘要）: "期望声音 ID 缺失或不匹配，实际使用本地降级路线且未获授权。"
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: "未授权 fallback 不能冒充正式音频路线。"
+sample:
+  actual_tts_provider: local_fallback
+  actual_tts_model: local_placeholder
+  actual_voice_id: local_placeholder_voice
+  expected_voice_id: expected_b_minimax_voice_id_fixture
+  fallback_used: true
+  fallback_authorized: false
+  audio_present: true
+  non_silent: true
+  blocked_if_route_mismatch: true
+  blocked: true
+  blocked_reasons:
+    - tts_fallback_without_authorization

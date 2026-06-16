@@ -15,7 +15,7 @@ blocked_cases_checked: false
 forbidden_status_promotion_scan: passed
 runtime_not_falsely_enabled: true
 content_validation_not_falsely_promoted: true
-send_ready_not_falsely_promoted: true
+ready_status_not_falsely_promoted: true
 voice_validation_not_falsely_promoted: true
 visual_master_not_falsely_locked: true
 external_api_claim_verified: verified_no_external_api

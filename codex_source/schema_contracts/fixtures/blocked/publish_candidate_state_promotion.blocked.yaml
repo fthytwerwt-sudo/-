@@ -1,0 +1,18 @@
+contract_name: publish_candidate_or_blocked_contract
+schema_version: 1
+fixture_only: true
+fixture_name（样例名称）: publish_candidate_state_promotion
+case_type（样例类型）: blocked
+purpose（用途）: "覆盖候选片状态偷换阻断。"
+input_summary（输入摘要）: "最终状态试图使用技术预览或报告生成口径，并缺少审片包 / 完成真实性检查。"
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: "final_state 不在允许列表，且缺收口证据。"
+sample:
+  final_state: technical_preview_completed
+  review_pack: missing
+  completion_truth_check: missing
+  blocked: true
+  blocked_reasons:
+    - final_state_outside_allowed_states
+    - review_pack_missing
+    - completion_truth_check_missing

@@ -71,7 +71,7 @@ required_fields:
   blocked_if:
     type: list[string]
     required: true
-    description: "阻断条件；尝试写文件、commit/push、runtime_enabled=true 或未授权 API 都必须阻断。"
+    description: "阻断条件；尝试写文件、commit/push、启用 runtime 状态或未授权 API 都必须阻断。"
     blocked_if_missing: true
 hard_rules:
   active_write_executor（当前激活写入执行器）: codex
@@ -79,7 +79,7 @@ hard_rules:
 blocked_cases_required:
   - service attempts to write file
   - service attempts commit or push
-  - service outputs runtime_enabled true
+  - service outputs runtime status enabled
   - service calls external API without authorization
 input_from: [GraphRuntimeAdapter, local_fixture]
 output_to: [WriteExecutorHandoff, CompletionTruthCheckNode]

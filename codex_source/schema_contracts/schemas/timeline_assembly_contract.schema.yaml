@@ -1,0 +1,43 @@
+contract_name: timeline_assembly_contract
+version: 1
+status: draft_contract_only
+project_route: video_factory
+purpose: "约束时间线装配必须做到 line_group 级别，并能回指素材片段、时间码、画面职责和证据职责。"
+owner_layer: aesthetic_editing_flow
+required_field_names:
+  - line_group_id
+  - source_segment_id
+  - source_timecode
+  - timeline_slot
+  - visual_role
+  - evidence_role
+  - allowed_visuals
+  - forbidden_visuals
+  - blocked_if_visual_mismatch
+required_fields:
+  line_group_id: "句组编号，通常每 1-2 句一个句组。"
+  source_segment_id: "素材片段编号，必须能回到素材证据。"
+  source_timecode: "源素材时间码或可回读定位。"
+  timeline_slot: "时间线位置，包含开始 / 结束或顺序槽位。"
+  visual_role: "画面职责，例如证据展示、过渡、解释、情绪承接。"
+  evidence_role: "证据职责，例如直接证据、辅助证据、非证据承接。"
+  allowed_visuals: "允许使用的画面范围。"
+  forbidden_visuals: "禁止使用的画面范围。"
+  blocked_if_visual_mismatch: "画面错位、弱相关素材冒充直接证据或缺回指时阻断。"
+hard_rules:
+  paragraph_only_mapping_allowed: false
+  material_evidence_required: true
+  runtime_write_allowed: false
+blocked_if:
+  - line_group_missing
+  - source_segment_missing
+  - source_timecode_missing
+  - visual_role_mismatch
+  - evidence_role_mismatch
+  - forbidden_visual_selected
+  - paragraph_only_mapping
+fixtures_required:
+  passing:
+    - fixtures/passing/timeline_assembly_contract.passing.yaml
+  blocked:
+    - fixtures/blocked/timeline_visual_mismatch.blocked.yaml

@@ -1,5 +1,35 @@
 # Latest
 
+## 20260616｜Workflow-First Pre-Integration Audit + Editing Contract Patch
+
+```yaml
+task_result.status（任务结果状态）: workflow_first_pre_integration_audit_and_editing_contract_patch_completed（工作流优先正式接入前审核与剪辑契约补丁已完成）
+project_route（项目路由）: video_factory（视频工厂）
+branch（分支）: adapter/agent-service-toolkit-sandbox
+execution_permission（执行权限）: latest_schema_fixture_report_only（只允许 latest / schema / fixture / report）
+formal_integration_allowed_now（当前是否允许正式接入整个项目）: false（不允许）
+runtime_enabled（是否启用运行时）: false（未启用）
+service_started（是否启动服务）: false（未启动）
+main_branch_modified（是否修改 main 主分支）: false（未修改）
+external_api_called（是否调用外部 API）: false（未调用）
+dependency_installed（是否安装依赖）: false（未安装）
+Chroma_ingestion_run（是否运行 Chroma 入库）: false（未运行）
+DashVector_real_call（是否真实调用 DashVector）: false（未调用）
+editing_contract_family_created（剪辑契约家族是否创建）: true（已创建）
+latest_sync_repaired（latest 同步缺口是否修复）: true（已修复）
+generated_reports（生成报告）:
+  - codex_log/framework_adapter/20260616_workflow_first_pre_integration_audit_report.md（工作流优先正式接入前审核报告）
+  - codex_log/framework_adapter/20260616_workflow_first_pre_integration_matrix.md（工作流优先正式接入前接入表）
+  - codex_log/framework_adapter/20260616_editing_workflow_contract_patch_report.md（剪辑工作流契约补丁报告）
+next_safe_step（下一步安全动作）: user_chatgpt_review_then_editing_workflow_no_render_probe（用户 / ChatGPT 回审后，再做剪辑工作流无渲染探测）
+```
+
+- `stopline（停止线）`: 本轮仍停在 `pre_formal_integration_stopline（正式接入前停止线）`，只修复 latest 同步并补剪辑 workflow 契约家族。
+- `workflow_first_audit（工作流优先审核）`: `20260616_workflow_first_pre_integration_audit_report.md` 和 `20260616_workflow_first_pre_integration_matrix.md` 已确认 `editing_execution_workflow（剪辑执行工作流）` 是正式接入前关键缺口。
+- `editing_contract_patch（剪辑契约补丁）`: 新增 `editing_execution / timeline_assembly / subtitle_card_overlap / tts_route / review_pack / media_probe / publish_candidate_or_blocked` 7 类 schema，并补 passing / blocked fixtures。
+- `status_boundary（状态边界）`: 报告生成、schema 落地、fixture 通过，都不等于正式接入整个项目，不等于机制长期稳定，不等于 runtime 已启用，不等于 service 可启动，不等于 main 可合并。
+- `禁止推进`: 未修改 main，未启用 runtime，未启动 FastAPI / Docker / Postgres / Streamlit，未运行 Chroma ingestion，未真实调用 DashVector，未调用外部 API，未安装依赖，未执行剪辑、视频、声音、视觉或发布状态推进。
+
 ## 20260616｜No-Service Graph Probe
 
 ```yaml
@@ -1829,7 +1859,7 @@ next_safe_step（下一步安全动作）: sandbox_install_probe_prompt_after_us
 
 - `已确认` 本轮只做 V002《自动流的最简单流程》原始文案补录、用户补充数据补录、文案迭代记录补齐、系统重跑和日志更新；不生成新视频，不生成正式下一条视频执行 prompt，不推进 `content_validation / send_ready / current_data_goal_anchor ready`。
 - `route_decision（路由判断）`：`project_route = video_factory`；`task_type = project_file_change + data_backfill + copy_iteration_record_backfill + operation_decision_rerun + copy_iteration_rerun`；`large_task_gate = triggered`；`lane = standard_lane`；`parallel = serial_only`；`write_owner = Codex Integrator only`。
-- `state_action_router（状态动作总控器）`：`input_signal = 用户指出 V002 原始文案未登记并补充 56/6/9 数据`；`inferred_state = copy_version_record_missing + V002_metric_backfill_needed + abnormal_sample_boundary_required`；`selected_action = 新增 V002 copy_iteration 记录、补录用户数据、重跑运营 / 文案迭代系统`；`forbidden_action = normal_distribution_attribution / content_validation passed / direction established / next formal prompt / ready promotion`。
+- `state_action_router（状态动作总控器）`：`input_signal = 用户指出 V002 原始文案未登记并补充 56/6/9 数据`；`inferred_state = copy_version_record_missing + V002_metric_backfill_needed + abnormal_sample_boundary_required`；`selected_action = 新增 V002 copy_iteration 记录、补录用户数据、重跑运营 / 文案迭代系统`；`forbidden_action = normal_distribution_attribution / content validation pass claim / direction established / next formal prompt / ready promotion`。
 - `DeepSeek`：已创建供料任务卡 `codex_log/supply_requests/20260517_V002_copy_and_metric_backfill_pre_supply_request.json`；真实供料通过，`deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`api_key_printed = false`、`api_key_written = false`、`env_file_read = false`。
 - `已新增` V002 文案记录目录：`review_loop/copy_iteration/V002/`，包含 `V002_copy_v1_raw.md`、`V002_copy_v1_record.json`、`V002_copy_structure_map.json`、`V002_copy_iteration_decision.json`、`V002_next_copy_revision_brief.md`。
 - `raw copy`：用户本轮提供的第二期原始文案已保真写入；`raw_copy_modified = false`，疑似错字只在 record 中标记，不改 raw。
@@ -1889,7 +1919,7 @@ next_safe_step（下一步安全动作）: sandbox_install_probe_prompt_after_us
 
 - `已确认` 本轮基于第三期素材审计报告和 V003 文案迭代简报，生成 `low_confidence_review_candidate（低置信度审片候选）/ internal_review_pack（内部审片包）`；不是正式发布候选片，不生成正式下一条视频执行 prompt。
 - `route_decision（路由判断）`：`project_route = video_factory`；`task_type = low_confidence_review_candidate_video + material_execution + copy_iteration_candidate + project_file_change + code_debug`；`current_project_state = formal_operation_active + copy_iteration_prepare + material_audit_ready + formal_next_execution_blocked`；`execution_permission = low_confidence_internal_review_candidate_only`；`large_task_gate = triggered`；`lane = standard_lane`；`parallel = serial_only`。
-- `state_action_router（状态动作总控器）`：`input_signal = 用户要求按照真实复盘现场型结构执行`；`inferred_state = low_confidence_review_candidate_allowed`；`selected_action = 基于 locked copy、material_03 和判断卡生成内部审片候选包`；`forbidden_action = publish_candidate promotion / send_ready / content_validation passed / ready status promotion`。
+- `state_action_router（状态动作总控器）`：`input_signal = 用户要求按照真实复盘现场型结构执行`；`inferred_state = low_confidence_review_candidate_allowed`；`selected_action = 基于 locked copy、material_03 和判断卡生成内部审片候选包`；`forbidden_action = publish_candidate promotion / send-ready claim / content validation pass claim / ready status promotion`。
 - `DeepSeek`：已创建执行前供料任务卡 `codex_log/supply_requests/20260517_third_episode_real_review_scene_candidate_pre_supply_request.json` 和执行后风险复核任务卡 `codex_log/supply_requests/20260517_third_episode_real_review_scene_candidate_post_risk_review_request.json`；两次真实调用均通过，`deepseek_actual_participation = deepseek_passed`、`fallback_status = not_used`、`api_key_printed = false`、`api_key_written = false`、`env_file_read = false`。
 - `使用素材`：主素材 `material_03 / /Users/fan/Documents/视频工厂/素材录制/第三期/v004 2026-05-16 23-22-13.mp4`；辅助素材 `material_01 / /Users/fan/Documents/视频工厂/素材录制/第三期/第二期 2026-05-15 23-15-27.mp4`；`material_02_used = false`。
 - `已生成` 审片包目录：`dist/third_episode_real_review_scene_candidate/`。
@@ -3141,7 +3171,7 @@ next_safe_step（下一步安全动作）: sandbox_install_probe_prompt_after_us
 - `已确认` round34 旧 817M 本地大包未恢复；但 `dist/latest_review_pack/middle_preview.mp4`、`cut_contact_sheet.jpg`、`problem_windows/30_32s.mp4`、`problem_windows/30_32s_frames.jpg` 均仍存在，并已在路径索引恢复为 `path_exists = true`。
 - `已确认` PR #47 已先合并到 `codex/user-readable-map`，合并提交：`20d9419e0a9ad048075a2138c610472df93051be`。
 - `已确认` 本轮从合并后的主读取分支创建清库分支：`codex/pre-upgrade-delete-old-assets-20260504`。
-- `已确认` 本轮不生成视频，不修改当前发布 / 灰度状态，不把 `content_validation` 写成 `passed`，不把 `send_ready` 写成 `true`。
+- `已确认` 本轮不生成视频，不修改当前发布 / 灰度状态，不把内容验证字段写成最终通过，不把发送状态写成开启。
 - `已确认` 当前唯一固定素材锚点收束为：`v31_element_doll_opening_anchor（v3.1 元素娃娃开头锚点）`。
 - `已确认` `v31_element_doll_opening_preview（v3.1 元素娃娃开头预览）` 只保留开头预览证据，不代表元素娃娃继续做全片主持。
 - `已确认` PR #46 未合并、未关闭、未删除；当前只作为未来流程 / 教学 / 操作拆解类视频升级方向资料，不作为当前 reference。
@@ -3167,7 +3197,7 @@ next_safe_step（下一步安全动作）: sandbox_install_probe_prompt_after_us
 - `已确认` 已先输出 `cleanup_audit（清理审计）`，再删除 `.DS_Store` Finder 临时文件。
 - `部分成立` 删除前原计划排除冻结 / 保护范围，但 `find -delete` 的执行行为导致部分受保护目录内 `.DS_Store` 也被删除；被额外影响的对象仅为 Finder 临时元数据，不是业务文件。
 - `已确认` 本轮未生成视频、未修改 `dist/latest_review_pack/` 当前结构地图文件、未修改 `codex_log/current_publish_target.md` 状态字段、未删除任何核心 reference 或 blocked_unknown。
-- `已确认` `content_validation` 未写成 `passed`，`send_ready` 未写成 `true`，`voice_validation` 未写成 `final`，当前 v3.1 发布 / 灰度状态未修改。
+- `已确认` 内容验证字段未写成最终通过，发送状态未写成开启，`voice_validation` 未写成 `final`，当前 v3.1 发布 / 灰度状态未修改。
 - `治理报告`：`治理_reports/20260504_元素娃娃开头保留与旧资产清理_keep_element_doll_cleanup_old_assets/元素娃娃开头保留与旧资产清理报告_keep_element_doll_cleanup_old_assets_report.md`
 - `下一个目标`：用户 / ChatGPT 复审本轮 PR，确认元素娃娃开头路径索引补充无误、旧资产清理未误删；通过后再进入项目升级前的机制收口。
 
@@ -3228,7 +3258,7 @@ next_safe_step（下一步安全动作）: sandbox_install_probe_prompt_after_us
 - `已确认` 已写入 `single_workspace_rule`：以后唯一正式工作区是 `/Users/fan/Documents/视频工厂`；新分支只能在此目录内创建 / 切换；不得默认创建 `/Users/fan/Documents/视频工厂_*` 外部工作区或外部 `git worktree add`。
 - `已确认` `codex_log/current_local_artifact_paths.md` 已改为内部路径优先；所有 `canonical_local_path` 均指向 `/Users/fan/Documents/视频工厂` 内部；旧外部路径只保留为 `historical_source_path` 说明。
 - `已确认` 本轮未生成视频 / 音频 / 图片，未写新文案，未处理 HyperFrames 卡片边界任务，未修改 v3.1 正片内容，未修改 `dist/latest_review_pack` 既有产物内容。
-- `已确认` `content_validation` 未改成 `passed`，`send_ready` 未改成 `true`，本轮未永久删除未回收文件。
+- `已确认` 内容验证字段未改成最终通过，发送状态未改成开启，本轮未永久删除未回收文件。
 - `审计报告`：`治理_reports/20260502_单工作区清理归档_single_workspace_cleanup_archive/单工作区清理归档报告_single_workspace_cleanup_archive_report.md`
 - `下一个目标`：用户确认两个 blocked superpowers 历史 worktree 后，另起一轮处理剩余 worktree；后续所有《视频工厂》任务只允许在 `/Users/fan/Documents/视频工厂` 内执行。
 
@@ -3272,7 +3302,7 @@ next_safe_step（下一步安全动作）: sandbox_install_probe_prompt_after_us
 
 - `已确认` 本轮只做 v3.1 发布后灰度测试指标体系 V1 落仓库，并接入既有 `review_loop/`；未写新文案、未生成视频、未生成音频、未重新装配全片、未修改 v3.1 视频产物。
 - `已确认` 当前工作分支：`codex/v31-gray-test-metrics-v1-20260502`。
-- `已确认` 当前状态仍为：`publish_status = gray_test_published`、`gray_test_status = active`、`current_phase = post_publish_gray_test`、`content_validation = gray_testing_not_final_passed`。
+- `已确认` 当前状态仍为：`publish_status = gray_test_published`、`gray_test_status = active`、`current_phase = post_publish_gray_test`；内容状态标签仍为 `gray_testing_not_final_passed`。
 - `已确认` 新增指标体系文件：`review_loop/07_v31灰度测试指标体系_v31_gray_test_metrics_v1.md`。
 - `已确认` 当前灰度测试目标文件：`codex_log/current_gray_test_target.md` 已更新为 24h / 72h / 7 天观察。
 - `已确认` 当前 v3.1 单条记录：`review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md` 已补入 7 天播放目标、三类字段和四个复盘问题。
@@ -3307,8 +3337,8 @@ next_safe_step（下一步安全动作）: sandbox_install_probe_prompt_after_us
 - `已确认` 当前发布状态已写入：`publish_status = gray_test_published（v3.1 已发片，进入灰度测试）`。
 - `已确认` 当前灰度状态已写入：`gray_test_status = active（灰度测试中）`。
 - `已确认` 当前发布后复盘要求已写入：`post_publish_review_required = true`。
-- `已确认` 当前内容状态已写入：`content_validation = gray_testing_not_final_passed（灰度测试中，不等于内容最终通过）`。
-- `已确认` 仍保持：`send_ready = false`、`visual_master_locked = false`、`voice_validation = pending_user_chatgpt_review`、`final_voice_validated = false`、`technical_upgrade_next = true`。
+- `已确认` 当前内容状态已写入为 `gray_testing_not_final_passed（灰度测试中，不等于内容最终通过）`。
+- `已确认` 仍保持：`technical_upgrade_next = true`；`send_ready = false`、`visual_master_locked = false`、`voice_validation = pending_user_chatgpt_review`、`final_voice_validated = false`。
 - `已确认` 发布后复盘默认接入既有 `review_loop/`，不新建独立灰度系统。
 - `已确认` 新增当前灰度测试目标文件：`codex_log/current_gray_test_target.md`。
 - `已确认` 新增 v3.1 单条灰度测试记录：`review_loop/records/20260502_v31_AI做PPT踩坑_gray_test_record.md`。
@@ -3339,7 +3369,7 @@ next_safe_step（下一步安全动作）: sandbox_install_probe_prompt_after_us
 - `已确认` 后续升级 / 修改 / 技术优化 / GPT 文案侧回炉默认基于：`future_iteration_base = v3.1`。
 - `已确认` v3 只保留为历史候选 / 对照，不再作为后续默认修改基础。
 - `已确认` v3.1 仍不可发送：`send_ready = false`。
-- `已确认` v3.1 内容没有写成通过：`content_validation = pending_user_chatgpt_review_or_not_passed_copywriting_side`。
+- `已确认` v3.1 内容没有写成通过，内容状态标签为 `pending_user_chatgpt_review_or_not_passed_copywriting_side`。
 - `已确认` PR #7 B 版 `PR7_B_骚萌反应页.png` 是后续骚萌卡唯一执行参考；读不到 PR #7 B 必须 blocked，不得回退 PR #7 A。
 - `已确认` PR #7 A 只保留为历史 / candidate 对照，不能再作为任何后续骚萌卡执行参考。
 - `已确认` PR #22 / PR #23 / PR #24 均已写入降噪口径：不得直接合并，不得覆盖当前 v3.1 基线。
@@ -3349,7 +3379,7 @@ next_safe_step（下一步安全动作）: sandbox_install_probe_prompt_after_us
 - `已确认` 本轮只做仓库清理、旧口径归档、入口口径重写和执行噪音删除；不生成 v3.1，不生成新视频，不生成新音频，不重新装配全片。
 - `已确认` 已从 `codex/user-readable-map` 创建清理分支：`codex/repo-cleanup-old-context-20260502`。
 - `已确认` 当前入口继续写明 v3 技术层为 `v3_technical_milestone = reached_for_current_stage`，技术线未锁定，下一步仍需技术升级。
-- `已确认` v3 内容未过线，主要在 GPT 文案侧；`content_validation = not_passed_user_review_gpt_copywriting_side`，`send_ready = false`，`visual_master_locked = false`。
+- `已确认` v3 内容未过线，主要在 GPT 文案侧；内容状态标签为 `not_passed_user_review_gpt_copywriting_side`，`send_ready = false`，`visual_master_locked = false`。
 - `已确认` PR #7 B 仍是后续骚萌卡执行参考；读不到 PR #7 B 必须 blocked，不得回退 PR #7 A。
 - `已确认` PR #7 A 已降权为历史 / candidate 对照；v3 生成时的 PR #7 A 痕迹已在 metadata 中标为 `legacy_generation_candidate_references`，不再放在可继承候选参考字段里。
 - `已确认` 新增归档目录：`归档_archive/旧口径_old_context_20260502/`，归档 PR #22 原始待复审口径、PR #23 原始 PR #7 A 优先判断、可爱卡片旧 route suggestion。
@@ -3362,8 +3392,8 @@ next_safe_step（下一步安全动作）: sandbox_install_probe_prompt_after_us
 - `已确认` 本轮只做仓库口径回写、reference registry 修补、v3.1 视觉路由前置规则同步和主读取分支回流；未生成 v3.1、未生成新视频、未生成新音频、未重新装配全片。
 - `已确认` 用户已复审《我用 AI 做 PPT 踩过的坑》v3：技术层只能写为 `v3_technical_milestone = reached_for_current_stage（当前阶段技术里程碑达成）`，不得写成技术线最终锁定。
 - `已确认` 下一步仍需要 `technical_upgrade_next = true（技术升级）`，`technical_baseline_locked = false（技术基线未锁定）`。
-- `已确认` v3 内容未过线，主要问题在 GPT 文案侧；状态写为 `content_validation = not_passed_user_review_gpt_copywriting_side`，不得写 `passed` 或仅写 `pending_user_chatgpt_review`。
-- `已确认` `send_ready = false`，`visual_master_locked = false`，`visual_master_candidate = true`。
+- `已确认` v3 内容未过线，主要问题在 GPT 文案侧；内容状态标签为 `not_passed_user_review_gpt_copywriting_side`，不得写最终通过或仅写 `pending_user_chatgpt_review`。
+- `已确认` `visual_master_candidate = true`；`send_ready = false`，`visual_master_locked = false`。
 - `已确认` PR #7 B 版 `PR7_B_骚萌反应页.png` 已写为后续骚萌卡执行参考；读不到 PR #7 B 必须 `blocked`，不得回退 PR #7 A。
 - `已确认` PR #7 A 保留为历史 / candidate 对照，不删除、不升级 locked、不再作为下一轮 v3.1 后续骚萌卡执行参考。
 - `已确认` 新增 route-level locked references：`sassy_card_pr7_b_visual_locked_20260501`、`cute_prompt_card_route_locked_20260501`、`cute_info_card_route_locked_20260501`。

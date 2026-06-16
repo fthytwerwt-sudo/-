@@ -4,7 +4,7 @@ fixture_only: true
 fixture_name（样例名称）: runtime_memory_boundary.blocked_repo_fact_replacement
 case_type（样例类型）: blocked
 purpose（用途）: 覆盖 memory store 试图替代 GitHub / repo 文件事实的阻断场景。
-input_summary（输入摘要）: memory 声称 runtime_enabled=true，且与 latest.md 当前事实冲突。
+input_summary（输入摘要）: memory 声称 runtime 状态 enabled，且与 latest.md 当前事实冲突。
 expected_result（预期结果）: blocked
 why_pass_or_block（为什么通过或阻断）: Git / repo / codex_log 事实优先，memory 不可作项目事实源。
 memory_boundary_id: runtime_memory_boundary_fixture_20260616_repo_fact_blocked

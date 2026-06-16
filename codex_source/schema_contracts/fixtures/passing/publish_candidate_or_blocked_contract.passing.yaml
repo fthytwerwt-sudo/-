@@ -1,0 +1,14 @@
+contract_name: publish_candidate_or_blocked_contract
+schema_version: 1
+fixture_only: true
+fixture_name（样例名称）: publish_candidate_or_blocked_contract_passing
+case_type（样例类型）: passing
+purpose（用途）: "证明最终状态只落在允许的候选片或阻断口径。"
+input_summary（输入摘要）: "final_state 为 publish_candidate_ready_for_human_review，审片包和完成真实性检查均存在。"
+expected_result（预期结果）: pass
+why_pass_or_block（为什么通过或阻断）: "最终状态合法，并且没有推进发送、内容最终判断或正式 runtime。"
+sample:
+  final_state: publish_candidate_ready_for_human_review
+  review_pack: present
+  completion_truth_check: present
+  blocked: false

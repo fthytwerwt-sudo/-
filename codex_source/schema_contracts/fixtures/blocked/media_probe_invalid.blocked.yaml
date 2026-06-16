@@ -1,0 +1,24 @@
+contract_name: media_probe_contract
+schema_version: 1
+fixture_only: true
+fixture_name（样例名称）: media_probe_invalid
+case_type（样例类型）: blocked
+purpose（用途）: "覆盖媒体探针无效阻断。"
+input_summary（输入摘要）: "视频存在但无有效音频或字幕，且解码结果不可作为候选片证据。"
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: "无音频、静音、缺字幕或解码失败均不能收口为候选片。"
+sample:
+  video_exists: true
+  audio_present: false
+  non_silent: false
+  subtitle_present: false
+  resolution: 1920x1080
+  duration: "00:01:12.000"
+  decode_passed: false
+  blocked_if_media_invalid: true
+  blocked: true
+  blocked_reasons:
+    - media_probe_invalid
+    - audio_missing
+    - subtitle_missing
+    - decode_failed

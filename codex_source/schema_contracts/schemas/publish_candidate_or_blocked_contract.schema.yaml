@@ -1,0 +1,46 @@
+contract_name: publish_candidate_or_blocked_contract
+version: 1
+status: draft_contract_only
+project_route: video_factory
+purpose: "约束剪辑执行工作流最终只能进入可人工复审候选片或可发布候选片不可交付阻断。"
+owner_layer: completion_truth_check_layer
+required_field_names:
+  - final_state
+  - allowed_final_states
+  - not_allowed_final_state
+  - review_pack
+  - completion_truth_check
+  - blocked_if
+required_fields:
+  final_state: "最终状态，只能使用 allowed_final_states 中的值。"
+  allowed_final_states: "允许最终状态。"
+  not_allowed_final_state: "禁止最终状态，包括技术预览、路由卡、无声预览和未经复审的内容状态声明。"
+  review_pack: "审片包引用。"
+  completion_truth_check: "完成真实性检查引用。"
+  blocked_if: "最终状态不合法或缺审片包 / 完成真实性检查时阻断。"
+allowed_final_states:
+  - publish_candidate_ready_for_human_review
+  - blocked_publish_candidate_unavailable
+not_allowed_final_state:
+  - technical_preview_completed
+  - route_card_completed
+  - silent_preview_completed
+  - >
+    content_validation_
+    passed_without_review
+hard_rules:
+  final_state_outside_allowed_states_permitted: false
+  review_pack_required: true
+  completion_truth_check_required: true
+  runtime_write_allowed: false
+blocked_if:
+  - final_state_outside_allowed_states
+  - review_pack_missing
+  - completion_truth_check_missing
+  - send_state_incorrectly_advanced
+  - technical_preview_claimed_as_candidate
+fixtures_required:
+  passing:
+    - fixtures/passing/publish_candidate_or_blocked_contract.passing.yaml
+  blocked:
+    - fixtures/blocked/publish_candidate_state_promotion.blocked.yaml

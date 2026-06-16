@@ -83,6 +83,72 @@ status_boundary（状态边界）:
   - adapter_infrastructure_flow 仍为 candidate，未写入正式 workflow 索引
 ```
 
+## 20260616｜Editing Workflow Contract Patch
+
+```yaml
+schema_contract_index_update（schema 契约索引更新）:
+  phase（阶段）: workflow_first_pre_integration_repair（工作流优先正式接入前修补）
+  status（状态）: editing_workflow_contract_family_landed（剪辑 workflow 契约家族已落地）
+  project_route（项目路由）: video_factory
+  branch（分支）: adapter/agent-service-toolkit-sandbox
+  runtime_enabled（是否启用正式运行时）: false
+  service_started（是否启动服务）: false
+  external_api_called（是否调用外部 API）: false
+  main_branch_modified（是否修改 main）: false
+```
+
+本阶段只补剪辑 workflow 契约家族和静态 fixture，用于阻断“技术预览、路由卡、报告生成、文件存在”冒充剪辑交付完成。它不执行剪辑、不生成视频、不启动 service、不启用 runtime、不合并 main。
+
+### 2B.1 added_schema_families（新增 schema 家族）
+
+| schema family | purpose | schema |
+|---|---|---|
+| `editing_execution_contract` | 约束剪辑执行必须有锁定文案、line_group 时间线、TTS、卡片、素材证据、审片包和完成真实性检查。 | `schemas/editing_execution_contract.schema.yaml` |
+| `timeline_assembly_contract` | 约束时间线条目必须能回到 line_group、素材片段和时间码。 | `schemas/timeline_assembly_contract.schema.yaml` |
+| `subtitle_card_overlap_contract` | 约束字幕、卡片和核心证据区不能 high severity 重叠。 | `schemas/subtitle_card_overlap_contract.schema.yaml` |
+| `tts_route_contract` | 约束实际 TTS provider / model / voice_id / fallback 授权和非静音音频。 | `schemas/tts_route_contract.schema.yaml` |
+| `review_pack_contract` | 约束候选片或阻断结果必须带审片包、预检报告、媒体探针和人工复审边界。 | `schemas/review_pack_contract.schema.yaml` |
+| `media_probe_contract` | 约束媒体探针必须检查视频存在、音频、字幕、分辨率、时长和解码。 | `schemas/media_probe_contract.schema.yaml` |
+| `publish_candidate_or_blocked_contract` | 约束剪辑 workflow 只能收口为人工复审候选片或可发布候选片不可交付阻断。 | `schemas/publish_candidate_or_blocked_contract.schema.yaml` |
+
+### 2B.2 added_passing_fixtures（新增通过样例）
+
+| fixture family | passing fixture |
+|---|---|
+| `editing_execution_contract` | `fixtures/passing/editing_execution_contract.passing.yaml` |
+| `timeline_assembly_contract` | `fixtures/passing/timeline_assembly_contract.passing.yaml` |
+| `subtitle_card_overlap_contract` | `fixtures/passing/subtitle_card_overlap_contract.passing.yaml` |
+| `tts_route_contract` | `fixtures/passing/tts_route_contract.passing.yaml` |
+| `review_pack_contract` | `fixtures/passing/review_pack_contract.passing.yaml` |
+| `media_probe_contract` | `fixtures/passing/media_probe_contract.passing.yaml` |
+| `publish_candidate_or_blocked_contract` | `fixtures/passing/publish_candidate_or_blocked_contract.passing.yaml` |
+
+### 2B.3 added_blocked_fixtures（新增阻断样例）
+
+| blocked case | blocked fixture |
+|---|---|
+| 缺文案到时间线映射 | `fixtures/blocked/editing_missing_script_to_timeline_map.blocked.yaml` |
+| 技术预览冒充完成 | `fixtures/blocked/editing_technical_preview_as_completed.blocked.yaml` |
+| 时间线画面错位 | `fixtures/blocked/timeline_visual_mismatch.blocked.yaml` |
+| 字幕卡片高重叠 | `fixtures/blocked/subtitle_card_high_overlap.blocked.yaml` |
+| TTS 未授权降级 | `fixtures/blocked/tts_fallback_unauthorized.blocked.yaml` |
+| 审片包缺失 | `fixtures/blocked/review_pack_missing.blocked.yaml` |
+| 媒体探针无效 | `fixtures/blocked/media_probe_invalid.blocked.yaml` |
+| 候选片状态偷换 | `fixtures/blocked/publish_candidate_state_promotion.blocked.yaml` |
+
+### 2B.4 status_boundary（状态边界）
+
+```yaml
+status_boundary（状态边界）:
+  - 只补剪辑 workflow 契约，不等于正式接入整个项目
+  - schema 落地不等于 runtime 接入
+  - fixture 通过不等于真实剪辑可执行
+  - review_pack contract 不等于真实审片包已生成
+  - media_probe contract 不等于真实视频已探测
+  - publish_candidate contract 不等于可发送状态开启
+  - 本阶段不启动 service，不合并 main，不调用外部 API
+```
+
 ## 3. contract responsibilities
 
 | order | contract | responsibility | schema |

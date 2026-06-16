@@ -1,0 +1,19 @@
+contract_name: editing_execution_contract
+schema_version: 1
+fixture_only: true
+fixture_name（样例名称）: editing_technical_preview_as_completed
+case_type（样例类型）: blocked
+purpose（用途）: "覆盖技术预览冒充完成时必须阻断。"
+input_summary（输入摘要）: "只有内部技术预览和 route card，没有音频、字幕、审片包或完成真实性检查。"
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: "技术预览不是用户交付物，也不是剪辑 workflow 的合法完成状态。"
+sample:
+  technical_preview_only: true
+  audio: missing
+  subtitle: missing
+  review_pack: missing
+  completion_truth_check: missing
+  blocked: true
+  blocked_reasons:
+    - technical_preview_only
+    - missing_required_outputs

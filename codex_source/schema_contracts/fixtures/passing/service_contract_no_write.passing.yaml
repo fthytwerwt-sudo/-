@@ -17,6 +17,6 @@ output_must_be_handoff: true
 blocked_if:
   - service attempts write_repo
   - service attempts commit or push
-  - service outputs runtime_enabled true
+  - service outputs runtime status enabled
   - service calls external API without authorization
 blocked: false

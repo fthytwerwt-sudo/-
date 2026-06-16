@@ -1,0 +1,22 @@
+contract_name: timeline_assembly_contract
+schema_version: 1
+fixture_only: true
+fixture_name（样例名称）: timeline_assembly_contract_passing
+case_type（样例类型）: passing
+purpose（用途）: "证明时间线条目能逐句回指素材片段和时间码。"
+input_summary（输入摘要）: "每个 line_group 都有 source_segment_id、source_timecode、allowed_visuals 和 evidence_role。"
+expected_result（预期结果）: pass
+why_pass_or_block（为什么通过或阻断）: "画面职责与证据职责一致，没有选中 forbidden_visuals。"
+sample:
+  line_group_id: lg_001
+  source_segment_id: seg_001
+  source_timecode: "00:00:03.000-00:00:08.000"
+  timeline_slot: "00:00:00.000-00:00:05.000"
+  visual_role: direct_evidence
+  evidence_role: prompt_result_screen
+  allowed_visuals:
+    - prompt_result_screen
+  forbidden_visuals:
+    - unrelated_dashboard
+  blocked_if_visual_mismatch: true
+  blocked: false

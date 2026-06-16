@@ -1,0 +1,43 @@
+contract_name: tts_route_contract
+version: 1
+status: draft_contract_only
+project_route: video_factory
+purpose: "约束 TTS 实际路线必须与期望路线、声音 ID 和降级授权一致，并要求音频存在且非静音。"
+owner_layer: aesthetic_editing_flow
+required_field_names:
+  - actual_tts_provider
+  - actual_tts_model
+  - actual_voice_id
+  - expected_voice_id
+  - fallback_used
+  - fallback_authorized
+  - audio_present
+  - non_silent
+  - blocked_if_route_mismatch
+required_fields:
+  actual_tts_provider: "实际 TTS 供应商。"
+  actual_tts_model: "实际 TTS 模型。"
+  actual_voice_id: "实际声音 ID。"
+  expected_voice_id: "期望声音 ID。"
+  fallback_used: "是否使用降级路线。"
+  fallback_authorized: "降级路线是否已获用户 / ChatGPT 授权。"
+  audio_present: "音频是否存在。"
+  non_silent: "音频是否非静音。"
+  blocked_if_route_mismatch: "路线、模型、声音 ID、授权或音频有效性不一致时阻断。"
+hard_rules:
+  unauthorized_fallback_allowed: false
+  silent_audio_allowed: false
+  runtime_write_allowed: false
+blocked_if:
+  - actual_provider_or_model_unknown
+  - actual_voice_id_missing
+  - expected_voice_id_missing
+  - fallback_used_without_authorization
+  - audio_missing
+  - audio_silent
+  - route_mismatch_marked_as_ready
+fixtures_required:
+  passing:
+    - fixtures/passing/tts_route_contract.passing.yaml
+  blocked:
+    - fixtures/blocked/tts_fallback_unauthorized.blocked.yaml

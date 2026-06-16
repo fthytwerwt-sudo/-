@@ -1,0 +1,20 @@
+contract_name: review_pack_contract
+schema_version: 1
+fixture_only: true
+fixture_name（样例名称）: review_pack_missing
+case_type（样例类型）: blocked
+purpose（用途）: "覆盖审片包缺失阻断。"
+input_summary（输入摘要）: "媒体路径存在，但没有 summary_report、preflight_reports、media_probe 或 remaining_blockers。"
+expected_result（预期结果）: blocked
+why_pass_or_block（为什么通过或阻断）: "文件存在不能替代审片包和人工复审边界。"
+sample:
+  full_video_path: dist/review_pack_fixture/full.mp4
+  summary_report: missing
+  preflight_reports: []
+  media_probe: missing
+  remaining_blockers: unknown
+  human_review_required: true
+  blocked_if_missing_review_pack: true
+  blocked: true
+  blocked_reasons:
+    - review_pack_missing

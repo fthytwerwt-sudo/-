@@ -1,0 +1,64 @@
+contract_name: editing_execution_contract
+version: 1
+status: draft_contract_only
+project_route: video_factory
+purpose: "约束剪辑执行工作流只能从锁定输入走到可人工复审候选片或合法阻断，不允许技术预览、路由卡或报告生成冒充交付完成。"
+owner_layer: aesthetic_editing_flow
+scope_boundary:
+  allowed: "只定义剪辑执行契约、字段、完成标准和阻断条件。"
+  forbidden: "不生成视频、不调用 TTS、不启用 runtime、不启动 service、不修改 main。"
+required_inputs:
+  - locked_copy_contract
+  - script_to_timeline_map
+  - tts_prosody_anchor_map
+  - card_placement_decision
+  - material_evidence_contract
+  - material_usage_ledger
+  - data_goal_anchor
+required_outputs:
+  - timeline
+  - subtitle
+  - audio
+  - cards
+  - review_pack
+  - validation_report
+  - completion_truth_check
+done_when:
+  allowed_final_states:
+    - publish_candidate_ready_for_human_review
+    - blocked_publish_candidate_unavailable
+  meaning: "只能收口为可发布候选片待人工复审，或可发布候选片不可交付阻断。"
+hard_rules:
+  runtime_enabled: false
+  service_started: false
+  runtime_write_allowed: false
+  active_write_executor: codex
+  technical_preview_is_delivery: false
+  route_card_is_delivery: false
+  report_only_is_delivery: false
+  locked_copy_semantic_change_allowed: false
+required_field_names:
+  - required_inputs
+  - required_outputs
+  - done_when
+  - blocked_if
+  - hard_rules
+blocked_if:
+  - missing_any_required_input
+  - technical_preview_only
+  - missing_audio_subtitle_card_decision_or_review_pack
+  - line_group_cannot_reference_material_evidence
+  - subtitle_or_card_blocks_core_evidence
+  - tts_fallback_without_authorization
+  - locked_copy_semantic_change_detected
+  - completion_truth_check_missing
+status_boundaries:
+  content_result: "本契约不推进内容验证，只要求剪辑交付口径不冒进。"
+  voice_result: "本契约不推进声音最终验证，只要求音频路线可核验。"
+  send_result: "本契约不推进可发送状态。"
+fixtures_required:
+  passing:
+    - fixtures/passing/editing_execution_contract.passing.yaml
+  blocked:
+    - fixtures/blocked/editing_missing_script_to_timeline_map.blocked.yaml
+    - fixtures/blocked/editing_technical_preview_as_completed.blocked.yaml
