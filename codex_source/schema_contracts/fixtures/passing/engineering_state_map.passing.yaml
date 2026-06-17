@@ -1,0 +1,112 @@
+fixture_name（样例名称）: engineering_state_map.passing
+case_type（样例类型）: passing
+purpose（用途）: 验证工程状态地图能区分 formal / candidate / probe_only / documented_only / missing / conflict / blocked，且每个模块都有证据和回退层。
+expected_result（预期结果）: passed
+blocked: false
+modules（模块）:
+  - module_name（模块名）: formal_project_router
+    current_status（当前状态）: formal
+    evidence_files（证据文件）:
+      - AGENTS.md
+      - codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md
+    allowed_next_states（允许进入的下一状态）:
+      - formal
+    user_confirmation_required_if（必须用户确认的条件）:
+      - change_project_router_default
+    ai_default_handle_if（AI 默认处理条件）:
+      - read_only_audit
+    codex_forbidden_if（Codex 禁止条件）:
+      - replace_project_router_with_adapter
+    acceptance（验收标准）:
+      done_when（完成标准）:
+        - route_decision_required_before_edit
+    blocked_if（阻断条件）:
+      - missing_route_decision
+    fallback_layer（失败回退层）: entry_routing_layer
+  - module_name（模块名）: adapter_workflow_registry
+    current_status（当前状态）: candidate
+    evidence_files（证据文件）:
+      - codex_source/adapter_integration/workflow_registry.py
+    allowed_next_states（允许进入的下一状态）:
+      - candidate
+      - probe_only
+    user_confirmation_required_if（必须用户确认的条件）:
+      - promote_candidate_to_formal
+    ai_default_handle_if（AI 默认处理条件）:
+      - add_fixture_first_contract
+    codex_forbidden_if（Codex 禁止条件）:
+      - claim_formal_without_user_confirmation
+    acceptance（验收标准）:
+      done_when（完成标准）:
+        - candidate_boundary_written
+    blocked_if（阻断条件）:
+      - missing_candidate_boundary
+    fallback_layer（失败回退层）: mechanism_fix_layer
+  - module_name（模块名）: no_service_graph
+    current_status（当前状态）: probe_only
+    evidence_files（证据文件）:
+      - codex_source/schema_contracts/probes/no_service_graph_probe.py
+    allowed_next_states（允许进入的下一状态）:
+      - probe_only
+      - blocked
+    user_confirmation_required_if（必须用户确认的条件）:
+      - enter_runtime_hardening
+    ai_default_handle_if（AI 默认处理条件）:
+      - run_no_service_probe
+    codex_forbidden_if（Codex 禁止条件）:
+      - probe_only_jump_to_formal
+    acceptance（验收标准）:
+      done_when（完成标准）:
+        - local_probe_passed
+    blocked_if（阻断条件）:
+      - runtime_or_service_required
+    fallback_layer（失败回退层）: validation_layer
+  - module_name（模块名）: rag_default_decision
+    current_status（当前状态）: documented_only
+    evidence_files（证据文件）:
+      - codex_source/schema_contracts/schemas/rag_default_decision.schema.yaml
+    allowed_next_states（允许进入的下一状态）:
+      - documented_only
+      - candidate
+    user_confirmation_required_if（必须用户确认的条件）:
+      - real_dashvector_or_chroma_call
+    ai_default_handle_if（AI 默认处理条件）:
+      - prepare_retrieval_manifest_fixture
+    codex_forbidden_if（Codex 禁止条件）:
+      - rag_result_overrides_repo_fact
+    acceptance（验收标准）:
+      done_when（完成标准）:
+        - source_path_chunk_id_readback_required
+    blocked_if（阻断条件）:
+      - missing_source_readback
+    fallback_layer（失败回退层）: fact_source_arbitration_layer
+  - module_name（模块名）: branch_local_handoff_status
+    current_status（当前状态）: conflict
+    conflict_reason（冲突原因）: branch-local handoff uses older wording while latest says adapter candidate merged into main
+    fact_source_arbitration（事实源裁决）: latest and main merge report win over older branch-local handoff
+    evidence_files（证据文件）:
+      - codex_log/latest.md
+      - codex_log/framework_adapter/20260617_main_merge_completed_report.md
+    allowed_next_states（允许进入的下一状态）:
+      - conflict
+      - documented_only
+    user_confirmation_required_if（必须用户确认的条件）:
+      - change_main_truth
+    ai_default_handle_if（AI 默认处理条件）:
+      - document_conflict
+    codex_forbidden_if（Codex 禁止条件）:
+      - overwrite_latest_with_old_handoff
+    acceptance（验收标准）:
+      done_when（完成标准）:
+        - conflict_reason_and_fact_source_arbitration_present
+    blocked_if（阻断条件）:
+      - conflict_without_arbitration
+    fallback_layer（失败回退层）: fact_source_arbitration_layer
+status_not_promoted（未推进状态）:
+  runtime_enabled（运行时启用）: false
+  service_started（服务启动）: false
+  rag_runtime_enabled（RAG 运行时启用）: false
+  media_generated（媒体生成）: false
+  content_validation（内容验证）: not_promoted
+  send_ready（可发送状态）: false
+  production_readiness（生产可用状态）: not_claimed

@@ -1,0 +1,33 @@
+fixture_name（样例名称）: report_trace_log.passing
+case_type（样例类型）: passing
+purpose（用途）: 验证报告、追踪、日志包含完成真实性所需字段。
+expected_result（预期结果）: passed
+blocked: false
+report_contract（报告契约）:
+  report_id（报告编号）: report_fixture_001
+  files_read（已读取文件）:
+    - AGENTS.md
+    - codex_log/latest.md
+  files_modified（已修改文件）:
+    - codex_source/schema_contracts/schemas/report_contract.schema.yaml
+  validation_result（验证结果）:
+    report_trace_log_validator（报告追踪日志校验）: passed
+  status_not_promoted（未推进状态）:
+    runtime_enabled（运行时启用）: false
+    service_started（服务启动）: false
+    external_api_called（外部 API 调用）: false
+    media_generated（媒体生成）: false
+    content_validation（内容验证）: not_promoted
+    send_ready（可发送状态）: false
+  next_safe_step（下一步安全动作）: continue_no_service_fixture_first_validation
+  git_sync_status（Git 同步状态）: pending_until_commit_push
+trace_event（追踪事件）:
+  trace_id（追踪编号）: trace_fixture_001
+  node_id（节点编号）: report_validator_node
+  source_path（来源路径）: codex_log/latest.md
+  status（状态）: passed
+  blocked_if（阻断条件）:
+    - missing_source_path
+  report_path（报告路径）: codex_log/engineering_line_audit/20260618_goal_mode_safe_engineering_fusion_report.md
+  status_not_promoted（未推进状态）:
+    runtime_enabled（运行时启用）: false

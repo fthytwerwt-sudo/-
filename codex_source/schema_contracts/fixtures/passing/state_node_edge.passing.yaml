@@ -1,0 +1,48 @@
+fixture_name（样例名称）: state_node_edge.passing
+case_type（样例类型）: passing
+purpose（用途）: 验证 State / Node / Edge（状态 / 节点 / 边）在 no-service（无服务）条件下可本地校验。
+expected_result（预期结果）: passed
+blocked: false
+state（状态）:
+  state_id（状态编号）: vf_state_no_service_001
+  workflow_route_decision（工作流归位判断）: mechanism_repair_flow
+  current_status（当前状态）: probe_only
+  evidence_files（证据文件）:
+    - codex_source/schema_contracts/probes/state_node_edge_no_service_probe.py
+  status_not_promoted（未推进状态）:
+    runtime_enabled（运行时启用）: false
+    service_started（服务启动）: false
+nodes（节点）:
+  - node_id（节点编号）: state_map_node
+    input（输入）: engineering_state_map_fixture
+    output（输出）: validated_state_map
+    validation（验证）: evidence_files_present
+    blocked_if（阻断条件）:
+      - missing_evidence_files
+    fallback_layer（失败回退层）: mechanism_fix_layer
+    trace_fields（追踪字段）:
+      - trace_id
+      - source_path
+      - status
+  - node_id（节点编号）: human_gate_node
+    input（输入）: edge_requires_user_confirmation
+    output（输出）: human_review_interrupt
+    validation（验证）: auto_pass_forbidden
+    blocked_if（阻断条件）:
+      - human_required_but_auto_passed
+    fallback_layer（失败回退层）: human_review_layer
+    trace_fields（追踪字段）:
+      - trace_id
+      - report_path
+edges（边）:
+  - edge_id（边编号）: state_map_to_human_gate
+    from_node（来源节点）: state_map_node
+    to_node（目标节点）: human_gate_node
+    transition_condition（流转条件）: user_confirmation_required_if_not_empty
+    blocked_transition_if（禁止流转条件）:
+      - missing_user_confirmation_for_status_promotion
+    human_review_required_if（需要人工复审的条件）:
+      - promote_probe_only_to_formal
+hard_boundaries（硬边界）:
+  graph_cannot_replace_project_router（图不能替代项目状态动作总控器）: true
+  service_started（服务启动）: false

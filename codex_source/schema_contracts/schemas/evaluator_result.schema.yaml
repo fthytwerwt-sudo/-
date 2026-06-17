@@ -1,0 +1,19 @@
+contract_name: evaluator_result（评估结果）
+version: "2026-06-18"
+status: draft（草案）
+project_route: video_factory（视频工厂）
+purpose（用途）: 区分 technical_validation（技术验证）、content_validation（内容验证）、send_ready（可发送状态）和 production_readiness（生产可用状态）。
+required_fields（必填字段）:
+  - evaluator_id（评估器编号）
+  - evaluated_module（被评估模块）
+  - technical_validation（技术验证）
+  - content_validation（内容验证）
+  - send_ready（可发送状态）
+  - production_readiness（生产可用状态）
+  - evidence_files（证据文件）
+  - blocked_if（阻断条件）
+  - fallback_layer（失败回退层）
+hard_rules（硬规则）:
+  technical_validation_cannot_promote_content（技术验证不能推进内容验证）: true
+  content_validation_cannot_auto_promote_send_ready（内容验证不能自动推进可发送）: true
+  file_exists_is_not_completion（文件存在不等于完成）: true

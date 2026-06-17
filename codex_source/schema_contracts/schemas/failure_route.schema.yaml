@@ -1,0 +1,16 @@
+contract_name: failure_route（失败路由）
+version: "2026-06-18"
+status: draft（草案）
+project_route: video_factory（视频工厂）
+purpose（用途）: 把失败原因映射到 fallback_layer（失败回退层）、owner（处理方）和 next_safe_step（下一步安全动作）。
+required_fields（必填字段）:
+  - failure_id（失败编号）
+  - blocked_reason（阻断原因）
+  - fallback_layer（失败回退层）
+  - owner（处理方）
+  - user_confirmation_required（是否需要用户确认）
+  - next_safe_step（下一步安全动作）
+hard_rules（硬规则）:
+  unknown_failure_cannot_continue（失败原因不明不能继续）: true
+  degraded_plan_requires_user_confirmation（降级方案需要用户确认）: true
+  failure_without_owner_blocked（缺处理方必须阻断）: true

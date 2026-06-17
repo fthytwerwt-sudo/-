@@ -1,0 +1,17 @@
+contract_name: report_contract（报告契约）
+version: "2026-06-18"
+status: draft（草案）
+project_route: video_factory（视频工厂）
+purpose（用途）: 规定报告必须包含读取、修改、验证、未推进状态和下一步安全动作，防止只写 completed（完成）。
+required_fields（必填字段）:
+  - report_id（报告编号）
+  - files_read（已读取文件）
+  - files_modified（已修改文件）
+  - validation_result（验证结果）
+  - status_not_promoted（未推进状态）
+  - next_safe_step（下一步安全动作）
+  - git_sync_status（Git 同步状态）
+hard_rules（硬规则）:
+  completed_requires_validation_result（完成必须有验证结果）: true
+  report_generation_is_not_engineering_completion（报告生成不等于工程完成）: true
+  local_only_is_not_pushed（仅本地不等于已推送）: true

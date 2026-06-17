@@ -1,0 +1,18 @@
+contract_name: human_decision_gate（人工决策闸门）
+version: "2026-06-18"
+status: draft（草案）
+project_route: video_factory（视频工厂）
+purpose（用途）: 规定目标、权限、成本、审美、语义、状态升级和外部调用必须人工确认。
+required_fields（必填字段）:
+  - decision_gate_id（决策闸门编号）
+  - trigger_reason（触发原因）
+  - decision_owner（决策负责人）
+  - required_user_confirmation（是否必须用户确认）
+  - auto_pass_allowed（是否允许自动通过）
+  - blocked_if（阻断条件）
+hard_rules（硬规则）:
+  aesthetic_change_requires_user（审美变化需要用户）: true
+  copy_semantic_change_requires_user（文案语义变化需要用户）: true
+  status_promotion_requires_user（状态推进需要用户）: true
+  external_call_requires_user（外部调用需要用户）: true
+  auto_pass_forbidden_when_required（需要人工时禁止自动通过）: true

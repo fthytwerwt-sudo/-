@@ -1,0 +1,30 @@
+fixture_name（样例名称）: report_trace_log.blocked
+case_type（样例类型）: blocked
+purpose（用途）: 覆盖 completed 缺 validation_result、报告缺状态边界、trace 无 source_path、latest 误写运行时启用、本地文件冒充已推送。
+expected_result（预期结果）: blocked
+blocked: true
+blocked_reasons:
+  - completed_without_validation_result
+  - report_missing_status_boundary
+  - trace_missing_source_path
+  - latest_runtime_enabled_miswritten
+  - local_only_claimed_as_pushed
+report_contract（报告契约）:
+  report_id（报告编号）: report_fixture_blocked_001
+  files_read（已读取文件）:
+    - AGENTS.md
+  files_modified（已修改文件）:
+    - codex_log/latest.md
+  validation_result（验证结果）: {}
+  status_not_promoted（未推进状态）: {}
+  next_safe_step（下一步安全动作）: ""
+  git_sync_status（Git 同步状态）: local_only_claimed_as_pushed
+trace_event（追踪事件）:
+  trace_id（追踪编号）: trace_fixture_blocked_001
+  node_id（节点编号）: broken_report_node
+  source_path（来源路径）: ""
+  status（状态）: completed_without_evidence
+  blocked_if（阻断条件）: []
+  report_path（报告路径）: ""
+latest_claims（最新日志声明）:
+  runtime_enabled_claim（运行时启用声明）: claimed_enabled

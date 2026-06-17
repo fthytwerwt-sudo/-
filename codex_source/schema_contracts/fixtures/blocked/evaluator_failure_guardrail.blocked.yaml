@@ -1,0 +1,34 @@
+fixture_name（样例名称）: evaluator_failure_guardrail.blocked
+case_type（样例类型）: blocked
+purpose（用途）: 覆盖技术验证冒充内容验证、内容验证自动推进发送、人工确认缺失、降级方案未确认、护栏触发继续完成。
+expected_result（预期结果）: blocked
+blocked: true
+blocked_reasons:
+  - technical_validation_claimed_as_content
+  - content_validation_auto_promotes_send_ready
+  - human_required_but_auto_passed
+  - degraded_plan_without_user_confirmation
+  - guardrail_triggered_but_completed
+  - secret_scan_bypassed
+  - git_add_dot_attempted
+evaluator_result（评估结果）:
+  evaluator_id（评估器编号）: evaluator_fixture_blocked_001
+  technical_validation（技术验证）: passed_for_probe_only
+  content_validation_claim（内容验证声明）: claimed_promoted_from_technical
+  send_ready_claim（可发送声明）: claimed_auto_promoted
+  production_readiness（生产可用状态）: not_claimed
+failure_route（失败路由）:
+  failure_id（失败编号）: degraded_plan_missing_user_confirmation
+  blocked_reason（阻断原因）: degraded_plan_requires_user
+  fallback_layer（失败回退层）: human_review_layer
+  owner（处理方）: user
+  user_confirmation_required（是否需要用户确认）: true
+human_decision_gate（人工决策闸门）:
+  required_user_confirmation（是否必须用户确认）: true
+  auto_pass_allowed（是否允许自动通过）: true
+guardrail_result（护栏结果）:
+  triggered（是否触发）: true
+  result（结果）: completed_after_guardrail
+  guardrail_checks（护栏检查）:
+    - secret_scan_bypassed
+    - git_add_dot_attempted

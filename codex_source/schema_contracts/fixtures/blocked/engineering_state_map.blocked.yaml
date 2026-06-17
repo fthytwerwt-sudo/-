@@ -1,0 +1,33 @@
+fixture_name（样例名称）: engineering_state_map.blocked
+case_type（样例类型）: blocked
+purpose（用途）: 覆盖缺证据、probe_only 直跳 formal、documented_only 冒充 implemented、conflict 缺裁决和状态误推进。
+expected_result（预期结果）: blocked
+blocked: true
+blocked_reasons:
+  - missing_evidence_files
+  - probe_only_direct_to_formal
+  - documented_only_claimed_implemented
+  - conflict_missing_fact_source_arbitration
+  - forbidden_status_promotion_attempt
+modules（模块）:
+  - module_name（模块名）: no_service_graph
+    current_status（当前状态）: probe_only
+    evidence_files（证据文件）: []
+    allowed_next_states（允许进入的下一状态）:
+      - formal
+    blocked_if（阻断条件）:
+      - missing_evidence_files
+  - module_name（模块名）: rag_default_decision
+    current_status（当前状态）: documented_only
+    implemented_claim（已实现声明）: claimed_implemented_without_probe
+    evidence_files（证据文件）:
+      - codex_source/schema_contracts/schemas/rag_default_decision.schema.yaml
+  - module_name（模块名）: unresolved_conflict
+    current_status（当前状态）: conflict
+    conflict_reason（冲突原因）: latest and old handoff disagree
+    evidence_files（证据文件）:
+      - codex_log/latest.md
+status_claims（状态声明）:
+  runtime_enabled_claim（运行时启用声明）: claimed_enabled
+  rag_runtime_enabled_claim（RAG 运行时启用声明）: claimed_enabled
+  media_generated_claim（媒体生成声明）: claimed_generated

@@ -1,0 +1,39 @@
+contract_name: engineering_state_map（工程状态地图）
+version: "2026-06-18"
+status: draft（草案）
+project_route: video_factory（视频工厂）
+purpose（用途）: 区分 formal（正式）、candidate（候选）、probe_only（仅探测）、documented_only（仅文档）、missing（缺失）、conflict（冲突）和 blocked（阻断），防止状态误推进。
+allowed_statuses（允许状态）:
+  - formal（正式）
+  - candidate（候选）
+  - probe_only（仅探测）
+  - documented_only（仅文档）
+  - missing（缺失）
+  - conflict（冲突）
+  - blocked（阻断）
+required_fields（必填字段）:
+  - module_name（模块名）
+  - current_status（当前状态）
+  - evidence_files（证据文件）
+  - allowed_next_states（允许进入的下一状态）
+  - user_confirmation_required_if（必须用户确认的条件）
+  - ai_default_handle_if（AI 默认处理条件）
+  - codex_forbidden_if（Codex 禁止条件）
+  - acceptance（验收标准）
+  - blocked_if（阻断条件）
+  - fallback_layer（失败回退层）
+conditional_required_fields（条件必填字段）:
+  conflict（冲突）:
+    - conflict_reason（冲突原因）
+    - fact_source_arbitration（事实源裁决）
+hard_rules（硬规则）:
+  probe_only_cannot_jump_to_formal（仅探测不能直接跳正式）: true
+  documented_only_cannot_claim_implemented（仅文档不能声称已实现）: true
+  evidence_files_required（必须有证据文件）: true
+  runtime_status_promotion_forbidden（禁止推进运行时状态）: true
+  rag_runtime_status_promotion_forbidden（禁止推进 RAG 运行时状态）: true
+  media_status_promotion_forbidden（禁止推进媒体状态）: true
+validation_notes（验证说明）:
+  - 每个模块必须有证据路径和失败回退层。
+  - conflict（冲突）状态必须写清冲突原因和事实源裁决。
+  - 本结构不启用 runtime（运行时）、service（服务）、RAG 真实外部调用或 media（媒体）。

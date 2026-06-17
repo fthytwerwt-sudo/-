@@ -1,0 +1,36 @@
+fixture_name（样例名称）: rag_default_decision.passing
+case_type（样例类型）: passing
+purpose（用途）: 验证 RAG（检索增强生成）默认进入判断链和检索准备链，但不真实调用外部向量库。
+expected_result（预期结果）: passed
+blocked: false
+rag_default_decision（RAG 默认判断）:
+  decision_id（判断编号）: rag_default_fixture_001
+  rag_default_route_enabled（RAG 默认判断链是否启用）: true
+  real_external_call_allowed（是否允许真实外部调用）: false
+  retrieval_manifest_required（是否需要检索清单）: true
+  source_path（来源路径）: codex_log/latest.md
+  chunk_id（分块编号）: latest_chunk_fixture_001
+  line_range（行号范围）: "1-80"
+  readback（原文回读）: required_and_available
+  repo_fact_priority（仓库事实优先）: true
+tool_registry（工具注册表）:
+  tool_name（工具名）: local_fixture_retriever
+  can_call_external_api（能否调用外部 API）: false
+  can_write_repo（能否写仓库）: false
+  can_create_cost（能否产生成本）: false
+  can_read_private_files（能否读取隐私文件）: false
+  disabled_by_default（是否默认禁用）: false
+retriever_adapter（检索器适配）:
+  provider（检索来源）: local_fixture
+  output_manifest（输出检索清单）: retrieval_manifest_fixture
+  readback_required（是否必须回读）: true
+vector_store_adapter（向量库适配）:
+  store_provider（向量库来源）: DashVector_fixture
+  route_role（路线角色）: main_route
+  real_call_allowed（是否允许真实调用）: false
+  ingestion_allowed（是否允许入库）: false
+  source_readback_preserved（是否保留原文回读）: true
+  metadata_required（是否需要元数据）: true
+hard_boundaries（硬边界）:
+  chroma_replaces_dashvector（Chroma 替代 DashVector）: false
+  rag_claimed_as_formal_fact（RAG 写成正式事实）: false

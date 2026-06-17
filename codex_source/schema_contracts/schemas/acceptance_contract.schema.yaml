@@ -1,0 +1,33 @@
+contract_name: acceptance_contract（验收契约）
+version: "2026-06-18"
+status: draft（草案）
+project_route: video_factory（视频工厂）
+purpose（用途）: 规定每个模块怎样从目标、证据、验证、阻断和状态边界上判断是否可以进入下一阶段。
+required_fields（必填字段）:
+  - acceptance_id（验收编号）
+  - module_name（模块名）
+  - current_status（当前状态）
+  - target_status（目标状态）
+  - done_when（完成标准）
+  - required_evidence（必需证据）
+  - validation_commands（验证命令）
+  - status_not_promoted（未推进状态）
+  - blocked_if（阻断条件）
+  - next_safe_step（下一步安全动作）
+hard_rules（硬规则）:
+  candidate_requires_user_confirmation_before_formal（候选转正式前需要用户确认）: true
+  probe_result_is_not_runtime（探测结果不等于运行时）: true
+  report_is_not_execution（报告不等于真实执行）: true
+  active_write_executor（当前激活写入执行器）: codex
+status_not_promoted_required（必须保持未推进状态）:
+  runtime_enabled（运行时启用）: false（未启用）
+  service_started（服务启动）: false（未启动）
+  external_api_called（外部 API 调用）: false（未调用）
+  tts_called（TTS 调用）: false（未调用）
+  dashvector_real_call（DashVector 真实调用）: false（未调用）
+  chroma_ingestion_run（Chroma 入库）: false（未运行）
+  rag_runtime_enabled（RAG 运行时启用）: false（未启用）
+  media_generated（媒体生成）: false（未生成）
+  content_validation（内容验证）: not_promoted（未推进）
+  send_ready（可发送状态）: false（未开启）
+  production_readiness（生产可用状态）: not_claimed（未声称）

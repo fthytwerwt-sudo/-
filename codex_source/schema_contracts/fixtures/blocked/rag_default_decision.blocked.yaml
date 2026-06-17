@@ -1,0 +1,35 @@
+fixture_name（样例名称）: rag_default_decision.blocked
+case_type（样例类型）: blocked
+purpose（用途）: 覆盖 RAG 缺来源、只有摘要无回读、冲突写事实、Chroma 替代 DashVector、工具权限不清和 RAG 冒充正式事实。
+expected_result（预期结果）: blocked
+blocked: true
+blocked_reasons:
+  - missing_source_path
+  - summary_without_readback
+  - rag_conflict_claimed_as_fact
+  - chroma_replaces_dashvector
+  - unclear_tool_permission
+  - rag_claimed_as_formal_fact
+rag_default_decision（RAG 默认判断）:
+  decision_id（判断编号）: rag_default_fixture_blocked_001
+  rag_default_route_enabled（RAG 默认判断链是否启用）: true
+  real_external_call_allowed（是否允许真实外部调用）: false
+  source_path（来源路径）: ""
+  chunk_id（分块编号）: ""
+  readback（原文回读）: missing
+  repo_fact_priority（仓库事实优先）: false
+tool_registry（工具注册表）:
+  tool_name（工具名）: unknown_external_tool
+  can_call_external_api（能否调用外部 API）: unknown
+  can_write_repo（能否写仓库）: unknown
+  can_create_cost（能否产生成本）: unknown
+  can_read_private_files（能否读取隐私文件）: unknown
+vector_store_adapter（向量库适配）:
+  store_provider（向量库来源）: Chroma_sandbox_fixture
+  route_role（路线角色）: main_route
+  real_call_allowed（是否允许真实调用）: false
+  ingestion_allowed（是否允许入库）: false
+claims（声明）:
+  rag_summary_only（只有 RAG 摘要）: true
+  rag_conflict_written_as_fact（RAG 冲突写成事实）: true
+  rag_formal_fact_claim（RAG 正式事实声明）: claimed

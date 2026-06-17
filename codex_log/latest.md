@@ -1,5 +1,48 @@
 # Latest
 
+## 20260618｜Goal Mode Safe Engineering Fusion
+
+```yaml
+task_result.status（任务结果状态）: goal_mode_safe_engineering_fusion_completed（目标模式安全工程融合已完成）
+project_route（项目路由）: video_factory（视频工厂）
+task_type（任务类型）:
+  - goal_mode_engineering_fusion（目标模式工程融合）
+  - engineering_state_map_and_acceptance_contract（工程状态地图与验收契约）
+  - state_node_edge_no_service_contract（状态 / 节点 / 边无服务契约）
+  - rag_tool_retriever_fixture_adapter（RAG / 工具 / 检索器测试样例适配）
+  - evaluator_failure_guardrail_matrix（评估器 / 失败路由 / 护栏矩阵）
+  - trace_report_log_validator（追踪 / 报告 / 日志校验器）
+workflow_route_decision（工作流归位判断）: mechanism_repair_flow（机制修补流）
+execution_permission（执行权限）: no_service_fixture_first_engineering_fusion（无服务 / 测试样例优先工程融合）
+user_confirmed_decisions_applied（用户确认决策是否应用）: true（已应用）
+engineering_state_map_created（工程状态地图是否创建）: true（已创建）
+acceptance_contract_created（验收契约是否创建）: true（已创建）
+state_node_edge_contract_created（状态节点边契约是否创建）: true（已创建）
+rag_default_decision_created（RAG 默认判断是否创建）: true（已创建）
+tool_retriever_vector_fixture_first_created（工具 / 检索器 / 向量库测试样例优先链是否创建）: true（已创建）
+evaluator_failure_guardrail_created（评估失败护栏是否创建）: true（已创建）
+report_trace_log_validator_created（报告追踪日志校验器是否创建）: true（已创建）
+runtime_enabled（运行时启用）: false（未启用）
+service_started（服务启动）: false（未启动）
+external_api_called（外部 API 调用）: false（未调用）
+tts_called（TTS 调用）: false（未调用）
+dashvector_real_call（DashVector 真实调用）: false（未调用）
+chroma_ingestion_run（Chroma 入库）: false（未运行）
+rag_runtime_enabled（RAG 运行时启用）: false（未启用）
+media_generated（媒体生成）: false（未生成）
+content_validation（内容验证）: not_promoted（未推进）
+send_ready（可发送状态）: false（未开启）
+production_readiness（生产可用状态）: not_claimed（未声称）
+generated_report（生成报告）: codex_log/engineering_line_audit/20260618_goal_mode_safe_engineering_fusion_report.md
+next_safe_step（下一步安全动作）: user_chatgpt_review_then_runtime_hardening_or_real_rag_authorization_if_confirmed（用户 / ChatGPT 回审后，如确认再进入运行时加固或真实 RAG 授权任务）
+```
+
+- `fusion_scope（融合范围）`: 本轮把用户确认的 8 个决策写入项目总规则，并新增工程状态地图、验收契约、State / Node / Edge（状态 / 节点 / 边）、RAG（检索增强生成）默认判断链、Tool Registry（工具注册表）、Retriever（检索器）、Vector Store（向量库）、Evaluator（评估器）、Failure Route（失败路由）、Human-in-the-loop（人工介入）、Guardrails（护栏）、Report / Trace / Log（报告 / 追踪 / 日志）的本地契约、测试样例和探测脚本。
+- `rag_boundary（RAG 边界）`: RAG（检索增强生成）已成为默认判断链和检索准备链，但不等于真实调用 DashVector（阿里向量数据库）或 Chroma（本地向量库）；任何可用结果仍必须有 source_path（来源路径）、chunk_id（分块编号）和 readback（原文回读）。
+- `copy_boundary（文案边界）`: 融合完成前 Codex（写入执行器）仍只能改格式、断句、标点和 TTS（语音合成）停顿，不能改语义、标题和核心判断。
+- `status_boundary（状态边界）`: schema（结构契约）、fixture（测试样例）和 probe（探测脚本）通过不等于 runtime（运行时）启用，不等于 service（服务）启动，不等于真实 RAG（检索增强生成）外部调用，不等于媒体生成，不等于内容验证或可发送状态推进。
+- `禁止推进`: 未安装依赖，未启动服务，未打开端口，未调用外部 API，未调用 TTS，未真实调用 DashVector，未运行 Chroma 入库，未读取真实媒体，未生成视频 / 音频 / 字幕 / 卡片，未推进内容验证、可发送状态或生产可用状态。
+
 ## 20260618｜Project Master Rule User Decision Version
 
 ```yaml

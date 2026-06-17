@@ -14,6 +14,8 @@
 4. `03_以后修改下发模板.md`：用户以后要改项目时，把模板复制给 ChatGPT（总控脑），再由 ChatGPT（总控脑）补成 Codex（写入执行器）执行单。
 5. `05_项目总规则_用户决策版.md`：用户判断哪些事必须自己拍板、哪些事 AI（人工智能）默认处理、失败后应该回到哪一层。
 
+`05_项目总规则_用户决策版.md` 已追加 `## 10. 当前 8 个关键决策｜已确认版`，后续工程融合任务应先读取这一节，再判断是否进入 schema（结构契约）、fixture（测试样例）、probe（探测脚本）或 runtime hardening（运行时加固）。
+
 ## 哪些文件给用户看
 
 - `00_先读这个_工程线人话版总览.md`
@@ -47,3 +49,9 @@ status_boundary（状态边界）:
 ```
 
 本目录是方案手册，不是执行完成证据。方案确认后，后续仍要按 `Task Slice（任务切片）` 一片一片执行、验证、提交、推送。
+
+## 20260618 安全工程融合入口
+
+本轮新增的 `engineering_state_map（工程状态地图）`、`acceptance_contract（验收契约）`、State / Node / Edge（状态 / 节点 / 边）、RAG / Tool Registry / Retriever / Vector Store（检索增强生成 / 工具注册表 / 检索器 / 向量库）、Evaluator / Failure Route / Human-in-the-loop / Guardrails（评估器 / 失败路由 / 人工介入 / 护栏）、Report / Trace / Log（报告 / 追踪 / 日志）仍属于 no-service / fixture-first（无服务 / 测试样例优先）框架。
+
+这代表后续任务有了可验证入口，不代表 `runtime（运行时）` 已启用，不代表 `service（服务）` 已启动，不代表真实 RAG（检索增强生成）外部调用已授权，也不代表媒体生成或内容验证已推进。

@@ -14,6 +14,74 @@
 
 This directory defines draft schema contracts and static fixtures for the future adapter contract layer. It does not install, enable, or run `agent-service-toolkit`.
 
+## 2AA. 20260618 goal mode safe engineering fusion update
+
+```yaml
+schema_contract_index_update（schema 契约索引更新）:
+  phase（阶段）: goal_mode_safe_engineering_fusion（目标模式安全工程融合）
+  status（状态）: no_service_fixture_first_framework_landed（无服务 / 测试样例优先框架已落地）
+  project_route（项目路由）: video_factory（视频工厂）
+  branch（分支）: main（主分支）
+  runtime_enabled（运行时启用）: false（未启用）
+  service_started（服务启动）: false（未启动）
+  external_api_called（外部 API 调用）: false（未调用）
+  dashvector_real_call（DashVector 真实调用）: false（未调用）
+  chroma_ingestion_run（Chroma 入库）: false（未运行）
+  media_generated（媒体生成）: false（未生成）
+```
+
+本阶段把工程线第一轮安全融合落到 schema（结构契约）、fixture（测试样例）和 probe（探测脚本）：RAG（检索增强生成）成为默认判断链和检索准备链，但不默认真实外部调用；adapter（适配器）仍是执行框架候选，不替代《视频工厂》主线；runtime（运行时）和 service（服务）仍未启用。
+
+### 2AA.1 added_schema_families（新增 schema 家族）
+
+| schema family | purpose | schema |
+|---|---|---|
+| `engineering_state_map` | 区分 formal / candidate / probe_only / documented_only / missing / conflict / blocked，防止状态混层。 | `schemas/engineering_state_map.schema.yaml` |
+| `acceptance_contract` | 规定每个模块的 done_when、证据、验证、未推进状态和下一步安全动作。 | `schemas/acceptance_contract.schema.yaml` |
+| `state_node_edge_contract` | 在 no-service 条件下定义 State / Node / Edge（状态 / 节点 / 边）。 | `schemas/state_node_edge_contract.schema.yaml` |
+| `rag_default_decision` | 规定 RAG 是默认判断链，但不等于真实外部调用。 | `schemas/rag_default_decision.schema.yaml` |
+| `tool_registry` | 规定工具能否外呼、写仓库、产生成本、读隐私文件。 | `schemas/tool_registry.schema.yaml` |
+| `retriever_adapter` | 用 fixture-first 方式把检索器输出转成 retrieval_manifest（检索清单）。 | `schemas/retriever_adapter.schema.yaml` |
+| `vector_store_adapter` | 规定 DashVector 主路线和 Chroma sandbox 边界。 | `schemas/vector_store_adapter.schema.yaml` |
+| `evaluator_result` | 区分技术验证、内容验证、可发送状态和生产可用状态。 | `schemas/evaluator_result.schema.yaml` |
+| `failure_route` | 把失败原因映射到 fallback_layer、owner 和 next_safe_step。 | `schemas/failure_route.schema.yaml` |
+| `human_decision_gate` | 规定目标、权限、成本、审美、语义、状态升级和外部调用必须人工确认。 | `schemas/human_decision_gate.schema.yaml` |
+| `guardrail_result` | 汇总 secret scan、no-write、禁止状态和 git add dot 护栏。 | `schemas/guardrail_result.schema.yaml` |
+| `report_contract` | 规定报告必须包含读取、修改、验证、未推进状态和下一步安全动作。 | `schemas/report_contract.schema.yaml` |
+| `trace_event` | 定义本地 trace event（追踪事件）字段，不接外部 telemetry。 | `schemas/trace_event.schema.yaml` |
+
+### 2AA.2 added_fixture_families（新增 fixture 家族）
+
+| fixture family | passing fixture | blocked fixture |
+|---|---|---|
+| `engineering_state_map` | `fixtures/passing/engineering_state_map.passing.yaml` | `fixtures/blocked/engineering_state_map.blocked.yaml` |
+| `state_node_edge` | `fixtures/passing/state_node_edge.passing.yaml` | `fixtures/blocked/state_node_edge.blocked.yaml` |
+| `rag_default_decision` | `fixtures/passing/rag_default_decision.passing.yaml` | `fixtures/blocked/rag_default_decision.blocked.yaml` |
+| `evaluator_failure_guardrail` | `fixtures/passing/evaluator_failure_guardrail.passing.yaml` | `fixtures/blocked/evaluator_failure_guardrail.blocked.yaml` |
+| `report_trace_log` | `fixtures/passing/report_trace_log.passing.yaml` | `fixtures/blocked/report_trace_log.blocked.yaml` |
+
+### 2AA.3 added_probe_families（新增 probe 家族）
+
+| probe | purpose |
+|---|---|
+| `probes/engineering_state_map_probe.py` | 验证状态枚举、证据文件、conflict 裁决、probe_only 不直跳 formal。 |
+| `probes/state_node_edge_no_service_probe.py` | 验证节点输入 / 输出 / 验证 / 阻断 / 回退 / trace 字段和人工中断边。 |
+| `probes/rag_default_decision_probe.py` | 验证 RAG 默认判断链、source_path / chunk_id / readback、工具权限和 Chroma 边界。 |
+| `probes/evaluator_failure_guardrail_probe.py` | 验证评估、失败路由、人工确认、护栏触发必须阻断或修复。 |
+| `probes/report_trace_log_validator.py` | 验证报告、trace、latest 顶部摘要不得缺证据或误推进状态。 |
+
+### 2AA.4 status_boundary（状态边界）
+
+```yaml
+status_boundary（状态边界）:
+  - schema / fixture / probe 落地不等于 runtime 启用
+  - RAG 默认判断链不等于 DashVector / Chroma 真实调用
+  - Tool Registry fixture 不等于允许工具外呼或写仓库
+  - Evaluator fixture 不等于内容验证通过
+  - Report / Trace / Log validator 不等于工程生产可用
+  - 本阶段不启动 service，不调用外部 API，不生成媒体，不推进 send_ready
+```
+
 ## 2. contract order
 
 ```text

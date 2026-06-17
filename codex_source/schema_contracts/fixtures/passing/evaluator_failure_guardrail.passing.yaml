@@ -1,0 +1,33 @@
+fixture_name（样例名称）: evaluator_failure_guardrail.passing
+case_type（样例类型）: passing
+purpose（用途）: 验证评估器、失败路由、人工决策闸门和护栏能阻断状态误推进。
+expected_result（预期结果）: passed
+blocked: false
+evaluator_result（评估结果）:
+  evaluator_id（评估器编号）: evaluator_fixture_001
+  technical_validation（技术验证）: passed_for_probe_only
+  content_validation（内容验证）: not_promoted
+  send_ready（可发送状态）: false
+  production_readiness（生产可用状态）: not_claimed
+  evidence_files（证据文件）:
+    - codex_source/schema_contracts/probes/evaluator_failure_guardrail_probe.py
+failure_route（失败路由）:
+  failure_id（失败编号）: no_failure_fixture
+  blocked_reason（阻断原因）: none
+  fallback_layer（失败回退层）: validation_layer
+  owner（处理方）: codex
+  user_confirmation_required（是否需要用户确认）: false
+  next_safe_step（下一步安全动作）: continue_fixture_first_validation
+human_decision_gate（人工决策闸门）:
+  decision_gate_id（决策闸门编号）: human_gate_fixture_001
+  required_user_confirmation（是否必须用户确认）: false
+  auto_pass_allowed（是否允许自动通过）: true
+guardrail_result（护栏结果）:
+  guardrail_id（护栏编号）: guardrail_fixture_001
+  triggered（是否触发）: false
+  result（结果）: passed
+  repair_or_block（修复或阻断）: not_needed
+  guardrail_checks（护栏检查）:
+    - secret_scan
+    - forbidden_status_promotion_scan
+    - git_add_dot_forbidden

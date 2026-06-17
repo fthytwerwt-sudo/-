@@ -1,0 +1,17 @@
+contract_name: guardrail_result（护栏结果）
+version: "2026-06-18"
+status: draft（草案）
+project_route: video_factory（视频工厂）
+purpose（用途）: 汇总 secret scan（密钥扫描）、no-write（不写仓库）、forbidden status（禁止状态）和 git add dot（全量暂存）护栏。
+required_fields（必填字段）:
+  - guardrail_id（护栏编号）
+  - guardrail_checks（护栏检查）
+  - triggered（是否触发）
+  - result（结果）
+  - repair_or_block（修复或阻断）
+  - evidence_files（证据文件）
+hard_rules（硬规则）:
+  triggered_guardrail_must_block_or_repair（护栏触发必须阻断或修复）: true
+  secret_scan_cannot_be_bypassed（密钥扫描不得绕过）: true
+  git_add_dot_forbidden（禁止 git add . 全量暂存）: true
+  runtime_write_forbidden（禁止运行时写仓库）: true

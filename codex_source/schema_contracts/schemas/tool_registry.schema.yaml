@@ -1,0 +1,19 @@
+contract_name: tool_registry（工具注册表）
+version: "2026-06-18"
+status: draft（草案）
+project_route: video_factory（视频工厂）
+purpose（用途）: 记录工具权限边界，明确能否外呼、写仓库、产生成本或读取隐私文件。
+required_fields（必填字段）:
+  - tool_name（工具名）
+  - tool_purpose（工具用途）
+  - can_call_external_api（能否调用外部 API）
+  - can_write_repo（能否写仓库）
+  - can_create_cost（能否产生成本）
+  - can_read_private_files（能否读取隐私文件）
+  - user_authorization_required_if（必须用户授权的条件）
+  - disabled_by_default（是否默认禁用）
+hard_rules（硬规则）:
+  write_repo_forbidden_by_default（默认禁止写仓库）: true
+  external_api_forbidden_without_authorization（未授权禁止外部调用）: true
+  cost_forbidden_without_authorization（未授权禁止产生成本）: true
+  private_file_access_forbidden_without_authorization（未授权禁止读取隐私文件）: true

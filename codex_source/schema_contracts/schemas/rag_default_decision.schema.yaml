@@ -1,0 +1,29 @@
+contract_name: rag_default_decision（RAG 默认判断）
+version: "2026-06-18"
+status: draft（草案）
+project_route: video_factory（视频工厂）
+purpose（用途）: 让 RAG（检索增强生成）成为默认判断链和检索准备链，但不默认真实调用 DashVector（阿里向量数据库）或 Chroma（本地向量库）。
+required_fields（必填字段）:
+  - decision_id（判断编号）
+  - rag_default_route_enabled（RAG 默认判断链是否启用）
+  - real_external_call_allowed（是否允许真实外部调用）
+  - retrieval_manifest_required（是否需要检索清单）
+  - source_path（来源路径）
+  - chunk_id（分块编号）
+  - line_range（行号范围）
+  - readback（原文回读）
+  - repo_fact_priority（仓库事实优先）
+  - blocked_if（阻断条件）
+hard_rules（硬规则）:
+  rag_is_default_judgment_route（RAG 是默认判断路线）: true
+  rag_default_is_not_real_call（RAG 默认不等于真实外部调用）: true
+  source_readback_required（必须原文回读）: true
+  rag_cannot_override_github_main_fact（RAG 不得覆盖 GitHub main 当前事实）: true
+  dashvector_or_chroma_real_call_requires_user_authorization（DashVector 或 Chroma 真实调用需要用户授权）: true
+blocked_cases_required（必须覆盖阻断样例）:
+  - missing_source_path（缺来源路径）
+  - summary_without_readback（只有摘要无回读）
+  - rag_conflict_claimed_as_fact（RAG 冲突却写成事实）
+  - chroma_replaces_dashvector（Chroma 替代 DashVector）
+  - unclear_tool_permission（工具权限不清）
+  - rag_claimed_as_formal_fact（RAG 写成正式事实）

@@ -1,0 +1,17 @@
+contract_name: trace_event（追踪事件）
+version: "2026-06-18"
+status: draft（草案）
+project_route: video_factory（视频工厂）
+purpose（用途）: 定义本地 trace（追踪）事件字段，不接外部 telemetry（观测服务）。
+required_fields（必填字段）:
+  - trace_id（追踪编号）
+  - node_id（节点编号）
+  - source_path（来源路径）
+  - status（状态）
+  - blocked_if（阻断条件）
+  - report_path（报告路径）
+  - status_not_promoted（未推进状态）
+hard_rules（硬规则）:
+  source_path_required（必须有来源路径）: true
+  trace_cannot_replace_repo_fact（追踪不能替代仓库事实）: true
+  external_telemetry_forbidden_this_round（本轮禁止外部观测服务）: true
