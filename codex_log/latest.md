@@ -1,5 +1,38 @@
 # Latest
 
+## 20260618｜Project Master Rule User Decision Version
+
+```yaml
+task_result.status（任务结果状态）: project_master_rule_user_decision_version_completed（项目总规则用户决策版已完成）
+project_route（项目路由）: video_factory（视频工厂）
+task_type（任务类型）:
+  - decision_boundary_document（决策边界文档）
+  - project_master_rule_user_version（项目总规则用户版）
+  - integration_decision_matrix（项目融合决策矩阵）
+  - risk_return_rule（风险返回规则）
+workflow_route_decision（工作流归位判断）: mechanism_repair_flow（机制修补流）
+execution_permission（执行权限）: markdown_decision_manual_only（只允许 Markdown 决策手册）
+generated_document（生成文档）: codex_log/engineering_line_plain_manual/05_项目总规则_用户决策版.md
+updated_index（更新索引）: codex_log/engineering_line_plain_manual/README.md
+runtime_enabled（运行时启用）: false（未启用）
+service_started（服务启动）: false（未启动）
+external_api_called（外部 API 调用）: false（未调用）
+tts_called（TTS 调用）: false（未调用）
+dashvector_real_call（DashVector 真实调用）: false（未调用）
+chroma_ingestion_run（Chroma 入库）: false（未运行）
+rag_runtime_enabled（RAG 运行时启用）: false（未启用）
+media_generated（媒体生成）: false（未生成）
+content_validation（内容验证）: not_promoted（未推进）
+send_ready（可发送状态）: false（未开启）
+production_readiness（生产可用状态）: not_claimed（未声称）
+next_safe_step（下一步安全动作）: user_chatgpt_review_then_engineering_state_map_task_slice_if_confirmed（用户 / ChatGPT 回审后，如确认再进入工程状态地图任务切片）
+```
+
+- `manual_scope（手册范围）`: 本轮只新增用户决策版项目总规则，回答哪些事必须问用户、哪些事 AI（人工智能）默认处理、哪些事 Codex（写入执行器）禁止擅自决定。
+- `key_topics（关键主题）`: 已覆盖项目目标、当前阶段、事实源裁决、workflow（工作流）、RAG（检索增强生成）、Tool Registry（工具注册表）、Evaluator（评估器）、Failure Route（失败路由）、Human-in-the-loop（人工介入）、Guardrails（护栏）、卡片判断、文案修改、素材证据、Report / Trace / Log（报告 / 追踪 / 日志）、Runtime（运行时）、Git sync（Git 同步）。
+- `status_boundary（状态边界）`: 文档生成不等于工程融合完成，不等于 runtime（运行时）启用，不等于 service（服务）启动，不等于 RAG（检索增强生成）进入真实运行链，不等于内容验证通过，不等于可发送状态开启。
+- `禁止推进`: 未修改代码，未安装依赖，未启动服务，未调用外部 API，未调用 TTS，未真实调用 DashVector，未运行 Chroma 入库，未读取真实媒体，未生成视频 / 音频 / 字幕 / 卡片，未推进内容验证、可发送状态或生产可用状态。
+
 ## 20260617｜Engineering Line Plain Manual
 
 ```yaml
