@@ -1,5 +1,38 @@
 # Latest
 
+## 20260617｜Engineering Line Audit and Future Repair Roadmap
+
+```yaml
+task_result.status（任务结果状态）: engineering_line_audit_completed
+project_route（项目路由）: video_factory（视频工厂）
+task_type（任务类型）:
+  - engineering_line_audit（工程线审计）
+  - integration_gap_report（融合缺口报告）
+  - future_repair_roadmap（未来修复路线图）
+generated_reports（生成报告）:
+  - codex_log/engineering_line_audit/20260617_engineering_line_audit_report.md
+  - codex_log/engineering_line_audit/20260617_engineering_line_gap_matrix.md
+  - codex_log/engineering_line_audit/20260617_future_repair_roadmap.md
+  - codex_log/engineering_line_audit/20260617_next_codex_task_slices.md
+current_truth（当前事实）: adapter candidate merged into main, but formal runtime/service/RAG/media lines remain not enabled
+runtime_enabled（是否启用正式运行时）: false（未启用）
+service_started（是否启动服务）: false（未启动）
+external_api_called（是否调用外部 API）: false（未调用）
+tts_called（是否调用 TTS）: false（未调用）
+dashvector_real_call（DashVector 真实调用）: false（未调用）
+chroma_ingestion_run（Chroma 入库）: false（未运行）
+media_generated（媒体生成）: false（未生成）
+content_validation_status（内容验证状态）: not_promoted（未推进）
+send_ready（可发送状态）: false（未开启）
+production_readiness_status（生产可用状态）: not_claimed（未声称）
+next_safe_step（下一步安全动作）: execute_milestone_1_engineering_state_map_and_acceptance_contract_only
+```
+
+- `审计结论`: main 已包含 adapter 候选代码、schema、fixture、probe、报告与状态日志；但多数工程线仍停在 `candidate / probe_only / documented_only`，不是生产可用状态。
+- `最大缺口`: 缺统一 `engineering_state_map + acceptance_contract`，导致 formal workflow、adapter candidate、probe-only、RAG smoke、proposal-only 和 missing runtime 容易混层。
+- `修复顺序`: 先 Milestone 1 状态地图与入口统一，再 State/Node/Edge，再 RAG/Tool/Retriever，再 Evaluator/Failure/Human/Guardrails，再 Checkpoint/Trace/Report/Log，最后才做隔离 runtime hardening。
+- `禁止推进`: 本轮不启 runtime、不启 service、不调用外部 API、不调用 TTS、不调用 DashVector、不运行 Chroma、不生成媒体、不推进内容验证、发送状态或生产可用状态。
+
 ## 20260617｜Main Merge Completed for Adapter Branch Candidate
 
 ```yaml
