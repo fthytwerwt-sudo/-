@@ -1,5 +1,46 @@
 # Latest
 
+## 20260617｜Engineering Line Plain Manual
+
+```yaml
+task_result.status（任务结果状态）: engineering_line_plain_manual_completed（工程线人话版手册已完成）
+project_route（项目路由）: video_factory（视频工厂）
+task_type（任务类型）:
+  - documentation_translation（文档转译）
+  - plain_language_manual（人话版手册）
+  - decision_playbook（决策手册）
+  - codex_prompt_template_pack（Codex 下发模板包）
+execution_permission（执行权限）: markdown_manual_only（只允许生成 Markdown 手册）
+generated_manuals（生成手册）:
+  - codex_log/engineering_line_plain_manual/README.md
+  - codex_log/engineering_line_plain_manual/00_先读这个_工程线人话版总览.md
+  - codex_log/engineering_line_plain_manual/01_工程线人话版施工图.md
+  - codex_log/engineering_line_plain_manual/02_常见场景决策手册.md
+  - codex_log/engineering_line_plain_manual/03_以后修改下发模板.md
+source_reports（来源报告）:
+  - codex_log/engineering_line_audit/20260617_engineering_line_audit_report.md
+  - codex_log/engineering_line_audit/20260617_engineering_line_gap_matrix.md
+  - codex_log/engineering_line_audit/20260617_future_repair_roadmap.md
+  - codex_log/engineering_line_audit/20260617_next_codex_task_slices.md
+runtime_enabled（运行时启用）: false（未启用）
+service_started（服务启动）: false（未启动）
+external_api_called（外部 API 调用）: false（未调用）
+tts_called（TTS 调用）: false（未调用）
+dashvector_real_call（DashVector 真实调用）: false（未调用）
+chroma_ingestion_run（Chroma 入库）: false（未运行）
+rag_runtime_enabled（RAG 运行时启用）: false（未启用）
+media_generated（媒体生成）: false（未生成）
+content_validation（内容验证）: not_promoted（未推进）
+send_ready（可发送状态）: false（未开启）
+production_readiness（生产可用状态）: not_claimed（未声称）
+next_safe_step（下一步安全动作）: user_chatgpt_review_then_task_slice_1_engineering_state_map（用户 / ChatGPT 回审后，再执行任务切片 1：工程状态地图）
+```
+
+- `manual_scope（手册范围）`: 本轮只把工程线审计报告翻译成用户可读、可复审、可修改、可下发的人话版 Markdown 手册。
+- `key_topics（关键主题）`: 已覆盖口径冲突裁决、卡片判断、RAG（检索增强生成）冲突、Codex（写入执行器）改文案、素材不支撑、技术通过但内容失败、人工确认、runtime（运行时）进入条件。
+- `status_boundary（状态边界）`: 手册生成不等于 Task Slice（任务切片）已执行，不等于 RAG（检索增强生成）已接入，不等于 runtime（运行时）已启用，不等于 service（服务）已启动，不等于生产可用状态成立。
+- `禁止推进`: 未修改代码，未安装依赖，未启动服务，未调用外部 API，未调用 TTS，未真实调用 DashVector，未运行 Chroma 入库，未读取真实媒体，未生成视频 / 音频 / 字幕 / 卡片，未推进内容验证或可发送状态。
+
 ## 20260617｜Engineering Line Audit and Future Repair Roadmap
 
 ```yaml
