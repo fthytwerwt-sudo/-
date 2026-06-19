@@ -1,0 +1,18 @@
+contract_name: mid_task_supply_pack（执行中增量资料包）
+version: "2026-06-20"
+status: draft（草案）
+project_route: video_factory（视频工厂）
+purpose（用途）: 根据执行中发现的缺口、失败日志或冲突文件重新检索并补料，决定是否允许继续。
+required_fields（必填字段）:
+  - child_task_id（子任务编号）
+  - files_already_read（已读文件）
+  - will_modify_files（准备修改文件）
+  - missing_context（缺失上下文）
+  - validation_failure_logs（验证失败日志）
+  - conflict_points（冲突点）
+  - incremental_snippets（增量原文片段）
+  - action_constraint（动作约束）
+  - continue_allowed（是否允许继续）
+hard_rules（硬规则）:
+  validation_failure_requires_new_supply（验证失败必须重新供料）: true
+  continue_allowed_false_blocks_write（不允许继续时必须阻断写入）: true

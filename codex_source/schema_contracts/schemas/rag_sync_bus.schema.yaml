@@ -1,0 +1,41 @@
+contract_name: rag_sync_bus（RAG 同步总线）
+version: "2026-06-20"
+status: draft（草案）
+project_route: video_factory（视频工厂）
+purpose（用途）: 判断本地项目、GitHub 审核快照和 DashVector 索引是否同步，并记录哪个 commit、哪些文件和哪些 chunk 已进入正式向量库。
+required_fields（必填字段）:
+  - repo_full_name（仓库全名）
+  - local_repo_root（本地仓库根目录）
+  - audit_source（审核事实源）
+  - branch（分支）
+  - commit_sha（提交编号）
+  - source_inventory_path（源文件清单路径）
+  - chunk_manifest_path（分块清单路径）
+  - index_manifest_path（索引清单路径）
+  - embedding_model（向量模型）
+  - vector_store_provider（向量库供应商）
+  - dashvector_collection（DashVector 集合）
+  - indexed_files（已索引文件）
+  - stale_files（过期文件）
+  - deleted_files（已删除文件）
+  - blocked_if（阻断条件）
+hard_rules（硬规则）:
+  local_first_execution（本地优先执行）: true
+  github_audit_after_push（GitHub 推送后审核）: true
+  dashvector_only_formal_store（DashVector 是唯一正式向量库）: true
+  chroma_disabled（Chroma 停用）: true
+  dirty_files_not_indexed_to_formal_store（本地脏文件不进正式向量库）: true
+  index_must_bind_commit_sha（索引必须绑定提交编号）: true
+blocked_cases_required（必须覆盖阻断样例）:
+  - missing_commit_sha
+  - dirty_file_selected_for_index
+  - stale_index_detected
+  - deleted_file_still_indexed
+  - chroma_selected_as_formal_store
+  - source_inventory_missing
+  - chunk_manifest_missing
+  - index_manifest_missing
+output_to（输出到）:
+  - vector_index_manifest（向量索引清单）
+  - rag_supply_bus（RAG 供料总线）
+  - completion_truth_check（完成真实性检查）

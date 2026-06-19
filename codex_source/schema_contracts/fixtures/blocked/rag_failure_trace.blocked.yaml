@@ -1,0 +1,35 @@
+fixture_name（样例名称）: rag_failure_trace.blocked
+case_type（样例类型）: blocked
+expected_result（预期结果）: blocked
+blocked: true
+blocked_reasons:
+  - retry_without_route
+  - missing_owner
+  - missing_trace_source_path
+  - secret_in_trace_forbidden
+rag_failure_route（RAG 失败路由）:
+  failure_id（失败编号）: vf_rag_failure_fixture_blocked_001
+  failure_signal（失败信号）: retrieval_failed
+  failed_layer（失败层）: unknown
+  target_route（目标路由）: retry_only
+  owner（处理方）: ""
+  repair_action（修复动作）: retry
+  blocked_if（阻断条件）:
+    - retry_without_route
+  next_safe_action（下一步安全动作）: missing
+rag_trace_event（RAG 追踪事件）:
+  trace_id（追踪编号）: vf_rag_trace_fixture_blocked_001
+  event_type（事件类型）: external_call
+  task_id（任务编号）: vf_rag_failure_fixture_blocked_001
+  source_path（来源路径）: ""
+  chunk_id（分块编号）: ""
+  line_range（行号范围）: ""
+  commit_sha（提交编号）: ""
+  status（状态）: blocked
+  report_path（报告路径）: ""
+  blocked_if（阻断条件）:
+    - source_path_missing
+trace_log_policy（追踪日志策略）:
+  trace_event（追踪事件）: missing
+  dated_log（日期日志）: missing
+  latest（最新日志）: missing

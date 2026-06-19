@@ -1,0 +1,54 @@
+fixture_name（样例名称）: rag_supply_bus.passing
+case_type（样例类型）: passing
+expected_result（预期结果）: passed
+blocked: false
+pre_supply_pack（执行前资料包）:
+  task_id（任务编号）: vf_rag_supply_fixture_001
+  task_type（任务类型）: mechanism_repair_and_vector_ingestion
+  retrieval_goal（检索目标）: 查明 RAG 默认判断链和 DashVector 角色
+  exact_snippet_pack（精确原文片段包）:
+    - source_path（来源路径）: codex_source/00_codex_readme.md
+      line_range（行号范围）: "699-709"
+      chunk_id（分块编号）: vf_fixture_chunk_001
+      snippet（原文片段）: Vector RAG / DashVector = 检索索引 / 缓存层
+  source_path（来源路径）: codex_source/00_codex_readme.md
+  line_range（行号范围）: "699-709"
+  chunk_id（分块编号）: vf_fixture_chunk_001
+  why_needed（为什么需要）: 确认向量库只是检索索引，不替代仓库事实
+  execution_constraint（执行约束）: 必须 source_readback 后才能写机制
+  conflict_points（冲突点）: []
+  blocked_if（阻断条件）: []
+mid_task_supply_pack（执行中增量资料包）:
+  child_task_id（子任务编号）: child_schema_probe
+  files_already_read（已读文件）:
+    - codex_source/schema_contracts/00_schema_contracts_index.md
+  will_modify_files（准备修改文件）:
+    - codex_source/schema_contracts/schemas/rag_supply_pack.schema.yaml
+  missing_context（缺失上下文）: []
+  validation_failure_logs（验证失败日志）: []
+  conflict_points（冲突点）: []
+  incremental_snippets（增量原文片段）:
+    - source_path（来源路径）: codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md
+      line_range（行号范围）: "87-93"
+      chunk_id（分块编号）: vf_fixture_chunk_002
+      snippet（原文片段）: mechanism_repair_flow
+  action_constraint（动作约束）: 只修机制，不推进内容状态
+  continue_allowed（是否允许继续）: true
+post_risk_review_pack（完成前风险复核包）:
+  task_id（任务编号）: vf_rag_supply_fixture_001
+  changed_files（已修改文件）:
+    - codex_source/schema_contracts/schemas/rag_supply_pack.schema.yaml
+  validation_evidence（验证证据）:
+    - rag_supply_bus_probe.py passed
+  git_sync_status（Git 同步状态）: pending_until_commit_push
+  stale_index_check（过期索引检查）: passed
+  status_promotion_check（状态推进检查）: not_promoted
+  remaining_blockers（剩余阻断）: []
+  completion_allowed（是否允许完成）: true
+small_probe_run（小跑探测）:
+  probe_id（探测编号）: vf_small_probe_fixture_001
+  can_execute（是否可执行）: true
+  missing_context（缺失上下文）: []
+  conflict_points（冲突点）: []
+  blocked_if（阻断条件）: []
+  source_readback_passed（原文回读是否通过）: true

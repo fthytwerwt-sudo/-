@@ -1,0 +1,18 @@
+contract_name: post_risk_review_pack（完成前风险复核包）
+version: "2026-06-20"
+status: draft（草案）
+project_route: video_factory（视频工厂）
+purpose（用途）: 完成前检查状态偷换、漏同步、漏日志、漏验证和向量索引过期。
+required_fields（必填字段）:
+  - task_id（任务编号）
+  - changed_files（已修改文件）
+  - validation_evidence（验证证据）
+  - git_sync_status（Git 同步状态）
+  - stale_index_check（过期索引检查）
+  - status_promotion_check（状态推进检查）
+  - remaining_blockers（剩余阻断）
+  - completion_allowed（是否允许完成）
+hard_rules（硬规则）:
+  no_completion_if_stale_index（索引过期不得完成）: true
+  no_status_promotion_without_user_review（未经复审不得推进状态）: true
+  git_sync_required_if_repo_changed（仓库改动必须 Git 同步）: true

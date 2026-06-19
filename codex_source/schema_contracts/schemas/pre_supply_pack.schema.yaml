@@ -1,0 +1,21 @@
+contract_name: pre_supply_pack（执行前资料包）
+version: "2026-06-20"
+status: draft（草案）
+project_route: video_factory（视频工厂）
+purpose（用途）: Codex 开工前必须拿到关键原文片段、任务约束和冲突点。
+required_fields（必填字段）:
+  - task_id（任务编号）
+  - task_type（任务类型）
+  - retrieval_goal（检索目标）
+  - exact_snippet_pack（精确原文片段包）
+  - source_path（来源路径）
+  - line_range（行号范围）
+  - chunk_id（分块编号）
+  - why_needed（为什么需要）
+  - execution_constraint（执行约束）
+  - conflict_points（冲突点）
+  - blocked_if（阻断条件）
+hard_rules（硬规则）:
+  exact_snippet_pack_not_empty（精确原文片段包不能为空）: true
+  source_path_and_line_range_required（来源路径和行号必须存在）: true
+  source_readback_before_write（写入前必须回读原文）: true

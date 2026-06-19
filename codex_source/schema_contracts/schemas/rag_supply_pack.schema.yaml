@@ -1,0 +1,27 @@
+contract_name: rag_supply_pack（RAG 供料包）
+version: "2026-06-20"
+status: draft（草案）
+project_route: video_factory（视频工厂）
+purpose（用途）: 定义 RAG 供料总线的统一包结构，确保供料结果包含精确原文片段、来源路径、行号、chunk_id、约束和冲突点，而不是只有文件地图或摘要。
+supply_points（供料节点）:
+  1_pre_execution（执行前）: pre_supply_pack（执行前资料包）
+  2_before_high_risk_write（高风险写入前）: targeted_supply_pack（定向供料包）
+  3_after_validation_failure（验证失败后）: failure_repair_supply_pack（失败修复供料包）
+  4_before_completion（完成前）: post_risk_review_pack（完成前风险复核包）
+required_fields（必填字段）:
+  - task_id（任务编号）
+  - task_type（任务类型）
+  - retrieval_goal（检索目标）
+  - exact_snippet_pack（精确原文片段包）
+  - source_path（来源路径）
+  - line_range（行号范围）
+  - chunk_id（分块编号）
+  - why_needed（为什么需要）
+  - execution_constraint（执行约束）
+  - conflict_points（冲突点）
+  - blocked_if（阻断条件）
+hard_rules（硬规则）:
+  retrieval_map_is_not_supply_complete（资料地图不等于供料完成）: true
+  exact_snippet_required（必须包含精确原文片段）: true
+  source_readback_required（必须原文回读）: true
+  vector_result_is_not_formal_fact（向量召回不是正式事实）: true

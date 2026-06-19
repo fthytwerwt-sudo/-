@@ -1,8 +1,8 @@
 contract_name: retriever_adapter（检索器适配）
-version: "2026-06-18"
+version: "2026-06-20"
 status: draft（草案）
 project_route: video_factory（视频工厂）
-purpose（用途）: 用 fixture-first（测试样例优先）方式把检索器输出转成 retrieval_manifest（检索清单），不做真实外部调用。
+purpose（用途）: 把 DashVector / GitHub / local fixture 检索输出转成 retrieval_manifest（检索清单）；Chroma 只保留为历史阻断样例，不进入正式 RAG 供料。
 required_fields（必填字段）:
   - retriever_id（检索器编号）
   - provider（检索来源）
@@ -14,10 +14,12 @@ required_fields（必填字段）:
   - blocked_if（阻断条件）
 allowed_providers（允许来源）:
   - DashVector_fixture（DashVector 测试样例）
-  - Chroma_sandbox_fixture（Chroma 沙盒测试样例）
   - GitHub_source_readback（GitHub 原文回读）
   - local_fixture（本地测试样例）
+disabled_providers（停用来源）:
+  - Chroma_sandbox_fixture（Chroma 历史阻断样例，不参与正式供料）
 hard_rules（硬规则）:
   fixture_first_only_this_round（本轮仅测试样例优先）: true
-  real_embedding_api_forbidden（禁止真实 embedding 外部接口）: true
+  real_embedding_api_requires_rag_sync_bus（真实 embedding 外部接口需要 RAG 同步总线护栏）: true
   page_content_only_blocked（只有正文无来源必须阻断）: true
+  chroma_disabled_not_used（Chroma 停用且不得替代 DashVector）: true

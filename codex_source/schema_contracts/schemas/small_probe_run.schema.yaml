@@ -1,0 +1,15 @@
+contract_name: small_probe_run（小跑探测）
+version: "2026-06-20"
+status: draft（草案）
+project_route: video_factory（视频工厂）
+purpose（用途）: 用最小查询或最小 fixture 探测 RAG 供料是否可执行，并输出缺上下文、冲突点和阻断条件。
+required_fields（必填字段）:
+  - probe_id（探测编号）
+  - can_execute（是否可执行）
+  - missing_context（缺失上下文）
+  - conflict_points（冲突点）
+  - blocked_if（阻断条件）
+  - source_readback_passed（原文回读是否通过）
+hard_rules（硬规则）:
+  page_content_only_blocked（只有正文无来源必须阻断）: true
+  source_path_line_range_required（来源路径和行号必须存在）: true

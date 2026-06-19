@@ -1,0 +1,35 @@
+contract_name: vector_index_manifest（向量索引清单）
+version: "2026-06-20"
+status: draft（草案）
+project_route: video_factory（视频工厂）
+purpose（用途）: 记录 DashVector 中每个文件、chunk、hash、line_range 和 commit_sha 的绑定关系，用于过期索引阻断和原文回读。
+required_fields（必填字段）:
+  - manifest_id（清单编号）
+  - repo_full_name（仓库全名）
+  - branch（分支）
+  - commit_sha（提交编号）
+  - embedding_model（向量模型）
+  - embedding_dimension（向量维度）
+  - vector_store_provider（向量库供应商）
+  - dashvector_collection（DashVector 集合）
+  - indexed_at（索引时间）
+  - indexed_files（已索引文件）
+  - indexed_chunks（已索引分块）
+  - source_path（来源路径）
+  - line_range（行号范围）
+  - chunk_id（分块编号）
+  - chunk_hash（分块哈希）
+  - file_hash（文件哈希）
+hard_rules（硬规则）:
+  vector_values_not_written_to_git（向量值不得写入 Git）: true
+  every_chunk_has_source_path（每个分块必须有来源路径）: true
+  every_chunk_has_line_range（每个分块必须有行号范围）: true
+  every_chunk_has_hashes（每个分块必须有文件和分块哈希）: true
+  every_chunk_binds_commit_sha（每个分块必须绑定提交编号）: true
+blocked_cases_required（必须覆盖阻断样例）:
+  - missing_source_path
+  - missing_line_range
+  - missing_chunk_hash
+  - missing_file_hash
+  - missing_commit_sha
+  - vector_dump_in_git

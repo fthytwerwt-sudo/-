@@ -14,6 +14,97 @@
 
 This directory defines draft schema contracts and static fixtures for the future adapter contract layer. It does not install, enable, or run `agent-service-toolkit`.
 
+## 2AC. 20260620 RAG sync / supply bus and DashVector ingestion guard update
+
+```yaml
+schema_contract_index_update（schema 契约索引更新）:
+  phase（阶段）: rag_sync_supply_bus_and_vector_ingestion_guard（RAG 同步 / 供料总线与向量入库护栏）
+  status（状态）: mechanism_landed_vector_ingestion_guarded（机制已落地，向量入库受护栏控制）
+  project_route（项目路由）: video_factory（视频工厂）
+  branch（分支）: main（主分支）
+  local_first_execution（本地优先执行）: true（是）
+  github_audit_after_push（GitHub 推送后审核）: true（是）
+  dashvector_only_formal_store（DashVector 是唯一正式向量库）: true（是）
+  alibaba_embedding_api（阿里向量大模型 API）: formal_embedding_model（正式向量化模型）
+  chroma_status（Chroma 状态）: disabled_not_used（停用，不使用）
+  chroma_ingestion_run（Chroma 入库）: false（未运行）
+  content_validation（内容验证）: not_promoted（未推进）
+  send_ready（可发送状态）: false（未开启）
+  production_readiness（生产可用状态）: not_claimed（未声称）
+```
+
+本阶段把 RAG 从“默认判断链 / 资料地图”补齐为两条可执行总线：
+
+- `RAG_sync_bus（RAG 同步总线）`：判断本地项目、GitHub 审核快照和 DashVector 索引是否同步；索引必须绑定 `commit_sha / file_hash / chunk_hash / line_range`；本地脏文件不得进入正式向量库。
+- `RAG_supply_bus（RAG 供料总线）`：给执行前、高风险写入前、验证失败后、完成前生成资料包；资料包必须包含精确原文片段、`source_path`、`line_range`、`chunk_id` 和 readback（原文回读），不能只有文件地图或摘要。
+
+### 2AC.1 Chroma disabled boundary（Chroma 停用边界）
+
+```yaml
+chroma_boundary（Chroma 边界）:
+  status（状态）: disabled_not_used（停用，不使用）
+  meaning（含义）: 只保留历史兼容说明和阻断样例，不再作为正式路线，也不再作为默认 sandbox_reference（沙盒参考）。
+  hard_rules（硬规则）:
+    - Chroma cannot replace DashVector（Chroma 不得替代 DashVector）
+    - Chroma not used in formal RAG supply（Chroma 不进入正式 RAG 供料）
+    - Chroma ingestion not run（本阶段不运行 Chroma 入库）
+```
+
+旧 `Chroma_sandbox` / `Chroma fixture` 只作为历史契约回溯或 blocked case（阻断样例）解释；凡试图把 Chroma 写成 formal vector store（正式向量库）、sandbox_reference（默认沙盒参考）或 RAG_supply_bus 的正式 provider（供应商），均按 `chroma_still_active` 阻断。
+
+### 2AC.2 added_schema_families（新增 schema 家族）
+
+| schema family | purpose | schema |
+|---|---|---|
+| `rag_sync_bus` | 记录 repo / branch / commit / source inventory / chunk manifest / index manifest / DashVector collection / stale files / deleted files。 | `schemas/rag_sync_bus.schema.yaml` |
+| `vector_index_manifest` | 绑定 `commit_sha / file_hash / chunk_hash / line_range`，用于索引过期阻断和原文回读。 | `schemas/vector_index_manifest.schema.yaml` |
+| `rag_supply_pack` | 定义四个供料节点和统一供料包字段，禁止只有 retrieval map。 | `schemas/rag_supply_pack.schema.yaml` |
+| `pre_supply_pack` | 执行前资料包，必须包含精确原文片段和执行约束。 | `schemas/pre_supply_pack.schema.yaml` |
+| `mid_task_supply_pack` | 执行中增量资料包，绑定已读、待改、缺上下文、失败日志和是否允许继续。 | `schemas/mid_task_supply_pack.schema.yaml` |
+| `post_risk_review_pack` | 完成前风险复核包，检查漏同步、漏日志、漏验证、状态偷换和过期索引。 | `schemas/post_risk_review_pack.schema.yaml` |
+| `small_probe_run` | 小跑探测结构，输出 `can_execute / missing_context / conflict_points / blocked_if`。 | `schemas/small_probe_run.schema.yaml` |
+| `rag_failure_route` | 把 RAG / 向量 / 供料失败路由到具体修复层，禁止只写重试。 | `schemas/rag_failure_route.schema.yaml` |
+| `rag_trace_event` | 定义 trace event（追踪事件）字段，并禁止 secret / vector 值进入日志。 | `schemas/rag_trace_event.schema.yaml` |
+
+### 2AC.3 added_fixture_families（新增 fixture 家族）
+
+| fixture family | passing fixture | blocked fixture |
+|---|---|---|
+| `rag_sync_bus` | `fixtures/passing/rag_sync_bus.passing.yaml` | `fixtures/blocked/rag_sync_bus.blocked.yaml` |
+| `rag_supply_bus` | `fixtures/passing/rag_supply_bus.passing.yaml` | `fixtures/blocked/rag_supply_bus.blocked.yaml` |
+| `rag_failure_trace` | `fixtures/passing/rag_failure_trace.passing.yaml` | `fixtures/blocked/rag_failure_trace.blocked.yaml` |
+
+### 2AC.4 added_probe_families（新增探测脚本家族）
+
+| probe | purpose |
+|---|---|
+| `probes/rag_sync_bus_probe.py` | 验证 RAG_sync_bus、vector_index_manifest、DashVector-only、Chroma disabled、dirty file block 和 stale index block。 |
+| `probes/rag_supply_bus_probe.py` | 验证 pre / mid / post / small probe 供料包必须包含精确原文片段、来源路径、行号和 chunk_id。 |
+| `probes/rag_failure_trace_probe.py` | 验证五问执行控制卡、失败路由目标和三层日志策略。 |
+
+### 2AC.5 runtime_scripts（运行脚本）
+
+| script | purpose |
+|---|---|
+| `scripts/rag_build_source_inventory.py` | 构建 source_inventory（源文件清单），执行 allowlist / denylist / secret scan，不打印密钥。 |
+| `scripts/rag_chunk_project_sources.py` | 生成 chunk_manifest（分块清单），每个 chunk 绑定 `source_path / line_range / chunk_id / chunk_hash / file_hash / commit_sha / indexed_at`。 |
+| `scripts/rag_dashvector_sync.py` | 调用 Alibaba embedding API 生成向量并 upsert 到 DashVector；向量值不得写入 Git。 |
+| `scripts/rag_sync_guard.py` | 比较 index_manifest 与当前文件 hash，发现 stale / deleted / dirty indexed source 必须阻断。 |
+| `scripts/rag_retrieval_probe.py` | 对固定问题跑 DashVector 检索，验证 metadata、source readback 和 stale index check。 |
+| `scripts/rag_supply_pack_builder.py` | 基于检索结果和原文回读生成 pre / mid / post / small probe 供料包。 |
+
+### 2AC.6 status_boundary（状态边界）
+
+```yaml
+status_boundary（状态边界）:
+  - schema / fixture / probe 通过不等于向量入库完成
+  - source_inventory / chunk_manifest 通过不等于 DashVector 已写入
+  - DashVector 检索结果不等于项目正式事实；必须 source_readback（原文回读）
+  - RAG_supply_bus 供料完成不等于允许推进 content_validation / send_ready / production_readiness
+  - trace_event / dated_log / latest 不得写入 secret、API key、token 或 vector 值
+  - `codex_log/rag_vector_sync/` 是本轮审计产物目录，不作为正式索引源，避免 manifest/log 自引用造成 commit 绑定不稳定
+```
+
 ## 2AB. 20260618 real task dry run preflight update
 
 ```yaml

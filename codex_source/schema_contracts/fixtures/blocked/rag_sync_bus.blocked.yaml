@@ -1,0 +1,31 @@
+fixture_name（样例名称）: rag_sync_bus.blocked
+case_type（样例类型）: blocked
+expected_result（预期结果）: blocked
+blocked: true
+blocked_reasons:
+  - missing_commit_sha
+  - dirty_file_selected_for_index
+  - stale_index_detected
+  - deleted_file_still_indexed
+  - chroma_selected_as_formal_store
+rag_sync_bus（RAG 同步总线）:
+  repo_full_name（仓库全名）: fthytwerwt-sudo/-
+  local_repo_root（本地仓库根目录）: /Users/fan/Documents/视频工厂
+  audit_source（审核事实源）: missing
+  branch（分支）: main
+  commit_sha（提交编号）: ""
+  source_inventory_path（源文件清单路径）: ""
+  chunk_manifest_path（分块清单路径）: ""
+  index_manifest_path（索引清单路径）: ""
+  embedding_model（向量模型）: text-embedding-v4
+  vector_store_provider（向量库供应商）: Chroma
+  dashvector_collection（DashVector 集合）: ""
+  indexed_files（已索引文件）:
+    - codex_source/schema_contracts/schemas/rag_sync_bus.schema.yaml
+  stale_files（过期文件）:
+    - codex_log/latest.md
+  deleted_files（已删除文件）:
+    - GPT数据源/deleted.md
+  blocked_if（阻断条件）:
+    - stale_index_detected
+    - chroma_selected_as_formal_store

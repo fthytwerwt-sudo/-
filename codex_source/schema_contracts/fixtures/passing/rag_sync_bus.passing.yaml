@@ -1,0 +1,36 @@
+fixture_name（样例名称）: rag_sync_bus.passing
+case_type（样例类型）: passing
+expected_result（预期结果）: passed
+blocked: false
+rag_sync_bus（RAG 同步总线）:
+  repo_full_name（仓库全名）: fthytwerwt-sudo/-
+  local_repo_root（本地仓库根目录）: /Users/fan/Documents/视频工厂
+  audit_source（审核事实源）: GitHub_after_push_source
+  branch（分支）: main
+  commit_sha（提交编号）: c61973caf71cdb1d0e59266d0c7ac422d79c79b2
+  source_inventory_path（源文件清单路径）: codex_log/rag_vector_sync/latest_source_inventory.json
+  chunk_manifest_path（分块清单路径）: codex_log/rag_vector_sync/latest_chunk_manifest.json
+  index_manifest_path（索引清单路径）: codex_log/rag_vector_sync/latest_index_manifest.json
+  embedding_model（向量模型）: text-embedding-v4
+  vector_store_provider（向量库供应商）: DashVector
+  dashvector_collection（DashVector 集合）: video_factory_docs_test
+  indexed_files（已索引文件）:
+    - AGENTS.md
+    - GPT数据源/11_项目状态动作总控器_机制推理层.md
+  stale_files（过期文件）: []
+  deleted_files（已删除文件）: []
+  blocked_if（阻断条件）: []
+  hard_rules（硬规则）:
+    local_first_execution（本地优先执行）: true
+    github_audit_after_push（GitHub 推送后审核）: true
+    dashvector_only_formal_store（DashVector 是唯一正式向量库）: true
+    chroma_disabled（Chroma 停用）: true
+    dirty_files_not_indexed_to_formal_store（本地脏文件不进正式向量库）: true
+    index_must_bind_commit_sha（索引必须绑定提交编号）: true
+hard_rules（硬规则）:
+  local_first_execution（本地优先执行）: true
+  github_audit_after_push（GitHub 推送后审核）: true
+  dashvector_only_formal_store（DashVector 是唯一正式向量库）: true
+  chroma_disabled（Chroma 停用）: true
+  dirty_files_not_indexed_to_formal_store（本地脏文件不进正式向量库）: true
+  index_must_bind_commit_sha（索引必须绑定提交编号）: true

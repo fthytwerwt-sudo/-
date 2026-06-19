@@ -1,8 +1,8 @@
 contract_name: vector_store_adapter（向量库适配）
-version: "2026-06-18"
+version: "2026-06-20"
 status: draft（草案）
 project_route: video_factory（视频工厂）
-purpose（用途）: 定义 DashVector（阿里向量数据库）主路线和 Chroma（本地向量库）沙盒路线的边界。
+purpose（用途）: 定义 DashVector（阿里向量数据库）正式向量库路线；Chroma（本地向量库）停用，只允许作为历史兼容说明或阻断样例。
 required_fields（必填字段）:
   - store_provider（向量库来源）
   - route_role（路线角色）
@@ -13,10 +13,12 @@ required_fields（必填字段）:
   - blocked_if（阻断条件）
 allowed_route_roles（允许路线角色）:
   - main_route（主路线）
-  - sandbox_reference（沙盒参考）
   - fixture_only（仅测试样例）
+disabled_route_roles（停用路线角色）:
+  - sandbox_reference（历史兼容说明，不参与正式 RAG）
 hard_rules（硬规则）:
   dashvector_remains_main_route（DashVector 保留主路线）: true
   chroma_cannot_replace_dashvector_without_user_confirmation（Chroma 未经用户确认不得替代 DashVector）: true
-  ingestion_forbidden_this_round（本轮禁止入库）: true
-  real_call_forbidden_this_round（本轮禁止真实调用）: true
+  chroma_disabled_not_used（Chroma 停用且不参与正式 RAG 供料）: true
+  dashvector_real_call_requires_rag_sync_bus（DashVector 真实调用需要 RAG_sync_bus）: true
+  ingestion_requires_secret_scan_and_manifests（入库需要密钥扫描和清单）: true

@@ -1,0 +1,32 @@
+contract_name: rag_failure_route（RAG 失败路由）
+version: "2026-06-20"
+status: draft（草案）
+project_route: video_factory（视频工厂）
+purpose（用途）: 将 RAG / 向量同步 / 供料 / 验证失败路由到具体修复层，禁止只写重试。
+execution_control_card（执行控制卡）:
+  要什么（目标）: goal_contract（目标契约）
+  到哪了（状态）: state_checkpoint（状态检查点）
+  吃什么（供料）: supply_pack（供料包）
+  错了去哪（失败路由）: failure_route（失败路由）
+  留没留记录（追踪回写）: trace_log_and_feedback_update（追踪日志与反馈回写）
+required_fields（必填字段）:
+  - failure_id（失败编号）
+  - failure_signal（失败信号）
+  - failed_layer（失败层）
+  - target_route（目标路由）
+  - owner（处理方）
+  - repair_action（修复动作）
+  - blocked_if（阻断条件）
+  - next_safe_action（下一步安全动作）
+failure_route_targets（失败路由目标）:
+  - RAG_supply_bus（RAG 供料总线）
+  - RAG_sync_bus（RAG 同步总线）
+  - fact_source_arbitration（事实源裁决）
+  - human_decision_gate（人工决策闸门）
+  - validation_repair（验证修复）
+  - completion_truth_check（完成真实性检查）
+  - git_sync_gate（Git 同步闸门）
+hard_rules（硬规则）:
+  retry_without_route_forbidden（禁止只写重试）: true
+  failure_must_have_owner（失败必须有处理方）: true
+  degraded_plan_requires_user_authorization（降级方案需要用户授权）: true

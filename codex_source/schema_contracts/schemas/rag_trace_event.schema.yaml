@@ -1,0 +1,24 @@
+contract_name: rag_trace_event（RAG 追踪事件）
+version: "2026-06-20"
+status: draft（草案）
+project_route: video_factory（视频工厂）
+purpose（用途）: 记录机器接力用 trace_event、人类回看用 dated_log、下一轮接手用 latest 三层日志策略。
+required_fields（必填字段）:
+  - trace_id（追踪编号）
+  - event_type（事件类型）
+  - task_id（任务编号）
+  - source_path（来源路径）
+  - chunk_id（分块编号）
+  - line_range（行号范围）
+  - commit_sha（提交编号）
+  - status（状态）
+  - report_path（报告路径）
+  - blocked_if（阻断条件）
+trace_log_policy（追踪日志策略）:
+  trace_event（追踪事件）: 给机器继续接力
+  dated_log（日期日志）: 给人回看本轮为什么这样做
+  latest（最新日志）: 给新聊天快速接手当前状态
+hard_rules（硬规则）:
+  no_secret_in_trace（追踪不得写入密钥）: true
+  source_path_required（必须有来源路径）: true
+  trace_cannot_replace_repo_fact（追踪不能替代仓库事实）: true

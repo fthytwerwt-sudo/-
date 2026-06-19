@@ -1,0 +1,34 @@
+fixture_name（样例名称）: rag_failure_trace.passing
+case_type（样例类型）: passing
+expected_result（预期结果）: passed
+blocked: false
+rag_failure_route（RAG 失败路由）:
+  failure_id（失败编号）: vf_rag_failure_fixture_001
+  failure_signal（失败信号）: stale_index_check_failed
+  failed_layer（失败层）: RAG_sync_bus
+  target_route（目标路由）: RAG_sync_bus
+  owner（处理方）: codex
+  repair_action（修复动作）: rebuild_chunk_manifest_and_reingest
+  blocked_if（阻断条件）: []
+  next_safe_action（下一步安全动作）: rerun_rag_sync_guard
+execution_control_card（执行控制卡）:
+  要什么（目标）: goal_contract
+  到哪了（状态）: state_checkpoint
+  吃什么（供料）: supply_pack
+  错了去哪（失败路由）: failure_route
+  留没留记录（追踪回写）: trace_log_and_feedback_update
+rag_trace_event（RAG 追踪事件）:
+  trace_id（追踪编号）: vf_rag_trace_fixture_001
+  event_type（事件类型）: sync_guard
+  task_id（任务编号）: vf_rag_failure_fixture_001
+  source_path（来源路径）: codex_log/rag_vector_sync/latest_index_manifest.json
+  chunk_id（分块编号）: vf_fixture_chunk_001
+  line_range（行号范围）: "1-80"
+  commit_sha（提交编号）: c61973caf71cdb1d0e59266d0c7ac422d79c79b2
+  status（状态）: passed
+  report_path（报告路径）: codex_log/rag_vector_sync/latest_supply_bus_report.md
+  blocked_if（阻断条件）: []
+trace_log_policy（追踪日志策略）:
+  trace_event（追踪事件）: machine_handoff
+  dated_log（日期日志）: human_readback
+  latest（最新日志）: next_chat_entry
