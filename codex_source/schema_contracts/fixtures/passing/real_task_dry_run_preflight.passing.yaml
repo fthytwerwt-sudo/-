@@ -1,0 +1,156 @@
+fixture_name（样例名称）: real_task_dry_run_preflight.passing（真实任务干跑执行前检查通过样例）
+case_type（样例类型）: passing
+purpose（用途）: 验证安全工程融合框架能把一个真实《视频工厂》产出前任务拆成路由、RAG 默认判断、原文回读、工具权限、文案权限、卡片判断、素材证据、评估护栏、人工闸门、允许动作、阻断动作和下一步安全动作。
+input_summary（输入摘要）: 用户想用《视频工厂》的新整体框架进入真实内容产出流程，本轮只验证执行前判断，不生成媒体、不写正式文案、不真实调用 RAG。
+expected_result（预期结果）: 框架判断完整，通过样例通过；但只代表 preflight（执行前检查）能力成立，不代表真实产出完成。
+why_pass_or_block（为什么通过或阻断）: 所有必须判断点都存在，且 runtime（运行时）、service（服务）、外部 API、TTS、DashVector、Chroma、media（媒体）、content_validation（内容验证）、send_ready（可发送状态）和 production_readiness（生产可用状态）均保持未推进。
+
+route_decision（路由判断）:
+  project_route（项目路由）: video_factory（视频工厂）
+  workflow_route_decision（工作流归位判断）: mechanism_repair_flow（机制修补流）
+  workflow_reason（归位原因）: 本轮验证新框架执行前判断能力，不生成视频、不写正式文案、不启动运行时。
+  task_type（任务类型）: real_task_preflight_simulation（真实任务执行前模拟）
+  is_video_generation（是否视频生成）: false
+  is_formal_copywriting（是否正式文案产出）: false
+  is_preflight_check（是否执行前检查）: true
+
+state_map_check（状态地图检查）:
+  allowed_statuses（允许状态）:
+    - formal（正式）
+    - candidate（候选）
+    - probe_only（仅探测）
+    - documented_only（仅文档）
+    - missing（缺失）
+    - conflict（冲突）
+    - blocked（阻断）
+  current_status（当前状态）:
+    framework_status（框架状态）: probe_only_safe_framework（仅限安全框架探测）
+    runtime_status（运行时状态）: not_enabled（未启用）
+    rag_runtime_status（RAG 运行时状态）: not_enabled（未启用）
+    media_status（媒体状态）: not_generated（未生成）
+  evidence_files（证据文件）:
+    - codex_log/engineering_line_audit/20260618_goal_mode_safe_engineering_fusion_report.md
+    - codex_log/engineering_line_plain_manual/05_项目总规则_用户决策版.md
+    - codex_source/schema_contracts/00_schema_contracts_index.md
+
+rag_default_decision（RAG 默认判断）:
+  rag_default_entered（RAG 是否进入默认判断链）: true
+  retrieval_manifest_requirement（检索清单要求）: required（必须）
+  required_source_fields（必需来源字段）:
+    - source_path（来源路径）
+    - chunk_id（分块编号）
+    - line_range（行号范围）
+    - readback（原文回读）
+  real_dashvector_call_allowed（是否允许真实调用 DashVector）: false
+  real_chroma_ingestion_allowed（是否允许 Chroma 入库）: false
+  repo_fact_priority（仓库事实优先）: true
+  rag_result_can_override_repo_fact（RAG 结果能否覆盖仓库事实）: false
+
+source_readback_requirement（原文回读要求）:
+  source_readback_required（是否必须原文回读）: true
+  minimum_source_fields（最小来源字段）:
+    - source_path（来源路径）
+    - chunk_id（分块编号）
+    - line_range（行号范围，如适用）
+    - readback（原文回读）
+  vector_summary_enough（向量摘要是否足够）: false
+
+tool_permission_check（工具权限检查）:
+  external_tool_call_allowed（是否允许工具外呼）: false
+  tool_repo_fact_write_allowed（是否允许工具写仓库事实）: false
+  cost_creation_allowed（是否允许产生成本）: false
+  private_file_read_allowed（是否允许读取隐私文件）: false
+  codex_allowed_write_scope（Codex 允许写入范围）:
+    - codex_source/schema_contracts/fixtures/passing/real_task_dry_run_preflight.passing.yaml
+    - codex_source/schema_contracts/fixtures/blocked/real_task_dry_run_preflight.blocked.yaml
+    - codex_source/schema_contracts/probes/real_task_dry_run_preflight_probe.py
+    - codex_log/engineering_line_audit/20260618_real_task_dry_run_preflight_report.md
+    - codex_source/schema_contracts/00_schema_contracts_index.md
+    - codex_log/latest.md
+
+copy_permission_check（文案权限检查）:
+  locked_copy_input_present（是否已有锁定文案输入）: false
+  formal_copy_generation_allowed（是否允许生成正式文案）: false
+  semantic_change_allowed（是否允许改语义）: false
+  title_change_allowed（是否允许改标题）: false
+  core_judgment_change_allowed（是否允许改核心判断）: false
+  required_next_if_real_copy_needed（后续真实文案所需动作）:
+    - copy_contract（文案契约）
+    - copy_change_request（文案修改请求）
+
+card_decision_check（卡片判断检查）:
+  card_generation_this_round（本轮是否生成卡片）: false
+  ai_can_later_decide_card_type_position_count（AI 后续能否判断卡片类型位置数量）: true
+  card_can_block_evidence（卡片能否遮挡证据）: false
+  card_can_add_new_fact（卡片能否新增事实）: false
+  aesthetic_change_requires_user_confirmation（审美变化是否需要用户确认）: true
+
+material_evidence_check（素材证据检查）:
+  real_media_read_this_round（本轮是否读取真实媒体）: false
+  future_required_fields（后续必需字段）:
+    - material_path（素材路径）
+    - timecode（时间码）
+    - evidence_strength（证据强度）
+    - material_gap（素材缺口）
+  weak_material_can_force_edit（弱相关素材能否硬剪）: false
+  fallback_if_material_missing（缺素材时回退层）:
+    - copy_layer（文案层）
+    - material_layer（素材层）
+
+evaluator_failure_guardrail_check（评估失败护栏检查）:
+  technical_validation_can_promote_content_validation（技术验证能否推进内容验证）: false
+  dry_run_can_claim_real_output_completed（干跑能否声称真实产出完成）: false
+  missing_inputs_must_create_blocked_actions（缺输入是否必须生成阻断动作）: true
+  external_capability_requires_user_confirmation（外部能力是否需要用户确认）: true
+  guardrails_checked（已检查护栏）:
+    - forbidden_status_promotion_scan（禁止状态推进扫描）
+    - secret_scan（密钥扫描）
+    - no_runtime_service_media_call（无运行时 / 服务 / 媒体调用）
+    - path_limited_stage_only（仅路径限定暂存）
+
+human_decision_gate（人工决策闸门）:
+  required_for（需要人工确认的事项）:
+    - real_rag_call（真实 RAG 调用）
+    - external_api_call（外部 API 调用）
+    - tts_call（TTS 调用）
+    - media_generation（媒体生成）
+    - runtime_enablement（运行时启用）
+    - copy_semantic_change（文案语义修改）
+    - aesthetic_direction_change（审美方向变化）
+    - status_promotion（状态推进）
+  auto_pass_allowed_when_required（需要人工时是否允许自动通过）: false
+
+allowed_actions（允许动作）:
+  - route_task（路由任务）
+  - run_preflight_dry_run（执行前干跑）
+  - create_fixture（创建测试样例）
+  - create_local_probe（创建本地探测脚本）
+  - create_report（创建报告）
+  - update_schema_index（更新结构契约索引）
+  - update_latest（更新最新日志）
+  - run_local_readonly_probe（运行本地只读探测）
+
+blocked_actions（阻断动作）:
+  - generate_video（生成视频）
+  - generate_audio（生成音频）
+  - generate_subtitles（生成字幕）
+  - generate_card_image（生成卡片图片）
+  - formal_copywriting_generation（生成正式文案）
+  - real_dashvector_call（真实调用 DashVector）
+  - chroma_ingestion_run（运行 Chroma 入库）
+  - external_api_call（调用外部 API）
+  - tts_call（调用 TTS）
+  - runtime_enablement（启用运行时）
+  - service_start（启动服务）
+  - content_validation_promotion（推进内容验证）
+  - send_ready_promotion（推进可发送状态）
+  - production_readiness_claim（声称生产可用）
+
+next_safe_step（下一步安全动作）:
+  recommendation（建议）: 如果用户要最快开始产出，下一步不是继续写策略，而是选择一个真实视频任务输入，补齐目标 / 选题、锁定文案或文案草稿、素材路径或素材缺口、是否允许真实 RAG、是否允许 TTS / API / 媒体生成，然后再进入正式 preflight（执行前检查）或 production candidate（候选产出）任务。
+  user_or_chatgpt_input_needed（用户或 ChatGPT 需要补充的输入）:
+    - target_or_topic（目标或选题）
+    - locked_copy_or_copy_draft（锁定文案或文案草稿）
+    - material_path_or_gap（素材路径或素材缺口）
+    - real_rag_authorization（真实 RAG 授权）
+    - tts_api_media_authorization（TTS / API / 媒体生成授权）

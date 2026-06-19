@@ -14,6 +14,54 @@
 
 This directory defines draft schema contracts and static fixtures for the future adapter contract layer. It does not install, enable, or run `agent-service-toolkit`.
 
+## 2AB. 20260618 real task dry run preflight update
+
+```yaml
+schema_contract_index_update（schema 契约索引更新）:
+  phase（阶段）: new_framework_real_task_dry_run（新框架真实任务干跑验证）
+  status（状态）: real_task_dry_run_preflight_landed（真实任务干跑执行前检查已落地）
+  project_route（项目路由）: video_factory（视频工厂）
+  branch（分支）: main（主分支）
+  runtime_enabled（运行时启用）: false（未启用）
+  service_started（服务启动）: false（未启动）
+  external_api_called（外部 API 调用）: false（未调用）
+  tts_called（TTS 调用）: false（未调用）
+  dashvector_real_call（DashVector 真实调用）: false（未调用）
+  chroma_ingestion_run（Chroma 入库）: false（未运行）
+  media_generated（媒体生成）: false（未生成）
+  content_validation（内容验证）: not_promoted（未推进）
+  send_ready（可发送状态）: false（未开启）
+  production_readiness（生产可用状态）: not_claimed（未声称）
+```
+
+本阶段用一个真实《视频工厂》产出前任务做 dry run（干跑）输入，验证安全工程融合框架能否输出 route_decision（路由判断）、engineering_state_map_check（工程状态地图检查）、RAG 默认判断、source_readback（原文回读）要求、tool permission（工具权限）、copy permission（文案权限）、card decision（卡片判断）、material evidence（素材证据）、evaluator / failure / guardrail（评估 / 失败 / 护栏）、human decision gate（人工决策闸门）、allowed_actions（允许动作）、blocked_actions（阻断动作）和 next_safe_step（下一步安全动作）。
+
+### 2AB.1 added_fixture_family（新增测试样例家族）
+
+| fixture family | passing fixture | blocked fixture |
+|---|---|---|
+| `real_task_dry_run_preflight` | `fixtures/passing/real_task_dry_run_preflight.passing.yaml` | `fixtures/blocked/real_task_dry_run_preflight.blocked.yaml` |
+
+### 2AB.2 added_probe_family（新增探测脚本家族）
+
+| probe | purpose |
+|---|---|
+| `probes/real_task_dry_run_preflight_probe.py` | 验证真实任务执行前干跑的 13 个判断点和 8 个阻断场景，只读取本地 YAML fixture，不外呼、不读真实媒体、不启动服务、不启用运行时。 |
+
+### 2AB.3 status_boundary（状态边界）
+
+```yaml
+status_boundary（状态边界）:
+  - dry run 通过不等于真实内容产出完成
+  - preflight 通过不等于视频已生成
+  - RAG 默认进入判断链不等于真实调用 DashVector 或运行 Chroma
+  - 文案权限检查通过不等于允许 Codex 改语义、标题或核心判断
+  - 卡片判断检查通过不等于本轮生成卡片图片
+  - 素材证据检查通过不等于读取了真实媒体
+  - evaluator / guardrail 检查通过不等于内容验证、可发送状态或生产可用状态推进
+  - 本阶段不启动 service，不调用外部 API，不调用 TTS，不生成媒体
+```
+
 ## 2AA. 20260618 goal mode safe engineering fusion update
 
 ```yaml

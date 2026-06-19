@@ -1,0 +1,66 @@
+fixture_name（样例名称）: real_task_dry_run_preflight.blocked（真实任务干跑执行前检查阻断样例）
+case_type（样例类型）: blocked
+purpose（用途）: 覆盖真实任务干跑中必须阻断的高风险情形，防止缺路由、缺回读、未授权外呼、运行时越界、文案越权、卡片遮挡、媒体生成和状态偷换。
+input_summary（输入摘要）: 模拟一个框架干跑输入被错误升级为真实执行，且缺项目路由、缺原文回读、尝试真实 RAG、尝试运行时、改文案语义、遮挡证据、生成媒体和状态偷换。
+expected_result（预期结果）: probe 必须识别所有 blocked_reasons（阻断原因），并保持本轮不执行真实外部调用、不生成媒体、不推进状态。
+why_pass_or_block（为什么通过或阻断）: 这些场景会改变项目事实、权限、内容语义、审美证据或状态边界，不能在 dry run（干跑）中继续执行。
+blocked（是否阻断）: true
+blocked_reasons:
+  - missing_project_route
+  - rag_default_without_source_readback
+  - real_rag_call_without_authorization
+  - runtime_requested_without_boundary
+  - copy_semantic_change_without_user_confirmation
+  - card_blocks_core_evidence
+  - media_generation_requested_in_dry_run
+  - technical_validation_claimed_as_content_validation
+
+blocked_cases（阻断场景）:
+  missing_project_route（缺项目路由）:
+    problem（问题）: project_route（项目路由）缺失，无法确认是否进入《视频工厂》。
+    required_action（必需动作）: blocked（阻断）并回到 route_decision（路由判断）。
+  rag_default_without_source_readback（RAG 默认但缺原文回读）:
+    problem（问题）: RAG 默认进入判断链，但缺 source_path（来源路径）、chunk_id（分块编号）或 readback（原文回读）。
+    required_action（必需动作）: blocked（阻断）并回到 source_readback_requirement（原文回读要求）。
+  real_rag_call_without_authorization（未授权真实 RAG 调用）:
+    problem（问题）: 尝试真实调用 DashVector（阿里向量数据库）或运行 Chroma ingestion（Chroma 入库），但没有用户授权。
+    required_action（必需动作）: blocked（阻断）并触发 human_decision_gate（人工决策闸门）。
+  runtime_requested_without_boundary（未满足边界却请求 runtime）:
+    problem（问题）: 在状态 / RAG / Tool / Evaluator / Failure / Trace 未全部接清前，请求启用 runtime（运行时）。
+    required_action（必需动作）: blocked（阻断），保持 runtime_status（运行时状态）为 not_enabled（未启用）。
+  copy_semantic_change_without_user_confirmation（未确认就改文案语义）:
+    problem（问题）: 没有 locked copy（锁定文案）和用户确认，却尝试改标题、语义或核心判断。
+    required_action（必需动作）: blocked（阻断）并输出 copy_change_request（文案修改请求）。
+  card_blocks_core_evidence（卡片遮挡核心证据）:
+    problem（问题）: 卡片遮挡录屏、截图、数据或关键证据区域。
+    required_action（必需动作）: blocked（阻断）或重新定位卡片，不得继续交付。
+  media_generation_requested_in_dry_run（干跑中请求媒体生成）:
+    problem（问题）: dry run（干跑）阶段请求生成视频、音频、字幕或卡片图片。
+    required_action（必需动作）: blocked（阻断），本轮只允许 fixture / probe / report。
+  technical_validation_claimed_as_content_validation（技术验证冒充内容验证）:
+    problem（问题）: 把探测通过或技术检查通过写成内容验证已推进。
+    required_action（必需动作）: blocked（阻断）并回到 evaluator_failure_guardrail_check（评估失败护栏检查）。
+
+unsafe_attempt_summary（不安全尝试摘要）:
+  project_route_present（项目路由是否存在）: false
+  source_readback_required（是否要求原文回读）: false
+  real_rag_authorized（真实 RAG 是否授权）: false
+  runtime_boundary_ready（运行时边界是否就绪）: false
+  user_confirmed_copy_semantic_change（用户是否确认文案语义变更）: false
+  card_evidence_overlap_severity（卡片证据遮挡等级）: high（高）
+  dry_run_requests_media（干跑是否请求媒体）: true
+  status_boundary_safe（状态边界是否安全）: false
+
+blocked_actions（阻断动作）:
+  - continue_without_project_route（缺项目路由继续执行）
+  - use_rag_without_source_readback（无原文回读使用 RAG）
+  - call_dashvector_without_authorization（未授权调用 DashVector）
+  - run_chroma_ingestion_without_authorization（未授权运行 Chroma 入库）
+  - enable_runtime_from_dry_run（从干跑启用运行时）
+  - change_copy_semantics_without_user（未确认改文案语义）
+  - place_card_over_core_evidence（卡片压住核心证据）
+  - generate_media_in_dry_run（干跑生成媒体）
+  - promote_content_validation_from_technical_probe（用技术探测推进内容验证）
+
+next_safe_step（下一步安全动作）:
+  recommendation（建议）: 先补齐项目路由、source_readback（原文回读）、用户授权、文案契约、素材证据和状态边界；缺任一项时只允许停在 blocked（阻断）或 preflight（执行前检查）层。

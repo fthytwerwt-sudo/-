@@ -1,5 +1,42 @@
 # Latest
 
+## 20260618｜Real Task Dry Run Preflight
+
+```yaml
+task_result.status（任务结果状态）: real_task_dry_run_preflight_completed（真实任务干跑执行前检查已完成）
+project_route（项目路由）: video_factory（视频工厂）
+task_type（任务类型）:
+  - framework_dry_run_validation（框架干跑验证）
+  - real_task_preflight_simulation（真实任务执行前模拟）
+  - rag_default_route_probe_by_real_task（用真实任务探测 RAG 默认路线）
+  - decision_gate_validation（决策闸门验证）
+workflow_route_decision（工作流归位判断）: mechanism_repair_flow（机制修补流）
+execution_permission（执行权限）: dry_run_fixture_probe_report_only（仅允许干跑 fixture / probe / report / latest / index）
+passing_fixture_created（通过样例是否创建）: true（已创建）
+blocked_fixture_created（阻断样例是否创建）: true（已创建）
+dry_run_probe_created（干跑探测脚本是否创建）: true（已创建）
+dry_run_report_created（干跑报告是否创建）: true（已创建）
+schema_index_updated（结构契约索引是否更新）: true（已更新）
+runtime_enabled（运行时启用）: false（未启用）
+service_started（服务启动）: false（未启动）
+external_api_called（外部 API 调用）: false（未调用）
+tts_called（TTS 调用）: false（未调用）
+dashvector_real_call（DashVector 真实调用）: false（未调用）
+chroma_ingestion_run（Chroma 入库）: false（未运行）
+rag_runtime_enabled（RAG 运行时启用）: false（未启用）
+media_generated（媒体生成）: false（未生成）
+content_validation（内容验证）: not_promoted（未推进）
+send_ready（可发送状态）: false（未开启）
+production_readiness（生产可用状态）: not_claimed（未声称）
+generated_report（生成报告）: codex_log/engineering_line_audit/20260618_real_task_dry_run_preflight_report.md
+next_safe_step（下一步安全动作）: choose_one_real_video_task_input_then_run_formal_preflight_or_production_candidate_after_user_chatgpt_review（用户 / ChatGPT 选择一个真实视频任务输入后，再进入正式执行前检查或候选产出任务）
+```
+
+- `dry_run_scope（干跑范围）`: 本轮验证的是新框架执行前判断能力：路由、状态地图、RAG（检索增强生成）默认判断、原文回读要求、工具权限、文案权限、卡片判断、素材证据、评估失败护栏、人工确认闸门、允许动作和阻断动作。
+- `not_content_output（不是内容产出）`: 本轮不是正式文案生成，不是视频生成，不读取真实媒体，不生成音频 / 字幕 / 卡片图片，不推进内容验证、可发送状态或生产可用状态。
+- `rag_boundary（RAG 边界）`: RAG 默认进入判断链，但不真实调用 DashVector（阿里向量数据库），不运行 Chroma ingestion（Chroma 入库）；后续真实检索仍需用户授权，并必须保留 source_path（来源路径）、chunk_id（分块编号）和 readback（原文回读）。
+- `next_input_needed（下一步需要输入）`: 如果下一步要真实产出，需要用户 / ChatGPT 提供真实视频任务输入：目标 / 选题、锁定文案或文案草稿、素材路径或素材缺口、真实 RAG 授权、TTS / API / 媒体生成授权。
+
 ## 20260618｜Goal Mode Safe Engineering Fusion
 
 ```yaml
