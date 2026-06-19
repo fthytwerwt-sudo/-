@@ -1,0 +1,10 @@
+{
+  "blocked_if": [
+    "readback_failed",
+    "index_manifest_blocked"
+  ],
+  "can_execute": true,
+  "conflict_points": [],
+  "missing_context": [],
+  "task_id": "rag-vector-sync-20260620"
+}

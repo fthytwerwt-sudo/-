@@ -1,0 +1,99 @@
+{
+  "exact_snippet_required": true,
+  "generated_at": "2026-06-20T04:58:47+08:00",
+  "key_printed": false,
+  "key_written": false,
+  "mid_task_supply_pack": {
+    "action_constraint": [
+      "continue_only_if_readback_hash_match"
+    ],
+    "child_task_id": "rag-sync-guard-check",
+    "conflict_points": [],
+    "continue_allowed": true,
+    "files_already_read": [
+      "codex_log/engineering_line_audit/20260618_real_task_dry_run_preflight_report.md"
+    ],
+    "incremental_snippets": [
+      {
+        "chunk_id": "vf_397a356e9c3c1420c6839df41c28d0a1b2e4ad13",
+        "line_range": "62-76",
+        "readback_hash_match": true,
+        "snippet": "## rag_default_decision（RAG 默认判断）\n\n```yaml\nrag_default_entered（RAG 是否进入默认判断链）: true（是）\nretrieval_manifest_requirement（检索清单要求）: required（必须）\nsource_path_required（是否必须来源路径）: true（是）\nchunk_id_required（是否必须分块编号）: true（是）\nreadback_required（是否必须原文回读）: true（是）\nreal_dashvector_call_allowed（是否允许真实调用 DashVector）: false（否）\nreal_chroma_ingestion_allowed（是否允许 Chroma 入库）: false（否）\nrepo_fact_priority（仓库事实优先）: true（是）\n```\n\nRAG（检索增强生成）默认进入判断链，意思是：后续真实任务默认要准备检索清单、来源路径、分块编号和原文回读。它不表示本轮真实调用 DashVector（阿里向量数据库）或 Chroma（本地向量库），也不表示向量结果可以覆盖 GitHub / main 当前仓库事实。",
+        "source_path": "codex_log/engineering_line_audit/20260618_real_task_dry_run_preflight_report.md"
+      }
+    ],
+    "missing_context": [],
+    "validation_failure_logs": [],
+    "will_modify_files": []
+  },
+  "post_risk_review_pack": {
+    "blocked_if": [
+      "missing_log",
+      "missing_probe",
+      "stale_index_detected",
+      "status_promotion_attempted"
+    ],
+    "completion_allowed": true,
+    "completion_truth_check": {
+      "content_validation": "not_promoted",
+      "indexed_chunk_count": 5569,
+      "production_readiness": "not_promoted",
+      "send_ready": false,
+      "source_commit_sha": "6a7417fb856cdd91f3777d7348e367d2ce12b3c9"
+    },
+    "exact_snippet_pack": [
+      {
+        "chunk_id": "vf_397a356e9c3c1420c6839df41c28d0a1b2e4ad13",
+        "line_range": "62-76",
+        "readback_hash_match": true,
+        "snippet": "## rag_default_decision（RAG 默认判断）\n\n```yaml\nrag_default_entered（RAG 是否进入默认判断链）: true（是）\nretrieval_manifest_requirement（检索清单要求）: required（必须）\nsource_path_required（是否必须来源路径）: true（是）\nchunk_id_required（是否必须分块编号）: true（是）\nreadback_required（是否必须原文回读）: true（是）\nreal_dashvector_call_allowed（是否允许真实调用 DashVector）: false（否）\nreal_chroma_ingestion_allowed（是否允许 Chroma 入库）: false（否）\nrepo_fact_priority（仓库事实优先）: true（是）\n```\n\nRAG（检索增强生成）默认进入判断链，意思是：后续真实任务默认要准备检索清单、来源路径、分块编号和原文回读。它不表示本轮真实调用 DashVector（阿里向量数据库）或 Chroma（本地向量库），也不表示向量结果可以覆盖 GitHub / main 当前仓库事实。",
+        "source_path": "codex_log/engineering_line_audit/20260618_real_task_dry_run_preflight_report.md"
+      }
+    ],
+    "risk_points": [],
+    "task_id": "rag-vector-sync-20260620"
+  },
+  "pre_supply_pack": {
+    "blocked_if": [
+      "source_path_missing",
+      "line_range_missing",
+      "readback_failed",
+      "stale_index_detected"
+    ],
+    "chunk_id": "vf_397a356e9c3c1420c6839df41c28d0a1b2e4ad13",
+    "conflict_points": [],
+    "exact_snippet_pack": [
+      {
+        "chunk_id": "vf_397a356e9c3c1420c6839df41c28d0a1b2e4ad13",
+        "line_range": "62-76",
+        "readback_hash_match": true,
+        "snippet": "## rag_default_decision（RAG 默认判断）\n\n```yaml\nrag_default_entered（RAG 是否进入默认判断链）: true（是）\nretrieval_manifest_requirement（检索清单要求）: required（必须）\nsource_path_required（是否必须来源路径）: true（是）\nchunk_id_required（是否必须分块编号）: true（是）\nreadback_required（是否必须原文回读）: true（是）\nreal_dashvector_call_allowed（是否允许真实调用 DashVector）: false（否）\nreal_chroma_ingestion_allowed（是否允许 Chroma 入库）: false（否）\nrepo_fact_priority（仓库事实优先）: true（是）\n```\n\nRAG（检索增强生成）默认进入判断链，意思是：后续真实任务默认要准备检索清单、来源路径、分块编号和原文回读。它不表示本轮真实调用 DashVector（阿里向量数据库）或 Chroma（本地向量库），也不表示向量结果可以覆盖 GitHub / main 当前仓库事实。",
+        "source_path": "codex_log/engineering_line_audit/20260618_real_task_dry_run_preflight_report.md"
+      }
+    ],
+    "execution_constraint": [
+      "vector_result_is_not_formal_fact",
+      "source_readback_required",
+      "do_not_promote_content_validation_or_send_ready"
+    ],
+    "line_range": "62-76",
+    "retrieval_goal": "RAG 默认判断链是什么",
+    "source_path": "codex_log/engineering_line_audit/20260618_real_task_dry_run_preflight_report.md",
+    "task_id": "rag-vector-sync-20260620",
+    "task_type": "mechanism_repair_and_vector_ingestion",
+    "why_needed": "Codex 开工前必须拿到关键原文片段、任务约束和冲突点。"
+  },
+  "project_route": "video_factory",
+  "retrieval_map_is_not_supply_complete": true,
+  "small_probe_run": {
+    "blocked_if": [
+      "readback_failed",
+      "index_manifest_blocked"
+    ],
+    "can_execute": true,
+    "conflict_points": [],
+    "missing_context": [],
+    "task_id": "rag-vector-sync-20260620"
+  },
+  "status": "passed"
+}

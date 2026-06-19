@@ -1,0 +1,16 @@
+{
+  "blocked_reasons": [],
+  "current_head_sha": "6a7417fb856cdd91f3777d7348e367d2ce12b3c9",
+  "deleted_files": [],
+  "dirty_files_not_indexed_to_formal_store": true,
+  "dynamic_audit_artifacts_excluded_from_stale_check": [
+    "codex_log/rag_vector_sync/"
+  ],
+  "guard_name": "rag_sync_guard",
+  "index_commit_sha": "6a7417fb856cdd91f3777d7348e367d2ce12b3c9",
+  "index_manifest_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_index_manifest.json",
+  "only_dynamic_or_public_dirty_paths": true,
+  "project_route": "video_factory",
+  "stale_files": [],
+  "stale_index_check": true
+}
