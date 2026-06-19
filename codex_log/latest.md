@@ -1,5 +1,46 @@
 # Latest
 
+## 20260620｜RAG Sync / Supply Bus + DashVector Text Ingestion
+
+```yaml
+task_result.status（任务结果状态）: completed（已完成）
+project_route（项目路由）: video_factory（视频工厂）
+task_type（任务类型）:
+  - mechanism_repair_and_vector_ingestion（机制修补 + 向量入库）
+  - RAG_sync_bus（RAG 同步总线）
+  - RAG_supply_bus（RAG 供料总线）
+workflow_route_decision（工作流归位判断）: mechanism_repair_flow（机制修补流）
+source_commit_sha（源语料提交）: see_index_manifest（以 latest_index_manifest.json 为准）
+embedding_provider（向量模型供应商）: Alibaba DashScope / text-embedding-v4
+vector_store（向量库）: DashVector
+dashvector_collection（集合）: video_factory_docs_test
+indexed_file_count（已索引文件数）: 867
+indexed_chunk_count（已索引分块数）: 5568
+content_storage_policy（正文存储策略）: source_readback_only（DashVector 只存向量和定位 metadata，不存正文）
+media_indexed（媒体是否入库）: false（否）
+secret_scan（密钥扫描）: passed（通过）
+retrieval_probe（检索探测）: passed（通过，6 个固定查询完成 source_readback / stale_index_check）
+supply_pack_validation（供料包验证）: passed（通过，pre / mid / post / small_probe 可生成）
+sync_guard（同步护栏）: passed（通过）
+chroma_status（Chroma 状态）: disabled_not_used（停用，不使用）
+external_api_called（外部 API 调用）: true（仅 Alibaba embedding / DashVector upsert / query）
+tts_called（TTS 调用）: false（未调用）
+media_generated（媒体生成）: false（未生成）
+content_validation（内容验证）: not_promoted（未推进）
+send_ready（可发送状态）: false（未开启）
+production_readiness（生产可用状态）: not_claimed（未声称）
+generated_report（生成报告）: codex_log/rag_vector_sync/20260620_rag_vector_sync_report.md
+index_manifest（索引清单）: codex_log/rag_vector_sync/latest_index_manifest.json
+retrieval_report（检索报告）: codex_log/rag_vector_sync/latest_retrieval_probe_report.md
+supply_report（供料报告）: codex_log/rag_vector_sync/latest_supply_bus_report.md
+next_safe_step（下一步安全动作）: use_RAG_supply_pack_then_source_readback_before_any_high_risk_write（高风险写入前先生成供料包并做原文回读）
+```
+
+- `RAG_sync_bus（RAG 同步总线）`: 已落地 schema / fixture / probe，并用 `source_inventory -> chunk_manifest -> index_manifest -> sync_guard` 绑定 commit、file_hash、chunk_hash 和 line_range。
+- `RAG_supply_bus（RAG 供料总线）`: 已落地 pre / mid / post / small_probe 供料包；供料结果必须包含 exact snippet、source_path、line_range、chunk_id 和 readback，不允许只有文件地图。
+- `vector_ingestion（向量入库）`: 本轮只索引文本信息；视频、音频、图片、zip、`dist/**`、`public/**`、`.env*`、secret/token/key 命名文件、archive/raw reference 未入库。DashVector 不存正文，只存向量与定位 metadata，正式事实仍以仓库原文回读为准。
+- `status_boundary（状态边界）`: 本轮未调用 TTS、未生成媒体、未推进 content_validation / send_ready / production_readiness；Chroma 保持 `disabled_not_used`，不得替代 DashVector 或正式 RAG 供料。
+
 ## 20260618｜V006 Human Review Minimum Loop
 
 ```yaml
