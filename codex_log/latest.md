@@ -1,5 +1,42 @@
 # Latest
 
+## 20260618｜Minimum Production Loop
+
+```yaml
+task_result.status（任务结果状态）: blocked_with_missing_inputs（因缺输入而阻断）
+project_route（项目路由）: video_factory（视频工厂）
+task_type（任务类型）:
+  - minimum_production_loop（最小产出闭环）
+  - real_task_preflight_to_candidate（真实任务从执行前检查到候选产出）
+  - framework_usage_validation（框架使用验证）
+  - blocked_gap_report_if_needed（必要时输出阻断缺口报告）
+workflow_route_decision（工作流归位判断）: mechanism_repair_flow（机制修补流）为主，data_review_flow（数据复盘流）提供事实输入
+execution_permission（执行权限）: report_latest_only（只允许报告、latest、验证和 Git 同步）
+loop_result（闭环结果）:
+  status（状态）: blocked_with_missing_inputs（因缺输入而阻断）
+  candidate_created（是否生成候选）: false（未生成）
+  blocked_reason（阻断原因）: 当前缺少可执行的新视频任务选择、locked copy（锁定文案）或可执行草稿、绑定当前任务的素材路径，以及真实 RAG / TTS / API / 媒体生成授权边界。
+runtime_enabled（运行时启用）: false（未启用）
+service_started（服务启动）: false（未启动）
+external_api_called（外部 API 调用）: false（未调用）
+tts_called（TTS 调用）: false（未调用）
+dashvector_real_call（DashVector 真实调用）: false（未调用）
+chroma_ingestion_run（Chroma 入库）: false（未运行）
+rag_runtime_enabled（RAG 运行时启用）: false（未启用）
+media_generated（媒体生成）: false（未生成）
+content_validation（内容验证）: not_promoted（未推进）
+send_ready（可发送状态）: false（未开启）
+production_readiness（生产可用状态）: not_claimed（未声称）
+generated_report（生成报告）: codex_log/minimum_loop/20260618_minimum_production_loop_report.md
+validation_status（验证状态）: passed（已通过）
+next_safe_step（下一步安全动作）: user_choose_v006_review_or_new_video_task_then_provide_locked_copy_material_and_authorization（用户选择继续 V006 人审或启动新视频，并补 locked copy / 素材 / 授权边界）
+```
+
+- `minimum_loop_result（最小闭环结果）`: 本轮已读取当前运营目标、发布目标、数据目标锚点、决策引擎结果、既有 V006 候选、学习台账和文案迭代文件；结论是当前不能生成新的最小候选，只能输出阻断产出包。
+- `why_blocked（为什么阻断）`: V003 仍是当前运营数据目标且缺 7d / 3s 留存 / 私信 / 咨询等字段；下一期只有低置信度准备，不是正式新视频任务。V006 虽有既有候选片和素材清单，但不能被改写成本轮新产出。
+- `next_input_needed（下一步需要输入）`: 用户只需先选择一条路径：继续 V006 人审，或启动下一条新视频；如果启动新视频，再补目标 / 选题、locked copy（锁定文案）或可执行草稿、素材路径或无素材候选授权，以及真实 RAG / TTS / API / 媒体生成授权边界。
+- `status_boundary（状态边界）`: 本轮未启用运行时、未启动服务、未调用外部 API、未调用 TTS、未真实调用 DashVector、未运行 Chroma 入库、未生成媒体，未推进内容验证、可发送状态或生产可用状态。
+
 ## 20260618｜Real Task Dry Run Preflight
 
 ```yaml
