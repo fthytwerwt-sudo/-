@@ -1,0 +1,29 @@
+{
+  "task_id": "rag-engineering-line-landing-sample",
+  "task_type": [
+    "engineering_line_landing",
+    "rag_vector_mechanism"
+  ],
+  "retrieval_goal": "Build a pre_supply_pack for RAG supply bus engineering line validation.",
+  "preferred_source_paths": [
+    "codex_source/schema_contracts/schemas/pre_supply_pack.schema.yaml",
+    "codex_source/schema_contracts/schemas/rag_supply_pack.schema.yaml"
+  ],
+  "why_needed": "Verify that Codex can obtain exact original snippets before a high-risk RAG mechanism write.",
+  "execution_constraint": [
+    "source_readback_required",
+    "exact_snippet_required",
+    "vector_result_is_not_formal_fact"
+  ],
+  "conflict_points": [
+    "retrieval_map_is_not_supply_complete",
+    "high_risk_task_requires_conflict_points"
+  ],
+  "blocked_if": [
+    "source_path_missing",
+    "line_range_missing",
+    "chunk_id_missing",
+    "readback_missing"
+  ],
+  "high_risk": true
+}

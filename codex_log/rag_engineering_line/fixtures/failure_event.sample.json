@@ -1,0 +1,14 @@
+{
+  "failure_id": "rag-failure-route-sample",
+  "failure_type": "readback_missing",
+  "event_type": "validation_failed",
+  "message": "pre_supply_pack validator found readback_missing and only_summary_without_snippet.",
+  "source_path": "codex_log/rag_engineering_line/fixtures/blocked_pre_supply_pack.sample.json",
+  "validation_result": {
+    "status": "blocked",
+    "blocked_reasons": [
+      "readback_missing",
+      "only_summary_without_snippet"
+    ]
+  }
+}

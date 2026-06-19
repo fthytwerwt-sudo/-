@@ -1,5 +1,47 @@
 # Latest
 
+## 20260620｜RAG Engineering Line Landing
+
+```yaml
+task_result.status（任务结果状态）: engineering_line_landing_completed（工程线落地完成）
+project_route（项目路由）: video_factory（视频工厂）
+task_type（任务类型）:
+  - engineering_line_landing（工程线落地）
+  - RAG_supply_pack_builder（RAG 供料包生成器）
+  - RAG_validator（RAG 校验器）
+  - failure_route_resolver（失败路由解析器）
+  - trace_event_writer（追踪事件写入器）
+workflow_route_decision（工作流归位判断）: mechanism_repair_flow（机制修补流）
+previous_rag_vector_task_readback（上一轮 RAG / 向量任务回读）: found_and_sufficient（已找到且足够接工程线）
+builder_layer（生成器层）: passed（通过）
+validator_layer（校验器层）: passed（通过）
+router_hook_layer（路由接入层）: passed（通过）
+acceptance_test_layer（验收测试层）: passed（通过）
+failure_route_layer（失败路由层）: passed（通过）
+trace_log_layer（追踪记录层）: passed（通过）
+not_reingested（是否重新向量入库）: true（本轮不重新入库）
+index_manifest_source_commit（索引清单源提交）: 6a7417fb856cdd91f3777d7348e367d2ce12b3c9
+current_worktree_stale_detection（当前工作区过期检测）: blocked_as_expected（按预期阻断，因本轮修改了已索引文本文件）
+external_api_called（外部 API 调用）: false（未调用）
+dashvector_upsert_called（DashVector 写入）: false（未写入）
+tts_called（TTS 调用）: false（未调用）
+media_generated（媒体生成）: false（未生成）
+content_validation（内容验证）: not_promoted（未推进）
+send_ready（可发送状态）: false（未开启）
+production_readiness（生产可用状态）: not_claimed（未声称）
+generated_report（生成报告）: codex_log/rag_engineering_line/20260620_rag_engineering_line_landing_report.md
+acceptance_report（验收报告）: codex_log/rag_engineering_line/latest_engineering_line_acceptance_report.md
+trace_events（追踪事件）: codex_log/rag_engineering_line/trace_events.jsonl
+next_safe_step（下一步安全动作）: run_RAG_sync_bus_vector_sync_if_new_engineering_line_files_must_be_available_in_formal_RAG（若需要新工程线文件进入正式 RAG，再另跑同步入库）
+```
+
+- `engineering_line（工程线）`: 已从 schema / fixture / probe 扩展为 builder、validator、router hook、acceptance suite、failure resolver 和 trace writer。
+- `pre_supply_pack（执行前资料包）`: 可由 `scripts/rag_supply_pack_builder.py --task-request ... --out ...` 生成，并由 `scripts/rag_supply_pack_validator.py --pack ...` 阻断 summary-only / 缺 readback 的资料包。
+- `mid_task_supply_pack（执行中增量资料包）`: 可由 `scripts/rag_mid_task_supply_builder.py` 根据子任务状态生成。
+- `failure_route（失败路由）`: `readback_missing` 样例已路由到 `RAG_supply_bus`，后续失败必须回到具体修复层，不得只写 retry。
+- `trace_log_policy（追踪记录策略）`: 已写 `trace_events.jsonl`、dated log、latest；本轮不重新调用 Alibaba / DashVector，不推进任何内容或生产状态。
+- `RAG_sync_bus 边界`: 因本轮修改了已索引文本文件，`--check-current-worktree` 会按预期输出 `stale_index_detected`；这证明同步护栏有效，不表示本轮已重新入库。
+
 ## 20260620｜RAG Sync / Supply Bus + DashVector Text Ingestion
 
 ```yaml

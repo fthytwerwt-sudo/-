@@ -722,6 +722,14 @@ DeepSeek 条件审查最小入口：
 - 用户明确要求 DeepSeek 必须真实参与时，DeepSeek blocked 或 fallback = 整体任务 blocked，不能写 completed。
 - 只有 DeepSeek 被触发或被声称参与时，最终回报才需要 `deepseek_participation_report（DeepSeek 参与报告）` 与 `token_usage_expectation_check（token 使用预期检查）`；token 未观察到减少时，不得写 DeepSeek 已深度参与。
 
+RAG engineering line（RAG 工程线）执行入口：
+- 命中 RAG、向量、DashVector、检索、供料、DeepSeek 复核边界、source_readback、stale_index、failure route 或 trace log 落地时，必须触发 `rag_engineering_line_required（需要 RAG 工程线）`。
+- 写入 RAG / 向量 / 机制 / 路由文件前，必须生成并校验 `pre_supply_pack（执行前资料包）`：`scripts/rag_supply_pack_builder.py --task-request <task_request.json> --out <pre_supply_pack.json>`，随后运行 `scripts/rag_supply_pack_validator.py --pack <pre_supply_pack.json>`。
+- 执行中出现缺上下文、验证失败、冲突点或高风险写入前，必须生成 `mid_task_supply_pack（执行中增量供料包）`：`scripts/rag_mid_task_supply_builder.py --child-task-state <child_task_state.json> --out <mid_task_supply_pack.json>`。
+- 任一失败必须运行 `failure_route_resolver（失败路由解析器）`，路由到 `RAG_supply_bus / RAG_sync_bus / fact_source_arbitration / validation_repair / human_decision_gate / completion_truth_check / git_sync_gate` 之一，不得只写 retry。
+- 每轮必须运行 `trace_event_writer（追踪事件写入器）`，写入 `codex_log/rag_engineering_line/trace_events.jsonl`，并同步 dated log 与 latest。
+- `retrieval_map（资料地图）` 只算定位辅助，不算供料完成；没有 exact snippet、source_path、line_range、chunk_id 和 readback 时必须 blocked。
+
 质量与反馈三卡执行闸门：
 - 命中内容表达文案、视频样片 / 成片、发布前检查、发布后复盘、`reference / locked reference / visual route` 继承或大任务 / 多文件任务时，Codex 必须在 `route_decision（路由判断）` 中判断三张机制卡是否必需。
 - `content_route_card（内容路由卡）` 负责解释这条内容为什么这样承载，防止先锁死人物段次数、卡片数量或 PPT 数量。

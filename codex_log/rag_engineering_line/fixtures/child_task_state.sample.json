@@ -1,0 +1,19 @@
+{
+  "child_task_id": "rag-mid-task-supply-sample",
+  "files_already_read": [
+    "AGENTS.md",
+    "codex_source/schema_contracts/schemas/rag_supply_pack.schema.yaml"
+  ],
+  "will_modify_files": [
+    "codex_source/schema_contracts/schemas/pre_supply_pack.schema.yaml"
+  ],
+  "missing_context": [
+    "Need exact snippet evidence for pre_supply_pack required fields."
+  ],
+  "validation_failure_logs": [
+    "blocked sample lacked readback and line_range."
+  ],
+  "conflict_points": [
+    "high_risk_write_requires_incremental_supply"
+  ]
+}

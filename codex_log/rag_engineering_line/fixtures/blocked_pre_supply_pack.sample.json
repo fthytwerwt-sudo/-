@@ -1,0 +1,21 @@
+{
+  "pack_type": "pre_supply_pack",
+  "task_id": "blocked-rag-supply-pack-sample",
+  "task_type": [
+    "engineering_line_landing",
+    "rag_vector_mechanism"
+  ],
+  "retrieval_goal": "Blocked fixture with only a summary and no exact source snippet.",
+  "exact_snippet_pack": [
+    {
+      "summary": "This intentionally lacks source_path, line_range, chunk_id, and readback."
+    }
+  ],
+  "why_needed": "Demonstrate that summary-only RAG supply is blocked.",
+  "execution_constraint": [
+    "source_readback_required"
+  ],
+  "blocked_if": [
+    "only_summary_without_snippet"
+  ]
+}

@@ -150,6 +150,21 @@ if state = implementation_design_needed:
 if state = supply_source_arbitration_required:
   action = create retrieval_manifest, run repo source_readback, create retrieval_gap_report, and decide deepseek_trigger_decision before file modification
 
+if state = rag_engineering_line_required:
+  action = require executable RAG engineering line before RAG / vector / retrieval / supply / DeepSeek-risk-review mechanism writes; verify contract_layer, builder_layer, validator_layer, router_hook_layer, acceptance_test_layer, failure_route_layer, and trace_log_layer before completed
+
+if state = pre_supply_pack_required:
+  action = run scripts/rag_supply_pack_builder.py --task-request <task_request.json> --out <pre_supply_pack.json>, then run scripts/rag_supply_pack_validator.py --pack <pre_supply_pack.json>; block write if source_path, line_range, chunk_id, exact snippet, or readback is missing
+
+if state = mid_task_supply_required:
+  action = run scripts/rag_mid_task_supply_builder.py --child-task-state <child_task_state.json> --out <mid_task_supply_pack.json> when missing_context, validation_failure_logs, conflict_points, or high-risk writes appear; continue only if continue_allowed = true
+
+if state = failure_route_required:
+  action = run scripts/rag_failure_route_resolver.py --failure-event <failure_event.json> --out <failure_route.json>; route failures to RAG_supply_bus, RAG_sync_bus, fact_source_arbitration, validation_repair, human_decision_gate, completion_truth_check, or git_sync_gate, never just retry
+
+if state = trace_event_required:
+  action = run scripts/rag_trace_event_writer.py --event <trace_event.json> --out codex_log/rag_engineering_line/trace_events.jsonl; record input_signal, supply_used, files_read, files_modified, validation_result, failure_route_if_any, and next_safe_step
+
 if state = deepseek_review_conditionally_required:
   action = create_supply_request, run DeepSeek review / risk audit / conflict second opinion, and read review pack before high-risk file modification
 
@@ -440,6 +455,11 @@ if state = blocked_need_user_input:
 - `ambiguous_goal_clarification_needed`：用户说 `1:1`、像对标、高级感、按这个效果做、不是一回事、完全不像、感觉不像、差点意思但未锁目标层级时触发；必须先澄清视觉观感、剪辑节奏、构图布局、字幕字体、动效、信息密度、证明方式、内容结构、情绪人感或整体观感，不得把机制分析草案当正式执行标准。
 - `reference_contract_needed`：只把 reference / 样片 / 目标效果转换为 `reference_anchor`、`effect_targets`、`function_fields`、`deviation_check`、`done_when`；若 reference 目标有歧义，先触发 `ambiguous_goal_clarification_needed`，不得直接执行媒体、文案终稿或状态推进。
 - `supply_source_arbitration_required`：每轮默认成立；必须先输出 `retrieval_manifest / source_readback_status / retrieval_gap_report / deepseek_trigger_decision`。
+- `rag_engineering_line_required`：命中 RAG、向量、DashVector、检索、供料、DeepSeek 复核边界、source_readback、stale_index 或 trace / failure route 落地时成立；不得只写 schema / fixture / probe，必须有 builder、validator、router hook、acceptance suite、failure resolver 和 trace writer。
+- `pre_supply_pack_required`：Codex 写入 RAG / 向量 / 机制 / 路由文件前成立；必须生成并校验 `pre_supply_pack`，资料包必须含 source_path、line_range、chunk_id、exact snippet 和 readback。
+- `mid_task_supply_required`：子任务缺上下文、验证失败、高风险写入前或 conflict_points 未清时成立；必须生成 `mid_task_supply_pack`，`continue_allowed = false` 时不得继续写。
+- `failure_route_required`：任何验证失败、同步失败、事实冲突、权限缺失、完成真实性风险或 Git 同步失败时成立；必须路由到具体修复层，不得只写 retry。
+- `trace_event_required`：RAG 工程线任务每轮默认成立；必须写 `trace_event`、dated log 和 latest，让下一轮能接手。
 - `deepseek_review_conditionally_required`：仅在 `rag_empty / rag_low_confidence / source_conflict / mechanism_conflict / high_risk_execution / user_explicit_request` 等条件成立时触发；不得把 DeepSeek 当每轮默认文件供应商。
 - `deepseek_pre_supply_missing`：仅当 DeepSeek 已被条件触发或用户明确要求时成立；写入前必须先补 `supply_request` 和审查包，无法真实调用时写 fallback / blocked。
 - `deepseek_post_review_missing`：修改后必须复核状态偷换、禁止修改、遗漏同步、fallback 误标和剩余工作。

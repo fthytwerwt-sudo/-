@@ -86,8 +86,23 @@ workflow_route_decision:
 
 ### 3.6 mechanism_repair_flow（机制修补流）
 
-- `input_signal（输入信号）`：修规则、补入口、机制修补、路由修补、索引缺口、执行纪律、旧口径残留、读取顺序冲突、实现路线缺失、Codex 能力边界不清、fallback 未写。
+- `input_signal（输入信号）`：修规则、补入口、机制修补、路由修补、索引缺口、执行纪律、旧口径残留、读取顺序冲突、实现路线缺失、Codex 能力边界不清、fallback 未写；RAG / 向量 / 检索 / 供料 / DashVector / DeepSeek 复核 / trace log / failure route 工程线落地。
 - `must_read（必须读取）`：`AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_source/01_execution_rules.md`、`codex_source/19_project_state_action_router.md`、`codex_log/latest.md`，以及被影响的具体机制文件。
-- `required_handoff（必须交接件）`：`impact_check（影响面检查）`、`affected_entry_files（受影响入口文件）`、`implementation_design_layer（实现设计层，如本轮涉及 Codex 落地方案）`、`fixture_or_keyword_check（fixture 或关键词检查）`、`status_boundary_report（状态边界报告）`。
+- `required_handoff（必须交接件）`：`impact_check（影响面检查）`、`affected_entry_files（受影响入口文件）`、`implementation_design_layer（实现设计层，如本轮涉及 Codex 落地方案）`、`fixture_or_keyword_check（fixture 或关键词检查）`、`status_boundary_report（状态边界报告）`；命中 RAG 工程线时还必须输出 `pre_supply_pack`、`mid_task_supply_pack`、`failure_route`、`trace_event` 和 `acceptance_suite_report`。
 - `forbidden_status（禁止状态）`：使用第 2 节统一禁止状态。
-- `blocked_if（阻断条件）`：已有等价索引会重复、必须新增大机制、必须改正式事实状态、需要生成视频 / 音频、需要推进内容 / 发布 / 声音 / 视觉状态、本地脏改无法隔离、缺实现设计层却要下发 Codex 落地执行。
+- `blocked_if（阻断条件）`：已有等价索引会重复、必须新增大机制、必须改正式事实状态、需要生成视频 / 音频、需要推进内容 / 发布 / 声音 / 视觉状态、本地脏改无法隔离、缺实现设计层却要下发 Codex 落地执行；命中 RAG 工程线但缺 builder / validator / router hook / acceptance suite / trace log 时不得写 completed。
+
+### 3.6A rag_engineering_line_required（RAG 工程线必需）
+
+命中以下任一信号时，`mechanism_repair_flow（机制修补流）` 必须附加 `rag_engineering_line_required（需要 RAG 工程线）`：
+
+- RAG、向量、DashVector、检索、供料、pre_supply_pack、mid_task_supply_pack、failure_route、trace_event、DeepSeek 复核边界、source_readback、stale_index。
+
+必须触发的路由状态：
+
+- `pre_supply_pack_required（执行前资料包必需）`：Codex 写文件前运行 `scripts/rag_supply_pack_builder.py --task-request ... --out ...` 并用 `scripts/rag_supply_pack_validator.py --pack ...` 校验。
+- `mid_task_supply_required（执行中增量供料必需）`：子任务缺上下文、验证失败或高风险写入前运行 `scripts/rag_mid_task_supply_builder.py`。
+- `failure_route_required（失败路由必需）`：验证失败、同步失败、事实冲突、权限缺失或完成真实性风险必须运行 `scripts/rag_failure_route_resolver.py`。
+- `trace_event_required（追踪事件必需）`：本轮执行必须运行 `scripts/rag_trace_event_writer.py` 写入可接手 JSONL。
+
+工程线完成前必须有 passing 样例和 blocked 样例；blocked 样例若意外通过，当前任务必须回到 validator 修复，不得写 completed。
