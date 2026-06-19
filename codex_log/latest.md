@@ -1,5 +1,45 @@
 # Latest
 
+## 20260618｜V006 Human Review Minimum Loop
+
+```yaml
+task_result.status（任务结果状态）: V006_human_review_minimum_loop_completed（V006 人审最小闭环已完成）
+project_route（项目路由）: video_factory（视频工厂）
+task_type（任务类型）:
+  - minimum_production_loop_continue（继续最小产出闭环）
+  - V006_human_review_minimum_loop（V006 人审最小闭环）
+  - backlog_record_only（只记录待办，不修复）
+  - send_ready_guard_check（可发送状态护栏检查）
+workflow_route_decision（工作流归位判断）: quality_review_flow（质量复审流）为主，mechanism_repair_flow（机制修补流）仅记录 backlog
+execution_permission（执行权限）: report_backlog_latest_only（只允许报告、待办、latest、验证和 Git 同步）
+loop_result（闭环结果）:
+  selected_path（已选择路径）: continue_V006_human_review（继续 V006 人审）
+  candidate_created（是否生成候选）: false（未生成）
+  new_video_started（是否启动新视频）: false（未启动）
+  human_review_ready（是否可进入人审）: true（可以进入用户 / ChatGPT 人审）
+  backlog_recorded（是否记录待办）: true（已记录）
+runtime_enabled（运行时启用）: false（未启用）
+service_started（服务启动）: false（未启动）
+external_api_called（外部 API 调用）: false（未调用）
+tts_called（TTS 调用）: false（未调用）
+dashvector_real_call（DashVector 真实调用）: false（未调用）
+chroma_ingestion_run（Chroma 入库）: false（未运行）
+rag_runtime_enabled（RAG 运行时启用）: false（未启用）
+media_generated（媒体生成）: false（未生成）
+content_validation（内容验证）: pending_user_chatgpt_review_not_promoted（等待用户 / ChatGPT 复审，未推进）
+send_ready（可发送状态）: false（未开启）
+production_readiness（生产可用状态）: not_claimed（未声称）
+generated_report（生成报告）: codex_log/minimum_loop/20260618_V006_human_review_minimum_loop_report.md
+backlog_file（待办文件）: codex_log/minimum_loop/minimum_loop_project_adjustment_backlog.md
+validation_status（验证状态）: passed（已通过）
+next_safe_step（下一步安全动作）: user_chatgpt_review_V006_full_video_then_decide_card_readability_voice_platform_risk_and_send_ready（用户 / ChatGPT 复审 V006 全片，再判断卡片、小字、声音、平台风险和 send_ready）
+```
+
+- `minimum_loop_path_decision（最小闭环路径判断）`: 本轮选择继续 V006 人审，不启动下一条新视频，不把 V006 写成本轮新产出。
+- `human_review_inventory（人审输入清单）`: V006 候选片、narration、captions、review_manifest、summary、locked_copy_contract、material_inventory、script_to_timeline_map、gpt_icon_exposure_check、privacy_platform_risk_report 和 publish_candidate_preflight_report 均已读取并可进入人审。
+- `user_chatgpt_review_needed（用户 / ChatGPT 需要复审）`: 全片节奏、00:00-00:20 平台标识风险、01:12-01:45 切菜器案例表达边界、02:40-03:55 小字可读性、卡片视觉偏差、局部项目路径可见、声音是否可接受。
+- `status_boundary（状态边界）`: 本轮未生成新候选、未启动新视频、未修改 V006 视频 / 文案 / 素材，未启用运行时、未启动服务、未调用外部 API / TTS / DashVector / Chroma，未生成媒体，未推进内容验证、可发送状态或生产可用状态。
+
 ## 20260618｜Minimum Production Loop
 
 ```yaml
