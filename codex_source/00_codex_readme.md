@@ -730,6 +730,13 @@ RAG engineering line（RAG 工程线）执行入口：
 - 每轮必须运行 `trace_event_writer（追踪事件写入器）`，写入 `codex_log/rag_engineering_line/trace_events.jsonl`，并同步 dated log 与 latest。
 - `retrieval_map（资料地图）` 只算定位辅助，不算供料完成；没有 exact snippet、source_path、line_range、chunk_id 和 readback 时必须 blocked。
 
+Post-commit vector sync gate（提交后向量同步闸门）：
+- 以后 Codex 每轮修改可索引文本文件并完成 source commit 后，必须自动运行 `scripts/post_commit_vector_sync_gate.py --mode finish`，无需再向用户中途确认。
+- 触发条件：changed files 命中 RAG allowlist、`latest_index_manifest.source_commit_sha` 落后于当前 source commit，或 `scripts/rag_index_manifest_validator.py --check-current-worktree` 返回 `stale_index_detected`。
+- `--mode check` 只判断是否需要同步，不调用 Alibaba / DashVector；`--mode sync` 和 `--mode finish` 可在授权与 secret scan 通过后调用 Alibaba embedding API、DashVector upsert 和 DashVector query。
+- 同步证据写入 `codex_log/rag_vector_sync/latest_vector_sync_gate_report.json/.md`、source inventory、chunk manifest、index manifest 和 retrieval report；若失败，只能写 `vector_sync_blocked（向量同步阻断）`，不得写 RAG 已最新。
+- `codex_log/latest.md` 的当前索引提交和数量可以写 `see_index_manifest（见索引清单）`，以避免 latest 自引用导致“证据提交后索引立刻过期”的循环；真实 source_commit_sha、file_count、chunk_count 必须以 manifest 为准。
+
 质量与反馈三卡执行闸门：
 - 命中内容表达文案、视频样片 / 成片、发布前检查、发布后复盘、`reference / locked reference / visual route` 继承或大任务 / 多文件任务时，Codex 必须在 `route_decision（路由判断）` 中判断三张机制卡是否必需。
 - `content_route_card（内容路由卡）` 负责解释这条内容为什么这样承载，防止先锁死人物段次数、卡片数量或 PPT 数量。

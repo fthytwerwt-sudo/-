@@ -1,5 +1,34 @@
 # Latest
 
+## 20260620｜Post-Commit Vector Sync Gate Source Update
+
+```yaml
+task_result.status（任务结果状态）: post_commit_vector_sync_gate_source_update（提交后向量同步闸门源文件更新）
+project_route（项目路由）: video_factory（视频工厂）
+task_type（任务类型）:
+  - mechanism_repair_and_vector_sync_gate_landing（机制修补 + 向量同步闸门落地）
+  - post_commit_vector_sync_gate（提交后向量同步闸门）
+  - catch_up_vector_sync（补同步）
+workflow_route_decision（工作流归位判断）: mechanism_repair_flow（机制修补流）
+source_commit_sha（源语料提交）: see_index_manifest（以 latest_index_manifest.json 为准）
+indexed_file_count（已索引文件数）: see_index_manifest（以 latest_index_manifest.json 为准）
+indexed_chunk_count（已索引分块数）: see_index_manifest（以 latest_index_manifest.json 为准）
+latest_count_policy（latest 数量口径）: manifest_is_authoritative（以 manifest 为准，避免 latest 自引用导致索引循环）
+post_commit_vector_sync_gate（提交后向量同步闸门）: installed_source_pending_sync_evidence（源文件已接入，后续同步证据看 gate report / manifest）
+gate_script（闸门脚本）: scripts/post_commit_vector_sync_gate.py
+gate_report（闸门报告）: codex_log/rag_vector_sync/latest_vector_sync_gate_report.md
+chroma_status（Chroma 状态）: disabled_not_used（停用，不使用）
+external_api_called_in_source_update（源文件更新阶段是否调用外部 API）: false（未调用）
+content_validation（内容验证）: not_promoted（未推进）
+send_ready（可发送状态）: false（未开启）
+production_readiness（生产可用状态）: not_claimed（未声称）
+next_safe_step（下一步安全动作）: after_source_commit_run_post_commit_vector_sync_gate_finish（源文件提交后自动运行 post_commit_vector_sync_gate.py --mode finish）
+```
+
+- `post_commit_vector_sync_gate（提交后向量同步闸门）`: 本轮新增 repo-local gate，支持 `--mode check / sync / finish`；`check` 不调用外部 API，`finish` 在检测到可索引文件变化时自动构建 source_inventory / chunk_manifest、调用 Alibaba embedding API、写入 DashVector、运行 retrieval_probe 并写同步证据。
+- `auto_update_evidence（自动更新证据）`: 同步证据写入 `codex_log/rag_vector_sync/latest_vector_sync_gate_report.json/.md`、`latest_source_inventory`、`latest_chunk_manifest`、`latest_index_manifest`、`latest_retrieval_probe_report`。`latest.md` 的当前索引数量采用 `see_index_manifest`，实际数值以 manifest 为准。
+- `self_reference_boundary（自引用边界）`: `codex_log/latest.md` 是可索引文件；为避免“同步证据提交再改 latest 导致索引立刻过期”的循环，latest 的当前索引计数不写死新提交号，最终一致性以 `latest_index_manifest.json` 和 gate report 为准。
+
 ## 20260620｜RAG Engineering Line Landing
 
 ```yaml
@@ -57,7 +86,8 @@ embedding_provider（向量模型供应商）: Alibaba DashScope / text-embeddin
 vector_store（向量库）: DashVector
 dashvector_collection（集合）: video_factory_docs_test
 indexed_file_count（已索引文件数）: 867
-indexed_chunk_count（已索引分块数）: 5568
+indexed_chunk_count（已索引分块数）: 5569
+indexed_count_note（索引数量说明）: manifest_is_authoritative（以 latest_index_manifest.json / latest_chunk_manifest.json 为准；修正旧摘要 5568/5569 不一致）
 content_storage_policy（正文存储策略）: source_readback_only（DashVector 只存向量和定位 metadata，不存正文）
 media_indexed（媒体是否入库）: false（否）
 secret_scan（密钥扫描）: passed（通过）

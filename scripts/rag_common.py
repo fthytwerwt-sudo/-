@@ -180,8 +180,15 @@ def current_commit() -> str:
 
 
 def git_status_short() -> list[str]:
-    output = run_git(["status", "--short"], check=False)
-    return [line for line in output.splitlines() if line.strip()]
+    completed = subprocess.run(
+        ["git", "-c", "core.quotepath=false", "status", "--short"],
+        cwd=ROOT,
+        check=False,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    return [line for line in completed.stdout.splitlines() if line.strip()]
 
 
 def match_pattern(path: str, pattern: str) -> bool:
@@ -704,6 +711,8 @@ def load_chunk_by_id(manifest: dict[str, Any]) -> dict[str, Any]:
 def has_only_allowed_dirty_paths(allowed_prefixes: tuple[str, ...] = DYNAMIC_AUDIT_PREFIXES) -> bool:
     for line in git_status_short():
         path = line[3:].strip()
+        if " -> " in path:
+            path = path.split(" -> ", 1)[1].strip()
         if path == "public/" or path.startswith("public/"):
             continue
         if not any(path.startswith(prefix) for prefix in allowed_prefixes):

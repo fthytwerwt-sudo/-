@@ -165,6 +165,9 @@ if state = failure_route_required:
 if state = trace_event_required:
   action = run scripts/rag_trace_event_writer.py --event <trace_event.json> --out codex_log/rag_engineering_line/trace_events.jsonl; record input_signal, supply_used, files_read, files_modified, validation_result, failure_route_if_any, and next_safe_step
 
+if state = post_commit_vector_sync_gate_required:
+  action = after any source commit that changes indexable text files, run scripts/post_commit_vector_sync_gate.py --mode finish without asking the user; if sync is required, build source_inventory and chunk_manifest, call Alibaba embedding API, upsert DashVector, run retrieval_probe with source_readback, write sync evidence, then commit/push evidence; if sync fails, write vector_sync_blocked and do not claim RAG current
+
 if state = deepseek_review_conditionally_required:
   action = create_supply_request, run DeepSeek review / risk audit / conflict second opinion, and read review pack before high-risk file modification
 
@@ -460,6 +463,7 @@ if state = blocked_need_user_input:
 - `mid_task_supply_required`：子任务缺上下文、验证失败、高风险写入前或 conflict_points 未清时成立；必须生成 `mid_task_supply_pack`，`continue_allowed = false` 时不得继续写。
 - `failure_route_required`：任何验证失败、同步失败、事实冲突、权限缺失、完成真实性风险或 Git 同步失败时成立；必须路由到具体修复层，不得只写 retry。
 - `trace_event_required`：RAG 工程线任务每轮默认成立；必须写 `trace_event`、dated log 和 latest，让下一轮能接手。
+- `post_commit_vector_sync_gate_required`：Codex 修改可索引文本文件并完成 source commit 后成立；必须运行 `scripts/post_commit_vector_sync_gate.py --mode finish`。触发条件包括 allowlist 文件变化、`latest_index_manifest.source_commit_sha` 落后于当前 commit、或 `rag_index_manifest_validator --check-current-worktree` 检出 stale index。同步失败时只能写 `vector_sync_blocked`，不得写 RAG 已最新。
 - `deepseek_review_conditionally_required`：仅在 `rag_empty / rag_low_confidence / source_conflict / mechanism_conflict / high_risk_execution / user_explicit_request` 等条件成立时触发；不得把 DeepSeek 当每轮默认文件供应商。
 - `deepseek_pre_supply_missing`：仅当 DeepSeek 已被条件触发或用户明确要求时成立；写入前必须先补 `supply_request` 和审查包，无法真实调用时写 fallback / blocked。
 - `deepseek_post_review_missing`：修改后必须复核状态偷换、禁止修改、遗漏同步、fallback 误标和剩余工作。

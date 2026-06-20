@@ -104,5 +104,6 @@ workflow_route_decision:
 - `mid_task_supply_required（执行中增量供料必需）`：子任务缺上下文、验证失败或高风险写入前运行 `scripts/rag_mid_task_supply_builder.py`。
 - `failure_route_required（失败路由必需）`：验证失败、同步失败、事实冲突、权限缺失或完成真实性风险必须运行 `scripts/rag_failure_route_resolver.py`。
 - `trace_event_required（追踪事件必需）`：本轮执行必须运行 `scripts/rag_trace_event_writer.py` 写入可接手 JSONL。
+- `post_commit_vector_sync_gate_required（提交后向量同步闸门必需）`：本轮 source commit 若修改 allowlist 内可索引文本，commit 后必须运行 `scripts/post_commit_vector_sync_gate.py --mode finish`；失败写 `vector_sync_blocked`，不得写 RAG 已最新。
 
 工程线完成前必须有 passing 样例和 blocked 样例；blocked 样例若意外通过，当前任务必须回到 validator 修复，不得写 completed。
