@@ -35,6 +35,95 @@ def _load_index_manifest() -> dict[str, Any]:
     return common.read_json(common.INDEX_MANIFEST_PATH)
 
 
+def _classify_source_for_cleaning(source_path: str) -> dict[str, Any]:
+    """Attach conservative cleaning metadata to a readback source."""
+    normalized = source_path.replace("\\", "/")
+    lower = normalized.lower()
+
+    authority_level = "rag_retrieval_result"
+    source_priority_rank = 4
+    status_label = "readback_supported"
+    stale_status = "current"
+    can_feed_codex = True
+
+    if any(marker in normalized for marker in ("归档", "归档删除区", "archive", "old_context")):
+        authority_level = "historical_archive"
+        source_priority_rank = 6
+        status_label = "historical_reference_only"
+        stale_status = "historical_reference"
+        can_feed_codex = False
+    elif normalized.startswith(("GPT数据源/", "codex_source/")) or normalized == "AGENTS.md" or normalized.startswith("scripts/"):
+        authority_level = "current_repo_source"
+        source_priority_rank = 1
+        status_label = "current_repo_readback"
+    elif normalized.startswith("review_loop/"):
+        authority_level = "real_run_report"
+        source_priority_rank = 2
+        status_label = "real_run_report"
+    elif normalized == "codex_log/latest.md":
+        authority_level = "latest_summary"
+        source_priority_rank = 3
+        status_label = "latest_repo_summary"
+    elif normalized.startswith("codex_log/"):
+        authority_level = "real_run_report"
+        source_priority_rank = 2
+        status_label = "repo_run_report"
+
+    if "current_gray_test_target" in lower:
+        status_label = "legacy_compatibility_pointer"
+        stale_status = "legacy_demoted"
+        can_feed_codex = False
+
+    return {
+        "authority_level": authority_level,
+        "source_priority_rank": source_priority_rank,
+        "status_label": status_label,
+        "stale_status": stale_status,
+        "conflict_status": "none",
+        "readback_required": True,
+        "can_feed_codex": can_feed_codex,
+        "can_claim_completed": False,
+    }
+
+
+def _snippet_from_readback(readback: dict[str, Any], why_needed: str | None = None) -> dict[str, Any]:
+    snippet = {
+        "source_path": readback["source_path"],
+        "line_range": readback["line_range"],
+        "chunk_id": readback["chunk_id"],
+        "readback": readback["readback"],
+        "snippet": readback["readback"],
+        "readback_hash_match": readback["readback_hash_match"],
+        "file_hash_match": readback.get("file_hash_match", True),
+    }
+    if why_needed:
+        snippet["why_needed"] = why_needed
+    snippet.update(_classify_source_for_cleaning(readback["source_path"]))
+    return snippet
+
+
+def _aggregate_cleaning_layer_check(snippets: list[dict[str, Any]]) -> dict[str, Any]:
+    if not snippets:
+        return {
+            "authority_level": "unknown",
+            "stale_status": "unknown",
+            "conflict_status": "unknown",
+            "readback_required": True,
+            "can_feed_codex": False,
+            "can_claim_completed": False,
+            "status": "blocked",
+        }
+    return {
+        "authority_level": snippets[0].get("authority_level"),
+        "stale_status": "current" if all(item.get("stale_status") == "current" for item in snippets) else "mixed_or_stale",
+        "conflict_status": "none" if all(item.get("conflict_status") == "none" for item in snippets) else "requires_cleaning",
+        "readback_required": True,
+        "can_feed_codex": all(bool(item.get("can_feed_codex")) for item in snippets),
+        "can_claim_completed": False,
+        "status": "passed" if all(bool(item.get("can_feed_codex")) for item in snippets) else "blocked",
+    }
+
+
 def _select_candidate_chunks(
     index_manifest: dict[str, Any],
     retrieval_goal: str,
@@ -69,18 +158,7 @@ def _exact_snippet_pack(chunks: list[dict[str, Any]], why_needed: str) -> list[d
     snippets: list[dict[str, Any]] = []
     for chunk in chunks:
         readback = common.readback_for_chunk(chunk)
-        snippets.append(
-            {
-                "source_path": readback["source_path"],
-                "line_range": readback["line_range"],
-                "chunk_id": readback["chunk_id"],
-                "readback": readback["readback"],
-                "snippet": readback["readback"],
-                "readback_hash_match": readback["readback_hash_match"],
-                "file_hash_match": readback["file_hash_match"],
-                "why_needed": why_needed,
-            }
-        )
+        snippets.append(_snippet_from_readback(readback, why_needed))
     return snippets
 
 
@@ -116,6 +194,7 @@ def build_pre_supply_pack(task_request: dict[str, Any], index_manifest: dict[str
             "do_not_promote_content_validation_or_send_ready",
         ],
         "conflict_points": conflict_points,
+        "cleaning_layer_check": _aggregate_cleaning_layer_check(snippets),
         "blocked_if": _as_list(task_request.get("blocked_if"))
         or [
             "source_path_missing",
@@ -151,15 +230,7 @@ def first_valid_probe_result(retrieval_report: dict[str, Any], index_manifest: d
 def build_packs(seed: dict[str, Any], index_manifest: dict[str, Any]) -> dict[str, Any]:
     chunk = seed["chunk"]
     readback = seed["readback"]
-    exact_snippet_pack = [
-        {
-            "source_path": readback["source_path"],
-            "line_range": readback["line_range"],
-            "chunk_id": readback["chunk_id"],
-            "snippet": readback["readback"],
-            "readback_hash_match": readback["readback_hash_match"],
-        }
-    ]
+    exact_snippet_pack = [_snippet_from_readback(readback)]
     pre = {
         "task_id": "rag-vector-sync-20260620",
         "task_type": "mechanism_repair_and_vector_ingestion",
@@ -175,6 +246,7 @@ def build_packs(seed: dict[str, Any], index_manifest: dict[str, Any]) -> dict[st
             "do_not_promote_content_validation_or_send_ready",
         ],
         "conflict_points": [],
+        "cleaning_layer_check": _aggregate_cleaning_layer_check(exact_snippet_pack),
         "blocked_if": ["source_path_missing", "line_range_missing", "readback_failed", "stale_index_detected"],
     }
     mid = {

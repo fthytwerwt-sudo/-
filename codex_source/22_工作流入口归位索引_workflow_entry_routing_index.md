@@ -86,7 +86,7 @@ workflow_route_decision:
 
 ### 3.6 mechanism_repair_flow（机制修补流）
 
-- `input_signal（输入信号）`：修规则、补入口、机制修补、路由修补、索引缺口、执行纪律、旧口径残留、读取顺序冲突、实现路线缺失、Codex 能力边界不清、fallback 未写；RAG / 向量 / 检索 / 供料 / DashVector / DeepSeek 复核 / trace log / failure route 工程线落地。
+- `input_signal（输入信号）`：修规则、补入口、机制修补、路由修补、索引缺口、执行纪律、旧口径残留、读取顺序冲突、实现路线缺失、Codex 能力边界不清、fallback 未写；RAG / 向量 / 检索 / 供料 / DashVector / DeepSeek 复核 / trace log / failure route / 清洗层 / source_authority / stale_context / conflict_cleaner / completion_claim / user_minimal_review_panel 工程线落地。
 - `must_read（必须读取）`：`AGENTS.md`、`codex_source/00_codex_readme.md`、`codex_source/01_execution_rules.md`、`codex_source/19_project_state_action_router.md`、`codex_log/latest.md`，以及被影响的具体机制文件。
 - `required_handoff（必须交接件）`：`impact_check（影响面检查）`、`affected_entry_files（受影响入口文件）`、`implementation_design_layer（实现设计层，如本轮涉及 Codex 落地方案）`、`fixture_or_keyword_check（fixture 或关键词检查）`、`status_boundary_report（状态边界报告）`；命中 RAG 工程线时还必须输出 `pre_supply_pack`、`mid_task_supply_pack`、`failure_route`、`trace_event` 和 `acceptance_suite_report`。
 - `forbidden_status（禁止状态）`：使用第 2 节统一禁止状态。
@@ -96,7 +96,7 @@ workflow_route_decision:
 
 命中以下任一信号时，`mechanism_repair_flow（机制修补流）` 必须附加 `rag_engineering_line_required（需要 RAG 工程线）`：
 
-- RAG、向量、DashVector、检索、供料、pre_supply_pack、mid_task_supply_pack、failure_route、trace_event、DeepSeek 复核边界、source_readback、stale_index。
+- RAG、向量、DashVector、检索、供料、pre_supply_pack、mid_task_supply_pack、failure_route、trace_event、DeepSeek 复核边界、source_readback、stale_index、source_authority、stale_context、conflict_cleaner、completion_claim、user_minimal_review_panel。
 
 必须触发的路由状态：
 
@@ -105,5 +105,6 @@ workflow_route_decision:
 - `failure_route_required（失败路由必需）`：验证失败、同步失败、事实冲突、权限缺失或完成真实性风险必须运行 `scripts/rag_failure_route_resolver.py`。
 - `trace_event_required（追踪事件必需）`：本轮执行必须运行 `scripts/rag_trace_event_writer.py` 写入可接手 JSONL。
 - `post_commit_vector_sync_gate_required（提交后向量同步闸门必需）`：本轮 source commit 若修改 allowlist 内可索引文本，commit 后必须运行 `scripts/post_commit_vector_sync_gate.py --mode finish`；失败写 `vector_sync_blocked`，不得写 RAG 已最新。
+- `rag_cleaning_layer_required（RAG 清洗层必需）`：命中旧口径、来源权重、summary-only、missing_readback、stale_index、冲突清洗或完成声明风险时，必须读取 `codex_source/24_RAG清洗层执行契约_rag_cleaning_layer_execution_contract.md`，并运行 `scripts/rag_cleaning_layer_validator.py --fixtures`。
 
 工程线完成前必须有 passing 样例和 blocked 样例；blocked 样例若意外通过，当前任务必须回到 validator 修复，不得写 completed。

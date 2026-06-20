@@ -1,0 +1,9 @@
+{
+  "expected_blocked_fixture_count": 5,
+  "failed_fixtures": [],
+  "fixture_count": 7,
+  "passed_fixture_tests": 7,
+  "status": "passed",
+  "validator": "rag_cleaning_layer_validator",
+  "warnings": []
+}

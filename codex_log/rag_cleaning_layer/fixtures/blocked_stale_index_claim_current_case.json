@@ -1,0 +1,62 @@
+{
+  "case_id": "blocked_stale_index_claim_current_case",
+  "expected_status": "blocked",
+  "task_mode": "execution",
+  "source_authority_classifier": {
+    "source_path": "codex_log/rag_vector_sync/latest_index_manifest.json",
+    "authority_level": "rag_retrieval_result",
+    "status_label": "stale_index_claim",
+    "source_priority_rank": 4,
+    "can_use_as_current_fact": true,
+    "repo_readback_verified": false
+  },
+  "stale_context_detector": {
+    "stale_status": "stale_index",
+    "tries_to_override_current": true,
+    "requires_vector_sync": true
+  },
+  "conflict_cleaner": {
+    "conflict_status": "requires_chatgpt_review",
+    "resolution": "stale index cannot be treated as current repo fact"
+  },
+  "decision_authority_router": {
+    "decision_owner": "chatgpt_review",
+    "reason": "requires review before the user sees a narrowed decision"
+  },
+  "supply_pack_cleaner": {
+    "task_mode": "execution",
+    "summary_only": false,
+    "exact_snippet_pack": [
+      {
+        "source_path": "codex_log/rag_vector_sync/latest_index_manifest.json",
+        "line_range": "1-40",
+        "chunk_id": "latest_index_manifest_1_40",
+        "readback": "Index manifest is stale and cannot claim current fact until sync gate passes.",
+        "readback_required": true,
+        "can_feed_codex": true,
+        "can_claim_completed": false
+      }
+    ]
+  },
+  "completion_claim_cleaner": {
+    "claim_requested": "completed",
+    "files_landed": true,
+    "schema_landed": true,
+    "validator_landed": true,
+    "fixtures_landed": true,
+    "latest_updated": true,
+    "commit_created": true,
+    "pushed": true,
+    "remote_verified": true,
+    "secret_scan_passed": true,
+    "vector_sync_status": "stale",
+    "can_claim_completed": true,
+    "technical_preview_only": false,
+    "forbidden_status_promoted": false,
+    "technical_as_content": false
+  },
+  "user_minimal_review_panel": {
+    "decision_items": [],
+    "blocked_if_not_decided": false
+  }
+}

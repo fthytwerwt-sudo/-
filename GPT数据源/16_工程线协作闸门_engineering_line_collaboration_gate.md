@@ -286,11 +286,40 @@ codex_execution_gate（Codex 执行闸门）:
     - collaboration_effectiveness_check（协作有效性检查）
 ```
 
+命中 RAG / DashVector / 检索 / 供料 / 旧口径 / stale_index / source_conflict / completion_claim 时，必须附加 `rag_cleaning_layer（RAG 清洗层）`：
+
+```yaml
+rag_cleaning_layer（RAG 清洗层）:
+  required_nodes（必需节点）:
+    - source_authority_classifier（资料权重分类器）
+    - stale_context_detector（旧口径检测器）
+    - conflict_cleaner（冲突清洗器）
+    - decision_authority_router（判断权路由器）
+    - supply_pack_cleaner（供料包清洗器）
+    - completion_claim_cleaner（完成声明清洗器）
+    - user_minimal_review_panel（用户最小复审面板）
+  default_priority（默认资料优先级）:
+    - current_repo_source（当前仓库源文件）
+    - real_run_report（真实执行报告）
+    - latest_summary（最新摘要）
+    - rag_retrieval_result（RAG 检索结果）
+    - chat_memory（聊天记忆）
+    - historical_archive（历史归档）
+  user_decision_only_for（只交给用户判断）:
+    - 目标变化
+    - 验收标准变化
+    - 外部 API / 成本 / 凭据授权
+    - 删除历史文件
+    - 降级交付
+    - 发布 / 可发送 / 生产状态推进
+```
+
 完成禁止：
 
 - 缺 `engineering_depth_router（工程深度路由器）`，不得直接执行复杂任务。
 - 缺 `per_file_detail_plan_gate（单文件细节方案闸门）`，不得写项目文件修改完成。
 - 缺 `Node Contract（节点契约）`、`Schema（数据契约）`、`Evaluator（评估器）`、`Failure Route（失败路由）` 或 `Trace（链路记录）` 时，L3 任务不得写 `completed（已完成）`。
+- 命中 RAG 清洗层但缺资料权重、旧口径、冲突、判断权、供料包、完成声明或用户最小复审面板校验时，不得写 `completed（已完成）`。
 - 简单任务不得被强制升级为完整工程线。
 
 ## 9. 状态边界

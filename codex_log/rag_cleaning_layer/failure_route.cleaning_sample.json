@@ -1,0 +1,19 @@
+{
+  "available_route_targets": [
+    "RAG_supply_bus",
+    "RAG_sync_bus",
+    "fact_source_arbitration",
+    "validation_repair",
+    "human_decision_gate",
+    "completion_truth_check",
+    "git_sync_gate"
+  ],
+  "blocked_until": "repair_layer_completed",
+  "cleaning_layer_failure_route": true,
+  "failure_id": "rag-failure-route-sample",
+  "failure_type": "readback_missing",
+  "generated_at": "2026-06-21T03:28:46+08:00",
+  "next_action": "rebuild_supply_pack_with_source_readback",
+  "reason": "pre_supply_pack validator found readback_missing and only_summary_without_snippet.",
+  "route_target": "RAG_supply_bus"
+}

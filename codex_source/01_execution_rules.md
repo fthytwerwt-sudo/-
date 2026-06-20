@@ -248,6 +248,40 @@ engineering_line_collaboration_gate（工程线协作闸门）:
 
 本闸门只约束协作和工程深度，不推进 `content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked / production_readiness`。
 
+## 0A-2C. RAG_cleaning_layer_completion_gate RAG 清洗层完成闸门
+
+命中 RAG / DashVector / 检索 / 供料 / 旧口径 / source_authority / stale_context / source_conflict / completion_claim / user_minimal_review_panel 时，Codex 必须读取：
+
+- `codex_source/24_RAG清洗层执行契约_rag_cleaning_layer_execution_contract.md`
+- `codex_source/schema_contracts/schemas/rag_cleaning_layer.schema.yaml`
+
+执行前必须完成：
+
+- `source_authority_classifier（资料权重分类器）`
+- `stale_context_detector（旧口径检测器）`
+- `conflict_cleaner（冲突清洗器）`
+- `decision_authority_router（判断权路由器）`
+- `supply_pack_cleaner（供料包清洗器）`
+- `completion_claim_cleaner（完成声明清洗器）`
+- `user_minimal_review_panel（用户最小复审面板）`
+
+执行类供料包必须包含 `source_path / line_range / chunk_id / readback / authority_level / stale_status / conflict_status / readback_required / can_feed_codex / can_claim_completed`，并通过：
+
+```bash
+python3 scripts/rag_supply_pack_validator.py --pack <pre_supply_pack.json>
+python3 scripts/rag_cleaning_layer_validator.py --fixtures
+```
+
+完成禁止：
+
+- `summary_only（只有摘要）` 不得进入执行供料。
+- `historical_archive / chat_memory / stale_index` 不得覆盖当前仓库事实。
+- `rag_retrieval_result` 未做仓库原文件 readback 时不得写当前事实。
+- 供料包不得声明 `completed`。
+- 缺 commit / push / remote verification / secret scan / vector sync boundary 时，不得写严格 `completed`。
+
+本闸门只清洗 RAG 供料、判断权和完成声明，不推进 `content_validation / send_ready / publish_status / voice_validation / final_voice_validated / visual_master_locked / production_readiness`。
+
 ## 0A-3. self_repair_audit 自修审计
 
 正式运营阶段，用户只负责目标修正、页面 / 美观 / 观感对标，以及如实反馈结果是否合格；用户不负责替 GPT / Codex 诊断内部原因。

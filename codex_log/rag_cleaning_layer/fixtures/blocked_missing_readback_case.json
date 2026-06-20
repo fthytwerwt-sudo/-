@@ -1,0 +1,52 @@
+{
+  "case_id": "blocked_missing_readback_case",
+  "expected_status": "blocked",
+  "task_mode": "execution",
+  "source_authority_classifier": {
+    "source_path": "GPT数据源/16_工程线协作闸门_engineering_line_collaboration_gate.md",
+    "authority_level": "current_repo_source",
+    "status_label": "current_repo_source_missing_readback",
+    "source_priority_rank": 1,
+    "can_use_as_current_fact": true,
+    "repo_readback_verified": false
+  },
+  "stale_context_detector": {
+    "stale_status": "current",
+    "tries_to_override_current": false,
+    "requires_vector_sync": false
+  },
+  "conflict_cleaner": {
+    "conflict_status": "none",
+    "resolution": "no_conflict_detected"
+  },
+  "decision_authority_router": {
+    "decision_owner": "codex_auto_decide",
+    "reason": "readback is mandatory for execution supply"
+  },
+  "supply_pack_cleaner": {
+    "task_mode": "execution",
+    "summary_only": false,
+    "exact_snippet_pack": [
+      {
+        "source_path": "GPT数据源/16_工程线协作闸门_engineering_line_collaboration_gate.md",
+        "line_range": "120-160",
+        "chunk_id": "engineering_gate_120_160",
+        "readback_required": true,
+        "can_feed_codex": true,
+        "can_claim_completed": false
+      }
+    ]
+  },
+  "completion_claim_cleaner": {
+    "claim_requested": "not_requested",
+    "can_claim_completed": false,
+    "technical_preview_only": false,
+    "forbidden_status_promoted": false,
+    "technical_as_content": false,
+    "vector_sync_status": "not_required"
+  },
+  "user_minimal_review_panel": {
+    "decision_items": [],
+    "blocked_if_not_decided": false
+  }
+}

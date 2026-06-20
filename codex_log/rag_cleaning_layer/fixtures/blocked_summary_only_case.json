@@ -1,0 +1,50 @@
+{
+  "case_id": "blocked_summary_only_case",
+  "expected_status": "blocked",
+  "task_mode": "execution",
+  "source_authority_classifier": {
+    "source_path": "codex_log/latest.md",
+    "authority_level": "latest_summary",
+    "status_label": "summary_only",
+    "source_priority_rank": 3,
+    "can_use_as_current_fact": false,
+    "repo_readback_verified": false
+  },
+  "stale_context_detector": {
+    "stale_status": "current",
+    "tries_to_override_current": false,
+    "requires_vector_sync": false
+  },
+  "conflict_cleaner": {
+    "conflict_status": "none",
+    "resolution": "no_conflict_detected"
+  },
+  "decision_authority_router": {
+    "decision_owner": "codex_auto_decide",
+    "reason": "execution supply cannot rely on summary only"
+  },
+  "supply_pack_cleaner": {
+    "task_mode": "execution",
+    "summary_only": true,
+    "exact_snippet_pack": [
+      {
+        "summary_only": true,
+        "readback_required": true,
+        "can_feed_codex": false,
+        "can_claim_completed": false
+      }
+    ]
+  },
+  "completion_claim_cleaner": {
+    "claim_requested": "not_requested",
+    "can_claim_completed": false,
+    "technical_preview_only": false,
+    "forbidden_status_promoted": false,
+    "technical_as_content": false,
+    "vector_sync_status": "not_required"
+  },
+  "user_minimal_review_panel": {
+    "decision_items": [],
+    "blocked_if_not_decided": false
+  }
+}

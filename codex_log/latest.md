@@ -1,5 +1,51 @@
 # Latest
 
+## 20260621｜RAG Cleaning Layer Gap Fill
+
+```yaml
+task_result.status（任务结果状态）: rag_cleaning_layer_gap_fill_landed_pending_git_vector_sync（RAG 清洗层补缺已落地，等待 Git / 向量同步收尾证据）
+project_route（项目路由）: video_factory（视频工厂）
+task_type（任务类型）:
+  - mechanism_repair（机制修补）
+  - engineering_line_execution（工程线执行）
+  - RAG_cleaning_layer_gap_fill（RAG 清洗层补缺）
+workflow_route_decision（工作流归位判断）: mechanism_repair_flow（机制修补流）
+attached_route（附加路线）: rag_engineering_line_required（RAG 工程线必需）
+state_action_router（项目状态动作总控器）: rag_cleaning_layer_required（RAG 清洗层必需）
+cleaning_contract（清洗层契约）: codex_source/24_RAG清洗层执行契约_rag_cleaning_layer_execution_contract.md
+cleaning_schema（清洗层数据契约）: codex_source/schema_contracts/schemas/rag_cleaning_layer.schema.yaml
+cleaning_validator（清洗层校验器）: scripts/rag_cleaning_layer_validator.py
+fixture_count（样例数量）: 7
+blocked_fixture_count（阻断样例数量）: 5
+validator_status（校验状态）: passed（通过）
+supply_pack_cleaning_fields（供料包清洗字段）:
+  - authority_level
+  - stale_status
+  - conflict_status
+  - readback_required
+  - can_feed_codex
+  - can_claim_completed
+pre_supply_pack_validator（执行前供料包校验）: passed（通过）
+mid_task_supply_pack（执行中增量供料包）: blocked_expected_before_post_commit_vector_sync（提交前本地改动导致索引 hash 过期，按预期阻断）
+failure_route（失败路由）: RAG_supply_bus（读回缺失 / summary-only 回供料总线）
+history_delete_policy（历史文件处理）: do_not_delete_history_files（不删除历史文件，只降权）
+content_validation（内容验证）: not_promoted（未推进）
+send_ready（可发送状态）: false（未开启）
+voice_validation（声音验证）: not_promoted（未推进）
+final_voice_validated（最终声音验证）: false（未通过）
+visual_master_locked（视觉母版锁定）: false（未锁定）
+production_readiness（生产可用状态）: not_claimed（未声称）
+git_sync_status（Git 同步状态）: pending_current_commit（等待当前提交收尾）
+post_commit_vector_sync_gate_check（提交后向量同步闸门预检）: sync_required（需要同步）
+vector_sync_status（向量同步状态）: finish_pending_after_source_commit（source commit 后运行 post_commit_vector_sync_gate.py --mode finish）
+generated_report（生成报告）: codex_log/rag_cleaning_layer/20260621_RAG清洗层补缺执行报告_rag_cleaning_layer_gap_fill_report.md
+next_safe_step（下一步安全动作）: commit_push_remote_verify_then_post_commit_vector_sync_gate_finish（提交推送远端校验后运行提交后向量同步闸门）
+```
+
+- `default_decision_table（默认决策表）`: `system_default / codex_auto_decide / chatgpt_review / user_must_decide` 已写入清洗层契约；用户只处理目标、验收、授权、删除、降级、发布 / 生产状态等核心判断。
+- `completion_claim_cleaner（完成声明清洗器）`: 供料包通过、机制写入、技术预览、本地文件存在均不得单独写 `completed`；严格完成仍要求 commit、push、remote verification、secret scan 和 vector sync boundary。
+- `status_boundary（状态边界）`: 本轮不生成媒体，不调用 TTS，不推进内容、声音、视觉母版、可发送或生产状态。
+
 ## 20260620｜Engineering Line Collaboration Gate + GPT Project Sync Package
 
 ```yaml

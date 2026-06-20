@@ -1,0 +1,90 @@
+{
+  "action_constraint": [
+    "source_readback_required_before_continue",
+    "rag_cleaning_layer_fields_required_before_continue",
+    "do_not_continue_if_validation_failure_unexplained"
+  ],
+  "blocked_if": [
+    "child_task_state_missing",
+    "incremental_snippets_missing",
+    "readback_failed",
+    "cleaning_layer_blocked",
+    "conflict_points_unresolved"
+  ],
+  "child_task_id": "rag-mid-task-supply-sample",
+  "conflict_points": [
+    "high_risk_write_requires_incremental_supply"
+  ],
+  "continue_allowed": false,
+  "files_already_read": [
+    "AGENTS.md",
+    "codex_source/schema_contracts/schemas/rag_supply_pack.schema.yaml"
+  ],
+  "generated_at": "2026-06-21T03:25:48+08:00",
+  "incremental_snippets": [
+    {
+      "authority_level": "current_repo_source",
+      "can_claim_completed": false,
+      "can_feed_codex": true,
+      "chunk_id": "vf_f168e4953512024f7d4ebe9da5085791ddc52f20",
+      "conflict_status": "none",
+      "file_hash_match": false,
+      "line_range": "1-21",
+      "readback": "contract_name: pre_supply_pack（执行前资料包）\nversion: \"2026-06-21\"\nstatus: draft（草案）\nproject_route: video_factory（视频工厂）\npurpose（用途）: Codex 开工前必须拿到关键原文片段、任务约束和冲突点。\nrequired_fields（必填字段）:\n  - task_id（任务编号）\n  - task_type（任务类型）\n  - retrieval_goal（检索目标）\n  - exact_snippet_pack（精确原文片段包）\n  - source_path（来源路径）\n  - line_range（行号范围）\n  - chunk_id（分块编号）\n  - why_needed（为什么需要）\n  - execution_constraint（执行约束）\n  - conflict_points（冲突点）\n  - cleaning_layer_check（清洗层检查）\n  - blocked_if（阻断条件）\nexact_snippet_pack_required_fields（精确原文片段必填字段）:\n  - source_path（来源路径）\n  - line_range（行号范围）",
+      "readback_hash_match": false,
+      "readback_required": true,
+      "snippet": "contract_name: pre_supply_pack（执行前资料包）\nversion: \"2026-06-21\"\nstatus: draft（草案）\nproject_route: video_factory（视频工厂）\npurpose（用途）: Codex 开工前必须拿到关键原文片段、任务约束和冲突点。\nrequired_fields（必填字段）:\n  - task_id（任务编号）\n  - task_type（任务类型）\n  - retrieval_goal（检索目标）\n  - exact_snippet_pack（精确原文片段包）\n  - source_path（来源路径）\n  - line_range（行号范围）\n  - chunk_id（分块编号）\n  - why_needed（为什么需要）\n  - execution_constraint（执行约束）\n  - conflict_points（冲突点）\n  - cleaning_layer_check（清洗层检查）\n  - blocked_if（阻断条件）\nexact_snippet_pack_required_fields（精确原文片段必填字段）:\n  - source_path（来源路径）\n  - line_range（行号范围）",
+      "source_path": "codex_source/schema_contracts/schemas/pre_supply_pack.schema.yaml",
+      "source_priority_rank": 1,
+      "stale_status": "current",
+      "status_label": "current_repo_readback",
+      "why_needed": "执行中缺上下文、验证失败或高风险写入前补料。"
+    },
+    {
+      "authority_level": "current_repo_source",
+      "can_claim_completed": false,
+      "can_feed_codex": true,
+      "chunk_id": "vf_7f6b99807fb7fc37bdefe0d06f3267938aec9795",
+      "conflict_status": "none",
+      "file_hash_match": true,
+      "line_range": "1-33",
+      "readback": "contract_name: acceptance_contract（验收契约）\nversion: \"2026-06-18\"\nstatus: draft（草案）\nproject_route: video_factory（视频工厂）\npurpose（用途）: 规定每个模块怎样从目标、证据、验证、阻断和状态边界上判断是否可以进入下一阶段。\nrequired_fields（必填字段）:\n  - acceptance_id（验收编号）\n  - module_name（模块名）\n  - current_status（当前状态）\n  - target_status（目标状态）\n  - done_when（完成标准）\n  - required_evidence（必需证据）\n  - validation_commands（验证命令）\n  - status_not_promoted（未推进状态）\n  - blocked_if（阻断条件）\n  - next_safe_step（下一步安全动作）\nhard_rules（硬规则）:\n  candidate_requires_user_confirmation_before_formal（候选转正式前需要用户确认）: true\n  probe_result_is_not_runtime（探测结果不等于运行时）: true\n  report_is_not_execution（报告不等于真实执行）: true\n  active_write_executor（当前激活写入执行器）: codex\nstatus_not_promoted_required（必须保持未推进状态）:\n  runtime_enabled（运行时启用）: false（未启用）\n  service_started（服务启动）: false（未启动）\n  external_api_called（外部 API 调用）: false（未调用）\n  tts_called（TTS 调用）: false（未调用）\n  dashvector_real_call（DashVector 真实调用）: false（未调用）\n  chroma_ingestion_run（Chroma 入库）: false（未运行）\n  rag_runtime_enabled（RAG 运行时启用）: false（未启用）\n  media_generated（媒体生成）: false（未生成）\n  content_validation（内容验证）: not_promoted（未推进）\n  send_ready（可发送状态）: false（未开启）\n  production_readiness（生产可用状态）: not_claimed（未声称）",
+      "readback_hash_match": true,
+      "readback_required": true,
+      "snippet": "contract_name: acceptance_contract（验收契约）\nversion: \"2026-06-18\"\nstatus: draft（草案）\nproject_route: video_factory（视频工厂）\npurpose（用途）: 规定每个模块怎样从目标、证据、验证、阻断和状态边界上判断是否可以进入下一阶段。\nrequired_fields（必填字段）:\n  - acceptance_id（验收编号）\n  - module_name（模块名）\n  - current_status（当前状态）\n  - target_status（目标状态）\n  - done_when（完成标准）\n  - required_evidence（必需证据）\n  - validation_commands（验证命令）\n  - status_not_promoted（未推进状态）\n  - blocked_if（阻断条件）\n  - next_safe_step（下一步安全动作）\nhard_rules（硬规则）:\n  candidate_requires_user_confirmation_before_formal（候选转正式前需要用户确认）: true\n  probe_result_is_not_runtime（探测结果不等于运行时）: true\n  report_is_not_execution（报告不等于真实执行）: true\n  active_write_executor（当前激活写入执行器）: codex\nstatus_not_promoted_required（必须保持未推进状态）:\n  runtime_enabled（运行时启用）: false（未启用）\n  service_started（服务启动）: false（未启动）\n  external_api_called（外部 API 调用）: false（未调用）\n  tts_called（TTS 调用）: false（未调用）\n  dashvector_real_call（DashVector 真实调用）: false（未调用）\n  chroma_ingestion_run（Chroma 入库）: false（未运行）\n  rag_runtime_enabled（RAG 运行时启用）: false（未启用）\n  media_generated（媒体生成）: false（未生成）\n  content_validation（内容验证）: not_promoted（未推进）\n  send_ready（可发送状态）: false（未开启）\n  production_readiness（生产可用状态）: not_claimed（未声称）",
+      "source_path": "codex_source/schema_contracts/schemas/acceptance_contract.schema.yaml",
+      "source_priority_rank": 1,
+      "stale_status": "current",
+      "status_label": "current_repo_readback",
+      "why_needed": "执行中缺上下文、验证失败或高风险写入前补料。"
+    },
+    {
+      "authority_level": "current_repo_source",
+      "can_claim_completed": false,
+      "can_feed_codex": true,
+      "chunk_id": "vf_9d28a12b4431830c8ae60973c687d469eef1cb4a",
+      "conflict_status": "none",
+      "file_hash_match": true,
+      "line_range": "1-75",
+      "readback": "contract_name: BlockedIfCheck\nversion: \"0.1\"\nstatus: draft\nproject_route: video_factory\npurpose: \"Convert workflow and contract blockers into one structured execution gate.\"\nrequired_fields:\n  task_id:\n    type: string\n    required: true\n    allowed_values: []\n    description: \"Task id being checked.\"\n    blocked_if_missing: true\n  workflow_type:\n    type: enum\n    required: true\n    allowed_values: [copy_testing_flow, material_evidence_flow, aesthetic_editing_flow, quality_review_flow, data_review_flow, mechanism_repair_flow]\n    description: \"Workflow whose blockers are evaluated.\"\n    blocked_if_missing: true\n  blocked:\n    type: boolean\n    required: true\n    allowed_values: [true, false]\n    description: \"Whether execution is blocked.\"\n    blocked_if_missing: true\n  blocked_reasons:\n    type: list[string]\n    required: true\n    allowed_values: []\n    description: \"Machine-readable blocker reasons.\"\n    blocked_if_missing: true\n  severity:\n    type: enum\n    required: true\n    allowed_values: [none, low, medium, high, critical]\n    description: \"Highest blocker severity.\"\n    blocked_if_missing: true\n  blocking_files:\n    type: list[string]\n    required: true\n    allowed_values",
+      "readback_hash_match": true,
+      "readback_required": true,
+      "snippet": "contract_name: BlockedIfCheck\nversion: \"0.1\"\nstatus: draft\nproject_route: video_factory\npurpose: \"Convert workflow and contract blockers into one structured execution gate.\"\nrequired_fields:\n  task_id:\n    type: string\n    required: true\n    allowed_values: []\n    description: \"Task id being checked.\"\n    blocked_if_missing: true\n  workflow_type:\n    type: enum\n    required: true\n    allowed_values: [copy_testing_flow, material_evidence_flow, aesthetic_editing_flow, quality_review_flow, data_review_flow, mechanism_repair_flow]\n    description: \"Workflow whose blockers are evaluated.\"\n    blocked_if_missing: true\n  blocked:\n    type: boolean\n    required: true\n    allowed_values: [true, false]\n    description: \"Whether execution is blocked.\"\n    blocked_if_missing: true\n  blocked_reasons:\n    type: list[string]\n    required: true\n    allowed_values: []\n    description: \"Machine-readable blocker reasons.\"\n    blocked_if_missing: true\n  severity:\n    type: enum\n    required: true\n    allowed_values: [none, low, medium, high, critical]\n    description: \"Highest blocker severity.\"\n    blocked_if_missing: true\n  blocking_files:\n    type: list[string]\n    required: true\n    allowed_values",
+      "source_path": "codex_source/schema_contracts/schemas/blocked_if_check.schema.yaml",
+      "source_priority_rank": 1,
+      "stale_status": "current",
+      "status_label": "current_repo_readback",
+      "why_needed": "执行中缺上下文、验证失败或高风险写入前补料。"
+    }
+  ],
+  "missing_context": [
+    "Need exact snippet evidence for pre_supply_pack required fields."
+  ],
+  "pack_type": "mid_task_supply_pack",
+  "validation_failure_logs": [
+    "blocked sample lacked readback and line_range."
+  ],
+  "will_modify_files": [
+    "codex_source/schema_contracts/schemas/pre_supply_pack.schema.yaml"
+  ]
+}

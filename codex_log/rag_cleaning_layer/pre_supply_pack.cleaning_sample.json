@@ -1,0 +1,77 @@
+{
+  "blocked_if": [
+    "source_path_missing",
+    "line_range_missing",
+    "chunk_id_missing",
+    "readback_missing"
+  ],
+  "chunk_id": "vf_f168e4953512024f7d4ebe9da5085791ddc52f20",
+  "cleaning_layer_check": {
+    "authority_level": "current_repo_source",
+    "can_claim_completed": false,
+    "can_feed_codex": true,
+    "conflict_status": "none",
+    "readback_required": true,
+    "stale_status": "current",
+    "status": "passed"
+  },
+  "conflict_points": [
+    "retrieval_map_is_not_supply_complete",
+    "high_risk_task_requires_conflict_points"
+  ],
+  "exact_snippet_pack": [
+    {
+      "authority_level": "current_repo_source",
+      "can_claim_completed": false,
+      "can_feed_codex": true,
+      "chunk_id": "vf_f168e4953512024f7d4ebe9da5085791ddc52f20",
+      "conflict_status": "none",
+      "file_hash_match": false,
+      "line_range": "1-21",
+      "readback": "contract_name: pre_supply_pack（执行前资料包）\nversion: \"2026-06-21\"\nstatus: draft（草案）\nproject_route: video_factory（视频工厂）\npurpose（用途）: Codex 开工前必须拿到关键原文片段、任务约束和冲突点。\nrequired_fields（必填字段）:\n  - task_id（任务编号）\n  - task_type（任务类型）\n  - retrieval_goal（检索目标）\n  - exact_snippet_pack（精确原文片段包）\n  - source_path（来源路径）\n  - line_range（行号范围）\n  - chunk_id（分块编号）\n  - why_needed（为什么需要）\n  - execution_constraint（执行约束）\n  - conflict_points（冲突点）\n  - cleaning_layer_check（清洗层检查）\n  - blocked_if（阻断条件）\nexact_snippet_pack_required_fields（精确原文片段必填字段）:\n  - source_path（来源路径）\n  - line_range（行号范围）",
+      "readback_hash_match": false,
+      "readback_required": true,
+      "snippet": "contract_name: pre_supply_pack（执行前资料包）\nversion: \"2026-06-21\"\nstatus: draft（草案）\nproject_route: video_factory（视频工厂）\npurpose（用途）: Codex 开工前必须拿到关键原文片段、任务约束和冲突点。\nrequired_fields（必填字段）:\n  - task_id（任务编号）\n  - task_type（任务类型）\n  - retrieval_goal（检索目标）\n  - exact_snippet_pack（精确原文片段包）\n  - source_path（来源路径）\n  - line_range（行号范围）\n  - chunk_id（分块编号）\n  - why_needed（为什么需要）\n  - execution_constraint（执行约束）\n  - conflict_points（冲突点）\n  - cleaning_layer_check（清洗层检查）\n  - blocked_if（阻断条件）\nexact_snippet_pack_required_fields（精确原文片段必填字段）:\n  - source_path（来源路径）\n  - line_range（行号范围）",
+      "source_path": "codex_source/schema_contracts/schemas/pre_supply_pack.schema.yaml",
+      "source_priority_rank": 1,
+      "stale_status": "current",
+      "status_label": "current_repo_readback",
+      "why_needed": "Verify that Codex can obtain exact original snippets before a high-risk RAG mechanism write."
+    },
+    {
+      "authority_level": "current_repo_source",
+      "can_claim_completed": false,
+      "can_feed_codex": true,
+      "chunk_id": "vf_71786226410931088222c9f579e74042f4098299",
+      "conflict_status": "none",
+      "file_hash_match": false,
+      "line_range": "1-27",
+      "readback": "contract_name: rag_supply_pack（RAG 供料包）\nversion: \"2026-06-21\"\nstatus: draft（草案）\nproject_route: video_factory（视频工厂）\npurpose（用途）: 定义 RAG 供料总线的统一包结构，确保供料结果包含精确原文片段、来源路径、行号、chunk_id、约束和冲突点，而不是只有文件地图或摘要。\nsupply_points（供料节点）:\n  1_pre_execution（执行前）: pre_supply_pack（执行前资料包）\n  2_before_high_risk_write（高风险写入前）: targeted_supply_pack（定向供料包）\n  3_after_validation_failure（验证失败后）: failure_repair_supply_pack（失败修复供料包）\n  4_before_completion（完成前）: post_risk_review_pack（完成前风险复核包）\nrequired_fields（必填字段）:\n  - task_id（任务编号）\n  - task_type（任务类型）\n  - retrieval_goal（检索目标）\n  - exact_snippet_pack（精确原文片段包）\n  - source_path（来源路径）\n  - line_range（行号范围）\n  - chunk_id（分块编号）\n  - why_needed（为什么需要）\n  - execution_constraint（执行约束）\n  - conflict_points（冲突点）\n  - cleaning_layer_check（清洗层检查）\n  - blocked_if（阻断条件）\nexact_snippet_pack_required_fields（精确原文片段必填字段）:\n  - source_path（来源路径）\n  - line_range（行号范围）\n  - chunk_id（分块编号）",
+      "readback_hash_match": false,
+      "readback_required": true,
+      "snippet": "contract_name: rag_supply_pack（RAG 供料包）\nversion: \"2026-06-21\"\nstatus: draft（草案）\nproject_route: video_factory（视频工厂）\npurpose（用途）: 定义 RAG 供料总线的统一包结构，确保供料结果包含精确原文片段、来源路径、行号、chunk_id、约束和冲突点，而不是只有文件地图或摘要。\nsupply_points（供料节点）:\n  1_pre_execution（执行前）: pre_supply_pack（执行前资料包）\n  2_before_high_risk_write（高风险写入前）: targeted_supply_pack（定向供料包）\n  3_after_validation_failure（验证失败后）: failure_repair_supply_pack（失败修复供料包）\n  4_before_completion（完成前）: post_risk_review_pack（完成前风险复核包）\nrequired_fields（必填字段）:\n  - task_id（任务编号）\n  - task_type（任务类型）\n  - retrieval_goal（检索目标）\n  - exact_snippet_pack（精确原文片段包）\n  - source_path（来源路径）\n  - line_range（行号范围）\n  - chunk_id（分块编号）\n  - why_needed（为什么需要）\n  - execution_constraint（执行约束）\n  - conflict_points（冲突点）\n  - cleaning_layer_check（清洗层检查）\n  - blocked_if（阻断条件）\nexact_snippet_pack_required_fields（精确原文片段必填字段）:\n  - source_path（来源路径）\n  - line_range（行号范围）\n  - chunk_id（分块编号）",
+      "source_path": "codex_source/schema_contracts/schemas/rag_supply_pack.schema.yaml",
+      "source_priority_rank": 1,
+      "stale_status": "current",
+      "status_label": "current_repo_readback",
+      "why_needed": "Verify that Codex can obtain exact original snippets before a high-risk RAG mechanism write."
+    }
+  ],
+  "execution_constraint": [
+    "source_readback_required",
+    "exact_snippet_required",
+    "vector_result_is_not_formal_fact"
+  ],
+  "generated_at": "2026-06-21T03:25:48+08:00",
+  "line_range": "1-21",
+  "pack_type": "pre_supply_pack",
+  "retrieval_goal": "Build a pre_supply_pack for RAG supply bus engineering line validation.",
+  "source_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
+  "source_path": "codex_source/schema_contracts/schemas/pre_supply_pack.schema.yaml",
+  "task_id": "rag-engineering-line-landing-sample",
+  "task_type": [
+    "engineering_line_landing",
+    "rag_vector_mechanism"
+  ],
+  "why_needed": "Verify that Codex can obtain exact original snippets before a high-risk RAG mechanism write."
+}

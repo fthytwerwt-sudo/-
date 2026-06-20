@@ -57,7 +57,10 @@ def build_mid_pack(state: dict[str, Any]) -> dict[str, Any]:
         limit=3,
     )
     snippets = pre_builder._exact_snippet_pack(chunks, "执行中缺上下文、验证失败或高风险写入前补料。")
-    continue_allowed = bool(snippets) and all(item.get("readback_hash_match") for item in snippets)
+    continue_allowed = bool(snippets) and all(
+        item.get("readback_hash_match") and item.get("can_feed_codex") and item.get("conflict_status") == "none"
+        for item in snippets
+    )
     return {
         "pack_type": "mid_task_supply_pack",
         "child_task_id": state["child_task_id"],
@@ -69,6 +72,7 @@ def build_mid_pack(state: dict[str, Any]) -> dict[str, Any]:
         "incremental_snippets": snippets,
         "action_constraint": [
             "source_readback_required_before_continue",
+            "rag_cleaning_layer_fields_required_before_continue",
             "do_not_continue_if_validation_failure_unexplained",
         ],
         "continue_allowed": continue_allowed,
@@ -76,6 +80,7 @@ def build_mid_pack(state: dict[str, Any]) -> dict[str, Any]:
             "child_task_state_missing",
             "incremental_snippets_missing",
             "readback_failed",
+            "cleaning_layer_blocked",
             "conflict_points_unresolved",
         ],
         "generated_at": common.now_iso(),

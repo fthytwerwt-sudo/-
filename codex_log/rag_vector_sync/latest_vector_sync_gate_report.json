@@ -11,21 +11,253 @@
     "vector_values_written": false
   },
   "gate_name": "post_commit_vector_sync_gate",
-  "generated_at": "2026-06-20T23:25:27+08:00",
+  "generated_at": "2026-06-21T03:28:19+08:00",
   "indexable_change_result": {
     "blocked_reasons": [],
-    "changed_indexable_files": [],
+    "changed_indexable_files": [
+      "AGENTS.md",
+      "GPT数据源/03_总索引与阅读顺序.md",
+      "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+      "GPT数据源/16_工程线协作闸门_engineering_line_collaboration_gate.md",
+      "codex_log/current_local_artifact_paths.md",
+      "codex_log/engineering_line_collaboration/20260620_工程线协作闸门_engineering_line_collaboration_gate_report.md",
+      "codex_log/latest.md",
+      "codex_source/00_codex_readme.md",
+      "codex_source/01_execution_rules.md",
+      "codex_source/19_project_state_action_router.md"
+    ],
     "deleted_indexable_files": [],
     "dynamic_audit_only": false,
-    "indexable_changed": false,
+    "indexable_changed": true,
     "previous_index_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
-    "raw_changed_files": [],
-    "skip_reason": "already_indexed_current_commit",
-    "source_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
-    "sync_required": false
+    "raw_changed_files": [
+      {
+        "path": "AGENTS.md",
+        "status": "M"
+      },
+      {
+        "path": "GPT数据源/03_总索引与阅读顺序.md",
+        "status": "M"
+      },
+      {
+        "path": "GPT数据源/11_项目状态动作总控器_机制推理层.md",
+        "status": "M"
+      },
+      {
+        "path": "GPT数据源/16_工程线协作闸门_engineering_line_collaboration_gate.md",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/current_local_artifact_paths.md",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/engineering_line_collaboration/20260620_工程线协作闸门_engineering_line_collaboration_gate_report.md",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/latest.md",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_chunk_manifest.json",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_chunk_manifest.md",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_index_manifest.json",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_index_manifest.md",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_retrieval_probe_report.json",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_retrieval_probe_report.md",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_secret_scan_report.json",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_source_inventory.json",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_source_inventory.md",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_vector_sync_gate_report.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_vector_sync_gate_report.md",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/00_codex_readme.md",
+        "status": "M"
+      },
+      {
+        "path": "codex_source/01_execution_rules.md",
+        "status": "M"
+      },
+      {
+        "path": "codex_source/19_project_state_action_router.md",
+        "status": "M"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/GPT数据源/00_项目总述.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/GPT数据源/01_项目系统提示词.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/GPT数据源/03_总索引与阅读顺序.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/GPT数据源/05_文案路由规则.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/GPT数据源/07_AI知识类视频价值规则.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/GPT数据源/08_当前正式事实.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/GPT数据源/10_OPC一人公司闭环与多AI协作机制.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/GPT数据源/11_项目状态动作总控器_机制推理层.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/GPT数据源/12_参考到执行落地契约_reference_to_execution_contract.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/GPT数据源/13_目标驱动数据飞轮与文案执行闭环_goal_driven_data_flywheel_and_copy_execution_loop.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/GPT数据源/14_数据目标执行总线_data_goal_execution_bus.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/GPT数据源/15_对标文案学习与说人话判断标准_copy_reference_learning_and_plain_language_standard.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/GPT数据源/16_工程线协作闸门_engineering_line_collaboration_gate.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/codex_log/current_data_goal_anchor.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/codex_log/current_local_artifact_paths.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/codex_log/current_operation_target.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/codex_log/engineering_line_collaboration/20260620_工程线协作闸门_engineering_line_collaboration_gate_report.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/codex_log/latest.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/codex_source/00_codex_readme.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/codex_source/01_execution_rules.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/codex_source/13_execution_lane_and_parallel_rules.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/codex_source/19_project_state_action_router.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/codex_source/20_reference_to_execution_contract.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/codex_source/21_codex_judgment_permission_matrix.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/project_entry/AGENTS.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/review_loop/operation_records_index.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/上传说明_UPLOAD_MANIFEST.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/变更摘要_CHANGE_SUMMARY.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/同步说明_SYNC_SUMMARY.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/文件清单_FILE_MANIFEST.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/本轮报告_CURRENT_REPORTS/20260620_工程线协作闸门_engineering_line_collaboration_gate_report.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/状态边界_STATUS_BOUNDARY.md",
+        "status": "A"
+      },
+      {
+        "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/路径索引_PATH_INDEX.md",
+        "status": "A"
+      }
+    ],
+    "skip_reason": "",
+    "source_commit_sha": "74022503311c204f6248830c89d6df142d792077",
+    "sync_required": true
   },
   "mode": "check",
   "project_route": "video_factory",
   "repo_full_name": "fthytwerwt-sudo/-",
-  "status": "passed_no_sync_required"
+  "status": "sync_required"
 }

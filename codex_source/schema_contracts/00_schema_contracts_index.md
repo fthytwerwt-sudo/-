@@ -14,6 +14,63 @@
 
 This directory defines draft schema contracts and static fixtures for the future adapter contract layer. It does not install, enable, or run `agent-service-toolkit`.
 
+## 2AD. 20260621 RAG cleaning layer gap fill update
+
+```yaml
+schema_contract_index_update（schema 契约索引更新）:
+  phase（阶段）: rag_cleaning_layer_gap_fill（RAG 清洗层补缺）
+  status（状态）: contract_schema_validator_fixture_landed（契约 / schema / validator / fixture 已落地）
+  project_route（项目路由）: video_factory（视频工厂）
+  branch（分支）: main（主分支）
+  content_validation（内容验证）: not_promoted（未推进）
+  send_ready（可发送状态）: false（未开启）
+  production_readiness（生产可用状态）: not_claimed（未声称）
+```
+
+本阶段把 RAG 供料前后的清洗判断补成可执行机制：
+
+- `source_authority_classifier（资料权重分类器）`
+- `stale_context_detector（旧口径检测器）`
+- `conflict_cleaner（冲突清洗器）`
+- `decision_authority_router（判断权路由器）`
+- `supply_pack_cleaner（供料包清洗器）`
+- `completion_claim_cleaner（完成声明清洗器）`
+- `user_minimal_review_panel（用户最小复审面板）`
+
+### 2AD.1 added_schema_family（新增 schema 家族）
+
+| schema family | purpose | schema |
+|---|---|---|
+| `rag_cleaning_layer` | 规定 RAG 清洗层七个节点、资料优先级、用户判断面板、完成声明清洗和失败路由。 | `schemas/rag_cleaning_layer.schema.yaml` |
+
+### 2AD.2 added_validator_and_fixtures（新增校验器与样例）
+
+| validator | fixture directory | coverage |
+|---|---|---|
+| `scripts/rag_cleaning_layer_validator.py --fixtures` | `codex_log/rag_cleaning_layer/fixtures/` | 当前仓库回读、用户最小面板、summary-only、旧口径覆盖当前、技术预览冒充完成、stale index 冒充当前、缺 readback。 |
+
+### 2AD.3 supply_pack_cleaning_fields（供料包清洗字段）
+
+`scripts/rag_supply_pack_builder.py` 与 `scripts/rag_supply_pack_validator.py` 必须为执行供料包维护以下字段：
+
+- `authority_level`
+- `stale_status`
+- `conflict_status`
+- `readback_required`
+- `can_feed_codex`
+- `can_claim_completed`
+
+### 2AD.4 status_boundary（状态边界）
+
+```yaml
+status_boundary（状态边界）:
+  - RAG_cleaning_layer_passed 不等于 content_validation 通过
+  - RAG_cleaning_layer_passed 不等于 send_ready
+  - 供料包通过不等于 completed
+  - DashVector 检索结果仍必须仓库原文 readback
+  - 历史文件保留但降权，不删除
+```
+
 ## 2AC. 20260620 RAG sync / supply bus and DashVector ingestion guard update
 
 ```yaml

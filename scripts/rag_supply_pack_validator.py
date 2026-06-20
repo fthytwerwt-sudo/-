@@ -40,6 +40,29 @@ HIGH_RISK_TERMS = (
     "路由",
 )
 
+CLEANING_SNIPPET_FIELDS = [
+    "authority_level",
+    "stale_status",
+    "conflict_status",
+    "readback_required",
+    "can_feed_codex",
+    "can_claim_completed",
+]
+
+ALLOWED_AUTHORITY_LEVELS = {
+    "current_repo_source",
+    "real_run_report",
+    "latest_summary",
+    "rag_retrieval_result",
+    "chat_memory",
+    "historical_archive",
+}
+
+ALLOWED_STALE_STATUSES = {"current", "legacy_demoted", "stale_index", "historical_reference"}
+ALLOWED_CONFLICT_STATUSES = {"none", "resolved_by_source_priority", "requires_chatgpt_review", "requires_user_decision", "unresolved"}
+BLOCKING_STALE_STATUSES = {"legacy_demoted", "stale_index", "historical_reference"}
+LOW_AUTHORITY_LEVELS = {"chat_memory", "historical_archive"}
+
 
 def _resolve(path_value: str) -> pathlib.Path:
     path = pathlib.Path(path_value)
@@ -55,6 +78,38 @@ def _text(value: Any) -> str:
 def _is_high_risk(pack: dict[str, Any]) -> bool:
     text = f"{_text(pack.get('task_type'))} {_text(pack.get('retrieval_goal'))}".lower()
     return any(term in text for term in HIGH_RISK_TERMS)
+
+
+def _validate_cleaning_fields(snippet: dict[str, Any], index: int) -> list[str]:
+    reasons: list[str] = []
+    for field in CLEANING_SNIPPET_FIELDS:
+        if field not in snippet:
+            reasons.append(f"snippet_{index}_{field}_missing")
+
+    authority_level = snippet.get("authority_level")
+    stale_status = snippet.get("stale_status")
+    conflict_status = snippet.get("conflict_status")
+
+    if authority_level is not None and authority_level not in ALLOWED_AUTHORITY_LEVELS:
+        reasons.append(f"snippet_{index}_authority_level_invalid")
+    if stale_status is not None and stale_status not in ALLOWED_STALE_STATUSES:
+        reasons.append(f"snippet_{index}_stale_status_invalid")
+    if conflict_status is not None and conflict_status not in ALLOWED_CONFLICT_STATUSES:
+        reasons.append(f"snippet_{index}_conflict_status_invalid")
+
+    if snippet.get("readback_required") is not True:
+        reasons.append(f"snippet_{index}_readback_required_not_true")
+    if stale_status in BLOCKING_STALE_STATUSES and snippet.get("can_feed_codex") is True:
+        reasons.append(f"snippet_{index}_stale_source_can_feed_codex")
+    if authority_level in LOW_AUTHORITY_LEVELS and snippet.get("can_feed_codex") is True:
+        reasons.append(f"snippet_{index}_low_authority_can_feed_codex")
+    if conflict_status in {"requires_chatgpt_review", "requires_user_decision", "unresolved"}:
+        reasons.append(f"snippet_{index}_conflict_not_cleaned")
+    if snippet.get("can_feed_codex") is not True:
+        reasons.append(f"snippet_{index}_can_feed_codex_not_true")
+    if snippet.get("can_claim_completed") is True:
+        reasons.append(f"snippet_{index}_supply_pack_claims_completed")
+    return reasons
 
 
 def validate_pre_supply_pack(pack: dict[str, Any]) -> list[str]:
@@ -85,8 +140,18 @@ def validate_pre_supply_pack(pack: dict[str, Any]) -> list[str]:
             only_summary = False
         else:
             reasons.append("readback_missing")
+        reasons.extend(_validate_cleaning_fields(snippet, index))
     if only_summary:
         reasons.append("only_summary_without_snippet")
+
+    cleaning_layer_check = pack.get("cleaning_layer_check")
+    if not isinstance(cleaning_layer_check, dict):
+        reasons.append("cleaning_layer_check_missing")
+    else:
+        if cleaning_layer_check.get("can_feed_codex") is not True:
+            reasons.append("cleaning_layer_check_can_feed_codex_not_true")
+        if cleaning_layer_check.get("can_claim_completed") is True:
+            reasons.append("cleaning_layer_check_claims_completed")
 
     if _is_high_risk(pack) and not pack.get("conflict_points"):
         reasons.append("conflict_points_missing_for_high_risk_task")

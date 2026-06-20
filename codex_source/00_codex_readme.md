@@ -766,6 +766,14 @@ RAG engineering line（RAG 工程线）执行入口：
 - 每轮必须运行 `trace_event_writer（追踪事件写入器）`，写入 `codex_log/rag_engineering_line/trace_events.jsonl`，并同步 dated log 与 latest。
 - `retrieval_map（资料地图）` 只算定位辅助，不算供料完成；没有 exact snippet、source_path、line_range、chunk_id 和 readback 时必须 blocked。
 
+RAG cleaning layer（RAG 清洗层）执行入口：
+- 命中 RAG、供料、旧口径、source_authority、stale_context、source_conflict、summary-only、missing_readback、completion_claim 或 user_minimal_review_panel 时，必须先进入 `codex_source/24_RAG清洗层执行契约_rag_cleaning_layer_execution_contract.md`。
+- 清洗层固定七个节点：`source_authority_classifier`、`stale_context_detector`、`conflict_cleaner`、`decision_authority_router`、`supply_pack_cleaner`、`completion_claim_cleaner`、`user_minimal_review_panel`。
+- 执行供料必须带 `authority_level / stale_status / conflict_status / readback_required / can_feed_codex / can_claim_completed`；缺失时由 `scripts/rag_supply_pack_validator.py` 阻断。
+- 清洗层总验证器为 `scripts/rag_cleaning_layer_validator.py --fixtures`；passing 与 blocked fixture 位于 `codex_log/rag_cleaning_layer/fixtures/`。
+- 默认事实优先级为 `current_repo_source > real_run_report > latest_summary > rag_retrieval_result > chat_memory > historical_archive`。历史文件保留但降权，不删除。
+- 只有目标变化、验收标准变化、外部 API / 成本 / 凭据授权、删除历史文件、降级交付、发布 / 可发送 / 生产状态推进，才进入 `user_must_decide`；普通工程细节由 Codex 自动处理或由 ChatGPT 复审收束。
+
 Post-commit vector sync gate（提交后向量同步闸门）：
 - 以后 Codex 每轮修改可索引文本文件并完成 source commit 后，必须自动运行 `scripts/post_commit_vector_sync_gate.py --mode finish`，无需再向用户中途确认。
 - 触发条件：changed files 命中 RAG allowlist、`latest_index_manifest.source_commit_sha` 落后于当前 source commit，或 `scripts/rag_index_manifest_validator.py --check-current-worktree` 返回 `stale_index_detected`。

@@ -1,0 +1,49 @@
+{
+  "case_id": "passing_user_minimal_panel_case",
+  "expected_status": "passed",
+  "task_mode": "review_panel",
+  "source_authority_classifier": {
+    "source_path": "codex_source/19_project_state_action_router.md",
+    "authority_level": "current_repo_source",
+    "status_label": "current_repo_readback",
+    "source_priority_rank": 1,
+    "can_use_as_current_fact": true,
+    "repo_readback_verified": true
+  },
+  "stale_context_detector": {
+    "stale_status": "current",
+    "tries_to_override_current": false,
+    "requires_vector_sync": false
+  },
+  "conflict_cleaner": {
+    "conflict_status": "requires_user_decision",
+    "resolution": "route_to_user_minimal_review_panel"
+  },
+  "decision_authority_router": {
+    "decision_owner": "user_must_decide",
+    "reason": "the item changes authorization, delivery, or acceptance boundary"
+  },
+  "supply_pack_cleaner": {
+    "task_mode": "review_panel",
+    "summary_only": false,
+    "exact_snippet_pack": []
+  },
+  "completion_claim_cleaner": {
+    "claim_requested": "not_requested",
+    "can_claim_completed": false,
+    "technical_preview_only": false,
+    "forbidden_status_promoted": false,
+    "technical_as_content": false,
+    "vector_sync_status": "not_required"
+  },
+  "user_minimal_review_panel": {
+    "decision_items": [
+      {
+        "decision_item": "external_api_authorization",
+        "why_user_must_decide": "may spend money or use an external credential",
+        "recommended_default": "do_not_call_without_current_round_authorization"
+      }
+    ],
+    "blocked_if_not_decided": true
+  }
+}

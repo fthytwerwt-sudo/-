@@ -1004,6 +1004,35 @@ quality_issue_classifier:
 7. DeepSeek / Perplexity 输出只做供料或研究参考，不直接拍板项目事实。
 8. Vector RAG / DashVector 检索和仓库原文件 readback 是默认执行输入；DeepSeek 只在条件触发时提供审查 / 风险复核 / 冲突二次意见，且仍必须由当前 `active_write_executor` 复核原文件后落地。
 
+RAG 清洗层事实优先级补充：
+
+1. `current_repo_source（当前仓库源文件）`
+2. `real_run_report（真实执行报告）`
+3. `latest_summary（最新摘要）`
+4. `rag_retrieval_result（RAG 检索结果）`
+5. `chat_memory（聊天记忆）`
+6. `historical_archive（历史归档）`
+
+命中 RAG / DashVector / 检索 / 供料 / 旧口径 / stale_index / source_conflict / completion_claim / user_minimal_review_panel 时，当前状态必须附加：
+
+```text
+current_project_state = rag_cleaning_layer_required
+trigger_mechanism = RAG Cleaning Layer Execution Contract
+must_read = codex_source/24_RAG清洗层执行契约_rag_cleaning_layer_execution_contract.md
+schema = codex_source/schema_contracts/schemas/rag_cleaning_layer.schema.yaml
+validator = scripts/rag_cleaning_layer_validator.py --fixtures
+```
+
+清洗层动作：
+
+- `source_authority_classifier`：低权重来源不得覆盖当前事实。
+- `stale_context_detector`：旧口径、历史归档、过期索引只能降权或路由修复。
+- `conflict_cleaner`：冲突先按来源权重裁决，裁不了再进 ChatGPT / 用户判断。
+- `decision_authority_router`：只把目标、验收、授权、删除、降级、发布 / 生产状态交给用户。
+- `supply_pack_cleaner`：执行供料缺 `source_path / line_range / chunk_id / readback` 必须 blocked。
+- `completion_claim_cleaner`：缺 commit / push / remote verification / vector sync boundary 不得写 completed。
+- `user_minimal_review_panel`：只列用户必须拍板事项，不把普通工程细节交给用户。
+
 必须裁决的冲突：
 
 | conflict | Codex decision |
@@ -1020,6 +1049,10 @@ quality_issue_classifier:
 | target_state_plan vs current_formal_fact | current_formal_fact wins |
 | latest.md vs older dated logs | latest.md wins, then verify direct source files |
 | summary.json vs chat memory | summary.json / repo files win |
+| RAG retrieval vs repo readback | repo readback wins |
+| historical archive vs current repo source | current repo source wins; history is kept but demoted |
+| stale_index vs current worktree | current worktree wins; route stale index to RAG_sync_bus |
+| completion claim vs missing git/vector evidence | completion claim is blocked |
 
 ## 6. 与 Completion Relay Gate 联动
 
@@ -1070,6 +1103,12 @@ Codex 收尾时必须按以下四态判断：
 | `partial_completed` | 仅用于用户明确接受的分阶段任务，且已完成项可验证、未完成项已列入 remaining_work_check；或本地改动完成但 push / remote verification 未完成且 reason = `local_changes_done_but_not_pushed` | 完整交付任务不得用它替代 blocked；不得对用户写成已完成；不得在仓库文件改动未完成 Git 收尾时伪装 completed |
 | `blocked` | 缺关键文件、缺用户输入、需要 secret / API、需要修改禁止状态、证据不足、push 失败、当前分支不明、unrelated dirty files 无法隔离、secret scan failed、remote HEAD 无法校验 | 不得用猜测继续 |
 | `continue` | 无 blocked，仍有必交付项 | Codex 必须继续执行，不得结束 |
+
+RAG 清洗层补充完成口径：
+
+- 命中 `rag_cleaning_layer_required` 时，`completed` 还必须满足：契约、schema、validator、fixture、供料包接入、失败路由、trace、dated log、latest、验证、commit、push、remote verification 和 post-commit vector sync boundary 全部有证据。
+- 任何 `summary_only`、`missing_readback`、`stale_index_claim_current`、`legacy_overrides_current`、`completion_claim_risk`、`git_sync_incomplete` 都必须写 `blocked` 或继续修复，不得写 `completed`。
+- 清洗层通过只代表机制补缺通过，不代表内容验证、可发送、声音验证、视觉母版锁定或生产可用状态推进。
 
 ## 8. feedback_update 执行口径
 

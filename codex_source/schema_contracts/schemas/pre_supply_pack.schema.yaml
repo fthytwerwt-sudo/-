@@ -1,5 +1,5 @@
 contract_name: pre_supply_pack（执行前资料包）
-version: "2026-06-20"
+version: "2026-06-21"
 status: draft（草案）
 project_route: video_factory（视频工厂）
 purpose（用途）: Codex 开工前必须拿到关键原文片段、任务约束和冲突点。
@@ -14,8 +14,22 @@ required_fields（必填字段）:
   - why_needed（为什么需要）
   - execution_constraint（执行约束）
   - conflict_points（冲突点）
+  - cleaning_layer_check（清洗层检查）
   - blocked_if（阻断条件）
+exact_snippet_pack_required_fields（精确原文片段必填字段）:
+  - source_path（来源路径）
+  - line_range（行号范围）
+  - chunk_id（分块编号）
+  - readback（原文回读）
+  - authority_level（资料权重）
+  - stale_status（旧口径状态）
+  - conflict_status（冲突状态）
+  - readback_required（是否必须回读）
+  - can_feed_codex（是否允许喂给 Codex 执行）
+  - can_claim_completed（是否允许声明完成）
 hard_rules（硬规则）:
   exact_snippet_pack_not_empty（精确原文片段包不能为空）: true
   source_path_and_line_range_required（来源路径和行号必须存在）: true
   source_readback_before_write（写入前必须回读原文）: true
+  supply_pack_cannot_claim_completed（供料包不得声明完成）: true
+  summary_only_execution_supply_blocked（执行供料只有摘要必须阻断）: true

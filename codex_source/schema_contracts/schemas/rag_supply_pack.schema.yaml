@@ -1,5 +1,5 @@
 contract_name: rag_supply_pack（RAG 供料包）
-version: "2026-06-20"
+version: "2026-06-21"
 status: draft（草案）
 project_route: video_factory（视频工厂）
 purpose（用途）: 定义 RAG 供料总线的统一包结构，确保供料结果包含精确原文片段、来源路径、行号、chunk_id、约束和冲突点，而不是只有文件地图或摘要。
@@ -19,9 +19,42 @@ required_fields（必填字段）:
   - why_needed（为什么需要）
   - execution_constraint（执行约束）
   - conflict_points（冲突点）
+  - cleaning_layer_check（清洗层检查）
   - blocked_if（阻断条件）
+exact_snippet_pack_required_fields（精确原文片段必填字段）:
+  - source_path（来源路径）
+  - line_range（行号范围）
+  - chunk_id（分块编号）
+  - readback（原文回读）
+  - authority_level（资料权重）
+  - stale_status（旧口径状态）
+  - conflict_status（冲突状态）
+  - readback_required（是否必须回读）
+  - can_feed_codex（是否允许喂给 Codex 执行）
+  - can_claim_completed（是否允许声明完成）
+cleaning_layer_check（清洗层检查）:
+  authority_level_allowed（允许资料权重）:
+    - current_repo_source
+    - real_run_report
+    - latest_summary
+    - rag_retrieval_result
+    - chat_memory
+    - historical_archive
+  stale_status_allowed（允许旧口径状态）:
+    - current
+    - legacy_demoted
+    - stale_index
+    - historical_reference
+  conflict_status_allowed（允许冲突状态）:
+    - none
+    - resolved_by_source_priority
+    - requires_chatgpt_review
+    - requires_user_decision
+    - unresolved
 hard_rules（硬规则）:
   retrieval_map_is_not_supply_complete（资料地图不等于供料完成）: true
   exact_snippet_required（必须包含精确原文片段）: true
   source_readback_required（必须原文回读）: true
   vector_result_is_not_formal_fact（向量召回不是正式事实）: true
+  supply_pack_cannot_claim_completed（供料包不得声明完成）: true
+  summary_only_execution_supply_blocked（执行供料只有摘要必须阻断）: true

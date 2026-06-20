@@ -13,15 +13,42 @@ import rag_common as common
 
 ROUTES = {
     "RAG_supply_bus": {
-        "keywords": ("missing_context", "source_path_missing", "line_range_missing", "readback_missing", "only_summary", "snippet"),
+        "keywords": (
+            "missing_context",
+            "source_path_missing",
+            "line_range_missing",
+            "readback_missing",
+            "missing_readback",
+            "only_summary",
+            "summary_only",
+            "snippet",
+        ),
         "next_action": "rebuild_supply_pack_with_source_readback",
     },
     "RAG_sync_bus": {
-        "keywords": ("stale_index", "commit_mismatch", "index_manifest", "deleted_file", "upsert_missing", "sync_guard"),
+        "keywords": (
+            "stale_index",
+            "vector_sync_stale",
+            "commit_mismatch",
+            "index_manifest",
+            "deleted_file",
+            "upsert_missing",
+            "sync_guard",
+        ),
         "next_action": "rerun_sync_guard_or_vector_sync_when_authorized",
     },
     "fact_source_arbitration": {
-        "keywords": ("fact_conflict", "source_conflict", "deepseek_conflict", "dashvector_conflict", "github_conflict"),
+        "keywords": (
+            "fact_conflict",
+            "source_conflict",
+            "authority_uncertain",
+            "legacy_override",
+            "legacy_demoted",
+            "stale_context",
+            "deepseek_conflict",
+            "dashvector_conflict",
+            "github_conflict",
+        ),
         "next_action": "compare_repo_github_dashvector_and_readback_sources",
     },
     "validation_repair": {
@@ -29,11 +56,34 @@ ROUTES = {
         "next_action": "repair_script_schema_fixture_or_probe_then_rerun_validation",
     },
     "human_decision_gate": {
-        "keywords": ("auth_missing", "api_permission", "cost", "external_api", "aesthetic", "semantic", "status_promotion", "human"),
+        "keywords": (
+            "auth_missing",
+            "api_permission",
+            "cost",
+            "external_api",
+            "aesthetic",
+            "semantic",
+            "status_promotion",
+            "user_decision_required",
+            "delete_authorization",
+            "degradation_authorization",
+            "publish_decision",
+            "delivery_decision",
+            "human",
+        ),
         "next_action": "request_human_decision_or_authorization",
     },
     "completion_truth_check": {
-        "keywords": ("completion", "partial_as_completed", "status_swap", "local_only", "missing_log", "not_pushed"),
+        "keywords": (
+            "completion",
+            "completion_claim_risk",
+            "preview_as_completed",
+            "partial_as_completed",
+            "status_swap",
+            "local_only",
+            "missing_log",
+            "not_pushed",
+        ),
         "next_action": "run_completion_truth_check_before_claiming_done",
     },
     "git_sync_gate": {
@@ -51,9 +101,32 @@ def _resolve(path_value: str) -> pathlib.Path:
 def resolve_route(event: dict[str, Any]) -> dict[str, Any]:
     text = json.dumps(event, ensure_ascii=False).lower()
     selected = "human_decision_gate"
+    matched_cleaning_keyword = False
     for route, config in ROUTES.items():
-        if any(keyword in text for keyword in config["keywords"]):
+        matched_keywords = [keyword for keyword in config["keywords"] if keyword in text]
+        if matched_keywords:
             selected = route
+            matched_cleaning_keyword = any(
+                keyword
+                in {
+                    "summary_only",
+                    "missing_readback",
+                    "readback_missing",
+                    "only_summary",
+                    "stale_index",
+                    "vector_sync_stale",
+                    "authority_uncertain",
+                    "legacy_override",
+                    "legacy_demoted",
+                    "stale_context",
+                    "source_conflict",
+                    "user_decision_required",
+                    "completion_claim_risk",
+                    "preview_as_completed",
+                    "not_pushed",
+                }
+                for keyword in matched_keywords
+            )
             break
     config = ROUTES[selected]
     return {
@@ -63,6 +136,7 @@ def resolve_route(event: dict[str, Any]) -> dict[str, Any]:
         "next_action": config["next_action"],
         "blocked_until": "repair_layer_completed",
         "reason": event.get("reason") or event.get("message") or "resolved_by_keyword_route",
+        "cleaning_layer_failure_route": matched_cleaning_keyword,
         "available_route_targets": list(ROUTES),
         "generated_at": common.now_iso(),
     }

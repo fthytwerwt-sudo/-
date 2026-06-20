@@ -1,0 +1,242 @@
+schema_id: rag_cleaning_layer
+schema_version: "2026-06-21"
+project_route: video_factory
+status: active_contract
+description: >
+  RAG cleaning layer contract for source authority, stale context, conflict,
+  decision authority, supply pack cleaning, completion claim cleaning, and the
+  user minimal review panel.
+
+required:
+  - case_id
+  - expected_status
+  - task_mode
+  - source_authority_classifier
+  - stale_context_detector
+  - conflict_cleaner
+  - decision_authority_router
+  - supply_pack_cleaner
+  - completion_claim_cleaner
+  - user_minimal_review_panel
+
+properties:
+  case_id:
+    type: string
+  expected_status:
+    enum: [passed, blocked]
+  task_mode:
+    enum: [execution, explanation, review_panel]
+
+  source_authority_classifier:
+    required:
+      - source_path
+      - authority_level
+      - status_label
+      - source_priority_rank
+      - can_use_as_current_fact
+      - repo_readback_verified
+    properties:
+      source_path:
+        type: string
+      authority_level:
+        enum:
+          - current_repo_source
+          - real_run_report
+          - latest_summary
+          - rag_retrieval_result
+          - chat_memory
+          - historical_archive
+      status_label:
+        type: string
+      source_priority_rank:
+        type: integer
+      can_use_as_current_fact:
+        type: boolean
+      repo_readback_verified:
+        type: boolean
+    hard_rules:
+      - chat_memory_and_historical_archive_cannot_claim_current_fact
+      - rag_retrieval_result_requires_repo_readback_before_execution
+
+  stale_context_detector:
+    required:
+      - stale_status
+      - tries_to_override_current
+      - requires_vector_sync
+    properties:
+      stale_status:
+        enum: [current, legacy_demoted, stale_index, historical_reference]
+      tries_to_override_current:
+        type: boolean
+      requires_vector_sync:
+        type: boolean
+    hard_rules:
+      - legacy_or_historical_context_must_not_override_current_repo_source
+      - stale_index_must_route_to_RAG_sync_bus
+
+  conflict_cleaner:
+    required:
+      - conflict_status
+      - resolution
+    properties:
+      conflict_status:
+        enum:
+          - none
+          - resolved_by_source_priority
+          - requires_chatgpt_review
+          - requires_user_decision
+          - unresolved
+      resolution:
+        type: string
+      failure_route_if_unresolved:
+        enum:
+          - fact_source_arbitration
+          - RAG_supply_bus
+          - RAG_sync_bus
+          - human_decision_gate
+          - completion_truth_check
+
+  decision_authority_router:
+    required:
+      - decision_owner
+      - reason
+    properties:
+      decision_owner:
+        enum: [system_default, codex_auto_decide, chatgpt_review, user_must_decide]
+      reason:
+        type: string
+    hard_rules:
+      - user_must_decide_requires_user_minimal_review_panel_items
+
+  supply_pack_cleaner:
+    required:
+      - task_mode
+      - summary_only
+      - exact_snippet_pack
+    properties:
+      task_mode:
+        enum: [execution, explanation, review_panel]
+      summary_only:
+        type: boolean
+      exact_snippet_pack:
+        type: array
+        items:
+          required:
+            - source_path
+            - line_range
+            - chunk_id
+            - readback
+            - readback_required
+            - can_feed_codex
+            - can_claim_completed
+          properties:
+            source_path:
+              type: string
+            line_range:
+              type: string
+            chunk_id:
+              type: string
+            readback:
+              type: string
+            readback_required:
+              type: boolean
+            can_feed_codex:
+              type: boolean
+            can_claim_completed:
+              type: boolean
+    hard_rules:
+      - execution_supply_requires_exact_snippet_source_path_line_range_chunk_id_readback
+      - summary_only_execution_supply_is_blocked
+      - supply_pack_must_not_claim_completed
+
+  completion_claim_cleaner:
+    required:
+      - claim_requested
+      - can_claim_completed
+      - technical_preview_only
+      - forbidden_status_promoted
+      - technical_as_content
+      - vector_sync_status
+    properties:
+      claim_requested:
+        enum: [not_requested, completed]
+      files_landed:
+        type: boolean
+      schema_landed:
+        type: boolean
+      validator_landed:
+        type: boolean
+      fixtures_landed:
+        type: boolean
+      latest_updated:
+        type: boolean
+      commit_created:
+        type: boolean
+      pushed:
+        type: boolean
+      remote_verified:
+        type: boolean
+      secret_scan_passed:
+        type: boolean
+      vector_sync_status:
+        enum: [completed, not_required, pending, stale, blocked]
+      can_claim_completed:
+        type: boolean
+      technical_preview_only:
+        type: boolean
+      forbidden_status_promoted:
+        type: boolean
+      technical_as_content:
+        type: boolean
+    hard_rules:
+      - completed_requires_files_schema_validator_fixture_latest_commit_push_remote_secret_scan
+      - completed_requires_vector_sync_status_completed_or_not_required
+      - technical_preview_cannot_claim_completed
+      - technical_validation_cannot_be_swapped_to_content_validation
+
+  user_minimal_review_panel:
+    required:
+      - decision_items
+      - blocked_if_not_decided
+    properties:
+      decision_items:
+        type: array
+        items:
+          required:
+            - decision_item
+            - why_user_must_decide
+            - recommended_default
+          properties:
+            decision_item:
+              type: string
+            why_user_must_decide:
+              type: string
+            recommended_default:
+              type: string
+            impact_if_choose_A:
+              type: string
+            impact_if_choose_B:
+              type: string
+            blocked_if_not_decided:
+              type: boolean
+      blocked_if_not_decided:
+        type: boolean
+
+failure_routes:
+  summary_only: RAG_supply_bus
+  missing_readback: RAG_supply_bus
+  stale_index: RAG_sync_bus
+  source_conflict: fact_source_arbitration
+  authority_uncertain: fact_source_arbitration
+  user_decision_required: human_decision_gate
+  completion_claim_risk: completion_truth_check
+  git_sync_incomplete: git_sync_gate
+
+status_boundaries:
+  does_not_promote:
+    - content_validation
+    - send_ready
+    - voice_validation
+    - final_voice_validated
+    - visual_master_locked
+    - production_readiness
