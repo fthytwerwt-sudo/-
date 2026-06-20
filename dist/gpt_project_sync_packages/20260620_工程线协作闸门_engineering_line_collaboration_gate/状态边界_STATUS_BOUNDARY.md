@@ -1,7 +1,7 @@
 # 状态边界｜20260620 工程线协作闸门同步包
 
 ```yaml
-package_status（同步包状态）: generated_pending_user_upload_pending_git_sync_until_current_task_commit（已生成，等待用户上传，等待本轮 Git 同步）
+package_status（同步包状态）: generated_git_synced_pending_user_upload（已生成且 Git 同步完成，等待用户按需上传）
 media_generated（媒体生成）: false（未生成）
 tts_called（TTS 调用）: false（未调用）
 external_api_called（外部 API 调用）: false（未调用）

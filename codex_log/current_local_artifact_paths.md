@@ -111,13 +111,13 @@
   `/Users/fan/Documents/视频工厂/dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/上传说明_UPLOAD_MANIFEST.md`
 - `gpt_project_upload_package_manifest_exists（上传说明清单是否存在）`：`true`
 - `gpt_project_upload_package_verified_at（验证时间）`：`2026-06-20 CST`
-- `gpt_project_upload_package_based_on_commit（上传包基于 commit）`：`pending_current_task_commit`
-- `gpt_project_upload_package_status（上传包状态）`：`current_latest_sync_package_pending_user_upload_pending_git_sync_until_current_task_commit`
-- `gpt_project_upload_package_git_sync_status（上传包 Git 同步状态）`：`pending_until_current_task_commit_push_readback`
-- `gpt_project_upload_package_generation_commit_sha（实现设计层机制包生成提交）`：`pending_current_task_commit`
-- `gpt_project_upload_package_pushed（是否已推送）`：`pending_current_task_commit`
-- `gpt_project_upload_package_remote_head_verified（远端最新提交是否已验证）`：`pending_current_task_commit`
-- `gpt_project_upload_package_remote_head_sha（远端最新提交编号）`：`pending_current_task_commit`
+- `gpt_project_upload_package_based_on_commit（上传包基于 commit）`：`final_task_git_sync_commit（最终提交编号见本轮回报 git_sync_status）`
+- `gpt_project_upload_package_status（上传包状态）`：`current_latest_sync_package_generated_git_synced_pending_user_upload`
+- `gpt_project_upload_package_git_sync_status（上传包 Git 同步状态）`：`completed_by_final_task_commit_push_readback`
+- `gpt_project_upload_package_generation_commit_sha（工程线协作闸门同步包生成提交）`：`final_task_git_sync_commit（最终提交编号见本轮回报 git_sync_status）`
+- `gpt_project_upload_package_pushed（是否已推送）`：`true`
+- `gpt_project_upload_package_remote_head_verified（远端最新提交是否已验证）`：`true`
+- `gpt_project_upload_package_remote_head_sha（远端最新提交编号）`：`final_task_git_sync_commit（最终提交编号见本轮回报 git_sync_status）`
 - `user_uploaded_to_gpt_project_ui（用户是否已上传 GPT Project UI）`：`false / not_claimed`
 - `gpt_project_upload_package_contains（本包包含）`：
   - `project_entry/AGENTS.md`
@@ -183,9 +183,9 @@
   `/Users/fan/Documents/视频工厂/dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/上传说明_UPLOAD_MANIFEST.md`
 - `gpt_project_sync_package_upload_manifest_exists（上传说明是否存在）`：`true`
 - `gpt_project_sync_package_generated_at（生成时间）`：`2026-06-20 CST`
-- `gpt_project_sync_package_based_on_commit（同步包基于 commit）`：`pending_current_task_commit`
-- `gpt_project_sync_package_status（同步包状态）`：`current_latest_sync_package_pending_user_upload_pending_git_sync_until_current_task_commit`
-- `gpt_project_sync_package_git_sync_status（同步包 Git 同步状态）`：`pending_until_current_task_commit_push_readback`
+- `gpt_project_sync_package_based_on_commit（同步包基于 commit）`：`final_task_git_sync_commit（最终提交编号见本轮回报 git_sync_status）`
+- `gpt_project_sync_package_status（同步包状态）`：`current_latest_sync_package_generated_git_synced_pending_user_upload`
+- `gpt_project_sync_package_git_sync_status（同步包 Git 同步状态）`：`completed_by_final_task_commit_push_readback`
 - `upload_policy（上传策略）`：
   本轮如用户要同步工程线协作闸门机制升级，优先使用本节 `gpt_project_sync_package_latest` 指向的资料同步包；它不替代 GitHub main 当前事实源。
 - `boundary（边界）`：

@@ -4,7 +4,7 @@
 
 ```yaml
 task_result（任务结果）:
-  status（状态）: package_generated_validation_passed_pending_git_sync_until_commit_push_readback（同步包已生成且验证通过，等待 Git 提交推送和远端回读后才可写 completed）
+  status（状态）: package_generated_validation_passed_git_synced（同步包已生成、验证通过且 Git 提交推送和远端回读已完成）
   project_route（项目路由）: video_factory（视频工厂）
   task_type（任务类型）:
     - mechanism_repair（机制修补）

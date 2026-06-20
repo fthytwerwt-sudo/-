@@ -3,7 +3,7 @@
 ## 20260620｜Engineering Line Collaboration Gate + GPT Project Sync Package
 
 ```yaml
-task_result.status（任务结果状态）: engineering_line_collaboration_gate_generated_pending_git_sync（工程线协作闸门已生成，等待本轮 Git 同步收尾）
+task_result.status（任务结果状态）: engineering_line_collaboration_gate_generated_git_synced（工程线协作闸门已生成且 Git 同步完成）
 project_route（项目路由）: video_factory（视频工厂）
 task_type（任务类型）:
   - mechanism_repair（机制修补）
@@ -37,7 +37,7 @@ final_voice_validated（最终声音验证）: false（未通过）
 visual_master_locked（视觉母版锁定）: false（未锁定）
 production_readiness（生产可用状态）: not_claimed（未声称）
 long_term_mechanism_stability（长期机制稳定性）: pending_real_task_validation（待真实任务验证）
-next_safe_step（下一步安全动作）: complete_path_limited_git_sync_then_user_uploads_sync_package_if_needed（完成限定路径 Git 同步后，用户按需上传同步包）
+next_safe_step（下一步安全动作）: user_uploads_sync_package_if_needed（用户按需上传 GPT Project 资料同步包）
 ```
 
 - `core_principle（核心原则）`: `simple_tasks_stay_simple_complex_tasks_become_engineering_line（简单任务保持简单，复杂任务进入工程线）`；不得把所有任务强制拖进完整 13 层流程。
