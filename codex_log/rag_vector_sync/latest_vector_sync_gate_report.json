@@ -1,17 +1,44 @@
 {
-  "blocked_reasons": [],
-  "commands": [],
+  "blocked_reasons": [
+    "vector_sync_blocked_external_sync_timeout",
+    "rag_dashvector_sync_interrupted_without_final_index_manifest",
+    "current_RAG_index_not_claimed_latest"
+  ],
+  "commands": [
+    {
+      "command": "python3 scripts/rag_build_source_inventory.py",
+      "passed": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "completed_before_interruption"
+    },
+    {
+      "command": "python3 scripts/rag_chunk_project_sources.py",
+      "passed": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "completed_before_interruption"
+    },
+    {
+      "command": "python3 scripts/rag_dashvector_sync.py --batch-size 16",
+      "passed": false,
+      "returncode": 130,
+      "stderr_tail": "KeyboardInterrupt from post_commit_vector_sync_gate.py --mode finish",
+      "stdout_tail": "interrupted_after_external_sync_exceeded_40_minutes_without_final_index_manifest"
+    }
+  ],
   "external_call_report": {
-    "alibaba_embedding_api_called": false,
+    "alibaba_embedding_api_called": true,
     "dashvector_query_called": false,
-    "dashvector_upsert_called": false,
+    "dashvector_upsert_called": true,
+    "final_index_manifest_written": false,
     "key_printed": false,
     "key_written": false,
     "provider": "Alibaba / DashVector",
     "vector_values_written": false
   },
   "gate_name": "post_commit_vector_sync_gate",
-  "generated_at": "2026-06-21T03:28:19+08:00",
+  "generated_at": "2026-06-21T04:14:08+08:00",
   "indexable_change_result": {
     "blocked_reasons": [],
     "changed_indexable_files": [
@@ -22,9 +49,22 @@
       "codex_log/current_local_artifact_paths.md",
       "codex_log/engineering_line_collaboration/20260620_工程线协作闸门_engineering_line_collaboration_gate_report.md",
       "codex_log/latest.md",
+      "codex_log/rag_cleaning_layer/20260621_RAG清洗层补缺执行报告_rag_cleaning_layer_gap_fill_report.md",
       "codex_source/00_codex_readme.md",
       "codex_source/01_execution_rules.md",
-      "codex_source/19_project_state_action_router.md"
+      "codex_source/19_project_state_action_router.md",
+      "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+      "codex_source/24_RAG清洗层执行契约_rag_cleaning_layer_execution_contract.md",
+      "codex_source/schema_contracts/00_schema_contracts_index.md",
+      "codex_source/schema_contracts/schemas/mid_task_supply_pack.schema.yaml",
+      "codex_source/schema_contracts/schemas/pre_supply_pack.schema.yaml",
+      "codex_source/schema_contracts/schemas/rag_cleaning_layer.schema.yaml",
+      "codex_source/schema_contracts/schemas/rag_supply_pack.schema.yaml",
+      "scripts/rag_cleaning_layer_validator.py",
+      "scripts/rag_failure_route_resolver.py",
+      "scripts/rag_mid_task_supply_builder.py",
+      "scripts/rag_supply_pack_builder.py",
+      "scripts/rag_supply_pack_validator.py"
     ],
     "deleted_indexable_files": [],
     "dynamic_audit_only": false,
@@ -57,6 +97,62 @@
       },
       {
         "path": "codex_log/latest.md",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/rag_cleaning_layer/20260621_RAG清洗层补缺执行报告_rag_cleaning_layer_gap_fill_report.md",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_cleaning_layer/failure_route.cleaning_sample.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_cleaning_layer/fixtures/blocked_completion_claim_preview_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_cleaning_layer/fixtures/blocked_legacy_overrides_current_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_cleaning_layer/fixtures/blocked_missing_readback_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_cleaning_layer/fixtures/blocked_stale_index_claim_current_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_cleaning_layer/fixtures/blocked_summary_only_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_cleaning_layer/fixtures/passing_current_repo_readback_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_cleaning_layer/fixtures/passing_user_minimal_panel_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_cleaning_layer/latest_cleaning_layer_validator_report.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_cleaning_layer/mid_task_supply_pack.cleaning_sample.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_cleaning_layer/pre_supply_pack.cleaning_sample.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_cleaning_layer/trace_event_20260621_rag_cleaning_layer_gap_fill.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_engineering_line/trace_events.jsonl",
         "status": "M"
       },
       {
@@ -113,6 +209,34 @@
       },
       {
         "path": "codex_source/19_project_state_action_router.md",
+        "status": "M"
+      },
+      {
+        "path": "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
+        "status": "M"
+      },
+      {
+        "path": "codex_source/24_RAG清洗层执行契约_rag_cleaning_layer_execution_contract.md",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/schema_contracts/00_schema_contracts_index.md",
+        "status": "M"
+      },
+      {
+        "path": "codex_source/schema_contracts/schemas/mid_task_supply_pack.schema.yaml",
+        "status": "M"
+      },
+      {
+        "path": "codex_source/schema_contracts/schemas/pre_supply_pack.schema.yaml",
+        "status": "M"
+      },
+      {
+        "path": "codex_source/schema_contracts/schemas/rag_cleaning_layer.schema.yaml",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/schema_contracts/schemas/rag_supply_pack.schema.yaml",
         "status": "M"
       },
       {
@@ -250,14 +374,36 @@
       {
         "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/路径索引_PATH_INDEX.md",
         "status": "A"
+      },
+      {
+        "path": "scripts/rag_cleaning_layer_validator.py",
+        "status": "A"
+      },
+      {
+        "path": "scripts/rag_failure_route_resolver.py",
+        "status": "M"
+      },
+      {
+        "path": "scripts/rag_mid_task_supply_builder.py",
+        "status": "M"
+      },
+      {
+        "path": "scripts/rag_supply_pack_builder.py",
+        "status": "M"
+      },
+      {
+        "path": "scripts/rag_supply_pack_validator.py",
+        "status": "M"
       }
     ],
     "skip_reason": "",
-    "source_commit_sha": "74022503311c204f6248830c89d6df142d792077",
+    "source_commit_sha": "8804852a2a10c5686079363aa2d38c6f6ee6a80b",
     "sync_required": true
   },
-  "mode": "check",
+  "indexed_chunk_count": null,
+  "indexed_file_count": null,
+  "mode": "sync",
   "project_route": "video_factory",
   "repo_full_name": "fthytwerwt-sudo/-",
-  "status": "sync_required"
+  "status": "blocked"
 }

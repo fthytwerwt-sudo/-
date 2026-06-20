@@ -2,28 +2,28 @@
 
 - project_route: `video_factory`
 - branch: `main`
-- commit_sha: `44b25ce9c0abf800fb7397746520b62e1dee7708`
-- file_count: `875`
-- chunk_count: `5597`
+- commit_sha: `8804852a2a10c5686079363aa2d38c6f6ee6a80b`
+- file_count: `881`
+- chunk_count: `5657`
 - chunk_manifest_valid: `true`
 
 ## Sample Chunks
 
-- `vf_621f8030886e92a1e911ee8b2af073ecca450349` `AGENTS.md:1-80`
-- `vf_8054a5e9410699d327cfc6bcbf593c52ee98f78d` `AGENTS.md:81-118`
-- `vf_6371c25c2e51030988600fd16a68289c161a89e2` `AGENTS.md:119-144`
-- `vf_701fafca7bce31c6607bbec1c48a6a9e601b9608` `AGENTS.md:145-166`
-- `vf_422af7f4b4b3a44ed0ecba5ed6a0b3bcf00ccf34` `AGENTS.md:167-191`
-- `vf_e4064f1b983e3e94a49b4d2f190e11480d69c502` `AGENTS.md:192-256`
-- `vf_b3f50433e2f9bca9b4393383a9efd6157f288551` `AGENTS.md:257-275`
-- `vf_8f7ff997e3a8516d3d05c9bf64034b2bb6c82481` `AGENTS.md:276-296`
-- `vf_30dbd4729b0992867f804b3f9501f73f446357dd` `AGENTS.md:297-353`
-- `vf_699a43e54bc445539245263a1f6c7f47842fb395` `AGENTS.md:354-395`
-- `vf_fd6b19d9a81001fb8bc862795d6572d9df1ef61c` `AGENTS.md:396-446`
-- `vf_15a9eeb509c6bbe63f64f53f68aeec1dc0d97592` `AGENTS.md:447-484`
-- `vf_bc52b2c498fa5132a041dfa1814600f398cc1782` `AGENTS.md:485-564`
-- `vf_20d766f2df1e8a770e09340c1f7a4e42f64a2264` `AGENTS.md:565-599`
-- `vf_1284b578d6c3bd4bb9548d807393df1a1da1d275` `AGENTS.md:600-613`
+- `vf_d1d4dd275647dd8e14162b33ee7f9d74cda701f5` `AGENTS.md:1-80`
+- `vf_1785199a1fa7b3f75509f64bccaaf72aafb6de15` `AGENTS.md:81-114`
+- `vf_9529ffe14d5e6b6ff24b3cacc69ab858d01dbbb5` `AGENTS.md:115-146`
+- `vf_a8f2726c9bc9e0875386168e4a5aaf81f8fbcf64` `AGENTS.md:147-168`
+- `vf_9f74d88bee3541ef9df738c2b07ce937ed2d56b3` `AGENTS.md:169-193`
+- `vf_42c8e056b54dbb7965e45e1b2c45c6b019ac5309` `AGENTS.md:194-258`
+- `vf_a4b62afb2fcc12ac8d961caca87ba14abea2238e` `AGENTS.md:259-277`
+- `vf_6b26f0b4124c596156f28e977909dcf273a15666` `AGENTS.md:278-298`
+- `vf_0a55f70eacc36e5d5957a97e211b3146049b21fe` `AGENTS.md:299-355`
+- `vf_ab1b74a9deeebf35472adccefc3ea1982fc848b5` `AGENTS.md:356-397`
+- `vf_df71ae8af29bbd93a55b3fd9f14c75e3f8776c20` `AGENTS.md:398-448`
+- `vf_eef70717b246bde1c8455d33e0d13786a27fa889` `AGENTS.md:449-486`
+- `vf_6e33be043f47c781ffe4aac4c6563ce63caa83ef` `AGENTS.md:487-566`
+- `vf_fd92ecac9a326f2227b564ee2e73825576246431` `AGENTS.md:567-601`
+- `vf_702da4224936d70e6eb9f9b0a21df3cc7607ef08` `AGENTS.md:602-615`
 - `vf_1995718a63302ca64ee108c6b3fa2b968c15a502` `GPT数据源/00_项目总述.md:1-12`
 - `vf_3f5b7b1790082b8d60149358313e56cb6b4375d6` `GPT数据源/00_项目总述.md:13-47`
 - `vf_3cad88e7722b581419f6b95ea038e2df1a2bf2a2` `GPT数据源/00_项目总述.md:48-85`

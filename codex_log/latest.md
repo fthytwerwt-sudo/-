@@ -37,13 +37,15 @@ visual_master_locked（视觉母版锁定）: false（未锁定）
 production_readiness（生产可用状态）: not_claimed（未声称）
 git_sync_status（Git 同步状态）: pending_current_commit（等待当前提交收尾）
 post_commit_vector_sync_gate_check（提交后向量同步闸门预检）: sync_required（需要同步）
-vector_sync_status（向量同步状态）: finish_pending_after_source_commit（source commit 后运行 post_commit_vector_sync_gate.py --mode finish）
+vector_sync_status（向量同步状态）: vector_sync_blocked_external_sync_timeout（外部同步超长无最终 manifest，已阻断）
+current_RAG_index_latest_claim（是否声称 RAG 最新）: false（不声称）
+vector_sync_blocked_report（向量同步阻断报告）: codex_log/rag_cleaning_layer/vector_sync_blocked_20260621.json
 generated_report（生成报告）: codex_log/rag_cleaning_layer/20260621_RAG清洗层补缺执行报告_rag_cleaning_layer_gap_fill_report.md
 next_safe_step（下一步安全动作）: commit_push_remote_verify_then_post_commit_vector_sync_gate_finish（提交推送远端校验后运行提交后向量同步闸门）
 ```
 
 - `default_decision_table（默认决策表）`: `system_default / codex_auto_decide / chatgpt_review / user_must_decide` 已写入清洗层契约；用户只处理目标、验收、授权、删除、降级、发布 / 生产状态等核心判断。
-- `completion_claim_cleaner（完成声明清洗器）`: 供料包通过、机制写入、技术预览、本地文件存在均不得单独写 `completed`；严格完成仍要求 commit、push、remote verification、secret scan 和 vector sync boundary。
+- `completion_claim_cleaner（完成声明清洗器）`: 供料包通过、机制写入、技术预览、本地文件存在均不得单独写 `completed`；本轮 Git source commit 已完成并推送，但向量同步 `finish` 因外部同步超长无最终 manifest 被阻断，因此不得声称 RAG 索引最新。
 - `status_boundary（状态边界）`: 本轮不生成媒体，不调用 TTS，不推进内容、声音、视觉母版、可发送或生产状态。
 
 ## 20260620｜Engineering Line Collaboration Gate + GPT Project Sync Package

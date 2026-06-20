@@ -2,11 +2,11 @@
 
 - project_route: `video_factory`
 - branch: `main`
-- commit_sha: `44b25ce9c0abf800fb7397746520b62e1dee7708`
+- commit_sha: `8804852a2a10c5686079363aa2d38c6f6ee6a80b`
 - secret_scan_passed: `true`
 - allowlist_check_passed: `true`
 - denylist_check_passed: `true`
-- allowed_file_count: `875`
+- allowed_file_count: `881`
 - excluded_file_count: `23`
 - excluded_by_secret_or_privacy_scan_count: `13`
 - indexed_secret_hit_count: `0`

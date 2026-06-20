@@ -1,0 +1,15 @@
+{
+  "alibaba_embedding_api_called": true,
+  "current_RAG_index_not_claimed_latest": true,
+  "dashvector_query_called": false,
+  "dashvector_upsert_called": true,
+  "gate_report": "codex_log/rag_vector_sync/latest_vector_sync_gate_report.json",
+  "generated_at": "2026-06-21T04:14:08+08:00",
+  "key_printed": false,
+  "key_written": false,
+  "previous_index_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
+  "reason": "post_commit_vector_sync_gate_finish_interrupted_after_external_sync_timeout_without_final_index_manifest",
+  "source_commit_sha": "8804852a2a10c5686079363aa2d38c6f6ee6a80b",
+  "status": "vector_sync_blocked",
+  "vector_values_written": false
+}
