@@ -1,7 +1,7 @@
 # RAG Retrieval Probe Report
 
 - status: `passed`
-- source_commit_sha: `6a7417fb856cdd91f3777d7348e367d2ce12b3c9`
+- source_commit_sha: `44b25ce9c0abf800fb7397746520b62e1dee7708`
 - source_readback_passed: `true`
 - stale_index_check: `true`
 - page_content_only: `false`

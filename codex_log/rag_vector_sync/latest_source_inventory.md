@@ -2,12 +2,12 @@
 
 - project_route: `video_factory`
 - branch: `main`
-- commit_sha: `6a7417fb856cdd91f3777d7348e367d2ce12b3c9`
+- commit_sha: `44b25ce9c0abf800fb7397746520b62e1dee7708`
 - secret_scan_passed: `true`
 - allowlist_check_passed: `true`
 - denylist_check_passed: `true`
-- allowed_file_count: `867`
-- excluded_file_count: `22`
+- allowed_file_count: `875`
+- excluded_file_count: `23`
 - excluded_by_secret_or_privacy_scan_count: `13`
 - indexed_secret_hit_count: `0`
 
@@ -21,6 +21,7 @@
 - `codex_log/rag_vector_sync/latest_retrieval_probe_report.md`: `excluded_dynamic_audit_artifact`
 - `codex_log/rag_vector_sync/latest_source_inventory.md`: `excluded_dynamic_audit_artifact`
 - `codex_log/rag_vector_sync/latest_supply_bus_report.md`: `excluded_dynamic_audit_artifact`
+- `codex_log/rag_vector_sync/latest_vector_sync_gate_report.md`: `excluded_dynamic_audit_artifact`
 - `codex_source/schema_contracts/fixtures/blocked/cleaning_secret_like_content.blocked.yaml`: `denylist:**/*secret*`
 - `scripts/AI赚钱正片候选装配_ai_money_final_candidate_assembly.py`: `excluded_by_secret_or_privacy_scan`
 - `scripts/rag_common.py`: `excluded_by_secret_or_privacy_scan`

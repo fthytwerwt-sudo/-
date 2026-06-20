@@ -1,0 +1,31 @@
+{
+  "blocked_reasons": [],
+  "commands": [],
+  "external_call_report": {
+    "alibaba_embedding_api_called": false,
+    "dashvector_query_called": false,
+    "dashvector_upsert_called": false,
+    "key_printed": false,
+    "key_written": false,
+    "provider": "Alibaba / DashVector",
+    "vector_values_written": false
+  },
+  "gate_name": "post_commit_vector_sync_gate",
+  "generated_at": "2026-06-20T23:25:27+08:00",
+  "indexable_change_result": {
+    "blocked_reasons": [],
+    "changed_indexable_files": [],
+    "deleted_indexable_files": [],
+    "dynamic_audit_only": false,
+    "indexable_changed": false,
+    "previous_index_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
+    "raw_changed_files": [],
+    "skip_reason": "already_indexed_current_commit",
+    "source_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
+    "sync_required": false
+  },
+  "mode": "check",
+  "project_route": "video_factory",
+  "repo_full_name": "fthytwerwt-sudo/-",
+  "status": "passed_no_sync_required"
+}

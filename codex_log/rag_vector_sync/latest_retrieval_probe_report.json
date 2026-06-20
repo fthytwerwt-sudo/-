@@ -1,6 +1,6 @@
 {
-  "filter_expression": "project_route = \"video_factory\" and commit_sha = \"6a7417fb856cdd91f3777d7348e367d2ce12b3c9\"",
-  "generated_at": "2026-06-20T04:58:50+08:00",
+  "filter_expression": "project_route = \"video_factory\" and commit_sha = \"44b25ce9c0abf800fb7397746520b62e1dee7708\"",
+  "generated_at": "2026-06-20T23:25:30+08:00",
   "key_printed": false,
   "key_written": false,
   "page_content_only": false,
@@ -168,7 +168,7 @@
           "metadata_complete": true,
           "readback": "## 4. 哪些部分主要只是给 Codex 的硬规则\n\n这些部分你可以知道，但不需要逐条背。\n\n| 原规则位置 | 人话解释 | 为什么主要是给 Codex 的硬规则 |\n| --- | --- | --- |\n| `EXEC-001` 默认读取顺序 | 进仓后先读什么，不能裸奔开做 | 这是 Codex 的接手动作要求，不是用户要记的操作手册 |\n| `EXEC-002` 层级判断 | 先分清是项目脑、执行层还是代码层 | 这是 Codex 的判断纪律，防止乱改层 |\n| `EXEC-003` / `EXEC-004` | 哪些任务能直接做，哪些必须先审计 | 这是 Codex 的风险控制规则 |\n| `EXEC-005` 默认允许修改什么 | 本轮没授权的层，默认不顺手改 | 这是 Codex 的边界线 |\n| `EXEC-006` skill 检查 | 本地 / 全局 skill 怎么查，查不到要如实说 | 这是 Codex 的执行前动作要求 |\n| `EXEC-007` 缺文件 / 缺 skill / 缺 AGENTS 的处理 | 找不到关键东西时不能装作没事 | 这是 Codex 的停止线 |\n| `EXEC-008` 最小必要背景包 | 进入执行动作前必须补齐哪些项目背景 | 这是 Codex 的最低理解要求 |\n| `EXEC-011` 禁止假装成功 | 没验证就不能说完成 | 这是 Codex 的真实性规则 |\n\n你不用把这些编号全背下来，但可以知道：\n\nCodex 在这个仓库里不是“看心情推进”，而是被这些硬规则约束住的。\n\n---",
           "readback_hash_match": true,
-          "score": 0.37173438,
+          "score": 0.3715992,
           "source_path": "codex_source/01_execution_rules.user_guide.md",
           "stale_index_check": true
         }
@@ -242,20 +242,20 @@
           "stale_index_check": true
         },
         {
-          "chunk_id": "vf_0ee96929759d91f07b760bc25a51a201cd6f77d3",
+          "chunk_id": "vf_5791664a3515f4dd9e355cdb576720db853b966f",
           "file_hash_match": true,
-          "line_range": "1-30",
+          "line_range": "1-31",
           "metadata_complete": true,
-          "readback": "# 20260611 Vector Sync Metadata Schema（向量同步元数据结构）\n\n## status_boundary\n\n- document_status: `dry_run_schema_only`\n- external_api_called: `false`\n- vector_index_created: `false`\n- embedding_generated: `false`\n- vector_written: `false`\n- deepseek_called: `false`\n\n## required_chunk_metadata\n\n每个 `would_index_chunks` 条目必须包含：\n\n| field | required | note |\n|---|---:|---|\n| `repo_full_name` | yes | 固定为 `fthytwerwt-sudo/-` |\n| `project_route` | yes | 固定为 `video_factory` |\n| `branch` | yes | 当前执行分支 |\n| `commit_sha` | yes | dry-run 的 head ref SHA |\n| `source_path` | yes | 仓库内相对路径 |\n| `heading_path` | yes | Markdown heading / JSON pointer / Python pseudo section |\n| `content_hash` | yes | chunk 文本的 SHA-256 |\n| `authority_level` | yes | `canonical_current` / `current_runtime_evidence` / `current_auxiliary` / `reference_only` / `legacy_demoted` / `conflict_pending` |\n| `status_label` | yes | `confirmed_by_repo` / `partial` / `pending_validation` / `recommendation` / `deprecated` |\n| `updated_at` | yes | commit timestamp |\n| `conflict_tags` | yes | list，允许为空 |\n| `do_not_use_for_completion_claim` | yes | boolean |",
+          "readback": "# Latest\n\n## 20260620｜Post-Commit Vector Sync Gate Source Update\n\n```yaml\ntask_result.status（任务结果状态）: post_commit_vector_sync_gate_source_update（提交后向量同步闸门源文件更新）\nproject_route（项目路由）: video_factory（视频工厂）\ntask_type（任务类型）:\n  - mechanism_repair_and_vector_sync_gate_landing（机制修补 + 向量同步闸门落地）\n  - post_commit_vector_sync_gate（提交后向量同步闸门）\n  - catch_up_vector_sync（补同步）\nworkflow_route_decision（工作流归位判断）: mechanism_repair_flow（机制修补流）\nsource_commit_sha（源语料提交）: see_index_manifest（以 latest_index_manifest.json 为准）\nindexed_file_count（已索引文件数）: see_index_manifest（以 latest_index_manifest.json 为准）\nindexed_chunk_count（已索引分块数）: see_index_manifest（以 latest_index_manifest.json 为准）\nlatest_count_policy（latest 数量口径）: manifest_is_authoritative（以 manifest 为准，避免 latest 自引用导致索引循环）\npost_commit_vector_sync_gate（提交后向量同步闸门）: installed_source_pending_sync_evidence（源文件已接入，后续同步证据看 gate report / manifest）\ngate_script（闸门脚本）: scripts/post_commit_vector_sync_gate.py\ngate_report（闸门报告）: codex_log/rag_vector_sync/latest_vector_sync_gate_report.md\nchroma_status（Chroma 状态）: disabled_not_used（停用，不使用）\nexternal_api_called_in_source_update（源文件更新阶段是否调用外部 API）: false（未调用）\ncontent_validation（内容验证）: not_promoted（未推进）\nsend_ready（可发送状态）: fal",
           "readback_hash_match": true,
-          "score": 0.35558397,
-          "source_path": "codex_log/vector_rag_router_design/vector_sync_dry_run/20260611_vector_sync_metadata_schema.md",
+          "score": 0.32277137,
+          "source_path": "codex_log/latest.md",
           "stale_index_check": true
         }
       ]
     }
   ],
-  "source_commit_sha": "6a7417fb856cdd91f3777d7348e367d2ce12b3c9",
+  "source_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
   "source_readback_passed": true,
   "stale_index_check": true,
   "status": "passed",

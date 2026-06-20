@@ -11,7 +11,7 @@
     "review_loop/**/*.json",
     "scripts/**/*.py"
   ],
-  "allowed_file_count": 867,
+  "allowed_file_count": 875,
   "allowed_files": [
     {
       "byte_size": 40772,
@@ -2660,9 +2660,9 @@
       "source_path": "codex_log/framework_adapter/current_adapter_integration_handoff.md"
     },
     {
-      "byte_size": 522516,
-      "file_hash": "d776c6f58137da69b28ba9dd9d18e9cb5a40a33d86223204a5033ddc381329a3",
-      "line_count": 4241,
+      "byte_size": 529094,
+      "file_hash": "e92594af57303c903b14e1ec929ee50ca4baa26803032c3b1ca3f3a63e3ab852",
+      "line_count": 4313,
       "source_path": "codex_log/latest.md"
     },
     {
@@ -2766,6 +2766,18 @@
       "file_hash": "45eda599bbd42cd12c9eb546257c4b5ff3835f59b753ec967bfe5c9189a7bd63",
       "line_count": 40,
       "source_path": "codex_log/minimum_loop/minimum_loop_project_adjustment_backlog.md"
+    },
+    {
+      "byte_size": 5391,
+      "file_hash": "4730abeda6d5350ad15032875614f3d19532f78c3a2a8f8ecaf01f9a5ea121d6",
+      "line_count": 112,
+      "source_path": "codex_log/rag_engineering_line/20260620_rag_engineering_line_landing_report.md"
+    },
+    {
+      "byte_size": 4025,
+      "file_hash": "22e06682e6753254b25e2e485d1c2ea7b80d8b6ec5eb512b70f407e5eb573245",
+      "line_count": 83,
+      "source_path": "codex_log/rag_engineering_line/latest_engineering_line_acceptance_report.md"
     },
     {
       "byte_size": 1013,
@@ -3224,9 +3236,9 @@
       "source_path": "codex_log/素材录制_外移清单_raw_recordings_externalized_manifest.md"
     },
     {
-      "byte_size": 72531,
-      "file_hash": "91a73ece251ef57b86d66c8efd506f361b85776303430939fa69ba242b0a004e",
-      "line_count": 1055,
+      "byte_size": 75231,
+      "file_hash": "22f85d31b1f19022b4495e398f9ea7358553906b08d19814c6eec1a29f07eca2",
+      "line_count": 1070,
       "source_path": "codex_source/00_codex_readme.md"
     },
     {
@@ -3362,9 +3374,9 @@
       "source_path": "codex_source/18_deepseek_supply_request_schema.md"
     },
     {
-      "byte_size": 78677,
-      "file_hash": "da1fefcaefe0e9dd6f09516fcb2888f510fc51186b5a0a1cfb019f20d270b73d",
-      "line_count": 1070,
+      "byte_size": 82277,
+      "file_hash": "e52140ada002ce5f7f600fbe9cfd5027023818820d515252d108ced760444c79",
+      "line_count": 1094,
       "source_path": "codex_source/19_project_state_action_router.md"
     },
     {
@@ -3380,9 +3392,9 @@
       "source_path": "codex_source/21_codex_judgment_permission_matrix.md"
     },
     {
-      "byte_size": 10623,
-      "file_hash": "27e2eb867e6b17c42732c0a4f0ea27a8c101649ef7746b8f2919c5e6be667951",
-      "line_count": 93,
+      "byte_size": 12589,
+      "file_hash": "9b9bba9af01402499e63a61b0dbb2756de83ea8e7bde0fa730fb40cb24a6a4e5",
+      "line_count": 109,
       "source_path": "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md"
     },
     {
@@ -4976,6 +4988,12 @@
       "source_path": "scripts/generate_formal_api_demo.py"
     },
     {
+      "byte_size": 11041,
+      "file_hash": "f79af03056ae5c6f2f171b41d71746689088ea8c34b3ad94bdcd96f6f001d576",
+      "line_count": 270,
+      "source_path": "scripts/post_commit_vector_sync_gate.py"
+    },
+    {
       "byte_size": 13369,
       "file_hash": "5c12af87fc20f5e7a553185d69307e06e8f3651a653402c0789e3665314af42a",
       "line_count": 356,
@@ -5000,22 +5018,52 @@
       "source_path": "scripts/rag_dashvector_sync.py"
     },
     {
+      "byte_size": 3571,
+      "file_hash": "44b88958099f2b35279d72a1a48bff836b0534d0af2a15343f21292f733edd8d",
+      "line_count": 88,
+      "source_path": "scripts/rag_failure_route_resolver.py"
+    },
+    {
+      "byte_size": 4339,
+      "file_hash": "5086fcebc4bc31ed778c03648fe115317c093c24ccb40e32b2db147cd79cec20",
+      "line_count": 112,
+      "source_path": "scripts/rag_index_manifest_validator.py"
+    },
+    {
+      "byte_size": 3687,
+      "file_hash": "9f498003aabb6a7a36d38e3fd65ffd4b2f74bcbed7d770227dce0e7889edd5cd",
+      "line_count": 102,
+      "source_path": "scripts/rag_mid_task_supply_builder.py"
+    },
+    {
       "byte_size": 4685,
       "file_hash": "359dcb89cb3b6cf6f30335a887e2d661d3f3600f3fbbac525525d614edaf0b37",
       "line_count": 119,
       "source_path": "scripts/rag_retrieval_probe.py"
     },
     {
-      "byte_size": 6588,
-      "file_hash": "11bb44eece7d09b7e3a8d9d57f26cbbe971a61b1990604f9227b6e1d3ccacd4a",
-      "line_count": 150,
+      "byte_size": 12176,
+      "file_hash": "c3fbe906eaa037c95996e447bc6b45d34f41d398a7353d4cd686721b12040667",
+      "line_count": 287,
       "source_path": "scripts/rag_supply_pack_builder.py"
+    },
+    {
+      "byte_size": 3390,
+      "file_hash": "8c9083d02a41aa9d923511db420a5e5189ed8b48ef80a2de6471626c76ee17b8",
+      "line_count": 120,
+      "source_path": "scripts/rag_supply_pack_validator.py"
     },
     {
       "byte_size": 2486,
       "file_hash": "31ead31eb839f6ab9887c563e3538417391ebf42683a10e5abb39fb0a54eaf83",
       "line_count": 58,
       "source_path": "scripts/rag_sync_guard.py"
+    },
+    {
+      "byte_size": 1847,
+      "file_hash": "75451223dbe02cf8c20ebb433ff19d630ecc80377ed58af569d2379b7a963d9b",
+      "line_count": 61,
+      "source_path": "scripts/rag_trace_event_writer.py"
     },
     {
       "byte_size": 1431,
@@ -5224,7 +5272,7 @@
     "denylist_hit_in_allowed_files"
   ],
   "branch": "main",
-  "commit_sha": "6a7417fb856cdd91f3777d7348e367d2ce12b3c9",
+  "commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
   "deny_patterns": [
     ".env",
     ".env.*",
@@ -5252,7 +5300,7 @@
     "codex_log/rag_vector_sync/"
   ],
   "excluded_by_secret_or_privacy_scan_count": 13,
-  "excluded_file_count": 22,
+  "excluded_file_count": 23,
   "excluded_files": [
     {
       "reason": "denylist:**/*key*",
@@ -5285,6 +5333,10 @@
     {
       "reason": "excluded_dynamic_audit_artifact",
       "source_path": "codex_log/rag_vector_sync/latest_supply_bus_report.md"
+    },
+    {
+      "reason": "excluded_dynamic_audit_artifact",
+      "source_path": "codex_log/rag_vector_sync/latest_vector_sync_gate_report.md"
     },
     {
       "reason": "denylist:**/*secret*",
@@ -5343,7 +5395,7 @@
       "source_path": "scripts/豆包vnext_B线声音精修_round4.py"
     }
   ],
-  "generated_at": "2026-06-20T04:14:59+08:00",
+  "generated_at": "2026-06-20T22:27:27+08:00",
   "indexed_secret_hit_count": 0,
   "indexed_secret_hits": [],
   "manifest_type": "source_inventory",

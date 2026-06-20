@@ -2,9 +2,9 @@
 
 - project_route: `video_factory`
 - branch: `main`
-- commit_sha: `6a7417fb856cdd91f3777d7348e367d2ce12b3c9`
-- file_count: `867`
-- chunk_count: `5569`
+- commit_sha: `44b25ce9c0abf800fb7397746520b62e1dee7708`
+- file_count: `875`
+- chunk_count: `5597`
 - chunk_manifest_valid: `true`
 
 ## Sample Chunks
