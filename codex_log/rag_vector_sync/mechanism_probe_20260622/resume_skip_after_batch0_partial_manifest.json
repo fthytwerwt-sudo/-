@@ -1,37 +1,39 @@
 {
-  "batch_manifest_hash": "78196ec64186113050a9fe3d9fa34aa35ed50e8957f934272340d508356e3560",
+  "batch_manifest_hash": "2fded67f77fc4b735f4ec1dbe0384ad4f7d9defde1a46238ee7e507b4dc3f4e6",
   "batch_manifest_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_batch_manifest.json",
-  "blocked_reasons": [],
+  "blocked_reasons": [
+    "simulated_interruption_after_batch"
+  ],
   "checkpoint_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_sync_checkpoint.json",
-  "completed_batch_count": 48,
-  "completed_chunk_count": 257,
+  "completed_batch_count": 2,
+  "completed_chunk_count": 12,
   "current_RAG_index_latest_claim": false,
-  "delta_manifest_hash": "8791a74a0e313cb7522c90fa6526a29693ca729cbbbfa904f99efa50751ba57b",
+  "delta_manifest_hash": "c0c6cbc661361e3e0d8b284703150e29aebab60069a0660bc144ea7413d3f940",
   "external_call_report": {
-    "alibaba_embedding_api_called": true,
+    "alibaba_embedding_api_called": false,
     "dashvector_query_called": false,
-    "dashvector_upsert_called": true,
-    "embedding_batch_calls": 48,
+    "dashvector_upsert_called": false,
+    "embedding_batch_calls": 0,
     "key_printed": false,
     "key_written": false,
-    "upsert_batch_calls": 48,
+    "upsert_batch_calls": 0,
     "vector_values_written": false
   },
   "failed_batch_count": 0,
   "final_index_manifest_written": false,
-  "generated_at": "2026-06-22T02:17:31+08:00",
+  "generated_at": "2026-06-22T02:04:20+08:00",
   "key_printed": false,
   "key_written": false,
   "manifest_type": "delta_index_partial_manifest",
-  "pending_batch_count": 0,
-  "previous_index_commit_sha": "4874d430bac38ae4b42f3d5ba17d6d7d358319f1",
+  "pending_batch_count": 105,
+  "previous_index_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
   "project_route": "video_factory",
   "repo_full_name": "fthytwerwt-sudo/-",
-  "source_commit_sha": "b14d9a6eab7d3de059bbf2072beec7ccf1252438",
-  "status": "partial",
+  "source_commit_sha": "4874d430bac38ae4b42f3d5ba17d6d7d358319f1",
+  "status": "interrupted",
   "timeout_report": null,
   "validation_result": {
-    "status": "passed"
+    "status": "blocked"
   },
   "vector_values_written": false
 }

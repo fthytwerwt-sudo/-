@@ -1,0 +1,65 @@
+{
+  "batch_manifest_hash": "2fded67f77fc4b735f4ec1dbe0384ad4f7d9defde1a46238ee7e507b4dc3f4e6",
+  "batch_manifest_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_batch_manifest.json",
+  "blocked_reasons": [
+    "blocked_batch_timeout"
+  ],
+  "checkpoint_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_sync_checkpoint.json",
+  "completed_batch_count": 0,
+  "completed_chunk_count": 0,
+  "current_RAG_index_latest_claim": false,
+  "delta_manifest_hash": "c0c6cbc661361e3e0d8b284703150e29aebab60069a0660bc144ea7413d3f940",
+  "external_call_report": {
+    "alibaba_embedding_api_called": false,
+    "dashvector_query_called": false,
+    "dashvector_upsert_called": false,
+    "embedding_batch_calls": 0,
+    "key_printed": false,
+    "key_written": false,
+    "upsert_batch_calls": 0,
+    "vector_values_written": false
+  },
+  "failed_batch_count": 1,
+  "final_index_manifest_written": false,
+  "generated_at": "2026-06-22T02:04:28+08:00",
+  "key_printed": false,
+  "key_written": false,
+  "manifest_type": "delta_index_partial_manifest",
+  "pending_batch_count": 106,
+  "previous_index_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
+  "project_route": "video_factory",
+  "repo_full_name": "fthytwerwt-sudo/-",
+  "source_commit_sha": "4874d430bac38ae4b42f3d5ba17d6d7d358319f1",
+  "status": "blocked",
+  "timeout_report": {
+    "batch_id": "delta_batch_0000_081da9281ce8",
+    "batch_index": 0,
+    "blocked_reason": "blocked_batch_timeout",
+    "chunk_ids": [
+      "vf_d1d4dd275647dd8e14162b33ee7f9d74cda701f5",
+      "vf_1785199a1fa7b3f75509f64bccaaf72aafb6de15",
+      "vf_9529ffe14d5e6b6ff24b3cacc69ab858d01dbbb5",
+      "vf_a8f2726c9bc9e0875386168e4a5aaf81f8fbcf64",
+      "vf_9f74d88bee3541ef9df738c2b07ce937ed2d56b3"
+    ],
+    "elapsed_seconds": 121,
+    "generated_at": "2026-06-22T02:04:28+08:00",
+    "key_printed": false,
+    "key_written": false,
+    "manifest_type": "delta_sync_timeout_report",
+    "project_route": "video_factory",
+    "repo_full_name": "fthytwerwt-sudo/-",
+    "source_paths": [
+      "AGENTS.md"
+    ],
+    "stage": "embedding",
+    "validation_result": {
+      "status": "blocked"
+    },
+    "vector_values_written": false
+  },
+  "validation_result": {
+    "status": "blocked"
+  },
+  "vector_values_written": false
+}

@@ -1,14 +1,14 @@
 {
-  "active_manifest_chunk_count": 5764,
+  "active_manifest_chunk_count": 5785,
   "external_call_report": {
     "alibaba_embedding_api_called": false,
     "dashvector_query_called": false,
     "dashvector_upsert_called": false
   },
-  "generated_at": "2026-06-22T00:32:18+08:00",
-  "indexed_chunks_rejected_by_active_manifest": 445,
-  "indexed_chunks_still_active": 5152,
-  "indexed_manifest_chunk_count": 5597,
+  "generated_at": "2026-06-22T02:18:14+08:00",
+  "indexed_chunks_rejected_by_active_manifest": 0,
+  "indexed_chunks_still_active": 5785,
+  "indexed_manifest_chunk_count": 5785,
   "key_printed": false,
   "key_written": false,
   "new_policy": [
@@ -19,7 +19,7 @@
   ],
   "old_problem": "commit_only_filter_not_enough_for_delta_reuse",
   "project_route": "video_factory",
-  "source_commit_sha": "4874d430bac38ae4b42f3d5ba17d6d7d358319f1",
+  "source_commit_sha": "b14d9a6eab7d3de059bbf2072beec7ccf1252438",
   "status": "passed",
   "vector_values_written": false
 }

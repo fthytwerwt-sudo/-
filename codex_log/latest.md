@@ -1,5 +1,60 @@
 # Latest
 
+## 20260622｜RAG / DashVector Real Delta Sync Retry Retrieval Blocked
+
+```yaml
+task_result.status（任务结果状态）: vector_sync_blocked_with_actionable_reason（向量同步阻断但原因可执行）
+project_route（项目路由）: video_factory（视频工厂）
+task_type（任务类型）:
+  - vector_sync_final_retry_after_checkpoint_fix（断点修复后的向量同步最终重跑）
+  - RAG_delta_sync_finish（RAG 差量同步收尾）
+  - DashVector_batch_sync_finish（DashVector 分批同步收尾）
+  - no_mechanism_rewrite（不重写机制）
+source_commit_sha（源语料提交）: b14d9a6eab7d3de059bbf2072beec7ccf1252438
+previous_index_commit_sha（上一索引提交）: 4874d430bac38ae4b42f3d5ba17d6d7d358319f1
+mechanism_readiness_check（机制就绪检查）:
+  per_batch_checkpoint_effective: true
+  resume_skips_completed_batches: true
+  stage_timeout_effective: true
+  outer_gate_can_observe_progress: true
+real_delta_sync_result（真实差量同步结果）:
+  final_index_manifest_written: true
+  indexed_file_count: 911
+  indexed_chunk_count: 5785
+  final_delta_batches_completed: 48
+  final_delta_failed_batches: 0
+  final_delta_chunks_completed: 257
+post_sync_validation（同步后验证）:
+  index_manifest_validator: passed
+  current_worktree_stale_index_check_before_evidence_write: passed
+  current_worktree_stale_index_check_after_evidence_write: blocked_stale_index_detected_on_codex_log_latest_md
+  retrieval_probe: blocked
+  source_readback: failed_in_real_retrieval_probe
+  retrieval_stale_index_check: failed_in_real_retrieval_probe
+blocked_reason（阻断原因）: retrieval_probe_failed_stale_or_inactive_dashvector_doc_returned_in_top_k
+current_RAG_index_latest_claim（是否声称当前 RAG 索引最新）: false（不声称）
+external_api_called（外部 API 调用）: true（已调用 Alibaba embedding）
+dashvector_upsert_called（DashVector 写入）: true（已写入）
+dashvector_query_called（DashVector 查询）: true（已查询）
+key_printed（是否打印密钥）: false
+key_written（是否写入密钥）: false
+vector_values_written（是否写入向量值）: false
+vector_sync_gate_report（向量同步闸门报告）: codex_log/rag_vector_sync/latest_vector_sync_gate_report.md
+blocked_report（阻断报告）: codex_log/rag_vector_sync/vector_sync_blocked_actionable_20260622_022130.json
+dated_report（日期报告）: codex_log/rag_vector_sync/20260622_RAG_DashVector真实差量同步重跑报告.md
+content_validation（内容验证）: not_promoted（未推进）
+send_ready（可发送状态）: false（未开启）
+voice_validation（声音验证）: not_promoted（未推进）
+final_voice_validated（最终声音验证）: false（未通过）
+visual_master_locked（视觉母版锁定）: false（未锁定）
+production_readiness（生产可用状态）: not_claimed（未声称）
+next_safe_step（下一步安全动作）: delete_or_tombstone_stale_dashvector_docs_or_fix_retrieval_probe_post_filter_before_reclaiming_RAG_latest
+```
+
+- `sync_layer（同步层）`: 真实 embedding / upsert 已跑完，当前 HEAD `b14d9a6e...` 的 final index manifest 已写出，index manifest validator 与 current worktree stale check 通过。
+- `retrieval_layer（检索层）`: 真实 DashVector retrieval probe 仍阻断；至少一个旧 / 非活跃 chunk 仍在 query top-k 中，原文回读不通过，所以不能声明 RAG 最新。
+- `status_boundary（状态边界）`: 本轮不改清洗层主体、不进入剪辑层、不生成媒体、不调用 TTS、不推进内容、声音、视觉母版、可发送或生产状态。
+
 ## 20260622｜Batch Checkpoint Resume Vector Sync Executor
 
 ```yaml

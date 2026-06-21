@@ -1,6 +1,7 @@
 {
-  "filter_expression": "project_route = \"video_factory\" and commit_sha = \"44b25ce9c0abf800fb7397746520b62e1dee7708\"",
-  "generated_at": "2026-06-20T23:25:30+08:00",
+  "active_manifest_post_filter": true,
+  "filter_expression": "project_route = \"video_factory\"",
+  "generated_at": "2026-06-22T02:17:44+08:00",
   "key_printed": false,
   "key_written": false,
   "page_content_only": false,
@@ -20,6 +21,7 @@
       "source_readback_passed": true,
       "top_k_results": [
         {
+          "active_manifest_allowlist_passed": true,
           "chunk_id": "vf_397a356e9c3c1420c6839df41c28d0a1b2e4ad13",
           "file_hash_match": true,
           "line_range": "62-76",
@@ -31,6 +33,7 @@
           "stale_index_check": true
         },
         {
+          "active_manifest_allowlist_passed": true,
           "chunk_id": "vf_be86edaf036f091c93b7896f818c1fd08ed67eb4",
           "file_hash_match": true,
           "line_range": "1-30",
@@ -42,6 +45,7 @@
           "stale_index_check": true
         },
         {
+          "active_manifest_allowlist_passed": true,
           "chunk_id": "vf_8521a9ada57831077d863da6d3dd625476d47f4e",
           "file_hash_match": true,
           "line_range": "74-119",
@@ -57,12 +61,24 @@
     {
       "query": "Chroma 是否仍然使用",
       "query_success": true,
-      "source_readback_passed": true,
+      "source_readback_passed": false,
       "top_k_results": [
         {
+          "active_manifest_allowlist_passed": false,
+          "blocked_reason": "source_path_line_range_or_chunk_id_missing",
           "chunk_id": "vf_497748f222067851ac7b6d5defc381703e698618",
-          "file_hash_match": true,
           "line_range": "41-54",
+          "metadata_complete": true,
+          "readback_hash_match": false,
+          "score": 0.33014154,
+          "source_path": "codex_source/schema_contracts/00_schema_contracts_index.md",
+          "stale_index_check": false
+        },
+        {
+          "active_manifest_allowlist_passed": true,
+          "chunk_id": "vf_c0138300c3c26ac45914748aa76641f46cae6211",
+          "file_hash_match": true,
+          "line_range": "98-111",
           "metadata_complete": true,
           "readback": "### 2AC.1 Chroma disabled boundary（Chroma 停用边界）\n\n```yaml\nchroma_boundary（Chroma 边界）:\n  status（状态）: disabled_not_used（停用，不使用）\n  meaning（含义）: 只保留历史兼容说明和阻断样例，不再作为正式路线，也不再作为默认 sandbox_reference（沙盒参考）。\n  hard_rules（硬规则）:\n    - Chroma cannot replace DashVector（Chroma 不得替代 DashVector）\n    - Chroma not used in formal RAG supply（Chroma 不进入正式 RAG 供料）\n    - Chroma ingestion not run（本阶段不运行 Chroma 入库）\n```\n\n旧 `Chroma_sandbox` / `Chroma fixture` 只作为历史契约回溯或 blocked case（阻断样例）解释；凡试图把 Chroma 写成 formal vector store（正式向量库）、sandbox_reference（默认沙盒参考）或 RAG_supply_bus 的正式 provider（供应商），均按 `chroma_still_active` 阻断。",
           "readback_hash_match": true,
@@ -71,6 +87,7 @@
           "stale_index_check": true
         },
         {
+          "active_manifest_allowlist_passed": true,
           "chunk_id": "vf_dd12579e26bdcaa383aa8f27abc63d69b89028ac",
           "file_hash_match": true,
           "line_range": "1-27",
@@ -79,17 +96,6 @@
           "readback_hash_match": true,
           "score": 0.51728445,
           "source_path": "codex_source/schema_contracts/fixtures/blocked/retrieval_manifest_chroma_replace_dashvector.blocked.yaml",
-          "stale_index_check": true
-        },
-        {
-          "chunk_id": "vf_7c80a19928486764e3e80067578bc5c0973fe6dd",
-          "file_hash_match": true,
-          "line_range": "18-28",
-          "metadata_complete": true,
-          "readback": "## 3. 技术核验\n\n- `已确认` HyperFrames `doctor` 可运行，FFmpeg / FFprobe / Chrome / Docker 可用。\n- `部分成立` HyperFrames `doctor` 同时提示本机内存偏低，因此本轮采用 `-w 1` 单 worker 渲染，避免并发渲染失败。\n- `已确认` HyperFrames `lint`：`0 errors, 0 warnings`。\n- `已确认` HyperFrames `inspect`：`0 layout issues`。\n- `部分成立` HyperFrames `validate` 对透明画布给出 7 条 WCAG contrast warnings；本轮将其记录为透明画布下的可读性提示，实际预合成抽帧已人工复看。\n- `已确认` 透明 MOV：`prores (4444) / yuva444p12le / 1080x1920 / 30fps / 10.500s / 45951133 bytes`。\n- `已确认` 预合成 MP4：`h264 / 1080x1920 / 30fps / 10.500s / 2890798 bytes`。\n- `已确认` 两个输出均通过 `video-metadata-probe` 与 `ffmpeg -v error ... -f null -` 解码检查。",
-          "readback_hash_match": true,
-          "score": 0.5489667,
-          "source_path": "codex_log/20260502_HyperFrames录屏动态标注叠层验证.md",
           "stale_index_check": true
         }
       ]
@@ -100,6 +106,7 @@
       "source_readback_passed": true,
       "top_k_results": [
         {
+          "active_manifest_allowlist_passed": true,
           "chunk_id": "vf_b7bd661dcac23ec4441ba16dc1d2fa81292ae5ac",
           "file_hash_match": true,
           "line_range": "1-24",
@@ -111,17 +118,19 @@
           "stale_index_check": true
         },
         {
+          "active_manifest_allowlist_passed": true,
           "chunk_id": "vf_18ed167a770932d38bb039eb1c253bfc76ceb4c7",
           "file_hash_match": true,
           "line_range": "68-83",
           "metadata_complete": true,
           "readback": "## RAG（检索增强生成） / Retriever（检索器） / Vector Store（向量库）\n\n它是干什么的：\n帮助找资料。`Retriever（检索器）` 负责查，`Vector Store（向量库）` 负责存索引，`RAG（检索增强生成）` 负责把检索结果带回任务。\n\n现在状态：\n`partial（部分成立） / documented_only（仅文档）`。有 DashVector（阿里向量数据库）最小 smoke（烟测）和 readback（回读）证据，但 adapter（适配器） workflow 还没有正式接 Retriever（检索器）。\n\n现在不能误解成什么：\n不能把向量检索结果当仓库事实。没有 `source_path（来源路径）` 和 `readback（原文回读）` 的结果不能直接写进项目结论。\n\n以后怎么修：\n1. 先做 `retrieval_manifest（检索清单）` 适配。\n2. 强制 `source_readback（原文回读）`。\n3. 后续再单独授权真实 DashVector（阿里向量数据库）或 Chroma（本地向量库）调用。",
           "readback_hash_match": true,
-          "score": 0.42169917,
+          "score": 0.42189646,
           "source_path": "codex_log/engineering_line_plain_manual/01_工程线人话版施工图.md",
           "stale_index_check": true
         },
         {
+          "active_manifest_allowlist_passed": true,
           "chunk_id": "vf_3599071ce1354e728bc7a6121050c8ac7d6ec858",
           "file_hash_match": true,
           "line_range": "119-152",
@@ -140,6 +149,7 @@
       "source_readback_passed": true,
       "top_k_results": [
         {
+          "active_manifest_allowlist_passed": true,
           "chunk_id": "vf_731de0cd844af112ac6e4a1ed601e724eda14314",
           "file_hash_match": true,
           "line_range": "15-22",
@@ -151,6 +161,7 @@
           "stale_index_check": true
         },
         {
+          "active_manifest_allowlist_passed": true,
           "chunk_id": "vf_bc1d1c21ac7597cf5644569403094631e1e415cf",
           "file_hash_match": true,
           "line_range": "109-111",
@@ -162,13 +173,14 @@
           "stale_index_check": true
         },
         {
+          "active_manifest_allowlist_passed": true,
           "chunk_id": "vf_0dcd5db97619b7c97a2c9e52eca5cec661c5a250",
           "file_hash_match": true,
           "line_range": "118-138",
           "metadata_complete": true,
           "readback": "## 4. 哪些部分主要只是给 Codex 的硬规则\n\n这些部分你可以知道，但不需要逐条背。\n\n| 原规则位置 | 人话解释 | 为什么主要是给 Codex 的硬规则 |\n| --- | --- | --- |\n| `EXEC-001` 默认读取顺序 | 进仓后先读什么，不能裸奔开做 | 这是 Codex 的接手动作要求，不是用户要记的操作手册 |\n| `EXEC-002` 层级判断 | 先分清是项目脑、执行层还是代码层 | 这是 Codex 的判断纪律，防止乱改层 |\n| `EXEC-003` / `EXEC-004` | 哪些任务能直接做，哪些必须先审计 | 这是 Codex 的风险控制规则 |\n| `EXEC-005` 默认允许修改什么 | 本轮没授权的层，默认不顺手改 | 这是 Codex 的边界线 |\n| `EXEC-006` skill 检查 | 本地 / 全局 skill 怎么查，查不到要如实说 | 这是 Codex 的执行前动作要求 |\n| `EXEC-007` 缺文件 / 缺 skill / 缺 AGENTS 的处理 | 找不到关键东西时不能装作没事 | 这是 Codex 的停止线 |\n| `EXEC-008` 最小必要背景包 | 进入执行动作前必须补齐哪些项目背景 | 这是 Codex 的最低理解要求 |\n| `EXEC-011` 禁止假装成功 | 没验证就不能说完成 | 这是 Codex 的真实性规则 |\n\n你不用把这些编号全背下来，但可以知道：\n\nCodex 在这个仓库里不是“看心情推进”，而是被这些硬规则约束住的。\n\n---",
           "readback_hash_match": true,
-          "score": 0.3715992,
+          "score": 0.37173438,
           "source_path": "codex_source/01_execution_rules.user_guide.md",
           "stale_index_check": true
         }
@@ -180,6 +192,7 @@
       "source_readback_passed": true,
       "top_k_results": [
         {
+          "active_manifest_allowlist_passed": true,
           "chunk_id": "vf_c0cd05494306237286d40de79145a2ae44802cd8",
           "file_hash_match": true,
           "line_range": "744-762",
@@ -191,17 +204,19 @@
           "stale_index_check": true
         },
         {
+          "active_manifest_allowlist_passed": true,
           "chunk_id": "vf_1c1958033fba41d4cfae62afa910874b035ce3a7",
           "file_hash_match": true,
           "line_range": "484-535",
           "metadata_complete": true,
           "readback": "### 6.11 Evaluator（评估器）\n\n它负责什么：\n判断结果是否达到验收标准。\n\n输入：\n- 输出文件、报告、状态、blocked case（阻断样例）、用户目标。\n\n输出：\n- evaluation_result（评估结果）和 failed_reason（失败原因）。\n\n验收：\n- 技术成功、内容成功、状态成功必须分开判断。\n\n用户必须拍板：\n- 把评估结论升级为内容通过、可发送或生产可用。\n\nAI 默认处理：\n- 检查缺字段、状态偷换和完成真实性。\n\nCodex 禁止擅自处理：\n- 把技术验证通过写成内容验证通过。\n\n失败回退：\n- 回到失败路由层。\n\n### 6.12 Failure Route（失败路由）\n\n它负责什么：\n决定失败后回到哪一层修。\n\n输入：\n- failed_reason（失败原因）、blocked_if（阻断条件）、当前模块。\n\n输出：\n- fallback_layer（回退层）和 next_safe_step（下一步安全动作）。\n\n验收：\n- 每个失败都有明确归位，不让用户排查内部流程。\n\n用户必须拍板：\n- 失败后是否接受降级方案或改变目标。\n\nAI 默认处理：\n- 把失败归到目标层、事实源层、工具层、内容层或 Git sync（Git 同步）层。\n\nCodex 禁止擅自处理：\n- 失败原因不明却继续推进。\n\n失败回退：\n- 回到 Failure Route（失败路由）自身并补分类。",
           "readback_hash_match": true,
-          "score": 0.43561006,
+          "score": 0.43560076,
           "source_path": "codex_log/engineering_line_plain_manual/05_项目总规则_用户决策版.md",
           "stale_index_check": true
         },
         {
+          "active_manifest_allowlist_passed": true,
           "chunk_id": "vf_335701e41f316bc6330922c95a10618ee3bad277",
           "file_hash_match": true,
           "line_range": "929-950",
@@ -220,6 +235,7 @@
       "source_readback_passed": true,
       "top_k_results": [
         {
+          "active_manifest_allowlist_passed": true,
           "chunk_id": "vf_fd2b0efa3376ff063944e3cb635fc8668b8d9b92",
           "file_hash_match": true,
           "line_range": "45-67",
@@ -231,6 +247,7 @@
           "stale_index_check": true
         },
         {
+          "active_manifest_allowlist_passed": true,
           "chunk_id": "vf_5c228dbd34ffb1691d7e5c0fe73f4973be25c56a",
           "file_hash_match": true,
           "line_range": "150-156",
@@ -242,22 +259,23 @@
           "stale_index_check": true
         },
         {
-          "chunk_id": "vf_5791664a3515f4dd9e355cdb576720db853b966f",
+          "active_manifest_allowlist_passed": true,
+          "chunk_id": "vf_70e1ee89d41d9664fcd48d996eee15f5bb5e0929",
           "file_hash_match": true,
-          "line_range": "1-31",
+          "line_range": "1-21",
           "metadata_complete": true,
-          "readback": "# Latest\n\n## 20260620｜Post-Commit Vector Sync Gate Source Update\n\n```yaml\ntask_result.status（任务结果状态）: post_commit_vector_sync_gate_source_update（提交后向量同步闸门源文件更新）\nproject_route（项目路由）: video_factory（视频工厂）\ntask_type（任务类型）:\n  - mechanism_repair_and_vector_sync_gate_landing（机制修补 + 向量同步闸门落地）\n  - post_commit_vector_sync_gate（提交后向量同步闸门）\n  - catch_up_vector_sync（补同步）\nworkflow_route_decision（工作流归位判断）: mechanism_repair_flow（机制修补流）\nsource_commit_sha（源语料提交）: see_index_manifest（以 latest_index_manifest.json 为准）\nindexed_file_count（已索引文件数）: see_index_manifest（以 latest_index_manifest.json 为准）\nindexed_chunk_count（已索引分块数）: see_index_manifest（以 latest_index_manifest.json 为准）\nlatest_count_policy（latest 数量口径）: manifest_is_authoritative（以 manifest 为准，避免 latest 自引用导致索引循环）\npost_commit_vector_sync_gate（提交后向量同步闸门）: installed_source_pending_sync_evidence（源文件已接入，后续同步证据看 gate report / manifest）\ngate_script（闸门脚本）: scripts/post_commit_vector_sync_gate.py\ngate_report（闸门报告）: codex_log/rag_vector_sync/latest_vector_sync_gate_report.md\nchroma_status（Chroma 状态）: disabled_not_used（停用，不使用）\nexternal_api_called_in_source_update（源文件更新阶段是否调用外部 API）: false（未调用）\ncontent_validation（内容验证）: not_promoted（未推进）\nsend_ready（可发送状态）: fal",
+          "readback": "# 20260621 用户可读 RAG 决策工程线审查指南\n\n## 1. 这次到底在收什么口\n\n这次不是实现第二轮代码，也不是修完 DashVector 同步。它只是把 Round 1 设计报告补成用户可审查状态：设计报告不能再留 Git pending 占位，第二轮 validator 清单必须完整，用户需要一份不用读完整技术报告也能判断是否放行的审查指南。\n\n## 2. 为什么现在同步慢\n\n当前检测层已经能识别只有 23 个可索引文件变化，但执行层仍疑似拿完整 `chunk_manifest` 跑 embedding / upsert。最新分块清单约 5657 个 chunks，所以即使只改了少量文件，外部同步仍可能像全量任务一样慢。\n\n核心判断：\n\n```yaml\nsync_slow_reason:\n  changed_indexable_file_count: 23\n  latest_chunk_manifest_chunk_count: 5657\n  detection_layer: file_delta_detected\n  execution_layer: still_full_manifest_embedding_upsert_suspected\n  current_vector_sync_status: blocked\n```",
           "readback_hash_match": true,
-          "score": 0.32277137,
-          "source_path": "codex_log/latest.md",
+          "score": 0.31405103,
+          "source_path": "codex_log/rag_decision_engine_design/20260621_用户可读_RAG决策工程线审查指南.md",
           "stale_index_check": true
         }
       ]
     }
   ],
-  "source_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
-  "source_readback_passed": true,
-  "stale_index_check": true,
-  "status": "passed",
+  "source_commit_sha": "b14d9a6eab7d3de059bbf2072beec7ccf1252438",
+  "source_readback_passed": false,
+  "stale_index_check": false,
+  "status": "blocked",
   "vector_values_written": false
 }

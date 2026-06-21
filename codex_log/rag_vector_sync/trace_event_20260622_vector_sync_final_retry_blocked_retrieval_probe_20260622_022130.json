@@ -1,0 +1,65 @@
+{
+  "event_id": "trace_20260622_vector_sync_final_retry_blocked_retrieval_probe_20260622_022130",
+  "task_id": "vector_sync_final_retry_after_checkpoint_fix",
+  "event_type": "vector_sync_blocked_with_actionable_reason",
+  "input_signal": "rerun_real_delta_sync_after_checkpoint_resume_timeout_fix",
+  "supply_used": [
+    "codex_log/rag_vector_sync/latest_chunk_delta_manifest.json",
+    "codex_log/rag_vector_sync/latest_delta_sync_checkpoint.json",
+    "codex_log/rag_vector_sync/latest_index_manifest.json",
+    "codex_log/rag_vector_sync/latest_retrieval_probe_report.json"
+  ],
+  "files_read": [
+    "AGENTS.md",
+    "codex_log/latest.md",
+    "scripts/post_commit_vector_sync_gate.py",
+    "scripts/rag_dashvector_sync.py",
+    "scripts/rag_retrieval_probe.py",
+    "scripts/rag_index_manifest_validator.py",
+    "scripts/rag_common.py"
+  ],
+  "files_modified": [
+    "codex_log/rag_vector_sync/latest_vector_sync_gate_report.json",
+    "codex_log/rag_vector_sync/latest_vector_sync_gate_report.md",
+    "codex_log/rag_vector_sync/latest_index_manifest.json",
+    "codex_log/rag_vector_sync/latest_retrieval_probe_report.json",
+    "codex_log/rag_vector_sync/vector_sync_blocked_actionable_20260622_022130.json",
+    "codex_log/rag_vector_sync/20260622_RAG_DashVector真实差量同步重跑报告.md",
+    "codex_log/latest.md"
+  ],
+  "validation_result": {
+    "mechanism_readiness_check": "passed",
+    "real_delta_sync": "final_index_manifest_written",
+    "index_manifest_validator": "passed",
+    "current_worktree_stale_index_check": "passed",
+    "retrieval_probe": "blocked",
+    "current_RAG_index_latest_claim": false
+  },
+  "failure_route_if_any": {
+    "route": "retrieval_probe_failed_after_final_manifest",
+    "blocked_reason": "retrieval_probe_failed_stale_or_inactive_dashvector_doc_returned_in_top_k",
+    "failed_queries": [
+      {
+        "query": "Chroma 是否仍然使用",
+        "failed_top_results": [
+          {
+            "rank": 1,
+            "source_path": "codex_source/schema_contracts/00_schema_contracts_index.md",
+            "line_range": "41-54",
+            "chunk_id": "vf_497748f222067851ac7b6d5defc381703e698618",
+            "score": 0.33014154,
+            "blocked_reason": "source_path_line_range_or_chunk_id_missing",
+            "metadata_complete": true,
+            "readback_hash_match": false,
+            "stale_index_check": false,
+            "active_manifest_allowlist_passed": false
+          }
+        ]
+      }
+    ]
+  },
+  "next_safe_step": "delete_or_tombstone_stale_dashvector_docs_or_fix_retrieval_probe_post_filter_before_reclaiming_RAG_latest",
+  "key_printed": false,
+  "key_written": false,
+  "vector_values_written": false
+}

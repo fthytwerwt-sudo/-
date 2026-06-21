@@ -1,0 +1,32 @@
+{
+  "batch_manifest_hash": "2fded67f77fc4b735f4ec1dbe0384ad4f7d9defde1a46238ee7e507b4dc3f4e6",
+  "completed_batch_indexes": [],
+  "completed_chunk_ids": [],
+  "delta_manifest_hash": "c0c6cbc661361e3e0d8b284703150e29aebab60069a0660bc144ea7413d3f940",
+  "external_call_report": {
+    "alibaba_embedding_api_called": false,
+    "dashvector_query_called": false,
+    "dashvector_upsert_called": false,
+    "embedding_batch_calls": 0,
+    "key_printed": false,
+    "key_written": false,
+    "upsert_batch_calls": 0,
+    "vector_values_written": false
+  },
+  "failed_batch_indexes": [
+    0
+  ],
+  "generated_at": "2026-06-22T02:04:28+08:00",
+  "in_progress_batch_index": null,
+  "key_printed": false,
+  "key_written": false,
+  "last_failure_at": "2026-06-22T02:04:28+08:00",
+  "last_success_at": null,
+  "previous_index_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
+  "resume_cursor": 0,
+  "run_id": "delta_sync_4874d430bac38ae4b42f3d5ba17d6d7d358319f1",
+  "skipped_completed_batch_indexes": [],
+  "source_commit_sha": "4874d430bac38ae4b42f3d5ba17d6d7d358319f1",
+  "stage_progress": [],
+  "vector_values_written": false
+}

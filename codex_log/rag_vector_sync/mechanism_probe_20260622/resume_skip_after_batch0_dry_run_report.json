@@ -10,8 +10,24 @@
   ],
   "checkpoint": {
     "batch_manifest_hash": "2fded67f77fc4b735f4ec1dbe0384ad4f7d9defde1a46238ee7e507b4dc3f4e6",
-    "completed_batch_indexes": [],
-    "completed_chunk_ids": [],
+    "completed_batch_indexes": [
+      0,
+      1
+    ],
+    "completed_chunk_ids": [
+      "vf_0a55f70eacc36e5d5957a97e211b3146049b21fe",
+      "vf_1785199a1fa7b3f75509f64bccaaf72aafb6de15",
+      "vf_42c8e056b54dbb7965e45e1b2c45c6b019ac5309",
+      "vf_6b26f0b4124c596156f28e977909dcf273a15666",
+      "vf_9529ffe14d5e6b6ff24b3cacc69ab858d01dbbb5",
+      "vf_9f74d88bee3541ef9df738c2b07ce937ed2d56b3",
+      "vf_a4b62afb2fcc12ac8d961caca87ba14abea2238e",
+      "vf_a8f2726c9bc9e0875386168e4a5aaf81f8fbcf64",
+      "vf_ab1b74a9deeebf35472adccefc3ea1982fc848b5",
+      "vf_d1d4dd275647dd8e14162b33ee7f9d74cda701f5",
+      "vf_df71ae8af29bbd93a55b3fd9f14c75e3f8776c20",
+      "vf_eef70717b246bde1c8455d33e0d13786a27fa889"
+    ],
     "delta_manifest_hash": "c0c6cbc661361e3e0d8b284703150e29aebab60069a0660bc144ea7413d3f940",
     "external_call_report": {
       "alibaba_embedding_api_called": false,
@@ -24,18 +40,53 @@
       "vector_values_written": false
     },
     "failed_batch_indexes": [],
-    "generated_at": "2026-06-22T02:04:53+08:00",
+    "generated_at": "2026-06-22T02:04:20+08:00",
     "in_progress_batch_index": null,
     "key_printed": false,
     "key_written": false,
     "last_failure_at": null,
-    "last_success_at": null,
+    "last_success_at": "2026-06-22T02:04:20+08:00",
     "previous_index_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
-    "resume_cursor": 0,
+    "resume_cursor": 2,
     "run_id": "delta_sync_4874d430bac38ae4b42f3d5ba17d6d7d358319f1",
-    "skipped_completed_batch_indexes": [],
+    "skipped_completed_batch_indexes": [
+      0
+    ],
     "source_commit_sha": "4874d430bac38ae4b42f3d5ba17d6d7d358319f1",
-    "stage_progress": [],
+    "stage_progress": [
+      {
+        "batch_id": "delta_batch_0000_081da9281ce8",
+        "batch_index": 0,
+        "dry_run": true,
+        "elapsed_seconds": 0.0,
+        "stage": "embedding",
+        "status": "passed"
+      },
+      {
+        "batch_id": "delta_batch_0000_081da9281ce8",
+        "batch_index": 0,
+        "dry_run": true,
+        "elapsed_seconds": 0.0,
+        "stage": "upsert",
+        "status": "passed"
+      },
+      {
+        "batch_id": "delta_batch_0001_158f74092e82",
+        "batch_index": 1,
+        "dry_run": true,
+        "elapsed_seconds": 0.0,
+        "stage": "embedding",
+        "status": "passed"
+      },
+      {
+        "batch_id": "delta_batch_0001_158f74092e82",
+        "batch_index": 1,
+        "dry_run": true,
+        "elapsed_seconds": 0.0,
+        "stage": "upsert",
+        "status": "passed"
+      }
+    ],
     "vector_values_written": false
   },
   "checkpoint_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_sync_checkpoint.json",
@@ -49,7 +100,7 @@
     "superseded_chunks": 53,
     "unchanged_chunks": 5112
   },
-  "completed_batch_count_in_dry_run": 0,
+  "completed_batch_count_in_dry_run": 2,
   "current_RAG_index_latest_claim": false,
   "deleted_chunk_count": 432,
   "deleted_policy": "overlay_supersede_or_tombstone_first",
@@ -78,22 +129,24 @@
     "unchanged_chunks_reused": true,
     "write_final_index_manifest_allowed": false
   },
-  "generated_at": "2026-06-22T02:04:53+08:00",
+  "generated_at": "2026-06-22T02:04:20+08:00",
   "key_printed": false,
   "key_written": false,
   "manifest_type": "delta_sync_dry_run_report",
   "no_duplicate_completed_chunk_ids": true,
   "partial_manifest_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_index_partial_manifest.json",
-  "pending_batch_count_in_dry_run": 107,
+  "pending_batch_count_in_dry_run": 105,
   "project_route": "video_factory",
   "repo_full_name": "fthytwerwt-sudo/-",
-  "resume_skips_completed_batches": false,
-  "skipped_completed_batch_indexes": [],
+  "resume_skips_completed_batches": true,
+  "skipped_completed_batch_indexes": [
+    0
+  ],
   "source_commit_sha": "4874d430bac38ae4b42f3d5ba17d6d7d358319f1",
   "timeout_report": null,
   "unchanged_chunk_count": 5112,
   "validation_result": {
-    "status": "passed"
+    "status": "interrupted"
   },
   "vector_values_written": false,
   "would_embed_chunk_count": 652,

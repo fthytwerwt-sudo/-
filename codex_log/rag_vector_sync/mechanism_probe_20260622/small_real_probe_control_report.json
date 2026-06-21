@@ -1,0 +1,48 @@
+{
+  "probe_name": "small_real_probe_terminate_after_first_completed_batch",
+  "started_at": "2026-06-22T02:05:58+08:00",
+  "command": [
+    "python3",
+    "scripts/rag_dashvector_sync.py",
+    "--batch-size",
+    "8",
+    "--delta-manifest",
+    "codex_log/rag_vector_sync/latest_chunk_delta_manifest.json"
+  ],
+  "max_allowed_completed_batches": 2,
+  "target_completed_batches_before_stop": 1,
+  "terminated_by_control": true,
+  "passed": true,
+  "key_printed": false,
+  "key_written": false,
+  "vector_values_written": false,
+  "stop_reason": "completed_batch_recorded",
+  "finished_at": "2026-06-22T02:06:01+08:00",
+  "elapsed_seconds": 3.535,
+  "returncode": -15,
+  "completed_batch_indexes": [
+    0
+  ],
+  "failed_batch_indexes": [],
+  "completed_batch_count": 1,
+  "failed_batch_count": 0,
+  "in_progress_batch_index": 1,
+  "resume_cursor": 1,
+  "external_call_report": {
+    "alibaba_embedding_api_called": true,
+    "dashvector_query_called": false,
+    "dashvector_upsert_called": true,
+    "embedding_batch_calls": 1,
+    "key_printed": false,
+    "key_written": false,
+    "upsert_batch_calls": 1,
+    "vector_values_written": false
+  },
+  "partial_status": "partial",
+  "partial_completed_batch_count": 1,
+  "partial_completed_chunk_count": 5,
+  "partial_pending_batch_count": 106,
+  "stdout_path": "codex_log/rag_vector_sync/mechanism_probe_20260622/small_real_probe_stdout.log",
+  "stderr_path": "codex_log/rag_vector_sync/mechanism_probe_20260622/small_real_probe_stderr.log",
+  "timed_out": false
+}

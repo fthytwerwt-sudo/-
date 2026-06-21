@@ -1,27 +1,15 @@
 {
-  "batch_id": "delta_batch_0000_081da9281ce8",
-  "batch_index": 0,
-  "blocked_reason": "blocked_batch_timeout",
-  "chunk_ids": [
-    "vf_d1d4dd275647dd8e14162b33ee7f9d74cda701f5",
-    "vf_1785199a1fa7b3f75509f64bccaaf72aafb6de15",
-    "vf_9529ffe14d5e6b6ff24b3cacc69ab858d01dbbb5",
-    "vf_a8f2726c9bc9e0875386168e4a5aaf81f8fbcf64",
-    "vf_9f74d88bee3541ef9df738c2b07ce937ed2d56b3"
-  ],
-  "elapsed_seconds": 121,
-  "generated_at": "2026-06-22T01:02:49+08:00",
+  "manifest_type": "delta_sync_timeout_report",
+  "status": "not_applicable_no_timeout_in_latest_real_sync",
+  "generated_at": "2026-06-22T02:21:30+08:00",
+  "source_commit_sha": "b14d9a6eab7d3de059bbf2072beec7ccf1252438",
+  "previous_index_commit_sha": "4874d430bac38ae4b42f3d5ba17d6d7d358319f1",
+  "latest_real_sync_failed_stage": "retrieval_probe_stage_after_final_manifest",
+  "latest_real_sync_timeout_stage": null,
+  "latest_real_sync_timeout_batch_index": null,
+  "timeout_probe_evidence_path": "codex_log/rag_vector_sync/mechanism_probe_20260622/embedding_timeout_report.json",
+  "blocked_reason": null,
   "key_printed": false,
   "key_written": false,
-  "manifest_type": "delta_sync_timeout_report",
-  "project_route": "video_factory",
-  "repo_full_name": "fthytwerwt-sudo/-",
-  "source_paths": [
-    "AGENTS.md"
-  ],
-  "stage": "upsert",
-  "validation_result": {
-    "status": "blocked"
-  },
   "vector_values_written": false
 }

@@ -1,0 +1,74 @@
+{
+  "active_chunk_count": 5785,
+  "active_filter_report_path": "codex_log/rag_vector_sync/latest_retrieval_probe_active_filter_report.json",
+  "alibaba_embedding_api_called": true,
+  "batch_manifest_path": "codex_log/rag_vector_sync/latest_delta_batch_manifest.json",
+  "batch_size": 8,
+  "blocked_detail": {
+    "explanation": "Final index manifest and worktree stale check passed, but real DashVector retrieval still returned at least one stale/inactive chunk in top-k, so source readback failed.",
+    "failed_queries": [
+      {
+        "failed_top_results": [
+          {
+            "active_manifest_allowlist_passed": false,
+            "blocked_reason": "source_path_line_range_or_chunk_id_missing",
+            "chunk_id": "vf_497748f222067851ac7b6d5defc381703e698618",
+            "line_range": "41-54",
+            "metadata_complete": true,
+            "rank": 1,
+            "readback_hash_match": false,
+            "score": 0.33014154,
+            "source_path": "codex_source/schema_contracts/00_schema_contracts_index.md",
+            "stale_index_check": false
+          }
+        ],
+        "query": "Chroma 是否仍然使用"
+      }
+    ],
+    "likely_cause": "delta sync upserted active/new chunks but did not delete or tombstone stale/superseded DashVector docs; retrieval probe validates active manifest after query and blocks stale top-k hits."
+  },
+  "blocked_reason": "retrieval_probe_failed_stale_or_inactive_dashvector_doc_returned_in_top_k",
+  "changed_indexable_file_count": null,
+  "checkpoint_path": "codex_log/rag_vector_sync/latest_delta_sync_checkpoint.json",
+  "completed_batches": 48,
+  "completed_delta_chunk_count": 257,
+  "current_RAG_index_latest_claim": false,
+  "current_worktree_stale_index_check_after_evidence_write": "blocked_stale_index_detected_on_codex_log_latest_md",
+  "current_worktree_stale_index_check_passed": false,
+  "current_worktree_stale_index_check_passed_before_evidence_write": true,
+  "dashvector_query_called": true,
+  "dashvector_upsert_called": true,
+  "delta_chunks_to_embed": 257,
+  "failed_batch": null,
+  "failed_batches": [],
+  "failed_stage": "retrieval_probe_stage_after_final_manifest",
+  "final_index_manifest_path": "codex_log/rag_vector_sync/latest_index_manifest.json",
+  "final_index_manifest_written": true,
+  "generated_at": "2026-06-22T02:21:30+08:00",
+  "index_manifest_validator_passed": true,
+  "indexed_chunk_count": 5785,
+  "indexed_file_count": 911,
+  "key_printed": false,
+  "key_written": false,
+  "next_retry_recommendation": [
+    "Add or run a stale DashVector doc delete/tombstone cleanup for deleted/superseded chunk_ids, then rerun python3 scripts/rag_retrieval_probe.py.",
+    "Alternatively fix retrieval probe/runtime to post-filter inactive chunks before evaluating top-k, but do not claim RAG latest until real query readback passes."
+  ],
+  "next_safe_step": "delete_or_tombstone_stale_dashvector_docs_or_fix_retrieval_probe_post_filter_before_reclaiming_RAG_latest",
+  "partial_manifest_path": "codex_log/rag_vector_sync/latest_delta_index_partial_manifest.json",
+  "previous_index_commit_sha": "4874d430bac38ae4b42f3d5ba17d6d7d358319f1",
+  "project_route": "video_factory",
+  "retrieval_probe_passed": false,
+  "retrieval_probe_report_path": "codex_log/rag_vector_sync/latest_retrieval_probe_report.json",
+  "retrieval_stale_index_check_passed": false,
+  "safe_to_retry": true,
+  "secret_scan_report_path": "codex_log/rag_vector_sync/latest_vector_sync_secret_scan_this_round.json",
+  "secret_scan_this_round": "passed",
+  "source_commit_sha": "b14d9a6eab7d3de059bbf2072beec7ccf1252438",
+  "source_readback_passed": false,
+  "status": "vector_sync_blocked_with_actionable_reason",
+  "target_source_commit_from_script": "b14d9a6eab7d3de059bbf2072beec7ccf1252438",
+  "task_type": "vector_sync_final_retry_after_checkpoint_fix",
+  "total_batches": 48,
+  "vector_values_written": false
+}
