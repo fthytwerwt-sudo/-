@@ -1007,6 +1007,10 @@ round_2_goal_mode_execution_map:
     - scripts/rag_authority_overlay_builder.py
     - scripts/rag_conflict_group_registry_builder.py
     - scripts/rag_weighted_decision_engine.py
+    - scripts/rag_vector_delta_manifest_validator.py
+    - scripts/rag_authority_overlay_validator.py
+    - scripts/rag_conflict_group_registry_validator.py
+    - scripts/rag_weighted_decision_validator.py
     - scripts/rag_decision_audit_report_validator.py
     - codex_source/fixtures/rag_decision_engine/*.json
     - codex_log/rag_decision_engine/*.json
@@ -1054,6 +1058,34 @@ round_2_goal_mode_execution_map:
     - remaining_risks
 ```
 
+### 13.1 round_2_validator_fixture_requirement
+
+```yaml
+round_2_validator_fixture_requirement:
+  required_validator_scripts:
+    - scripts/rag_vector_delta_manifest_validator.py
+    - scripts/rag_authority_overlay_validator.py
+    - scripts/rag_conflict_group_registry_validator.py
+    - scripts/rag_weighted_decision_validator.py
+    - scripts/rag_decision_audit_report_validator.py
+  required_positive_fixtures:
+    - true_incremental_delta/new_changed_deleted_unchanged_chunks.valid.json
+    - authority_overlay/current_formal_fact.valid.json
+    - conflict_group/current_winner.valid.json
+    - weighted_decision/mechanism_repair_profile.valid.json
+    - decision_audit/fix_incremental_sync_plus_authority_overlay.valid.json
+  required_blocked_fixtures:
+    - true_incremental_delta/missing_chunk_hash.blocked.json
+    - authority_overlay/stale_can_feed_codex.blocked.json
+    - conflict_group/pending_without_winner.blocked.json
+    - weighted_decision/hard_gate_failed_before_weight.blocked.json
+    - decision_audit/readback_missing.blocked.json
+  acceptance_rule:
+    - every new schema must have at least one valid fixture and one blocked fixture
+    - validators must run without Alibaba embedding API or DashVector upsert
+    - dry-run counts must be reproducible from local manifests only
+```
+
 ## 14. validation_plan
 
 ```yaml
@@ -1091,19 +1123,21 @@ status_boundary:
   weighted_decision_engine_real_task_validation: not_performed
 ```
 
-## 16. git_sync_status_placeholder
+## 16. git_sync_status
 
-This report requires normal repository sync before it can be treated as repository fact.
+This report is a design artifact. The original pending Git placeholders are superseded by the Round 1 closeout validation report and the final Codex response.
 
 ```yaml
 git_sync_status:
-  files_changed:
-    - codex_log/rag_decision_engine_design/20260621_RAG决策工程线设计_round_1_design_only.md
-    - codex_log/latest.md
-  commit_sha: pending_until_commit
-  pushed: pending_until_push
-  remote_head_verified: pending_until_remote_readback
-  secret_scan: pending_until_staged_scan
+  status: superseded_by_round_1_closeout_report
+  meaning: 本设计报告不再保留 pending_until_* 占位；真实 Git 同步状态以本轮 closeout validation report 和 Codex 最终回报为准。
+  git_sync_status_note:
+    self_commit_sha_limitation: true
+    reason: 同一个文件无法在提交前预先写入包含自身最终内容的 commit SHA。
+    closeout_report_source: codex_log/rag_decision_engine_design/20260621_RAG决策工程线设计_round_1_closeout_validation_report.md
+  external_api_called_this_closeout_round: false
+  dashvector_upsert_called_this_closeout_round: false
+  current_RAG_index_latest_claim: false
 ```
 
 ## 17. next_safe_step

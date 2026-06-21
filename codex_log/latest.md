@@ -1,5 +1,39 @@
 # Latest
 
+## 20260621｜RAG Decision Engineering Line Round 1 Closeout Patch
+
+```yaml
+task_result.status（任务结果状态）: round_1_closeout_completed_pending_user_review（第一轮收口补丁完成，等待用户复审）
+project_route（项目路由）: video_factory（视频工厂）
+task_type（任务类型）:
+  - mechanism_repair_closeout（机制修补收口）
+  - RAG_decision_engine_round_1_closeout（RAG 决策工程线第一轮收口）
+  - project_file_change（项目文件修改）
+engineering_depth（工程深度）: L3_system_line_closeout（系统工程线收口）
+round_scope（轮次范围）: round_1_closeout_only（第一轮收口补丁，不进入第二轮实现）
+design_report（设计报告）: codex_log/rag_decision_engine_design/20260621_RAG决策工程线设计_round_1_design_only.md
+closeout_validation_report（收口验证报告）: codex_log/rag_decision_engine_design/20260621_RAG决策工程线设计_round_1_closeout_validation_report.md
+user_readable_review_guide（用户可读审查指南）: codex_log/rag_decision_engine_design/20260621_用户可读_RAG决策工程线审查指南.md
+trace_event（链路事件）: codex_log/rag_decision_engine_design/trace_event_20260621_rag_decision_engine_design_round1_closeout.json
+engineering_line_trace（工程线 trace）: codex_log/rag_engineering_line/trace_events.jsonl
+round_2_validator_inventory（第二轮校验器清单）: completed_in_design_report（已在设计报告中补齐）
+external_api_called（外部 API 调用）: false（本收口轮未调用）
+dashvector_upsert_called（DashVector 写入）: false（本收口轮未写入）
+current_RAG_index_latest_claim（是否声称当前 RAG 索引最新）: false（不声称）
+vector_sync_status（向量同步状态）: still_blocked_from_previous_sync_attempt（仍沿用上一轮同步阻断事实）
+true_incremental_vector_sync_implemented（真实增量向量同步是否已实现）: false（未实现）
+weighted_decision_engine_runtime_validated（加权决策引擎是否已真实任务验证）: false（未验证）
+technical_validation（技术验证）: closeout_static_readback_and_local_file_validation_only（收口静态回读 + 本地文件校验）
+content_validation（内容验证）: not_promoted（未推进）
+runtime_validation（运行时验证）: not_performed（未执行）
+production_readiness（生产可用状态）: not_claimed（未声称）
+next_safe_step（下一步安全动作）: user_reviews_readable_guide_then_round_2_goal_mode_implementation（用户复审可读指南后，再进入第二轮 Goal Mode 全量实现）
+```
+
+- `closeout_patch（收口补丁）`: 已把原设计报告中的 Git pending 占位改为 closeout report 承接，并补齐第二轮必须新增的 validator 文件清单。
+- `user_review_surface（用户审查面）`: 新增用户可读审查指南，明确同步慢原因、为什么只修增量不够、六个复审点、阻断条件和三项用户拍板点。
+- `status_boundary（状态边界）`: 本收口轮未改核心同步脚本、未改 schema、未调用 Alibaba embedding API、未写 DashVector、未删除旧向量或旧口径文件，不声明 RAG 最新。
+
 ## 20260621｜RAG Decision Engineering Line Round 1 Design Only
 
 ```yaml
