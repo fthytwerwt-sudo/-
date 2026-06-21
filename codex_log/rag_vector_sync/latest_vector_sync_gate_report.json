@@ -1,35 +1,76 @@
 {
-  "blocked_reasons": [],
-  "commands": [
+  "active_filter_dry_run_passed": true,
+  "blocked_reasons": [
+    "delta_embedding_upsert_no_final_manifest",
+    "checkpoint_resume_not_effective",
+    "stale_index_detected",
+    "index_chunk_count_mismatch"
+  ],
+  "blocked_report_path": "codex_log/rag_vector_sync/vector_sync_blocked_20260622_003218.json",
+  "changed_indexable_file_count": 53,
+  "commands_run": [
     {
-      "command": "python3 scripts/rag_vector_delta_planner.py",
-      "passed": true,
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\"alibaba_embedding_api_called\": false, \"changed_chunks\": 51, \"chunk_delta_manifest_path\": \"/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_chunk_delta_manifest.json\", \"dashvector_upsert_called\": false, \"deleted_chunks\": 424, \"delta_chunks_to_embed\": 535, \"key_printed\": false, \"key_written\": false, \"new_chunks\": 484, \"status\": \"passed\", \"superseded_chunks\": 51, \"unchanged_chunks\": 5122}\n"
+      "command": "python3 -m py_compile scripts/post_commit_vector_sync_gate.py scripts/rag_common.py scripts/rag_dashvector_sync.py scripts/rag_retrieval_probe.py scripts/rag_index_manifest_validator.py scripts/rag_vector_delta_planner.py scripts/rag_vector_delta_manifest_validator.py scripts/rag_decision_state_machine_runner.py",
+      "duration": "<1s",
+      "result": "passed"
+    },
+    {
+      "command": "python3 scripts/post_commit_vector_sync_gate.py --mode check",
+      "duration": "<1s",
+      "result": "sync_required"
+    },
+    {
+      "command": "python3 scripts/rag_index_manifest_validator.py --check-current-worktree",
+      "duration": "<1s",
+      "result": "blocked: stale_index_detected,index_chunk_count_mismatch"
+    },
+    {
+      "command": "python3 scripts/post_commit_vector_sync_gate.py --mode finish",
+      "duration": "~2s",
+      "result": "ready_for_controlled_real_delta_sync_pending_user_or_existing_gate_authorization; delta_chunks_to_embed=652"
+    },
+    {
+      "command": "python3 scripts/rag_vector_delta_manifest_validator.py",
+      "duration": "<1s",
+      "result": "passed"
+    },
+    {
+      "command": "python3 scripts/post_commit_vector_sync_gate.py --mode finish --real-delta-sync --batch-size 8",
+      "duration": "~5m23s second attempt",
+      "result": "first_attempt_blocked_dirty_files_not_indexed_to_formal_store_false; second_attempt_interrupted_after_about_5m23s_without_final_manifest"
+    },
+    {
+      "command": "python3 scripts/rag_retrieval_probe.py --dry-run-active-filter",
+      "duration": "<1s",
+      "result": "passed_no_dashvector_query"
     }
   ],
+  "current_RAG_index_latest_claim": false,
   "delta_counts": {
-    "active_chunk_count": 5657,
-    "changed_chunks": 51,
-    "deleted_chunks": 424,
-    "delta_chunks_to_embed": 535,
-    "new_chunks": 484,
+    "active_chunk_count": 5764,
+    "changed_chunks": 53,
+    "deleted_chunks": 432,
+    "delta_chunks_to_embed": 652,
+    "new_chunks": 599,
     "previous_index_chunk_count": 5597,
-    "superseded_chunks": 51,
-    "unchanged_chunks": 5122
+    "superseded_chunks": 53,
+    "unchanged_chunks": 5112
   },
+  "existing_index_manifest_indexed_chunk_count": 5597,
+  "existing_index_manifest_indexed_file_count": 875,
+  "existing_index_manifest_source_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
   "external_call_report": {
-    "alibaba_embedding_api_called": false,
+    "alibaba_embedding_api_called": true,
     "dashvector_query_called": false,
-    "dashvector_upsert_called": false,
+    "dashvector_upsert_called": "possibly_started_not_provable_without_batch_checkpoint",
     "key_printed": false,
     "key_written": false,
-    "provider": "Alibaba / DashVector",
     "vector_values_written": false
   },
+  "final_index_manifest_path": "codex_log/rag_vector_sync/latest_index_manifest.json",
+  "final_index_manifest_written": false,
   "gate_name": "post_commit_vector_sync_gate",
-  "generated_at": "2026-06-22T00:14:24+08:00",
+  "generated_at": "2026-06-22T00:33:36+08:00",
   "indexable_change_result": {
     "blocked_reasons": [],
     "changed_indexable_files": [
@@ -41,6 +82,11 @@
       "codex_log/engineering_line_collaboration/20260620_工程线协作闸门_engineering_line_collaboration_gate_report.md",
       "codex_log/latest.md",
       "codex_log/rag_cleaning_layer/20260621_RAG清洗层补缺执行报告_rag_cleaning_layer_gap_fill_report.md",
+      "codex_log/rag_decision_engine/20260621_RAG决策工程线Python状态机落地报告.md",
+      "codex_log/rag_decision_engine/latest_conflict_group_registry.md",
+      "codex_log/rag_decision_engine/latest_decision_audit_report.md",
+      "codex_log/rag_decision_engine/latest_decision_state_machine_run.md",
+      "codex_log/rag_decision_engine/latest_rag_authority_overlay.md",
       "codex_log/rag_decision_engine_design/20260621_RAG决策工程线设计_round_1_closeout_validation_report.md",
       "codex_log/rag_decision_engine_design/20260621_RAG决策工程线设计_round_1_design_only.md",
       "codex_log/rag_decision_engine_design/20260621_用户可读_RAG决策工程线审查指南.md",
@@ -51,15 +97,36 @@
       "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md",
       "codex_source/24_RAG清洗层执行契约_rag_cleaning_layer_execution_contract.md",
       "codex_source/schema_contracts/00_schema_contracts_index.md",
+      "codex_source/schema_contracts/schemas/conflict_group_registry.schema.yaml",
+      "codex_source/schema_contracts/schemas/decision_audit_report.schema.yaml",
       "codex_source/schema_contracts/schemas/mid_task_supply_pack.schema.yaml",
       "codex_source/schema_contracts/schemas/pre_supply_pack.schema.yaml",
+      "codex_source/schema_contracts/schemas/rag_authority_overlay.schema.yaml",
       "codex_source/schema_contracts/schemas/rag_cleaning_layer.schema.yaml",
+      "codex_source/schema_contracts/schemas/rag_decision_state_machine.schema.yaml",
       "codex_source/schema_contracts/schemas/rag_supply_pack.schema.yaml",
+      "codex_source/schema_contracts/schemas/true_incremental_vector_sync.schema.yaml",
+      "codex_source/schema_contracts/schemas/weighted_decision_engine.schema.yaml",
+      "scripts/post_commit_vector_sync_gate.py",
+      "scripts/rag_authority_overlay_builder.py",
+      "scripts/rag_authority_overlay_validator.py",
       "scripts/rag_cleaning_layer_validator.py",
+      "scripts/rag_conflict_group_registry_builder.py",
+      "scripts/rag_conflict_group_registry_validator.py",
+      "scripts/rag_dashvector_sync.py",
+      "scripts/rag_decision_audit_report_validator.py",
+      "scripts/rag_decision_state_machine_runner.py",
+      "scripts/rag_decision_state_machine_validator.py",
+      "scripts/rag_decision_validator_common.py",
       "scripts/rag_failure_route_resolver.py",
       "scripts/rag_mid_task_supply_builder.py",
+      "scripts/rag_retrieval_probe.py",
       "scripts/rag_supply_pack_builder.py",
-      "scripts/rag_supply_pack_validator.py"
+      "scripts/rag_supply_pack_validator.py",
+      "scripts/rag_vector_delta_manifest_validator.py",
+      "scripts/rag_vector_delta_planner.py",
+      "scripts/rag_weighted_decision_engine.py",
+      "scripts/rag_weighted_decision_validator.py"
     ],
     "deleted_indexable_files": [],
     "dynamic_audit_only": false,
@@ -155,6 +222,74 @@
         "status": "A"
       },
       {
+        "path": "codex_log/rag_decision_engine/20260621_RAG决策工程线Python状态机落地报告.md",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/failure_route.stale_index_high_risk_blocked.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/latest_conflict_group_registry.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/latest_conflict_group_registry.md",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/latest_decision_audit_report.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/latest_decision_audit_report.md",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/latest_decision_state_machine_run.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/latest_decision_state_machine_run.md",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/latest_rag_authority_overlay.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/latest_rag_authority_overlay.md",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/latest_rag_authority_overlay_validator_report.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/latest_rag_conflict_group_registry_validator_report.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/latest_rag_decision_audit_report_validator_report.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/latest_rag_decision_state_machine_validator_report.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/latest_rag_vector_delta_manifest_validator_report.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/latest_rag_weighted_decision_validator_report.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/trace_event_20260621_rag_decision_state_machine_runner.json",
+        "status": "A"
+      },
+      {
         "path": "codex_log/rag_decision_engine_design/20260621_RAG决策工程线设计_round_1_closeout_validation_report.md",
         "status": "A"
       },
@@ -187,6 +322,14 @@
         "status": "A"
       },
       {
+        "path": "codex_log/rag_vector_sync/latest_chunk_delta_manifest.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_chunk_delta_manifest.md",
+        "status": "A"
+      },
+      {
         "path": "codex_log/rag_vector_sync/latest_chunk_manifest.json",
         "status": "M"
       },
@@ -195,12 +338,44 @@
         "status": "M"
       },
       {
+        "path": "codex_log/rag_vector_sync/latest_delta_sync_checkpoint.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_delta_sync_dry_run_report.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_delta_sync_dry_run_report.md",
+        "status": "A"
+      },
+      {
         "path": "codex_log/rag_vector_sync/latest_index_manifest.json",
         "status": "M"
       },
       {
         "path": "codex_log/rag_vector_sync/latest_index_manifest.md",
         "status": "M"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_mid_task_supply_pack.json",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_post_risk_review_pack.json",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_pre_supply_pack.json",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_retrieval_probe_active_filter_report.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_retrieval_probe_active_filter_report.md",
+        "status": "A"
       },
       {
         "path": "codex_log/rag_vector_sync/latest_retrieval_probe_report.json",
@@ -255,8 +430,124 @@
         "status": "A"
       },
       {
+        "path": "codex_source/fixtures/rag_decision_engine/authority_overlay/archive_only_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/authority_overlay/conflict_pending_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/authority_overlay/current_formal_fact_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/authority_overlay/target_state_only_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/conflict_group/aspect_ratio_conflict_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/conflict_group/deepseek_supply_conflict_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/conflict_group/delivery_baseline_conflict_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/conflict_group/formal_fact_vs_target_state_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/conflict_group/voice_route_conflict_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/decision_audit/current_blocked_sync_decision_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/decision_audit/rejected_actions_explanation_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/decision_audit/selected_action_explanation_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/state_machine/conflict_pending_blocked_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/state_machine/full_pass_state_machine_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/state_machine/hard_gate_failed_before_weight_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/state_machine/stale_index_high_risk_blocked_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/vector_delta/added_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/vector_delta/changed_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/vector_delta/current_blocked_sync_baseline.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/vector_delta/deleted_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/vector_delta/interrupted_resume_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/vector_delta/missing_chunk_hash_blocked_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/vector_delta/unchanged_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/weighted_decision/code_execution_weight_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/weighted_decision/high_risk_hard_gate_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/weighted_decision/mechanism_repair_weight_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/weighted_decision/rag_supply_weight_case.json",
+        "status": "A"
+      },
+      {
         "path": "codex_source/schema_contracts/00_schema_contracts_index.md",
         "status": "M"
+      },
+      {
+        "path": "codex_source/schema_contracts/schemas/conflict_group_registry.schema.yaml",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/schema_contracts/schemas/decision_audit_report.schema.yaml",
+        "status": "A"
       },
       {
         "path": "codex_source/schema_contracts/schemas/mid_task_supply_pack.schema.yaml",
@@ -267,12 +558,28 @@
         "status": "M"
       },
       {
+        "path": "codex_source/schema_contracts/schemas/rag_authority_overlay.schema.yaml",
+        "status": "A"
+      },
+      {
         "path": "codex_source/schema_contracts/schemas/rag_cleaning_layer.schema.yaml",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/schema_contracts/schemas/rag_decision_state_machine.schema.yaml",
         "status": "A"
       },
       {
         "path": "codex_source/schema_contracts/schemas/rag_supply_pack.schema.yaml",
         "status": "M"
+      },
+      {
+        "path": "codex_source/schema_contracts/schemas/true_incremental_vector_sync.schema.yaml",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/schema_contracts/schemas/weighted_decision_engine.schema.yaml",
+        "status": "A"
       },
       {
         "path": "dist/gpt_project_sync_packages/20260620_工程线协作闸门_engineering_line_collaboration_gate/GPT数据源/00_项目总述.md",
@@ -411,7 +718,47 @@
         "status": "A"
       },
       {
+        "path": "scripts/post_commit_vector_sync_gate.py",
+        "status": "M"
+      },
+      {
+        "path": "scripts/rag_authority_overlay_builder.py",
+        "status": "A"
+      },
+      {
+        "path": "scripts/rag_authority_overlay_validator.py",
+        "status": "A"
+      },
+      {
         "path": "scripts/rag_cleaning_layer_validator.py",
+        "status": "A"
+      },
+      {
+        "path": "scripts/rag_conflict_group_registry_builder.py",
+        "status": "A"
+      },
+      {
+        "path": "scripts/rag_conflict_group_registry_validator.py",
+        "status": "A"
+      },
+      {
+        "path": "scripts/rag_dashvector_sync.py",
+        "status": "M"
+      },
+      {
+        "path": "scripts/rag_decision_audit_report_validator.py",
+        "status": "A"
+      },
+      {
+        "path": "scripts/rag_decision_state_machine_runner.py",
+        "status": "A"
+      },
+      {
+        "path": "scripts/rag_decision_state_machine_validator.py",
+        "status": "A"
+      },
+      {
+        "path": "scripts/rag_decision_validator_common.py",
         "status": "A"
       },
       {
@@ -423,20 +770,72 @@
         "status": "M"
       },
       {
+        "path": "scripts/rag_retrieval_probe.py",
+        "status": "M"
+      },
+      {
         "path": "scripts/rag_supply_pack_builder.py",
         "status": "M"
       },
       {
         "path": "scripts/rag_supply_pack_validator.py",
         "status": "M"
+      },
+      {
+        "path": "scripts/rag_vector_delta_manifest_validator.py",
+        "status": "A"
+      },
+      {
+        "path": "scripts/rag_vector_delta_planner.py",
+        "status": "A"
+      },
+      {
+        "path": "scripts/rag_weighted_decision_engine.py",
+        "status": "A"
+      },
+      {
+        "path": "scripts/rag_weighted_decision_validator.py",
+        "status": "A"
       }
     ],
     "skip_reason": "",
-    "source_commit_sha": "7520e4b05f34bc6170fdb6d961a55b6587a32fff",
+    "source_commit_sha": "4874d430bac38ae4b42f3d5ba17d6d7d358319f1",
     "sync_required": true
   },
-  "mode": "check",
+  "indexed_chunk_count": null,
+  "indexed_file_count": null,
+  "key_printed": false,
+  "key_written": false,
+  "mechanism_readiness_check": {
+    "batch_progress_supported": "partial_progress_print_every_25_batches_but_hidden_by_gate_capture",
+    "changed_chunk_scope_supported": true,
+    "changed_file_scope_supported": true,
+    "checkpoint_resume_supported": "partial_false_for_effective_resume_resume_arg_exists_but_not_used_to_skip_batches",
+    "incremental_sync_supported": "true_delta_planner_and_delta_manifest_ready",
+    "manifest_merge_supported": "partial_final_manifest_full_active_set_after_delta_upsert_but_not_reached_this_run",
+    "timeout_report_supported": "false_no_subprocess_timeout_or_stage_timeout_in_script"
+  },
+  "mode": "finish",
+  "next_safe_step": "make per-batch checkpoint/resume and stage timeout effective before next real delta sync retry",
+  "previous_index_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
   "project_route": "video_factory",
   "repo_full_name": "fthytwerwt-sudo/-",
-  "status": "sync_required"
+  "retrieval_probe_passed": false,
+  "source_commit_sha": "4874d430bac38ae4b42f3d5ba17d6d7d358319f1",
+  "source_readback_passed": false,
+  "stale_index_check_passed": false,
+  "status": "blocked",
+  "sync_progress": {
+    "batch_size": 8,
+    "checkpoint_path": "codex_log/rag_vector_sync/latest_delta_sync_checkpoint.json",
+    "checkpoint_resume_cursor": 0,
+    "completed_batches": "unknown_not_observable",
+    "elapsed_time": "about_5m23s_before_interrupt",
+    "failed_batch": "unknown_not_observable",
+    "total_batches": "unknown_not_emitted; estimated_about_82_for_652_chunks_at_batch_size_8"
+  },
+  "sync_required": true,
+  "task_result_status": "vector_sync_blocked_with_clear_reason",
+  "vector_sync_status": "vector_sync_blocked_delta_embedding_upsert_timeout",
+  "vector_values_written": false
 }

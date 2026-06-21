@@ -1,0 +1,81 @@
+{
+  "event_id": "20260622_vector_sync_final_finish_blocked_delta_embedding_upsert_timeout",
+  "event_type": "post_commit_vector_sync_gate_final_finish",
+  "failure_route_if_any": {
+    "blocked_reason": "controlled_real_delta_sync_entered_rag_dashvector_sync_embedding_upsert_stage_for_652_delta_chunks_but_no_final_index_manifest_or_checkpoint_progress_was_written_before_interrupt",
+    "failed_batch": "unknown_not_observable_without_per_batch_checkpoint",
+    "failed_stage": "delta_embedding_upsert_stage_rag_dashvector_sync",
+    "route": "vector_sync_blocked_with_clear_reason"
+  },
+  "files_modified": [
+    "codex_log/latest.md",
+    "codex_log/rag_vector_sync/latest_source_inventory.json",
+    "codex_log/rag_vector_sync/latest_source_inventory.md",
+    "codex_log/rag_vector_sync/latest_chunk_manifest.json",
+    "codex_log/rag_vector_sync/latest_chunk_manifest.md",
+    "codex_log/rag_vector_sync/latest_chunk_delta_manifest.json",
+    "codex_log/rag_vector_sync/latest_chunk_delta_manifest.md",
+    "codex_log/rag_vector_sync/latest_delta_sync_checkpoint.json",
+    "codex_log/rag_vector_sync/latest_delta_sync_dry_run_report.json",
+    "codex_log/rag_vector_sync/latest_delta_sync_dry_run_report.md",
+    "codex_log/rag_vector_sync/latest_retrieval_probe_active_filter_report.json",
+    "codex_log/rag_vector_sync/latest_retrieval_probe_active_filter_report.md",
+    "codex_log/rag_vector_sync/latest_vector_sync_gate_report.json",
+    "codex_log/rag_vector_sync/latest_vector_sync_gate_report.md",
+    "codex_log/rag_vector_sync/vector_sync_blocked_20260622_003218.json",
+    "codex_log/rag_vector_sync/20260622_RAG_DashVector向量同步最终收尾报告.md"
+  ],
+  "files_read": [
+    "AGENTS.md",
+    "codex_log/latest.md",
+    "codex_log/rag_vector_sync/20260621_vector_sync_finish_retry_report.md",
+    "codex_log/rag_vector_sync/latest_vector_sync_gate_report.md",
+    "codex_log/rag_vector_sync/latest_vector_sync_gate_report.json",
+    "codex_log/rag_vector_sync/latest_source_inventory.json",
+    "codex_log/rag_vector_sync/latest_chunk_manifest.json",
+    "codex_log/rag_vector_sync/latest_index_manifest.json",
+    "codex_log/rag_vector_sync/latest_retrieval_probe_report.md",
+    "codex_log/rag_cleaning_layer/vector_sync_blocked_20260621_162310.json",
+    "codex_log/rag_decision_engine/20260621_RAG决策工程线Python状态机落地报告.md",
+    "codex_source/schema_contracts/schemas/true_incremental_vector_sync.schema.yaml",
+    "scripts/post_commit_vector_sync_gate.py",
+    "scripts/rag_dashvector_sync.py",
+    "scripts/rag_vector_delta_planner.py",
+    "scripts/rag_index_manifest_validator.py",
+    "scripts/rag_retrieval_probe.py",
+    "scripts/rag_common.py",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md"
+  ],
+  "input_signal": {
+    "current_RAG_index_latest_claim": false,
+    "project_route": "video_factory",
+    "target_source_commit": "4874d430bac38ae4b42f3d5ba17d6d7d358319f1",
+    "task_type": "vector_sync_final_finish"
+  },
+  "next_safe_step": "make_per_batch_checkpoint_resume_and_stage_timeout_effective_before_next_real_delta_sync_retry",
+  "supply_used": [
+    "GitHub / 仓库原文件 readback",
+    "post_commit_vector_sync_gate.py --mode check",
+    "post_commit_vector_sync_gate.py --mode finish",
+    "post_commit_vector_sync_gate.py --mode finish --real-delta-sync --batch-size 8",
+    "rag_index_manifest_validator.py --check-current-worktree",
+    "rag_retrieval_probe.py --dry-run-active-filter"
+  ],
+  "task_id": "20260622_vector_sync_final_finish",
+  "validation_result": {
+    "current_RAG_index_latest_claim": false,
+    "delta_chunks_to_embed": 652,
+    "final_index_manifest_written": false,
+    "key_printed": false,
+    "key_written": false,
+    "retrieval_probe_passed": false,
+    "source_readback_passed": false,
+    "stale_index_check": "blocked",
+    "status": "vector_sync_blocked_with_clear_reason",
+    "vector_sync_status": "vector_sync_blocked_delta_embedding_upsert_timeout",
+    "vector_values_written": false
+  }
+}

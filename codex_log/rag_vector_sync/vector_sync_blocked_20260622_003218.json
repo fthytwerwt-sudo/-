@@ -1,0 +1,69 @@
+{
+  "blocked_reason": "controlled_real_delta_sync_for_652_delta_chunks_entered_rag_dashvector_sync_embedding_upsert_stage_but_no_final_index_manifest_or_checkpoint_progress_was_written_after_about_5m23s; process_was_interrupted_to_avoid_unclear_waiting_state",
+  "changed_indexable_file_count": 53,
+  "checkpoint_path": "codex_log/rag_vector_sync/latest_delta_sync_checkpoint.json",
+  "checkpoint_resume_supported": "partial_interface_present_but_not_effective_per_code_readback",
+  "current_RAG_index_latest_claim": false,
+  "existing_index_manifest_indexed_chunk_count": 5597,
+  "external_call_report": {
+    "alibaba_embedding_api_called": true,
+    "dashvector_query_called": false,
+    "dashvector_upsert_called": "possibly_started_not_provable_without_batch_checkpoint",
+    "key_printed": false,
+    "key_written": false,
+    "vector_values_written": false
+  },
+  "failed_batch": "unknown_not_observable_without_per_batch_checkpoint",
+  "failed_stage": "delta_embedding_upsert_stage_rag_dashvector_sync",
+  "final_index_manifest_source_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
+  "final_index_manifest_written": false,
+  "generated_at": "2026-06-22T00:33:36+08:00",
+  "key_printed": false,
+  "key_written": false,
+  "latest_chunk_manifest_chunk_count": 5764,
+  "mechanism_readiness_check": {
+    "batch_progress_supported": "partial_progress_print_every_25_batches_but_hidden_by_gate_capture",
+    "changed_chunk_scope_supported": true,
+    "changed_file_scope_supported": true,
+    "checkpoint_resume_supported": "partial_false_for_effective_resume_resume_arg_exists_but_not_used_to_skip_batches",
+    "incremental_sync_supported": "true_delta_planner_and_delta_manifest_ready",
+    "manifest_merge_supported": "partial_final_manifest_full_active_set_after_delta_upsert_but_not_reached_this_run",
+    "timeout_report_supported": "false_no_subprocess_timeout_or_stage_timeout_in_script"
+  },
+  "next_retry_command": "do_not_repeat_blindly; first add/use per-batch timeout+checkpoint resume, then run python3 scripts/post_commit_vector_sync_gate.py --mode finish --real-delta-sync --batch-size 4",
+  "partial_upsert_done": "uncertain_process_interrupted_before_manifest_or_checkpoint_update",
+  "previous_index_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
+  "project_route": "video_factory",
+  "retry_from_checkpoint_supported": false,
+  "safe_to_retry": "only_after_per_batch_checkpoint_and_timeout_are_effective_or_with_smaller_batch_controlled_window",
+  "source_commit_sha": "4874d430bac38ae4b42f3d5ba17d6d7d358319f1",
+  "status": "vector_sync_blocked_with_clear_reason",
+  "sync_progress": {
+    "batch_size": 8,
+    "checkpoint_path": "codex_log/rag_vector_sync/latest_delta_sync_checkpoint.json",
+    "checkpoint_resume_cursor": 0,
+    "completed_batches": "unknown_not_observable",
+    "elapsed_time": "about_5m23s_before_interrupt",
+    "failed_batch": "unknown_not_observable",
+    "total_batches": "unknown_not_emitted; estimated_about_82_for_652_chunks_at_batch_size_8"
+  },
+  "target_changed_chunk_count": 652,
+  "task_type": [
+    "vector_sync_final_finish",
+    "RAG_sync_bus_finish",
+    "DashVector_incremental_sync_finish",
+    "no_mechanism_rewrite"
+  ],
+  "validator_result": {
+    "blocked_reasons": [
+      "stale_index_detected",
+      "index_chunk_count_mismatch"
+    ],
+    "chunk_manifest_count": 5764,
+    "index_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
+    "indexed_chunk_count": 5597,
+    "status": "blocked"
+  },
+  "vector_sync_status": "vector_sync_blocked_delta_embedding_upsert_timeout",
+  "vector_values_written": false
+}
