@@ -1,5 +1,48 @@
 # Latest
 
+## 20260621｜RAG Vector Sync Finish Retry
+
+```yaml
+task_result.status（任务结果状态）: vector_sync_blocked_with_clear_reason（向量同步阻断但原因清楚）
+project_route（项目路由）: video_factory（视频工厂）
+task_type（任务类型）:
+  - vector_sync_finish_retry（向量同步收尾重跑）
+  - RAG_sync_bus_finish（RAG 同步总线收尾）
+  - post_commit_vector_sync_gate_recovery（提交后向量同步闸门恢复）
+workflow_route_decision（工作流归位判断）: mechanism_repair_flow（机制修补流）
+attached_route（附加路由）: rag_engineering_line_required（RAG 工程线必需）
+source_commit_sha（源语料提交）: a5b8e6687813210cc0caccebcf475055b7df7dab
+previous_index_commit_sha（上一索引提交）: 44b25ce9c0abf800fb7397746520b62e1dee7708
+changed_indexable_file_count（变化的可索引文件数量）: 23
+latest_chunk_manifest_chunk_count（最新分块清单分块数）: 5657
+existing_index_manifest_indexed_chunk_count（现存索引清单已索引分块数）: 5597
+post_commit_vector_sync_gate_check（提交后向量同步闸门预检）: sync_required（需要同步）
+post_commit_vector_sync_gate_finish（提交后向量同步闸门收尾）: blocked_external_sync_timeout（外部同步超时阻断）
+failed_stage（失败阶段）: embedding_upsert_stage_rag_dashvector_sync
+final_index_manifest_written（最终索引清单是否写出）: false
+retrieval_probe_passed（检索探测是否通过）: false
+source_readback_passed（原文回读是否通过）: false
+stale_index_check（过期索引检查）: blocked（stale_index_detected + index_chunk_count_mismatch）
+current_RAG_index_latest_claim（是否声称 RAG 最新）: false（不声称）
+key_printed（是否打印密钥）: false
+key_written（是否写入密钥）: false
+vector_values_written（是否写入向量值）: false
+vector_sync_gate_report（向量同步闸门报告）: codex_log/rag_vector_sync/latest_vector_sync_gate_report.md
+vector_sync_blocked_report（向量同步阻断报告）: codex_log/rag_cleaning_layer/vector_sync_blocked_20260621_162310.json
+generated_report（生成报告）: codex_log/rag_vector_sync/20260621_vector_sync_finish_retry_report.md
+content_validation（内容验证）: not_promoted（未推进）
+send_ready（可发送状态）: false（未开启）
+voice_validation（声音验证）: not_promoted（未推进）
+final_voice_validated（最终声音验证）: false（未通过）
+visual_master_locked（视觉母版锁定）: false（未锁定）
+production_readiness（生产可用状态）: not_claimed（未声称）
+next_safe_step（下一步安全动作）: before_next_full_finish_retry_add_or_use_smaller_batch_progress_timeout_then_retry_dashvector_sync（下次完整重跑前，先增加或使用更小批次 / 进度超时，再重试 DashVector 同步）
+```
+
+- `finish_result（收尾结果）`: `post_commit_vector_sync_gate.py --mode finish` 已重新执行，source inventory 和 chunk manifest 已更新到 `a5b8e668...`，但 `rag_dashvector_sync.py --batch-size 16` 在 embedding / upsert 外部阶段 30 分钟内没有写出对应最终 index manifest，因此本轮按规则写 `vector_sync_blocked_with_clear_reason`。
+- `validator_result（校验结果）`: `rag_index_manifest_validator.py` 输出 `index_chunk_count_mismatch`；加 `--check-current-worktree` 输出 `stale_index_detected` + `index_chunk_count_mismatch`，所以不能声明当前 RAG / DashVector 最新。
+- `status_boundary（状态边界）`: 本轮只做 RAG 向量同步收尾证据，不改清洗层主体机制，不生成媒体，不调用 TTS，不推进内容、声音、视觉母版、可发送或生产状态。
+
 ## 20260621｜RAG Cleaning Layer Gap Fill
 
 ```yaml

@@ -1,32 +1,65 @@
 {
+  "blocked_reason": "post_commit_vector_sync_gate_finish_waited_for_rag_dashvector_sync_embedding_upsert_stage_for_30_minutes_without_final_index_manifest",
   "blocked_reasons": [
     "vector_sync_blocked_external_sync_timeout",
-    "rag_dashvector_sync_interrupted_without_final_index_manifest",
+    "failed_stage:embedding_upsert_stage_rag_dashvector_sync",
+    "final_index_manifest_not_written_for_source_commit",
+    "retrieval_probe_not_run_for_source_commit",
     "current_RAG_index_not_claimed_latest"
   ],
+  "changed_indexable_file_count": 23,
   "commands": [
+    {
+      "command": "python3 -m py_compile scripts/post_commit_vector_sync_gate.py scripts/rag_common.py scripts/rag_dashvector_sync.py scripts/rag_retrieval_probe.py scripts/rag_index_manifest_validator.py",
+      "passed": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": ""
+    },
+    {
+      "command": "python3 scripts/post_commit_vector_sync_gate.py --mode check",
+      "passed": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "status=sync_required source_commit_sha=a5b8e6687813210cc0caccebcf475055b7df7dab previous_index_commit_sha=44b25ce9c0abf800fb7397746520b62e1dee7708"
+    },
     {
       "command": "python3 scripts/rag_build_source_inventory.py",
       "passed": true,
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "completed_before_interruption"
+      "stdout_tail": "completed_before_timeout; latest_source_inventory.json commit_sha=a5b8e6687813210cc0caccebcf475055b7df7dab"
     },
     {
       "command": "python3 scripts/rag_chunk_project_sources.py",
       "passed": true,
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "completed_before_interruption"
+      "stdout_tail": "completed_before_timeout; latest_chunk_manifest.json commit_sha=a5b8e6687813210cc0caccebcf475055b7df7dab chunk_count=5657"
     },
     {
       "command": "python3 scripts/rag_dashvector_sync.py --batch-size 16",
       "passed": false,
       "returncode": 130,
-      "stderr_tail": "KeyboardInterrupt from post_commit_vector_sync_gate.py --mode finish",
-      "stdout_tail": "interrupted_after_external_sync_exceeded_40_minutes_without_final_index_manifest"
+      "stderr_tail": "KeyboardInterrupt from post_commit_vector_sync_gate.py --mode finish while waiting for rag_dashvector_sync.py",
+      "stdout_tail": "interrupted_after_30_minute_window_without_final_index_manifest"
+    },
+    {
+      "command": "python3 scripts/rag_index_manifest_validator.py",
+      "passed": false,
+      "returncode": 2,
+      "stderr_tail": "",
+      "stdout_tail": "status=blocked blocked_reasons=index_chunk_count_mismatch chunk_manifest_count=5657 indexed_chunk_count=5597"
+    },
+    {
+      "command": "python3 scripts/rag_index_manifest_validator.py --check-current-worktree",
+      "passed": false,
+      "returncode": 2,
+      "stderr_tail": "",
+      "stdout_tail": "status=blocked blocked_reasons=stale_index_detected,index_chunk_count_mismatch chunk_manifest_count=5657 indexed_chunk_count=5597 stale_file_count=17"
     }
   ],
+  "current_RAG_index_latest_claim": false,
   "external_call_report": {
     "alibaba_embedding_api_called": true,
     "dashvector_query_called": false,
@@ -37,8 +70,17 @@
     "provider": "Alibaba / DashVector",
     "vector_values_written": false
   },
+  "failed_stage": "embedding_upsert_stage_rag_dashvector_sync",
+  "final_index_manifest": {
+    "current_manifest_indexed_chunk_count": 5597,
+    "current_manifest_indexed_file_count": 875,
+    "current_manifest_source_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
+    "path": "codex_log/rag_vector_sync/latest_index_manifest.json",
+    "written_for_source_commit": false
+  },
+  "final_index_manifest_written": false,
   "gate_name": "post_commit_vector_sync_gate",
-  "generated_at": "2026-06-21T04:14:08+08:00",
+  "generated_at": "2026-06-21T16:24:49+08:00",
   "indexable_change_result": {
     "blocked_reasons": [],
     "changed_indexable_files": [
@@ -149,6 +191,10 @@
       },
       {
         "path": "codex_log/rag_cleaning_layer/trace_event_20260621_rag_cleaning_layer_gap_fill.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_cleaning_layer/vector_sync_blocked_20260621.json",
         "status": "A"
       },
       {
@@ -397,13 +443,71 @@
       }
     ],
     "skip_reason": "",
-    "source_commit_sha": "8804852a2a10c5686079363aa2d38c6f6ee6a80b",
+    "source_commit_sha": "a5b8e6687813210cc0caccebcf475055b7df7dab",
     "sync_required": true
   },
   "indexed_chunk_count": null,
   "indexed_file_count": null,
+  "key_printed": false,
+  "key_written": false,
   "mode": "sync",
+  "next_retry_recommendation": [
+    "split_sync_by_smaller_source_scope_or_changed_files_instead_of_full_corpus",
+    "add per_batch_progress_and_timeout_to_rag_dashvector_sync_before_next_long_retry",
+    "verify DashVector collection latency/status before re-running full upsert",
+    "do_not_claim_RAG_latest_until_index_manifest_and_retrieval_probe_pass"
+  ],
+  "previous_index_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
   "project_route": "video_factory",
   "repo_full_name": "fthytwerwt-sudo/-",
-  "status": "blocked"
+  "retrieval_probe": {
+    "passed": false,
+    "reason_not_run": "final_index_manifest_for_source_commit_missing",
+    "run_for_source_commit": false
+  },
+  "retrieval_probe_passed": false,
+  "source_commit_sha": "a5b8e6687813210cc0caccebcf475055b7df7dab",
+  "source_readback": {
+    "passed": false,
+    "reason": "final_index_manifest_for_source_commit_missing"
+  },
+  "source_readback_passed": false,
+  "stale_index_check": {
+    "blocked_reasons": [
+      "stale_index_detected",
+      "index_chunk_count_mismatch"
+    ],
+    "passed": false
+  },
+  "stale_index_check_passed": false,
+  "status": "blocked",
+  "sync_required": true,
+  "task_result_status": "vector_sync_blocked_with_clear_reason",
+  "timeout_window_minutes": 30,
+  "validator_results": {
+    "rag_index_manifest_validator": {
+      "blocked_reasons": [
+        "index_chunk_count_mismatch"
+      ],
+      "chunk_manifest_count": 5657,
+      "index_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
+      "indexed_chunk_count": 5597,
+      "returncode": 2,
+      "status": "blocked"
+    },
+    "rag_index_manifest_validator_check_current_worktree": {
+      "blocked_reasons": [
+        "stale_index_detected",
+        "index_chunk_count_mismatch"
+      ],
+      "chunk_manifest_count": 5657,
+      "index_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
+      "indexed_chunk_count": 5597,
+      "returncode": 2,
+      "stale_file_count": 17,
+      "status": "blocked"
+    }
+  },
+  "vector_sync_status": "vector_sync_blocked_external_sync_timeout",
+  "vector_values_written": false
 }

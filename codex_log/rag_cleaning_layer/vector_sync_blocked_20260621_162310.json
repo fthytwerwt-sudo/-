@@ -1,0 +1,27 @@
+{
+  "alibaba_embedding_api_called": true,
+  "blocked_reason": "post_commit_vector_sync_gate_finish_waited_for_rag_dashvector_sync_embedding_upsert_stage_for_30_minutes_without_final_index_manifest",
+  "changed_indexable_file_count": 23,
+  "dashvector_query_called": false,
+  "dashvector_upsert_called": true,
+  "failed_stage": "embedding_upsert_stage_rag_dashvector_sync",
+  "final_index_manifest_written": false,
+  "gate_report": "codex_log/rag_vector_sync/latest_vector_sync_gate_report.json",
+  "generated_at": "2026-06-21T16:24:49+08:00",
+  "key_printed": false,
+  "key_written": false,
+  "next_retry_recommendation": [
+    "split_sync_by_smaller_source_scope_or_changed_files_instead_of_full_corpus",
+    "add per_batch_progress_and_timeout_to_rag_dashvector_sync_before_next_long_retry",
+    "verify DashVector collection latency/status before re-running full upsert",
+    "do_not_claim_RAG_latest_until_index_manifest_and_retrieval_probe_pass"
+  ],
+  "previous_index_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
+  "retrieval_probe_passed": false,
+  "source_commit_sha": "a5b8e6687813210cc0caccebcf475055b7df7dab",
+  "source_readback_passed": false,
+  "stale_index_check_passed": false,
+  "status": "vector_sync_blocked_with_clear_reason",
+  "vector_sync_status": "vector_sync_blocked_external_sync_timeout",
+  "vector_values_written": false
+}

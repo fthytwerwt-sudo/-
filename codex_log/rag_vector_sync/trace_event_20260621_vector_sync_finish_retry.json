@@ -1,0 +1,68 @@
+{
+  "event_id": "20260621_vector_sync_finish_retry_blocked_external_sync_timeout",
+  "event_type": "post_commit_vector_sync_gate_recovery",
+  "failure_route_if_any": {
+    "blocked_reason": "post_commit_vector_sync_gate_finish_waited_for_rag_dashvector_sync_embedding_upsert_stage_for_30_minutes_without_final_index_manifest",
+    "failed_stage": "embedding_upsert_stage_rag_dashvector_sync",
+    "route": "vector_sync_blocked_with_clear_reason"
+  },
+  "files_modified": [
+    "codex_log/rag_vector_sync/latest_source_inventory.json",
+    "codex_log/rag_vector_sync/latest_source_inventory.md",
+    "codex_log/rag_vector_sync/latest_chunk_manifest.json",
+    "codex_log/rag_vector_sync/latest_chunk_manifest.md",
+    "codex_log/rag_vector_sync/latest_secret_scan_report.json",
+    "codex_log/rag_vector_sync/latest_vector_sync_gate_report.json",
+    "codex_log/rag_vector_sync/latest_vector_sync_gate_report.md",
+    "codex_log/rag_cleaning_layer/vector_sync_blocked_20260621_162310.json",
+    "codex_log/rag_vector_sync/20260621_vector_sync_finish_retry_report.md",
+    "codex_log/latest.md"
+  ],
+  "files_read": [
+    "AGENTS.md",
+    "codex_log/latest.md",
+    "codex_log/rag_cleaning_layer/20260621_RAG清洗层补缺执行报告_rag_cleaning_layer_gap_fill_report.md",
+    "codex_log/rag_cleaning_layer/vector_sync_blocked_20260621.json",
+    "codex_log/rag_vector_sync/latest_vector_sync_gate_report.md",
+    "codex_log/rag_vector_sync/latest_vector_sync_gate_report.json",
+    "codex_log/rag_vector_sync/latest_source_inventory.json",
+    "codex_log/rag_vector_sync/latest_chunk_manifest.json",
+    "codex_log/rag_vector_sync/latest_index_manifest.json",
+    "codex_log/rag_vector_sync/latest_retrieval_probe_report.md",
+    "scripts/post_commit_vector_sync_gate.py",
+    "scripts/rag_index_manifest_validator.py",
+    "scripts/rag_retrieval_probe.py",
+    "scripts/rag_dashvector_sync.py",
+    "scripts/rag_common.py",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/19_project_state_action_router.md",
+    "codex_source/22_工作流入口归位索引_workflow_entry_routing_index.md"
+  ],
+  "input_signal": {
+    "current_RAG_index_latest_claim": false,
+    "project_route": "video_factory",
+    "source_commit_sha": "a5b8e6687813210cc0caccebcf475055b7df7dab",
+    "task_type": "vector_sync_finish_retry"
+  },
+  "next_safe_step": "before_next_full_finish_retry_add_or_use_smaller_batch_progress_timeout_then_retry_dashvector_sync",
+  "supply_used": [
+    "GitHub / 仓库原文件 readback",
+    "post_commit_vector_sync_gate.py --mode check",
+    "post_commit_vector_sync_gate.py --mode finish",
+    "rag_index_manifest_validator.py"
+  ],
+  "task_id": "20260621_vector_sync_finish_retry",
+  "validation_result": {
+    "current_RAG_index_latest_claim": false,
+    "final_index_manifest_written": false,
+    "key_printed": false,
+    "key_written": false,
+    "retrieval_probe_passed": false,
+    "source_readback_passed": false,
+    "stale_index_check": "blocked",
+    "status": "vector_sync_blocked_with_clear_reason",
+    "vector_values_written": false,
+    "vector_sync_status": "vector_sync_blocked_external_sync_timeout"
+  }
+}
