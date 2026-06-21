@@ -1,5 +1,35 @@
 # Latest
 
+## 20260622｜RAG Vector Maintenance Router Closeout
+
+```yaml
+task_result.status（任务结果状态）: RAG_vector_maintenance_router_landed_and_hooked_pending_clean_retrieval_or_cleanup（RAG / 向量维护总路由器已落地并接入钩子，等待 clean retrieval 或清理）
+project_route（项目路由）: video_factory（视频工厂）
+task_type（任务类型）:
+  - mechanism_repair_closeout（机制修补收尾）
+  - RAG_vector_maintenance_closeout（RAG / 向量维护收尾）
+  - engineering_line_closeout（工程线收尾）
+maintenance_router（维护路由器）: scripts/rag_vector_maintenance_router.py
+maintenance_decision（维护决策）: codex_log/rag_vector_sync/latest_rag_vector_maintenance_decision.json
+maintenance_action_id（维护动作编号）: run_retrieval_active_filter_and_stale_cleanup_plan
+maintenance_repair_layer（维护修复层）: retrieval_cleaning_layer（检索清洗层）
+post_commit_gate_hook（提交后闸门钩子）: fresh_router_decision_before_gate_report（写闸门报告前刷新维护决策）
+completion_relay_hook（完成接力钩子）: integrated_in_rag_decision_state_machine_runner（已接入状态机 runner 的 maintenance hook）
+completion_hook_command（完成钩子命令）: python3 scripts/rag_decision_state_machine_runner.py --maintenance-hook-only
+cleanup_plan（清理计划）: codex_log/rag_vector_sync/latest_retrieval_stale_doc_cleanup_plan.json
+cleanup_mode（清理模式）: dry_run_only（只空跑）
+dashvector_delete_called（是否删除 DashVector 文档）: false（否）
+dashvector_tombstone_called（是否墓碑标记）: false（否）
+current_RAG_index_latest_claim（是否声称 RAG 最新）: false（不声称）
+content_validation（内容验证）: not_promoted（未推进）
+production_readiness（生产可用状态）: not_claimed（未声称）
+next_safe_step（下一步安全动作）: rerun_gate_or_retrieval_probe_after_fresh_router_hook_then_only_claim_RAG_latest_if_clean_probe_passes（刷新路由器钩子后重跑闸门或检索探测，只有 clean probe 通过才允许声明 RAG 最新）
+```
+
+- `post_commit_gate_hook（提交后闸门钩子）`: `post_commit_vector_sync_gate.py` 现在会在最终 gate report 写出前运行 `python3 scripts/rag_vector_maintenance_router.py --dry-run`，并写入 `maintenance_router_refresh_status / maintenance_action_id / maintenance_repair_layer / maintenance_next_script_to_run / maintenance_decision_generated_at`。
+- `completion_relay_hook（完成接力钩子）`: `python3 scripts/rag_decision_state_machine_runner.py --maintenance-hook-only` 可作为 Codex 任务收尾默认检查入口，输出 `maintenance_decision / downgrade_policy / repair_policy / RAG_latest_claim_allowed`。
+- `status_boundary（状态边界）`: 本轮未调用阿里 embedding API，未写入 DashVector，未删除或 tombstone DashVector 文档；当前 RAG 仍不得声明 latest。
+
 ## 20260622｜RAG / DashVector Real Delta Sync Retry Retrieval Blocked
 
 ```yaml

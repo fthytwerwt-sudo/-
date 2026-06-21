@@ -1,0 +1,18 @@
+{
+  "current_RAG_index_latest_claim": false,
+  "dashvector_delete_called": false,
+  "dashvector_tombstone_called": false,
+  "event_id": "20260622_rag_vector_maintenance_router_closeout",
+  "event_type": "rag_vector_maintenance_router.closeout_hooked",
+  "generated_at": "2026-06-22T03:10:00+08:00",
+  "post_commit_gate_hook": {
+    "fresh_decision_before_gate_report": true,
+    "maintenance_router_refresh_status": "passed"
+  },
+  "completion_relay_hook": {
+    "command": "python3 scripts/rag_decision_state_machine_runner.py --maintenance-hook-only",
+    "status": "integrated"
+  },
+  "selected_action": "run_retrieval_active_filter_and_stale_cleanup_plan",
+  "status": "passed"
+}

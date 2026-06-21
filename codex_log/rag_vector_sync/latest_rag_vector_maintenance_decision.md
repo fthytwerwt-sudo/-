@@ -5,7 +5,7 @@
 - action_id: `run_retrieval_active_filter_and_stale_cleanup_plan`
 - action_label: `final_manifest_written_but_probe_failed -> run_retrieval_active_filter_and_stale_cleanup_plan`
 - reason: Final manifest exists but retrieval found stale or inactive raw candidates.
-- current_git_head: `bad20f1f74522a770c2f13b61a64d74c8ff95698`
+- current_git_head: `9e2533cd55c1b4ef01a8aca15eef86d5a0f05d6f`
 - source_commit_sha: `b14d9a6eab7d3de059bbf2072beec7ccf1252438`
 - current_RAG_index_latest_claim_allowed: `false`
 - retrieval_probe_passed: `false`

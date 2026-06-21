@@ -46,11 +46,20 @@
   "failed_batch_count": 0,
   "final_index_manifest_written": false,
   "gate_name": "post_commit_vector_sync_gate",
-  "generated_at": "2026-06-22T02:53:29+08:00",
+  "generated_at": "2026-06-22T03:10:46+08:00",
   "indexable_change_result": {
     "blocked_reasons": [],
     "changed_indexable_files": [
-      "codex_log/latest.md"
+      "codex_log/latest.md",
+      "codex_log/rag_decision_engine/latest_decision_state_machine_run.md",
+      "scripts/post_commit_vector_sync_gate.py",
+      "scripts/rag_dashvector_stale_doc_cleanup.py",
+      "scripts/rag_decision_state_machine_runner.py",
+      "scripts/rag_failure_route_resolver.py",
+      "scripts/rag_retrieval_probe.py",
+      "scripts/rag_stale_doc_cleanup_plan_validator.py",
+      "scripts/rag_vector_maintenance_router.py",
+      "scripts/rag_vector_maintenance_router_validator.py"
     ],
     "deleted_indexable_files": [],
     "dynamic_audit_only": false,
@@ -62,7 +71,39 @@
         "status": "M"
       },
       {
+        "path": "codex_log/rag_decision_engine/latest_decision_audit_report.json",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/latest_decision_state_machine_run.json",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/latest_decision_state_machine_run.md",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/latest_rag_stale_doc_cleanup_plan_validator_report.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/latest_rag_vector_maintenance_failure_route.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/latest_rag_vector_maintenance_router_validator_report.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/trace_event_20260621_rag_decision_state_machine_runner.json",
+        "status": "M"
+      },
+      {
         "path": "codex_log/rag_vector_sync/20260622_RAG_DashVector真实差量同步重跑报告.md",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/20260622_RAG向量维护总路由器落地报告.md",
         "status": "A"
       },
       {
@@ -106,6 +147,10 @@
         "status": "M"
       },
       {
+        "path": "codex_log/rag_vector_sync/latest_delta_sync_dry_run_report.md",
+        "status": "M"
+      },
+      {
         "path": "codex_log/rag_vector_sync/latest_delta_sync_timeout_report.json",
         "status": "M"
       },
@@ -118,6 +163,18 @@
         "status": "M"
       },
       {
+        "path": "codex_log/rag_vector_sync/latest_mid_task_supply_pack.json",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_post_risk_review_pack.json",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_pre_supply_pack.json",
+        "status": "M"
+      },
+      {
         "path": "codex_log/rag_vector_sync/latest_rag_delta_batch_manifest_validator_report.json",
         "status": "A"
       },
@@ -127,6 +184,14 @@
       },
       {
         "path": "codex_log/rag_vector_sync/latest_rag_delta_partial_manifest_validator_report.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_rag_vector_maintenance_decision.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_rag_vector_maintenance_decision.md",
         "status": "A"
       },
       {
@@ -144,6 +209,14 @@
       {
         "path": "codex_log/rag_vector_sync/latest_retrieval_probe_report.md",
         "status": "M"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_retrieval_stale_doc_cleanup_plan.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_retrieval_stale_doc_cleanup_plan.md",
+        "status": "A"
       },
       {
         "path": "codex_log/rag_vector_sync/latest_secret_scan_report.json",
@@ -258,6 +331,10 @@
         "status": "A"
       },
       {
+        "path": "codex_log/rag_vector_sync/trace_event_20260622_rag_vector_maintenance_router.json",
+        "status": "A"
+      },
+      {
         "path": "codex_log/rag_vector_sync/trace_event_20260622_vector_sync_final_retry_blocked_retrieval_probe_20260622_022130.json",
         "status": "A"
       },
@@ -268,17 +345,95 @@
       {
         "path": "codex_log/rag_vector_sync/vector_sync_blocked_actionable_20260622_022130.json",
         "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/maintenance_router/batch_interrupted_resume_needed_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/maintenance_router/final_manifest_written_probe_failed_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/maintenance_router/full_sync_explicit_required_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/maintenance_router/high_risk_stale_RAG_repo_readback_required_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/maintenance_router/indexable_change_delta_sync_needed_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/maintenance_router/no_indexable_change_no_sync_needed_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/maintenance_router/stale_doc_in_clean_top_k_blocks_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/maintenance_router/stale_doc_in_raw_top_k_clean_top_k_passes_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/stale_doc_cleanup/cleanup_plan_no_stale_docs_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/stale_doc_cleanup/cleanup_plan_valid_case.json",
+        "status": "A"
+      },
+      {
+        "path": "scripts/post_commit_vector_sync_gate.py",
+        "status": "M"
+      },
+      {
+        "path": "scripts/rag_dashvector_stale_doc_cleanup.py",
+        "status": "A"
+      },
+      {
+        "path": "scripts/rag_decision_state_machine_runner.py",
+        "status": "M"
+      },
+      {
+        "path": "scripts/rag_failure_route_resolver.py",
+        "status": "M"
+      },
+      {
+        "path": "scripts/rag_retrieval_probe.py",
+        "status": "M"
+      },
+      {
+        "path": "scripts/rag_stale_doc_cleanup_plan_validator.py",
+        "status": "A"
+      },
+      {
+        "path": "scripts/rag_vector_maintenance_router.py",
+        "status": "A"
+      },
+      {
+        "path": "scripts/rag_vector_maintenance_router_validator.py",
+        "status": "A"
       }
     ],
     "skip_reason": "",
-    "source_commit_sha": "bad20f1f74522a770c2f13b61a64d74c8ff95698",
+    "source_commit_sha": "9e2533cd55c1b4ef01a8aca15eef86d5a0f05d6f",
     "sync_required": true
   },
   "last_completed_batch_index": null,
   "maintenance_RAG_latest_claim_allowed": false,
   "maintenance_action_id": "run_retrieval_active_filter_and_stale_cleanup_plan",
+  "maintenance_decision_generated_at": "2026-06-22T03:10:47+08:00",
   "maintenance_decision_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_rag_vector_maintenance_decision.json",
+  "maintenance_next_script_to_run": "python3 scripts/rag_retrieval_probe.py --dry-run-active-filter && python3 scripts/rag_dashvector_stale_doc_cleanup.py",
   "maintenance_repair_layer": "retrieval_cleaning_layer",
+  "maintenance_router_refresh_command": "python3 scripts/rag_vector_maintenance_router.py --dry-run",
+  "maintenance_router_refresh_error": "",
+  "maintenance_router_refresh_returncode": 0,
+  "maintenance_router_refresh_status": "passed",
   "mode": "check",
   "partial_manifest_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_index_partial_manifest.json",
   "partial_manifest_status": "partial",

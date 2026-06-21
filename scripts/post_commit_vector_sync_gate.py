@@ -133,6 +133,9 @@ def _run_command(args: list[str]) -> dict[str, Any]:
 
 
 def _write_gate_report(report: dict[str, Any]) -> None:
+    common.write_json(GATE_REPORT_JSON, report)
+    refresh = _refresh_maintenance_decision()
+    report.update(refresh)
     report.update(_read_maintenance_decision_fields())
     common.write_json(GATE_REPORT_JSON, report)
     lines = [
@@ -161,10 +164,14 @@ def _write_gate_report(report: dict[str, Any]) -> None:
         f"- resume_available: `{str(report.get('resume_available', False)).lower()}`",
         f"- last_completed_batch_index: `{report.get('last_completed_batch_index', '')}`",
         f"- timeout_stage: `{report.get('timeout_stage') or ''}`",
+        f"- maintenance_router_refresh_status: `{report.get('maintenance_router_refresh_status') or ''}`",
+        f"- maintenance_router_refresh_error: `{report.get('maintenance_router_refresh_error') or ''}`",
         f"- maintenance_decision_path: `{report.get('maintenance_decision_path') or ''}`",
         f"- maintenance_action_id: `{report.get('maintenance_action_id') or ''}`",
         f"- maintenance_repair_layer: `{report.get('maintenance_repair_layer') or ''}`",
+        f"- maintenance_next_script_to_run: `{report.get('maintenance_next_script_to_run') or ''}`",
         f"- maintenance_RAG_latest_claim_allowed: `{str(report.get('maintenance_RAG_latest_claim_allowed', False)).lower()}`",
+        f"- maintenance_decision_generated_at: `{report.get('maintenance_decision_generated_at') or ''}`",
         f"- indexed_file_count: `{report.get('indexed_file_count', '')}`",
         f"- indexed_chunk_count: `{report.get('indexed_chunk_count', '')}`",
         f"- alibaba_embedding_api_called: `{str(report['external_call_report']['alibaba_embedding_api_called']).lower()}`",
@@ -183,12 +190,27 @@ def _write_gate_report(report: dict[str, Any]) -> None:
     common.write_markdown(GATE_REPORT_MD, lines)
 
 
+def _refresh_maintenance_decision() -> dict[str, Any]:
+    result = _run_command(["python3", "scripts/rag_vector_maintenance_router.py", "--dry-run"])
+    fields: dict[str, Any] = {
+        "maintenance_router_refresh_command": result["command"],
+        "maintenance_router_refresh_status": "passed" if result["passed"] else "blocked",
+        "maintenance_router_refresh_returncode": result["returncode"],
+        "maintenance_router_refresh_error": "",
+    }
+    if not result["passed"]:
+        fields["maintenance_router_refresh_error"] = result.get("stderr_tail") or result.get("stdout_tail") or "maintenance_router_refresh_failed"
+    return fields
+
+
 def _read_maintenance_decision_fields() -> dict[str, Any]:
     fields: dict[str, Any] = {
         "maintenance_decision_path": MAINTENANCE_DECISION_PATH.as_posix(),
         "maintenance_action_id": None,
         "maintenance_repair_layer": None,
+        "maintenance_next_script_to_run": None,
         "maintenance_RAG_latest_claim_allowed": False,
+        "maintenance_decision_generated_at": None,
     }
     if not MAINTENANCE_DECISION_PATH.exists():
         return fields
@@ -197,7 +219,9 @@ def _read_maintenance_decision_fields() -> dict[str, Any]:
         {
             "maintenance_action_id": decision.get("selected_action", {}).get("action_id"),
             "maintenance_repair_layer": decision.get("repair_policy", {}).get("repair_layer"),
+            "maintenance_next_script_to_run": decision.get("selected_action", {}).get("next_script_to_run"),
             "maintenance_RAG_latest_claim_allowed": bool(decision.get("vector_health", {}).get("current_RAG_index_latest_claim_allowed")),
+            "maintenance_decision_generated_at": decision.get("generated_at"),
         }
     )
     return fields
@@ -461,6 +485,9 @@ def main() -> int:
                 "timeout_stage": report.get("timeout_stage"),
                 "maintenance_action_id": report.get("maintenance_action_id"),
                 "maintenance_decision_path": report.get("maintenance_decision_path"),
+                "maintenance_router_refresh_status": report.get("maintenance_router_refresh_status"),
+                "maintenance_repair_layer": report.get("maintenance_repair_layer"),
+                "maintenance_next_script_to_run": report.get("maintenance_next_script_to_run"),
                 "blocked_reasons": report.get("blocked_reasons", []),
                 "gate_report_path": GATE_REPORT_JSON.as_posix(),
                 "key_printed": False,

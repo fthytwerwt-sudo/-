@@ -179,10 +179,19 @@ def run_state_machine(case: dict[str, Any], *, dry_run: bool = True) -> dict[str
         maintenance_decision = maintenance_router.build_decision({"task_context": task_context}, dry_run=True)
         maintenance_output = {
             "status": maintenance_decision["status"],
+            "completion_relay_hook": True,
+            "maintenance_decision": maintenance_decision["selected_action"],
+            "downgrade_policy": maintenance_decision["downgrade_policy"],
+            "repair_policy": maintenance_decision["repair_policy"],
             "action_id": maintenance_decision["selected_action"]["action_id"],
             "action_label": maintenance_decision["selected_action"]["action_label"],
+            "next_script_to_run": maintenance_decision["selected_action"].get("next_script_to_run", ""),
             "current_RAG_index_latest_claim_allowed": maintenance_decision["vector_health"]["current_RAG_index_latest_claim_allowed"],
+            "RAG_latest_claim_allowed": maintenance_decision["vector_health"]["current_RAG_index_latest_claim_allowed"],
+            "next_safe_step": maintenance_decision["selected_action"].get("next_script_to_run") or "repo_readback_fallback_or_human_review",
             "external_api_called": False,
+            "dashvector_upsert_called": False,
+            "dashvector_delete_called": False,
         }
         node_results.append(_node("rag_vector_maintenance_router", "passed", maintenance_output))
     except Exception as exc:  # pragma: no cover - defensive runtime route
@@ -341,15 +350,43 @@ def write_trace(result: dict[str, Any], path: pathlib.Path = TRACE_JSON) -> dict
     return trace
 
 
+def run_maintenance_hook_only() -> dict[str, Any]:
+    import rag_vector_maintenance_router as maintenance_router
+
+    decision = maintenance_router.build_decision(
+        {"task_context": {"task_type": "completion_relay_hook", "risk_level": "medium"}},
+        dry_run=True,
+    )
+    return {
+        "status": decision["status"],
+        "hook_name": "rag_completion_maintenance_hook",
+        "maintenance_decision": decision["selected_action"],
+        "downgrade_policy": decision["downgrade_policy"],
+        "repair_policy": decision["repair_policy"],
+        "RAG_latest_claim_allowed": decision["vector_health"]["current_RAG_index_latest_claim_allowed"],
+        "current_RAG_index_latest_claim": False,
+        "external_call_report": decision["external_call_report"],
+        "key_printed": False,
+        "key_written": False,
+        "vector_values_written": False,
+    }
+
+
 def main() -> int:
     common.main_guard()
     parser = argparse.ArgumentParser(description="Run Python-first RAG decision state machine.")
     parser.add_argument("--dry-run", action="store_true", default=True)
+    parser.add_argument("--maintenance-hook-only", action="store_true", help="Run only the completion maintenance hook and print its decision.")
     parser.add_argument("--case", default="current_blocked_sync_decision_case")
     parser.add_argument("--case-path")
     parser.add_argument("--out", default=str(STATE_RUN_JSON))
     parser.add_argument("--md-out", default=str(STATE_RUN_MD))
     args = parser.parse_args()
+
+    if args.maintenance_hook_only:
+        hook = run_maintenance_hook_only()
+        print(json.dumps(hook, ensure_ascii=False, sort_keys=True))
+        return 0 if hook["status"] == "passed" else 2
 
     result = run_state_machine(_load_case(args.case, args.case_path), dry_run=True)
     out_path = _resolve(args.out)

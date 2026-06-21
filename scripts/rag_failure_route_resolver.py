@@ -58,6 +58,7 @@ ROUTES = {
             "clean_top_k_passed",
             "run_retrieval_active_filter_and_stale_cleanup_plan",
             "reject_from_clean_top_k_and_write_cleanup_plan",
+            "block_RAG_latest_and_route_to_retrieval_repair",
         ),
         "next_action": "run_active_manifest_filter_and_write_stale_doc_cleanup_plan",
     },
@@ -153,7 +154,7 @@ def resolve_route(event: dict[str, Any]) -> dict[str, Any]:
     ]
     for route in priority_routes:
         config = ROUTES[route]
-        matched_keywords = [keyword for keyword in config["keywords"] if keyword in text]
+        matched_keywords = [keyword for keyword in config["keywords"] if keyword.lower() in text]
         if matched_keywords:
             selected = route
             matched_cleaning_keyword = any(

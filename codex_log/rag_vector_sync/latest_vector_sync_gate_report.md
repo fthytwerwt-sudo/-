@@ -2,11 +2,11 @@
 
 - status: `sync_required`
 - mode: `check`
-- source_commit_sha: `bad20f1f74522a770c2f13b61a64d74c8ff95698`
+- source_commit_sha: `9e2533cd55c1b4ef01a8aca15eef86d5a0f05d6f`
 - previous_index_commit_sha: `b14d9a6eab7d3de059bbf2072beec7ccf1252438`
 - sync_required: `true`
 - skip_reason: ``
-- changed_indexable_file_count: `1`
+- changed_indexable_file_count: `10`
 - deleted_indexable_file_count: `0`
 - delta_chunks_to_embed: `0`
 - unchanged_chunk_count: `5785`
@@ -23,10 +23,14 @@
 - resume_available: `false`
 - last_completed_batch_index: `None`
 - timeout_stage: ``
+- maintenance_router_refresh_status: `passed`
+- maintenance_router_refresh_error: ``
 - maintenance_decision_path: `/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_rag_vector_maintenance_decision.json`
 - maintenance_action_id: `run_retrieval_active_filter_and_stale_cleanup_plan`
 - maintenance_repair_layer: `retrieval_cleaning_layer`
+- maintenance_next_script_to_run: `python3 scripts/rag_retrieval_probe.py --dry-run-active-filter && python3 scripts/rag_dashvector_stale_doc_cleanup.py`
 - maintenance_RAG_latest_claim_allowed: `false`
+- maintenance_decision_generated_at: `2026-06-22T03:10:47+08:00`
 - indexed_file_count: ``
 - indexed_chunk_count: ``
 - alibaba_embedding_api_called: `false`
@@ -39,3 +43,12 @@
 ## Changed Indexable Files
 
 - `codex_log/latest.md`
+- `codex_log/rag_decision_engine/latest_decision_state_machine_run.md`
+- `scripts/post_commit_vector_sync_gate.py`
+- `scripts/rag_dashvector_stale_doc_cleanup.py`
+- `scripts/rag_decision_state_machine_runner.py`
+- `scripts/rag_failure_route_resolver.py`
+- `scripts/rag_retrieval_probe.py`
+- `scripts/rag_stale_doc_cleanup_plan_validator.py`
+- `scripts/rag_vector_maintenance_router.py`
+- `scripts/rag_vector_maintenance_router_validator.py`
