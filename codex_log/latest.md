@@ -1,5 +1,37 @@
 # Latest
 
+## 20260621｜RAG Decision Engineering Line Round 1 Design Only
+
+```yaml
+task_result.status（任务结果状态）: design_completed_for_user_review（设计完成，等待用户复审）
+project_route（项目路由）: video_factory（视频工厂）
+task_type（任务类型）:
+  - mechanism_repair_and_engineering_design（机制修补 + 工程设计）
+  - RAG_decision_engine_design（RAG 决策工程线设计）
+engineering_depth（工程深度）: L3_system_line（系统工程线）
+round_scope（轮次范围）: round_1_design_only（第一轮仅设计）
+design_report（设计报告）: codex_log/rag_decision_engine_design/20260621_RAG决策工程线设计_round_1_design_only.md
+must_not_claim（禁止声明）:
+  - true_incremental_vector_sync_implemented（真实增量同步已实现）
+  - RAG_index_latest（RAG 索引最新）
+  - vector_sync_recovered（向量同步已恢复）
+  - weighted_decision_engine_runtime_validated（加权决策引擎已真实任务验证）
+  - production_readiness（生产可用）
+external_api_called（外部 API 调用）: false（未调用）
+dashvector_upsert_called（DashVector 写入）: false（未写入）
+current_RAG_index_latest_claim（是否声称当前 RAG 索引最新）: false（不声称）
+vector_sync_status（向量同步状态）: remains_blocked_from_previous_sync_attempt（仍沿用上一轮同步阻断事实）
+technical_validation（技术验证）: design_static_readback_and_non_network_validators_only（设计静态回读 + 非网络校验）
+content_validation（内容验证）: not_promoted（未推进）
+runtime_validation（运行时验证）: not_performed（未执行）
+production_readiness（生产可用状态）: not_claimed（未声称）
+next_safe_step（下一步安全动作）: user_reviews_round_1_design_before_round_2_full_horizontal_implementation（用户复审第一轮设计后，再进入第二轮横向全量实现）
+```
+
+- `current_state_audit（当前状态审计）`: 已确认当前只有 `post_commit_vector_sync_gate.py` 的检测层具备文件级增量判断；`rag_dashvector_sync.py` 仍会对完整 `chunk_manifest` 执行 embedding / upsert，因此不是 `true_incremental_vector_sync（真实增量向量同步）`。
+- `design_scope（设计范围）`: 本轮输出真实增量同步、RAG 权威覆盖层、冲突组注册表、硬闸门、加权决策引擎、过期索引策略、checkpoint/resume、决策审计报告、文件级落地蓝图和 Round 2 Goal Mode 执行图。
+- `status_boundary（状态边界）`: 本轮未改 `rag_dashvector_sync.py` 核心逻辑，未调用 Alibaba embedding API，未写入 DashVector，未删除旧向量或旧口径文件，不声明 RAG 最新。
+
 ## 20260621｜RAG Vector Sync Finish Retry
 
 ```yaml
