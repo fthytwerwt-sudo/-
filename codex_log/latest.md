@@ -1,5 +1,50 @@
 # Latest
 
+## 20260622｜Batch Checkpoint Resume Vector Sync Executor
+
+```yaml
+task_result.status（任务结果状态）: batch_checkpoint_resume_vector_sync_executor_landed_pending_authorized_real_delta_sync（分批检查点续跑向量同步执行器已落地，等待授权真实差量同步）
+project_route（项目路由）: video_factory（视频工厂）
+task_type（任务类型）:
+  - code_execution（代码执行）
+  - mechanism_repair（机制修补）
+  - RAG_vector_sync_runtime_fix（RAG 向量同步运行时修补）
+  - engineering_line_execution（工程线执行）
+implementation_scope（实现范围）: batch_checkpoint_resume_layer_only（只补分批检查点续跑层）
+mechanism_boundary（机制边界）: keep_existing_RAG_decision_engine_unchanged_except_required_integration_points（除必要接入点外，不重做 RAG 决策工程线）
+batch_manifest_created（批次清单是否创建）: true
+batch_manifest_path（批次清单路径）: codex_log/rag_vector_sync/latest_delta_batch_manifest.json
+checkpoint_path（检查点路径）: codex_log/rag_vector_sync/latest_delta_sync_checkpoint.json
+partial_manifest_path（阶段清单路径）: codex_log/rag_vector_sync/latest_delta_index_partial_manifest.json
+timeout_report_path（超时报告路径）: codex_log/rag_vector_sync/latest_delta_sync_timeout_report.json
+delta_chunk_count（差量分块数量）: 652
+batch_size（批次大小）: 8
+batch_count（批次数量）: 107
+resume_simulation（续跑模拟）: passed（通过）
+resume_skips_completed_batches（续跑跳过已完成批次）: true
+embedding_timeout_report_implemented（向量化超时报告是否实现）: true
+upsert_timeout_report_implemented（写入超时报告是否实现）: true
+final_manifest_gate_hardened（最终清单闸门是否加硬）: true
+gate_report_batch_progress_visible（闸门批次进度是否可见）: true
+full_sync_policy（全量同步策略）: explicit_authorization_only（仅显式授权）
+real_delta_sync_status（真实差量同步状态）: not_run_this_round（本轮未运行真实外部同步）
+external_api_called（外部 API 调用）: false（未调用）
+dashvector_upsert_called（DashVector 写入）: false（未写入）
+dashvector_query_called（DashVector 查询）: false（未查询）
+final_index_manifest_written（最终索引清单是否写出）: false（未写出）
+current_RAG_index_latest_claim（是否声称当前 RAG 索引最新）: false（不声称）
+content_validation（内容验证）: not_promoted（未推进）
+runtime_validation（运行时验证）: batch_checkpoint_resume_dry_run_and_simulation_passed（分批检查点续跑空跑与模拟通过）
+production_readiness（生产可用状态）: not_claimed（未声称）
+dated_report（日期报告）: codex_log/rag_vector_sync/20260622_真实分批向量同步执行器_batch_checkpoint_resume_report.md
+trace_event（链路事件）: codex_log/rag_vector_sync/trace_event_20260622_batch_checkpoint_resume_vector_sync_executor.json
+next_safe_step（下一步安全动作）: run_authorized_real_delta_sync_with_batch_size_8_then_resume_on_timeout_if_needed（授权后以 batch_size=8 跑真实差量同步，若超时按 checkpoint 续跑）
+```
+
+- `batch executor（分批执行器）`: 已把 delta chunks 拆成 batch manifest；默认 `batch_size=8`，当前 `652` 个差量分块拆成 `107` 批。
+- `checkpoint / resume（检查点 / 续跑）`: 已支持逐批 checkpoint；模拟第 0 批后中断再 `--resume` 时会跳过已完成批次，不重复完成 chunk。
+- `status_boundary（状态边界）`: 本轮只做 dry-run / simulation / validator；未调用阿里 embedding API，未写 DashVector，未跑 retrieval probe，不声明 RAG 最新。
+
 ## 20260622｜RAG / DashVector Vector Sync Final Finish
 
 ```yaml

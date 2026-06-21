@@ -1,0 +1,25 @@
+{
+  "batch_id": "delta_batch_0000_aaaa",
+  "batch_index": 0,
+  "blocked_reason": "blocked_batch_timeout",
+  "chunk_ids": [
+    "chunk_a",
+    "chunk_b"
+  ],
+  "elapsed_seconds": 121.0,
+  "expected_status": "passed",
+  "generated_at": "2026-06-22T00:00:00+08:00",
+  "key_printed": false,
+  "key_written": false,
+  "manifest_type": "delta_sync_timeout_report",
+  "project_route": "video_factory",
+  "repo_full_name": "fthytwerwt-sudo/-",
+  "source_paths": [
+    "codex_source/example_a.md"
+  ],
+  "stage": "embedding",
+  "validation_result": {
+    "status": "blocked"
+  },
+  "vector_values_written": false
+}

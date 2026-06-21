@@ -17,10 +17,19 @@ def validate(data: dict[str, Any]) -> list[str]:
     if not isinstance(counts, dict):
         reasons.append("chunk_delta_counts_missing")
     else:
-        for key in ("new_chunks", "changed_chunks", "unchanged_chunks", "deleted_chunks", "superseded_chunks"):
+        for key in (
+            "new_chunks",
+            "changed_chunks",
+            "unchanged_chunks",
+            "deleted_chunks",
+            "superseded_chunks",
+        ):
             if key not in counts:
                 reasons.append(f"{key}_missing")
             elif int(counts.get(key, -1)) < 0:
+                reasons.append(f"{key}_negative")
+        for key in ("delta_chunks_to_embed", "active_chunk_count", "previous_index_chunk_count"):
+            if key in counts and int(counts.get(key, -1)) < 0:
                 reasons.append(f"{key}_negative")
     external = data.get("external_call_report", {})
     if external.get("alibaba_embedding_api_called") is not False:

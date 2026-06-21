@@ -24,6 +24,10 @@ import rag_common as common
 
 GATE_REPORT_JSON = common.OUT_DIR / "latest_vector_sync_gate_report.json"
 GATE_REPORT_MD = common.OUT_DIR / "latest_vector_sync_gate_report.md"
+DELTA_BATCH_MANIFEST_PATH = common.OUT_DIR / "latest_delta_batch_manifest.json"
+DELTA_CHECKPOINT_PATH = common.OUT_DIR / "latest_delta_sync_checkpoint.json"
+DELTA_PARTIAL_MANIFEST_PATH = common.OUT_DIR / "latest_delta_index_partial_manifest.json"
+DELTA_TIMEOUT_REPORT_PATH = common.OUT_DIR / "latest_delta_sync_timeout_report.json"
 
 
 def _run_git(args: list[str], *, check: bool = True) -> str:
@@ -142,6 +146,19 @@ def _write_gate_report(report: dict[str, Any]) -> None:
         f"- deleted_indexable_file_count: `{len(report['indexable_change_result'].get('deleted_indexable_files', []))}`",
         f"- delta_chunks_to_embed: `{report.get('delta_counts', {}).get('delta_chunks_to_embed', '')}`",
         f"- unchanged_chunk_count: `{report.get('delta_counts', {}).get('unchanged_chunks', '')}`",
+        f"- batch_sync_enabled: `{str(report.get('batch_sync_enabled', False)).lower()}`",
+        f"- batch_manifest_path: `{report.get('batch_manifest_path') or ''}`",
+        f"- checkpoint_path: `{report.get('checkpoint_path') or ''}`",
+        f"- partial_manifest_path: `{report.get('partial_manifest_path') or ''}`",
+        f"- batch_count: `{report.get('batch_count', '')}`",
+        f"- completed_batch_count: `{report.get('completed_batch_count', '')}`",
+        f"- failed_batch_count: `{report.get('failed_batch_count', '')}`",
+        f"- pending_batch_count: `{report.get('pending_batch_count', '')}`",
+        f"- completed_chunk_count: `{report.get('completed_chunk_count', '')}`",
+        f"- delta_chunk_count: `{report.get('delta_chunk_count', '')}`",
+        f"- resume_available: `{str(report.get('resume_available', False)).lower()}`",
+        f"- last_completed_batch_index: `{report.get('last_completed_batch_index', '')}`",
+        f"- timeout_stage: `{report.get('timeout_stage') or ''}`",
         f"- indexed_file_count: `{report.get('indexed_file_count', '')}`",
         f"- indexed_chunk_count: `{report.get('indexed_chunk_count', '')}`",
         f"- alibaba_embedding_api_called: `{str(report['external_call_report']['alibaba_embedding_api_called']).lower()}`",
@@ -158,6 +175,53 @@ def _write_gate_report(report: dict[str, Any]) -> None:
         lines.extend(["", "## Changed Indexable Files", ""])
         lines.extend(f"- `{path}`" for path in report["indexable_change_result"]["changed_indexable_files"][:80])
     common.write_markdown(GATE_REPORT_MD, lines)
+
+
+def _read_batch_progress_fields() -> dict[str, Any]:
+    fields: dict[str, Any] = {
+        "batch_sync_enabled": False,
+        "batch_manifest_path": DELTA_BATCH_MANIFEST_PATH.as_posix(),
+        "checkpoint_path": DELTA_CHECKPOINT_PATH.as_posix(),
+        "partial_manifest_path": DELTA_PARTIAL_MANIFEST_PATH.as_posix(),
+        "batch_count": 0,
+        "completed_batch_count": 0,
+        "failed_batch_count": 0,
+        "pending_batch_count": 0,
+        "completed_chunk_count": 0,
+        "delta_chunk_count": 0,
+        "resume_available": False,
+        "last_completed_batch_index": None,
+        "timeout_stage": None,
+    }
+    if not DELTA_BATCH_MANIFEST_PATH.exists():
+        return fields
+    batch_manifest = common.read_json(DELTA_BATCH_MANIFEST_PATH)
+    checkpoint = common.read_json(DELTA_CHECKPOINT_PATH) if DELTA_CHECKPOINT_PATH.exists() else {}
+    partial = common.read_json(DELTA_PARTIAL_MANIFEST_PATH) if DELTA_PARTIAL_MANIFEST_PATH.exists() else {}
+    timeout = partial.get("timeout_report") if isinstance(partial.get("timeout_report"), dict) else {}
+    completed = set(int(item) for item in checkpoint.get("completed_batch_indexes", []))
+    failed = set(int(item) for item in checkpoint.get("failed_batch_indexes", []))
+    batch_count = int(batch_manifest.get("batch_count") or len(batch_manifest.get("batches", [])))
+    pending_count = int(partial.get("pending_batch_count") or max(0, batch_count - len(completed) - len(failed)))
+    fields.update(
+        {
+            "batch_sync_enabled": True,
+            "batch_manifest_path": DELTA_BATCH_MANIFEST_PATH.as_posix(),
+            "checkpoint_path": DELTA_CHECKPOINT_PATH.as_posix(),
+            "partial_manifest_path": DELTA_PARTIAL_MANIFEST_PATH.as_posix(),
+            "batch_count": batch_count,
+            "completed_batch_count": int(partial.get("completed_batch_count") or len(completed)),
+            "failed_batch_count": int(partial.get("failed_batch_count") or len(failed)),
+            "pending_batch_count": pending_count,
+            "completed_chunk_count": int(partial.get("completed_chunk_count") or len(set(checkpoint.get("completed_chunk_ids", [])))),
+            "delta_chunk_count": int(batch_manifest.get("total_delta_chunk_count") or 0),
+            "resume_available": bool(completed or failed),
+            "last_completed_batch_index": max(completed) if completed else None,
+            "timeout_stage": timeout.get("stage"),
+            "partial_manifest_status": partial.get("status"),
+        }
+    )
+    return fields
 
 
 def _read_manifest_counts() -> dict[str, Any]:
@@ -184,6 +248,28 @@ def _run_delta_planner(report: dict[str, Any]) -> dict[str, Any] | None:
     return delta_manifest
 
 
+def _run_delta_dry_run(report: dict[str, Any], batch_size: int) -> bool:
+    result = _run_command(
+        [
+            "python3",
+            "scripts/rag_dashvector_sync.py",
+            "--dry-run-delta",
+            "--batch-size",
+            str(batch_size),
+            "--delta-manifest",
+            "codex_log/rag_vector_sync/latest_chunk_delta_manifest.json",
+        ]
+    )
+    report["commands"].append(result)
+    if not result["passed"]:
+        report["status"] = "blocked"
+        report["blocked_reasons"].append("command_failed:python3 scripts/rag_dashvector_sync.py --dry-run-delta")
+        report.update(_read_batch_progress_fields())
+        return False
+    report.update(_read_batch_progress_fields())
+    return True
+
+
 def run_sync_pipeline(
     mode: str,
     batch_size: int,
@@ -203,6 +289,9 @@ def run_sync_pipeline(
         "commands": [],
         "status": "skipped",
         "blocked_reasons": [],
+        "current_RAG_index_latest_claim": False,
+        "final_index_manifest_written": False,
+        "retrieval_probe_passed": False,
         "external_call_report": {
             "provider": "Alibaba / DashVector",
             "alibaba_embedding_api_called": False,
@@ -218,7 +307,11 @@ def run_sync_pipeline(
         if _run_delta_planner(report) is None:
             _write_gate_report(report)
             return report
+        if not _run_delta_dry_run(report, batch_size):
+            _write_gate_report(report)
+            return report
         report["status"] = "sync_required" if change_result["sync_required"] else "passed_no_sync_required"
+        report.update(_read_batch_progress_fields())
         _write_gate_report(report)
         return report
 
@@ -275,21 +368,25 @@ def run_sync_pipeline(
         if not result["passed"]:
             report["status"] = "blocked"
             report["blocked_reasons"].append(f"command_failed:{result['command']}")
+            report.update(_read_batch_progress_fields())
             _write_gate_report(report)
             return report
 
     delta_path = common.OUT_DIR / "latest_chunk_delta_manifest.json"
     if delta_path.exists():
         report["delta_counts"] = common.read_json(delta_path).get("chunk_delta_counts", {})
+    report.update(_read_batch_progress_fields())
     if not real_delta_sync and not full_sync_explicit:
         counts = _read_manifest_counts()
         report.update(counts)
         report["status"] = "ready_for_controlled_real_delta_sync_pending_user_or_existing_gate_authorization"
+        report.update(_read_batch_progress_fields())
         _write_gate_report(report)
         return report
 
     counts = _read_manifest_counts()
     report.update(counts)
+    report.update(_read_batch_progress_fields())
     report["status"] = "passed"
     report["external_call_report"].update(
         {
@@ -328,6 +425,14 @@ def main() -> int:
                 "indexed_file_count": report.get("indexed_file_count"),
                 "indexed_chunk_count": report.get("indexed_chunk_count"),
                 "delta_counts": report.get("delta_counts", {}),
+                "batch_sync_enabled": report.get("batch_sync_enabled", False),
+                "batch_count": report.get("batch_count", 0),
+                "completed_batch_count": report.get("completed_batch_count", 0),
+                "failed_batch_count": report.get("failed_batch_count", 0),
+                "pending_batch_count": report.get("pending_batch_count", 0),
+                "completed_chunk_count": report.get("completed_chunk_count", 0),
+                "resume_available": report.get("resume_available", False),
+                "timeout_stage": report.get("timeout_stage"),
                 "blocked_reasons": report.get("blocked_reasons", []),
                 "gate_report_path": GATE_REPORT_JSON.as_posix(),
                 "key_printed": False,

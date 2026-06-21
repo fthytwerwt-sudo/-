@@ -1,0 +1,29 @@
+{
+  "batch_manifest_hash": "batch_hash_ok",
+  "batch_manifest_path": "codex_log/rag_vector_sync/latest_delta_batch_manifest.json",
+  "blocked_reasons": [
+    "simulated_interruption_after_batch"
+  ],
+  "checkpoint_path": "codex_log/rag_vector_sync/latest_delta_sync_checkpoint.json",
+  "completed_batch_count": 1,
+  "completed_chunk_count": 2,
+  "current_RAG_index_latest_claim": false,
+  "delta_manifest_hash": "delta_hash_ok",
+  "expected_status": "passed",
+  "failed_batch_count": 0,
+  "final_index_manifest_written": false,
+  "generated_at": "2026-06-22T00:00:00+08:00",
+  "key_printed": false,
+  "key_written": false,
+  "manifest_type": "delta_index_partial_manifest",
+  "pending_batch_count": 1,
+  "previous_index_commit_sha": "previous_sha",
+  "project_route": "video_factory",
+  "repo_full_name": "fthytwerwt-sudo/-",
+  "source_commit_sha": "source_sha",
+  "status": "interrupted",
+  "validation_result": {
+    "status": "blocked"
+  },
+  "vector_values_written": false
+}

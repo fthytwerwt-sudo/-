@@ -1,0 +1,37 @@
+{
+  "created_at": "2026-06-22T01:00:00+08:00",
+  "event_id": "20260622_batch_checkpoint_resume_vector_sync_executor",
+  "event_type": "mechanism_repair_execution.batch_checkpoint_resume_vector_sync_executor",
+  "external_api_called": false,
+  "failure_route_if_any": null,
+  "input_signal": {
+    "implementation_scope": "batch_checkpoint_resume_layer_only",
+    "project_route": "video_factory",
+    "task_type": "RAG_vector_sync_runtime_fix"
+  },
+  "key_printed": false,
+  "key_written": false,
+  "next_safe_step": "run_controlled_real_delta_sync_only_after_batch_executor_dry_run_resume_timeout_and_secret_checks_remain_green",
+  "output_artifacts": {
+    "batch_manifest": "codex_log/rag_vector_sync/latest_delta_batch_manifest.json",
+    "checkpoint": "codex_log/rag_vector_sync/latest_delta_sync_checkpoint.json",
+    "partial_manifest": "codex_log/rag_vector_sync/latest_delta_index_partial_manifest.json",
+    "timeout_report": "codex_log/rag_vector_sync/latest_delta_sync_timeout_report.json"
+  },
+  "status_boundary": {
+    "content_validation": "not_promoted",
+    "current_RAG_index_latest_claim": false,
+    "production_readiness": "not_claimed",
+    "real_delta_sync_status": "not_run_this_round"
+  },
+  "task_id": "batch-checkpoint-resume-vector-sync-executor-20260622",
+  "validation_result": {
+    "batch_count": 107,
+    "batch_size": 8,
+    "delta_chunk_count": 652,
+    "dry_run_no_external_api": true,
+    "resume_simulation_passed": true,
+    "status": "passed"
+  },
+  "vector_values_written": false
+}

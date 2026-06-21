@@ -1,0 +1,36 @@
+{
+  "batch_manifest_hash": "batch_hash_ok",
+  "completed_batch_indexes": [
+    0
+  ],
+  "completed_chunk_ids": [
+    "chunk_a",
+    "chunk_b"
+  ],
+  "delta_manifest_hash": "delta_hash_ok",
+  "expected_batch_manifest_hash": "batch_hash_ok",
+  "expected_delta_manifest_hash": "delta_hash_ok",
+  "expected_status": "passed",
+  "external_call_report": {
+    "alibaba_embedding_api_called": false,
+    "dashvector_query_called": false,
+    "dashvector_upsert_called": false,
+    "embedding_batch_calls": 0,
+    "key_printed": false,
+    "key_written": false,
+    "upsert_batch_calls": 0,
+    "vector_values_written": false
+  },
+  "failed_batch_indexes": [],
+  "generated_at": "2026-06-22T00:00:00+08:00",
+  "in_progress_batch_index": null,
+  "key_printed": false,
+  "key_written": false,
+  "last_failure_at": null,
+  "last_success_at": "2026-06-22T00:01:00+08:00",
+  "previous_index_commit_sha": "previous_sha",
+  "resume_cursor": 1,
+  "run_id": "delta_sync_source_sha",
+  "source_commit_sha": "source_sha",
+  "stage_progress": []
+}

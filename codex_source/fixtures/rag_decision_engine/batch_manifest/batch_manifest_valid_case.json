@@ -1,0 +1,55 @@
+{
+  "batch_count": 2,
+  "batch_manifest_hash": "batch_hash_ok",
+  "batch_size": 4,
+  "batches": [
+    {
+      "batch_id": "delta_batch_0000_aaaa",
+      "batch_index": 0,
+      "chunk_count": 2,
+      "chunk_ids": [
+        "chunk_a",
+        "chunk_b"
+      ],
+      "source_paths": [
+        "codex_source/example_a.md"
+      ],
+      "status": "pending"
+    },
+    {
+      "batch_id": "delta_batch_0001_bbbb",
+      "batch_index": 1,
+      "chunk_count": 1,
+      "chunk_ids": [
+        "chunk_c"
+      ],
+      "source_paths": [
+        "codex_source/example_b.md"
+      ],
+      "status": "pending"
+    }
+  ],
+  "delta_manifest_hash": "delta_hash_ok",
+  "expected_status": "passed",
+  "external_call_report": {
+    "alibaba_embedding_api_called": false,
+    "dashvector_query_called": false,
+    "dashvector_upsert_called": false,
+    "key_printed": false,
+    "key_written": false,
+    "vector_values_written": false
+  },
+  "generated_at": "2026-06-22T00:00:00+08:00",
+  "key_printed": false,
+  "key_written": false,
+  "manifest_type": "delta_batch_manifest",
+  "previous_index_commit_sha": "previous_sha",
+  "project_route": "video_factory",
+  "repo_full_name": "fthytwerwt-sudo/-",
+  "source_commit_sha": "source_sha",
+  "total_delta_chunk_count": 3,
+  "validation_result": {
+    "status": "passed"
+  },
+  "vector_values_written": false
+}

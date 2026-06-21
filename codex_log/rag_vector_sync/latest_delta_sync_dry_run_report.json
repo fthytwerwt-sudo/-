@@ -1,20 +1,42 @@
 {
+  "batch_count": 107,
+  "batch_manifest_hash": "2fded67f77fc4b735f4ec1dbe0384ad4f7d9defde1a46238ee7e507b4dc3f4e6",
+  "batch_manifest_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_batch_manifest.json",
+  "batch_size": 8,
+  "batch_sync_enabled": true,
   "blocked_if": [
     "delta_manifest_missing",
     "dry_run_would_call_external_api"
   ],
   "checkpoint": {
+    "batch_manifest_hash": "2fded67f77fc4b735f4ec1dbe0384ad4f7d9defde1a46238ee7e507b4dc3f4e6",
     "completed_batch_indexes": [],
     "completed_chunk_ids": [],
-    "delta_manifest_hash": "f913c237bd580a290a608a5c238740ab84274330b7bcdce6a049871bab7bd589",
+    "delta_manifest_hash": "c0c6cbc661361e3e0d8b284703150e29aebab60069a0660bc144ea7413d3f940",
+    "external_call_report": {
+      "alibaba_embedding_api_called": false,
+      "dashvector_query_called": false,
+      "dashvector_upsert_called": false,
+      "embedding_batch_calls": 0,
+      "key_printed": false,
+      "key_written": false,
+      "upsert_batch_calls": 0,
+      "vector_values_written": false
+    },
     "failed_batch_indexes": [],
-    "generated_at": "2026-06-22T00:24:45+08:00",
+    "generated_at": "2026-06-22T01:02:51+08:00",
+    "in_progress_batch_index": null,
     "key_printed": false,
     "key_written": false,
+    "last_failure_at": null,
+    "last_success_at": null,
     "previous_index_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
     "resume_cursor": 0,
     "run_id": "delta_sync_4874d430bac38ae4b42f3d5ba17d6d7d358319f1",
-    "source_commit_sha": "4874d430bac38ae4b42f3d5ba17d6d7d358319f1"
+    "skipped_completed_batch_indexes": [],
+    "source_commit_sha": "4874d430bac38ae4b42f3d5ba17d6d7d358319f1",
+    "stage_progress": [],
+    "vector_values_written": false
   },
   "checkpoint_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_sync_checkpoint.json",
   "chunk_delta_counts": {
@@ -27,8 +49,11 @@
     "superseded_chunks": 53,
     "unchanged_chunks": 5112
   },
+  "completed_batch_count_in_dry_run": 0,
+  "current_RAG_index_latest_claim": false,
   "deleted_chunk_count": 432,
   "deleted_policy": "overlay_supersede_or_tombstone_first",
+  "delta_manifest_hash": "c0c6cbc661361e3e0d8b284703150e29aebab60069a0660bc144ea7413d3f940",
   "delta_manifest_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_chunk_delta_manifest.json",
   "external_call_report": {
     "alibaba_embedding_api_called": false,
@@ -38,17 +63,39 @@
     "key_written": false,
     "vector_values_written": false
   },
-  "generated_at": "2026-06-22T00:24:45+08:00",
+  "failed_batch_count_in_dry_run": 0,
+  "final_index_manifest_written": false,
+  "final_manifest_gate": {
+    "all_batches_passed": false,
+    "blocked_reasons": [
+      "partial_batches_only",
+      "completed_chunk_count_not_equal_delta_chunk_count"
+    ],
+    "completed_chunk_count_equals_delta_chunk_count": false,
+    "deleted_or_superseded_chunks_marked": true,
+    "no_failed_batches": true,
+    "status": "blocked",
+    "unchanged_chunks_reused": true,
+    "write_final_index_manifest_allowed": false
+  },
+  "generated_at": "2026-06-22T01:02:51+08:00",
   "key_printed": false,
   "key_written": false,
   "manifest_type": "delta_sync_dry_run_report",
+  "no_duplicate_completed_chunk_ids": true,
+  "partial_manifest_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_index_partial_manifest.json",
+  "pending_batch_count_in_dry_run": 107,
   "project_route": "video_factory",
   "repo_full_name": "fthytwerwt-sudo/-",
+  "resume_skips_completed_batches": false,
+  "skipped_completed_batch_indexes": [],
   "source_commit_sha": "4874d430bac38ae4b42f3d5ba17d6d7d358319f1",
+  "timeout_report": null,
   "unchanged_chunk_count": 5112,
   "validation_result": {
     "status": "passed"
   },
+  "vector_values_written": false,
   "would_embed_chunk_count": 652,
   "would_embed_chunk_ids": [
     "vf_00662ce08cf7400254e1cdc77a4e157b73c984c4",

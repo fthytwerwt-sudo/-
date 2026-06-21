@@ -1,51 +1,29 @@
 {
-  "active_filter_dry_run_passed": true,
-  "blocked_reasons": [
-    "delta_embedding_upsert_no_final_manifest",
-    "checkpoint_resume_not_effective",
-    "stale_index_detected",
-    "index_chunk_count_mismatch"
-  ],
-  "blocked_report_path": "codex_log/rag_vector_sync/vector_sync_blocked_20260622_003218.json",
-  "changed_indexable_file_count": 53,
-  "commands_run": [
+  "batch_count": 107,
+  "batch_manifest_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_batch_manifest.json",
+  "batch_sync_enabled": true,
+  "blocked_reasons": [],
+  "checkpoint_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_sync_checkpoint.json",
+  "commands": [
     {
-      "command": "python3 -m py_compile scripts/post_commit_vector_sync_gate.py scripts/rag_common.py scripts/rag_dashvector_sync.py scripts/rag_retrieval_probe.py scripts/rag_index_manifest_validator.py scripts/rag_vector_delta_planner.py scripts/rag_vector_delta_manifest_validator.py scripts/rag_decision_state_machine_runner.py",
-      "duration": "<1s",
-      "result": "passed"
+      "command": "python3 scripts/rag_vector_delta_planner.py",
+      "passed": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\"alibaba_embedding_api_called\": false, \"changed_chunks\": 53, \"chunk_delta_manifest_path\": \"/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_chunk_delta_manifest.json\", \"dashvector_upsert_called\": false, \"deleted_chunks\": 432, \"delta_chunks_to_embed\": 652, \"key_printed\": false, \"key_written\": false, \"new_chunks\": 599, \"status\": \"passed\", \"superseded_chunks\": 53, \"unchanged_chunks\": 5112}\n"
     },
     {
-      "command": "python3 scripts/post_commit_vector_sync_gate.py --mode check",
-      "duration": "<1s",
-      "result": "sync_required"
-    },
-    {
-      "command": "python3 scripts/rag_index_manifest_validator.py --check-current-worktree",
-      "duration": "<1s",
-      "result": "blocked: stale_index_detected,index_chunk_count_mismatch"
-    },
-    {
-      "command": "python3 scripts/post_commit_vector_sync_gate.py --mode finish",
-      "duration": "~2s",
-      "result": "ready_for_controlled_real_delta_sync_pending_user_or_existing_gate_authorization; delta_chunks_to_embed=652"
-    },
-    {
-      "command": "python3 scripts/rag_vector_delta_manifest_validator.py",
-      "duration": "<1s",
-      "result": "passed"
-    },
-    {
-      "command": "python3 scripts/post_commit_vector_sync_gate.py --mode finish --real-delta-sync --batch-size 8",
-      "duration": "~5m23s second attempt",
-      "result": "first_attempt_blocked_dirty_files_not_indexed_to_formal_store_false; second_attempt_interrupted_after_about_5m23s_without_final_manifest"
-    },
-    {
-      "command": "python3 scripts/rag_retrieval_probe.py --dry-run-active-filter",
-      "duration": "<1s",
-      "result": "passed_no_dashvector_query"
+      "command": "python3 scripts/rag_dashvector_sync.py --dry-run-delta --batch-size 8 --delta-manifest codex_log/rag_vector_sync/latest_chunk_delta_manifest.json",
+      "passed": true,
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\"alibaba_embedding_api_called\": false, \"batch_count\": 107, \"batch_manifest_path\": \"/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_batch_manifest.json\", \"batch_size\": 8, \"checkpoint_path\": \"/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_sync_checkpoint.json\", \"completed_batch_count_in_dry_run\": 0, \"current_RAG_index_latest_claim\": false, \"dashvector_upsert_called\": false, \"delta_sync_dry_run_report_path\": \"/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_sync_dry_run_report.json\", \"failed_batch_count_in_dry_run\": 0, \"key_printed\": false, \"key_written\": false, \"no_duplicate_completed_chunk_ids\": true, \"partial_manifest_path\": \"/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_index_partial_manifest.json\", \"resume_skips_completed_batches\": false, \"status\": \"passed\", \"vector_values_written\": false, \"would_embed_chunk_count\": 652}\n"
     }
   ],
+  "completed_batch_count": 0,
+  "completed_chunk_count": 0,
   "current_RAG_index_latest_claim": false,
+  "delta_chunk_count": 652,
   "delta_counts": {
     "active_chunk_count": 5764,
     "changed_chunks": 53,
@@ -56,21 +34,19 @@
     "superseded_chunks": 53,
     "unchanged_chunks": 5112
   },
-  "existing_index_manifest_indexed_chunk_count": 5597,
-  "existing_index_manifest_indexed_file_count": 875,
-  "existing_index_manifest_source_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
   "external_call_report": {
-    "alibaba_embedding_api_called": true,
+    "alibaba_embedding_api_called": false,
     "dashvector_query_called": false,
-    "dashvector_upsert_called": "possibly_started_not_provable_without_batch_checkpoint",
+    "dashvector_upsert_called": false,
     "key_printed": false,
     "key_written": false,
+    "provider": "Alibaba / DashVector",
     "vector_values_written": false
   },
-  "final_index_manifest_path": "codex_log/rag_vector_sync/latest_index_manifest.json",
+  "failed_batch_count": 0,
   "final_index_manifest_written": false,
   "gate_name": "post_commit_vector_sync_gate",
-  "generated_at": "2026-06-22T00:33:36+08:00",
+  "generated_at": "2026-06-22T01:02:50+08:00",
   "indexable_change_result": {
     "blocked_reasons": [],
     "changed_indexable_files": [
@@ -322,6 +298,10 @@
         "status": "A"
       },
       {
+        "path": "codex_log/rag_vector_sync/20260622_RAG_DashVector向量同步最终收尾报告.md",
+        "status": "A"
+      },
+      {
         "path": "codex_log/rag_vector_sync/latest_chunk_delta_manifest.json",
         "status": "A"
       },
@@ -407,6 +387,14 @@
       },
       {
         "path": "codex_log/rag_vector_sync/trace_event_20260621_vector_sync_finish_retry.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/trace_event_20260622_vector_sync_final_finish.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/vector_sync_blocked_20260622_003218.json",
         "status": "A"
       },
       {
@@ -799,43 +787,18 @@
       }
     ],
     "skip_reason": "",
-    "source_commit_sha": "4874d430bac38ae4b42f3d5ba17d6d7d358319f1",
+    "source_commit_sha": "9097044e62edae21a30e296aa24f3fde59e96207",
     "sync_required": true
   },
-  "indexed_chunk_count": null,
-  "indexed_file_count": null,
-  "key_printed": false,
-  "key_written": false,
-  "mechanism_readiness_check": {
-    "batch_progress_supported": "partial_progress_print_every_25_batches_but_hidden_by_gate_capture",
-    "changed_chunk_scope_supported": true,
-    "changed_file_scope_supported": true,
-    "checkpoint_resume_supported": "partial_false_for_effective_resume_resume_arg_exists_but_not_used_to_skip_batches",
-    "incremental_sync_supported": "true_delta_planner_and_delta_manifest_ready",
-    "manifest_merge_supported": "partial_final_manifest_full_active_set_after_delta_upsert_but_not_reached_this_run",
-    "timeout_report_supported": "false_no_subprocess_timeout_or_stage_timeout_in_script"
-  },
-  "mode": "finish",
-  "next_safe_step": "make per-batch checkpoint/resume and stage timeout effective before next real delta sync retry",
-  "previous_index_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
+  "last_completed_batch_index": null,
+  "mode": "check",
+  "partial_manifest_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_index_partial_manifest.json",
+  "partial_manifest_status": "partial",
+  "pending_batch_count": 107,
   "project_route": "video_factory",
   "repo_full_name": "fthytwerwt-sudo/-",
+  "resume_available": false,
   "retrieval_probe_passed": false,
-  "source_commit_sha": "4874d430bac38ae4b42f3d5ba17d6d7d358319f1",
-  "source_readback_passed": false,
-  "stale_index_check_passed": false,
-  "status": "blocked",
-  "sync_progress": {
-    "batch_size": 8,
-    "checkpoint_path": "codex_log/rag_vector_sync/latest_delta_sync_checkpoint.json",
-    "checkpoint_resume_cursor": 0,
-    "completed_batches": "unknown_not_observable",
-    "elapsed_time": "about_5m23s_before_interrupt",
-    "failed_batch": "unknown_not_observable",
-    "total_batches": "unknown_not_emitted; estimated_about_82_for_652_chunks_at_batch_size_8"
-  },
-  "sync_required": true,
-  "task_result_status": "vector_sync_blocked_with_clear_reason",
-  "vector_sync_status": "vector_sync_blocked_delta_embedding_upsert_timeout",
-  "vector_values_written": false
+  "status": "sync_required",
+  "timeout_stage": null
 }

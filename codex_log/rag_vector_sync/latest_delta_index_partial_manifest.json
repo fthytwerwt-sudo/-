@@ -1,7 +1,11 @@
 {
   "batch_manifest_hash": "2fded67f77fc4b735f4ec1dbe0384ad4f7d9defde1a46238ee7e507b4dc3f4e6",
-  "completed_batch_indexes": [],
-  "completed_chunk_ids": [],
+  "batch_manifest_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_batch_manifest.json",
+  "blocked_reasons": [],
+  "checkpoint_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_sync_checkpoint.json",
+  "completed_batch_count": 0,
+  "completed_chunk_count": 0,
+  "current_RAG_index_latest_claim": false,
   "delta_manifest_hash": "c0c6cbc661361e3e0d8b284703150e29aebab60069a0660bc144ea7413d3f940",
   "external_call_report": {
     "alibaba_embedding_api_called": false,
@@ -13,18 +17,21 @@
     "upsert_batch_calls": 0,
     "vector_values_written": false
   },
-  "failed_batch_indexes": [],
+  "failed_batch_count": 0,
+  "final_index_manifest_written": false,
   "generated_at": "2026-06-22T01:02:51+08:00",
-  "in_progress_batch_index": null,
   "key_printed": false,
   "key_written": false,
-  "last_failure_at": null,
-  "last_success_at": null,
+  "manifest_type": "delta_index_partial_manifest",
+  "pending_batch_count": 107,
   "previous_index_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
-  "resume_cursor": 0,
-  "run_id": "delta_sync_4874d430bac38ae4b42f3d5ba17d6d7d358319f1",
-  "skipped_completed_batch_indexes": [],
+  "project_route": "video_factory",
+  "repo_full_name": "fthytwerwt-sudo/-",
   "source_commit_sha": "4874d430bac38ae4b42f3d5ba17d6d7d358319f1",
-  "stage_progress": [],
+  "status": "partial",
+  "timeout_report": null,
+  "validation_result": {
+    "status": "passed"
+  },
   "vector_values_written": false
 }
