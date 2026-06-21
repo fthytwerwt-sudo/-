@@ -25,6 +25,13 @@ REQUIRED_PRE_FIELDS = [
     "blocked_if",
 ]
 
+DECISION_INTEGRATION_FIELDS = [
+    "decision_audit_report_id",
+    "hard_gate_result",
+    "can_feed_codex",
+    "can_claim_completed",
+]
+
 HIGH_RISK_TERMS = (
     "rag",
     "vector",
@@ -155,6 +162,20 @@ def validate_pre_supply_pack(pack: dict[str, Any]) -> list[str]:
 
     if _is_high_risk(pack) and not pack.get("conflict_points"):
         reasons.append("conflict_points_missing_for_high_risk_task")
+    if any(field in pack for field in DECISION_INTEGRATION_FIELDS):
+        for field in DECISION_INTEGRATION_FIELDS:
+            if field not in pack:
+                reasons.append(f"{field}_missing")
+        hard_gate = pack.get("hard_gate_result")
+        if isinstance(hard_gate, dict) and hard_gate.get("status") == "blocked":
+            reasons.append("hard_gate_failed")
+        if pack.get("can_feed_codex") is not True:
+            reasons.append("can_feed_codex_not_true")
+        if pack.get("can_claim_completed") is True:
+            reasons.append("can_claim_completed_true")
+    blocked_if = set(str(item) for item in pack.get("blocked_if", []))
+    if "conflict_pending_required_fact" in blocked_if and pack.get("conflict_group_id") == "pending":
+        reasons.append("conflict_pending_required_fact")
     return sorted(set(reasons))
 
 

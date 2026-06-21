@@ -1,0 +1,16 @@
+{
+  "manifest_type": "rag_decision_state_machine",
+  "case_id": "full_pass_state_machine_case",
+  "expected_status": "passed",
+  "project_route": "video_factory",
+  "source_commit_sha": "commit_current",
+  "generated_at": "2026-06-21T00:00:00+08:00",
+  "input_paths": ["task_request"],
+  "output_paths": ["latest_state_machine_run.json"],
+  "task_request": {"task_type": "mechanism_repair", "risk_level": "medium"},
+  "nodes": ["task_classifier", "stale_index_checker", "vector_retriever_or_repo_readback", "source_readback_checker", "authority_overlay_filter", "conflict_group_resolver", "hard_gate_checker", "weighted_decision_engine", "decision_audit_reporter", "codex_supply_pack_emitter", "failure_router"],
+  "blocked_if": [],
+  "validation_result": {"status": "passed"},
+  "key_printed": false,
+  "key_written": false
+}

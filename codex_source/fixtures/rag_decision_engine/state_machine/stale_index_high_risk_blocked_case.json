@@ -1,0 +1,16 @@
+{
+  "manifest_type": "rag_decision_state_machine",
+  "case_id": "stale_index_high_risk_blocked_case",
+  "expected_status": "blocked",
+  "project_route": "video_factory",
+  "source_commit_sha": "commit_current",
+  "generated_at": "2026-06-21T00:00:00+08:00",
+  "input_paths": ["task_request"],
+  "output_paths": ["latest_state_machine_run.json"],
+  "task_request": {"task_type": "mechanism_repair", "risk_level": "high", "stale_index": true},
+  "nodes": ["task_classifier", "stale_index_checker", "hard_gate_checker", "failure_router"],
+  "blocked_if": ["stale_index_high_risk_blocked"],
+  "validation_result": {"status": "blocked"},
+  "key_printed": false,
+  "key_written": false
+}

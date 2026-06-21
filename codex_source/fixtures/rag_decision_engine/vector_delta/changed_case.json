@@ -1,0 +1,16 @@
+{
+  "manifest_type": "true_incremental_vector_sync",
+  "case_id": "changed_case",
+  "expected_status": "passed",
+  "project_route": "video_factory",
+  "source_commit_sha": "commit_current",
+  "generated_at": "2026-06-21T00:00:00+08:00",
+  "input_paths": ["old_index", "new_chunks"],
+  "output_paths": ["delta_manifest"],
+  "chunk_delta_counts": {"new_chunks": 0, "changed_chunks": 1, "unchanged_chunks": 1, "deleted_chunks": 0, "superseded_chunks": 1},
+  "external_call_report": {"alibaba_embedding_api_called": false, "dashvector_upsert_called": false},
+  "blocked_if": [],
+  "validation_result": {"status": "passed"},
+  "key_printed": false,
+  "key_written": false
+}

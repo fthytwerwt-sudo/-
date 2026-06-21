@@ -1,0 +1,44 @@
+schema_id: rag_decision_state_machine
+schema_version: "2026-06-21"
+project_route: video_factory
+status: active_contract
+description: >
+  Contract for the Python-first RAG decision state machine. LangGraph is
+  intentionally deferred until these node contracts are stable.
+
+required_fields:
+  - manifest_type
+  - project_route
+  - source_commit_sha
+  - generated_at
+  - input_paths
+  - output_paths
+  - blocked_if
+  - validation_result
+  - key_printed
+  - key_written
+
+properties:
+  manifest_type:
+    const: rag_decision_state_machine
+  key_printed:
+    const: false
+  key_written:
+    const: false
+  nodes:
+    required_order:
+      - task_classifier
+      - stale_index_checker
+      - vector_retriever_or_repo_readback
+      - source_readback_checker
+      - authority_overlay_filter
+      - conflict_group_resolver
+      - hard_gate_checker
+      - weighted_decision_engine
+      - decision_audit_reporter
+      - codex_supply_pack_emitter
+      - failure_router
+  hard_rules:
+    - dry_run_default_no_external_api
+    - hard_gate_failed_blocks_before_weight
+    - state_machine_must_write_decision_audit_and_trace

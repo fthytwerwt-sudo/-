@@ -13,6 +13,8 @@ import rag_common as common
 
 
 ENGINEERING_OUT_DIR = common.ROOT / "codex_log" / "rag_engineering_line"
+DECISION_DIR = common.ROOT / "codex_log" / "rag_decision_engine"
+DECISION_AUDIT_REPORT_PATH = DECISION_DIR / "latest_decision_audit_report.json"
 
 
 def _as_list(value: Any) -> list[str]:
@@ -33,6 +35,40 @@ def _load_index_manifest() -> dict[str, Any]:
     if not common.INDEX_MANIFEST_PATH.exists():
         raise SystemExit("blocked_index_manifest_missing")
     return common.read_json(common.INDEX_MANIFEST_PATH)
+
+
+def load_decision_context() -> dict[str, Any]:
+    if not DECISION_AUDIT_REPORT_PATH.exists():
+        return {
+            "decision_audit_report_id": None,
+            "hard_gate_result": {"status": "not_available", "failed_gates": []},
+            "selected_action": None,
+            "can_feed_codex": True,
+            "can_claim_completed": False,
+            "conflict_group_id": None,
+        }
+    report = common.read_json(DECISION_AUDIT_REPORT_PATH)
+    audit = report.get("decision_audit_report", {})
+    hard_gate = audit.get("hard_gate_result", {"status": "missing", "failed_gates": ["hard_gate_result_missing"]})
+    return {
+        "decision_audit_report_id": report.get("decision_audit_report_id"),
+        "hard_gate_result": hard_gate,
+        "selected_action": audit.get("selected_action"),
+        "can_feed_codex": hard_gate.get("status") == "passed",
+        "can_claim_completed": False,
+        "conflict_group_id": "rag_decision_engine_round_2",
+    }
+
+
+def apply_decision_context(pack: dict[str, Any]) -> dict[str, Any]:
+    context = load_decision_context()
+    pack.update(context)
+    blocked_if = _as_list(pack.get("blocked_if"))
+    for reason in ("hard_gate_failed", "conflict_pending_required_fact", "high_risk_stale_source_without_readback"):
+        if reason not in blocked_if:
+            blocked_if.append(reason)
+    pack["blocked_if"] = blocked_if
+    return pack
 
 
 def _classify_source_for_cleaning(source_path: str) -> dict[str, Any]:
@@ -177,7 +213,7 @@ def build_pre_supply_pack(task_request: dict[str, Any], index_manifest: dict[str
     conflict_points = _as_list(task_request.get("conflict_points"))
     if not conflict_points and bool(task_request.get("high_risk", False)):
         conflict_points = ["high_risk_task_requires_explicit_conflict_review"]
-    return {
+    pack = {
         "pack_type": "pre_supply_pack",
         "task_id": task_id,
         "task_type": task_type,
@@ -206,6 +242,7 @@ def build_pre_supply_pack(task_request: dict[str, Any], index_manifest: dict[str
         "source_commit_sha": index_manifest.get("source_commit_sha") or index_manifest.get("commit_sha"),
         "generated_at": common.now_iso(),
     }
+    return apply_decision_context(pack)
 
 
 def first_valid_probe_result(retrieval_report: dict[str, Any], index_manifest: dict[str, Any]) -> dict[str, Any]:
@@ -249,6 +286,7 @@ def build_packs(seed: dict[str, Any], index_manifest: dict[str, Any]) -> dict[st
         "cleaning_layer_check": _aggregate_cleaning_layer_check(exact_snippet_pack),
         "blocked_if": ["source_path_missing", "line_range_missing", "readback_failed", "stale_index_detected"],
     }
+    pre = apply_decision_context(pre)
     mid = {
         "child_task_id": "rag-sync-guard-check",
         "files_already_read": [readback["source_path"]],
@@ -260,6 +298,7 @@ def build_packs(seed: dict[str, Any], index_manifest: dict[str, Any]) -> dict[st
         "action_constraint": ["continue_only_if_readback_hash_match"],
         "continue_allowed": bool(readback["readback_hash_match"]),
     }
+    mid = apply_decision_context(mid)
     post = {
         "task_id": "rag-vector-sync-20260620",
         "completion_truth_check": {
@@ -274,6 +313,7 @@ def build_packs(seed: dict[str, Any], index_manifest: dict[str, Any]) -> dict[st
         "completion_allowed": bool(readback["readback_hash_match"]) and not index_manifest.get("blocked", True),
         "blocked_if": ["missing_log", "missing_probe", "stale_index_detected", "status_promotion_attempted"],
     }
+    post = apply_decision_context(post)
     small_probe = {
         "task_id": "rag-vector-sync-20260620",
         "can_execute": bool(readback["readback_hash_match"]) and not index_manifest.get("blocked", True),
@@ -281,6 +321,7 @@ def build_packs(seed: dict[str, Any], index_manifest: dict[str, Any]) -> dict[st
         "conflict_points": [],
         "blocked_if": ["readback_failed", "index_manifest_blocked"],
     }
+    small_probe = apply_decision_context(small_probe)
     return {
         "pre_supply_pack": pre,
         "mid_task_supply_pack": mid,

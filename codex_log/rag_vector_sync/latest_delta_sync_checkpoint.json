@@ -1,0 +1,13 @@
+{
+  "completed_batch_indexes": [],
+  "completed_chunk_ids": [],
+  "delta_manifest_hash": "604f8a9c2685c37c0ec68bc6389fa760784be1186fe8d2cfe86f09b02da3f887",
+  "failed_batch_indexes": [],
+  "generated_at": "2026-06-22T00:14:23+08:00",
+  "key_printed": false,
+  "key_written": false,
+  "previous_index_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
+  "resume_cursor": 0,
+  "run_id": "delta_sync_a5b8e6687813210cc0caccebcf475055b7df7dab",
+  "source_commit_sha": "a5b8e6687813210cc0caccebcf475055b7df7dab"
+}

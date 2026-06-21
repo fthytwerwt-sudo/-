@@ -1,0 +1,15 @@
+{
+  "manifest_type": "decision_audit_report",
+  "case_id": "current_blocked_sync_decision_case",
+  "expected_status": "passed",
+  "project_route": "video_factory",
+  "source_commit_sha": "a5b8e6687813210cc0caccebcf475055b7df7dab",
+  "generated_at": "2026-06-21T00:00:00+08:00",
+  "input_paths": ["latest_vector_sync_gate_report.json"],
+  "output_paths": ["latest_decision_audit_report.json"],
+  "decision_audit_report": {"task_context": {"task_type": "mechanism_repair"}, "retrieved_candidates": [], "readback_status": {"status": "passed"}, "cleaned_candidates": [], "conflict_groups_checked": [], "hard_gate_result": {"status": "passed"}, "weighted_score_breakdown": {}, "candidate_actions": ["continue_full_sync", "fix_incremental_sync", "fix_incremental_sync_plus_authority_overlay"], "selected_action": "fix_incremental_sync_plus_authority_overlay", "why_selected": "Only this action handles both sync speed and old-context pollution.", "why_not_others": {"continue_full_sync": "Does not fix timeout root cause.", "fix_incremental_sync": "Does not prevent stale context pollution."}, "blocked_if": [], "user_review_required": true},
+  "blocked_if": [],
+  "validation_result": {"status": "passed"},
+  "key_printed": false,
+  "key_written": false
+}

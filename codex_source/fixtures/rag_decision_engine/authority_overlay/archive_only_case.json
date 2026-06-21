@@ -1,0 +1,15 @@
+{
+  "manifest_type": "rag_authority_overlay",
+  "case_id": "archive_only_case",
+  "expected_status": "blocked",
+  "project_route": "video_factory",
+  "source_commit_sha": "commit_current",
+  "generated_at": "2026-06-21T00:00:00+08:00",
+  "input_paths": ["latest_chunk_manifest"],
+  "output_paths": ["latest_rag_authority_overlay.json"],
+  "authority_entries": [{"chunk_id": "chunk_archive", "source_path": "归档_archive/old.md", "line_range": "1-10", "authority_level": "archive_only", "stale_status": "superseded", "conflict_status": "none", "conflict_group_id": null, "superseded_by": null, "retrieval_role": "history_context", "default_weight": 0.05, "can_feed_codex": true, "can_claim_completed": false, "readback_required": true, "hard_gate_flags": ["archive_only_cannot_feed_codex"]}],
+  "blocked_if": ["archive_only_can_feed_codex"],
+  "validation_result": {"status": "blocked"},
+  "key_printed": false,
+  "key_written": false
+}

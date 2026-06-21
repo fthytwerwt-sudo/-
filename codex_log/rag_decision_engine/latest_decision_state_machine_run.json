@@ -1,0 +1,210 @@
+{
+  "alibaba_embedding_api_called": false,
+  "blocked_if": [],
+  "case_id": "current_blocked_sync_decision_case",
+  "dashvector_upsert_called": false,
+  "dry_run": true,
+  "generated_at": "2026-06-22T00:14:24+08:00",
+  "input_paths": [
+    "codex_log/rag_vector_sync/latest_vector_sync_gate_report.json",
+    "codex_source/fixtures/rag_decision_engine"
+  ],
+  "key_printed": false,
+  "key_written": false,
+  "langgraph_implemented": false,
+  "manifest_type": "rag_decision_state_machine",
+  "no_external_api_default": true,
+  "nodes": [
+    {
+      "blocked_reason": null,
+      "finished_at": "2026-06-22T00:14:24+08:00",
+      "node_name": "task_classifier",
+      "output": {
+        "dry_run": true,
+        "langgraph_implemented": false,
+        "risk_level": "high",
+        "task_type": "mechanism_repair"
+      },
+      "status": "passed"
+    },
+    {
+      "blocked_reason": null,
+      "finished_at": "2026-06-22T00:14:24+08:00",
+      "node_name": "stale_index_checker",
+      "output": {
+        "allowed_usage": "reference_only_with_source_readback",
+        "current_RAG_index_latest_claim": false,
+        "status": "current_or_unknown",
+        "vector_sync_status": "sync_required"
+      },
+      "status": "passed"
+    },
+    {
+      "blocked_reason": null,
+      "finished_at": "2026-06-22T00:14:24+08:00",
+      "node_name": "vector_retriever_or_repo_readback",
+      "output": {
+        "external_query_called": false,
+        "retrieved_candidates": [],
+        "status": "repo_readback_fallback"
+      },
+      "status": "passed"
+    },
+    {
+      "blocked_reason": null,
+      "finished_at": "2026-06-22T00:14:24+08:00",
+      "node_name": "source_readback_checker",
+      "output": {
+        "source_paths": [
+          "codex_log/latest.md",
+          "codex_log/rag_vector_sync/latest_vector_sync_gate_report.json",
+          "codex_log/rag_decision_engine_design/20260621_RAG决策工程线设计_round_1_design_only.md"
+        ],
+        "status": "passed"
+      },
+      "status": "passed"
+    },
+    {
+      "blocked_reason": null,
+      "finished_at": "2026-06-22T00:14:24+08:00",
+      "node_name": "authority_overlay_filter",
+      "output": {
+        "overlay_path": "codex_log/rag_decision_engine/latest_rag_authority_overlay.json",
+        "stale_sources_can_feed_codex": false,
+        "status": "passed"
+      },
+      "status": "passed"
+    },
+    {
+      "blocked_reason": null,
+      "finished_at": "2026-06-22T00:14:24+08:00",
+      "node_name": "conflict_group_resolver",
+      "output": {
+        "pending_conflicts": [],
+        "registry_path": "codex_log/rag_decision_engine/latest_conflict_group_registry.json",
+        "status": "passed"
+      },
+      "status": "passed"
+    },
+    {
+      "blocked_reason": null,
+      "finished_at": "2026-06-22T00:14:24+08:00",
+      "node_name": "hard_gate_checker",
+      "output": {
+        "blocked_reason": "",
+        "failed_gates": [],
+        "proceeded_to_weighted_decision": true,
+        "status": "passed"
+      },
+      "status": "passed"
+    },
+    {
+      "blocked_reason": null,
+      "finished_at": "2026-06-22T00:14:24+08:00",
+      "node_name": "weighted_decision_engine",
+      "output": {
+        "candidate_actions": [
+          {
+            "action_id": "fix_incremental_sync_plus_authority_overlay",
+            "base_weight": 0.95,
+            "boost_if": [
+              "sync_speed_root_cause",
+              "old_context_control"
+            ],
+            "boosts_applied": [
+              "sync_speed_root_cause",
+              "old_context_control"
+            ],
+            "forbidden_if": [],
+            "label": "修增量同步 + 权威覆盖层",
+            "penalties_applied": [],
+            "score": 1.07
+          },
+          {
+            "action_id": "fix_incremental_sync_only",
+            "base_weight": 0.65,
+            "boosts_applied": [],
+            "forbidden_if": [],
+            "label": "只修增量同步",
+            "penalties_applied": [
+              "old_context_pollution_unsolved"
+            ],
+            "penalty_if": [
+              "old_context_pollution_unsolved"
+            ],
+            "score": 0.53
+          },
+          {
+            "action_id": "continue_full_sync",
+            "base_weight": 0.25,
+            "boosts_applied": [],
+            "forbidden_if": [
+              "claim_completed_without_manifest"
+            ],
+            "label": "继续全量同步",
+            "penalties_applied": [
+              "external_sync_timeout",
+              "does_not_fix_root_cause"
+            ],
+            "penalty_if": [
+              "external_sync_timeout",
+              "does_not_fix_root_cause"
+            ],
+            "score": 0.01
+          }
+        ],
+        "selected_action": "fix_incremental_sync_plus_authority_overlay"
+      },
+      "status": "passed"
+    },
+    {
+      "blocked_reason": null,
+      "finished_at": "2026-06-22T00:14:24+08:00",
+      "node_name": "decision_audit_reporter",
+      "output": {
+        "path": "/Users/fan/Documents/视频工厂/codex_log/rag_decision_engine/latest_decision_audit_report.json",
+        "selected_action": "fix_incremental_sync_plus_authority_overlay"
+      },
+      "status": "passed"
+    },
+    {
+      "blocked_reason": null,
+      "finished_at": "2026-06-22T00:14:24+08:00",
+      "node_name": "codex_supply_pack_emitter",
+      "output": {
+        "mid_task_supply_pack": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_mid_task_supply_pack.json",
+        "post_risk_review_pack": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_post_risk_review_pack.json",
+        "pre_supply_pack": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_pre_supply_pack.json"
+      },
+      "status": "passed"
+    },
+    {
+      "blocked_reason": null,
+      "finished_at": "2026-06-22T00:14:24+08:00",
+      "node_name": "failure_router",
+      "output": {
+        "failure_route": "none"
+      },
+      "status": "passed"
+    }
+  ],
+  "output_paths": [
+    "/Users/fan/Documents/视频工厂/codex_log/rag_decision_engine/latest_decision_state_machine_run.json",
+    "/Users/fan/Documents/视频工厂/codex_log/rag_decision_engine/latest_decision_audit_report.json",
+    "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_pre_supply_pack.json",
+    "/Users/fan/Documents/视频工厂/codex_log/rag_decision_engine/trace_event_20260621_rag_decision_state_machine_runner.json"
+  ],
+  "project_route": "video_factory",
+  "python_state_machine_implemented": true,
+  "repo_full_name": "fthytwerwt-sudo/-",
+  "selected_action": "fix_incremental_sync_plus_authority_overlay",
+  "source_commit_sha": "7520e4b05f34bc6170fdb6d961a55b6587a32fff",
+  "supply_packs": {
+    "mid_task_supply_pack": "codex_log/rag_vector_sync/latest_mid_task_supply_pack.json",
+    "post_risk_review_pack": "codex_log/rag_vector_sync/latest_post_risk_review_pack.json",
+    "pre_supply_pack": "codex_log/rag_vector_sync/latest_pre_supply_pack.json"
+  },
+  "validation_result": {
+    "status": "passed"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "blocked_fixture_blocked": true,
+  "deterministic_result": true,
+  "expected_mismatches": [],
+  "fixture_count": 4,
+  "forbidden_status_promotion_blocked": true,
+  "generated_at": "2026-06-22T00:14:23+08:00",
+  "key_printed": false,
+  "key_written": false,
+  "manifest_type": "weighted_decision_engine",
+  "missing_required_field_blocked": true,
+  "no_secret_written": true,
+  "positive_fixture_passed": true,
+  "results": [
+    {
+      "actual_status": "passed",
+      "blocked_reasons": [],
+      "expected_status": "passed",
+      "fixture_path": "/Users/fan/Documents/视频工厂/codex_source/fixtures/rag_decision_engine/weighted_decision/code_execution_weight_case.json"
+    },
+    {
+      "actual_status": "blocked",
+      "blocked_reasons": [
+        "hard_gate_failed_but_weighted_decision_still_runs"
+      ],
+      "expected_status": "blocked",
+      "fixture_path": "/Users/fan/Documents/视频工厂/codex_source/fixtures/rag_decision_engine/weighted_decision/high_risk_hard_gate_case.json"
+    },
+    {
+      "actual_status": "passed",
+      "blocked_reasons": [],
+      "expected_status": "passed",
+      "fixture_path": "/Users/fan/Documents/视频工厂/codex_source/fixtures/rag_decision_engine/weighted_decision/mechanism_repair_weight_case.json"
+    },
+    {
+      "actual_status": "passed",
+      "blocked_reasons": [],
+      "expected_status": "passed",
+      "fixture_path": "/Users/fan/Documents/视频工厂/codex_source/fixtures/rag_decision_engine/weighted_decision/rag_supply_weight_case.json"
+    }
+  ],
+  "status": "passed",
+  "validator": "rag_weighted_decision_validator"
+}

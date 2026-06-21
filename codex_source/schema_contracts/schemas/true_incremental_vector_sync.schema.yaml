@@ -1,0 +1,42 @@
+schema_id: true_incremental_vector_sync
+schema_version: "2026-06-21"
+project_route: video_factory
+status: active_contract
+description: >
+  Contract for planning true incremental vector sync without calling external
+  embedding or DashVector APIs during dry-run validation.
+
+required_fields:
+  - manifest_type
+  - project_route
+  - source_commit_sha
+  - generated_at
+  - input_paths
+  - output_paths
+  - blocked_if
+  - validation_result
+  - key_printed
+  - key_written
+
+properties:
+  manifest_type:
+    const: true_incremental_vector_sync
+  key_printed:
+    const: false
+  key_written:
+    const: false
+  chunk_delta_counts:
+    required:
+      - new_chunks
+      - changed_chunks
+      - unchanged_chunks
+      - deleted_chunks
+      - superseded_chunks
+  external_call_report:
+    required:
+      - alibaba_embedding_api_called
+      - dashvector_upsert_called
+    hard_rules:
+      - dry_run_must_not_call_external_api
+      - unchanged_chunks_must_reuse_previous_vectors
+      - final_manifest_may_be_full_but_api_boundary_must_be_delta_only

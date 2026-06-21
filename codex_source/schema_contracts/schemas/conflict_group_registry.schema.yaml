@@ -1,0 +1,39 @@
+schema_id: conflict_group_registry
+schema_version: "2026-06-21"
+project_route: video_factory
+status: active_contract
+description: >
+  Contract for grouping conflicting claims and selecting a current winner or
+  blocking when required execution facts cannot be resolved.
+
+required_fields:
+  - manifest_type
+  - project_route
+  - source_commit_sha
+  - generated_at
+  - input_paths
+  - output_paths
+  - blocked_if
+  - validation_result
+  - key_printed
+  - key_written
+
+properties:
+  manifest_type:
+    const: conflict_group_registry
+  key_printed:
+    const: false
+  key_written:
+    const: false
+  conflict_groups:
+    item_required:
+      - conflict_group_id
+      - candidates
+      - current_winner
+      - status
+      - loser_policy
+    hard_rules:
+      - current_formal_fact_beats_latest_log
+      - latest_log_beats_historical_log
+      - target_state_cannot_override_current_fact
+      - no_winner_for_required_fact_blocks

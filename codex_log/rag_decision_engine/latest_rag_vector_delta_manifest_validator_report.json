@@ -1,0 +1,62 @@
+{
+  "blocked_fixture_blocked": true,
+  "deterministic_result": true,
+  "expected_mismatches": [],
+  "fixture_count": 7,
+  "forbidden_status_promotion_blocked": true,
+  "generated_at": "2026-06-22T00:14:23+08:00",
+  "key_printed": false,
+  "key_written": false,
+  "manifest_type": "true_incremental_vector_sync",
+  "missing_required_field_blocked": true,
+  "no_secret_written": true,
+  "positive_fixture_passed": true,
+  "results": [
+    {
+      "actual_status": "passed",
+      "blocked_reasons": [],
+      "expected_status": "passed",
+      "fixture_path": "/Users/fan/Documents/视频工厂/codex_source/fixtures/rag_decision_engine/vector_delta/added_case.json"
+    },
+    {
+      "actual_status": "passed",
+      "blocked_reasons": [],
+      "expected_status": "passed",
+      "fixture_path": "/Users/fan/Documents/视频工厂/codex_source/fixtures/rag_decision_engine/vector_delta/changed_case.json"
+    },
+    {
+      "actual_status": "passed",
+      "blocked_reasons": [],
+      "expected_status": "passed",
+      "fixture_path": "/Users/fan/Documents/视频工厂/codex_source/fixtures/rag_decision_engine/vector_delta/current_blocked_sync_baseline.json"
+    },
+    {
+      "actual_status": "passed",
+      "blocked_reasons": [],
+      "expected_status": "passed",
+      "fixture_path": "/Users/fan/Documents/视频工厂/codex_source/fixtures/rag_decision_engine/vector_delta/deleted_case.json"
+    },
+    {
+      "actual_status": "passed",
+      "blocked_reasons": [],
+      "expected_status": "passed",
+      "fixture_path": "/Users/fan/Documents/视频工厂/codex_source/fixtures/rag_decision_engine/vector_delta/interrupted_resume_case.json"
+    },
+    {
+      "actual_status": "blocked",
+      "blocked_reasons": [
+        "new_chunks_negative"
+      ],
+      "expected_status": "blocked",
+      "fixture_path": "/Users/fan/Documents/视频工厂/codex_source/fixtures/rag_decision_engine/vector_delta/missing_chunk_hash_blocked_case.json"
+    },
+    {
+      "actual_status": "passed",
+      "blocked_reasons": [],
+      "expected_status": "passed",
+      "fixture_path": "/Users/fan/Documents/视频工厂/codex_source/fixtures/rag_decision_engine/vector_delta/unchanged_case.json"
+    }
+  ],
+  "status": "passed",
+  "validator": "rag_vector_delta_manifest_validator"
+}

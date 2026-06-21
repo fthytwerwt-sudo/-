@@ -1,23 +1,41 @@
 {
   "action_constraint": [
-    "continue_only_if_readback_hash_match"
+    "continue_only_if_hard_gate_passed"
   ],
-  "child_task_id": "rag-sync-guard-check",
-  "conflict_points": [],
+  "blocked_if": [
+    "hard_gate_failed",
+    "state_machine_node_failed"
+  ],
+  "can_claim_completed": false,
+  "can_feed_codex": true,
+  "child_task_id": "rag-decision-state-machine-dry-run",
+  "conflict_group_id": "rag_decision_engine_round_2",
+  "conflict_points": [
+    "voice_route",
+    "formal_operation_ratio",
+    "deepseek_supply_default",
+    "formal_delivery_baseline",
+    "formal_fact_vs_target_state"
+  ],
   "continue_allowed": true,
+  "decision_audit_report_id": "rag_decision_audit_20260621_python_state_machine",
   "files_already_read": [
-    "codex_log/engineering_line_audit/20260618_real_task_dry_run_preflight_report.md"
+    "codex_log/latest.md",
+    "codex_log/rag_vector_sync/latest_vector_sync_gate_report.json",
+    "codex_log/rag_decision_engine_design/20260621_RAG决策工程线设计_round_1_design_only.md"
   ],
-  "incremental_snippets": [
-    {
-      "chunk_id": "vf_397a356e9c3c1420c6839df41c28d0a1b2e4ad13",
-      "line_range": "62-76",
-      "readback_hash_match": true,
-      "snippet": "## rag_default_decision（RAG 默认判断）\n\n```yaml\nrag_default_entered（RAG 是否进入默认判断链）: true（是）\nretrieval_manifest_requirement（检索清单要求）: required（必须）\nsource_path_required（是否必须来源路径）: true（是）\nchunk_id_required（是否必须分块编号）: true（是）\nreadback_required（是否必须原文回读）: true（是）\nreal_dashvector_call_allowed（是否允许真实调用 DashVector）: false（否）\nreal_chroma_ingestion_allowed（是否允许 Chroma 入库）: false（否）\nrepo_fact_priority（仓库事实优先）: true（是）\n```\n\nRAG（检索增强生成）默认进入判断链，意思是：后续真实任务默认要准备检索清单、来源路径、分块编号和原文回读。它不表示本轮真实调用 DashVector（阿里向量数据库）或 Chroma（本地向量库），也不表示向量结果可以覆盖 GitHub / main 当前仓库事实。",
-      "source_path": "codex_log/engineering_line_audit/20260618_real_task_dry_run_preflight_report.md"
-    }
-  ],
+  "generated_at": "2026-06-22T00:14:24+08:00",
+  "hard_gate_result": {
+    "blocked_reason": "",
+    "failed_gates": [],
+    "proceeded_to_weighted_decision": true,
+    "status": "passed"
+  },
+  "incremental_snippets": [],
   "missing_context": [],
+  "pack_type": "mid_task_supply_pack",
+  "selected_action": "fix_incremental_sync_plus_authority_overlay",
+  "source_commit_sha": "7520e4b05f34bc6170fdb6d961a55b6587a32fff",
   "validation_failure_logs": [],
   "will_modify_files": []
 }

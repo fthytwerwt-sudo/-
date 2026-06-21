@@ -1,0 +1,44 @@
+schema_id: rag_authority_overlay
+schema_version: "2026-06-21"
+project_route: video_factory
+status: active_contract
+description: >
+  Contract for labeling retrieved or indexed RAG chunks with authority,
+  staleness, conflict, feed and completion boundaries.
+
+required_fields:
+  - manifest_type
+  - project_route
+  - source_commit_sha
+  - generated_at
+  - input_paths
+  - output_paths
+  - blocked_if
+  - validation_result
+  - key_printed
+  - key_written
+
+properties:
+  manifest_type:
+    const: rag_authority_overlay
+  key_printed:
+    const: false
+  key_written:
+    const: false
+  authority_entries:
+    item_required:
+      - chunk_id
+      - source_path
+      - line_range
+      - authority_level
+      - stale_status
+      - conflict_status
+      - retrieval_role
+      - can_feed_codex
+      - can_claim_completed
+      - readback_required
+      - hard_gate_flags
+    hard_rules:
+      - archive_only_cannot_feed_codex
+      - target_state_only_cannot_claim_current_fact
+      - stale_or_superseded_context_requires_readback_or_blocks

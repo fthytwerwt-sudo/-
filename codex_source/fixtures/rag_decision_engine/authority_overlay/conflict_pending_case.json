@@ -1,0 +1,15 @@
+{
+  "manifest_type": "rag_authority_overlay",
+  "case_id": "conflict_pending_case",
+  "expected_status": "blocked",
+  "project_route": "video_factory",
+  "source_commit_sha": "commit_current",
+  "generated_at": "2026-06-21T00:00:00+08:00",
+  "input_paths": ["latest_chunk_manifest"],
+  "output_paths": ["latest_rag_authority_overlay.json"],
+  "authority_entries": [{"chunk_id": "chunk_conflict", "source_path": "codex_log/old_status.md", "line_range": "1-10", "authority_level": "latest_log", "stale_status": "conflict_pending", "conflict_status": "pending", "conflict_group_id": "cg_pending", "superseded_by": null, "retrieval_role": "decision_source", "default_weight": 0.6, "can_feed_codex": true, "can_claim_completed": false, "readback_required": true, "hard_gate_flags": ["conflict_group_pending_for_required_fact"]}],
+  "blocked_if": ["conflict_pending_can_feed_codex"],
+  "validation_result": {"status": "blocked"},
+  "key_printed": false,
+  "key_written": false
+}

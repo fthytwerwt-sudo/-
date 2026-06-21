@@ -1,0 +1,92 @@
+{
+  "blocked_if": [
+    "required_fact_without_current_winner",
+    "pending_conflict_for_execution_fact"
+  ],
+  "conflict_groups": [
+    {
+      "candidates": [
+        "voice_validation_pending_user_chatgpt_review",
+        "old_voice_passed_claim"
+      ],
+      "conflict_group_id": "voice_route",
+      "current_winner": "voice_validation_pending_user_chatgpt_review",
+      "loser_policy": "stale_but_reference_allowed",
+      "status": "resolved",
+      "topic": "voice_validation_and_supplier_route",
+      "winner_reason": "Current formal facts keep final_voice_validated=false and voice_validation pending."
+    },
+    {
+      "candidates": [
+        "horizontal_16_9",
+        "vertical_9_16"
+      ],
+      "conflict_group_id": "formal_operation_ratio",
+      "current_winner": "horizontal_16_9",
+      "loser_policy": "history_context_only",
+      "status": "resolved",
+      "topic": "horizontal_16_9_vs_vertical_9_16",
+      "winner_reason": "Formal operation delivery ratio is horizontal 16:9; vertical is historical context."
+    },
+    {
+      "candidates": [
+        "conditional_trigger_only",
+        "default_supply_memory"
+      ],
+      "conflict_group_id": "deepseek_supply_default",
+      "current_winner": "conditional_trigger_only",
+      "loser_policy": "archive_only",
+      "status": "resolved",
+      "topic": "DeepSeek default supply vs conditional trigger",
+      "winner_reason": "DeepSeek participates only on trigger or explicit user request."
+    },
+    {
+      "candidates": [
+        "publish_candidate_or_blocked",
+        "technical_preview_delivery"
+      ],
+      "conflict_group_id": "formal_delivery_baseline",
+      "current_winner": "publish_candidate_or_blocked",
+      "loser_policy": "blocked_context",
+      "status": "resolved",
+      "topic": "technical_preview_vs_publish_candidate_or_blocked",
+      "winner_reason": "Formal operation delivery accepts publish candidate or blocked; technical preview is internal diagnostic."
+    },
+    {
+      "candidates": [
+        "current_formal_fact",
+        "target_state_plan"
+      ],
+      "conflict_group_id": "formal_fact_vs_target_state",
+      "current_winner": "current_formal_fact",
+      "loser_policy": "target_state_only",
+      "status": "resolved",
+      "topic": "current formal fact vs target state plan",
+      "winner_reason": "Target state plan cannot override current formal facts until landed in repo facts."
+    }
+  ],
+  "generated_at": "2026-06-22T00:14:23+08:00",
+  "input_paths": [
+    "codex_log/rag_decision_engine/latest_rag_authority_overlay.json"
+  ],
+  "key_printed": false,
+  "key_written": false,
+  "manifest_type": "conflict_group_registry",
+  "output_paths": [
+    "/Users/fan/Documents/视频工厂/codex_log/rag_decision_engine/latest_conflict_group_registry.json",
+    "/Users/fan/Documents/视频工厂/codex_log/rag_decision_engine/latest_conflict_group_registry.md"
+  ],
+  "project_route": "video_factory",
+  "repo_full_name": "fthytwerwt-sudo/-",
+  "rules": {
+    "current_formal_fact_beats_latest_log": true,
+    "latest_log_beats_historical_log": true,
+    "no_winner_for_required_fact_blocks": true,
+    "target_state_cannot_override_current_fact": true,
+    "user_current_turn_override_temporary_only": true
+  },
+  "source_commit_sha": "7520e4b05f34bc6170fdb6d961a55b6587a32fff",
+  "validation_result": {
+    "status": "passed"
+  }
+}

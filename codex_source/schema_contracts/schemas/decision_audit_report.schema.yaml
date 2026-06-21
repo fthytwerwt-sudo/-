@@ -1,0 +1,46 @@
+schema_id: decision_audit_report
+schema_version: "2026-06-21"
+project_route: video_factory
+status: active_contract
+description: >
+  Contract for explaining why Codex selected one action, rejected alternatives,
+  or blocked before execution.
+
+required_fields:
+  - manifest_type
+  - project_route
+  - source_commit_sha
+  - generated_at
+  - input_paths
+  - output_paths
+  - blocked_if
+  - validation_result
+  - key_printed
+  - key_written
+
+properties:
+  manifest_type:
+    const: decision_audit_report
+  key_printed:
+    const: false
+  key_written:
+    const: false
+  decision_audit_report:
+    required:
+      - task_context
+      - retrieved_candidates
+      - readback_status
+      - cleaned_candidates
+      - conflict_groups_checked
+      - hard_gate_result
+      - weighted_score_breakdown
+      - candidate_actions
+      - selected_action
+      - why_selected
+      - why_not_others
+      - blocked_if
+      - user_review_required
+    hard_rules:
+      - selected_action_requires_reason
+      - rejected_actions_require_reason
+      - hard_gate_result_must_be_visible_to_user

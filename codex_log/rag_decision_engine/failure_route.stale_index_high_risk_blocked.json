@@ -1,0 +1,19 @@
+{
+  "available_route_targets": [
+    "RAG_supply_bus",
+    "RAG_sync_bus",
+    "fact_source_arbitration",
+    "validation_repair",
+    "human_decision_gate",
+    "completion_truth_check",
+    "git_sync_gate"
+  ],
+  "blocked_until": "repair_layer_completed",
+  "cleaning_layer_failure_route": true,
+  "failure_id": "failure_event",
+  "failure_type": "unknown_failure",
+  "generated_at": "2026-06-22T00:10:02+08:00",
+  "next_action": "rerun_sync_guard_or_vector_sync_when_authorized",
+  "reason": "resolved_by_keyword_route",
+  "route_target": "RAG_sync_bus"
+}

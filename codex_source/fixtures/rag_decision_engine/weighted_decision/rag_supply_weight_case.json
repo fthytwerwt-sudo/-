@@ -1,0 +1,18 @@
+{
+  "manifest_type": "weighted_decision_engine",
+  "case_id": "rag_supply_weight_case",
+  "expected_status": "passed",
+  "project_route": "video_factory",
+  "source_commit_sha": "commit_current",
+  "generated_at": "2026-06-21T00:00:00+08:00",
+  "input_paths": ["cleaned_candidates", "candidate_actions"],
+  "output_paths": ["latest_decision_audit_report.json"],
+  "task_type": "rag_supply",
+  "hard_gate_result": {"status": "passed", "failed_gates": [], "proceeded_to_weighted_decision": true},
+  "candidate_actions": [{"action_id": "build_supply_pack_with_readback", "base_weight": 0.85}],
+  "weighted_score_breakdown": {"selected_action": "build_supply_pack_with_readback", "candidate_actions": []},
+  "blocked_if": [],
+  "validation_result": {"status": "passed"},
+  "key_printed": false,
+  "key_written": false
+}

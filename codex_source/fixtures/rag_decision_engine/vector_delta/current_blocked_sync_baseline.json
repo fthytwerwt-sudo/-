@@ -1,0 +1,31 @@
+{
+  "manifest_type": "true_incremental_vector_sync",
+  "case_id": "current_blocked_sync_baseline",
+  "expected_status": "passed",
+  "project_route": "video_factory",
+  "source_commit_sha": "a5b8e6687813210cc0caccebcf475055b7df7dab",
+  "generated_at": "2026-06-21T00:00:00+08:00",
+  "input_paths": ["codex_log/rag_vector_sync/latest_index_manifest.json", "codex_log/rag_vector_sync/latest_chunk_manifest.json", "codex_log/rag_vector_sync/latest_vector_sync_gate_report.json"],
+  "output_paths": ["codex_log/rag_vector_sync/latest_chunk_delta_manifest.json"],
+  "baseline": {
+    "changed_indexable_file_count": 23,
+    "latest_chunk_manifest_chunk_count": 5657,
+    "latest_index_manifest_stale": true,
+    "full_sync_timeout_blocked": true
+  },
+  "chunk_delta_counts": {
+    "new_chunks": 1,
+    "changed_chunks": 1,
+    "unchanged_chunks": 1,
+    "deleted_chunks": 1,
+    "superseded_chunks": 1
+  },
+  "external_call_report": {
+    "alibaba_embedding_api_called": false,
+    "dashvector_upsert_called": false
+  },
+  "blocked_if": [],
+  "validation_result": {"status": "passed"},
+  "key_printed": false,
+  "key_written": false
+}

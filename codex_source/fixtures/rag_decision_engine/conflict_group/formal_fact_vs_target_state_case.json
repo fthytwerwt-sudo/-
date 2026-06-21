@@ -1,0 +1,15 @@
+{
+  "manifest_type": "conflict_group_registry",
+  "case_id": "formal_fact_vs_target_state_case",
+  "expected_status": "blocked",
+  "project_route": "video_factory",
+  "source_commit_sha": "commit_current",
+  "generated_at": "2026-06-21T00:00:00+08:00",
+  "input_paths": ["authority_overlay"],
+  "output_paths": ["latest_conflict_group_registry.json"],
+  "conflict_groups": [{"conflict_group_id": "formal_fact_vs_target", "status": "pending", "current_winner": null, "winner_reason": "", "candidates": ["current_formal_fact", "target_state_plan"], "loser_policy": "pending"}],
+  "blocked_if": ["required_fact_without_current_winner"],
+  "validation_result": {"status": "blocked"},
+  "key_printed": false,
+  "key_written": false
+}

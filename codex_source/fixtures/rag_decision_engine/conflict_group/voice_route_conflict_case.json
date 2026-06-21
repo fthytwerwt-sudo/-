@@ -1,0 +1,15 @@
+{
+  "manifest_type": "conflict_group_registry",
+  "case_id": "voice_route_conflict_case",
+  "expected_status": "passed",
+  "project_route": "video_factory",
+  "source_commit_sha": "commit_current",
+  "generated_at": "2026-06-21T00:00:00+08:00",
+  "input_paths": ["authority_overlay"],
+  "output_paths": ["latest_conflict_group_registry.json"],
+  "conflict_groups": [{"conflict_group_id": "voice_route", "status": "resolved", "current_winner": "pending_user_chatgpt_review", "winner_reason": "current formal fact keeps final voice pending", "candidates": ["final_voice_validated_false", "old_voice_passed_claim"], "loser_policy": "stale_reference_only"}],
+  "blocked_if": [],
+  "validation_result": {"status": "passed"},
+  "key_printed": false,
+  "key_written": false
+}

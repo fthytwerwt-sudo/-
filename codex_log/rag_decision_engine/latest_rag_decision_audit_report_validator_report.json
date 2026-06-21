@@ -1,0 +1,38 @@
+{
+  "blocked_fixture_blocked": true,
+  "deterministic_result": true,
+  "expected_mismatches": [],
+  "fixture_count": 3,
+  "forbidden_status_promotion_blocked": true,
+  "generated_at": "2026-06-22T00:14:23+08:00",
+  "key_printed": false,
+  "key_written": false,
+  "manifest_type": "decision_audit_report",
+  "missing_required_field_blocked": true,
+  "no_secret_written": true,
+  "positive_fixture_passed": true,
+  "results": [
+    {
+      "actual_status": "passed",
+      "blocked_reasons": [],
+      "expected_status": "passed",
+      "fixture_path": "/Users/fan/Documents/视频工厂/codex_source/fixtures/rag_decision_engine/decision_audit/current_blocked_sync_decision_case.json"
+    },
+    {
+      "actual_status": "blocked",
+      "blocked_reasons": [
+        "why_not_others_missing"
+      ],
+      "expected_status": "blocked",
+      "fixture_path": "/Users/fan/Documents/视频工厂/codex_source/fixtures/rag_decision_engine/decision_audit/rejected_actions_explanation_case.json"
+    },
+    {
+      "actual_status": "passed",
+      "blocked_reasons": [],
+      "expected_status": "passed",
+      "fixture_path": "/Users/fan/Documents/视频工厂/codex_source/fixtures/rag_decision_engine/decision_audit/selected_action_explanation_case.json"
+    }
+  ],
+  "status": "passed",
+  "validator": "rag_decision_audit_report_validator"
+}

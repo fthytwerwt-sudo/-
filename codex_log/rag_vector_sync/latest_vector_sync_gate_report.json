@@ -1,86 +1,35 @@
 {
-  "blocked_reason": "post_commit_vector_sync_gate_finish_waited_for_rag_dashvector_sync_embedding_upsert_stage_for_30_minutes_without_final_index_manifest",
-  "blocked_reasons": [
-    "vector_sync_blocked_external_sync_timeout",
-    "failed_stage:embedding_upsert_stage_rag_dashvector_sync",
-    "final_index_manifest_not_written_for_source_commit",
-    "retrieval_probe_not_run_for_source_commit",
-    "current_RAG_index_not_claimed_latest"
-  ],
-  "changed_indexable_file_count": 23,
+  "blocked_reasons": [],
   "commands": [
     {
-      "command": "python3 -m py_compile scripts/post_commit_vector_sync_gate.py scripts/rag_common.py scripts/rag_dashvector_sync.py scripts/rag_retrieval_probe.py scripts/rag_index_manifest_validator.py",
+      "command": "python3 scripts/rag_vector_delta_planner.py",
       "passed": true,
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": ""
-    },
-    {
-      "command": "python3 scripts/post_commit_vector_sync_gate.py --mode check",
-      "passed": true,
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "status=sync_required source_commit_sha=a5b8e6687813210cc0caccebcf475055b7df7dab previous_index_commit_sha=44b25ce9c0abf800fb7397746520b62e1dee7708"
-    },
-    {
-      "command": "python3 scripts/rag_build_source_inventory.py",
-      "passed": true,
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "completed_before_timeout; latest_source_inventory.json commit_sha=a5b8e6687813210cc0caccebcf475055b7df7dab"
-    },
-    {
-      "command": "python3 scripts/rag_chunk_project_sources.py",
-      "passed": true,
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "completed_before_timeout; latest_chunk_manifest.json commit_sha=a5b8e6687813210cc0caccebcf475055b7df7dab chunk_count=5657"
-    },
-    {
-      "command": "python3 scripts/rag_dashvector_sync.py --batch-size 16",
-      "passed": false,
-      "returncode": 130,
-      "stderr_tail": "KeyboardInterrupt from post_commit_vector_sync_gate.py --mode finish while waiting for rag_dashvector_sync.py",
-      "stdout_tail": "interrupted_after_30_minute_window_without_final_index_manifest"
-    },
-    {
-      "command": "python3 scripts/rag_index_manifest_validator.py",
-      "passed": false,
-      "returncode": 2,
-      "stderr_tail": "",
-      "stdout_tail": "status=blocked blocked_reasons=index_chunk_count_mismatch chunk_manifest_count=5657 indexed_chunk_count=5597"
-    },
-    {
-      "command": "python3 scripts/rag_index_manifest_validator.py --check-current-worktree",
-      "passed": false,
-      "returncode": 2,
-      "stderr_tail": "",
-      "stdout_tail": "status=blocked blocked_reasons=stale_index_detected,index_chunk_count_mismatch chunk_manifest_count=5657 indexed_chunk_count=5597 stale_file_count=17"
+      "stdout_tail": "{\"alibaba_embedding_api_called\": false, \"changed_chunks\": 51, \"chunk_delta_manifest_path\": \"/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_chunk_delta_manifest.json\", \"dashvector_upsert_called\": false, \"deleted_chunks\": 424, \"delta_chunks_to_embed\": 535, \"key_printed\": false, \"key_written\": false, \"new_chunks\": 484, \"status\": \"passed\", \"superseded_chunks\": 51, \"unchanged_chunks\": 5122}\n"
     }
   ],
-  "current_RAG_index_latest_claim": false,
+  "delta_counts": {
+    "active_chunk_count": 5657,
+    "changed_chunks": 51,
+    "deleted_chunks": 424,
+    "delta_chunks_to_embed": 535,
+    "new_chunks": 484,
+    "previous_index_chunk_count": 5597,
+    "superseded_chunks": 51,
+    "unchanged_chunks": 5122
+  },
   "external_call_report": {
-    "alibaba_embedding_api_called": true,
+    "alibaba_embedding_api_called": false,
     "dashvector_query_called": false,
-    "dashvector_upsert_called": true,
-    "final_index_manifest_written": false,
+    "dashvector_upsert_called": false,
     "key_printed": false,
     "key_written": false,
     "provider": "Alibaba / DashVector",
     "vector_values_written": false
   },
-  "failed_stage": "embedding_upsert_stage_rag_dashvector_sync",
-  "final_index_manifest": {
-    "current_manifest_indexed_chunk_count": 5597,
-    "current_manifest_indexed_file_count": 875,
-    "current_manifest_source_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
-    "path": "codex_log/rag_vector_sync/latest_index_manifest.json",
-    "written_for_source_commit": false
-  },
-  "final_index_manifest_written": false,
   "gate_name": "post_commit_vector_sync_gate",
-  "generated_at": "2026-06-21T16:24:49+08:00",
+  "generated_at": "2026-06-22T00:14:24+08:00",
   "indexable_change_result": {
     "blocked_reasons": [],
     "changed_indexable_files": [
@@ -92,6 +41,10 @@
       "codex_log/engineering_line_collaboration/20260620_工程线协作闸门_engineering_line_collaboration_gate_report.md",
       "codex_log/latest.md",
       "codex_log/rag_cleaning_layer/20260621_RAG清洗层补缺执行报告_rag_cleaning_layer_gap_fill_report.md",
+      "codex_log/rag_decision_engine_design/20260621_RAG决策工程线设计_round_1_closeout_validation_report.md",
+      "codex_log/rag_decision_engine_design/20260621_RAG决策工程线设计_round_1_design_only.md",
+      "codex_log/rag_decision_engine_design/20260621_用户可读_RAG决策工程线审查指南.md",
+      "codex_log/rag_decision_engine_design/20260621_用户可读_RAG决策运行图与LangGraph审查说明.md",
       "codex_source/00_codex_readme.md",
       "codex_source/01_execution_rules.md",
       "codex_source/19_project_state_action_router.md",
@@ -198,8 +151,40 @@
         "status": "A"
       },
       {
+        "path": "codex_log/rag_cleaning_layer/vector_sync_blocked_20260621_162310.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine_design/20260621_RAG决策工程线设计_round_1_closeout_validation_report.md",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine_design/20260621_RAG决策工程线设计_round_1_design_only.md",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine_design/20260621_用户可读_RAG决策工程线审查指南.md",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine_design/20260621_用户可读_RAG决策运行图与LangGraph审查说明.md",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine_design/trace_event_20260621_rag_decision_engine_design_round1_closeout.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine_design/trace_event_20260621_rag_decision_runtime_graph_review.json",
+        "status": "A"
+      },
+      {
         "path": "codex_log/rag_engineering_line/trace_events.jsonl",
         "status": "M"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/20260621_vector_sync_finish_retry_report.md",
+        "status": "A"
       },
       {
         "path": "codex_log/rag_vector_sync/latest_chunk_manifest.json",
@@ -243,6 +228,10 @@
       },
       {
         "path": "codex_log/rag_vector_sync/latest_vector_sync_gate_report.md",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/trace_event_20260621_vector_sync_finish_retry.json",
         "status": "A"
       },
       {
@@ -443,71 +432,11 @@
       }
     ],
     "skip_reason": "",
-    "source_commit_sha": "a5b8e6687813210cc0caccebcf475055b7df7dab",
+    "source_commit_sha": "7520e4b05f34bc6170fdb6d961a55b6587a32fff",
     "sync_required": true
   },
-  "indexed_chunk_count": null,
-  "indexed_file_count": null,
-  "key_printed": false,
-  "key_written": false,
-  "mode": "sync",
-  "next_retry_recommendation": [
-    "split_sync_by_smaller_source_scope_or_changed_files_instead_of_full_corpus",
-    "add per_batch_progress_and_timeout_to_rag_dashvector_sync_before_next_long_retry",
-    "verify DashVector collection latency/status before re-running full upsert",
-    "do_not_claim_RAG_latest_until_index_manifest_and_retrieval_probe_pass"
-  ],
-  "previous_index_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
+  "mode": "check",
   "project_route": "video_factory",
   "repo_full_name": "fthytwerwt-sudo/-",
-  "retrieval_probe": {
-    "passed": false,
-    "reason_not_run": "final_index_manifest_for_source_commit_missing",
-    "run_for_source_commit": false
-  },
-  "retrieval_probe_passed": false,
-  "source_commit_sha": "a5b8e6687813210cc0caccebcf475055b7df7dab",
-  "source_readback": {
-    "passed": false,
-    "reason": "final_index_manifest_for_source_commit_missing"
-  },
-  "source_readback_passed": false,
-  "stale_index_check": {
-    "blocked_reasons": [
-      "stale_index_detected",
-      "index_chunk_count_mismatch"
-    ],
-    "passed": false
-  },
-  "stale_index_check_passed": false,
-  "status": "blocked",
-  "sync_required": true,
-  "task_result_status": "vector_sync_blocked_with_clear_reason",
-  "timeout_window_minutes": 30,
-  "validator_results": {
-    "rag_index_manifest_validator": {
-      "blocked_reasons": [
-        "index_chunk_count_mismatch"
-      ],
-      "chunk_manifest_count": 5657,
-      "index_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
-      "indexed_chunk_count": 5597,
-      "returncode": 2,
-      "status": "blocked"
-    },
-    "rag_index_manifest_validator_check_current_worktree": {
-      "blocked_reasons": [
-        "stale_index_detected",
-        "index_chunk_count_mismatch"
-      ],
-      "chunk_manifest_count": 5657,
-      "index_commit_sha": "44b25ce9c0abf800fb7397746520b62e1dee7708",
-      "indexed_chunk_count": 5597,
-      "returncode": 2,
-      "stale_file_count": 17,
-      "status": "blocked"
-    }
-  },
-  "vector_sync_status": "vector_sync_blocked_external_sync_timeout",
-  "vector_values_written": false
+  "status": "sync_required"
 }

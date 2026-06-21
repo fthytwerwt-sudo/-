@@ -84,7 +84,7 @@ def build_mid_pack(state: dict[str, Any]) -> dict[str, Any]:
             "conflict_points_unresolved",
         ],
         "generated_at": common.now_iso(),
-    }
+    } | pre_builder.load_decision_context()
 
 
 def main() -> int:

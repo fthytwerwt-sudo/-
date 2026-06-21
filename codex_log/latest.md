@@ -1,5 +1,50 @@
 # Latest
 
+## 20260621｜RAG Decision Engineering Line Round 2 Python State Machine
+
+```yaml
+task_result.status（任务结果状态）: round_2_python_state_machine_landed_pending_controlled_real_delta_sync（第二轮 Python 状态机已落地，等待受控真实差量同步）
+project_route（项目路由）: video_factory（视频工厂）
+task_type（任务类型）:
+  - mechanism_repair_execution（机制修补执行）
+  - RAG_decision_engine_implementation（RAG 决策工程线实现）
+  - code_execution（代码执行）
+  - engineering_line_execution（工程线执行）
+engineering_depth（工程深度）: L3_system_line（系统工程线）
+implementation_scope（实现范围）: python_state_machine_first（先实现 Python 状态机）
+langgraph_implemented（LangGraph 是否已实现）: false（未实现）
+python_state_machine_implemented（Python 状态机是否已实现）: true（已实现）
+true_incremental_sync_implemented（真实增量同步是否已实现）: dry_run_delta_ready_real_delta_sync_not_run（差量空跑已就绪，真实差量同步未运行）
+current_RAG_index_latest_claim（是否声称当前 RAG 索引最新）: false（不声称）
+vector_sync_status（向量同步状态）: controlled_real_delta_sync_pending（等待受控真实差量同步）
+delta_planner_report（差量规划报告）: codex_log/rag_vector_sync/latest_chunk_delta_manifest.json
+delta_sync_dry_run_report（差量同步空跑报告）: codex_log/rag_vector_sync/latest_delta_sync_dry_run_report.json
+state_machine_run（状态机运行报告）: codex_log/rag_decision_engine/latest_decision_state_machine_run.json
+decision_audit_report（决策审计报告）: codex_log/rag_decision_engine/latest_decision_audit_report.json
+authority_overlay（权威覆盖层）: codex_log/rag_decision_engine/latest_rag_authority_overlay.json
+conflict_group_registry（冲突组注册表）: codex_log/rag_decision_engine/latest_conflict_group_registry.json
+dated_report（日期报告）: codex_log/rag_decision_engine/20260621_RAG决策工程线Python状态机落地报告.md
+trace_event（链路事件）: codex_log/rag_decision_engine/trace_event_20260621_rag_decision_state_machine_runner.json
+selected_action_example（示例选中动作）: fix_incremental_sync_plus_authority_overlay（修增量同步 + 权威覆盖层）
+dry_run_delta_counts（差量空跑数量）:
+  new_chunks: 484
+  changed_chunks: 51
+  unchanged_chunks: 5122
+  deleted_chunks: 424
+  superseded_chunks: 51
+  delta_chunks_to_embed: 535
+external_api_called（外部 API 调用）: false（未调用）
+dashvector_upsert_called（DashVector 写入）: false（未写入）
+content_validation（内容验证）: not_promoted（未推进）
+runtime_validation（运行时验证）: python_state_machine_dry_run_passed（Python 状态机空跑通过）
+production_readiness（生产可用状态）: not_claimed（未声称）
+next_safe_step（下一步安全动作）: run_controlled_real_delta_sync_only_after_user_or_existing_gate_authorization（仅在用户或既有闸门授权后运行受控真实差量同步）
+```
+
+- `state_machine（状态机）`: 已实现 Python runner，执行 `task_classifier -> stale_index_checker -> repo readback fallback -> authority overlay -> conflict registry -> hard gate -> weighted decision -> decision audit -> supply pack -> failure router`，本轮不引入 LangGraph。
+- `incremental_sync（增量同步）`: 已新增 chunk delta planner 和 `rag_dashvector_sync.py --dry-run-delta`，空跑确认只会处理 `535` 个 delta chunks；未真实调用 embedding 或 DashVector upsert。
+- `status_boundary（状态边界）`: 本轮不声明当前 RAG 最新、不声明生产可用、不推进内容验证；真实 delta sync 仍需受控授权。
+
 ## 20260621｜RAG Decision Runtime Graph Review Supplement
 
 ```yaml

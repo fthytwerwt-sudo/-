@@ -140,6 +140,8 @@ def _write_gate_report(report: dict[str, Any]) -> None:
         f"- skip_reason: `{report['indexable_change_result'].get('skip_reason') or ''}`",
         f"- changed_indexable_file_count: `{len(report['indexable_change_result'].get('changed_indexable_files', []))}`",
         f"- deleted_indexable_file_count: `{len(report['indexable_change_result'].get('deleted_indexable_files', []))}`",
+        f"- delta_chunks_to_embed: `{report.get('delta_counts', {}).get('delta_chunks_to_embed', '')}`",
+        f"- unchanged_chunk_count: `{report.get('delta_counts', {}).get('unchanged_chunks', '')}`",
         f"- indexed_file_count: `{report.get('indexed_file_count', '')}`",
         f"- indexed_chunk_count: `{report.get('indexed_chunk_count', '')}`",
         f"- alibaba_embedding_api_called: `{str(report['external_call_report']['alibaba_embedding_api_called']).lower()}`",
@@ -170,7 +172,25 @@ def _read_manifest_counts() -> dict[str, Any]:
     }
 
 
-def run_sync_pipeline(mode: str, batch_size: int) -> dict[str, Any]:
+def _run_delta_planner(report: dict[str, Any]) -> dict[str, Any] | None:
+    result = _run_command(["python3", "scripts/rag_vector_delta_planner.py"])
+    report["commands"].append(result)
+    if not result["passed"]:
+        report["status"] = "blocked"
+        report["blocked_reasons"].append("command_failed:python3 scripts/rag_vector_delta_planner.py")
+        return None
+    delta_manifest = common.read_json(common.OUT_DIR / "latest_chunk_delta_manifest.json")
+    report["delta_counts"] = delta_manifest.get("chunk_delta_counts", {})
+    return delta_manifest
+
+
+def run_sync_pipeline(
+    mode: str,
+    batch_size: int,
+    *,
+    real_delta_sync: bool = False,
+    full_sync_explicit: bool = False,
+) -> dict[str, Any]:
     index_manifest = common.read_json(common.INDEX_MANIFEST_PATH)
     change_result = detect_indexable_changes(index_manifest)
     report: dict[str, Any] = {
@@ -195,6 +215,9 @@ def run_sync_pipeline(mode: str, batch_size: int) -> dict[str, Any]:
     }
 
     if mode == "check":
+        if _run_delta_planner(report) is None:
+            _write_gate_report(report)
+            return report
         report["status"] = "sync_required" if change_result["sync_required"] else "passed_no_sync_required"
         _write_gate_report(report)
         return report
@@ -207,11 +230,45 @@ def run_sync_pipeline(mode: str, batch_size: int) -> dict[str, Any]:
     pipeline = [
         ["python3", "scripts/rag_build_source_inventory.py"],
         ["python3", "scripts/rag_chunk_project_sources.py"],
-        ["python3", "scripts/rag_dashvector_sync.py", "--batch-size", str(batch_size)],
-        ["python3", "scripts/rag_retrieval_probe.py"],
-        ["python3", "scripts/rag_index_manifest_validator.py"],
-        ["python3", "scripts/rag_index_manifest_validator.py", "--check-current-worktree"],
+        ["python3", "scripts/rag_vector_delta_planner.py"],
     ]
+    if full_sync_explicit:
+        pipeline.append(["python3", "scripts/rag_dashvector_sync.py", "--batch-size", str(batch_size), "--full-sync-explicit"])
+        pipeline.extend(
+            [
+                ["python3", "scripts/rag_retrieval_probe.py"],
+                ["python3", "scripts/rag_index_manifest_validator.py"],
+                ["python3", "scripts/rag_index_manifest_validator.py", "--check-current-worktree"],
+            ]
+        )
+    elif real_delta_sync:
+        pipeline.append(
+            [
+                "python3",
+                "scripts/rag_dashvector_sync.py",
+                "--batch-size",
+                str(batch_size),
+                "--delta-manifest",
+                "codex_log/rag_vector_sync/latest_chunk_delta_manifest.json",
+            ]
+        )
+        pipeline.extend(
+            [
+                ["python3", "scripts/rag_retrieval_probe.py", "--dry-run-active-filter"],
+                ["python3", "scripts/rag_index_manifest_validator.py"],
+                ["python3", "scripts/rag_index_manifest_validator.py", "--check-current-worktree"],
+            ]
+        )
+    else:
+        pipeline.append(
+            [
+                "python3",
+                "scripts/rag_dashvector_sync.py",
+                "--dry-run-delta",
+                "--delta-manifest",
+                "codex_log/rag_vector_sync/latest_chunk_delta_manifest.json",
+            ]
+        )
     for command in pipeline:
         result = _run_command(command)
         report["commands"].append(result)
@@ -221,6 +278,16 @@ def run_sync_pipeline(mode: str, batch_size: int) -> dict[str, Any]:
             _write_gate_report(report)
             return report
 
+    delta_path = common.OUT_DIR / "latest_chunk_delta_manifest.json"
+    if delta_path.exists():
+        report["delta_counts"] = common.read_json(delta_path).get("chunk_delta_counts", {})
+    if not real_delta_sync and not full_sync_explicit:
+        counts = _read_manifest_counts()
+        report.update(counts)
+        report["status"] = "ready_for_controlled_real_delta_sync_pending_user_or_existing_gate_authorization"
+        _write_gate_report(report)
+        return report
+
     counts = _read_manifest_counts()
     report.update(counts)
     report["status"] = "passed"
@@ -228,7 +295,7 @@ def run_sync_pipeline(mode: str, batch_size: int) -> dict[str, Any]:
         {
             "alibaba_embedding_api_called": True,
             "dashvector_upsert_called": True,
-            "dashvector_query_called": True,
+            "dashvector_query_called": bool(full_sync_explicit or real_delta_sync),
         }
     )
     _write_gate_report(report)
@@ -240,9 +307,16 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Post-commit DashVector sync gate.")
     parser.add_argument("--mode", choices=("check", "sync", "finish"), required=True)
     parser.add_argument("--batch-size", type=int, default=16)
+    parser.add_argument("--real-delta-sync", action="store_true", help="Allow controlled real delta embedding/upsert after dry-run validation.")
+    parser.add_argument("--full-sync-explicit", action="store_true", help="Explicitly allow legacy full sync.")
     args = parser.parse_args()
     mode = "sync" if args.mode == "finish" else args.mode
-    report = run_sync_pipeline(mode, max(1, args.batch_size))
+    report = run_sync_pipeline(
+        mode,
+        max(1, args.batch_size),
+        real_delta_sync=args.real_delta_sync,
+        full_sync_explicit=args.full_sync_explicit,
+    )
     print(
         json.dumps(
             {
@@ -253,6 +327,7 @@ def main() -> int:
                 "previous_index_commit_sha": report["indexable_change_result"]["previous_index_commit_sha"],
                 "indexed_file_count": report.get("indexed_file_count"),
                 "indexed_chunk_count": report.get("indexed_chunk_count"),
+                "delta_counts": report.get("delta_counts", {}),
                 "blocked_reasons": report.get("blocked_reasons", []),
                 "gate_report_path": GATE_REPORT_JSON.as_posix(),
                 "key_printed": False,
@@ -263,7 +338,7 @@ def main() -> int:
             sort_keys=True,
         )
     )
-    return 0 if report["status"] in {"passed", "sync_required", "passed_no_sync_required", "skipped_no_sync_required"} else 2
+    return 0 if report["status"] in {"passed", "sync_required", "passed_no_sync_required", "skipped_no_sync_required", "ready_for_controlled_real_delta_sync_pending_user_or_existing_gate_authorization"} else 2
 
 
 if __name__ == "__main__":

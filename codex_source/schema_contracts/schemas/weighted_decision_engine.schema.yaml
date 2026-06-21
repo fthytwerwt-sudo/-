@@ -1,0 +1,40 @@
+schema_id: weighted_decision_engine
+schema_version: "2026-06-21"
+project_route: video_factory
+status: active_contract
+description: >
+  Contract for hard-gate-first weighted action selection after RAG candidates
+  have been read back, cleaned and conflict-resolved.
+
+required_fields:
+  - manifest_type
+  - project_route
+  - source_commit_sha
+  - generated_at
+  - input_paths
+  - output_paths
+  - blocked_if
+  - validation_result
+  - key_printed
+  - key_written
+
+properties:
+  manifest_type:
+    const: weighted_decision_engine
+  key_printed:
+    const: false
+  key_written:
+    const: false
+  hard_gate_result:
+    required:
+      - status
+      - failed_gates
+      - proceeded_to_weighted_decision
+  weighted_score_breakdown:
+    required:
+      - candidate_actions
+      - selected_action
+    hard_rules:
+      - hard_gate_failed_must_block_before_weight
+      - forbidden_status_promotion_must_block
+      - stale_index_high_risk_must_block

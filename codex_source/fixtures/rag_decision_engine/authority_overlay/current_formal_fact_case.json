@@ -1,0 +1,15 @@
+{
+  "manifest_type": "rag_authority_overlay",
+  "case_id": "current_formal_fact_case",
+  "expected_status": "passed",
+  "project_route": "video_factory",
+  "source_commit_sha": "commit_current",
+  "generated_at": "2026-06-21T00:00:00+08:00",
+  "input_paths": ["latest_chunk_manifest"],
+  "output_paths": ["latest_rag_authority_overlay.json"],
+  "authority_entries": [{"chunk_id": "chunk_current", "source_path": "GPT数据源/08_当前正式事实.md", "line_range": "1-10", "authority_level": "current_formal_fact", "stale_status": "current", "conflict_status": "none", "conflict_group_id": null, "superseded_by": null, "retrieval_role": "decision_source", "default_weight": 1.0, "can_feed_codex": true, "can_claim_completed": false, "readback_required": true, "hard_gate_flags": []}],
+  "blocked_if": [],
+  "validation_result": {"status": "passed"},
+  "key_printed": false,
+  "key_written": false
+}
