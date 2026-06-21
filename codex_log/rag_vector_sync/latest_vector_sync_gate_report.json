@@ -46,7 +46,7 @@
   "failed_batch_count": 0,
   "final_index_manifest_written": false,
   "gate_name": "post_commit_vector_sync_gate",
-  "generated_at": "2026-06-22T01:02:50+08:00",
+  "generated_at": "2026-06-22T01:04:45+08:00",
   "indexable_change_result": {
     "blocked_reasons": [],
     "changed_indexable_files": [
@@ -94,6 +94,9 @@
       "scripts/rag_decision_state_machine_runner.py",
       "scripts/rag_decision_state_machine_validator.py",
       "scripts/rag_decision_validator_common.py",
+      "scripts/rag_delta_batch_manifest_validator.py",
+      "scripts/rag_delta_checkpoint_validator.py",
+      "scripts/rag_delta_partial_manifest_validator.py",
       "scripts/rag_failure_route_resolver.py",
       "scripts/rag_mid_task_supply_builder.py",
       "scripts/rag_retrieval_probe.py",
@@ -254,6 +257,18 @@
         "status": "A"
       },
       {
+        "path": "codex_log/rag_decision_engine/latest_rag_delta_batch_manifest_validator_report.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/latest_rag_delta_checkpoint_validator_report.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_decision_engine/latest_rag_delta_partial_manifest_validator_report.json",
+        "status": "A"
+      },
+      {
         "path": "codex_log/rag_decision_engine/latest_rag_vector_delta_manifest_validator_report.json",
         "status": "A"
       },
@@ -302,6 +317,10 @@
         "status": "A"
       },
       {
+        "path": "codex_log/rag_vector_sync/20260622_真实分批向量同步执行器_batch_checkpoint_resume_report.md",
+        "status": "A"
+      },
+      {
         "path": "codex_log/rag_vector_sync/latest_chunk_delta_manifest.json",
         "status": "A"
       },
@@ -318,6 +337,22 @@
         "status": "M"
       },
       {
+        "path": "codex_log/rag_vector_sync/latest_delta_batch_manifest.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_delta_batch_manifest.md",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_delta_index_partial_manifest.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_delta_index_partial_manifest.md",
+        "status": "A"
+      },
+      {
         "path": "codex_log/rag_vector_sync/latest_delta_sync_checkpoint.json",
         "status": "A"
       },
@@ -327,6 +362,10 @@
       },
       {
         "path": "codex_log/rag_vector_sync/latest_delta_sync_dry_run_report.md",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_delta_sync_timeout_report.json",
         "status": "A"
       },
       {
@@ -390,6 +429,10 @@
         "status": "A"
       },
       {
+        "path": "codex_log/rag_vector_sync/trace_event_20260622_batch_checkpoint_resume_vector_sync_executor.json",
+        "status": "A"
+      },
+      {
         "path": "codex_log/rag_vector_sync/trace_event_20260622_vector_sync_final_finish.json",
         "status": "A"
       },
@@ -434,6 +477,26 @@
         "status": "A"
       },
       {
+        "path": "codex_source/fixtures/rag_decision_engine/batch_manifest/batch_manifest_invalid_missing_batch_id_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/batch_manifest/batch_manifest_valid_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/checkpoint/checkpoint_after_batch_0_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/checkpoint/checkpoint_hash_mismatch_blocked_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/checkpoint/checkpoint_resume_skip_completed_case.json",
+        "status": "A"
+      },
+      {
         "path": "codex_source/fixtures/rag_decision_engine/conflict_group/aspect_ratio_conflict_case.json",
         "status": "A"
       },
@@ -466,6 +529,14 @@
         "status": "A"
       },
       {
+        "path": "codex_source/fixtures/rag_decision_engine/partial_manifest/partial_manifest_after_interruption_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/partial_manifest/partial_manifest_with_failed_batch_case.json",
+        "status": "A"
+      },
+      {
         "path": "codex_source/fixtures/rag_decision_engine/state_machine/conflict_pending_blocked_case.json",
         "status": "A"
       },
@@ -479,6 +550,14 @@
       },
       {
         "path": "codex_source/fixtures/rag_decision_engine/state_machine/stale_index_high_risk_blocked_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/timeout/embedding_timeout_blocked_case.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_source/fixtures/rag_decision_engine/timeout/upsert_timeout_blocked_case.json",
         "status": "A"
       },
       {
@@ -750,6 +829,18 @@
         "status": "A"
       },
       {
+        "path": "scripts/rag_delta_batch_manifest_validator.py",
+        "status": "A"
+      },
+      {
+        "path": "scripts/rag_delta_checkpoint_validator.py",
+        "status": "A"
+      },
+      {
+        "path": "scripts/rag_delta_partial_manifest_validator.py",
+        "status": "A"
+      },
+      {
         "path": "scripts/rag_failure_route_resolver.py",
         "status": "M"
       },
@@ -787,7 +878,7 @@
       }
     ],
     "skip_reason": "",
-    "source_commit_sha": "9097044e62edae21a30e296aa24f3fde59e96207",
+    "source_commit_sha": "b8ab44e6afca30010171789927992831622e3701",
     "sync_required": true
   },
   "last_completed_batch_index": null,

@@ -19,7 +19,7 @@
   },
   "failed_batch_count": 0,
   "final_index_manifest_written": false,
-  "generated_at": "2026-06-22T01:02:51+08:00",
+  "generated_at": "2026-06-22T01:04:46+08:00",
   "key_printed": false,
   "key_written": false,
   "manifest_type": "delta_index_partial_manifest",

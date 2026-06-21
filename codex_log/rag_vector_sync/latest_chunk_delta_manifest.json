@@ -82848,7 +82848,7 @@
     "key_written": false,
     "vector_values_written": false
   },
-  "generated_at": "2026-06-22T01:02:50+08:00",
+  "generated_at": "2026-06-22T01:04:45+08:00",
   "input_paths": [
     "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_index_manifest.json",
     "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_chunk_manifest.json"

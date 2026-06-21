@@ -2,11 +2,11 @@
 
 - status: `sync_required`
 - mode: `check`
-- source_commit_sha: `9097044e62edae21a30e296aa24f3fde59e96207`
+- source_commit_sha: `b8ab44e6afca30010171789927992831622e3701`
 - previous_index_commit_sha: `44b25ce9c0abf800fb7397746520b62e1dee7708`
 - sync_required: `true`
 - skip_reason: ``
-- changed_indexable_file_count: `53`
+- changed_indexable_file_count: `56`
 - deleted_indexable_file_count: `0`
 - delta_chunks_to_embed: `652`
 - unchanged_chunk_count: `5112`
@@ -78,6 +78,9 @@
 - `scripts/rag_decision_state_machine_runner.py`
 - `scripts/rag_decision_state_machine_validator.py`
 - `scripts/rag_decision_validator_common.py`
+- `scripts/rag_delta_batch_manifest_validator.py`
+- `scripts/rag_delta_checkpoint_validator.py`
+- `scripts/rag_delta_partial_manifest_validator.py`
 - `scripts/rag_failure_route_resolver.py`
 - `scripts/rag_mid_task_supply_builder.py`
 - `scripts/rag_retrieval_probe.py`
