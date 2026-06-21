@@ -1,0 +1,81 @@
+{
+  "case_id": "current_reports",
+  "current_RAG_index_latest_claim": false,
+  "downgrade_policy": {
+    "allow_repo_readback_fallback": false,
+    "allow_stale_RAG_as_reference_only": true,
+    "user_review_required": false
+  },
+  "dry_run": true,
+  "external_call_report": {
+    "alibaba_embedding_api_called": false,
+    "dashvector_delete_called": false,
+    "dashvector_query_called": false,
+    "dashvector_upsert_called": false
+  },
+  "generated_at": "2026-06-22T02:55:02+08:00",
+  "key_printed": false,
+  "key_written": false,
+  "manifest_type": "rag_vector_maintenance_decision",
+  "project_route": "video_factory",
+  "repair_policy": {
+    "repair_layer": "retrieval_cleaning_layer",
+    "repair_script": "python3 scripts/rag_retrieval_probe.py --dry-run-active-filter && python3 scripts/rag_dashvector_stale_doc_cleanup.py",
+    "safe_to_retry": true
+  },
+  "repo_full_name": "fthytwerwt-sudo/-",
+  "retrieval_health": {
+    "clean_top_k_passed": false,
+    "cleanup_plan_exists": true,
+    "cleanup_plan_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_retrieval_stale_doc_cleanup_plan.json",
+    "retrieval_probe_passed": false,
+    "retrieval_probe_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_retrieval_probe_report.json",
+    "source_readback_passed": false,
+    "stale_or_inactive_docs_detected": true
+  },
+  "selected_action": {
+    "action_id": "run_retrieval_active_filter_and_stale_cleanup_plan",
+    "action_label": "final_manifest_written_but_probe_failed -> run_retrieval_active_filter_and_stale_cleanup_plan",
+    "blocked_if": [
+      "external_api_required_for_dry_run",
+      "physical_delete_or_tombstone_requested_without_authorization",
+      "RAG_latest_claim_without_final_manifest_and_probe"
+    ],
+    "next_script_to_run": "python3 scripts/rag_retrieval_probe.py --dry-run-active-filter && python3 scripts/rag_dashvector_stale_doc_cleanup.py",
+    "reason": "Final manifest exists but retrieval found stale or inactive raw candidates."
+  },
+  "status": "passed",
+  "sync_health": {
+    "batch_count": 0,
+    "batch_manifest_exists": true,
+    "checkpoint_exists": true,
+    "completed_batch_count": 0,
+    "completed_chunk_count": 0,
+    "delta_chunk_count": 0,
+    "delta_manifest_exists": true,
+    "failed_batch_count": 0,
+    "gate_status": "sync_required",
+    "partial_manifest_status": "partial",
+    "pending_batch_count": 0,
+    "resume_available": false,
+    "sync_required": true
+  },
+  "task_context": {
+    "current_git_head": "bad20f1f74522a770c2f13b61a64d74c8ff95698",
+    "full_sync_required": false,
+    "risk_level": "medium",
+    "source_commit_sha": "b14d9a6eab7d3de059bbf2072beec7ccf1252438",
+    "task_type": "RAG_vector_maintenance"
+  },
+  "vector_health": {
+    "chunk_manifest_commit_sha": "b14d9a6eab7d3de059bbf2072beec7ccf1252438",
+    "current_RAG_index_latest_claim_allowed": false,
+    "final_index_manifest_written": true,
+    "index_manifest_exists": true,
+    "index_manifest_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_index_manifest.json",
+    "index_manifest_valid": true,
+    "index_source_commit_sha": "b14d9a6eab7d3de059bbf2072beec7ccf1252438",
+    "source_commit_matches_head": false
+  },
+  "vector_values_written": false
+}

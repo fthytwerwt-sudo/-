@@ -1,0 +1,83 @@
+{
+  "expected_mismatches": [],
+  "fixture_count": 8,
+  "generated_at": "2026-06-22T02:54:51+08:00",
+  "key_printed": false,
+  "key_written": false,
+  "results": [
+    {
+      "actual_action_id": "resume_from_checkpoint",
+      "actual_status": "passed",
+      "blocked_reasons": [],
+      "case_id": "batch_interrupted_resume_needed_case",
+      "expected_action_id": "resume_from_checkpoint",
+      "fixture_path": "/Users/fan/Documents/视频工厂/codex_source/fixtures/rag_decision_engine/maintenance_router/batch_interrupted_resume_needed_case.json",
+      "next_script_to_run": "python3 scripts/rag_dashvector_sync.py --resume --batch-size 8 --delta-manifest codex_log/rag_vector_sync/latest_chunk_delta_manifest.json"
+    },
+    {
+      "actual_action_id": "run_retrieval_active_filter_and_stale_cleanup_plan",
+      "actual_status": "passed",
+      "blocked_reasons": [],
+      "case_id": "final_manifest_written_probe_failed_case",
+      "expected_action_id": "run_retrieval_active_filter_and_stale_cleanup_plan",
+      "fixture_path": "/Users/fan/Documents/视频工厂/codex_source/fixtures/rag_decision_engine/maintenance_router/final_manifest_written_probe_failed_case.json",
+      "next_script_to_run": "python3 scripts/rag_retrieval_probe.py --dry-run-active-filter && python3 scripts/rag_dashvector_stale_doc_cleanup.py"
+    },
+    {
+      "actual_action_id": "require_explicit_user_authorization",
+      "actual_status": "passed",
+      "blocked_reasons": [],
+      "case_id": "full_sync_explicit_required_case",
+      "expected_action_id": "require_explicit_user_authorization",
+      "fixture_path": "/Users/fan/Documents/视频工厂/codex_source/fixtures/rag_decision_engine/maintenance_router/full_sync_explicit_required_case.json",
+      "next_script_to_run": "python3 scripts/post_commit_vector_sync_gate.py --mode sync --full-sync-explicit"
+    },
+    {
+      "actual_action_id": "repo_readback_fallback_or_block",
+      "actual_status": "passed",
+      "blocked_reasons": [],
+      "case_id": "high_risk_stale_RAG_repo_readback_required_case",
+      "expected_action_id": "repo_readback_fallback_or_block",
+      "fixture_path": "/Users/fan/Documents/视频工厂/codex_source/fixtures/rag_decision_engine/maintenance_router/high_risk_stale_RAG_repo_readback_required_case.json",
+      "next_script_to_run": ""
+    },
+    {
+      "actual_action_id": "run_delta_planner",
+      "actual_status": "passed",
+      "blocked_reasons": [],
+      "case_id": "indexable_change_delta_sync_needed_case",
+      "expected_action_id": "run_delta_planner",
+      "fixture_path": "/Users/fan/Documents/视频工厂/codex_source/fixtures/rag_decision_engine/maintenance_router/indexable_change_delta_sync_needed_case.json",
+      "next_script_to_run": "python3 scripts/rag_vector_delta_planner.py"
+    },
+    {
+      "actual_action_id": "no_vector_sync_needed",
+      "actual_status": "passed",
+      "blocked_reasons": [],
+      "case_id": "no_indexable_change_no_sync_needed_case",
+      "expected_action_id": "no_vector_sync_needed",
+      "fixture_path": "/Users/fan/Documents/视频工厂/codex_source/fixtures/rag_decision_engine/maintenance_router/no_indexable_change_no_sync_needed_case.json",
+      "next_script_to_run": ""
+    },
+    {
+      "actual_action_id": "block_RAG_latest_and_route_to_retrieval_repair",
+      "actual_status": "passed",
+      "blocked_reasons": [],
+      "case_id": "stale_doc_in_clean_top_k_blocks_case",
+      "expected_action_id": "block_RAG_latest_and_route_to_retrieval_repair",
+      "fixture_path": "/Users/fan/Documents/视频工厂/codex_source/fixtures/rag_decision_engine/maintenance_router/stale_doc_in_clean_top_k_blocks_case.json",
+      "next_script_to_run": "python3 scripts/rag_retrieval_probe.py --dry-run-active-filter"
+    },
+    {
+      "actual_action_id": "reject_from_clean_top_k_and_write_cleanup_plan",
+      "actual_status": "passed",
+      "blocked_reasons": [],
+      "case_id": "stale_doc_in_raw_top_k_clean_top_k_passes_case",
+      "expected_action_id": "reject_from_clean_top_k_and_write_cleanup_plan",
+      "fixture_path": "/Users/fan/Documents/视频工厂/codex_source/fixtures/rag_decision_engine/maintenance_router/stale_doc_in_raw_top_k_clean_top_k_passes_case.json",
+      "next_script_to_run": "python3 scripts/rag_dashvector_stale_doc_cleanup.py"
+    }
+  ],
+  "status": "passed",
+  "validator": "rag_vector_maintenance_router_validator"
+}

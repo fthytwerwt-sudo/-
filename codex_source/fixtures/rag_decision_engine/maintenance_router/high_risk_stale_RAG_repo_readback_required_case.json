@@ -1,0 +1,32 @@
+{
+  "case_id": "high_risk_stale_RAG_repo_readback_required_case",
+  "task_context": {
+    "task_type": "code_execution",
+    "risk_level": "high",
+    "full_sync_required": false
+  },
+  "vector_health": {
+    "index_manifest_exists": true,
+    "index_manifest_valid": true,
+    "source_commit_matches_head": false,
+    "current_RAG_index_latest_claim_allowed": false,
+    "final_index_manifest_written": true
+  },
+  "sync_health": {
+    "sync_required": true,
+    "delta_manifest_exists": true,
+    "batch_manifest_exists": true,
+    "checkpoint_exists": true,
+    "completed_batch_count": 0,
+    "failed_batch_count": 0,
+    "pending_batch_count": 0,
+    "resume_available": false
+  },
+  "retrieval_health": {
+    "retrieval_probe_passed": false,
+    "source_readback_passed": false,
+    "stale_or_inactive_docs_detected": false,
+    "clean_top_k_passed": false
+  },
+  "expected_action_id": "repo_readback_fallback_or_block"
+}

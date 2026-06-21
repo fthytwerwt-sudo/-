@@ -11,6 +11,7 @@
 ## Nodes
 
 - `task_classifier`: `passed`
+- `rag_vector_maintenance_router`: `passed`
 - `stale_index_checker`: `passed`
 - `vector_retriever_or_repo_readback`: `passed`
 - `source_readback_checker`: `passed`

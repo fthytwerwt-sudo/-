@@ -47,7 +47,7 @@
     "source_readback_required",
     "do_not_claim_RAG_latest"
   ],
-  "generated_at": "2026-06-22T00:14:24+08:00",
+  "generated_at": "2026-06-22T02:53:24+08:00",
   "hard_gate_result": {
     "blocked_reason": "",
     "failed_gates": [],
@@ -58,7 +58,7 @@
   "pack_type": "pre_supply_pack",
   "retrieval_goal": "当前应该继续全量同步、只修增量同步，还是修增量同步 + 权威覆盖层？",
   "selected_action": "fix_incremental_sync_plus_authority_overlay",
-  "source_commit_sha": "7520e4b05f34bc6170fdb6d961a55b6587a32fff",
+  "source_commit_sha": "b14d9a6eab7d3de059bbf2072beec7ccf1252438",
   "source_path": "codex_log/rag_decision_engine/latest_decision_audit_report.json",
   "task_id": "rag-decision-engine-round2-python-state-machine",
   "task_type": "mechanism_repair",

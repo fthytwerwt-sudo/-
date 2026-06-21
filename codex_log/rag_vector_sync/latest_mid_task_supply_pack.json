@@ -24,7 +24,7 @@
     "codex_log/rag_vector_sync/latest_vector_sync_gate_report.json",
     "codex_log/rag_decision_engine_design/20260621_RAG决策工程线设计_round_1_design_only.md"
   ],
-  "generated_at": "2026-06-22T00:14:24+08:00",
+  "generated_at": "2026-06-22T02:53:24+08:00",
   "hard_gate_result": {
     "blocked_reason": "",
     "failed_gates": [],
@@ -35,7 +35,7 @@
   "missing_context": [],
   "pack_type": "mid_task_supply_pack",
   "selected_action": "fix_incremental_sync_plus_authority_overlay",
-  "source_commit_sha": "7520e4b05f34bc6170fdb6d961a55b6587a32fff",
+  "source_commit_sha": "b14d9a6eab7d3de059bbf2072beec7ccf1252438",
   "validation_failure_logs": [],
   "will_modify_files": []
 }

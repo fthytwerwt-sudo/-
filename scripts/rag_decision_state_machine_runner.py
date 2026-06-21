@@ -24,6 +24,7 @@ TRACE_JSON = DECISION_DIR / "trace_event_20260621_rag_decision_state_machine_run
 
 NODE_ORDER = [
     "task_classifier",
+    "rag_vector_maintenance_router",
     "stale_index_checker",
     "vector_retriever_or_repo_readback",
     "source_readback_checker",
@@ -172,6 +173,28 @@ def run_state_machine(case: dict[str, Any], *, dry_run: bool = True) -> dict[str
     }
     node_results.append(_node("task_classifier", "passed", task_context))
 
+    try:
+        import rag_vector_maintenance_router as maintenance_router
+
+        maintenance_decision = maintenance_router.build_decision({"task_context": task_context}, dry_run=True)
+        maintenance_output = {
+            "status": maintenance_decision["status"],
+            "action_id": maintenance_decision["selected_action"]["action_id"],
+            "action_label": maintenance_decision["selected_action"]["action_label"],
+            "current_RAG_index_latest_claim_allowed": maintenance_decision["vector_health"]["current_RAG_index_latest_claim_allowed"],
+            "external_api_called": False,
+        }
+        node_results.append(_node("rag_vector_maintenance_router", "passed", maintenance_output))
+    except Exception as exc:  # pragma: no cover - defensive runtime route
+        node_results.append(
+            _node(
+                "rag_vector_maintenance_router",
+                "blocked",
+                {"status": "blocked", "error": str(exc)[:240], "external_api_called": False},
+                "rag_vector_maintenance_router_failed",
+            )
+        )
+
     stale = {
         "status": "stale_or_blocked" if gate_report.get("status") == "blocked" else "current_or_unknown",
         "current_RAG_index_latest_claim": False,
@@ -243,6 +266,7 @@ def run_state_machine(case: dict[str, Any], *, dry_run: bool = True) -> dict[str
             STATE_RUN_JSON.as_posix(),
             decision_engine.AUDIT_JSON.as_posix(),
             common.OUT_DIR.joinpath("latest_pre_supply_pack.json").as_posix(),
+            common.OUT_DIR.joinpath("latest_rag_vector_maintenance_decision.json").as_posix(),
             TRACE_JSON.as_posix(),
         ],
         "case_id": case.get("case_id") or "current_blocked_sync_decision_case",
@@ -297,6 +321,7 @@ def write_trace(result: dict[str, Any], path: pathlib.Path = TRACE_JSON) -> dict
         "files_modified": [
             "codex_log/rag_decision_engine/latest_decision_state_machine_run.json",
             "codex_log/rag_decision_engine/latest_decision_audit_report.json",
+            "codex_log/rag_vector_sync/latest_rag_vector_maintenance_decision.json",
             "codex_log/rag_vector_sync/latest_pre_supply_pack.json",
             "codex_log/rag_vector_sync/latest_mid_task_supply_pack.json",
             "codex_log/rag_vector_sync/latest_post_risk_review_pack.json",

@@ -1,0 +1,46 @@
+{
+  "manifest_type": "rag_retrieval_stale_doc_cleanup_plan",
+  "project_route": "video_factory",
+  "repo_full_name": "fthytwerwt-sudo/-",
+  "generated_at": "2026-06-22T00:00:00+08:00",
+  "source_commit_sha": "fixture",
+  "retrieval_report_path": "codex_log/rag_vector_sync/latest_retrieval_probe_report.json",
+  "cleanup_mode": "dry_run_only",
+  "stale_doc_count": 1,
+  "stale_docs": [
+    {
+      "stale_doc_id": "vf_stale_001",
+      "chunk_id": "vf_stale_001",
+      "source_path": "codex_source/old_context.md",
+      "line_range": "1-10",
+      "first_seen_query": "fixture query",
+      "raw_rank": 2,
+      "score": 0.88,
+      "reason": "chunk_not_in_active_manifest_allowlist",
+      "active_manifest_allowlist_passed": false,
+      "readback_hash_match": false,
+      "file_hash_match": false,
+      "safe_to_delete_candidate": true,
+      "delete_allowed": false,
+      "delete_executed": false,
+      "tombstone_executed": false
+    }
+  ],
+  "delete_allowed": false,
+  "tombstone_allowed": false,
+  "dashvector_delete_called": false,
+  "dashvector_tombstone_called": false,
+  "physical_delete_executed": false,
+  "tombstone_executed": false,
+  "external_call_report": {
+    "alibaba_embedding_api_called": false,
+    "dashvector_query_called": false,
+    "dashvector_upsert_called": false,
+    "dashvector_delete_called": false
+  },
+  "status": "passed_dry_run",
+  "key_printed": false,
+  "key_written": false,
+  "vector_values_written": false,
+  "expected_status": "passed"
+}

@@ -41,8 +41,34 @@ ROUTES = {
             "batch_manifest_hash_mismatch",
             "delta_manifest_hash_mismatch",
             "checkpoint_missing",
+            "batch_sync_interrupted",
+            "run_batch_delta_sync_or_resume",
+            "resume_from_checkpoint",
+            "block_RAG_latest_and_continue_batch_sync",
         ),
         "next_action": "rerun_sync_guard_or_vector_sync_when_authorized",
+    },
+    "retrieval_cleaning_layer": {
+        "keywords": (
+            "retrieval_stale_doc_cleanup_needed",
+            "stale_or_inactive_doc",
+            "stale_or_inactive_docs_detected",
+            "chunk_not_in_active_manifest_allowlist",
+            "clean_top_k_failed",
+            "clean_top_k_passed",
+            "run_retrieval_active_filter_and_stale_cleanup_plan",
+            "reject_from_clean_top_k_and_write_cleanup_plan",
+        ),
+        "next_action": "run_active_manifest_filter_and_write_stale_doc_cleanup_plan",
+    },
+    "repo_readback_fallback": {
+        "keywords": (
+            "repo_readback_fallback_needed",
+            "repo_readback_fallback_or_block",
+            "high_risk_task_with_stale_RAG",
+            "high_risk_stale_RAG",
+        ),
+        "next_action": "use_repo_source_readback_or_block_high_risk_task",
     },
     "fact_source_arbitration": {
         "keywords": (
@@ -80,6 +106,8 @@ ROUTES = {
             "human",
             "hard_gate_failed",
             "weighted_score_below_threshold",
+            "full_sync_explicit_required",
+            "require_explicit_user_authorization",
         ),
         "next_action": "request_human_decision_or_authorization",
     },
@@ -112,7 +140,19 @@ def resolve_route(event: dict[str, Any]) -> dict[str, Any]:
     text = json.dumps(event, ensure_ascii=False).lower()
     selected = "human_decision_gate"
     matched_cleaning_keyword = False
-    for route, config in ROUTES.items():
+    priority_routes = [
+        "retrieval_cleaning_layer",
+        "repo_readback_fallback",
+        "human_decision_gate",
+        "RAG_sync_bus",
+        "RAG_supply_bus",
+        "fact_source_arbitration",
+        "validation_repair",
+        "completion_truth_check",
+        "git_sync_gate",
+    ]
+    for route in priority_routes:
+        config = ROUTES[route]
         matched_keywords = [keyword for keyword in config["keywords"] if keyword in text]
         if matched_keywords:
             selected = route

@@ -4743,3 +4743,26 @@ next_safe_step（下一步安全动作）: sandbox_install_probe_prompt_after_us
 - `partial_completed = false`
 - `未提交` 原始素材视频、keyframes 图片、contact_sheets 图片、音频副本、成片文件、dist 大媒体文件或任何凭据类文件 / 密钥值。
 - `待验证` 本轮素材只支持 ChatGPT 进入最终文案判断，不代表内容验证通过，不代表可发送，不代表商品、佣金、流量或商业闭环已验证。
+
+## 20260622｜RAG / 向量维护总路由器落地
+
+- `已确认` 新增 RAG 向量维护总路由器：`scripts/rag_vector_maintenance_router.py`。
+- `已确认` 新增 stale doc dry-run 清理计划脚本：`scripts/rag_dashvector_stale_doc_cleanup.py`。
+- `已确认` 新增 validator：
+  - `scripts/rag_vector_maintenance_router_validator.py`
+  - `scripts/rag_stale_doc_cleanup_plan_validator.py`
+- `已确认` 当前维护决策报告：
+  - `codex_log/rag_vector_sync/latest_rag_vector_maintenance_decision.json`
+  - `codex_log/rag_vector_sync/latest_rag_vector_maintenance_decision.md`
+- `已确认` 当前选中动作：`run_retrieval_active_filter_and_stale_cleanup_plan`。
+- `已确认` 当前 stale doc cleanup plan 为 dry-run 计划：`codex_log/rag_vector_sync/latest_retrieval_stale_doc_cleanup_plan.json`，`stale_doc_count = 1`，`dashvector_delete_called = false`。
+- `已确认` `post_commit_vector_sync_gate.py` 已接入 maintenance decision 摘要字段；`rag_decision_state_machine_runner.py` 已接入 `rag_vector_maintenance_router` 节点；`rag_failure_route_resolver.py` 已能把当前维护决策路由到 `retrieval_cleaning_layer`。
+- `已确认` 本轮验证通过：
+  - `python3 -m py_compile ... = passed`
+  - `python3 scripts/rag_vector_maintenance_router_validator.py = passed`
+  - `python3 scripts/rag_stale_doc_cleanup_plan_validator.py = passed`
+  - `python3 scripts/rag_retrieval_probe.py --dry-run-active-filter = passed`
+  - `python3 scripts/rag_vector_maintenance_router.py --dry-run --case final_manifest_written_probe_failed_case = passed`
+  - `python3 scripts/post_commit_vector_sync_gate.py --mode check = passed`
+- `状态边界` 本轮未调用阿里 embedding API，未写入 DashVector，未查询 DashVector，未删除或 tombstone DashVector 文档。
+- `禁止误写` `current_RAG_index_latest_claim = false`，`real_delta_sync_status = not_run_in_this_round`，`production_readiness = not_claimed`。

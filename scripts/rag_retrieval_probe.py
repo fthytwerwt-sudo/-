@@ -8,6 +8,7 @@ import json
 from typing import Any
 
 import rag_common as common
+import rag_dashvector_stale_doc_cleanup as cleanup_plan_builder
 
 
 QUERIES = [
@@ -22,6 +23,8 @@ QUERIES = [
 
 ACTIVE_FILTER_REPORT_JSON = common.OUT_DIR / "latest_retrieval_probe_active_filter_report.json"
 ACTIVE_FILTER_REPORT_MD = common.OUT_DIR / "latest_retrieval_probe_active_filter_report.md"
+RAW_TOP_K = 50
+CLEAN_TOP_K = 3
 
 
 def validate_doc(
@@ -34,21 +37,25 @@ def validate_doc(
     chunk_id = fields.get("chunk_id", "")
     line_range = fields.get("line_range", "")
     result: dict[str, Any] = {
+        "id": doc.get("id"),
         "source_path": source_path,
         "line_range": line_range,
         "chunk_id": chunk_id,
         "score": doc.get("score"),
         "metadata_complete": bool(source_path and line_range and chunk_id),
         "readback_hash_match": False,
+        "file_hash_match": False,
         "stale_index_check": False,
         "active_manifest_allowlist_passed": False,
+        "stale_or_inactive": False,
     }
     if not result["metadata_complete"] or chunk_id not in manifest_by_chunk:
         result["blocked_reason"] = "source_path_line_range_or_chunk_id_missing"
+        result["stale_or_inactive"] = True
         return result
+    active_passed = active_manifest_by_chunk is None or chunk_id in active_manifest_by_chunk
     if active_manifest_by_chunk is not None and chunk_id not in active_manifest_by_chunk:
         result["blocked_reason"] = "chunk_not_in_active_manifest_allowlist"
-        return result
     readback = common.readback_for_chunk(manifest_by_chunk[chunk_id])
     result.update(
         {
@@ -56,19 +63,63 @@ def validate_doc(
             "readback_hash_match": readback["readback_hash_match"],
             "file_hash_match": readback["file_hash_match"],
             "stale_index_check": readback["readback_hash_match"] and readback["file_hash_match"],
-            "active_manifest_allowlist_passed": active_manifest_by_chunk is None or chunk_id in active_manifest_by_chunk,
+            "active_manifest_allowlist_passed": active_passed,
         }
     )
+    if not active_passed or not result["readback_hash_match"] or not result["file_hash_match"]:
+        result["stale_or_inactive"] = True
+        result.setdefault("blocked_reason", "readback_or_file_hash_mismatch")
     return result
+
+
+def _clean_candidates(docs: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    clean: list[dict[str, Any]] = []
+    for doc in docs:
+        if (
+            doc.get("metadata_complete")
+            and doc.get("readback_hash_match")
+            and doc.get("file_hash_match")
+            and doc.get("stale_index_check")
+            and doc.get("active_manifest_allowlist_passed")
+        ):
+            clean.append(doc)
+    return clean
+
+
+def _write_cleanup_plan_from_docs(stale_docs: list[dict[str, Any]], *, source_commit_sha: str) -> None:
+    plan = cleanup_plan_builder.build_cleanup_plan(
+        stale_docs,
+        source_commit_sha=source_commit_sha,
+        retrieval_report_path=common.RETRIEVAL_REPORT_JSON_PATH.as_posix(),
+        allow_delete=False,
+        allow_tombstone=False,
+    )
+    cleanup_plan_builder.write_cleanup_plan(plan)
 
 
 def run_active_filter_dry_run() -> dict[str, Any]:
     index_manifest = common.read_json(common.INDEX_MANIFEST_PATH)
     chunk_manifest = common.read_json(common.CHUNK_MANIFEST_PATH)
-    index_ids = set(common.load_chunk_by_id(index_manifest))
-    active_ids = set(common.load_chunk_by_id(chunk_manifest))
+    index_by_id = common.load_chunk_by_id(index_manifest)
+    active_by_id = common.load_chunk_by_id(chunk_manifest)
+    index_ids = set(index_by_id)
+    active_ids = set(active_by_id)
     reused_or_active = len(index_ids & active_ids)
     rejected_stale = len(index_ids - active_ids)
+    stale_docs = [
+        {
+            "chunk_id": chunk_id,
+            "source_path": index_by_id[chunk_id].get("source_path", ""),
+            "line_range": index_by_id[chunk_id].get("line_range", ""),
+            "first_seen_query": "dry_run_active_filter",
+            "raw_rank": index,
+            "reason": "chunk_not_in_active_manifest_allowlist",
+            "active_manifest_allowlist_passed": False,
+            "readback_hash_match": False,
+            "file_hash_match": False,
+        }
+        for index, chunk_id in enumerate(sorted(index_ids - active_ids)[:200], start=1)
+    ]
     report = {
         "project_route": common.PROJECT_ROUTE,
         "generated_at": common.now_iso(),
@@ -84,6 +135,8 @@ def run_active_filter_dry_run() -> dict[str, Any]:
         "indexed_manifest_chunk_count": len(index_ids),
         "indexed_chunks_still_active": reused_or_active,
         "indexed_chunks_rejected_by_active_manifest": rejected_stale,
+        "stale_or_inactive_docs_detected": bool(stale_docs),
+        "cleanup_plan_path": cleanup_plan_builder.CLEANUP_PLAN_JSON.as_posix(),
         "external_call_report": {
             "alibaba_embedding_api_called": False,
             "dashvector_query_called": False,
@@ -94,6 +147,7 @@ def run_active_filter_dry_run() -> dict[str, Any]:
         "key_written": False,
         "vector_values_written": False,
     }
+    _write_cleanup_plan_from_docs(stale_docs, source_commit_sha=str(chunk_manifest.get("commit_sha") or ""))
     common.write_json(ACTIVE_FILTER_REPORT_JSON, report)
     common.write_markdown(
         ACTIVE_FILTER_REPORT_MD,
@@ -105,6 +159,7 @@ def run_active_filter_dry_run() -> dict[str, Any]:
             f"- indexed_manifest_chunk_count: `{report['indexed_manifest_chunk_count']}`",
             f"- indexed_chunks_still_active: `{report['indexed_chunks_still_active']}`",
             f"- indexed_chunks_rejected_by_active_manifest: `{report['indexed_chunks_rejected_by_active_manifest']}`",
+            f"- cleanup_plan_path: `{report['cleanup_plan_path']}`",
             "- alibaba_embedding_api_called: `false`",
             "- dashvector_query_called: `false`",
             "- dashvector_upsert_called: `false`",
@@ -138,34 +193,53 @@ def main() -> int:
     filter_expression = 'project_route = "video_factory"'
     query_reports: list[dict[str, Any]] = []
     all_passed = True
+    all_stale_docs: list[dict[str, Any]] = []
     for query, vector in zip(QUERIES, query_vectors):
-        raw = common.query_dashvector(vector, topk=8, filter_expression=filter_expression)
-        docs = [validate_doc(doc, manifest_by_chunk, active_manifest_by_chunk) for doc in raw.get("docs", [])]
-        top_docs = docs[:3]
-        query_passed = bool(top_docs) and all(
-            item["metadata_complete"] and item["readback_hash_match"] and item["stale_index_check"]
-            and item["active_manifest_allowlist_passed"]
-            for item in top_docs
-        )
+        raw = common.query_dashvector(vector, topk=RAW_TOP_K, filter_expression=filter_expression)
+        docs: list[dict[str, Any]] = []
+        for rank, raw_doc in enumerate(raw.get("docs", []), start=1):
+            validated = validate_doc(raw_doc, manifest_by_chunk, active_manifest_by_chunk)
+            validated["raw_rank"] = rank
+            validated["first_seen_query"] = query
+            docs.append(validated)
+        stale_docs = [item for item in docs if item.get("stale_or_inactive")]
+        all_stale_docs.extend(stale_docs)
+        clean_docs = _clean_candidates(docs)[:CLEAN_TOP_K]
+        query_passed = raw.get("success") is True and len(clean_docs) >= CLEAN_TOP_K
         all_passed = all_passed and query_passed
         query_reports.append(
             {
                 "query": query,
                 "query_success": raw.get("success") is True,
-                "top_k_results": top_docs,
+                "raw_top_k": RAW_TOP_K,
+                "clean_top_k": CLEAN_TOP_K,
+                "raw_top_k_results": docs[:RAW_TOP_K],
+                "raw_top_k_result_count": len(docs),
+                "stale_or_inactive_docs": stale_docs,
+                "stale_or_inactive_docs_detected": bool(stale_docs),
+                "clean_top_k_results": clean_docs,
+                "clean_top_k_count": len(clean_docs),
+                "clean_top_k_passed": query_passed,
                 "source_readback_passed": query_passed,
             }
         )
+    _write_cleanup_plan_from_docs(all_stale_docs, source_commit_sha=str(source_commit_sha or ""))
     report = {
         "project_route": common.PROJECT_ROUTE,
         "generated_at": common.now_iso(),
         "source_commit_sha": source_commit_sha,
         "filter_expression": filter_expression,
         "active_manifest_post_filter": True,
+        "raw_top_k": RAW_TOP_K,
+        "clean_top_k": CLEAN_TOP_K,
         "queries_tested": QUERIES,
         "query_reports": query_reports,
         "source_readback_passed": all_passed,
         "stale_index_check": all_passed,
+        "clean_top_k_passed": all_passed,
+        "stale_or_inactive_docs_detected": bool(all_stale_docs),
+        "stale_or_inactive_doc_count": len(all_stale_docs),
+        "cleanup_plan_path": cleanup_plan_builder.CLEANUP_PLAN_JSON.as_posix(),
         "page_content_only": False,
         "key_printed": False,
         "key_written": False,
@@ -180,6 +254,11 @@ def main() -> int:
         f"- source_commit_sha: `{report['source_commit_sha']}`",
         f"- source_readback_passed: `{str(report['source_readback_passed']).lower()}`",
         f"- stale_index_check: `{str(report['stale_index_check']).lower()}`",
+        f"- raw_top_k: `{report['raw_top_k']}`",
+        f"- clean_top_k: `{report['clean_top_k']}`",
+        f"- clean_top_k_passed: `{str(report['clean_top_k_passed']).lower()}`",
+        f"- stale_or_inactive_docs_detected: `{str(report['stale_or_inactive_docs_detected']).lower()}`",
+        f"- cleanup_plan_path: `{report['cleanup_plan_path']}`",
         "- page_content_only: `false`",
         "",
         "## Queries",

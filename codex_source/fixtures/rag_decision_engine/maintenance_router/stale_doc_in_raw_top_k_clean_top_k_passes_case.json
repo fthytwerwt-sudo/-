@@ -1,0 +1,32 @@
+{
+  "case_id": "stale_doc_in_raw_top_k_clean_top_k_passes_case",
+  "task_context": {
+    "task_type": "RAG_vector_maintenance",
+    "risk_level": "low",
+    "full_sync_required": false
+  },
+  "vector_health": {
+    "index_manifest_exists": true,
+    "index_manifest_valid": true,
+    "source_commit_matches_head": true,
+    "current_RAG_index_latest_claim_allowed": true,
+    "final_index_manifest_written": true
+  },
+  "sync_health": {
+    "sync_required": false,
+    "delta_manifest_exists": true,
+    "batch_manifest_exists": true,
+    "checkpoint_exists": true,
+    "completed_batch_count": 4,
+    "failed_batch_count": 0,
+    "pending_batch_count": 0,
+    "resume_available": false
+  },
+  "retrieval_health": {
+    "retrieval_probe_passed": true,
+    "source_readback_passed": true,
+    "stale_or_inactive_docs_detected": true,
+    "clean_top_k_passed": true
+  },
+  "expected_action_id": "reject_from_clean_top_k_and_write_cleanup_plan"
+}

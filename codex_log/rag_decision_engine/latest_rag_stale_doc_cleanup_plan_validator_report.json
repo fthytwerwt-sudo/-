@@ -1,0 +1,18 @@
+{
+  "expected_mismatches": [],
+  "fixture_count": 1,
+  "generated_at": "2026-06-22T02:54:57+08:00",
+  "key_printed": false,
+  "key_written": false,
+  "positive_fixture_passed": true,
+  "results": [
+    {
+      "actual_status": "passed",
+      "blocked_reasons": [],
+      "expected_status": "passed",
+      "fixture_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_retrieval_stale_doc_cleanup_plan.json"
+    }
+  ],
+  "status": "passed",
+  "validator": "rag_stale_doc_cleanup_plan_validator"
+}

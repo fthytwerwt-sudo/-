@@ -1,11 +1,12 @@
 {
   "active_manifest_chunk_count": 5785,
+  "cleanup_plan_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_retrieval_stale_doc_cleanup_plan.json",
   "external_call_report": {
     "alibaba_embedding_api_called": false,
     "dashvector_query_called": false,
     "dashvector_upsert_called": false
   },
-  "generated_at": "2026-06-22T02:18:14+08:00",
+  "generated_at": "2026-06-22T02:54:51+08:00",
   "indexed_chunks_rejected_by_active_manifest": 0,
   "indexed_chunks_still_active": 5785,
   "indexed_manifest_chunk_count": 5785,
@@ -20,6 +21,7 @@
   "old_problem": "commit_only_filter_not_enough_for_delta_reuse",
   "project_route": "video_factory",
   "source_commit_sha": "b14d9a6eab7d3de059bbf2072beec7ccf1252438",
+  "stale_or_inactive_docs_detected": false,
   "status": "passed",
   "vector_values_written": false
 }

@@ -1,0 +1,30 @@
+{
+  "created_at": "2026-06-22T02:55:02+08:00",
+  "current_RAG_index_latest_claim": false,
+  "event_id": "20260622_rag_vector_maintenance_router",
+  "event_type": "rag_vector_maintenance_router.decision_written",
+  "external_call_report": {
+    "alibaba_embedding_api_called": false,
+    "dashvector_delete_called": false,
+    "dashvector_query_called": false,
+    "dashvector_upsert_called": false
+  },
+  "files_written": [
+    "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_rag_vector_maintenance_decision.json",
+    "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_rag_vector_maintenance_decision.md",
+    "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/trace_event_20260622_rag_vector_maintenance_router.json"
+  ],
+  "selected_action": {
+    "action_id": "run_retrieval_active_filter_and_stale_cleanup_plan",
+    "action_label": "final_manifest_written_but_probe_failed -> run_retrieval_active_filter_and_stale_cleanup_plan",
+    "blocked_if": [
+      "external_api_required_for_dry_run",
+      "physical_delete_or_tombstone_requested_without_authorization",
+      "RAG_latest_claim_without_final_manifest_and_probe"
+    ],
+    "next_script_to_run": "python3 scripts/rag_retrieval_probe.py --dry-run-active-filter && python3 scripts/rag_dashvector_stale_doc_cleanup.py",
+    "reason": "Final manifest exists but retrieval found stale or inactive raw candidates."
+  },
+  "status": "passed",
+  "task_goal": "route_vector_sync_degradation_cleanup_and_repair"
+}

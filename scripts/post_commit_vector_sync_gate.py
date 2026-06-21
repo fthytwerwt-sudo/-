@@ -28,6 +28,7 @@ DELTA_BATCH_MANIFEST_PATH = common.OUT_DIR / "latest_delta_batch_manifest.json"
 DELTA_CHECKPOINT_PATH = common.OUT_DIR / "latest_delta_sync_checkpoint.json"
 DELTA_PARTIAL_MANIFEST_PATH = common.OUT_DIR / "latest_delta_index_partial_manifest.json"
 DELTA_TIMEOUT_REPORT_PATH = common.OUT_DIR / "latest_delta_sync_timeout_report.json"
+MAINTENANCE_DECISION_PATH = common.OUT_DIR / "latest_rag_vector_maintenance_decision.json"
 
 
 def _run_git(args: list[str], *, check: bool = True) -> str:
@@ -132,6 +133,7 @@ def _run_command(args: list[str]) -> dict[str, Any]:
 
 
 def _write_gate_report(report: dict[str, Any]) -> None:
+    report.update(_read_maintenance_decision_fields())
     common.write_json(GATE_REPORT_JSON, report)
     lines = [
         "# Post-Commit Vector Sync Gate Report",
@@ -159,6 +161,10 @@ def _write_gate_report(report: dict[str, Any]) -> None:
         f"- resume_available: `{str(report.get('resume_available', False)).lower()}`",
         f"- last_completed_batch_index: `{report.get('last_completed_batch_index', '')}`",
         f"- timeout_stage: `{report.get('timeout_stage') or ''}`",
+        f"- maintenance_decision_path: `{report.get('maintenance_decision_path') or ''}`",
+        f"- maintenance_action_id: `{report.get('maintenance_action_id') or ''}`",
+        f"- maintenance_repair_layer: `{report.get('maintenance_repair_layer') or ''}`",
+        f"- maintenance_RAG_latest_claim_allowed: `{str(report.get('maintenance_RAG_latest_claim_allowed', False)).lower()}`",
         f"- indexed_file_count: `{report.get('indexed_file_count', '')}`",
         f"- indexed_chunk_count: `{report.get('indexed_chunk_count', '')}`",
         f"- alibaba_embedding_api_called: `{str(report['external_call_report']['alibaba_embedding_api_called']).lower()}`",
@@ -175,6 +181,26 @@ def _write_gate_report(report: dict[str, Any]) -> None:
         lines.extend(["", "## Changed Indexable Files", ""])
         lines.extend(f"- `{path}`" for path in report["indexable_change_result"]["changed_indexable_files"][:80])
     common.write_markdown(GATE_REPORT_MD, lines)
+
+
+def _read_maintenance_decision_fields() -> dict[str, Any]:
+    fields: dict[str, Any] = {
+        "maintenance_decision_path": MAINTENANCE_DECISION_PATH.as_posix(),
+        "maintenance_action_id": None,
+        "maintenance_repair_layer": None,
+        "maintenance_RAG_latest_claim_allowed": False,
+    }
+    if not MAINTENANCE_DECISION_PATH.exists():
+        return fields
+    decision = common.read_json(MAINTENANCE_DECISION_PATH)
+    fields.update(
+        {
+            "maintenance_action_id": decision.get("selected_action", {}).get("action_id"),
+            "maintenance_repair_layer": decision.get("repair_policy", {}).get("repair_layer"),
+            "maintenance_RAG_latest_claim_allowed": bool(decision.get("vector_health", {}).get("current_RAG_index_latest_claim_allowed")),
+        }
+    )
+    return fields
 
 
 def _read_batch_progress_fields() -> dict[str, Any]:
@@ -433,6 +459,8 @@ def main() -> int:
                 "completed_chunk_count": report.get("completed_chunk_count", 0),
                 "resume_available": report.get("resume_available", False),
                 "timeout_stage": report.get("timeout_stage"),
+                "maintenance_action_id": report.get("maintenance_action_id"),
+                "maintenance_decision_path": report.get("maintenance_decision_path"),
                 "blocked_reasons": report.get("blocked_reasons", []),
                 "gate_report_path": GATE_REPORT_JSON.as_posix(),
                 "key_printed": False,

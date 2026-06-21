@@ -11,11 +11,11 @@
     "current_RAG_index_latest_claim": false,
     "langgraph_implemented": false,
     "production_readiness": "not_claimed",
-    "source_commit_sha": "7520e4b05f34bc6170fdb6d961a55b6587a32fff"
+    "source_commit_sha": "b14d9a6eab7d3de059bbf2072beec7ccf1252438"
   },
   "conflict_group_id": "rag_decision_engine_round_2",
   "decision_audit_report_id": "rag_decision_audit_20260621_python_state_machine",
-  "generated_at": "2026-06-22T00:14:24+08:00",
+  "generated_at": "2026-06-22T02:53:24+08:00",
   "hard_gate_result": {
     "blocked_reason": "",
     "failed_gates": [],
@@ -25,6 +25,6 @@
   "pack_type": "post_risk_review_pack",
   "risk_points": [],
   "selected_action": "fix_incremental_sync_plus_authority_overlay",
-  "source_commit_sha": "7520e4b05f34bc6170fdb6d961a55b6587a32fff",
+  "source_commit_sha": "b14d9a6eab7d3de059bbf2072beec7ccf1252438",
   "task_id": "rag-decision-engine-round2-python-state-machine"
 }

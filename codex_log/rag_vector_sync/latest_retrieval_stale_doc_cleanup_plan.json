@@ -1,0 +1,49 @@
+{
+  "blocked_if": [
+    "delete_requested_without_explicit_authorization",
+    "stale_doc_missing_chunk_id"
+  ],
+  "cleanup_mode": "dry_run_only",
+  "dashvector_delete_called": false,
+  "dashvector_tombstone_called": false,
+  "delete_allowed": false,
+  "external_call_report": {
+    "alibaba_embedding_api_called": false,
+    "dashvector_delete_called": false,
+    "dashvector_query_called": false,
+    "dashvector_upsert_called": false
+  },
+  "generated_at": "2026-06-22T02:54:57+08:00",
+  "key_printed": false,
+  "key_written": false,
+  "manifest_type": "rag_retrieval_stale_doc_cleanup_plan",
+  "physical_delete_executed": false,
+  "project_route": "video_factory",
+  "repo_full_name": "fthytwerwt-sudo/-",
+  "retrieval_report_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_retrieval_probe_report.json",
+  "source_commit_sha": "b14d9a6eab7d3de059bbf2072beec7ccf1252438",
+  "stale_doc_count": 1,
+  "stale_docs": [
+    {
+      "active_manifest_allowlist_passed": false,
+      "chunk_id": "vf_497748f222067851ac7b6d5defc381703e698618",
+      "delete_allowed": false,
+      "delete_executed": false,
+      "file_hash_match": false,
+      "first_seen_query": "Chroma 是否仍然使用",
+      "line_range": "41-54",
+      "raw_rank": 1,
+      "readback_hash_match": false,
+      "reason": "source_path_line_range_or_chunk_id_missing",
+      "safe_to_delete_candidate": true,
+      "score": 0.33014154,
+      "source_path": "codex_source/schema_contracts/00_schema_contracts_index.md",
+      "stale_doc_id": "vf_497748f222067851ac7b6d5defc381703e698618",
+      "tombstone_executed": false
+    }
+  ],
+  "status": "passed_dry_run",
+  "tombstone_allowed": false,
+  "tombstone_executed": false,
+  "vector_values_written": false
+}

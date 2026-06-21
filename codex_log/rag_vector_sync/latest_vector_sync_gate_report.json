@@ -1,143 +1,68 @@
 {
-  "batch_count": 48,
+  "batch_count": 0,
   "batch_manifest_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_batch_manifest.json",
   "batch_sync_enabled": true,
-  "blocked_reasons": [
-    "retrieval_probe_failed_stale_or_inactive_dashvector_doc_returned_in_top_k"
-  ],
-  "blocked_report_path": "codex_log/rag_vector_sync/vector_sync_blocked_actionable_20260622_022130.json",
+  "blocked_reasons": [],
   "checkpoint_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_sync_checkpoint.json",
-  "chunk_manifest_count": 5785,
   "commands": [
-    {
-      "command": "python3 scripts/rag_build_source_inventory.py",
-      "passed": true,
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\"allowed_file_count\": 911, \"excluded_by_secret_or_privacy_scan_count\": 13, \"excluded_file_count\": 31, \"indexed_secret_hit_count\": 0, \"key_printed\": false, \"secret_scan_passed\": true, \"secret_scan_report_path\": \"/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_secret_scan_report.json\", \"source_inventory_path\": \"/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_source_inventory.json\", \"status\": \"passed\"}\n"
-    },
-    {
-      "command": "python3 scripts/rag_chunk_project_sources.py",
-      "passed": true,
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\"chunk_count\": 5785, \"chunk_manifest_path\": \"/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_chunk_manifest.json\", \"chunk_manifest_valid\": true, \"file_count\": 911, \"status\": \"passed\"}\n"
-    },
     {
       "command": "python3 scripts/rag_vector_delta_planner.py",
       "passed": true,
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": "{\"alibaba_embedding_api_called\": false, \"changed_chunks\": 6, \"chunk_delta_manifest_path\": \"/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_chunk_delta_manifest.json\", \"dashvector_upsert_called\": false, \"deleted_chunks\": 230, \"delta_chunks_to_embed\": 257, \"key_printed\": false, \"key_written\": false, \"new_chunks\": 251, \"status\": \"passed\", \"superseded_chunks\": 6, \"unchanged_chunks\": 5528}\n"
+      "stdout_tail": "{\"alibaba_embedding_api_called\": false, \"changed_chunks\": 0, \"chunk_delta_manifest_path\": \"/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_chunk_delta_manifest.json\", \"dashvector_upsert_called\": false, \"deleted_chunks\": 0, \"delta_chunks_to_embed\": 0, \"key_printed\": false, \"key_written\": false, \"new_chunks\": 0, \"status\": \"passed\", \"superseded_chunks\": 0, \"unchanged_chunks\": 5785}\n"
     },
     {
-      "command": "python3 scripts/rag_dashvector_sync.py --batch-size 8 --delta-manifest codex_log/rag_vector_sync/latest_chunk_delta_manifest.json",
+      "command": "python3 scripts/rag_dashvector_sync.py --dry-run-delta --batch-size 16 --delta-manifest codex_log/rag_vector_sync/latest_chunk_delta_manifest.json",
       "passed": true,
       "returncode": 0,
       "stderr_tail": "",
-      "stdout_tail": ", \"completed_batch_count\": 5, \"failed_batch_count\": 0, \"pending_batch_count\": 43, \"completed_chunk_count\": 25, \"delta_chunk_count\": 257, \"resume_available\": true, \"last_completed_batch_index\": 4}}\n{\"sync_progress\": {\"batch_sync_enabled\": true, \"batch_count\": 48, \"completed_batch_count\": 10, \"failed_batch_count\": 0, \"pending_batch_count\": 38, \"completed_chunk_count\": 49, \"delta_chunk_count\": 257, \"resume_available\": true, \"last_completed_batch_index\": 9}}\n{\"sync_progress\": {\"batch_sync_enabled\": true, \"batch_count\": 48, \"completed_batch_count\": 15, \"failed_batch_count\": 0, \"pending_batch_count\": 33, \"completed_chunk_count\": 73, \"delta_chunk_count\": 257, \"resume_available\": true, \"last_completed_batch_index\": 14}}\n{\"sync_progress\": {\"batch_sync_enabled\": true, \"batch_count\": 48, \"completed_batch_count\": 20, \"failed_batch_count\": 0, \"pending_batch_count\": 28, \"completed_chunk_count\": 103, \"delta_chunk_count\": 257, \"resume_available\": true, \"last_completed_batch_index\": 19}}\n{\"sync_progress\": {\"batch_sync_enabled\": true, \"batch_count\": 48, \"completed_batch_count\": 25, \"failed_batch_count\": 0, \"pending_batch_count\": 23, \"completed_chunk_count\": 128, \"delta_chunk_count\": 257, \"resume_available\": true, \"last_completed_batch_index\": 24}}\n{\"sync_progress\": {\"batch_sync_enabled\": true, \"batch_count\": 48, \"completed_batch_count\": 30, \"failed_batch_count\": 0, \"pending_batch_count\": 18, \"completed_chunk_count\": 157, \"delta_chunk_count\": 257, \"resume_available\": true, \"last_completed_batch_index\": 29}}\n{\"sync_progress\": {\"batch_sync_enabled\": true, \"batch_count\": 48, \"completed_batch_count\": 35, \"failed_batch_count\": 0, \"pending_batch_count\": 13, \"completed_chunk_count\": 197, \"delta_chunk_count\": 257, \"resume_available\": true, \"last_completed_batch_index\": 34}}\n{\"sync_progress\": {\"batch_sync_enabled\": true, \"batch_count\": 48, \"completed_batch_count\": 40, \"failed_batch_count\": 0, \"pending_batch_count\": 8, \"completed_chunk_count\": 229, \"delta_chunk_count\": 257, \"resume_available\": true, \"last_completed_batch_index\": 39}}\n{\"sync_progress\": {\"batch_sync_enabled\": true, \"batch_count\": 48, \"completed_batch_count\": 45, \"failed_batch_count\": 0, \"pending_batch_count\": 3, \"completed_chunk_count\": 244, \"delta_chunk_count\": 257, \"resume_available\": true, \"last_completed_batch_index\": 44}}\n{\"batch_manifest_path\": \"/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_batch_manifest.json\", \"blocked_reasons\": [], \"checkpoint_path\": \"/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_sync_checkpoint.json\", \"current_RAG_index_latest_claim\": false, \"final_index_manifest_written\": true, \"index_manifest_path\": \"/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_index_manifest.json\", \"indexed_chunk_count\": 5785, \"key_printed\": false, \"key_written\": false, \"partial_manifest_path\": \"/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_index_partial_manifest.json\", \"status\": \"indexed\", \"sync_mode\": \"delta\", \"vector_values_written\": false}\n"
-    },
-    {
-      "command": "python3 scripts/rag_retrieval_probe.py --dry-run-active-filter",
-      "passed": true,
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\"active_filter_report_path\": \"/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_retrieval_probe_active_filter_report.json\", \"dashvector_query_called\": false, \"status\": \"passed\"}\n"
-    },
-    {
-      "command": "python3 scripts/rag_index_manifest_validator.py",
-      "passed": true,
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\"blocked_reasons\": [], \"check_current_worktree\": false, \"chunk_manifest_count\": 5785, \"deleted_files\": [], \"index_commit_sha\": \"b14d9a6eab7d3de059bbf2072beec7ccf1252438\", \"indexed_chunk_count\": 5785, \"missing_metadata\": [], \"stale_files\": [], \"status\": \"passed\", \"validator\": \"rag_index_manifest_validator\"}\n"
-    },
-    {
-      "command": "python3 scripts/rag_index_manifest_validator.py --check-current-worktree",
-      "passed": true,
-      "returncode": 0,
-      "stderr_tail": "",
-      "stdout_tail": "{\"blocked_reasons\": [], \"check_current_worktree\": true, \"chunk_manifest_count\": 5785, \"deleted_files\": [], \"index_commit_sha\": \"b14d9a6eab7d3de059bbf2072beec7ccf1252438\", \"indexed_chunk_count\": 5785, \"missing_metadata\": [], \"stale_files\": [], \"status\": \"passed\", \"validator\": \"rag_index_manifest_validator\"}\n"
+      "stdout_tail": "{\"alibaba_embedding_api_called\": false, \"batch_count\": 0, \"batch_manifest_path\": \"/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_batch_manifest.json\", \"batch_size\": 16, \"checkpoint_path\": \"/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_sync_checkpoint.json\", \"completed_batch_count_in_dry_run\": 0, \"current_RAG_index_latest_claim\": false, \"dashvector_upsert_called\": false, \"delta_sync_dry_run_report_path\": \"/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_sync_dry_run_report.json\", \"failed_batch_count_in_dry_run\": 0, \"key_printed\": false, \"key_written\": false, \"no_duplicate_completed_chunk_ids\": true, \"partial_manifest_path\": \"/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_index_partial_manifest.json\", \"resume_skips_completed_batches\": false, \"status\": \"passed\", \"vector_values_written\": false, \"would_embed_chunk_count\": 0}\n"
     }
   ],
-  "completed_batch_count": 48,
-  "completed_chunk_count": 257,
+  "completed_batch_count": 0,
+  "completed_chunk_count": 0,
   "current_RAG_index_latest_claim": false,
-  "current_worktree_stale_index_check_after_evidence_write": "blocked_stale_index_detected_on_codex_log_latest_md",
-  "current_worktree_stale_index_check_passed": true,
-  "current_worktree_stale_index_check_passed_before_evidence_write": true,
-  "dashvector_collection": "video_factory_docs_test",
-  "delta_chunk_count": 257,
+  "delta_chunk_count": 0,
   "delta_counts": {
     "active_chunk_count": 5785,
-    "changed_chunks": 6,
-    "deleted_chunks": 230,
-    "delta_chunks_to_embed": 257,
-    "new_chunks": 251,
-    "previous_index_chunk_count": 5764,
-    "superseded_chunks": 6,
-    "unchanged_chunks": 5528
+    "changed_chunks": 0,
+    "deleted_chunks": 0,
+    "delta_chunks_to_embed": 0,
+    "new_chunks": 0,
+    "previous_index_chunk_count": 5785,
+    "superseded_chunks": 0,
+    "unchanged_chunks": 5785
   },
   "external_call_report": {
-    "alibaba_embedding_api_called": true,
-    "dashvector_query_called": true,
-    "dashvector_upsert_called": true,
+    "alibaba_embedding_api_called": false,
+    "dashvector_query_called": false,
+    "dashvector_upsert_called": false,
     "key_printed": false,
     "key_written": false,
     "provider": "Alibaba / DashVector",
     "vector_values_written": false
   },
   "failed_batch_count": 0,
-  "final_index_manifest_written": true,
+  "final_index_manifest_written": false,
   "gate_name": "post_commit_vector_sync_gate",
-  "generated_at": "2026-06-22T02:21:30+08:00",
-  "index_manifest_validator_passed": true,
+  "generated_at": "2026-06-22T02:53:29+08:00",
   "indexable_change_result": {
     "blocked_reasons": [],
     "changed_indexable_files": [
-      "codex_log/latest.md",
-      "scripts/post_commit_vector_sync_gate.py",
-      "scripts/rag_dashvector_sync.py",
-      "scripts/rag_delta_batch_manifest_validator.py",
-      "scripts/rag_delta_checkpoint_validator.py",
-      "scripts/rag_delta_partial_manifest_validator.py",
-      "scripts/rag_failure_route_resolver.py",
-      "scripts/rag_vector_delta_manifest_validator.py"
+      "codex_log/latest.md"
     ],
     "deleted_indexable_files": [],
     "dynamic_audit_only": false,
     "indexable_changed": true,
-    "previous_index_commit_sha": "4874d430bac38ae4b42f3d5ba17d6d7d358319f1",
+    "previous_index_commit_sha": "b14d9a6eab7d3de059bbf2072beec7ccf1252438",
     "raw_changed_files": [
       {
         "path": "codex_log/latest.md",
         "status": "M"
       },
       {
-        "path": "codex_log/rag_decision_engine/latest_rag_delta_batch_manifest_validator_report.json",
-        "status": "A"
-      },
-      {
-        "path": "codex_log/rag_decision_engine/latest_rag_delta_checkpoint_validator_report.json",
-        "status": "A"
-      },
-      {
-        "path": "codex_log/rag_decision_engine/latest_rag_delta_partial_manifest_validator_report.json",
-        "status": "A"
-      },
-      {
-        "path": "codex_log/rag_decision_engine/latest_rag_vector_delta_manifest_validator_report.json",
-        "status": "M"
-      },
-      {
-        "path": "codex_log/rag_engineering_line/trace_events.jsonl",
-        "status": "M"
-      },
-      {
-        "path": "codex_log/rag_vector_sync/20260622_RAG_DashVector向量同步最终收尾报告.md",
-        "status": "A"
-      },
-      {
-        "path": "codex_log/rag_vector_sync/20260622_真实分批向量同步执行器_batch_checkpoint_resume_report.md",
+        "path": "codex_log/rag_vector_sync/20260622_RAG_DashVector真实差量同步重跑报告.md",
         "status": "A"
       },
       {
@@ -158,19 +83,19 @@
       },
       {
         "path": "codex_log/rag_vector_sync/latest_delta_batch_manifest.json",
-        "status": "A"
+        "status": "M"
       },
       {
         "path": "codex_log/rag_vector_sync/latest_delta_batch_manifest.md",
-        "status": "A"
+        "status": "M"
       },
       {
         "path": "codex_log/rag_vector_sync/latest_delta_index_partial_manifest.json",
-        "status": "A"
+        "status": "M"
       },
       {
         "path": "codex_log/rag_vector_sync/latest_delta_index_partial_manifest.md",
-        "status": "A"
+        "status": "M"
       },
       {
         "path": "codex_log/rag_vector_sync/latest_delta_sync_checkpoint.json",
@@ -181,11 +106,27 @@
         "status": "M"
       },
       {
-        "path": "codex_log/rag_vector_sync/latest_delta_sync_dry_run_report.md",
+        "path": "codex_log/rag_vector_sync/latest_delta_sync_timeout_report.json",
         "status": "M"
       },
       {
-        "path": "codex_log/rag_vector_sync/latest_delta_sync_timeout_report.json",
+        "path": "codex_log/rag_vector_sync/latest_index_manifest.json",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_index_manifest.md",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_rag_delta_batch_manifest_validator_report.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_rag_delta_checkpoint_validator_report.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_rag_delta_partial_manifest_validator_report.json",
         "status": "A"
       },
       {
@@ -194,6 +135,14 @@
       },
       {
         "path": "codex_log/rag_vector_sync/latest_retrieval_probe_active_filter_report.md",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_retrieval_probe_report.json",
+        "status": "M"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/latest_retrieval_probe_report.md",
         "status": "M"
       },
       {
@@ -217,132 +166,127 @@
         "status": "M"
       },
       {
-        "path": "codex_log/rag_vector_sync/trace_event_20260622_batch_checkpoint_resume_vector_sync_executor.json",
+        "path": "codex_log/rag_vector_sync/latest_vector_sync_secret_scan_this_round.json",
         "status": "A"
       },
       {
-        "path": "codex_log/rag_vector_sync/trace_event_20260622_vector_sync_final_finish.json",
+        "path": "codex_log/rag_vector_sync/mechanism_probe_20260622/embedding_timeout_checkpoint.json",
         "status": "A"
       },
       {
-        "path": "codex_log/rag_vector_sync/vector_sync_blocked_20260622_003218.json",
+        "path": "codex_log/rag_vector_sync/mechanism_probe_20260622/embedding_timeout_dry_run_report.json",
         "status": "A"
       },
       {
-        "path": "codex_source/fixtures/rag_decision_engine/batch_manifest/batch_manifest_invalid_missing_batch_id_case.json",
+        "path": "codex_log/rag_vector_sync/mechanism_probe_20260622/embedding_timeout_partial_manifest.json",
         "status": "A"
       },
       {
-        "path": "codex_source/fixtures/rag_decision_engine/batch_manifest/batch_manifest_valid_case.json",
+        "path": "codex_log/rag_vector_sync/mechanism_probe_20260622/embedding_timeout_report.json",
         "status": "A"
       },
       {
-        "path": "codex_source/fixtures/rag_decision_engine/checkpoint/checkpoint_after_batch_0_case.json",
+        "path": "codex_log/rag_vector_sync/mechanism_probe_20260622/interruption_after_batch0_checkpoint.json",
         "status": "A"
       },
       {
-        "path": "codex_source/fixtures/rag_decision_engine/checkpoint/checkpoint_hash_mismatch_blocked_case.json",
+        "path": "codex_log/rag_vector_sync/mechanism_probe_20260622/interruption_after_batch0_dry_run_report.json",
         "status": "A"
       },
       {
-        "path": "codex_source/fixtures/rag_decision_engine/checkpoint/checkpoint_resume_skip_completed_case.json",
+        "path": "codex_log/rag_vector_sync/mechanism_probe_20260622/interruption_after_batch0_partial_manifest.json",
         "status": "A"
       },
       {
-        "path": "codex_source/fixtures/rag_decision_engine/partial_manifest/partial_manifest_after_interruption_case.json",
+        "path": "codex_log/rag_vector_sync/mechanism_probe_20260622/resume_skip_after_batch0_checkpoint.json",
         "status": "A"
       },
       {
-        "path": "codex_source/fixtures/rag_decision_engine/partial_manifest/partial_manifest_with_failed_batch_case.json",
+        "path": "codex_log/rag_vector_sync/mechanism_probe_20260622/resume_skip_after_batch0_dry_run_report.json",
         "status": "A"
       },
       {
-        "path": "codex_source/fixtures/rag_decision_engine/timeout/embedding_timeout_blocked_case.json",
+        "path": "codex_log/rag_vector_sync/mechanism_probe_20260622/resume_skip_after_batch0_partial_manifest.json",
         "status": "A"
       },
       {
-        "path": "codex_source/fixtures/rag_decision_engine/timeout/upsert_timeout_blocked_case.json",
+        "path": "codex_log/rag_vector_sync/mechanism_probe_20260622/small_real_probe_batch_manifest.json",
         "status": "A"
       },
       {
-        "path": "scripts/post_commit_vector_sync_gate.py",
-        "status": "M"
-      },
-      {
-        "path": "scripts/rag_dashvector_sync.py",
-        "status": "M"
-      },
-      {
-        "path": "scripts/rag_delta_batch_manifest_validator.py",
+        "path": "codex_log/rag_vector_sync/mechanism_probe_20260622/small_real_probe_checkpoint.json",
         "status": "A"
       },
       {
-        "path": "scripts/rag_delta_checkpoint_validator.py",
+        "path": "codex_log/rag_vector_sync/mechanism_probe_20260622/small_real_probe_control_report.json",
         "status": "A"
       },
       {
-        "path": "scripts/rag_delta_partial_manifest_validator.py",
+        "path": "codex_log/rag_vector_sync/mechanism_probe_20260622/small_real_probe_partial_manifest.json",
         "status": "A"
       },
       {
-        "path": "scripts/rag_failure_route_resolver.py",
-        "status": "M"
+        "path": "codex_log/rag_vector_sync/mechanism_probe_20260622/small_real_probe_stderr.log",
+        "status": "A"
       },
       {
-        "path": "scripts/rag_vector_delta_manifest_validator.py",
-        "status": "M"
+        "path": "codex_log/rag_vector_sync/mechanism_probe_20260622/small_real_probe_stdout.log",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/mechanism_probe_20260622/small_real_resume_probe_batch_manifest.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/mechanism_probe_20260622/small_real_resume_probe_checkpoint.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/mechanism_probe_20260622/small_real_resume_probe_control_report.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/mechanism_probe_20260622/small_real_resume_probe_partial_manifest.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/mechanism_probe_20260622/small_real_resume_probe_stderr.log",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/mechanism_probe_20260622/small_real_resume_probe_stdout.log",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/trace_event_20260622_vector_sync_final_retry_blocked_retrieval_probe_20260622_022130.json",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/trace_events.jsonl",
+        "status": "A"
+      },
+      {
+        "path": "codex_log/rag_vector_sync/vector_sync_blocked_actionable_20260622_022130.json",
+        "status": "A"
       }
     ],
     "skip_reason": "",
-    "source_commit_sha": "b14d9a6eab7d3de059bbf2072beec7ccf1252438",
+    "source_commit_sha": "bad20f1f74522a770c2f13b61a64d74c8ff95698",
     "sync_required": true
   },
-  "indexed_chunk_count": 5785,
-  "indexed_file_count": 911,
-  "last_completed_batch_index": 47,
-  "mode": "sync",
+  "last_completed_batch_index": null,
+  "maintenance_RAG_latest_claim_allowed": false,
+  "maintenance_action_id": "run_retrieval_active_filter_and_stale_cleanup_plan",
+  "maintenance_decision_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_rag_vector_maintenance_decision.json",
+  "maintenance_repair_layer": "retrieval_cleaning_layer",
+  "mode": "check",
   "partial_manifest_path": "/Users/fan/Documents/视频工厂/codex_log/rag_vector_sync/latest_delta_index_partial_manifest.json",
   "partial_manifest_status": "partial",
   "pending_batch_count": 0,
-  "post_sync_validation": {
-    "active_filter_dry_run_passed": true,
-    "current_worktree_stale_index_check_after_evidence_write": "blocked_stale_index_detected_on_codex_log_latest_md",
-    "current_worktree_stale_index_check_passed_before_evidence_write": true,
-    "failed_queries": [
-      {
-        "failed_top_results": [
-          {
-            "active_manifest_allowlist_passed": false,
-            "blocked_reason": "source_path_line_range_or_chunk_id_missing",
-            "chunk_id": "vf_497748f222067851ac7b6d5defc381703e698618",
-            "line_range": "41-54",
-            "metadata_complete": true,
-            "rank": 1,
-            "readback_hash_match": false,
-            "score": 0.33014154,
-            "source_path": "codex_source/schema_contracts/00_schema_contracts_index.md",
-            "stale_index_check": false
-          }
-        ],
-        "query": "Chroma 是否仍然使用"
-      }
-    ],
-    "final_index_manifest_written": true,
-    "index_manifest_validator_passed": true,
-    "retrieval_probe_passed": false,
-    "retrieval_stale_index_check_passed": false,
-    "source_readback_passed": false
-  },
   "project_route": "video_factory",
   "repo_full_name": "fthytwerwt-sudo/-",
-  "resume_available": true,
+  "resume_available": false,
   "retrieval_probe_passed": false,
-  "secret_scan_report_path": "codex_log/rag_vector_sync/latest_vector_sync_secret_scan_this_round.json",
-  "secret_scan_this_round": "passed",
-  "source_commit_sha": "b14d9a6eab7d3de059bbf2072beec7ccf1252438",
-  "source_readback_passed": false,
-  "stale_index_check_passed": false,
-  "status": "blocked_retrieval_probe_failed",
-  "task_result.status": "vector_sync_blocked_with_actionable_reason",
+  "status": "sync_required",
   "timeout_stage": null
 }

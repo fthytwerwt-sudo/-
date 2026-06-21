@@ -1,0 +1,21 @@
+{
+  "available_route_targets": [
+    "RAG_supply_bus",
+    "RAG_sync_bus",
+    "retrieval_cleaning_layer",
+    "repo_readback_fallback",
+    "fact_source_arbitration",
+    "validation_repair",
+    "human_decision_gate",
+    "completion_truth_check",
+    "git_sync_gate"
+  ],
+  "blocked_until": "repair_layer_completed",
+  "cleaning_layer_failure_route": false,
+  "failure_id": "failure_event",
+  "failure_type": "unknown_failure",
+  "generated_at": "2026-06-22T02:55:02+08:00",
+  "next_action": "run_active_manifest_filter_and_write_stale_doc_cleanup_plan",
+  "reason": "resolved_by_keyword_route",
+  "route_target": "retrieval_cleaning_layer"
+}
