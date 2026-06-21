@@ -1086,6 +1086,35 @@ round_2_validator_fixture_requirement:
     - dry-run counts must be reproducible from local manifests only
 ```
 
+### 13.2 user_readable_runtime_graph_review
+
+```yaml
+user_readable_runtime_graph_review:
+  purpose: Explain to the user how the future runner / graph / state machine should actually make decisions, instead of only listing files to change.
+  path: codex_log/rag_decision_engine_design/20260621_用户可读_RAG决策运行图与LangGraph审查说明.md
+  core_message:
+    - files are rules and contracts, not automatic runtime judgment
+    - runtime judgment requires runner / graph / validator / trace / decision_audit_report integration
+    - LangGraph is optional in round 2; Python state machine first is the recommended lower-complexity route
+  required_runtime_nodes:
+    - task_classifier
+    - stale_index_checker
+    - vector_retriever
+    - source_readback_checker
+    - authority_overlay_filter
+    - conflict_group_resolver
+    - hard_gate_checker
+    - weighted_decision_engine
+    - decision_audit_reporter
+    - codex_supply_pack_emitter
+    - failure_router
+  recommended_runtime_route: python_state_machine_first_then_langgraph_if_needed
+  status_boundary:
+    langgraph_implemented: false
+    python_state_machine_implemented: false
+    automatic_decision_runtime_validated: false
+```
+
 ## 14. validation_plan
 
 ```yaml

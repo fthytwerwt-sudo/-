@@ -1,5 +1,39 @@
 # Latest
 
+## 20260621｜RAG Decision Runtime Graph Review Supplement
+
+```yaml
+task_result.status（任务结果状态）: round_1_runtime_graph_review_supplement_completed_pending_user_review（第一轮运行图审查补充完成，等待用户复审）
+project_route（项目路由）: video_factory（视频工厂）
+task_type（任务类型）:
+  - user_readable_runtime_graph_review（用户可读运行图审查）
+  - LangGraph_state_machine_review（LangGraph / 状态机审查）
+  - round_1_supplement_doc_patch（第一轮补充文档补丁）
+round_scope（轮次范围）: round_1_supplement_only（第一轮补充，不进入第二轮实现）
+runtime_graph_review_file（运行图审查文件）: codex_log/rag_decision_engine_design/20260621_用户可读_RAG决策运行图与LangGraph审查说明.md
+updated_user_review_guide（已更新用户审查指南）: codex_log/rag_decision_engine_design/20260621_用户可读_RAG决策工程线审查指南.md
+updated_design_report（已更新设计报告）: codex_log/rag_decision_engine_design/20260621_RAG决策工程线设计_round_1_design_only.md
+trace_event（链路事件）: codex_log/rag_decision_engine_design/trace_event_20260621_rag_decision_runtime_graph_review.json
+engineering_line_trace（工程线 trace）: codex_log/rag_engineering_line/trace_events.jsonl
+includes_langgraph_explanation（是否包含 LangGraph 解释）: true
+includes_runtime_nodes（是否包含运行节点）: true
+includes_current_example（是否包含当前场景示例）: true
+recommended_runtime_route（建议运行路线）: python_state_machine_first_then_langgraph_if_needed（先 Python 状态机，必要时再升级 LangGraph）
+langgraph_implemented（LangGraph 是否已实现）: false（未实现）
+python_state_machine_implemented（Python 状态机是否已实现）: false（未实现）
+true_incremental_sync_implemented（真实增量同步是否已实现）: false（未实现）
+external_api_called（外部 API 调用）: false（本轮未调用）
+dashvector_upsert_called（DashVector 写入）: false（本轮未写入）
+current_RAG_index_latest_claim（是否声称当前 RAG 索引最新）: false（不声称）
+runtime_validation（运行时验证）: not_performed（未执行）
+production_readiness（生产可用状态）: not_claimed（未声称）
+next_safe_step（下一步安全动作）: user_reviews_runtime_graph_then_round_2_can_implement_python_state_machine_first（用户复审运行图后，第二轮可先实现 Python 状态机）
+```
+
+- `files_vs_runtime（文件与运行时区别）`: 已明确文件只是规则和契约，不等于 Codex 自动判断；必须由 runner / graph / validator / trace / decision_audit_report 接起来才进入运行时判断。
+- `runtime_graph（运行图）`: 已用用户可读方式写清从任务分类、过期索引检查、向量召回、原文回读、权威过滤、冲突裁决、硬闸门、加权决策到供料包输出的节点顺序。
+- `status_boundary（状态边界）`: 本轮未实现 LangGraph、未实现 Python 状态机、未调用 Alibaba embedding API、未写 DashVector、不声明 RAG 最新。
+
 ## 20260621｜RAG Decision Engineering Line Round 1 Closeout Patch
 
 ```yaml
